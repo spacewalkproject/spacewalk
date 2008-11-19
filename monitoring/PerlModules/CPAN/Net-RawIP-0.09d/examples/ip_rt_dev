@@ -1,3 +1,0 @@
-#!/usr/bin/perl
-use Net::RawIP;
-print rdev($ARGV[0]),"\n";

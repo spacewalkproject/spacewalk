@@ -17136,14 +17136,21 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	     </trans-unit>
 
 	     <trans-unit id="sdc.details.overview.updates.critical">
-	     	<source>&lt;strong&gt;Critical Updates&lt;/strong&gt; Available (&lt;a href=&quot;{0}&quot;&gt;update now&lt;/a&gt;)</source>
+	     	<source>&lt;strong&gt;&lt;a href=&quot;{0}&quot;&gt;Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 	     	<context-group name="ctx">
 	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
         	</context-group>
 	     </trans-unit>
 
 	     <trans-unit id="sdc.details.overview.updates.noncritical">
-	     	<source>Updates Available (&lt;a href=&quot;{0}&quot;&gt;update now&lt;/a&gt;)</source>
+	     	<source>&lt;strong&gt;&lt;a href=&quot;{0}&quot;&gt;Non-Critical: &lt;/a&gt;&lt;/strong&gt; {1}</source>
+	     	<context-group name="ctx">
+	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
+        	</context-group>
+	     </trans-unit>
+
+	     <trans-unit id="sdc.details.overview.updates.packages">
+	     	<source>&lt;strong&gt;&lt;a href=&quot;{0}&quot;&gt;Packages: &lt;/a&gt;&lt;/strong&gt; {1}</source>
 	     	<context-group name="ctx">
 	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
         	</context-group>

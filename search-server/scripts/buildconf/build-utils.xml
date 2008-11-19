@@ -1,0 +1,19 @@
+<project name="build-utils.xml">
+    <!--
+      creates symlinks for jpackage jars
+      requires: jpackage-utils
+      other: requires rpms of the jars specified to be installed
+    -->
+    <macrodef name="jpackage-deps">
+      <attribute name="jars" />
+      <attribute name="dir" />
+
+      <sequential>
+        <exec executable="build-jar-repository" failonerror="true" >
+          <arg value="--preserve-naming" />
+          <arg value="-s @{dir}" />
+          <arg line="@{jars}" />
+        </exec>
+      </sequential>
+    </macrodef>
+</project>

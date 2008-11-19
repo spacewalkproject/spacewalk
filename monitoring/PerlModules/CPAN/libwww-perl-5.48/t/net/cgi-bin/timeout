@@ -1,7 +1,0 @@
-#!/bin/sh
-
-sleep 20;
-
-echo "Content-type: text/plain"
-echo
-echo "Test"

@@ -1,9 +1,0 @@
-Base64.pm	Bootstrap and perl implementation of MIME::Base64
-Base64.xs	Encoder and decoder written in C
-Changes		What's new
-MANIFEST	This file
-Makefile.PL	Writes the Makefile
-QuotedPrint.pm  MIME::QuotedPrint module, encoder and decoder
-README		Please do!
-t/base64.t	Test that it works
-t/quoted-print.t

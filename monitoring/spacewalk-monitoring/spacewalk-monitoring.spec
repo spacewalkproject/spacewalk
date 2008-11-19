@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.4.1
+Version:      0.4.3
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -22,16 +22,15 @@ Requires:       perl-HTML-TableExtract
 Requires:       perl-IO-Capture
 Requires:       perl-IO-Socket-SSL
 Requires:       perl-IO-stringy
-Requires:       perl-Mail-Alias
 Requires:       perl-MailTools
 Requires:       perl-MIME-tools
 Requires:       perl-Net-SNMP
 Requires:       perl-Network-IPv4Addr
 Requires:       perl-XML-Generator
-Requires:       perl-CGI-mp20
+#we need this package for EL4
+#Requires:       perl-CGI-mp20
 
 # Monitoring packages
-Requires:       bdb_perl
 Requires:       nocpulse-db-perl
 Requires:       eventReceivers
 Requires:       MessageQueue
@@ -58,14 +57,12 @@ Requires:       SatConfig-generator
 Requires:       SatConfig-installer
 Requires:       SatConfig-spread
 Requires:       scdb
-Requires:       scdb_accessor_perl
 Requires:       SNMPAlerts
 Requires:       SputLite-client
 Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
-Requires:       tsdb_accessor_perl
 
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -122,5 +119,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.1-1
+* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
 - Initial build

@@ -151,6 +151,36 @@ ORDER BY  E.advisory_type DESC, E.update_date DESC,  E.id
   </query>
 </mode>
 
+<mode name="count_critical_errata_for_system">
+  <query params="user_id, sid">
+SELECT COUNT(E.ID) AS COUNT
+  FROM rhnErrata E,
+       rhnServerNeededPackageCache SNEC,
+       rhnUserServerPerms USP
+ WHERE USP.server_id = :sid
+   AND   USP.user_id = :user_id
+   AND   SNEC.server_id = USP.server_id
+   AND   SNEC.errata_id IS NOT NULL
+   AND   E.id = SNEC.errata_id
+   AND   E.advisory_type = 'Security Advisory'
+  </query>
+</mode>
+
+<mode name="count_noncritical_errata_for_system">
+  <query params="user_id, sid">
+SELECT COUNT(E.ID) AS COUNT
+  FROM rhnErrata E,
+       rhnServerNeededPackageCache SNEC,
+       rhnUserServerPerms USP
+ WHERE USP.server_id = :sid
+   AND   USP.user_id = :user_id
+   AND   SNEC.server_id = USP.server_id
+   AND   SNEC.errata_id IS NOT NULL
+   AND   E.id = SNEC.errata_id
+   AND   E.advisory_type != 'Security Advisory'
+  </query>
+</mode>
+   
 <mode name="unscheduled_relevant_to_system" class="com.redhat.rhn.domain.errata.impl.PublishedErrata">
   <query params="user_id, sid">
 SELECT DISTINCT E.id, E.update_date

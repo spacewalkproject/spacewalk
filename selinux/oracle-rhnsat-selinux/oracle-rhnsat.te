@@ -1,4 +1,4 @@
-policy_module(oracle-rhnsat,1.0.0)
+policy_module(oracle-rhnsat,@@VERSION@@)
 
 require {
 	type initrc_t;
