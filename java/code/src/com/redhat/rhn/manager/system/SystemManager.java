@@ -749,6 +749,44 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * Returns a count of the number of critical errata that are present on the system.
+     * 
+     * @param user user making the request
+     * @param sid  identifies the server
+     * @return number of critical errata on the system
+     */
+    public static int countCriticalErrataForSystem(User user, Long sid) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+            "count_critical_errata_for_system");
+        
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", sid);
+        
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
+
+    /**
+     * Returns a count of the number of non-critical errata that are present on the system.
+     * 
+     * @param user user making the request
+     * @param sid  identifies the server
+     * @return number of non-critical errata on the system
+     */
+    public static int countNoncriticalErrataForSystem(User user, Long sid) {
+        SelectMode m = ModeFactory.getMode("Errata_queries",
+            "count_noncritical_errata_for_system");
+        
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", sid);
+        
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
+    
+    /**
      * Returns a list of errata in a specified set
      * @param user The user
      * @param label The label for the errata set

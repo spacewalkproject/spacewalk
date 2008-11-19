@@ -1,0 +1,28 @@
+<ivy-module version="1.0">
+    <info organisation="redhat" module="rhn-java" />
+    <dependencies>
+        <dependency org="redhat" name="simple-core" rev="3.1.3" />
+        <dependency org="redhat" name="lucene-core" rev="2.3.2" />
+        <dependency org="redhat" name="lucene-analyzers" rev="2.3.2" />
+        <dependency org="redhat" name="commons-lang" rev="2.0" />
+        <dependency org="redhat" name="commons-logging" rev="1.1" />
+        <dependency org="redhat" name="redstone-xmlrpc" rev="1.1_20071120" />
+        <dependency org="redhat" name="redstone-xmlrpc-client" rev="1.1_20071120" />
+        <dependency org="redhat" name="ibatis" rev="2.3.0.677" />
+        <dependency org="redhat" name="ojdbc14" rev="1.10" />
+        <dependency org="redhat" name="quartz" rev="1.5.1" />
+        <dependency org="redhat" name="picocontainer" rev="1.3" />
+        <dependency org="redhat" name="tanukiwrapper" rev="3.1.2" />
+        <dependency org="redhat" name="log4j" rev="1.2.8" />
+        <dependency org="redhat" name="logdriver" rev="0.1" />
+        <dependency org="redhat" name="nutch" rev="1.0dev_2008_05_14" />
+        <dependency org="redhat" name="hadoop" rev="0.16.4-core" />
+        <dependency org="redhat" name="commons-cli" rev="1.0" />
+        <!-- dependency org="redhat" name="commons-httpclient" rev="3.0" / -->
+        <!-- dependency org="redhat" name="oro" rev="2.0.8" / -->
+        <!-- dependency org="redhat" name="commons-codec" rev="1.2" / -->
+        <!-- dependency org="redhat" name="tika" rev="0.1-incubating" / -->
+        <!-- dependency org="redhat" name="icu4j" rev="3_8_1" / -->
+        <!-- dependency org="redhat" name="icu4j-charsets" rev="3_8_1" / -->
+    </dependencies>
+</ivy-module>

@@ -32,8 +32,12 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.org.CustomDataKey;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
@@ -993,4 +997,76 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertEquals(key.getLabel(), dataKey.getLabel());
     }
 
+    /**
+     * Note: This test tests multiple calls in SystemManager.
+     * 
+     * @throws Exception
+     */
+    public void testErrataCountsForSystem() throws Exception {
+        
+        // Setup
+        User admin = UserTestUtils.findNewUser("errataUser1", "errataOrg1");
+        Org org = admin.getOrg();
+        
+        Server server = ServerTestUtils.createTestSystem(admin);
+        ServerFactory.save(server);
+        TestUtils.flushAndEvict(server);
+
+        // Will be used for both errata types. Represents an upgraded version of a package
+        // that comes with the errata.
+        PackageEvr upgradedPackageEvr =
+            PackageEvrFactory.createPackageEvr("1", "1.0.0", "2");
+        upgradedPackageEvr =
+            (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
+        
+        populateServerErrataPackages(org, server,
+            upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_SECURITY);
+        populateServerErrataPackages(org, server,
+            upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
+
+        // Test
+        int criticalCount = 
+            SystemManager.countCriticalErrataForSystem(admin, server.getId());
+        int nonCriticalCount =
+            SystemManager.countNoncriticalErrataForSystem(admin, server.getId());
+
+        // Verify
+        assertEquals(1, criticalCount);
+        assertEquals(1, nonCriticalCount);
+    }
+
+    /**
+     * Creates two packages and errata agains the specified server. An installed package
+     * with the default EVR is created and installed to the server. The newer package
+     * is created with the given EVR and is the package associated with the errata. 
+     * 
+     * @param org
+     * @param server
+     * @param upgradedPackageEvr
+     * @param errataType
+     * @throws Exception
+     */
+    private void populateServerErrataPackages(Org org, Server server,
+                                              PackageEvr upgradedPackageEvr,
+                                              String errataType)
+        throws Exception {
+        
+        Errata errata = ErrataFactoryTest.createTestErrata(org.getId());
+        errata.setAdvisoryType(errataType);        
+        TestUtils.saveAndFlush(errata);
+        
+        Package installedPackage = PackageTest.createTestPackage(org);
+        TestUtils.saveAndFlush(installedPackage);
+        
+        Session session = HibernateFactory.getSession();
+        session.flush();
+        
+        Package upgradedPackage = PackageTest.createTestPackage(org);
+        upgradedPackage.setPackageName(installedPackage.getPackageName());
+        upgradedPackage.setPackageEvr(upgradedPackageEvr);
+        TestUtils.saveAndFlush(upgradedPackage);
+        
+        ErrataCacheManager.insertNeededPackageCache(
+                server.getId(), org.getId(), errata.getId(), installedPackage.getId());
+    }
 }

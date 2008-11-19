@@ -11,22 +11,36 @@
       <div class="systeminfo">
       <div class="systeminfo-left">
       <c:choose>
+
         <c:when test="${unentitled}">
           <img src="/img/icon_unentitled.gif"/> <bean:message key="sdc.details.overview.unentitled" arg0="/rhn/systems/details/Edit.do?sid=${system.id}"/>
         </c:when>
+
         <c:when test="${systemInactive}">
           <img src="/img/icon_checkin.gif"/> <bean:message key="sdc.details.overview.inactive" arg0="/rhn/help/reference/en/s2-sm-system-list.jsp"/>
         </c:when>
-        <c:when test="${errataListEmpty == 'false'}">
-          <c:choose>
-            <c:when test="${errataList[0].advisory_type == 'Security Advisory'}">
-              <img src="/img/icon_crit_update.gif"/> <bean:message key="sdc.details.overview.updates.critical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}"/>
-            </c:when>
-            <c:otherwise>
-              <img src="/img/rhn-listicon-alert.gif"/> <bean:message key="sdc.details.overview.updates.noncritical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}"/>
-            </c:otherwise>
-          </c:choose>
+          
+        <c:when test="${hasUpdates}">
+            <c:choose>
+                <c:when test="${criticalErrataCount > 0}">
+                    <img src="/img/icon_crit_update.gif"/>
+                </c:when>
+                <c:otherwise>
+                    <img src="/img/rhn-listicon-alert.gif"/>
+                </c:otherwise>
+            </c:choose>
+            
+            <c:if test="${criticalErrataCount > 0}">
+                <bean:message key="sdc.details.overview.updates.critical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}" arg1="${criticalErrataCount}"/> &nbsp;&nbsp;
+            </c:if>
+            <c:if test="${nonCriticalErrataCount > 0}">
+                <bean:message key="sdc.details.overview.updates.noncritical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}" arg1="${nonCriticalErrataCount}"/> &nbsp;&nbsp;
+            </c:if>
+            <c:if test="${upgradablePackagesCount > 0}">
+                <bean:message key="sdc.details.overview.updates.packages" arg0="/rhn/systems/details/packages/UpgradableList.do?sid=${system.id}" arg1="${upgradablePackagesCount}"/>
+            </c:if>            
         </c:when>
+          
         <c:otherwise>
          <img src="/img/icon_up2date.gif"/> <bean:message key="sdc.details.overview.updated"/>
         </c:otherwise>

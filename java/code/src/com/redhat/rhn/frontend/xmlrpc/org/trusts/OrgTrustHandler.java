@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.trusts;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * OrgTrustsHandler
@@ -288,5 +290,46 @@ public class OrgTrustHandler extends BaseHandler {
         org.getTrustedOrgs().remove(trusted);
         OrgFactory.save(org);
         return 1;
+    }
+    
+    /**
+     * Get a list of systems within the  <i>trusted</i> organization that would be 
+     * affected if the <i>trust</i> relationship was removed.  This basically lists
+     * systems that are sharing at least (1) package.
+     * @param sessionKey Caller's session key.
+     * @param orgId the id of <i>trusting</i> organization.
+     * @param trustOrgId The id of the <i>trusted</i> organization.
+     * @return A list of affected systems.
+     * @xmlrpc.doc  Get a list of systems within the  <i>trusted</i> organization 
+     *   that would be affected if the <i>trust</i> relationship was removed.  
+     *   This basically lists systems that are sharing at least (1) package.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.returntype
+     *   #array()
+     *     #struct("affected systems")
+     *       #prop("int", "systemId")
+     *       #prop("string", "systemName")
+     *     #struct_end()
+     *   #array_end()
+     */
+    public List<Map> listSystemsAffected(
+        String sessionKey, 
+        Integer orgId,
+        Integer trustOrgId) {
+        
+        User user = BaseHandler.getLoggedInUser(sessionKey);
+        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+        List<Map> subscribed =
+            SystemManager.subscribedInOrgTrust(orgId, trustOrgId);
+        List<Map> result = new ArrayList<Map>();
+        for (Map sm : subscribed) {
+            Map m = new HashMap();
+            m.put("systemId", sm.get("id"));
+            m.put("systemName", sm.get("name"));
+            result.add(m);
+        }
+        return result;
     }
 }
