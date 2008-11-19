@@ -55,16 +55,40 @@ public class CobblerHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         ensureSatAdmin(user);
         for (Org org : OrgFactory.lookupAllOrgs()) {
-            syncDistroForOrg(org);
+            User orgAdmin = UserFactory.findRandomOrgAdmin(org);
+            syncDistroForOrg(orgAdmin);
         }
         return 1;
     }
     
-    private void syncDistroForOrg(Org org) {
-        User user = UserFactory.findRandomOrgAdmin(org);
+    private void syncDistroForOrg(User orgAdmin) {
+        ensureOrgAdmin(orgAdmin);
         CobblerDistroSyncCommand command = new 
-                            CobblerDistroSyncCommand(user);
-        command.store();        
+                            CobblerDistroSyncCommand(orgAdmin);
+        command.store();
+    }
+
+    
+    /**
+     * This method basically synchronizes 
+     * all the unsynced Kickstart Trees in the spacewalk 
+     * database to cobbler for a org. Basically useful
+     * during the upgrade process
+     * 
+     * @param sessionKey The sessionKey containing the logged in user
+     * @return Returns 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Synchronizes all the unsynced Kickstart Distrbution Trees
+     *  in satellite to cobbler  for a org.. Basically useful
+     * during the upgrade process.
+     * 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int syncDistributionsForOrg(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        syncDistroForOrg(user);
+        return 1;
     }
     
     
@@ -90,15 +114,42 @@ public class CobblerHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         ensureSatAdmin(user);
         for (Org org : OrgFactory.lookupAllOrgs()) {
-            syncProfileForOrg(org, RhnXmlRpcServer.getServerName());
+            User orgAdmin = UserFactory.findRandomOrgAdmin(org);
+            syncProfilesForOrg(orgAdmin);
         }
         return 1;
     }
     
-    private void syncProfileForOrg(Org org, String host) {
-        User user = UserFactory.findRandomOrgAdmin(org);
+    private void syncProfilesForOrg(User user) {
+        ensureOrgAdmin(user);
         CobblerProfileSyncCommand command =
-                        new CobblerProfileSyncCommand(host, user);
+                        new CobblerProfileSyncCommand(
+                                RhnXmlRpcServer.getServerName(), user);
         command.store();        
-    }    
+    }
+    
+    /**
+     * This method basically synchronizes 
+     * all the unsynced Kickstart profiles in the spacewalk 
+     * database to cobbler. Basically useful
+     * during the upgrade process
+     * 
+     * @param sessionKey The sessionKey containing the logged in user
+     * @return Returns 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Synchronizes all the unsynced Kickstart Profiles
+     *  in satellite to cobbler for a org.. Basically useful
+     * during the upgrade process.
+     * 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "host",
+     * "kickstart host (from cobbler settings file")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int syncProfilesForOrg(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        syncProfilesForOrg(user);
+        return 1;
+    }
+    
 }
