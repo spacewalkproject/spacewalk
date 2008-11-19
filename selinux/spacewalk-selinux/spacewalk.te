@@ -7,6 +7,8 @@ require {
 	type unconfined_t;
 	type rpm_t;
 	type initrc_t;
+	type httpd_sys_script_t;
+	type httpd_log_t;
 }
 
 type spacewalk_install_log_t;
@@ -23,4 +25,6 @@ allow rpm_t spacewalk_install_log_t:file { getattr append ioctl };
 allow initrc_t spacewalk_install_log_t:file { getattr append };
 
 allow httpd_t self:process { execstack execmem execheap };
+
+allow httpd_sys_script_t httpd_log_t:file { ioctl };
 
