@@ -21,6 +21,7 @@ Requires: python, rpm-python
 Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
+BuildRequires: docbook-utils
 Requires: cobbler
 Requires(pre): httpd
 # we don't really want to require this redhat-release, so we protect
