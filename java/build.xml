@@ -851,7 +851,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
           toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
           overwrite="true" />  	
 	
-    <copy toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc/">
+    <copy toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc/handlers/">
         <fileset dir="${report.dir}/apidocs/jsp/handlers/" />
     </copy>
 
