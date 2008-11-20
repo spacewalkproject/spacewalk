@@ -58,7 +58,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                                     lookupKickstartTreesByOrg(user.getOrg());
         Set<String> distros = getDistroNames();
         for (KickstartableTree tree : trees) {
-            if (!distros.contains(tree.getLabel())) {
+            if (!distros.contains(getCobblerDistroName(tree))) {
                 createDistro(tree);
             }
         }

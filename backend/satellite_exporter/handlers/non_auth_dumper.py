@@ -80,7 +80,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self._channel_family_query_public = """
             select id channel_family_id, 0 quantity
               from rhnChannelFamily
-             where org_id is null
         """
         self._channel_family_query = None
 

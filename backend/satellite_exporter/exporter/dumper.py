@@ -741,7 +741,7 @@ class CachedDumper(exportLib.BaseDumper):
 class ChannelsDumper(CachedDumper, exportLib.ChannelsDumper):
     _query_list_channels = rhnSQL.Statement("""
         select c.id, c.label, ca.label channel_arch, c.basedir, c.name,
-               c.summary, c.description, c.gpg_key_url,
+               c.summary, c.description, c.gpg_key_url, c.org_id,
                TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified,
                c.channel_product_id,
                pc.label parent_channel,

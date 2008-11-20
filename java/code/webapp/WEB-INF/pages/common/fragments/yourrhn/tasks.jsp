@@ -58,12 +58,14 @@
     </a></td></tr>
 
 
-<rhn:require acl="org_entitlement(sw_mgr_enterprise); user_role(config_admin)">
+<rhn:require acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
 <tr class="list-row-odd">
 <td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
 				alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <a href="/rhn/activationkeys/List.do">
     	<bean:message key="yourrhn.jsp.tasks.activationkeys" />
     </a></td></tr>
+
+</rhn:require>
 
 <rhn:require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
 <tr class="list-row-odd">
@@ -85,8 +87,6 @@
 									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <a href="/rhn/monitoring/ProbeList.do">
     	<bean:message key="yourrhn.jsp.tasks.monitoring" />
     </a></td></tr>
-</rhn:require>
-
 </rhn:require>
 
 <rhn:require acl="user_role(satellite_admin)">

@@ -191,8 +191,13 @@ def import_channels(channels, orgid=None):
         c_obj = collection.get_channel(c, timestamp)
         if c_obj is None:
             raise Exception, "Channel not found in cache: %s" % c
-        if orgid is not None:
+
+        if orgid is not None and c_obj['org_id'] is not None:
             c_obj['org_id'] = orgid
+            for family in c_obj['families']:
+                if str(c_obj['org_id']) != \
+                   family['label'].split('-')[-1]:
+                    family['label'] = 'private-channel-family-' + str(c_obj['org_id'])
 
         batch.append(c_obj)
 

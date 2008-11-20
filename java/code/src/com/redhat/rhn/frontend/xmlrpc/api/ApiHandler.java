@@ -41,11 +41,11 @@ public class ApiHandler extends BaseHandler {
      * Returns the api version. Called as: api.get_version
      * @return the api version.
      *
-     * @xmlrpc.doc Returns the version of the API. (may be different than
-     * the satellite version)
+     * @xmlrpc.doc Returns the version of the API. Since Spacewalk 0.4
+     * (Satellie 5.3) it is no more related to server version.
      * @xmlrpc.returntype string
      */
     public String getVersion() {
-        return systemVersion() + " Java";
+        return Config.get().getString("web.apiversion");
     }
 }

@@ -309,7 +309,6 @@ sub log_rotate {
 
 sub check_users_exist {
     my @required_users = shift;
-    print "required users = @required_users\n";
 
     my $missing_a_user;
 
