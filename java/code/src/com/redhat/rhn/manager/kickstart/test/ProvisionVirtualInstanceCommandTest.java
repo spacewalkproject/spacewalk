@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
 
+import java.util.Date;
+
 
 /**
  * ProvisionVirtualInstanceCommandTest
@@ -32,8 +34,9 @@ public class ProvisionVirtualInstanceCommandTest extends BaseKickstartCommandTes
         Server server = ServerFactoryTest.createTestServer(user, true, 
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         ProvisionVirtualInstanceCommand cmd = new 
-            ProvisionVirtualInstanceCommand(server.getId(), user);
-        assertEquals(cmd.getKickstartPackageName(), "rhn-kickstart-virtualization");
+            ProvisionVirtualInstanceCommand(server.getId(), this.ksdata.getId(), user,
+                    new Date(), "localhost");
+        assertEquals(cmd.getKickstartPackageName(), "spacewalk-koan");
     }
 
 }
