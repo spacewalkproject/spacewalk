@@ -8,7 +8,7 @@
 
 Name:           spacewalk-selinux
 Version:        0.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -109,6 +109,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Nov 20 2008 Jan Pazdziora 0.4.1-2
+- SELinux policy module which allows clean install and spacewalk-setup
+  of Spacewalk on RHEL 5
+
 * Thu Oct 30 2008 Jan Pazdziora 0.4.1-1
 - bumping up the version
 
