@@ -940,7 +940,7 @@ def _normalizeAttribute(objtype, attribute):
         if objtype is types.StringType:
             return attribute
         if objtype is types.IntType:
-            if attribute == '':
+            if attribute == '' or attribute == 'None':
                 # Treat it as NULL
                 return None
             return int(attribute)
