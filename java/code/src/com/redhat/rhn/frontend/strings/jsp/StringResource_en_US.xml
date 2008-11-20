@@ -2943,7 +2943,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
       </trans-unit>
-
+                                             schedu
       <trans-unit id="packagelist.jsp.nopackages">
 <source>No packages.</source>
         <context-group name="ctx">
@@ -15362,21 +15362,6 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.install.selectpackages.summary">
          <source>Now select the packages to be installed upon the selected systems.</source>
        </trans-unit>
-       <trans-unit id="ssm.package.install.selectpackages.answerfiles">
-         <source>If you wish to specify Answer Files for one or more of the selected packages,
-            click 'Specify Answer Files'. You will also be given the option to run a Remote Command.</source>
-       </trans-unit>
-       <trans-unit id="ssm.package.install.selectpackages.answerfiles.button">
-         <source>Specify Answer Files</source>
-       </trans-unit>
-       <trans-unit id="ssm.package.install.selectpackages.remotecommand">
-         <source>Click 'Run Remote Command' to schedule a Remote Command to be
-                 run on these systems before or after the package install
-                 action.  NOTE: A remote command will only run on systems which
-                 support this feature, and have it enabled.  Please see the RHN
-                 User Guide for more details.
-         </source>
-       </trans-unit>
      </group>
 
      <!-- ssm/packageinstallschedule.jsp -->
@@ -15393,11 +15378,11 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
         </trans-unit>
 
-        <trans-unit id="message.packageinstall">
+        <trans-unit id="ssm.package.install.message.packageinstall">
            <source>{0} package install has been scheduled</source>
         </trans-unit>
 
-        <trans-unit id="message.packageinstalls">
+        <trans-unit id="ssm.package.install.message.packageinstalls">
            <source>{0} package installs have been scheduled</source>
         </trans-unit>
 

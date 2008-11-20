@@ -17,14 +17,6 @@
 
 <div class="page-summary">
     <p><bean:message key="ssm.package.install.selectpackages.summary"/></p>
-
-    <rhn:require acl="org_entitlement(rhn_nonlinux)">
-        <p><bean:message key="ssm.package.install.selectpackages.answerfiles"/></p>
-    </rhn:require>
-
-    <rhn:require acl="org_entitlement(rhn_nonlinux) or org_entitlement(rhn_provisioning)">
-        <p><bean:message key="ssm.package.install.selectpackages.remotecommand"/></p>
-    </rhn:require>
 </div>
 
 <rl:listset name="groupSet" legend="system-group">
@@ -62,20 +54,6 @@
         <input type="submit"
                name="dispatch"
                value='<bean:message key="installpkgs.jsp.installpackages"/>'/>
-
-        <rhn:require acl="org_entitlement(rhn_nonlinux)">
-            <input type="submit"
-                   name="remote"
-                   value='<bean:message key="ssm.package.install.selectpackages.answerfiles.button"/>'/>
-        </rhn:require>
-
-        <rhn:require
-                acl="org_entitlement(rhn_nonlinux) or org_entitlement(rhn_provisioning)">
-            <input type="submit"
-                   name="remote"
-                   value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
-        </rhn:require>
-
     </div>
 
 </rl:listset>

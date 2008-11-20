@@ -167,12 +167,12 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         LocalizationService l10n = LocalizationService.getInstance();
         if (numPackages == 1) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("message.packageinstall",
+                new ActionMessage("ssm.package.install.message.packageinstall",
                                   l10n.formatNumber(numPackages)));
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("message.packageinstalls",
+                new ActionMessage("ssm.package.install.message.packageinstall",
                                   l10n.formatNumber(numPackages)));
         }
         strutsDelegate.saveMessages(request, msgs);
