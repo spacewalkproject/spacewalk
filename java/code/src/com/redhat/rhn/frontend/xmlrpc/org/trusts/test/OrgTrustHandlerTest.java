@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.trusts.test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,14 +23,21 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
 import com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 /**
  * OrgTrustHandlerTest
@@ -205,6 +213,38 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
                 org1.getId().intValue(),
                 org2.getId().intValue());
         assertFalse(isTrusted(org1, org2));
+    }
+    
+    public void testListAffectedSystems() throws Exception {
+        Channel c = ChannelFactoryTest.createTestChannel(admin);
+        c.setAccess("public");
+        Org orgA = c.getOrg();
+        Org orgB = createOrg();
+        User userB = UserTestUtils.createUser("Johnny Quest", orgB.getId());
+        handler.addTrust(
+                adminKey, 
+                orgA.getId().intValue(),
+                orgB.getId().intValue());
+        Server s = ServerFactoryTest.createTestServer(userB);
+        SystemManager.subscribeServerToChannel(userB, s, c);
+        flushAndEvict(c);
+        flushAndEvict(s);
+        addRole(admin, RoleFactory.CHANNEL_ADMIN);
+        Package pkg = PackageTest.createTestPackage(orgA);
+        List packages = new ArrayList();
+        packages.add(pkg.getId());
+        List<Map> affected = 
+            handler.listSystemsAffected(
+                    adminKey, orgA.getId().intValue(), 
+                    orgB.getId().intValue());
+        boolean found = false;
+        for (Map m : affected) {
+            if (m.get("systemId").equals(s.getId())) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
     
     private boolean isTrusted(Org org, Org trusted) {

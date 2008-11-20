@@ -1172,6 +1172,22 @@ ORDER BY UPPER(PN.name), UPPER(PE.version), UPPER(PE.release), UPPER(PE.epoch)
   </query>
 </mode>
 
+<mode name="count_system_upgradable_package_list">
+  <query params="sid">
+SELECT  COUNT(pn.id) AS COUNT
+  FROM  rhnPackageName PN,
+        (
+         SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr
+           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+          WHERE  SOP.server_id = :sid
+            AND  SOP.package_evr_id = PE.id
+       GROUP BY  SOP.package_name_id
+         ) full_list
+ WHERE  full_list.name_id = PN.id
+ORDER BY  UPPER(PN.name)
+  </query>
+</mode>
+   
 <mode name="system_upgradable_package_list" class="com.redhat.rhn.frontend.dto.UpgradablePackageListItem">
   <query params="sid">
 SELECT  pn.id AS id,

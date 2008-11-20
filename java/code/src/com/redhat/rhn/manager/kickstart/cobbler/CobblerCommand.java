@@ -74,7 +74,8 @@ public abstract class CobblerCommand {
         if (this.xmlRpcToken == null) {
             log.error("error, no cobbler token.  " +
                 "spacewalk and cobbler will no longer be in sync");
-            return null;
+            throw new NoCobblerTokenException("Tried to call: " + procedureName +
+                    " but we don't have a cobbler token");
         }
         try {
             return invoker.invokeMethod(procedureName, args);

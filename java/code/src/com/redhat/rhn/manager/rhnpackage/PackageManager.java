@@ -298,6 +298,22 @@ public class PackageManager extends BaseManager {
         
         return makeDataResult(params, params, pc, m);
     }
+
+    /**
+     * Returns a count of packages that can be upgraded on the given server.
+     * 
+     * @param sid identifies the server
+     * @return count of packages that can be upgraded
+     */
+    public static int countUpgradable(Long sid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", 
+                                           "count_system_upgradable_package_list");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        
+        DataResult dr = makeDataResult(params, null, null, m);
+        return ((Long)((HashMap)dr.get(0)).get("count")).intValue();
+    }
     
     /**
      * Returns a DataResult of the packages in the set.

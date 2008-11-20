@@ -434,7 +434,7 @@ public class DatePicker {
             //instead of 0:00 - 11:00 like the Java calendar
             int result = cal.get(calField);
             
-            if (field.equals(HOUR) && result == 0) {
+            if (isLatin() && field.equals(HOUR) && result == 0) {
                 return new Integer(12);
             }
             else {
@@ -461,7 +461,7 @@ public class DatePicker {
         
         //HACK: instituted for UI's that display 1:00 - 12:00 for hours
         //instead of 0:00 - 11:00 like the Java calendar
-        if (field.equals(HOUR) && value != null && value.intValue() == 12) {
+        if (isLatin() && field.equals(HOUR) && value != null && value.intValue() == 12) {
             cal.set(calField, 0);
         }
         else {
