@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.8
+Version:        1.9
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Thu Nov 20 2008 Jan Pazdziora 1.9-1
+- make satcon-deploy-tree.pl SELinux-aware
+
 * Wed Oct 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-1
 - BZ 466777 - add link to tgz, add LICENSE file
 * Thu Oct 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.7-1
