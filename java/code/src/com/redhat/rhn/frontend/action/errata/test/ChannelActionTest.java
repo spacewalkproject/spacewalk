@@ -98,8 +98,10 @@ public class ChannelActionTest extends RhnBaseTestCase {
         ActionMapping mapping = new ActionMapping();
         ActionForward def = new ActionForward("default", "path", true);
         ActionForward failure = new ActionForward("failure", "path", false);
+        ActionForward push = new ActionForward("push", "path", false);
         mapping.addForwardConfig(def);
         mapping.addForwardConfig(failure);
+        mapping.addForwardConfig(push);
         
         RhnMockHttpServletRequest request = TestUtils.getRequestWithSessionAndUser();
         RhnMockHttpServletResponse response = new RhnMockHttpServletResponse();
@@ -140,7 +142,7 @@ public class ChannelActionTest extends RhnBaseTestCase {
         request.setupAddParameter("items_selected", selected);
         
         result = action.updateChannels(mapping, form, request, response);
-        assertEquals("default", result.getName());
+        assertEquals("push", result.getName());
         
         //Lookup the errata and make sure there are at least 2 channels
         Errata e2 = ErrataManager.lookupErrata(errata.getId(), user);
@@ -160,11 +162,10 @@ public class ChannelActionTest extends RhnBaseTestCase {
         request.setupAddParameter("items_selected", selected2);
         result = action.updateChannels(mapping, form, request, response);
         
-        assertEquals("default", result.getName());
+        assertEquals("push", result.getName());
         
         Errata e3 = ErrataManager.lookupErrata(errata.getId(), user);
         assertTrue(e3.getChannels().size() < size); //less than before
-        Thread.sleep(5000);
     }
     
     public void testSelectAll() throws Exception {
