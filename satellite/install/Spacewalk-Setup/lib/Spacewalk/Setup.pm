@@ -275,6 +275,8 @@ sub init_log_files {
   }
 
   log_rotate(Spacewalk::Setup::INSTALL_LOG_FILE);
+  local *X; open X, '> ' . Spacewalk::Setup::INSTALL_LOG_FILE and close X;
+  system('/sbin/restorecon', Spacewalk::Setup::INSTALL_LOG_FILE);
   log_rotate(Spacewalk::Setup::DB_INSTALL_LOG_FILE);
   log_rotate(Spacewalk::Setup::DB_POP_LOG_FILE);
 
@@ -309,7 +311,6 @@ sub log_rotate {
 
 sub check_users_exist {
     my @required_users = shift;
-    print "required users = @required_users\n";
 
     my $missing_a_user;
 

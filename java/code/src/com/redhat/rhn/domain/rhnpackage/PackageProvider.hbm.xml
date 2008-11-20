@@ -4,8 +4,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.rhnpackage.PackageProvider" 
-        table="rhnPackageProvider" mutable="false">
-        <cache usage="read-only"/>
+        table="rhnPackageProvider" mutable="true">
+       
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
@@ -19,6 +19,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp"
             insert="false" update="false"/>
+            
+        <set name="keys" cascade="save-update">
+            <key column="provider_id"/>
+            <one-to-many class="com.redhat.rhn.domain.rhnpackage.PackageKey"/>
+        </set>            
         
     </class>
 

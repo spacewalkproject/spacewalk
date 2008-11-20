@@ -4,7 +4,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.rhnpackage.PackageKey" 
-        table="rhnPackageKey" mutable="false">
+        table="rhnPackageKey">
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
             <generator class="sequence">
@@ -27,7 +27,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one
             name="provider"
             class="com.redhat.rhn.domain.rhnpackage.PackageProvider"
-            column="provider_id"/>
+            column="provider_id" cascade="save-update"/>
     </class>
 
     <query name="PackageKey.findById">

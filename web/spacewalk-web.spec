@@ -2,15 +2,10 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.1
+Version: 0.4.2
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd web
-# make test-srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 BuildRequires: perl(ExtUtils::MakeMaker)
@@ -233,6 +228,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Nov 20 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.2-1
+- 472346 - Bump up API version and make the versioning independent on web.version
+
 * Wed Oct 29 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.4-1
 - resolved #468153 - fixed in, out fd handling
 

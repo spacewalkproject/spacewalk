@@ -7492,6 +7492,22 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.kickstart.labelalreadyinuse">
           <source>Kickstart label already exists: {0}</source>
       </trans-unit>   
+      
+      <trans-unit id="api.package.provider.invalidKeyType">
+          <source>The package key type specified ({0}) is invalid.</source>
+      </trans-unit>         
+      
+      <trans-unit id="api.package.provider.invalidKey">
+          <source>The package key specified ({0}) is invalid.</source>
+      </trans-unit>             
+      
+      <trans-unit id="api.package.provider.duplicateKey">
+          <source>The package key specified ({0}) already exists.</source>
+      </trans-unit>       
+      
+       <trans-unit id="api.package.provider.invalidProvider">
+          <source>The package provider specified ({0}) is  invalid.</source>
+      </trans-unit>  
 
       <trans-unit id="api.kickstart.invalidvirttype">
           <source>Invalid virtualization type: {0}</source>

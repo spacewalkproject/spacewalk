@@ -97,7 +97,7 @@ if ($clear_db) {
 
 local *LOGFILE;
 open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
-system('restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
+system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
 $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
 waitpid($pid, 0);
 exit $? >> 8;

@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.2
+Version:        0.4.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -19,6 +19,7 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
+Requires:       /sbin/restorecon
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
@@ -72,6 +73,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Nov 20 2008 Jan Pazdziora 0.4.3-1
+- use full path to usermod
+- check if we are on Red Hat Enterprise Linux before using its key
+- run restorecon on Spacewalk::Setup::INSTALL_LOG_FILE
+
 * Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - enable Monitoring services (#471220)
 

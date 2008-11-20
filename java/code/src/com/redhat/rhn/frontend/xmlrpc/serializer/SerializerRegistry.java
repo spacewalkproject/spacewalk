@@ -103,6 +103,8 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ServerActionSerializer.class);
         SERIALIZER_CLASSES.add(ChannelTreeNodeSerializer.class);
         SERIALIZER_CLASSES.add(TrustedOrgDtoSerializer.class);
+        SERIALIZER_CLASSES.add(PackageKeySerializer.class);
+        SERIALIZER_CLASSES.add(PackageProviderSerializer.class);
     }
     
     /**

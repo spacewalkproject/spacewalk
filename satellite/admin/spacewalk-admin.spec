@@ -16,6 +16,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
+Requires: /sbin/restorecon
 Obsoletes: satellite-utils <= 5.2.0
 Obsoletes: rhn-satellite-admin <= 5.2.0
 BuildArch: noarch

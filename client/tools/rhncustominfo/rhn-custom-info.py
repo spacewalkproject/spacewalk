@@ -21,7 +21,7 @@ import string
 import getpass
 
 from re import search
-from optik import OptionParser
+from optparse import OptionParser
 from rhn import rpclib
 
 sys.path.append("/usr/share/rhn")
@@ -230,7 +230,10 @@ def main():
             ret = s.system.set_custom_values(session, int(sid), values)
 
     except rpclib.Fault, e:
-        system_exit(1, "Error code:  %s\n%s\n" % (e.faultCode, e.faultString))
+        if e.faultCode == -1:
+            system_exit(1, "Error code:  %s\nInvalid login information.\n" % e.faultCode)
+        else:
+            system_exit(1, "Error code:  %s\n%s\n" % (e.faultCode, e.faultString))
 
 
     # handle list and set modes for output...
