@@ -187,6 +187,7 @@ class ChannelDumper(BaseRowDumper):
             'packages'      : ' '.join(packages),
             'channel-errata' : ' '.join(errata),
             'kickstartable-trees'   : ' '.join(ks_trees),
+            'org_id'                : self._row['org_id'],
         }
 
     _query_channel_families = rhnSQL.Statement("""
