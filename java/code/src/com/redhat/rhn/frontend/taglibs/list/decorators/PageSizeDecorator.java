@@ -30,7 +30,7 @@ public class PageSizeDecorator extends BaseListDecorator {
 
     
     public static final int[] PAGE_SIZE =
-            {5, 10, 15, 20, 25, 50, 75, 100, 125, 150, 200, 250, 300, 400, 500};
+            {10, 25, 50, 100, 250, 500};
     /** static value for max results per page. */
     public static final int MAX_PER_PAGE = 500;
     private static final String PAGE_SIZE_LABEL = "PAGE_SIZE_LABEL";
