@@ -56,7 +56,7 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
     
     public void testSystemStatusNoErrata() throws Exception {
         actionPerform();
-        assertEquals(request.getAttribute("errataListEmpty"), Boolean.TRUE);
+        assertEquals(Boolean.FALSE, request.getAttribute("hasUpdates"));
     }
     
     public void testSystemStatusWithErrata() throws Exception {
@@ -74,7 +74,7 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
         assertEquals(1, rows);        
         
         actionPerform();
-        assertEquals(request.getAttribute("errataListEmpty"), Boolean.FALSE);
+        assertEquals(Boolean.TRUE, request.getAttribute("hasUpdates"));
     }
     
     public void testSystemInactive() throws Exception {
