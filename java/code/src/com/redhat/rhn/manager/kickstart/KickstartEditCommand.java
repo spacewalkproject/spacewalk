@@ -131,8 +131,8 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         String oldType = getVirtualizationType().getLabel();
         String newType = typeIn.getLabel();
         if (!newType.equals(oldType)) {
-            if (newType.equals(KickstartVirtualizationType.PARA_GUEST) ||
-                    oldType.equals(KickstartVirtualizationType.PARA_GUEST)) {
+            if (newType.equals(KickstartVirtualizationType.XEN_PARAVIRT) ||
+                    oldType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
                 // Signal that we'll need to rebuild the partition commands:
                 rebuildPartitionCommands = true;
             }

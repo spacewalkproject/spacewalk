@@ -602,7 +602,7 @@ public class KickstartBuilder {
      */
     public static void setBootloader(KickstartWizardHelper cmd, KickstartData ksdata) {
         if (ksdata.getKsdefault().getVirtualizationType().getLabel().equals(
-                KickstartVirtualizationType.PARA_GUEST)) {
+                KickstartVirtualizationType.XEN_PARAVIRT)) {
             cmd.createCommand("bootloader", "--location mbr --driveorder=xvda --append=", 
                     ksdata);
         }
@@ -627,7 +627,7 @@ public class KickstartBuilder {
         }
         else {
             String virtType = ksdata.getKsdefault().getVirtualizationType().getLabel();
-            if (virtType.equals(KickstartVirtualizationType.PARA_GUEST)) {
+            if (virtType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
                 cmd.createCommand("partitions", "pv.00 --size=0 --grow --ondisk=xvda",
                         ksdata);
                 cmd.createCommand("partitions", 

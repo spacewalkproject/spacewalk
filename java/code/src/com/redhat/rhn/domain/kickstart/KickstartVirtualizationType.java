@@ -31,7 +31,9 @@ public class KickstartVirtualizationType {
      * table.
      */
     public static final String NONE       = "none";
-    public static final String PARA_GUEST = "para_guest";
+    public static final String XEN_PARAVIRT = "xenpv";
+    public static final String XEN_FULLYVIRT = "xenfv";
+    public static final String KVM_FULLYVIRT = "qemu";
     public static final String PARA_HOST  = "para_host";
 
     private Long id;

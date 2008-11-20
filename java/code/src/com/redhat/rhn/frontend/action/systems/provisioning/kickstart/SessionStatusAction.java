@@ -78,7 +78,7 @@ public class SessionStatusAction extends RhnAction {
         // for debugging if things are taking too long:
         String stateDesc = null;
         if (kss.getVirtualizationType().getLabel().equals(
-                KickstartVirtualizationType.PARA_GUEST)) {
+                KickstartVirtualizationType.XEN_PARAVIRT)) {
 
             String ksStateLabel = kss.getState().getLabel();
             

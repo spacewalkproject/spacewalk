@@ -26,27 +26,26 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParsingException;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
-import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class KickstartBuilderTest extends RhnBaseTestCase {
+public class KickstartBuilderTest extends BaseTestCaseWithUser {
     
     private String kickstartFileContents;
-    private User user;
     private final String KICKSTART_HOST = "localhost"; // really doesn't matter
 
     public void setUp() throws Exception {
-        
-        user = UserTestUtils.findNewUser("testUser", "testOrg", true);
-        
+        super.setUp();
+        UserTestUtils.addUserRole(user, RoleFactory.ORG_ADMIN);
     }
-    
+
+
     private KickstartParser createKickstartParser(String filename) throws Exception {
         kickstartFileContents = TestUtils.readAll(
                 TestUtils.findTestData(filename));
@@ -116,7 +115,7 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
         catch (InvalidVirtualizationTypeException e) {
             // expected
         }
-        createRawData("decent", tree, KickstartVirtualizationType.PARA_GUEST);
+        createRawData("decent", tree, KickstartVirtualizationType.XEN_PARAVIRT);
         KickstartRawData data = createRawData("boring", tree, 
                                     KickstartVirtualizationType.PARA_HOST);
         

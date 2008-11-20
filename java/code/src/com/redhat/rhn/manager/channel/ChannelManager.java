@@ -126,11 +126,6 @@ public class ChannelManager extends BaseManager {
         Config.get().getString("web.virt_product_os_name", "VT");
 
 
-    public static final String RHN_VIRT_KICKSTART_PACKAGE_NAME = 
-        Config.get().getString("tools_channel.virt_ks_package_name", 
-                "rhn-kickstart-virtualization");
-    
-    
     private ChannelManager() {
         
     }
