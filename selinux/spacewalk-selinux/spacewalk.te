@@ -14,7 +14,7 @@ require {
 type spacewalk_install_log_t;
 
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
-allow restorecon_t spacewalk_install_log_t:file { getattr relabelto };
+allow restorecon_t spacewalk_install_log_t:file { getattr relabelto append };
 
 allow spacewalk_install_log_t fs_t:filesystem associate;
 
