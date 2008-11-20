@@ -9,13 +9,8 @@ Group: Applications/Internet
 License: GPLv2
 Version: 0.4.1
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd java
-# make test-srpm
 URL:       https://fedorahosted.org/spacewalk
-Source0:   %{name}-%{version}.tar.gz
+Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
@@ -214,6 +209,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Thu Nov 20 2008 Miroslav Suchy <msuchy@redhat.com>
+- 472346 - Bump up API version and make the versioning independent on web.version
+
 * Tue Nov  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - 461517 - password and db name are swapped
 
