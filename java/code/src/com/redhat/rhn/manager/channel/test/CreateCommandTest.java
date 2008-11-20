@@ -51,7 +51,6 @@ public class CreateCommandTest extends RhnBaseTestCase {
         
         // I N V A L I D
         invalidChannelName("0dd");
-        invalidChannelName("0longerthansix");
         invalidChannelName("Bite Me$");
         invalidChannelName("a123456?");
         invalidChannelName("abc ok &");
@@ -76,6 +75,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
         validChannelName("bin/channel/ok");
         validChannelName("abc 123-foo/bar_under.ALPHA");
         validChannelName("Jesusrs API Test Channel");
+        validChannelName("0longerthansix");
         
         // we allow the following characters but don't advertise them
         // ' ( ) 
@@ -133,7 +133,6 @@ public class CreateCommandTest extends RhnBaseTestCase {
         
         // I N V A L I D
         invalidChannelLabel("0dd");
-        invalidChannelLabel("0longerthansix");
         invalidChannelLabel("Bite Me$");
         invalidChannelLabel("a123456?");
         invalidChannelLabel("abc ok &");
@@ -166,6 +165,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
         validChannelLabel("this-is-valid-too");
         validChannelLabel("and_so_is_this");
         validChannelLabel("nopuncmakesforavalidlabeltoo");
+        validChannelLabel("0longerthansix");
     }
     
     private void invalidChannelLabel(String clabel) {
