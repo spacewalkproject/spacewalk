@@ -19,6 +19,9 @@ import com.redhat.rhn.domain.BaseDomainHelper;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * PackageArch
  * @version $Rev$
@@ -28,9 +31,34 @@ public class PackageProvider extends BaseDomainHelper
     
     private Long id;
     private String name;
-    
+    private Set<PackageKey> keys = new HashSet<PackageKey>();
 
     
+    
+    /**
+     * @return Returns the keys.
+     */
+    public Set<PackageKey> getKeys() {
+        return keys;
+    }
+
+    
+    /**
+     * @param keysIn The keys to set.
+     */
+    public void setKeys(Set<PackageKey> keysIn) {
+        this.keys = keysIn;
+    }
+    
+    /**
+     * Add a package key to this provider
+     * @param key the key to add
+     */
+    public void addKey(PackageKey key) {
+        this.getKeys().add(key);
+    }
+    
+
     /**
      * @return Returns the id.
      */

@@ -136,12 +136,20 @@ public class PackageFactory extends HibernateFactory {
     
     
     /**
-     * Store the package delta.
-     * @param delta The object we are commiting.
+     * Store the package provider.
+     * @param prov The object we are commiting.
      */     
-   public static void save(PackageDelta delta) {
-       singleton.saveObject(delta);
+   public static void save(PackageProvider prov) {
+       singleton.saveObject(prov);
    }
+   
+   /**
+    * Store the package delta.
+    * @param delta The object we are commiting.
+    */     
+  public static void save(PackageDelta delta) {
+      singleton.saveObject(delta);
+  }
 
    /**
     * Lookup a PackageArchType by its label.
@@ -442,5 +450,61 @@ public class PackageFactory extends HibernateFactory {
        return map;
    }
    
+   
+   /**
+    * list package providers
+    * @return list of package providers
+    */
+   public static List<PackageProvider> listPackageProviders() {
+       Map params = new HashMap();
+       List<PackageProvider> list = singleton.listObjectsByNamedQuery(
+               "PackageProvider.listProviders", params);
+       return list;
+   }
+   
+   /**
+    * Looup a package provider by name
+    * @param name the name
+    * @return the package provider
+    */
+   public static PackageProvider lookupPackageProvider(String name) {
+       Map params = new HashMap();
+       params.put("name", name);
+       PackageProvider prov = (PackageProvider) singleton.lookupObjectByNamedQuery(
+               "PackageProvider.findByName", params);
+       return prov;
+   }
+   
+   /**
+    * Deletes a package key
+    * @param key the key to delete
+    */
+   public static void deletePackageKey(PackageKey key) {
+       singleton.getSession().delete(key);       
+   }
+   
+   /**
+    * Lookup a package key object
+    * @param key the key to lookup
+    * @return the package key
+    */
+   public static PackageKey lookupPackageKey(String key) {
+       Map params = new HashMap();
+       params.put("key", key);
+       PackageKey prov = (PackageKey) singleton.lookupObjectByNamedQuery(
+               "PackageKey.findByKey", params);
+       return prov;
+   }
+   
+   /**
+    * List all package keys
+    * @return  list of package key objects
+    */
+   public static List<PackageKey> listPackageKeys() {
+       Map params = new HashMap();
+       List<PackageKey> prov =  singleton.listObjectsByNamedQuery(
+               "PackageKey.listKeys", params);
+       return prov;
+   }
    
 }
