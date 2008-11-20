@@ -10,6 +10,7 @@ BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
+Requires:       /sbin/restorecon
 
 %description
 Framework for generating config files during installation.

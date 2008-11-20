@@ -88,6 +88,8 @@ sub process_file {
     open OF, ">$destdir/$relative_path"
       or die "Cannot open $destdir/$relative_path: $!";
 
+    system '/sbin/restorecon', '-vv', "$destdir/$relative_path";
+
     while (<IF>) {
       my $out = $engine->perform_substitutions($_);
       print OF $out;
