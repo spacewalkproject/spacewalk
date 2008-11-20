@@ -643,5 +643,21 @@ public class Config {
         }
         return false;
     }
+    
+    /**
+     * Return the kickstart mount point directory
+     * Note the mount point is guaranteed to have a
+     * '/' at the end of the string so you can use it
+     * for appending sub directories.
+     * @return the ks mount point directory.
+     */
+    public String getKickstartMountPoint() {
+        String mount =  StringUtils.defaultIfEmpty(getString(KICKSTART_MOUNT_POINT),
+                                                    getString(MOUNT_POINT)).trim();
+        if (!mount.endsWith("/")) {
+            mount = mount + "/";
+        }
+        return mount;
+    }
 }
 

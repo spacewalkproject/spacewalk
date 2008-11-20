@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -46,16 +44,13 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
      */
     public ValidatorError store() {
         log.debug("Token : [" + xmlRpcToken + "]");
-        String[] args = {xmlRpcToken};
-        String handle = (String) invokeXMLRPC("new_distro", Arrays.asList(args));
+        
+        String handle = (String) invokeXMLRPC("new_distro", xmlRpcToken);
         // <channel label>--<ks tree label>
-        args = new String[]{handle, "name", getCobblerDistroName(this.tree), xmlRpcToken}; 
-        invokeXMLRPC("modify_distro", Arrays.asList(args));
-        
+        invokeXMLRPC("modify_distro", handle, "name",
+                getCobblerDistroName(this.tree), xmlRpcToken);
         updateCobblerFields(handle);
-        
-        args = new String[]{handle, xmlRpcToken}; 
-        invokeXMLRPC("save_distro", Arrays.asList(args));
+        invokeXMLRPC("save_distro", handle, xmlRpcToken);
 
         return null;
     }

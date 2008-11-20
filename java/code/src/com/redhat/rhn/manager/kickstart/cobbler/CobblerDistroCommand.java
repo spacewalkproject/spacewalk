@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
@@ -66,7 +67,9 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
     
     protected void updateCobblerFields(String handle) {
         // String kernel = ksData.getKsdefault().getKstree().getBasePath()
-        String filePath = this.tree.getBasePath() + "/images/pxeboot/";
+        
+        String filePath = Config.get().getKickstartMountPoint() +
+                    this.tree.getBasePath() + "/images/pxeboot/";
         String kernelPath = filePath + "vmlinuz";
         log.debug("kernel path: " + kernelPath);
         String[] args = new String[]{handle, "kernel", kernelPath, xmlRpcToken}; 
