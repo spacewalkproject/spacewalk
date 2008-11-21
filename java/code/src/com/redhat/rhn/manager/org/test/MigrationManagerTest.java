@@ -206,8 +206,10 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         // will create a server, satCluster and probe and associate the probe with the 
         // server it created.
         Probe probe = MonitoringFactoryTest.createTestProbe(origOrgAdmin);
-        
+
         ServerProbe serverProbe = (ServerProbe) probe;
+        serverProbe.setPendingState((SatCluster) origOrgAdmin.getOrg().
+                getMonitoringScouts().iterator().next());
         Server monitoredServer = serverProbe.getServer();
         
         // verify that the probe was added
