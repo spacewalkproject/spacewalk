@@ -158,7 +158,7 @@ public class ErrataCacheManager extends HibernateFactory {
         return m.executeUpdate(params);
     }
     /**
-     * Deletes record from NeededPackage cache table
+     * Deletes record from NeededPackage cache table.
      * @param sid Server Id
      * @param orgId Org Id
      * @param errataId Errata Id
@@ -187,7 +187,23 @@ public class ErrataCacheManager extends HibernateFactory {
             return m.executeUpdate(params); 
         }
     }
-    
+
+    /**
+     * Delete all records from NeededPackage cache for the server provided.
+     * @param sid Server Id
+     * @param orgId Org Id
+     * @return number of rows affected.
+     */    
+    public static int deleteNeededPackageCache(Long sid, Long orgId) {
+        WriteMode m = ModeFactory.getWriteMode(
+                "ErrataCache_queries", 
+                "delete_needed_package_cache_all");
+        Map params = new HashMap();
+        params.put("server_id", sid);
+        params.put("org_id", orgId);
+        return m.executeUpdate(params);  
+    }
+
     /**
      * Inserts record into NeededErrata cache table
      * @param sid Server Id
@@ -206,22 +222,48 @@ public class ErrataCacheManager extends HibernateFactory {
     }
     
     /**
-     * Deletes record from NeededErrata cache table
+     * Deletes record from NeededErrata cache table.  If the Errata Id is null, all
+     * errata cache for the server will be deleted.
      * @param sid Server Id
      * @param oid Org Id
      * @param eid Errata Id
      * @return number of rows affected.
      */
     public static int deleteNeededErrataCache(Long sid, Long oid, Long eid) {
-        WriteMode m = ModeFactory.getWriteMode(
+        if (eid != null) {
+            WriteMode m = ModeFactory.getWriteMode(
                 "ErrataCache_queries", "delete_needed_errata_cache");
-        Map params = new HashMap();
-        params.put("server_id", sid);
-        params.put("org_id", oid);
-        params.put("errata_id", eid);
-        return m.executeUpdate(params); 
+            Map params = new HashMap();
+            params.put("server_id", sid);
+            params.put("org_id", oid);
+            params.put("errata_id", eid);
+            return m.executeUpdate(params);
+        }
+        else {
+            WriteMode m = ModeFactory.getWriteMode(
+                    "ErrataCache_queries", "delete_needed_errata_cache_null_errata");
+                Map params = new HashMap();
+                params.put("server_id", sid);
+                params.put("org_id", oid);
+                return m.executeUpdate(params);
+        }
     }
     
+    /**
+     * Delete all records from NeededErrata cache for the server provided.
+     * errata cache for the server will be deleted.
+     * @param sid Server Id
+     * @param oid Org Id
+     * @return number of rows affected.
+     */
+    public static int deleteNeededErrataCache(Long sid, Long oid) {
+        WriteMode m = ModeFactory.getWriteMode(
+                "ErrataCache_queries", "delete_needed_errata_cache_all");
+            Map params = new HashMap();
+            params.put("server_id", sid);
+            params.put("org_id", oid);
+            return m.executeUpdate(params);
+    }
     
     /**
      * Asynchronusly updates the errata caches for the channels passed in.

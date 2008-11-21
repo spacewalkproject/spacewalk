@@ -12,6 +12,9 @@ README  - This file
 
 Changelog:
 
+11/21/08 - 1.5
+- Added support for Extras and Supplementary channels
+
 9/17/08 - 1.4
 - Improved speed by grouping package additions instead of doing them one at a time.  If you start getting 502 proxy errors, try reducing the size of $packGroupSize at the top of the script
 

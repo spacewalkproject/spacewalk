@@ -539,6 +539,14 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * Save a server snapshot
+     * @param snapshotIn snapshot to save
+     */
+    public static void saveSnapshot(ServerSnapshot snapshotIn) {
+        singleton.saveObject(snapshotIn);
+    }
+    
+    /**
      * Delete a snapshot
      * @param snap the snapshot to delete
      */

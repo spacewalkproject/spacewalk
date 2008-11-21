@@ -19,7 +19,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataList;
+import com.redhat.rhn.common.hibernate.LookupException;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -34,6 +36,8 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 
 import com.redhat.rhn.domain.user.User;
 
@@ -48,8 +52,11 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
+import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
+import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
 import com.redhat.rhn.frontend.xmlrpc.SatelliteOrgException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 
@@ -58,6 +65,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 import com.redhat.rhn.manager.org.CreateOrgCommand;
+import com.redhat.rhn.manager.org.MigrationManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.org.UpdateOrgSoftwareEntitlementsCommand;
 import com.redhat.rhn.manager.org.UpdateOrgSystemEntitlementsCommand;
@@ -398,6 +406,18 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
+     * Convenience method to get the loggedInUser 
+     * and ensure the logged in user is an Org admin
+     * @param sessionKey  User's session key.
+     * @return the logged in user with him guaranteed to be org admin.
+     */
+    private User getOrgAdmin(String sessionKey) {
+        User user = BaseHandler.getLoggedInUser(sessionKey);
+        ensureUserRole(user, RoleFactory.ORG_ADMIN);
+        return user;
+    }
+    
+    /**
      * Lists software entitlement allocation/distribution information
      *  across all organizations.
      * User needs to be a satellite administrator to get this information 
@@ -682,52 +702,72 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Migrate systems to a new organization. Caller must be a satellite admnistrator. 
+     * Migrate systems to a new organization. Caller must be an organization admnistrator. 
      * 
      * @param sessionKey User's session key.
      * @param sids System IDs.
-     * @param newOrgId New organization ID.
-     * @return 1 on success.
-     *
-     * @xmlrpc.doc Migrate systems to another organization.
+     * @param toOrgId New organization ID.
+     * @return list of systems migrated.
+     * @throws FaultException A FaultException is thrown if:
+     *   - The user performing the request is not an organization administrator
+     *   - The user performing the request is in the same org as the targetted destination
+     *     org
+     *   - One or more of the servers provides do not exist
+     *   - The destination organization does not exist
+     *   - The user is not defined in the destination organization's trust
+     *   
+     * @xmlrpc.doc Migrate systems from the user's organization to the organization 
+     * specified.  The user performing the migration must be an organization 
+     * adminstrator and the originating organization must be defined within the 
+     * trust of the destination organization.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #array()
-     *   #options()
-     *     #item_desc("int", "systemId")
-         #options_end()
-     * #array_end()
-     * @xmlrpc.param #param_desc("int", "newOrgId", "ID of the destination organization.")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.param #array_single("int", "systemId")
+     * @xmlrpc.param #param_desc("int", "toOrgId", "ID of the destination organization.")
+     * @xmlrpc.returntype
+     * #array_single("int", "serverIdMigrated")
      */
-    /* TODO: Disabled in light of changing reqs for how systems will be migrated.
-     * Keeping code here as some of it will likely be useful in the coming weeks.
-     */
-    /*
-    public int migrateSystems(String sessionKey, List<Integer> sids, Integer newOrgId) {
-        User admin = getSatAdmin(sessionKey);
-        Org newOrg = verifyOrgExists(newOrgId);
+    public Object[] migrateSystems(String sessionKey, List<Integer> sids, Integer toOrgId) 
+        throws FaultException {
 
+        // if user is not at least an org admin, they are not permitted to perform
+        // a migration.
+        User admin = getOrgAdmin(sessionKey);
+        Org toOrg = verifyOrgExists(toOrgId);
+
+        if (toOrg.equals(admin.getOrg())) {
+            // user is in same org as the destination org; therefore, deny the request.
+            throw new MigrationToSameOrgException(admin.getOrg().getId(), toOrg.getId());
+            
+        }
+        if (!toOrg.getTrustedOrgs().contains(admin.getOrg())) {
+            // the user's org isn't trusted by the destination org; therefore, we cannot
+            // perform the requested migration
+            throw new OrgNotInTrustException(toOrgId);
+        }
+        
         List<Server> servers = new LinkedList<Server>();
         for (Integer sid : sids) {
             Long serverId = new Long(sid.longValue());
             Server server = null;
             try {
-                server = ServerFactory.lookupById(serverId);
+                server = ServerFactory.lookupByIdAndOrg(serverId, admin.getOrg());
             
                 // throw a no_such_system exception if the server was not found.
                 if (server == null) {
-                    throw new NoSuchSystemException("No such system - sid = " + sid);
+                    throw new NoSuchSystemException(
+                            "No such system - sid[" + sid + "] in org[" +
+                            admin.getOrg().getId() + "]");
                 }
             }
             catch (LookupException e) {
-                throw new NoSuchSystemException("No such system - sid = " + sid);
+                throw new NoSuchSystemException(
+                        "No such system - sid[" + sid + "] in org[" +
+                        admin.getOrg().getId() + "]");
             }
             servers.add(server);
         }
             
-        OrgManager.migrateServers(admin, servers, newOrg);
-        return 1;
+        List<Long> serversMigrated = MigrationManager.migrateServers(admin, servers, toOrg);
+        return serversMigrated.toArray();
     }
-    */
-
 }

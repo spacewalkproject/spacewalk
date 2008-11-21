@@ -214,7 +214,7 @@ class Cursor:
     
     def fetchone_dict(self):
         """ 
-        Return a dictionary for each row returned mapping column name to 
+        Return a dictionary for the row returned mapping column name to
         it's value.
         """
         ret = ociDict(self.description, self._real_cursor.fetchone())
@@ -223,11 +223,20 @@ class Cursor:
             return None
         return ret
 
-    def fetchmany_dict(self, howmany=1):
-        return []
-
     def fetchall_dict(self):
-        return []
+        """
+        Fetch all rows as a list of dictionaries.
+        """
+        rows = self._real_cursor.fetchall()
+
+        ret = []
+        for x in rows:
+            d = ociDict(self.description, x)
+            if len(d) > 0:
+                ret.append(d)
+        if ret == []:
+            return None
+        return ret
 
     def _is_sequence_type(self, val):
         if type(val) in (types.ListType, types.TupleType):

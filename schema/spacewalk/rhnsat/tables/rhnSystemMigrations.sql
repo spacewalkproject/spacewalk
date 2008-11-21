@@ -31,6 +31,9 @@ rhnSystemMigrations
                         constraint rhn_sys_mig_sid_nn not null
                         constraint rhn_sys_mig_sid_fk
                                 references rhnServer(id)
+                                 on delete cascade,
+        migrated        date default (sysdate)
+                        constraint rhn_sys_mig_migrated_nn not null
 )
         storage ( pctincrease 1 freelists 16 )
         enable row movement

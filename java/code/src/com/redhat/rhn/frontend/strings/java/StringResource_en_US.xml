@@ -7392,6 +7392,10 @@ Follow this url to see the full list of inactive systems:
           <source>Invalid action type</source>
       </trans-unit>
 
+	  <trans-unit id="api.org.migrationtosameorg">
+          <source>User in organization {0} cannot migrate systems to the same organization {1}.</source>
+      </trans-unit>
+      
 	  <trans-unit id="api.org.nosuchorg">
           <source>No such organization: {0}</source>
       </trans-unit>

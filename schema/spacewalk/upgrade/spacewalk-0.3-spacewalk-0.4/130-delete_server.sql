@@ -64,8 +64,10 @@ begin
 				from	rhnKickstartPreserveFileList
 				where	file_list_id = spfl.file_list_id
 			);
-	forall i in filelistsid_c.first..filelistsid_c.last
-		delete from rhnFileList where id = filelistsid_c(i);
+        if filelistsid_c.first is not null then
+            forall i in filelistsid_c.first..filelistsid_c.last
+                delete from rhnFileList where id = filelistsid_c(i);
+        end if;
 
 	for configchannel in configchannels loop
 		rhn_config.delete_channel(configchannel.id);
@@ -219,10 +221,12 @@ begin
        FROM rhn_sat_node SN
       WHERE SN.server_id = server_id_in);
 
-    FORALL i IN probesid_c.first..probesid_c.last
-        DELETE FROM rhn_probe_state PS WHERE PS.probe_id = probesid_c(i);
-    FORALL i IN probesid_c.first..probesid_c.last
-        DELETE FROM rhn_probe P  WHERE P.recid = probesid_c(i);
+    if probesid_c.first is not null then
+        FORALL i IN probesid_c.first..probesid_c.last
+            DELETE FROM rhn_probe_state PS WHERE PS.probe_id = probesid_c(i);
+        FORALL i IN probesid_c.first..probesid_c.last
+            DELETE FROM rhn_probe P  WHERE P.recid = probesid_c(i);
+    end if;
 
 	delete from rhn_check_probe where host_id = server_id_in;
 	delete from rhn_host_probe where host_id = server_id_in;

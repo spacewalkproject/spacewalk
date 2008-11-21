@@ -31,7 +31,7 @@ import types
 
 from common import rhnException, log_debug, log_error, rhnConfig
 from common import UserDictCase
-from sql_base import adjust_type, ociDict
+from sql_base import adjust_type
 from const import ORACLE
 
 ORACLE_TYPE_MAPPING = [
@@ -147,12 +147,6 @@ class Cursor(sql_base.Cursor):
         return self._real_cursor.rowcount
 
     def _executemany(self, *args, **kwargs):
-        """
-        Execute query multiple times.
-
-        kwargs provided as positional lists.
-        i.e. executemany(arg1=['a', 'b'], arg2=[1, 2])
-        """
         # cx_Oracle expects the first arg to be the statement
         if not kwargs:
             return 0
@@ -222,30 +216,6 @@ class Cursor(sql_base.Cursor):
             start_chunk = start_chunk + chunk_size
 
         # Should never reach this point
-        return ret
-
-    def fetchmany_dict(self, howmany=None):
-        rows = self._real_cursor.fetchmany(howmany)
-
-        ret = []
-        for x in rows:
-            d = ociDict(self.description, x)
-            if len(d) > 0:
-                ret.append(d)
-        if ret == []:
-            return None
-        return ret
-
-    def fetchall_dict(self):
-        rows = self._real_cursor.fetchall()
-
-        ret = []
-        for x in rows:
-            d = ociDict(self.description, x)
-            if len(d) > 0:
-                ret.append(d)
-        if ret == []:
-            return None
         return ret
 
     def _get_oracle_error_info(self, error):

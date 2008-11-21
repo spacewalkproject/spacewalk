@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.test;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
@@ -35,13 +37,16 @@ import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
+import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
 
 public class OrgHandlerTest extends BaseHandlerTestCase {
     
@@ -511,17 +516,12 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         return false;
     }
 
-    /* TODO: Disabled in light of changing reqs for how systems will be migrated.
-     * Keeping code here as some of it will likely be useful in the coming weeks.
-     */
-    /*
     public void testMigrateSystem() throws Exception {
-        User oldOrgAdmin = UserTestUtils.findNewUser("oldAdmin", "oldOrg", true);
         User newOrgAdmin = UserTestUtils.findNewUser("newAdmin", "newOrg", true);
-        User migrator = UserTestUtils.findNewUser("satAdmin", "anotherOrg", true);
-        migrator.addRole(RoleFactory.SAT_ADMIN);
+        newOrgAdmin.getOrg().getTrustedOrgs().add(admin.getOrg());
+        OrgFactory.save(newOrgAdmin.getOrg());
 
-        Server server = ServerTestUtils.createTestSystem(oldOrgAdmin);
+        Server server = ServerTestUtils.createTestSystem(admin);
         List<Integer> servers = new LinkedList<Integer>();
         servers.add(new Integer(server.getId().intValue()));
         // Actual migration is tested internally, just make sure the API call doesn't
@@ -532,8 +532,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     
     public void testMigrateNoSuchSystem() throws Exception {
         User newOrgAdmin = UserTestUtils.findNewUser("newAdmin", "newOrg", true);
-        User migrator = UserTestUtils.findNewUser("satAdmin", "anotherOrg", true);
-        migrator.addRole(RoleFactory.SAT_ADMIN);
+        newOrgAdmin.getOrg().getTrustedOrgs().add(admin.getOrg());
 
         List<Integer> servers = new LinkedList<Integer>();
         servers.add(new Integer(-1));
@@ -548,11 +547,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testMigrateSystemNoSuchOrg() throws Exception {
-        User oldOrgAdmin = UserTestUtils.findNewUser("oldAdmin", "oldOrg", true);
-        User migrator = UserTestUtils.findNewUser("satAdmin", "anotherOrg", true);
-        migrator.addRole(RoleFactory.SAT_ADMIN);
 
-        Server server = ServerTestUtils.createTestSystem(oldOrgAdmin);
+        Server server = ServerTestUtils.createTestSystem(admin);
         List<Integer> servers = new LinkedList<Integer>();
         servers.add(new Integer(server.getId().intValue()));
 
@@ -564,6 +560,4 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
             // expected
         }
     }
-    */
-    
 }

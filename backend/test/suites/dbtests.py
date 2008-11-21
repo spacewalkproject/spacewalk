@@ -80,6 +80,32 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertEquals(TEST_IDS[0], results[0])
         self.assertEquals(TEST_NAMES[0], results[1])
 
+    def test_executemany(self):
+        query = "INSERT INTO %s(id, name) VALUES(:id, :name)" \
+                % self.temp_table
+        ids = [1000, 1001]
+        names = ["Somebody", "Else"]
+
+        cursor = rhnSQL.prepare(query)
+        cursor.executemany(id=ids, name=names)
+
+        query = rhnSQL.prepare("SELECT * FROM %s WHERE id >= 1000 ORDER BY ID"
+                % self.temp_table)
+        query.execute()
+        rows = query.fetchall()
+        self.assertEquals(2, len(rows))
+
+        self.assertEquals(1000, rows[0][0])
+        self.assertEquals(1001, rows[1][0])
+        self.assertEquals("Somebody", rows[0][1])
+        self.assertEquals("Else", rows[1][1])
+
+    def test_executemany2(self):
+        query = "SELECT * FROM %s" \
+                % self.temp_table
+        cursor = rhnSQL.prepare(query)
+        cursor.executemany()
+
     def test_numeric_columns(self):
         h = rhnSQL.prepare("SELECT num FROM %s WHERE id = %s" %
                 (self.temp_table, TEST_IDS[0]))
@@ -115,6 +141,19 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         while i < len(TEST_IDS):
             self.assertEquals(TEST_IDS[i], rows[i][0])
             self.assertEquals(TEST_NAMES[i], rows[i][1])
+            i = i + 1
+
+    def test_fetchall_dict(self):
+        query = rhnSQL.prepare("SELECT * FROM %s ORDER BY id" %
+                self.temp_table)
+        query.execute()
+        rows = query.fetchall_dict()
+        self.assertEquals(len(TEST_IDS), len(rows))
+
+        i = 0
+        while i < len(TEST_IDS):
+            self.assertEquals(TEST_IDS[i], rows[i]['id'])
+            self.assertEquals(TEST_NAMES[i], rows[i]['name'])
             i = i + 1
 
 
