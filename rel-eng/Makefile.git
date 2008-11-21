@@ -20,7 +20,6 @@ endif
 
 README_FILE = $(wildcard $(THIS_DIR)README)
 
-GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git rev-parse --verify HEAD)
 GIT_COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(GIT_COMMIT_ID) | awk '{print $$1}')
 
