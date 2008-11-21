@@ -11,9 +11,6 @@ use CGI;
 #		Add ability to print a list of packages not added due to failed package match
 #  Improve rpm search feature (more efficient)
 #  Check to see if an rpm already exists in a channel before adding?  (possible speed increase) (possibly include this in improved search)
-#  Add support for RHEL 5 (when released)
-#  Handle the new '.' notation instead of U 
-#  Handle GA releases?
 
 
 
@@ -39,6 +36,8 @@ $new_channel_label = $ARGV[5];
 
 @SUB_REPOS = ("VT", "Cluster", "ClusterStorage", "Workstation");
 
+@EXTRAS = ("Extras", "Supplementary");
+
 
 $SOURCE_DIR = "/mnt/engarchive2/released/";
 $DATA_DIR = "./data/";
@@ -57,11 +56,13 @@ print <<EOF;
 
 Arguments:
 	VERSION - Currently supported versions:  2.1, 3, 4, and 5
-	UPDATE -  update level.  Currently supported GOLD & 1 - 9  (note all update levels are not applicable to all versions)
+	UPDATE -  update level.  Currently supported GOLD & 1 - 9  
+		(Note: all update levels are not applicable to all versions)
 	RELEASE - Currently Supports:  AS, ES, WS, Desktop, Server, Client
 	ARCH - Architecture.  ( Currently Supports:  i386, ia64, s390, s390x, ppc, and x86_64 )
 	CHANNEL_LABEL - The new channel label you would like to create.  Label will be converted to lower case. 
-	SUB_REPO (optional) - For RHEL 5, any sub repo included on the install disc.  (Currently supports VT, Cluster, ClusterStorage, & Workstation)
+	SUB_REPO (optional) - Sub repo/component, usually a child channel  (Currently supports VT, Cluster, 
+		ClusterStorage, Workstation, & Supplementary for RHEl 5 and Extras for RHEL 4 or earlier)
 
 Questions?  Suggestions? Bugs?   ->    jsherril\@redhat.com
 
@@ -95,7 +96,7 @@ if ( $ARGV[0] eq "gather"){
 			for( my $k = 0; $k < @RELEASES; $k++){
 				for( my $l = 0; $l < @ARCHES; $l++){
 				
-				
+				        
 					$directory  = "RHEL-$VERSIONS[$i]/$UPDATE[$j]/$RELEASES[$k]/$ARCHES[$l]/";
 					$full_path = "$SOURCE_DIR/$directory";	
 
@@ -119,6 +120,26 @@ if ( $ARGV[0] eq "gather"){
 						exe( "ls $full_path/tree/RedHat/RPMS/ | grep .rpm > $DATA_DIR$VERSIONS[$i]-$UPDATE[$j]-$RELEASES[$k]-$ARCHES[$l]" );
 					}
 
+					#Handle extras and supplementary
+					if ( $VERSIONS[$i] eq "5") {
+						$SUP = "Supplementary";
+	                                        $directory_RHEL5 = "RHEL-$VERSIONS[$i]-$RELEASES[$k]-$SUP/$UPDATE[$j]/$ARCHES[$l]/";
+        	                                $full_path_RHEL5 = "$SOURCE_DIR/$directory_RHEL5";
+						if (-d $full_path_RHEL5) {
+							print("Creating data file for $directory_RHEL5\n");
+							exe( "ls $full_path_RHEL5/os/$SUP/ | grep .rpm > $DATA_DIR$VERSIONS[$i]-$UPDATE[$j]-$RELEASES[$k]-$ARCHES[$l]-$SUP" );
+						}
+
+					}
+					else {
+						$EXTRAS = "Extras";
+        	                                $directory  = "RHEL-$VERSIONS[$i]-$EXTRAS/$UPDATE[$j]/$RELEASES[$k]/$ARCHES[$l]/";
+	                                        $full_path = "$SOURCE_DIR/$directory";
+						if (-d $full_path) {
+							 print("Creating data file for $directory\n");
+							exe( "ls $full_path/tree/RedHat/RPMS/ | grep .rpm > $DATA_DIR$VERSIONS[$i]-$UPDATE[$j]-$RELEASES[$k]-$ARCHES[$l]-$EXTRAS" );
+						}
+					}
 				}
 			}
 		}
