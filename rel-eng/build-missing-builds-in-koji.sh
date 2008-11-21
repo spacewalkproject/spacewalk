@@ -5,7 +5,6 @@ pushd `pwd`
 
 BASENAME=`basename $0`
 cd `echo $0 | sed s/$BASENAME//`/..;
-exit 0 
 
 for package in ` \
 	rel-eng/koji-missing-builds.pl $TAG | \
