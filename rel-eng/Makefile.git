@@ -39,8 +39,6 @@ else
 BUMP_VERSION_FILE_OPTIONS = --specfile $(SPECFILE)
 endif
 
-EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
-EXISTING_SRC_RPM := $(wildcard *.src.rpm)
 EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 
 ifdef KEEP_VERSION
