@@ -149,7 +149,6 @@ class Database(sql_base.Database):
             log_error("DATABASE CONNECTION TO '%s' LOST" % self.database,
                       "Exception information: %s" % sys.exc_info()[1])
             self.connect() # only allow one try
-        return 0
 
     def prepare(self, sql, force=0):
         return Cursor(dbh=self.dbh, sql=sql, force=force)
@@ -229,9 +228,19 @@ class Cursor(sql_base.Cursor):
         """
         PostgreSQL specific execution of the query.
         """
-        #    TODO: is this needed? params[k] = adjust_type(_p[k])
+        positional_args = self._get_positional_args(kwargs)
 
+        self._real_cursor.execute(self.sql, positional_args)
+        self.description = self._real_cursor.description
+        return self._real_cursor.rowcount
+
+    def _get_positional_args(self, kwargs):
+        """
+        Return a list of positional args based on the incoming keyword args.
+        (and the information we gathered when preparing the query)
+        """
         params = UserDictCase(kwargs)
+        #    TODO: is this needed? params[k] = adjust_type(_p[k])
 
         # Assemble position list of arguments for python-pgsql:
         positional_args = []
@@ -245,15 +254,35 @@ class Cursor(sql_base.Cursor):
             positions_used = self.param_indicies[key]
             for p in positions_used:
                 positional_args[p - 1] = params[key]
-        self._real_cursor.execute(self.sql, positional_args)
-        self.description = self._real_cursor.description
-        return self._real_cursor.rowcount
+
+        return positional_args
 
     def _executemany(self, *args, **kwargs):
-        """
-        Execute query multiple times.
-        """
-        self._real_cursor.executemany(self.sql, args)
+        if not kwargs:
+            return 0
+
+        params = UserDictCase(kwargs)
+
+        # First break all the incoming keyword arg lists into individual
+        # hashes:
+        all_kwargs = []
+        for key in params.keys():
+            if len(all_kwargs) < len(params[key]):
+                for i in range(len(params[key])):
+                    all_kwargs.append({})
+
+            i = 0
+            for val in params[key]:
+                all_kwargs[i][key] = val
+                i = i + 1
+
+        # Assemble final array of all params for each execution of the query:
+        final_args = []
+        for params in all_kwargs:
+            positional_args = self._get_positional_args(params)
+            final_args.append(positional_args)
+
+        self._real_cursor.executemany(self.sql, final_args)
         self.description = self._real_cursor.description
         rowcount = self._real_cursor.rowcount
         return rowcount

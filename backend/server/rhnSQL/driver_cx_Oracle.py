@@ -147,12 +147,6 @@ class Cursor(sql_base.Cursor):
         return self._real_cursor.rowcount
 
     def _executemany(self, *args, **kwargs):
-        """
-        Execute query multiple times.
-
-        kwargs provided as positional lists.
-        i.e. executemany(arg1=['a', 'b'], arg2=[1, 2])
-        """
         # cx_Oracle expects the first arg to be the statement
         if not kwargs:
             return 0
