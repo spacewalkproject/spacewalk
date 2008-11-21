@@ -117,6 +117,19 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             self.assertEquals(TEST_NAMES[i], rows[i][1])
             i = i + 1
 
+    def test_fetchall_dict(self):
+        query = rhnSQL.prepare("SELECT * FROM %s ORDER BY id" %
+                self.temp_table)
+        query.execute()
+        rows = query.fetchall_dict()
+        self.assertEquals(len(TEST_IDS), len(rows))
+
+        i = 0
+        while i < len(TEST_IDS):
+            self.assertEquals(TEST_IDS[i], rows[i]['id'])
+            self.assertEquals(TEST_NAMES[i], rows[i]['name'])
+            i = i + 1
+
 
 
 class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
