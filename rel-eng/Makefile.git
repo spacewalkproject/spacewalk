@@ -109,7 +109,7 @@ x-tag-release : update-changelog
 		perl -lane 'next if $$ARGV eq "$(THIS_DIR)packages/$(NAME)"; print $$ARGV if $$F[1] eq "$(GIT_PREFIX)";' $(THIS_DIR)packages/* /dev/null \
 			| while read i ; do git rm $$i || exit 1 ; done ; \
 		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) \
-		&& git add . $(THIS_DIR)packages/$(NAME) \
+		&& git add $(SPECFILE) $(VERSION_FILE) $(THIS_DIR)packages/$(NAME) \
 		&& git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." \
 		&& echo "Creating tag [$(NAME)-$$BUMPED_VERSION]." \
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
