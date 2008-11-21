@@ -155,6 +155,8 @@ public class MonitoringFactoryTest extends RhnBaseTestCase {
                 retval.setServer(s);
                 retval.setSatCluster((SatCluster) 
                         u.getOrg().getMonitoringScouts().iterator().next());
+                retval.setPendingState((SatCluster)
+                        u.getOrg().getMonitoringScouts().iterator().next());
                 return retval;
             } 
             else if (MonitoringConstants.getProbeTypeSuite().equals(pt)) {

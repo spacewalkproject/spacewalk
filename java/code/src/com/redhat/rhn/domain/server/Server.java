@@ -98,7 +98,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private VirtualInstance virtualInstance;
     private PushClient pushClient;
     private ConfigChannelListProcessor configListProc = new ConfigChannelListProcessor();
-    private Set history; 
+    private Set history;
     private Set packages;
     private ProxyInfo proxyInfo;
 
@@ -235,6 +235,14 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return getConfigChannelsHibernate();
     }
 
+    /**
+     * @return Returns the number of configuration channels associated with
+     * the server.
+     */
+    public int getConfigChannelCount() {
+        return configChannels.size();
+    }
+    
     private void ensureConfigManageable() {
         ConfigurationManager.getInstance().ensureConfigManageable(this);
     }
@@ -1492,7 +1500,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public void setHistory(Set historyIn) {
         this.history = historyIn;
     }
-
     
     /**
      * @return Returns the packages.

@@ -14,36 +14,41 @@
  */
 package com.redhat.rhn.manager.org.test;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import com.redhat.rhn.common.security.PermissionException;
-
+import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.monitoring.MonitoringConstants;
+import com.redhat.rhn.domain.monitoring.Probe;
+import com.redhat.rhn.domain.monitoring.ServerProbe;
 import com.redhat.rhn.domain.monitoring.TemplateProbe;
-
 import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
-
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
-
 import com.redhat.rhn.domain.monitoring.suite.test.ProbeSuiteTest;
-
 import com.redhat.rhn.domain.monitoring.test.MonitoringFactoryTest;
-
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.SystemMigration;
+import com.redhat.rhn.domain.org.SystemMigrationFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
-import com.redhat.rhn.domain.server.MonitoredServer;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
-
+import com.redhat.rhn.domain.server.ServerHistoryEvent;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
-
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
-
 import com.redhat.rhn.manager.org.MigrationManager;
-
+import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
 
 /**
  * MigrationManagerTest
@@ -51,18 +56,49 @@ import com.redhat.rhn.testing.UserTestUtils;
  */
 public class MigrationManagerTest extends RhnBaseTestCase {
 
-    private User oldOrgAdmin;
-    private Server server;
+    private Set<User> origOrgAdmins = new HashSet<User>();
+    private Set<User> destOrgAdmins = new HashSet<User>();
+    private Org origOrg;
+    private Org destOrg;
+    private Server server;  // virt host w/guests
+    private Server server2; // server w/provisioning ent
 
     public void setUp() throws Exception {
         super.setUp();
 
-        oldOrgAdmin = UserTestUtils.findNewUser("oldAdmin", "oldOrg", true);
+        // Create 2 orgs, each with multiple org admins
+        origOrgAdmins.add(UserTestUtils.findNewUser("origAdmin", "origOrg", true));
+        origOrg = origOrgAdmins.iterator().next().getOrg();
+        for (Integer i = 0; i < 2; i++) {
+            User user = UserTestUtils.createUser("origAdmin", origOrg.getId());
+            user.addRole(RoleFactory.ORG_ADMIN);
+            UserFactory.save(user);
+            origOrgAdmins.add(user);
+        }
+        
+        destOrgAdmins.add(UserTestUtils.findNewUser("destAdmin", "destOrg", true));
+        destOrg = destOrgAdmins.iterator().next().getOrg();
+        for (Integer i = 0; i < 2; i++) {
+            User user = UserTestUtils.createUser("destAdmin", destOrg.getId());
+            user.addRole(RoleFactory.ORG_ADMIN);
+            UserFactory.save(user);
+            destOrgAdmins.add(user);
+        }
 
-        server = ServerTestUtils.createVirtHostWithGuests(oldOrgAdmin, 2);
+        // Create a virtual host with guests and a server with provisioning entitlements
+        // and associate the first org's admins with them both
+        server = ServerTestUtils.createVirtHostWithGuests(
+                origOrgAdmins.iterator().next(), 2);
+        server2 = ServerFactoryTest.createTestServer(origOrgAdmins.iterator().next(), true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        for (User origOrgAdmin : origOrgAdmins) {
+            origOrgAdmin.addServer(server);
+            origOrgAdmin.addServer(server2);
+        }
+        
         ServerFactory.save(server);
+        ServerFactory.save(server2);
         HibernateFactory.getSession().flush();
-
     }
   
     public void testMigrateSystemNotSatAdmin() throws Exception {
@@ -79,8 +115,8 @@ public class MigrationManagerTest extends RhnBaseTestCase {
     public void testRemoveEntitlements() throws Exception {
         assertTrue(server.getEntitlements().size() > 0);
 
-        MigrationManager.removeOrgRelationships(oldOrgAdmin, server);
-        server = (Server)reload(server);
+        MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server);
+        server = ServerFactory.lookupById(server.getId());
 
         assertEquals(0, server.getEntitlements().size());
     }
@@ -90,8 +126,8 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         assertEquals(1, server.getManagedGroups().size());
         ManagedServerGroup serverGroup1 = server.getManagedGroups().get(0);
 
-        MigrationManager.removeOrgRelationships(oldOrgAdmin, server);
-        server = (Server)reload(server);
+        MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server);
+        server = ServerFactory.lookupById(server.getId());
 
         //serverGroup1 = (ManagedServerGroup) reload(serverGroup1);
         assertEquals(0, serverGroup1.getCurrentMembers().intValue());
@@ -99,42 +135,142 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         assertEquals(0, server.getManagedGroups().size());
     }
 
+    public void testRemoveChannels() throws Exception {
+        
+        // verify that server was initially created w/channels
+        assertTrue(server.getChannels().size() > 0);
+        
+        MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server);
+
+        assertEquals(0, server.getChannels().size());
+    }
+    
+    public void testRemoveConfigChannels() throws Exception {
+
+        ConfigChannel configChannel = ConfigTestUtils.createConfigChannel(origOrg);
+        ConfigChannel configChannel2 = ConfigTestUtils.createConfigChannel(origOrg);
+        
+        server2.getConfigChannels().add(configChannel);
+        server2.getConfigChannels().add(configChannel2);
+
+        assertEquals(2, server2.getConfigChannelCount());
+
+        MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server2);
+
+        assertEquals(0, server2.getConfigChannelCount());
+    }
+    
     public void testRemoveVirtualGuestAssociations() throws Exception {
         assertTrue(server.getGuests().size() > 0);
 
-        MigrationManager.removeOrgRelationships(oldOrgAdmin, server);
-        server = (Server)reload(server);
+        MigrationManager.removeOrgRelationships(origOrgAdmins.iterator().next(), server);
+        server = (Server) reload(server);
 
         assertEquals(0, server.getGuests().size());
     }
 
     public void testRemoveMonitoringProbeSuites() throws Exception {
-        ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(oldOrgAdmin);
-        SatCluster sc = (SatCluster)oldOrgAdmin.getOrg().getMonitoringScouts()
+        
+        User origOrgAdmin = origOrgAdmins.iterator().next();
+        ProbeSuite suite = ProbeSuiteTest.createTestProbeSuite(origOrgAdmin);
+        SatCluster sc = (SatCluster)origOrgAdmin.getOrg().getMonitoringScouts()
             .iterator().next();
         for (int i = 0; i < 5; i++) {
             TemplateProbe probe = (TemplateProbe)
-                MonitoringFactoryTest.createTestProbe(oldOrgAdmin, 
+                MonitoringFactoryTest.createTestProbe(origOrgAdmin, 
                     MonitoringConstants.getProbeTypeSuite());
-            suite.addProbe(probe, oldOrgAdmin);
+            suite.addProbe(probe, origOrgAdmin);
         }
-        suite.addServerToSuite(sc, server, oldOrgAdmin);
-        MonitoringManager.getInstance().storeProbeSuite(suite, oldOrgAdmin);
+        suite.addServerToSuite(sc, server, origOrgAdmin);
+        MonitoringManager.getInstance().storeProbeSuite(suite, origOrgAdmin);
+        
+        // verify that the above probes were added to the system
+        assertEquals(5, MonitoringManager.getInstance().probesForSystem(origOrgAdmin, 
+                server, null).size());
 
-        suite = (ProbeSuite) reload(suite);
-        Object sobject = suite.getServersInSuite().iterator().next();
-        // Gotta reload the server so the Action will get the MonitoredServer
-        // instance instead of a regular Server object.
-        reload(sobject);
-        server = (Server) sobject;
-        MonitoredServer server2 = (MonitoredServer)ServerFactory.lookupById(
-                server.getId());
-        assertEquals(5, server2.getProbes().size());
+        MigrationManager.removeOrgRelationships(origOrgAdmin, server);
 
-        MigrationManager.removeOrgRelationships(oldOrgAdmin, server);
-        server2 = (MonitoredServer)reload(server2);
+        // verify that the probes were removed from the system
+        assertEquals(0, MonitoringManager.getInstance().probesForSystem(origOrgAdmin, 
+                server, null).size());
+    }
 
-        // Aparently no probes results in a null MonitoredServer:
-        assertNull(server2);
+    public void testRemoveMonitoringProbes() throws Exception {
+        
+        // Setup
+        
+        User origOrgAdmin = origOrgAdmins.iterator().next();
+
+        // Currently for testing we don't have a way to create a test probe and associate 
+        // it with an existing server; however, the MonitoringFactoryTest.createTestProbe 
+        // will create a server, satCluster and probe and associate the probe with the 
+        // server it created.
+        Probe probe = MonitoringFactoryTest.createTestProbe(origOrgAdmin);
+        
+        ServerProbe serverProbe = (ServerProbe) probe;
+        Server monitoredServer = serverProbe.getServer();
+        
+        // verify that the probe was added
+        assertEquals(1, MonitoringManager.getInstance().probesForSystem(origOrgAdmin, 
+                monitoredServer, null).size());
+        
+        MigrationManager.removeOrgRelationships(origOrgAdmin, monitoredServer);
+
+        // verify that the probe was removed from the system
+        assertEquals(0, MonitoringManager.getInstance().probesForSystem(origOrgAdmin, 
+                server, null).size());
+    }
+
+    public void testUpdateAdminRelationships() throws Exception {
+        for (User origOrgAdmin : origOrgAdmins) {
+            assertTrue(origOrgAdmin.getServers().contains(server));
+        }
+        for (User destOrgAdmin : destOrgAdmins) {
+            assertFalse(destOrgAdmin.getServers().contains(server));
+        }
+        
+        MigrationManager.updateAdminRelationships(origOrg, destOrg, server);
+
+        for (User origOrgAdmin : origOrgAdmins) {
+            assertFalse(origOrgAdmin.getServers().contains(server));
+        }
+        for (User destOrgAdmin : destOrgAdmins) {
+            assertTrue(destOrgAdmin.getServers().contains(server));
+        }
+    }
+
+    public void testMigrateServers() throws Exception {
+ 
+        assertEquals(server.getOrg(), origOrg);
+        assertEquals(server2.getOrg(), origOrg);
+        
+        List<Server> servers = new ArrayList<Server>();
+        servers.add(server);
+        servers.add(server2);
+        MigrationManager.migrateServers(origOrgAdmins.iterator().next(), servers, destOrg);
+        
+        assertEquals(server.getOrg(), destOrg);
+        assertEquals(server2.getOrg(), destOrg);
+        
+        assertNotNull(server.getHistory());
+        assertTrue(server.getHistory().size() > 0);
+        boolean migrationRecorded = false;
+        for (ServerHistoryEvent event : (Set<ServerHistoryEvent>) server.getHistory()) {
+            if (event.getSummary().equals("System migration") &&
+                event.getDetails().contains("From organization: " + origOrg.getName()) &&
+                event.getDetails().contains("to organization: " + destOrg.getName()) &&
+                (event.getCreated() != null)) {
+                migrationRecorded = true;
+            }
+        }
+        assertTrue(migrationRecorded);
+        
+        List<SystemMigration> s1Migrations = SystemMigrationFactory.lookupByServer(server);
+        List<SystemMigration> s2Migrations = SystemMigrationFactory.lookupByServer(
+                server2);
+        assertNotNull(s1Migrations);
+        assertNotNull(s2Migrations);
+        assertEquals(1, s1Migrations.size());
+        assertEquals(1, s2Migrations.size());
     }
 }
