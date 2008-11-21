@@ -322,7 +322,12 @@ sub getBaseChannel{
 		$lowerBase = lc( $ARGV[3] );
 		if( $ARGV[6] ){
 			$lowerSubRepo = lc($ARGV[6]);
-			return "rhel-$ARGV[4]-$lowerBase-$lowerSubRepo-$ARGV[1]";
+			if ($ARGV[6] ne  "Extras"){
+ 				return "rhel-$ARGV[4]-$lowerBase-$lowerSubRepo-$ARGV[1]";
+			}
+			else {
+				return "rhel-$ARGV[4]-$lowerBase-$ARGV[1]-$lowerSubRepo";
+			}
 		}
 		return "rhel-$ARGV[4]-$lowerBase-$ARGV[1]";
 	}

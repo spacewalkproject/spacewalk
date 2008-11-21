@@ -736,8 +736,7 @@ public class OrgHandler extends BaseHandler {
 
         if (toOrg.equals(admin.getOrg())) {
             // user is in same org as the destination org; therefore, deny the request.
-            throw new MigrationToSameOrgException(admin.getOrg().getId(), toOrg.getId());
-            
+            throw new MigrationToSameOrgException(admin);
         }
         if (!toOrg.getTrustedOrgs().contains(admin.getOrg())) {
             // the user's org isn't trusted by the destination org; therefore, we cannot
