@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 /**
@@ -65,12 +66,14 @@ public class ActionFormatterTest extends RhnBaseTestCase {
         ActionFormatter af = areboot.getFormatter();
         ServerAction sa = (ServerAction) areboot.getServerActions().toArray()[0];
         sa.setStatus(ActionFactory.STATUS_FAILED);
+        sa = (ServerAction) TestUtils.saveAndReload(sa);
         assertTrue(af.getNotes().startsWith(
                 "<a href=\"/rhn/schedule/FailedSystems.do?aid="));
         assertTrue(af.getNotes().endsWith(
                 ">1 system</a></strong> failed to complete this action.<br/><br/>"));
         
         sa.setStatus(ActionFactory.STATUS_COMPLETED);
+        sa = (ServerAction) TestUtils.saveAndReload(sa);
         assertTrue(af.getNotes().startsWith(
                 "<a href=\"/rhn/schedule/CompletedSystems.do?aid="));
         assertTrue(af.getNotes().endsWith(
