@@ -54,6 +54,8 @@ public class CobblerLoginCommand {
         catch (XmlRpcFault e) {
             log.error("XmlRpcFault while logging in.  " +
                     "most likely user doesn't have permissions. ", e);
+            throw new NoCobblerTokenException(
+                    "We errored out trying to login.", e);
         }
         log.debug("token received from cobbler: " + retval);
         return retval;
