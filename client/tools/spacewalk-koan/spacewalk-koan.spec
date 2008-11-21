@@ -20,7 +20,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python
 Requires:       python >= 2.3
-
+Requires:       koan >= 1.2.6
 
 Provides: rhn.kickstart.boot_image
 Conflicts: rhn-kickstart
