@@ -25,7 +25,7 @@ insert into rhnKickstartVirtualizationType (id, name, label)
     values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenfv');
+    values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenpv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
     values (rhn_kvt_id_seq.nextval, 'VMWare Virtualized Guest', 'vmware');
