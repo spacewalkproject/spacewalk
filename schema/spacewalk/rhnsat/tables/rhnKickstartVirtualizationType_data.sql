@@ -19,16 +19,16 @@ insert into rhnKickstartVirtualizationType (id, name, label)
      values (rhn_kvt_id_seq.nextval, 'Para-Virtualized Host', 'para_host');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'KVM Virtualized Guest', 'qemu')
+    values (rhn_kvt_id_seq.nextval, 'KVM Virtualized Guest', 'qemu');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv')
+    values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenfv')
+    values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenfv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'VMWare Virtualized Guest', 'vmware')
+    values (rhn_kvt_id_seq.nextval, 'VMWare Virtualized Guest', 'vmware');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
      values (rhn_kvt_id_seq.nextval, 'none', 'none');
