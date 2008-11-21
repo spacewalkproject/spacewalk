@@ -119,7 +119,7 @@ public class ChannelHandlerTest extends BaseHandlerTestCase {
         assertTrue(foundChannel);
         
         // execute
-        result = handler.listPopularChannels(adminKey, 2);
+        result = handler.listPopularChannels(adminKey, 50000);
         
         // verify
         assertNotNull(result);
