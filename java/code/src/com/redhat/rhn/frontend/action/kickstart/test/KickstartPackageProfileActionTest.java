@@ -40,11 +40,11 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         ksdata = KickstartDataTest.createKickstartWithProfile(user);
-        ksdata.getKsdefault().setProfile(null);
+        ksdata.getKickstartDefaults().setProfile(null);
         addRequestParameter(RequestContext.KICKSTART_ID, ksdata.getId().toString());
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) TestUtils.reload(ksdata);
-        assertNull(ksdata.getKsdefault().getProfile());
+        assertNull(ksdata.getKickstartDefaults().getProfile());
         TestUtils.flushAndEvict(ksdata);
     }
 
@@ -57,7 +57,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
     }
     
     public void testSubmit() throws Exception {
-        assertNull(ksdata.getKsdefault().getProfile());
+        assertNull(ksdata.getKickstartDefaults().getProfile());
         user.addRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         addSelectedItem(p.getId());
@@ -66,7 +66,7 @@ public class KickstartPackageProfileActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         // Gotta make sure we can update the profile to the same entry twice
         actionPerform();
-        assertNotNull(ksdata.getKsdefault().getProfile());
+        assertNotNull(ksdata.getKickstartDefaults().getProfile());
         setRequestPathInfo("/kickstart/KickstartPackageProfileEdit");
         // Need to test that the SetupAction works after we 
         // add the profile to the Kickstart

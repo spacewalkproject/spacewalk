@@ -116,7 +116,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @return Get virtualizationtype
      */
     public KickstartVirtualizationType getVirtualizationType() {
-        return this.ksdata.getKsdefault().getVirtualizationType();
+        return this.ksdata.getKickstartDefaults().getVirtualizationType();
     }
     
     /**
@@ -138,7 +138,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
             }
         }
         
-        this.ksdata.getKsdefault().setVirtualizationType(typeIn);
+        this.ksdata.getKickstartDefaults().setVirtualizationType(typeIn);
     }
     
     /**
@@ -198,7 +198,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         KickstartableTree tree = KickstartFactory.findTreeById(treeId, orgId);
         
         if (tree != null) {
-            this.ksdata.getKsdefault().setKstree(tree);
+            this.ksdata.getKickstartDefaults().setKstree(tree);
             KickstartCommand kcmd = this.ksdata.getCommand("url");
             kcmd.setArguments("--url " + url);
 

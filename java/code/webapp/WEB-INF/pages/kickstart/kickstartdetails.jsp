@@ -35,7 +35,7 @@
           </tr>
           <tr>
             <th><bean:message key="kickstartdetails.jsp.install_type" /></th>
-            <td><strong><c:out value="${ksdata.ksdefault.kstree.channel.name}"/></strong> 
+            <td><strong><c:out value="${ksdata.kickstartdefaults.kstree.channel.name}"/></strong> 
             <a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid=${ksdata.id}">(<bean:message key="kickstartdetails.jsp.changeos"/>)</a></td>
           </tr>
           <tr>

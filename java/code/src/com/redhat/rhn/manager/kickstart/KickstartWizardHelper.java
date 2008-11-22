@@ -186,7 +186,7 @@ public class KickstartWizardHelper {
             ksdata.getCommand("url").setCreated(new Date());            
         }
 
-        ksdata.getKsdefault().setCreated(new Date());
+        ksdata.getKickstartDefaults().setCreated(new Date());
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =

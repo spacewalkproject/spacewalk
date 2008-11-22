@@ -45,7 +45,7 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
                 ksdata.getTree().getChannel());
 
         actionPerform();
-        KickstartableTree tree = ksdata.getKsdefault().getKstree();
+        KickstartableTree tree = ksdata.getKickstartDefaults().getKstree();
         
         verifyFormValue(KickstartSoftwareEditAction.URL, "/" + tree.getBasePath());
         verifyFormValue(KickstartSoftwareEditAction.CHANNEL, tree.getChannel().getId());

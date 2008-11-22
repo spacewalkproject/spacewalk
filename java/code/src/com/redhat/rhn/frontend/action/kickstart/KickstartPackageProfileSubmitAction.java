@@ -110,7 +110,7 @@ public class KickstartPackageProfileSubmitAction extends
                     rctx.getRequiredParam(RequestContext.KICKSTART_ID));
     
         DataResult dr = ProfileManager.compatibleWithChannel(
-                ksdata.getKsdefault().getKstree().getChannel(),
+                ksdata.getKickstartDefaults().getKstree().getChannel(),
                 rctx.getCurrentUser().getOrg(), null);
         return dr;
     }
@@ -129,8 +129,8 @@ public class KickstartPackageProfileSubmitAction extends
                     ctx.getRequiredParam(RequestContext.KICKSTART_ID));
         
         List l = new LinkedList();
-        if (ksdata.getKsdefault().getProfile() != null) {
-            l.add(ksdata.getKsdefault().getProfile());
+        if (ksdata.getKickstartDefaults().getProfile() != null) {
+            l.add(ksdata.getKickstartDefaults().getProfile());
         }
         return l.iterator();
         

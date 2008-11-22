@@ -346,7 +346,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public DataResult getProfiles() {
         DataResult profiles = ProfileManager.compatibleWithChannel(
-                this.ksdata.getKsdefault().getKstree().getChannel(),
+                this.ksdata.getKickstartDefaults().getKstree().getChannel(),
                 user.getOrg(), null);
         return profiles;
     }
@@ -469,7 +469,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         boolean cfgMgmtFlag = 
             this.getKsdata()
-                .getKsdefault()
+                .getKickstartDefaults()
                 .getCfgManagementFlag()
                 .booleanValue();
 
@@ -526,7 +526,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     protected KickstartSession setupKickstartSession(Action firstAction) {
         kickstartSession = new KickstartSession();
-        Boolean deployConfig = this.getKsdata().getKsdefault().getCfgManagementFlag();
+        Boolean deployConfig = this.getKsdata().getKickstartDefaults().getCfgManagementFlag();
         
         // TODO: Proxy logic
         
@@ -537,7 +537,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         kickstartSession.setKsdata(this.getKsdata());
         kickstartSession.setKstree(this.getKsdata().getTree());
         kickstartSession.setVirtualizationType(this.getKsdata()
-                .getKsdefault().getVirtualizationType());
+                .getKickstartDefaults().getVirtualizationType());
         kickstartSession.setLastAction(new Date());
         kickstartSession.setNewServer(this.getTargetServer());
         kickstartSession.setOldServer(this.getTargetServer());
@@ -547,7 +547,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         kickstartSession.setOrg(this.getUser().getOrg());
         kickstartSession.setSystemRhnHost(this.getProxyHost());
         kickstartSession
-            .setVirtualizationType(this.getKsdata().getKsdefault().getVirtualizationType());
+            .setVirtualizationType(this.getKsdata().getKickstartDefaults().getVirtualizationType());
         log.debug("** Saving new KickstartSession: " + kickstartSession.getId());
         KickstartFactory.saveKickstartSession(kickstartSession);
         log.debug("** Saved new KickstartSession: " + kickstartSession.getId());
@@ -1078,7 +1078,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     public DataResult getCompatibleSystems() {
         DataResult dr = SystemManager.systemsSubscribedToChannel(
-                this.getKsdata().getKsdefault().getKstree().getChannel(), user);
+                this.getKsdata().getKickstartDefaults().getKstree().getChannel(), user);
         return dr;
     }
 

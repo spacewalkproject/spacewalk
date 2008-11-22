@@ -102,7 +102,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerDistroEditCommand cmd = new 
             CobblerDistroEditCommand(ksdata.getTree(), user);
         String newName = TestUtils.randomString();
-        ksdata.getKsdefault().getKstree().setLabel(newName);
+        ksdata.getKickstartDefaults().getKstree().setLabel(newName);
         assertNull(cmd.store());
         Map distro = cmd.getDistroMap(); 
         String distroName = (String) distro.get("name"); 

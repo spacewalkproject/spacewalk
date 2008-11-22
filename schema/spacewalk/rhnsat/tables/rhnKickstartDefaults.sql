@@ -38,22 +38,27 @@ rhnKickstartDefaults
                                 constraint rhn_ksd_cmf_nn not null
                                 constraint rhn_ksd_cmf_ck
                                         check (cfg_management_flag in ('Y','N')),
-	remote_command_flag	char(1) default('N')
-				constraint rhn_ksd_rmf_nn not null
-				constraint rhn_ksd_rmf_ck
-					check (remote_command_flag in ('Y','N')),
+        remote_command_flag    char(1) default('N')
+                constraint rhn_ksd_rmf_nn not null
+                constraint rhn_ksd_rmf_ck
+                    check (remote_command_flag in ('Y','N')),
         virtualization_type     number
-	                        constraint rhn_ksd_kvt_nn not null
-                                constraint rhn_ksd_kvt_fk
-				        references rhnKickstartVirtualizationType(id)
-					on delete set null,
-	created                 date default(sysdate)
-                                constraint rhn_ksd_created_nn not null,
+            constraint rhn_ksd_kvt_nn not null
+            constraint rhn_ksd_kvt_fk
+            references rhnKickstartVirtualizationType(id)
+            on delete set null,
+        virt_guest_name         varchar2(256),
+        virt_mem_kb             number, 
+        virt_vcpus              number,
+        virt_disk_gb            number,
+        virt_bridge             varchar2(256),
+        created                 date default(sysdate)
+                                    constraint rhn_ksd_created_nn not null,
         modified                date default(sysdate)
-                                constraint rhn_ksd_modified_nn not null
+                                    constraint rhn_ksd_modified_nn not null
 )
         storage ( freelists 16 )
-	enable row movement
+    enable row movement
         initrans 32;
 
 create index rhn_ksd_kstid_idx

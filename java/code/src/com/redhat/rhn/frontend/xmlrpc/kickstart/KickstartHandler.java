@@ -132,7 +132,7 @@ public class KickstartHandler extends BaseHandler {
             throw new NoSuchKickstartTreeException(kstreeLabel);
         }
 
-        KickstartDefaults ksdefault = ksdata.getKsdefault();
+        KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
         ksdefault.setKstree(tree);
         return 1;
     }

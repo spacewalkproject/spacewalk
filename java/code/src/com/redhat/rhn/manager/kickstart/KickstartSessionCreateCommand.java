@@ -57,15 +57,15 @@ public class KickstartSessionCreateCommand {
         this.ksession.setPackageFetchCount(new Long(0));
         this.ksession.setKsdata(ksdata);
         this.ksession.setVirtualizationType(ksdata
-            .getKsdefault().getVirtualizationType());
+            .getKickstartDefaults().getVirtualizationType());
         this.ksession.setKstree(ksdata.getTree());
         this.ksession.setLastAction(new Date());
         this.ksession.setState(KickstartFactory.SESSION_STATE_CREATED);
         this.ksession.setClientIp(clientIp);
-        log.debug("serverProfile on ksdata: " + ksdata.getKsdefault().getProfile());
-        if (ksdata.getKsdefault().getProfile() != null) {
+        log.debug("serverProfile on ksdata: " + ksdata.getKickstartDefaults().getProfile());
+        if (ksdata.getKickstartDefaults().getProfile() != null) {
             Profile p = ProfileManager.
-                lookupByIdAndOrg(ksdata.getKsdefault().getProfile().getId(), 
+                lookupByIdAndOrg(ksdata.getKickstartDefaults().getProfile().getId(), 
                     owner);
             log.debug("setting serverProfile on session: " + p.getId());
             this.ksession.setServerProfile(p);    
@@ -87,14 +87,14 @@ public class KickstartSessionCreateCommand {
         ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user, 
                 ksdata, null, 
                 this.ksession, toolsChannel, BooleanUtils.toBoolean(
-                        ksdata.getKsdefault().getCfgManagementFlag()), note);
+                        ksdata.getKickstartDefaults().getCfgManagementFlag()), note);
         log.debug("added key: " + key.getKey());
         
         // Need to add child channels to the key so when kickstarting the 
         // system from bare metal we will have the proper child channel subscriptions.
-        if (ksdata.getKsdefault().getProfile() != null) {
+        if (ksdata.getKickstartDefaults().getProfile() != null) {
             log.debug("Checking child channels for packages in profile.");
-            addChildChannelsForProfile(ksdata.getKsdefault().getProfile(), 
+            addChildChannelsForProfile(ksdata.getKickstartDefaults().getProfile(), 
                     ksdata.getChannel(), key);
         }
     }

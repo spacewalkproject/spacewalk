@@ -166,7 +166,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         }
         else {
             KickstartRawData data = getKsData(context);
-            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, data.getKsdefault().
+            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, data.getKickstartDefaults().
                                                 getVirtualizationType().getLabel());
         }
     }

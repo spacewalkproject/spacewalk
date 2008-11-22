@@ -240,10 +240,10 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     }
     
     public void testKickstartPackageName() {
-        ksdata.getKsdefault().getKstree().setInstallType(KickstartFactory.
+        ksdata.getKickstartDefaults().getKstree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
 
-        ksdata.getKsdefault().getKstree().
+        ksdata.getKickstartDefaults().getKstree().
             setBootImage("auto-kickstart-ks-rhel-i386-as-4");
         System.out.println("TYPE: " + ksdata.getInstallType());
         KickstartScheduleCommand cmd = 
@@ -254,7 +254,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertEquals("auto-kickstart-ks-rhel-i386-as-4", 
                 ksdata.getKickstartPackageName());
         
-        ksdata.getKsdefault().getKstree().
+        ksdata.getKickstartDefaults().getKstree().
             setBootImage("ks-rhel-i386-as-4");
         cmd = new KickstartScheduleCommand(server.getId(), 
                                          this.ksdata.getId(), 
@@ -263,7 +263,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertEquals("auto-kickstart-ks-rhel-i386-as-4", 
                 ksdata.getKickstartPackageName());
         
-        ksdata.getKsdefault().getKstree().setInstallType(KickstartFactory.
+        ksdata.getKickstartDefaults().getKstree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         
         assertEquals("spacewalk-koan", 

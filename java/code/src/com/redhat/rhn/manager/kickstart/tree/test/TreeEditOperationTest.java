@@ -87,7 +87,7 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         TreeCreateOperation cmd = new TreeCreateOperation(user);
         setTreeParamsAndStore(cmd);
         KickstartData ksd = KickstartDataTest.createKickstartWithOptions(user.getOrg());
-        ksd.getKsdefault().setKstree(cmd.getTree());
+        ksd.getKickstartDefaults().setKstree(cmd.getTree());
         KickstartFactory.saveKickstartData(ksd);
         flushAndEvict(ksd);
         

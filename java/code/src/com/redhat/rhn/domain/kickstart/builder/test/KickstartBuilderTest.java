@@ -98,8 +98,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         assertNotNull(data);
         assertEquals(label, data.getLabel());
         assertEquals(virtType, 
-                    data.getKsdefault().getVirtualizationType().getLabel());
-        assertEquals(tree, data.getKsdefault().getKstree());
+                    data.getKickstartDefaults().getVirtualizationType().getLabel());
+        assertEquals(tree, data.getKickstartDefaults().getKstree());
         assertEquals(user.getOrg(), data.getOrg());
         return data;
     }

@@ -28,7 +28,7 @@ public class KickstartTestHelper {
     public static KickstartData createTestKickStart(User user) throws Exception {
         // Create a kickstart and the ranges so the list
         // will return something.
-        KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
+        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
 
         TestUtils.saveAndFlush(k);        
         return k;

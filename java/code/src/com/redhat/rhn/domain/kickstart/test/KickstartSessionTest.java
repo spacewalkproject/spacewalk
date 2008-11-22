@@ -48,7 +48,7 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         assertNotNull(k);
         Profile p  = ProfileTest.createTestProfile(user, 
-                k.getKsdefault().getKstree().getChannel());
+                k.getKickstartDefaults().getKstree().getChannel());
         ksession = createKickstartSession(k, user);
         s = ksession.getOldServer();
         ksession.setServerProfile(p);

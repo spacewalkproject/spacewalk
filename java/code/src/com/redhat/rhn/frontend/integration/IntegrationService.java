@@ -93,7 +93,7 @@ public class IntegrationService {
         // On the return checkRandomToken() call
         // we will decode the encoded data to make sure it is the
         // unaltered random number.
-        randomTokenStore.putIfAbsent(login, md5random);
+        randomTokenStore.put(login, md5random);
         String encodedRandom = SessionSwap.encodeData(md5random);
 
         
@@ -115,7 +115,7 @@ public class IntegrationService {
      * @param token to set
      */
     public void setAuthorizationToken(String login, String token) {
-        cobblerAuthTokenStore.putIfAbsent(login, token);
+        cobblerAuthTokenStore.put(login, token);
     }
 
     /**

@@ -30,11 +30,11 @@ public class KickstartPackageProfileCommandTest extends BaseKickstartCommandTest
     public void testProfileCommand() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(user);
-        Profile p = k.getKsdefault().getProfile();
-        k.getKsdefault().setProfile(null);
+        Profile p = k.getKickstartDefaults().getProfile();
+        k.getKickstartDefaults().setProfile(null);
         KickstartFactory.saveKickstartData(k);
         k = (KickstartData) reload(k);
-        assertNull(k.getKsdefault().getProfile());
+        assertNull(k.getKickstartDefaults().getProfile());
         flushAndEvict(k);
         
         KickstartPackageProfileCommand cmd = new 
@@ -43,7 +43,7 @@ public class KickstartPackageProfileCommandTest extends BaseKickstartCommandTest
         cmd.setProfile(p);
         cmd.store();
         k = (KickstartData) reload(k);
-        assertNotNull(k.getKsdefault().getProfile());
+        assertNotNull(k.getKickstartDefaults().getProfile());
     }
 
 }

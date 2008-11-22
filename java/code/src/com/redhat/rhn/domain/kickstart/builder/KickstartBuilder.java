@@ -447,7 +447,7 @@ public class KickstartBuilder {
         ksdata.setOrgDefault(false);
         KickstartDefaults defaults = new KickstartDefaults();
         defaults.setKstree(ksTree);
-        ksdata.setKsdefault(defaults);
+        ksdata.setKickstartDefaults(defaults);
         defaults.setKsdata(ksdata);
         defaults.setCfgManagementFlag(Boolean.FALSE);
         defaults.setRemoteCommandFlag(Boolean.FALSE);
@@ -469,7 +469,7 @@ public class KickstartBuilder {
             validateNewLabel(label);
             data.setLabel(label);
         }
-        data.getKsdefault().setKstree(ksTree);
+        data.getKickstartDefaults().setKstree(ksTree);
         setupVirtType(virtType, data);
         
     }
@@ -488,7 +488,7 @@ public class KickstartBuilder {
         if (ksVirtType == null) {
                 throw new InvalidVirtualizationTypeException(virtType);
         }
-        data.getKsdefault().setVirtualizationType(ksVirtType);
+        data.getKickstartDefaults().setVirtualizationType(ksVirtType);
     }
     
     /**
@@ -601,7 +601,7 @@ public class KickstartBuilder {
      * @param ksdata Kickstart data
      */
     public static void setBootloader(KickstartWizardHelper cmd, KickstartData ksdata) {
-        if (ksdata.getKsdefault().getVirtualizationType().getLabel().equals(
+        if (ksdata.getKickstartDefaults().getVirtualizationType().getLabel().equals(
                 KickstartVirtualizationType.XEN_PARAVIRT)) {
             cmd.createCommand("bootloader", "--location mbr --driveorder=xvda --append=", 
                     ksdata);
@@ -626,7 +626,7 @@ public class KickstartBuilder {
             setPpcPartitionScheme(cmd, ksdata);
         }
         else {
-            String virtType = ksdata.getKsdefault().getVirtualizationType().getLabel();
+            String virtType = ksdata.getKickstartDefaults().getVirtualizationType().getLabel();
             if (virtType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
                 cmd.createCommand("partitions", "pv.00 --size=0 --grow --ondisk=xvda",
                         ksdata);

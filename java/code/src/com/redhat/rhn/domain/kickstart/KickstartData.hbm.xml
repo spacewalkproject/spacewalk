@@ -122,7 +122,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 class="com.redhat.rhn.domain.channel.Channel" />
         </set>                                 
                                                        
-        <one-to-one name="ksdefault"
+        <one-to-one name="kickstartDefaults"
             class="com.redhat.rhn.domain.kickstart.KickstartDefaults"
             cascade="save-update"/>     
             

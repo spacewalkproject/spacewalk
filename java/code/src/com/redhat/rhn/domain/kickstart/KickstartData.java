@@ -78,7 +78,7 @@ public class KickstartData {
     private Set repos;        // rhnKickstartCommand repo
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
-    private KickstartDefaults ksdefault;
+    private KickstartDefaults kickstartDefaults;
     private SortedSet<KickstartCommand> customOptions;
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
@@ -716,16 +716,16 @@ public class KickstartData {
      * 
      * @param kd KickstartDefaults to set
      */
-    public void setKsdefault(KickstartDefaults kd) {
-        this.ksdefault = kd;        
+    public void setKickstartDefaults(KickstartDefaults kd) {
+        this.kickstartDefaults = kd;        
     }
     
     /**
      * 
      * @return the Kickstart Defaults assoc w/this Kickstart
      */
-    public KickstartDefaults getKsdefault() {
-        return this.ksdefault;
+    public KickstartDefaults getKickstartDefaults() {
+        return this.kickstartDefaults;
     }
         
     /**
@@ -813,8 +813,8 @@ public class KickstartData {
      * @return KickstartableTree object associated with this KSData.
      */
     public KickstartableTree getTree() {
-        if (this.getKsdefault() != null) {
-            return this.getKsdefault().getKstree();
+        if (this.getKickstartDefaults() != null) {
+            return this.getKickstartDefaults().getKstree();
         }
         return null;
     }
@@ -824,7 +824,7 @@ public class KickstartData {
      * @param kstreeIn the KickstartableTree to set
      */
     public void setTree(KickstartableTree kstreeIn) {
-        this.getKsdefault().setKstree(kstreeIn);
+        this.getKickstartDefaults().setKstree(kstreeIn);
     }
      
     /**
@@ -878,7 +878,7 @@ public class KickstartData {
      * @return boolean - required, or not
      */
     public boolean getEliloRequired() {
-        return this.getKsdefault().getKstree().getChannel()
+        return this.getKickstartDefaults().getKstree().getChannel()
             .getChannelArch().getLabel().equals("channel-ia64");
     }
 
@@ -934,9 +934,9 @@ public class KickstartData {
      * @return Channel object associated with this KickstartData
      */
     public Channel getChannel() {
-        if (this.ksdefault != null) {
-            if (this.ksdefault.getKstree() != null) {
-                return this.ksdefault.getKstree().getChannel();
+        if (this.kickstartDefaults != null) {
+            if (this.kickstartDefaults.getKstree() != null) {
+                return this.kickstartDefaults.getKstree().getChannel();
             }
         }
         return null;
@@ -1056,8 +1056,8 @@ public class KickstartData {
         // NOTE: Make sure we *DONT* clone isOrgDefault
         cloned.setIsOrgDefault(Boolean.FALSE);
         cloned.setKernelParams(this.getKernelParams());
-        if (this.getKsdefault() != null) {
-            cloned.setKsdefault(this.getKsdefault().deepCopy(cloned));
+        if (this.getKickstartDefaults() != null) {
+            cloned.setKickstartDefaults(this.getKickstartDefaults().deepCopy(cloned));
         }
         cloned.setOrg(this.getOrg());
         if (this.getPackageNames() != null) {
@@ -1139,10 +1139,10 @@ public class KickstartData {
         if (installType.equals(KickstartInstallType.RHEL_4) || 
                 installType.equals(KickstartInstallType.RHEL_3) ||
                     installType.equals(KickstartInstallType.RHEL_21)) {
-            String packageName = this.getKsdefault().getKstree().getBootImage();
+            String packageName = this.getKickstartDefaults().getKstree().getBootImage();
             if (!packageName.startsWith(LEGACY_KICKSTART_PACKAGE_NAME)) {
                 packageName = LEGACY_KICKSTART_PACKAGE_NAME  + 
-                    this.getKsdefault().getKstree().getBootImage();
+                    this.getKickstartDefaults().getKstree().getBootImage();
             }
             return packageName;
         }
@@ -1257,7 +1257,7 @@ public class KickstartData {
      * @return True if config management is enabled in this profile..
      */
     public boolean isConfigManageable() {
-        return getKsdefault() != null && getKsdefault().getCfgManagementFlag();
+        return getKickstartDefaults() != null && getKickstartDefaults().getCfgManagementFlag();
     }
     
     /**
@@ -1265,7 +1265,7 @@ public class KickstartData {
      * @return True if remote command flag is  enabled in this profile..
      */
     public boolean isRemoteCommandable() {
-        return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
+        return getKickstartDefaults() != null && getKickstartDefaults().getRemoteCommandFlag();
     }
 
     /**

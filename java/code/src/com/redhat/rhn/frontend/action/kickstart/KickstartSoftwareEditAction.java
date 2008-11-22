@@ -61,7 +61,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             BaseKickstartCommand cmdIn) {
         String fieldChanged = form.getString("fieldChanged");
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
-        KickstartableTree tree = cmd.getKickstartData().getKsdefault().getKstree();
+        KickstartableTree tree = cmd.getKickstartData().getKickstartDefaults().getKstree();
         List trees = null;
         Long incomingChannelId = (Long) form.get(CHANNEL);
         Long channelId = incomingChannelId;

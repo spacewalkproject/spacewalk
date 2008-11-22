@@ -400,7 +400,7 @@ public class KickstartFormatter {
         for (Iterator itr = ksdata.getPackageNames().iterator(); itr.hasNext();) {
             buf.append(((PackageName)itr.next()).getName() + NEWLINE);
         }
-        if (ksdata.getKsdefault().getVirtualizationType().getLabel().equals("para_host")) {
+        if (ksdata.getKickstartDefaults().getVirtualizationType().getLabel().equals("para_host")) {
             buf.append("kernel-xen" + NEWLINE);
             buf.append("xen" + NEWLINE);
         }
@@ -575,7 +575,7 @@ public class KickstartFormatter {
             }
         }
         
-        if (this.ksdata.getKsdefault().getVirtualizationType()
+        if (this.ksdata.getKickstartDefaults().getVirtualizationType()
                 .getLabel().equals("para_host")) {
             retval.append(VIRT_HOST_GRUB_FIX);
         }
@@ -627,11 +627,11 @@ public class KickstartFormatter {
                      NEWLINE);
         }
 
-        if (this.ksdata.getKsdefault().getRemoteCommandFlag().booleanValue()) {
+        if (this.ksdata.getKickstartDefaults().getRemoteCommandFlag().booleanValue()) {
             retval.append(REMOTE_CMD + NEWLINE);
         }
         
-        if (this.ksdata.getKsdefault().getCfgManagementFlag().booleanValue()) {
+        if (this.ksdata.getKickstartDefaults().getCfgManagementFlag().booleanValue()) {
             retval.append(CONFIG_CMD + NEWLINE);
         }                
         
@@ -760,7 +760,7 @@ public class KickstartFormatter {
     private HashSet getUpdatePackages(List<ActivationKey> keys) {                
         log.debug("getUpdatePackages() ..");
         HashSet retval = new HashSet();
-        Channel c = ksdata.getKsdefault().getKstree().getChannel();
+        Channel c = ksdata.getKickstartDefaults().getKstree().getChannel();
         for (ActivationKey key : keys) {
             for (Channel chan : key.getChannels()) {
                 if (chan.isBaseChannel()) {
@@ -805,7 +805,7 @@ public class KickstartFormatter {
      */
     private HashSet getFreshPackages(List<ActivationKey> keys) {
                     
-            Channel c = ksdata.getKsdefault().getKstree().getChannel();
+            Channel c = ksdata.getKickstartDefaults().getKstree().getChannel();
             for (ActivationKey key : keys) {
                 for (Channel chan : key.getChannels()) {
                     if (chan.isBaseChannel()) {

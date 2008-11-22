@@ -37,7 +37,7 @@ public class KickstartDownloadActionTest extends BaseKickstartEditTestCase {
     public static Channel setupKickstartDownloadTest(KickstartData ksdata, 
             User user) throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
-        ksdata.getKsdefault().getKstree().setChannel(c);
+        ksdata.getKickstartDefaults().getKstree().setChannel(c);
         KickstartDataTest.addKickstartPackagesToChannel(c, true);
         return c;
     }

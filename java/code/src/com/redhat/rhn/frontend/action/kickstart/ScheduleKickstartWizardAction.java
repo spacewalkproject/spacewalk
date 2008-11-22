@@ -310,7 +310,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         }
         
         // now setup system/package profiles for kickstart to sync
-        Profile pkgProfile = cmd.getKsdata().getKsdefault().getProfile();
+        Profile pkgProfile = cmd.getKsdata().getKickstartDefaults().getProfile();
         Long packageProfileId = pkgProfile != null ? pkgProfile.getId() : null;        
         
         //if user did not override package profile, then grab from ks profile if avail

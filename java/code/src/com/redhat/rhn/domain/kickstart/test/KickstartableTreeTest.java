@@ -91,7 +91,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
                 ChannelFactoryTest.createTestChannel(user));
         KickstartData ksdata = KickstartDataTest.
             createKickstartWithOptions(user.getOrg());
-        ksdata.getKsdefault().setKstree(k);
+        ksdata.getKickstartDefaults().setKstree(k);
         KickstartFactory.saveKickstartData(ksdata);
         flushAndEvict(ksdata);
         

@@ -40,7 +40,7 @@ public class KickstartSessionCommandCreateTest extends BaseKickstartCommandTestC
         ActivationKeysTest.addKeysToKickstartData(user, ksdata);
         user.addRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
-        ksdata.getKsdefault().setProfile(p);
+        ksdata.getKickstartDefaults().setProfile(p);
         TestUtils.saveAndFlush(ksdata);
         Channel toolsChannel = ChannelFactoryTest.createTestChannel(user);
         KickstartScheduleCommandTest.

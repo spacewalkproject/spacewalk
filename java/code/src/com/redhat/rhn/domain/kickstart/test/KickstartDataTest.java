@@ -100,7 +100,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public void testProfile() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         KickstartData k = createKickstartWithProfile(user);
-        assertNotNull(k.getKsdefault().getProfile());
+        assertNotNull(k.getKickstartDefaults().getProfile());
         
     }
     
@@ -127,7 +127,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public static KickstartData createKickstartWithProfile(User user) throws Exception {
         KickstartData k = createTestKickstartData(user.getOrg()); 
         KickstartDefaults d1 = createDefaults(k, user);
-        k.setKsdefault(d1);
+        k.setKickstartDefaults(d1);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         d1.setProfile(p);
         d1.getKstree().setChannel(p.getBaseChannel());
@@ -153,15 +153,15 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         
         KickstartData k = createTestKickstartData(user.getOrg()); 
         KickstartDefaults d1 = createDefaults(k, user);
-        k.setKsdefault(d1);
+        k.setKickstartDefaults(d1);
         
         TestUtils.saveAndFlush(k);
         
         KickstartableTree t2 = d1.getKstree();
         assertNotNull(t2);
-        assertEquals(t2, k.getKsdefault().getKstree());
+        assertEquals(t2, k.getKickstartDefaults().getKstree());
         
-        KickstartDefaults d2 = k.getKsdefault();
+        KickstartDefaults d2 = k.getKickstartDefaults();
         assertNotNull(d2);
         
         KickstartableTree t1 = d2.getKstree();
@@ -177,7 +177,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(i1.getName(), i2.getName());  
         
         KickstartData k2 = lookupById(user.getOrg(), k.getId());
-        assertNotNull(k2.getKsdefault());
+        assertNotNull(k2.getKickstartDefaults());
     }
     
     public void testDeleteKickstartData() throws Exception {
@@ -197,7 +197,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     
     public void testChildChannels() throws Exception {
         KickstartData ksdata = createTestKickstartData(user.getOrg());
-        ksdata.setKsdefault(createDefaults(ksdata, user));
+        ksdata.setKickstartDefaults(createDefaults(ksdata, user));
         assertNotNull(ksdata);
         assertNotNull(ksdata.getTree());
         assertNotNull(ksdata.getTree().getChannel());
@@ -384,7 +384,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertNotNull(k);        
         
         
-        k.setKsdefault(KickstartDataTest.createDefaults(k, 
+        k.setKickstartDefaults(KickstartDataTest.createDefaults(k, 
                 UserTestUtils.ensureOrgAdminExists(orgIn)));
         
         KickstartCommandName raidName = lookupByLabel("raids");
@@ -462,7 +462,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartData ksdata = KickstartDataTest.createTestKickstartData(orgIn); 
         KickstartDefaults d1 = KickstartDataTest.createDefaults(ksdata, 
                 UserTestUtils.ensureOrgAdminExists(orgIn));
-        ksdata.setKsdefault(d1);
+        ksdata.setKickstartDefaults(d1);
         return ksdata;
     }
     
@@ -567,7 +567,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(k.getOrg(), cloned.getOrg());
         
         // Test the advanced fields
-        assertEquals(cloned.getKsdefault().getKstree(), k.getKsdefault().getKstree());
+        assertEquals(cloned.getKickstartDefaults().getKstree(), k.getKickstartDefaults().getKstree());
         verifySet(cloned.getCommands(),  k.getCommands(), KickstartCommand.class);
         verifySet(cloned.getCryptoKeys(), k.getCryptoKeys(), CryptoKey.class);
         verifySet(cloned.getDefaultRegTokens(), k.getDefaultRegTokens(), Token.class);

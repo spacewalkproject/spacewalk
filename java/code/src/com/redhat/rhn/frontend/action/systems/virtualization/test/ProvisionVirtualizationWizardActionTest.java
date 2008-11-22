@@ -135,7 +135,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         // Perform step2
         KickstartData k = KickstartDataTest.createKickstartWithProfile(user);
         // Required so the server and profile match base channels
-        k.getKsdefault().getKstree().setChannel(s.getBaseChannel());
+        k.getKickstartDefaults().getKstree().setChannel(s.getBaseChannel());
 
         // Create other server to sync
         Server otherServer = ServerFactoryTest.createTestServer(user, true, 

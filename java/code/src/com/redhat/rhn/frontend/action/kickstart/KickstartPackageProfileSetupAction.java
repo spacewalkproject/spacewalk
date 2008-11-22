@@ -38,8 +38,8 @@ public class KickstartPackageProfileSetupAction extends BaseKickstartListSetupAc
      */
     protected Iterator getCurrentItemsIterator(KickstartData ksdata) {
         List l = new LinkedList();
-        if (ksdata.getKsdefault().getProfile() != null) {
-            l.add(ksdata.getKsdefault().getProfile());
+        if (ksdata.getKickstartDefaults().getProfile() != null) {
+            l.add(ksdata.getKickstartDefaults().getProfile());
         }
         return l.iterator();
     }
@@ -60,7 +60,7 @@ public class KickstartPackageProfileSetupAction extends BaseKickstartListSetupAc
                     rctx.getRequiredParam(RequestContext.KICKSTART_ID));
 
         return ProfileManager.compatibleWithChannel(
-                ksdata.getKsdefault().getKstree().getChannel(),
+                ksdata.getKickstartDefaults().getKstree().getChannel(),
                 rctx.getCurrentUser().getOrg(), pc);
     }
 }

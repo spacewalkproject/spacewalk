@@ -32,6 +32,7 @@ public class NoCobblerTokenException extends RuntimeException {
     /**
      * Constructor 
      * @param msg to show user
+     * @param e the actual exception 
      */
     public NoCobblerTokenException(String msg, Exception e) {
         super(msg, e);

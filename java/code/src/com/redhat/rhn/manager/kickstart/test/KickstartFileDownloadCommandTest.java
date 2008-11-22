@@ -34,7 +34,7 @@ public class KickstartFileDownloadCommandTest extends
     public void testDownload() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         Channel c = ChannelFactoryTest.createTestChannel(user);
-        ksdata.getKsdefault().getKstree().setChannel(c);
+        ksdata.getKickstartDefaults().getKstree().setChannel(c);
         KickstartDataTest.addKickstartPackagesToChannel(c, true);
         ksdata.getTree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));

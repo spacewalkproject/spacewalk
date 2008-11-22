@@ -102,7 +102,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
     
     
     public void testRHEL3Execute() throws Exception {
-        ksdata.getKsdefault().getKstree().
+        ksdata.getKickstartDefaults().getKstree().
             setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_3));
         KickstartFactory.saveKickstartData(ksdata);
@@ -123,7 +123,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
     }
 
     public void testRHEL4Execute() throws Exception {
-        ksdata.getKsdefault().getKstree().
+        ksdata.getKickstartDefaults().getKstree().
         setInstallType(KickstartFactory.
             lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
         KickstartFactory.saveKickstartData(ksdata);

@@ -76,7 +76,7 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
     public void testGetKickstartMediaUrl() {
         String expected = "http://spacewalk.example.com" +
             KickstartUrlHelper.KS_DIST + "/" + 
-                ksdata.getKsdefault().getKstree().getLabel();
+                ksdata.getKickstartDefaults().getKstree().getLabel();
         System.out.println("Expected: " + expected);
         assertEquals(expected, helper.getKickstartMediaUrl());
         

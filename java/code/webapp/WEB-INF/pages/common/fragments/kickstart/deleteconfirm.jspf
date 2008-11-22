@@ -32,7 +32,7 @@
           <c:if test="${not param.raw_mode}">
           <tr>
             <th><bean:message key="kickstartdetails.jsp.install_type" /></th>
-            <td><strong><c:out value="${ksdata.ksdefault.kstree.channel.name}"/></strong></td>
+            <td><strong><c:out value="${ksdata.kickstartdefaults.kstree.channel.name}"/></strong></td>
           </tr>
           </c:if>
           <tr>

@@ -223,7 +223,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
-        ksdata.getKsdefault().setKstree(t);
+        ksdata.getKickstartDefaults().setKstree(t);
         KickstartFactory.saveKickstartData(ksdata);
         TestUtils.flushAndEvict(ksdata);
         assertNotNull(t);

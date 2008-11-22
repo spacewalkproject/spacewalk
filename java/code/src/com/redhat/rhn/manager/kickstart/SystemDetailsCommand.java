@@ -135,7 +135,7 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
      * @param enable true to enable config management, false to disable config mgmt  
      */
     public void enableConfigManagement(boolean enable) {
-        KickstartDefaults defaults = ksdata.getKsdefault();
+        KickstartDefaults defaults = ksdata.getKickstartDefaults();
         if (defaults == null) {
             defaults = new KickstartDefaults();
             defaults.setCreated(new Date());
@@ -148,7 +148,7 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
      * @param enable true to enable,  false to diable remote commands.  
      */
     public void enableRemoteCommands(boolean enable) {
-        KickstartDefaults defaults = ksdata.getKsdefault();
+        KickstartDefaults defaults = ksdata.getKickstartDefaults();
         if (defaults == null) {
             defaults = new KickstartDefaults();
             defaults.setCreated(new Date());

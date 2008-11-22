@@ -530,7 +530,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         KickstartDataTest.addCommand(admin, k, "url", "--url http://cascade.sfbay.redhat." +
                 "com/rhn/kickstart/ks-rhel-i386-server-5");
         
-        k.getKsdefault().getKstree().setChannel(server.getBaseChannel());
+        k.getKickstartDefaults().getKstree().setChannel(server.getBaseChannel());
         ChannelTestUtils.setupBaseChannelForVirtualization(admin, server.getBaseChannel());
         
         
