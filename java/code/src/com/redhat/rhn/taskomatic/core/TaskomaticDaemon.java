@@ -15,7 +15,6 @@
 package com.redhat.rhn.taskomatic.core;
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.daemon.BaseDaemon;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;

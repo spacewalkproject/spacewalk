@@ -12,9 +12,9 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
-package com.redhat.rhn.common.daemon.test;
+package com.redhat.rhn.taskomatic.core.test;
 
-import com.redhat.rhn.common.daemon.BaseDaemon;
+import com.redhat.rhn.taskomatic.core.BaseDaemon;
 
 import org.apache.commons.cli.CommandLine;
 
