@@ -15,7 +15,7 @@
 package com.redhat.rhn.task;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.taskomatic.SchedulerKernel;
+import com.redhat.rhn.taskomatic.core.SchedulerKernel;
 
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;

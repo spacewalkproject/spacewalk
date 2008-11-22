@@ -16,7 +16,7 @@
 /*
  * AUTOMATICALLY GENERATED FILE, DO NOT EDIT.
  */
-package com.redhat.rhn.taskomatic;
+package com.redhat.rhn.taskomatic.core;
 
 /**
  * Indicates Taskomatic is having a problem
