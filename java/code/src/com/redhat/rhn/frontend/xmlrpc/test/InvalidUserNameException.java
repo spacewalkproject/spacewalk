@@ -16,7 +16,7 @@
 /*
  * AUTOMATICALLY GENERATED FILE, DO NOT EDIT.
  */
-package com.redhat.rhn.client;
+package com.redhat.rhn.frontend.xmlrpc.test;
 
 import com.redhat.rhn.FaultException;
 
