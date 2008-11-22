@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.taskomatic.core;
 
-import com.redhat.rhn.task.TaskConstants;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 /**
  * Various constants used by the Taskomatic daemon
