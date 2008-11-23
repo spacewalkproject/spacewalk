@@ -66,8 +66,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
             lookupKickstartTreeByLabel(treeLabel, userIn.getOrg());
     }
     
-
-    
     /**
      * {@inheritDoc}
      */

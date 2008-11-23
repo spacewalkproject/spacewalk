@@ -14,13 +14,12 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
-import java.util.Arrays;
+import org.apache.log4j.Logger;
+
 import java.util.Map;
 
 /**
@@ -51,15 +50,14 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
      */
     @Override
     public ValidatorError store() {
-        String[] args = { 
-                this.tree.getLabel(), xmlRpcToken};
         
         Map distro = this.getDistroMap();
         if (distro == null || distro.isEmpty()) {
             log.warn("No cobbler distro associated with this Tree.");
             return null;
         }
-        Boolean rc = (Boolean) invokeXMLRPC("remove_distro", Arrays.asList(args));
+        Boolean rc = (Boolean) invokeXMLRPC("remove_distro", 
+                                    tree.getCobblerDistroName(), xmlRpcToken);
         if (rc == null || !rc.booleanValue()) {
             return new ValidatorError("cobbler.profile.remove_failed");
         }

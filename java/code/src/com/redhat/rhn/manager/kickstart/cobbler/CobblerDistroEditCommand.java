@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -40,35 +38,31 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
     }
 
     private static Logger log = Logger.getLogger(CobblerDistroEditCommand.class);
-
     
     /**
      * {@inheritDoc}
      */
     @Override
     public ValidatorError store() {
-        log.debug("Distro: " + this.getDistroMap());
-        String[] args = {this.tree.getCobblerDistroName(), xmlRpcToken};
-        String handle = getDistroHandle();
-        args = new String[]{handle, this.tree.getLabel(), xmlRpcToken};
-        invokeXMLRPC("rename_distro", Arrays.asList(args));
+        
+        if (!tree.getCobblerDistroName().equals(tree.getOldCobblerDistroName())) {
+            String handle = (String) invokeXMLRPC("get_distro_handle", 
+                    tree.getOldCobblerDistroName(), xmlRpcToken);
+            
+            invokeXMLRPC("rename_distro", handle, 
+                    this.tree.getCobblerDistroName(), xmlRpcToken);
+        }
         // now that we have saved the distro to the filesystem
         // we need to reflect this in the actual Java object. 
-        this.tree.setCobblerDistroName(getCobblerDistroName(this.tree));
+        
         // Get a new handle because the old handled pointed to 
         // the old object and if we call save_distro below we will
         // get a new distro saved.
-        handle = getDistroHandle();
+        String handle = (String) invokeXMLRPC("get_distro_handle",
+                                    tree.getCobblerDistroName(), xmlRpcToken);
         updateCobblerFields(handle);
-        args = new String[]{handle, xmlRpcToken};
-        invokeXMLRPC("save_distro", Arrays.asList(args));
+        invokeXMLRPC("save_distro", handle, xmlRpcToken);
         return null;
     }
 
-    private String getDistroHandle() { 
-        String[] args = {this.tree.getCobblerDistroName(), xmlRpcToken};
-        String handle = (String) invokeXMLRPC("get_distro_handle", Arrays.asList(args));
-        return handle;
-    }
 }
-

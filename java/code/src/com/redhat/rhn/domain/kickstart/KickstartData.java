@@ -85,7 +85,7 @@ public class KickstartData {
     public static final String KICKSTART_PACKAGE_NAME = "spacewalk-koan";
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
-    private String cobblerName;
+    private String oldCobblerName;
 
     
     /**
@@ -164,10 +164,10 @@ public class KickstartData {
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
-        this.label = labelIn;
-        if (this.cobblerName == null) {
-            this.cobblerName = labelIn;
+        if (label != null) {
+            setOldCobblerName(getCobblerName());    
         }
+        this.label = labelIn;
     }
 
     /** 
@@ -1268,18 +1268,26 @@ public class KickstartData {
         return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
     }
 
+    
     /**
      * @return the cobblerName
      */
     public String getCobblerName() {
-        return cobblerName;
+        return getOrg().getId() + "-" + getLabel();
+    }
+    
+    /**
+     * @return the cobblerName
+     */
+    public String getOldCobblerName() {
+        return oldCobblerName;
     }
     
     /**
      * @param cobblerNameIn the cobblerName to set
      */
-    public void setCobblerName(String cobblerNameIn) {
-        this.cobblerName = cobblerNameIn;
+    public void setOldCobblerName(String cobblerNameIn) {
+        this.oldCobblerName = cobblerNameIn;
     }    
 
     /**

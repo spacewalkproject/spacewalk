@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -48,29 +46,23 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      */
     public ValidatorError store() {
         log.debug("ProfileMap: " + this.getProfileMap());
-        String[] args = {this.ksData.getCobblerName(), xmlRpcToken};
-        String handle = getProfileHandle();
-        args = new String[]{handle, this.ksData.getLabel(), xmlRpcToken};
-        invokeXMLRPC("rename_profile", Arrays.asList(args));
-        // now that we have saved the distro to the filesystem
-        // we need to reflect this in the actual Java object. 
-        this.ksData.setCobblerName(this.ksData.getLabel());
-        // Get a new handle because the old handled pointed to 
-        // the old object and if we call save_distro below we will
-        // get a new distro saved.
-        handle = getProfileHandle();
+        
+        if (!ksData.getCobblerName().equals(ksData.getOldCobblerName())) {
+            String handle = (String) invokeXMLRPC("get_profile_handle",
+                                        ksData.getOldCobblerName(), xmlRpcToken);
+            invokeXMLRPC("rename_profile", handle, 
+                        this.ksData.getCobblerName(), xmlRpcToken);
+            
+        }
+
+        String handle = (String) invokeXMLRPC("get_profile_handle",
+                ksData.getCobblerName(), xmlRpcToken);        
+        
         updateCobblerFields(handle);
-        args = new String[]{handle, xmlRpcToken};
-        invokeXMLRPC("save_profile", Arrays.asList(args));
+        
+        invokeXMLRPC("save_profile", handle, xmlRpcToken);
         return null;
 
     }
-    
-    private String getProfileHandle() { 
-        String[] args = {this.ksData.getCobblerName(), xmlRpcToken};
-        String handle = (String) invokeXMLRPC("get_profile_handle", Arrays.asList(args));
-        return handle;
-    }
-
 
 }

@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -49,17 +47,13 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
      * @return ValidatorError if there was a problem
      */
     public ValidatorError store() {
-        String[] args = {xmlRpcToken};
-        String id = (String) invokeXMLRPC("new_profile", Arrays.asList(args));
+        String id = (String) invokeXMLRPC("new_profile", xmlRpcToken);
         log.debug("id: " + id);
-        args = new String[]{id, "name", this.ksData.getLabel(), xmlRpcToken};
-        invokeXMLRPC("modify_profile", Arrays.asList(args));
-        
+        invokeXMLRPC("modify_profile", id, "name", 
+                                this.ksData.getCobblerName(), xmlRpcToken);
         updateCobblerFields(id);
-        
-        args = new String[]{id, xmlRpcToken};
-        invokeXMLRPC("save_profile", Arrays.asList(args));
-        this.ksData.setCobblerName(this.ksData.getLabel());
+        invokeXMLRPC("save_profile", id, xmlRpcToken);
+        this.ksData.setOldCobblerName(this.ksData.getCobblerName());
         return null;
     }
 
