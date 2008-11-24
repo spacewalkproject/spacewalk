@@ -310,7 +310,7 @@ function OratabEntry() {
     if [ -z "$db" ] ; then return ; fi
 
     echo "Adding '$db' entry to $Oratab"
-    echo "$db:$ORACLE_HOME:N" >>$Oratab
+    echo "$db:$ORACLE_HOME:Y" >>$Oratab
 }
 
 #### MAIN PROGRAM
