@@ -15,8 +15,8 @@
 package com.redhat.rhn.frontend.action;
 
 import com.redhat.rhn.common.db.datasource.Elaborator;
-import com.redhat.rhn.common.download.ByteArrayStreamInfo;
 import com.redhat.rhn.common.util.CSVWriter;
+import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
 import org.apache.struts.action.ActionForm;

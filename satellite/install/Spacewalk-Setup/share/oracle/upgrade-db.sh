@@ -26,7 +26,7 @@ ORACLE_CONFIG_9I_DIR=$ORACLE_BASE/config/9.2.0
 
 
 # add rhnsat entry to oratab
-echo "rhnsat:$ORACLE_HOME:N" >>/etc/oratab
+echo "rhnsat:$ORACLE_HOME:Y" >>/etc/oratab
 
 # change env to rhnsat instance
 ORACLE_SID=rhnsat

@@ -59,7 +59,7 @@ import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
-import com.redhat.rhn.task.TaskConstants;
+import com.redhat.rhn.taskomatic.task.TaskConstants;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.time.StopWatch;

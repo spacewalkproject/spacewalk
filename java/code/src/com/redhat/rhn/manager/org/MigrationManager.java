@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.domain.org.Org;
@@ -54,22 +55,24 @@ public class MigrationManager extends BaseManager {
     /**
      * Migrate a set of servers to the organization specified
      * @param user Org admin that is performing the migration
-     * @param servers List of servers to be migrated
+     * @param fromOrg The origination org
      * @param toOrg The destination org
+     * @param servers List of servers to be migrated
      * @return the list of server ids successfully migrated.
      */
-    public static List<Long> migrateServers(User user, List<Server> servers, Org toOrg) {
+    public static List<Long> migrateServers(User user, Org fromOrg, Org toOrg, 
+            List<Server> servers) {
         
         List<Long> serversMigrated = new ArrayList<Long>();
         
         for (Server server : servers) {
         
             MigrationManager.removeOrgRelationships(user, server);
-            MigrationManager.updateAdminRelationships(user.getOrg(), toOrg, server);
-            MigrationManager.moveServerToOrg(user.getOrg(), toOrg, server);
+            MigrationManager.updateAdminRelationships(fromOrg, toOrg, server);
+            MigrationManager.moveServerToOrg(fromOrg, toOrg, server);
             serversMigrated.add(server.getId());
             OrgFactory.save(toOrg);
-            OrgFactory.save(user.getOrg());
+            OrgFactory.save(fromOrg);
             ServerFactory.save(server);
             
             // update server history to record the migration.
@@ -77,14 +80,14 @@ public class MigrationManager extends BaseManager {
             event.setCreated(new Date());
             event.setServer(server);
             event.setSummary("System migration");
-            String details = "From organization: " + user.getOrg().getName();
+            String details = "From organization: " + fromOrg.getName();
             details += " to organization: " + toOrg.getName();
             event.setDetails(details);
             server.getHistory().add(event);
 
             SystemMigration migration = SystemMigrationFactory.createSystemMigration();
             migration.setToOrg(toOrg);
-            migration.setFromOrg(user.getOrg());
+            migration.setFromOrg(fromOrg);
             migration.setServer(server);
             migration.setMigrated(new Date());
             SystemMigrationFactory.save(migration);
@@ -129,12 +132,14 @@ public class MigrationManager extends BaseManager {
         }
         
         // Remove the errata and package cache
-        ErrataCacheManager.deleteNeededErrataCache(server.getId(), user.getOrg().getId());
-        ErrataCacheManager.deleteNeededPackageCache(server.getId(), user.getOrg().getId());
+        ErrataCacheManager.deleteNeededErrataCache(server.getId(), 
+                server.getOrg().getId());
+        ErrataCacheManager.deleteNeededPackageCache(server.getId(), 
+                server.getOrg().getId());
         
         // Remove snapshots
         List<ServerSnapshot> snapshots = ServerFactory.listSnapshotsForServer(
-                server, user.getOrg());
+                server, server.getOrg());
         for (ServerSnapshot snapshot : snapshots) {
             ServerFactory.deleteSnapshot(snapshot);
         }
@@ -143,13 +148,14 @@ public class MigrationManager extends BaseManager {
         MonitoringManager monMgr = MonitoringManager.getInstance();
         for (ServerProbeDto dto : monMgr.probesForSystem(user, server, null)) {
             if (dto.getIsSuiteProbe()) {
-                ProbeSuite suite = monMgr.lookupProbeSuite(dto.getProbeSuiteId(),
-                        user);
+                ProbeSuite suite = MonitoringFactory.lookupProbeSuiteByIdAndOrg(
+                        dto.getProbeSuiteId(), server.getOrg());
                 monMgr.removeServerFromSuite(suite, server, user);
             }
             else {
-                Probe probe = monMgr.lookupProbe(user, dto.getId());
-                monMgr.deleteProbe(probe, user);
+                Probe probe = MonitoringFactory.lookupProbeByIdAndOrg(
+                        dto.getId(), server.getOrg()); 
+                MonitoringFactory.deleteProbe(probe);
             }
         }
         

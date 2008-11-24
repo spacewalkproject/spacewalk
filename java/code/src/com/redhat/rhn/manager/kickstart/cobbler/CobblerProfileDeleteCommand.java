@@ -20,8 +20,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
-
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -47,8 +45,7 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
      */
     @Override
     public ValidatorError store() {
-        String[] args = {this.ksData.getLabel(), xmlRpcToken};
-        Object rc = invokeXMLRPC("remove_profile", Arrays.asList(args));
+        Object rc = invokeXMLRPC("remove_profile", ksData.getCobblerName(), xmlRpcToken);
         log.debug("RC: " + rc);
         return null;
     }

@@ -71,7 +71,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
         args = new String[]{handle, "distro", 
-                getCobblerDistroName(this.ksData.getTree()), xmlRpcToken};
+                this.ksData.getTree().getCobblerDistroName(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
     }

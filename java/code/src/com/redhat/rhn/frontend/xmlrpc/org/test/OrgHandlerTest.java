@@ -36,11 +36,15 @@ import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
+import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
+import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.org.OrgManager;
@@ -526,37 +530,82 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         servers.add(new Integer(server.getId().intValue()));
         // Actual migration is tested internally, just make sure the API call doesn't
         // error out:
-        handler.migrateSystems(adminKey, servers, 
-                new Integer(newOrgAdmin.getOrg().getId().intValue()));
+        handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(),
+                newOrgAdmin.getOrg().getId().intValue(), servers); 
     }
     
-    public void testMigrateNoSuchSystem() throws Exception {
-        User newOrgAdmin = UserTestUtils.findNewUser("newAdmin", "newOrg", true);
-        newOrgAdmin.getOrg().getTrustedOrgs().add(admin.getOrg());
+    public void testMigrateInvalid() throws Exception {
+        
+        User orgAdmin1 = UserTestUtils.findNewUser("orgAdmin1", "org1", true);
+        orgAdmin1.getOrg().getTrustedOrgs().add(admin.getOrg());
 
-        List<Integer> servers = new LinkedList<Integer>();
-        servers.add(new Integer(-1));
-        try {
-            handler.migrateSystems(adminKey, servers, 
-                    new Integer(newOrgAdmin.getOrg().getId().intValue()));
-            fail();
-        }
-        catch (NoSuchSystemException e) {
-            // expected
-        }
-    }
-    
-    public void testMigrateSystemNoSuchOrg() throws Exception {
+        User orgAdmin2 = UserTestUtils.findNewUser("orgAdmin2", "org2", true);
+        String orgAdmin2Key = XmlRpcTestUtils.getSessionKey(orgAdmin2);
 
         Server server = ServerTestUtils.createTestSystem(admin);
         List<Integer> servers = new LinkedList<Integer>();
         servers.add(new Integer(server.getId().intValue()));
 
+        // attempt migration where user is not a satellite admin and orginating
+        // org is not the same as the user's.
         try {
-            handler.migrateSystems(adminKey, servers, new Integer(-1));
+            handler.migrateSystems(orgAdmin2Key, admin.getOrg().getId().intValue(),
+                    orgAdmin1.getOrg().getId().intValue(), servers);
+            fail();
+        }
+        catch (PermissionCheckFailureException e) {
+            // expected
+        }
+        
+        // attempt to migrate systems from an org that does not exist
+        try {
+            handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(),
+                    new Integer(-1), servers); 
             fail();
         }
         catch (NoSuchOrgException e) {
+            // expected
+        }
+        
+        // attempt to migrate systems to an org that does not exist
+        try {
+            handler.migrateSystems(adminKey, new Integer(-1),
+                    admin.getOrg().getId().intValue(), servers); 
+            fail();
+        }
+        catch (NoSuchOrgException e) {
+            // expected
+        }
+        
+        // attempt to migrate systems from/to the same org
+        try {
+            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(),
+                    orgAdmin1.getOrg().getId().intValue(), servers);
+            fail();
+        }
+        catch (MigrationToSameOrgException e) {
+            // expected
+        }   
+        
+        // attempt to migrate systems to an org that isn't defined in trust
+        try {
+            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(),
+                    orgAdmin2.getOrg().getId().intValue(), servers);
+            fail();
+        }
+        catch (OrgNotInTrustException e) {
+            // expected
+        }   
+        
+        // attempt to migrate systems that do not exist
+        List<Integer> invalidServers = new LinkedList<Integer>();
+        invalidServers.add(new Integer(-1));
+        try {
+            handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(),
+                    orgAdmin1.getOrg().getId().intValue(), invalidServers);
+            fail();
+        }
+        catch (NoSuchSystemException e) {
             // expected
         }
     }

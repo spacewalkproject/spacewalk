@@ -48,7 +48,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         String handle = (String) invokeXMLRPC("new_distro", xmlRpcToken);
         // <channel label>--<ks tree label>
         invokeXMLRPC("modify_distro", handle, "name",
-                getCobblerDistroName(this.tree), xmlRpcToken);
+                tree.getCobblerDistroName(), xmlRpcToken);
         updateCobblerFields(handle);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
 

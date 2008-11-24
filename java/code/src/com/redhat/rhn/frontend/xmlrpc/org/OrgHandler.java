@@ -57,6 +57,7 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.SatelliteOrgException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 
@@ -702,46 +703,72 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Migrate systems to a new organization. Caller must be an organization admnistrator. 
-     * 
+     * Migrate systems from one organization to another.  The systems 
+     * must currently exist in the organization specified by the fromOrgId
+     * and will be migrated to the organization specified by the toOrgId.  The 
+     * Satellite administrator may migrate systems from any organization; however,
+     * organization administrators may only migrate systems from their organization.
+     * In any scenario, the originating organization must be defined within the
+     * destination organization's trust.
+     *  
      * @param sessionKey User's session key.
+     * @param fromOrgId originating organization ID.
+     * @param toOrgId destination organization ID.
      * @param sids System IDs.
-     * @param toOrgId New organization ID.
      * @return list of systems migrated.
      * @throws FaultException A FaultException is thrown if:
      *   - The user performing the request is not an organization administrator
-     *   - The user performing the request is in the same org as the targetted destination
-     *     org
+     *   - The user performing the request is not a satellite administrator, but the
+     *     from org id is different than the user's org id.
+     *   - The from and to org id provided are the same.
      *   - One or more of the servers provides do not exist
-     *   - The destination organization does not exist
+     *   - The origination or destination organization does not exist
      *   - The user is not defined in the destination organization's trust
-     *   
-     * @xmlrpc.doc Migrate systems from the user's organization to the organization 
-     * specified.  The user performing the migration must be an organization 
-     * adminstrator and the originating organization must be defined within the 
-     * trust of the destination organization.
+     * 
+     * @xmlrpc.doc Migrate systems from one organization to another.  The systems 
+     * must currently exist in the organization specified by the fromOrgId
+     * and will be migrated to the organization specified by the toOrgId.  The 
+     * Satellite administrator may migrate systems from any organization; however,
+     * organization administrators may only migrate systems from their organization.
+     * In any scenario, the originating organization must be defined within the
+     * destination organization's trust. 
      * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("int", "fromOrgId", "ID of the organization where the
+     * system(s) currently exist.")
+     * @xmlrpc.param #param_desc("int", "toOrgId", "ID of the organization where the
+     * system(s) will be migrated to.")
      * @xmlrpc.param #array_single("int", "systemId")
-     * @xmlrpc.param #param_desc("int", "toOrgId", "ID of the destination organization.")
      * @xmlrpc.returntype
      * #array_single("int", "serverIdMigrated")
      */
-    public Object[] migrateSystems(String sessionKey, List<Integer> sids, Integer toOrgId) 
-        throws FaultException {
+    public Object[] migrateSystems(String sessionKey, Integer fromOrgId, Integer toOrgId, 
+            List<Integer> sids) throws FaultException {
 
-        // if user is not at least an org admin, they are not permitted to perform
-        // a migration.
+        // the user executing the request must at least be an org admin to perform
+        // a system migration
         User admin = getOrgAdmin(sessionKey);
-        Org toOrg = verifyOrgExists(toOrgId);
-
-        if (toOrg.equals(admin.getOrg())) {
-            // user is in same org as the destination org; therefore, deny the request.
-            throw new MigrationToSameOrgException(admin);
+        
+        // unless the user is a satellite admin, they are not permitted to migrate
+        // systems from an org that they do not belong to
+        if ((!admin.hasRole(RoleFactory.SAT_ADMIN)) && 
+            (!admin.getOrg().getId().equals(fromOrgId.longValue()))) {
+            throw new PermissionCheckFailureException();
         }
-        if (!toOrg.getTrustedOrgs().contains(admin.getOrg())) {
-            // the user's org isn't trusted by the destination org; therefore, we cannot
-            // perform the requested migration
-            throw new OrgNotInTrustException(toOrgId);
+        
+        Org toOrg = verifyOrgExists(toOrgId);
+        Org fromOrg = verifyOrgExists(fromOrgId);
+
+        // do not allow the user to migrate systems to/from the same org.  doing so
+        // would essentially remove entitlements, channels...etc from the systems
+        // being migrated.
+        if (fromOrg.equals(toOrg)) {
+            throw new MigrationToSameOrgException(fromOrg);
+        }
+        
+        // if the originating org is not defined within the destination org' trust
+        // the migration should not be permitted.
+        if (!toOrg.getTrustedOrgs().contains(fromOrg)) {
+            throw new OrgNotInTrustException(fromOrgId);
         }
         
         List<Server> servers = new LinkedList<Server>();
@@ -749,24 +776,25 @@ public class OrgHandler extends BaseHandler {
             Long serverId = new Long(sid.longValue());
             Server server = null;
             try {
-                server = ServerFactory.lookupByIdAndOrg(serverId, admin.getOrg());
+                server = ServerFactory.lookupByIdAndOrg(serverId, fromOrg);
             
                 // throw a no_such_system exception if the server was not found.
                 if (server == null) {
                     throw new NoSuchSystemException(
                             "No such system - sid[" + sid + "] in org[" +
-                            admin.getOrg().getId() + "]");
+                            fromOrg.getId() + "]");
                 }
             }
             catch (LookupException e) {
                 throw new NoSuchSystemException(
                         "No such system - sid[" + sid + "] in org[" +
-                        admin.getOrg().getId() + "]");
+                        fromOrg.getId() + "]");
             }
             servers.add(server);
         }
             
-        List<Long> serversMigrated = MigrationManager.migrateServers(admin, servers, toOrg);
+        List<Long> serversMigrated = MigrationManager.migrateServers(admin, fromOrg,
+                toOrg, servers);
         return serversMigrated.toArray();
     }
 }

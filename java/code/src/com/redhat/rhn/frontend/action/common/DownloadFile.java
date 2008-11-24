@@ -15,7 +15,7 @@
 package com.redhat.rhn.frontend.action.common;
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.download.ByteArrayStreamInfo;
+import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Patch;

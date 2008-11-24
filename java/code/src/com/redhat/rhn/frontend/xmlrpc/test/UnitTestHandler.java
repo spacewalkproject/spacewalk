@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.frontend.xmlrpc.test;
 
-import com.redhat.rhn.client.InvalidUserNameException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 

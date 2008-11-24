@@ -16,7 +16,6 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
@@ -95,12 +94,4 @@ public abstract class CobblerCommand {
     protected Object invokeXMLRPC(String procedureName, Object ... args) {
         return invokeXMLRPC(procedureName, Arrays.asList(args));
     }    
-    
-    // We have a naming convention for cobbler distros:
-    // <channel label>--<ks tree label>    
-    protected String getCobblerDistroName(KickstartableTree tree) {
-        return tree.getChannel().getLabel() + 
-            "--" + tree.getLabel(); 
-    }
-
 }

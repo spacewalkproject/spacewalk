@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 
@@ -34,7 +35,7 @@ public class KickstartableTree extends BaseDomainHelper {
     private Date lastModified;
     private Long orgId;
     private KickstartTreeType treeType;
-    private String cobblerDistroName;
+    private String oldCobblerDistroName;
     
     /**
      * @return Returns the basePath.
@@ -117,10 +118,10 @@ public class KickstartableTree extends BaseDomainHelper {
      * @param l The label to set.
      */
     public void setLabel(String l) {
-        this.label = l;
-        if (this.cobblerDistroName == null) {
-            this.cobblerDistroName = l;
+        if (label != null) {
+            setOldCobblerDistroName(getCobblerDistroName());    
         }
+        this.label = l;
     }
     
     /**
@@ -218,19 +219,68 @@ public class KickstartableTree extends BaseDomainHelper {
                 defaultLocation.startsWith("ftp://"));
     }
     
+
     /**
      * @return the cobblerDistroName
      */
     public String getCobblerDistroName() {
-        return cobblerDistroName;
+        //redhat channel return the label-direct
+        if (getOrgId() == null) {
+            return getLabel();
+        }
+        return getOrgId() + "-" + getLabel();  
     }
 
     /**
+     * @return the cobblerDistroName
+     */
+    public String getOldCobblerDistroName() {
+        return oldCobblerDistroName;
+    }
+
+    
+    /**
      * @param cobblerDistroNameIn the cobblerDistroName to set
      */
-    public void setCobblerDistroName(String cobblerDistroNameIn) {
-        this.cobblerDistroName = cobblerDistroNameIn;
+    public void setOldCobblerDistroName(String cobblerDistroNameIn) {
+        this.oldCobblerDistroName = cobblerDistroNameIn;
     }    
 
+    /**
+     * Basically returns the actual basepath
+     * we need this method becasue the
+     * database stores rhn/.... as basepath for redhat channels
+     * and actual path for non redhat channels... 
+     * @return the actual basepath.
+     */
+    private  String getAbsolutePath() {
+        if (getOrgId() == null) {
+            //redhat channel append the mount point to 
+            //base path...
+            return Config.get().getKickstartMountPoint() + getBasePath();
+        }
+        //its a base channel return the 
+        return getBasePath();
+    }
+    
+    /**
+     * Returns the kernel path 
+     * includes the mount point 
+     * its an absolute path.
+     * @return the kernel path
+     */
+    public String getKernelPath() {
+        return getAbsolutePath() + "/images/pxeboot/vmlinuz";
+    }
+
+    /**
+     * Returns the Initrd path 
+     * includes the mount point 
+     * its an absolute path.
+     * @return the Initrd path
+     */
+    public String getInitrdPath() {
+        return getAbsolutePath() + "/images/pxeboot/initrd.img";
+    }
     
 }
