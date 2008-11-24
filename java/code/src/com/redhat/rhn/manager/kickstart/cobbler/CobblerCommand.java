@@ -107,7 +107,7 @@ public abstract class CobblerCommand {
         if (org == null) {
             return label.replace(' ', '-');
         }
-        String format = "%s-org-%s-%s";
+        String format = "%s:%s:%s";
         return String.format(format, label.replace(' ', '-'), org.getId(),
                 org.getName().replace(' ', '-'));        
     }
