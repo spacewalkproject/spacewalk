@@ -173,8 +173,30 @@ class Cursor:
         """
         Uses executemany but chops the incoming dict into chunks for each
         call.
+
+        When attempting to execute bulk operations with a lot of rows in the
+        arrays,
+        Oracle may occasionally lock (probably the oracle client library).
+        I noticed this previously with the import code. -- misa
+        This function executes bulk operations in smaller chunks
+        dict is supposed to be the dictionary that we normally apply to
+        statement.execute.
         """
-        raise NotImplementedError
+        ret = 0
+        start_chunk = 0
+        while 1:
+            subdict = {}
+            for k, arr in dict.items():
+                subarr = arr[start_chunk:start_chunk + chunk_size]
+                if not subarr:
+                    # Nothing more to do here - we exhausted the array(s)
+                    return ret
+                subdict[k] = subarr
+            ret = ret + apply(self.executemany, (), subdict)
+            start_chunk = start_chunk + chunk_size
+
+        # Should never reach this point
+        return ret
 
     def _execute_wrapper(self, function, *p, **kw):
         """ 
