@@ -80,7 +80,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
         request.setAttribute("numSystems", data.size());
 
-        // Prepopulate the
+        // Prepopulate the date picker
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
