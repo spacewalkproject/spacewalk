@@ -32,7 +32,7 @@
              styleclass="list"
              emptykey="systemlist.jsp.nosystems">
 
-        <rl:column headerkey="channels.overview.name" bound="false"
+        <rl:column headerkey="actions.jsp.system" bound="false"
                    sortattr="name" sortable="true">
             ${current.name}
         </rl:column>

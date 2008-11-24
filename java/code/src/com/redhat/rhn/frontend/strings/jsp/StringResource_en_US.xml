@@ -2783,6 +2783,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm</context>
+          <context context-type="sourcefile">/rhn/ssm/PackageList</context>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.basechannel">
