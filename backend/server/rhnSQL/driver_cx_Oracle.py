@@ -49,11 +49,11 @@ class Cursor(sql_base.Cursor):
     OracleError = cx_Oracle.DatabaseError
 
     def __init__(self, dbh, sql=None, force=None):
-        self._type_mapping = ORACLE_TYPE_MAPPING
 
         try:
             sql_base.Cursor.__init__(self, dbh=dbh, sql=sql,
                     force=force)
+            self._type_mapping = ORACLE_TYPE_MAPPING
         except sql_base.SQLSchemaError, e:
             (errno, errmsg) = e.errno, e.errmsg
             if 900 <= errno <= 999:
@@ -369,17 +369,6 @@ class Database(sql_base.Database):
         # Pass the cursor in so we can close it after execute()
         return self._procedure_class(name, c)
 
-    # why would anybody need this?!
-    def execute(self, sql, *args, **kwargs):
-        cursor = self.prepare(sql)
-        apply(cursor.execute, args, kwargs)
-        return cursor
-
-    def function(self, name, ret_type):
-        if not isinstance(ret_type, sql_types.DatabaseDataType):
-            raise sql_base.SQLError("Invalid return type specified", ret_type)
-        return self._function(name, ret_type)
-
     def _function(self, name, ret_type):
         try:
             c = self.dbh.cursor()
@@ -387,6 +376,12 @@ class Database(sql_base.Database):
             e = error[0]
             raise sql_base.SQLSchemaError(e.code, e.message, e.context)
         return Function(name, c, ret_type)
+
+    # why would anybody need this?!
+    def execute(self, sql, *args, **kwargs):
+        cursor = self.prepare(sql)
+        apply(cursor.execute, args, kwargs)
+        return cursor
 
     # transaction support
     def transaction(self, name):

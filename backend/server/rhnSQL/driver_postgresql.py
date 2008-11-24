@@ -24,12 +24,20 @@ import pgsql
 
 import sql_base
 from server import rhnSQL
+from server.rhnSQL import sql_types
 
 from common import log_debug, log_error
 from common import UserDictCase
 from const import POSTGRESQL
 
 NAMED_PARAM_REGEX = re.compile(":\w+")
+
+POSTGRESQL_TYPE_MAPPING = [
+    (sql_types.NUMBER, pgsql.INTEGER),
+    (sql_types.STRING, pgsql.STRING),
+    (sql_types.BINARY, pgsql.BINARY),
+    (sql_types.LONG_BINARY, pgsql.LONG), # TODO: LONG_BINARY?
+]
 
 def convert_named_query_params(query):
     """ 
@@ -95,10 +103,49 @@ def create_replacer_function(index_data):
         return "$%s" % counter
     return param_replacer
 
+class Procedure(sql_base.Procedure):
+
+    def __init__(self, name, proc):
+        sql_base.Procedure.__init__(self, name, proc)
+        self._type_mapping = POSTGRESQL_TYPE_MAPPING
+
+    def __call__(self, *args):
+        """
+        Wrap the __call__ method from the parent class to catch Oracle specific
+        actions and convert them to something generic.
+        """
+        retval = None
+
+        # TODO: Replicate Oracle driver's error handling?
+        #try:
+        retval = sql_base.Procedure.__call__(self, *args)
+        #except cx_Oracle.DatabaseError, e:
+        #    if not hasattr(e, "args"):
+        #        raise sql_base.SQLError(self.name, args)
+        #    elif 20000 <= e[0] <= 20999: # error codes we know we raise as schema errors
+        #        raise apply(sql_base.SQLSchemaError, tuple(e.args))
+        #    raise apply(sql_base.SQLError, tuple(e.args))
+        #except cx_Oracle.NotSupportedError, error:
+        #    raise apply(sql_base.SQLError, error.args)
+        return retval
+
+
+
+class Function(Procedure):
+    def __init__(self, name, proc, ret_type):
+        Procedure.__init__(self, name, proc)
+        self.ret_type = ret_type
+
+    def _call_proc(self, args):
+        return self._call_proc_ret(args, self.ret_type)
+
+
+
     
 
 class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
+    _procedure_class = Procedure
 
     def __init__(self, host=None, port=None, username=None,
         password=None, database=None):
@@ -163,13 +210,24 @@ class Database(sql_base.Database):
             raise SQLError("PostgreSQL unable to rollback to savepoint: %s" % name)
         self.dbh.rollback()
 
+    def procedure(self, name):
+        c = self.dbh.cursor()
+        # Pass the cursor in so we can close it after execute()
+        return self._procedure_class(name, c)
+
+    def _function(self, name, ret_type):
+        c = self.dbh.cursor()
+        return Function(name, c, ret_type)
+
 
 
 class Cursor(sql_base.Cursor):
     """ PostgreSQL specific wrapper over sql_base.Cursor. """
 
     def __init__(self, dbh=None, sql=None, force=None):
+
         sql_base.Cursor.__init__(self, dbh, sql, force)
+        self._type_mapping = POSTGRESQL_TYPE_MAPPING
 
         # Accept Oracle style named query params, but convert for python-pgsql
         # under the hood:
@@ -286,4 +344,6 @@ class Cursor(sql_base.Cursor):
         self.description = self._real_cursor.description
         rowcount = self._real_cursor.rowcount
         return rowcount
+
+
 

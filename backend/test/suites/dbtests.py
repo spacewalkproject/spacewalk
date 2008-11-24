@@ -183,11 +183,28 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             self.assertEquals(TEST_NAMES[i], rows[i]['name'])
             i = i + 1
 
+    def test_procedure(self):
+        sp = rhnSQL.Function("return_int", rhnSQL.types.NUMBER())
+        ret = sp(5)
+        self.assertEquals(5, ret)
+
 
 
 class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
     QUERY_CREATE_TABLE = """
         CREATE TABLE %s(id INT, name TEXT, num NUMERIC(5,2))
+    """
+
+    SIMPLE_PROCEDURE = """
+        CREATE OR REPLACE FUNCTION 
+            return_int(returnme INTEGER) 
+        RETURNS INTEGER AS
+        $$
+        BEGIN
+            RETURN returnme;
+        END
+        $$
+        LANGUAGE 'plpgsql'
     """
 
     def setUp(self):
@@ -197,6 +214,18 @@ class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
         cursor.execute()
 
         RhnSQLDatabaseTests.setUp(self)
+
+        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
+        cursor.execute()
+
+    def tearDown(self):
+        try:
+            cursor = rhnSQL.prepare("DROP FUNCTION return_int(returnme integer)")
+            cursor.execute()
+        except:
+            pass
+
+        RhnSQLDatabaseTests.tearDown(self)
 
 
 
@@ -205,6 +234,15 @@ class OracleDatabaseTests(RhnSQLDatabaseTests):
         CREATE TABLE %s(id NUMBER, name VARCHAR2(256), num NUMBER(5,2))
     """
 
+    SIMPLE_PROCEDURE = """
+CREATE OR REPLACE FUNCTION 
+    return_int(returnme in integer) 
+RETURN INTEGER  AS
+BEGIN
+    RETURN returnme;
+END;
+    """
+
     def setUp(self):
         self.temp_table = "testtable%s" % randint(1, 10000000)
         create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
@@ -212,6 +250,15 @@ class OracleDatabaseTests(RhnSQLDatabaseTests):
         cursor.execute()
 
         RhnSQLDatabaseTests.setUp(self)
+
+        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
+        cursor.execute()
+
+    def tearDown(self):
+        cursor = rhnSQL.prepare("DROP FUNCTION return_int")
+        cursor.execute()
+
+        RhnSQLDatabaseTests.tearDown(self)
 
 
 

@@ -394,6 +394,8 @@ class Database:
         in. see cx_Oracle's Cursor.callproc for more details"""
         return self._procedure_class(name, None)
     
+        return self._procedure_class(name, None)
+
     def function(self, name, ret_type):
         """
         Return a pointer to a callable instance for a given stored
@@ -404,7 +406,13 @@ class Database:
         usually the database drivers do not allow for auto-discovery.
         See cx_Oracle's Cursor.callfunc for more details.
         """
-        return self._procedure_class(name, None)
+        if not isinstance(ret_type, sql_types.DatabaseDataType):
+            raise sql_base.SQLError("Invalid return type specified", ret_type)
+        return self._function(name, ret_type)
+
+    def _function(self, name, ret_type):
+        raise NotImplementedError
+
     
     def transaction(self, name):
         "set a transaction point to which we can rollback to"
