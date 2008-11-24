@@ -42,7 +42,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         ActivationKey key = ActivationKeysTest.addKeysToKickstartData(user, ksdata);
         // Set orgId to null to indicate that this kickstart tree is
         // *owned* by Red Hat.
-        ksdata.getTree().setOrgId(null);
+        ksdata.getTree().setOrg(null);
         KickstartHelper helper = new KickstartHelper(getRequest());
         
         // Simulate a default download URL:
@@ -57,7 +57,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
     public void testProxyDownload() throws Exception {
         // Set orgId to null to indicate that this kickstart tree is
         // *owned* by Red Hat.
-        ksdata.getTree().setOrgId(null);
+        ksdata.getTree().setOrg(null);
         
         // Setup proxy header
         String proxyheader = "1006681409::1151513167.96:21600.0:VV/xFNEmCYOuHx" +
@@ -85,7 +85,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
     
     public void testLegacyKickstart() throws Exception {
         String host = new KickstartHelper(request).getKickstartHost();
-        ksdata.getTree().setOrgId(null);
+        ksdata.getTree().setOrg(null);
         String output = 
             executeDownloadTest("/kickstart/dist/ks-rhel-i386-as-4/");
         assertTrue(output.indexOf("/ty/") > 0);

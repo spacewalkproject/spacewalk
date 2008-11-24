@@ -37,7 +37,7 @@ public class TreeCreateOperation extends BaseTreeEditOperation {
         this.tree = new KickstartableTree();
         this.tree.setCreated(new Date());
         this.tree.setTreeType(KickstartFactory.TREE_TYPE_EXTERNAL);
-        this.tree.setOrgId(this.user.getOrg().getId());
+        this.tree.setOrg(this.user.getOrg());
     }
 
     /**

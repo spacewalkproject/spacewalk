@@ -65,7 +65,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         KickstartableTree kwithnullorg = createTestKickstartableTree();
         String label = "treewithnullorg: " + TestUtils.randomString();
         kwithnullorg.setLabel(label);
-        kwithnullorg.setOrgId(null);
+        kwithnullorg.setOrg(null);
         TestUtils.saveAndFlush(kwithnullorg);
         flushAndEvict(kwithnullorg);
         KickstartableTree lookedUp = KickstartFactory.lookupKickstartTreeByLabel(label, o);
@@ -76,7 +76,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     public void testIsRhnTree() throws Exception {
         KickstartableTree k = createTestKickstartableTree();
         assertFalse(k.isRhnTree());
-        k.setOrgId(null);
+        k.setOrg(null);
         assertTrue(k.isRhnTree());
     }
     
@@ -156,7 +156,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setBootImage(TEST_BOOT_PATH);
         k.setCreated(created);
         k.setModified(modified);
-        k.setOrgId(treeChannel.getOrg().getId());
+        k.setOrg(treeChannel.getOrg());
         k.setLastModified(lastmodified);
         k.setInstallType(installtype);
         k.setTreeType(treetype);

@@ -17,6 +17,8 @@ package com.redhat.rhn.domain.kickstart;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 
 import java.util.Date;
 
@@ -33,7 +35,8 @@ public class KickstartableTree extends BaseDomainHelper {
     private KickstartInstallType installType;
     private String label;
     private Date lastModified;
-    private Long orgId;
+
+    private Org org;
     private KickstartTreeType treeType;
     private String oldCobblerDistroName;
     
@@ -142,14 +145,24 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return Returns the orgId.
      */
     public Long getOrgId() {
-        return orgId;
+        if (isRhnTree()) {
+            return null;
+        }
+        return getOrg().getId();
+    }
+
+    /**
+     * @return Returns the org.
+     */    
+    public Org getOrg() {
+        return org;
     }
     
     /**
-     * @param o The orgId to set.
+     * @param o The org to set.
      */
-    public void setOrgId(Long o) {
-        this.orgId = o;
+    public void setOrg(Org o) {
+        this.org = o;
     }
     
     /**
@@ -171,8 +184,7 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return boolean if this tree is owned or not by RHN
      */
     public boolean isRhnTree() {
-        return (this.orgId == null || 
-                this.orgId.equals(new Long(0)));
+        return this.org == null;  
     }
     
     /**
@@ -224,11 +236,7 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the cobblerDistroName
      */
     public String getCobblerDistroName() {
-        //redhat channel return the label-direct
-        if (getOrgId() == null) {
-            return getLabel();
-        }
-        return getOrgId() + "-" + getLabel();  
+        return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
 
     /**
