@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.3
+Version:        0.4.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Nov 24 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.4-1
+- resolved #472378 - set autostart flag on rhnsat entry
+
 * Thu Nov 20 2008 Jan Pazdziora 0.4.3-1
 - use full path to usermod
 - check if we are on Red Hat Enterprise Linux before using its key
