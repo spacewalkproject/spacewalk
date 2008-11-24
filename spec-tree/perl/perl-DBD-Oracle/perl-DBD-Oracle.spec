@@ -5,7 +5,6 @@ Release: 0%{?dist}
 License:  GPL+ or Artistic
 Group: Applications/CPAN
 Source0: %{name}-%{version}.tar.gz
-#Patch0: DBD-Oracle-1.14-blobsyn.patch
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl-DBI
@@ -27,7 +26,6 @@ ora_explain script
 %prep
 %define modname %(echo %{name}| sed 's/perl-//')
 %setup -q -n %{modname}-%{version} 
-#%patch0 -p1
 
 %build
 eval $(perl -V:sitearch)
@@ -96,6 +94,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 * Tue Nov 25 2008 Miroslav Suchy <msuchy@redhat.com>
 - added buildrequires for oracle-lib-compat
 - rebased to DBD::Oracle 1.22
+- removed DBD-Oracle-1.14-blobsyn.patch
 
 * Thu Oct 16 2008 Milan Zazrivec 1.21-4
 - bumped release for minor release tagging
