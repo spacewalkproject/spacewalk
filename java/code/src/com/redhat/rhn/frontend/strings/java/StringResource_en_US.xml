@@ -7393,7 +7393,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="api.org.migrationtosameorg">
-          <source>User {0} in organization {1} cannot migrate systems to the same organization.</source>
+          <source>User cannot migrate systems where the origination and destination organizations are the same.  Org Id: {0}.</source>
       </trans-unit>
       
 	  <trans-unit id="api.org.nosuchorg">
