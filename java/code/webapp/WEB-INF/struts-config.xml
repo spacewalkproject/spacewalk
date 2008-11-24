@@ -6298,7 +6298,7 @@
     <action path="/ssm/PackageList"
         scope="request"
         input="/WEB-INF/pages/ssm/packagelist.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectPackagesAction">
+        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectInstallationPackagesAction">
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packagelist.jsp" />
        <forward name="confirm"
@@ -6315,6 +6315,17 @@
        <forward name="confirm"
                 path="/WEB-INF/pages/ssm/packageinstallschedule.jsp"/>
     </action>
+
+     <!-- SSM Package Install Pages -->
+     <action path="/ssm/PackageRemove"
+         scope="request"
+         input="/WEB-INF/pages/ssm/packageremove.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectRemovePackagesAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageremove.jsp" />
+        <forward name="confirm"
+                 path="/WEB-INF/pages/ssm/foo"/>
+     </action>
 
   </action-mappings>
 

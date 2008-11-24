@@ -14,29 +14,30 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import com.redhat.rhn.frontend.struts.RequestContext;
+import org.apache.struts.action.ActionForm;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
-import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.common.db.datasource.DataResult;
 
 /**
- * SSM action for selecting the packages to install. Package list is determined by the
- * first step in the flow where the channel is selected.
+ * Handles listing and selecting a number of packages to remove from systems in the SSM.
  *
  * @version $Revision$
  */
-public class SelectPackagesAction extends RhnAction implements Listable {
+public class SelectRemovePackagesAction extends RhnAction implements Listable {
 
     private static final String DATA_SET = "pageList";
 
@@ -44,33 +45,27 @@ public class SelectPackagesAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
-                                 HttpServletResponse response)
-        throws Exception {
+                                 HttpServletResponse response) throws Exception {
 
-        RequestContext context = new RequestContext(request);
         Map params = new HashMap();
-        params.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
+
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.setDataSetName(DATA_SET);
         helper.execute();
 
-        if (helper.isDispatched()) {
-            request.setAttribute("packagesDecl", helper.getDecl());
-            return actionMapping.findForward("confirm");
-        }
 
-        Map forwardParams = new HashMap();
-        forwardParams.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
-
-        return strutsDelegate.forwardParams(
-            actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), forwardParams);
+        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-       Long cid =  context.getRequiredParam(RequestContext.CID);
-       return ChannelManager.latestPackagesInChannel(cid);
-   }
+        User user = context.getLoggedInUser();
+        PageControl pc = new PageControl();
+        pc.setStart(1);
 
+        DataResult result =
+            PackageManager.packagesFromServerSet(user);
+
+        return result;
+    }
 }

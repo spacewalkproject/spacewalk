@@ -15388,6 +15388,30 @@ any of these revisions.  Are you sure you want to do this?</source>
 
      </group>
 
+     <!-- ssm/packageremove.jsp -->
+     <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/ssm/PackageRemove.do</context>
+        </context-group>
+
+        <trans-unit id="ssm.package.remove.select.header">
+          <source>Package Removal</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.select.summary">
+          <source>Packages listed below may be removed from one or more systems.
+
+             Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.
+          </source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.select.confirm">
+          <source>Remove Selected Packages</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.select.numsystems">
+          <source>Systems</source>
+        </trans-unit>
+    </group>
+
+
 
      <!-- Kickstart stuff -->
      <trans-unit id="rootPassword">
