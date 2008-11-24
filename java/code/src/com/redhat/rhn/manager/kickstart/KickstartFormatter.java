@@ -400,7 +400,8 @@ public class KickstartFormatter {
         for (Iterator itr = ksdata.getPackageNames().iterator(); itr.hasNext();) {
             buf.append(((PackageName)itr.next()).getName() + NEWLINE);
         }
-        if (ksdata.getKickstartDefaults().getVirtualizationType().getLabel().equals("para_host")) {
+        if (ksdata.getKickstartDefaults().
+                getVirtualizationType().getLabel().equals("para_host")) {
             buf.append("kernel-xen" + NEWLINE);
             buf.append("xen" + NEWLINE);
         }

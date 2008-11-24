@@ -1257,7 +1257,8 @@ public class KickstartData {
      * @return True if config management is enabled in this profile..
      */
     public boolean isConfigManageable() {
-        return getKickstartDefaults() != null && getKickstartDefaults().getCfgManagementFlag();
+        return getKickstartDefaults() != null && 
+            getKickstartDefaults().getCfgManagementFlag();
     }
     
     /**
@@ -1265,7 +1266,8 @@ public class KickstartData {
      * @return True if remote command flag is  enabled in this profile..
      */
     public boolean isRemoteCommandable() {
-        return getKickstartDefaults() != null && getKickstartDefaults().getRemoteCommandFlag();
+        return getKickstartDefaults() != null && 
+            getKickstartDefaults().getRemoteCommandFlag();
     }
 
     

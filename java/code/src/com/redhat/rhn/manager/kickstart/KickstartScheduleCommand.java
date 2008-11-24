@@ -526,7 +526,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      */
     protected KickstartSession setupKickstartSession(Action firstAction) {
         kickstartSession = new KickstartSession();
-        Boolean deployConfig = this.getKsdata().getKickstartDefaults().getCfgManagementFlag();
+        Boolean deployConfig = this.getKsdata().
+            getKickstartDefaults().getCfgManagementFlag();
         
         // TODO: Proxy logic
         
@@ -547,7 +548,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         kickstartSession.setOrg(this.getUser().getOrg());
         kickstartSession.setSystemRhnHost(this.getProxyHost());
         kickstartSession
-            .setVirtualizationType(this.getKsdata().getKickstartDefaults().getVirtualizationType());
+            .setVirtualizationType(this.getKsdata().
+                        getKickstartDefaults().getVirtualizationType());
         log.debug("** Saving new KickstartSession: " + kickstartSession.getId());
         KickstartFactory.saveKickstartSession(kickstartSession);
         log.debug("** Saved new KickstartSession: " + kickstartSession.getId());

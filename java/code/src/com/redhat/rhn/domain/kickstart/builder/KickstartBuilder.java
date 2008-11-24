@@ -626,7 +626,8 @@ public class KickstartBuilder {
             setPpcPartitionScheme(cmd, ksdata);
         }
         else {
-            String virtType = ksdata.getKickstartDefaults().getVirtualizationType().getLabel();
+            String virtType = ksdata.getKickstartDefaults().
+                getVirtualizationType().getLabel();
             if (virtType.equals(KickstartVirtualizationType.XEN_PARAVIRT)) {
                 cmd.createCommand("partitions", "pv.00 --size=0 --grow --ondisk=xvda",
                         ksdata);

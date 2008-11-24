@@ -567,7 +567,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(k.getOrg(), cloned.getOrg());
         
         // Test the advanced fields
-        assertEquals(cloned.getKickstartDefaults().getKstree(), k.getKickstartDefaults().getKstree());
+        assertEquals(cloned.getKickstartDefaults().getKstree(), 
+                k.getKickstartDefaults().getKstree());
         verifySet(cloned.getCommands(),  k.getCommands(), KickstartCommand.class);
         verifySet(cloned.getCryptoKeys(), k.getCryptoKeys(), CryptoKey.class);
         verifySet(cloned.getDefaultRegTokens(), k.getDefaultRegTokens(), Token.class);
