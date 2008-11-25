@@ -17,10 +17,7 @@
 import sys
 import string
 import getpass
-try:
-    from optparse import OptionParser, Option
-except ImportError:
-    from optik import OptionParser, Option
+from optparse import OptionParser, Option
 
 import rhn_log
 import cfg_exceptions

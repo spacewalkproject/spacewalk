@@ -45,6 +45,7 @@ table = None
 config_tree = None
 server_root = None
 mpm_query = None
+exists_config_define=None
 
 OK = 1
 
