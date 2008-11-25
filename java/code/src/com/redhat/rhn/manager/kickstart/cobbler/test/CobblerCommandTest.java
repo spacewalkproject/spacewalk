@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
@@ -27,8 +27,9 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileDeleteCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -43,8 +44,9 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        Config.get().setString(CobblerXMLRPCHelper.class.getName(),
-                MockXMLRPCInvoker.class.getName());
+        // Uncomment this if you want the tests to actually talk to cobbler
+        //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+        //        CobblerXMLRPCHelper.class.getName());
         
         user = UserTestUtils.createUserInOrgOne();
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
@@ -58,6 +60,14 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         dcreate.store();
     }
 
+    public void testSystemCreate() throws Exception {
+        Server s = ServerTestUtils.createTestSystem(user);
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s);
+        cmd.store();
+        Map systemMap = cmd.getSystemMap(); 
+        assertNotNull(systemMap);
+        assertTrue(systemMap.containsKey("name"));
+    }
     
     public void testProfileCreate() throws Exception {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
@@ -126,4 +136,5 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cobblertoken);
         assertTrue(cmd.checkToken(cobblertoken));
     }
+    
 }
