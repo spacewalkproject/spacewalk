@@ -100,6 +100,10 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com>
+- Replace use of perl-crypt-OpenPGP and perl-crypt-RIPEMD160 with gpg system call.
+- 461162 - making kickstart handler a bit shorter
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
 - resolves #467717 - fixed sysvinit scripts
 
