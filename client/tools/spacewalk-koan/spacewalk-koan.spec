@@ -62,5 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/actions/kickstart.py*
 
 %changelog
+* Tue Nov 25 2008 Mike McCune - 0.3.2-1
+- tagging release
 * Tue Oct 28 2008 Mike McCune - 1.0.0-1
 - Initial creation.
