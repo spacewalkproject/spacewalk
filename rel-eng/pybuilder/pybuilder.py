@@ -215,11 +215,10 @@ class Builder(BuildCommon):
         the .spec file is located. No changes to the working directory should
         be made here in the constructor.
         """
-        BuildCommon.__init__(self)
+        BuildCommon.__init__(self, debug)
 
         self.dist = dist
         self.test = test
-        self.debug = debug
 
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
@@ -310,7 +309,6 @@ class Builder(BuildCommon):
                     self.tgz_filename,
                     self.rpmbuild_sourcedir
             )
-        #print archive_cmd
         run_command(archive_cmd)
         run_command("mv %s/%s %s/" %  \
                 (self.rpmbuild_sourcedir, self.tgz_filename,
@@ -346,20 +344,17 @@ class Builder(BuildCommon):
 
         cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts,
             define_dist, self.spec_file)
-        #print cmd
         output = run_command(cmd)
         print output
 
     def _rpm(self):
         """ Build an RPM. """
         self._create_build_dirs()
-        #os.chdir(self.full_project_dir)
 
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
         cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
-        #print cmd
         output = run_command(cmd)
         print output
 
