@@ -26,7 +26,6 @@ Red Hat Network Configuration Client Libraries
 Summary: Red Hat Network Configuration Client
 Group: RHN/Server
 PreReq: %{name} = %{version}-%{release}
-Requires: python-optik
 Provides: rhn-config-action
 Provides: rhn-config-client-package
 
@@ -37,7 +36,6 @@ Red Hat Network Configuration Client
 Summary: Red Hat Network Configuration Management Client
 Group: RHN/Server
 PreReq: %{name} = %{version}-%{release}
-Requires: python-optik
 Provides: rhn-config-management-package
 
 %description management
