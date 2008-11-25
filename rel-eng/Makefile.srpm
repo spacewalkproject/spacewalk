@@ -45,6 +45,18 @@ endif
 
 ifdef TAG
 TAG_SHA1 := $(shell git ls-remote ./. --tag $(TAG) | awk '{ print $$1 ; exit }' )
+ifndef TAG_SHA1
+ifndef DIST
+TEST_TAG := $(shell perl -lne 'BEGIN { $$TAG = shift } if ($$_ eq substr($$TAG, -length)) { print substr $$TAG, 0, -length ; exit }' $(TAG) $(THIS_DIR)known-dists)
+ifdef TEST_TAG
+TAG_SHA1 := $(shell git ls-remote ./. --tag $(TEST_TAG) | awk '{ print $$1 ; exit }' )
+ifdef TAG_SHA1
+DIST := $(shell perl -le 'print substr shift, length shift' $(TAG) $(TEST_TAG))
+override TAG := $(TEST_TAG)
+endif
+endif
+endif
+endif
 endif
 
 ifdef TAG_SHA1
@@ -72,6 +84,7 @@ git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
 rpm srpm : check-tag git-archive-unpack
 	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ \
 		X_RPMBUILD_DIR=$(RPMBUILD_DIR) \
+		DIST=$(DIST) \
 		COMMIT=$(COMMIT)
 
 test-srpm : git-archive-unpack
