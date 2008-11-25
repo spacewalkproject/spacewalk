@@ -26,6 +26,7 @@ CURRENT_VERSION := $(shell $(get-version))
 endif
 
 
+USER_NAME = $(shell git config --get user.name)
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
 define changelog-line-regexp
 (\n%changelog\n\* $(TODAY).+?)\s*(\d\S+)?\n
