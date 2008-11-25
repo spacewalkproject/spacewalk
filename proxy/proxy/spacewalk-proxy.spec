@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com>
+- 470010 - install spacewalk-proxy-common before the broker
+
 * Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.3-1
 - move rhn-proxy-activate to installer
 
