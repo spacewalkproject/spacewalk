@@ -108,8 +108,8 @@ check-tag :
 			echo "The tag [$(TAG)] points to [$(TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
 			exit 1 ; \
 		fi ; \
-		@echo "package [$(NAME)] tag [$(TAG)]" ; \
-		@echo "  tag SHA1 [$(TAG_SHA1)] commit SHA1 [$(COMMIT_SHA1)]" ; \
+		echo "package [$(NAME)] tag [$(TAG)]" ; \
+		echo "  tag SHA1 [$(TAG_SHA1)] commit SHA1 [$(COMMIT_SHA1)]" ; \
 		fi
 
 git-archive-to-tar-gz : setup-source-dir
