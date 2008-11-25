@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-PersistentConnection
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.5.2
+Version:      1.5.3
 Release:      1%{?dist}
 Summary:      Persistent HTTP connection over SSL
 # This src.rpm is cannonical upstream
@@ -48,7 +48,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
-* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
 - require nocpulse-common since we suppose existence of ~nocpulse
 
 * Wed Sep  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.2-1
