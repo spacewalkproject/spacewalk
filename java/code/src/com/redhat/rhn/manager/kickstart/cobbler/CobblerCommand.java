@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
@@ -94,4 +95,20 @@ public abstract class CobblerCommand {
     protected Object invokeXMLRPC(String procedureName, Object ... args) {
         return invokeXMLRPC(procedureName, Arrays.asList(args));
     }    
+    
+    /**
+     * Makes a simple profile or distro object 
+     * name that 'd fit our cobbler naming convention
+     * @param label the distro or profile label
+     * @param org the org to appropriately add the org info
+     * @return the cobbler name.
+     */
+    public static String makeCobblerName(String label, Org org) {
+        if (org == null) {
+            return label.replace(' ', '-');
+        }
+        String format = "%s:%s:%s";
+        return String.format(format, label.replace(' ', '-'), org.getId(),
+                org.getName().replace(' ', '-'));        
+    }
 }

@@ -1,0 +1,178 @@
+
+RPMBUILD ?= rpmbuild
+RPMBUILD_BASEDIR ?= $(CURDIR)
+
+# After content is exported via git archive and untarred, make is
+# called in that directory, with X_RPMBUILD_DIR parameter, which
+# determines output directory.
+ifdef X_RPMBUILD_DIR
+
+X_RPMBUILD_DIR_OPTS = --define "_sourcedir $(CURDIR)" \
+		--define "_builddir $(X_RPMBUILD_DIR)/BUILD" \
+		--define "_srcrpmdir $(X_RPMBUILD_DIR)" \
+		--define "_rpmdir $(X_RPMBUILD_DIR)"
+
+ifdef DIST
+DIST_OPTS = --define 'dist $(DIST)'
+endif
+
+# The COMMIT parameter is used when we want to make tar.gz / .src.rpm
+# from any commit we like (including HEAD). In that case thou, the
+# name and content of the tar.gz / .src.rpm is modified to contain
+# the SHA1 of the commit, to distinguish them from sources that
+# come from tagged commits.
+else ifdef COMMIT
+COMMIT_SHA1 := $(shell git rev-parse --verify $(COMMIT))
+ifdef COMMIT_SHA1
+NAME_TAR_GZ_DIR := $(NAME)-git-$(COMMIT_SHA1)
+COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(COMMIT_SHA1) | awk '{print $$1}')
+ifndef DIR
+DIR := $(shell git show $(COMMIT_SHA1):rel-eng/packages/$(NAME) 2> /dev/null | awk '{print $$2; exit }')
+endif
+RPMBUILD_DIR := $(RPMBUILD_BASEDIR)/rpmbuild-$(NAME)-git-$(COMMIT_SHA1)/
+endif
+
+# The TAG parameter determines git tag, and by stripping
+# version-release from its name also package NAME, and via
+# rel-eng/package/NAME also DIR.
+else
+# If TAG is not defined, we use the latest known version.
+ifndef TAG
+ifdef NAME
+TAG := $(shell awk '{ print "$(NAME)" "-" $$1 ; exit }' $(PACKAGES_DIR)$(NAME) 2> /dev/null )
+endif
+endif
+
+ifdef TAG
+TAG_SHA1 := $(shell git ls-remote ./. --tag $(TAG) | awk '{ print $$1 ; exit }' )
+ifndef TAG_SHA1
+ifndef DIST
+TEST_TAG := $(shell perl -lne 'BEGIN { $$TAG = shift } if ($$_ eq substr($$TAG, -length)) { print substr $$TAG, 0, -length ; exit }' $(TAG) $(THIS_DIR)known-dists)
+ifdef TEST_TAG
+TAG_SHA1 := $(shell git ls-remote ./. --tag $(TEST_TAG) | awk '{ print $$1 ; exit }' )
+ifdef TAG_SHA1
+DIST := $(shell perl -le 'print substr shift, length shift' $(TAG) $(TEST_TAG))
+override TAG := $(TEST_TAG)
+endif
+endif
+endif
+endif
+endif
+
+ifdef TAG_SHA1
+COMMIT_SHA1 := $(shell git rev-list --max-count=1 $(TAG_SHA1) )
+endif
+ifdef COMMIT_SHA1
+NAME := $(shell echo $(TAG)| sed 's!-[^-]*-[^-]*$$!!')
+NAME_VERSION := $(shell echo $(TAG)| sed 's!-[^-]*$$!!')
+NAME_TAR_GZ_DIR := $(shell echo $(TAG)| sed 's!-[^-]*$$!!')
+COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(COMMIT_SHA1) | awk '{print $$1}')
+DIR := $(shell git show $(COMMIT_SHA1):rel-eng/packages/$(NAME) | awk '{print $$2; exit }')
+RPMBUILD_DIR := $(RPMBUILD_BASEDIR)/rpmbuild-$(TAG)/
+endif
+endif
+
+RPMBUILD_SOURCEDIR := $(RPMBUILD_DIR)SOURCES/$(DIR)
+NAME_TAR_GZ := $(NAME_TAR_GZ_DIR).tar.gz
+
+
+tgz : git-archive-to-tar-gz
+	@echo "Wrote: $(RPMBUILD_DIR)$(NAME_TAR_GZ)"
+
+git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
+
+rpm srpm : check-tag git-archive-unpack
+	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ \
+		X_RPMBUILD_DIR=$(RPMBUILD_DIR) \
+		DIST=$(DIST) \
+		COMMIT=$(COMMIT)
+
+test-srpm : git-archive-unpack
+	$(MAKE) srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+
+test-rpm : git-archive-unpack
+	$(MAKE) rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+
+check-tag :
+	@if test -n "$(TAG)" ; then \
+		if test -z "$(TAG_SHA1)" ; then \
+			echo "The tag [$(TAG)] does not seem to be available." ; \
+			exit 1 ; \
+		fi ; \
+		export UPSTREAM_REPO=`cat $(THIS_DIR)upstream-repo` ; \
+		export UPSTREAM_TAG=`git ls-remote $$UPSTREAM_REPO --tag $(TAG) | awk '{ print $$1 ; exit }'` ; \
+		if test -z "$$UPSTREAM_TAG" ; then \
+			echo "The tag [$(TAG)] does not seem to be available in upstream repo [$$UPSTREAM_REPO]." ; exit 1 ; \
+		fi ; \
+		if test "x$$UPSTREAM_TAG" != "x$(TAG_SHA1)" ; then \
+			echo "The tag [$(TAG)] points to [$(TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
+			exit 1 ; \
+		fi ; \
+		echo "package [$(NAME)] tag [$(TAG)]" ; \
+		echo "  tag SHA1 [$(TAG_SHA1)] commit SHA1 [$(COMMIT_SHA1)]" ; \
+		fi
+
+git-archive-to-tar-gz : setup-source-dir
+	@cd $(GIT_CDUP) && \
+		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(COMMIT_SHA1):$(DIR) \
+		| perl $(THIS_DIR)tar-fixup-stamp-comment.pl $(COMMIT_TIMESTAMP) $(COMMIT_SHA1) \
+		| gzip -n -c - > $(RPMBUILD_DIR)$(NAME_TAR_GZ)
+
+unpack-tar-gz : setup-source-dir-2
+	@cd $(RPMBUILD_SOURCEDIR) && tar xz --strip-components 1 -f $(RPMBUILD_DIR)$(NAME_TAR_GZ)
+	@if test -f $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) ; then \
+		echo "The tarball $(RPMBUILD_DIR)$(NAME_TAR_GZ) seems to contain $(NAME_TAR_GZ) already." ; \
+		exit 1 ; \
+		fi
+	@mv $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ)
+
+
+setup-source-dir :
+	@if test -d $(RPMBUILD_DIR) ; then \
+		echo "Removing previous [$(RPMBUILD_DIR)]" ; \
+		rm -rf $(RPMBUILD_DIR) ; \
+	fi
+	@echo "Creating [$(RPMBUILD_DIR)]"
+	@mkdir -p $(RPMBUILD_DIR)
+
+setup-source-dir-2 :
+	@mkdir -p $(RPMBUILD_SOURCEDIR)
+	@ln -s $(THIS_DIR) $(RPMBUILD_DIR)SOURCES/rel-eng
+
+
+
+x-build-srpm : x-setup-specfile
+	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
+	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(SPECFILE)
+	@rm -rf $(X_RPMBUILD_DIR)/BUILD
+
+x-build-rpm : x-setup-specfile
+	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
+	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps --clean -ba $(SPECFILE)
+	@rm -rf $(X_RPMBUILD_DIR)/BUILD
+
+
+x-setup-specfile :
+	@if test -n "$(COMMIT)" ; then \
+		if test -n "$(NO_TAR_GZ)" ; then \
+			perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(COMMIT) ; \
+			else \
+			perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(COMMIT) $(NAME)-git-$(COMMIT) $(NAME)-git-$(COMMIT).tar.gz ; \
+			fi ; \
+		fi
+
+upload-tgz : tgz
+        scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) fedorahosted.org:spacewalk
+
+%.src.rpm %.srpm :
+	$(MAKE) srpm TAG=$*
+
+%.tar.gz %.tgz :
+	$(MAKE) tgz TAG=$*
+
+.PHONY : tgz git-archive-unpack git-archive-to-tar-gz unpack-tar-gz \
+	rpm srpm test-srpm test-rpm \
+	setup-source-dir setup-source-dir-2 \
+	x-build-srpm x-build-rpm x-setup-specfile x-setup-specfile \
+	upload-tgz check-tag
+

@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
@@ -1275,7 +1276,7 @@ public class KickstartData {
      * @return the cobblerName
      */
     public String getCobblerName() {
-        return getOrg().getId() + "-" + getLabel();
+        return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
     
     /**

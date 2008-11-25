@@ -1,4 +1,4 @@
-NAME := Crypt-GeneratePassword
+NAME := perl-Crypt-GeneratePassword
 
 NO_TAR_GZ = 1
 

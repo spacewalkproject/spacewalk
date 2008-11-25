@@ -8,7 +8,7 @@ Summary:      Satellite Configuration System - command line installer
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      3.24.3
+Version:      3.24.4
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -46,6 +46,9 @@ install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.4-1
+- fix missing semicolon 
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.3-1
 - 467441 - fix requires
 

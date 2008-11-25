@@ -1,16 +1,15 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
-Version: 1.21
-Release: 4%{?dist}
+Version: 1.22
+Release: 2%{?dist}
 License:  GPL+ or Artistic
 Group: Applications/CPAN
 Source0: %{name}-%{version}.tar.gz
-Patch0: DBD-Oracle-1.14-blobsyn.patch
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl-DBI
 BuildRequires: oracle-instantclient-devel
-Requires: perl >= 0:5.6.1, oracle-instantclient-basic
+Requires: perl >= 0:5.6.1
 
 %description
 DBD-Oracle module for perl
@@ -25,14 +24,24 @@ ora_explain script
 %prep
 %define modname %(echo %{name}| sed 's/perl-//')
 %setup -q -n %{modname}-%{version} 
-%patch0 -p1
 
 %build
 eval $(perl -V:sitearch)
 eval $(perl -V:vendorarch)
+%ifarch i386
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client
+export LD_LIBRARY_PATH=/usr/lib/oracle/10.2.0.4/client/lib
+export ORACLE_INCLUDE=/usr/include/oracle/10.2.0.4/client
+%else
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64
+export LD_LIBRARY_PATH=/usr/lib/oracle/10.2.0.4/client64/lib
+export ORACLE_INCLUDE=/usr/include/oracle/10.2.0.4/client64
+%endif
+
 INCLUDES=$(echo -I$ORACLE_HOME/rdbms/public \
                 -I$ORACLE_HOME/rdbms/demo \
                 -I$ORACLE_HOME/network/public \
+                -I$ORACLE_INCLUDE \
                 -I$vendorarch/auto/DBI \
                 -I$sitearch/auto/DBI)
 # We can't trust the tests make by the Makefile.PL on modern Oracle installations
@@ -80,6 +89,11 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
+* Tue Nov 25 2008 Miroslav Suchy <msuchy@redhat.com> 1.22-2
+- added buildrequires for oracle-lib-compat
+- rebased to DBD::Oracle 1.22
+- removed DBD-Oracle-1.14-blobsyn.patch
+
 * Thu Oct 16 2008 Milan Zazrivec 1.21-4
 - bumped release for minor release tagging
 - added %{?dist} to release

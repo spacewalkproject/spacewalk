@@ -36,7 +36,7 @@ public class KickstartWizardCommandTest extends BaseTestCaseWithUser {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         assertNull(c.getParentChannel());
         KickstartableTree tree  = KickstartableTreeTest.createTestKickstartableTree(c);
-        tree.setOrgId(null);
+        tree.setOrg(null);
         tree.setChannel(c);
         TestUtils.saveAndFlush(tree);
         TestUtils.saveAndFlush(c);

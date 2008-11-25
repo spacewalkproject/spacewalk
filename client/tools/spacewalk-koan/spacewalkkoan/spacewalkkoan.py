@@ -47,6 +47,7 @@ def initiate(kickstart_host, profile_name, base, extra_append, static_device=Non
         k.is_replace          = True
         k.is_display          = False
         k.profile             = profile_name
+	k.port                = 443 
         k.system              = None
         k.image               = None
         k.live_cd             = None
@@ -97,6 +98,7 @@ def initiate_guest(kickstart_host, profile_name, virt_type, name, mem_kb,
         k.is_virt             = True
         k.is_replace          = False
         k.is_display          = False
+	k.port                = 443
         k.profile             = profile_name
         k.system              = None
         k.image               = None

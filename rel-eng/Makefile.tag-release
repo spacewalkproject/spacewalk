@@ -1,0 +1,113 @@
+
+ifndef VERSION_FILE
+VERSION_FILE := $(wildcard version)
+endif
+
+ifdef VERSION_FILE
+BUMP_VERSION_FILE_OPTIONS = $(VERSION_FILE)
+else
+BUMP_VERSION_FILE_OPTIONS = --specfile $(SPECFILE)
+endif
+
+ifdef KEEP_VERSION
+BUMP_VERSION := check-keep-version
+BUMP_RELEASE := check-keep-version
+else
+BUMP_VERSION := bump-version
+BUMP_RELEASE := bump-release
+endif
+
+define get-version
+rpm -q --qf '%{version}-%{release}\n' --define "_sourcedir $(CURDIR)" --define 'dist %undefined' --specfile $(SPECFILE) | head -1
+endef
+
+ifdef SPECFILE
+CURRENT_VERSION := $(shell $(get-version))
+endif
+
+
+USER_NAME = $(shell git config --get user.name)
+TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
+define changelog-line-regexp
+(\n%changelog\n\* $(TODAY).+?)\s*(\d\S+)?\n
+endef
+
+
+tag-release : RELEASE_TYPE = release
+tag-release : check-today-in-changelog $(BUMP_VERSION) x-tag-release do-no-forget-to-push
+
+tag-minor-release : RELEASE_TYPE = minor release
+tag-minor-release : check-no-tar-gz check-today-in-changelog $(BUMP_RELEASE) x-tag-release do-no-forget-to-push
+
+x-tag-release : update-changelog
+	@BUMPED_VERSION=`$(get-version)` ; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
+		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
+		perl -lane 'next if $$ARGV eq "$(PACKAGES_DIR)$(NAME)"; print $$ARGV if $$F[1] eq "$(GIT_PREFIX)";' $(PACKAGES_DIR)* /dev/null \
+			| while read i ; do git rm $$i || exit 1 ; done ; \
+		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(PACKAGES_DIR)$(NAME) \
+		&& git add . $(PACKAGES_DIR)$(NAME) \
+		&& git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." \
+		&& echo "Creating tag [$(NAME)-$$BUMPED_VERSION]." \
+		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
+
+check-no-tar-gz :
+	@if test -z "$(NO_TAR_GZ)" ; then \
+		echo "This package has source packed into .tar.gz. To prevent multiple .tar.gzs" ; \
+		echo "with different contents, minor releases are not allowed. Please do" ; \
+		echo "     make tag-release" ; \
+		exit 1 ; \
+		fi
+
+bump-version bump-release : check-version
+	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS)
+	@BUMPED_VERSION=`$(get-version)` ; \
+		if test -z "$$BUMPED_VERSION" ; then \
+			echo "Failed to bump the version [$(CURRENT_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; \
+			exit 1 ; \
+			fi ; \
+		if test "x$(CURRENT_VERSION)" == "x$$BUMPED_VERSION" ; then \
+			echo "Failed to bump the version [$(CURRENT_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; \
+			exit 1 ; \
+			fi ; \
+		echo "Bumping version from [$(CURRENT_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
+
+check-keep-version : check-version
+	@if test "x$(CURRENT_VERSION)" != "x$(KEEP_VERSION)" ; then \
+		echo "Version mismatch: current [$(CURRENT_VERSION)], KEEP_VERSION parameter [$(KEEP_VERSION)]." ; \
+		exit 1 ; \
+		fi
+	@echo "Keeping version at [$(KEEP_VERSION)]."
+
+check-version :
+	@if test -z $(CURRENT_VERSION) ; then \
+		echo "Failed to retrieve the original version." ; \
+		exit 1 ; \
+		fi
+
+update-changelog :
+	@export BUMPED_VERSION=`$(get-version)` ; \
+	if ! perl -0777 -i -pe 'if (not s/$(changelog-line-regexp)/$$1 $$ENV{BUMPED_VERSION}\n/) { print ; exit 1 }' $(SPECFILE) ; then \
+		echo "Did not find line starting with" ;\
+		echo "* $(TODAY) $(USER_NAME)" ; \
+		echo "as the first line of %changelog -- couldn't update version in changelog." ; \
+		exit 1 ; \
+	fi
+
+check-today-in-changelog :
+	@if ! perl -0777 -ne 'if (not /$(changelog-line-regexp)/) { exit 1 }' $(SPECFILE) ; then \
+		echo "Did not find line starting with" ;\
+		echo "* $(TODAY) $(USER_NAME)" ; \
+		echo "as the first line of %changelog -- will not be able to update version in changelog." ; \
+		exit 1 ; \
+	fi
+
+do-no-forget-to-push :
+	@echo "Do not forget to push the commit and the tag to upstream repo"
+	@echo "   before attempting make srpm. eg, \"git push\" and \"git push --tags\""
+
+.PHONY : tag-release tag-minor-release x-tag-release check-no-tar-gz \
+	bump-version bump-release check-keep-version check-version \
+	check-today-in-changelog update-changelog \
+	do-no-forget-to-push
+

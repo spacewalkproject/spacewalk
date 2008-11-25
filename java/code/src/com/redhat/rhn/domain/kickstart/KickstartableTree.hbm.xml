@@ -17,11 +17,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="bootImage" type="string" column="boot_image"/>
         <property name="label" type="string" column="label"/>
         <property name="lastModified" type="date" column="last_modified"/>
-        <property name="orgId" type="long" column="org_id"/>
         
         <property name="created" type="date" column="created"/>
         <property name="modified" type="date" column="modified"/>
-        
+
+        <many-to-one name="org"
+                     column="org_id"
+                     class="com.redhat.rhn.domain.org.OrgImpl"
+                     outer-join="true"/>        
         <many-to-one
             name="channel"
             class="com.redhat.rhn.domain.channel.Channel"
@@ -48,41 +51,41 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="KickstartableTree.findByLabelAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.label = :label and k.orgId = :org_id]]>
+        		where k.label = :label and k.org = :org_id]]>
     </query>
     <query name="KickstartableTree.findByLabelAndNullOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.label = :label and k.orgId = null]]>
+        		where k.label = :label and k.org is null]]>
     </query>
     
     <query name="KickstartableTree.findByChannelAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.channel = :channel_id and k.orgId = :org_id
+        		where k.channel = :channel_id and k.org = :org_id
         		order by k.label]]>
     </query>
     
     <query name="KickstartableTree.findByChannel">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.channel.id = :channel_id and (k.orgId is null or 
-        		k.orgId = :org_id)
+        		where k.channel.id = :channel_id and (k.org is null or 
+        		k.org = :org_id)
         		order by k.label]]>    
     </query>
     
     <query name="KickstartableTree.findByOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.orgId = :org_id or k.orgId = null order by k.label]]>
+        		where k.org = :org_id or k.org is null order by k.label]]>
     </query>
     
     <query name="KickstartableTree.verifyTreeAssignment">
     	<![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
-    			where (k.orgId is null or k.orgId = :org_id) and
+    			where (k.org is null or k.org = :org_id) and
     			k.channel.id = :channel_id and 
     			k.id = :tree_id]]>
     </query>	
 	
     <query name="KickstartableTree.findByIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.id = :tree_id and (k.orgId = :org_id or k.orgId = null)]]>
+        		where k.id = :tree_id and (k.org = :org_id or k.org is null)]]>
     </query>
     
 </hibernate-mapping>
