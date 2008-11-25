@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 License:  GPL+ or Artistic
 Group: Applications/CPAN
 Source0: %{name}-%{version}.tar.gz
@@ -89,7 +89,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
-* Tue Nov 25 2008 Miroslav Suchy <msuchy@redhat.com> 1.22-1
+* Tue Nov 25 2008 Miroslav Suchy <msuchy@redhat.com> 1.22-2
 - added buildrequires for oracle-lib-compat
 - rebased to DBD::Oracle 1.22
 - removed DBD-Oracle-1.14-blobsyn.patch
