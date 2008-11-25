@@ -60,6 +60,17 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 return retval;
             }
         }
+        else if (procedureName.equals("get_system")) {
+            Map retval = new HashMap();
+            if (methodsCalled.contains("remove_system") ||
+                    !methodsCalled.contains("save_system")) {
+                return retval;
+            }
+            else {
+                retval.put("name", TestUtils.randomString());
+                return retval;
+            }
+        }
         else if (procedureName.equals("get_distros")) {
             List <Map> list = new ArrayList<Map>();
             Map distro = new HashMap();  
@@ -80,6 +91,9 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
             return new Boolean(true);
         }
         else if (procedureName.equals("login")) {
+            return TestUtils.randomString();
+        }
+        else if (procedureName.equals("new_system")) {
             return TestUtils.randomString();
         }
         return new Object();
