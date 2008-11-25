@@ -121,7 +121,7 @@ x-build-rpm : x-setup-specfile
 
 
 x-setup-specfile :
-	if test -n "$(COMMIT)" ; then \
+	@if test -n "$(COMMIT)" ; then \
 		if test -n "$(NO_TAR_GZ)" ; then \
 			perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(COMMIT) ; \
 			else \
