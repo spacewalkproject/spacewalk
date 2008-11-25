@@ -69,7 +69,7 @@ tgz : git-archive-to-tar-gz
 
 git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
 
-rpm srpm : git-archive-unpack
+rpm srpm : check-tag git-archive-unpack
 	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ \
 		X_RPMBUILD_DIR=$(RPMBUILD_DIR) \
 		COMMIT=$(COMMIT)
@@ -79,6 +79,25 @@ test-srpm : git-archive-unpack
 
 test-rpm : git-archive-unpack
 	$(MAKE) rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+
+check-tag :
+	@if test -n "$(TAG)" ; then \
+		if test -z "$(TAG_SHA1)" ; then \
+			echo "The tag [$(TAG)] does not seem to be available." ; \
+			exit 1 ; \
+		fi ; \
+		export UPSTREAM_REPO=`cat $(THIS_DIR)upstream-repo` ; \
+		export UPSTREAM_TAG=`git ls-remote $$UPSTREAM_REPO --tag $(TAG) | awk '{ print $$1 ; exit }'` ; \
+		if test -z "$$UPSTREAM_TAG" ; then \
+			echo "The tag [$(TAG)] does not seem to be available in upstream repo [$$UPSTREAM_REPO]." ; exit 1 ; \
+		fi ; \
+		if test "x$$UPSTREAM_TAG" != "x$(TAG_SHA1)" ; then \
+			echo "The tag [$(TAG)] points to [$(TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
+			exit 1 ; \
+		fi ; \
+		fi
+	@echo "package [$(NAME)] tag [$(TAG)]"
+	@echo "  tag SHA1 [$(TAG_SHA1)] commit SHA1 [$(COMMIT_SHA1)]"
 
 git-archive-to-tar-gz : setup-source-dir
 	@cd $(GIT_CDUP) && \
@@ -136,5 +155,5 @@ upload-tgz : tgz
 	rpm srpm test-srpm test-rpm \
 	setup-source-dir setup-source-dir-2 \
 	x-build-srpm x-build-rpm x-setup-specfile x-setup-specfile \
-	upload-tgz
+	upload-tgz check-tag
 
