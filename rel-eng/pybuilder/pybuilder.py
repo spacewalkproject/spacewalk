@@ -20,6 +20,7 @@ import commands
 import os
 import os.path
 import sys
+import re
 
 from string import strip
 from time import strftime
@@ -97,6 +98,10 @@ def main(tagger=None, builder=None):
             help="Use current branch HEAD instead of latest package tag.")
     parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
             help="Do not clean up temporary build directories/files.")
+    parser.add_option("--debug", dest="debug", action="store_true",
+            help="Print debug messages.", default=False)
+
+
     parser.add_option("--tag-release", dest="tag_release", action="store_true",
             help="Tag a new version of the package. (i.e. x.y.z+1)")
     (options, args) = parser.parse_args()
@@ -115,7 +120,77 @@ def main(tagger=None, builder=None):
 
 
 
-class Builder:
+class BuildCommon:
+    """
+    Parent class for both Builders and Taggers, anything useful across the
+    board.
+    """
+    def __init__(self):
+        # Various settings we look up in constructor as we don't necessarily
+        # know what working directory we'll be using at various points during
+        # the build.
+        self.git_root = self._get_git_root() # project root dir
+        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+        self.relative_project_dir = self._get_relative_project_dir(
+                self.git_root) # i.e. java/
+        self.full_project_dir = os.getcwd()
+        self.spec_file_name = find_spec_file()
+        self.project_name = self._get_project_name()
+
+    def _get_git_root(self):
+        """
+        Get the top-level git project directory.
+
+        Returned as a full path.
+        """
+        cdup = commands.getoutput("git rev-parse --show-cdup")
+        if cdup == "":
+            cdup = "./"
+        return os.path.abspath(cdup)
+
+    def _get_project_name(self):
+        """
+        Get the project name from the spec file.
+
+        Uses the spec file in the current git branch as opposed to the copy
+        we make using git archive. This is done because we use this
+        information to know what git tag to use to generate that archive.
+        """
+        spec_file_path = os.path.join(self.full_project_dir,
+                self.spec_file_name)
+        if not os.path.exists(spec_file_path):
+            raise Exception("Unable to get project name from spec file: %s" %
+                    spec_file_path)
+
+        output = run_command(
+            "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
+            spec_file_path)
+        return output
+
+    def _get_relative_project_dir(self, git_root):
+        """
+        Returns the patch to the project we're working with relative to the
+        git root.
+
+        *MUST* be called before doing any os.cwd().
+
+        i.e. java/, satellite/install/Spacewalk-setup/, etc.
+        """
+        # TODO: I think this can be done with rel-eng/packages/ data instead.
+        current_dir = os.getcwd()
+        relative = current_dir[len(git_root) + 1:] + "/"
+        return relative
+
+    def debug(self, text):
+        """
+        Print the text if --debug was specified.
+        """
+        if self.options and self.options.debug:
+            print text
+
+
+
+class Builder(BuildCommon):
     """
     Parent builder class.
 
@@ -130,26 +205,16 @@ class Builder:
         the .spec file is located. No changes to the working directory should
         be made here in the constructor.
         """
-        self.config = read_config()
+        BuildCommon.__init__(self)
 
-        self.spec_file_name = find_spec_file()
+        self.config = read_config()
 
         self.options = None # set when we run
 
-        # Various settings we look up in constructor as we don't necessarily
-        # know what working directory we'll be using at various points during
-        # the build.
-        self.git_root = self._get_git_root() # project root dir
-        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
-        self.relative_project_dir = self._get_relative_project_dir(
-                self.git_root) # i.e. java/
-        self.full_project_dir = os.getcwd()
-        self.project_name = self._get_project_name()
         # This does not include project name, i.e. just "0.4.0-1"
         self.latest_tagged_version = self._get_latest_tagged_version()
         self.latest_tag = "%s-%s" % (self.project_name,
                 self.latest_tagged_version)
-        print "Latest package tag: %s" % self.latest_tag
 
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
@@ -180,7 +245,6 @@ class Builder:
         # Setup some remaining member variables now that we have access to
         # the command line options:
         self.project_version = self._get_project_version()
-        print "Building version: %s" % self.project_version
 
         self.git_commit_id = self._get_build_sha1()
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
@@ -204,7 +268,6 @@ class Builder:
         # that use a git SHA1 for their version.
         self.spec_file = os.path.join(self.rpmbuild_sourcedir,
                 tgz_base, self.spec_file_name)
-        print "Using spec file: %s" % self.spec_file
 
         if options.tgz:
             self._tgz()
@@ -218,6 +281,8 @@ class Builder:
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
+        print "Building version: %s" % self.project_version
+        print "Using spec file: %s" % self.spec_file
         self._create_build_dirs()
         os.chdir(os.path.abspath(self.git_root))
         print "Creating %s from git tag: %s..." % (self.tgz_filename,
@@ -342,50 +407,6 @@ class Builder:
                 % sha1_or_tag)
         return output
 
-    def _get_git_root(self):
-        """
-        Get the top-level git project directory.
-
-        Returned as a full path.
-        """
-        cdup = commands.getoutput("git rev-parse --show-cdup")
-        if cdup == "":
-            cdup = "./"
-        return os.path.abspath(cdup)
-
-    def _get_relative_project_dir(self, git_root):
-        """
-        Returns the patch to the project we're working with relative to the
-        git root.
-
-        *MUST* be called before doing any os.cwd().
-
-        i.e. java/, satellite/install/Spacewalk-setup/, etc.
-        """
-        # TODO: I think this can be done with rel-eng/packages/ data instead.
-        current_dir = os.getcwd()
-        relative = current_dir[len(git_root) + 1:] + "/"
-        return relative
-
-    def _get_project_name(self):
-        """
-        Get the project name from the spec file.
-
-        Uses the spec file in the current git branch as opposed to the copy
-        we make using git archive. This is done because we use this
-        information to know what git tag to use to generate that archive.
-        """
-        spec_file_path = os.path.join(self.full_project_dir,
-                self.spec_file_name)
-        if not os.path.exists(spec_file_path):
-            raise Exception("Unable to get project name from spec file: %s" %
-                    spec_file_path)
-
-        output = run_command(
-            "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
-            spec_file_path)
-        return output
-
     def _get_project_version(self):
         """
         Get the package version to build.
@@ -428,7 +449,7 @@ class UpstreamBuilder(Builder):
 
 
 
-class Tagger:
+class Tagger(BuildCommon):
     """
     Parent package tagging class.
 
@@ -437,8 +458,14 @@ class Tagger:
     desired behavior.
     """
     def __init__(self):
+        BuildCommon.__init__(self)
+
         # Set when we run():
         self.options = None
+
+        self.spec_file = os.path.join(self.full_project_dir,
+                self.spec_file_name)
+
 
     def run(self, options):
         """
@@ -449,16 +476,52 @@ class Tagger:
         """
         self.options = options
 
+        self.debug("Using spec file: %s" % self.spec_file)
+
         if self.options.tag_release:
             self._tag_release()
 
     def _tag_release(self):
         """ Tag a new version of the package. (i.e. x.y.z+1) """
         self._check_today_in_changelog()
+        self._bump_version()
 
     def _check_today_in_changelog(self):
         """ Verify that there is a changelog entry for today's date. """
-        today = strftime("%a %b %d %Y")
-        print "Today = %s" % today
-        regex = '(\n%%changelog\n\* %s.+?)\s*(\d\S+)?\n' % today
-        print regex
+        pass
+        # TODO: Get this working, but perhaps not required for tagging new
+        # versions?
+        #today = strftime("%a %b %d %Y")
+        #print "Today = %s" % today
+        #regex = '\n%changelog\w\n'
+        #regex = '(\n%%changelog\n\\* %s.+?)\s*(\d\S+)?\n' % today
+        #print regex
+
+        #spec_file = open(self.spec_file, 'r')
+        #if re.compile(regex).match(spec_file.read()):
+        #    print "Found changelog entry for %s" % today
+        #else:
+        #    raise Exception("No changelog entry found: '* %s %s'" % (
+        #        today, self._get_git_user()))
+
+    def _bump_version(self):
+        # TODO: Do this here instead of calling out to an external Perl script:
+        old_version = self._get_spec_version()
+        self.debug("Old package version: %s" % old_version)
+        cmd = "perl %s/bump-version.pl bump-version --specfile %s" % \
+                (self.rel_eng_dir, self.spec_file)
+        run_command(cmd)
+        new_version = self._get_spec_version()
+        self.debug("New package version: %s" % new_version)
+
+    def _get_git_user(self):
+        """ Return the user.name git config value. """
+        return run_command('git config --get user.name')
+
+    def _get_spec_version(self):
+        """ Get the package version from the spec file. """
+        command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (self.full_project_dir, self.spec_file_name)
+        return run_command(command)
+
+
+
