@@ -84,6 +84,9 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov 25 2008 Milan Zazrivec <mzazrivec@redhat.com>
+- 465546: work around for empty queuefile.positions
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 1.27.16-1
 - resolves #467877 - use runuser instead of su
 
