@@ -147,6 +147,10 @@ x-build-srpm x-build-rpm : x-setup-specfile
 	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
 	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) $(rpmbuild_$@_params) $(SPECFILE)
 	@rm -rf $(X_RPMBUILD_DIR)/BUILD
+	@find $(X_RPMBUILD_DIR) -name '*.rpm' | while read i ; do \
+		echo rpmlint $$i ; \
+		rpmlint $$i ; \
+		done
 
 
 x-setup-specfile :
