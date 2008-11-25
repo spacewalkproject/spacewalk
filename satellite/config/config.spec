@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.1
+Version: 0.4.2
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -100,7 +100,7 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
-* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - Replace use of perl-crypt-OpenPGP and perl-crypt-RIPEMD160 with gpg system call.
 - 461162 - making kickstart handler a bit shorter
 
