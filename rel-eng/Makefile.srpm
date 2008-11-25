@@ -151,6 +151,12 @@ x-setup-specfile :
 upload-tgz : tgz
         scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) fedorahosted.org:spacewalk
 
+%.src.rpm %.srpm :
+	$(MAKE) srpm TAG=$*
+
+%.tar.gz %.tgz :
+	$(MAKE) tgz TAG=$*
+
 .PHONY : tgz git-archive-unpack git-archive-to-tar-gz unpack-tar-gz \
 	rpm srpm test-srpm test-rpm \
 	setup-source-dir setup-source-dir-2 \
