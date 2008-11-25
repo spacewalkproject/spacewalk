@@ -68,21 +68,16 @@ def run_command(command):
         raise Exception("Error running command")
     return output
 
-def main(tagger=None, builder=None):
+def main(tagger_class=None, builder_class=None):
     """
     Main method called by all build.py's which can provide their own
     specific implementations of taggers and builders.
 
-    tagger = Class which inherits from the base Tagger class. (used for
-        tagging package versions.
-    builder = Class which inherits from the base Builder class. (used for
-        building tar.gz's, srpms, and rpms)
+    tagger_class = Class object which inherits from the base Tagger class.
+        (used for tagging package versions)
+    builder_class = Class object which inherits from the base Builder class.
+        (used for building tar.gz's, srpms, and rpms)
     """
-    if not builder:
-        builder = Builder()
-
-    if not tagger:
-        tagger = Tagger()
 
     usage = "usage: %prog [options] arg"
     parser = OptionParser(usage)
@@ -118,6 +113,19 @@ def main(tagger=None, builder=None):
     if options.rpm:
         options.tgz = True
 
+    # Now that we have command line options, instantiate builder/tagger:
+    if not builder_class:
+        builder_class = Builder
+    builder = builder_class(
+            tag=options.tag,
+            dist=options.dist,
+            test=options.test,
+            debug=options.debug)
+
+    if not tagger_class:
+        tagger_class = Tagger
+    tagger = tagger_class(debug=options.debug)
+
     builder.run(options)
     tagger.run(options)
 
@@ -128,10 +136,9 @@ class BuildCommon:
     Parent class for both Builders and Taggers, anything useful across the
     board.
     """
-    def __init__(self):
-        # Various settings we look up in constructor as we don't necessarily
-        # know what working directory we'll be using at various points during
-        # the build.
+    def __init__(self, debug=False):
+        self.debug = debug
+
         self.git_root = self._get_git_root() # project root dir
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
         self.relative_project_dir = self._get_relative_project_dir(
@@ -184,11 +191,11 @@ class BuildCommon:
         relative = current_dir[len(git_root) + 1:] + "/"
         return relative
 
-    def debug(self, text):
+    def debug_print(self, text):
         """
         Print the text if --debug was specified.
         """
-        if self.options and self.options.debug:
+        if self.debug:
             print text
 
 
@@ -202,7 +209,7 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self):
+    def __init__(self, tag=None, dist=None, test=False, debug=False):
         """
         Builder must always be instantiated from the project directory where
         the .spec file is located. No changes to the working directory should
@@ -210,52 +217,29 @@ class Builder(BuildCommon):
         """
         BuildCommon.__init__(self)
 
-        self.config = read_config()
-
-        self.options = None # set when we run
+        self.dist = dist
+        self.test = test
+        self.debug = debug
 
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
         # of build.py)
+        self.config = read_config()
         self.rpmbuild_basedir = self.full_project_dir
         if self.config.has_key('RPMBUILD_BASEDIR'):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
 
-        # Set when we run() but defined here for clarity:
-        self.display_version = None
-        self.spec_file = None
-        self.rpmbuild_dir = None
-        self.rpmbuild_sourcedir = None
-        self.rpmbuild_builddir = None
-        self.rpmbuild_dir_opts = None
-        self.tgz_dir = None
-
-    def run(self, options):
-        """
-        Perform the actions requested of the builder.
-
-        NOTE: this method may do nothing if the user requested no build actions
-        be performed. (i.e. only release tagging, etc)
-        """
-
-        self.options = options
-        self._validate_options()
-
-        # This does not include project name, i.e. just "0.4.0-1"
-        if self.options.tag:
-            self.build_tag = self.options.tag
+        # Determine which package version we should build:
+        if tag:
+            self.build_tag = tag
             self.build_version = self.build_tag[len(self.project_name + "-"):]
         else:
             self.build_version = self._get_latest_tagged_version()
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
-
         check_tag_exists(self.build_tag)
 
-        # Setup some remaining member variables now that we have access to
-        # the command line options:
         self.display_version = self._get_display_version()
-
         self.git_commit_id = self._get_build_commit()
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
@@ -279,25 +263,35 @@ class Builder(BuildCommon):
         self.spec_file = os.path.join(self.rpmbuild_sourcedir,
                 tgz_base, self.spec_file_name)
 
-        if self.options.tgz:
+    def run(self, options):
+        """
+        Perform the actions requested of the builder.
+
+        NOTE: this method may do nothing if the user requested no build actions
+        be performed. (i.e. only release tagging, etc)
+        """
+
+        self._validate_options(options)
+
+        if options.tgz:
             self._tgz()
-        if self.options.srpm:
+        if options.srpm:
             self._srpm()
-        if self.options.rpm:
+        if options.rpm:
             self._rpm()
 
         if not options.no_cleanup:
             self._cleanup()
 
-    def _validate_options(self):
+    def _validate_options(self, options):
         """ Check for option combinations that make no sense. """
-        if self.options.test and self.options.tag:
+        if options.test and options.tag:
             raise Exception("Cannot build test version of specific tag.")
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
         print "Building version: %s" % self.display_version
-        print "Using spec file: %s" % self.spec_file
+        self.debug_print("Using spec file: %s" % self.spec_file)
         self._create_build_dirs()
         os.chdir(os.path.abspath(self.git_root))
         print "Creating %s from git tag: %s..." % (self.tgz_filename,
@@ -322,7 +316,7 @@ class Builder(BuildCommon):
                 (self.rpmbuild_sourcedir, self.tgz_filename,
                     self.rpmbuild_basedir))
 
-        if self.options.test:
+        if self.test:
             # If making a test rpm we need to get a little crazy with the spec
             # file we're building off. (note that this is a temp copy of the
             # spec) Swap out the actual release for one that includes the git
@@ -347,8 +341,8 @@ class Builder(BuildCommon):
         self._create_build_dirs()
         os.chdir(self.full_project_dir)
         define_dist = ""
-        if self.options.dist:
-            define_dist = "--define 'dist %s'" % self.options.dist
+        if self.dist:
+            define_dist = "--define 'dist %s'" % self.dist
 
         cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts,
             define_dist, self.spec_file)
@@ -362,8 +356,8 @@ class Builder(BuildCommon):
         #os.chdir(self.full_project_dir)
 
         define_dist = ""
-        if self.options.dist:
-            define_dist = "--define 'dist %s'" % self.options.dist
+        if self.dist:
+            define_dist = "--define 'dist %s'" % self.dist
         cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
         #print cmd
         output = run_command(cmd)
@@ -392,7 +386,7 @@ class Builder(BuildCommon):
 
     def _get_build_commit(self):
         """ Return the git commit we should build. """
-        if self.options.test:
+        if self.test:
             return self._get_git_head_commit()
         else:
             output = run_command(
@@ -430,7 +424,7 @@ class Builder(BuildCommon):
         build it will be the SHA1 for the HEAD commit of the current git
         branch.
         """
-        if self.options.test:
+        if self.test:
             version = "git-" + self._get_git_head_commit()
         else:
             version = self.build_version.split("-")[0]
@@ -443,22 +437,22 @@ class Builder(BuildCommon):
 
 
 
-class UpstreamBuilder(Builder):
-    """
-    Builder for packages that rename and patch upstream versions.
+#class UpstreamBuilder(Builder):
+#    """
+#    Builder for packages that rename and patch upstream versions.
 
-    i.e. satellite-java build on spacewalk-java.
-    """
-    def __init__(self, spec_file, upstream_project_name):
-        Builder.__init__(self, spec_file)
-        self.upstream_project_name = upstream_project_name
+#    i.e. satellite-java build on spacewalk-java.
+#    """
+#    def __init__(self, spec_file, upstream_project_name):
+#        Builder.__init__(self, spec_file)
+#        self.upstream_project_name = upstream_project_name
 
-    def _get_tgz_name_and_ver(self):
-        """
-        Override parent method to return the Spacewalk project name for this
-        Satellite package.
-        """
-        return "%s-%s" % (self.upstream_project_name, self.display_version)
+#    def _get_tgz_name_and_ver(self):
+#        """
+#        Override parent method to return the Spacewalk project name for this
+#        Satellite package.
+#        """
+#        return "%s-%s" % (self.upstream_project_name, self.display_version)
 
 
 
@@ -471,11 +465,8 @@ class Tagger(BuildCommon):
     which require other unusual behavior can subclass this to inject the
     desired behavior.
     """
-    def __init__(self):
-        BuildCommon.__init__(self)
-
-        # Set when we run():
-        self.options = None
+    def __init__(self, debug=False):
+        BuildCommon.__init__(self, debug)
 
         self.spec_file = os.path.join(self.full_project_dir,
                 self.spec_file_name)
@@ -488,11 +479,7 @@ class Tagger(BuildCommon):
         NOTE: this method may do nothing if the user requested no build actions
         be performed. (i.e. only release tagging, etc)
         """
-        self.options = options
-
-        self.debug("Using spec file: %s" % self.spec_file)
-
-        if self.options.tag_release:
+        if options.tag_release:
             self._tag_release()
 
     def _tag_release(self):
@@ -521,12 +508,12 @@ class Tagger(BuildCommon):
     def _bump_version(self):
         # TODO: Do this here instead of calling out to an external Perl script:
         old_version = self._get_spec_version()
-        self.debug("Old package version: %s" % old_version)
+        self.debug_print("Old package version: %s" % old_version)
         cmd = "perl %s/bump-version.pl bump-version --specfile %s" % \
                 (self.rel_eng_dir, self.spec_file)
         run_command(cmd)
         new_version = self._get_spec_version()
-        self.debug("New package version: %s" % new_version)
+        self.debug_print("New package version: %s" % new_version)
 
     def _get_git_user(self):
         """ Return the user.name git config value. """
