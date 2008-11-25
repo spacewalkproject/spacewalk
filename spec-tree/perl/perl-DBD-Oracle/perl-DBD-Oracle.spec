@@ -9,9 +9,8 @@ Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl-DBI
 BuildRequires: oracle-instantclient-devel
-BuildRequires: oracle-lib-compat
-Requires: oracle-lib-compat
-Requires: perl >= 0:5.6.1, oracle-instantclient-basic
+BuildRequires: libclntsh.so.10.1
+Requires: perl >= 0:5.6.1
 
 %description
 DBD-Oracle module for perl
