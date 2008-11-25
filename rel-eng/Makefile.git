@@ -8,6 +8,10 @@ SPACEWALK_BUILD_RC_FILE := $(wildcard $(SPACEWALK_BUILD_RC))
 include $(SPACEWALK_BUILD_RC_FILE)
 endif
 
+README_FILE = $(wildcard $(THIS_DIR)README)
+
+PACKAGES_DIR := $(THIS_DIR)packages/
+
 ifndef SPECFILE
 SPECFILE := $(firstword $(wildcard *.spec))
 endif
@@ -18,74 +22,14 @@ NAME := $(shell rpm -q --qf '%{name}\n' --define "_sourcedir $(CURDIR)" --specfi
 endif
 endif
 
-README_FILE = $(wildcard $(THIS_DIR)README)
+HEAD_COMMIT_SHA1 := $(shell git rev-parse --verify HEAD 2> /dev/null)
 
-override GIT_COMMIT_ID := $(shell git rev-parse --verify HEAD)
-GIT_COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(GIT_COMMIT_ID) | awk '{print $$1}')
-
+ifneq (,$(HEAD_COMMIT_SHA1))
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
-GIT_CDUP := $(shell git rev-parse --show-cdup)
+GIT_CDUP := $(shell git rev-parse --show-cdup )
 ifeq (,$(GIT_CDUP))
 GIT_CDUP := ./
 endif
-
-ifndef VERSION_FILE
-VERSION_FILE := $(wildcard version)
-endif
-
-ifdef VERSION_FILE
-BUMP_VERSION_FILE_OPTIONS = $(VERSION_FILE)
-else
-BUMP_VERSION_FILE_OPTIONS = --specfile $(SPECFILE)
-endif
-
-EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-
-ifdef KEEP_VERSION
-BUMP_VERSION := check-keep-version
-BUMP_RELEASE := check-keep-version
-else
-BUMP_VERSION := bump-version
-BUMP_RELEASE := bump-release
-endif
-
-define get-version
-rpm -q $(RPMBUILD_DIR_OPTS) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1
-endef
-
-ORIG_VERSION = $(shell $(get-version))
-
-NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
-NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
-NAME_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
-NAME_TAR_GZ_DIR = $(NAME_GIT_SHA1)
-
-RPMBUILD := rpmbuild
-RPMBUILD_BASEDIR ?= $(CURDIR)
-RPMBUILD_DIR = $(RPMBUILD_BASEDIR)/rpmbuild-$(NAME_GIT_SHA1)/
-RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
-RPMBUILD_BUILDDIR = $(RPMBUILD_DIR)BUILD/
-RPMBUILD_DIR_OPTS = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
-                --define "_builddir $(RPMBUILD_BUILDDIR)" \
-                --define "_srcrpmdir $(RPMBUILD_BASEDIR)" \
-                --define "_rpmdir $(RPMBUILD_BASEDIR)"
-
-
-ifdef NO_TAR_GZ
-RETRIEVE_SOURCES = retrieve-spec-and-sources
-else
-RETRIEVE_SOURCES = git-archive-to-tar-gz
-endif
-
-TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
-define changelog-line-regexp
-(\n%changelog\n\* $(TODAY).+?)\s*(\d\S+)?\n
-endef
-
-USER_NAME = $(shell git config --get user.name)
-
-ifdef DIST
-DIST_OPTS = --define 'dist $(DIST)'
 endif
 
 help :
@@ -93,170 +37,49 @@ help :
 		cat $(README_FILE) ; \
 		else echo "The README file with help was not found."; fi
 
-tag-release : RELEASE_TYPE = release
-tag-release : check-today-in-changelog $(BUMP_VERSION) x-tag-release
-	@echo "Do not forget to push the commit and the tag to upstream repo"
-	@echo "   before attempting make srpm. eg, \"git push\" and \"git push --tags\""
+debug :
+	@echo "THIS_MAKEFILE [$(THIS_MAKEFILE)]"
+	@echo "THIS_DIR [$(THIS_DIR)]"
+	@echo "SPACEWALK_BUILD_RC [$(SPACEWALK_BUILD_RC)]"
+	@echo "SPACEWALK_BUILD_RC_FILE [$(SPACEWALK_BUILD_RC_FILE)]"
+	@echo "README_FILE [$(README_FILE)]"
+	@echo "PACKAGES_DIR [$(PACKAGES_DIR)]"
+	@echo "SPECFILE [$(SPECFILE)]"
+	@echo "NAME [$(NAME)]"
+	@echo "DIR [$(DIR)]"
+	@echo "HEAD_COMMIT_SHA1 [$(HEAD_COMMIT_SHA1)]"
+	@echo "GIT_PREFIX [$(GIT_PREFIX)]"
+	@echo "GIT_CDUP [$(GIT_CDUP)]"
+	@echo "VERSION_FILE [$(VERSION_FILE)]"
+	@echo "BUMP_VERSION_FILE_OPTIONS [$(BUMP_VERSION_FILE_OPTIONS)]"
+	@echo "KEEP_VERSION [$(KEEP_VERSION)]"
+	@echo "BUMP_VERSION [$(BUMP_VERSION)]"
+	@echo "BUMP_RELEASE [$(BUMP_RELEASE)]"
+	@echo "CURRENT_VERSION [$(CURRENT_VERSION)]"
+	@echo "USER_NAME [$(USER_NAME)]"
+	@echo "TODAY [$(TODAY)]"
+	@echo "RPMBUILD [$(RPMBUILD)]"
+	@echo "RPMBUILD_BASEDIR [$(RPMBUILD_BASEDIR)]"
+	@echo "X_RPMBUILD_DIR [$(X_RPMBUILD_DIR)]"
+	@echo "X_RPMBUILD_DIR_OPTS [$(X_RPMBUILD_DIR_OPTS)]"
+	@echo "DIST [$(DIST)]"
+	@echo "DIST_OPTS [$(DIST_OPTS)]"
+	@echo "TAG [$(TAG)]"
+	@echo "TAG_SHA1 [$(TAG_SHA1)]"
+	@echo "COMMIT [$(COMMIT)]"
+	@echo "COMMIT_SHA1 [$(COMMIT_SHA1)]"
+	@echo "NAME_TAR_GZ_DIR [$(NAME_TAR_GZ_DIR)]"
+	@echo "COMMIT_TIMESTAMP [$(COMMIT_TIMESTAMP)]"
+	@echo "RPMBUILD_SOURCEDIR [$(RPMBUILD_SOURCEDIR)]"
+	@echo "NAME_TAR_GZ [$(NAME_TAR_GZ)]"
+	@echo "RPMBUILD_DIR [$(RPMBUILD_DIR)]"
 
-tag-minor-release : RELEASE_TYPE = minor release
-tag-minor-release : check-no-tar-gz check-today-in-changelog $(BUMP_RELEASE) x-tag-release
-	@echo "Do not forget to push the tag to upstream repo before attempting make srpm. eg, \"git push --tags\""
+x-debug :
+	$(MAKE) debug
 
-x-tag-release : update-changelog
-	@BUMPED_VERSION=`$(get-version)` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
-		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
-		perl -lane 'next if $$ARGV eq "$(THIS_DIR)packages/$(NAME)"; print $$ARGV if $$F[1] eq "$(GIT_PREFIX)";' $(THIS_DIR)packages/* /dev/null \
-			| while read i ; do git rm $$i || exit 1 ; done ; \
-		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) \
-		&& git add $(SPECFILE) $(VERSION_FILE) $(THIS_DIR)packages/$(NAME) \
-		&& git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." \
-		&& echo "Creating tag [$(NAME)-$$BUMPED_VERSION]." \
-		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
+include $(THIS_DIR)Makefile.tag-release
 
-check-no-tar-gz :
-	@if test -z "$(NO_TAR_GZ)" ; then \
-		echo "This package has source packed into .tar.gz. To prevent multiple .tar.gzs" ; \
-		echo "with different contents, minor releases are not allowed. Please do" ; \
-		echo "     make tag-release" ; \
-		exit 1 ; \
-		fi
+include $(THIS_DIR)Makefile.srpm
 
-check-tar-gz : 
-	@if test -n "$(NO_TAR_GZ)" ; then \
-		echo "This package has tar.gz from upstream. You do not want to override."; \
-		exit 1; \
-	fi
-
-srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-srpm : GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
-srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
-srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
-srpm : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
-srpm : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
-srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
-
-srpm : check-package-tag $(RETRIEVE_SOURCES)
-	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
-	@rm -rf $(RPMBUILD_DIR)
-
-tgz : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-tgz : GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-tgz : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
-tgz : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
-tgz : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
-tgz : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
-tgz : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
-tgz : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
-tgz : check-tar-gz check-package-tag $(RETRIEVE_SOURCES)
-	@cp $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) $(RPMBUILD_BASEDIR)
-	@echo "Wrote: $(RPMBUILD_BASEDIR)/$(NAME_TAR_GZ)"
-	@rm -rf $(RPMBUILD_DIR)
-
-upload-tgz : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-upload-tgz : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
-upload-tgz : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
-upload-tgz : tgz
-	scp $(NAME_TAR_GZ) fedorahosted.org:spacewalk
-
-check-package-tag :
-	@if test -z "$(NAME)" ; then echo "You can run make for this targed only in the package's directory." ; exit 1 ; fi
-	@if test ! -f $(THIS_DIR)packages/$(NAME) ; then echo "The package [$(NAME)] does not seem to have been tagged yet." ; exit 1 ; fi
-	@if test -z "$(SRPM_VERSION_RELEASE)" ; then echo "The version-release does not seem to be present in [$(THIS_DIR)packages/$(NAME)]". ; exit 1 ; fi
-	@if test -z "$(GIT_COMMIT_ID)" ; then echo "The tag [$(SRPM_TAG)] does not seem to be available." ; exit 1 ; fi
-	@echo "package [$(NAME)] version-release [$(SRPM_VERSION_RELEASE)] tag [$(SRPM_TAG)]"
-	@echo "  tag SHA1 [$(SRPM_TAG_SHA1)] commit SHA1 [$(GIT_COMMIT_ID)]"
-	@export UPSTREAM_REPO=`cat $(THIS_DIR)upstream-repo` ; \
-		export UPSTREAM_TAG=`git ls-remote $$UPSTREAM_REPO --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }'` ; \
-		if test -z "$$UPSTREAM_TAG" ; then \
-			echo "The tag [$(SRPM_TAG)] does not seem to be available in upstream repo [$$UPSTREAM_REPO]." ; exit 1 ; \
-		fi ; \
-		if test "x$$UPSTREAM_TAG" != "x$(SRPM_TAG_SHA1)" ; then \
-			echo "The tag [$(SRPM_TAG)] points to [$(SRPM_TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
-			exit 1 ; \
-		fi
-
-test-srpm : EXISTING_GIT_PREFIX := $(GIT_PREFIX)
-test-rpm : EXISTING_GIT_PREFIX := $(GIT_PREFIX)
-
-test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
-	@rm -rf $(RPMBUILD_DIR)
-
-test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(SPECFILE)
-	@rm -rf $(RPMBUILD_DIR)
-
-git-archive-to-tar-gz : setup-build-dir
-	@cd $(GIT_CDUP) && \
-		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID):$(EXISTING_GIT_PREFIX) \
-		| perl $(THIS_DIR)tar-fixup-stamp-comment.pl $(GIT_COMMIT_TIMESTAMP) $(GIT_COMMIT_ID) \
-		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) \
-		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xzf - )
-
-retrieve-spec-and-sources : setup-build-dir
-	@cd $(GIT_CDUP) && \
-		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID):$(EXISTING_GIT_PREFIX) \
-		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xf - )
-
-test-setup-specfile :
-	@cd $(RPMBUILD_SOURCEDIR) && \
-		if test -n "$(NO_TAR_GZ)" ; then \
-		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(GIT_COMMIT_ID) ; \
-		else \
-		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
-		fi
-
-setup-build-dir :
-	@if test -d $(RPMBUILD_DIR) ; then \
-		echo "Removing previous [$(RPMBUILD_DIR)]" ; \
-		rm -rf $(RPMBUILD_DIR) ; \
-	fi
-	@echo "Creating [$(RPMBUILD_DIR)]"
-	@mkdir -p $(RPMBUILD_SOURCEDIR) $(RPMBUILD_BUILDDIR)
-
-bump-version bump-release : check-version
-	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS) ; \
-		BUMPED_VERSION=`$(get-version)` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; exit 1 ; fi ; \
-		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
-
-check-keep-version : check-version
-	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \
-		echo "Version mismatch: current [$(ORIG_VERSION)], KEEP_VERSION parameter [$(KEEP_VERSION)]." ; exit 1 ; fi
-	@echo "Keeping version at [$(KEEP_VERSION)]."
-
-check-version :
-	@if test -z $(ORIG_VERSION) ; then \
-		echo "Failed to retrieve the original version." ; exit 1 ; fi
-
-update-changelog :
-	@export BUMPED_VERSION=`$(get-version)` ; \
-	if ! perl -0777 -i -pe 'if (not s/$(changelog-line-regexp)/$$1 $$ENV{BUMPED_VERSION}\n/) { print ; exit 1 }' $(SPECFILE) ; then \
-		echo "Did not find line starting with" ;\
-		echo "* $(TODAY) $(USER_NAME)" ; \
-		echo "as the first line of %changelog -- couldn't update version in changelog." ; \
-		exit 1 ; \
-	fi
-
-check-today-in-changelog :
-	@if ! perl -0777 -ne 'if (not /$(changelog-line-regexp)/) { exit 1 }' $(SPECFILE) ; then \
-		echo "Did not find line starting with" ;\
-		echo "* $(TODAY) $(USER_NAME)" ; \
-		echo "as the first line of %changelog -- will not be able to update version in changelog." ; \
-		exit 1 ; \
-	fi
-
-.PHONY : help \
-	tag-release tag-minor-release x-tag-release check-no-tar-gz \
-	srpm check-package-tag \
-	test-srpm test-rpm \
-	git-archive-to-tar-gz retrieve-spec-and-sources \
-	test-setup-specfile \
-	setup-build-dir \
-	bump-version bump-release check-keep-version check-version \
-	check-today-in-changelog update-changelog \
-	help
+.PHONY: help debug
 
