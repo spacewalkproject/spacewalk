@@ -9,7 +9,6 @@ Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl-DBI
 BuildRequires: oracle-instantclient-devel
-BuildRequires: libclntsh.so.10.1
 Requires: perl >= 0:5.6.1
 
 %description
