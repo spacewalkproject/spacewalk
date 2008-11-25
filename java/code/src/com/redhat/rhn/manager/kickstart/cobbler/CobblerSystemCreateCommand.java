@@ -76,6 +76,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         return server;
     }
 
+    /**
+     * Get the Cobbler map representation fo the system
+     * @return Map of system
+     */
     public Map getSystemMap() {
         List < String > args = new ArrayList();
         args.add(this.server.getName());

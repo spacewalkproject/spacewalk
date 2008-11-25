@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -29,7 +28,6 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileDeleteCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
