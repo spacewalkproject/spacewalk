@@ -46,6 +46,9 @@ install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com>
+- fix missing semicolon 
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.3-1
 - 467441 - fix requires
 

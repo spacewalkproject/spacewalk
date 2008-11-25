@@ -14,7 +14,7 @@ use NOCpulse::Probe::Config::Command;
 use NOCpulse::Probe::ModuleMap;
 use NOCpulse::SetID;
 use NOCpulse::Utils::XML;
-use NOCpulse::CommandLineApplicationComponent
+use NOCpulse::CommandLineApplicationComponent;
 use FreezeThaw qw(freeze);
 use Digest::MD5 qw(md5_hex);
 use Getopt::Long;
