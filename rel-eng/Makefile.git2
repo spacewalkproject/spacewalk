@@ -80,3 +80,5 @@ include $(THIS_DIR)Makefile.tag-release
 
 include $(THIS_DIR)Makefile.srpm
 
+.PHONY: help debug
+

@@ -129,3 +129,8 @@ x-setup-specfile :
 			fi ; \
 		fi
 
+.PHONY : tgz git-archive-unpack git-archive-to-tar-gz unpack-tar-gz \
+	rpm srpm test-srpm test-rpm \
+	setup-source-dir setup-source-dir-2 \
+	x-build-srpm x-build-rpm x-setup-specfile x-setup-specfile
+
