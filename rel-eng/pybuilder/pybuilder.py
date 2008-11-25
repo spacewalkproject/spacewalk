@@ -61,11 +61,11 @@ def find_spec_file():
 def run_command(command):
     (status, output) = commands.getstatusoutput(command)
     if status > 0:
-        sys.stderr.write("\n\n########## ERROR ############\n\n")
+        sys.stderr.write("\n########## ERROR ############\n")
         sys.stderr.write("Error running command: %s\n" % command)
         sys.stderr.write("Status code: %s\n" % status)
         sys.stderr.write("Command output: %s\n" % output)
-        sys.exit(1)
+        raise Exception("Error running command")
     return output
 
 def main(tagger=None, builder=None):
@@ -98,6 +98,9 @@ def main(tagger=None, builder=None):
             help="Use current branch HEAD instead of latest package tag.")
     parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
             help="Do not clean up temporary build directories/files.")
+    parser.add_option("--tag", dest="tag",
+            help="Build a specific tag instead of the latest version. " +
+                "(i.e. spacewalk-java-0.4.0-1)")
     parser.add_option("--debug", dest="debug", action="store_true",
             help="Print debug messages.", default=False)
 
@@ -211,11 +214,6 @@ class Builder(BuildCommon):
 
         self.options = None # set when we run
 
-        # This does not include project name, i.e. just "0.4.0-1"
-        self.latest_tagged_version = self._get_latest_tagged_version()
-        self.latest_tag = "%s-%s" % (self.project_name,
-                self.latest_tagged_version)
-
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
         # of build.py)
@@ -224,7 +222,7 @@ class Builder(BuildCommon):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
 
         # Set when we run() but defined here for clarity:
-        self.project_version = None
+        self.display_version = None
         self.spec_file = None
         self.rpmbuild_dir = None
         self.rpmbuild_sourcedir = None
@@ -241,12 +239,24 @@ class Builder(BuildCommon):
         """
 
         self.options = options
+        self._validate_options()
+
+        # This does not include project name, i.e. just "0.4.0-1"
+        if self.options.tag:
+            self.build_tag = self.options.tag
+            self.build_version = self.build_tag[len(self.project_name + "-"):]
+        else:
+            self.build_version = self._get_latest_tagged_version()
+            self.build_tag = "%s-%s" % (self.project_name,
+                    self.build_version)
+
+        check_tag_exists(self.build_tag)
 
         # Setup some remaining member variables now that we have access to
         # the command line options:
-        self.project_version = self._get_project_version()
+        self.display_version = self._get_display_version()
 
-        self.git_commit_id = self._get_build_sha1()
+        self.git_commit_id = self._get_build_commit()
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
         temp_dir = "rpmbuild-%s" % self.project_name_and_sha1
@@ -269,19 +279,24 @@ class Builder(BuildCommon):
         self.spec_file = os.path.join(self.rpmbuild_sourcedir,
                 tgz_base, self.spec_file_name)
 
-        if options.tgz:
+        if self.options.tgz:
             self._tgz()
-        if options.srpm:
+        if self.options.srpm:
             self._srpm()
-        if options.rpm:
+        if self.options.rpm:
             self._rpm()
 
         if not options.no_cleanup:
             self._cleanup()
 
+    def _validate_options(self):
+        """ Check for option combinations that make no sense. """
+        if self.options.test and self.options.tag:
+            raise Exception("Cannot build test version of specific tag.")
+
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
-        print "Building version: %s" % self.project_version
+        print "Building version: %s" % self.display_version
         print "Using spec file: %s" % self.spec_file
         self._create_build_dirs()
         os.chdir(os.path.abspath(self.git_root))
@@ -318,7 +333,7 @@ class Builder(BuildCommon):
                         self.spec_file,
                         self.git_commit_id,
                         self.project_name,
-                        self.project_version,
+                        self.display_version,
                         self.tgz_filename
                     )
             run_command(cmd)
@@ -373,16 +388,16 @@ class Builder(BuildCommon):
         just the project name, but in the case of Satellite packages it may
         be different.
         """
-        return "%s-%s" % (self.project_name, self.project_version)
+        return "%s-%s" % (self.project_name, self.display_version)
 
-    def _get_build_sha1(self):
-        """ Return the git SHA1 we should build. """
+    def _get_build_commit(self):
+        """ Return the git commit we should build. """
         if self.options.test:
-            return self._get_git_head_sha1()
+            return self._get_git_head_commit()
         else:
             output = run_command(
                     "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
-                    % self.latest_tag)
+                    % self.build_tag)
             return output
 
     def _get_latest_tagged_version(self):
@@ -407,22 +422,21 @@ class Builder(BuildCommon):
                 % sha1_or_tag)
         return output
 
-    def _get_project_version(self):
+    def _get_display_version(self):
         """
-        Get the package version to build.
+        Get the package display version to build.
 
-        Normally this is whatever is rel-eng/packages/.
-
-        In the case of a --test build it will be the SHA1 for the HEAD commit
-        of the current git branch.
+        Normally this is whatever is rel-eng/packages/. In the case of a --test
+        build it will be the SHA1 for the HEAD commit of the current git
+        branch.
         """
         if self.options.test:
-            version = "git-" + self._get_git_head_sha1()
+            version = "git-" + self._get_git_head_commit()
         else:
-            version = self.latest_tagged_version.split("-")[0]
+            version = self.build_version.split("-")[0]
         return version
 
-    def _get_git_head_sha1(self):
+    def _get_git_head_commit(self):
         """ Return the SHA1 of the HEAD commit on the current git branch. """
         return commands.getoutput('git rev-parse --verify HEAD')
 
@@ -444,7 +458,7 @@ class UpstreamBuilder(Builder):
         Override parent method to return the Spacewalk project name for this
         Satellite package.
         """
-        return "%s-%s" % (self.upstream_project_name, self.project_version)
+        return "%s-%s" % (self.upstream_project_name, self.display_version)
 
 
 
@@ -522,6 +536,15 @@ class Tagger(BuildCommon):
         """ Get the package version from the spec file. """
         command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (self.full_project_dir, self.spec_file_name)
         return run_command(command)
+
+
+
+def check_tag_exists(tag):
+    """ Check that the given git tag exists. """
+    print os.getcwd()
+    (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
+    if status > 0:
+        raise Exception("Unable to locate git tag: %s" % tag)
 
 
 
