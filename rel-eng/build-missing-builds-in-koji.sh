@@ -7,7 +7,7 @@ BASENAME=`basename $0`
 cd `echo $0 | sed s/$BASENAME//`/..;
 
 for package in ` \
-	rel-eng/koji-missing-builds.pl $TAG | \
+	rel-eng/koji-missing-builds.pl $TAG | grep -v buildsys-macros | \
 	awk '{ if (x==1) { print } } /Builds missing in koji/ { x=1 }' | \
 	sed '1,$s/\s*\([a-zA-Z_-]*\)-.*/\1/' | \
 	xargs -I replacestring cat rel-eng/packages/replacestring |cut -f2 -d' '`; do 
