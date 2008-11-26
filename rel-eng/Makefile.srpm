@@ -12,10 +12,6 @@ X_RPMBUILD_DIR_OPTS = --define "_sourcedir $(CURDIR)" \
 		--define "_srcrpmdir $(X_RPMBUILD_DIR)" \
 		--define "_rpmdir $(X_RPMBUILD_DIR)"
 
-ifdef DIST
-DIST_OPTS = --define 'dist $(DIST)'
-endif
-
 # The COMMIT parameter is used when we want to make tar.gz / .src.rpm
 # from any commit we like (including HEAD). In that case thou, the
 # name and content of the tar.gz / .src.rpm is modified to contain
@@ -75,6 +71,14 @@ endif
 RPMBUILD_SOURCEDIR := $(RPMBUILD_DIR)SOURCES/$(DIR)
 NAME_TAR_GZ := $(NAME_TAR_GZ_DIR).tar.gz
 
+ifdef DIST
+DIST_OPTS = --define 'dist $(DIST)'
+DIST_PARAMS = DIST=$(DIST)
+endif
+
+ifdef COMMIT
+COMMIT_PARAMS = COMMIT=$(COMMIT)
+endif
 
 tgz : git-archive-to-tar-gz
 	@echo "Wrote: $(RPMBUILD_DIR)$(NAME_TAR_GZ)"
@@ -82,10 +86,7 @@ tgz : git-archive-to-tar-gz
 git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
 
 rpm srpm : check-tag git-archive-unpack
-	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ \
-		X_RPMBUILD_DIR=$(RPMBUILD_DIR) \
-		DIST=$(DIST) \
-		COMMIT=$(COMMIT)
+	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ X_RPMBUILD_DIR=$(RPMBUILD_DIR) $(DIST_PARAMS) $(COMMIT_PARAMS)
 
 test-srpm :
 	$(MAKE) srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
