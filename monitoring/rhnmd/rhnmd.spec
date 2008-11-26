@@ -39,18 +39,23 @@ fi
 %post
 /sbin/chkconfig --add rhnmd
 
+if [ ! -f %{identity} ]
+then
+    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{name}
+fi
+
 %install
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+mkdir -p $RPM_BUILD_ROOT%{_initrddir}
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{name}/.ssh
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
 ln -sf sshd $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd
-install -m 0755 rhnmd-init $RPM_BUILD_ROOT%{_sysconfdir}/init.d/rhnmd
+install -m 0755 rhnmd-init $RPM_BUILD_ROOT%{_initrddir}/rhnmd
 install -m 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/rhnmd_config
 install -m 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{name}/.ssh/authorized_keys
 install -m 0755 rhnmd-wrap $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd-wrap
@@ -63,21 +68,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %{_sysconfdir}/pam.d/rhnmd
-%dir %{_var}/lib/%{name
-%attr(750,nocpulse,nocpulse) %{_var}/lib/%{name}/*
+%dir %{_var}/lib/%{name}
+%attr(750,nocpulse,nocpulse) %{_var}/lib/%{name}
+%attr(700,nocpulse,nocpulse) %{_var}/lib/%{name}/.ssh
 %config(noreplace) %{_var}/lib/%{name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/*
-/etc/init.d/rhnmd
+%{_initrddir}/rhnmd
 
-%post
-if [ ! -f %{identity} ]
-then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{name}
-fi
- 
 %preun
 if [ $1 = 0 ]; then
     /sbin/service rhnmd stop > /dev/null 2>&1
@@ -87,6 +87,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com>
+- fix spec so it can actually be build
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 5.1.1-1
 - resolves #467877 - use runuser instead of su
 
