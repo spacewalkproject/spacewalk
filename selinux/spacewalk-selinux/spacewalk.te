@@ -33,4 +33,6 @@ allow httpd_sys_script_t httpd_log_t:file { ioctl };
 type spacewalk_initrc_exec_t;
 
 domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
+allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
+allow spacewalk_initrc_exec_t fs_t:filesystem associate;
 
