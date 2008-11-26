@@ -121,11 +121,6 @@ git-archive-to-tar-gz : setup-source-dir
 
 unpack-tar-gz : setup-source-dir-2
 	@cd $(RPMBUILD_SOURCEDIR) && tar xz --strip-components 1 -f $(RPMBUILD_DIR)$(NAME_TAR_GZ)
-	@if test -f $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) ; then \
-		echo "The tarball $(RPMBUILD_DIR)$(NAME_TAR_GZ) seems to contain $(NAME_TAR_GZ) already." ; \
-		exit 1 ; \
-		fi
-	@mv $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ)
 
 
 setup-source-dir :
@@ -143,7 +138,7 @@ setup-source-dir-2 :
 
 rpmbuild_x-build-srpm_params = --nodeps -bs
 rpmbuild_x-build-rpm_params = --nodeps --clean -ba
-x-build-srpm x-build-rpm : x-setup-specfile
+x-build-srpm x-build-rpm : x-setup-specfile x-pull-in-tar-gz
 	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
 	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) $(rpmbuild_$@_params) $(SPECFILE)
 	@rm -rf $(X_RPMBUILD_DIR)/BUILD
@@ -161,6 +156,19 @@ x-setup-specfile :
 			perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(COMMIT) $(NAME)-git-$(COMMIT) $(NAME)-git-$(COMMIT).tar.gz ; \
 			fi ; \
 		fi
+
+x-pull-in-tar-gz :
+	@if test -z "$(NO_TAR_GZ)" ; then \
+		for i in $(X_RPMBUILD_DIR)*.tar.gz ; do \
+			NAME_TAR_GZ=`basename $$i` ; \
+			if test -e $$NAME_TAR_GZ ; then  \
+				echo "The tarball seems to contain $$NAME_TAR_GZ already." ; \
+				exit 1 ; \
+			fi ; \
+			mv $(X_RPMBUILD_DIR)*.tar.gz . ; \
+		done ; \
+		fi
+
 
 upload-tgz : tgz
         scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) fedorahosted.org:spacewalk
