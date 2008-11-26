@@ -141,15 +141,11 @@ setup-source-dir-2 :
 	@ln -s $(THIS_DIR) $(RPMBUILD_DIR)SOURCES/rel-eng
 
 
-
-x-build-srpm : x-setup-specfile
+rpmbuild_x-build-srpm_params = --nodeps -bs
+rpmbuild_x-build-rpm_params = --nodeps --clean -ba
+x-build-srpm x-build-rpm : x-setup-specfile
 	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
-	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(SPECFILE)
-	@rm -rf $(X_RPMBUILD_DIR)/BUILD
-
-x-build-rpm : x-setup-specfile
-	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
-	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps --clean -ba $(SPECFILE)
+	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) $(rpmbuild_$@_params) $(SPECFILE)
 	@rm -rf $(X_RPMBUILD_DIR)/BUILD
 
 
