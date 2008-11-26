@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com>
+- 473097 - point monitoring paths to new destination
+
 * Fri Nov 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
 - resolved #471199 - performance improvement of delete_server
 
