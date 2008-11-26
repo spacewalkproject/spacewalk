@@ -356,7 +356,6 @@ class Builder(BuildCommon):
                     )
             run_command(cmd)
 
-
     def _create_git_copy(self):
         """
         Create a copy of the git source for the project from the commit ID
@@ -481,6 +480,22 @@ class TarGzBuilder(Builder):
         return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
             (self.rpmbuild_gitcopy, self.rpmbuild_builddir,
                     self.rpmbuild_basedir, self.rpmbuild_basedir)
+
+    def _setup_test_specfile(self):
+        """ Override parent behavior. """
+        if self.test:
+            # If making a test rpm we need to get a little crazy with the spec
+            # file we're building off. (note that this is a temp copy of the
+            # spec) Swap out the actual release for one that includes the git
+            # SHA1 we're building for our test package:
+            cmd = "perl %s/test-setup-specfile.pl %s %s" % \
+                    (
+                        self.rel_eng_dir,
+                        self.spec_file,
+                        self.git_commit_id
+                    )
+            run_command(cmd)
+
 
 
 
