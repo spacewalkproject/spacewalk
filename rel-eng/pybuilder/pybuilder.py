@@ -99,7 +99,6 @@ def main(tagger_class=None, builder_class=None):
     parser.add_option("--debug", dest="debug", action="store_true",
             help="Print debug messages.", default=False)
 
-
     parser.add_option("--tag-release", dest="tag_release", action="store_true",
             help="Tag a new version of the package. (i.e. x.y.z+1)")
     (options, args) = parser.parse_args()
@@ -210,11 +209,6 @@ class Builder(BuildCommon):
     """
 
     def __init__(self, tag=None, dist=None, test=False, debug=False):
-        """
-        Builder must always be instantiated from the project directory where
-        the .spec file is located. No changes to the working directory should
-        be made here in the constructor.
-        """
         BuildCommon.__init__(self, debug)
 
         self.dist = dist
@@ -242,25 +236,25 @@ class Builder(BuildCommon):
         self.git_commit_id = self._get_build_commit()
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
+
+        tgz_base = self._get_tgz_name_and_ver()
+        self.tgz_filename = tgz_base + ".tar.gz"
+        self.tgz_dir = tgz_base
+
         temp_dir = "rpmbuild-%s" % self.project_name_and_sha1
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
-        self.rpmbuild_dir_opts = """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
-            (self.rpmbuild_basedir, self.rpmbuild_builddir,
-                    self.rpmbuild_basedir, self.rpmbuild_basedir)
 
-        # Setup the .tar.gz filename, etc:
-        tgz_base = self._get_tgz_name_and_ver()
-        self.tgz_filename = tgz_base + ".tar.gz"
-        self.tgz_dir = tgz_base
+        # A copy of the git code from commit we're building:
+        self.rpmbuild_gitcopy = os.path.join(self.rpmbuild_sourcedir,
+                self.tgz_dir)
 
         # NOTE: The spec file we actually use is the one exported by git
         # archive into the temp build directory. This is done so we can
         # modify the version/release on the fly when building test rpms
         # that use a git SHA1 for their version.
-        self.spec_file = os.path.join(self.rpmbuild_sourcedir,
-                tgz_base, self.spec_file_name)
+        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
 
     def run(self, options):
         """
@@ -289,9 +283,91 @@ class Builder(BuildCommon):
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
+        self._create_git_copy()
+
+        run_command("cp %s/%s %s/" %  \
+                (self.rpmbuild_sourcedir, self.tgz_filename,
+                    self.rpmbuild_basedir))
+
+        print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
+
+    def _srpm(self):
+        """
+        Build a source RPM.
+        """
+        self._create_build_dirs()
+
+        if self.test:
+            self._setup_test_specfile()
+
+        # TODO: Looks wrong, this might be using the latest spec file in git
+        # when it should be using the spec file from the git commit we're
+        # building:
+        os.chdir(self.full_project_dir)
+
+        define_dist = ""
+        if self.dist:
+            define_dist = "--define 'dist %s'" % self.dist
+
+        cmd = "rpmbuild %s %s --nodeps -bs %s" % \
+                (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
+        output = run_command(cmd)
+        print output
+
+    def _rpm(self):
+        """ Build an RPM. """
+        self._create_build_dirs()
+
+        define_dist = ""
+        if self.dist:
+            define_dist = "--define 'dist %s'" % self.dist
+        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % \
+                (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
+        output = run_command(cmd)
+        print output
+
+    def _cleanup(self):
+        """
+        Remove all temporary files and directories.
+        """
+        commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
+
+    def _create_build_dirs(self):
+        """
+        Create the build directories. Can safely be called multiple times.
+        """
+        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
+            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
+
+    def _setup_test_specfile(self):
+        if self.test:
+            # If making a test rpm we need to get a little crazy with the spec
+            # file we're building off. (note that this is a temp copy of the
+            # spec) Swap out the actual release for one that includes the git
+            # SHA1 we're building for our test package:
+            cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
+                    (
+                        self.rel_eng_dir,
+                        self.spec_file,
+                        self.git_commit_id,
+                        self.project_name,
+                        self.display_version,
+                        self.tgz_filename
+                    )
+            run_command(cmd)
+
+
+    def _create_git_copy(self):
+        """
+        Create a copy of the git source for the project from the commit ID
+        we're building.
+
+        Created in the temporary rpmbuild SOURCES directory.
+        """
+        self._create_build_dirs()
+
         print "Building version: %s" % self.display_version
         self.debug_print("Using spec file: %s" % self.spec_file)
-        self._create_build_dirs()
         os.chdir(os.path.abspath(self.git_root))
         print "Creating %s from git tag: %s..." % (self.tgz_filename,
                 self.git_commit_id)
@@ -310,66 +386,11 @@ class Builder(BuildCommon):
                     self.rpmbuild_sourcedir
             )
         run_command(archive_cmd)
-        run_command("mv %s/%s %s/" %  \
-                (self.rpmbuild_sourcedir, self.tgz_filename,
-                    self.rpmbuild_basedir))
 
-        if self.test:
-            # If making a test rpm we need to get a little crazy with the spec
-            # file we're building off. (note that this is a temp copy of the
-            # spec) Swap out the actual release for one that includes the git
-            # SHA1 we're building for our test package:
-            cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
-                    (
-                        self.rel_eng_dir,
-                        self.spec_file,
-                        self.git_commit_id,
-                        self.project_name,
-                        self.display_version,
-                        self.tgz_filename
-                    )
-            run_command(cmd)
-
-        print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
-
-    def _srpm(self):
-        """
-        Build a source RPM.
-        """
-        self._create_build_dirs()
-        os.chdir(self.full_project_dir)
-        define_dist = ""
-        if self.dist:
-            define_dist = "--define 'dist %s'" % self.dist
-
-        cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts,
-            define_dist, self.spec_file)
-        output = run_command(cmd)
-        print output
-
-    def _rpm(self):
-        """ Build an RPM. """
-        self._create_build_dirs()
-
-        define_dist = ""
-        if self.dist:
-            define_dist = "--define 'dist %s'" % self.dist
-        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
-        output = run_command(cmd)
-        print output
-
-    def _cleanup(self):
-        """
-        Remove all temporary files and directories.
-        """
-        commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
-
-    def _create_build_dirs(self):
-        """
-        Create the build directories. Can safely be called multiple times.
-        """
-        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
-            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
+    def _get_rpmbuild_dir_options(self):
+        return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
+            (self.rpmbuild_sourcedir, self.rpmbuild_builddir,
+                    self.rpmbuild_basedir, self.rpmbuild_basedir)
 
     def _get_tgz_name_and_ver(self):
         """
@@ -428,6 +449,38 @@ class Builder(BuildCommon):
     def _get_git_head_commit(self):
         """ Return the SHA1 of the HEAD commit on the current git branch. """
         return commands.getoutput('git rev-parse --verify HEAD')
+
+
+
+class TarGzBuilder(Builder):
+    """
+    Builder for packages that are built from a .tar.gz stored directly in
+    git.
+
+    i.e. most of the packages in spec-tree.
+    """
+
+    def _tgz(self):
+        """ Override parent behavior, we already have a tgz. """
+        #raise Exception("Cannot build .tar.gz for project %s" %
+        #        self.project_name)
+        pass
+
+    def _srpm(self):
+        self._create_git_copy()
+        Builder._srpm(self)
+
+    def _get_rpmbuild_dir_options(self):
+        """
+        Override parent behavior slightly.
+
+        These packages store tar's, patches, etc, directly in their project
+        dir, use the git copy we create as the sources directory when
+        building package so everything can be found:
+        """
+        return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
+            (self.rpmbuild_gitcopy, self.rpmbuild_builddir,
+                    self.rpmbuild_basedir, self.rpmbuild_basedir)
 
 
 
@@ -491,6 +544,11 @@ class Tagger(BuildCommon):
         #print "Today = %s" % today
         #regex = '\n%changelog\w\n'
         #regex = '(\n%%changelog\n\\* %s.+?)\s*(\d\S+)?\n' % today
+        """
+        Builder must always be instantiated from the project directory where
+        the .spec file is located. No changes to the working directory should
+        be made here in the constructor.
+        """
         #print regex
 
         #spec_file = open(self.spec_file, 'r')
