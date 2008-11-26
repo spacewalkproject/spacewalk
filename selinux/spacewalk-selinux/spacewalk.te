@@ -36,3 +36,5 @@ domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
 allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 allow spacewalk_initrc_exec_t fs_t:filesystem associate;
 
+allow initrc_t spacewalk_initrc_exec_t:file entrypoint;
+
