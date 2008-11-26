@@ -149,7 +149,7 @@ x-build-srpm x-build-rpm : x-setup-specfile
 	@rm -rf $(X_RPMBUILD_DIR)/BUILD
 	@find $(X_RPMBUILD_DIR) -name '*.rpm' | while read i ; do \
 		echo rpmlint $$i ; \
-		rpmlint $$i ; \
+		rpmlint $$i || : ; \
 		done
 
 
