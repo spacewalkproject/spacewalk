@@ -87,10 +87,10 @@ rpm srpm : check-tag git-archive-unpack
 		DIST=$(DIST) \
 		COMMIT=$(COMMIT)
 
-test-srpm : git-archive-unpack
+test-srpm :
 	$(MAKE) srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
 
-test-rpm : git-archive-unpack
+test-rpm :
 	$(MAKE) rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
 
 check-tag :
