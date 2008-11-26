@@ -647,7 +647,6 @@ sub oracle_setup_embedded_db {
     if (! -e Spacewalk::Setup::SATELLITE_SYSCONFIG) {
             open(S, '>>', Spacewalk::Setup::SATELLITE_SYSCONFIG)
                 or die Spacewalk::Setup::loc("Could not open '%s' file: %s\n", Spacewalk::Setup::SATELLITE_SYSCONFIG, $!);
-            print "DB_SERVICE=oracle";
             close(S);
     }
 
