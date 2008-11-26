@@ -10,7 +10,7 @@ Name:      rhnmd
 # make srpm
 URL:       https://fedorahosted.org/spacewalk
 Source0:   %{name}-%{version}.tar.gz
-Version:   5.1.1
+Version:   5.1.2
 Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Daemons
@@ -87,7 +87,7 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
-* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com>
+* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 5.1.2-1
 - fix spec so it can actually be build
 
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 5.1.1-1
