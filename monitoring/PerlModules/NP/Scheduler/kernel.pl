@@ -3,7 +3,7 @@
 use strict;
 use NOCpulse::Config;
 use NOCpulse::Debug;
-use NOCpulse::DBMObjectRepository
+use NOCpulse::DBMObjectRepository;
 use NOCpulse::NotificationQueue;
 use NOCpulse::NPRecords;
 use NOCpulse::ProcessPool;
