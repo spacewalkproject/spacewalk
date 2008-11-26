@@ -97,6 +97,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Wed Nov 26 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolved #472807 - 32bit to 64bit upgrade fix
+
 * Mon Nov 24 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-21
 - resolved #472378 - oracle autostart flag set on
 
