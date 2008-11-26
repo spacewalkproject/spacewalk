@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Scheduler
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.58.8
+Version:      1.58.9
 Release:      1%{?dist}
 Summary:      NOCpulse Event Scheduler
 URL:          https://fedorahosted.org/spacewalk
@@ -52,7 +52,7 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com>
+* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 1.58.9-1
 - add missing semicolon to kernel.pl
 
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.58.8-1
