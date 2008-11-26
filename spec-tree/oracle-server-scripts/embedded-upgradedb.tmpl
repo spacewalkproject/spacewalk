@@ -35,10 +35,18 @@ select sysdate, 'rdbms/admin/catupgrd.sql' script from dual;
 -- show summary
 @?/rdbms/admin/utlu102s.sql
 
--- perform migration of DICTIONARY to LOCAL managed tablespaces
+-- invalidate all db objects
+select sysdate, 'Invalidating packages' message from dual;
+@?/rdbms/admin/utlirp.sql
+
 shutdown immediate
 startup restrict
 
+-- recompile all db stuff incl. java stored procs
+select sysdate, 'Recompiling packages' message from dual;
+@?/rdbms/admin/utlrp.sql
+
+-- perform migration of DICTIONARY to LOCAL managed tablespaces
 begin
   for t in (select tablespace_name from dba_tablespaces
 	     where extent_management = 'DICTIONARY')
@@ -74,10 +82,6 @@ BEGIN
  END LOOP;
 END;
 /
-
--- recompile all possible invalid stuff incl. java stored procs
-select sysdate, 'Recompiling packages' message from dual;
-@?/rdbms/admin/utlrp.sql
 
 alter session set current_schema=RHNORA_DB_USER;
 select 'rdbms/admin/utlxplan.sql' script from dual;
