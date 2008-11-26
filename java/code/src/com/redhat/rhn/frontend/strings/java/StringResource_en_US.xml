@@ -7861,7 +7861,13 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
      <trans-unit id="api.kickstart.tree.notfound">
         <source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
-      </trans-unit>              
+      </trans-unit>
+     <trans-unit id="message.channelcreated">
+        <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
+     </trans-unit>
+     <trans-unit id="message.channelupdated">
+        <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+     </trans-unit>
     </body>
   </file>
 </xliff>
