@@ -12,8 +12,8 @@ for package in ` \
              /Builds missing in koji/ { x=1 }' | \
 	xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring `; do
   ( cd $package && make srpm DIST='.el5' | \
-    grep 'Wrote:' |cut -f2 -d' ' | \
-    xargs -I packagepath koji -c ~/.koji/spacewalk-config build $TAG packagepath; ) 
+    awk '/Wrote:/ {print $2}' | \
+    xargs -I packagepath koji -c ~/.koji/spacewalk-config build $TAG packagepath; )
 done
 
 popd
