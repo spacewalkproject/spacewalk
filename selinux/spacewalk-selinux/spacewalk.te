@@ -7,6 +7,7 @@ require {
 	type httpd_log_t;
 	type java_t;
 	type initrc_t;
+	type oracle_port_t;
 }
 
 type spacewalk_install_log_t;
@@ -24,4 +25,6 @@ domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
 
 domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
 allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
+
+allow httpd_t oracle_port_t:tcp_socket name_connect;
 
