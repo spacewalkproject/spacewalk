@@ -1076,7 +1076,7 @@ sub oracle_test_db_schema {
 
   my $dbh = oracle_get_dbh($answers);
 
-  my $sth = $dbh->prepare(<<EOQ);
+  my $sth = $dbh->prepare(<<'EOQ');
 SELECT 1
   FROM user_objects
  WHERE object_name <> 'PLAN_TABLE'
