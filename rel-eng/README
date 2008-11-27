@@ -44,6 +44,10 @@ Usage:
 		RPMBUILD_BASEDIR = /tmp/spacewalk-build
 	there, the path pointing to directory where builds will take place
 	and where .rpm will land (instead of your working tree).
+        The line
+                FEDORAHOSTED_USER = login
+        allow you to set login name for uploading tgz files to 
+        fedorahosted.org if you current login differ.
 
 The Makefile in package's directory should specify NAME and SPECFILE, and
 then include this Makefile, via
