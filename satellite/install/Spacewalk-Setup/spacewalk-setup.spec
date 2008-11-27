@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.8
+Version:        0.3.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -72,6 +72,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Nov 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.9-1
+- backported fix #455421
+- backported fix #473082
+- removed debug output
+
 * Tue Nov 18 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.8-1
 - fix a few issues with installation on CentOS
 
