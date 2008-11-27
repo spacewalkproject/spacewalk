@@ -33,6 +33,7 @@ Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       spacewalk
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
+Requires:       spacewalk-backend
 
 %description
 SELinux policy module supporting Spacewalk Server.
@@ -87,7 +88,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent /var/log/rhn
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 
@@ -101,7 +102,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent /var/log/rhn
 
 %files
 %defattr(-,root,root,0755)

@@ -1,4 +1,5 @@
 
+/var/log/rhn(/.*)? gen_context(system_u:object_r:spacewalk_log_t,s0)
 /var/log/rhn/populate_db\.log gen_context(system_u:object_r:oracle_sqlplus_log_t,s0)
 /var/log/rhn/rhn-installation\.log gen_context(system_u:object_r:spacewalk_install_log_t,s0)
 /etc/rhn/satellite-httpd/conf/satidmap\.pl gen_context(system_u:object_r:httpd_sys_script_exec_t,s0)
