@@ -11,8 +11,8 @@ for package in ` \
 	awk '{ if (x==1) { print } } /Builds missing in koji/ { x=1 }' | \
 	sed '1,$s/\s*\([a-zA-Z_-]*\)-.*/\1/' | \
 	xargs -I replacestring cat rel-eng/packages/replacestring |cut -f2 -d' '`; do 
-  ( cd $package && make srpm DIST='.el5' \
-    | tail -n1 | cut -f2 -d' ' | \
+  ( cd $package && make srpm DIST='.el5' | \
+    grep 'Wrote:' |cut -f2 -d' ' | \
     xargs -I packagepath koji -c ~/.koji/spacewalk-config build $TAG packagepath; ) 
 done
 
