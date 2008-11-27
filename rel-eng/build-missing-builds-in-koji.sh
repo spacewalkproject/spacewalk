@@ -3,8 +3,7 @@
 TAG=dist-5E-sw-0.4-candidate
 pushd `pwd`
 
-BASENAME=`basename $0`
-cd `echo $0 | sed s/$BASENAME//`/..;
+cd `dirname $0`/..
 
 rel-eng/koji-missing-builds.pl $TAG | \
 	awk '!/buildsys-macros/ {
