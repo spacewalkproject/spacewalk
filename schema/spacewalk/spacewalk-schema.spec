@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Thu Nov 27 2008 Miroslav Suchy <msuchy@redhat.com>
+- 473242 - fix paths for alert_queue and ack_queue
+
 * Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - 473097 - point monitoring paths to new destination
 
