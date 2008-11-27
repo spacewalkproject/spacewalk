@@ -15,9 +15,9 @@
 #
 
 import sys
-sys.path.append("../../../rel-eng/pybuilder/")
+sys.path.append("../../../rel-eng/lib/")
 
-from pybuilder import main, Builder
+from spacewalk.releng import main
 
 if __name__ == "__main__":
     main()

@@ -15,9 +15,10 @@
 #
 
 import sys
-sys.path.append("../../../rel-eng/pybuilder/")
+sys.path.append("../../../rel-eng/lib/")
 
-from pybuilder import main, TarGzBuilder
+from spacewalk.releng import main
+from spacewalk.releng.builder import TarGzBuilder
 
 if __name__ == "__main__":
     main(builder_class=TarGzBuilder)
