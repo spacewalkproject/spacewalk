@@ -10,7 +10,7 @@ for package in ` \
 	rel-eng/koji-missing-builds.pl $TAG | \
 	awk '!/buildsys-macros/ { if (x==1) { print gensub(" *([a-zA-Z_-]+)-.*", "\\1 ", "g")} }
              /Builds missing in koji/ { x=1 }' | \
-	xargs -I replacestring cat rel-eng/packages/replacestring |cut -f2 -d' '`; do 
+	xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring `; do
   ( cd $package && make srpm DIST='.el5' | \
     grep 'Wrote:' |cut -f2 -d' ' | \
     xargs -I packagepath koji -c ~/.koji/spacewalk-config build $TAG packagepath; ) 
