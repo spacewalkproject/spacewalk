@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.4
+Version:        0.4.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
-* Thu Nov 27 2008 Miroslav Suchy <msuchy@redhat.com>
+* Thu Nov 27 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.5-1
 - 473242 - fix paths for alert_queue and ack_queue
 
 * Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
