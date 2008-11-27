@@ -20,7 +20,7 @@ import commands
 
 from time import strftime
 
-from spacewalk.releng.common import find_spec_file, BuildCommon
+from spacewalk.releng.common import find_spec_file, run_command, BuildCommon
 
 class Tagger(BuildCommon):
     """
@@ -36,7 +36,6 @@ class Tagger(BuildCommon):
         self.spec_file = os.path.join(self.full_project_dir,
                 self.spec_file_name)
 
-
     def run(self, options):
         """
         Perform the actions requested of the tagger.
@@ -44,36 +43,37 @@ class Tagger(BuildCommon):
         NOTE: this method may do nothing if the user requested no build actions
         be performed. (i.e. only release tagging, etc)
         """
-        if options.tag_release:
-            self._tag_release()
+        if options.tag_version:
+            self._tag_version()
 
-    def _tag_release(self):
+    def _tag_version(self):
         """ Tag a new version of the package. (i.e. x.y.z+1) """
         self._check_today_in_changelog()
         self._bump_version()
 
     def _check_today_in_changelog(self):
-        """ Verify that there is a changelog entry for today's date. """
-        pass
-        # TODO: Get this working, but perhaps not required for tagging new
-        # versions?
-        #today = strftime("%a %b %d %Y")
-        #print "Today = %s" % today
-        #regex = '\n%changelog\w\n'
-        #regex = '(\n%%changelog\n\\* %s.+?)\s*(\d\S+)?\n' % today
-        """
-        Builder must always be instantiated from the project directory where
-        the .spec file is located. No changes to the working directory should
-        be made here in the constructor.
-        """
-        #print regex
+        """ 
+        Verify that there is a changelog entry for today's date and the git 
+        user's name and email address.
 
-        #spec_file = open(self.spec_file, 'r')
-        #if re.compile(regex).match(spec_file.read()):
-        #    print "Found changelog entry for %s" % today
-        #else:
-        #    raise Exception("No changelog entry found: '* %s %s'" % (
-        #        today, self._get_git_user()))
+        i.e. * Thu Nov 27 2008 My Name <me@example.com>
+        """
+        today = strftime("%a %b %d %Y")
+        (git_user, git_email) = self._get_git_user_info()
+        regex = re.compile('\\*\s%s\s%s\s<%s>' % (today, git_user, git_email))
+
+        f = open(self.spec_file, 'r')
+        found_changelog = False
+        for line in f.readlines():
+            if regex.match(line):
+                found_changelog = True
+                break
+
+        if not found_changelog:
+            raise Exception("No changelog entry found: '* %s %s <%s>'" % (
+                today, git_user, git_email))
+        else:
+            self.debug_print("Found changelog entry for today.")
 
     def _bump_version(self):
         # TODO: Do this here instead of calling out to an external Perl script:
@@ -85,9 +85,10 @@ class Tagger(BuildCommon):
         new_version = self._get_spec_version()
         self.debug_print("New package version: %s" % new_version)
 
-    def _get_git_user(self):
-        """ Return the user.name git config value. """
-        return run_command('git config --get user.name')
+    def _get_git_user_info(self):
+        """ Return the user.name and user.email git config values. """
+        return (run_command('git config --get user.name'), 
+                run_command('git config --get user.email'))
 
     def _get_spec_version(self):
         """ Get the package version from the spec file. """
