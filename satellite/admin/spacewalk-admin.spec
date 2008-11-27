@@ -7,7 +7,7 @@ Name: spacewalk-admin
 # cd satellite/admin
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.3.3
+Version: 0.3.4
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Thu Nov 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.4-1
+- backported #455421 - rhn-database
+
 * Fri Oct 31 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.3-1
 - Fix issues with certificate validation.
 
