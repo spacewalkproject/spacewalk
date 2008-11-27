@@ -1080,6 +1080,7 @@ sub oracle_test_db_schema {
 SELECT 1
   FROM user_objects
  WHERE object_name <> 'PLAN_TABLE'
+   and object_type <> 'LOB'
    and object_name not like 'BIN$%'
    and rownum = 1
 EOQ
