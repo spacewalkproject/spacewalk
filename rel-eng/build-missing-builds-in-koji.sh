@@ -8,7 +8,9 @@ cd `echo $0 | sed s/$BASENAME//`/..;
 
 for package in ` \
 	rel-eng/koji-missing-builds.pl $TAG | \
-	awk '!/buildsys-macros/ { if (x==1) { print gensub(" *([a-zA-Z_-]+)-.*", "\\1 ", "g")} }
+	awk '!/buildsys-macros/ {
+                 if (x==1) { print gensub(" *([a-zA-Z_-]+)-.*", "\\1 ", "g")}
+                 }
              /Builds missing in koji/ { x=1 }' | \
 	xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring `; do
   ( cd $package && make srpm DIST='.el5' | \
