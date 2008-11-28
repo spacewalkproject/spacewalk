@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.7
+Version: 0.3.8
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -143,7 +143,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
 install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
 install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
-install -m 755 modules/dobby/etc/init.d/rhn-database $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/rhn-database
 install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
 {
@@ -172,7 +171,6 @@ egrep '/Cypress([/:]|\.3|$)' files.list > cypress.list
 egrep '/Dobby([/:]|\.3|$)' files.list  > dobby.list
 egrep '%{_bindir}/'          files.list >> dobby.list
 egrep 'man1/db-control'    files.list >> dobby.list
-echo  '%{_sysconfdir}/init.d/rhn-database' >> dobby.list
 egrep '/Grail([/:]|\.3|$)' files.list > grail.list
 egrep '/PXT([/:]|\.3|$)' files.list > pxt.list
 egrep '/RHN([/:]|\.3|$)' files.list > rhn.list
@@ -233,6 +231,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Nov 28 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.8-1
+- backported fix #455421
+
 * Tue Nov  4 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.7-1
 - Removed an unnecessary warn error statement
 
