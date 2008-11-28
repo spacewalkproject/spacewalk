@@ -17,6 +17,7 @@
 import os
 import re
 import commands
+import StringIO
 
 from time import strftime
 
@@ -36,6 +37,11 @@ class Tagger(BuildCommon):
         self.spec_file = os.path.join(self.full_project_dir,
                 self.spec_file_name)
 
+        self.today = strftime("%a %b %d %Y")
+        (self.git_user, self.git_email) = self._get_git_user_info()
+        self.changelog_regex = re.compile('\\*\s%s\s%s\s<%s>' % (self.today,
+            self.git_user, self.git_email))
+
     def run(self, options):
         """
         Perform the actions requested of the tagger.
@@ -49,7 +55,12 @@ class Tagger(BuildCommon):
     def _tag_version(self):
         """ Tag a new version of the package. (i.e. x.y.z+1) """
         self._check_today_in_changelog()
-        self._bump_version()
+        new_version = self._bump_version()
+        self._update_changelog(new_version)
+
+        # Add the version to the changelog entry for today.
+
+        # Create the actual git tag for this version:
 
     def _check_today_in_changelog(self):
         """ 
@@ -58,32 +69,65 @@ class Tagger(BuildCommon):
 
         i.e. * Thu Nov 27 2008 My Name <me@example.com>
         """
-        today = strftime("%a %b %d %Y")
-        (git_user, git_email) = self._get_git_user_info()
-        regex = re.compile('\\*\s%s\s%s\s<%s>' % (today, git_user, git_email))
-
         f = open(self.spec_file, 'r')
         found_changelog = False
         for line in f.readlines():
-            if regex.match(line):
+            match = self.changelog_regex.match(line)
+            if not found_changelog and match:
                 found_changelog = True
-                break
+        f.close()
 
         if not found_changelog:
             raise Exception("No changelog entry found: '* %s %s <%s>'" % (
-                today, git_user, git_email))
+                self.today, self.git_user, self.git_email))
         else:
-            self.debug_print("Found changelog entry for today.")
+            self.debug_print("Found changelog entry.")
 
     def _bump_version(self):
         # TODO: Do this here instead of calling out to an external Perl script:
         old_version = self._get_spec_version()
-        self.debug_print("Old package version: %s" % old_version)
         cmd = "perl %s/bump-version.pl bump-version --specfile %s" % \
                 (self.rel_eng_dir, self.spec_file)
         run_command(cmd)
         new_version = self._get_spec_version()
-        self.debug_print("New package version: %s" % new_version)
+        print "Tagging new version of %s: %s -> %s" % (self.project_name,
+            old_version, new_version)
+        return new_version
+
+    def _update_changelog(self, new_version):
+        """
+        Update the changelog with the new version.
+        """
+        # Not thrilled about having to re-read the file here but we need to
+        # check for the changelog entry before making any modifications, then
+        # bump the version, then update the changelog.
+        f = open(self.spec_file, 'r')
+        buf = StringIO.StringIO()
+        for line in f.readlines():
+            match = self.changelog_regex.match(line)
+            if match:
+                buf.write("%s %s\n" % (match.group(),
+                    new_version))
+            else:
+                buf.write(line)
+        f.close()
+
+        # Write out the new file contents with our modified changelog entry:
+        f = open(self.spec_file, 'w')
+        f.write(buf.getvalue())
+        f.close()
+        buf.close()
+
+    def _bump_version(self):
+        # TODO: Do this here instead of calling out to an external Perl script:
+        old_version = self._get_spec_version()
+        cmd = "perl %s/bump-version.pl bump-version --specfile %s" % \
+                (self.rel_eng_dir, self.spec_file)
+        run_command(cmd)
+        new_version = self._get_spec_version()
+        print "Tagging new version of %s: %s -> %s" % (self.project_name,
+            old_version, new_version)
+        return new_version
 
     def _get_git_user_info(self):
         """ Return the user.name and user.email git config values. """
