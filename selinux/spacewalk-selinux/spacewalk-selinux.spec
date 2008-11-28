@@ -1,5 +1,5 @@
 
-%define selinux_variants mls strict targeted 
+%define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
 %define POLICYCOREUTILSVER 1.33.12-1
 
