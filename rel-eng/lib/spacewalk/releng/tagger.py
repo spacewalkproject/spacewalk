@@ -57,8 +57,7 @@ class Tagger(BuildCommon):
         self._check_today_in_changelog()
         new_version = self._bump_version()
         self._update_changelog(new_version)
-
-        # Add the version to the changelog entry for today.
+        self._update_package_metadata(new_version)
 
         # Create the actual git tag for this version:
 
@@ -78,6 +77,9 @@ class Tagger(BuildCommon):
         f.close()
 
         if not found_changelog:
+            # TODO: Instead of dying here, we could try to add one automatically
+            # and generate the changelog entries from the first line of the git commit
+            # history for all commits since the last package version was tagged.
             raise Exception("No changelog entry found: '* %s %s <%s>'" % (
                 self.today, self.git_user, self.git_email))
         else:
@@ -106,8 +108,7 @@ class Tagger(BuildCommon):
         for line in f.readlines():
             match = self.changelog_regex.match(line)
             if match:
-                buf.write("%s %s\n" % (match.group(),
-                    new_version))
+                buf.write("%s %s\n" % (match.group(), new_version))
             else:
                 buf.write(line)
         f.close()
@@ -128,6 +129,56 @@ class Tagger(BuildCommon):
         print "Tagging new version of %s: %s -> %s" % (self.project_name,
             old_version, new_version)
         return new_version
+
+    def _update_package_metadata(self, new_version):
+        """
+        We track package metadata in the rel-eng/packages/ directory. Each
+        file here stores the latest package version (for the git branch you
+        are on) as well as the relative path to the project's code. (from the
+        git root)
+        """
+        self._clear_package_metadata()
+
+        # Write out our package metadata:
+        metadata_file = os.path.join(self.rel_eng_dir, "packages",
+                self.project_name)
+        f = open(metadata_file, 'w')
+        f.write("%s %s" % (new_version, self.relative_project_dir))
+        f.close()
+
+    def _clear_package_metadata(self):
+        """
+        Remove all rel-eng/packages/ files that have a relative path
+        matching the package we're tagging a new version of. Normally
+        this just removes the previous package file but if we were
+        renaming oldpackage to newpackage, this would git rm
+        rel-eng/packages/oldpackage and add
+        rel-eng/packages/spacewalk-newpackage.
+        """
+        metadata_dir = os.path.join(self.rel_eng_dir, "packages")
+        for filename in os.listdir(metadata_dir):
+            metadata_file = os.path.join(metadata_dir, filename) # full path
+
+            if os.path.isdir(metadata_file) or filename.startswith("."):
+                continue
+
+            temp_file = open(metadata_file, 'r')
+            (version, relative_dir) = temp_file.readline().split(" ")
+            relative_dir = relative_dir.strip() # sometimes has a newline
+
+            if relative_dir == self.relative_project_dir:
+                self.debug_print("Found metadata for our prefix: %s" %
+                        metadata_file)
+                self.debug_print("   version: %s" % version)
+                self.debug_print("   dir: %s" % relative_dir)
+                if filename == self.project_name:
+                    self.debug_print("Updating %s with new version." %
+                            metadata_file)
+                else:
+                    print "WARNING: %s also references %s" % (filename,
+                            self.relative_project_dir)
+                    print "Assuming package has been renamed and removing it."
+                    run_command("git rm %s" % metadata_file)
 
     def _get_git_user_info(self):
         """ Return the user.name and user.email git config values. """
