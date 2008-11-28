@@ -121,7 +121,7 @@ sub tablespace_datafiles {
 select file_name FILENAME, status STATUS, bytes BYTES
   from dba_data_files
   where tablespace_name = :ts
-order by file_id
+order by file_name
 EOS
   $sth->execute_h(ts => $ts);
   return $sth->fullfetch_hashref;
