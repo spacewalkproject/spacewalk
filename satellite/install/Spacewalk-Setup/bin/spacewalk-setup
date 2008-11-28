@@ -40,6 +40,7 @@ use Spacewalk::Setup;
 
 use RHN::SatInstall;
 use RHN::SatCluster;
+use RHN::DB;
 
 my $DEBUG;
 $DEBUG = 0;
@@ -1001,6 +1002,8 @@ sub setup_monitoring {
              last_update_user => 'installer',
             );
   $sc->create_new();
+
+  RHN::DB->set_default_handle(sprintf('%s/%s@%s', $answers->{'db-user'}, $answers->{'db-password'}, $answers->{'db-sid'}));
 
   my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
   RHN::SatInstall->write_config({ monitoringDOTscout_shared_key => $scout_shared_key },

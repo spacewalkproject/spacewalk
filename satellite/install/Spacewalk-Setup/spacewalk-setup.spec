@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Nov 28 2008 Miroslav Suchý <msuchy@redhat.com>
+- 473438 - inititate db alias
+
 * Thu Nov 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.5-1
 - resolved #473082 - fixed sql query 
 - resolved #472378 - set autostart flag on rhnsat entry
