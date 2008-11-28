@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.4
+Version: 0.4.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,7 +226,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Fri Nov 28 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.4-1
+* Fri Nov 28 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.5-1
 - removed rhn-database
 - resolved #472563 - fidex error in db-control extend
 
