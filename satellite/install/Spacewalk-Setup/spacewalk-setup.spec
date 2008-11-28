@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.10
+Version:        0.3.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -72,7 +72,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Nov 27 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.10-1
+* Fri Nov 28 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.11-1
 - Fix reference to rhn-database in Oracle scripts. (should be oracle instead)
 
 * Thu Nov 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.9-1
