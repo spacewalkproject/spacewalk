@@ -11,6 +11,7 @@ Patch0: %{base_package}-%{version}-build-xml.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: jpackage-utils >= 0:1.5
 BuildRequires: ant
+BuildRequires: unzip
 BuildArch: noarch
 
 %description 
@@ -40,7 +41,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
-* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com 2.0.9-3
+* Fri Nov 28 2008 Miroslav Suchy <msuchy@redhat.com>
+- add unzip to buildreq
+
+* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com> 2.0.9-3
 - First build
 
 * Mon Sep 25 2008 Partha Aji <paji@redhat.com>
