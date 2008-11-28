@@ -228,6 +228,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Nov 28 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.4-1
 - removed rhn-database
+- resolved #472563 - fidex error in db-control extend
 
 * Thu Nov 20 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.2-1
 - 472346 - Bump up API version and make the versioning independent on web.version
