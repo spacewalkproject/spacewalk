@@ -86,17 +86,6 @@ class Tagger(BuildCommon):
         else:
             debug("Found changelog entry.")
 
-    def _bump_version(self):
-        # TODO: Do this here instead of calling out to an external Perl script:
-        old_version = self._get_spec_version()
-        cmd = "perl %s/bump-version.pl bump-version --specfile %s" % \
-                (self.rel_eng_dir, self.spec_file)
-        run_command(cmd)
-        new_version = self._get_spec_version()
-        print "Tagging new version of %s: %s -> %s" % (self.project_name,
-            old_version, new_version)
-        return new_version
-
     def _update_changelog(self, new_version):
         """
         Update the changelog with the new version.
@@ -131,12 +120,15 @@ class Tagger(BuildCommon):
             old_version, new_version)
         return new_version
 
-    def _update_package_metadata(self, new_version):
+    def _update_package_metadata(self, new_version, release=False):
         """
         We track package metadata in the rel-eng/packages/ directory. Each
         file here stores the latest package version (for the git branch you
         are on) as well as the relative path to the project's code. (from the
         git root)
+
+        Set release to True when bumping the package release. (as opposed to
+        it's version)
         """
         self._clear_package_metadata()
 
@@ -146,6 +138,26 @@ class Tagger(BuildCommon):
         f = open(metadata_file, 'w')
         f.write("%s %s" % (new_version, self.relative_project_dir))
         f.close()
+
+        # Git add it (in case it's a new file):
+        run_command("git add %s" % metadata_file)
+        run_command("git add %s" % os.path.join(self.full_project_dir,
+            self.spec_file_name))
+
+        release_type = "release"
+        if release:
+            release_type = "minor release"
+
+        run_command('git commit -m "Automatic commit of package ' +
+                '[%s] %s [%s]."' % (self.project_name, release_type,
+                    new_version))
+
+        tag_msg = "Tagging package [%s] version [%s] in directory [%s]." % \
+                (self.project_name, new_version, self.relative_project_dir)
+
+        tag = "%s-%s" % (self.project_name, new_version)
+        print "Creating new tag: %s" % tag
+        run_command('git tag -m "%s" %s' % (tag_msg, tag))
 
     def _clear_package_metadata(self):
         """
