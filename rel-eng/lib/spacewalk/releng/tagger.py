@@ -21,7 +21,8 @@ import StringIO
 
 from time import strftime
 
-from spacewalk.releng.common import find_spec_file, run_command, BuildCommon
+from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
+        debug
 
 class Tagger(BuildCommon):
     """
@@ -83,7 +84,7 @@ class Tagger(BuildCommon):
             raise Exception("No changelog entry found: '* %s %s <%s>'" % (
                 self.today, self.git_user, self.git_email))
         else:
-            self.debug_print("Found changelog entry.")
+            debug("Found changelog entry.")
 
     def _bump_version(self):
         # TODO: Do this here instead of calling out to an external Perl script:
@@ -167,12 +168,12 @@ class Tagger(BuildCommon):
             relative_dir = relative_dir.strip() # sometimes has a newline
 
             if relative_dir == self.relative_project_dir:
-                self.debug_print("Found metadata for our prefix: %s" %
+                debug("Found metadata for our prefix: %s" %
                         metadata_file)
-                self.debug_print("   version: %s" % version)
-                self.debug_print("   dir: %s" % relative_dir)
+                debug("   version: %s" % version)
+                debug("   dir: %s" % relative_dir)
                 if filename == self.project_name:
-                    self.debug_print("Updating %s with new version." %
+                    debug("Updating %s with new version." %
                             metadata_file)
                 else:
                     print "WARNING: %s also references %s" % (filename,

@@ -18,6 +18,7 @@ Infrastructure for building Spacewalk and Satellite packages from git tags.
 """
 
 import sys
+import os
 
 from optparse import OptionParser
 
@@ -61,6 +62,9 @@ def main(tagger_class=None, builder_class=None):
 
     if len(sys.argv) < 2:
         print parser.error("Must supply an argument. Try -h for help.")
+
+    if options.debug:
+        os.environ['DEBUG'] = "true"
 
     # Some options imply other options, handle those deps here:
     if options.srpm:

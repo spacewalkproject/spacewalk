@@ -18,7 +18,7 @@ import os
 import commands
 
 from spacewalk.releng.common import BuildCommon, read_config, run_command, \
-        check_tag_exists
+        check_tag_exists, debug
 
 class Builder(BuildCommon):
     """
@@ -187,7 +187,7 @@ class Builder(BuildCommon):
         self._create_build_dirs()
 
         print "Building version: %s" % self.display_version
-        self.debug_print("Using spec file: %s" % self.spec_file)
+        debug("Using spec file: %s" % self.spec_file)
         os.chdir(os.path.abspath(self.git_root))
         print "Creating %s from git tag: %s..." % (self.tgz_filename,
                 self.git_commit_id)

@@ -68,6 +68,13 @@ def check_tag_exists(tag):
     if status > 0:
         raise Exception("Unable to locate git tag: %s" % tag)
 
+def debug(text):
+    """
+    Print the text if --debug was specified.
+    """
+    if os.environ.has_key('DEBUG'):
+        print text
+
 
 
 class BuildCommon:
@@ -129,12 +136,5 @@ class BuildCommon:
         current_dir = os.getcwd()
         relative = current_dir[len(git_root) + 1:] + "/"
         return relative
-
-    def debug_print(self, text):
-        """
-        Print the text if --debug was specified.
-        """
-        if self.debug:
-            print text
 
 
