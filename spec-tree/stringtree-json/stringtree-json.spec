@@ -1,8 +1,8 @@
 %define base_package stringtree
 Summary: An json string library
 Name: stringtree-json
-Version: 2.0.10
-Release: 1%{?dist}
+Version: 2.0.9
+Release: 3%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
