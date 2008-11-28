@@ -1,7 +1,7 @@
 
 Name:            oracle-instantclient-selinux
 Version:         10.2
-Release:         2%{?dist}
+Release:         3%{?dist}
 Summary:         SELinux support for Oracle Instant Client
 Group:           System Environment/Base
 License:         GPLv2+
@@ -45,6 +45,9 @@ fi
 %files
 
 %changelog
+* Fri Nov 28 2008 Jan Pazdziora 10.2-3
+- more textrel_shlib_t
+
 * Wed Oct 29 2008 Jan Pazdziora 10.2-2
 - escape semanage fcontext's paths
 - label bin/sqlplus
