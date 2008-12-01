@@ -3,10 +3,6 @@ policy_module(spacewalk,@@VERSION@@)
 require {
 	type httpd_t;
 	type restorecon_t;
-	type fs_t;
-	type unconfined_t;
-	type rpm_t;
-	type initrc_t;
 	type httpd_sys_script_t;
 	type httpd_log_t;
 	type java_t;
@@ -14,27 +10,18 @@ require {
 }
 
 type spacewalk_install_log_t;
+logging_log_file(spacewalk_install_log_t);
 
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
-allow restorecon_t spacewalk_install_log_t:file { getattr relabelto append };
-
-allow spacewalk_install_log_t fs_t:filesystem associate;
-
-allow unconfined_t spacewalk_install_log_t:file { getattr write append ioctl };
-
-allow rpm_t spacewalk_install_log_t:file { getattr append ioctl };
-
-allow initrc_t spacewalk_install_log_t:file { getattr append };
+allow restorecon_t spacewalk_install_log_t:file { append };
 
 allow httpd_t self:process { execstack execmem execheap };
 
 allow httpd_sys_script_t httpd_log_t:file { ioctl };
 
 type spacewalk_initrc_exec_t;
+domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
 
 domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
 allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
-allow spacewalk_initrc_exec_t fs_t:filesystem associate;
-
-allow initrc_t spacewalk_initrc_exec_t:file { entrypoint read ioctl getattr };
 
