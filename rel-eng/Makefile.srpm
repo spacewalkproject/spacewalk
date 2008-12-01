@@ -173,7 +173,7 @@ x-pull-in-tar-gz :
 
 
 upload-tgz : tgz
-	scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(FEDORAHOSTED_USER)@fedorahosted.org:spacewalk
+	@scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(FEDORAHOSTED_USER)@fedorahosted.org:spacewalk
 
 %.src.rpm %.srpm :
 	$(MAKE) srpm TAG=$*
