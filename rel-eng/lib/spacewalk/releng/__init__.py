@@ -68,6 +68,15 @@ def main(tagger_class=None, builder_class=None):
     if options.debug:
         os.environ['DEBUG'] = "true"
 
+    # Check for builder options and tagger options, if one or more from both
+    # groups are found, error out:
+    found_builder_options = (options.tgz or options.srpm or options.rpm)
+    found_tagger_options = (options.tag_release)
+    if found_builder_options and found_tagger_options:
+        print "ERROR: Cannot invoke both build and tag options at the " + \
+                "same time."
+        sys.exit(1)
+
     # Some options imply other options, handle those deps here:
     if options.srpm:
         options.tgz = True
@@ -75,18 +84,19 @@ def main(tagger_class=None, builder_class=None):
         options.tgz = True
 
     # Now that we have command line options, instantiate builder/tagger:
-    if not builder_class:
-        builder_class = Builder
-    builder = builder_class(
-            tag=options.tag,
-            dist=options.dist,
-            test=options.test,
-            debug=options.debug)
+    if found_builder_options:
+        if not builder_class:
+            builder_class = Builder
+        builder = builder_class(
+                tag=options.tag,
+                dist=options.dist,
+                test=options.test,
+                debug=options.debug)
+        builder.run(options)
 
-    if not tagger_class:
-        tagger_class = Tagger
-    tagger = tagger_class(debug=options.debug)
-
-    builder.run(options)
-    tagger.run(options)
+    if found_tagger_options:
+        if not tagger_class:
+            tagger_class = Tagger
+        tagger = tagger_class(debug=options.debug)
+        tagger.run(options)
 

@@ -15,6 +15,7 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
+import sys
 import commands
 
 from spacewalk.releng.common import BuildCommon, read_config, run_command, \
@@ -236,9 +237,15 @@ class Builder(BuildCommon):
 
         Uses the info in rel-eng/packages/package-name.
         """
-        output = run_command(
-                "awk '{ print $1 ; exit }' %s/packages/%s" %
-                (self.rel_eng_dir, self.project_name))
+        file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
+        try:
+            output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
+        except:
+            print "ERROR: Unable to lookup latest package info from %s" % \
+                    file_path
+            print "Perhaps you need to --tag-release first?"
+            sys.exit(1)
+
         return output
 
     def _get_commit_timestamp(self, sha1_or_tag):
