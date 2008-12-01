@@ -1,5 +1,5 @@
 
-%define selinux_variants mls strict targeted 
+%define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
 %define POLICYCOREUTILSVER 1.33.12-1
 
@@ -30,9 +30,9 @@ Requires:       selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:       spacewalk
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
+Requires:       spacewalk-backend
 
 %description
 SELinux policy module supporting Spacewalk Server.
@@ -87,7 +87,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent /var/log/rhn
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 
@@ -101,7 +101,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent /var/log/rhn
 
 %files
 %defattr(-,root,root,0755)

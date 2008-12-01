@@ -64,10 +64,18 @@
              emptykey="docsearch.jsp.nopages" width="100%">
       <rl:decorator name="PageSizeDecorator"/>
       <rl:column bound="false" sortable="false" headerkey="docsearch.jsp.pagetitle" styleclass="first-column">
-      	<a href="${current.url}">${current.title}</a>
+	 <a href="${current.url}">
+	     <rhn:highlight tag="strong" text="${search_string}">
+	         ${current.title}
+	     </rhn:highlight>
+	</a>
       </rl:column>
       <rl:column bound="false" sortable="false" headerkey="docsearch.jsp.pagelink" styleclass="last-column">
-      	<a href="${current.url}">${current.url}</a>
+	 <a href="${current.url}">
+	     <rhn:highlight tag="strong" text="${search_string}">
+	         ${current.url}
+	     </rhn:highlight>
+	 </a>
       </rl:column>
     </rl:list>
 

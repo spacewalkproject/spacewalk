@@ -17,7 +17,7 @@
 import sys
 sys.path.append("../../../rel-eng/lib/")
 
-from spacewalk.releng import main
+from spacewalk.releng.cli import CLI
 
 if __name__ == "__main__":
-    main()
+    CLI().main()

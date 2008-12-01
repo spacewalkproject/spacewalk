@@ -137,4 +137,21 @@ class BuildCommon:
         relative = current_dir[len(git_root) + 1:] + "/"
         return relative
 
+    def _get_latest_tagged_version(self):
+        """
+        Return the latest git tag for this package in the current branch.
+
+        Uses the info in rel-eng/packages/package-name.
+        """
+        file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
+        try:
+            output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
+        except:
+            print "ERROR: Unable to lookup latest package info from %s" % \
+                    file_path
+            print "Perhaps you need to --tag-release first?"
+            sys.exit(1)
+
+        return output
+
 

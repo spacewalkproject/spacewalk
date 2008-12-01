@@ -17,7 +17,7 @@
 import sys
 sys.path.append("../rel-eng/pybuilder/")
 
-from pybuilder import main, Builder
+from spacewalk.releng.cli import CLI
 
 if __name__ == "__main__":
-    main()
+    CLI().main()

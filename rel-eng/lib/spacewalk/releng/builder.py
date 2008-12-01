@@ -15,6 +15,7 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
+import sys
 import commands
 
 from spacewalk.releng.common import BuildCommon, read_config, run_command, \
@@ -229,17 +230,6 @@ class Builder(BuildCommon):
                     "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
                     % self.build_tag)
             return output
-
-    def _get_latest_tagged_version(self):
-        """
-        Return the latest git tag for this package in the current branch.
-
-        Uses the info in rel-eng/packages/package-name.
-        """
-        output = run_command(
-                "awk '{ print $1 ; exit }' %s/packages/%s" %
-                (self.rel_eng_dir, self.project_name))
-        return output
 
     def _get_commit_timestamp(self, sha1_or_tag):
         """
