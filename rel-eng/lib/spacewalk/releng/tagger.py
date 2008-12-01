@@ -32,11 +32,12 @@ class Tagger(BuildCommon):
     Releases will be tagged by incrementing the package version,
     and the actual RPM "release" will always be set to 1.
     """
-    def __init__(self, debug=False):
+    def __init__(self, keep_version=False, debug=False):
         BuildCommon.__init__(self, debug)
 
         self.spec_file = os.path.join(self.full_project_dir,
                 self.spec_file_name)
+        self.keep_version = keep_version
 
         self.today = strftime("%a %b %d %Y")
         (self.git_user, self.git_email) = self._get_git_user_info()
@@ -116,16 +117,20 @@ class Tagger(BuildCommon):
         Bump up the package version in the spec file.
 
         Set release to True to bump the package release instead.
-        """
-        # TODO: Do this here instead of calling out to an external Perl script:
-        old_version = self._get_spec_version()
 
-        bump_type = "bump-version"
-        if release:
-            bump_type = "bump-release"
-        cmd = "perl %s/bump-version.pl %s --specfile %s" % \
-                (self.rel_eng_dir, bump_type, self.spec_file)
-        run_command(cmd)
+        Checks for the keep version option and if found, won't actually
+        bump the version or release.
+        """
+        old_version = self._get_latest_tagged_version()
+        # TODO: Do this here instead of calling out to an external Perl script:
+        if not self.keep_version:
+
+            bump_type = "bump-version"
+            if release:
+                bump_type = "bump-release"
+            cmd = "perl %s/bump-version.pl %s --specfile %s" % \
+                    (self.rel_eng_dir, bump_type, self.spec_file)
+            run_command(cmd)
 
         new_version = self._get_spec_version()
         print "Tagging new version of %s: %s -> %s" % (self.project_name,
@@ -174,8 +179,8 @@ class Tagger(BuildCommon):
 
     def _check_tag_does_not_exist(self, new_version):
         tag = "%s-%s" % (self.project_name, new_version)
-        output = run_command('git tag | grep %s' % tag)
-        if output != "":
+        status = commands.getstatus('git tag | grep %s' % tag)
+        if status == 0:
             raise Exception("Tag %s already exists!" % tag)
 
     def _clear_package_metadata(self):

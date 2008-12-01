@@ -59,8 +59,12 @@ class CLI:
         parser.add_option("--debug", dest="debug", action="store_true",
                 help="Print debug messages.", default=False)
 
-        parser.add_option("--tag-release", dest="tag_release", action="store_true",
+        parser.add_option("--tag-release", dest="tag_release",
+                action="store_true",
                 help="Tag a new release of the package. (i.e. x.y.z-R+1")
+        parser.add_option("--keep-version", dest="keep_version",
+                action="store_true",
+                help="Use spec file version/release to tag package.")
         (options, args) = parser.parse_args()
 
         if len(sys.argv) < 2:
@@ -98,6 +102,7 @@ class CLI:
         if found_tagger_options:
             if not tagger_class:
                 tagger_class = Tagger
-            tagger = tagger_class(debug=options.debug)
+            tagger = tagger_class(keep_version=options.keep_version,
+                    debug=options.debug)
             tagger.run(options)
 

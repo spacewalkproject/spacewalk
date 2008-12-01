@@ -231,23 +231,6 @@ class Builder(BuildCommon):
                     % self.build_tag)
             return output
 
-    def _get_latest_tagged_version(self):
-        """
-        Return the latest git tag for this package in the current branch.
-
-        Uses the info in rel-eng/packages/package-name.
-        """
-        file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
-        try:
-            output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
-        except:
-            print "ERROR: Unable to lookup latest package info from %s" % \
-                    file_path
-            print "Perhaps you need to --tag-release first?"
-            sys.exit(1)
-
-        return output
-
     def _get_commit_timestamp(self, sha1_or_tag):
         """
         Get the timestamp of the git commit or tag we're building. Used to
