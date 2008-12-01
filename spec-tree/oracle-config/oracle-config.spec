@@ -67,7 +67,7 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
-* Mon Dec  1 2008 Michael Mraka <michael.mraka@redhat.com>
+* Mon Dec  1 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-4
 - resolved #470492 - coraenv
 
 * Mon Sep  8 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-3
