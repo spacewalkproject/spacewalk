@@ -26,11 +26,11 @@ from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
 
 class Tagger(BuildCommon):
     """
-    Parent package tagging class.
+    Standard Tagger class, used for tagging packages built from source in
+    git. (as opposed to packages which commit a tarball directly into git).
 
-    Includes functionality for a standard Spacewalk package built from the git
-    source. Note that it does *NOT* allow you to tag releases of the package,
-    sub-classes are available which offer this functionality.
+    Releases will be tagged by incrementing the package version,
+    and the actual RPM "release" will always be set to 1.
     """
     def __init__(self, debug=False):
         BuildCommon.__init__(self, debug)
@@ -50,33 +50,18 @@ class Tagger(BuildCommon):
         NOTE: this method may do nothing if the user requested no build actions
         be performed. (i.e. only release tagging, etc)
         """
-        self._validate_options(options)
-
-        if options.tag_version:
-            self._tag_version()
+        # This pretty much always happens if we get this far...
         if options.tag_release:
             self._tag_release()
 
-    def _validate_options(self, options):
-        """ Check for option combinations that make no sense. """
-        if options.tag_version and options.tag_release:
-            raise Exception("Cannot tag a version and release at same time.")
-
-    def _tag_version(self):
-        """ Tag a new version of the package. (i.e. x.y.z+1) """
+    def _tag_release(self):
+        """
+        Tag a new version of the package. (i.e. x.y.z+1)
+        """
         self._check_today_in_changelog()
         new_version = self._bump_version()
         self._update_changelog(new_version)
         self._update_package_metadata(new_version)
-
-        # Create the actual git tag for this version:
-
-    def _tag_release(self):
-        """
-        Do not allow release tagging for packages that are built from git
-        source.
-        """
-        raise Exception("Cannot tag release of this type of package.")
 
     def _check_today_in_changelog(self):
         """ 
@@ -170,6 +155,7 @@ class Tagger(BuildCommon):
         run_command("git add %s" % os.path.join(self.full_project_dir,
             self.spec_file_name))
 
+        # Just an informative message appearing in the commit log:
         release_type = "release"
         if release:
             release_type = "minor release"
@@ -233,19 +219,15 @@ class Tagger(BuildCommon):
 
 class ReleaseTagger(Tagger):
     """
-    Tagger sub-class allowing for the tagging of minor RPM releases. (as well
-    as version tagging)
+    Tagger which increments the spec file release instead of version.
 
     This is primarily used for packages build from a .tar.gz checked directly
-    into git. In this scenario you would --tag-version whenever that .tar.gz
-    was updated to a new version, and --tag-release any time we add a new
-    patch or make a spec file change.
+    into git.
     """
 
     def _tag_release(self):
         """
-        Override parent method (which raises an exception) and offer actual
-        tagging.
+        Tag a new release of the package. (i.e. x.y.z-r+1)
         """
         self._check_today_in_changelog()
         new_version = self._bump_version(release=True)

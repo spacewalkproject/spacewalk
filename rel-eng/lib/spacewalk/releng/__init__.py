@@ -56,8 +56,6 @@ def main(tagger_class=None, builder_class=None):
     parser.add_option("--debug", dest="debug", action="store_true",
             help="Print debug messages.", default=False)
 
-    parser.add_option("--tag-version", dest="tag_version", action="store_true",
-            help="Tag a new version of the package. (i.e. x.y.z+1)")
     parser.add_option("--tag-release", dest="tag_release", action="store_true",
             help="Tag a new release of the package. (i.e. x.y.z-R+1")
     (options, args) = parser.parse_args()
