@@ -20,7 +20,7 @@ allow restorecon_t spacewalk_install_log_t:file { append };
 
 allow httpd_t self:process { execstack execmem execheap };
 
-allow httpd_sys_script_t httpd_log_t:file { ioctl };
+dontaudit httpd_sys_script_t httpd_log_t:file { ioctl };
 
 type spacewalk_initrc_exec_t;
 domain_entry_file(initrc_t, spacewalk_initrc_exec_t)
