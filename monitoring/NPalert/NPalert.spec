@@ -103,11 +103,11 @@ install -p -m 644 Apache.NPalert $RPM_BUILD_ROOT%registry
 
 # Install logrotate stuff
 mkdir -p %buildroot%{_sysconfdir}/logrotate.d/
-install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/
+install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
 
 %files
 %defattr(-,root,root,-)
-%{_sysconfdir}/logrotate.d/notification
+%{_sysconfdir}/logrotate.d/%{name}
 %{_sysconfdir}/cron.d/notification
 %{registry}/Apache.NPalert
 %{httpd_prefix}
@@ -138,6 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com>
 - 472910 - fix paths to nofitication configs
+- rename logrotate script to NPalert
 
 * Thu Oct 16 2008 Milan Zazrivec 1.125.20-1
 - tagged for Spacewalk / Satellite build & inclusion
