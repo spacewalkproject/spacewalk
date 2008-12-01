@@ -58,6 +58,8 @@ def main(tagger_class=None, builder_class=None):
 
     parser.add_option("--tag-version", dest="tag_version", action="store_true",
             help="Tag a new version of the package. (i.e. x.y.z+1)")
+    parser.add_option("--tag-release", dest="tag_release", action="store_true",
+            help="Tag a new release of the package. (i.e. x.y.z-R+1")
     (options, args) = parser.parse_args()
 
     if len(sys.argv) < 2:

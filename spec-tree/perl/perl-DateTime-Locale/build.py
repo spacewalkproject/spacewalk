@@ -19,6 +19,7 @@ sys.path.append("../../../rel-eng/lib/")
 
 from spacewalk.releng import main
 from spacewalk.releng.builder import TarGzBuilder
+from spacewalk.releng.tagger import ReleaseTagger
 
 if __name__ == "__main__":
-    main(builder_class=TarGzBuilder)
+    main(builder_class=TarGzBuilder, tagger_class=ReleaseTagger)
