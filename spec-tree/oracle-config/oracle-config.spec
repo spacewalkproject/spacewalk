@@ -67,6 +67,9 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
+* Mon Dec  1 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolved #470492 - coraenv
+
 * Mon Sep  8 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-3
 - added Obsoletes: oracle-devel, oracle-devel-static, oracle-devel-jdbc
 - fixed rpmlint warnings
