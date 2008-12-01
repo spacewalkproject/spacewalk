@@ -85,7 +85,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/cgi-bin
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/templates
 
-ln -s %log_dir           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
+ln -s ../../../../%log_dir           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
 
 install -p -m 755 httpd/cgi-bin/redirmgr.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-bin/
 install -p -m 755 httpd/cgi-mod-perl/*.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl/
