@@ -60,6 +60,7 @@ class Tagger(BuildCommon):
         """
         self._check_today_in_changelog()
         new_version = self._bump_version()
+        self._check_tag_does_not_exist(new_version)
         self._update_changelog(new_version)
         self._update_package_metadata(new_version)
 
@@ -171,6 +172,12 @@ class Tagger(BuildCommon):
         print "Creating new tag: %s" % tag
         run_command('git tag -m "%s" %s' % (tag_msg, tag))
 
+    def _check_tag_does_not_exist(self, new_version):
+        tag = "%s-%s" % (self.project_name, new_version)
+        output = run_command('git tag | grep %s' % tag)
+        if output != "":
+            raise Exception("Tag %s already exists!" % tag)
+
     def _clear_package_metadata(self):
         """
         Remove all rel-eng/packages/ files that have a relative path
@@ -231,6 +238,7 @@ class ReleaseTagger(Tagger):
         """
         self._check_today_in_changelog()
         new_version = self._bump_version(release=True)
+        self._check_tag_does_not_exist(new_version)
         self._update_changelog(new_version)
         self._update_package_metadata(new_version, release=True)
 
