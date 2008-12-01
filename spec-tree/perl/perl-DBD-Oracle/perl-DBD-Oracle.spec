@@ -3,7 +3,7 @@ Name: perl-DBD-Oracle
 Version: 1.22
 Release: 2%{?dist}
 License:  GPL+ or Artistic
-Group: Applications/CPAN
+Group: Development/Libraries
 Source0: %{name}-%{version}.tar.gz
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
@@ -16,7 +16,7 @@ DBD-Oracle module for perl
 
 %package explain
 Summary: Oora_explain script from DBD-Oracle module for perl
-Group: Applications/CPAN
+Group: Development/Libraries
 
 %description explain
 ora_explain script
