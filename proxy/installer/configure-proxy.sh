@@ -152,6 +152,15 @@ cat $DIR/cluster.ini | sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOU
         | sed "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
         > /etc/rhn/cluster.ini
 
+
+#Setup the cobbler stuff, needed to use koan through a proxy
+PROTO="http";
+if [ $USE_SSL -eq 1 ]; then
+   PROTO="https"
+fi
+echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > /etc/httpd/conf.d/cobbler-proxy.conf
+echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> /etc/httpd/conf.d/cobbler-proxy.conf
+
 # lets do SSL stuff
 SSL_BUILD_DIR="/root/ssl-build"
 
@@ -191,6 +200,6 @@ mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
 cat /etc/httpd/conf.d/ssl.conf.bak \
 	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
 	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
-	> /etc/httpd/conf.d/ssl.conf
+	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > /etc/httpd/conf.d/ssl.conf
 
 /etc/init.d/rhn-proxy restart
