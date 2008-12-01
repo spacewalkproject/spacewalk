@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com>
+- 472910 - fix paths to nofitication configs
+
 * Thu Nov 27 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.5-1
 - 473242 - fix paths for alert_queue and ack_queue
 

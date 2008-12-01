@@ -72,6 +72,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com>
+- 472910 - fix paths to nofitication configs
+
 * Wed Oct 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.43-1
 - 468537 - renaming paths with /opt in SysV.ini 
 

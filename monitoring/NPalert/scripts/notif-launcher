@@ -55,7 +55,7 @@ my $AlertQ = NOCpulse::Notif::FileQueue->new(
         'item_class' => 'NOCpulse::Notif::Alert' );
 
 # Configuration
-my $cfg_file     = $CONFIG->get('notification','config_dir') . '/NOCpulse/config/static/notif.ini';
+my $cfg_file     = $CONFIG->get('notification','config_dir') . '/static/notif.ini';
 my $notify_cfg   = new Config::IniFiles(-file    => $cfg_file,
                                         -nocase  => 1);
 

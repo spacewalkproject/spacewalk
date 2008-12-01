@@ -59,12 +59,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/archive
 mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/ticketlog
 
 # Create symlinks
-#ln -s ../../scripts                 $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/scripts
 ln -s ../../static                  $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/config/static
-#mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse
-#ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse/config
-#mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse
-#ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse/config
 
 # Install the perl modules
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
@@ -141,6 +136,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com>
+- 472910 - fix paths to nofitication configs
+
 * Thu Oct 16 2008 Milan Zazrivec 1.125.20-1
 - tagged for Spacewalk / Satellite build & inclusion
 

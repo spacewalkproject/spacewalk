@@ -61,7 +61,7 @@ use vars qw/$debuglevel $output $query $restart $stdout $QUEUE_DIR
 #Server specific configuration
 
 my $np_cfg       = new NOCpulse::Config;
-my $cfg_file     = $np_cfg->get('notification','config_dir') . '/NOCpulse/config/static/notif.ini';
+my $cfg_file     = $np_cfg->get('notification','config_dir') . '/static/notif.ini';
 my $notify_cfg   = new Config::IniFiles(-file    => $cfg_file,
                                         -nocase  => 1); 
 
