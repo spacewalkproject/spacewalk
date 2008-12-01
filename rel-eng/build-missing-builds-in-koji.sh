@@ -16,6 +16,7 @@ rel-eng/koji-missing-builds.pl $TAG | \
             cd $package && make srpm DIST='.el5' | \
             awk '/Wrote:/ {print $2}' | \
             xargs -I packagepath koji -c ~/.koji/spacewalk-config build $TAG packagepath
+            make upload-tgz
           )
 done
 
