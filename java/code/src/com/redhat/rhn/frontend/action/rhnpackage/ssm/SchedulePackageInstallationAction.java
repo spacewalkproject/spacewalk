@@ -172,7 +172,7 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("ssm.package.install.message.packageinstall",
+                new ActionMessage("ssm.package.install.message.packageinstalls",
                                   l10n.formatNumber(numPackages)));
         }
         strutsDelegate.saveMessages(request, msgs);
