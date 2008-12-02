@@ -30,6 +30,7 @@ Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-xe-univ
 Requires:         oracle-nofcontext-selinux
+Requires:         oracle-lib-compat
 
 %description
 SELinux policy module supporting Oracle XE server.
@@ -71,9 +72,6 @@ install -p -m 644 %{name}-%{version}/%{modulename}.if \
 
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
-
-mkdir -p $RPM_BUILD_ROOT/etc/ld.so.conf.d
-echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib > $RPM_BUILD_ROOT/etc/ld.so.conf.d/oracle-xe.conf
 
 
 %clean
@@ -140,7 +138,6 @@ fi
 %doc %{name}-%{version}/%{modulename}.fc %{name}-%{version}/%{modulename}.if %{name}-%{version}/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
-/etc/ld.so.conf.d/oracle-xe.conf
 
 %changelog
 * Thu Dec 18 2008 Jan Pazdziora 10.2-7
