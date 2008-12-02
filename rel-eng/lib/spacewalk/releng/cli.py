@@ -97,7 +97,7 @@ class CLI:
         # Check what type of package we're building:
         builder_class = Builder
         tagger_class = Tagger
-        if config.has_option("buildconfig", "packed_source"):
+        if config.has_option("buildconfig", "no_tar_gz"):
             debug("Building project from pre-packed source.")
             builder_class = FromTarballBuilder
             tagger_class = ReleaseTagger
