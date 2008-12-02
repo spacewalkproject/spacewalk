@@ -95,7 +95,12 @@ public class RhnSetImpl implements RhnSet {
     public void addElement(Long elem, Long elemTwo) {
         addElement(new RhnSetElement(getUserId(), getLabel(), elem, elemTwo));
     }
-    
+
+    /** {@inheritDoc} */
+    public void addElement(Long elem, Long elemTwo, Long elemThree) {
+       addElement(new RhnSetElement(getUserId(), getLabel(), elem, elemTwo, elemThree));
+    }
+
     /**
      * Adds an element to the set.
      * @param elem Element one
@@ -105,7 +110,6 @@ public class RhnSetImpl implements RhnSet {
     }
     
     /**
-     * 
      * {@inheritDoc}
      */
     public void addElement(String elem) {

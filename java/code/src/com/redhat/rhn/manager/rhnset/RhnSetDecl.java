@@ -238,9 +238,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl SSM_CHANNEL_LIST =
         make("channel_list", SetCleanup.UNOWNED_CHANNELS);
 
-    // Set of packages we're installing on the systems in the SSM
-    public static final RhnSetDecl SSM_INSTALL_PACKAGE_LIST =
-        make("ssm_install_package_list", SetCleanup.UNOWNED_PACKAGES);
+    // Set of packages being removed from packages in the SSM (this is used by the
+    // query but the UI uses SessionSet)
+    public static final RhnSetDecl SSM_REMOVE_PACKAGES_LIST =
+        make("ssm_remove_packages_list", SetCleanup.NOOP);
     
     // This cleanser is for when the set contains rhnVirtualInstance.id
     // instead of rhnServer.id

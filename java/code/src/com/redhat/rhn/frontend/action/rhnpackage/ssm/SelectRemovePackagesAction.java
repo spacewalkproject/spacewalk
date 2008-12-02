@@ -46,6 +46,7 @@ public class SelectRemovePackagesAction extends RhnAction implements Listable {
                                  ActionForm actionForm,
                                  HttpServletRequest request,
                                  HttpServletResponse response) throws Exception {
+        request.setAttribute("parentUrl", request.getRequestURI());
 
         Map params = new HashMap();
 
@@ -53,6 +54,10 @@ public class SelectRemovePackagesAction extends RhnAction implements Listable {
         helper.setDataSetName(DATA_SET);
         helper.execute();
 
+        if (helper.isDispatched()) {
+            request.setAttribute("packagesDecl", helper.getDecl());
+            return actionMapping.findForward("confirm");
+        }
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }

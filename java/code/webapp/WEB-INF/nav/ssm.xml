@@ -13,35 +13,6 @@
 		<rhn-tab-url>/network/systems/ssm/errata/apply_errata_confirm.pxt</rhn-tab-url>
 	</rhn-tab>
 
-<!--
-	<rhn-tab name="Packages">
-
-             <rhn-tab-url>/network/systems/ssm/packages/index.pxt</rhn-tab-url>
-
-             <rhn-tab name="Install">
-		<rhn-tab-url>/network/systems/ssm/packages/install.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/packages/install_channel.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/packages/install_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-             <rhn-tab name="Upgrade">
-		<rhn-tab-url>/network/systems/ssm/packages/upgrade.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/packages/upgrade_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-             <rhn-tab name="Remove">
-		<rhn-tab-url>/network/systems/ssm/packages/remove.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/packages/remove_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-             <rhn-tab name="Verify">
-		<rhn-tab-url>/network/systems/ssm/packages/verify.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/packages/verify_conf.pxt</rhn-tab-url>
-             </rhn-tab>
-
-	</rhn-tab>
--->
-
    <rhn-tab name="Packages">
             <rhn-tab-url>/rhn/ssm/Packages.do</rhn-tab-url>
             <rhn-tab name="Install">

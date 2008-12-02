@@ -55,34 +55,49 @@ public class RhnSetTest extends RhnBaseTestCase {
         Long num = new Long(10);
         set.addElement(num, null);
         set.addElement(num, num);
+        set.addElement(num, num, null);
+        set.addElement(num, num, num);
         
         Set elements = set.getElements();
         assertNotNull(elements);
         assertEquals(set.size(), elements.size());
-        assertEquals(2, set.size());
-        assertAddRemove(2, 0);
+        assertEquals(3, set.size());
+        assertAddRemove(3, 0);
+
         int i = 0;
         for (Iterator itr = elements.iterator(); itr.hasNext();) {
             RhnSetElement element = (RhnSetElement) itr.next();
-            if (element.getElementTwo() != null) {
+            if (element.getElementTwo() != null && element.getElementThree() != null) {
                 assertEquals(num, element.getElement());
                 assertEquals(num, element.getElementTwo());
+                assertEquals(num, element.getElementThree());
+            }
+            else if (element.getElementTwo() != null && element.getElementThree() == null) {
+                assertEquals(num, element.getElement());
+                assertEquals(num, element.getElementTwo());
+                assertNull(element.getElementThree());
+            }
+            else if (element.getElementTwo() == null && element.getElementThree() != null) {
+                assertEquals(num, element.getElement());
+                assertNull(element.getElementTwo());
+                assertEquals(num, element.getElementThree());
             }
             else {
                 assertEquals(num, element.getElement());
                 assertNull(element.getElementTwo());
+                assertNull(element.getElementThree());
             }
             i++;
         }
 
-        assertEquals(2, i);
+        assertEquals(3, i);
         
         set.removeElement(num, num);
         
-        assertEquals(1, set.size());
+        assertEquals(2, set.size());
         assertTrue(set.contains(num));
         assertFalse(set.contains(num, num));
-        assertAddRemove(1, 0);
+        assertAddRemove(2, 0);
         
         set.setLabel("label");
         assertEquals("label", set.getLabel());
