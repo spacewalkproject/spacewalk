@@ -17,7 +17,9 @@ package com.redhat.rhn.manager.kickstart.cobbler.test;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
@@ -44,29 +46,53 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        // Uncomment this if you want the tests to actually talk to cobbler
-        //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
-        //        CobblerXMLRPCHelper.class.getName());
         
         user = UserTestUtils.createUserInOrgOne();
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
         user.addRole(RoleFactory.ORG_ADMIN);
+        // ksdata.setLabel("cobbler-java-test");
+        // ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
 
-        ksdata.setLabel("cobbler-java-test");
-        ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
+        // Uncomment this if you want the tests to actually talk to cobbler
+        // Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+        //        CobblerXMLRPCHelper.class.getName());
+        //commitAndCloseSession();
+
+        
         CobblerDistroCreateCommand dcreate = new 
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         dcreate.store();
     }
 
     public void testSystemCreate() throws Exception {
+        /*Server gibson = ServerFactory.lookupById(1000010339L);
+        Set interfaces = gibson.getNetworkInterfaces();
+        Iterator i = interfaces.iterator();
+        while (i.hasNext()) {
+            NetworkInterface n = (NetworkInterface) i.next();
+            System.out.println("getHwaddr: " + n.getHwaddr());
+            System.out.println("getIpaddr" + n.getIpaddr());
+            System.out.println("getName: " + n.getName());
+            System.out.println("getNetmask: " + n.getNetmask() + "________\n\n");
+        }*/
+        
+
         Server s = ServerTestUtils.createTestSystem(user);
-        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s);
+        NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
+        s.addNetworkInterface(device);
+        
+        CobblerSystemCreateCommand cmd = new 
+            CobblerSystemCreateCommand(user, s, ksdata);
         cmd.store();
         Map systemMap = cmd.getSystemMap(); 
         assertNotNull(systemMap);
         assertTrue(systemMap.containsKey("name"));
+        
+        cmd = new 
+            CobblerSystemCreateCommand(user, s, ksdata);
+        cmd.store();
+        
     }
     
     public void testProfileCreate() throws Exception {

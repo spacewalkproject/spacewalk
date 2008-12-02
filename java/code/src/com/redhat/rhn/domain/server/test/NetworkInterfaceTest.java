@@ -62,7 +62,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
         Server s = ServerFactoryTest.createTestServer(user);
         return createTestNetworkInterface(s);
     }
-    
+
     /**
      * Creates a test NetworkInterface object
      * @param server The server to associate with this network interface
@@ -70,16 +70,29 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public static NetworkInterface createTestNetworkInterface(Server server) 
+    throws Exception {
+        return createTestNetworkInterface(server, TestUtils.randomString(), 
+                "AA:AA:BB:BB:CC:CC", "127.0.0.1"); 
+    }
+    
+    /**
+     * Creates a test NetworkInterface object
+     * @param server The server to associate with this network interface
+     * @return Returns a new NetworkInterface object all filled out for testing purposes.
+     * @throws Exception
+     */
+    public static NetworkInterface createTestNetworkInterface(Server server, 
+            String networkName, String ipAddress, String macAddress) 
         throws Exception {
         
         NetworkInterface netint = new NetworkInterface();
         netint.setBroadcast("foo.bar.doo.doo");
-        netint.setHwaddr("under desk");
-        netint.setIpaddr("127.0.0.1");
+        netint.setHwaddr(macAddress);
+        netint.setIpaddr(ipAddress);
         netint.setModule("test");
         netint.setNetmask("255.255.255.0");
         
-        netint.setName(TestUtils.randomString());
+        netint.setName(networkName);
         
         netint.setServer(server);
         
