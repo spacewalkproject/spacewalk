@@ -13,6 +13,7 @@
 		<rhn-tab-url>/network/systems/ssm/errata/apply_errata_confirm.pxt</rhn-tab-url>
 	</rhn-tab>
 
+<!--
 	<rhn-tab name="Packages">
 
              <rhn-tab-url>/network/systems/ssm/packages/index.pxt</rhn-tab-url>
@@ -39,8 +40,19 @@
              </rhn-tab>
 
 	</rhn-tab>
+-->
 
-	<rhn-tab name="Patches" acl="is(enable_solaris_support)">
+   <rhn-tab name="Packages">
+            <rhn-tab-url>/rhn/ssm/Packages.do</rhn-tab-url>
+            <rhn-tab name="Install">
+                <rhn-tab-url>/rhn/ssm/PackageInstall.do</rhn-tab-url>
+            </rhn-tab>
+            <rhn-tab name="Remove">
+                <rhn-tab-url>/rhn/ssm/PackageRemove.do</rhn-tab-url>
+            </rhn-tab>
+   </rhn-tab>
+
+   <rhn-tab name="Patches" acl="is(enable_solaris_support)">
 
              <rhn-tab-url>/network/systems/ssm/patches/index.pxt</rhn-tab-url>
 
