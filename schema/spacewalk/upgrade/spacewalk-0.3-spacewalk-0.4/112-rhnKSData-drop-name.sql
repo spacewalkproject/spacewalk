@@ -23,7 +23,7 @@ ALTER TABLE rhnKSData
 DROP COLUMN name;
 
 ALTER TABLE rhnKsData
-ADD cobbler_id varchar(32);
+ADD cobbler_id varchar(64);
 
 show errors
 

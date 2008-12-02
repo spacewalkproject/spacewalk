@@ -53,7 +53,7 @@ rhnKSData
                 constraint rhn_ks_cfg_save_nn not null
                 constraint rhn_ks_cfg_save_ck
                     check (kscfg in ('Y','N')),
-        cobbler_id              varchar2(32),
+        cobbler_id              varchar2(64),
 	pre			blob,
 	post			blob,
         nochroot_post           blob,

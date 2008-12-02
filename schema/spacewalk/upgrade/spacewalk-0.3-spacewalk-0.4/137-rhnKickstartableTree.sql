@@ -19,7 +19,7 @@
 
 
 ALTER TABLE rhnKickstartableTree
-ADD cobbler_id varchar(32);
+ADD cobbler_id varchar(64);
 
 show errors
 
