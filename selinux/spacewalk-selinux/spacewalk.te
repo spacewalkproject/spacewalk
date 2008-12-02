@@ -33,4 +33,5 @@ allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 allow httpd_t oracle_port_t:tcp_socket name_connect;
 
 filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
+manage_files_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t)
 
