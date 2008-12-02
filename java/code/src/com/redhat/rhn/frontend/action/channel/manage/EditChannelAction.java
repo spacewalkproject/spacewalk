@@ -87,6 +87,8 @@ public class EditChannelAction extends RhnAction implements Listable {
         if (ctx.hasParam("create_button")) {
             Long cid = create(form, errors, ctx);
             params.put("cid", cid);
+            createSuccessMessage(request, "message.channelcreated",
+                    form.getString("name"));
         }
         else if (ctx.hasParam("edit_button")) {
             //params.put("cid", ctx.getParam("cid", true));
@@ -110,15 +112,23 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
             
             edit(form, errors, ctx);
+            createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
         }
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
             edit(form, errors, ctx);
+            createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
         }
         else if (ctx.hasParam("deny")) {
             deny(form, errors, ctx);
+            createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
         }
         else if (ctx.hasParam("grant")) {
             grant(form, errors, ctx);
+            createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
         }
        
         if (!errors.isEmpty()) {

@@ -1086,7 +1086,7 @@
       <forward name="systems" path="/systems/Search.do" />
       <forward name="errata"  path="/errata/Search.do" />
       <forward name="packages" path="/channels/software/Search.do" />
-      <forward name="docs" path="/help/docs/Search.do" />
+      <forward name="docs" path="/help/Search.do" />
     </action>
 
 

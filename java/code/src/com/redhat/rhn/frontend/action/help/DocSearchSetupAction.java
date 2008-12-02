@@ -56,7 +56,8 @@ public class DocSearchSetupAction extends RhnAction {
 
     private static final String OPT_FREE_FORM = "search_free_form";
     private static final String OPT_CONTENT_ONLY = "search_content";
-
+    private static final String OPT_TITLE_ONLY = "search_title";
+    private static final String OPT_CONTENT_TITLE = "search_content_title";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn, 
@@ -138,8 +139,10 @@ public class DocSearchSetupAction extends RhnAction {
         
         List searchOptions = new ArrayList();
         
+        addOption(searchOptions, "docsearch.content_title", OPT_CONTENT_TITLE);
         addOption(searchOptions, "docsearch.free_form", OPT_FREE_FORM);
         addOption(searchOptions, "docsearch.content", OPT_CONTENT_ONLY);
+        addOption(searchOptions, "docsearch.title", OPT_TITLE_ONLY);
 
         request.setAttribute("search_string", searchString);
         request.setAttribute("view_mode", viewmode);
@@ -150,7 +153,7 @@ public class DocSearchSetupAction extends RhnAction {
             List results = performSearch(ctx.getWebSession().getId(),
                                          searchString,
                                          viewmode);
-            log.warn("GET search: " + results);
+            log.debug("GET search: " + results);
             request.setAttribute("pageList",
                     results != null ? results : Collections.EMPTY_LIST);
         }
@@ -163,7 +166,7 @@ public class DocSearchSetupAction extends RhnAction {
                                String mode)
         throws XmlRpcFault, MalformedURLException {
 
-        log.warn("Performing doc search");
+        log.debug("Performing doc search");
 
         // call search server
         XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
@@ -222,6 +225,13 @@ public class DocSearchSetupAction extends RhnAction {
        if (OPT_CONTENT_ONLY.equals(mode)) {
             return "(content:(" + query + "))";
         }
+       else if (OPT_TITLE_ONLY.equals(mode)) {
+           return "(title:(" + query + "))";
+       }
+       else if (OPT_CONTENT_TITLE.equals(mode)) {
+           return "(content:(" + query + ") title:(" + query + "))";
+       }
+
         
         // OPT_FREE_FORM send as is.
         return buf.toString();

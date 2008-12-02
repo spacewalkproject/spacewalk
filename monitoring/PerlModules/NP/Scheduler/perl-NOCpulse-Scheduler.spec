@@ -1,13 +1,8 @@
 Name:         perl-NOCpulse-Scheduler
-Source0:      %{name}-%{version}.tar.gz
-Version:      1.58.8
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version:      1.58.9
 Release:      1%{?dist}
 Summary:      NOCpulse Event Scheduler
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/Scheduler
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 Requires:     nocpulse-common
 Requires:	  ProgAGoGo
@@ -57,6 +52,9 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 1.58.9-1
+- add missing semicolon to kernel.pl
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.58.8-1
 - 467441 - fix namespace
 

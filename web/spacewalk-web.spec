@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.2
+Version: 0.4.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -138,7 +138,6 @@ mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
 install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
 install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
-install -m 755 modules/dobby/etc/init.d/rhn-database $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/rhn-database
 install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
 {
@@ -167,7 +166,6 @@ egrep '/Cypress([/:]|\.3|$)' files.list > cypress.list
 egrep '/Dobby([/:]|\.3|$)' files.list  > dobby.list
 egrep '%{_bindir}/'          files.list >> dobby.list
 egrep 'man1/db-control'    files.list >> dobby.list
-echo  '%{_sysconfdir}/init.d/rhn-database' >> dobby.list
 egrep '/Grail([/:]|\.3|$)' files.list > grail.list
 egrep '/PXT([/:]|\.3|$)' files.list > pxt.list
 egrep '/RHN([/:]|\.3|$)' files.list > rhn.list
@@ -228,6 +226,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Nov 28 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.5-1
+- removed rhn-database
+- resolved #472563 - fidex error in db-control extend
+
 * Thu Nov 20 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.2-1
 - 472346 - Bump up API version and make the versioning independent on web.version
 

@@ -26,7 +26,7 @@ my $tmp_dir      = $np_cfg->get('notification','tmp_dir');
 my $STATE_FILE   = "$tmp_dir/escalator.state";
 my $SEND_GDBM   = "$tmp_dir/sendhistory.gdbm";
 my $cfg_dir      = $np_cfg->get('notification','config_dir');
-my $cfg_file     = $np_cfg->get('notification','config_dir') . '/NOCpulse/config/static/notif.ini';
+my $cfg_file     = "$cfg_dir/static/notif.ini";
 my $notify_cfg   = new Config::IniFiles(-file    => $cfg_file,
                                         -nocase  => 1);
 

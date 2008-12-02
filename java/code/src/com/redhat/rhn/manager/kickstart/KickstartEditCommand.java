@@ -241,7 +241,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
                 Long channelId = Long.valueOf(childchannelIds[i]); 
                 Channel c = ChannelManager.lookupByIdAndUser(channelId, 
                         user);
-                 getKickstartData().addChildChannel(c);
+                getKickstartData().addChildChannel(c);
             }
         }
 

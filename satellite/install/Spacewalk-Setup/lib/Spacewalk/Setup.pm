@@ -649,7 +649,6 @@ sub oracle_setup_embedded_db {
     if (! -e Spacewalk::Setup::SATELLITE_SYSCONFIG) {
             open(S, '>>', Spacewalk::Setup::SATELLITE_SYSCONFIG)
                 or die Spacewalk::Setup::loc("Could not open '%s' file: %s\n", Spacewalk::Setup::SATELLITE_SYSCONFIG, $!);
-            print "DB_SERVICE=oracle";
             close(S);
     }
 
@@ -1077,10 +1076,11 @@ sub oracle_test_db_schema {
 
   my $dbh = oracle_get_dbh($answers);
 
-  my $sth = $dbh->prepare(<<EOQ);
+  my $sth = $dbh->prepare(<<'EOQ');
 SELECT 1
   FROM user_objects
  WHERE object_name <> 'PLAN_TABLE'
+   and object_type <> 'LOB'
    and object_name not like 'BIN$%'
    and rownum = 1
 EOQ

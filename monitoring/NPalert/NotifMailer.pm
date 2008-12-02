@@ -20,7 +20,7 @@ my $Log=NOCpulse::Log::Logger->new(__PACKAGE__);
 my $CONFIG     = NOCpulse::Config->new;
 die unless $CONFIG;
 
-my $cfg_file   = $CONFIG->get('notification','config_dir') . '/NOCpulse/config/static/notif.ini';
+my $cfg_file   = $CONFIG->get('notification','config_dir') . '/static/notif.ini';
 die unless $cfg_file;
 
 my $notify_cfg = new Config::IniFiles(-file    => $cfg_file,

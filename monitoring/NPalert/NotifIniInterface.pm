@@ -32,7 +32,7 @@ use NOCpulse::Notif::NotificationIni;
 # Globals
 my $cfg        = new NOCpulse::Config;
 my $PRODCFG    = $cfg->get('notification', 'config_dir');
-my $CONFIGBASE = "$PRODCFG/NOCpulse/config";
+my $CONFIGBASE = "$PRODCFG";
 my $CONFIG     = "$CONFIGBASE/generated";
 my $STAGEBASE  = "$CONFIGBASE/stage";
 my $STAGEDIR   = "$STAGEBASE/config";

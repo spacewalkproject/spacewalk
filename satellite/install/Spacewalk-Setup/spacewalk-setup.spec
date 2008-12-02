@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.4
+Version:        0.4.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -73,7 +73,11 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Nov 24 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.4-1
+* Fri Nov 28 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.6-1
+- 473438 - inititate db alias
+
+* Thu Nov 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.5-1
+- resolved #473082 - fixed sql query 
 - resolved #472378 - set autostart flag on rhnsat entry
 
 * Thu Nov 20 2008 Jan Pazdziora 0.4.3-1

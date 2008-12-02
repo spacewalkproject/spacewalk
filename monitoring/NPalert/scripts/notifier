@@ -46,7 +46,7 @@ my $SOCKET_FILENAME =
 my $cfg      = NOCpulse::Config->new;
 my $cfg_file =
   $CONFIG->get('notification', 'config_dir')
-  . '/NOCpulse/config/static/notif.ini';
+  . '/static/notif.ini';
 my $notify_cfg =
   new Config::IniFiles(-file   => $cfg_file,
                        -nocase => 1);

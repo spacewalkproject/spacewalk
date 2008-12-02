@@ -4,7 +4,7 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.215.43
+Version:      1.215.44
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 # This src.rpm is cannonical upstream
@@ -72,6 +72,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.44-1
+- 472910 - fix paths to nofitication configs
+
 * Wed Oct 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.43-1
 - 468537 - renaming paths with /opt in SysV.ini 
 

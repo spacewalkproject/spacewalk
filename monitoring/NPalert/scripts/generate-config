@@ -57,7 +57,7 @@ my $cfg = new NOCpulse::Config;
 # File locations
 my $LOGDIR  = $cfg->get('notification', 'log_dir');
 my $PRODCFG = $cfg->get('notification', 'config_dir');
-my $CONFIGBASE = "$PRODCFG/NOCpulse/config";
+my $CONFIGBASE = "$PRODCFG";
 my $CONFIG     = "$CONFIGBASE/generated";
 my $STAGEBASE  = "$CONFIGBASE/stage";
 my $STAGEDIR   = "$STAGEBASE/config";

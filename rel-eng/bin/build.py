@@ -15,9 +15,12 @@
 #
 
 import sys
-sys.path.append("../../../rel-eng/pybuilder/")
+import os.path
 
-from pybuilder import main, Builder
+# Python libraries are one level up from where this script lives in rel-eng:
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "../lib/"))
+
+from spacewalk.releng.cli import CLI
 
 if __name__ == "__main__":
-    main()
+    CLI().main()

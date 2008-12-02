@@ -15,7 +15,7 @@ Summary:      NOCpulse notification system
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.20
+Version:      1.125.21
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -59,12 +59,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/archive
 mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/ticketlog
 
 # Create symlinks
-#ln -s ../../scripts                 $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/scripts
 ln -s ../../static                  $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/config/static
-#mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse
-#ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse/config
-#mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse
-#ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse/config
 
 # Install the perl modules
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
@@ -90,7 +85,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/cgi-bin
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/templates
 
-ln -s %log_dir           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
+ln -s ../../../../%log_dir           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
 
 install -p -m 755 httpd/cgi-bin/redirmgr.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-bin/
 install -p -m 755 httpd/cgi-mod-perl/*.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl/
@@ -108,11 +103,11 @@ install -p -m 644 Apache.NPalert $RPM_BUILD_ROOT%registry
 
 # Install logrotate stuff
 mkdir -p %buildroot%{_sysconfdir}/logrotate.d/
-install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/
+install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
 
 %files
 %defattr(-,root,root,-)
-%{_sysconfdir}/logrotate.d/notification
+%{_sysconfdir}/logrotate.d/%{name}
 %{_sysconfdir}/cron.d/notification
 %{registry}/Apache.NPalert
 %{httpd_prefix}
@@ -141,6 +136,10 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.21-1
+- 472910 - fix paths to nofitication configs
+- rename logrotate script to NPalert
+
 * Thu Oct 16 2008 Milan Zazrivec 1.125.20-1
 - tagged for Spacewalk / Satellite build & inclusion
 

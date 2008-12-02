@@ -1,4 +1,6 @@
 
+FEDORAHOSTED_USER ?= `whoami`
+
 RPMBUILD ?= rpmbuild
 RPMBUILD_BASEDIR ?= $(CURDIR)
 
@@ -11,10 +13,6 @@ X_RPMBUILD_DIR_OPTS = --define "_sourcedir $(CURDIR)" \
 		--define "_builddir $(X_RPMBUILD_DIR)/BUILD" \
 		--define "_srcrpmdir $(X_RPMBUILD_DIR)" \
 		--define "_rpmdir $(X_RPMBUILD_DIR)"
-
-ifdef DIST
-DIST_OPTS = --define 'dist $(DIST)'
-endif
 
 # The COMMIT parameter is used when we want to make tar.gz / .src.rpm
 # from any commit we like (including HEAD). In that case thou, the
@@ -75,6 +73,14 @@ endif
 RPMBUILD_SOURCEDIR := $(RPMBUILD_DIR)SOURCES/$(DIR)
 NAME_TAR_GZ := $(NAME_TAR_GZ_DIR).tar.gz
 
+ifdef DIST
+DIST_OPTS = --define 'dist $(DIST)'
+DIST_PARAMS = DIST=$(DIST)
+endif
+
+ifdef COMMIT
+COMMIT_PARAMS = COMMIT=$(COMMIT)
+endif
 
 tgz : git-archive-to-tar-gz
 	@echo "Wrote: $(RPMBUILD_DIR)$(NAME_TAR_GZ)"
@@ -82,15 +88,12 @@ tgz : git-archive-to-tar-gz
 git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
 
 rpm srpm : check-tag git-archive-unpack
-	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ \
-		X_RPMBUILD_DIR=$(RPMBUILD_DIR) \
-		DIST=$(DIST) \
-		COMMIT=$(COMMIT)
+	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ X_RPMBUILD_DIR=$(RPMBUILD_DIR) $(DIST_PARAMS) $(COMMIT_PARAMS)
 
-test-srpm : git-archive-unpack
+test-srpm :
 	$(MAKE) srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
 
-test-rpm : git-archive-unpack
+test-rpm :
 	$(MAKE) rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
 
 check-tag :
@@ -120,11 +123,6 @@ git-archive-to-tar-gz : setup-source-dir
 
 unpack-tar-gz : setup-source-dir-2
 	@cd $(RPMBUILD_SOURCEDIR) && tar xz --strip-components 1 -f $(RPMBUILD_DIR)$(NAME_TAR_GZ)
-	@if test -f $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) ; then \
-		echo "The tarball $(RPMBUILD_DIR)$(NAME_TAR_GZ) seems to contain $(NAME_TAR_GZ) already." ; \
-		exit 1 ; \
-		fi
-	@mv $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ)
 
 
 setup-source-dir :
@@ -140,16 +138,16 @@ setup-source-dir-2 :
 	@ln -s $(THIS_DIR) $(RPMBUILD_DIR)SOURCES/rel-eng
 
 
-
-x-build-srpm : x-setup-specfile
+rpmbuild_x-build-srpm_params = --nodeps -bs
+rpmbuild_x-build-rpm_params = --nodeps --clean -ba
+x-build-srpm x-build-rpm : x-setup-specfile x-pull-in-tar-gz
 	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
-	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(SPECFILE)
+	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) $(rpmbuild_$@_params) $(SPECFILE)
 	@rm -rf $(X_RPMBUILD_DIR)/BUILD
-
-x-build-rpm : x-setup-specfile
-	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
-	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps --clean -ba $(SPECFILE)
-	@rm -rf $(X_RPMBUILD_DIR)/BUILD
+	@find $(X_RPMBUILD_DIR) -name '*.rpm' | while read i ; do \
+		echo rpmlint $$i ; \
+		rpmlint $$i | perl $(THIS_DIR)rpmlint-silence-warnings.pl $(if $(COMMIT),--ignore,) ; \
+		done
 
 
 x-setup-specfile :
@@ -161,8 +159,21 @@ x-setup-specfile :
 			fi ; \
 		fi
 
+x-pull-in-tar-gz :
+	@if test -z "$(NO_TAR_GZ)" ; then \
+		for i in $(X_RPMBUILD_DIR)*.tar.gz ; do \
+			NAME_TAR_GZ=`basename $$i` ; \
+			if test -e $$NAME_TAR_GZ ; then  \
+				echo "The tarball seems to contain $$NAME_TAR_GZ already." ; \
+				exit 1 ; \
+			fi ; \
+			mv $(X_RPMBUILD_DIR)*.tar.gz . ; \
+		done ; \
+		fi
+
+
 upload-tgz : tgz
-        scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) fedorahosted.org:spacewalk
+	@scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(FEDORAHOSTED_USER)@fedorahosted.org:spacewalk
 
 %.src.rpm %.srpm :
 	$(MAKE) srpm TAG=$*

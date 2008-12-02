@@ -9,7 +9,7 @@ sub startActions
 	my ($self) = @_;
 	my $cluster = PhysCluster->newInitialized;
 	my $CONFIG     = NOCpulse::Config->new;
-	my $confFile = $CONFIG->get('notification','config_dir') . '/NOCpulse/config/static/notif.ini';;
+	my $confFile = $CONFIG->get('notification','config_dir') . '/static/notif.ini';;
 	open(FILE,">$confFile");
 	print FILE "[server]\n";
 	print FILE "serverid=".$cluster->get_satNumber."\n";

@@ -19411,10 +19411,20 @@ given channel.</source>
           </context-group>
       </trans-unit>
       <trans-unit id="docsearch.content">
-          <source>Search Docs By Content</source>
+          <source>Content</source>
+          <context context-type="sourcefile">/rhn/help/Search</context>
       </trans-unit>
       <trans-unit id="docsearch.free_form">
-          <source>Search Docs Free Form</source>
+          <source>Free Form</source>
+          <context context-type="sourcefile">/rhn/help/Search</context>
+      </trans-unit>
+      <trans-unit id="docsearch.content_title">
+          <source>Content &amp; Title</source>
+          <context context-type="sourcefile">/rhn/help/Search</context>
+      </trans-unit>
+      <trans-unit id="docsearch.title">
+          <source>Title</source>
+          <context context-type="sourcefile">/rhn/help/Search</context>
       </trans-unit>
       <trans-unit id="docsearch.jsp.imgAlt">
         <source>search</source>

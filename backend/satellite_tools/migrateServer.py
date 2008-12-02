@@ -21,12 +21,8 @@ _topdir = '/usr/share/rhn'
 if _topdir not in sys.path:
     sys.path.append(_topdir)
 
-try:
-    from optparse import OptionParser, Option
-except ImportError:
-    from optik import OptionParser, Option
+from optparse import OptionParser, Option
 
-from server import rhnSQL
 
 client = None
 
@@ -34,9 +30,9 @@ options_table = [
     Option("-v", "--verbose",       action="count", 
         help="Increase verbosity"),
     Option("-u", "--username",       action="store", 
-        help="Satellite Admin username"),
+        help="Satellite/Org Admin username"),
     Option("-p", "--password",       action="store", 
-        help="Satellite Admin password"),
+        help="Satellite/Org Admin password"),
     Option("--satellite",       action="store", 
         help="Satellite server to run migrate on"),
     Option("--list-systems",               action="store", 
@@ -44,13 +40,15 @@ options_table = [
                          --list-systems=<org_id>"),
     Option("--serverId",               action="append", 
         help="Server to migrate"),
-    Option("--org-id",          action="store",
+    Option("--from-org-id",          action="store",
+        help="Source Org ID"),
+    Option("--to-org-id",          action="store",
         help="Destination Org ID"),
     Option("--csv",                action="store",
         help="CSV File to process"),
 ]
 
-_csv_fields = [ 'server-id', 'to-org-id' ]
+_csv_fields = [ 'server-id', 'from-org-id', 'to-org-id' ]
 
 
 def main():
@@ -70,7 +68,7 @@ def main():
 
     # Check data
     if options.list_systems:
-        lookup_server(options.list_systems)
+        #lookup_server(options.list_systems)
         return
 
     if options.csv:
@@ -83,13 +81,20 @@ def main():
             print "Missing --serverId"
             return 1
 
-        if not options.org_id:
+        if not options.to_org_id:
             print "Missing Destination org id"
             return
         else:
-            to_org_id = options.org_id or None
+            to_org_id = options.to_org_id or None
 
-        migrate_data = [[options.serverId, to_org_id]]
+        if not options.from_org_id:
+            print "Missing Source org id"
+            return
+        else:
+            from_org_id = options.from_org_id or None
+
+
+        migrate_data = [[options.serverId, from_org_id, to_org_id]]
     
     username, password = getUsernamePassword(options.username, \
                             options.password)
@@ -100,12 +105,14 @@ def main():
         sys.stderr.write("Nothing to migrate. Exiting.. \n")
         sys.exit(1)
 
-    for server_id, org_id in migrate_data:
+    for server_id, from_org_id, to_org_id in migrate_data:
         server_id = map(lambda a:int(a), server_id)
         try:
-            migrate_system(sessionKey, server_id, int(org_id))
+            migrate_system(sessionKey, int(from_org_id), int(to_org_id),\
+                           server_id)
         except:
             raise
+    logout(sessionKey)
 
 def login(username, password):
     """
@@ -121,20 +128,23 @@ def logout(session_key):
     client.auth.logout(session_key)
 
 
-def migrate_system(key, server_ids, newOrgId):
+def migrate_system(key, oldOrgId, newOrgId, server_ids):
     """
     Call to migrate given system to new org
     """ 
     try:
-        client.org.migrateSystems(key, server_ids, newOrgId)
+        client.org.migrateSystems(key, oldOrgId, newOrgId, server_ids)
     except xmlrpclib.Fault, e:
-        raise e
+        sys.stderr.write("Error: %s\n" % e.faultString)
+        sys.exit(-1)
         
     return
 
 def getUsernamePassword(cmdlineUsername, cmdlinePassword):
-    # Returns a username and password (either by returning the ones passed as
-    # args, or the user's input
+    """
+     Returns a username and password (either by returning the ones passed as
+     args, or the user's input
+    """
     if cmdlineUsername and cmdlinePassword:
         return cmdlineUsername, cmdlinePassword
 
@@ -168,19 +178,10 @@ def getUsernamePassword(cmdlineUsername, cmdlinePassword):
         tty.close()
     return username, password
 
-# lookup methods
-_queryLookupServerByOrg = rhnSQL.Statement("""
-    SELECT id, name
-      FROM rhnServer
-     WHERE org_id =: org_id
-""")
- 
-def lookup_server(org_id):
+def lookup_server(key, from_org_id):
     # Get the org id
     # TODO: replace with an api call
-    h = rhnSQL.prepare(_queryLookupServerByOrg)
-    h.execute(org_id = org_id)
-    rows = h.fetchall_dict()
+    rows = client.org.listServerByOrg(key, from_org_id)
     if not rows:
         sys.stderr.write("No Systems registered for Org-ID %s \n" % org_id)
         sys.exit(1)
@@ -196,6 +197,9 @@ def lookup_server(org_id):
     return rows
 
 def read_csv_file(csv_file):
+    """
+     Parse the fields in the given csv
+    """
     import csv
     csv_data = []
     f_csv = open(csv_file)

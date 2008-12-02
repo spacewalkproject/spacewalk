@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -14,10 +13,7 @@
 # in this software or its documentation.
 #
 
-import sys
-sys.path.append("../rel-eng/pybuilder/")
+"""
+Infrastructure for building Spacewalk and Satellite packages from git tags.
+"""
 
-from pybuilder import main
-
-if __name__ == "__main__":
-    main()

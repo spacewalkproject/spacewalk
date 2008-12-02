@@ -121,7 +121,7 @@ sub tablespace_datafiles {
 select file_name FILENAME, status STATUS, bytes BYTES
   from dba_data_files
   where tablespace_name = :ts
-order by file_id
+order by file_name
 EOS
   $sth->execute_h(ts => $ts);
   return $sth->fullfetch_hashref;
@@ -150,7 +150,7 @@ sub tablespace_extend {
   my $sz = shift;
 
   my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts ADD DATAFILE '$fn' SIZE $sz");
+  $dbh->do("ALTER TABLESPACE $ts ADD DATAFILE '$fn' SIZE $sz REUSE;");
 }
 
 sub report_database_stats {

@@ -50,7 +50,6 @@ import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
-import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
@@ -142,25 +141,19 @@ public class ProfileHandler extends BaseHandler {
                 "No Kickstart Profile found with label: " + kslabel);
         }
                
-        Long ksid = ksdata.getId();
-        KickstartEditCommand ksEditCmd = new KickstartEditCommand(ksid, loggedInUser);
-        List<String> channelIds = new ArrayList<String>(); 
-        
-        for (int i = 0; i < channelIds.size(); i++) {
+        if (ksdata.getChildChannels() != null) {
+            ksdata.getChildChannels().clear();
+        }
+            
+        for (int i = 0; i < channelLabels.size(); i++) {
             Channel channel = ChannelManager.lookupByLabelAndUser(channelLabels.get(i), 
                  loggedInUser);
             if (channel == null) {
                 throw new InvalidChannelLabelException();
             }
-            String channelId = channel.getId().toString();
-            channelIds.add(channelId);
-        }
-        
-
-        String[] childChannels = new String [channelIds.size()];
-        childChannels = (String[]) channelIds.toArray(new String[0]);
-        ksEditCmd.updateChildChannels(childChannels);        
-        
+            ksdata.addChildChannel(channel);
+        }          
+            
         return 1;
     }
 
