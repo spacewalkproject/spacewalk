@@ -375,7 +375,8 @@ sub channel_edit_cb {
 
   $transaction->nested_commit;
 
-  my $url = $pxt->uri;
+  # use the new java page
+  my $url = '/rhn/channels/manage/Edit.do';
 
   #If we just cloned a channel, 'flow' the user into the errata cloning page for that channel....
   if ($clone_type eq 'select_errata') {
@@ -532,132 +533,71 @@ sub channel_edit_form {
   my %params = @_;
   my $block = $params{__block__};
 
-  my $cid = $pxt->param('cid') || 0;
-
-  if ($cid) {
-    $pxt->redirect("/errors/permission.pxt")
-      unless ($pxt->user->verify_channel_admin($cid));
-  }
-  else {
-    $pxt->redirect("/errors/permission.pxt")
-      unless ($pxt->user->is('channel_admin'));
-  }
+  # only allow cloning of channels
+  $pxt->redirect("/errors/permission.pxt") unless $pxt->dirty_param('clone_from');
 
   my %subs;
   my %editable;
   my $archmap = RHN::ChannelEditor->channel_base_arch_map;
 
-  # editing an existing channel
-  if ($cid) {
-    my $channel = RHN::Channel->lookup(-id => $cid);
+  $subs{cid} = '';
+  $subs{channel_parent} = $pxt->dirty_param('channel_parent') || "(none)";
+  $subs{channel_name} = $pxt->dirty_param('channel_name') || '';
+  $subs{channel_label} = $pxt->dirty_param('new_channel_label') || '';
+  $subs{channel_arch} = $pxt->dirty_param('channel_arch') || 0;
+  $subs{channel_package_summary} = "n/a";
+  $subs{channel_summary} = $pxt->dirty_param('channel_summary') || '';
+  $subs{channel_description} = $pxt->dirty_param('channel_description') || '';
+  $subs{channel_gpg_key_url} = $pxt->dirty_param('channel_gpg_key_url') || '';
+  $subs{channel_gpg_key_id} = $pxt->dirty_param('channel_gpg_key_id') || '';
+  $subs{channel_gpg_key_fp} = $pxt->dirty_param('channel_gpg_key_fp') || '';
 
-    $subs{cid} = $channel->id;
-    $subs{channel_id} = $channel->id;
-    $subs{channel_label} = $channel->label;
-    $subs{channel_name} = $pxt->dirty_param('channel_name') || $channel->name;
-    $subs{channel_arch} = $channel->channel_arch_id;
-    $subs{channel_package_summary} = "n/a";
-    $subs{channel_summary} = $pxt->dirty_param('channel_summary') || $channel->summary;
-    $subs{channel_description} = $pxt->dirty_param('channel_description') || $channel->description || '';
+  %editable = map { $_ => 1 } qw/channel_name channel_summary
+				 channel_description channel_label channel_arch channel_parent
+				 channel_gpg_key_url channel_gpg_key_fp
+				 channel_gpg_key_id/;
 
-    $subs{channel_gpg_key_url} = $pxt->dirty_param('channel_gpg_key_url') || $channel->gpg_key_url || '';
-    $subs{channel_gpg_key_id} = $pxt->dirty_param('channel_gpg_key_id') || $channel->gpg_key_id || '';
-    $subs{channel_gpg_key_fp} = $pxt->dirty_param('channel_gpg_key_fp') || $channel->gpg_key_fp || '';
+  if (my $clone_from_cid = $pxt->dirty_param('clone_from')) {
+    my $clone_from_channel = RHN::Channel->lookup(-id => $clone_from_cid);
+    $subs{clone_from_string} = $clone_from_channel->name;
 
-    $subs{channel_parent} = $pxt->dirty_param('channel_parent');
+    my $clone_type = $pxt->dirty_param('clone_type') || '';
+    $subs{clone_type_string} = $clone_type eq 'current'
+	? 'Current state of the channel'
+	  : ($clone_type eq 'original')
+	    ? 'Original channel with no updates'
+	      : 'Select errata';
 
-    if (defined $subs{channel_parent}) {
-      die "illegal channel parent" unless $pxt->user->verify_channel_access($subs{channel_parent});
+    if ($clone_from_channel->parent_channel) {
+	$subs{channel_parent} = RHN::ChannelEditor->likely_parent($pxt->user->org_id, $clone_from_channel->id);
     }
     else {
-      $subs{channel_parent} = $channel->parent_channel ? $channel->parent->name : "(none)";
-    }
-
-    if (my $clone_from = RHN::Channel->channel_cloned_from($cid)) {
-      my $clone_channel = RHN::Channel->lookup(-id => $clone_from);
-      $subs{clone_from_string} = $clone_channel->name;
-
-      my $clone_type = $pxt->dirty_param('clone_type') || '';
-      $subs{clone_type_string} = $clone_type eq 'current'
-	? 'Current state of the channel'
-	  : ($clone_type eq 'original')
-	    ? 'Original channel with no updates'
-	      : 'Select errata';
-    }
-
-    %editable = map { $_ => 1 } qw/channel_name channel_summary
-				   channel_description channel_gpg_key_url channel_gpg_key_fp
-				   channel_gpg_key_id/;
-  }
-  # creating a new channel
-  else {
-    $subs{cid} = '';
-    $subs{channel_parent} = $pxt->dirty_param('channel_parent') || "(none)";
-    $subs{channel_name} = $pxt->dirty_param('channel_name') || '';
-    $subs{channel_label} = $pxt->dirty_param('new_channel_label') || '';
-    $subs{channel_arch} = $pxt->dirty_param('channel_arch') || 0;
-    $subs{channel_package_summary} = "n/a";
-    $subs{channel_summary} = $pxt->dirty_param('channel_summary') || '';
-    $subs{channel_description} = $pxt->dirty_param('channel_description') || '';
-    $subs{channel_gpg_key_url} = $pxt->dirty_param('channel_gpg_key_url') || '';
-    $subs{channel_gpg_key_id} = $pxt->dirty_param('channel_gpg_key_id') || '';
-    $subs{channel_gpg_key_fp} = $pxt->dirty_param('channel_gpg_key_fp') || '';
-
-    %editable = map { $_ => 1 } qw/channel_name channel_summary
-				   channel_description channel_label channel_arch channel_parent
-				   channel_gpg_key_url channel_gpg_key_fp
-				   channel_gpg_key_id/;
-
-    if (my $clone_from_cid = $pxt->dirty_param('clone_from')) {
-      my $clone_from_channel = RHN::Channel->lookup(-id => $clone_from_cid);
-      $subs{clone_from_string} = $clone_from_channel->name;
-
-      my $clone_type = $pxt->dirty_param('clone_type') || '';
-      $subs{clone_type_string} = $clone_type eq 'current'
-	? 'Current state of the channel'
-	  : ($clone_type eq 'original')
-	    ? 'Original channel with no updates'
-	      : 'Select errata';
-
-      if ($clone_from_channel->parent_channel) {
-	$subs{channel_parent} = RHN::ChannelEditor->likely_parent($pxt->user->org_id, $clone_from_channel->id);
-      }
-      else {
 	$subs{channel_parent} = 'None';
 	delete $editable{channel_parent};
-      }
+    }
 
-      my $name_prefix = 'Clone of ';
-      my $label_prefix = 'clone-';
-      my $number = 1;
+    my $name_prefix = 'Clone of ';
+    my $label_prefix = 'clone-';
+    my $number = 1;
 
-      while (RHN::ChannelEditor->label_exists($label_prefix . $clone_from_channel->label)) {
+    while (RHN::ChannelEditor->label_exists($label_prefix . $clone_from_channel->label)) {
 	$number++;
 	$name_prefix = "Clone ${number} of ";
 	$label_prefix = "clone-${number}-";
-      }
-
-      $subs{channel_arch} ||= $clone_from_channel->channel_arch_id;
-      $subs{channel_name} ||= $name_prefix . $clone_from_channel->name;
-      $subs{channel_summary} ||= $clone_from_channel->summary;
-      $subs{channel_label} ||= $label_prefix . $clone_from_channel->label;
-      $subs{channel_gpg_key_url} ||= $clone_from_channel->gpg_key_url || '';
-      $subs{channel_gpg_key_id} ||= $clone_from_channel->gpg_key_id || '';
-      $subs{channel_gpg_key_fp} ||= $clone_from_channel->gpg_key_fp || '';
     }
 
-    $subs{channel_arch} ||= RHN::ChannelEditor->default_arch_id
+    $subs{channel_arch} ||= $clone_from_channel->channel_arch_id;
+    $subs{channel_name} ||= $name_prefix . $clone_from_channel->name;
+    $subs{channel_summary} ||= $clone_from_channel->summary;
+    $subs{channel_label} ||= $label_prefix . $clone_from_channel->label;
+    $subs{channel_gpg_key_url} ||= $clone_from_channel->gpg_key_url || '';
+    $subs{channel_gpg_key_id} ||= $clone_from_channel->gpg_key_id || '';
+    $subs{channel_gpg_key_fp} ||= $clone_from_channel->gpg_key_fp || '';
   }
+
+  $subs{channel_arch} ||= RHN::ChannelEditor->default_arch_id;
 
   PXT::Utils->escapeHTML_multi(\%subs);
-
-  if ($cid) {
-    my ($globally_subscribable_checkbox, $globally_subscribable_message)
-      = Sniglets::Channel::globally_subscribable_checkbox($pxt, $cid);
-
-    $subs{globally_subscribable_checkbox} = $globally_subscribable_checkbox->render;
-    $subs{globally_subscribable_message} = $globally_subscribable_message;
-  }
 
   my @arch_order = sort { $archmap->{$a}->{NAME} cmp $archmap->{$b}->{NAME} } keys %$archmap;
 
