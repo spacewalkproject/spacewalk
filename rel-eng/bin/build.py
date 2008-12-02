@@ -15,11 +15,12 @@
 #
 
 import sys
-sys.path.append("../../../rel-eng/lib/")
+import os.path
+
+# Python libraries are one level up from where this script lives in rel-eng:
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), "../lib/"))
 
 from spacewalk.releng.cli import CLI
-from spacewalk.releng.builder import TarGzBuilder
-from spacewalk.releng.tagger import ReleaseTagger
 
 if __name__ == "__main__":
-    CLI().main(builder_class=TarGzBuilder, tagger_class=ReleaseTagger)
+    CLI().main()

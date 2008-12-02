@@ -262,9 +262,9 @@ class Builder(BuildCommon):
 
 
 
-class TarGzBuilder(Builder):
+class FromTarballBuilder(Builder):
     """
-    Builder for packages that are built from a .tar.gz stored directly in
+    Builder for packages that are built from a tarball stored directly in
     git.
 
     i.e. most of the packages in spec-tree.
@@ -274,11 +274,7 @@ class TarGzBuilder(Builder):
         """ Override parent behavior, we already have a tgz. """
         #raise Exception("Cannot build .tar.gz for project %s" %
         #        self.project_name)
-        pass
-
-    def _srpm(self):
         self._create_git_copy()
-        Builder._srpm(self)
 
     def _get_rpmbuild_dir_options(self):
         """
