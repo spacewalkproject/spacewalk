@@ -262,11 +262,10 @@ class Builder(BuildCommon):
 
 
 
-class FromTarballBuilder(Builder):
+class NoTgzBuilder(Builder):
     """
-    Builder for packages that are built from a tarball stored directly in
-    git.
-
+    Builder for packages that do not require the creation of a tarball.
+    Usually these packages have source tarballs checked directly into git.
     i.e. most of the packages in spec-tree.
     """
 

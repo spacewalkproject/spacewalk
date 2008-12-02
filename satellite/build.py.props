@@ -1,3 +1,4 @@
 [buildconfig]
-no_tar_gz = true
+builder = spacewalk.releng.builder.NoTgzBuilder
+tagger = spacewalk.releng.tagger.ReleaseTagger
 

@@ -24,7 +24,7 @@ from time import strftime
 from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
         debug
 
-class Tagger(BuildCommon):
+class VersionTagger(BuildCommon):
     """
     Standard Tagger class, used for tagging packages built from source in
     git. (as opposed to packages which commit a tarball directly into git).
@@ -229,7 +229,7 @@ class Tagger(BuildCommon):
 
 
 
-class ReleaseTagger(Tagger):
+class ReleaseTagger(VersionTagger):
     """
     Tagger which increments the spec file release instead of version.
 
