@@ -16,6 +16,8 @@
 package com.redhat.rhn.domain;
 
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.Date;
 
 /**
@@ -67,4 +69,11 @@ public abstract class BaseDomainHelper {
         this.modified = modifiedIn;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }
