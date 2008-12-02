@@ -63,6 +63,7 @@ public class KickstartData {
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
     private String staticDevice;
+    private String cobblerId;
 
     private Set cryptoKeys;
     private Set childChannels;
@@ -1337,5 +1338,21 @@ public class KickstartData {
                     KickstartSession session) {
         KickstartFormatter formatter = new KickstartFormatter(host, this, session);
         return formatter.getFileData();
+    }
+
+    
+    /**
+     * @return Returns the cobblerId.
+     */
+    public String getCobblerId() {
+        return cobblerId;
+    }
+
+    
+    /**
+     * @param cobblerIdIn The cobblerId to set.
+     */
+    public void setCobblerId(String cobblerIdIn) {
+        this.cobblerId = cobblerIdIn;
     }
 }

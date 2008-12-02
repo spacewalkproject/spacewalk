@@ -35,6 +35,7 @@ public class KickstartableTree extends BaseDomainHelper {
     private KickstartInstallType installType;
     private String label;
     private Date lastModified;
+    private String cobblerId;
 
     private Org org;
     private KickstartTreeType treeType;
@@ -289,6 +290,22 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public String getInitrdPath() {
         return getAbsolutePath() + "/images/pxeboot/initrd.img";
+    }
+
+    
+    /**
+     * @return Returns the cobblerId.
+     */
+    public String getCobblerId() {
+        return cobblerId;
+    }
+
+    
+    /**
+     * @param cobblerIdIn The cobblerId to set.
+     */
+    public void setCobblerId(String cobblerIdIn) {
+        this.cobblerId = cobblerIdIn;
     }
     
 }
