@@ -19,16 +19,19 @@ Command line interface for building Spacewalk and Satellite packages from git ta
 
 import sys
 import os
+import ConfigParser
 
 from optparse import OptionParser
 
-from spacewalk.releng.builder import Builder
-from spacewalk.releng.tagger import Tagger
+from spacewalk.releng.builder import Builder, FromTarballBuilder
+from spacewalk.releng.tagger import Tagger, ReleaseTagger
+from spacewalk.releng.common import find_spec_file, find_git_root, \
+        error_out, debug
 
 class CLI:
     """ Parent command line interface class. """
 
-    def main(self, tagger_class=None, builder_class=None):
+    def main(self):
         """
         Main method called by all build.py's which can provide their own
         specific implementations of taggers and builders.
@@ -73,14 +76,17 @@ class CLI:
         if options.debug:
             os.environ['DEBUG'] = "true"
 
+        project_dir = os.getcwd()
+        self._check_for_project_dir()
+        config = self._read_project_config(project_dir)
+
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
         found_builder_options = (options.tgz or options.srpm or options.rpm)
         found_tagger_options = (options.tag_release)
         if found_builder_options and found_tagger_options:
-            print "ERROR: Cannot invoke both build and tag options at the " + \
-                    "same time."
-            sys.exit(1)
+            error_out("Cannot invoke both build and tag options at the " +
+                    "same time.")
 
         # Some options imply other options, handle those deps here:
         if options.srpm:
@@ -88,10 +94,16 @@ class CLI:
         if options.rpm:
             options.tgz = True
 
+        # Check what type of package we're building:
+        builder_class = Builder
+        tagger_class = Tagger
+        if config.has_option("buildconfig", "no_tar_gz"):
+            debug("Building project from pre-packed source.")
+            builder_class = FromTarballBuilder
+            tagger_class = ReleaseTagger
+
         # Now that we have command line options, instantiate builder/tagger:
         if found_builder_options:
-            if not builder_class:
-                builder_class = Builder
             builder = builder_class(
                     tag=options.tag,
                     dist=options.dist,
@@ -100,9 +112,25 @@ class CLI:
             builder.run(options)
 
         if found_tagger_options:
-            if not tagger_class:
-                tagger_class = Tagger
             tagger = tagger_class(keep_version=options.keep_version,
                     debug=options.debug)
             tagger.run(options)
 
+    def _check_for_project_dir(self):
+        """
+        Make sure we're running against a project directory we can build.
+        
+        Check for exactly one spec file and ensure dir is somewhere within a 
+        git checkout.
+        """
+        find_spec_file()
+        find_git_root()
+
+    def _read_project_config(self, project_dir):
+        """
+        Read and return project build properties if they exist.
+        """
+        config = ConfigParser.ConfigParser()
+        path = os.path.join(project_dir, "build.py.props")
+        config.read(path)
+        return config
