@@ -193,9 +193,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         actionPerform();
         verifyNoActionErrors();
         assertNotNull(request.getAttribute(TreeCreateAction.CHANNELS));
-        if (request.getAttribute(TreeCreateAction.KICKSTART_RPMS) == null) {
-            assertNotNull(request.getAttribute(TreeCreateAction.NOAUTOKS));
-        }
+
         if (request.getAttribute(TreeCreateAction.INSTALLTYPES) == null) {
             assertNotNull(request.getAttribute(TreeCreateAction.HIDE_SUBMIT));
             assertNotNull(request.getAttribute(TreeCreateAction.NOINSTALLTYPES));
