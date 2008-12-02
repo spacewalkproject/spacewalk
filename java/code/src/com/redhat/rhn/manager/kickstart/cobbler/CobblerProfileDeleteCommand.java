@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -45,9 +47,21 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
      */
     @Override
     public ValidatorError store() {
-        Object rc = invokeXMLRPC("remove_profile", ksData.getCobblerName(), xmlRpcToken);
+        // No need to delete if it doesnt exist in cobbler
+        Map profile = this.getProfileMap();
+        if (profile == null || profile.isEmpty()) {
+            log.warn("No cobbler profile associated with this Profile.");
+            return null;
+        }
+        Boolean rc = (Boolean) invokeXMLRPC("remove_profile", 
+                ksData.getCobblerName(), xmlRpcToken);
         log.debug("RC: " + rc);
-        return null;
+        if (rc == null || !rc.booleanValue()) {
+            return new ValidatorError("cobbler.profile.remove_failed");
+        }
+        else {
+            return null;
+        }
     }
 
 }

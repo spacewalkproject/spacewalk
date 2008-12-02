@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerInfo;
@@ -24,7 +25,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -39,35 +40,8 @@ import java.util.List;
  * ServerTest
  * @version $Rev$
  */
-public class ServerTest extends RhnBaseTestCase {
+public class ServerTest extends BaseTestCaseWithUser {
     
-    private class VirtEntitledServer extends Server {
-        public VirtEntitledServer(User user) {
-            setOrg(user.getOrg());
-            ServerGroupManager manager = ServerGroupManager.getInstance();
-            EntitlementServerGroup group = manager.
-                        lookupEntitled(EntitlementManager.VIRTUALIZATION, user);
-            List servers = new ArrayList();
-            servers.add(this);
-            manager.addServers(group, servers, user);
-        }
-    }
-    
-    private class ServerWithGuests extends Server {
-        public ServerWithGuests() {
-            VirtualInstance vi = new VirtualInstance();
-            vi.setUuid(TestUtils.randomString());
-            addGuest(vi);
-        }
-    }
-    
-    /**
-     * @param arg0
-     */
-    public ServerTest(String arg0) {
-        super(arg0);
-    }
-
     public void testIsInactive() throws Exception {
         Server s = ServerFactory.createServer();
         s.setServerInfo(new ServerInfo());
@@ -80,7 +54,7 @@ public class ServerTest extends RhnBaseTestCase {
 
     
     public void testSetBaseEntitlement() throws Exception {
-        Server s = ServerTestUtils.createTestSystem();
+        Server s = ServerTestUtils.createTestSystem(user);
         SystemManager.removeAllServerEntitlements(s.getId());
         UserTestUtils.addManagement(s.getCreator().getOrg());
         s.setBaseEntitlement(EntitlementManager.MANAGEMENT);
@@ -90,7 +64,6 @@ public class ServerTest extends RhnBaseTestCase {
     }
     
     public void testIsEntitlementAllowed() throws Exception {
-        User user = UserTestUtils.findNewUser();
         UserTestUtils.addMonitoring(user.getOrg());
         UserTestUtils.addProvisioning(user.getOrg());
         UserTestUtils.addVirtualizationPlatform(user.getOrg());
@@ -111,8 +84,50 @@ public class ServerTest extends RhnBaseTestCase {
         
     }
     
+    public void testGetIpAddress() throws Exception {
+        Server s = ServerTestUtils.createTestSystem(user);
+        assertNull(s.getIpAddress());
+        
+        
+        String hwAddr = "AA:AA:BB:BB:CC:CC";
+        String ipAddr = "172.31.1.102";
+
+        NetworkInterface aaa = NetworkInterfaceTest.createTestNetworkInterface(s, "aaa", 
+                ipAddr, hwAddr);
+        s.addNetworkInterface(aaa);
+
+        NetworkInterface bbb = NetworkInterfaceTest.createTestNetworkInterface(s, "bbb", 
+                ipAddr, hwAddr);
+        s.addNetworkInterface(bbb);
+
+        NetworkInterface zzz = NetworkInterfaceTest.createTestNetworkInterface(s, "zzz", 
+                ipAddr, hwAddr);
+        s.addNetworkInterface(zzz);
+        
+        NetworkInterface eth0 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth0", 
+                ipAddr, hwAddr);
+        s.addNetworkInterface(eth0);
+        assertNotNull(s.getIpAddress());
+
+        NetworkInterface lo = NetworkInterfaceTest.createTestNetworkInterface(s, "lo", 
+                "127.0.0.1", null);
+        s.addNetworkInterface(lo);
+        
+        NetworkInterface virbr0 = NetworkInterfaceTest.
+            createTestNetworkInterface(s, "virbr0", 
+                "172.31.2.1", "AA:FF:CC:DD:DD");
+        s.addNetworkInterface(virbr0);
+        
+        NetworkInterface ni = s.findPrimaryNetworkInterface();
+        assertEquals(ipAddr, ni.getIpaddr());
+        
+        assertEquals(ipAddr, s.getIpAddress());
+        assertEquals(hwAddr, s.getHardwareAddress());
+        
+    }
+    
+    
     public void xxxtestServerWithVirtEntitlementIsVirtualHost() {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = new VirtEntitledServer(user);
         server = (Server) TestUtils.saveAndReload(server);
@@ -120,10 +135,30 @@ public class ServerTest extends RhnBaseTestCase {
     }
     
     public void xxtestServerWithGuestsIsVirtualHost() {
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Server server = new ServerWithGuests();
         server.setOrg(user.getOrg());
         
         assertTrue(server.isVirtualHost());
     }
+    
+    private class VirtEntitledServer extends Server {
+        public VirtEntitledServer(User user) {
+            setOrg(user.getOrg());
+            ServerGroupManager manager = ServerGroupManager.getInstance();
+            EntitlementServerGroup group = manager.
+                        lookupEntitled(EntitlementManager.VIRTUALIZATION, user);
+            List servers = new ArrayList();
+            servers.add(this);
+            manager.addServers(group, servers, user);
+        }
+    }
+    
+    private class ServerWithGuests extends Server {
+        public ServerWithGuests() {
+            VirtualInstance vi = new VirtualInstance();
+            vi.setUuid(TestUtils.randomString());
+            addGuest(vi);
+        }
+    }
+
 }

@@ -25,7 +25,8 @@ import java.io.Serializable;
  * NetworkInterface
  * @version $Rev$
  */
-public class NetworkInterface extends BaseDomainHelper implements Serializable {
+public class NetworkInterface extends BaseDomainHelper implements 
+    Serializable {
 
     private Server server;
     private String name;
@@ -165,4 +166,13 @@ public class NetworkInterface extends BaseDomainHelper implements Serializable {
                                     .append(module)
                                     .toHashCode();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        return "NetworkInterface - name: " + this.getName() + " ip: " + this.getIpaddr();
+    }
+    
+    
 }

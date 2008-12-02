@@ -15,6 +15,8 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 
@@ -36,15 +38,19 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private static Logger log = Logger.getLogger(CobblerSystemCreateCommand.class);
     
     private Server server;
+    private KickstartData ksData;
     
     /**
      * Constructor
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
+     * @param ksDataIn profile to associate with with server.
      */
-    public CobblerSystemCreateCommand(User userIn, Server serverIn) {
+    public CobblerSystemCreateCommand(User userIn, Server serverIn, 
+            KickstartData ksDataIn) {
         super(userIn);
-        server = serverIn;
+        this.server = serverIn;
+        this.ksData = ksDataIn;
     }
 
     /**
@@ -57,13 +63,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_system", handle, "name", server.getName(),
                                  xmlRpcToken);
         Map inet = new HashMap();
-        inet.put("macaddress-eth0", "AA:BB:CC:EE:EE:EE");
+        
+        NetworkInterface n = this.server.findPrimaryNetworkInterface();
+        inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        
         Object[] args = new Object[]{handle, "modify-interface", 
                 inet, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
         args = new String[]{handle, "profile", 
-                "f9-x86_64", xmlRpcToken};
+                this.ksData.getCobblerName(), xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         invokeXMLRPC("save_system", handle, xmlRpcToken);
         return null;
