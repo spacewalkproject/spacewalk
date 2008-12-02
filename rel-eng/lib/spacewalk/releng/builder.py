@@ -305,8 +305,6 @@ class FromTarballBuilder(Builder):
 
 
 
-
-
 #class UpstreamBuilder(Builder):
 #    """
 #    Builder for packages that rename and patch upstream versions.
