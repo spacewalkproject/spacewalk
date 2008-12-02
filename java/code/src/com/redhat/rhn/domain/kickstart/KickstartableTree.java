@@ -262,7 +262,7 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the actual basepath.
      */
     private  String getAbsolutePath() {
-        if (getOrgId() == null) {
+        if (isRhnTree()) {
             //redhat channel append the mount point to 
             //base path...
             return Config.get().getKickstartMountPoint() + getBasePath();

@@ -718,7 +718,7 @@ public class KickstartData {
      * @param kd KickstartDefaults to set
      */
     public void setKickstartDefaults(KickstartDefaults kd) {
-        this.kickstartDefaults = kd;        
+        this.kickstartDefaults = kd;
     }
     
     /**
@@ -733,26 +733,25 @@ public class KickstartData {
      * Conv method 
      * @return Install Type for Kickstart
      */
-    public String getInstallType() {
-        String installType = null;
-        if (this.getTree() != null && this.getTree().getInstallType() != null) {
-            installType = this.getTree().getInstallType().getLabel();
+    public KickstartInstallType getInstallType() {
+        if (this.getTree() != null) {
+            return getTree().getInstallType(); 
         }   
-        return installType;
+        return null;
     }
 
     /**
      * @return if this kickstart profile is rhel 5 installer type
      */
     public boolean isRhel5() {
-        return this.getInstallType().endsWith("5");
+        return getInstallType().isRhel5();
     }
 
     /**
      * @return if this kickstart profile is rhel 5 installer type or greater (for rhel6)
      */
     public boolean isRhel5OrGreater() {
-        return (!this.isRhel2() && !this.isRhel3() && !this.isRhel4());
+        return getInstallType().isRhel5OrGreater();
     }
 
     /**
@@ -760,21 +759,30 @@ public class KickstartData {
      * @return if this is a fedora kickstart or not
      */
     public boolean isFedora() {
-        return this.getInstallType().startsWith("fedora");
+        return getInstallType().isFedora();
     }
-    
+
+    /**
+     * returns true if this is a generic kickstart
+     * as in non rhel and non fedora.
+     * @return if this is a generic kickstart or not
+     */
+    public boolean isGeneric() {
+        return getInstallType().isFedora();
+    }
+        
     /**
      * @return if this kickstart profile is rhel 4 installer type
      */
     public boolean isRhel4() {
-        return this.getInstallType().endsWith("4");
+        return getInstallType().isRhel4();
     }
 
     /**
      * @return if this kickstart profile is rhel 3 installer type
      */
     public boolean isRhel3() {
-        return this.getInstallType().endsWith("3");
+        return getInstallType().isRhel3();
     }
     
     /**
@@ -782,7 +790,7 @@ public class KickstartData {
      * @return if this kickstart profile is rhel 2 installer type
      */
     public boolean isRhel2() {
-        return this.getInstallType().endsWith("2.1");
+        return getInstallType().isRhel2();
     }
 
     /**
@@ -1135,23 +1143,9 @@ public class KickstartData {
      * @return String kickstart package like auto-kickstart-ks-rhel-i386-as-4
      */
     public String getKickstartPackageName() {
-        String installType = this.getInstallType();
-        // For the older revs of RHEL we want to use auto-kickstart-*
-        if (installType.equals(KickstartInstallType.RHEL_4) || 
-                installType.equals(KickstartInstallType.RHEL_3) ||
-                    installType.equals(KickstartInstallType.RHEL_21)) {
-            String packageName = this.getKickstartDefaults().getKstree().getBootImage();
-            if (!packageName.startsWith(LEGACY_KICKSTART_PACKAGE_NAME)) {
-                packageName = LEGACY_KICKSTART_PACKAGE_NAME  + 
-                    this.getKickstartDefaults().getKstree().getBootImage();
-            }
-            return packageName;
-        }
-        else {
-            return KICKSTART_PACKAGE_NAME;
-        }
-    }
+        return KICKSTART_PACKAGE_NAME;
 
+    }
     
     /**
      * @return Returns the repos.

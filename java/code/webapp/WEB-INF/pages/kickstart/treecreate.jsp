@@ -4,11 +4,11 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 
 <html:html xhtml="true">
-
+<script language="javascript" src="/javascript/refresh.js"></script>
 <head>
 <meta http-equiv="Pragma" content="no-cache" />
 
-<script language="javascript" src="/javascript/refresh.js"></script>
+
 </head>
 
 <body>

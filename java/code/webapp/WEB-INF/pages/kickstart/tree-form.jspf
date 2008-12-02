@@ -25,21 +25,6 @@
               </c:if>
             </td>
           </tr>
-          <tr>
-            <th><bean:message key="tree-form.jspf.bootimage" /><span class="required-form-field">*</span>:</th>
-            <td>
-              <c:choose>
-                  <c:when test="${requestScope.noautoks == 'true'}">
-                    <bean:message key="tree-form.jspf.noautoks" />
-                  </c:when>
-                  <c:otherwise>
-                    <html:select property="bootimage">
-                        <html:options collection="kickstartrpms" property="value" labelProperty="label" />
-                    </html:select>
-                  </c:otherwise>
-              </c:choose>
-            </td>
-          </tr>
           <c:if test="${requestScope.nochannels != 'true'}">
             <tr>
               <th><bean:message key="tree-form.jspf.installer" /><span class="required-form-field">*</span>:</th>
@@ -58,5 +43,5 @@
                 </c:choose>
               </td>
             </tr>
-          </c:if>
+          </c:if>          
       </table>

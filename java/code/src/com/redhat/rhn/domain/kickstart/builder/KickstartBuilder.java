@@ -534,7 +534,7 @@ public class KickstartBuilder {
         setMiscDefaults(cmd, ksdata);
         setPartitionScheme(cmd, ksdata);
         
-        if (ksdata.isRhel5OrGreater() && !ksdata.isFedora()) {
+        if (ksdata.isRhel5OrGreater()) {
             cmd.addRepoLocations(ksdata, downloadUrl);
         }
 

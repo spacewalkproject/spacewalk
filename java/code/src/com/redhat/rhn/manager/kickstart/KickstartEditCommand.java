@@ -80,17 +80,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         logger.debug("setLabel(String labelIn=" + labelIn + ") - start");
         this.ksdata.setLabel(labelIn);
     }
-    
-    /**
-     * 
-     * @return The Kickstart Install Type (OS version)
-     */
-    public String getInstallType() {
-        String returnString = this.ksdata.getInstallType();
-        logger.debug("getInstallType() - end - return value=" + returnString);
-        return returnString;
-    }
-    
+
     /**
      * 
      * @return Whether the Kickstart is active 
@@ -350,6 +340,4 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     private String getBaseLabel(Channel c) {
         return "ks-" + c.getLabel();
     }
-    
-
 }
