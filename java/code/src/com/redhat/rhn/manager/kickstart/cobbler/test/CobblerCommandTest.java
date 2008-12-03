@@ -51,8 +51,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
         user.addRole(RoleFactory.ORG_ADMIN);
-        // ksdata.setLabel("cobbler-java-test");
-        // ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
 
         // Uncomment this if you want the tests to actually talk to cobbler
         // Config.get().setString(CobblerXMLRPCHelper.class.getName(),
@@ -66,17 +64,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testSystemCreate() throws Exception {
-        /*Server gibson = ServerFactory.lookupById(1000010339L);
-        Set interfaces = gibson.getNetworkInterfaces();
-        Iterator i = interfaces.iterator();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
-            System.out.println("getHwaddr: " + n.getHwaddr());
-            System.out.println("getIpaddr" + n.getIpaddr());
-            System.out.println("getName: " + n.getName());
-            System.out.println("getNetmask: " + n.getNetmask() + "________\n\n");
-        }*/
-        
 
         Server s = ServerTestUtils.createTestSystem(user);
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
@@ -89,6 +76,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNotNull(systemMap);
         assertTrue(systemMap.containsKey("name"));
         
+        // Ensure we can call it twice.
         cmd = new 
             CobblerSystemCreateCommand(user, s, ksdata);
         cmd.store();
@@ -122,6 +110,10 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testProfileDelete() throws Exception {
+        CobblerProfileCreateCommand createCmd = new CobblerProfileCreateCommand(
+                ksdata, user, "http://localhost/ks");
+        assertNull(createCmd.store());
+
         CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, user);
         assertNull(cmd.store());
         assertTrue(cmd.getProfileMap().isEmpty());
@@ -134,6 +126,14 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cmd.getDistroMap());
     }
 
+    
+    public void testDistroDelete() throws Exception {
+        CobblerDistroDeleteCommand cmd = new 
+            CobblerDistroDeleteCommand(ksdata.getTree(), user);
+        assertNull(cmd.store());
+        assertTrue(cmd.getDistroMap().isEmpty());
+    }
+    
     public void testDistroEdit() throws Exception {
         CobblerDistroEditCommand cmd = new 
             CobblerDistroEditCommand(ksdata.getTree(), user);
@@ -143,14 +143,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         Map distro = cmd.getDistroMap(); 
         String distroName = (String) distro.get("name"); 
         assertNotNull(distroName);
-    }
-
-    
-    public void testDistroDelete() throws Exception {
-        CobblerDistroDeleteCommand cmd = new 
-            CobblerDistroDeleteCommand(ksdata.getTree(), user);
-        assertNull(cmd.store());
-        assertTrue(cmd.getDistroMap().isEmpty());
     }
     
     public void testLogin() throws Exception {

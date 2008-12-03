@@ -17,8 +17,12 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +31,8 @@ import java.util.Map;
  * @version $Rev$
  */
 public abstract class CobblerProfileCommand extends CobblerCommand {
+    
+    private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
     protected KickstartData ksData;
     protected String kickstartUrl;
@@ -59,10 +65,18 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      */
     public Map getProfileMap() {
         List < String > args = new ArrayList();
-        args.add(this.ksData.getCobblerName());
         args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_profile", args);
-        return retval;
+        List profiles = (List) invokeXMLRPC("get_profiles", args);
+        Iterator i = profiles.iterator();
+        while (i.hasNext()) {
+            Map row = (Map) i.next();
+            log.debug("getDistroMap.ROW: " + row);
+            String name = (String) row.get("name");
+            if (name.equals(this.ksData.getCobblerName())) {
+                return row;
+            }
+        }
+        return new HashMap();
     }
 
     protected void updateCobblerFields(String handle) {

@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -56,11 +58,20 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
      * @return Map of cobbler distro fields.
      */
     public Map getDistroMap() {
+        log.debug("getDistroMap()");
         List < String > args = new ArrayList();
-        args.add(this.tree.getCobblerDistroName());
         args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_distro", args);
-        return retval;
+        List distros = (List) invokeXMLRPC("get_distros", args);
+        Iterator i = distros.iterator();
+        while (i.hasNext()) {
+            Map row = (Map) i.next();
+            log.debug("getDistroMap.ROW: " + row);
+            String name = (String) row.get("name");
+            if (name.equals(this.tree.getCobblerDistroName())) {
+                return row;
+            }
+        }
+        return new HashMap();
     }
     
     protected void updateCobblerFields(String handle) {
