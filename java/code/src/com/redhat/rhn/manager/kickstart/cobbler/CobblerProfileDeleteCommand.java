@@ -53,8 +53,9 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
             log.warn("No cobbler profile associated with this Profile.");
             return null;
         }
+        
         Boolean rc = (Boolean) invokeXMLRPC("remove_profile", 
-                ksData.getCobblerName(), xmlRpcToken);
+                getProfileMap().get("name"), xmlRpcToken);
         log.debug("RC: " + rc);
         if (rc == null || !rc.booleanValue()) {
             return new ValidatorError("cobbler.profile.remove_failed");
