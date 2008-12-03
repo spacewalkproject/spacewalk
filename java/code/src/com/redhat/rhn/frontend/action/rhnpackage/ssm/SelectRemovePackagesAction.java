@@ -65,11 +65,7 @@ public class SelectRemovePackagesAction extends RhnAction implements Listable {
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
-        PageControl pc = new PageControl();
-        pc.setStart(1);
-
-        DataResult result =
-            PackageManager.packagesFromServerSet(user);
+        DataResult result = PackageManager.packagesFromServerSet(user);
 
         return result;
     }
