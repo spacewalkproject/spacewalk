@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.6
+Version:        0.4.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Dec  3 2008 Milan Zazrivec 0.4.7-1
+- updated fix for bz #473438
+
 * Fri Nov 28 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.6-1
 - 473438 - inititate db alias
 
