@@ -98,35 +98,39 @@ public class SatelliteHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         
         List<EntitlementServerGroup> systemEnts = new
-                                    LinkedList<EntitlementServerGroup>();
-        
+            LinkedList<EntitlementServerGroup>();
+                       
         for (Entitlement ent : EntitlementManager.getBaseEntitlements()) {
             EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                                    ent, loggedInUser.getOrg());
-           systemEnts.add(group);
-            
+                    ent, loggedInUser.getOrg());
+            if (group != null) {
+                systemEnts.add(group);
+            }
         }
 
         for (Entitlement ent : EntitlementManager.getAddonEntitlements()) {
             EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
-                                                    ent, loggedInUser.getOrg());
-           systemEnts.add(group);
+                    ent, loggedInUser.getOrg());
+            if (group != null) {
+                systemEnts.add(group);
+            }
         }
         
- 
         List<ChannelOverview> channels = ChannelManager.entitlements(
                 loggedInUser.getOrg().getId(), null);
 
         /* Once bz 445260 is resolved, the loop below may be removed and the channels
          * list may be used 'as is'.
          */
-        for (ChannelOverview item : channels) {
-            ChannelFamily fam = ChannelFamilyFactory.lookupById(item.getId());
-            if (fam.getOrg() != null) {
-                item.setOrgId(fam.getOrg().getId());
-            }
+        if (channels != null) {
+            for (ChannelOverview item : channels) {
+                ChannelFamily fam = ChannelFamilyFactory.lookupById(item.getId());
+                if (fam.getOrg() != null) {
+                    item.setOrgId(fam.getOrg().getId());
+                }
+            }             
         }
-
+        
         Map toReturn = new HashMap();
         toReturn.put("system", systemEnts.toArray());
         toReturn.put("channel", channels.toArray());
