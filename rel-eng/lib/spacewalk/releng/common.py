@@ -155,14 +155,15 @@ class BuildCommon:
     def _get_latest_tagged_version(self):
         """
         Return the latest git tag for this package in the current branch.
+        Uses the info in rel-eng/packages/package-name and error out if the
+        file does not exist.
 
-        Uses the info in rel-eng/packages/package-name.
+        Returns None if file does not exist.
         """
         file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
         debug("Getting latest package info from: %s" % file_path)
         if not os.path.exists(file_path):
-            error_out(["Unable to lookup latest package info from %s" %
-                    file_path, "Perhaps you need to --tag-release first?"])
+            return None
 
         output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
         return output

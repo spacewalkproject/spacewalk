@@ -50,6 +50,9 @@ class Builder(BuildCommon):
             self.build_version = self.build_tag[len(self.project_name + "-"):]
         else:
             self.build_version = self._get_latest_tagged_version()
+            if self.build_version == None:
+                error_out(["Unable to lookup latest package info from %s" %
+                        file_path, "Perhaps you need to --tag-release first?"])
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
         check_tag_exists(self.build_tag)
