@@ -22,5 +22,7 @@
 	<classpathentry kind="lib" path="lib/redstone-xmlrpc-client-1.1_20071120.jar" sourcepath="libsrc/redstone-xmlrpc-1.1_20071120-src.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-analyzers-2.3.2.jar" sourcepath="libsrc/lucene-2.3.2-src.zip"/>
 	<classpathentry kind="lib" path="lib/lucene-core-2.3.2.jar" sourcepath="libsrc/lucene-2.3.2-src.zip"/>
+	<classpathentry kind="lib" path="lib/hadoop-0.18.1-core.jar"/>
+	<classpathentry kind="lib" path="lib/nutch-2008-12-01_04-01-21.jar" sourcepath="libsrc/nutch-2008-12-01_04-01-21-src.zip"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>
