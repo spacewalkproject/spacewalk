@@ -432,7 +432,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         CobblerSystemCreateCommand cmd = 
             new CobblerSystemCreateCommand(this.user, this.getTargetServer(),
                     this.ksdata);
-        cmd.store();
+        ValidatorError cobblerError = cmd.store();
+        if (cobblerError != null) {
+            return cobblerError;
+        }
         
         log.debug("** Done scheduling kickstart session");
         return null;

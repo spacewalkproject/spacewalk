@@ -65,6 +65,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         Map inet = new HashMap();
         
         NetworkInterface n = this.server.findPrimaryNetworkInterface();
+        if (n == null) {
+            return new ValidatorError("kickstart.no.network.error");
+        }
         inet.put("macaddress-" + n.getName(), n.getHwaddr());
         
         Object[] args = new Object[]{handle, "modify-interface", 
