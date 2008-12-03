@@ -29,7 +29,6 @@ import java.util.Date;
 public class KickstartableTree extends BaseDomainHelper {
 
     private String basePath;
-    private String bootImage;
     private Channel channel;
     private Long id;
     private KickstartInstallType installType;
@@ -54,21 +53,7 @@ public class KickstartableTree extends BaseDomainHelper {
     public void setBasePath(String b) {
         this.basePath = b;
     }
-    
-    /**
-     * @return Returns the bootImage.
-     */
-    public String getBootImage() {
-        return bootImage;
-    }
-    
-    /**
-     * @param b The bootImage to set.
-     */
-    public void setBootImage(String b) {
-        this.bootImage = b;
-    }
-    
+
     /**
      * @return Returns the channel.
      */

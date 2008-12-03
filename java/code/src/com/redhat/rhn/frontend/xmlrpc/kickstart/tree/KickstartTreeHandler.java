@@ -82,8 +82,6 @@ public class KickstartTreeHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param treeLabel Label for the new kickstart tree
      * @param basePath path to the base/root of the kickstart tree.
-     * @param bootImage name of RPM to use to initiate kickstart.  
-     * Generally this is rhn-kickstart.
      * @param channelLabel label of channel to associate with ks tree. 
      * @param installType String label for KickstartInstallType (rhel_2.1, 
      * rhel_3, rhel_4, rhel_5, fedora_9)
@@ -94,9 +92,6 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the new kickstart tree")
      * @xmlrpc.param #param_desc("string", "basePath", "path to the base or
      * root of the kickstart tree.")
-     * @xmlrpc.param #param_desc("string", "bootImage", " name of RPM to use 
-     * to initiate kickstart. Generally this is rhn-kickstart (use that if you aren't 
-     * sure what to use.")
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of channel to 
      * associate with ks tree. ")
      * @xmlrpc.param #param_desc("string", "installType", "String label for 
@@ -104,7 +99,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int createTree(String sessionKey, String treeLabel,
-            String basePath, String bootImage, String channelLabel,
+            String basePath, String channelLabel,
             String installType) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -112,7 +107,6 @@ public class KickstartTreeHandler extends BaseHandler {
         
         TreeCreateOperation create = new TreeCreateOperation(loggedInUser);
         create.setBasePath(basePath);
-        create.setBootImage(bootImage);
         create.setChannel(getChannel(channelLabel, loggedInUser));
         create.setInstallType(getKickstartInstallType(installType));
         create.setLabel(treeLabel);
@@ -193,7 +187,6 @@ public class KickstartTreeHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param treeLabel Label for the existing kickstart tree
      * @param basePath New basepath for tree.
-     * @param bootImage New boot image for tree.  Typically this is
      * rhn-kickstart.
      * @param channelLabel New channel label to lookup and assign to 
      * the kickstart tree.
@@ -207,9 +200,6 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the kickstart tree")
      * @xmlrpc.param #param_desc("string", "basePath", "path to the base or
      * root of the kickstart tree.")
-     * @xmlrpc.param #param_desc("string", "bootImage", " name of RPM to use 
-     * to initiate kickstart. Generally this is rhn-kickstart (use that if you aren't 
-     * sure what to use.")
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of channel to 
      * associate with ks tree. ")
      * @xmlrpc.param #param_desc("string", "installType", "String label for 
@@ -217,8 +207,8 @@ public class KickstartTreeHandler extends BaseHandler {
      *
      * @xmlrpc.returntype #return_int_success()
      */
-    public int editTree(String sessionKey, String treeLabel, String basePath, 
-            String bootImage, String channelLabel, String installType) {
+    public int editTree(String sessionKey, String treeLabel, String basePath,
+                 String channelLabel, String installType) {
 
         
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -229,7 +219,6 @@ public class KickstartTreeHandler extends BaseHandler {
             throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
         }
         op.setBasePath(basePath);
-        op.setBootImage(bootImage);
         op.setChannel(getChannel(channelLabel, loggedInUser));
         op.setInstallType(getKickstartInstallType(installType));
         

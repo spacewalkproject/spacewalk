@@ -153,7 +153,6 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
                 RandomStringUtils.randomAlphanumeric(5));
         
         k.setBasePath("rhn/kickstart/" + k.getLabel());
-        k.setBootImage(TEST_BOOT_PATH);
         k.setCreated(created);
         k.setModified(modified);
         k.setOrg(treeChannel.getOrg());

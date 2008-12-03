@@ -25,7 +25,6 @@ import com.redhat.rhn.domain.channel.ProductName;
 import com.redhat.rhn.domain.channel.ReleaseChannelMap;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.common.CommonConstants;
-import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -463,7 +462,7 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         Channel base = ChannelTestUtils.createTestChannel(user);
         Channel tools = ChannelTestUtils.createChildChannel(user, base);
         PackageManagerTest.addKickstartPackageToChannel(
-                KickstartData.KICKSTART_PACKAGE_NAME, tools);
+                Config.get().getKickstartPackageName(), tools);
         
         Channel lookup = ChannelManager.getToolsChannel(base, user);
         assertEquals(tools.getId(), lookup.getId());

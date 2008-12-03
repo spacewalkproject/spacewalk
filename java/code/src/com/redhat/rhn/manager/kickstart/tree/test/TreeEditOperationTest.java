@@ -106,14 +106,12 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         cmd.setInstallType(KickstartFactory.
                       lookupKickstartInstallTypeByLabel("rhel_4"));
         cmd.setBasePath("http://rhn.redhat.com/sometree");
-        cmd.setBootImage("TestBootImage");
         cmd.setChannel(ChannelFactoryTest.createTestChannel(user));
         cmd.setLabel("some_label" + TestUtils.randomString());
         assertNotNull(cmd.getUser());
         assertNotNull(cmd.getTree());
         assertNotNull(cmd.getTree().getInstallType());
         assertNotNull(cmd.getTree().getBasePath());
-        assertNotNull(cmd.getTree().getBootImage());
         assertNotNull(cmd.getTree().getChannel());
         assertNotNull(cmd.getTree().getLabel());
         assertNotNull(cmd.getTree().getTreeType());

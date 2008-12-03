@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.tree.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -45,7 +46,6 @@ import java.util.List;
 public class TreeActionTest extends RhnMockStrutsTestCase {
     
     private static final String BASE_PATH = "http://rhn.redhat.com/somepath";
-    private static final String BOOT_IMAGE = "ks-test-boot-image";
     
     public void testCreateNonSubmit() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.CONFIG_ADMIN);
@@ -94,8 +94,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         String ksDistLabel = "somelabel" + TestUtils.randomString();
         addRequestParameter(TreeCreateAction.LABEL, ksDistLabel);
         addRequestParameter(TreeCreateAction.BASE_PATH, BASE_PATH);
-        addRequestParameter(TreeCreateAction.BOOT_IMAGE, BOOT_IMAGE);
-        
+       
         // Choose the RHEL 5 base channel so we can verify the package list is updated:
         addRequestParameter(TreeCreateAction.CHANNEL_ID, rhel5BaseChan.getId().toString());
         
@@ -104,7 +103,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         // Verify that things are as they should be after a refresh:
         verifyFormValue(TreeCreateAction.LABEL, ksDistLabel);
         verifyFormValue(TreeCreateAction.BASE_PATH, BASE_PATH);
-        verifyFormValue(TreeCreateAction.BOOT_IMAGE, BOOT_IMAGE);
         verifyFormValue(TreeCreateAction.CHANNEL_ID, rhel5BaseChan.getId());
 
         List ksPackages = (List)request.getAttribute(TreeCreateAction.KICKSTART_RPMS);
@@ -123,7 +121,7 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         Channel rhel5BaseChan = ChannelTestUtils.createTestChannel(user);
         Channel rhel5ToolsChan = ChannelTestUtils.createChildChannel(user, rhel5BaseChan);
         PackageManagerTest.addKickstartPackageToChannel(
-                KickstartData.KICKSTART_PACKAGE_NAME, rhel5ToolsChan);
+                Config.get().getKickstartPackageName(), rhel5ToolsChan);
         return rhel5BaseChan;
     }
 
@@ -156,8 +154,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         String newLabel = executeSubmit("/kickstart/TreeEdit", c);
         verifyFormValue(TreeEditAction.BASE_PATH, t.getBasePath());
-        verifyFormValue(TreeEditAction.BOOT_IMAGE, t.getBootImage());
-       
         verifyFormValue(TreeEditAction.CHANNEL_ID, t.getChannel().getId());
         verifyFormValue(TreeEditAction.LABEL, t.getLabel());
         assertEquals(newLabel, t.getLabel());
@@ -172,7 +168,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         executeNonSubmit("/kickstart/TreeEdit");
         
         verifyFormValue(TreeEditAction.BASE_PATH, t.getBasePath());
-        verifyFormValue(TreeEditAction.BOOT_IMAGE, t.getBootImage());
         verifyFormValue(TreeEditAction.CHANNEL_ID, t.getChannel().getId());
         verifyFormValue(TreeEditAction.LABEL, t.getLabel());
         assertNotNull(request.getAttribute(RequestContext.KSTREE));
@@ -208,7 +203,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         setRequestPathInfo(path);
         addRequestParameter(TreeCreateAction.BASE_PATH, BASE_PATH);
-        addRequestParameter(TreeCreateAction.BOOT_IMAGE, BOOT_IMAGE);
         addRequestParameter(TreeCreateAction.CHANNEL_ID, 
                 c.getId().toString());
         addRequestParameter(TreeCreateAction.LABEL, newLabel);
@@ -227,7 +221,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         assertNotNull(t);
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         addRequestParameter(TreeEditAction.BASE_PATH, t.getBasePath());
-        addRequestParameter(TreeEditAction.BOOT_IMAGE, t.getBootImage());
         addRequestParameter(TreeEditAction.CHANNEL_ID, 
                 c.getId().toString());
         addRequestParameter(TreeEditAction.LABEL, t.getLabel());
@@ -250,7 +243,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
                         lookupKickstartTreeByIdAndOrg(t.getId(), user.getOrg()));
         addRequestParameter(RequestContext.KSTREE_ID, t.getId().toString());
         addRequestParameter(TreeEditAction.BASE_PATH, t.getBasePath());        
-        addRequestParameter(TreeEditAction.BOOT_IMAGE, t.getBootImage());
         addRequestParameter(TreeEditAction.CHANNEL_ID, 
                 c.getId().toString());
         addRequestParameter(TreeEditAction.LABEL, t.getLabel());

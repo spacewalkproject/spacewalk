@@ -15,7 +15,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   
   		<property name="cobblerId" column="cobbler_id"  type="string" length="64" />
         <property name="basePath" type="string" column="base_path"/>
-        <property name="bootImage" type="string" column="boot_image"/>
         <property name="label" type="string" column="label"/>
         <property name="lastModified" type="date" column="last_modified"/>
         

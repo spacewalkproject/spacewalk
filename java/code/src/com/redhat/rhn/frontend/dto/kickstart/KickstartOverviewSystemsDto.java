@@ -26,28 +26,13 @@ import java.sql.Timestamp;
  */
 public class KickstartOverviewSystemsDto extends BaseDto {
     private String label;
-    private String bootImage;
     private String description;
     private Timestamp lastModified;
     private Long oldServerId;
     private Long newServerId;
     private String elapsedTimeAfterModify;
     private String clientIp;
-        
-    /**
-     * @return Returns the system's boot image.
-     */
-    public String getBootImage() {
-        return bootImage;
-    }
-    
-    /**
-     * @param bootImageIn The bootImageIn to set.
-     */
-    public void setBootImage(String bootImageIn) {
-        this.bootImage = bootImageIn;
-    }
-    
+
     /**
      * @return the client IP of the kickstarting system.
      */

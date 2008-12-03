@@ -14,11 +14,11 @@
  */
 package com.redhat.rhn.testing;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.DistChannelMap;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
-import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
@@ -100,7 +100,7 @@ public class ChannelTestUtils {
         PackageManagerTest.addPackageToChannel(
                 ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME, rhnTools);
         PackageManagerTest.addPackageToChannel(
-                KickstartData.KICKSTART_PACKAGE_NAME, rhnTools);
+                Config.get().getKickstartPackageName(), rhnTools);
 
         
         Channel rhelVirt = 

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -295,7 +296,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
            addPackages(c, KickstartFormatter.FRESH_PKG_NAMES_RHEL34);
        }
        PackageManagerTest.addPackageToChannel(
-               KickstartData.KICKSTART_PACKAGE_NAME + "testy", c);
+               Config.get().getKickstartPackageName() + "testy", c);
        PackageManagerTest.addPackageToChannel(
                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME +
                    KickstartableTreeTest.TEST_BOOT_PATH, c);

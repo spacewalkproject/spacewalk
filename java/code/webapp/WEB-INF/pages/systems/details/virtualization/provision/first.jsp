@@ -139,9 +139,7 @@ function setInitialState() {
             <rhn:column header="kickstartranges.jsp.profile">
                 ${current.label}
             </rhn:column>
-            <rhn:column header="kickstart.jsp.bootimage">
-                ${current.bootImage}
-            </rhn:column>
+
             <rhn:column header="kickstart.channel.label.jsp">
                 ${current.channelLabel}
             </rhn:column>      

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -74,7 +75,7 @@ public class ScheduleKickstartWizardTest extends RhnMockStrutsTestCase {
         s.addChannel(c);
         
         PackageManagerTest.addPackageToSystemAndChannel(
-            KickstartData.KICKSTART_PACKAGE_NAME, s, c);
+                Config.get().getKickstartPackageName(), s, c);
         
         PackageManagerTest.
             addUp2dateToSystemAndChannel(user, s, 
