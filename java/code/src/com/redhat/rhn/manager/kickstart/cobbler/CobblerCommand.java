@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
@@ -111,4 +112,31 @@ public abstract class CobblerCommand {
         return String.format(format, label.replace(' ', '-'), org.getId(),
                 org.getName().replace(' ', '-'));        
     }
+    
+    
+    /**
+     * Makes a local file path out of the cobbler name.
+     * 
+     * Currently ends up in :
+     * 
+     * /etc/rhn/cobbler/label--orgid--orgname.cfg
+     * 
+     * @param label the distro or profile label
+     * @param org the org to appropriately add the org info
+     * @return the cobbler file name in /etc/rhn/cobbler/label--orgid--orgname.cfg
+     */
+    public static String makeCobblerFileName(String label, Org org) {
+        if (org == null) {
+            return label.replace(' ', '_');
+        }
+        String format = "%s--%s--%s";
+        
+        String kickstartConfigDir = Config.get().getString("kickstart.cobbler.dir", 
+            "/etc/rhn/cobbler/");
+        String fileName = String.format(format, label.replace(' ', '_'), org.getId(),
+                org.getName().replace(' ', '_')); 
+        String retval = kickstartConfigDir + fileName + ".cfg";
+        return retval;         
+    }
+
 }

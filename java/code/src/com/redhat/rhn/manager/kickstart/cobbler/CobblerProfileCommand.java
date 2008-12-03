@@ -81,7 +81,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
 
     protected void updateCobblerFields(String handle) {
         String[] args = new String[]{handle, "kickstart", 
-                this.kickstartUrl, xmlRpcToken};
+                this.ksData.getCobblerFileName(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
         args = new String[]{handle, "distro", 

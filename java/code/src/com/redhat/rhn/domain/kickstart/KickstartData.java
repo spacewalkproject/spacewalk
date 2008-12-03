@@ -1278,6 +1278,13 @@ public class KickstartData {
     /**
      * @return the cobblerName
      */
+    public String getCobblerFileName() {
+        return CobblerCommand.makeCobblerFileName(getLabel(), getOrg());
+    }
+    
+    /**
+     * @return the cobblerName
+     */
     public String getOldCobblerName() {
         return oldCobblerName;
     }
