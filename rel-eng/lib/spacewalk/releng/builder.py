@@ -143,6 +143,9 @@ class Builder(BuildCommon):
         """ Build an RPM. """
         self._create_build_dirs()
 
+        if self.test:
+            self._setup_test_specfile()
+
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -304,26 +307,6 @@ class NoTgzBuilder(Builder):
                         self.git_commit_id
                     )
             run_command(cmd)
-
-
-
-#class UpstreamBuilder(Builder):
-#    """
-#    Builder for packages that rename and patch upstream versions.
-
-#    i.e. satellite-java build on spacewalk-java.
-#    """
-#    def __init__(self, spec_file, upstream_project_name):
-#        Builder.__init__(self, spec_file)
-#        self.upstream_project_name = upstream_project_name
-
-#    def _get_tgz_name_and_ver(self):
-#        """
-#        Override parent method to return the Spacewalk project name for this
-#        Satellite package.
-#        """
-#        return "%s-%s" % (self.upstream_project_name, self.display_version)
-
 
 
 

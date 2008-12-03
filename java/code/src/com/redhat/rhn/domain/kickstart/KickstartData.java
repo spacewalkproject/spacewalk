@@ -88,7 +88,6 @@ public class KickstartData {
     
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
-    private String oldCobblerName;
 
     
     /**
@@ -167,9 +166,6 @@ public class KickstartData {
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
-        if (label != null) {
-            setOldCobblerName(getCobblerName());    
-        }
         this.label = labelIn;
     }
 
@@ -1267,27 +1263,15 @@ public class KickstartData {
             getKickstartDefaults().getRemoteCommandFlag();
     }
 
+
     
     /**
      * @return the cobblerName
      */
-    public String getCobblerName() {
-        return CobblerCommand.makeCobblerName(getLabel(), getOrg());
+    public String getCobblerFileName() {
+        return CobblerCommand.makeCobblerFileName(getLabel(), getOrg());
     }
     
-    /**
-     * @return the cobblerName
-     */
-    public String getOldCobblerName() {
-        return oldCobblerName;
-    }
-    
-    /**
-     * @param cobblerNameIn the cobblerName to set
-     */
-    public void setOldCobblerName(String cobblerNameIn) {
-        this.oldCobblerName = cobblerNameIn;
-    }    
 
     /**
      * @return Returns if up2date/yum should be verbose

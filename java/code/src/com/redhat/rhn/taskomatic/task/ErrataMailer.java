@@ -312,8 +312,17 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         PrintWriter printWriter = new PrintWriter(writer, true);
         for (Iterator iter = servers.iterator(); iter.hasNext();) {
             Map row = (Map) iter.next();
-            String serverName = (String) row.get("name");
-            printWriter.println(serverName);
+            String release = (String) row.get("release");
+            printWriter.print(release);
+            for (int i = 0; i < (11 - release.length()); i++) {
+                printWriter.print(' ');
+            }
+            String arch = (String) row.get("arch");
+            printWriter.print(arch);
+            for (int i = 0; i < (11 - arch.length()); i++) {
+                printWriter.print(' ');
+            }
+            printWriter.println((String) row.get("name"));
         }
         printWriter.flush();
         args[0] = writer.toString();

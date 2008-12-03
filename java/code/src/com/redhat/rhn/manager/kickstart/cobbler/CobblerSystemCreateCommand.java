@@ -75,7 +75,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
         args = new String[]{handle, "profile", 
-                this.ksData.getCobblerName(), xmlRpcToken};
+                (String) lookupCobblerProfile(this.ksData).get("name"), xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         invokeXMLRPC("save_system", handle, xmlRpcToken);
         return null;

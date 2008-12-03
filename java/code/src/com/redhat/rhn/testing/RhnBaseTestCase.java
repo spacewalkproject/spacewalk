@@ -70,6 +70,7 @@ public abstract class RhnBaseTestCase extends TestCase {
         super.setUp();
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
+        Config.get().setString("kickstart.cobbler.dir", "/tmp/");
     }
 
     /**

@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -51,7 +53,9 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                 tree.getCobblerDistroName(), xmlRpcToken);
         updateCobblerFields(handle);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
-
+        
+        Map cDist = getDistroMap();
+        tree.setCobblerId((String) cDist.get("uid"));      
         return null;
     }
 

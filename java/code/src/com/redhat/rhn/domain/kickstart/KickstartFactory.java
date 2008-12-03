@@ -272,7 +272,11 @@ public class KickstartFactory extends HibernateFactory {
         KickstartFormatter formatter = new KickstartFormatter("localhost", ksdataIn);
         String fileData = formatter.getFileData();
         try {
-            File ksfile = new File("/tmp/test.cfg");
+            File ksfile = new File(ksdataIn.getCobblerFileName());
+            if (ksfile.exists()) {
+                ksfile.delete();
+            }
+            ksfile.createNewFile();
             Writer output = new BufferedWriter(new FileWriter(ksfile));
             try {
               output.write(fileData);
@@ -282,7 +286,7 @@ public class KickstartFactory extends HibernateFactory {
             }
         } 
         catch (Exception e) {
-            System.out.println("Error: " + e);
+            log.error("Error trying to write KS file to disk: " + e);
             throw new RuntimeException(e);
         }
 

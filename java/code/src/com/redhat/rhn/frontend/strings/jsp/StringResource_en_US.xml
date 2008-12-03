@@ -19426,6 +19426,10 @@ given channel.</source>
           <source>Title</source>
           <context context-type="sourcefile">/rhn/help/Search</context>
       </trans-unit>
+      <trans-unit id="docsearch.jsp.summary">
+          <source>Summary</source>
+          <context context-type="sourcefile">/rhn/help/Search</context>
+      </trans-unit>
       <trans-unit id="docsearch.jsp.imgAlt">
         <source>search</source>
         <context-group name="ctx">
