@@ -23,25 +23,43 @@ import ConfigParser
 
 from optparse import OptionParser
 
-from spacewalk.releng.builder import Builder, FromTarballBuilder
-from spacewalk.releng.tagger import Tagger, ReleaseTagger
+from spacewalk.releng.builder import Builder, NoTgzBuilder
+from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
 from spacewalk.releng.common import find_spec_file, find_git_root, \
         error_out, debug
+
+def get_class_by_name(name):
+    """
+    Get a Python class specified by it's fully qualified name.
+
+    NOTE: Does not actually create an instance of the object, only returns
+    a Class object.
+    """
+    # Split name into module and class name:
+    tokens = name.split(".")
+    class_name = tokens[-1]
+    module = ""
+
+    for s in tokens[0:-1]:
+        if len(module) > 0:
+            module = module + "."
+        module = module + s
+
+    mod = __import__(tokens[0])
+    components = name.split('.')
+    for comp in components[1:-1]:
+        mod = getattr(mod, comp)
+
+    debug("Importing %s" % name)
+    c = getattr(mod, class_name)
+    return c
+
+
 
 class CLI:
     """ Parent command line interface class. """
 
     def main(self):
-        """
-        Main method called by all build.py's which can provide their own
-        specific implementations of taggers and builders.
-
-        tagger_class = Class object which inherits from the base Tagger class.
-            (used for tagging package versions)
-        builder_class = Class object which inherits from the base Builder class.
-            (used for building tar.gz's, srpms, and rpms)
-        """
-
         usage = "usage: %prog [options] arg"
         parser = OptionParser(usage)
         parser.add_option("--tgz", dest="tgz", action="store_true",
@@ -96,11 +114,11 @@ class CLI:
 
         # Check what type of package we're building:
         builder_class = Builder
-        tagger_class = Tagger
-        if config.has_option("buildconfig", "no_tar_gz"):
-            debug("Building project from pre-packed source.")
-            builder_class = FromTarballBuilder
-            tagger_class = ReleaseTagger
+        tagger_class = VersionTagger
+        if config.has_option("buildconfig", "builder"):
+            builder_class = get_class_by_name(config.get("buildconfig", "builder"))
+        if config.has_option("buildconfig", "tagger"):
+            tagger_class = get_class_by_name(config.get("buildconfig", "tagger"))
 
         # Now that we have command line options, instantiate builder/tagger:
         if found_builder_options:
