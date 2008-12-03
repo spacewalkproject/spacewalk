@@ -34,7 +34,6 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *          #prop("string", "label")
  *          #prop("string", "tree_label")
  *          #prop("string", "name")
- *          #prop("string", "boot_image")
  *          #prop("boolean", "advanced_mode")
  *          #prop("boolean", "org_default")
  *   #struct_end()
