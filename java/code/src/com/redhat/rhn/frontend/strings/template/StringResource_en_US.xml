@@ -414,8 +414,8 @@ which you have explicitly enabled Errata Alerts are shown).
   </trans-unit>
   <trans-unit id="email.errata.notification.body.affected">
     <source>
-System                          Operating System
-------------------------------- ---------------------------------------------
+Release    Arch       Profile Name
+---------- ---------- ---------------------------------------------
 {0}
 
 You may address the issues outlined in this advisory in two ways:

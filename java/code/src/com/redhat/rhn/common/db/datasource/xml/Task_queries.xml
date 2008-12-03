@@ -457,7 +457,7 @@ ORDER BY next_action DESC
 
 <mode name="erratamailer_find_servers">
    <query params="user_id">
-  SELECT S.id, S.name, C.name base_channel
+  SELECT S.id, S.name, S.release, SA.name as arch, C.name base_channel
     FROM rhnChannel C,
          rhnServerChannel SC,
          rhnServer S,
@@ -469,6 +469,7 @@ ORDER BY next_action DESC
      AND S.id = SC.server_id
      AND SC.channel_id = C.id
      AND C.parent_channel IS NULL
+   ORDER BY 3,4,2
    </query>
 </mode>
 
