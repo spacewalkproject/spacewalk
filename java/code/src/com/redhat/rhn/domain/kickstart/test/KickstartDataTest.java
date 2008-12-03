@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -53,6 +54,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
 
+import java.io.File;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -101,7 +103,12 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         user.addRole(RoleFactory.ORG_ADMIN);
         KickstartData k = createKickstartWithProfile(user);
         assertNotNull(k.getKickstartDefaults().getProfile());
-        
+    }
+    
+    public void testFileWrite() throws Exception {
+        KickstartData k = createKickstartWithProfile(user);
+        File f = new File(k.getCobblerFileName());
+        assertTrue(f.exists());
     }
     
     public void testLookupByLabel() throws Exception {
@@ -295,7 +302,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
            addPackages(c, KickstartFormatter.FRESH_PKG_NAMES_RHEL34);
        }
        PackageManagerTest.addPackageToChannel(
-               KickstartData.KICKSTART_PACKAGE_NAME + "testy", c);
+               Config.get().getKickstartPackageName() + "testy", c);
        PackageManagerTest.addPackageToChannel(
                KickstartData.LEGACY_KICKSTART_PACKAGE_NAME +
                    KickstartableTreeTest.TEST_BOOT_PATH, c);

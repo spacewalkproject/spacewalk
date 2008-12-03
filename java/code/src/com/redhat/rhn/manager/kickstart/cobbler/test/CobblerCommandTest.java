@@ -17,7 +17,9 @@ package com.redhat.rhn.manager.kickstart.cobbler.test;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
@@ -44,29 +46,41 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        // Uncomment this if you want the tests to actually talk to cobbler
-        //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
-        //        CobblerXMLRPCHelper.class.getName());
         
         user = UserTestUtils.createUserInOrgOne();
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
         user.addRole(RoleFactory.ORG_ADMIN);
 
-        ksdata.setLabel("cobbler-java-test");
-        ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
+        // Uncomment this if you want the tests to actually talk to cobbler
+        // Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+        //        CobblerXMLRPCHelper.class.getName());
+        //commitAndCloseSession();
+
+        
         CobblerDistroCreateCommand dcreate = new 
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         dcreate.store();
     }
 
     public void testSystemCreate() throws Exception {
+
         Server s = ServerTestUtils.createTestSystem(user);
-        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s);
+        NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
+        s.addNetworkInterface(device);
+        
+        CobblerSystemCreateCommand cmd = new 
+            CobblerSystemCreateCommand(user, s, ksdata);
         cmd.store();
         Map systemMap = cmd.getSystemMap(); 
         assertNotNull(systemMap);
         assertTrue(systemMap.containsKey("name"));
+        
+        // Ensure we can call it twice.
+        cmd = new 
+            CobblerSystemCreateCommand(user, s, ksdata);
+        cmd.store();
+        
     }
     
     public void testProfileCreate() throws Exception {
@@ -96,6 +110,10 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testProfileDelete() throws Exception {
+        CobblerProfileCreateCommand createCmd = new CobblerProfileCreateCommand(
+                ksdata, user, "http://localhost/ks");
+        assertNull(createCmd.store());
+
         CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, user);
         assertNull(cmd.store());
         assertTrue(cmd.getProfileMap().isEmpty());
@@ -108,6 +126,14 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNotNull(cmd.getDistroMap());
     }
 
+    
+    public void testDistroDelete() throws Exception {
+        CobblerDistroDeleteCommand cmd = new 
+            CobblerDistroDeleteCommand(ksdata.getTree(), user);
+        assertNull(cmd.store());
+        assertTrue(cmd.getDistroMap().isEmpty());
+    }
+    
     public void testDistroEdit() throws Exception {
         CobblerDistroEditCommand cmd = new 
             CobblerDistroEditCommand(ksdata.getTree(), user);
@@ -117,14 +143,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         Map distro = cmd.getDistroMap(); 
         String distroName = (String) distro.get("name"); 
         assertNotNull(distroName);
-    }
-
-    
-    public void testDistroDelete() throws Exception {
-        CobblerDistroDeleteCommand cmd = new 
-            CobblerDistroDeleteCommand(ksdata.getTree(), user);
-        assertNull(cmd.store());
-        assertTrue(cmd.getDistroMap().isEmpty());
     }
     
     public void testLogin() throws Exception {

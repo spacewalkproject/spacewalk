@@ -26,7 +26,7 @@ public class KickstartDto extends BaseDto {
     private Long orgId;
     private Long kstreeId;
     private String label;
-    private String bootImage;
+
     private String isOrgDefault;
     private String treeLabel;
     private boolean active;
@@ -88,20 +88,6 @@ public class KickstartDto extends BaseDto {
      public void setKstreeId(Long kstreeIdIn) {
          this.kstreeId = kstreeIdIn;
      }
-
-    /**
-     * @return Returns the bootImage.
-     */
-    public String getBootImage() {
-        return bootImage;
-    }
-
-    /**
-     * @param bootImageIn The bootImage to set.
-     */
-    public void setBootImage(String bootImageIn) {
-        this.bootImage = bootImageIn;
-    }
     
     /**
      * @return Returns the label.

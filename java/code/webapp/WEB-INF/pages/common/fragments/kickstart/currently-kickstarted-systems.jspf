@@ -25,14 +25,6 @@
     		</c:if>
     				
 	</rl:column>
-
-	<rl:column bound="false"
-				sortable="false"
-				headerkey="kickstart.jsp.bootimage"
-		           	headerclass="thin-column"> 
-		${current.bootImage}
-	</rl:column>	
-	
 	
 	<rl:column bound="false"
 				sortable="false"

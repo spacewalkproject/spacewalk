@@ -36,7 +36,6 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("string", "label")
  *   #prop("string", "base_path")
  *   #prop("int", "channel_id")
- *   #prop("string", "boot_image")
  * #struct_end()
  */
 public class KickstartTreeSerializer implements XmlRpcCustomSerializer {
@@ -63,7 +62,6 @@ public class KickstartTreeSerializer implements XmlRpcCustomSerializer {
         helper.add("label", tree.getLabel());
         helper.add("base_path", tree.getBasePath());
         helper.add("channel_id", tree.getChannel().getId());
-        helper.add("boot_image", tree.getBootImage());
         helper.writeTo(output);
     }
 

@@ -83,6 +83,9 @@ public class CobblerLoginCommand {
             }
         }
         catch (XmlRpcFault e) {
+            if (e.getMessage().contains("invalid token")) {
+                return false;
+            }
             log.error("XmlRpcFault while logging in.  " +
                     "most likely user doesn't have permissions. ", e);
             throw new NoCobblerTokenException(

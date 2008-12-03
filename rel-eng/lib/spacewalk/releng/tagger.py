@@ -24,7 +24,7 @@ from time import strftime
 from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
         debug
 
-class Tagger(BuildCommon):
+class VersionTagger(BuildCommon):
     """
     Standard Tagger class, used for tagging packages built from source in
     git. (as opposed to packages which commit a tarball directly into git).
@@ -122,6 +122,8 @@ class Tagger(BuildCommon):
         bump the version or release.
         """
         old_version = self._get_latest_tagged_version()
+        if old_version == None:
+            old_version = "untagged"
         # TODO: Do this here instead of calling out to an external Perl script:
         if not self.keep_version:
 
@@ -229,7 +231,7 @@ class Tagger(BuildCommon):
 
 
 
-class ReleaseTagger(Tagger):
+class ReleaseTagger(VersionTagger):
     """
     Tagger which increments the spec file release instead of version.
 

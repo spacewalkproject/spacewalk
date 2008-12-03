@@ -120,6 +120,10 @@ public class Config {
 
     public static final String KICKSTART_MOUNT_POINT = "kickstart_mount_point";
     
+    public static final String KICKSTART_PACKAGE_NAME = "kickstart_packaget";
+    
+    public static final String DEFAULT_KICKSTART_PACKAGE_NAME = "spacewalk-koan";
+    
     public static final String OVAL_MOUNT_POINT = "web.oval_mount_point";
 
     public static final String KICKSTART_HOST = "kickstart_host";
@@ -658,6 +662,16 @@ public class Config {
             mount = mount + "/";
         }
         return mount;
+    }
+    
+    
+    /**
+     * Returns the default kickstart package name
+     * @return the default kickstart package name
+     */
+    public String getKickstartPackageName() {
+        return StringUtils.defaultIfEmpty(getString(KICKSTART_PACKAGE_NAME),
+                DEFAULT_KICKSTART_PACKAGE_NAME).trim();        
     }
 }
 

@@ -35,6 +35,7 @@ rhnKickstartableTree
 			constraint rhn_kstree_cid_nn not null
 			constraint rhn_kstree_cid_fk
 				references rhnChannel(id),
+        cobbler_id      varchar2(64),
 	boot_image	varchar2(128),
         kstree_type     number
                         constraint rhn_kstree_kstreetype_nn not null

@@ -46,6 +46,7 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.BaseSystemOperation;
@@ -412,7 +413,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         
         log.debug("** Cancelling existing sessions.");
         cancelExistingSessions();
-        
         kickstartSession = this.setupKickstartSession(packageAction);
         KickstartData data = getKsdata();
         if (!data.isRawData()) {
@@ -427,6 +427,16 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         log.debug("** Created ksaction: " + kickstartAction.getId());
         
         scheduleRebootAction(kickstartAction);
+        
+        // Setup Cobbler system profile
+        CobblerSystemCreateCommand cmd = 
+            new CobblerSystemCreateCommand(this.user, this.getTargetServer(),
+                    this.ksdata);
+        ValidatorError cobblerError = cmd.store();
+        if (cobblerError != null) {
+            return cobblerError;
+        }
+        
         log.debug("** Done scheduling kickstart session");
         return null;
     }

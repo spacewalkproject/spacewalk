@@ -29,16 +29,15 @@ import java.util.Date;
 public class KickstartableTree extends BaseDomainHelper {
 
     private String basePath;
-    private String bootImage;
     private Channel channel;
     private Long id;
     private KickstartInstallType installType;
     private String label;
     private Date lastModified;
+    private String cobblerId;
 
     private Org org;
     private KickstartTreeType treeType;
-    private String oldCobblerDistroName;
     
     /**
      * @return Returns the basePath.
@@ -53,21 +52,7 @@ public class KickstartableTree extends BaseDomainHelper {
     public void setBasePath(String b) {
         this.basePath = b;
     }
-    
-    /**
-     * @return Returns the bootImage.
-     */
-    public String getBootImage() {
-        return bootImage;
-    }
-    
-    /**
-     * @param b The bootImage to set.
-     */
-    public void setBootImage(String b) {
-        this.bootImage = b;
-    }
-    
+
     /**
      * @return Returns the channel.
      */
@@ -121,9 +106,6 @@ public class KickstartableTree extends BaseDomainHelper {
      * @param l The label to set.
      */
     public void setLabel(String l) {
-        if (label != null) {
-            setOldCobblerDistroName(getCobblerDistroName());    
-        }
         this.label = l;
     }
     
@@ -239,20 +221,6 @@ public class KickstartableTree extends BaseDomainHelper {
         return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
 
-    /**
-     * @return the cobblerDistroName
-     */
-    public String getOldCobblerDistroName() {
-        return oldCobblerDistroName;
-    }
-
-    
-    /**
-     * @param cobblerDistroNameIn the cobblerDistroName to set
-     */
-    public void setOldCobblerDistroName(String cobblerDistroNameIn) {
-        this.oldCobblerDistroName = cobblerDistroNameIn;
-    }    
 
     /**
      * Basically returns the actual basepath
@@ -262,7 +230,7 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the actual basepath.
      */
     private  String getAbsolutePath() {
-        if (getOrgId() == null) {
+        if (isRhnTree()) {
             //redhat channel append the mount point to 
             //base path...
             return Config.get().getKickstartMountPoint() + getBasePath();
@@ -289,6 +257,22 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public String getInitrdPath() {
         return getAbsolutePath() + "/images/pxeboot/initrd.img";
+    }
+
+    
+    /**
+     * @return Returns the cobblerId.
+     */
+    public String getCobblerId() {
+        return cobblerId;
+    }
+
+    
+    /**
+     * @param cobblerIdIn The cobblerId to set.
+     */
+    public void setCobblerId(String cobblerIdIn) {
+        this.cobblerId = cobblerIdIn;
     }
     
 }

@@ -50,6 +50,9 @@ class Builder(BuildCommon):
             self.build_version = self.build_tag[len(self.project_name + "-"):]
         else:
             self.build_version = self._get_latest_tagged_version()
+            if self.build_version == None:
+                error_out(["Unable to lookup latest package info from %s" %
+                        file_path, "Perhaps you need to --tag-release first?"])
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
         check_tag_exists(self.build_tag)
@@ -139,6 +142,9 @@ class Builder(BuildCommon):
     def _rpm(self):
         """ Build an RPM. """
         self._create_build_dirs()
+
+        if self.test:
+            self._setup_test_specfile()
 
         define_dist = ""
         if self.dist:
@@ -262,11 +268,10 @@ class Builder(BuildCommon):
 
 
 
-class TarGzBuilder(Builder):
+class NoTgzBuilder(Builder):
     """
-    Builder for packages that are built from a .tar.gz stored directly in
-    git.
-
+    Builder for packages that do not require the creation of a tarball.
+    Usually these packages have source tarballs checked directly into git.
     i.e. most of the packages in spec-tree.
     """
 
@@ -274,11 +279,7 @@ class TarGzBuilder(Builder):
         """ Override parent behavior, we already have a tgz. """
         #raise Exception("Cannot build .tar.gz for project %s" %
         #        self.project_name)
-        pass
-
-    def _srpm(self):
         self._create_git_copy()
-        Builder._srpm(self)
 
     def _get_rpmbuild_dir_options(self):
         """
@@ -306,28 +307,6 @@ class TarGzBuilder(Builder):
                         self.git_commit_id
                     )
             run_command(cmd)
-
-
-
-
-
-#class UpstreamBuilder(Builder):
-#    """
-#    Builder for packages that rename and patch upstream versions.
-
-#    i.e. satellite-java build on spacewalk-java.
-#    """
-#    def __init__(self, spec_file, upstream_project_name):
-#        Builder.__init__(self, spec_file)
-#        self.upstream_project_name = upstream_project_name
-
-#    def _get_tgz_name_and_ver(self):
-#        """
-#        Override parent method to return the Spacewalk project name for this
-#        Satellite package.
-#        """
-#        return "%s-%s" % (self.upstream_project_name, self.display_version)
-
 
 
 

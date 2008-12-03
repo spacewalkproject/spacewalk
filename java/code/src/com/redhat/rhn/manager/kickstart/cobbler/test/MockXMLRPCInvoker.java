@@ -15,11 +15,14 @@
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
+import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
-import java.util.ArrayList;
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +34,13 @@ import java.util.Set;
  */
 public class MockXMLRPCInvoker implements XMLRPCInvoker {
     
+    private static Logger log = Logger.getLogger(MockXMLRPCInvoker.class);
+    
     private Set methodsCalled = new HashSet();
+    
+    public MockXMLRPCInvoker() { 
+        log.debug("Constructor: " + TestUtils.randomString());
+    }
     
     public Object invokeMethod(String procedureName, List args) {
         methodsCalled.add(procedureName);
@@ -39,6 +48,67 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
         if (procedureName.equals("new_profile") ||
                 procedureName.equals("new_distro")) {
             return new String("1");
+        }
+        else if (procedureName.equals("modify_distro")) {
+            if (args.get(1).equals("name")) {
+                log.debug("ARGS: " + args);
+                // Stick the mock name into our mockObjects map
+                // so we can add it to the return list when calling
+                // get_distros
+                log.debug("Putting distro_name into map: " + args.get(2));
+                TestObjectStore.get().putObject("distro_name", args.get(2));
+                log.debug("mockobjects111: " + TestObjectStore.get().getObjects());
+            }
+            return new String("1");
+        }
+        else if (procedureName.equals("get_distros")) {
+            List retval = new LinkedList();
+            if (methodsCalled.contains("remove_distro")) {
+                return retval;
+            }
+            else {
+                for (int i = 0; i < 10; i++) {
+                    Map distro = new HashMap();
+                    distro.put("name", TestUtils.randomString());
+                    retval.add(distro);
+                }
+                // Put the mock distro we created with the call to modify_distro
+                // into the return value.  Useful if you want to test creation
+                // then a fetch.
+                Map distro = new HashMap();
+                log.debug("mockobjects222: " + TestObjectStore.get().getObjects());
+                distro.put("name", TestObjectStore.get().getObject("distro_name"));
+                retval.add(distro);
+                return retval;
+            }
+        }
+        else if (procedureName.equals("modify_profile")) {
+            if (args.get(1).equals("name")) {
+                log.debug("ARGS: " + args);
+                TestObjectStore.get().putObject("profile_name", args.get(2));
+            }
+            return new String("1");
+        }
+        else if (procedureName.equals("get_profiles")) {
+            List retval = new LinkedList();
+            if (methodsCalled.contains("remove_profile")) {
+                return retval;
+            }
+            else {
+                for (int i = 0; i < 10; i++) {
+                    Map distro = new HashMap();
+                    distro.put("name", TestUtils.randomString());
+                    retval.add(distro);
+                }
+                // Put the mock distro we created with the call to modify_distro
+                // into the return value.  Useful if you want to test creation
+                // then a fetch.
+                Map profile = new HashMap();
+                log.debug("mockobjects222: " + TestObjectStore.get().getObjects());
+                profile.put("name", TestObjectStore.get().getObject("profile_name"));
+                retval.add(profile);
+                return retval;
+            }
         }
         else if (procedureName.equals("get_profile")) {
             Map retval = new HashMap();
@@ -71,20 +141,20 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 return retval;
             }
         }
-        else if (procedureName.equals("get_distros")) {
-            List <Map> list = new ArrayList<Map>();
-            Map distro = new HashMap();  
-            distro.put("name", TestUtils.randomString());
-            list.add(distro);
-            return list;
-        }        
         else if (procedureName.equals("get_profile_handle")) {
+            log.debug("get_profile_handle.ARGS: " + args);
+            TestObjectStore.get().putObject("profile_name", args.get(0));
             return TestUtils.randomString();
         }
         else if (procedureName.equals("get_distro_handle")) {
+            log.debug("get_distro_handle.ARGS: " + args);
+            TestObjectStore.get().putObject("distro_name", args.get(0));
             return TestUtils.randomString();
         }
         else if (procedureName.equals("remove_distro")) {
+            return new Boolean(true);
+        }
+        else if (procedureName.equals("remove_profile")) {
             return new Boolean(true);
         }
         else if (procedureName.equals("token_check")) {

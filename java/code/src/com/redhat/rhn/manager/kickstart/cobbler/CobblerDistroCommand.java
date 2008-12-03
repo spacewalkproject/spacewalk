@@ -19,8 +19,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 
@@ -56,12 +54,10 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
      * @return Map of cobbler distro fields.
      */
     public Map getDistroMap() {
-        List < String > args = new ArrayList();
-        args.add(this.tree.getCobblerDistroName());
-        args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_distro", args);
-        return retval;
+        log.debug("getDistroMap()");
+        return lookupCobblerDistro(this.tree);
     }
+    
     
     protected void updateCobblerFields(String handle) {
         log.debug("kernel path: " + tree.getKernelPath());

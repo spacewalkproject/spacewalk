@@ -1,14 +1,9 @@
 Name:         perl-NOCpulse-Utils
-Version:      1.14.9
+Version:      1.14.10
 Release:      1%{?dist}
 Summary:      NOCpulse utility packages
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/Utils
-# make test-srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Group:        Development/Libraries
 License:      GPLv2
@@ -49,6 +44,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Dec  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.14.10-1
+- changed Source0 to point to fedorahosted.org
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.14.9-1
 - 467441 - fix namespace
 

@@ -990,6 +990,8 @@ sub setup_monitoring {
      RHN_SAT_WEB_PORT => 443
     );
 
+  RHN::DB->set_default_handle(sprintf('%s/%s@%s', $answers->{'db-user'}, $answers->{'db-password'}, $answers->{'db-sid'}));
+
   update_monitoring_config($answers, \%mon_config);
 
   my $dbname = $mon_config{RHN_DB_NAME};
@@ -1002,8 +1004,6 @@ sub setup_monitoring {
              last_update_user => 'installer',
             );
   $sc->create_new();
-
-  RHN::DB->set_default_handle(sprintf('%s/%s@%s', $answers->{'db-user'}, $answers->{'db-password'}, $answers->{'db-sid'}));
 
   my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
   RHN::SatInstall->write_config({ monitoringDOTscout_shared_key => $scout_shared_key },

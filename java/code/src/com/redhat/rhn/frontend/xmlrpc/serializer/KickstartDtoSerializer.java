@@ -34,7 +34,6 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *          #prop("string", "label")
  *          #prop("string", "tree_label")
  *          #prop("string", "name")
- *          #prop("string", "boot_image")
  *          #prop("boolean", "advanced_mode")
  *          #prop("boolean", "org_default")
  *   #struct_end()
@@ -57,7 +56,6 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
         helper.add("label", ks.getLabel());
         helper.add("tree_label", ks.getTreeLabel());
         helper.add("name", ks.getLabel());
-        helper.add("boot_image", ks.getBootImage());
         helper.add("advanced_mode", ks.isAdvancedMode());
         if (ks.getIsOrgDefault().equals("Y")) {
             helper.add("org_default", true);

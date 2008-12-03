@@ -22,9 +22,14 @@ DROP CONSTRAINT rhn_ks_oid_name_uq;
 ALTER TABLE rhnKSData
 DROP COLUMN name;
 
+ALTER TABLE rhnKsData
+ADD cobbler_id varchar(64);
 
 show errors
 
 -- $Log$
+-- Revision 2  2008/12/02 16:51:05.2 jsherrill
+-- Add cobbler_id column
+--
 -- Revision 1  2008/10/01 7:01:05  mmccune
 -- Removed the unused name column

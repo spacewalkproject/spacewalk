@@ -1639,7 +1639,7 @@ public class ChannelManager extends BaseManager {
             
             // Search for rhn-kickstart package name:
             kspackages = ChannelManager.listLatestPackagesEqual(child.getId(), 
-                    KickstartData.KICKSTART_PACKAGE_NAME);
+                    Config.get().getKickstartPackageName());
             if (kspackages.size() > 0) {
                 return child;
             }

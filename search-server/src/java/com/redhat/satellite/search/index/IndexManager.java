@@ -20,6 +20,8 @@ import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
 import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 
+import org.apache.hadoop.fs.FileSystem;
+
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
@@ -38,6 +40,12 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
+
+import org.apache.nutch.searcher.FetchedSegments;
+import org.apache.nutch.searcher.HitDetails;
+import org.apache.nutch.searcher.Summary;
+
+import org.apache.nutch.util.NutchConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,6 +71,10 @@ public class IndexManager {
     private double system_score_threshold;
     private int min_ngram;
     private int max_ngram;
+    private boolean canLookupDocSummary = false;
+    private FetchedSegments docSegments;
+    // Name conflict with our Configuration class and Hadoop's
+    private org.apache.hadoop.conf.Configuration nutchConf;
     
     /**
      * Constructor
@@ -83,6 +95,17 @@ public class IndexManager {
         system_score_threshold = config.getDouble("search.system_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
+        String docSegmentsDir = config.getString("search.doc_segments_dir", null);
+        try {
+            canLookupDocSummary = initDocSummary(docSegmentsDir);
+            log.info("canLookupDocSummary = " + canLookupDocSummary);
+        }
+        catch (IOException io) {
+            log.info("Caught exception: " + io);
+            io.printStackTrace();
+            log.info("Lookup for Documentation search summaries will be disabled");
+            canLookupDocSummary = false;
+        }
     }
 
     /**
@@ -355,12 +378,11 @@ public class IndexManager {
                 break;
             }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
-                // TODO:
-                // Need to revist how the result is formed, I'm not positive
-                // using "url" makes sense for the Result "id".
-                pr = new Result(x, doc.getField("url").stringValue(),
-                        doc.getField("title").stringValue(),
-                        hits.score(x));
+                pr = new DocResult(x, hits.score(x), doc);
+                String summary = lookupDocSummary(doc, query);
+                if (summary != null) {
+                    ((DocResult)pr).setSummary(summary);
+                }
             }
             else if (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0) {
                 pr = new HardwareDeviceResult(x, hits.score(x), doc);
@@ -378,8 +400,7 @@ public class IndexManager {
                         hits.score(x));
             }
             if (log.isDebugEnabled()) {
-                log.debug("Hit[" + x + "] Score = " + hits.score(x) + ", Name = " + 
-                doc.getField("name") + ", ID = " + doc.getField("id"));
+                log.debug("Hit[" + x + "] Score = " + hits.score(x) + ", Result = " + pr);
             }
             /**
              * matchingField will help the webUI to understand what field was responsible
@@ -614,4 +635,53 @@ public class IndexManager {
         analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
         return analyzer;
     }
+
+    private boolean initDocSummary(String segmentsDir) throws IOException {
+        /**
+         * NOTE:  NutchConfiguration is expecting "nutch-default.xml" and "nutch-site.xml"
+         * to be available in the CLASSPATH
+         */
+        nutchConf = NutchConfiguration.create();
+        FileSystem fs = FileSystem.get(nutchConf);
+        docSegments = new FetchedSegments(fs, segmentsDir, nutchConf);
+        if (docSegments == null) {
+            log.info("Unable to create docSegments.");
+            return false;
+        }
+        log.info("Looking at: " + segmentsDir);
+        String[] segNames = docSegments.getSegmentNames();
+        if (segNames == null || segNames.length == 0) {
+            log.info("Unable to find any segments");
+            return false;
+        }
+        log.info("These are the segment names available: ");
+        for (String s : docSegments.getSegmentNames()) {
+            log.info("\t" + s);
+        }
+        return true;
+    }
+
+    private String lookupDocSummary(Document doc, String queryString) {
+        if (!canLookupDocSummary || (docSegments == null)) {
+            log.info("Skipping lookup of doc summary");
+            return null;
+        }
+        try {
+            log.info("Attempting lookupDocSummary for " + doc);
+            HitDetails hd = new HitDetails(doc.getField("segment").stringValue(),
+                doc.getField("url").stringValue());
+            // NOTE: Name conflict with Nutch's Query versus Lucene Query
+            org.apache.nutch.searcher.Query query =
+                org.apache.nutch.searcher.Query.parse(queryString, nutchConf);
+            Summary sum = docSegments.getSummary(hd, query);
+            log.info("Will return summary = " + sum.toString());
+            return sum.toString();
+        }
+        catch (Exception e) {
+            log.info("Failed to lookupDocSummary, caught Exception: " + e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

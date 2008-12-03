@@ -19,6 +19,7 @@ import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -27,6 +28,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -262,6 +267,29 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void saveKickstartData(KickstartData ksdataIn) {
         singleton.saveObject(ksdataIn);
+        
+        // TODO: We need to write this beast out to disk
+        KickstartFormatter formatter = new KickstartFormatter("localhost", ksdataIn);
+        String fileData = formatter.getFileData();
+        try {
+            File ksfile = new File(ksdataIn.getCobblerFileName());
+            if (ksfile.exists()) {
+                ksfile.delete();
+            }
+            ksfile.createNewFile();
+            Writer output = new BufferedWriter(new FileWriter(ksfile));
+            try {
+              output.write(fileData);
+            }
+            finally {
+              output.close();
+            }
+        } 
+        catch (Exception e) {
+            log.error("Error trying to write KS file to disk: " + e);
+            throw new RuntimeException(e);
+        }
+
     }
     
     /**

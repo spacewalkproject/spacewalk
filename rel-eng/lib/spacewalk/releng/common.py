@@ -39,6 +39,17 @@ def read_config():
         #print "   %s = %s" % (tokens[0], strip(tokens[1]))
     return config
 
+def error_out(error_msgs):
+    """
+    Print the given error message (or list of messages) and exit.
+    """
+    if isinstance(error_msgs, list):
+        for line in error_msgs:
+            print "ERROR: %s" % line
+    else:
+        print "ERROR: %s" % error_msgs
+    sys.exit(1)
+
 def find_spec_file():
     """
     Find the first spec file in the current directory. (hopefully there's
@@ -49,7 +60,22 @@ def find_spec_file():
     for f in os.listdir(os.getcwd()):
         if f.endswith(".spec"):
             return f
-    raise Exception("Unable to locate a spec file in %s", os.getcwd())
+    error_out(["Unable to locate a spec file in %s" % os.getcwd()])
+
+def find_git_root():
+    """
+    Find the top-level directory for this git repository.
+
+    Returned as a full path.
+    """
+    (status, cdup) = commands.getstatusoutput("git rev-parse --show-cdup")
+    if status > 0:
+        error_out(["%s does not appear to be within a git checkout." % \
+                os.getcwd()])
+
+    if cdup == "":
+        cdup = "./"
+    return os.path.abspath(cdup)
 
 def run_command(command):
     (status, output) = commands.getstatusoutput(command)
@@ -85,24 +111,13 @@ class BuildCommon:
     def __init__(self, debug=False):
         self.debug = debug
 
-        self.git_root = self._get_git_root() # project root dir
+        self.git_root = find_git_root() 
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
         self.relative_project_dir = self._get_relative_project_dir(
                 self.git_root) # i.e. java/
         self.full_project_dir = os.getcwd()
         self.spec_file_name = find_spec_file()
         self.project_name = self._get_project_name()
-
-    def _get_git_root(self):
-        """
-        Get the top-level git project directory.
-
-        Returned as a full path.
-        """
-        cdup = commands.getoutput("git rev-parse --show-cdup")
-        if cdup == "":
-            cdup = "./"
-        return os.path.abspath(cdup)
 
     def _get_project_name(self):
         """
@@ -140,18 +155,17 @@ class BuildCommon:
     def _get_latest_tagged_version(self):
         """
         Return the latest git tag for this package in the current branch.
+        Uses the info in rel-eng/packages/package-name and error out if the
+        file does not exist.
 
-        Uses the info in rel-eng/packages/package-name.
+        Returns None if file does not exist.
         """
         file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
-        try:
-            output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
-        except:
-            print "ERROR: Unable to lookup latest package info from %s" % \
-                    file_path
-            print "Perhaps you need to --tag-release first?"
-            sys.exit(1)
+        debug("Getting latest package info from: %s" % file_path)
+        if not os.path.exists(file_path):
+            return None
 
+        output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
         return output
 
 

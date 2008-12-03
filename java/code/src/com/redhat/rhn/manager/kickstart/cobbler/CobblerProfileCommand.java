@@ -17,9 +17,9 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 
-import java.util.ArrayList;
+import org.apache.log4j.Logger;
+
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +27,8 @@ import java.util.Map;
  * @version $Rev$
  */
 public abstract class CobblerProfileCommand extends CobblerCommand {
+    
+    private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
     protected KickstartData ksData;
     protected String kickstartUrl;
@@ -58,20 +60,18 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      * @return Map of Cobbler profile fields.
      */
     public Map getProfileMap() {
-        List < String > args = new ArrayList();
-        args.add(this.ksData.getCobblerName());
-        args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_profile", args);
-        return retval;
+        return lookupCobblerProfile(this.ksData);
     }
+    
 
     protected void updateCobblerFields(String handle) {
         String[] args = new String[]{handle, "kickstart", 
-                this.kickstartUrl, xmlRpcToken};
+                this.ksData.getCobblerFileName(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
         args = new String[]{handle, "distro", 
                 this.ksData.getTree().getCobblerDistroName(), xmlRpcToken};
+
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
     }

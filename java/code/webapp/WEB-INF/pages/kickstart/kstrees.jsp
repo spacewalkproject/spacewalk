@@ -35,9 +35,6 @@
         <rhn:column header="softwareedit.jsp.basechannel">
           ${current.channellabel}
         </rhn:column>
-        <rhn:column header="kickstart.jsp.bootimage">
-          ${current.bootimage}
-        </rhn:column>
       </rhn:listdisplay>      
     </rhn:list>
   </form>  

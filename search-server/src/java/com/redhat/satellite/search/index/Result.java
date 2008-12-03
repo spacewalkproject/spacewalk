@@ -21,10 +21,10 @@ package com.redhat.satellite.search.index;
  * @version $Rev$
  */
 public class Result {
-    private int rank;
-    private String id;
-    private String name;
-    private float score;
+    private int rank = 0;
+    private String id = "";
+    private String name = "";
+    private float score = 0.0f;
 
     /** TODO:
      * matchingField could be used to possibly give more info into what made
@@ -128,6 +128,14 @@ public class Result {
      */
     public void setMatchingField(String matchingFieldIn) {
         this.matchingField = matchingFieldIn;
+    }
+
+    /**
+     * @return the string representation of this object
+    **/
+    public String toString() {
+        return "Name = " + getName() + ", Id = " + getId() + ", Score = " + getScore() +
+            ", Rank = " + getRank();
     }
 
 }

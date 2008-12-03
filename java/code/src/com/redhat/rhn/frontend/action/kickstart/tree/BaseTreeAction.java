@@ -38,14 +38,12 @@ public abstract class BaseTreeAction extends BaseEditAction {
     
     public static final String INSTALL_TYPE = "installtype";
     public static final String BASE_PATH = "basepath";
-    public static final String BOOT_IMAGE = "bootimage";
     public static final String CHANNEL_ID = "channelid";
     public static final String CHANNELS = "channels";
     public static final String KICKSTART_RPMS = "kickstartrpms";
     public static final String INSTALLTYPES = "installtypes";
     public static final String LABEL = "label";
     public static final String NOCHANNELS = "nochannels";
-    public static final String NOAUTOKS = "noautoks";
     public static final String NOINSTALLTYPES = "noinstalltypes";
     public static final String RHN_KICKSTART = "rhnkickstart";
     public static final String HIDE_SUBMIT = "hidesubmit";
@@ -55,7 +53,6 @@ public abstract class BaseTreeAction extends BaseEditAction {
         Iterator i = bte.getKickstartableChannels().iterator();
         if (!i.hasNext()) {
             rctx.getRequest().setAttribute(NOCHANNELS, "true");
-            rctx.getRequest().setAttribute(NOAUTOKS, "true");
             rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");
             return;
         }
@@ -66,21 +63,9 @@ public abstract class BaseTreeAction extends BaseEditAction {
         
         Channel selectedBaseChannel = getSelectedBaseChannel(rctx);
         if (selectedBaseChannel == null) {
-            rctx.getRequest().setAttribute(NOAUTOKS, "true");
             rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");
             return;
         }
-        
-        i = bte.getKickstartPackageNamesForChannel(selectedBaseChannel).iterator();
-        if (!i.hasNext()) {
-            rctx.getRequest().setAttribute(NOAUTOKS, "true");
-            rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");
-        }
-        else {
-            rctx.getRequest().setAttribute(KICKSTART_RPMS, 
-                    createLabelValueList(i, "getName", "getName"));
-        }
-        
         i = KickstartFactory.lookupKickstartInstallTypes().iterator();
         if (!i.hasNext()) {
             rctx.getRequest().setAttribute(NOINSTALLTYPES, "true");
@@ -88,21 +73,22 @@ public abstract class BaseTreeAction extends BaseEditAction {
         }
         else {
             rctx.getRequest().setAttribute(INSTALLTYPES, 
-                    createLabelValueList(i, "getName", "getLabel"));
+            createLabelValueList(i, "getName", "getLabel"));
         }
+        
     }
 
     protected void processCommandSetters(PersistOperation operation, DynaActionForm form) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
         bte.setBasePath(form.getString(BASE_PATH));
-        bte.setBootImage(form.getString(BOOT_IMAGE));
         Long channelId = (Long) form.get(CHANNEL_ID);
         Channel c = ChannelFactory.lookupByIdAndUser(channelId, operation.getUser());
         bte.setChannel(c);
+        bte.setLabel(form.getString(LABEL));
         KickstartInstallType type = KickstartFactory.
             lookupKickstartInstallTypeByLabel(form.getString(INSTALL_TYPE));
         bte.setInstallType(type);
-        bte.setLabel(form.getString(LABEL));
+        
     }
     
     /**

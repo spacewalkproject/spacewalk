@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
@@ -63,6 +64,7 @@ public class KickstartData {
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
     private String staticDevice;
+    private String cobblerId;
 
     private Set cryptoKeys;
     private Set childChannels;
@@ -83,10 +85,9 @@ public class KickstartData {
     private SortedSet<KickstartCommand> customOptions;
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
-    public static final String KICKSTART_PACKAGE_NAME = "spacewalk-koan";
+    
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
-    private String oldCobblerName;
 
     
     /**
@@ -165,9 +166,6 @@ public class KickstartData {
      * @param labelIn to set
     */
     public void setLabel(String labelIn) {
-        if (label != null) {
-            setOldCobblerName(getCobblerName());    
-        }
         this.label = labelIn;
     }
 
@@ -718,7 +716,7 @@ public class KickstartData {
      * @param kd KickstartDefaults to set
      */
     public void setKickstartDefaults(KickstartDefaults kd) {
-        this.kickstartDefaults = kd;        
+        this.kickstartDefaults = kd;
     }
     
     /**
@@ -733,26 +731,25 @@ public class KickstartData {
      * Conv method 
      * @return Install Type for Kickstart
      */
-    public String getInstallType() {
-        String installType = null;
-        if (this.getTree() != null && this.getTree().getInstallType() != null) {
-            installType = this.getTree().getInstallType().getLabel();
+    public KickstartInstallType getInstallType() {
+        if (this.getTree() != null) {
+            return getTree().getInstallType(); 
         }   
-        return installType;
+        return null;
     }
 
     /**
      * @return if this kickstart profile is rhel 5 installer type
      */
     public boolean isRhel5() {
-        return this.getInstallType().endsWith("5");
+        return getInstallType().isRhel5();
     }
 
     /**
      * @return if this kickstart profile is rhel 5 installer type or greater (for rhel6)
      */
     public boolean isRhel5OrGreater() {
-        return (!this.isRhel2() && !this.isRhel3() && !this.isRhel4());
+        return getInstallType().isRhel5OrGreater();
     }
 
     /**
@@ -760,21 +757,30 @@ public class KickstartData {
      * @return if this is a fedora kickstart or not
      */
     public boolean isFedora() {
-        return this.getInstallType().startsWith("fedora");
+        return getInstallType().isFedora();
     }
-    
+
+    /**
+     * returns true if this is a generic kickstart
+     * as in non rhel and non fedora.
+     * @return if this is a generic kickstart or not
+     */
+    public boolean isGeneric() {
+        return getInstallType().isFedora();
+    }
+        
     /**
      * @return if this kickstart profile is rhel 4 installer type
      */
     public boolean isRhel4() {
-        return this.getInstallType().endsWith("4");
+        return getInstallType().isRhel4();
     }
 
     /**
      * @return if this kickstart profile is rhel 3 installer type
      */
     public boolean isRhel3() {
-        return this.getInstallType().endsWith("3");
+        return getInstallType().isRhel3();
     }
     
     /**
@@ -782,7 +788,7 @@ public class KickstartData {
      * @return if this kickstart profile is rhel 2 installer type
      */
     public boolean isRhel2() {
-        return this.getInstallType().endsWith("2.1");
+        return getInstallType().isRhel2();
     }
 
     /**
@@ -1135,23 +1141,9 @@ public class KickstartData {
      * @return String kickstart package like auto-kickstart-ks-rhel-i386-as-4
      */
     public String getKickstartPackageName() {
-        String installType = this.getInstallType();
-        // For the older revs of RHEL we want to use auto-kickstart-*
-        if (installType.equals(KickstartInstallType.RHEL_4) || 
-                installType.equals(KickstartInstallType.RHEL_3) ||
-                    installType.equals(KickstartInstallType.RHEL_21)) {
-            String packageName = this.getKickstartDefaults().getKstree().getBootImage();
-            if (!packageName.startsWith(LEGACY_KICKSTART_PACKAGE_NAME)) {
-                packageName = LEGACY_KICKSTART_PACKAGE_NAME  + 
-                    this.getKickstartDefaults().getKstree().getBootImage();
-            }
-            return packageName;
-        }
-        else {
-            return KICKSTART_PACKAGE_NAME;
-        }
-    }
+        return Config.get().getKickstartPackageName();
 
+    }
     
     /**
      * @return Returns the repos.
@@ -1271,27 +1263,15 @@ public class KickstartData {
             getKickstartDefaults().getRemoteCommandFlag();
     }
 
+
     
     /**
      * @return the cobblerName
      */
-    public String getCobblerName() {
-        return CobblerCommand.makeCobblerName(getLabel(), getOrg());
+    public String getCobblerFileName() {
+        return CobblerCommand.makeCobblerFileName(getLabel(), getOrg());
     }
     
-    /**
-     * @return the cobblerName
-     */
-    public String getOldCobblerName() {
-        return oldCobblerName;
-    }
-    
-    /**
-     * @param cobblerNameIn the cobblerName to set
-     */
-    public void setOldCobblerName(String cobblerNameIn) {
-        this.oldCobblerName = cobblerNameIn;
-    }    
 
     /**
      * @return Returns if up2date/yum should be verbose
@@ -1343,5 +1323,21 @@ public class KickstartData {
                     KickstartSession session) {
         KickstartFormatter formatter = new KickstartFormatter(host, this, session);
         return formatter.getFileData();
+    }
+
+    
+    /**
+     * @return Returns the cobblerId.
+     */
+    public String getCobblerId() {
+        return cobblerId;
+    }
+
+    
+    /**
+     * @param cobblerIdIn The cobblerId to set.
+     */
+    public void setCobblerId(String cobblerIdIn) {
+        this.cobblerId = cobblerIdIn;
     }
 }

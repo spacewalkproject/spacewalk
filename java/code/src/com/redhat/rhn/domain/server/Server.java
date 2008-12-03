@@ -717,12 +717,97 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return Returns the primary ip for this server
      */
     public String getIpAddress() {
-        if (!networks.isEmpty()) {
-            Network net = (Network) networks.iterator().next();
-            return net.getIpaddr();
+        // First search networkInterfaces because they are
+        // better defined (name and ip address)
+        NetworkInterface ni = findPrimaryNetworkInterface();
+        if (ni != null) {
+            return ni.getIpaddr();
+        }
+        Network n = findPrimaryNetwork();
+        if (n != null) {
+            return n.getIpaddr();
         }
         return null;
     }
+    
+    
+    /**
+     * Return the NetworkInterface which Spacewalk is guessing is
+     * the primary.  Order of preference:
+     * 
+     * eth0, eth0*, eth1, eth1*, after that its first match that is 
+     * not 127.0.0.1
+     * 
+     * @return NetworkInterface in order of preference: eth0, eth0*, 
+     * eth1, eth1*, after that its first match that is not 127.0.0.1
+     */
+    public NetworkInterface findPrimaryNetworkInterface() {
+        if (!networkInterfaces.isEmpty()) {
+            Iterator i = networkInterfaces.iterator();
+            // First pass look for names
+            while (i.hasNext()) {
+                NetworkInterface n = (NetworkInterface) i.next();
+                if (n.getName().equals("eth0")) {
+                    return n;
+                }
+                if (n.getName().startsWith("eth0")) {
+                    return n;
+                }
+                if (n.getName().equals("eth1")) {
+                    return n;
+                }
+                if (n.getName().startsWith("eth1")) {
+                    return n;
+                }
+            }
+            // Second pass look for localhost
+            i = networkInterfaces.iterator();
+            while (i.hasNext()) {
+                NetworkInterface n = (NetworkInterface) i.next();
+                String addr = n.getIpaddr();
+                if (addr != null && 
+                    !addr.equals("127.0.0.1")) {
+                return n;
+                }
+            }
+            // If we didnt match any of the above criteria
+            // just give up and return the 1st one.
+            return (NetworkInterface) networkInterfaces.iterator().next();
+        }
+        return null;
+    }
+    
+    // Sometimes java really annoys me
+    private Network findPrimaryNetwork() {
+        if (!networks.isEmpty()) {
+            Iterator i = networks.iterator();
+            while (i.hasNext()) {
+                Network n = (Network) i.next();
+                String addr = n.getIpaddr();
+                if (addr != null && 
+                        !addr.equals("127.0.0.1")) {
+                    return n;
+                }
+            }
+            return (Network) networks.iterator().next();
+        }
+        return null;
+    }
+    
+    
+
+    /**
+     * Get the primary MAC/hardware address for this server
+     * @return Returns the primary MAC/hardware for this server
+     */
+    public String getHardwareAddress() {
+        NetworkInterface network = findPrimaryNetworkInterface();
+        if (network != null) {
+            return network.getHwaddr();
+        }
+        return null;
+    }
+
     
     /**
      * Get the primary hostname for this server
@@ -739,14 +824,14 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the networkInterfaces.
      */
-    public Set getNetworkInterfaces() {
+    public Set<NetworkInterface> getNetworkInterfaces() {
         return networkInterfaces;
     }
     
     /**
      * @param n The networkInterfaces to set.
      */
-    public void setNetworkInterfaces(Set n) {
+    public void setNetworkInterfaces(Set<NetworkInterface> n) {
         this.networkInterfaces = n;
     }
     
@@ -1524,4 +1609,5 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public InstalledPackage getReleasePackage() {
         return PackageManager.lookupReleasePackageFor(this);
     }
+
 }

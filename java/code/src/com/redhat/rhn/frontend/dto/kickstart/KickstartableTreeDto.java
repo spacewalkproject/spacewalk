@@ -26,7 +26,6 @@ public class KickstartableTreeDto extends BaseDto {
     private Long id;
     private String treeLabel;
     private String channelLabel;
-    private String bootImage;
 
     /**
      * Returns id
@@ -75,20 +74,5 @@ public class KickstartableTreeDto extends BaseDto {
     public void setChannellabel(String labelIn) {
         this.channelLabel = labelIn;
     }
-    
-    /**
-     * returns boot image name
-     * @return name
-     */
-    public String getBootimage() {
-        return this.bootImage;
-    }
-    
-    /**
-     * sets boot image name
-     * @param imageIn name to set
-     */
-    public void setBootimage(String imageIn) {
-        this.bootImage = imageIn;
-    }
+
 }

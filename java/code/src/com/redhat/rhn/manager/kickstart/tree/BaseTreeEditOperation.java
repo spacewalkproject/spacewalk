@@ -127,14 +127,6 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
     public void setBasePath(String url) {
         this.tree.setBasePath(url);
     }
-    
-    /**
-     * Set the boot image to use
-     * @param imgIn to set.
-     */
-    public void setBootImage(String imgIn) {
-        this.tree.setBootImage(imgIn);
-    }
 
     /**
      * Set the Channel for this tree
