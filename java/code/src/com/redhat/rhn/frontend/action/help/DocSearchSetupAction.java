@@ -189,8 +189,10 @@ public class DocSearchSetupAction extends RhnAction {
         for (int x = results.size() - 1; x >= 0; x--) {
             HelpDocumentOverview doc = new HelpDocumentOverview();
             Map item = (Map) results.get(x);
-            doc.setUrl((String)item.get("id"));
-            doc.setTitle((String)item.get("name"));
+            doc.setUrl((String)item.get("url"));
+            doc.setTitle((String)item.get("title"));
+            doc.setOrig((String)item.get("orig"));
+            doc.setSummary((String)item.get("summary"));
             docs.add(doc);
         }
         return docs;
