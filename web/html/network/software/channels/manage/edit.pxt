@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ChannelEditor" />
+  <pxt-use class="Sniglets::Channel" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<pxt-include file="/network/software/channels/manage/manage_channels_header.pxi" />
+
+<rhn-channel-edit-form>
+
+  <h2>Edit Software Channel</h2>
+    <div class="page-summary">
+
+<pxt-include file="/network/software/channels/manage/errata_cache_update.pxi" />
+
+      <p>
+        Create or edit software channels from this page.
+      </p>
+      <p>
+        If the parent channel is set to 'none', the channel is a base 
+        channel. Otherwise, the channel is a child of the specified channel.
+      </p>
+      <p>
+        Channel name and label are required.  They each must be at least 6 
+        characters in length.  Labels must begin with a letter, contain only lowercase letters, 
+        hyphens ('-'), periods ('.'), underscores ('_'), and numerals.  Channel name may also contain spaces and forward slashes ('/').
+      </p>
+      <p>
+        Channel summary is also required.
+      </p>
+    </div>
+
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+    <pxt-form method="POST">
+      <table class="details">
+<rhn-require acl_mixins="RHN::Access::Channel" acl="global_config(satellite);not channel_exists();formvar_exists(clone_from)">
+        <tr>
+          <th>Clone From:</th>
+          <td>{clone_from_string}</td>
+        </tr>
+
+        <tr>
+          <th>Clone Type:</th>
+          <td>{clone_type_string}</td>
+        </tr>
+
+        <tr>
+          <td colspan="2">&#160;</td>
+        </tr>
+</rhn-require>
+
+<rhn-require acl_mixins="RHN::Access::Channel" acl="channel_is_clone()">
+        <tr>
+          <th>Cloned From:</th>
+          <td>{clone_from_string}</td>
+        </tr>
+</rhn-require>
+
+        <tr>
+          <th>Parent Channel:</th>
+          <td>{channel_parent}</td>
+        </tr>
+
+        <tr>
+          <th>Channel Name<span class="required-form-field">*</span>:</th>
+          <td>{channel_name}<br/>Ex: Custom Channel</td>
+        </tr>
+
+        <tr>
+          <th>Channel Label<span class="required-form-field">*</span>:</th>
+          <td>{channel_label}</td>
+        </tr>
+
+        <tr>
+          <th>Base Channel Architecture<span class="required-form-field">*</span>:</th>
+          <td>{channel_arch}</td>
+        </tr>
+<rhn-require acl_mixins="RHN::Access::Channel" acl="channel_exists()">
+        <tr>
+          <th>Globally Subscribable:</th>
+          <td>{globally_subscribable_checkbox} {globally_subscribable_message}</td>
+        </tr>
+</rhn-require>
+        <tr>
+          <th>Channel Package Summary:</th>
+          <td>{channel_package_summary}</td>
+        </tr>
+
+        <tr>
+          <th>Channel Summary<span class="required-form-field">*</span>:</th>
+          <td>{channel_summary}</td>
+        </tr>
+
+        <tr>
+          <th>GPG key URL:</th>
+          <td>{channel_gpg_key_url}</td>
+        </tr>
+
+        <tr>
+          <th>GPG key ID:</th>
+          <td>{channel_gpg_key_id}<br />Ex: DB42A60E</td>
+        </tr>
+
+        <tr>
+          <th>GPG key Fingerprint:</th>
+          <td>{channel_gpg_key_fp}<br />Ex: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E</td>
+        </tr>
+
+        <tr>
+          <th>Channel Description:</th>
+          <td>{channel_description}</td>
+        </tr>
+      </table>
+
+<pxt-formvar>
+      <input type="hidden" name="cid" value="{cid}" />
+      <input type="hidden" name="pxt:trap" value="rhn:channel_edit_cb" />
+      <input type="hidden" name="clone_from" value="{formvar:clone_from}" />
+      <input type="hidden" name="clone_type" value="{formvar:clone_type}" />
+</pxt-formvar>
+      <div align="right">
+        <hr />
+
+	<rhn-if-var formvar="cid">
+	  <input type="submit" name="submit" value="Update Channel" />
+	</rhn-if-var>
+
+	<rhn-unless-var formvar="cid">
+	  <input type="submit" name="submit" value="Create Channel" />
+	</rhn-unless-var>
+       </div>        
+
+    </pxt-form>
+
+</rhn-channel-edit-form>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+
