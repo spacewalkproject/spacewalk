@@ -55,11 +55,6 @@
 		          </c:if>
       		</rl:column>  	      
       		
-          	<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.bootimage" sortattr="bootImage" >
-					${current.bootImage}
-      		</rl:column>  	      	      		
-      		
-      		
       		<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.active"  sortattr="active" styleclass="last-column">
 	      		<c:if test="${current.active}">
 	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>" 

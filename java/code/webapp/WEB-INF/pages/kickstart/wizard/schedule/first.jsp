@@ -108,9 +108,6 @@ function setInitialState() {
                 <rhn:column header="kickstartranges.jsp.profile">
                     ${fn:escapeXml(current.label)}
                 </rhn:column>
-                <rhn:column header="kickstart.jsp.bootimage">
-                    ${fn:escapeXml(current.bootImage)}
-                </rhn:column>
                 <rhn:column header="kickstart.channel.label.jsp">
                     ${fn:escapeXml(current.channelLabel)}
                 </rhn:column>      
