@@ -63,7 +63,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         }
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
         handler.createTree(adminKey, label, 
-                "http://localhost/ks", TestUtils.randomString(), 
+                "http://localhost/ks", 
                 baseChan.getLabel(), KickstartInstallType.RHEL_5);
         assertTrue(origCount + 1 == KickstartFactory.
                 lookupKickstartTreesByOrg(admin.getOrg()).size());
@@ -74,15 +74,13 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String newBase = "/tmp/new-base-path";
-        String bootImage = "new-boot-image";
         Channel newChan = ChannelFactoryTest.createTestChannel(admin);
         
         handler.editTree(adminKey, testTree.getLabel(), 
-                newBase, bootImage, newChan.getLabel(), 
+                newBase, newChan.getLabel(), 
                 testTree.getInstallType().getLabel());
 
         assertEquals(testTree.getBasePath(), newBase);
-        assertEquals(testTree.getBootImage(), bootImage);
         assertEquals(testTree.getChannel(), newChan);
         assertNotNull(testTree.getInstallType());
     }

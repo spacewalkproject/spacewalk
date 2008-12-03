@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.common.FileList;
@@ -84,7 +85,7 @@ public class KickstartData {
     private SortedSet<KickstartCommand> customOptions;
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
-    public static final String KICKSTART_PACKAGE_NAME = "spacewalk-koan";
+    
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
     private String oldCobblerName;
@@ -1144,7 +1145,7 @@ public class KickstartData {
      * @return String kickstart package like auto-kickstart-ks-rhel-i386-as-4
      */
     public String getKickstartPackageName() {
-        return KICKSTART_PACKAGE_NAME;
+        return Config.get().getKickstartPackageName();
 
     }
     

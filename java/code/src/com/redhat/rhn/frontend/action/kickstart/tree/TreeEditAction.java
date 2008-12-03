@@ -60,7 +60,6 @@ public class TreeEditAction extends BaseTreeAction {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
         form.set(BASE_PATH, bte.getTree().getBasePath());
         form.set(CHANNEL_ID, bte.getTree().getChannel().getId());
-        form.set(BOOT_IMAGE, bte.getTree().getBootImage());
         form.set(LABEL, bte.getTree().getLabel());
         form.set(INSTALL_TYPE, bte.getTree().getInstallType().getLabel());
     }

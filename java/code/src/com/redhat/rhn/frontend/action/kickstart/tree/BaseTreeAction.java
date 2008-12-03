@@ -38,7 +38,6 @@ public abstract class BaseTreeAction extends BaseEditAction {
     
     public static final String INSTALL_TYPE = "installtype";
     public static final String BASE_PATH = "basepath";
-    public static final String BOOT_IMAGE = "bootimage";
     public static final String CHANNEL_ID = "channelid";
     public static final String CHANNELS = "channels";
     public static final String KICKSTART_RPMS = "kickstartrpms";
