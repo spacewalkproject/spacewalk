@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 
 import org.apache.log4j.Logger;
-import org.apache.tools.ant.util.FileUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
