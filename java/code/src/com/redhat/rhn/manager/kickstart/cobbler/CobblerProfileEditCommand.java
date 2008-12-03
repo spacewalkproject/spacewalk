@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -46,17 +48,10 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      */
     public ValidatorError store() {
         log.debug("ProfileMap: " + this.getProfileMap());
+        Map cProfile = getProfileMap();
         
-        if (!ksData.getCobblerName().equals(ksData.getOldCobblerName())) {
-            String handle = (String) invokeXMLRPC("get_profile_handle",
-                                        ksData.getOldCobblerName(), xmlRpcToken);
-            invokeXMLRPC("rename_profile", handle, 
-                        this.ksData.getCobblerName(), xmlRpcToken);
-            
-        }
-
         String handle = (String) invokeXMLRPC("get_profile_handle",
-                ksData.getCobblerName(), xmlRpcToken);        
+                cProfile.get("name"), xmlRpcToken);        
         
         updateCobblerFields(handle);
         

@@ -38,7 +38,6 @@ public class KickstartableTree extends BaseDomainHelper {
 
     private Org org;
     private KickstartTreeType treeType;
-    private String oldCobblerDistroName;
     
     /**
      * @return Returns the basePath.
@@ -107,9 +106,6 @@ public class KickstartableTree extends BaseDomainHelper {
      * @param l The label to set.
      */
     public void setLabel(String l) {
-        if (label != null) {
-            setOldCobblerDistroName(getCobblerDistroName());    
-        }
         this.label = l;
     }
     
@@ -225,20 +221,6 @@ public class KickstartableTree extends BaseDomainHelper {
         return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
 
-    /**
-     * @return the cobblerDistroName
-     */
-    public String getOldCobblerDistroName() {
-        return oldCobblerDistroName;
-    }
-
-    
-    /**
-     * @param cobblerDistroNameIn the cobblerDistroName to set
-     */
-    public void setOldCobblerDistroName(String cobblerDistroNameIn) {
-        this.oldCobblerDistroName = cobblerDistroNameIn;
-    }    
 
     /**
      * Basically returns the actual basepath

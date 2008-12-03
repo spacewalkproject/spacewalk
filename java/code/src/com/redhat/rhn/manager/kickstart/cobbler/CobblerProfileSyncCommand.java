@@ -28,7 +28,8 @@ import java.util.Set;
 
 
 /**
- * @author paji
+ * This command finds profiles that have been changed on the cobbler server and syncs 
+ *  those changes to the satellite
  * @version $Rev$
  */
 public class CobblerProfileSyncCommand extends CobblerCommand {
@@ -64,7 +65,7 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                             listKickstartDataByOrg(user.getOrg());
         Set<String> profileNames = getProfileNames();
         for (KickstartData profile : profiles) {
-            if (!profileNames.contains(profile.getLabel())) {
+            if (!profileNames.contains(CobblerCommand.makeCobblerName(profile))) {
                 createProfile(profile);
             }
         }
@@ -78,5 +79,6 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                                         user, helper.getKickstartFileUrl());
         creator.store();
     }
+
 
 }

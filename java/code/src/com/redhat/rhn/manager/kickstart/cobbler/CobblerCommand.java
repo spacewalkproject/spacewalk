@@ -17,15 +17,21 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcFault;
 
@@ -56,7 +62,20 @@ public abstract class CobblerCommand {
             MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
         user = userIn;
     }
-
+    
+    /**
+     * Construct a CobblerCommand without using authentication
+     */
+    public CobblerCommand() {
+        xmlRpcToken = "";
+        log.debug("Unauthenticated Cobbler call");
+        // We abstract this fetch of the class so a test class
+        // can override the invoker with a mock xmlrpc invoker. 
+        invoker = (XMLRPCInvoker)  
+            MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
+        user = null;
+    }
+    
     /**
      * Sync the KickstartData to the Cobbler object
      *
@@ -113,6 +132,7 @@ public abstract class CobblerCommand {
                 org.getName().replace(' ', '-'));        
     }
     
+
     
     /**
      * Makes a local file path out of the cobbler name.
@@ -139,4 +159,73 @@ public abstract class CobblerCommand {
         return retval;         
     }
 
+
+    /**
+     * Make a cobbler name for a kickstartable tree 
+     * @param tree the tree
+     * @return the name
+     */
+    public static String makeCobblerName(KickstartableTree tree) {
+        return makeCobblerName(tree.getLabel(), tree.getOrg());
+    }
+    
+    /**
+     * Make a cobbler name for a kickstart profile
+     * @param data the profile
+     * @return the name
+     */
+    public static String makeCobblerName(KickstartData data) {
+        return makeCobblerName(data.getLabel(), data.getOrg());
+    }
+    
+    /**
+     * Lookup a cobbler distro based on UID (cobbler_id)
+     *      or on name if UID isn't available.
+     * @param tree the tree/distro to get a cobbler version of
+     * @return the cobbler distro as a map
+     */
+    public Map lookupCobblerDistro(KickstartableTree tree) {
+        
+        if (StringUtils.isBlank(tree.getCobblerId())) {
+            return (Map) invokeXMLRPC("get_distro", 
+                    CobblerCommand.makeCobblerName(tree));
+        }
+        
+        List<String> args = new ArrayList();
+        args.add(xmlRpcToken);
+        List<Map> distros = (List) invokeXMLRPC("get_distros", args);
+        for (Map row : distros) {
+            log.debug("getDistroMap.ROW: " + row);
+            String uid = (String) row.get("uid");
+            if (uid.equals(tree.getCobblerId())) {
+                return row;
+            }
+        }
+        return new HashMap();
+    }
+    
+    /**
+     * lookup the cobbler profile map based on UID
+     *      or on name if cobbler_id isn't available
+     * @param data the ks profile to get a cobbler map of
+     * @return the profile in map form
+     */
+    public Map lookupCobblerProfile(KickstartData data) {
+        if (StringUtils.isBlank(data.getCobblerId())) {
+            return (Map) invokeXMLRPC("get_profile", 
+                    CobblerCommand.makeCobblerName(data));
+        }
+        List <String> args = new ArrayList();
+        args.add(xmlRpcToken);
+        List<Map> profiles = (List) invokeXMLRPC("get_profiles", args);
+        for (Map row : profiles) {
+            log.debug("getDistroMap.ROW: " + row);
+            String id = (String) row.get("uid");
+            if (id.equals(data.getCobblerId())) {
+                return row;
+            }
+        }
+        return new HashMap();
+    }
+    
 }
