@@ -18,8 +18,9 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.user.User;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,15 +32,16 @@ import java.util.Set;
  * @version $Rev$
  */
 public class CobblerDistroSyncCommand extends CobblerCommand {
+
     /**
      * Constructor to create a 
      * DistorSyncCommand
-     * @param u user object needed to do things like org check..
      */
-    public CobblerDistroSyncCommand(User u) {
-        super(u);
+    public CobblerDistroSyncCommand() {
+        super();
     }
     
+
     protected Set<String> getDistroNames() {
         Set <String> distroNames = new HashSet<String>();
         List<Map> distros = (List<Map>)invokeXMLRPC("get_distros", xmlRpcToken);
@@ -49,13 +51,26 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         return distroNames;
     }
     
+    protected Map<String, Map> getDistros() {
+        Map<String, Map> toReturn = new HashMap<String, Map>();
+        List<Map> distros = (List<Map>)invokeXMLRPC("get_distros", xmlRpcToken);
+        for (Map distro : distros) {
+            toReturn.put((String)distro.get("uid"), distro);
+        }
+        return toReturn;
+    }
+    
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public ValidatorError store() {
-        List <KickstartableTree> trees = KickstartFactory.
-                                    lookupKickstartTreesByOrg(user.getOrg());
+        
+        List <KickstartableTree> trees = KickstartFactory.lookupKickstartTrees();
+      
+
+        //Any distros exist on spacewalk and not on the satellite?
         Set<String> distros = getDistroNames();
         for (KickstartableTree tree : trees) {
             if (!distros.contains(tree.getCobblerDistroName())) {
@@ -63,6 +78,16 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             }
         }
         
+        //Are there any distros on cobbler that have changed 
+        Map<String, Map> cobblerDistros = getDistros();        
+        for (KickstartableTree tree : trees) {
+            if (cobblerDistros.containsKey(tree.getCobblerId())) {
+                Map cobDistro = cobblerDistros.get(tree.getCobblerId());
+                if ((Integer)cobDistro.get("mtime") > tree.getModified().getTime()) {
+                    syncDistroToSpacewalk(tree, cobDistro);
+                }
+            }
+        }  
         return null;
     }
     
@@ -70,5 +95,24 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         CobblerDistroCreateCommand creator = new CobblerDistroCreateCommand(tree, user);
         creator.store();
     }
+    
+    private void syncDistroToSpacewalk(KickstartableTree tree, Map distro) {
+        
+        if (tree.isRhnTree()) {
+            String handle = (String) invokeXMLRPC("get_distro_handle", distro.get("name"), 
+                    xmlRpcToken);
+            invokeXMLRPC("modify_distro", handle, "kernel", tree.getKernelPath(), 
+                    xmlRpcToken);
+            invokeXMLRPC("modify_distro", handle, "initrd", tree.getInitrdPath(), 
+                    xmlRpcToken);
+            invokeXMLRPC("save_distro", handle, xmlRpcToken);
+        }
+        else {
+            //Do nothing.  Let us be out of sync with cobbler
+        }
+        
+        tree.setModified(new Date());
+    }
+    
 
 }
