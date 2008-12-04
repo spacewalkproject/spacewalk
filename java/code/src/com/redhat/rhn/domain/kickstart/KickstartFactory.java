@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -268,9 +269,10 @@ public class KickstartFactory extends HibernateFactory {
     public static void saveKickstartData(KickstartData ksdataIn) {
         singleton.saveObject(ksdataIn);
         
-        // TODO: We need to write this beast out to disk
-        KickstartFormatter formatter = new KickstartFormatter("localhost", ksdataIn);
+        KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", ksdataIn);
         String fileData = formatter.getFileData();
+        // Escape the dollar signs
+        fileData = StringUtils.replace(fileData, "$", "\\$");
         try {
             File ksfile = new File(ksdataIn.getCobblerFileName());
             if (ksfile.exists()) {

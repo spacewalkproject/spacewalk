@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.kickstart.test;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.common.CommonFactory;
@@ -54,7 +55,9 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -106,9 +109,25 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
     
     public void testFileWrite() throws Exception {
-        KickstartData k = createKickstartWithProfile(user);
+        
+        // Example for reading/writing file found:
+        // http://www.javapractices.com/topic/TopicAction.do?Id=42
+        
+        KickstartData k = createKickstartWithOptions(user.getOrg());
+        KickstartFactory.saveKickstartData(k);
+        k = (KickstartData) reload(k);
+        KickstartFactory.saveKickstartData(k);
+        
         File f = new File(k.getCobblerFileName());
         assertTrue(f.exists());
+        BufferedReader input =  new BufferedReader(new FileReader(f));
+        StringBuilder contents = new StringBuilder();
+        String line = null;
+        while ((line = input.readLine()) != null) {
+            contents.append(line);
+            contents.append(System.getProperty("line.separator"));
+        }
+        assertTrue(contents.indexOf("\\$") > 0);
     }
     
     public void testLookupByLabel() throws Exception {
@@ -404,6 +423,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertNotNull(volgroupsName);
         KickstartCommandName optionName = lookupByLabel("url");
         assertNotNull(optionName);
+        KickstartCommandName rootName = lookupByLabel("rootpw");
+        assertNotNull(rootName);
+        
         //uncomment when schema supports include commands
         //KickstartCommandName includeName = lookupByLabel('include');
         
@@ -456,11 +478,19 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartCommand option = new KickstartCommand();        
         option.setCommandName(optionName);
         option.setArguments
-        ("--url http://rhn.redhat.com/kickstart/dist/ks-rhel-i386-as-3/");
+        ("--url http://@@http_server@@/kickstart/dist/ks-rhel-i386-as-3/");
         option.setKickstartData(k);
         option.setCreated(created);
         option.setModified(modified);
         k.addOption(option);
+        
+        KickstartCommand root = new KickstartCommand();
+        root.setCommandName(rootName);
+        root.setArguments(MD5Crypt.crypt("testing123"));
+        root.setKickstartData(k);
+        root.setCreated(created);
+        root.setModified(modified);
+        k.addOption(root);
         
         return k;
     }
