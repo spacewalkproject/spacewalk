@@ -1973,12 +1973,13 @@ def _verifyPkgRepMountPoint():
         log(-1, "ERROR: server.mount_point not set in the configuration file")
         sys.exit(16)
 
-    mountpoint = rhnLib.cleanupAbsPath(CFG.MOUNT_POINT)
-    basedir = rhnLib.cleanupAbsPath(mountpoint+'/'+CFG.PREPENDED_DIR)
+    if not os.path.exists(rhnLib.cleanupAbsPath(CFG.MOUNT_POINT)):
+        log(-1, "ERROR: server.mount_point not set in the configuration file")
+        sys.exit(26)
 
-    # create the base directory and set up the permissions
-    createPath(mountpoint)
-    createPath(basedir)
+    if not os.path.exists(rhnLib.cleanupAbsPath(CFG.MOUNT_POINT+'/'+CFG.PREPENDED_DIR)):
+        log(-1, "ERROR: server.mount_point not set in the configuration file")
+        sys.exit(26)
 
 
 def _getImportedChannels():
@@ -2321,7 +2322,8 @@ def processCommandline():
               "  22 - Not valid step",
               "  23 - error: --rhn-cert requires --mount-point",
               "  24 - no such file",
-              "  25 - no such directory"]
+              "  25 - no such directory",
+              "  26 - mount_point does not exist"]
         log(-1, msg, 1,1,sys.stderr)
         sys.exit(0) 
 
