@@ -48,15 +48,21 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
     public ValidatorError store() {
         log.debug("ProfileMap: " + this.getProfileMap());
         Map cProfile = getProfileMap();
+        String cProfileName = (String)cProfile.get("name");
         
         String handle = (String) invokeXMLRPC("get_profile_handle",
-                cProfile.get("name"), xmlRpcToken);        
+                cProfileName, xmlRpcToken);
         
+        String spacewalkName = makeCobblerName(ksData);
+        
+        if (!spacewalkName.equals(cProfileName)) {
+            invokeXMLRPC("rename_profile", handle, spacewalkName, xmlRpcToken);
+            handle = (String) invokeXMLRPC("get_profile_handle", 
+                                            spacewalkName, xmlRpcToken);            
+        }
         updateCobblerFields(handle);
         
         invokeXMLRPC("save_profile", handle, xmlRpcToken);
         return null;
-
     }
-
 }

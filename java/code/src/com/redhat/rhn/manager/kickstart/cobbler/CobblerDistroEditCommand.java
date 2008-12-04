@@ -54,8 +54,16 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
         // Get a new handle because the old handled pointed to 
         // the old object and if we call save_distro below we will
         // get a new distro saved.
+        
+        String cDistroName = (String)cDistro.get("name");
         String handle = (String) invokeXMLRPC("get_distro_handle",
-                                    cDistro.get("name"), xmlRpcToken);
+                                        cDistroName, xmlRpcToken);
+        String spacewalkName = makeCobblerName(tree);
+        if (!spacewalkName.equals(cDistroName)) {
+            invokeXMLRPC("rename_distro", handle, spacewalkName, xmlRpcToken);
+            handle = (String) invokeXMLRPC("get_distro_handle", 
+                                            spacewalkName, xmlRpcToken);            
+        }        
         updateCobblerFields(handle);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
         return null;
