@@ -17,17 +17,28 @@
 --
 
 
-ALTER TABLE rhnRegTokenPackages
-ADD id number
+ALTER TABLE rhnRegTokenPackages ADD id number;
 
-CREATE SEQUENCE rhn_reg_token_pkgs_id_seq
+CREATE SEQUENCE rhn_reg_tok_pkg_id_seq;
 
-UPDATE rhnRegTokenPackages SET id = rhn_reg_token_pkgs_id_seq.nextval
+UPDATE rhnRegTokenPackages SET id = rhn_reg_tok_pkg_id_seq.nextval;
 
-ALTER TABLE rhnRegTokenPackages ADD CONSTRAINT rhn_reg_token_pkgs_id_nn  CHECK ("ID" IS NOT NULL)
+ALTER TABLE rhnRegTokenPackages ADD CONSTRAINT rhn_reg_tok_pkg_id_nn  CHECK ("ID" IS NOT NULL);
 
-ALTER TABLE rhnRegTokenPackages ADD CONSTRAINT rhn_reg_token_pkgs_id_pk
-   primary key ( id ) 
+ALTER TABLE rhnRegTokenPackages ADD CONSTRAINT rhn_reg_tok_pkg_id_pk primary key ( id );
+
+ALTER TABLE rhnRegTokenPackages ADD (arch_id number);
+
+ALTER TABLE rhnRegTokenPackages ADD CONSTRAINT rhn_reg_tok_pkg_aid_fk FOREIGN KEY (arch_id) REFERENCES rhnPackageArch (id) ON DELETE CASCADE;
+
+DROP index rhn_reg_tok_pkg_uq;
+
+create unique index rhn_reg_tok_pkg_uq
+        on rhnRegTokenPackages(id, token_id, name_id, arch_id)
+        tablespace [[4m_tbs]]
+        storage( freelists 16 )
+        initrans 32;
+
 
 show errors
 
