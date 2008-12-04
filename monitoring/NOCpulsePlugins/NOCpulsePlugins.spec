@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.2
+Version: 	  2.208.3
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plugins
 # This src.rpm is cannonical upstream
@@ -65,7 +65,7 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.3-1
 - fix permission of /var/lib/nocpulse
 
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.2-1
