@@ -74,11 +74,8 @@ while (my $line = <TARGET>) {
 # we need to append these to the end.
 foreach my $opt_name (keys %options) {
     print $opt_name . "\n";
-    my $prefix = defined $1 ? $1 : '';
-    my $s1 = $2 || '';
-    my $s2 = $3 || '';
     chomp($options{$opt_name});
-    my $line = "${prefix}${opt_name}${s1}=${s2}" . $options{$opt_name} . "\n\n";
+    my $line = "$opt_name=$options{$opt_name}\n\n";
     print TMP "#option generated from rhn-config-satellite.pl\n";
     print TMP $line;
     
