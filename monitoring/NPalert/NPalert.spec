@@ -15,7 +15,7 @@ Summary:      NOCpulse notification system
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.21
+Version:      1.125.22
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -136,7 +136,7 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.22-1
 - fix permission of /var/lib/notification
 
 * Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.21-1
