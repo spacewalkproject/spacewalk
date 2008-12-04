@@ -56,7 +56,8 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
 echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
-ln -s %{instantclienthome}/lib/ojdbc14.jar %{_javadir}/ojdbc14.jar
+mkdir -p $RPM_BUILD_ROOT/%{_javadir}
+ln -s %{instantclienthome}/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -65,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{oraclelibdir}/10.2.0
 %config %{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%{_javadir}/ojdbc14.jar
 
 %post
 ldconfig
