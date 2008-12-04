@@ -1,7 +1,7 @@
 Name:           oracle-lib-compat
 Version:        10.4
 Release:        1%{?dist}
-Summary:        Compatibility package so that perl-DBD-Oracle will install.
+Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
 # This src.rpm is cannonical upstream
