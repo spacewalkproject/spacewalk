@@ -1075,11 +1075,12 @@ SELECT  pn.name AS NAME,
             AND  p.evr_id = pe.id
        GROUP BY  p.name_id
        ) full_list,
+       rhnPackageArch pa,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
-     INNER JOIN rhnPackageArch PA ON pa.id = pkg.package_arch_id
  WHERE  full_list.name_id = pn.id
    AND  full_list.name_id NOT IN (SELECT SP.name_id FROM rhnServerPackage SP WHERE SP.server_id = :sid)
+   AND  pa.id = pkg.package_arch_id
 ORDER BY  UPPER(pn.name)
   </query>
 </mode>
