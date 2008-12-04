@@ -3,7 +3,7 @@ Version:        10.4
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install.
 Group:          Applications/Multimedia
-License:        GPL
+License:        GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
