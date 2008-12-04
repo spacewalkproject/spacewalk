@@ -22,6 +22,7 @@ Provides:       libnnz10.so%{?lib64}       = 10.2.0
 Provides:       libocijdbc10.so%{?lib64}   = 10.2.0
 Provides:       libclntsh.so.10.1%{?lib64} = 10.2.0
 Provides:       libociei.so%{?lib64}       = 10.2.0
+Provides:       ojdbc14                    = 10.2.0
 
 %description
 Compatibility package so that perl-DBD-Oracle will install.
@@ -54,6 +55,8 @@ ln -s %{instantclientbase} $RPM_BUILD_ROOT%{oraclelibdir}/10.2.0
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
 echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+
+ln -s %{instantclienthome}/lib/ojdbc14.jar %{_javadir}/ojdbc14.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
