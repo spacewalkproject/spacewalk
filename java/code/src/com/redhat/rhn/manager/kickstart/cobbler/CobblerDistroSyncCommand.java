@@ -16,7 +16,6 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
@@ -67,6 +66,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
      */
     @Override
     public ValidatorError store() {
+
         List <KickstartableTree> trees = KickstartFactory.lookupKickstartTrees();
 
         //Any distros exist on spacewalk and not on the satellite?
