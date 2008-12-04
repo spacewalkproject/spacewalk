@@ -115,7 +115,8 @@ setup_gpg(\%opts);
 setup_admin_email(\%opts, \%answers, \%rhnOptions);
 
 print Spacewalk::Setup::loc("* Performing initial configuration.\n");
-populate_initial_configs(\%opts, \%answers);
+my $config_opts = populate_initial_configs(\%opts, \%answers);
+mkdir_mount_points($config_opts->{'mount_point'}, $config_opts->{'kickstart_mount_point'});
 setup_sudoers(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Activating Satellite.\n");
@@ -861,6 +862,35 @@ sub populate_initial_configs {
 	       '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
 
   satcon_deploy();
+
+  return \%config_opts;
+}
+
+# given a list of directories (by default, /var/satellite)
+# check if they exist and if they do not exist, create them
+# with apache as owner
+sub mkdir_mount_points {
+  my %dirs;
+  @dirs{@_} = @_;
+  my $apache_uid;
+  for my $dir (keys %dirs) {
+    if (not -e $dir) {
+      my @parts = grep { $_ ne '' } split /\//, $dir;
+      my $path = '';
+      for my $p (@parts) {
+        $path .= "/$p";
+        if (not -e $path) {
+          mkdir $path, 0755 or die "Error creating directory [$path]: $!\n";
+	}
+      }
+    }
+    $apache_uid ||= getpwnam('apache');
+    if (not defined $apache_uid) {
+      die "Failed to retrieve uid of user apache, the user does not seem to exist.\n";
+    }
+    chown $apache_uid, -1, $dir or die "Error chowning dir [$dir] to [apache]: $!\n";
+    system('/sbin/restorecon', '-rvv', $dir);
+  }
 }
 
 sub populate_final_configs {
