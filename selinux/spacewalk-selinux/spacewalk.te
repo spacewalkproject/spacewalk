@@ -16,6 +16,8 @@ type spacewalk_log_t;
 logging_log_file(spacewalk_log_t);
 type spacewalk_httpd_log_t;
 logging_log_file(spacewalk_httpd_log_t);
+type spacewalk_data_t;
+files_type(spacewalk_data_t);
 
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
 allow restorecon_t spacewalk_install_log_t:file { append };
