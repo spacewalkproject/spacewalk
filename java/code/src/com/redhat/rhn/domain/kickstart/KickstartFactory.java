@@ -125,7 +125,7 @@ public class KickstartFactory extends HibernateFactory {
      * lookup kickstart tree by it's cobbler id
      * @param cobblerId the cobbler id to lookup 
      * @return the Kickstartable Tree object
-     */
+     */    
     public static KickstartableTree lookupKickstartTreeByCobblerId(String cobblerId) {
         Map map = new HashMap();
         map.put("cid", cobblerId);

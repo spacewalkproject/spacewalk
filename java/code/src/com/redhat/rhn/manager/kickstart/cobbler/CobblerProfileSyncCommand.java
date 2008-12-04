@@ -40,8 +40,6 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         super();
     }
     
-
-    
     
     
     /**
@@ -65,8 +63,6 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
     public ValidatorError store() {
         //First are there any profiles within spacewalk that aren't within cobbler
         List<KickstartData> profiles = KickstartFactory.listAllKickstartData();
-
-        
         Map<String, Map> profileNames = getModifiedProfileNames();
         for (KickstartData profile : profiles) {
             if (!profileNames.containsKey(profile.getCobblerId())) {
