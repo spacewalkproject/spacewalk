@@ -54,10 +54,10 @@ done
 %files
 %defattr(-,root,root,-)
 %dir %{_sysconfdir}/nocpulse
-%dir %{_var}/lib/nocpulse
+%dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse
 %attr(777,nocpulse,nocpulse) %dir %{_var}/lib/nocpulse/ProbeState
-%dir %{_var}/lib/nocpulse/libexec
-%{_var}/lib/nocpulse/*
+%dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse/libexec
+%attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse/*
 %{_sysconfdir}/nocpulse/*
 %{_bindir}/*
 
@@ -65,6 +65,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+- fix permission of /var/lib/nocpulse
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.2-1
 - 467441 - fix namespace
 
