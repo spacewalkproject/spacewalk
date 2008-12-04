@@ -70,7 +70,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         s.addNetworkInterface(device);
         
         CobblerSystemCreateCommand cmd = new 
-            CobblerSystemCreateCommand(user, s, ksdata);
+            CobblerSystemCreateCommand(user, s, ksdata, "http://localhost/test/path");
         cmd.store();
         Map systemMap = cmd.getSystemMap(); 
         assertNotNull(systemMap);
@@ -78,7 +78,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         
         // Ensure we can call it twice.
         cmd = new 
-            CobblerSystemCreateCommand(user, s, ksdata);
+            CobblerSystemCreateCommand(user, s, ksdata, "http://localhost/test/path");
         cmd.store();
         
     }

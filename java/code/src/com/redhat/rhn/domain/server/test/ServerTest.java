@@ -33,6 +33,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -86,6 +87,7 @@ public class ServerTest extends BaseTestCaseWithUser {
     
     public void testGetIpAddress() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
+        s.setNetworkInterfaces(new HashSet());
         assertNull(s.getIpAddress());
         
         
@@ -107,6 +109,11 @@ public class ServerTest extends BaseTestCaseWithUser {
         NetworkInterface eth0 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth0", 
                 ipAddr, hwAddr);
         s.addNetworkInterface(eth0);
+        
+        NetworkInterface eth1 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth1", 
+                ipAddr, hwAddr);
+        s.addNetworkInterface(eth1);
+        
         assertNotNull(s.getIpAddress());
 
         NetworkInterface lo = NetworkInterfaceTest.createTestNetworkInterface(s, "lo", 

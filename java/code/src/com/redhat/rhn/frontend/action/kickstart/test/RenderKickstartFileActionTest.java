@@ -19,7 +19,9 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
@@ -186,6 +188,9 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         Channel c = KickstartDownloadActionTest.setupKickstartDownloadTest(ksdata, user);
         Server server = ServerFactoryTest.createTestServer(user);
         server.addChannel(c);
+        NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(server);
+        server.addNetworkInterface(device);
+        
         KickstartScheduleCommand cmd = KickstartScheduleCommandTest.
             scheduleAKickstart(server, ksdata);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -114,26 +115,32 @@ public class SatScrubberTest extends RhnBaseTestCase {
     
     public void testCleanupServers() throws Exception {
 
-        orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
-        List systems = UserManager.visibleSystemsAsMaps(orgAdmin);
+        List orgs = OrgFactory.lookupAllOrgs();
         int numdeleted = 0;
-        for (int i = 0; i < systems.size(); i++) {
-            Long sid = (Long) ((Map) systems.get(i)).get("id");
-            String name = (String) ((Map) systems.get(i)).get("name");
-            if (name.startsWith("serverfactorytest")) {
-                CallableMode m = ModeFactory.
-                    getCallableMode("System_queries", "delete_server");
-                Map in = new HashMap();
-                in.put("server_id", sid);
-                m.execute(in, new HashMap());
-                numdeleted++;
+        for (int x = 0; x < orgs.size(); x++) {
+            Org org = (Org) orgs.get(x);
+            orgAdmin = UserFactory.findRandomOrgAdmin(org);
+            if (orgAdmin != null) {
+                List systems = UserManager.visibleSystemsAsMaps(orgAdmin);
+                for (int i = 0; i < systems.size(); i++) {
+                    Long sid = (Long) ((Map) systems.get(i)).get("id");
+                    String name = (String) ((Map) systems.get(i)).get("name");
+                    if (name.startsWith("serverfactorytest")) {
+                        CallableMode m = ModeFactory.
+                            getCallableMode("System_queries", "delete_server");
+                        Map in = new HashMap();
+                        in.put("server_id", sid);
+                        m.execute(in, new HashMap());
+                        numdeleted++;
+                    }
+                    if (i % 100 == 0) {
+                        log.debug("Deleted [" + numdeleted + "] systems");
+                        commitAndCloseSession();
+                    }
+                }
             }
-            if (i % 100 == 0) {
-                log.debug("Deleted [" + numdeleted + "] systems");
-                commitAndCloseSession();
-            }
-
         }
+        
         commitAndCloseSession();
         log.debug("Done deleting [" + numdeleted + "] systems");
     }

@@ -40,18 +40,21 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     
     private Server server;
     private KickstartData ksData;
+    private String mediaUrl;
     
     /**
      * Constructor
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param ksDataIn profile to associate with with server.
+     * @param mediaUrlIn mediaUrl to override in the server profile.
      */
     public CobblerSystemCreateCommand(User userIn, Server serverIn, 
-            KickstartData ksDataIn) {
+            KickstartData ksDataIn, String mediaUrlIn) {
         super(userIn);
         this.server = serverIn;
         this.ksData = ksDataIn;
+        this.mediaUrl = mediaUrlIn;
     }
 
     /**
@@ -61,7 +64,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public ValidatorError store() {
         String handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
         log.debug("handle: " + handle);
-        System.out.println("System: " + server);
         invokeXMLRPC("modify_system", handle, "name", server.getName(),
                                  xmlRpcToken);
         
@@ -84,6 +86,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         args = new String[]{handle, "profile", 
                 (String) lookupCobblerProfile(this.ksData).get("name"), xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
+        
+        // Setup the kickstart metadata so the URLs and activation key are setup
+        Map ksmeta = new HashMap();
+        ksmeta.put("media_url", this.mediaUrl);
+        ksmeta.put("activation_key", "somekey-todo");
+
+        args = new Object[]{handle, "ksmeta", 
+                ksmeta, xmlRpcToken};
+        invokeXMLRPC("modify_system", Arrays.asList(args));
+        
         invokeXMLRPC("save_system", handle, xmlRpcToken);
         return null;
     }

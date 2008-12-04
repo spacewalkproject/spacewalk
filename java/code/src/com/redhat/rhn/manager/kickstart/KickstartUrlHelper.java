@@ -38,7 +38,8 @@ public class KickstartUrlHelper {
     
     public static final String KS_DIST = "/ks/dist";
     public static final String KS_CFG = "/ks/cfg";
-    private static final String SERVER_NAME = "@@http_server@@";
+    public static final String COBBLER_SERVER_VARIABLE = "@@http_server@@";
+    public static final String COBBLER_MEDIA_VARIABLE = "media_url";
     private KickstartData ksData;
     private String host;
     private String protocol;
@@ -49,7 +50,7 @@ public class KickstartUrlHelper {
      * @param ksDataIn who's URL you desire.
      */
     public KickstartUrlHelper(KickstartData ksDataIn) {
-        this(ksDataIn, SERVER_NAME);
+        this(ksDataIn, COBBLER_SERVER_VARIABLE);
     }    
     
     /**
@@ -168,6 +169,22 @@ public class KickstartUrlHelper {
         file.append(ksData.getTree().getLabel());
         StringBuffer url = new StringBuffer();
         url.append(protocol + host + file.toString());
+        log.debug("returning: " + url);
+        return url.toString();
+    }
+    
+    /**
+     * Get the cobbler style --url:
+     * 
+     * http://@@http_server@@/$media_url
+     * 
+     * To be filled out by cobbler.  not spacewalk.
+     * 
+     * @return String url , cobbler style: http://@@http_server@@/$media_url 
+     */
+    public String getCobblerMediaUrl() {
+        StringBuffer url = new StringBuffer();
+        url.append(protocol + host + "/$" + COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
     }

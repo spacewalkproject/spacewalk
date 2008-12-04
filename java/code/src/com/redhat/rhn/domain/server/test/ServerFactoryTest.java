@@ -549,6 +549,20 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         createProvisionState(newS, "Test Description", "Test Label");
         createServerInfo(newS, dateCreated, new Long(0));
         
+        /*NetworkInterface netint = new NetworkInterface();
+        netint.setBroadcast("foo.bar.doo.doo");
+        netint.setHwaddr("AA:AA:BB:BB:CC:CC");
+        netint.setIpaddr("127.0.0.1");
+        netint.setModule("test");
+        netint.setNetmask("255.255.255.0");
+        
+        netint.setName(TestUtils.randomString());
+        
+        netint.setServer(newS);
+        newS.addNetworkInterface(netint);*/
+
+
+        
         ServerFactory.save(newS);
         ServerFactory.addServerToGroup(newS, sg);
 

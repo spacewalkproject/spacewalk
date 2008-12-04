@@ -77,9 +77,17 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         String expected = "http://spacewalk.example.com" +
             KickstartUrlHelper.KS_DIST + "/" + 
                 ksdata.getKickstartDefaults().getKstree().getLabel();
-        System.out.println("Expected: " + expected);
         assertEquals(expected, helper.getKickstartMediaUrl());
         
+    }
+    
+    public void testGetCobblerMediaUrl() throws Exception {
+        helper = new KickstartUrlHelper(ksdata);
+        String expected = "http://" + 
+            KickstartUrlHelper.COBBLER_SERVER_VARIABLE + 
+            "/$" + KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
+        
+        assertEquals(expected, helper.getCobblerMediaUrl());
     }
 
     public void testGetKickstartMediaSessionUrl() throws Exception {

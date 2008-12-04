@@ -283,8 +283,10 @@ public class KickstartFormatter {
     private String adjustUrlHost(KickstartCommand command) {
         String argVal = command.getArguments();
         String urlLocation = argVal.substring("--url ".length());
-        KickstartUrlHelper urlHelper = new KickstartUrlHelper(this.ksdata,
-                this.ksHost);
+        // KickstartUrlHelper urlHelper = new KickstartUrlHelper(this.ksdata,
+        //        this.ksHost);
+        KickstartUrlHelper urlHelper = new KickstartUrlHelper(this.ksdata);
+        
         log.debug("Got URL : " + command.getArguments());
         log.debug("isRhnTree: " + this.ksdata.getTree().isRhnTree());
         log.debug("Actual URL: " + urlLocation);
@@ -306,7 +308,7 @@ public class KickstartFormatter {
                 // /kickstart/dist/ks-rhel-i386-as-4-u2
                 StringBuffer url = new StringBuffer();
                 url.append("--url ");
-                url.append(urlHelper.getKickstartMediaUrl());
+                url.append(urlHelper.getCobblerMediaUrl());
                 log.debug("constructed: " + url);
                 argVal = url.toString();
             }

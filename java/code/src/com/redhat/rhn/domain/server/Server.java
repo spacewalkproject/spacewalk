@@ -721,10 +721,12 @@ public class Server extends BaseDomainHelper implements Identifiable {
         // better defined (name and ip address)
         NetworkInterface ni = findPrimaryNetworkInterface();
         if (ni != null) {
+            log.debug("Found a NetworkInterface: " + ni.getIpaddr());
             return ni.getIpaddr();
         }
         Network n = findPrimaryNetwork();
         if (n != null) {
+            log.debug("Found a Network: " + n.getIpaddr());
             return n.getIpaddr();
         }
         return null;
@@ -748,15 +750,19 @@ public class Server extends BaseDomainHelper implements Identifiable {
             while (i.hasNext()) {
                 NetworkInterface n = (NetworkInterface) i.next();
                 if (n.getName().equals("eth0")) {
+                    log.debug("Found eth0");
                     return n;
                 }
                 if (n.getName().startsWith("eth0")) {
+                    log.debug("Found eth0*");
                     return n;
                 }
                 if (n.getName().equals("eth1")) {
+                    log.debug("Found eth1");
                     return n;
                 }
                 if (n.getName().startsWith("eth1")) {
+                    log.debug("Found eth1*");
                     return n;
                 }
             }
@@ -767,11 +773,13 @@ public class Server extends BaseDomainHelper implements Identifiable {
                 String addr = n.getIpaddr();
                 if (addr != null && 
                     !addr.equals("127.0.0.1")) {
-                return n;
+                    log.debug("Found NetworkInterface !localhost");
+                    return n;
                 }
             }
             // If we didnt match any of the above criteria
             // just give up and return the 1st one.
+            log.debug("just returning 1st network interface");
             return (NetworkInterface) networkInterfaces.iterator().next();
         }
         return null;
@@ -786,9 +794,11 @@ public class Server extends BaseDomainHelper implements Identifiable {
                 String addr = n.getIpaddr();
                 if (addr != null && 
                         !addr.equals("127.0.0.1")) {
+                    log.debug("returning Network that is !localhost");
                     return n;
                 }
             }
+            log.debug("giving up, returning 1st Network");
             return (Network) networks.iterator().next();
         }
         return null;

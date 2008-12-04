@@ -125,6 +125,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     
     public void testGetNetworkDevices() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
+        server.setNetworkInterfaces(new HashSet());
         Integer sid = new Integer(server.getId().intValue());
         assertEquals(0, server.getNetworkInterfaces().size());        
         
@@ -526,6 +527,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerTestUtils.createTestSystem(admin);
         server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
         TestUtils.saveAndFlush(server);
+        server = (Server) reload(server);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
         KickstartDataTest.addCommand(admin, k, "url", "--url http://cascade.sfbay.redhat." +
                 "com/rhn/kickstart/ks-rhel-i386-server-5");
