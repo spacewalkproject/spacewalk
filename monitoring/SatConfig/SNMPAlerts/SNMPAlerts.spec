@@ -1,4 +1,4 @@
-%define ap_home        %{_var}/www
+%define ap_home        %{_datadir}/nocpulse
 %define cgi_bin        %ap_home/cgi-bin
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
@@ -53,5 +53,8 @@ install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+- 474591 - move web data to /usr/share/nocpulse
+
 * Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - spec cleanup for Fedora

@@ -1,6 +1,6 @@
 %define install_prefix     %{_var}/lib/notification
 %define log_dir            %{_var}/log/notification
-%define httpd_prefix       %{_datadir}/%{name}
+%define httpd_prefix       %{_datadir}/nocpulse
 %define notif_user         nocpulse
 %define registry           %{_sysconfdir}/rc.d/np.d/apachereg
 %define log_rotate_prefix  %{_sysconfdir}/logrotate.d/
@@ -136,6 +136,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+- 474591 - move web data to /usr/share/nocpulse
+
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.22-1
 - fix permission of /var/lib/notification
 

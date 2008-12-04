@@ -1,4 +1,4 @@
-%define ap_home        %{_var}/www
+%define ap_home        %{_datadir}/nocpulse
 %define cgi_bin        %ap_home/cgi-bin
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define templatedir    %ap_home/templates
@@ -103,6 +103,9 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+- 474591 - move web data to /usr/share/nocpulse
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.2-1
 - 467441 - fix namespace
 
