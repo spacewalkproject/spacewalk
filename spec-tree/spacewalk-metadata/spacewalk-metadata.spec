@@ -213,7 +213,6 @@ Requires: jpam
 #Requires: jzlib
 #Requires: log4j
 #Requires: logdriver 
-#Requires: rhn-oracle-jdbc
 #Requires: servletapi5
 #Requires: struts
 Requires: tanukiwrapper
