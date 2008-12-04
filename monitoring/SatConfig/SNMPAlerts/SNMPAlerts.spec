@@ -3,7 +3,7 @@
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SNMPAlerts
-Version:      0.5.2
+Version:      0.5.3
 Release:      1%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 # This src.rpm is cannonical upstream
@@ -53,7 +53,7 @@ install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 474591 - move web data to /usr/share/nocpulse
 
 * Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
