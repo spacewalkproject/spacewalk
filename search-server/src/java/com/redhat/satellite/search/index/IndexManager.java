@@ -25,7 +25,6 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
@@ -41,6 +40,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
+import org.apache.nutch.analysis.AnalyzerFactory;
+import org.apache.nutch.analysis.NutchAnalyzer;
 import org.apache.nutch.searcher.FetchedSegments;
 import org.apache.nutch.searcher.HitDetails;
 import org.apache.nutch.searcher.Summary;
@@ -73,6 +74,7 @@ public class IndexManager {
     private int max_ngram;
     private boolean canLookupDocSummary = false;
     private FetchedSegments docSegments;
+    private AnalyzerFactory nutchAnalyzerFactory;
     // Name conflict with our Configuration class and Hadoop's
     private org.apache.hadoop.conf.Configuration nutchConf;
     
@@ -120,11 +122,12 @@ public class IndexManager {
      * 
      * @param indexName name of the index
      * @param query search query
+     * @param lang language
      * @return list of hits
      * @throws IndexingException if there is a problem indexing the content.
      * @throws QueryParseException 
      */
-    public List<Result> search(String indexName, String query)
+    public List<Result> search(String indexName, String query, String lang)
             throws IndexingException, QueryParseException {
         IndexSearcher searcher = null;
         IndexReader reader = null;
@@ -132,7 +135,7 @@ public class IndexManager {
         try {
             reader = getIndexReader(indexName);
             searcher = getIndexSearcher(indexName);
-            QueryParser qp = getQueryParser(indexName);
+            QueryParser qp = getQueryParser(indexName, lang);
             Query q = qp.parse(query);
             if (log.isDebugEnabled()) {
                 log.debug("Original query was: " + query);
@@ -182,13 +185,14 @@ public class IndexManager {
      * 
      * @param indexName index to use
      * @param doc Document to be indexed.
+     * @param lang language.
      * @throws IndexingException something went wrong adding the document
      */
-    public void addToIndex(String indexName, Document doc)
+    public void addToIndex(String indexName, Document doc, String lang)
         throws IndexingException {
 
         try {
-            IndexWriter writer = getIndexWriter(indexName);
+            IndexWriter writer = getIndexWriter(indexName, lang);
             try {
                 writer.addDocument(doc);
                 writer.flush();
@@ -217,9 +221,11 @@ public class IndexManager {
      * @param indexName
      * @param doc document with data to index
      * @param uniqueField field in doc which identifies this uniquely
+     * @param lang language
      * @throws IndexingException
      */
-    public void addUniqueToIndex(String indexName, Document doc, String uniqueField)
+    public void addUniqueToIndex(String indexName, Document doc,
+            String uniqueField, String lang)
         throws IndexingException {
         IndexReader reader = null;
         int numFound = 0;
@@ -251,7 +257,7 @@ public class IndexManager {
                     " will remove them now.");
             removeFromIndex(indexName, uniqueField, doc.get(uniqueField));
         }
-        addToIndex(indexName, doc);
+        addToIndex(indexName, doc, lang);
     }
 
     /**
@@ -303,13 +309,13 @@ public class IndexManager {
         }
     }
     
-    private IndexWriter getIndexWriter(String name)
+    private IndexWriter getIndexWriter(String name, String lang)
             throws CorruptIndexException, LockObtainFailedException,
             IOException {
         String path = indexWorkDir + name;
         File f = new File(path);
         f.mkdirs();
-        Analyzer analyzer = getAnalyzer(name);
+        Analyzer analyzer = getAnalyzer(name, lang);
         IndexWriter writer = new IndexWriter(path, analyzer);
         writer.setUseCompoundFile(true);
         return writer;
@@ -330,9 +336,9 @@ public class IndexManager {
         return retval;
     }
     
-    private QueryParser getQueryParser(String indexName) {
+    private QueryParser getQueryParser(String indexName, String lang) {
         QueryParser qp;
-        Analyzer analyzer = getAnalyzer(indexName);
+        Analyzer analyzer = getAnalyzer(indexName, lang);
         if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             qp = new QueryParser("content", analyzer);
         } 
@@ -344,10 +350,9 @@ public class IndexManager {
     }
     
 
-    private Analyzer getAnalyzer(String indexName) {
+    private Analyzer getAnalyzer(String indexName, String lang) {
         if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
-            log.debug(indexName + " choosing StandardAnalyzer");
-            return new StandardAnalyzer();
+            return getDocAnalyzer(lang);
         } 
         else if (indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) {
             return getServerAnalyzer();
@@ -574,6 +579,17 @@ public class IndexManager {
         }
     }
 
+
+    private Analyzer getDocAnalyzer(String lang) {
+        /**
+         * We want to use the same Analyzer nutch is using when the indexes are
+         * generated
+         * */
+        NutchAnalyzer analyzer = nutchAnalyzerFactory.get(lang);
+        log.info("Language choice is " + lang + ", analyzer chosen is " +
+                analyzer);
+        return analyzer;
+    }
     
     private Analyzer getServerAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
@@ -642,6 +658,7 @@ public class IndexManager {
          * to be available in the CLASSPATH
          */
         nutchConf = NutchConfiguration.create();
+        nutchAnalyzerFactory = new AnalyzerFactory(nutchConf);
         FileSystem fs = FileSystem.get(nutchConf);
         docSegments = new FetchedSegments(fs, segmentsDir, nutchConf);
         if (docSegments == null) {

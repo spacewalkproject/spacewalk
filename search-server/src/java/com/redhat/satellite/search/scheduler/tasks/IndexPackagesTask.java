@@ -46,7 +46,7 @@ import java.util.Map;
 public class IndexPackagesTask implements Job {
 
     private static Logger log = Logger.getLogger(IndexPackagesTask.class);
-    
+    private String lang = "en";
     /**
      * {@inheritDoc}
      */
@@ -107,7 +107,7 @@ public class IndexPackagesTask implements Job {
         log.info("Indexing package: " + pkg.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = BuilderFactory.getBuilder(BuilderFactory.PACKAGES_TYPE);
         Document doc = pdb.buildDocument(new Long(pkg.getId()), attrs);
-        indexManager.addToIndex("package", doc);
+        indexManager.addToIndex("package", doc, lang);
     }
     
     private void updateLastPackageId(DatabaseManager databaseManager, 

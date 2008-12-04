@@ -58,8 +58,9 @@ public class IndexErrataTaskTest extends BaseTestCase {
         params.put("last_modified", new Date(0));
         updateQuery.update(params);
         updateQuery.close();
-        scheduler.shutdown(false);
-        
+        if (scheduler != null) {
+            scheduler.shutdown(false);
+        }
         super.tearDown();
     }
     
@@ -127,7 +128,7 @@ public class IndexErrataTaskTest extends BaseTestCase {
     public static class TestIndexManager extends IndexManager {
 
         @Override
-        public void addToIndex(String indexName, Document doc) throws IndexingException {
+        public void addToIndex(String indexName, Document doc, String lang) throws IndexingException {
             assertNotNull(doc);
             assertNotNull(doc.getField("advisory"));
             assertNotNull(doc.getField("advisory").stringValue());

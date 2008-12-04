@@ -22,7 +22,8 @@ public class ScheduleManagerTest extends BaseTestCase {
             Thread.sleep(30000);
             IndexManager mgr = (IndexManager)
                 container.getComponentInstance(IndexManager.class);
-            List<Result>hits = mgr.search("package", "description:package");
+            List<Result>hits = mgr.search("package", "description:package",
+                    "en");
             assertTrue(hits.size() > 0);
         }
         catch (InterruptedException e) {

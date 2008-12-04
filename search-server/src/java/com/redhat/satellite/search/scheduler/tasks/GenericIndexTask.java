@@ -49,6 +49,7 @@ import java.util.Map;
 public abstract class GenericIndexTask implements Job {
 
     private static Logger log = Logger.getLogger(GenericIndexTask.class);
+    private String lang = "en";
     /**
      * {@inheritDoc}
      */
@@ -137,7 +138,8 @@ public abstract class GenericIndexTask implements Job {
                 data.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = BuilderFactory.getBuilder(getIndexName());
         Document doc = pdb.buildDocument(new Long(data.getId()), attrs);
-        indexManager.addUniqueToIndex(getIndexName(), doc, getUniqueFieldId());
+        indexManager.addUniqueToIndex(getIndexName(), doc, getUniqueFieldId(),
+                lang);
     }
 
 

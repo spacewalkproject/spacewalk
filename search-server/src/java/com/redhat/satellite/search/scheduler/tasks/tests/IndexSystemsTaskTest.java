@@ -127,7 +127,7 @@ public class IndexSystemsTaskTest extends BaseTestCase {
     public static class TestIndexManager extends IndexManager {
 
         @Override
-        public void addToIndex(String indexName, Document doc) throws IndexingException {
+        public void addToIndex(String indexName, Document doc, String lang) throws IndexingException {
             assertNotNull(doc);
             assertNotNull(doc.getField("id"));
             assertNotNull(doc.getField("name").stringValue());

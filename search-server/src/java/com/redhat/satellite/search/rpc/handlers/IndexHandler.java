@@ -46,6 +46,7 @@ public class IndexHandler {
     public static final int QUERY_ERROR = 100;
     public static final int INDEX_ERROR = 200;
     public static final int DB_ERROR = 300;
+    public static final String DEFAULT_LANG = "en";
     
     /**
      * Constructor
@@ -59,7 +60,8 @@ public class IndexHandler {
     }
 
     /**
-     * Search index
+     * Search index -
+     * assumes English language as default language
      * 
      * @param sessionId
      *            user's application session id
@@ -72,12 +74,32 @@ public class IndexHandler {
      */
     public List<Result> search(long sessionId, String indexName, String query)
             throws XmlRpcFault {
+        return search(sessionId, indexName, query, DEFAULT_LANG);
+    }
+
+    /**
+     * Search index
+     *
+     * @param sessionId
+     *            user's application session id
+     * @param indexName
+     *            index to use
+     * @param query
+     *            search query
+     *  @param lang
+     *            language
+     * @return list of document ids as results
+     * @throws XmlRpcFault something bad happened
+     */
+    public List<Result> search(long sessionId, String indexName, String query,
+            String lang)
+            throws XmlRpcFault {
         if (log.isDebugEnabled()) {
             log.debug("IndexHandler:: searching for: " + query);
         }
         
         try {
-            List<Result> hits = indexManager.search(indexName, query);
+            List<Result> hits = indexManager.search(indexName, query, lang);
             if (indexName.compareTo("package") == 0) {
                 return screenHits(sessionId, indexName, hits);
             }

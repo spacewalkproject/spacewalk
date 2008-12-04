@@ -38,7 +38,7 @@ public class IndexManagerTest extends BaseTestCase {
         meta.put("dateCreated", "7/13/2007");
         DocumentBuilder pdb = new PackageDocumentBuilder();
         Document doc = pdb.buildDocument(objectId, meta);
-        indexManager.addToIndex(index, doc);
+        indexManager.addToIndex(index, doc, "en");
     }
 
     public void testQuerying()
@@ -53,10 +53,10 @@ public class IndexManagerTest extends BaseTestCase {
         meta.put("dateCreated", "7/13/2007");
         DocumentBuilder pdb = new PackageDocumentBuilder();
         Document doc = pdb.buildDocument(objectId, meta);
-        indexManager.addToIndex(index, doc);
-        List<Result> results = indexManager.search(index, "name:foo");
+        indexManager.addToIndex(index, doc, "en");
+        List<Result> results = indexManager.search(index, "name:foo", "en");
         assertTrue(results.size() >= 1);
-        results = indexManager.search(index, "desc:really");
+        results = indexManager.search(index, "desc:really", "en");
         assertTrue(results.size() >= 1);
     }
 
@@ -77,7 +77,7 @@ public class IndexManagerTest extends BaseTestCase {
     	
 	String index = BuilderFactory.DOCS_TYPE;
     	String query = new String("redhat");
-    	List<Result> results = indexMgr.search(index, query);
+	List<Result> results = indexMgr.search(index, query, "en");
     	System.out.println("Number of results returned is " + results.size());
     	assertTrue(results.size() >= 1);
     	

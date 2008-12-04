@@ -50,10 +50,10 @@ public class IndexHandlerTest extends BaseTestCase {
         IndexManager idx = (IndexManager)
             container.getComponentInstance(IndexManager.class);
         IndexHandler handler = new IndexHandler(idx, db);
-        handler.search(252437, "package", "description:package");
-        List results = handler.search(252437, "package", "kernel*");
+        handler.search(252437, "package", "description:package", "en");
+        List results = handler.search(252437, "package", "kernel*", "en");
         log.info("kernel results 1: " + results);
-        results = handler.search(252437, "package", "kernel");
+        results = handler.search(252437, "package", "kernel", "en");
         log.info("kernel results 2: " + results);
     }
 

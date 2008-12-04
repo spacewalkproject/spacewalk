@@ -45,7 +45,7 @@ import java.util.Map;
 public class IndexErrataTask implements Job {
 
     private static Logger log = Logger.getLogger(IndexErrataTask.class);
-    
+    private String lang = "en";
     /**
      * {@inheritDoc}
      */
@@ -143,7 +143,7 @@ public class IndexErrataTask implements Job {
         log.info("Indexing errata: " + errata.getId() + ": " + attrs.toString());
         DocumentBuilder edb = BuilderFactory.getBuilder(BuilderFactory.ERRATA_TYPE);
         Document doc = edb.buildDocument(new Long(errata.getId()), attrs);
-        indexManager.addToIndex("errata", doc);
+        indexManager.addToIndex("errata", doc, lang);
     }
     
     /**
