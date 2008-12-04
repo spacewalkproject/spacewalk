@@ -57,9 +57,9 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
             return null;
         }
         Boolean rc = (Boolean) invokeXMLRPC("remove_distro", 
-                                    tree.getCobblerDistroName(), xmlRpcToken);
+                                    distro.get("name"), xmlRpcToken);
         if (rc == null || !rc.booleanValue()) {
-            return new ValidatorError("cobbler.profile.remove_failed");
+            return new ValidatorError("cobbler.distro.remove_failed");
         }
         else {
             return null;

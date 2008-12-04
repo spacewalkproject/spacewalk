@@ -55,7 +55,7 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
         }
         
         Boolean rc = (Boolean) invokeXMLRPC("remove_profile", 
-                getProfileMap().get("name"), xmlRpcToken);
+                profile.get("name"), xmlRpcToken);
         log.debug("RC: " + rc);
         if (rc == null || !rc.booleanValue()) {
             return new ValidatorError("cobbler.profile.remove_failed");
