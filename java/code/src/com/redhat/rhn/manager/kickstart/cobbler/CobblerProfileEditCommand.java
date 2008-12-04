@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -34,11 +36,10 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      * Constructor
      * @param ksDataIn to sync 
      * @param userIn - user wanting to sync with cobbler
-     * @param kickstartUrlIn that the KickstartData can be accessed from.
      */
     public CobblerProfileEditCommand(KickstartData ksDataIn,
-            User userIn, String kickstartUrlIn) {
-        super(ksDataIn, userIn, kickstartUrlIn);
+            User userIn) {
+        super(ksDataIn, userIn);
     }
 
     /**
@@ -46,23 +47,22 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      */
     public ValidatorError store() {
         log.debug("ProfileMap: " + this.getProfileMap());
+        Map cProfile = getProfileMap();
+        String cProfileName = (String)cProfile.get("name");
         
-        if (!ksData.getCobblerName().equals(ksData.getOldCobblerName())) {
-            String handle = (String) invokeXMLRPC("get_profile_handle",
-                                        ksData.getOldCobblerName(), xmlRpcToken);
-            invokeXMLRPC("rename_profile", handle, 
-                        this.ksData.getCobblerName(), xmlRpcToken);
-            
-        }
-
         String handle = (String) invokeXMLRPC("get_profile_handle",
-                ksData.getCobblerName(), xmlRpcToken);        
+                cProfileName, xmlRpcToken);
         
+        String spacewalkName = makeCobblerName(ksData);
+        
+        if (!spacewalkName.equals(cProfileName)) {
+            invokeXMLRPC("rename_profile", handle, spacewalkName, xmlRpcToken);
+            handle = (String) invokeXMLRPC("get_profile_handle", 
+                                            spacewalkName, xmlRpcToken);            
+        }
         updateCobblerFields(handle);
         
         invokeXMLRPC("save_profile", handle, xmlRpcToken);
         return null;
-
     }
-
 }

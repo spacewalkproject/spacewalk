@@ -85,7 +85,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     
     public void testProfileCreate() throws Exception {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
-                ksdata, user, "http://localhost/ks");
+                ksdata, user);
         assertNull(cmd.store());
         Map profile = cmd.getProfileMap();
         assertNotNull(profile);
@@ -95,12 +95,12 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     public void testProfileEdit() throws Exception {
         // create one first
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
-                ksdata, user, "http://localhost/ks");
+                ksdata, user);
         assertNull(cmd.store());
 
         // Now test edit
         CobblerProfileEditCommand pec = new 
-            CobblerProfileEditCommand(ksdata, user, "http://localhost/ks");
+            CobblerProfileEditCommand(ksdata, user);
         String newName = "some-new-name-" + System.currentTimeMillis();
         ksdata.setLabel(newName);
         assertNull(pec.store());
@@ -111,7 +111,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
 
     public void testProfileDelete() throws Exception {
         CobblerProfileCreateCommand createCmd = new CobblerProfileCreateCommand(
-                ksdata, user, "http://localhost/ks");
+                ksdata, user);
         assertNull(createCmd.store());
 
         CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, user);

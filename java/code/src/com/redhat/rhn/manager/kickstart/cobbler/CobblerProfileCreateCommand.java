@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -33,12 +35,9 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
      * Constructor
      * @param ksDataIn to sync
      * @param userIn - user wanting to sync with cobbler
-     * @param kickstartUrlIn URL of the kickstart file we are creating.
      */
-    public CobblerProfileCreateCommand(KickstartData ksDataIn,
-            User userIn, String kickstartUrlIn) {
+    public CobblerProfileCreateCommand(KickstartData ksDataIn, User userIn) {
         super(ksDataIn, userIn);
-        this.kickstartUrl = kickstartUrlIn;
     }
 
 
@@ -50,10 +49,12 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         String id = (String) invokeXMLRPC("new_profile", xmlRpcToken);
         log.debug("id: " + id);
         invokeXMLRPC("modify_profile", id, "name", 
-                                this.ksData.getCobblerName(), xmlRpcToken);
+                                CobblerCommand.makeCobblerName(this.ksData), xmlRpcToken);
         updateCobblerFields(id);
         invokeXMLRPC("save_profile", id, xmlRpcToken);
-        this.ksData.setOldCobblerName(this.ksData.getCobblerName());
+        
+        Map cProfile = getProfileMap();
+        ksData.setCobblerId((String)cProfile.get("uid"));
         return null;
     }
 

@@ -105,14 +105,11 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             DynaActionForm form, 
             BaseKickstartCommand cmdIn) {
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
-        KickstartHelper helper = new KickstartHelper(request);
         RequestContext ctx = new RequestContext(request);
         KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
-        ValidatorError retval = null;
-
         cmd.setComments(form.getString(COMMENTS));
-        String label = form.getString(LABEL);
         try {
+            builder.validateNewLabel(form.getString(LABEL));
             cmd.setLabel(form.getString(LABEL));
             cmd.setActive(new 
                     Boolean(BooleanUtils.toBoolean((Boolean) form.get(ACTIVE))));

@@ -18,13 +18,17 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
@@ -47,7 +51,6 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     private static Logger logger = Logger
             .getLogger(KickstartEditCommand.class);
     
-    private User user;
       
     
     /**
@@ -57,9 +60,16 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      */
     public KickstartEditCommand(Long ksid, User userIn) {
         super(ksid, userIn);
-        this.ksdata = KickstartFactory
-                      .lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid);
-        this.user = userIn;
+    }
+
+    
+    /**
+     * 
+     * @param data Kickstart data 
+     * @param userIn to set on this Command.   
+     */
+    public KickstartEditCommand(KickstartData data, User userIn) {
+        super(data, userIn);
     }
     
     /**
@@ -77,6 +87,10 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @param labelIn Kickstart Label to set
      */
     public void setLabel(String labelIn) {
+        if (!ksdata.getLabel().equals(labelIn)) {
+            KickstartBuilder builder = new KickstartBuilder(getUser());
+            builder.validateNewLabel(labelIn);    
+        }
         logger.debug("setLabel(String labelIn=" + labelIn + ") - start");
         this.ksdata.setLabel(labelIn);
     }
@@ -189,20 +203,22 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         
         if (tree != null) {
             this.ksdata.getKickstartDefaults().setKstree(tree);
-            KickstartCommand kcmd = this.ksdata.getCommand("url");
-            kcmd.setArguments("--url " + url);
+            if (!ksdata.isRawData() && !StringUtils.isBlank(url)) {
+                KickstartCommand kcmd = this.ksdata.getCommand("url");
+                kcmd.setArguments("--url " + url);
 
-            // Any time we update the kickstartable tree we need to remove any existing
-            // yum repo commands and re-add them for the new tree if necessary:
-            this.ksdata.removeCommand("repo", false);
-            this.ksdata.removeCommand("key", true);
-            
-            if (ksdata.isRhel5OrGreater()) {
-                ksHelper.addRepoLocations(ksdata, url);
+                // Any time we update the kickstartable tree we need to remove any existing
+                // yum repo commands and re-add them for the new tree if necessary:
+                this.ksdata.removeCommand("repo", false);
+                this.ksdata.removeCommand("key", true);
+                
+                if (ksdata.isRhel5OrGreater()) {
+                    ksHelper.addRepoLocations(ksdata, url);
+                }
+
+                logger.debug("updateKickstartableTree(Long, String, String, Long)" +
+                        " - end - return value=" + null);
             }
-
-            logger.debug("updateKickstartableTree(Long, String, String, Long)" +
-                    " - end - return value=" + null);
             return null;
         }
         else {
@@ -339,5 +355,18 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     // private string to concat "ks-" + Channel.label
     private String getBaseLabel(Channel c) {
         return "ks-" + c.getLabel();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ValidatorError store() {
+        ValidatorError error = super.store();
+        if (error == null) {
+            CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
+            error = cmd.store();
+        }
+        return error;
     }
 }

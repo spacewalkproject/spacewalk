@@ -178,8 +178,11 @@ class UploadClass(uploadLib2.UploadClass):
 
     def setOrg(self):
         if self.options.nullorg:
-            # They push things to the None org id
-            self.orgId = ''
+            if self.options.force:
+                self.die(1, "ERROR: You cannot force a package to a nullorg channel.")
+            else:
+                # They push things to the None org id
+                self.orgId = ''
         else:
             self.orgId = self.options.orgid or -1
 

@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.Map;
+
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -45,21 +47,23 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
     @Override
     public ValidatorError store() {
         
-        if (!tree.getCobblerDistroName().equals(tree.getOldCobblerDistroName())) {
-            String handle = (String) invokeXMLRPC("get_distro_handle", 
-                    tree.getOldCobblerDistroName(), xmlRpcToken);
-            
-            invokeXMLRPC("rename_distro", handle, 
-                    this.tree.getCobblerDistroName(), xmlRpcToken);
-        }
+        Map cDistro = getDistroMap();
         // now that we have saved the distro to the filesystem
         // we need to reflect this in the actual Java object. 
         
         // Get a new handle because the old handled pointed to 
         // the old object and if we call save_distro below we will
         // get a new distro saved.
+        
+        String cDistroName = (String)cDistro.get("name");
         String handle = (String) invokeXMLRPC("get_distro_handle",
-                                    tree.getCobblerDistroName(), xmlRpcToken);
+                                        cDistroName, xmlRpcToken);
+        String spacewalkName = makeCobblerName(tree);
+        if (!spacewalkName.equals(cDistroName)) {
+            invokeXMLRPC("rename_distro", handle, spacewalkName, xmlRpcToken);
+            handle = (String) invokeXMLRPC("get_distro_handle", 
+                                            spacewalkName, xmlRpcToken);            
+        }        
         updateCobblerFields(handle);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
         return null;

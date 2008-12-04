@@ -19,10 +19,6 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 
@@ -59,20 +55,9 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
      */
     public Map getDistroMap() {
         log.debug("getDistroMap()");
-        List < String > args = new ArrayList();
-        args.add(xmlRpcToken);
-        List distros = (List) invokeXMLRPC("get_distros", args);
-        Iterator i = distros.iterator();
-        while (i.hasNext()) {
-            Map row = (Map) i.next();
-            log.debug("getDistroMap.ROW: " + row);
-            String name = (String) row.get("name");
-            if (name.equals(this.tree.getCobblerDistroName())) {
-                return row;
-            }
-        }
-        return new HashMap();
+        return lookupCobblerDistro(this.tree);
     }
+    
     
     protected void updateCobblerFields(String handle) {
         log.debug("kernel path: " + tree.getKernelPath());

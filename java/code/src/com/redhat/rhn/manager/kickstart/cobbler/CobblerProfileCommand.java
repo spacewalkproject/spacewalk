@@ -19,11 +19,7 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,20 +31,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
     protected KickstartData ksData;
-    protected String kickstartUrl;
-    
-    /**
-     * @param ksDataIn - KickstartData to sync to cobbler.
-     * @param userIn - user wanting to sync with cobbler
-     * @param kickstartUrlIn - url to kickstart file associated
-     * with the KickstartData
-     *  
-     */
-    public CobblerProfileCommand(KickstartData ksDataIn,
-            User userIn, String kickstartUrlIn) {
-        this(ksDataIn, userIn);
-        this.kickstartUrl = kickstartUrlIn;
-    }
     
     /**
      * @param ksDataIn - KickstartData to sync
@@ -64,20 +46,9 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      * @return Map of Cobbler profile fields.
      */
     public Map getProfileMap() {
-        List < String > args = new ArrayList();
-        args.add(xmlRpcToken);
-        List profiles = (List) invokeXMLRPC("get_profiles", args);
-        Iterator i = profiles.iterator();
-        while (i.hasNext()) {
-            Map row = (Map) i.next();
-            log.debug("getDistroMap.ROW: " + row);
-            String name = (String) row.get("name");
-            if (name.equals(this.ksData.getCobblerName())) {
-                return row;
-            }
-        }
-        return new HashMap();
+        return lookupCobblerProfile(this.ksData);
     }
+    
 
     protected void updateCobblerFields(String handle) {
         String[] args = new String[]{handle, "kickstart", 
@@ -86,6 +57,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
 
         args = new String[]{handle, "distro", 
                 this.ksData.getTree().getCobblerDistroName(), xmlRpcToken};
+
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
     }

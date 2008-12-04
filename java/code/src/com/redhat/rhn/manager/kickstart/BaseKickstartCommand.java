@@ -83,9 +83,6 @@ public abstract class BaseKickstartCommand implements PersistOperation {
         }
         
         KickstartFactory.saveKickstartData(ksData);
-        // TODO: COBBLERIZE
-        // CobblerProfileCreateCommand cmd =
-        //    new CobblerProfileCreateCommand(ksdata, "");
         return null;
     }
 

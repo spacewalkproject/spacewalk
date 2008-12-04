@@ -19,7 +19,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +27,8 @@ import java.util.Set;
 
 
 /**
- * @author paji
+ * This command finds profiles that have been changed on the cobbler server and syncs 
+ *  those changes to the satellite
  * @version $Rev$
  */
 public class CobblerProfileSyncCommand extends CobblerCommand {
@@ -64,7 +64,7 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                             listKickstartDataByOrg(user.getOrg());
         Set<String> profileNames = getProfileNames();
         for (KickstartData profile : profiles) {
-            if (!profileNames.contains(profile.getLabel())) {
+            if (!profileNames.contains(CobblerCommand.makeCobblerName(profile))) {
                 createProfile(profile);
             }
         }
@@ -73,10 +73,10 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
     }
     
     private void createProfile(KickstartData profile) {
-        KickstartUrlHelper helper = new KickstartUrlHelper(profile, host);
         CobblerProfileCreateCommand creator = new CobblerProfileCreateCommand(profile, 
-                                        user, helper.getKickstartFileUrl());
+                                        user);
         creator.store();
     }
+
 
 }
