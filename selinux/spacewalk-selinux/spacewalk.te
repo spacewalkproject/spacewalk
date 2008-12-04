@@ -37,3 +37,6 @@ allow httpd_t oracle_port_t:tcp_socket name_connect;
 filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
 manage_files_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t)
 
+manage_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
+manage_dirs_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
+
