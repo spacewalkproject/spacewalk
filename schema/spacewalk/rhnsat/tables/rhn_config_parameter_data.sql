@@ -23,10 +23,10 @@
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'dbAuthFile', '/etc/NOCpulse.SputLiteAuth', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'exelog', '%{NPVAR}/commands/execute_commands.log', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'exelogLevel', '3', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'gritchdb', '%{NPVAR}/commands/.gripes.gdbm', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'heartbeatFile', '%{NPVAR}/commands/heartbeat', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'lastCompletedFile', '%{NPVAR}/commands/last_completed', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'lastStartedFile', '%{NPVAR}/commands/last_started', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'gritchdb', '%{NPLIB}/commands/.gripes.gdbm', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'heartbeatFile', '%{NPLIB}/commands/heartbeat', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'lastCompletedFile', '%{NPLIB}/commands/last_completed', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'lastStartedFile', '%{NPLIB}/commands/last_started', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'pollingInterval', '60', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'queueName', 'commands', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'CommandQueue', 'queueServer', '%{SATCFGURL}/cgi-mod-perl/fetch_commands.cgi', 'ALL', 'system',sysdate);
@@ -35,7 +35,7 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'Discoverer', 'nmapPath', '/usr/bin/nmap', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'Discoverer', 'url', '%{SATCFGURL}/cgi-bin/upload_autodisc.cgi', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'PlugFrame', 'configFile', '%{NPETC}/PlugFrame.ini', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ProbeFramework', 'databaseDirectory', '%{NPVAR}/ProbeState', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ProbeFramework', 'databaseDirectory', '%{NPLIB}/ProbeState', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ProbeFramework', 'probeClassLibraryDirectory', '%{NPHOME}/libexec', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'SpreadBridge', 'clientCA', '%{NPETC}/nocpulse-sys-proxy-chain.crt', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'SpreadBridge', 'clientCert', '%{NPETC}/sat-smon-cert.pem', 'ALL', 'system',sysdate);
@@ -85,7 +85,7 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cs_db', 'tableowner', '%{RHN_DB_TABLE_OWNER}', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cs_db', 'username', '%{RHN_DB_USERNAME}', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'acceptor_url', '%{SATCFGURL}/cgi-mod-perl/accept_status_log.cgi', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'last_success', '%{NPVAR}/last_state_push', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'last_success', '%{NPLIB}/last_state_push', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'current_state', 'notification_interval', '300', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'general', 'domain', '%{DOM}', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'general', 'env', '%{ENV}', 'ALL', 'system',sysdate);
@@ -163,12 +163,12 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'commands_dequeueLimit', '0', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'commands_maxsize', '5', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'eventHandler', '%{SMONURL}/cgi-bin/eventHandler.cgi', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'gritchdb', '%{NPVAR}/.gripes.gdbm', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'gritchdb', '%{NPLIB}/.gripes.gdbm', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'logfile', '%{NPVAR}/dequeue.log', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'notif_dequeueLimit', '50', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'notif_maxsize', '30', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'polling_interval', '5', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'queuedir', '%{NPVAR}/queue', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'queuedir', '%{NPLIB}/queue', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'queues', 'notif,sc_db,ts_db,commands,snmp', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'queueuser', 'nocpulse', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'sc_db_dequeueLimit', '1000', 'ALL', 'system',sysdate);
@@ -176,7 +176,7 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'snmp_dequeueLimit', '0', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'snmp_download_url', '%{SATCFGURL}/cgi-mod-perl/fetch_snmp_alerts.cgi', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'snmp_maxsize', '30', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'snmplast', '%{NPVAR}/queue/snmp/LAST_SENT', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'snmplast', '%{NPLIB}/queue/snmp/LAST_SENT', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'snmplog', '%{NPVAR}/dequeue.snmp.log', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'ts_db_batch_size', '300', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'ts_db_dequeueLimit', '600', 'ALL', 'system',sysdate);
@@ -185,11 +185,11 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'configGenTimeout', '90', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'configGrabUrl', '%{SATCFGURL}/cgi-bin/configdata.cgi', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'depotUrl', '%{SMONURL}/depot/', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'eventsFile', '%{NPVAR}/events.frozen', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'gritchdb', '%{NPVAR}/.gripes-probe-code.gdbm', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'schedulerConfigFile', '%{NPVAR}/scheduler.xml', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'eventsFile', '%{NPLIB}/events.frozen', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'gritchdb', '%{NPLIB}/.gripes-probe-code.gdbm', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'schedulerConfigFile', '%{NPLIB}/scheduler.xml', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'schedulerLogFile', '%{NPVAR}/kernel.log', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'schedulerReloadFlagFile', '%{NPVAR}/reload.please', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'satellite', 'schedulerReloadFlagFile', '%{NPLIB}/reload.please', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'sc_db', 'url', '%{SCDBURL}', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ssl_bridge', 'cdir', '%{NPETC}/spbridge', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ssl_bridge', 'cert', '%{NPETC}/spbridge/smon-sb.crt', 'INTERNAL', 'system',sysdate);
@@ -208,12 +208,12 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'timesync', 'samplesize', '5', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'timesync', 'timeserver', '%{SMONURL}/cgi-bin/timeserver.cgi', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'cmd_recid', '250', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'config', '%{NPVAR}/trapReceiver/config', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'cust_mibdir', '%{NPVAR}/trapReceiver/mibs', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'config', '%{NPLIB}/trapReceiver/config', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'cust_mibdir', '%{NPLIB}/trapReceiver/mibs', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'logfile', '%{NPVAR}/trapReceiver.log', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'loglevel', '2', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'std_mibdir', '/usr/local/snmp/share/snmp/mibs', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'trapdir', '%{NPVAR}/trapReceiver/traps', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'trapdir', '%{NPLIB}/trapReceiver/traps', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ts_db', 'url', '%{TSDBURL}', 'INTERNAL', 'system',sysdate);
 
 --
