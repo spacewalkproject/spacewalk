@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        10.4
+Version:        10.5
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
@@ -71,8 +71,9 @@ ldconfig
 
 
 %changelog
-* Thu Dec  4 2008 Michael Mraka <michael.mraka@redhat.com> 10.4-1
+* Thu Dec  4 2008 Michael Mraka <michael.mraka@redhat.com> 10.5-1
 - added Provides: ojdbc14
+- fixed rpmlint warnings
 
 * Wed Oct 22 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-13
 - resolved #461765 - oracle libs not loaded
