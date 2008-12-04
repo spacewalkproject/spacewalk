@@ -29,7 +29,7 @@ rhnErrataNotificationQueue
                             	constraint rhn_enqueue_oid_fk
                                 	references web_customer(id)
 					on delete cascade,
-	next_action		date,
+	next_action		date default(sysdate),
 	created			date default(sysdate)
 				constraint rhn_enqueue_created_nn not null,
 	modified		date default(sysdate)
