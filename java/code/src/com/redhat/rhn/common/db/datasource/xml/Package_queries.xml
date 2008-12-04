@@ -1063,7 +1063,7 @@ ORDER BY UPPER(PACKAGE_NVREA)
   <query params="sid">
 SELECT  pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO,
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || pa.id AS ID_COMBO,
         pa.name as ARCH
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr
@@ -1131,16 +1131,15 @@ ORDER BY  UPPER(pn.name), full_list.evr
   </query>
 </mode>
 
-<mode name="ssm_packages_for_upgrade">
+<mode name="ssm_packages_for_upgrade" class="com.redhat.rhn.frontend.dto.SsmUpgradablePackageListItem">
   <query params="user_id">
 SELECT  P.id AS ID,
-        PN.id AS PN_ID,
-        PE.id AS PE_ID,
-        PN.id || '|' || PE.id AS ID_COMBO,
-        PE.version AS PACKAGE_VERSION,
-        PE.release AS PACKAGE_RELEASE,
-        PE.epoch AS PACKAGE_EPOCH,
-        PN.name AS PACKAGE_NAME,
+        PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
+        PE.version AS VERSION,
+        PE.release AS RELEASE,
+        PE.epoch AS EPOCH,
+        PN.name AS NAME,
+        PA.name AS ARCH,
         E.advisory_type,
         E.advisory,
         E.id AS ADVISORY_ID,
@@ -1149,6 +1148,7 @@ SELECT  P.id AS ID,
         rhnPackageEVR PE,
         rhnPackageName PN,
         rhnPackage P,
+        rhnPackageArch PA,
         rhnServerNeededPackageCache SNPC,
         rhnSet S
  WHERE  S.user_id = :user_id
@@ -1157,12 +1157,15 @@ SELECT  P.id AS ID,
    AND  SNPC.package_id = P.id
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
+   AND  P.package_arch_id = PA.id
    AND  SNPC.errata_id = E.id (+)
 GROUP BY P.id,
          PN.name,
          PE.version,
          PE.release,
          PE.epoch,
+         PA.name,
+         PA.id,
          PN.id,
          PE.id,
          E.advisory_type,
