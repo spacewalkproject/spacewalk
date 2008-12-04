@@ -111,7 +111,7 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 %{_sysconfdir}/cron.d/notification
 %{registry}/Apache.NPalert
 %{httpd_prefix}
-%dir %install_prefix
+%dir %attr(-, %notif_user,%notif_user) %install_prefix
 %dir %{perl_vendorlib}/NOCpulse/Notif
 %{perl_vendorlib}/NOCpulse/Notif/*
 %{_bindir}/*
@@ -136,6 +136,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com>
+- fix permission of /var/lib/notification
+
 * Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.21-1
 - 472910 - fix paths to nofitication configs
 - rename logrotate script to NPalert
