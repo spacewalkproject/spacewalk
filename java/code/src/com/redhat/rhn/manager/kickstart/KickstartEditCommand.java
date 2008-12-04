@@ -65,7 +65,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     
     /**
      * 
-     * @param ksid Kickstart Id 
+     * @param data Kickstart data 
      * @param userIn to set on this Command.   
      */
     public KickstartEditCommand(KickstartData data, User userIn) {
