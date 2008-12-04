@@ -25,7 +25,6 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
@@ -131,9 +130,11 @@ public class KickstartHandler extends BaseHandler {
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kstreeLabel);
         }
-
-        KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
-        ksdefault.setKstree(tree);
+        KickstartEditCommand cmd = new KickstartEditCommand(
+                ksdata.getId(), loggedInUser);
+        cmd.updateKickstartableTree(ksdata.getChannel().getId(),
+                loggedInUser.getOrg().getId(), tree.getId(), null);
+        cmd.store();
         return 1;
     }
 
@@ -182,7 +183,7 @@ public class KickstartHandler extends BaseHandler {
         String[] childChannels = new String [channelIds.size()];
         childChannels = (String[]) channelIds.toArray(new String[0]);
         ksEditCmd.updateChildChannels(childChannels);        
-        
+        ksEditCmd.store();
         return 1;
     }
     
@@ -780,8 +781,8 @@ public class KickstartHandler extends BaseHandler {
         }
 
         try {
-            KickstartRawData data = builder.createRawData(profileLabel, tree, 
-                        virtualizationType, RhnXmlRpcServer.getServerName());
+            KickstartRawData data = builder.createRawData(profileLabel,
+                                                     tree, virtualizationType);
             data.setData(kickstartFileContents);
 
         }

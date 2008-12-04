@@ -159,9 +159,8 @@ public class KickstartWizardHelper {
      * Store a newly created KickstartData
      * Sets created timestamp and the appropriate org
      * @param ksdata object to save
-     * @param kickstartHost that is serving up the kickstart configuration file
      */
-    public void store(KickstartData ksdata, String kickstartHost) {
+    public void store(KickstartData ksdata) {
         
         if (ksdata.getCryptoKeys() != null) {
             // Setup the default CryptoKeys
@@ -190,8 +189,7 @@ public class KickstartWizardHelper {
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
-            new CobblerProfileCreateCommand(ksdata, currentUser,
-                    new KickstartUrlHelper(ksdata, kickstartHost).getKickstartFileUrl());
+            new CobblerProfileCreateCommand(ksdata, currentUser);
         cmd.store();
         log.debug("store() - done.");
     }

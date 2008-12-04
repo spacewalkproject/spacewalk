@@ -19,7 +19,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import java.util.HashSet;
 import java.util.List;
@@ -74,9 +73,8 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
     }
     
     private void createProfile(KickstartData profile) {
-        KickstartUrlHelper helper = new KickstartUrlHelper(profile, host);
         CobblerProfileCreateCommand creator = new CobblerProfileCreateCommand(profile, 
-                                        user, helper.getKickstartFileUrl());
+                                        user);
         creator.store();
     }
 

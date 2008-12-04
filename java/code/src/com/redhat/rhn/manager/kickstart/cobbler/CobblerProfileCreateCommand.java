@@ -35,12 +35,9 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
      * Constructor
      * @param ksDataIn to sync
      * @param userIn - user wanting to sync with cobbler
-     * @param kickstartUrlIn URL of the kickstart file we are creating.
      */
-    public CobblerProfileCreateCommand(KickstartData ksDataIn,
-            User userIn, String kickstartUrlIn) {
+    public CobblerProfileCreateCommand(KickstartData ksDataIn, User userIn) {
         super(ksDataIn, userIn);
-        this.kickstartUrl = kickstartUrlIn;
     }
 
 

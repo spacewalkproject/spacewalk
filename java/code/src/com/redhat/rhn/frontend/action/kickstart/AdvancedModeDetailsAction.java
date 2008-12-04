@@ -113,8 +113,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartRawData ks;
             if (isCreateMode(context.getRequest())) {
-                ks = builder.createRawData(label, tree, virtType,
-                                        helper.getKickstartHost());
+                ks = builder.createRawData(label, tree, virtType);
             }
             else {
                 ks = getKsData(context);

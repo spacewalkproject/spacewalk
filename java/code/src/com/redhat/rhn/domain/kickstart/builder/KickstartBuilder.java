@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
+import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
@@ -363,7 +364,7 @@ public class KickstartBuilder {
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
-            new CobblerProfileCreateCommand(ksdata, user, kickstartHost);
+            new CobblerProfileCreateCommand(ksdata, user);
         cmd.store();
         log.debug("store() - done.");
         return ksdata;
@@ -418,19 +419,16 @@ public class KickstartBuilder {
      * @param label the kickstart label
      * @param tree the Ks tree
      * @param virtType and KS virt type.
-     * @param kickstartHost the host that is serving up the
-     *                      kickstart configuration file.
      * @return new Kickstart Raw Data object
      */
     public KickstartRawData createRawData(String label, 
                                     KickstartableTree tree,
-                                    String virtType,
-                                    String kickstartHost) {
+                                    String virtType) {
         checkRoles();
         KickstartRawData ksdata = new KickstartRawData();
         setupBasicInfo(label, ksdata, tree, virtType);
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
-        cmd.store(ksdata, kickstartHost);
+        cmd.store(ksdata);
         return ksdata;
     }
     
@@ -471,7 +469,8 @@ public class KickstartBuilder {
         }
         data.getKickstartDefaults().setKstree(ksTree);
         setupVirtType(virtType, data);
-        
+        KickstartEditCommand cmd = new KickstartEditCommand(data, user);
+        cmd.store();    
     }
     
     /**
@@ -544,7 +543,7 @@ public class KickstartBuilder {
         PackageName pn = cmd.findPackageName("@ Base");
         ksdata.getPackageNames().add(pn);
         ksdata.setStaticDevice("dhcp:eth0");
-        cmd.store(ksdata, kickstartHost);
+        cmd.store(ksdata);
         return ksdata;
 
     }

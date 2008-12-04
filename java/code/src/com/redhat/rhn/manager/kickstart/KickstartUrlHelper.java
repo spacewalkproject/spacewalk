@@ -38,10 +38,19 @@ public class KickstartUrlHelper {
     
     public static final String KS_DIST = "/ks/dist";
     public static final String KS_CFG = "/ks/cfg";
-    
+    private static final String SERVER_NAME = "@@http_server@@";
     private KickstartData ksData;
     private String host;
     private String protocol;
+
+    /**
+     * Constructor.
+     *
+     * @param ksDataIn who's URL you desire.
+     */
+    public KickstartUrlHelper(KickstartData ksDataIn) {
+        this(ksDataIn, SERVER_NAME);
+    }    
     
     /**
      * Constructor.
@@ -190,8 +199,4 @@ public class KickstartUrlHelper {
         log.debug("returning: " + turl.computeTinyUrl(this.host));
         return turl.computeTinyUrl(this.host);
     }
-    
-    
-    
-    
 }

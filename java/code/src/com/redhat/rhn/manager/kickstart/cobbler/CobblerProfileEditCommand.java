@@ -36,11 +36,10 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      * Constructor
      * @param ksDataIn to sync 
      * @param userIn - user wanting to sync with cobbler
-     * @param kickstartUrlIn that the KickstartData can be accessed from.
      */
     public CobblerProfileEditCommand(KickstartData ksDataIn,
-            User userIn, String kickstartUrlIn) {
-        super(ksDataIn, userIn, kickstartUrlIn);
+            User userIn) {
+        super(ksDataIn, userIn);
     }
 
     /**

@@ -31,20 +31,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
     protected KickstartData ksData;
-    protected String kickstartUrl;
-    
-    /**
-     * @param ksDataIn - KickstartData to sync to cobbler.
-     * @param userIn - user wanting to sync with cobbler
-     * @param kickstartUrlIn - url to kickstart file associated
-     * with the KickstartData
-     *  
-     */
-    public CobblerProfileCommand(KickstartData ksDataIn,
-            User userIn, String kickstartUrlIn) {
-        this(ksDataIn, userIn);
-        this.kickstartUrl = kickstartUrlIn;
-    }
     
     /**
      * @param ksDataIn - KickstartData to sync

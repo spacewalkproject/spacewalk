@@ -94,7 +94,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
                                             String virtType) {
         KickstartBuilder builder = new KickstartBuilder(user);
         KickstartRawData data = builder.createRawData(label, tree, 
-                                                       virtType, KICKSTART_HOST);
+                                                       virtType);
         assertNotNull(data);
         assertEquals(label, data.getLabel());
         assertEquals(virtType, 
