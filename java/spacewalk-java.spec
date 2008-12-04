@@ -34,8 +34,7 @@ Requires: jpam
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
-Requires: rhn-oracle-jdbc >= 0:1.0-10
-Requires: rhn-oracle-jdbc-tomcat5
+Requires: ojdbc14
 Requires: servletapi5
 Requires: struts >= 0:1.2.9
 Requires: tomcat5
@@ -129,7 +128,7 @@ Requires: jfreechart >= 0:0.9.21
 Requires: jpam
 Requires: log4j
 Requires: oscache
-Requires: rhn-oracle-jdbc >= 0:1.0-10
+Requires: ojdbc14
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: tanukiwrapper
