@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,15 +61,21 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public ValidatorError store() {
         String handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
         log.debug("handle: " + handle);
+        System.out.println("System: " + server);
         invokeXMLRPC("modify_system", handle, "name", server.getName(),
                                  xmlRpcToken);
-        Map inet = new HashMap();
         
-        NetworkInterface n = this.server.findPrimaryNetworkInterface();
-        if (n == null) {
+        if (this.server.getNetworkInterfaces() == null ||
+                this.server.getNetworkInterfaces().isEmpty()) {
             return new ValidatorError("kickstart.no.network.error");
         }
-        inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        Iterator i = this.server.getNetworkInterfaces().iterator();
+        Map inet = new HashMap();
+        while (i.hasNext()) {
+            NetworkInterface n = (NetworkInterface) i.next();
+            inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        }
+        log.debug("Networks: " + inet);
         
         Object[] args = new Object[]{handle, "modify-interface", 
                 inet, xmlRpcToken};

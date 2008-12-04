@@ -430,7 +430,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         
         // Setup Cobbler system profile
         CobblerSystemCreateCommand cmd = 
-            new CobblerSystemCreateCommand(this.user, this.getTargetServer(),
+            new CobblerSystemCreateCommand(this.user, this.getServer(),
                     this.ksdata);
         ValidatorError cobblerError = cmd.store();
         if (cobblerError != null) {
