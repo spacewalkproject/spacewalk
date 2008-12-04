@@ -28,7 +28,7 @@
 -^(file|ftp|mailto):
 
 # skip image and other suffixes we can't yet parse
--\.(gif|GIF|jpg|JPG|png|PNG|ico|ICO|css|sit|eps|wmf|zip|ppt|mpg|xls|gz|rpm|tgz|mov|MOV|exe|jpeg|JPEG|bmp|BMP|js)$
+-\.(gif|GIF|jpg|JPG|png|PNG|ico|ICO|css|sit|eps|wmf|zip|ppt|mpg|xls|gz|rpm|tgz|mov|MOV|exe|jpeg|JPEG|bmp|BMP|pdf)$
 
 # skip URLs containing certain characters as probable queries, etc.
 -[?*!@=]
@@ -38,11 +38,7 @@
 
 # accept hosts in MY.DOMAIN.NAME
 #+^http://([a-z0-9]*\.)*MY.DOMAIN.NAME/
-+^http://([a-z0-9]*\.)*rlx-0-24.rhndev.redhat.com/
-+^https://([a-z0-9]*\.)*rlx-0-24.rhndev.redhat.com/
++^http://([a-z0-9]*\.)*redhat.com/
 
 # skip everything else
 -.
-
-
-#+.*

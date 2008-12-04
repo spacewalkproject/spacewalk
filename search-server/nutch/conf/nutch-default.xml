@@ -48,7 +48,7 @@
 
 <property>
   <name>http.agent.name</name>
-  <value>SatelliteSearchServer</value>
+  <value></value>
   <description>HTTP 'User-Agent' request header. MUST NOT be empty - 
   please set this to a single word uniquely related to your organization.
 
@@ -634,8 +634,8 @@
   from the index tokens that occur further in the document. If you
   know your source documents are large, be sure to set this value
   high enough to accomodate the expected size. If you set it to
-  Integer.MAX_VALUE, then the only limit is your memory, but you
-  should anticipate an OutOfMemoryError.
+  -1, then the only limit is your memory, but you should anticipate
+  an OutOfMemoryError.
   </description>
 </property>
 
@@ -1186,6 +1186,19 @@
   <name>query.lang.boost</name>
   <value>0.0</value>
   <description> Used as a boost for lang field in Lucene query.
+  </description>
+</property>
+
+<!-- Temporary Hadoop 0.17.x workaround. -->
+
+<property>
+  <name>hadoop.job.history.user.location</name>
+  <value>${hadoop.log.dir}/history/user</value>
+  <description>Hadoop 0.17.x comes with a default setting to create
+     user logs inside the output path of the job. This breaks some
+     Hadoop classes, which expect the output to contain only
+     part-XXXXX files. This setting changes the output to a
+     subdirectory of the regular log directory.
   </description>
 </property>
 
