@@ -1,5 +1,5 @@
 Name:           oracle-lib-compat
-Version:        10.3
+Version:        10.4
 Release:        1%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install.
 Group:          Applications/Multimedia
@@ -71,7 +71,7 @@ ldconfig
 
 
 %changelog
-* Thu Dec  4 2008 Michael Mraka <michael.mraka@redhat.com> 10.3-1
+* Thu Dec  4 2008 Michael Mraka <michael.mraka@redhat.com> 10.4-1
 - added Provides: ojdbc14
 
 * Wed Oct 22 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-13
