@@ -7,7 +7,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.3
+Version: 0.4.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -209,7 +209,7 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Thu Dec  4 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
+* Thu Dec  4 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.4-1
 - removed rhn-oracle-jdbc
 
 * Thu Nov 20 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.2-1
