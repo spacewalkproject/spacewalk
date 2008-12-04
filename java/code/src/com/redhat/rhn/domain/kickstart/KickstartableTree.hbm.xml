@@ -76,6 +76,17 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		where k.org = :org_id or k.org is null order by k.label]]>
     </query>
     
+    <query name="KickstartableTree.findAll">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        		]]>
+    </query>
+    
+
+    <query name="KickstartableTree.findByCobblerId">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        		where k.cobblerId = :cid ]]>
+    </query>
+    
     <query name="KickstartableTree.verifyTreeAssignment">
     	<![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k
     			where (k.org is null or k.org = :org_id) and

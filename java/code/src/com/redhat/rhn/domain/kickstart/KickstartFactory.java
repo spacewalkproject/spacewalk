@@ -34,10 +34,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
 
 /**
  * KickstartFactory
@@ -117,6 +120,19 @@ public class KickstartFactory extends HibernateFactory {
                                       .setLong("org_id", orgId.longValue())
                                       .uniqueResult();
     }
+    
+    /**
+     * lookup kickstart tree by it's cobbler id
+     * @param cobblerId the cobbler id to lookup 
+     * @return the Kickstartable Tree object
+     */
+    public static KickstartableTree lookupKickstartTreeByCobblerId(String cobblerId) {
+        Map map = new HashMap();
+        map.put("cid", cobblerId);
+        return (KickstartableTree) singleton.lookupObjectByNamedQuery(
+                "KickstartableTree.findByCobblerId", map);
+    }
+    
     
     private static List<KickstartCommandName> lookupKickstartCommandNames(
             KickstartData ksdata, boolean onlyAdvancedOptions) {
@@ -474,6 +490,19 @@ public class KickstartFactory extends HibernateFactory {
     }
     
     /**
+     * list all kickstart trees stored in the satellite
+     * @return list of kickstart trees
+     */
+    public static List <KickstartableTree> lookupKickstartTrees() {
+        Session session = null;
+        List retval = null;
+        String query = "KickstartableTree.findAll";
+        return singleton.listObjectsByNamedQuery(query, new HashMap());
+    }
+    
+    
+    
+    /**
      * Lookup KickstartableTree by tree id and org id
      * @param treeId desired tree
      * @param org owning org
@@ -767,6 +796,17 @@ public class KickstartFactory extends HibernateFactory {
         c.add(Restrictions.eq("org", org));
         return c.list();
     }
+    
+    /**
+     * Lookup a list of all KickstartData objects located on the Satellite
+     *  Should not be used by much.  Ignores org!
+     * @return List of KickstartData objects if found
+     */    
+    public static List<KickstartData> listAllKickstartData() {
+        Session session = getSession();
+        Criteria c = session.createCriteria(KickstartData.class);
+        return c.list();
+    }    
 
     /**
      * Lookup a KickstartData that has its isOrgDefault value set to true

@@ -826,6 +826,10 @@ def patch_list(patch_str, sense):
     conflicts: == rpm sense ->  8
     """
 
+    if patch_str.find('(') >= 0:
+        print "Unsupported patch list expression:", patch_str
+        return []
+    
     dct = { 'name'      : None,
              'version'   : None,
              'flags'     : sense }

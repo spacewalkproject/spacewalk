@@ -215,17 +215,25 @@ public abstract class CobblerCommand {
             return (Map) invokeXMLRPC("get_profile", 
                     CobblerCommand.makeCobblerName(data));
         }
+        return lookupCobblerProfileByUid(data.getCobblerId());
+    }
+    
+    /**
+     * Lookup cobbler profile by a UID
+     * @param uid the uid (or cobblerID) to pull the profile with
+     * @return a Map consisting of the Cobbler id
+     */
+    public Map lookupCobblerProfileByUid(String uid) {
         List <String> args = new ArrayList();
         args.add(xmlRpcToken);
         List<Map> profiles = (List) invokeXMLRPC("get_profiles", args);
         for (Map row : profiles) {
             log.debug("getDistroMap.ROW: " + row);
             String id = (String) row.get("uid");
-            if (id.equals(data.getCobblerId())) {
+            if (id.equals(uid)) {
                 return row;
             }
         }
-        return new HashMap();
+        return null;
     }
-    
 }
