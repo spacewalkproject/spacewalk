@@ -87,10 +87,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		where k.cobblerId = :cid ]]>
     </query>
     
-    <query name="KickstartableTree.findAll">
-        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		]]>
-    </query>
     
 
     <query name="KickstartableTree.findByCobblerId">
