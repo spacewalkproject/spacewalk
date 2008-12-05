@@ -52,7 +52,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
                                 CobblerCommand.makeCobblerName(this.ksData), xmlRpcToken);
         updateCobblerFields(id);
         invokeXMLRPC("save_profile", id, xmlRpcToken);
-        
+        invokeCobblerUpdate();
         Map cProfile = getProfileMap();
         ksData.setCobblerId((String)cProfile.get("uid"));
         return null;
