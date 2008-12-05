@@ -1499,9 +1499,10 @@ public class SystemManager extends BaseManager {
         if (result.size() > 0) {
             Map row = (Map) result.get(0);
             Long nameId = (Long) row.get("name_id"); 
-            Long evrId = (Long) row.get("evr_id"); 
+            Long evrId = (Long) row.get("evr_id");
+            Long archId = (Long) row.get("package_arch_id");
             ActionManager.schedulePackageInstall(
-                    user, server, nameId, evrId);
+                    user, server, nameId, evrId, archId);
         } 
         else {
             return new ValidatorError("system.entitle.novirtpackage", 

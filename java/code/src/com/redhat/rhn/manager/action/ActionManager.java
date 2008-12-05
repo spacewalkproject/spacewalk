@@ -1394,11 +1394,12 @@ public class ActionManager extends BaseManager {
      * @return The action that has been scheduled.
      */
     public static Action schedulePackageInstall(User scheduler, Server srvr, 
-            Long nameId, Long evrId) {
+            Long nameId, Long evrId, Long archId) {
         List packages = new LinkedList();
         Map row = new HashMap();
         row.put("name_id", nameId);
         row.put("evr_id", evrId);
+        row.put("arch_id", archId);
         packages.add(row);
         return schedulePackageInstall(scheduler, srvr, packages, new Date());
     }
