@@ -1385,12 +1385,12 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedules a package action of the given type for the given server with the
-     * packages given as a list.
+     * Schedules an install of a package
      * @param scheduler The user scheduling the action.
      * @param srvr The server that this action is for.
      * @param nameId nameId rhnPackage.name_id
-     * @param evrId evrId of action
+     * @param evrId evrId of package
+     * @param archId archId of package
      * @return The action that has been scheduled.
      */
     public static Action schedulePackageInstall(User scheduler, Server srvr, 
