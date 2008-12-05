@@ -60,9 +60,9 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
         if (rc == null || !rc.booleanValue()) {
             return new ValidatorError("cobbler.profile.remove_failed");
         }
-        else {
-            return null;
-        }
+        invokeCobblerUpdate();
+        return null;
+        
     }
 
 }

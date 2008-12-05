@@ -61,9 +61,10 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
         if (rc == null || !rc.booleanValue()) {
             return new ValidatorError("cobbler.distro.remove_failed");
         }
-        else {
-            return null;
-        }
+        
+        invokeCobblerUpdate();
+        return null;
+        
     }
 
 

@@ -57,6 +57,7 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
         
         if (!spacewalkName.equals(cProfileName)) {
             invokeXMLRPC("rename_profile", handle, spacewalkName, xmlRpcToken);
+            invokeCobblerUpdate();
             handle = (String) invokeXMLRPC("get_profile_handle", 
                                             spacewalkName, xmlRpcToken);            
         }

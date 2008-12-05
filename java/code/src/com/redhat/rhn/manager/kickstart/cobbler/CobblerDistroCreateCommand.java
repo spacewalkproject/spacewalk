@@ -53,7 +53,7 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                 tree.getCobblerDistroName(), xmlRpcToken);
         updateCobblerFields(handle);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
-        
+        invokeCobblerUpdate();
         Map cDist = getDistroMap();
         tree.setCobblerId((String) cDist.get("uid"));      
         return null;

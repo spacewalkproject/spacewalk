@@ -66,6 +66,7 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
         }        
         updateCobblerFields(handle);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
+        invokeCobblerUpdate();
         return null;
     }
 

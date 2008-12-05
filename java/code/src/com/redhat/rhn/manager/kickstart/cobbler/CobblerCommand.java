@@ -236,4 +236,8 @@ public abstract class CobblerCommand {
         }
         return null;
     }
+    
+    protected void invokeCobblerUpdate() {
+        invokeXMLRPC("update", xmlRpcToken);
+    }
 }
