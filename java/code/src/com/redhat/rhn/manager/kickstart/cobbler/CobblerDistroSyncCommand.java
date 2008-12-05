@@ -21,10 +21,8 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -42,15 +40,6 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     }
     
 
-    protected Set<String> getDistroNames() {
-        Set <String> distroNames = new HashSet<String>();
-        List<Map> distros = (List<Map>)invokeXMLRPC("get_distros", xmlRpcToken);
-        for (Map distro : distros) {
-            distroNames.add((String)distro.get("name"));
-        }
-        return distroNames;
-    }
-    
     protected Map<String, Map> getDistros() {
         Map<String, Map> toReturn = new HashMap<String, Map>();
         List<Map> distros = (List<Map>)invokeXMLRPC("get_distros", xmlRpcToken);
@@ -70,15 +59,15 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         List <KickstartableTree> trees = KickstartFactory.lookupKickstartTrees();
 
         //Any distros exist on spacewalk and not on the satellite?
-        Set<String> distros = getDistroNames();
+        Map<String, Map> cobblerDistros = getDistros();
         for (KickstartableTree tree : trees) {
-            if (!distros.contains(tree.getCobblerDistroName())) {
+            if (!cobblerDistros.containsKey(tree.getCobblerId())) {
                 createDistro(tree);
+                tree.setModified(new Date());
             }
         }
         
-        //Are there any distros on cobbler that have changed 
-        Map<String, Map> cobblerDistros = getDistros();        
+        //Are there any distros on cobbler that have changed       
         for (KickstartableTree tree : trees) {
             if (cobblerDistros.containsKey(tree.getCobblerId())) {
                 Map cobDistro = cobblerDistros.get(tree.getCobblerId());
