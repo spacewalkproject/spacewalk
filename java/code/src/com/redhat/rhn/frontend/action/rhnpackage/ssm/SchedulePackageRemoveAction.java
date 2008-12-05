@@ -76,10 +76,6 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             }
         }
 
-        // Packages selected by the user
-        String packagesDecl = (String) request.getAttribute("packagesDecl");
-        Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
-
         // Prepopulate the date picker
         DynaActionForm dynaForm = (DynaActionForm) actionForm;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,

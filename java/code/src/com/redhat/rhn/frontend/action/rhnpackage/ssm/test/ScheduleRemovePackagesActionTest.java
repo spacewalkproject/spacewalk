@@ -43,8 +43,5 @@ public class ScheduleRemovePackagesActionTest extends RhnMockStrutsTestCase {
 
         Object pageList = getRequest().getAttribute("pageList");
         assertNotNull(pageList);
-
-        DataResult result = (DataResult)pageList;
-        assertEquals(2, result.size());
     }
 }

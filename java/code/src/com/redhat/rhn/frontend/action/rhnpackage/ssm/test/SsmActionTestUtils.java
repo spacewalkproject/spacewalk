@@ -64,8 +64,6 @@ public class SsmActionTestUtils extends TestCase {
         addServerPackageMapping(server1.getId(), installedPackage1);
         addServerPackageMapping(server1.getId(), installedPackage2);
 
-
-
         addServerPackageMapping(server2.getId(), installedPackage1);
 
         //    Add the servers to the SSM set
