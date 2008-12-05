@@ -1069,6 +1069,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             Map evrmap = new HashMap();
             evrmap.put("name_id", p.getPackageName().getId());
             evrmap.put("evr_id", p.getPackageEvr().getId());
+            evrmap.put("arch_id", p.getPackageArch().getId());
             packagesToInstall.add(evrmap);
         }
         else { 
