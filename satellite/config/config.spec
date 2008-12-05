@@ -100,7 +100,7 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
-* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
+* Fri Dec  5 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
 - 474591 - move web data to /usr/share/nocpulse
 
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
