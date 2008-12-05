@@ -19,7 +19,7 @@ import sys
 import commands
 
 from spacewalk.releng.common import BuildCommon, read_config, run_command, \
-        check_tag_exists, debug
+        check_tag_exists, debug, error_out, get_spec_version
 
 class Builder(BuildCommon):
     """
@@ -30,7 +30,8 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, tag=None, dist=None, test=False, debug=False):
+    def __init__(self, config=None, tag=None, dist=None, test=False,
+            debug=False):
         BuildCommon.__init__(self, debug)
 
         self.dist = dist
@@ -108,7 +109,7 @@ class Builder(BuildCommon):
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
-        self._create_git_copy()
+        self._setup_sources()
 
         run_command("cp %s/%s %s/" %  \
                 (self.rpmbuild_sourcedir, self.tgz_filename,
@@ -184,7 +185,7 @@ class Builder(BuildCommon):
                     )
             run_command(cmd)
 
-    def _create_git_copy(self):
+    def _setup_sources(self):
         """
         Create a copy of the git source for the project from the commit ID
         we're building.
@@ -200,7 +201,7 @@ class Builder(BuildCommon):
                 self.git_commit_id)
         timestamp = self._get_commit_timestamp(self.git_commit_id)
 
-        archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s | ( cd %s/ && tar xzf - )" % \
+        archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s" % \
             (
                     self.tgz_dir,
                     self.git_commit_id,
@@ -209,10 +210,13 @@ class Builder(BuildCommon):
                     timestamp,
                     self.git_commit_id,
                     self.rpmbuild_sourcedir,
-                    self.tgz_filename,
-                    self.rpmbuild_sourcedir
+                    self.tgz_filename
             )
         run_command(archive_cmd)
+
+        # Extract the source so we can get at the spec file, etc.
+        run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
+            self.tgz_filename))
 
     def _get_rpmbuild_dir_options(self):
         return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
@@ -274,12 +278,11 @@ class NoTgzBuilder(Builder):
     Usually these packages have source tarballs checked directly into git.
     i.e. most of the packages in spec-tree.
     """
-
     def _tgz(self):
         """ Override parent behavior, we already have a tgz. """
         #raise Exception("Cannot build .tar.gz for project %s" %
         #        self.project_name)
-        self._create_git_copy()
+        self._setup_sources()
 
     def _get_rpmbuild_dir_options(self):
         """
@@ -308,5 +311,73 @@ class NoTgzBuilder(Builder):
                     )
             run_command(cmd)
 
+
+
+class UpstreamBuilder(NoTgzBuilder):
+    """
+    Builder for packages that rename and patch upstream versions.
+
+    These packages reference an UpstreamName and UpstreamVersion in their
+    spec file which identifies a specific git commit in the repository
+    which is to serve as the baseline for this package. We then generate a
+    patch of any changes between this projects most recent tag, and the
+    upstream tag, and apply those changes in the spec file before building
+    the package.
+    """
+    def __init__(self, config=None, tag=None, dist=None, test=False,
+            debug=False):
+        NoTgzBuilder.__init__(self, debug)
+        if not config.has_option("buildconfig", "upstream_name"):
+            error_out("Property 'upstream_name' not found in build.py.props")
+        self.upstream_name = config.get("buildconfig", "upstream_name")
+        self.upstream_version = self._get_upstream_version()
+        print("Building upstream tgz for %s %s" % (self.upstream_name,
+                self.upstream_version))
+        self.upstream_tag = "%s-%s-1" % (self.upstream_name,
+                self.upstream_version)
+        check_tag_exists(self.upstream_tag)
+
+        self.spec_file = os.path.join(self.rpmbuild_sourcedir, self.spec_file_name)
+
+
+    def _tgz(self):
+        """
+        Override parent behavior to just create our git copy, and then get
+        the tgz for our upstream project tag we intend to build off.
+        """
+        NoTgzBuilder._tgz(self)
+
+    def _setup_sources(self):
+        # Export a copy of our spec file at the revision to be built:
+        cmd = "git show %s:%s%s > %s" % (self.git_commit_id,
+                self.relative_project_dir, self.spec_file_name,
+                self.spec_file)
+        print cmd
+
+        # TODO: grab the upstream tgz
+        # place both in rpmbuild_sourcedir
+        pass
+
+    def _get_upstream_version(self):
+        """
+        Get the upstream version. For now we expect this to be the same as
+        the Version in the spec file.
+
+        i.e. satellite-java-0.4.15 will be built on spacewalk-java-0.4.15
+        with just the package Release being incremented on rebuilds.
+        """
+        return get_spec_version(self.rpmbuild_sourcedir, self.spec_file_name)
+
+    def _get_rpmbuild_dir_options(self):
+        """
+        Override parent behavior slightly.
+
+        These packages store tar's, patches, etc, directly in their project
+        dir, use the git copy we create as the sources directory when
+        building package so everything can be found:
+        """
+        return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
+            (self.rpmbuild_sourcedir, self.rpmbuild_builddir,
+                    self.rpmbuild_basedir, self.rpmbuild_basedir)
 
 

@@ -89,7 +89,6 @@ def run_command(command):
 
 def check_tag_exists(tag):
     """ Check that the given git tag exists. """
-    print os.getcwd()
     (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
     if status > 0:
         raise Exception("Unable to locate git tag: %s" % tag)
@@ -100,6 +99,14 @@ def debug(text):
     """
     if os.environ.has_key('DEBUG'):
         print text
+
+def get_spec_version_and_release(sourcedir, spec_file_name):
+        command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
+        return run_command(command)
+
+def get_spec_version(sourcedir, spec_file_name):
+        command = """rpm -q --qf '%%{version}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
+        return run_command(command)
 
 
 

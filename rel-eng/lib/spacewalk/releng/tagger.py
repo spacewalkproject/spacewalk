@@ -22,7 +22,8 @@ import StringIO
 from time import strftime
 
 from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
-        debug
+        debug, get_spec_version_and_release
+
 
 class VersionTagger(BuildCommon):
     """
@@ -134,7 +135,7 @@ class VersionTagger(BuildCommon):
                     (self.rel_eng_dir, bump_type, self.spec_file)
             run_command(cmd)
 
-        new_version = self._get_spec_version()
+        new_version = self._get_spec_version_and_release()
         print "Tagging new version of %s: %s -> %s" % (self.project_name,
             old_version, new_version)
         return new_version
@@ -224,10 +225,9 @@ class VersionTagger(BuildCommon):
         return (run_command('git config --get user.name'), 
                 run_command('git config --get user.email'))
 
-    def _get_spec_version(self):
+    def _get_spec_version_and_release(self):
         """ Get the package version from the spec file. """
-        command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (self.full_project_dir, self.spec_file_name)
-        return run_command(command)
+        return get_spec_version_and_release(self.full_project_dir, self.spec_file_name)
 
 
 

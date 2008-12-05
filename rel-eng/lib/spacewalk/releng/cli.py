@@ -123,6 +123,7 @@ class CLI:
         # Now that we have command line options, instantiate builder/tagger:
         if found_builder_options:
             builder = builder_class(
+                    config=config,
                     tag=options.tag,
                     dist=options.dist,
                     test=options.test,
