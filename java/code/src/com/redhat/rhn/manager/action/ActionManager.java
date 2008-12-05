@@ -1487,6 +1487,7 @@ public class ActionManager extends BaseManager {
             Map row = new HashMap();
             row.put("name_id", rse.getElement());
             row.put("evr_id", rse.getElementTwo());
+            row.put("arch_id", rse.getElementThree());
             // bugzilla: 191000, we forgot to populate the damn LinkedList :(
             packages.add(row);
         }
