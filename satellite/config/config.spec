@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.4
+Version: 0.4.5
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -100,7 +100,7 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
-* Fri Dec  5 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
+* Fri Dec  5 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
 - 474591 - move web data to /usr/share/nocpulse
 
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
