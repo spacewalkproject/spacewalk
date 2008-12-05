@@ -30,5 +30,4 @@
   <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
   <template name="org.trusts" classname="com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler" />
   <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
-  <template name="cobbler" classname="com.redhat.rhn.frontend.xmlrpc.cobbler.CobblerHandler" />
 </factory>
