@@ -968,6 +968,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 Map pkgToInstall = new HashMap();
                 pkgToInstall.put("name_id", (Long) row.get("name_id"));
                 pkgToInstall.put("evr_id", (Long) row.get("evr_id"));
+                pkgToInstall.put("arch_id", (Long) row.get("package_arch_id"));
                 this.packagesToInstall.add(pkgToInstall);
                 log.debug("    packagesToInstall: " + packagesToInstall);
                 
