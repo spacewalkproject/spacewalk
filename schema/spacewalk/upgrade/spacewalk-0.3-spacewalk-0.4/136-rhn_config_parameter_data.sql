@@ -22,5 +22,6 @@ update rhn_config_parameter set value='%{NPLIB}/events.frozen' where group_name=
 update rhn_config_parameter set value='%{NPLIB}/.gripes-probe-code.gdbm' where group_name='satellite' and name='gritchdb';
 update rhn_config_parameter set value='%{NPLIB}/scheduler.xml' where group_name='satellite' and name='schedulerConfigFile';
 update rhn_config_parameter set value='%{NPLIB}/reload.please' where group_name='satellite' and name='schedulerReloadFlagFile';
+update rhn_config_parameter set value='%{NPLIB}/commands/execute_commands.log' where group_name='CommandQueue' and name='exelog';
 
 commit;

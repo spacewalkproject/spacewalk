@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
-* Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.7-1
+* Fri Dec  5 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.7-1
 - fix monitoring paths in schema
 
 * Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.6-1
