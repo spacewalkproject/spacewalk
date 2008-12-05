@@ -23,6 +23,7 @@ Provides:       libocijdbc10.so%{?lib64}   = 10.2.0
 Provides:       libclntsh.so.10.1%{?lib64} = 10.2.0
 Provides:       libociei.so%{?lib64}       = 10.2.0
 Provides:       ojdbc14                    = 10.2.0
+Obsoletes:      rhn-oracle-jdbc           <= 1.0
 
 %description
 Compatibility package so that perl-DBD-Oracle will install.
