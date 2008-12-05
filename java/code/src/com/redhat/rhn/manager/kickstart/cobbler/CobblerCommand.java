@@ -218,6 +218,7 @@ public abstract class CobblerCommand {
         return lookupCobblerProfileByUid(data.getCobblerId());
     }
     
+
     /**
      * Lookup cobbler profile by a UID
      * @param uid the uid (or cobblerID) to pull the profile with

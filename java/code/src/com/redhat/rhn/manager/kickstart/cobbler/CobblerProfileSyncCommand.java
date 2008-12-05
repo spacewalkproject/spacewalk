@@ -71,15 +71,15 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         for (KickstartData profile : profiles) {
             if (!profileNames.containsKey(profile.getCobblerId())) {
                 createProfile(profile);
+                profile.setModified(new Date());
             }
         }
         
 
-        //Are there any profiles on cobbler that have changed 
-        Map<String, Map> cobblerProfiles = getModifiedProfileNames();        
+        //Are there any profiles on cobbler that have changed     
         for (KickstartData profile : profiles) {
-            if (cobblerProfiles.containsKey(profile.getCobblerId())) {
-                Map cobProfile = cobblerProfiles.get(profile.getCobblerId());
+            if (profileNames.containsKey(profile.getCobblerId())) {
+                Map cobProfile = profileNames.get(profile.getCobblerId());
                 if ((Integer)cobProfile.get("mtime") > profile.getModified().getTime()) {
                     syncProfileToSpacewalk(cobProfile, profile);
                 }

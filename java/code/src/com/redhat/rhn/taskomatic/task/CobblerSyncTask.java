@@ -1,0 +1,93 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.taskomatic.task;
+
+import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+
+import org.apache.log4j.Logger;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
+
+import redstone.xmlrpc.XmlRpcFault;
+
+/**
+ * DailySummary task.
+ * sends daily report of stats. reaps org suggestions
+ * from rhnDailySummaryQueue. Not very "daily" since it runs every
+ * 30 seconds.  Need to look at RHN::DailySummaryEngine.  This task
+ * queues org emails, mails queued emails, then dequeues the emails.
+ * @version $Rev$
+ */
+public class CobblerSyncTask extends SingleThreadedTestableTask {
+    
+    private static final AtomicLong LAST_UPDATED = new AtomicLong();
+    
+    /**
+     * Used to log stats in the RHNDAEMONSTATE table
+     */
+    public static final String DISPLAY_NAME = "sync_from_cobbler";
+
+    private static Logger log = Logger.getLogger(CobblerSyncTask.class);
+    
+    /**
+     * Default constructor
+     */
+    public CobblerSyncTask() {
+       
+    }
+ 
+    /**
+     * {@inheritDoc}
+     */
+    public void execute(JobExecutionContext ctxIn, boolean testContextIn)
+        throws JobExecutionException {
+        
+        XMLRPCInvoker invoker = (XMLRPCInvoker)  
+            MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
+        
+        Integer mtime = null;
+        try {
+            mtime = (Integer) invoker.invokeMethod("last_modified_time", new ArrayList());
+        }
+        catch (XmlRpcFault e) {
+            log.error("Error calling cobbler.", e);
+        }
+        
+        //If we got an mtime from cobbler and that mtime is before our last update
+        // Then don't update anything
+        if (mtime != null && mtime < CobblerSyncTask.LAST_UPDATED.get()) {
+            return;
+        }
+        else {
+            CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
+            distSync.store();
+            
+            CobblerProfileSyncCommand profSync = new CobblerProfileSyncCommand();
+            profSync.store();  
+        }
+        
+        LAST_UPDATED.set((new Date()).getTime());
+       
+    }
+
+}
