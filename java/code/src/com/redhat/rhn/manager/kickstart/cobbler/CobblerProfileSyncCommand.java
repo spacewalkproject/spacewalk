@@ -85,7 +85,7 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         for (KickstartData profile : profiles) {
             if (profileNames.containsKey(profile.getCobblerId())) {
                 Map cobProfile = profileNames.get(profile.getCobblerId());
-                if ((Integer)cobProfile.get("mtime") > profile.getModified().getTime()) {
+                if ((Double)cobProfile.get("mtime") > profile.getModified().getTime()) {
                     syncProfileToSpacewalk(cobProfile, profile);
                 }
             }
