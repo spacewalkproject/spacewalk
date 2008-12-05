@@ -76,9 +76,11 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         //If we got an mtime from cobbler and that mtime is before our last update
         // Then don't update anything
         if (mtime != null && mtime < CobblerSyncTask.LAST_UPDATED.get()) {
+            log.debug("Cobbler mtime is less than last change, skipping");
             return;
         }
         else {
+            log.debug("Syncing distros and profiles.");
             CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
             distSync.store();
             
