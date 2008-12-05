@@ -591,7 +591,7 @@ public class ProfileManager extends BaseManager {
         if (log.isDebugEnabled()) {
             log.debug("  profiles .. " + profiles);
         }
-            
+
         // in order to search the list by nameid, it's easiest to
         // create a map instead of looping through n times where n
         // is the size of the RhnSet.
@@ -1096,7 +1096,7 @@ public class ProfileManager extends BaseManager {
             DataResult dr = getPackagesInChannelByIdCombo(c.getId());
             pkgsInChannels.addAll(dr);
         }
-        
+
         // now determine which packages are in pkgs but not in pkgsInChannels
         // create map for easy searching and removing dupes
         // TODO: why don't we use where channel_id IN (list of channels) instead
@@ -1110,7 +1110,7 @@ public class ProfileManager extends BaseManager {
             PackageMetadata pm = (PackageMetadata) itr.next();
             PackageListItem match = (PackageListItem)
                     pkgsInChannelsByNameId.get(pm.getIdCombo());
-            
+
             if (match == null) {
                 missingPkgs.add(pm);
             }
