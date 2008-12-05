@@ -85,6 +85,7 @@ BuildRequires: struts
 BuildRequires: sitemesh
 Obsoletes: rhn-java <= 5.2
 Obsoletes: rhn-java-sat <= 5.2
+Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
 
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
