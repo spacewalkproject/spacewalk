@@ -22,6 +22,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * PackageListItem
  * @version $Rev$
@@ -42,11 +44,13 @@ public class PackageListItem extends IdComboDto {
     private Long packageId;
     private Long nameId;
     private Long evrId;
+    private Long archId;
     private String path;
     private String arch;
     private List channelName;
     private List channelId;
     private String evr;
+    private String evra;
     private String summary;
     private String nvrea;
     
@@ -153,6 +157,18 @@ public class PackageListItem extends IdComboDto {
      */
     public void setEvrId(Long evrIdIn) {
         evrId = evrIdIn;
+    }
+    /**
+     * @return Returns the archId.
+     */
+    public Long getArchId() {
+        return archId;
+    }
+    /**
+     * @param archIdIn The archId to set.
+     */
+    public void setArchId(Long archIdIn) {
+        archId = archIdIn;
     }
     /**
      * @return Returns the idCombo.
@@ -355,6 +371,18 @@ public class PackageListItem extends IdComboDto {
         this.evr = evrIn;
     }
     /**
+     * @return Returns the evra.
+     */
+    public String getEvra() {
+        return evra;
+    }
+    /**
+     * @param evraIn The evra to set.
+     */
+    public void setEvra(String evraIn) {
+        this.evra = evraIn;
+    }
+    /**
      * @return Returns the summary.
      */
     public String getSummary() {
@@ -378,7 +406,6 @@ public class PackageListItem extends IdComboDto {
     public void setNvrea(String aNvrea) {
         this.nvrea = aNvrea;
     }
-    
     /**
      * Get a string representation of NEVR:
      * 
@@ -386,7 +413,7 @@ public class PackageListItem extends IdComboDto {
      * 
      * @return String representation of package's NEVR
      */
-    public String getNameEpochVersionRelease() {
+    public String getNevr() {
         String e = (this.getEpoch() != null) ? this.getEpoch() : "0";
         String v = (this.getVersion() != null) ? this.getVersion() : "0";
         String r = (this.getRelease() != null) ? this.getRelease() : "0";
@@ -439,5 +466,77 @@ public class PackageListItem extends IdComboDto {
             item.setNvre(row[1]);    
         }
         return item;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+
+        if (this.getIdCombo() != null) {
+            builder.append("idCombo", this.getIdCombo());
+        }
+        if (this.getId() != null) {
+            builder.append("id", this.getId());
+        }
+        if (this.getNvre() != null) {
+            builder.append("nvre", this.getNvre());
+        }
+        if (this.getPatchType() != null) {
+            builder.append("patchType", this.getPatchType());
+        }
+        if (this.getName() != null) {
+            builder.append("name", this.getName());
+        }
+        if (this.getVersion() != null) {
+            builder.append("version", this.getVersion());
+        }
+        if (this.getRelease() != null) {
+            builder.append("release", this.getRelease());
+        }
+        if (this.getEpoch() != null) {
+            builder.append("epoch", this.getEpoch());
+        }
+        if (this.getTimestamp() != null) {
+            builder.append("timestamp", this.getTimestamp());
+        }
+        if (this.getActionStatus() != null) {
+            builder.append("actionStatus", this.getActionStatus());
+        }
+        if (this.getTimestamp() != null) {
+            builder.append("timestamp", this.getTimestamp());
+        }
+        if (this.getPackageId() != null) {
+            builder.append("packageId", this.getPackageId());
+        }
+        if (this.getNameId() != null) {
+            builder.append("nameId", this.getNameId());
+        }
+        if (this.getEvrId() != null) {
+            builder.append("evrId", this.getEvrId());
+        }
+        if (this.getArchId() != null) {
+            builder.append("archId", this.getArchId());
+        }
+        if (this.getArch() != null) {
+            builder.append("idCombo", this.getIdCombo());
+        }
+        if (this.getPath() != null) {
+            builder.append("idCombo", this.getIdCombo());
+        }
+        if (this.getEvr() != null) {
+            builder.append("evr", this.getEvr());
+        }
+        if (this.getEvra() != null) {
+            builder.append("evra", this.getEvra());
+        }
+        if (this.getSummary() != null) {
+            builder.append("idCombo", this.getIdCombo());
+        }
+        if (this.getNvrea() != null) {
+            builder.append("nvrea", this.getNvrea());
+        }
+        return builder.toString();
     }
 }

@@ -5,6 +5,77 @@
     version="1.1">
   <file source-language="en" datatype="plaintext" original="">
     <body>
+
+    <!-- Generic column headings. The intent is that these can be reused across multiple pages.-->
+    <group>
+
+        <trans-unit id="column.architecture">
+            <source>Architecture</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/PackageList</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.basechannel">
+            <source>Base Channel</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/List</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.created">
+            <source>Created</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/List</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.name">
+            <source>Name</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/List</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.package">
+            <source>Package</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/PackageList</context>
+            </context-group>
+        </trans-unit>
+
+    </group>
+
+    <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
+    <group>
+
+        <trans-unit id="row.name">
+            <source>Name</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/Details</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="row.description">
+            <source>Description</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/Details</context>
+            </context-group>
+        </trans-unit>
+    </group>
+
+    <!-- Generic buttons. The intent is that these can be reused across multiple pages.-->
+    <group>
+
+        <trans-unit id="button.update">
+            <source>Update</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/Details</context>
+            </context-group>
+        </trans-unit>
+
+    </group>
+
       <trans-unit id="nosystems.message">
 <source>No systems.</source>
         <context-group name="ctx">
@@ -2950,6 +3021,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList</context>
+          <context context-type="sourcefile">/rhn/profiles/PackageList</context>
         </context-group>
       </trans-unit>
 
@@ -11574,6 +11646,54 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
      </group>
 
+    <!-- profiles/list.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/profiles/List.do</context>
+       </context-group>
+
+       <trans-unit id="profile.list.header">
+         <source>Stored Profiles</source>
+       </trans-unit>
+
+       <trans-unit id="profile.list.header.alt">
+         <source>Profile Icon</source>
+       </trans-unit>
+
+       <trans-unit id="profile.list.summary">
+         <source>The following stored profiles exist within your organization. To create a stored profile from a system, go to the Packages view for that system.</source>
+       </trans-unit>
+
+       <trans-unit id="profile.list.noprofiles">
+         <source>No stored profiles.</source>
+       </trans-unit>
+    </group>
+
+    <!-- profiles/details.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/profiles/Details.do</context>
+       </context-group>
+
+       <trans-unit id="profile.details.toolbar">
+         <source>Stored Profile: </source>
+       </trans-unit>
+
+       <trans-unit id="profile.details.summary">
+         <source>Edit the profile below.</source>
+       </trans-unit>
+    </group>
+
+    <!-- profiles/packagelist.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/profiles/Details.do</context>
+       </context-group>
+
+       <trans-unit id="profile.packagelist.summary">
+         <source>The following packages are associated with this stored profile.</source>
+       </trans-unit>
+    </group>
 
      <!-- System Common -->
      <group>

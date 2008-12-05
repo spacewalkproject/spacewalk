@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="profiles" invisible="1" formvar="prid" title-depth="1">
+  <rhn-tab name="Details" url="/rhn/profiles/Details.do" />
+  <rhn-tab name="Packages" url="/rhn/profiles/PackageList.do" />
+</rhn-navi-tree>

@@ -27,6 +27,12 @@
            <form-property name="packages" type="java.lang.String"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
+       <form-bean name="storedProfileForm"
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="name" type="java.lang.String"/>
+           <form-property name="description" type="java.lang.String"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
         <form-bean name="createSatelliteForm"
             type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="account_type" type="java.lang.String"/>
@@ -4645,6 +4651,34 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/systems/List.do"/>                 
     </action>    
+
+    <!-- Stored Profiles Pages -->
+
+    <action path="/profiles/List"
+        name="storedProfileForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.ProfilesListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/profiles/list.jsp"/>
+        <forward name="success" path="/profiles/List.do" redirect = "true"/>
+    </action>
+
+    <action path="/profiles/Details"
+        name="storedProfileForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.ProfileDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/profiles/details.jsp" />
+        <forward name="success" path="/profiles/Details.do" redirect="true" />
+    </action>
+
+    <action path="/profiles/PackageList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.PackageListAction">
+        <forward name="default" path="/WEB-INF/pages/profiles/packagelist.jsp"/>
+        <forward name="success" path="/profiles/PackageList.do" redirect="true" />
+    </action>
+
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"

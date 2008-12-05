@@ -862,8 +862,6 @@ public class ActionManager extends BaseManager {
         if (pkgs == null || pkgs.isEmpty()) {
             return null;
         }
-        
-        
 
         Action action = scheduleAction(scheduler, server,
                 ActionFactory.TYPE_PACKAGES_RUNTRANSACTION, 
@@ -907,7 +905,8 @@ public class ActionManager extends BaseManager {
                   params.put("r", pm.getSystem().getRelease());
                   String epoch = pm.getSystem().getEpoch();
                   params.put("e", epoch != null ? epoch : "");
-                  params.put("a", "");
+                  params.put("a", pm.getSystem().getArch() != null ?
+                          pm.getSystem().getArch() : "");
                   m.executeUpdate(params);
               }
               else if (pm.getComparisonAsInt() == PackageMetadata.KEY_OTHER_ONLY) {
@@ -924,7 +923,8 @@ public class ActionManager extends BaseManager {
                   params.put("r", pm.getOther().getRelease());
                   String epoch = pm.getOther().getEpoch();
                   params.put("e", epoch != null ? epoch : "");
-                  params.put("a", "");
+                  params.put("a", pm.getOther().getArch() != null ?
+                          pm.getOther().getArch() : "");
                   m.executeUpdate(params);
 
               }

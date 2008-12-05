@@ -12,31 +12,29 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.frontend.action.rhnpackage.ssm;
+package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForm;
-import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.manager.profile.ProfileManager;
 
 /**
- * Handles listing and selecting a number of packages to remove from systems in the SSM.
+ * This action will present the user with a list of all stored profiles
+ * and allow one to be seleted.
  *
  * @version $Revision$
  */
-public class SelectRemovePackagesAction extends RhnAction implements Listable {
+public class ProfilesListAction extends RhnListAction implements Listable {
 
     private static final String DATA_SET = "pageList";
 
@@ -44,28 +42,18 @@ public class SelectRemovePackagesAction extends RhnAction implements Listable {
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
-                                 HttpServletResponse response) throws Exception {
-        request.setAttribute("parentUrl", request.getRequestURI());
+                                 HttpServletResponse response)
+        throws Exception {
 
-        Map params = new HashMap();
-
-        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+        ListHelper helper = new ListHelper(this, request);
         helper.setDataSetName(DATA_SET);
         helper.execute();
-
-        if (helper.isDispatched()) {
-            request.setAttribute("packagesDecl", helper.getDecl());
-            return actionMapping.findForward("confirm");
-        }
-
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
-        DataResult result = PackageManager.packagesFromServerSet(user);
-
-        return result;
+        return ProfileManager.listProfileOverviews(user.getOrg().getId());
     }
 }
