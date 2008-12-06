@@ -23,10 +23,9 @@ from server.rhnServer import server_kickstart, server_packages
 __rhnexport__ = ['initiate', 'schedule_sync']
 
 _query_initiate = rhnSQL.Statement("""
-    select ak.append_string, kst.boot_image, ak.static_device, ak.kickstart_host
+    select ak.append_string, ak.static_device, ak.kickstart_host
       from rhnActionKickstart ak, rhnKickstartableTree kst 
      where ak.action_id = :action_id
-       and ak.kstree_id = kst.id
 """)
 
 _query_file_list_initiate= rhnSQL.Statement("""
@@ -48,7 +47,7 @@ def initiate(server_id, action_id):
     row = h.fetchone_dict()
     if not row:
         raise InvalidAction("Kickstart action without an associated kickstart")
-    boot_image, append_string = (row['boot_image'], row['append_string'])
+    boot_image, append_string = ('spacewalk-koan', row['append_string'])
     static_device = row['static_device'] or ""
     kickstart_host = row['kickstart_host']
     if not boot_image:

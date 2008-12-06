@@ -60,6 +60,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(RhnTimeZoneSerializer.class);
         SERIALIZER_CLASSES.add(ScriptResultSerializer.class);    
         SERIALIZER_CLASSES.add(ServerSerializer.class);    
+        SERIALIZER_CLASSES.add(SystemSearchResultSerializer.class);
         SERIALIZER_CLASSES.add(SystemOverviewSerializer.class);    
         SERIALIZER_CLASSES.add(UserSerializer.class);
         SERIALIZER_CLASSES.add(KickstartTreeSerializer.class);

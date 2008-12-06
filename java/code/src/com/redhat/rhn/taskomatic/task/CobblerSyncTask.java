@@ -65,20 +65,24 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         XMLRPCInvoker invoker = (XMLRPCInvoker)  
             MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
         
-        Integer mtime = null;
+        Double mtime = null;
         try {
-            mtime = (Integer) invoker.invokeMethod("last_modified_time", new ArrayList());
+            mtime = (Double) invoker.invokeMethod("last_modified_time", new ArrayList());
         }
         catch (XmlRpcFault e) {
             log.error("Error calling cobbler.", e);
         }
         
+        
+        log.debug("mtime: " + mtime.longValue() + ", last modified: " +  LAST_UPDATED.get());
         //If we got an mtime from cobbler and that mtime is before our last update
         // Then don't update anything
-        if (mtime != null && mtime < CobblerSyncTask.LAST_UPDATED.get()) {
+        if (mtime != null && mtime.longValue() < CobblerSyncTask.LAST_UPDATED.get()) {
+            log.debug("Cobbler mtime is less than last change, skipping");
             return;
         }
         else {
+            log.debug("Syncing distros and profiles.");
             CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
             distSync.store();
             
@@ -86,7 +90,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
             profSync.store();  
         }
         
-        LAST_UPDATED.set((new Date()).getTime());
+        LAST_UPDATED.set((new Date()).getTime()/1000 + 1);
        
     }
 

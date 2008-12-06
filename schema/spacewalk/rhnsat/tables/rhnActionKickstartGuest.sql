@@ -30,11 +30,6 @@ rhnActionKickstartGuest
                                 constraint rhn_actionks_xenguest_ksid_fk
                                         references rhnKickstartSession(id)
                                         on delete cascade,
-	kstree_id		number
-				constraint rhn_actionks_xenguest_kstid_nn not null
-				constraint rhn_actionks_xenguest_kstid_fk
-					references rhnKickstartableTree(id)
-					on delete cascade,
 	guest_name		varchar2(256),
 	mem_kb			number, 
 	vcpus			number,
@@ -74,6 +69,11 @@ end;
 show errors
 
 --
+--
+-- Revision 1.9  2008/12/05 06:53:22  paji
+-- bugzilla: none -- removing the kstree_id as it provides
+-- no useful information. This change will enable us to 
+-- use cobbler only profiles..
 --
 -- Revision 1.8  2004/05/27 22:59:34  pjones
 -- bugzilla: none -- rhnActionKickstartFileList, so we can find what KSData

@@ -25,9 +25,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		     class="com.redhat.rhn.domain.action.Action" outer-join="true" 
 		     not-null="true" insert="true" update="false" />
   
-        <many-to-one name="tree"
-		     class="com.redhat.rhn.domain.kickstart.KickstartableTree"
-		     column="kstree_id"/>
                 
         <set name="fileLists" table="RHNACTIONKICKSTARTFILELIST" lazy="true">
             <key column="action_ks_id"/>

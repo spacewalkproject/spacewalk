@@ -17,15 +17,18 @@ package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -51,6 +54,36 @@ import redstone.xmlrpc.XmlRpcFault;
  */
 public class SystemSearchHelper {
     private static Logger log = Logger.getLogger(SystemSearchHelper.class);
+
+    public static final String NAME_AND_DESCRIPTION =
+        "systemsearch_name_and_description";
+    public static final String ID = "systemsearch_id";
+    public static final String CUSTOM_INFO = "systemsearch_custom_info";
+    public static final String SNAPSHOT_TAG = "systemsearch_snapshot_tag";
+    public static final String CHECKIN = "systemsearch_checkin";
+    public static final String REGISTERED = "systemsearch_registered";
+    public static final String CPU_MODEL = "systemsearch_cpu_model";
+    public static final String CPU_MHZ_LT = "systemsearch_cpu_mhz_lt";
+    public static final String CPU_MHZ_GT = "systemsearch_cpu_mhz_gt";
+    public static final String NUM_CPUS_LT = "systemsearch_num_of_cpus_lt";
+    public static final String NUM_CPUS_GT = "systemsearch_num_of_cpus_gt";
+    public static final String RAM_LT = "systemsearch_ram_lt";
+    public static final String RAM_GT = "systemsearch_ram_gt";
+    public static final String HW_DESCRIPTION = "systemsearch_hwdevice_description";
+    public static final String HW_DRIVER = "systemsearch_hwdevice_driver";
+    public static final String HW_DEVICE_ID = "systemsearch_hwdevice_device_id";
+    public static final String HW_VENDOR_ID = "systemsearch_hwdevice_vendor_id";
+    public static final String DMI_SYSTEM = "systemsearch_dmi_system";
+    public static final String DMI_BIOS = "systemsearch_dmi_bios";
+    public static final String DMI_ASSET = "systemsearch_dmi_asset";
+    public static final String HOSTNAME = "systemsearch_hostname";
+    public static final String IP = "systemsearch_ip";
+    public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
+    public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
+    public static final String LOC_ADDRESS = "systemsearch_location_address";
+    public static final String LOC_BUILDING = "systemsearch_location_building";
+    public static final String LOC_ROOM = "systemsearch_location_room";
+    public static final String LOC_RACK = "systemsearch_location_rack";
 
     /**
      * These vars store the name of a lucene index on the search server
@@ -83,14 +116,47 @@ public class SystemSearchHelper {
                                           Boolean invertResults,
                                           String whereToSearch)
         throws XmlRpcFault, MalformedURLException {
+        WebSession session = ctx.getWebSession();
+        String key = session.getKey();
+        return systemSearch(key, searchString, viewMode, invertResults, whereToSearch);
+    }
+
+    /**
+     * Returns a DataResult of SystemSearchResults which are based on the user's search
+     * criteria
+     * @param sessionKey key for this session
+     * @param searchString string to search on
+     * @param viewMode what field to search
+     * @param invertResults whether the results should be inverted
+     * @param whereToSearch whether to search through all user visible systems or the
+     *        systems selected in the SSM
+     * @return DataResult of SystemSearchResults based on user's search criteria
+     * @throws XmlRpcFault on xmlrpc error
+     * @throws MalformedURLException on bad search server address
+     */
+    public static DataResult systemSearch(String sessionKey,
+            String searchString,
+            String viewMode,
+            Boolean invertResults,
+            String whereToSearch)
+        throws XmlRpcFault, MalformedURLException {
+
+        WebSession session = SessionManager.loadSession(sessionKey);
+        Long sessionId = session.getId();
+        User user = session.getUser();
+
+        //Make sure there was a valid user in the session. If not, the session is invalid.
+        if (user == null) {
+            throw new LookupException("Could not find a valid user for session with key: " +
+                                      sessionKey);
+        }
+
         /**
          * Determine what index to search and form the query
          */
         Map<String, String> params = preprocessSearchString(searchString, viewMode);
         String query = (String)params.get("query");
         String index = (String)params.get("index");
-        Long sessionId = ctx.getWebSession().getId();
-        User user = ctx.getCurrentUser();
         /**
          * Contact the XMLRPC search server and get back the results
          */
@@ -101,7 +167,7 @@ public class SystemSearchHelper {
          */
         Map serverIds = null;
         if (PACKAGES_INDEX.equals(index)) {
-            serverIds = getResultMapFromPackagesIndex(ctx, results, viewMode);
+            serverIds = getResultMapFromPackagesIndex(user, results, viewMode);
         }
         else if (SERVER_INDEX.equals(index)) {
             serverIds = getResultMapFromServerIndex(results);
@@ -171,23 +237,23 @@ public class SystemSearchHelper {
         String query;
         String index;
 
-        if (SystemSearchSetupAction.NAME_AND_DESCRIPTION.equals(mode)) {
+        if (NAME_AND_DESCRIPTION.equals(mode)) {
             query = "name:(" + terms + ") description:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.ID.equals(mode)) {
+        else if (ID.equals(mode)) {
             query = "id:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.CUSTOM_INFO.equals(mode)) {
+        else if (CUSTOM_INFO.equals(mode)) {
             query = "value:(" + terms + ")";
             index = SERVER_CUSTOM_INFO_INDEX;
         }
-        else if (SystemSearchSetupAction.SNAPSHOT_TAG.equals(mode)) {
+        else if (SNAPSHOT_TAG.equals(mode)) {
             query = "name:(" + terms + ")";
             index = SNAPSHOT_TAG_INDEX;
         }
-        else if (SystemSearchSetupAction.CHECKIN.equals(mode)) {
+        else if (CHECKIN.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
             Calendar startDate = Calendar.getInstance();
             startDate.add(Calendar.DATE, -1 * numDays);
@@ -195,7 +261,7 @@ public class SystemSearchHelper {
             "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.REGISTERED.equals(mode)) {
+        else if (REGISTERED.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
             Calendar startDate = Calendar.getInstance();
             startDate.add(Calendar.DATE, -1 * numDays);
@@ -203,92 +269,92 @@ public class SystemSearchHelper {
             "\" TO \"" + formatDateString(Calendar.getInstance().getTime()) + "\"]";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.CPU_MODEL.equals(mode)) {
+        else if (CPU_MODEL.equals(mode)) {
             query = "cpuModel:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.CPU_MHZ_LT.equals(mode)) {
+        else if (CPU_MHZ_LT.equals(mode)) {
             query = "cpuMhz:[0 TO " + terms + "]";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.CPU_MHZ_GT.equals(mode)) {
+        else if (CPU_MHZ_GT.equals(mode)) {
             query = "cpuMhz:[" + terms + " TO " + Long.MAX_VALUE + "]";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.NUM_CPUS_LT.equals(mode)) {
+        else if (NUM_CPUS_LT.equals(mode)) {
             query = "cpuNumberOfCpus:{0 TO " + terms + "}";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.NUM_CPUS_GT.equals(mode)) {
+        else if (NUM_CPUS_GT.equals(mode)) {
             query = "cpuNumberOfCpus:{" + terms + " TO " + Long.MAX_VALUE + "}";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.RAM_LT.equals(mode)) {
+        else if (RAM_LT.equals(mode)) {
             query = "ram:{0 TO " + terms + "}";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.RAM_GT.equals(mode)) {
+        else if (RAM_GT.equals(mode)) {
             query = "ram:{" + terms + " TO " + Long.MAX_VALUE + "}";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.HW_DESCRIPTION.equals(mode)) {
+        else if (HW_DESCRIPTION.equals(mode)) {
             query = "description:(" + terms + ")";
             index = HARDWARE_DEVICE_INDEX;
         }
-        else if (SystemSearchSetupAction.HW_DRIVER.equals(mode)) {
+        else if (HW_DRIVER.equals(mode)) {
             query = "driver:(" + terms + ")";
             index = HARDWARE_DEVICE_INDEX;
         }
-        else if (SystemSearchSetupAction.HW_DEVICE_ID.equals(mode)) {
+        else if (HW_DEVICE_ID.equals(mode)) {
             query = "deviceId:(" + terms + ")";
             index = HARDWARE_DEVICE_INDEX;
         }
-        else if (SystemSearchSetupAction.HW_VENDOR_ID.equals(mode)) {
+        else if (HW_VENDOR_ID.equals(mode)) {
             query = "vendorId:(" + terms + ")";
             index = HARDWARE_DEVICE_INDEX;
         }
-        else if (SystemSearchSetupAction.DMI_SYSTEM.equals(mode)) {
+        else if (DMI_SYSTEM.equals(mode)) {
             query = "dmiSystem:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.DMI_BIOS.equals(mode)) {
+        else if (DMI_BIOS.equals(mode)) {
             query = "dmiBiosVendor:(" + terms + ") dmiBiosVersion:(" + terms + ")" +
                 "dmiBiosRelease:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.DMI_ASSET.equals(mode)) {
+        else if (DMI_ASSET.equals(mode)) {
             query = "dmiAsset:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.HOSTNAME.equals(mode)) {
+        else if (HOSTNAME.equals(mode)) {
             query = "hostname:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.IP.equals(mode)) {
+        else if (IP.equals(mode)) {
             query = "ipaddr:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(mode)) {
+        else if (INSTALLED_PACKAGES.equals(mode)) {
             query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
         }
-        else if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(mode)) {
+        else if (NEEDED_PACKAGES.equals(mode)) {
             query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
         }
-        else if (SystemSearchSetupAction.LOC_ADDRESS.equals(mode)) {
+        else if (LOC_ADDRESS.equals(mode)) {
             query = "address1:(" + terms + ") address2:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.LOC_BUILDING.equals(mode)) {
+        else if (LOC_BUILDING.equals(mode)) {
             query = "building:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.LOC_ROOM.equals(mode)) {
+        else if (LOC_ROOM.equals(mode)) {
             query = "room:(" + terms + ")";
             index = SERVER_INDEX;
         }
-        else if (SystemSearchSetupAction.LOC_RACK.equals(mode)) {
+        else if (LOC_RACK.equals(mode)) {
             query = "rack:(" + terms + ")";
             index = SERVER_INDEX;
         }
@@ -310,12 +376,11 @@ public class SystemSearchHelper {
      * TODO:  Look into a quicker/more efficient implementation.  This appears to
      * work....but I think it can be become quicker.
      */
-    protected static Map getResultMapFromPackagesIndex(RequestContext ctx, 
+    protected static Map getResultMapFromPackagesIndex(User user,
             List searchResults, String viewMode) {
         // this is our main result Map which we will return, it's keys
         // represent the list of server Ids this search yielded
         Map serverMaps = new HashMap();
-        User user = ctx.getCurrentUser();
         for (Object obj : searchResults) {
             Map result = (Map)obj;
             Map pkgItem = new HashMap();
@@ -343,10 +408,10 @@ public class SystemSearchHelper {
                 continue;
             }
             List<Long> serverIds = null;
-            if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(viewMode)) {
+            if (INSTALLED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByInstalledPackageId(user, pkgId);
             }
-            if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(viewMode)) {
+            if (NEEDED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByNeededPackageId(user, pkgId);
             }
             for (Long s : serverIds) {

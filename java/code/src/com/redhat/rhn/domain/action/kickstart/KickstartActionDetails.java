@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.action.kickstart;
 
 import com.redhat.rhn.domain.action.ActionChild;
 import com.redhat.rhn.domain.common.FileList;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +30,6 @@ public class KickstartActionDetails extends ActionChild {
     private String kickstartHost;
     private Set fileLists;
     private Long id;
-    private KickstartableTree tree;
     private String staticDevice;
     
     /**
@@ -57,20 +55,6 @@ public class KickstartActionDetails extends ActionChild {
      */
     public void setFileLists(Set f) {
         this.fileLists = f;
-    }
-    
-    /**
-     * @return Returns the ableTree.
-     */
-    public KickstartableTree getTree() {
-        return tree;
-    }
-    
-    /**
-     * @param t The Tree to set.
-     */
-    public void setTree(KickstartableTree t) {
-        this.tree = t;
     }
     
     /**

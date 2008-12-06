@@ -72,8 +72,6 @@ public class KickstartActionTest extends RhnBaseTestCase {
         KickstartActionDetails ksad2 = k2.getKickstartActionDetails();
         assertEquals(ksad2.getAppendString(), appendTestString);
         
-        assertEquals(ksad2.getTree().getLabel(), ksad2.getTree().getLabel());
-        
         FileList f = new FileList();
         f.setLabel("TestingKSAction" + TestUtils.randomString());
         f.setOrg(k.getOrg());
@@ -108,8 +106,6 @@ public class KickstartActionTest extends RhnBaseTestCase {
                                          ActionFactory.lookupById(id);
         KickstartActionDetails ksad2 = k2.getKickstartActionDetails();
         assertEquals(ksad2.getAppendString(), appendTestString);
-        
-        assertEquals(ksad.getTree().getLabel(), ksad2.getTree().getLabel());
         
         FileList f = new FileList();
         f.setLabel("TestingKSAction" + TestUtils.randomString());

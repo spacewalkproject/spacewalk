@@ -19,6 +19,8 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
+import org.apache.log4j.Logger;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,12 +33,16 @@ import java.util.Map;
  */
 public class CobblerDistroSyncCommand extends CobblerCommand {
 
+    
+    private Logger log;
+    
     /**
      * Constructor to create a 
      * DistorSyncCommand
      */
     public CobblerDistroSyncCommand() {
         super();
+        log = Logger.getLogger(this.getClass());
     }
     
 
@@ -62,16 +68,25 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         Map<String, Map> cobblerDistros = getDistros();
         for (KickstartableTree tree : trees) {
             if (!cobblerDistros.containsKey(tree.getCobblerId())) {
-                createDistro(tree);
-                tree.setModified(new Date());
+                try {
+                    createDistro(tree);
+                    tree.setModified(new Date());
+                }
+                catch (RuntimeException e) {
+                    //we want to handle distro creation error conditions better..
+                    // TODO add remove here
+                }
             }
         }
         
+        log.debug(trees);
+        log.debug(cobblerDistros);
         //Are there any distros on cobbler that have changed       
         for (KickstartableTree tree : trees) {
             if (cobblerDistros.containsKey(tree.getCobblerId())) {
                 Map cobDistro = cobblerDistros.get(tree.getCobblerId());
-                if ((Integer)cobDistro.get("mtime") > tree.getModified().getTime()) {
+                log.debug(tree.getLabel() + ": " + cobDistro.get("mtime") + " - " + tree.getModified().getTime());
+                if (((Double)cobDistro.get("mtime")).longValue() > tree.getModified().getTime()/1000) {
                     syncDistroToSpacewalk(tree, cobDistro);
                 }
             }
@@ -85,6 +100,8 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     }
     
     private void syncDistroToSpacewalk(KickstartableTree tree, Map distro) {
+        log.debug("Syncing distro: " + tree.getLabel() + " known in cobbler as: " +
+                distro.get("name"));
         
         if (tree.isRhnTree()) {
             String handle = (String) invokeXMLRPC("get_distro_handle", distro.get("name"), 

@@ -39,9 +39,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private static Logger log = Logger.getLogger(CobblerSystemCreateCommand.class);
     
     private Server server;
-    private KickstartData ksData;
+//    private KickstartData ksData;
     private String mediaUrl;
     
+    private String name;
     /**
      * Constructor
      * @param userIn who is requesting the sync
@@ -53,10 +54,26 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             KickstartData ksDataIn, String mediaUrlIn) {
         super(userIn);
         this.server = serverIn;
-        this.ksData = ksDataIn;
         this.mediaUrl = mediaUrlIn;
+        name = (String)lookupCobblerProfile(ksDataIn).get("name");
     }
 
+
+    /**
+     * Constructor
+     * @param userIn who is requesting the sync
+     * @param serverIn profile we want to create in cobbler
+     * @param nameIn profile nameIn to associate with with server.
+     * @param mediaUrlIn mediaUrl to override in the server profile.
+     */
+    public CobblerSystemCreateCommand(User userIn, Server serverIn, 
+            String nameIn, String mediaUrlIn) {
+        super(userIn);
+        this.server = serverIn;
+        name = nameIn;
+        this.mediaUrl = mediaUrlIn;
+    }    
+    
     /**
      * Store the System to cobbler
      * @return ValidatorError if the store failed.
@@ -84,7 +101,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
         args = new String[]{handle, "profile", 
-                (String) lookupCobblerProfile(this.ksData).get("name"), xmlRpcToken};
+                name, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
         // Setup the kickstart metadata so the URLs and activation key are setup

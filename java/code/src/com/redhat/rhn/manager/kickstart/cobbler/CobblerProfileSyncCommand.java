@@ -20,6 +20,8 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
+import org.apache.log4j.Logger;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,11 +35,14 @@ import java.util.Map;
  */
 public class CobblerProfileSyncCommand extends CobblerCommand {
   
+    private Logger log;
+    
     /**
      * Command to sync unsynced Kickstart profiles to cobbler. 
      */
     public CobblerProfileSyncCommand() {
         super();
+        log = Logger.getLogger(this.getClass());
     }
     
 
@@ -76,11 +81,14 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         }
         
 
+        log.debug(profiles);
+        log.debug(profileNames);
         //Are there any profiles on cobbler that have changed     
         for (KickstartData profile : profiles) {
             if (profileNames.containsKey(profile.getCobblerId())) {
                 Map cobProfile = profileNames.get(profile.getCobblerId());
-                if ((Integer)cobProfile.get("mtime") > profile.getModified().getTime()) {
+                log.debug(profile.getLabel() + ": " + cobProfile.get("mtime") + " - " + profile.getModified().getTime());
+                if (((Double)cobProfile.get("mtime")).longValue() > profile.getModified().getTime()/1000) {
                     syncProfileToSpacewalk(cobProfile, profile);
                 }
             }
@@ -107,7 +115,8 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
      * @param profile
      */
     private void syncProfileToSpacewalk(Map cobblerProfile, KickstartData profile) {
-
+        log.debug("Syncing profile: " + profile.getLabel() + " known in cobbler as: " +
+                cobblerProfile.get("name"));
         //Do we need to sync the distro?
         Map distro = (Map) invokeXMLRPC("get_distro", cobblerProfile.get("distro"));
         if (!distro.get("uid").equals(profile.getTree().getCobblerId())) {

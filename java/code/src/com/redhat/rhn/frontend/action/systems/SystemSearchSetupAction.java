@@ -63,37 +63,6 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
 
     public static final String LIST_NAME = "pageList";
     public static final String DATA_SET = "searchResults";
-    public static final String CACHED_DATA_NAME = "cachedSearchResults";
-    
-    public static final String NAME_AND_DESCRIPTION =
-        "systemsearch_name_and_description";
-    public static final String ID = "systemsearch_id";
-    public static final String CUSTOM_INFO = "systemsearch_custom_info";
-    public static final String SNAPSHOT_TAG = "systemsearch_snapshot_tag";
-    public static final String CHECKIN = "systemsearch_checkin";
-    public static final String REGISTERED = "systemsearch_registered";
-    public static final String CPU_MODEL = "systemsearch_cpu_model";
-    public static final String CPU_MHZ_LT = "systemsearch_cpu_mhz_lt";
-    public static final String CPU_MHZ_GT = "systemsearch_cpu_mhz_gt";
-    public static final String NUM_CPUS_LT = "systemsearch_num_of_cpus_lt";
-    public static final String NUM_CPUS_GT = "systemsearch_num_of_cpus_gt";
-    public static final String RAM_LT = "systemsearch_ram_lt";
-    public static final String RAM_GT = "systemsearch_ram_gt";
-    public static final String HW_DESCRIPTION = "systemsearch_hwdevice_description";
-    public static final String HW_DRIVER = "systemsearch_hwdevice_driver";
-    public static final String HW_DEVICE_ID = "systemsearch_hwdevice_device_id";
-    public static final String HW_VENDOR_ID = "systemsearch_hwdevice_vendor_id";
-    public static final String DMI_SYSTEM = "systemsearch_dmi_system";
-    public static final String DMI_BIOS = "systemsearch_dmi_bios";
-    public static final String DMI_ASSET = "systemsearch_dmi_asset";
-    public static final String HOSTNAME = "systemsearch_hostname";
-    public static final String IP = "systemsearch_ip";
-    public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
-    public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
-    public static final String LOC_ADDRESS = "systemsearch_location_address";
-    public static final String LOC_BUILDING = "systemsearch_location_building";
-    public static final String LOC_ROOM = "systemsearch_location_room";
-    public static final String LOC_RACK = "systemsearch_location_rack";
     
     public static final String[] OPT_GROUPS_TITLES = { "systemsearch.jsp.details",
                                                      "systemsearch.jsp.activity", 
@@ -107,53 +76,53 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
     public static final String[][] OPT_GROUPS = 
                                     {
                                      /* details */
-                                     {  NAME_AND_DESCRIPTION,
-                                        ID,
-                                        CUSTOM_INFO,
-                                        SNAPSHOT_TAG
+                                     {  SystemSearchHelper.NAME_AND_DESCRIPTION,
+                                        SystemSearchHelper.ID,
+                                        SystemSearchHelper.CUSTOM_INFO,
+                                        SystemSearchHelper.SNAPSHOT_TAG
                                      },
                                      /* activity group */
-                                     {  CHECKIN,
-                                         REGISTERED
+                                     {  SystemSearchHelper.CHECKIN,
+                                        SystemSearchHelper.REGISTERED
                                      },
                                      /* hardware group */
                                      {
-                                        CPU_MODEL,
-                                        CPU_MHZ_LT,
-                                        CPU_MHZ_GT,
-                                        NUM_CPUS_LT,
-                                        NUM_CPUS_GT,
-                                        RAM_LT,
-                                        RAM_GT
+                                        SystemSearchHelper.CPU_MODEL,
+                                        SystemSearchHelper.CPU_MHZ_LT,
+                                        SystemSearchHelper.CPU_MHZ_GT,
+                                        SystemSearchHelper.NUM_CPUS_LT,
+                                        SystemSearchHelper.NUM_CPUS_GT,
+                                        SystemSearchHelper.RAM_LT,
+                                        SystemSearchHelper.RAM_GT
                                      },
                                      /* device group */
-                                     {  HW_DESCRIPTION,
-                                        HW_DRIVER,
-                                        HW_DEVICE_ID,
-                                        HW_VENDOR_ID
+                                     {  SystemSearchHelper.HW_DESCRIPTION,
+                                        SystemSearchHelper.HW_DRIVER,
+                                        SystemSearchHelper.HW_DEVICE_ID,
+                                        SystemSearchHelper.HW_VENDOR_ID
                                      },
                                      /* dmiinfo */
                                      {
-                                        DMI_SYSTEM,
-                                        DMI_BIOS,
-                                        DMI_ASSET
+                                        SystemSearchHelper.DMI_SYSTEM,
+                                        SystemSearchHelper.DMI_BIOS,
+                                        SystemSearchHelper.DMI_ASSET
                                      },
                                      /* network info */
                                      {
-                                         HOSTNAME,
-                                         IP
+                                         SystemSearchHelper.HOSTNAME,
+                                         SystemSearchHelper.IP
                                      },
                                      /* packages */
                                      {
-                                        INSTALLED_PACKAGES,
-                                        NEEDED_PACKAGES
+                                        SystemSearchHelper.INSTALLED_PACKAGES,
+                                        SystemSearchHelper.NEEDED_PACKAGES
                                      },
                                      /* location */
                                      {
-                                        LOC_ADDRESS,
-                                        LOC_BUILDING,
-                                        LOC_ROOM,
-                                        LOC_RACK
+                                        SystemSearchHelper.LOC_ADDRESS,
+                                        SystemSearchHelper.LOC_BUILDING,
+                                        SystemSearchHelper.LOC_ROOM,
+                                        SystemSearchHelper.LOC_RACK
                                      }};
     
     public static final String SEARCH_STRING = "search_string";
@@ -236,14 +205,14 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
             ActionErrors errs = new ActionErrors();
             if (viewMode.equals("systemsearch_id") ||
-                    viewMode.equals("systemsearch_cpu_mhz_lt") ||
-                    viewMode.equals("systemsearch_cpu_mhz_gt") ||
-                    viewMode.equals("systemsearch_ram_lt") ||
-                    viewMode.equals("systemsearch_ram_gt") ||
-                    viewMode.equals("systemsearch_num_of_cpus_lt") ||
-                    viewMode.equals("systemsearch_num_of_cpus_gt") ||
-                    viewMode.equals("systemsearch_checkin") ||
-                    viewMode.equals("systemsearch_registered")) {
+                    viewMode.equals(SystemSearchHelper.CPU_MHZ_LT) ||
+                    viewMode.equals(SystemSearchHelper.CPU_MHZ_GT) ||
+                    viewMode.equals(SystemSearchHelper.RAM_LT) ||
+                    viewMode.equals(SystemSearchHelper.RAM_GT) ||
+                    viewMode.equals(SystemSearchHelper.NUM_CPUS_LT) ||
+                    viewMode.equals(SystemSearchHelper.NUM_CPUS_GT) ||
+                    viewMode.equals(SystemSearchHelper.CHECKIN) ||
+                    viewMode.equals(SystemSearchHelper.REGISTERED)) {
                      String regEx = "(\\d)*";
                      Pattern pattern = Pattern.compile(regEx);
                      Matcher matcher = pattern.matcher(searchString);

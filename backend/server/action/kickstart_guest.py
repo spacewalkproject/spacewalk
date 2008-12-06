@@ -27,13 +27,12 @@ __rhnexport__ = ['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_chann
 
 _query_initiate_guest = rhnSQL.Statement("""
  select  ksd.label as profile_name, akg.kickstart_host, kvt.label as virt_type, 
-       akg.mem_kb, kst.boot_image, akg.vcpus, 
+       akg.mem_kb, akg.vcpus, 
        akg.disk_gb, akg.append_string, 
        akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest akg, 
-       rhnKickstartableTree kst, rhnKSData ksd, rhnKickstartSession ksess,
+        rhnKSData ksd, rhnKickstartSession ksess,
        rhnKickstartDefaults ksdef, rhnKickstartVirtualizationType kvt
      where akg.action_id = :action_id
-       and akg.kstree_id = kst.id
        and ksess.kickstart_id = ksd.id
        and ksess.id = akg.ks_session_id
        and ksdef.kickstart_id = ksd.id
@@ -85,7 +84,7 @@ def initiate(server_id, action_id):
     profile_name    = row['profile_name']
     virt_type       = row['virt_type']
     name            = row['guest_name']
-    boot_image      = row['boot_image']
+    boot_image      = "spacewalk-koan"
     append_string   = row['append_string']
     vcpus           = row['vcpus']
     disk_gb         = row['disk_gb']
