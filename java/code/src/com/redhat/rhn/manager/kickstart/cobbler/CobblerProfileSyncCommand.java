@@ -81,11 +81,14 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
         }
         
 
+        log.debug(profiles);
+        log.debug(profileNames);
         //Are there any profiles on cobbler that have changed     
         for (KickstartData profile : profiles) {
             if (profileNames.containsKey(profile.getCobblerId())) {
                 Map cobProfile = profileNames.get(profile.getCobblerId());
-                if ((Double)cobProfile.get("mtime") > profile.getModified().getTime()) {
+                log.debug(profile.getLabel() + ": " + cobProfile.get("mtime") + " - " + profile.getModified().getTime());
+                if (((Double)cobProfile.get("mtime")).longValue() > profile.getModified().getTime()/1000) {
                     syncProfileToSpacewalk(cobProfile, profile);
                 }
             }

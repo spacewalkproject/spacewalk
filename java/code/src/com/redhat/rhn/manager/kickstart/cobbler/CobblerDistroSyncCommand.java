@@ -79,11 +79,14 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             }
         }
         
+        log.debug(trees);
+        log.debug(cobblerDistros);
         //Are there any distros on cobbler that have changed       
         for (KickstartableTree tree : trees) {
             if (cobblerDistros.containsKey(tree.getCobblerId())) {
                 Map cobDistro = cobblerDistros.get(tree.getCobblerId());
-                if ((Double)cobDistro.get("mtime") > tree.getModified().getTime()) {
+                log.debug(tree.getLabel() + ": " + cobDistro.get("mtime") + " - " + tree.getModified().getTime());
+                if (((Double)cobDistro.get("mtime")).longValue() > tree.getModified().getTime()/1000) {
                     syncDistroToSpacewalk(tree, cobDistro);
                 }
             }

@@ -20,7 +20,9 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
@@ -67,7 +69,7 @@ public abstract class CobblerCommand {
      * Construct a CobblerCommand without using authentication
      */
     public CobblerCommand() {
-        xmlRpcToken = "";
+        xmlRpcToken = IntegrationService.get().getAuthToken("taskomatic");
         log.debug("Unauthenticated Cobbler call");
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 
