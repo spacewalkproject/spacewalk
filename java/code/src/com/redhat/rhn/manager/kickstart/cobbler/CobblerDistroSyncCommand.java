@@ -72,7 +72,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                     createDistro(tree);
                     tree.setModified(new Date());
                 }
-                catch(RuntimeException e) {
+                catch (RuntimeException e) {
+                    //we want to handle distro creation error conditions better..
+                    // TODO add remove here
                 }
             }
         }
