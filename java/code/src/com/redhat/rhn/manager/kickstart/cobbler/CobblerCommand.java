@@ -139,11 +139,11 @@ public abstract class CobblerCommand {
      * 
      * Currently ends up in :
      * 
-     * /etc/rhn/cobbler/label--orgid--orgname.cfg
+     * /var/lib/rhn/kickstarts/label--orgid--orgname.cfg
      * 
      * @param label the distro or profile label
      * @param org the org to appropriately add the org info
-     * @return the cobbler file name in /etc/rhn/cobbler/label--orgid--orgname.cfg
+     * @return the cobbler file name in /var/lib/rhn/kickstarts/label--orgid--orgname.cfg
      */
     public static String makeCobblerFileName(String label, Org org) {
         if (org == null) {
@@ -152,7 +152,7 @@ public abstract class CobblerCommand {
         String format = "%s--%s--%s";
         
         String kickstartConfigDir = Config.get().getString("kickstart.cobbler.dir", 
-            "/etc/rhn/cobbler/");
+            "/var/lib/rhn/kickstarts/");
         String fileName = String.format(format, label.replace(' ', '_'), org.getId(),
                 org.getName().replace(' ', '_')); 
         String retval = kickstartConfigDir + fileName + ".cfg";
