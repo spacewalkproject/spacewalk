@@ -429,13 +429,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         scheduleRebootAction(kickstartAction);
         
         // Setup Cobbler system profile
-        String mediaPath = "";
         KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
         
         CobblerSystemCreateCommand cmd = 
             new CobblerSystemCreateCommand(this.user, this.getServer(),
                     this.ksdata, uhelper.
-                    getKickstartMediaSessionUrl(this.kickstartSession));
+                    getKickstartMediaPath(this.kickstartSession));
         ValidatorError cobblerError = cmd.store();
         if (cobblerError != null) {
             return cobblerError;

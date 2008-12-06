@@ -188,7 +188,43 @@ public class KickstartUrlHelper {
         log.debug("returning: " + url);
         return url.toString();
     }
+
+    /**
+     * Get the url path portion for this kickstart that is used
+     * during a Kickstart Session that tracks the downloads.
+     * 
+     * Computes: 
+     * /ks/dist/session/35x45fed383beaeb31a184166b4c1040633/ks-f9-x86_64
+     * 
+     * reformated to a tinyurl:
+     * 
+     * /ty/xZ38
+     * 
+     * @param session to compute tracking URL for.
+     *                
+     * @return String url to this KickstartData's media (packages, kernel
+     * etc...)
+     */
+    public String getKickstartMediaPath(KickstartSession session) {
+        log.debug("Formatting for session use.");
+        // /ks/dist/session/
+        // 94xe86321bae3cb74551d995e5eafa065c0/ks-rhel-i386-as-4-u2
+        String file = getLongMediaPath(session);
+        TinyUrl turl = CommonFactory.createTinyUrl(file.toString(), 
+                new Date());
+        CommonFactory.saveTinyUrl(turl);
+        log.debug("returning: " + turl.computeTinyPath());
+        return turl.computeTinyPath();
+    }
     
+    private String getLongMediaPath(KickstartSession session) {
+        StringBuffer file = new StringBuffer();
+        file.append(KS_DIST + "/session/");
+        file.append(SessionSwap.encodeData(session.getId().toString()));
+        file.append("/");
+        file.append(ksData.getTree().getLabel());
+        return file.toString();
+    }
     
     /**
      * Get the --url parameter for this kickstart that is used
@@ -205,11 +241,7 @@ public class KickstartUrlHelper {
         log.debug("Formatting for session use.");
         // /ks/dist/session/
         // 94xe86321bae3cb74551d995e5eafa065c0/ks-rhel-i386-as-4-u2
-        StringBuffer file = new StringBuffer();
-        file.append(KS_DIST + "/session/");
-        file.append(SessionSwap.encodeData(session.getId().toString()));
-        file.append("/");
-        file.append(ksData.getTree().getLabel());
+        String file = getLongMediaPath(session);
         TinyUrl turl = CommonFactory.createTinyUrl(file.toString(), 
                 new Date());
         CommonFactory.saveTinyUrl(turl);

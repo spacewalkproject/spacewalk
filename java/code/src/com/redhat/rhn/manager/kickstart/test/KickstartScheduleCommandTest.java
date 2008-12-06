@@ -34,9 +34,11 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroupType;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -84,6 +86,11 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         Channel c = ChannelFactoryTest.createTestChannel(server.getCreator());
         server.addChannel(c);
+
+        NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(server);
+        server.addNetworkInterface(device);
+        
+        
         KickstartDataTest.addKickstartPackagesToChannel(c, false);
         ksdata.setStaticDevice("static:10.1.4.75");
         ksdata.setKernelParams("someparam=asdf");
