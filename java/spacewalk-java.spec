@@ -1,4 +1,5 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
+%define cobprofdir      %{_localstatedir}/lib/rhn/kickstarts
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis
@@ -190,6 +191,7 @@ fi
 %files
 %defattr(644,tomcat,tomcat,775)
 %dir %{appdir}
+%dir %{cobprofdir}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 
