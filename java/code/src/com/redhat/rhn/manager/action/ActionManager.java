@@ -1205,20 +1205,43 @@ public class ActionManager extends BaseManager {
                     ", String kickstartHost=" + kickstartHost + ") - start");
         }
         
+        return scheduleKickstartAction(ksdata.getPreserveFileLists(), scheduler, srvr, 
+                                        earliestAction, appendString, kickstartHost);
+         
+    }
+    
+    /**
+     * Schedule a KickstartAction against a system
+     * @param fileList file preservation lists to be included in the system records.
+     * @param scheduler User scheduling the action.
+     * @param srvr Server for which the action affects.
+     * @param earliestAction Date run the Action
+     * @param appendString extra options to add to the action.
+     * @param kickstartHost host that serves up the kickstart file.
+     * @return Currently scheduled KickstartAction
+     */
+    public static KickstartAction scheduleKickstartAction(
+            Set<FileList> fileList, User scheduler, Server srvr,
+            Date earliestAction, String appendString, String kickstartHost) {
+        if (log.isDebugEnabled()) {
+            log.debug("scheduleKickstartAction(" + 
+                    ", User scheduler=" + scheduler + ", Server srvr=" + srvr + 
+                    ", Date earliestAction=" + earliestAction + 
+                    ", String appendString=" + appendString + 
+                    ", String kickstartHost=" + kickstartHost + ") - start");
+        }
+        
         KickstartAction ksaction = (KickstartAction) scheduleAction(scheduler, srvr, 
                 ActionFactory.TYPE_KICKSTART_INITIATE, 
                 ActionFactory.TYPE_KICKSTART_INITIATE.getName(), 
                 earliestAction);
         KickstartActionDetails kad = new KickstartActionDetails();
         kad.setAppendString(appendString);
-        kad.setTree(ksdata.getTree());
         kad.setParentAction(ksaction);
         kad.setKickstartHost(kickstartHost);
         ksaction.setKickstartActionDetails(kad);
-        if (ksdata.getPreserveFileLists() != null) {
-            Iterator i = ksdata.getPreserveFileLists().iterator();
-            while (i.hasNext()) {
-                FileList list = (FileList) i.next();
+        if (fileList != null) {
+            for (FileList list : fileList) {
                 kad.addFileList(list);
             }
         }
@@ -1226,6 +1249,7 @@ public class ActionManager extends BaseManager {
         return ksaction;
     }
 
+    
     /**
      * Schedule a KickstartGuestAction against a system
      * @param pcmd most information needed to create this action
@@ -1245,7 +1269,6 @@ public class ActionManager extends BaseManager {
                            pcmd.getScheduleDate());
         KickstartGuestActionDetails kad = new KickstartGuestActionDetails();
         kad.setAppendString(pcmd.getExtraOptions());
-        kad.setTree(pcmd.getKsdata().getTree());
         kad.setParentAction(ksAction);
 
         Long memMb = new Long(pcmd.getMemoryAllocation());

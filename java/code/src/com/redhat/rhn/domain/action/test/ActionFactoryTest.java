@@ -41,8 +41,6 @@ import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
-import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -424,8 +422,6 @@ public class ActionFactoryTest extends RhnBaseTestCase {
                 type.equals(ActionFactory.TYPE_KICKSTART_SCHEDULE_SYNC)) {
             KickstartActionDetails ksad = new KickstartActionDetails();
             ksad.setStaticDevice("eth0");
-            KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-            ksad.setTree(tree);
             ksad.setParentAction(newA);
             ((KickstartAction) newA).setKickstartActionDetails(ksad);
         }

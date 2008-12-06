@@ -30,12 +30,7 @@ rhnActionKickstart
 					on delete cascade,
 	append_string		varchar2(1024),
 	kickstart_host		varchar2(256),
-	kstree_id		number
-				constraint rhn_actionks_kstid_nn not null
-				constraint rhn_actionks_kstid_fk
-					references rhnKickstartableTree(id)
-					on delete cascade,
-        static_device           varchar2(32),
+    static_device           varchar2(32),
 	created			date default(sysdate)
 				constraint rhn_actionks_creat_nn not null,
 	modified		date default(sysdate)
@@ -71,6 +66,11 @@ show errors
 
 --
 --
+-- Revision 1.9  2008/12/05 06:53:22  paji
+-- bugzilla: none -- removing the kstree_id as it provides
+-- no useful information. This change will enable us to 
+-- use cobbler only profiles..
+---
 -- Revision 1.8  2004/05/27 22:59:34  pjones
 -- bugzilla: none -- rhnActionKickstartFileList, so we can find what KSData
 -- the filelist comes from on an action.  I need a bug for this...
