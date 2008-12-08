@@ -25,8 +25,8 @@ Summary: HTML document files for Spacewalk
 Group: Applications/Internet
 Requires: webserver
 Requires: spacewalk-branding
-Obsoletes: rhn-help <= 5.2.0
-Obsoletes: rhn-html <= 5.2.0
+Obsoletes: rhn-help < 5.3.0
+Obsoletes: rhn-html < 5.3.0
 
 
 %description -n spacewalk-html
@@ -40,7 +40,7 @@ Requires: spacewalk-pxt
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: webserver
-Obsoletes: rhn-base <= 5.2.0
+Obsoletes: rhn-base < 5.3.0
 
 
 %description -n spacewalk-base
@@ -52,7 +52,7 @@ database.  This includes RHN::* and RHN::DB::*
 Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
-Obsoletes: rhn-base-minimal <= 5.2.0
+Obsoletes: rhn-base-minimal < 5.3.0
 
 %description -n spacewalk-base-minimal
 Independant perl modules in the RHN:: namespace.
@@ -61,7 +61,7 @@ Independant perl modules in the RHN:: namespace.
 Summary: Dobby, a collection of perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
 Requires: spacewalk-base
-Obsoletes: rhn-dobby <= 5.2.0
+Obsoletes: rhn-dobby < 5.3.0
 
 %description -n spacewalk-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
@@ -71,7 +71,7 @@ database.
 %package -n spacewalk-cypress
 Summary: Cypress, a collection of Grail applications for Red Hat Network
 Group: Applications/Internet
-Obsoletes: rhn-cypress <= 5.2.0
+Obsoletes: rhn-cypress < 5.3.0
 %description -n spacewalk-cypress
 Cypress is a collection of Components for Grail.
 
@@ -79,7 +79,7 @@ Cypress is a collection of Components for Grail.
 Summary: Grail, a component framework for Red Hat Network
 Requires: spacewalk-base
 Group: Applications/Internet
-Obsoletes: rhn-grail <= 5.2.0
+Obsoletes: rhn-grail < 5.3.0
 
 %description -n spacewalk-grail
 A component framework for Spacewalk.
@@ -89,7 +89,7 @@ A component framework for Spacewalk.
 Summary: The PXT library for web page templating
 Group: Applications/Internet
 Requires: spacewalk(spacewalk-base-minimal)
-Obsoletes: rhn-pxt <= 5.2.0
+Obsoletes: rhn-pxt < 5.3.0
 
 %description -n spacewalk-pxt
 This package is the core software of the new Spacewalk site.  It is responsible
@@ -106,7 +106,7 @@ Requires: mod_jk-ap20
 %else
 Requires: httpd
 %endif
-Obsoletes: rhn-sniglets <= 5.2.0
+Obsoletes: rhn-sniglets < 5.3.0
 
 
 %description -n spacewalk-sniglets
@@ -116,7 +116,7 @@ This package contains the tag handlers for the PXT templates
 %package -n spacewalk-moon
 Group: Applications/Internet  
 Summary: The Moon library for manipulating and charting data
-Obsoletes: rhn-moon <= 5.2.0
+Obsoletes: rhn-moon < 5.3.0
 
 %description -n spacewalk-moon
 Modules for loading, manipulating, and rendering graphed data.
