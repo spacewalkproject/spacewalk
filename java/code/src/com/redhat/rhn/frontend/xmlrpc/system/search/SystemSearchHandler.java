@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.xmlrpc.system.search;
 
 import java.net.MalformedURLException;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -40,7 +41,7 @@ import com.redhat.rhn.frontend.xmlrpc.SearchServerQueryException;
 public class SystemSearchHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(SystemSearchHandler.class);
 
-    private DataResult performSearch(String sessionKey, String searchString,
+    private List performSearch(String sessionKey, String searchString,
             String viewMode) throws FaultException {
         Boolean invertResults = false;
         String whereToSearch = ""; // if this is "system_list" it will search SSM only
@@ -77,8 +78,9 @@ public class SystemSearchHandler extends BaseHandler {
         }
         if (dr != null) {
             dr.elaborate(Collections.EMPTY_MAP);
+            return dr;
         }
-        return dr;
+        return Collections.EMPTY_LIST;
     }
 
     /**
@@ -98,7 +100,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] ip(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm, SystemSearchHelper.IP);
+        List result = performSearch(sessionKey, searchTerm, SystemSearchHelper.IP);
         return result.toArray();
     }
 
@@ -119,7 +121,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] hostname(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HOSTNAME);
         return result.toArray();
     }
@@ -141,7 +143,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] deviceVendorId(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_VENDOR_ID);
         return result.toArray();
     }
@@ -163,7 +165,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] deviceId(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result =  performSearch(sessionKey, searchTerm,
+        List result =  performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_DEVICE_ID);
         return result.toArray();
     }
@@ -185,7 +187,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] deviceDriver(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result =  performSearch(sessionKey, searchTerm,
+        List result =  performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_DRIVER);
         return result.toArray();
     }
@@ -207,7 +209,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] deviceDescription(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_DESCRIPTION);
         return result.toArray();
     }
@@ -229,7 +231,7 @@ public class SystemSearchHandler extends BaseHandler {
      */
     public Object[] nameAndDescription(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.NAME_AND_DESCRIPTION);
         return result.toArray();
     }
