@@ -14,20 +14,13 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Date;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
+import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartCommandName;
-import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -47,7 +40,12 @@ import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.TestUtils;
 
-import org.apache.commons.lang.math.RandomUtils;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ProfileHandlerTest

@@ -26,7 +26,6 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParsingException;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
-import com.redhat.rhn.domain.kickstart.test.KickstartDefaultsTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;

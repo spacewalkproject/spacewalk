@@ -19,9 +19,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * KickstartEditCommandTest - test for KickstartDetailsCommand
  * @version $Rev$
