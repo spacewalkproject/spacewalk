@@ -171,6 +171,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     
     public void testCreateServer() throws Exception {
         Server newS = createTestServer(usr);
+        newS.setNetworkInterfaces(new HashSet());
         // make sure our many-to-one mappings were set and saved
         assertNotNull(newS.getOrg());
         assertNotNull(newS.getCreator());
@@ -549,7 +550,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         createProvisionState(newS, "Test Description", "Test Label");
         createServerInfo(newS, dateCreated, new Long(0));
         
-        /*NetworkInterface netint = new NetworkInterface();
+        NetworkInterface netint = new NetworkInterface();
         netint.setBroadcast("foo.bar.doo.doo");
         netint.setHwaddr("AA:AA:BB:BB:CC:CC");
         netint.setIpaddr("127.0.0.1");
@@ -559,7 +560,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         netint.setName(TestUtils.randomString());
         
         netint.setServer(newS);
-        newS.addNetworkInterface(netint);*/
+        newS.addNetworkInterface(netint);
 
 
         

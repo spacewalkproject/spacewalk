@@ -25,6 +25,8 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParsingException;
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.domain.kickstart.test.KickstartDefaultsTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
@@ -70,6 +72,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         List<String> lines = parser.getOptionLines();
 
         KickstartData ksData = createBareKickstartData();
+        
         builder.buildCommands(ksData, lines, tree, null);
         assertEquals(19, ksData.getCommands().size()); // TODO: one is ignored
 
@@ -79,12 +82,13 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
     }
 
 
-    private KickstartData createBareKickstartData() {
+    private KickstartData createBareKickstartData() throws Exception {
         KickstartData ksData = new KickstartData();
         ksData.setOrg(user.getOrg());
         ksData.setLabel("testlabel");
         ksData.setActive(Boolean.TRUE);
         ksData.setOrgDefault(false);
+        ksData.setKickstartDefaults(KickstartDataTest.createDefaults(ksData, user));
         KickstartFactory.saveKickstartData(ksData);
         return ksData;
     }

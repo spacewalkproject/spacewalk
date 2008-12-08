@@ -143,13 +143,13 @@ public class NetworkInterface extends BaseDomainHelper implements
             return false;
         }
         NetworkInterface castOther = (NetworkInterface) other;
-        return new EqualsBuilder().append(server, castOther.server)
-                                  .append(name, castOther.name)
-                                  .append(ipaddr, castOther.ipaddr)
-                                  .append(netmask, castOther.netmask)
-                                  .append(broadcast, castOther.broadcast)
-                                  .append(hwaddr, castOther.hwaddr)
-                                  .append(module, castOther.module)
+        return new EqualsBuilder().append(this.getServer(), castOther.getServer())
+                                  .append(this.getName(), castOther.getName())
+                                  .append(this.getIpaddr(), castOther.getIpaddr())
+                                  .append(this.getNetmask(), castOther.getNetmask())
+                                  .append(this.getBroadcast(), castOther.getBroadcast())
+                                  .append(this.getHwaddr(), castOther.getHwaddr())
+                                  .append(this.getModule(), castOther.getModule())
                                   .isEquals();
     }
     
@@ -157,13 +157,13 @@ public class NetworkInterface extends BaseDomainHelper implements
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(server)
-                                    .append(name)
-                                    .append(ipaddr)
-                                    .append(netmask)
-                                    .append(broadcast)
-                                    .append(hwaddr)
-                                    .append(module)
+        return new HashCodeBuilder().append(this.getServer())
+                                    .append(this.getName())
+                                    .append(this.getIpaddr())
+                                    .append(this.getNetmask())
+                                    .append(this.getBroadcast())
+                                    .append(this.getHwaddr())
+                                    .append(this.getModule())
                                     .toHashCode();
     }
 

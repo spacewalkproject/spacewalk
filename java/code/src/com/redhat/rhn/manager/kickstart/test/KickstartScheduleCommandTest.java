@@ -34,11 +34,9 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroupType;
-import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -47,8 +45,6 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.TestUtils;
@@ -77,19 +73,11 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
     public void setUp() throws Exception {
         super.setUp();
         
-        Config.get().setString(CobblerXMLRPCHelper.class.getName(),
-                MockXMLRPCInvoker.class.getName());
-
-        
         user.addRole(RoleFactory.ORG_ADMIN);
         server = ServerFactoryTest.createTestServer(user, true, 
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         Channel c = ChannelFactoryTest.createTestChannel(server.getCreator());
         server.addChannel(c);
-
-        NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(server);
-        server.addNetworkInterface(device);
-        
         
         KickstartDataTest.addKickstartPackagesToChannel(c, false);
         ksdata.setStaticDevice("static:10.1.4.75");
@@ -100,7 +88,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         ksession.setNewServer(server);
         ksession.setOldServer(server);
         TestUtils.saveAndFlush(ksession);
-        
     }
 
     private static void assertCmdSuccess(KickstartScheduleCommand cmd) {
@@ -112,6 +99,23 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         }
         assertNotNull(cmd.getKickstartSession());
     }
+    
+    public void testCommandActKey() throws Exception {
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(user, server);
+        activationKeyIds = new HashSet();
+        activationKeyIds.add(key.getId());
+        Server otherServer = ServerFactoryTest.createTestServer(user, true, 
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
+        otherServer.addChannel(ChannelFactoryTest.createTestChannel(user));
+        otherServerId = otherServer.getId();
+        profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_SYSTEM;
+        KickstartScheduleCommand cmd = testCommandExecution(
+                KickstartScheduleCommand.ACTIVATION_TYPE_KEY, server, 
+                ksdata, profileType, activationKeyIds, otherServerId, profileId);
+        assertNotNull(cmd.getCreatedProfile());
+    }
+    
+
     
     /**
      * Big test to make sure we include x86_64 ks profiles if the 
@@ -205,21 +209,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         }
     }
 
-    public void testCommandActKey() throws Exception {
-        ActivationKey key = ActivationKeyTest.createTestActivationKey(user, server);
-        activationKeyIds = new HashSet();
-        activationKeyIds.add(key.getId());
-        Server otherServer = ServerFactoryTest.createTestServer(user, true, 
-                ServerConstants.getServerGroupTypeEnterpriseEntitled());
-        otherServer.addChannel(ChannelFactoryTest.createTestChannel(user));
-        otherServerId = otherServer.getId();
-        profileType = KickstartScheduleCommand.TARGET_PROFILE_TYPE_SYSTEM;
-        KickstartScheduleCommand cmd = testCommandExecution(
-                KickstartScheduleCommand.ACTIVATION_TYPE_KEY, server, 
-                ksdata, profileType, activationKeyIds, otherServerId, profileId);
-        assertNotNull(cmd.getCreatedProfile());
-    }
-    
     public void testScheduleKs() throws Exception {
         
         FileList list1 = KickstartDataTest.createFileList1(user.getOrg());
@@ -394,7 +383,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertTrue(entitlements.contains(
                 ServerConstants.getServerGroupTypeProvisioningEntitled()));
         
-        TestUtils.flushAndEvict(server);
         TestUtils.flushAndEvict(ksdata);
         assertNotNull(KickstartFactory.
                 lookupKickstartSessionByServer(server.getId()));
