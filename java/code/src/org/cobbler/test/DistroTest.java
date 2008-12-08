@@ -30,8 +30,8 @@ public class DistroTest extends TestCase {
     
    @Override
    public void setUp() throws Exception {
-       client = new XmlRpcHelper("http://rlx-2-14.rhndev.redhat.com/cobbler_api_rw", 
-                       "admin", "redhat");   
+       client = new XmlRpcHelper("http://localhost/cobbler_api_rw", 
+                       "admin", "foo");   
    }
     public void testDistroCreate() throws Exception {
         String name = "Partha-Test";
