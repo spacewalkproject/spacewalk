@@ -16,8 +16,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
-Obsoletes: satellite-utils <= 5.2.0
-Obsoletes: rhn-satellite-admin <= 5.2.0
+Obsoletes: satellite-utils < 5.3.0
+Obsoletes: rhn-satellite-admin < 5.3.0
 BuildArch: noarch
 
 %description
