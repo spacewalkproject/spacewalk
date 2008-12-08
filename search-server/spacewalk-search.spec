@@ -60,6 +60,7 @@ Spacewalk Server.
 %setup -n %{name}-%{version}
 
 %install
+rm -fr ${RPM_BUILD_ROOT}
 ant -Djar.version=%{version} install
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search
