@@ -126,7 +126,7 @@ to load one without blowing up if it cannot be found.
 
 =item load($moduleName [, $libDir [, $fallbackPackage])
 
-First checks if the module has been loaded and returns undef if
+First checks if the module has been loaded and returns true if
 so. Otherwise adds $libDir to the library path and tries to "require"
 the module ($libDir can be either a scalar or a ref to an array of scalars).
 If that fails, and $fallbackPackage is provided (which, again, can be
@@ -134,7 +134,7 @@ either a scalar or an ref to an array of scalars), remembers
 the first error and tries to "require" the module in the fallback
 package. If that also fails, that error and the previous are
 returned. If there is no fallback package and there is an error,
-returns that error.
+returns false and in array context returns (0 , @error_messages).
 
 =item isLoaded($moduleName)
 
