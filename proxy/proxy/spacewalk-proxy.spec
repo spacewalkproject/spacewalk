@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.4.2
+Version: 0.4.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - 470010 - install spacewalk-proxy-common before the broker
 
