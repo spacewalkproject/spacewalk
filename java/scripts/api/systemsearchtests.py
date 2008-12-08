@@ -7,6 +7,14 @@ from config import *
 
 class SystemSearchTests(RhnTestCase):
 
+    def test_searchByNameAndDescription(self):
+        systems = client.system.search.ip(self.session_key, SYS_SEARCH_NAME_DESCRP)
+        self.assertTrue(systems != None)
+        for s in systems:
+            self.assertTrue(s.has_key("name"))
+            self.assertTrue(s.has_key("ip"))
+            self.assertTrue(s.has_key("id"))
+    
     def test_searchByIp(self):
         systems = client.system.search.ip(self.session_key, SYS_SEARCH_IP)
         self.assertTrue(systems != None)

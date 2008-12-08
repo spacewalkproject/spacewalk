@@ -30,6 +30,7 @@ SERVER_NAME = "newman"
 SCRIPT_ACTION_ID = 332
 
 #change below to match the info on a system reg'd to your satellite
+SYS_SEARCH_NAME_DESCRP = "test"
 SYS_SEARCH_IP = "10.11.231.63"
 SYS_SEARCH_HOSTNAME = "redhat.com"
 SYS_SEARCH_HW_DESCRP = "Vmware"
