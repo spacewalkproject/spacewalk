@@ -16,8 +16,8 @@ BuildArch: noarch
 Requires: openssl rpm-build
 BuildRequires: docbook-utils
 BuildRequires: python
-Obsoletes: rhns-certs <= 5.2.0
-Obsoletes: rhns-certs-tools <= 5.2.0
+Obsoletes: rhns-certs < 5.3.0
+Obsoletes: rhns-certs-tools < 5.3.0
 
 %description
 This package contains tools to generate the SSL certificates required by 
