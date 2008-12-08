@@ -23,7 +23,7 @@ Requires: rhncfg-actions
 Requires: glibc-common
 Requires: httpd
 BuildRequires: /usr/bin/docbook2man
-Obsoletes: rhns-proxy <= 5.2.0
+Obsoletes: rhns-proxy < 5.3.0
 
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
 
