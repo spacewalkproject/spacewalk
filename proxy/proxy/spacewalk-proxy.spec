@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.4.2
+Version: 0.4.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -34,8 +34,8 @@ Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
 Requires: jabberd
-Obsoletes: rhns-proxy <= 5.2
-Obsoletes: rhns-proxy-management <= 5.2
+Obsoletes: rhns-proxy < 5.3.0
+Obsoletes: rhns-proxy-management < 5.3.0
 
 %description management
 Spacewalk Management Proxy components.
@@ -54,7 +54,7 @@ Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
 # We don't want proxies and satellites on the same box
 Conflicts: rhns-satellite-tools
-Obsoletes: rhns-proxy-broker <= 5.2
+Obsoletes: rhns-proxy-broker < 5.3.0
 
 
 %description broker
@@ -71,7 +71,7 @@ server.
 Group:   Applications/Internet
 Summary: The SSL Redirect component for the Spacewalk Proxy Server
 Requires: spacewalk-proxy-broker = %{version}-%{release}
-Obsoletes: rhns-proxy-redirect <= 5.2
+Obsoletes: rhns-proxy-redirect < 5.3.0
 
 %description redirect
 The Spacewalk Proxy Server allows package proxying/caching
@@ -90,7 +90,7 @@ Requires: mod_ssl
 Requires: mod_python
 Requires: %{name}-broker >= %{version}
 Requires: %{name}-common >= %{version}
-Obsoletes: rhns-proxy-common <= 5.2
+Obsoletes: rhns-proxy-common < 5.3.0
 
 %description common
 The Spacewalk Proxy Server allows package proxying/caching
@@ -108,8 +108,8 @@ Requires: spacewalk-backend
 Requires: rhnlib
 Requires: python-optik
 BuildRequires: /usr/bin/docbook2man
-Obsoletes: rhn_package_manager <= 5.2
-Obsoletes: rhns-proxy-package-manager <= 5.2
+Obsoletes: rhn_package_manager < 5.3.0
+Obsoletes: rhns-proxy-package-manager < 5.3.0
 
 %description package-manager
 The Spacewalk Proxy Server allows package proxying/caching
@@ -129,7 +129,7 @@ Requires(post): chkconfig
 Requires(preun): chkconfig
 Requires(preun): initscripts
 BuildRequires: /usr/bin/docbook2man
-Obsoletes: rhns-proxy-tools <= 5.2
+Obsoletes: rhns-proxy-tools < 5.3.0
 
 %description tools
 The Spacewalk Proxy Server allows package proxying/caching
@@ -331,6 +331,9 @@ fi
 
 
 %changelog
+* Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - 470010 - install spacewalk-proxy-common before the broker
 

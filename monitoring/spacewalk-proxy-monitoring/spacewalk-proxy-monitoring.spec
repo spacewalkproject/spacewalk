@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      %{name}-%{version}.tar.gz
-Version:      0.4.1
+Version:      0.4.2
 Release:      1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -13,7 +13,7 @@ URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
 Group:        Applications/System
 BuildArch:    noarch
-Obsoletes:    rhns-proxy-monitoring <= 5.2.0
+Obsoletes:    rhns-proxy-monitoring < 5.3.0
 Provides:     rhns-proxy-monitoring
 Conflicts: rhnmd
 Requires: nocpulse-db-perl 
@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.2-1
+- fixed Obsoletes: rhns-proxy-monitoring
+
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.2-1
 - rename oracle_perl to nocpulse-db-perl
 

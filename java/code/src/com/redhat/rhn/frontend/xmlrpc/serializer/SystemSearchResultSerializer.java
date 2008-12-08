@@ -7,10 +7,10 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- *
+ * 
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation.
+ * in this software or its documentation. 
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
@@ -33,8 +33,14 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * #struct("system")
  *      #prop("int", "id")
  *      #prop("string", "name")
- *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
+ *      #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server
  *              successfully checked in")
+ *      #prop("string", "hostname")
+ *      #prop("string", "ip")
+ *      #prop_desc("string",  "hw_description", "hw description if not null")
+ *      #prop_desc("string",  "hw_device_id", "hw device id if not null")
+ *      #prop_desc("string",  "hw_vendor_id", "hw vendor id if not null")
+ *      #prop_desc("string",  "hw_driver", "hw driver if not null")
  * #struct_end()
  *
  */

@@ -74,7 +74,8 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         }
         
         
-        log.debug("mtime: " + mtime.longValue() + ", last modified: " +  LAST_UPDATED.get());
+        log.debug("mtime: " + mtime.longValue() + ", last modified: " + 
+            LAST_UPDATED.get());
         //If we got an mtime from cobbler and that mtime is before our last update
         // Then don't update anything
         if (mtime != null && mtime.longValue() < CobblerSyncTask.LAST_UPDATED.get()) {
@@ -90,7 +91,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
             profSync.store();  
         }
         
-        LAST_UPDATED.set((new Date()).getTime()/1000 + 1);
+        LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
        
     }
 

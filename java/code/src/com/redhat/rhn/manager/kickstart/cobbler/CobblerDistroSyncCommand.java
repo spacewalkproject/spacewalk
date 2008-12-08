@@ -85,8 +85,10 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         for (KickstartableTree tree : trees) {
             if (cobblerDistros.containsKey(tree.getCobblerId())) {
                 Map cobDistro = cobblerDistros.get(tree.getCobblerId());
-                log.debug(tree.getLabel() + ": " + cobDistro.get("mtime") + " - " + tree.getModified().getTime());
-                if (((Double)cobDistro.get("mtime")).longValue() > tree.getModified().getTime()/1000) {
+                log.debug(tree.getLabel() + ": " + cobDistro.get("mtime") + 
+                    " - " + tree.getModified().getTime());
+                if (((Double)cobDistro.get("mtime")).longValue() > 
+                      tree.getModified().getTime() / 1000) {
                     syncDistroToSpacewalk(tree, cobDistro);
                 }
             }

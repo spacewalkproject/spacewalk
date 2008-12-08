@@ -7,10 +7,10 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- *
+ * 
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation.
+ * in this software or its documentation. 
  */
 
 package com.redhat.rhn.frontend.xmlrpc;
@@ -22,11 +22,11 @@ import com.redhat.rhn.FaultException;
  *
  * @version $Revision$
  */
-public class ErrorWithSearchQuery extends FaultException {
+public class SearchServerQueryException extends FaultException {
     /**
      * Constructor
      */
-    public ErrorWithSearchQuery() {
+    public SearchServerQueryException() {
         super(2902, "errorWithSearchQuery",
                 "Error executing search query");
     }
@@ -38,7 +38,7 @@ public class ErrorWithSearchQuery extends FaultException {
      * permitted, and indicates that the cause is nonexistent or
      * unknown.)
      */
-    public ErrorWithSearchQuery(Throwable cause) {
+    public SearchServerQueryException(Throwable cause) {
         super(2902 , "errorWithSearchQuery" , "Error executing search query" , cause);
     }
 
@@ -46,7 +46,7 @@ public class ErrorWithSearchQuery extends FaultException {
      * Constructor with message.
      * @param message exception message.
      */
-    public ErrorWithSearchQuery(String message) {
+    public SearchServerQueryException(String message) {
         super(2902 , "errorWithSearchQuery", message);
     }
 

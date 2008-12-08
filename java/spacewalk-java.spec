@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.5
+Version: 0.4.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -83,8 +83,8 @@ BuildRequires: quartz
 BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
-Obsoletes: rhn-java <= 5.2
-Obsoletes: rhn-java-sat <= 5.2
+Obsoletes: rhn-java < 5.3.0
+Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
 
 %description
@@ -93,8 +93,8 @@ This package contains the code for the Java version of the Spacewalk Web Site.
 %package config
 Summary: Configuration files for RHN Java
 Group: Applications/Internet
-Obsoletes: rhn-java-config <= 5.2
-Obsoletes: rhn-java-config-sat <= 5.2
+Obsoletes: rhn-java-config < 5.3.0
+Obsoletes: rhn-java-config-sat < 5.3.0
 
 %description config
 This package contains the configuration files for the Spacewalk Java web
@@ -103,8 +103,8 @@ application and taskomatic process.
 %package lib
 Summary: Jar files for Spacewalk Java
 Group: Applications/Internet
-Obsoletes: rhn-java-lib <= 5.2
-Obsoletes: rhn-java-lib-sat <= 5.2
+Obsoletes: rhn-java-lib < 5.3.0
+Obsoletes: rhn-java-lib-sat < 5.3.0
 
 %description lib
 This package contains the jar files for the Spacewalk Java web application
@@ -138,8 +138,8 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
-Obsoletes: taskomatic <= 5.2
-Obsoletes: taskomatic-sat <= 5.2
+Obsoletes: taskomatic < 5.3.0
+Obsoletes: taskomatic-sat < 5.3.0
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
@@ -213,6 +213,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Fri Dec  5 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.5-1
 - removed rhn-oracle-jdbc
 

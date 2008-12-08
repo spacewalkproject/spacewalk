@@ -7,15 +7,16 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- *
+ * 
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation.
+ * in this software or its documentation. 
  */
 package com.redhat.rhn.frontend.xmlrpc.system.search;
 
 import java.net.MalformedURLException;
 import java.util.Collections;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -26,19 +27,21 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.frontend.action.systems.SystemSearchHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.CommunicationErrorSearchServer;
-import com.redhat.rhn.frontend.xmlrpc.ErrorWithSearchQuery;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerCommException;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerQueryException;
 
 /**
  * SystemSearchHandler
  * Provides access to the internal XMLRPC search-server for system searches
  * @version $Rev: 1 $
+ * @xmlrpc.namespace system.search
+ * @xmlrpc.doc Provides methods to perform system search requests using the search server.
  *
  */
 public class SystemSearchHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(SystemSearchHandler.class);
 
-    private DataResult performSearch(String sessionKey, String searchString,
+    private List performSearch(String sessionKey, String searchString,
             String viewMode) throws FaultException {
         Boolean invertResults = false;
         String whereToSearch = ""; // if this is "system_list" it will search SSM only
@@ -54,7 +57,7 @@ public class SystemSearchHandler extends BaseHandler {
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);
             e.printStackTrace();
-            throw new CommunicationErrorSearchServer();
+            throw new SearchServerCommException();
             // Connection error to XMLRPC search server
         }
         catch (XmlRpcFault e) {
@@ -64,19 +67,20 @@ public class SystemSearchHandler extends BaseHandler {
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
             }
-            throw new ErrorWithSearchQuery();
+            throw new SearchServerQueryException();
             // Could not parse query
         }
         catch (XmlRpcException e) {
             log.info("Caught Exception :" + e);
             e.printStackTrace();
             // Connection error
-            throw new CommunicationErrorSearchServer();
+            throw new SearchServerCommException();
         }
         if (dr != null) {
             dr.elaborate(Collections.EMPTY_MAP);
+            return dr;
         }
-        return dr;
+        return Collections.EMPTY_LIST;
     }
 
     /**
@@ -87,13 +91,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this ip.
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] ip(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm, SystemSearchHelper.IP);
+        List result = performSearch(sessionKey, searchTerm, SystemSearchHelper.IP);
         return result.toArray();
     }
 
@@ -105,13 +112,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this hostname
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] hostname(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HOSTNAME);
         return result.toArray();
     }
@@ -124,13 +134,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this device vendor_id
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceVendorId(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_VENDOR_ID);
         return result.toArray();
     }
@@ -143,13 +156,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this device id
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceId(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result =  performSearch(sessionKey, searchTerm,
+        List result =  performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_DEVICE_ID);
         return result.toArray();
     }
@@ -162,13 +178,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this device driver.
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceDriver(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result =  performSearch(sessionKey, searchTerm,
+        List result =  performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_DRIVER);
         return result.toArray();
     }
@@ -181,13 +200,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match the device description.
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceDescription(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.HW_DESCRIPTION);
         return result.toArray();
     }
@@ -200,13 +222,16 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this name or description
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] nameAndDescription(String sessionKey, String searchTerm)
         throws FaultException {
-        DataResult result = performSearch(sessionKey, searchTerm,
+        List result = performSearch(sessionKey, searchTerm,
                 SystemSearchHelper.NAME_AND_DESCRIPTION);
         return result.toArray();
     }

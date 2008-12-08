@@ -37,6 +37,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 
 %files 
 %defattr(-,root,root)
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
 

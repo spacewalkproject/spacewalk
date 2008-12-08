@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk 
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.4.1
+Version: 0.4.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.2-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Wed Nov  5 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.1-1
 - rebuild due BZ 470009
 - point Source0 to real url
