@@ -26,8 +26,8 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.frontend.action.systems.SystemSearchHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.CommunicationErrorSearchServer;
-import com.redhat.rhn.frontend.xmlrpc.ErrorWithSearchQuery;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerCommException;
+import com.redhat.rhn.frontend.xmlrpc.SearchServerQueryException;
 
 /**
  * SystemSearchHandler
@@ -56,7 +56,7 @@ public class SystemSearchHandler extends BaseHandler {
         catch (MalformedURLException e) {
             log.info("Caught Exception :" + e);
             e.printStackTrace();
-            throw new CommunicationErrorSearchServer();
+            throw new SearchServerCommException();
             // Connection error to XMLRPC search server
         }
         catch (XmlRpcFault e) {
@@ -66,14 +66,14 @@ public class SystemSearchHandler extends BaseHandler {
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
             }
-            throw new ErrorWithSearchQuery();
+            throw new SearchServerQueryException();
             // Could not parse query
         }
         catch (XmlRpcException e) {
             log.info("Caught Exception :" + e);
             e.printStackTrace();
             // Connection error
-            throw new CommunicationErrorSearchServer();
+            throw new SearchServerCommException();
         }
         if (dr != null) {
             dr.elaborate(Collections.EMPTY_MAP);

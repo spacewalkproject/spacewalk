@@ -29,6 +29,14 @@ SERVER_NAME = "newman"
 # ID of a script action that has been executed and returned output:
 SCRIPT_ACTION_ID = 332
 
+#change below to match the info on a system reg'd to your satellite
+SYS_SEARCH_IP = "10.11.231.63"
+SYS_SEARCH_HOSTNAME = "redhat.com"
+SYS_SEARCH_HW_DESCRP = "Vmware"
+SYS_SEARCH_HW_DEVICE_DRIVER = "appgart"
+SYS_SEARCH_HW_DEVICE_ID = "7113"
+SYS_SEARCH_HW_VENDOR_ID = "8086"
+
 ##### End Configuration #####
 
 # One xmlrpc client to be used throughout the tests:
