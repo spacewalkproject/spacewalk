@@ -193,10 +193,11 @@ def token_server_groups(server_id, tokens_obj):
 
 
 _query_token_packages = rhnSQL.Statement("""
-    select pn.id as name_id, pn.name
-      from rhnPackageName pn, rhnRegTokenPackages rtp
+    select pn.id as name_id, pa.id as arch_id, pn.name
+      from rhnPackageName pn, rhnPackageArch pa, rhnRegTokenPackages rtp
      where rtp.token_id = :token_id
        and rtp.name_id = pn.id
+       and rtp.arch_id = pa.id(+)
      order by upper(pn.name)
 """)
 _query_token_packages_insert = rhnSQL.Statement("""
@@ -217,18 +218,19 @@ def token_packages(server_id, tokens_obj):
             if not row:
                 break
             pn_id = row['name_id']
-            package_names[pn_id] = row['name']
+            pa_id = row['arch_id']
+            package_names[(pn_id, pa_id)] = row['name']
 
     ret = []
     if not package_names:
         return ret
 
-    package_ids = package_names.keys()
+    package_arch_ids = package_names.keys()
     # Get the latest action scheduled for this token
     last_action_id = rhnFlags.get('token_last_action_id')
 
-    action_id = rhnAction.schedule_server_packages_update(server_id,
-            package_ids, org_id = token['org_id'],
+    action_id = rhnAction.schedule_server_packages_update_by_arch(server_id,
+            package_arch_ids, org_id = token['org_id'],
             prerequisite = last_action_id,
             action_name = "Activation Key Package Auto-Install")
 

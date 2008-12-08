@@ -227,18 +227,22 @@ public class RhnSetDecl {
             "config_deploy_systems", SetCleanup.NOOP);
 
     // Set of config-revisions to be deployed from a specified config-channel
-    public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_REVISIONS = make(
-            "config_channel_deploy_revisions", SetCleanup.NOOP);
+    public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_REVISIONS =
+        make("config_channel_deploy_revisions", SetCleanup.NOOP);
+    
+    // Set of systems subscribed to a channel to deploy CONFIG_CHANNEL_DEPLOY_REVISIONS to
+    public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_SYSTEMS =
+        make("config_channel_deploy_systems", SetCleanup.NOOP);
+    
+    // Set of channels we're subscribing to/unsubscribing from in the SSM
+    public static final RhnSetDecl SSM_CHANNEL_LIST =
+        make("channel_list", SetCleanup.UNOWNED_CHANNELS);
 
-    // Set of systems subscribed to a channel to deploy
-    // CONFIG_CHANNEL_DEPLOY_REVISIONS to
-    public static final RhnSetDecl CONFIG_CHANNEL_DEPLOY_SYSTEMS = make(
-            "config_channel_deploy_systems", SetCleanup.NOOP);
-
-    // Set of channels we're subscribging to/unsubscribing from in the SSM
-    public static final RhnSetDecl SSM_CHANNEL_LIST = make("channel_list",
-            SetCleanup.UNOWNED_CHANNELS);
-
+    // Set of packages being removed from packages in the SSM (this is used by the
+    // query but the UI uses SessionSet)
+    public static final RhnSetDecl SSM_REMOVE_PACKAGES_LIST =
+        make("ssm_remove_packages_list", SetCleanup.NOOP);
+    
     // This cleanser is for when the set contains rhnVirtualInstance.id
     // instead of rhnServer.id
     public static final RhnSetDecl VIRTUAL_SYSTEMS = make("virtual_systems",

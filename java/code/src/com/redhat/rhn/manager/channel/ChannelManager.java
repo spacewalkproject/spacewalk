@@ -1015,6 +1015,24 @@ public class ChannelManager extends BaseManager {
         
         return retval;
     }
+
+    /**
+     * Returns the latest packages in the channel. This call will return more details
+     * about the channel than the API specific call
+     * {@link #latestPackagesInChannel(com.redhat.rhn.domain.channel.Channel)}.
+     *
+     * @param channelId identifies the channel
+     * @return list of packages in this channel
+     */
+    public static DataResult latestPackagesInChannel(Long channelId) {
+        SelectMode m = ModeFactory.getMode(
+                "Package_queries", "latest_packages_in_channel");
+
+        Map params = new HashMap();
+        params.put("cid", channelId);
+
+        return m.execute(params);
+    }
     
     /**
      * Returns list of latest packages in channel
@@ -1662,6 +1680,25 @@ public class ChannelManager extends BaseManager {
             returnSet.add(ChannelVersion.getChannelVersionForDistChannelMap(dcm));
         }
         return returnSet;
+    }
+
+    /**
+     * Returns all channels that are applicable to the systems currently selected in
+     * the SSM.
+     *
+     * @param user logged in user
+     * @param lc   controller for the UI list
+     * @return description of all channels applicable to the systems
+     */
+    public static DataResult getChannelsForSsm(User user, ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "channel_tree_ssm_install");
+
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        DataResult dr = makeDataResult(params, params, lc, m);
+
+        return dr;
     }
 
     /**

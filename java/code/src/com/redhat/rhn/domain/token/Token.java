@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
@@ -55,7 +56,7 @@ public class Token implements Identifiable {
     private Set<ServerGroupType> entitlements = new HashSet<ServerGroupType>();
     private Set<Channel> channels = new HashSet<Channel>();
     private Set<ServerGroup> serverGroups = new HashSet<ServerGroup>();
-    private Set<PackageName> packageNames = new HashSet<PackageName>();
+    private Set<TokenPackage> packages = new HashSet<TokenPackage>();
     
     /**
      * @return Returns the entitlements.
@@ -347,43 +348,97 @@ public class Token implements Identifiable {
     }
 
     /**
-     * @return Returns the package names
+     * Add a package to this Token using the PackageName given.
+     * @param packageNameIn PackageName to add
+     * @param packageArchIn PackageArch to add
      */
-    public Set<PackageName> getPackageNames() {
-        return packageNames;
-    }
-
-    /**
-     * @param packageNamesIn The package names to set.
-     */
-    public void setPackageNames(Set packageNamesIn) {
-        this.packageNames = packageNamesIn;
-    }
-
-    /**
-     * Add a PackageName to this Token
-     * @param packageNameIn Package name to add
-     */
-    public void addPackageName(PackageName packageNameIn) {
+    public void addPackage(PackageName packageNameIn, PackageArch packageArchIn) {
         if (packageNameIn == null) {
             throw new NullPointerException("A token cannot have a null packageName.");
         }
-        this.getPackageNames().add(packageNameIn);
+        TokenPackage tokenPackage = new TokenPackage();
+        tokenPackage.setToken(this);
+        tokenPackage.setPackageName(packageNameIn);
+        tokenPackage.setPackageArch(packageArchIn);
+
+        this.getPackages().add(tokenPackage);
     }
-    
+
     /**
      * Remove a PackageName from this Token
      * @param packageNameIn Package name to remove
+     * @param packageArchIn Package arch to remove (optional)
      */
-    public void removePackageName(PackageName packageNameIn) {
-        this.getPackageNames().remove(packageNameIn);
+    public void removePackage(PackageName packageNameIn, PackageArch packageArchIn) {
+
+        // a package cannot exist w/o a name; therefore, no need to go further
+        if (packageNameIn == null) {
+            return;
+        }
+
+        // a package associated with a token may or may not have an arch associated with it
+        if (packageArchIn != null) {
+            // if there is an arch, only 1 package may exist
+            TokenPackage tokenPackage = TokenPackageFactory.lookupPackage(this,
+                    packageNameIn, packageArchIn);
+
+            if (tokenPackage != null) {
+                this.getPackages().remove(tokenPackage);
+            }
+        }
+        else {
+            // if no arch is provided, it is possible that we could get multiple packages
+            // with the name specified; however, only 1 of those may have an arch of null
+            List<TokenPackage> tokenPackages = TokenPackageFactory.lookupPackages(this,
+                    packageNameIn);
+
+            for (TokenPackage tokenPackage : tokenPackages) {
+                if (tokenPackage.getPackageArch() == packageArchIn) {
+                    this.getPackages().remove(tokenPackage);
+                    break;  //stop searching...
+                }
+            }
+        }
     }
     
     /**
-     * Clear all package names associated with this token.
+     * Add a package to this Token
+     * @param packageIn package to add
      */
-    public void clearPackageNames() {
-        getPackageNames().clear();
+    public void addPackage(TokenPackage packageIn) {
+        if (packageIn == null) {
+            throw new NullPointerException("A token cannot have a null package.");
+        }
+        this.getPackages().add(packageIn);
+    }
+    
+    /**
+     * Remove a package from this Token
+     * @param packageIn package to remove
+     */
+    public void removePackage(TokenPackage packageIn) {
+        this.getPackages().remove(packageIn);
+    }
+
+    /**
+     * @return Returns the packages
+     */
+    public Set<TokenPackage> getPackages() {
+        return packages;
+    }
+
+    /**
+     * @param packagesIn The packages to set.
+     */
+    public void setPackages(Set packagesIn) {
+        this.packages = packagesIn;
+    }
+
+    /**
+     * Clear all packages associated with this token.
+     */
+    public void clearPackages() {
+        getPackages().clear();
     }
 
     /**

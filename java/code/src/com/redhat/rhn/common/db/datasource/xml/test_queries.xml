@@ -304,6 +304,22 @@ VALUES (:server_id,
   </query>
 </write-mode>
     
+<write-mode name="insert_into_rhnServerPackage_with_arch">
+  <query params="server_id, pn_id, evr_id, arch_id">
+INSERT
+  INTO rhnServerPackage
+       (server_id,
+        name_id,
+        evr_id,
+        package_arch_id)
+VALUES (:server_id,
+        :pn_id,
+        :evr_id,
+        :arch_id
+     )
+  </query>
+</write-mode>
+
 <write-mode name="insert_into_rhnServerPackageSimple">
   <query params="server_id, name_id, evr_id">
 INSERT

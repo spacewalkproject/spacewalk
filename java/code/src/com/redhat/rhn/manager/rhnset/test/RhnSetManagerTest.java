@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.rhnset.test;
 
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -184,10 +185,27 @@ public class RhnSetManagerTest extends RhnBaseTestCase {
         set5.addElement(new Long(36), new Long(11));
         RhnSetManager.store(set5);
         assertEquals(5, cleanup.callbacks);
-        
+
         set = RhnSetManager.findByLabel(userId, label, cleanup);
         assertEquals(3, set.size());
         assertEquals(5, cleanup.callbacks);
+    }
+
+    public void testStoreElement3() throws Exception {
+        String label = "test_rhn_set_store_element_3";
+
+        // Tests storing something in element 3
+        RhnSet set = RhnSetManager.createSet(userId, label, cleanup);
+        set.addElement(new Long(11), new Long(22), new Long(33));
+        RhnSetManager.store(set);
+
+        set = RhnSetManager.findByLabel(userId, label, cleanup);
+        assertEquals(1, set.size());
+
+        RhnSetElement element = set.getElements().iterator().next();
+        assertEquals(new Long(11), element.getElement());
+        assertEquals(new Long(22), element.getElementTwo());
+        assertEquals(new Long(33), element.getElementThree());
     }
     
     public static final class TestSetCleanup extends SetCleanup {

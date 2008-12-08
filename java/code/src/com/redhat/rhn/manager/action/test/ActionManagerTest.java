@@ -39,9 +39,8 @@ import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionHistory;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
-import com.redhat.rhn.domain.rhnpackage.PackageEvr;
-import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -493,18 +492,10 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(srvr);
         assertNotNull(set);
 
-        // package names must be unique
-        PackageName pn = new PackageName();
-        pn.setName("testPackageName" + TestUtils.randomString());
-        TestUtils.saveAndFlush(pn);
-        assertNotNull(pn.getId());
+        Package pkg = PackageTest.createTestPackage(user.getOrg());
 
-        PackageEvr pe = PackageEvrFactory.createPackageEvr(
-                "" + System.currentTimeMillis(), "4.0", "1");
-        PackageEvrFactory.save(pe);
-        assertNotNull(pe.getId());
-
-        set.addElement(pn.getId(), pe.getId());
+        set.addElement(pkg.getPackageName().getId(), pkg.getPackageEvr().getId(),
+                pkg.getPackageArch().getId());
         RhnSetManager.store(set);
 
         PackageAction pa = ActionManager.schedulePackageRemoval(user, srvr, 
@@ -527,18 +518,10 @@ public class ActionManagerTest extends RhnBaseTestCase {
         assertNotNull(srvr);
         assertNotNull(set);
         
-        // package names must be unique
-        PackageName pn = new PackageName();
-        pn.setName("testPackageName" + TestUtils.randomString());
-        TestUtils.saveAndFlush(pn);
-        assertNotNull(pn.getId());
+        Package pkg = PackageTest.createTestPackage(user.getOrg());
 
-        PackageEvr pe = PackageEvrFactory.createPackageEvr(
-                "" + System.currentTimeMillis(), "4.0", "1");
-        PackageEvrFactory.save(pe);
-        assertNotNull(pe.getId());
-
-        set.addElement(pn.getId(), pe.getId());
+        set.addElement(pkg.getPackageName().getId(), pkg.getPackageEvr().getId(),
+                pkg.getPackageArch().getId());
         RhnSetManager.store(set);
         
         PackageAction pa = ActionManager.schedulePackageVerify(user, srvr, set, new Date());

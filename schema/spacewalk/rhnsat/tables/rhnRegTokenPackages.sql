@@ -19,6 +19,10 @@
 create table
 rhnRegTokenPackages
 (
+        id              number
+                        constraint rhn_reg_tok_pkg_id_nn not null
+                        constraint rhn_reg_tok_pkg_id_pk primary key,
+
 	token_id	number
 			constraint rhn_reg_tok_pkg_tid_nn not null
 			constraint rhn_reg_tok_pkg_id_fk
@@ -28,14 +32,18 @@ rhnRegTokenPackages
                         constraint rhn_reg_tok_pkg_sg_nn not null
                         constraint rhn_reg_tok_pkg_sgs_fk
                                 references rhnPackageName(id)
-				on delete cascade
+				on delete cascade,
+        arch_id         number
+                        constraint rhn_reg_tok_pkg_aid_fk
+                                references rhnPackageArch(id)
+                                on delete cascade
 )
 	storage( freelists 16 )
 	enable row movement
 	initrans 32;
 
 create unique index rhn_reg_tok_pkg_uq
-	on rhnRegTokenPackages(token_id, name_id)
+	on rhnRegTokenPackages(id, token_id, name_id, arch_id)
 	tablespace [[4m_tbs]]
 	storage( freelists 16 )
 	initrans 32;
@@ -46,6 +54,8 @@ create index rhn_reg_tok_pkg_nid_idx
 	tablespace [[2m_tbs]]
 	storage ( freelists 16 )
 	initrans 32;
+
+create sequence rhn_reg_tok_pkg_id_seq;
 
 --
 -- Revision 1.2  2003/10/16 19:13:20  pjones

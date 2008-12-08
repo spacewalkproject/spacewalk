@@ -49,26 +49,41 @@ public class RhnSetFactoryTest extends RhnBaseTestCase {
         
         set.addElement(num, null);
         set.addElement(num, num);
+        set.addElement(num, num, null);
+        set.addElement(num, num, num);
         
         Set elements = set.getElements();
         assertNotNull(elements);
-        assertEquals(2, elements.size());
-        
+        assertEquals(set.size(), elements.size());
+        assertEquals(3, set.size());
+
         int i = 0;
         for (Iterator itr = elements.iterator(); itr.hasNext();) {
             RhnSetElement element = (RhnSetElement) itr.next();
-            if (element.getElementTwo() != null) {
+            if (element.getElementTwo() != null && element.getElementThree() != null) {
                 assertEquals(num, element.getElement());
                 assertEquals(num, element.getElementTwo());
+                assertEquals(num, element.getElementThree());
+            }
+            else if (element.getElementTwo() != null && element.getElementThree() == null) {
+                assertEquals(num, element.getElement());
+                assertEquals(num, element.getElementTwo());
+                assertNull(element.getElementThree());
+            }
+            else if (element.getElementTwo() == null && element.getElementThree() != null) {
+                assertEquals(num, element.getElement());
+                assertNull(element.getElementTwo());
+                assertEquals(num, element.getElementThree());
             }
             else {
                 assertEquals(num, element.getElement());
                 assertNull(element.getElementTwo());
+                assertNull(element.getElementThree());
             }
             i++;
         }
 
-        assertEquals(2, i);
+        assertEquals(3, i);
         
         set.setLabel("label");
         assertEquals("label", set.getLabel());

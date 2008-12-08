@@ -65,7 +65,7 @@ public class PackageDetailsAction extends RhnAction {
             PackageListItem item = PackageListItem.parse(request.getParameter("id_combo"));
             long nameId = item.getIdOne();
             long evrId = item.getIdTwo();
-            
+            long archId = item.getIdThree();
            
             String cidParam = request.getParameter("cid");
             String sidParam = request.getParameter("sid");
@@ -76,7 +76,7 @@ public class PackageDetailsAction extends RhnAction {
             }
             else if (sidParam != null) {
                 pack = PackageManager.guestimatePackageBySystem(
-                   Long.parseLong(sidParam), nameId, evrId, user.getOrg());   
+                   Long.parseLong(sidParam), nameId, evrId, archId, user.getOrg());
                 
             }
             else {
