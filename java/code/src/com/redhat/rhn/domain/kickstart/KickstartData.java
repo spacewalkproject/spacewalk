@@ -742,14 +742,24 @@ public class KickstartData {
      * @return if this kickstart profile is rhel 5 installer type
      */
     public boolean isRhel5() {
-        return getInstallType().isRhel5();
+        if (getInstallType() != null) {
+            return getInstallType().isRhel5();
+        }
+        else {
+            return false;
+        }
     }
 
     /**
      * @return if this kickstart profile is rhel 5 installer type or greater (for rhel6)
      */
     public boolean isRhel5OrGreater() {
-        return getInstallType().isRhel5OrGreater();
+        if (getInstallType() != null) {
+            return getInstallType().isRhel5OrGreater();
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -757,7 +767,12 @@ public class KickstartData {
      * @return if this is a fedora kickstart or not
      */
     public boolean isFedora() {
-        return getInstallType().isFedora();
+        if (getInstallType() != null) {
+            return getInstallType().isFedora();
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -766,21 +781,36 @@ public class KickstartData {
      * @return if this is a generic kickstart or not
      */
     public boolean isGeneric() {
-        return getInstallType().isFedora();
+        if (getInstallType() != null) {
+            return getInstallType().isGeneric();
+        }
+        else {
+            return false;
+        }
     }
         
     /**
      * @return if this kickstart profile is rhel 4 installer type
      */
     public boolean isRhel4() {
-        return getInstallType().isRhel4();
+        if (getInstallType() != null) {
+            return getInstallType().isRhel4();
+        }
+        else {
+            return false;
+        }
     }
 
     /**
      * @return if this kickstart profile is rhel 3 installer type
      */
     public boolean isRhel3() {
-        return getInstallType().isRhel3();
+        if (getInstallType() != null) {
+            return getInstallType().isRhel3();
+        }
+        else {
+            return false;
+        }
     }
     
     /**
@@ -788,7 +818,12 @@ public class KickstartData {
      * @return if this kickstart profile is rhel 2 installer type
      */
     public boolean isRhel2() {
-        return getInstallType().isRhel2();
+        if (getInstallType() != null) {
+            return getInstallType().isRhel2();
+        }
+        else {
+            return false;
+        }
     }
 
     /**

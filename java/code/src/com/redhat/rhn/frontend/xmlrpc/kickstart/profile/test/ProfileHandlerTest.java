@@ -14,20 +14,13 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Date;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
+import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartCommandName;
-import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -46,6 +39,13 @@ import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.TestUtils;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ProfileHandlerTest
@@ -298,8 +298,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     
     
     public void testListIpRanges() throws Exception {
-        KickstartData ks1 = setupIpRanges();
-        KickstartData ks2 = setupIpRanges();
+        KickstartData ks1 = setupIpRanges(100);
+        KickstartData ks2 = setupIpRanges(110);
         Set set = handler.listIpRanges(adminKey, ks1.getLabel());
         
         assertTrue(set.contains(ks1.getIps().iterator().next()));
@@ -307,7 +307,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testAddIpRange() throws Exception {
-        KickstartData ks1 = setupIpRanges();
+        KickstartData ks1 = setupIpRanges(100);
         handler.addIpRange(adminKey, ks1.getLabel(), "192.168.1.1", "192.168.1.10");
         ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
                 admin.getOrg().getId());
@@ -315,7 +315,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testAddIpRange1() throws Exception {
-        KickstartData ks1 = setupIpRanges();
+        KickstartData ks1 = setupIpRanges(100);
         boolean caught = false;
         try {
             handler.addIpRange(adminKey, ks1.getLabel(), "192.168.0.3", "192.168.1.10");
@@ -330,7 +330,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testRemoveIpRange() throws Exception {
-        KickstartData ks1 = setupIpRanges();
+        KickstartData ks1 = setupIpRanges(100);
+        assertTrue(ks1.getIps().size() == 1);
         handler.removeIpRange(adminKey, ks1.getLabel(), "192.168.0.1");
         ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
                 admin.getOrg().getId());
@@ -558,8 +559,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertNotNull(ks1Values);
         assertNotNull(ks2Values);
         
-        assertEquals(1, ks1Values.size());
-        assertEquals(1, ks2Values.size());
+        assertEquals(2, ks1Values.size());
+        assertEquals(2, ks2Values.size());
 
         KickstartOptionValue value1 = ks1Values.get(0);
         assertEquals("test value", value1.getArg());
@@ -570,11 +571,11 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertEquals(value1.getName(), value2.getName());
     }
     
-    private KickstartData setupIpRanges() throws Exception {
+    private KickstartData setupIpRanges(int max) throws Exception {
         KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
         KickstartIpRange range = new KickstartIpRange();
-        range.setMax(new IpAddress("192.168.0.10").getNumber());
         range.setMin(new IpAddress("192.168.0.1").getNumber());
+        range.setMax(new IpAddress("192.168.0." + max).getNumber());
         range.setKsdata(ks1);
         range.setOrg(admin.getOrg());
         ks1.getIps().add(range);   

@@ -46,6 +46,13 @@ public class TinyUrlTest extends RhnBaseTestCase {
         assertEquals(expected, path);
     }
     
+    public void testComputeTinyPath() {
+        TinyUrl url = CommonFactory.createTinyUrl(
+                "/rhn/kickstart/ks-rhel-i386-as-4-u2", new Date());
+        String expected = "/ty/" + url.getToken();
+        assertEquals(expected, url.computeTinyPath());
+    }
+    
     public void testDateMath() {
         TimeZone defaulttz = TimeZone.getDefault();
         Calendar pcal = Calendar.getInstance();
