@@ -197,9 +197,8 @@ def doInstallation(rpms_dir):
 def main():
     os.chdir(os.path.dirname(sys.argv[0]))
 
-    for rpmdir in ["../Satellite", "../EmbeddedDB"]:
-        if os.path.isdir(rpmdir):
-            doInstallation(rpmdir)
+    rpmdir = "../*"
+    doInstallation(rpmdir)
 
     return 0
 
