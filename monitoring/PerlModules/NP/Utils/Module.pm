@@ -136,7 +136,7 @@ package. If that also fails, that error and the previous are
 returned. If there is no fallback package and there is an error,
 returns that error.
 
-=item isloaded($moduleName)
+=item isLoaded($moduleName)
 
 Returns defined if the module named $moduleName is known to Perl,
 undef otherwise.
