@@ -33,6 +33,8 @@ import com.redhat.rhn.frontend.xmlrpc.ErrorWithSearchQuery;
  * SystemSearchHandler
  * Provides access to the internal XMLRPC search-server for system searches
  * @version $Rev: 1 $
+ * @xmlrpc.namespace system.search
+ * @xmlrpc.doc Provides methods to perform system search requests using the search server.
  *
  */
 public class SystemSearchHandler extends BaseHandler {
@@ -87,9 +89,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this ip.
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] ip(String sessionKey, String searchTerm)
         throws FaultException {
@@ -105,9 +110,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this hostname
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] hostname(String sessionKey, String searchTerm)
         throws FaultException {
@@ -124,9 +132,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this device vendor_id
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceVendorId(String sessionKey, String searchTerm)
         throws FaultException {
@@ -143,9 +154,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this device id
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceId(String sessionKey, String searchTerm)
         throws FaultException {
@@ -162,9 +176,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this device driver.
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceDriver(String sessionKey, String searchTerm)
         throws FaultException {
@@ -181,9 +198,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match the device description.
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] deviceDescription(String sessionKey, String searchTerm)
         throws FaultException {
@@ -200,9 +220,12 @@ public class SystemSearchHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown on error.
      *
      * @xmlrpc.doc List the systems which match this name or description
-     * @xmlrpc.param #param("string", "sessionKey", "searchTerm")
-     * @xmlrpc.returntype array
-     *              $SystemSearchResultSerializer
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "searchTerm")
+     * @xmlrpc.returntype 
+     *     #array()
+     *         $SystemSearchResultSerializer
+     *     #array_end()
      */
     public Object[] nameAndDescription(String sessionKey, String searchTerm)
         throws FaultException {
