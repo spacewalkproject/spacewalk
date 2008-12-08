@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk 
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2
+Version: 0.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,apache) %{htmldir}/_rhn_proxy/*.png
 
 %changelog
+* Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.3-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-1
 - change graphics to Spacewalk style
 
