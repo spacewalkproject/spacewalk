@@ -1020,9 +1020,9 @@ public class SystemManagerTest extends RhnBaseTestCase {
         upgradedPackageEvr =
             (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
         
-        populateServerErrataPackages(org, server,
+        ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_SECURITY);
-        populateServerErrataPackages(org, server,
+        ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
 
         // Test
@@ -1112,6 +1112,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
             RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
         assert ssmSet != null;
 
+        ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage1);
+        ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage2);
+        
+        ServerTestUtils.addServerPackageMapping(server2.getId(), installedPackage1);
+        
+        //    Add the servers to the SSM set
+        ServerTestUtils.addServersToSsm(admin, server1.getId(), server2.getId());
+        
         //    Simulate the user selecting every package in the list
         RhnSet packagesSet =
             RhnSetManager.createSet(admin.getId(),
@@ -1132,37 +1140,40 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assert packagesSet != null;
 
         // Test
+        assertNotNull(packagesSet);
+        
+        // Test
         DataResult result =
             SystemManager.ssmSystemPackagesToRemove(admin, packagesSet.getLabel());
-        assert result != null;
-
+        assertNotNull(result);
+        
         //   Need explicit elaborate call here; list tag will do this in the UI
         result.elaborate();
 
         // Verify
-        assert result.size() == 2;
+        assertEquals(2, result.size());
 
-        Map result1 = (Map)result.get(1);
-
-        // Debugging
-//        for (Object key : result1.keySet()) {
-//            System.out.println("-============- " + key);
-//        }
-
-        assert server1.getId().equals(result1.get("id"));
-        assert server1.getName().equals(result1.get("system_name"));
-
-        assert result1.get("elaborator0") instanceof List;
-        List result1Packages = (List)result1.get("elaborator0");
-        assert result1Packages.size() == 2;
-
-        Map result2 = (Map)result.get(0);
-        assert server2.getId().equals(result2.get("id"));
-        assert server2.getName().equals(result2.get("system_name"));
-
-        assert result2.get("elaborator0") instanceof List;
-        List result2Packages = (List)result2.get("elaborator0");
-        assert result2Packages.size() == 1;
+        for (Object r : result) {
+            Map map = (Map)r;
+            
+            if (map.get("id").equals(server1.getId())) {
+                assertEquals(server1.getName(), map.get("system_name"));
+        
+                assertTrue(map.get("elaborator0") instanceof List);
+                List result1Packages = (List)map.get("elaborator0");
+                assertEquals(2, result1Packages.size());
+            }
+            else if (map.get("id").equals(server2.getId())) {
+                assertEquals(server2.getName(), (map.get("system_name")));
+        
+                assertTrue(map.get("elaborator0") instanceof List);
+                List result2Packages = (List)map.get("elaborator0");
+                assertEquals(1, result2Packages.size());                
+            }
+            else {
+                fail("Found ID that wasn't expected: " + map.get("id"));
+            }
+        }
     }
 
     private void addServerPackageMapping(Long serverId, Package packageIn) {

@@ -15582,9 +15582,42 @@ any of these revisions.  Are you sure you want to do this?</source>
            <source>{0} package removals have been scheduled</source>
         </trans-unit>
     </group>
+       
+    <!-- ssm/packageupgrade.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageUpgrade.do</context>
+       </context-group>
 
+       <trans-unit id="ssm.package.upgrade.select.header">
+         <source>Select Packages to Upgrade</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.summary">
+         <source>Select the packages to be upgraded. Only those systems to which the package updates apply will receive the updates.
+         </source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.confirm">
+         <source>Upgrade Selected Packages</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.numsystems">
+         <source>Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.advisory">
+         <source>Advisory</source>
+       </trans-unit>
+   </group>
+    
+    <!-- ssm/packageupgradeschedule.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageUpgradeSchedule.do</context>
+       </context-group>
 
-
+       <trans-unit id="ssm.package.upgrade.message.packageupgrade">
+         <source>Package upgrades scheduled</source>
+       </trans-unit>
+   </group>
+       
      <!-- Kickstart stuff -->
      <trans-unit id="rootPassword">
          <source>Root password</source>

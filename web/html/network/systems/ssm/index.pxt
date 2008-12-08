@@ -43,7 +43,7 @@
                 alt="Packages"/></td>
                 <th>Packages:</th>
                 <td>
-<a href="/network/systems/ssm/packages/upgrade.pxt">Upgrade</a> / <a
+<a href="/rhn/ssm/PackageUpgrade.do">Upgrade</a> / <a
  href="/rhn/ssm/PackageInstall.do">Install</a> / <a href="/rhn/ssm/PackageRemove.do">Remove</a> / <a href="/network/systems/ssm/packages/verify.pxt">Verify</a>
  packages<br />
                 </td>

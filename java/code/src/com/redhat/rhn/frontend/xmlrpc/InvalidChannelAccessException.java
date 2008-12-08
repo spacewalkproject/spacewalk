@@ -36,7 +36,7 @@ public class InvalidChannelAccessException extends FaultException  {
 
     /**
      * Constructor
-     * @param label the channel label that is duplicated
+     * @param access the channel label that is duplicated
      * @param cause the cause
      */
     public InvalidChannelAccessException(String access, Throwable cause) {

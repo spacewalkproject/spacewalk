@@ -1103,4 +1103,22 @@ public class PackageManager extends BaseManager {
         DataResult result = m.execute(params);
         return result;
     }
+
+    /**
+     * Returns the list of packages that are on at least one system in the SSM that can
+     * be upgraded, along with a count of how many systems each package is installed on.
+     * 
+     * @param user user
+     * @return list of {@link com.redhat.rhn.frontend.dto.SsmUpgradablePackageListItem}
+     */
+    public static DataResult upgradablePackagesFromServerSet(User user) {
+        
+        SelectMode m = ModeFactory.getMode("Package_queries", "ssm_packages_for_upgrade");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        
+        DataResult result = m.execute(params);
+        return result;
+    }
+    
 }

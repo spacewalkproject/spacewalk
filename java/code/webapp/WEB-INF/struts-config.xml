@@ -6375,7 +6375,29 @@
         <forward name="confirm"
                  path="/ssm/Packages.do"/>
      </action>
-
+     
+     <!-- SSM Package Upgrade Pages -->
+     <action path="/ssm/PackageUpgrade"
+         scope="request"
+         input="/WEB-INF/pages/ssm/packageupgrade.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectUpgradePackagesAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageupgrade.jsp" />
+        <forward name="confirm"
+                 path="/ssm/PackageUpgradeSchedule.do"/>
+     </action>                                          
+    
+     <action path="/ssm/PackageUpgradeSchedule"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/ssm/packageupgradeschedule.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SchedulePackageUpgradeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>                                          
+    
   </action-mappings>
 
   <!-- ===================================== -->

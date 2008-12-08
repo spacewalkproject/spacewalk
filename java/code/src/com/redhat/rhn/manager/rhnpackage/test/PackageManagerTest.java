@@ -22,12 +22,14 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageCapability;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageCapabilityTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageNameTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
@@ -35,6 +37,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -44,6 +47,8 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
+import com.redhat.rhn.testing.ServerTestUtils;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -146,8 +151,7 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      * The web code doesn't actually create any of these records, but
      * this will be needed by the backend code.
      * @param srvr Server to associate with the packages
-     * @param pn The package name to associate
-     * @param pe The package evr (version and release).
+     * @param p The package 
      */
     public static void associateSystemToPackage(Server srvr, Package p) {
         try {
@@ -170,7 +174,6 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
      * Add a new Package to the specified Channel and associate the system 
      * with it. 
      * @param s
-     * @param p
      * @param c
      * @throws Exception 
      */
@@ -552,5 +555,30 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         
     }    
     
-    
+    public void testUpgradablePackagesFromServerSet() throws Exception {
+        // Setup
+        User admin = UserTestUtils.findNewUser("ssmUpgradeUser1", "ssmUpgradeOrg1");
+        Org org = admin.getOrg();
+        
+        //   Create the server and add to the SSM
+        Server server = ServerTestUtils.createTestSystem(admin);
+        ServerTestUtils.addServersToSsm(admin, server.getId());
+
+        //   Create upgraded package EVR so package will show up from the query
+        PackageEvr upgradedPackageEvr =
+            PackageEvrFactory.createPackageEvr("1", "1.0.0", "2");
+        upgradedPackageEvr =
+            (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
+        
+        ServerTestUtils.populateServerErrataPackages(org, server,
+            upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_SECURITY);
+        ServerTestUtils.populateServerErrataPackages(org, server,
+            upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
+        
+        // Test
+        DataResult result = PackageManager.upgradablePackagesFromServerSet(admin);
+        
+        assertTrue(result != null);
+        assertEquals(2, result.size());
+    }
 }
