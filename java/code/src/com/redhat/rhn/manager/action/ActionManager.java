@@ -862,8 +862,6 @@ public class ActionManager extends BaseManager {
         if (pkgs == null || pkgs.isEmpty()) {
             return null;
         }
-        
-        
 
         Action action = scheduleAction(scheduler, server,
                 ActionFactory.TYPE_PACKAGES_RUNTRANSACTION, 
@@ -907,7 +905,8 @@ public class ActionManager extends BaseManager {
                   params.put("r", pm.getSystem().getRelease());
                   String epoch = pm.getSystem().getEpoch();
                   params.put("e", epoch != null ? epoch : "");
-                  params.put("a", "");
+                  params.put("a", pm.getSystem().getArch() != null ?
+                          pm.getSystem().getArch() : "");
                   m.executeUpdate(params);
               }
               else if (pm.getComparisonAsInt() == PackageMetadata.KEY_OTHER_ONLY) {
@@ -924,7 +923,8 @@ public class ActionManager extends BaseManager {
                   params.put("r", pm.getOther().getRelease());
                   String epoch = pm.getOther().getEpoch();
                   params.put("e", epoch != null ? epoch : "");
-                  params.put("a", "");
+                  params.put("a", pm.getOther().getArch() != null ?
+                          pm.getOther().getArch() : "");
                   m.executeUpdate(params);
 
               }
@@ -1385,20 +1385,21 @@ public class ActionManager extends BaseManager {
     }
 
     /**
-     * Schedules a package action of the given type for the given server with the
-     * packages given as a list.
+     * Schedules an install of a package
      * @param scheduler The user scheduling the action.
      * @param srvr The server that this action is for.
      * @param nameId nameId rhnPackage.name_id
-     * @param evrId evrId of action
+     * @param evrId evrId of package
+     * @param archId archId of package
      * @return The action that has been scheduled.
      */
     public static Action schedulePackageInstall(User scheduler, Server srvr, 
-            Long nameId, Long evrId) {
+            Long nameId, Long evrId, Long archId) {
         List packages = new LinkedList();
         Map row = new HashMap();
         row.put("name_id", nameId);
         row.put("evr_id", evrId);
+        row.put("arch_id", archId);
         packages.add(row);
         return schedulePackageInstall(scheduler, srvr, packages, new Date());
     }
@@ -1449,6 +1450,7 @@ public class ActionManager extends BaseManager {
               Map params = new HashMap();
               Long nameId = (Long) rse.get("name_id");
               Long evrId = (Long) rse.get("evr_id");
+              Long archId = (Long) rse.get("arch_id");
               if (nameId == null || evrId == null) {
                   throw new IllegalArgumentException("name_id or " +
                         "evr_id are not in the Map passed into " +
@@ -1458,6 +1460,7 @@ public class ActionManager extends BaseManager {
               params.put("action_id", action.getId());
               params.put("name_id", nameId);
               params.put("evr_id", evrId);
+              params.put("arch_id", archId);
               m.executeUpdate(params);
           }
         }
@@ -1484,6 +1487,7 @@ public class ActionManager extends BaseManager {
             Map row = new HashMap();
             row.put("name_id", rse.getElement());
             row.put("evr_id", rse.getElementTwo());
+            row.put("arch_id", rse.getElementThree());
             // bugzilla: 191000, we forgot to populate the damn LinkedList :(
             packages.add(row);
         }

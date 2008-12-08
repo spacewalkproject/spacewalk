@@ -196,41 +196,9 @@ public class ProfileManager extends BaseManager {
      */
     public static List comparePackageLists(DataResult profiles,
             DataResult systems, String param) {
-        Map profilesNameIdMap = new HashMap();
-        Map systemsNameIdMap = new HashMap();
         List result = new LinkedList();
-
-        // First we build up a list of *just* the package names
-        // in a map.  We key based on the packageNameId.  This is 
-        // so we can do lookups to see if one list contains *any*
-        // packages with the same name as the packages in the other
-        // list.  Basically, used to find the packages that are 
-        // in both lists and do some comparisons on them.
-        for (Iterator itr = profiles.iterator(); itr.hasNext();) {
-            PackageListItem profpkgitem = (PackageListItem) itr.next();
-            // We actually put *each* package in a sub-list in the map.
-            // This is so we can have a List containing each package
-            // by name.  Used for when we have multiple revs of the same
-            // package, kernel-2.1, kernel-2.2, kernel-2.3 etc..
-            List plist = (List) profilesNameIdMap.get(profpkgitem.getNameId());
-            if (plist == null) {
-                plist = new LinkedList();
-            }
-            plist.add(profpkgitem);
-            profilesNameIdMap.put(profpkgitem.getNameId(), plist);
-        }
-
-        // List of the packages by name from the system list.  Same as above
-        // loop but based on system list
-        for (Iterator itr = systems.iterator(); itr.hasNext();) {
-            PackageListItem syspkgitem = (PackageListItem) itr.next();
-            List plist = (List) systemsNameIdMap.get(syspkgitem.getNameId());
-            if (plist == null) {
-                plist = new LinkedList();
-            }
-            plist.add(syspkgitem);
-            systemsNameIdMap.put(syspkgitem.getNameId(), plist);
-        }
+        Map profilesNameIdMap = buildPackagesMap(profiles);
+        Map systemsNameIdMap = buildPackagesMap(systems);
         
         if (log.isDebugEnabled()) {
             log.debug("profilesIdComboMap: " + profilesNameIdMap);
@@ -250,23 +218,21 @@ public class ProfileManager extends BaseManager {
             List syslist = (List) systemsNameIdMap.get(key);
             List plist = (List) profilesNameIdMap.get(key);
             if (plist == null) {
-                // No packages in profile with same name.  We know
-                // its only in the System
+                // No packages in profile with same name.  We know its only in the System
                 for (int i = 0; i < syslist.size(); i++) {
                     PackageListItem syspkgitem = (PackageListItem) syslist.get(i);
                     PackageMetadata pm = createPackageMetadata(syspkgitem,
                             null, PackageMetadata.KEY_THIS_ONLY, param);
                     log.debug("plist is null - adding KEY_THIS_ONLY: " + 
                             pm.getSystem().getVersion());
-                    skipPkg.add(syspkgitem.getNameEpochVersionRelease());
+                    skipPkg.add(syspkgitem.getNevr());
                     result.add(pm);
                 }
             } 
             else {
-                // We have packages on the system that are also in the Profile
-                // If either the system or the profile list has more than 
-                // one version of a package installed we need to run a 
-                // different algorithm.  
+                // We have packages on the system that are also in the Profile.  If either
+                // the system or the profile list has more than one version of a package
+                // installed we need to run a different algorithm.
                 log.debug("syslist.size: " + syslist.size() + 
                         " plist.size: " + plist.size());
                 if (syslist.size() > 1 || plist.size() > 1) {
@@ -277,8 +243,7 @@ public class ProfileManager extends BaseManager {
 
                             PackageListItem profpkgitem = (PackageListItem) plist.get(j);
 
-                            if (skipPkg.contains(profpkgitem.
-                                    getNameEpochVersionRelease())) {
+                            if (skipPkg.contains(profpkgitem.getNevr())) {
                                 // this package was evaluated on a previous pass through
                                 // the plist and identified as a match on the syslist; 
                                 // therefore, it may be skipped
@@ -286,55 +251,69 @@ public class ProfileManager extends BaseManager {
                             }
                             else {
                                 log.debug("Checking on : " + profpkgitem.getEvr());
-                                PackageMetadata pm = compareAndCreatePackageMetaData(
-                                        syspkgitem, profpkgitem, param);
-                                String evrKey = pm.getSystemEvr() + "|" + pm.getOtherEvr(); 
-                                // If the package exists on one but not the other we 
-                                // need to add it to the compare map
-                                if (pm.getComparisonAsInt() != 
-                                    PackageMetadata.KEY_NO_DIFF) {
-                                    //  result.put(pm, pm);
-                                    
+
+                                if (compareArch(syspkgitem.getArch(),
+                                    profpkgitem.getArch()) != 0) {
+                                    // if the arch of the packages doesn't match, we don't
+                                    // need to compare the EVR; therefore, if at end of the
+                                    // list, add both packages to the result
                                     if ((j + 1) == plist.size()) {
-                                        // we are evaluating the last entry in plist;
-                                        // therefore, we need to add this as a difference;
-                                        // otherwise, it is possible one of the remaining
-                                        // entries will be a match
-                                        log.debug("Adding to cm: " + evrKey + " comp: " + 
-                                                pm.getComparison());
-                                        pm.setComparison(PackageMetadata.KEY_OTHER_ONLY);
-                                        compareMap.put(evrKey, pm);
-                                        skipPkg.add(syspkgitem.
-                                                getNameEpochVersionRelease());
-                                        skipPkg.add(profpkgitem.
-                                                getNameEpochVersionRelease());
+                                        PackageMetadata pm = createPackageMetadata(
+                                                syspkgitem, null,
+                                                PackageMetadata.KEY_THIS_ONLY, param);
+                                        skipPkg.add(syspkgitem.getNevr());
+                                        result.add(pm);
+
+                                        pm = createPackageMetadata(null, profpkgitem,
+                                                PackageMetadata.KEY_OTHER_ONLY, param);
+                                        skipPkg.add(profpkgitem.getNevr());
+                                        result.add(pm);
                                     }
                                 }
                                 else {
-                                    log.debug("Removing from cm: " + evrKey);
-                                    compareMap.remove(evrKey);
-                                    skipPkg.add(profpkgitem.getNameEpochVersionRelease());
-                                    // since we found a match for the package in both 
-                                    // plist and syslist we can go searching for the next
-                                    // syslist entry
-                                    break;
+                                    PackageMetadata pm = compareAndCreatePackageMetaData(
+                                            syspkgitem, profpkgitem, param);
+                                    String evrKey = pm.getSystemEvr() + "|" +
+                                            pm.getOtherEvr();
+                                    // If the package exists on one but not the other we
+                                    // need to add it to the compare map
+                                    if (pm.getComparisonAsInt() !=
+                                        PackageMetadata.KEY_NO_DIFF) {
+
+                                        if ((j + 1) == plist.size()) {
+                                            // this is the last entry in plist; therefore,
+                                            // this must be a difference between pkgs
+                                            log.debug("Adding to cm: " + evrKey +
+                                                    " comp: " + pm.getComparison());
+                                            pm.setComparison(
+                                                    PackageMetadata.KEY_OTHER_ONLY);
+                                            compareMap.put(evrKey, pm);
+                                            skipPkg.add(syspkgitem.getNevr());
+                                            skipPkg.add(profpkgitem.getNevr());
+                                        }
+                                    }
+                                    else {
+                                        log.debug("Removing from cm: " + evrKey);
+                                        compareMap.remove(evrKey);
+                                        skipPkg.add(profpkgitem.getNevr());
+                                        // pkg found in both plist & syslist, skip to next
+                                        // syslist entry
+                                        break;
+                                    }
                                 }
                             }
                         }
-                        if (!skipPkg.contains(syspkgitem.
-                                getNameEpochVersionRelease())) {
+                        if (!skipPkg.contains(syspkgitem.getNevr())) {
                             
-                            // we reached the end of the plist, but did not locate a
-                            // match for the slist entry and we have not already 
-                            // declared that there is a difference between the packages; 
-                            // therefore, we will add it as a difference now.
+                            // reached end of plist w/o finding match in syslist
+                            // or recording a difference; therefore, add one now
                             log.debug("Checking on : " + syspkgitem.getEvr());
 
                             PackageMetadata pm = createPackageMetadata(syspkgitem,
                                     null, PackageMetadata.KEY_THIS_ONLY, param);
                             
-                            log.debug("*** adding a PM: " + pm.hashCode());
-                            skipPkg.add(syspkgitem.getNameEpochVersionRelease());
+                            log.debug("*** adding a PM(1): " + pm.hashCode());
+                            skipPkg.add(syspkgitem.getNevr());
                             result.add(pm);
                         }
                     }
@@ -342,7 +321,7 @@ public class ProfileManager extends BaseManager {
                     Iterator i = compareMap.values().iterator();
                     while (i.hasNext()) {
                         PackageMetadata pm = (PackageMetadata) i.next();
-                        log.debug("*** adding a PM: " + pm.hashCode());
+                        log.debug("*** adding a PM(2): " + pm.hashCode());
                         result.add(pm);
                     }
                 } 
@@ -351,21 +330,36 @@ public class ProfileManager extends BaseManager {
                 else {
                     PackageListItem syspkgitem = (PackageListItem) syslist.get(0);
                     PackageListItem profpkgitem = (PackageListItem) plist.get(0);
-                    PackageMetadata pm = compareAndCreatePackageMetaData(syspkgitem,
-                            profpkgitem, param);
-                    if (pm != null && pm.getComparisonAsInt() != 
-                            PackageMetadata.KEY_NO_DIFF) {
-                        log.debug("*** adding a PM: " + pm.hashCode());
+
+                    if (compareArch(syspkgitem.getArch(), profpkgitem.getArch()) != 0) {
+
+                        // pkg arches do not match; therefore, no need to check evr
+                        PackageMetadata pm = createPackageMetadata(syspkgitem, null,
+                                PackageMetadata.KEY_THIS_ONLY, param);
+                        skipPkg.add(syspkgitem.getNevr());
+                        result.add(pm);
+
+                        pm = createPackageMetadata(null, profpkgitem,
+                                PackageMetadata.KEY_OTHER_ONLY, param);
+                        skipPkg.add(profpkgitem.getNevr());
                         result.add(pm);
                     }
-                    skipPkg.add(syspkgitem.getNameEpochVersionRelease());
-                    skipPkg.add(profpkgitem.getNameEpochVersionRelease());
+                    else {
+                        PackageMetadata pm = compareAndCreatePackageMetaData(syspkgitem,
+                                profpkgitem, param);
+                        if (pm != null && pm.getComparisonAsInt() !=
+                                PackageMetadata.KEY_NO_DIFF) {
+                            log.debug("*** adding a PM(3): " + pm.hashCode());
+                            result.add(pm);
+                        }
+                    }
+                    skipPkg.add(profpkgitem.getNevr());
+                    skipPkg.add(syspkgitem.getNevr());
                 }
             }
         }
          
-        // Reverse of above list so we can check for packages that are *only* 
-        // in the profile.
+        // Reverse of above so we can check for pkgs that are *only* in the profile
         for (Iterator itr = profilesNameIdMap.keySet().iterator(); itr.hasNext();) {
             Object key = itr.next();
             List syslist = (List) systemsNameIdMap.get(key);
@@ -385,29 +379,65 @@ public class ProfileManager extends BaseManager {
                 for (int i = 0; i < plist.size(); i++) {
                     PackageListItem profpkgitem = (PackageListItem) plist.get(i);
 
-                    if (!skipPkg.contains(profpkgitem.
-                            getNameEpochVersionRelease())) {
+                    if (!skipPkg.contains(profpkgitem.getNevr())) {
                         
                         PackageMetadata pm = createPackageMetadata(
                                 null, profpkgitem, PackageMetadata.KEY_OTHER_ONLY, param);
-                        log.debug("*** adding a PM: " + pm.hashCode());
+                        log.debug("*** adding a PM(4): " + pm.hashCode());
                         result.add(pm);
                     }
                 }
             }
         }
 
-        if (log.isDebugEnabled()) {
-            Iterator i = result.iterator();
-            while (i.hasNext()) {
-                PackageMetadata pmd = (PackageMetadata) i.next();
-                if (pmd != null) {
-                    log.debug("Results(i): " + pmd.getSystemEvr() + 
-                            " other: " + pmd.getOtherEvr());
-                }
-            }
-        }
         return result;
+    }
+
+    /**
+     * Build a map of packages based on the list of PackageListItems provided.
+     * @param packageListItems - set of PackageListItems to be processed
+     * @return Map where the key is the package name Id and the value is a list
+     * of evr values for each of the packages associated with that name.
+     * E.g. for kernel, the nameid might be 23 and there may be multiple
+     * versions of that package in the list 2.1, 2.2, 2.3...etc
+     */
+    private static Map buildPackagesMap(DataResult packageListItems) {
+        Map packages = new HashMap();
+
+        for (Iterator itr = packageListItems.iterator(); itr.hasNext();) {
+            PackageListItem item = (PackageListItem) itr.next();
+            // We actually put *each* package in a sub-list in the map.
+            // This is so we can have a List containing each package
+            // by name.  Used for when we have multiple revs of the same
+            // package, kernel-2.1, kernel-2.2, kernel-2.3 etc..
+            List list = (List) packages.get(item.getNameId());
+            if (list == null) {
+                list = new LinkedList();
+            }
+            list.add(item);
+            packages.put(item.getNameId(), list);
+        }
+        return packages;
+    }
+
+    /*
+     * Compare the arches provided.
+     * @param a1 - arch value
+     * @param a2 - arch value
+     * @return returns 0 if arch are equal; otherwise, return 1
+     */
+    private static int compareArch(String a1, String a2) {
+        if (((a1 == null) && (a2 != null)) ||
+            ((a1 != null) && (a2 == null))) {
+            return 1;
+        }
+
+        if (((a1 == null) && (a2 == null)) || (a1.equals(a2))) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
     }
     
     private static PackageMetadata compareAndCreatePackageMetaData(
@@ -417,10 +447,11 @@ public class ProfileManager extends BaseManager {
                 syspkgitem.getVersion());
         log.debug("    Pro: " + profpkgitem.getName() + " get: " + 
                 profpkgitem.getVersion());
+
+        PackageMetadata retval = null;
         int rc = vercmp(syspkgitem, profpkgitem);
         log.debug("    rc: " + rc);
         
-        PackageMetadata retval = null;
         // do nothing if they are equal
         if (rc < 0) {
             retval = createPackageMetadata(
@@ -560,7 +591,7 @@ public class ProfileManager extends BaseManager {
         if (log.isDebugEnabled()) {
             log.debug("  profiles .. " + profiles);
         }
-            
+
         // in order to search the list by nameid, it's easiest to
         // create a map instead of looping through n times where n
         // is the size of the RhnSet.
@@ -1017,8 +1048,8 @@ public class ProfileManager extends BaseManager {
         Iterator pi = profilePackages.iterator();
         while (pi.hasNext()) {
             PackageListItem pli = (PackageListItem) pi.next();
-            evrNameIds.add(pli.getNameEpochVersionRelease());
-            log.debug("Added nevr: " + pli.getNameEpochVersionRelease());
+            evrNameIds.add(pli.getNevr());
+            log.debug("Added nevr: " + pli.getNevr());
         }
         
         Iterator i = ChannelManager.userAccessibleChildChannels(
@@ -1030,8 +1061,8 @@ public class ProfileManager extends BaseManager {
             for (int x = 0; x < packages.size(); x++) {
                 
                 PackageListItem row = (PackageListItem) packages.get(x);
-                log.debug("Checking:  " + row.getNameEpochVersionRelease());
-                if (evrNameIds.contains(row.getNameEpochVersionRelease())) {
+                log.debug("Checking:  " + row.getNevr());
+                if (evrNameIds.contains(row.getNevr())) {
                     retval.add(child);
                     log.debug("found package, breaking out of loop");
                     break;
@@ -1054,6 +1085,7 @@ public class ProfileManager extends BaseManager {
     }
     
     private static List findMissingPackages(DataResult pkgs, Set channels) {
+
         List missingPkgs = new ArrayList();
         Map pkgsInChannelsByNameId = new HashMap();
         
@@ -1064,7 +1096,7 @@ public class ProfileManager extends BaseManager {
             DataResult dr = getPackagesInChannelByIdCombo(c.getId());
             pkgsInChannels.addAll(dr);
         }
-        
+
         // now determine which packages are in pkgs but not in pkgsInChannels
         // create map for easy searching and removing dupes
         // TODO: why don't we use where channel_id IN (list of channels) instead
@@ -1078,12 +1110,11 @@ public class ProfileManager extends BaseManager {
             PackageMetadata pm = (PackageMetadata) itr.next();
             PackageListItem match = (PackageListItem)
                     pkgsInChannelsByNameId.get(pm.getIdCombo());
-            
+
             if (match == null) {
                 missingPkgs.add(pm);
             }
         }
-        
         return missingPkgs;
     }
     
@@ -1168,6 +1199,38 @@ public class ProfileManager extends BaseManager {
         return rpmvercmp.compare(p1.getRelease(), p2.getRelease());
     }
     
+    /**
+     * Returns the list of stored profiles.
+     * @param orgId The id of the org the profiles are associated with.
+     * @return DataResult of ProfileOverviewDto
+     */
+    public static DataResult listProfileOverviews(Long orgId) {
+
+        SelectMode m = ModeFactory.getMode("profile_queries", "profile_overview");
+
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        Map elabParams = new HashMap();
+
+        return makeDataResult(params, elabParams, null, m);
+    }
+
+    /**
+     * Returns the list of packages associated with a stored profile.
+     * @param profileId The id of the profile the packages are associated with.
+     * @return DataResult of ProfilePackageOverviewDto
+     */
+    public static DataResult listProfilePackages(Long profileId) {
+
+        SelectMode m = ModeFactory.getMode("profile_queries", "profile_package_overview");
+
+        Map params = new HashMap();
+        params.put("prid", profileId);
+        Map elabParams = new HashMap();
+
+        return makeDataResult(params, elabParams, null, m);
+    }
+
     /**
      * Returns the Profile whose id is prid.
      * @param prid  Profile id sought.

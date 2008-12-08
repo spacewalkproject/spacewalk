@@ -43,11 +43,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 column="server_group_id"/>
         </set>
 
-	    <set name="packageNames" table="rhnRegTokenPackages">
+        <set name="packages" inverse="true" cascade="all-delete-orphan">
             <key column="token_id"/>
-            <many-to-many class="com.redhat.rhn.domain.rhnpackage.PackageName"
-                column="name_id"/>
+            <one-to-many class="com.redhat.rhn.domain.token.TokenPackage"/>
         </set>
+
 	    <set name="activatedServers" table="rhnServerTokenRegs">
             <key column="token_id"/>
             <many-to-many class="com.redhat.rhn.domain.server.Server"

@@ -29,24 +29,36 @@ public class RhnSetElement implements Serializable {
     private String label;
     private Long element;
     private Long elementTwo;
-
+    private Long elementThree;
 
     /**
      * default constructor.
      */
     public RhnSetElement() {
-        this(null, null, null, null);
+        this(null, null, null, null, null);
     }
     
     /**
-     * Constructs a fully populated element.
+     * Constructs an element with two identifiers.
      * @param uid User id associated with this element.
      * @param lbl Element label.
      * @param elem Element value.
      * @param elemTwo Element two value.
      */
     public RhnSetElement(Long uid, String lbl, Long elem, Long elemTwo) {
-        setup(uid, lbl, elem, elemTwo);
+        this(uid, lbl, elem, elemTwo, null);
+    }
+
+    /**
+     * Constructs an element with three identifiers.
+     * @param uid user id associated with this element
+     * @param lbl element label
+     * @param elem element value
+     * @param elemTwo element value
+     * @param elemThree element value
+     */
+    public RhnSetElement(Long uid, String lbl, Long elem, Long elemTwo, Long elemThree) {
+        setup(uid, lbl, elem, elemTwo, elemThree);
     }
 
     /**
@@ -54,28 +66,34 @@ public class RhnSetElement implements Serializable {
      * @param lbl Element label.
      * @param elem Element value.
      * @param elemTwo Element two value.
+     * @param elemThree Element three value.
      */
-    private void setup(Long uid, String lbl, Long elem, Long elemTwo) {
+    private void setup(Long uid, String lbl, Long elem, Long elemTwo, Long elemThree) {
         userid = uid;
         label = lbl;
         element = elem;
         elementTwo = elemTwo;
+        elementThree = elemThree;
     }
 
     /**
      * Constructs a fully populated rhset element.
      * from a string
-     * @param elements Element1 or Element1|Element2
+     * @param elements Element1 or Element1|Element2 or Element1|Element2|Element3
      * @param uid User id associated with this element.
      * @param lbl Element label.
      */
     public  RhnSetElement(Long uid, String lbl, String elements) {
         String[] parts = elements.split("\\|");
-        if (parts.length > 1) {                 
-            setup(uid, lbl, new Long(parts[0].trim()), new Long(parts[1].trim()));
+        if (parts.length > 2) {
+            setup(uid, lbl, new Long(parts[0].trim()), new Long(parts[1].trim()),
+                new Long(parts[2].trim()));
+        }
+        else if (parts.length > 1) {
+            setup(uid, lbl, new Long(parts[0].trim()), new Long(parts[1].trim()), null);
         }
         else {
-            setup(uid, lbl, new Long(parts[0].trim()), null);    
+            setup(uid, lbl, new Long(parts[0].trim()), null, null);
         }
     }
     
@@ -142,7 +160,23 @@ public class RhnSetElement implements Serializable {
     public Long getElementTwo() {
         return elementTwo;
     }
-    
+
+    /**
+     * Sets the second optional element value.
+     * @param elem the second optional element value.
+     */
+    public void setElementThree(Long elem) {
+        elementThree = elem;
+    }
+
+    /**
+     * Returns the second optional element value.
+     * @return the second optional element value.
+     */
+    public Long getElementThree() {
+        return elementThree;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -156,6 +190,7 @@ public class RhnSetElement implements Serializable {
                                   .append(label, rse.getLabel())
                                   .append(element, rse.getElement())
                                   .append(elementTwo, rse.getElementTwo())
+                                  .append(elementThree, rse.getElementThree())
                                   .isEquals();
     }
     
@@ -164,7 +199,8 @@ public class RhnSetElement implements Serializable {
      */
     public int hashCode() {
         return new HashCodeBuilder().append(userid).append(label)
-                                    .append(element).append(elementTwo).toHashCode();
+                                    .append(element).append(elementTwo)
+                                    .append(elementThree).toHashCode();
     }
 
     /**
@@ -173,7 +209,7 @@ public class RhnSetElement implements Serializable {
     public String toString() {
         return new ToStringBuilder(this).append("userid", userid).append(
                 "label", label).append("element", element).append("elementTwo",
-                elementTwo).toString();
+                elementTwo).append("elementThree", elementThree).toString();
     }
 
 }

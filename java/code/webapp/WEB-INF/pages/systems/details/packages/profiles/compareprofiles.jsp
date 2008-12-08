@@ -32,11 +32,11 @@
          <rhn:column header="compare.jsp.package">
              ${current.name}
          </rhn:column>
-         <rhn:column header="compare.jsp.thissystem" style="text-align: center;">
-             ${current.system.evr}
+         <rhn:column header="compare.jsp.thissystem">
+             ${current.system.evra}
          </rhn:column>
-         <rhn:column header="dynamic" arg0="${requestScope.profilename}" style="text-align: center;">
-             ${current.other.evr}
+         <rhn:column header="dynamic" arg0="${requestScope.profilename}">
+             ${current.other.evra}
          </rhn:column>
          <rhn:column header="compare.jsp.difference">
              ${current.comparison}

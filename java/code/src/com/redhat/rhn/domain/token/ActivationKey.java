@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
@@ -302,36 +303,54 @@ public class ActivationKey extends BaseDomainHelper {
     }
     
     /**
-     * Add a PackageName to this ActivationKey 
-     * @param packageNameIn Package name to add
+     * Add a package to this ActivationKey using PackageName only
+     * @param packageNameIn PackageName of package to add
+     * @param packageArchIn PackageArch of package to add
      */
-    public void addPackageName(PackageName packageNameIn) {
-       this.getToken().addPackageName(packageNameIn);
+    public void addPackage(PackageName packageNameIn, PackageArch packageArchIn) {
+       this.getToken().addPackage(packageNameIn, packageArchIn);
     }
     
     /**
-     * Remove a PackageName from this ActivationKey 
+     * Remove packages from the ActivationKey that match the PackageName
+     * and PackageArch given.
+     * @param packageNameIn PackageName of package to remove
+     * @param packageArchIn PackageArch of package to remove
+     */
+    public void removePackage(PackageName packageNameIn, PackageArch packageArchIn) {
+       this.getToken().removePackage(packageNameIn, packageArchIn);
+    }
+    
+    /**
+     * Add a package to this ActivationKey
+     * @param packageNameIn TokenPackage to add
+     */
+    public void addPackage(TokenPackage packageNameIn) {
+       this.getToken().addPackage(packageNameIn);
+    }
+
+    /**
+     * Remove a package from this ActivationKey
      * @param packageNameIn Package name to remove
      */
-    public void removePackageName(PackageName packageNameIn) {
-       this.getToken().removePackageName(packageNameIn);
-    }
-    
-    /**
-     * Get the Set of PackageName objects associated with this ActivationKey
-     * @return Set of PackageName objects.
-     */
-    public Set<PackageName> getPackageNames() {
-        return this.getToken().getPackageNames();
+    public void removePackage(TokenPackage packageNameIn) {
+       this.getToken().removePackage(packageNameIn);
     }
 
     /**
-     * Clear all package names associated with this activation key.
+     * Get the Set of TokenPackage objects associated with this ActivationKey
+     * @return Set of TokenPackage objects.
      */
-    public void clearPackageNames() {
-        this.getToken().clearPackageNames();
+    public Set<TokenPackage> getPackages() {
+        return this.getToken().getPackages();
     }
 
+    /**
+     * Clear all packages associated with this activation key.
+     */
+    public void clearPackages() {
+        this.getToken().clearPackages();
+    }
 
     /**
      * Clear all config channel associated with this activation key.

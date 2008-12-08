@@ -57,8 +57,8 @@
       <rhn-tab-directory>/network/account/activation_keys</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Stored Profiles" acl="org_entitlement(sw_mgr_enterprise);">
-      <rhn-tab-url>/network/profiles/list.pxt</rhn-tab-url>
-      <rhn-tab-directory>/network/profiles</rhn-tab-directory>
+      <rhn-tab-url>/rhn/profiles/List.do</rhn-tab-url>
+      <rhn-tab-directory>/rhn/profiles</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Custom System Info" acl="org_entitlement(rhn_provisioning)">
       <rhn-tab-url>/rhn/systems/customdata/CustomDataList.do</rhn-tab-url>

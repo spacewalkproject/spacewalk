@@ -51,6 +51,14 @@ public interface RhnSet {
      * @param e Element to add
      */
     void addElement(RhnSetElement e);
+
+    /**
+     * Add a new element to the Set
+     * @param elem Element one.
+     * @param elemTwo Element two, can be null.
+     * @param elemThree Element three, can be null.
+     */
+    void addElement(Long elem, Long elemTwo, Long elemThree);
     
     /**
      * Add a new element to the Set.

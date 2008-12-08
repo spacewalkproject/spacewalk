@@ -1200,7 +1200,7 @@ INSERT INTO  rhnPrivateChannelFamily
 
 <mode name="latest_package_equal">
     <query params="cid, name">
-SELECT CP.package_id, CP.name_id, CP.evr_id
+SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
   FROM rhnPackageName PN, rhnChannelNewestPackage CP
  WHERE CP.channel_id = :cid
    AND CP.name_id = PN.id

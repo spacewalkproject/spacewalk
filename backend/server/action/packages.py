@@ -19,7 +19,7 @@
 #
 
 from common import log_debug
-from server import rhnSQL
+from server import rhnSQL, rhnCapability
 from server.rhnLib import InvalidAction
 
 # the "exposed" functions
@@ -76,6 +76,13 @@ def update(serverId, actionId):
     h.execute(serverid=serverId, actionid=actionId)
     tmppackages = h.fetchall_dict()
 
+    client_caps = rhnCapability.get_client_capabilities()
+    log_debug(3,"Client Capabilities", client_caps)
+    multiarch = 0
+    if client_caps and client_caps.has_key('packages.update'):
+        cap_info =  client_caps['packages.update']
+        if cap_info['version'] > 1:
+            multiarch = 1
     if not tmppackages:
         raise InvalidAction("invalid action %s for server %s" % 
             (actionId, serverId))
@@ -85,11 +92,15 @@ def update(serverId, actionId):
         # Fix the epoch
         if package['epoch'] is None:
             package['epoch'] = ""
-            
+        pkg_arch = ''
+        if multiarch:
+            pkg_arch = package['arch'] or ''
+
         packages.append([package['name'],
                          package['version'] or '',
                          package['release'] or '',
-                         package['epoch']])
+                         package['epoch'],
+                         pkg_arch])
 
     log_debug(4, packages)
     return packages
@@ -182,11 +193,13 @@ _packageStatement = """
         pn.name name,
         pe.epoch epoch,
         pe.version version,
-        pe.release release
+        pe.release release,
+        pa.label  arch
     from rhnActionPackage ap,
         rhnPackage p,
         rhnPackageName pn,
         rhnPackageEVR pe,
+        rhnPackageArch pa,
         rhnServerChannel sc,
         rhnChannelPackage cp
     where ap.action_id = :actionid
@@ -195,6 +208,7 @@ _packageStatement = """
         and ap.evr_id = pe.id
         and ap.name_id = p.name_id
         and ap.name_id = pn.id
+        and ap.package_arch_id = pa.id(+)
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
         and sc.server_id = :serverid
@@ -203,16 +217,19 @@ _packageStatement = """
         pn.name name,
         null version,
         null release,
-        null epoch
+        null epoch,
+        pa.label arch
     from rhnActionPackage ap,
         rhnPackage p,
         rhnPackageName pn,
+        rhnPackageArch pa,
         rhnServerChannel sc,
         rhnChannelPackage cp
     where ap.action_id = :actionid
         and ap.evr_id is null
         and ap.name_id = p.name_id
         and p.name_id = pn.id
+        and ap.package_arch_id = pa.id(+)
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
         and sc.server_id = :serverid"""

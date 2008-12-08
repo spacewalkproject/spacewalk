@@ -1,6 +1,6 @@
 <datasource_modes>
 
-<mode name="profile_overview">
+<mode name="profile_overview" class="com.redhat.rhn.frontend.dto.ProfileOverviewDto">
   <query params="org_id">
 SELECT SP.ID, SP.NAME, SP.created, C.name CHANNEL_NAME
   FROM rhnChannel C,
@@ -12,15 +12,15 @@ ORDER BY UPPER(SP.name)
   </query>
 </mode>
 
-<mode name="profile_package_overview">
+<mode name="profile_package_overview" class="com.redhat.rhn.frontend.dto.ProfilePackageOverviewDto">
   <query params="prid">
-SELECT PN.name || '-' || PE.evr.as_vre_simple() PACKAGE_NVRE
-  FROM rhnPackageName PN,
-       rhnPackageEVR PE,
-       rhnServerProfilePackage SPP
+SELECT PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       PA.label as arch
+  FROM rhnServerProfilePackage SPP LEFT OUTER JOIN
+       rhnPackageArch PA ON SPP.package_arch_id = PA.id INNER JOIN
+       rhnPackageName PN ON SPP.name_id = PN.id INNER JOIN
+       rhnPackageEVR PE ON SPP.evr_id = PE.id
  WHERE SPP.server_profile_id = :prid
-   AND SPP.name_id = PN.id
-   AND SPP.evr_id = PE.id
 ORDER BY UPPER(PN.name), PE.evr
   </query>
 </mode>
@@ -46,8 +46,8 @@ ORDER BY SP.name
 
 <write-mode name="insert_package_profile">
   <query params="prid, sid">
-    INSERT INTO rhnServerProfilePackage (server_profile_id, name_id, evr_id)
-    SELECT DISTINCT :prid, SP.name_id, SP.evr_id
+    INSERT INTO rhnServerProfilePackage (server_profile_id, name_id, evr_id, package_arch_id)
+    SELECT DISTINCT :prid, SP.name_id, SP.evr_id, SP.package_arch_id
       FROM rhnServerPackage SP
      WHERE SP.server_id = :sid
   </query>

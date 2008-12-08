@@ -43,7 +43,6 @@ public class RhnSetFactory extends HibernateFactory {
      * since all methods are static.
      */
     private RhnSetFactory() {
-        super();
     }
 
     /**
@@ -119,29 +118,31 @@ public class RhnSetFactory extends HibernateFactory {
         RhnSetImpl simpl = (RhnSetImpl) set;
         // The updates really need to be batched
         if (simpl.isSynced() && !simpl.getElements().isEmpty()) {
-            WriteMode deleteWithEL2 = writeMode("delete_from_set_el2");
-            WriteMode deleteNoEL2 = writeMode("delete_from_set_el2null");
+            WriteMode deleteEl3 = writeMode("delete_from_set_el3");
+            WriteMode deleteEl2 = writeMode("delete_from_set_el2");
+            WriteMode deleteEl1 = writeMode("delete_from_set_el1");
             for (Iterator i = simpl.getRemoved().iterator(); i.hasNext();) {
                 RhnSetElement current = (RhnSetElement) i.next();
-                executeMode(current, deleteWithEL2, deleteNoEL2);
+                executeMode(current, deleteEl3, deleteEl2, deleteEl1);
             }
         }
         else {
             removeByLabel(simpl.getUserId(), simpl.getLabel());
         }
         
-        Set added = null;
+        Set added;
         if (!simpl.isSynced()) {
             added = simpl.getElements();
         }
         else {
             added = simpl.getAdded();
         }
-        WriteMode insertWithEl2 = writeMode("add_to_set_el2");
-        WriteMode insertNoEl2 = writeMode("add_to_set_el2null");
+        WriteMode insertEl3 = writeMode("add_to_set_el3");
+        WriteMode insertEl2 = writeMode("add_to_set_el2");
+        WriteMode insertEl1 = writeMode("add_to_set_el1");
         for (Iterator i = added.iterator(); i.hasNext();) {
             RhnSetElement current = (RhnSetElement) i.next();
-            executeMode(current, insertWithEl2, insertNoEl2);
+            executeMode(current, insertEl3, insertEl2, insertEl1);
         }
         if (!added.isEmpty()) {
             simpl.getCleanup().cleanup(simpl);
@@ -154,19 +155,26 @@ public class RhnSetFactory extends HibernateFactory {
     }
 
     private static void executeMode(RhnSetElement elem, 
-            WriteMode withEl2, WriteMode noEl2) {
-        Map params = new HashMap();
+            WriteMode el3, WriteMode el2, WriteMode el1) {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", elem.getUserId());
         params.put("label", elem.getLabel());
         params.put("el_one", elem.getElement());
-        int count = 0;
-        if (elem.getElementTwo() == null) {
-            count = noEl2.executeUpdate(params);
+        int count;
+
+        if (elem.getElementThree() == null && elem.getElementTwo() == null) {
+            count = el1.executeUpdate(params);
+        }
+        else if (elem.getElementThree() == null) {
+            params.put("el_two", elem.getElementTwo());
+            count = el2.executeUpdate(params);
         }
         else {
+            params.put("el_three", elem.getElementThree());
             params.put("el_two", elem.getElementTwo());
-            count = withEl2.executeUpdate(params);
+            count = el3.executeUpdate(params);
         }
+
         assert count == 1 : "Failed to update row";
     }
 
@@ -177,7 +185,7 @@ public class RhnSetFactory extends HibernateFactory {
      */
     public static void removeByLabel(Long userId, String label) {
         WriteMode m = ModeFactory.getWriteMode(CATALOG, "delete_set");
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("user_id", userId);
         params.put("label", label);
         m.executeUpdate(params);

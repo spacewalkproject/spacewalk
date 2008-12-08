@@ -44,7 +44,7 @@
                 <th>Packages:</th>
                 <td>
 <a href="/network/systems/ssm/packages/upgrade.pxt">Upgrade</a> / <a
- href="/network/systems/ssm/packages/install.pxt">Install</a> / <a href="/network/systems/ssm/packages/remove.pxt">Remove</a> / <a href="/network/systems/ssm/packages/verify.pxt">Verify</a>
+ href="/rhn/ssm/PackageInstall.do">Install</a> / <a href="/rhn/ssm/PackageRemove.do">Remove</a> / <a href="/network/systems/ssm/packages/verify.pxt">Verify</a>
  packages<br />
                 </td>
 	</tr>

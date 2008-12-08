@@ -29,11 +29,14 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
@@ -581,14 +584,14 @@ public class ActivationKeyHandler extends BaseHandler {
     }
     
     /**
-     * Add package names to an activation key.
+     * Add packages to an activation key using package name only.
      * 
      * @param sessionKey The current user's session key
      * @param key The activation key to act upon
      * @param packageNames List of package names to be added to this activation key
      * @return 1 on success, exception thrown otherwise.
      * 
-     * @xmlrpc.doc Add package names to an activation key.
+     * @xmlrpc.doc Add packages to an activation key using package name only.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array_single("string", "packageName")
@@ -602,14 +605,9 @@ public class ActivationKeyHandler extends BaseHandler {
         validateKeyHasEntitlement(activationKey, "provisioning_entitled");
 
         for (Iterator it = packageNames.iterator(); it.hasNext();) {
-            String packageName = (String)it.next();
-            PackageName pn = null;
-            pn = PackageManager.lookupPackageName(packageName);
-            if (pn == null) {
-                throw new InvalidPackageException(packageName);
-            }
-
-            manager.addPackageName(activationKey, pn);
+            String name = (String)it.next();
+            PackageName packageName = PackageFactory.lookupOrCreatePackageByName(name);
+            manager.addPackage(activationKey, packageName, null);
         }
         return 1;
     }
@@ -629,26 +627,112 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int removePackageNames(String sessionKey, String key, List packageNames) {
+
         User user = getLoggedInUser(sessionKey);
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, user);
-        
+        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
+
         for (Iterator it = packageNames.iterator(); it.hasNext();) {
-            String packageName = (String)it.next();
+            String name = (String)it.next();
             
-            PackageName pn = null;
+            PackageName packageName = null;
             try {
-                pn = PackageManager.lookupPackageName(packageName);
+                packageName = PackageManager.lookupPackageName(name);
             }
             catch (LookupException e) {
-                throw new InvalidPackageException(pn.getName(), e);
+                throw new InvalidPackageException(packageName.getName(), e);
             }
-    
-            manager.removePackageName(activationKey, pn);
+            manager.removePackage(activationKey, packageName, null);
         }
         return 1;
     }
     
+    /**
+     * Add packages to an activation key.
+     *
+     * @param sessionKey The current user's session key
+     * @param key The activation key to act upon
+     * @param packages List of packages to be added to this activation key
+     * @return 1 on success, exception thrown otherwise.
+     *
+     * @xmlrpc.doc Add packages to an activation key.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "key")
+     * @xmlrpc.param
+     *   #array()
+     *      #struct("packages")
+     *          #prop_desc("string", "name", "Package name")
+     *          #prop_desc("string", "arch", "Arch label - Optional")
+     *     #struct_end()
+     *   #array_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int addPackages(String sessionKey, String key,
+            List<Map<String, String>> packages) {
+
+        User user = getLoggedInUser(sessionKey);
+        ActivationKeyManager manager = ActivationKeyManager.getInstance();
+        ActivationKey activationKey = lookupKey(key, user);
+        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
+
+        String name = null;
+        String arch = null;
+        for (Map<String, String> pkg : packages) {
+            name = (String) pkg.get("name");
+            PackageName packageName = PackageFactory.lookupOrCreatePackageByName(name);
+
+            arch = (String) pkg.get("arch");
+            PackageArch packageArch = PackageFactory.lookupPackageArchByLabel(arch);
+
+            manager.addPackage(activationKey, packageName, packageArch);
+            ActivationKeyFactory.save(activationKey);
+        }
+        return 1;
+    }
+    
+    /**
+     * Remove packages from an activation key.
+     *
+     * @param sessionKey The current user's session key
+     * @param key The activation key to act upon
+     * @param packages List of packages to be removed from this activation key
+     * @return 1 on success, exception thrown otherwise
+     *
+     * @xmlrpc.doc Remove package names from an activation key.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "key")
+     * @xmlrpc.param
+     *   #array()
+     *      #struct("packages")
+     *          #prop_desc("string", "name", "Package name")
+     *          #prop_desc("string", "arch", "Arch label - Optional")
+     *     #struct_end()
+     *   #array_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removePackages(String sessionKey, String key,
+            List<Map<String, String>> packages) {
+
+        User user = getLoggedInUser(sessionKey);
+        ActivationKeyManager manager = ActivationKeyManager.getInstance();
+        ActivationKey activationKey = lookupKey(key, user);
+        validateKeyHasEntitlement(activationKey, "provisioning_entitled");
+
+        String name = null;
+        String arch = null;
+        for (Map<String, String> pkg : packages) {
+            name = (String) pkg.get("name");
+            PackageName packageName = PackageFactory.lookupOrCreatePackageByName(name);
+
+            arch = (String) pkg.get("arch");
+            PackageArch packageArch = PackageFactory.lookupPackageArchByLabel(arch);
+
+            manager.removePackage(activationKey, packageName, packageArch);
+        }
+        return 1;
+    }
+
     /**
      * Return a list of activation key structs that are visible to the requesting user.
      * @param sessionKey The current user's session key

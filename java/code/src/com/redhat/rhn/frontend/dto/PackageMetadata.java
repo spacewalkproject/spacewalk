@@ -227,6 +227,23 @@ public class PackageMetadata extends BaseDto implements Comparable {
     }
     
     /**
+     * Returns the archid of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     * @return the archid of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     */
+    public Long getArchId() {
+        if (system != null) {
+            return system.getArchId();
+        }
+        else if (other != null) {
+            return other.getArchId();
+        }
+
+        return null;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public int compareTo(Object o) {
@@ -288,12 +305,22 @@ public class PackageMetadata extends BaseDto implements Comparable {
     }
 
     /**
-     * Returns the IdCombo which is the nameid and evrid seperated by a pipe (|).
-     * <code>nameid|evrid</code>.
+     * Returns the IdCombo which is the nameid, evrid and archid seperated by a pipe (|).
+     * <code>nameid|evrid[|archid]</code>.  Arch id will only be included if it is
+     * available.
      * @return the IdCombo which is the nameid and evrid seperated by a pipe (|).
      */
     public String getIdCombo() {
-        return getNameId().toString() + "|" + getEvrId().toString();
+        StringBuilder result = new StringBuilder();
+        result.append(getNameId())
+              .append("|")
+              .append(getEvrId());
+
+        if (getArchId() != null) {
+            result.append("|")
+                  .append(getArchId());
+        }
+        return result.toString();
     }
 
     /**

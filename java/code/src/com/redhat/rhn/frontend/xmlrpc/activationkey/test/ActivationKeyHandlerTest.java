@@ -26,9 +26,9 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyAlreadyExistsException;
 import com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler;
@@ -42,6 +42,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -524,11 +525,11 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                                                             lookupByKey(newKey, admin);
-        assertEquals(0, activationKey.getPackageNames().size());
+        assertEquals(0, activationKey.getPackages().size());
 
         PackageName newName = PackageNameTest.createTestPackageName();
         keyHandler.addPackageNames(adminKey, newKey, buildList(newName.getName()));
-        assertEquals(1, activationKey.getPackageNames().size());
+        assertEquals(1, activationKey.getPackages().size());
     }
     
     public void testRemovePackageName() throws Exception {
@@ -536,30 +537,138 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
                 KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                                                             lookupByKey(newKey, admin);
-        assertEquals(0, activationKey.getPackageNames().size());
+        assertEquals(0, activationKey.getPackages().size());
 
         PackageName newName = PackageNameTest.createTestPackageName();
         keyHandler.addPackageNames(adminKey, newKey, buildList(newName.getName()));
-        assertEquals(1, activationKey.getPackageNames().size());
+        assertEquals(1, activationKey.getPackages().size());
 
         keyHandler.removePackageNames(adminKey, newKey, buildList(newName.getName()));
-        assertEquals(0, activationKey.getPackageNames().size());
+        assertEquals(0, activationKey.getPackages().size());
+    }
+
+    public void testAddPackages() throws Exception {
+        String newKey = keyHandler.create(adminKey, KEY, KEY_DESCRIPTION, baseChannelLabel,
+                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
+        ActivationKey activationKey = ActivationKeyManager.getInstance().
+                                                            lookupByKey(newKey, admin);
+        // check initial state
+        assertEquals(0, activationKey.getPackages().size());
+
+        // setup test
+        List<Map<String, String>> packages = new ArrayList<Map<String, String>>();
+        Map<String, String> pkg1 = new HashMap<String, String>();
+        pkg1.put("name", "pkg1");
+        pkg1.put("arch", "i386");
+        packages.add(pkg1);
+
+        Map<String, String> pkg2 = new HashMap<String, String>();
+        pkg2.put("name", "pkg2");
+        pkg2.put("arch", "");
+        packages.add(pkg2);
+
+        Map<String, String> pkg3 = new HashMap<String, String>();
+        pkg3.put("name", "pkg3");
+        packages.add(pkg3);
+
+        // execute test
+        int result = keyHandler.addPackages(adminKey, newKey, packages);
+
+        // verify results
+        assertEquals(1, result);
+        assertEquals(3, activationKey.getPackages().size());
+
+        String name = null, arch = null;
+        boolean foundPkg1 = false, foundPkg2 = false, foundPkg3 = false;
+
+        for (TokenPackage pkg : activationKey.getPackages()) {
+            if ((pkg.getPackageName() != null) &&
+                pkg.getPackageName().getName().equals("pkg1")) {
+
+                if ((pkg.getPackageArch() != null) &&
+                    pkg.getPackageArch().getLabel().equals("i386")) {
+
+                    foundPkg1 = true;
+                }
+            }
+            else if ((pkg.getPackageName() != null) &&
+                     pkg.getPackageName().getName().equals("pkg2")) {
+
+                if (pkg.getPackageArch() == null) {
+                    foundPkg2 = true;
+                }
+            }
+            else if ((pkg.getPackageName() != null) &&
+                     pkg.getPackageName().getName().equals("pkg3")) {
+
+                if (pkg.getPackageArch() == null) {
+                    foundPkg3 = true;
+                }
+            }
+        }
+        assertTrue(foundPkg1);
+        assertTrue(foundPkg2);
+        assertTrue(foundPkg3);
     }
     
+    public void testRemovePackages() throws Exception {
+        String newKey = keyHandler.create(adminKey, KEY, KEY_DESCRIPTION, baseChannelLabel,
+                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
+        ActivationKey activationKey = ActivationKeyManager.getInstance().
+                                                            lookupByKey(newKey, admin);
+        // check initial state
+        assertEquals(0, activationKey.getPackages().size());
+
+        // setup test
+        List<Map<String, String>> packages = new ArrayList<Map<String, String>>();
+        Map<String, String> pkg1 = new HashMap<String, String>();
+        pkg1.put("name", "pkg1");
+        pkg1.put("arch", "i386");
+        packages.add(pkg1);
+
+        Map<String, String> pkg2 = new HashMap<String, String>();
+        pkg2.put("name", "pkg2");
+        pkg2.put("arch", "");
+        packages.add(pkg2);
+
+        Map<String, String> pkg3 = new HashMap<String, String>();
+        pkg3.put("name", "pkg3");
+        packages.add(pkg3);
+
+        keyHandler.addPackages(adminKey, newKey, packages);
+        assertEquals(3, activationKey.getPackages().size());
+
+        // execute tests and verify results
+        packages.clear();
+        Map<String, String> unknownPkg = new HashMap<String, String>();
+        unknownPkg.put("name", "unknown");
+        unknownPkg.put("arch", "i386");
+        packages.add(unknownPkg);
+        int result = keyHandler.removePackages(adminKey, newKey, packages);
+        assertEquals(3, activationKey.getPackages().size());
+
+        packages.clear();
+        packages.add(pkg2);
+        result = keyHandler.removePackages(adminKey, newKey, packages);
+        assertEquals(2, activationKey.getPackages().size());
+
+        packages.clear();
+        packages.add(pkg1);
+        packages.add(pkg3);
+        result = keyHandler.removePackages(adminKey, newKey, packages);
+        assertEquals(0, activationKey.getPackages().size());
+    }
+
     public void testAddNonExistentPackage() throws Exception {
         String newKey = keyHandler.create(adminKey, KEY, KEY_DESCRIPTION, baseChannelLabel, 
                 KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
         ActivationKey activationKey = ActivationKeyManager.getInstance().
                                                             lookupByKey(newKey, admin);
-        assertEquals(0, activationKey.getPackageNames().size());
+        assertEquals(0, activationKey.getPackages().size());
 
-        try {
-            keyHandler.addPackageNames(adminKey, newKey, buildList("notarealpackage"));
-            fail();
-        }
-        catch (InvalidPackageException e) {
-            // expected
-        }
+        keyHandler.addPackageNames(adminKey, newKey, buildList("notarealpackage"));
+        // if the package name didn't exist, it should be added...
+        assertEquals(1, activationKey.getPackages().size());
     }
     
     private boolean keyHasEntitlement(ActivationKey key, ServerGroupType entitlement) {
@@ -598,10 +707,10 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         
         PackageName newName = PackageNameTest.createTestPackageName();
         keyHandler.addPackageNames(adminKey, newKey, buildList(newName.getName()));
-        assertEquals(1, activationKey.getPackageNames().size());
+        assertEquals(1, activationKey.getPackages().size());
         
         keyHandler.removeEntitlements(adminKey, newKey, KEY_ENTITLEMENTS);
-        assertEquals(0, activationKey.getPackageNames().size());
+        assertEquals(0, activationKey.getPackages().size());
     }
     
     /**

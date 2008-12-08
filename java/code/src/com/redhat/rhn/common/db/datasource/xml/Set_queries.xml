@@ -9,6 +9,14 @@
   </query>
 </write-mode>
 
+<write-mode name="add_to_set_el3">
+   <query params="user_id, label, el_one, el_two, el_three">
+     INSERT
+       INTO rhnSet (user_id, label, element, element_two, element_three)
+     VALUES (:user_id, :label, :el_one, :el_two, :el_three)
+   </query>
+</write-mode>
+
 <write-mode name="add_to_set_el2">
   <query params="user_id, label, el_one, el_two">
     INSERT
@@ -17,12 +25,24 @@
   </query>
 </write-mode>
 
-<write-mode name="add_to_set_el2null">
+<write-mode name="add_to_set_el1">
   <query params="user_id, label, el_one">
     INSERT
       INTO rhnSet (user_id, label, element)
     VALUES (:user_id, :label, :el_one)
   </query>
+</write-mode>
+
+<write-mode name="delete_from_set_el3">
+  <query params="user_id, label, el_one, el_two, el_three">
+    DELETE
+      FROM rhnSet
+     WHERE user_id = :user_id
+       AND label = :label
+       AND element = :el_one
+       AND element_two = :el_two
+       AND element_three = :el_three
+   </query>
 </write-mode>
 
 <write-mode name="delete_from_set_el2">
@@ -36,7 +56,7 @@
    </query>
 </write-mode>
 
-<write-mode name="delete_from_set_el2null">
+<write-mode name="delete_from_set_el1">
   <query params="user_id, label, el_one">
     DELETE
       FROM rhnSet
@@ -49,7 +69,7 @@
 
 <mode name="lookup_set" class="com.redhat.rhn.domain.rhnset.RhnSetElement">
   <query params="user_id, label">
-SELECT  user_id, label, element, element_two
+SELECT  user_id, label, element, element_two, element_three
   FROM  rhnSet S
  WHERE  S.user_id = :user_id
    AND  S.label = :label

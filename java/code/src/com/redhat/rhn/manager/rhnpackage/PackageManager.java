@@ -41,6 +41,7 @@ import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -1058,22 +1059,48 @@ public class PackageManager extends BaseManager {
      * @param systemId the channel
      * @param nameId the name
      * @param evrId the evr id
+     * @param archId the arch id
      * @param org the org
      * @return first package object found during the search
      */    
     public static Package guestimatePackageBySystem(Long systemId, Long nameId, 
-            Long evrId, Org org) {
+            Long evrId, Long archId, Org org) {
+        SelectMode m;
         Map params = new HashMap();
         params.put("sid", systemId);
         params.put("nameId", nameId);
         params.put("evrId", evrId);
-        SelectMode m = ModeFactory.getMode(
-                "Package_queries", "guestimate_package_by_system");
 
+        if (archId != null) {
+            params.put("archId", archId);
+            m = ModeFactory.getMode(
+                    "Package_queries", "guestimate_package_by_system_arch");
+            }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "guestimate_package_by_system");
+        }
         
         DataResult dr = m.execute(params);
         
         return PackageFactory.lookupByIdAndOrg((Long) ((Map)dr.get(0)).get("id"), org);
     }
-    
+
+    /**
+     * Returns the list of packages installed on at least one system in the SSM, along with
+     * the count of how many systems each package is installed on.
+     *
+     * @param user user
+     * @return list of {@link com.redhat.rhn.frontend.dto.SsmRemovePackageListItem}
+     */
+    public static DataResult packagesFromServerSet(User user) {
+
+        SelectMode m = ModeFactory.getMode("Package_queries", "packages_from_server_set");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
+
+        DataResult result = m.execute(params);
+        return result;
+    }
 }

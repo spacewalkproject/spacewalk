@@ -29,7 +29,7 @@
   <pxt-formvar>
 
   <input type="hidden" name="prid" value="{formvar:prid}" />
-  <input type="hidden" name="delete_success_page" value="/network/profiles/list.pxt" />
+  <input type="hidden" name="delete_success_page" value="/rhn/profiles/List.do" />
   <input type="submit" name="profile_deletion_confirm" value="Delete Profile" />
   <input type="hidden" name="pxt:trap" value="rhn:profile_delete_cb" />
 

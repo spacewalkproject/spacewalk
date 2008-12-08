@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.token.TokenPackage" table="rhnRegTokenPackages">
+
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_reg_tok_pkg_id_seq</param>
+            </generator>
+        </id>
+
+        <many-to-one name="token" class="com.redhat.rhn.domain.token.Token"
+            column="token_id"/>
+
+        <many-to-one
+            name="packageName"
+            class="com.redhat.rhn.domain.rhnpackage.PackageName"
+            column="name_id"/>
+
+        <many-to-one
+            name="packageArch"
+            class="com.redhat.rhn.domain.rhnpackage.PackageArch"
+            column="arch_id"/>
+
+    </class>
+
+    <query name="TokenPackage.lookupByToken">
+        <![CDATA[from com.redhat.rhn.domain.token.TokenPackage as p
+                                        where p.token = :token
+                                     order by p.packageName desc]]>
+    </query>
+
+    <query name="TokenPackage.lookupByName">
+        <![CDATA[from com.redhat.rhn.domain.token.TokenPackage as p
+                                        where p.token = :token and
+                                              p.packageName = :name]]>
+    </query>
+
+    <query name="TokenPackage.lookupByNameAndArch">
+        <![CDATA[from com.redhat.rhn.domain.token.TokenPackage as p
+                                        where p.token = :token and
+                                              p.packageName = :name and
+                                              p.packageArch = :arch]]>
+    </query>
+
+</hibernate-mapping>
