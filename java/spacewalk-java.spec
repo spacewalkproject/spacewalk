@@ -88,8 +88,8 @@ BuildRequires: quartz
 BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
-Obsoletes: rhn-java <= 5.2
-Obsoletes: rhn-java-sat <= 5.2
+Obsoletes: rhn-java < 5.3.0
+Obsoletes: rhn-java-sat < 5.3.0
 
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
@@ -97,8 +97,8 @@ This package contains the code for the Java version of the Spacewalk Web Site.
 %package config
 Summary: Configuration files for RHN Java
 Group: Applications/Internet
-Obsoletes: rhn-java-config <= 5.2
-Obsoletes: rhn-java-config-sat <= 5.2
+Obsoletes: rhn-java-config < 5.3.0
+Obsoletes: rhn-java-config-sat < 5.3.0
 
 %description config
 This package contains the configuration files for the Spacewalk Java web
@@ -107,8 +107,8 @@ application and taskomatic process.
 %package lib
 Summary: Jar files for Spacewalk Java
 Group: Applications/Internet
-Obsoletes: rhn-java-lib <= 5.2
-Obsoletes: rhn-java-lib-sat <= 5.2
+Obsoletes: rhn-java-lib < 5.3.0
+Obsoletes: rhn-java-lib-sat < 5.3.0
 
 %description lib
 This package contains the jar files for the Spacewalk Java web application
@@ -142,8 +142,8 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
-Obsoletes: taskomatic <= 5.2
-Obsoletes: taskomatic-sat <= 5.2
+Obsoletes: taskomatic < 5.3.0
+Obsoletes: taskomatic-sat < 5.3.0
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
