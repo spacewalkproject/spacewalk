@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 Requires: perl(Satcon)
 Requires: perl(Apache::DBI)
-Obsoletes: rhn-satellite-config <= 5.2.0
+Obsoletes: rhn-satellite-config < 5.3.0
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
