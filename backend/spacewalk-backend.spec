@@ -111,6 +111,7 @@ Calls to /XP are used by tools publicly available (like rhn_package_manager).
 Summary: Handler for /SAT
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Obsoletes: rhns-sat <= 5.2.0
 
 %description iss
 %{name} contains the basic code that provides server/backend
