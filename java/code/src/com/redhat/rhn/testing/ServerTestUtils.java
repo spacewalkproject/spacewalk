@@ -15,10 +15,12 @@
 package com.redhat.rhn.testing;
 
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
@@ -28,12 +30,26 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.VirtualInstanceManufacturer;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
+import org.hibernate.Session;
 
 
 /**
@@ -211,4 +227,90 @@ public class ServerTestUtils {
         return createVirtHostWithGuests(UserTestUtils.findNewUser(), numberOfGuests);
     }
 
+    /**
+     * Associates the given package with the given server.
+     * @param serverId  identifies the server
+     * @param packageIn identifies the package; must already be saved
+     */
+    public static  void addServerPackageMapping(Long serverId, Package packageIn) {
+        WriteMode wm = ModeFactory.getWriteMode("test_queries",
+            "insert_into_rhnServerPackage_with_arch");
+        
+        Map<String, Long> params = new HashMap<String, Long>(4);
+        params.put("server_id", serverId);
+        params.put("pn_id", packageIn.getPackageName().getId());
+        params.put("evr_id", packageIn.getPackageEvr().getId());
+        params.put("arch_id", packageIn.getPackageArch().getId());
+        
+        int result = wm.executeUpdate(params);
+        
+        assert result == 1;
+    }
+    
+    /**
+     * Creates two packages and errata agains the specified server. An installed package
+     * with the default EVR is created and installed to the server. The newer package
+     * is created with the given EVR and is the package associated with the errata. 
+     * 
+     * @param org user's organization
+     * @param server wher the packages will be installed
+     * @param upgradedPackageEvr used as the EVR for the errata package
+     * @param errataType type of errata to create
+     * @return the original installed package (i.e. not the upgraded version)
+     * @throws Exception if anything goes wrong writing to the DB
+     */
+    public static Package populateServerErrataPackages(Org org, Server server,
+                                                       PackageEvr upgradedPackageEvr,
+                                                       String errataType)
+        throws Exception {
+        
+        Errata errata = ErrataFactoryTest.createTestErrata(org.getId());
+        errata.setAdvisoryType(errataType);        
+        TestUtils.saveAndFlush(errata);
+        
+        Package installedPackage = PackageTest.createTestPackage(org);
+        TestUtils.saveAndFlush(installedPackage);
+        
+        Session session = HibernateFactory.getSession();
+        session.flush();
+        
+        Package upgradedPackage = PackageTest.createTestPackage(org);
+        upgradedPackage.setPackageName(installedPackage.getPackageName());
+        upgradedPackage.setPackageEvr(upgradedPackageEvr);
+        TestUtils.saveAndFlush(upgradedPackage);
+        
+        ErrataCacheManager.insertNeededPackageCache(
+                server.getId(), org.getId(), errata.getId(), installedPackage.getId());
+        
+        return installedPackage;
+    }
+
+    /**
+     * Adds the servers identified by the given server IDs to the SSM.
+     * 
+     * @param user      represents the logged in user
+     * @param serverIds list of servers to add to the SSM
+     */
+    public static void addServersToSsm(User user, Long... serverIds) {
+        RhnSet ssmSet = RhnSetManager.findByLabel(user.getId(),
+        RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
+
+        if (ssmSet == null) {
+            ssmSet = RhnSetManager.createSet(user.getId(),
+                RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
+        }
+
+        assert ssmSet != null;
+
+        for (Long serverId : serverIds) {
+            ssmSet.addElement(serverId);
+        }
+        
+        RhnSetManager.store(ssmSet);
+
+        ssmSet = RhnSetManager.findByLabel(user.getId(),
+            RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
+        assert ssmSet != null;
+    }
+        
 }

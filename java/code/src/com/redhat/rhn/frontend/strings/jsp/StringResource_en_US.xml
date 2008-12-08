@@ -5,6 +5,77 @@
     version="1.1">
   <file source-language="en" datatype="plaintext" original="">
     <body>
+
+    <!-- Generic column headings. The intent is that these can be reused across multiple pages.-->
+    <group>
+
+        <trans-unit id="column.architecture">
+            <source>Architecture</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/PackageList</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.basechannel">
+            <source>Base Channel</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/List</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.created">
+            <source>Created</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/List</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.name">
+            <source>Name</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/List</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="column.package">
+            <source>Package</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/PackageList</context>
+            </context-group>
+        </trans-unit>
+
+    </group>
+
+    <!-- Generic row labels. The intent is that these can be reused across multiple pages.-->
+    <group>
+
+        <trans-unit id="row.name">
+            <source>Name</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/Details</context>
+            </context-group>
+        </trans-unit>
+
+        <trans-unit id="row.description">
+            <source>Description</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/Details</context>
+            </context-group>
+        </trans-unit>
+    </group>
+
+    <!-- Generic buttons. The intent is that these can be reused across multiple pages.-->
+    <group>
+
+        <trans-unit id="button.update">
+            <source>Update</source>
+            <context-group name="ctx">
+                <context context-type="sourcefile">/rhn/profiles/Details</context>
+            </context-group>
+        </trans-unit>
+
+    </group>
+
       <trans-unit id="nosystems.message">
 <source>No systems.</source>
         <context-group name="ctx">
@@ -2783,6 +2854,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PendingActions</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm</context>
+          <context context-type="sourcefile">/rhn/ssm/PackageList</context>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.basechannel">
@@ -2943,12 +3015,13 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
         </context-group>
       </trans-unit>
-
+                                             schedu
       <trans-unit id="packagelist.jsp.nopackages">
 <source>No packages.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/PackageList</context>
           <context context-type="sourcefile">/rhn/systems/details/packages/PackageList</context>
+          <context context-type="sourcefile">/rhn/profiles/PackageList</context>
         </context-group>
       </trans-unit>
 
@@ -6146,6 +6219,7 @@ value for this entitlement.</source>
 <source>Confirm Package Removal</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/systems/details/packages/RemoveConfirm.do</context>
+        <context context-type="sourcefile">https://wopr.skavenlabs/rhn/ssm/PackageRemove.do</context>
       </context-group>
     </trans-unit>
     <trans-unit id="removeconfirm.jsp.confirmorgremoval">
@@ -11481,6 +11555,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
      <group>
        <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/packages/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-key.packages.jsp.summary">
+           <source>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</source>
+       </trans-unit>
+       <trans-unit id="activation-key.packages.jsp.enter-names">
+            <source>Enter package names below</source>
+       </trans-unit>
+    </group>
+
+     <group>
+       <context-group name="ctx">
            <context context-type="sourcefile">/rhn/activationkeys/configuration/* pages</context>
        </context-group>
 
@@ -11559,6 +11646,54 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
      </group>
 
+    <!-- profiles/list.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/profiles/List.do</context>
+       </context-group>
+
+       <trans-unit id="profile.list.header">
+         <source>Stored Profiles</source>
+       </trans-unit>
+
+       <trans-unit id="profile.list.header.alt">
+         <source>Profile Icon</source>
+       </trans-unit>
+
+       <trans-unit id="profile.list.summary">
+         <source>The following stored profiles exist within your organization. To create a stored profile from a system, go to the Packages view for that system.</source>
+       </trans-unit>
+
+       <trans-unit id="profile.list.noprofiles">
+         <source>No stored profiles.</source>
+       </trans-unit>
+    </group>
+
+    <!-- profiles/details.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/profiles/Details.do</context>
+       </context-group>
+
+       <trans-unit id="profile.details.toolbar">
+         <source>Stored Profile: </source>
+       </trans-unit>
+
+       <trans-unit id="profile.details.summary">
+         <source>Edit the profile below.</source>
+       </trans-unit>
+    </group>
+
+    <!-- profiles/packagelist.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/profiles/Details.do</context>
+       </context-group>
+
+       <trans-unit id="profile.packagelist.summary">
+         <source>The following packages are associated with this stored profile.</source>
+       </trans-unit>
+    </group>
 
      <!-- System Common -->
      <group>
@@ -15323,6 +15458,166 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
      </group>
 
+    <!-- ssm/packages.jsp -->
+       <group>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/ssm/Packages.do</context>
+          </context-group>
+
+          <trans-unit id="ssm.package.header">
+            <source>Package Operations</source>
+          </trans-unit>
+          <trans-unit id="ssm.package.summary">
+            <source>You may perform the following actions upon the selected systems:</source>
+          </trans-unit>
+          <trans-unit id="ssm.package.install">
+            <source>Install new packages</source>
+          </trans-unit>
+          <trans-unit id="ssm.package.upgrade">
+            <source>Upgrade existing packages</source>
+          </trans-unit>
+          <trans-unit id="ssm.package.remove">
+            <source>Remove existing packages</source>
+          </trans-unit>
+          <trans-unit id="ssm.package.verify">
+            <source>Verify existing packages</source>
+          </trans-unit>
+        </group>
+
+    <!-- ssm/packageinstall.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageInstall.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.install.selectchannel.header">
+         <source>Select Channel</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectchannel.summary">
+         <source>First, select the channel containing the packages to be installed upon the selected systems.</source>
+       </trans-unit>
+     </group>
+
+    <!-- ssm/packagelist.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageList.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.install.selectpackages.header">
+         <source>Select Packages To Install</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectpackages.summary">
+         <source>Now select the packages to be installed upon the selected systems.</source>
+       </trans-unit>
+     </group>
+
+     <!-- ssm/packageinstallschedule.jsp -->
+     <group>
+        <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/ssm/PackageSchedule.do</context>
+        </context-group>
+
+        <trans-unit id="ssm.package.install.schedule.summary.plural">
+           <source>The {0} packages you have selected will be installed to the compatible selected systems, listed below:</source>
+        </trans-unit>
+
+        <trans-unit id="ssm.package.install.schedule.summary.single">
+           <source>The {0} package you have selected will be installed to the compatible selected systems, listed below:</source>
+        </trans-unit>
+
+        <trans-unit id="ssm.package.install.message.packageinstall">
+           <source>{0} package installation has been scheduled</source>
+        </trans-unit>
+
+        <trans-unit id="ssm.package.install.message.packageinstalls">
+           <source>{0} package installations have been scheduled</source>
+        </trans-unit>
+
+     </group>
+
+     <!-- ssm/packageremove.jsp -->
+     <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/ssm/PackageRemove.do</context>
+        </context-group>
+
+        <trans-unit id="ssm.package.remove.select.header">
+          <source>Package Removal</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.select.summary">
+          <source>Packages listed below may be removed from one or more systems.
+
+             Select one or more and click the &lt;b&gt;Remove Selected Packages&lt;/b&gt; button to schedule package removal.
+          </source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.select.confirm">
+          <source>Remove Selected Packages</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.select.numsystems">
+          <source>Systems</source>
+        </trans-unit>
+    </group>
+
+     <!-- ssm/packageremoveschedule.jsp -->
+     <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/ssm/PackageRemove.do</context>
+        </context-group>
+
+        <trans-unit id="ssm.package.remove.schedule.summary">
+          <source>Below is a list of the packages that will be removed, on a per system basis.
+          </source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.schedule.packages">
+          <source>Packages to Remove</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.schedule.toomanypackages">
+          <source>Package list truncated</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.message.packageremoval">
+           <source>{0} package removal has been scheduled</source>
+        </trans-unit>
+        <trans-unit id="ssm.package.remove.message.packageremovals">
+           <source>{0} package removals have been scheduled</source>
+        </trans-unit>
+    </group>
+       
+    <!-- ssm/packageupgrade.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageUpgrade.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.upgrade.select.header">
+         <source>Select Packages to Upgrade</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.summary">
+         <source>Select the packages to be upgraded. Only those systems to which the package updates apply will receive the updates.
+         </source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.confirm">
+         <source>Upgrade Selected Packages</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.numsystems">
+         <source>Systems</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.select.advisory">
+         <source>Advisory</source>
+       </trans-unit>
+   </group>
+    
+    <!-- ssm/packageupgradeschedule.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageUpgradeSchedule.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.upgrade.message.packageupgrade">
+         <source>Package upgrades scheduled</source>
+       </trans-unit>
+   </group>
+       
      <!-- Kickstart stuff -->
      <trans-unit id="rootPassword">
          <source>Root password</source>

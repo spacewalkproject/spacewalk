@@ -16,16 +16,18 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.Token;
+import com.redhat.rhn.domain.token.TokenPackage;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -44,6 +46,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
 *     #prop_array("entitlements", "string", "entitlementLabel")
 *     #prop_array("server_group_ids", "string", "serverGroupId")
 *     #prop_array("package_names", "string", "packageName")
+*     #prop_array_begin("packages")
+*       #struct("package")
+*         #prop_desc("name", "string", "packageName")
+*         #prop_desc("arch", "string", "archLabel - optional")
+*       #struct_end()
+*     #prop_array_end()
 *     #prop("boolean", "universal_default")
 *   #struct_end()
 */
@@ -101,8 +109,17 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
        }
        
        List<String> packageNames = new LinkedList<String>();
-       for (PackageName pn : token.getPackageNames()) {
-           packageNames.add(pn.getName());
+       List<Map<String, String>> packages = new LinkedList<Map<String, String>>();
+       for (TokenPackage pkg : token.getPackages()) {
+           packageNames.add(pkg.getPackageName().getName());
+
+           Map<String, String> pkgMap = new HashMap<String, String>();
+           pkgMap.put("name", pkg.getPackageName().getName());
+
+           if (pkg.getPackageArch() != null) {
+               pkgMap.put("arch", pkg.getPackageArch().getLabel());
+           }
+           packages.add(pkgMap);
        }
        helper.add("description", token.getNote());
        
@@ -117,6 +134,7 @@ public class TokenSerializer implements XmlRpcCustomSerializer {
        helper.add("entitlements", entitlementLabels);
        helper.add("server_group_ids", serverGroupIds);
        helper.add("package_names", packageNames);
+       helper.add("packages", packages);
        
        Boolean universalDefault =  Boolean.valueOf(token.isOrgDefault());
        helper.add("universal_default", universalDefault);

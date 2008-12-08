@@ -200,53 +200,60 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 </mode>
 
 
-<query name="ssm_package_upgrades_systems" params="user_id">
+<query name="ssm_package_upgrades_systems" params="user_id, set_label, package_set_label">
 SELECT  DISTINCT 
         S.id,
-        S.name AS SERVER_NAME,
-        ActionT.label AS ACTION_TYPE_LABEL,
-        ActionT.name AS ACTION_TYPE_NAME
+        S.name AS SERVER_NAME
   FROM  rhnChannelPackage CP,
         rhnChannel C,
         rhnServerChannel SC,
         rhnServer S,
-        rhnActionType ActionT,
-        rhnArchTypeActions ATA,
         rhnPackageArch PA,
         rhnPackage P,
         rhnServerNeededPackageCache SNPC,
         rhnSet ST
  WHERE  ST.user_id = :user_id
-   AND  ST.label = 'system_list'
+   AND  ST.label = :set_label
    AND  ST.element = S.id
    AND  S.id = SNPC.server_id
    AND  SNPC.package_id = P.id
-   AND  P.id IN (
-  SELECT element
-    FROM rhnSet
-   WHERE user_id = :user_id 
-     AND label = 'package_upgradable_list'
-)
+   AND  P.name_id IN (
+           SELECT element
+             FROM rhnSet
+            WHERE user_id = :user_id
+              AND label = :package_set_label
+        )
+   AND  P.evr_id IN (
+           SELECT element_two
+             FROM rhnSet
+            WHERE user_id = :user_id
+              AND label = :package_set_label
+        )
+   AND  P.package_arch_id IN (
+           SELECT element_three
+             FROM rhnSet
+            WHERE user_id = :user_id
+              AND label = :package_set_label
+        )
    AND  S.id = SC.server_id
    AND  SC.channel_id = C.id
    AND  C.id = CP.channel_id
    AND  CP.package_id = P.id
    AND  P.package_arch_id = PA.id
-   AND  PA.arch_type_id = ATA.arch_type_id
-   AND  ATA.action_style = 'install'
-   AND  ActionT.id = ATA.action_type_id
 ORDER BY UPPER(S.name)
 </query>
 
 <mode name="ssm_package_upgrades_conf">
   <query name="ssm_package_upgrades_systems" />
-  <elaborator params="user_id" multiple="t">
+  <elaborator params="user_id, package_set_label" multiple="t">
 SELECT  DISTINCT
         S.id AS ID,
         S.name AS SERVER_NAME,
-        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.name NVRE,
+        PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         P.name_id AS NAME_ID,
         P.evr_id AS EVR_ID,
+        PA.id AS ARCH_ID,
         C.name AS PROVIDING_CHANNEL_NAME
   FROM  rhnChannelPackage CP,
         rhnChannel C,
@@ -255,15 +262,28 @@ SELECT  DISTINCT
         rhnPackageEVR PE,
         rhnPackageName PN,
         rhnPackage P,
+        rhnPackageArch PA,
         rhnServerNeededPackageCache SNPC
  WHERE  SNPC.server_id IN (%s)
    AND  SNPC.package_id = P.id
-   AND  P.id IN (
-  SELECT element
-    FROM rhnSet
-   WHERE user_id = :user_id
-     AND label = 'package_upgradable_list'
-)
+   AND  P.name_id IN (
+           SELECT element
+             FROM rhnSet
+            WHERE user_id = :user_id
+              AND label = :package_set_label
+        )
+   AND  P.evr_id IN (
+           SELECT element_two
+             FROM rhnSet
+            WHERE user_id = :user_id
+              AND label = :package_set_label
+        )
+   AND  P.package_arch_id IN (
+           SELECT element_three
+             FROM rhnSet
+            WHERE user_id = :user_id
+              AND label = :package_set_label
+        )
    AND  SNPC.server_id = S.id
    AND  S.id = SC.server_id
    AND  SC.channel_id = C.id
@@ -271,7 +291,8 @@ SELECT  DISTINCT
    AND  CP.package_id = P.id
    AND  P.name_id = PN.id
    AND  P.evr_id = PE.id
-ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple())
+   AND  P.package_arch_id = PA.id
+ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.name)
   </elaborator>
 </mode>
 
@@ -846,7 +867,7 @@ ORDER BY S.name
 </mode>
 
 <mode name="system_set_remove_packages_conf">
-  <query params="user_id, set_label, user_id, package_set_label">
+   <query params="user_id, set_label, package_set_label">
 SELECT  DISTINCT S.id, S.name SYSTEM_NAME
   FROM  rhnServer S,
         rhnServerPackage SP,
@@ -859,20 +880,31 @@ SELECT  DISTINCT S.id, S.name SYSTEM_NAME
    AND  St.element = SP.server_id
    AND  SP.name_id = ST2.element
    AND  SP.evr_id = ST2.element_two
+   AND  SP.package_arch_id = ST2.element_three
    AND  SP.server_id = S.id
 ORDER BY UPPER(S.name), S.id
-  </query>
-  <elaborator params="user_id, package_set_label" multiple="t">
-SELECT  DISTINCT SP.server_id id, PN.name || '-' || PE.evr.as_vre_simple() NVRE
+   </query>
+   <elaborator params="user_id, package_set_label" multiple="t">
+SELECT  DISTINCT SP.server_id id, PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE
   FROM  rhnPackageEVR PE,
         rhnPackageName PN,
-        rhnServerPackage SP
+        rhnServerPackage SP,
+        rhnPackageArch PA
  WHERE  SP.server_id IN (%s)
    AND  SP.name_id = PN.id
    AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
-  </elaborator>
+   AND  SP.package_arch_id = PA.id
+   </elaborator>
 </mode>
+
+
+<write-mode name="insert_ssm_remove_server_package">
+   <query params="user_id, name_id, evr_id, arch_id">
+      INSERT INTO rhnSsmSystemPackages (user_id, name_id, evr_id, arch_id)
+      VALUES (:user_id, :name_id, :evr_id, :arch_id)
+   </query>
+</write-mode>
 
 <mode name="system_set_supports_reboot_expanded">
   <query name="system_set_supports_reboot" />

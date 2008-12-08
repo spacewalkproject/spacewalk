@@ -22,6 +22,17 @@
            <form-property name="autoDeploy" type="java.lang.Boolean"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
+       <form-bean name="activationKeyPackagesForm"
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="packages" type="java.lang.String"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
+       <form-bean name="storedProfileForm"
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="name" type="java.lang.String"/>
+           <form-property name="description" type="java.lang.String"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
         <form-bean name="createSatelliteForm"
             type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="account_type" type="java.lang.String"/>
@@ -4545,6 +4556,20 @@
                  path="/activationkeys/List.do"/>                 
     </action>
 
+    <action path="/activationkeys/packages/Packages"
+	name="activationKeyPackagesForm"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/packages/listeditpackages.jsp"
+		type="com.redhat.rhn.frontend.action.token.ActivationKeyPackagesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/packages/listeditpackages.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/packages/Packages.do"/>
+    </action>
+
 	<action path="/activationkeys/configuration/List"
         scope="request"
         input="/WEB-INF/pages/activationkeys/configuration/list.jsp"
@@ -4626,6 +4651,34 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/systems/List.do"/>                 
     </action>    
+
+    <!-- Stored Profiles Pages -->
+
+    <action path="/profiles/List"
+        name="storedProfileForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.ProfilesListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/profiles/list.jsp"/>
+        <forward name="success" path="/profiles/List.do" redirect = "true"/>
+    </action>
+
+    <action path="/profiles/Details"
+        name="storedProfileForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.ProfileDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/profiles/details.jsp" />
+        <forward name="success" path="/profiles/Details.do" redirect="true" />
+    </action>
+
+    <action path="/profiles/PackageList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.PackageListAction">
+        <forward name="default" path="/WEB-INF/pages/profiles/packagelist.jsp"/>
+        <forward name="success" path="/profiles/PackageList.do" redirect="true" />
+    </action>
+
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"
@@ -6266,7 +6319,85 @@
             
     <action path="/help/index"
         forward="/WEB-INF/pages/help/helpindex.jsp"/>
-      
+
+    <!-- SSM Package tab home page -->
+     <action path="/ssm/Packages"
+             forward="/WEB-INF/pages/ssm/packages.jsp" />
+
+    <!-- SSM Package Install Pages -->
+    <action path="/ssm/PackageInstall"
+        scope="request"
+        input="/WEB-INF/pages/ssm/packageinstall.jsp"
+        type="com.redhat.rhn.frontend.action.channel.ssm.SelectChannelAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packageinstall.jsp" />
+    </action>
+
+    <action path="/ssm/PackageList"
+        scope="request"
+        input="/WEB-INF/pages/ssm/packagelist.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectInstallationPackagesAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packagelist.jsp" />
+       <forward name="confirm"
+                path="/ssm/PackageSchedule.do"/>
+    </action>
+
+    <action path="/ssm/PackageSchedule"
+        scope="request"
+        name="datePickerForm"
+        input="/WEB-INF/pages/ssm/packageinstallschedule.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SchedulePackageInstallationAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
+       <forward name="confirm"
+                path="/ssm/Packages.do" />
+    </action>
+
+     <!-- SSM Package Remove Pages -->
+     <action path="/ssm/PackageRemove"
+         scope="request"
+         input="/WEB-INF/pages/ssm/packageremove.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectRemovePackagesAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageremove.jsp" />
+        <forward name="confirm"
+                 path="/ssm/PackageRemoveSchedule.do"/>
+     </action>
+
+     <action path="/ssm/PackageRemoveSchedule"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/ssm/packageremoveschedule.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SchedulePackageRemoveAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageremoveschedule.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>
+     
+     <!-- SSM Package Upgrade Pages -->
+     <action path="/ssm/PackageUpgrade"
+         scope="request"
+         input="/WEB-INF/pages/ssm/packageupgrade.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectUpgradePackagesAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageupgrade.jsp" />
+        <forward name="confirm"
+                 path="/ssm/PackageUpgradeSchedule.do"/>
+     </action>                                          
+    
+     <action path="/ssm/PackageUpgradeSchedule"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/ssm/packageupgradeschedule.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SchedulePackageUpgradeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageupgradeschedule.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>                                          
+    
   </action-mappings>
 
   <!-- ===================================== -->

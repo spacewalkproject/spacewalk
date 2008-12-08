@@ -60,6 +60,7 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NotActivatedSatelliteException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -1498,9 +1499,10 @@ public class SystemManager extends BaseManager {
         if (result.size() > 0) {
             Map row = (Map) result.get(0);
             Long nameId = (Long) row.get("name_id"); 
-            Long evrId = (Long) row.get("evr_id"); 
+            Long evrId = (Long) row.get("evr_id");
+            Long archId = (Long) row.get("package_arch_id");
             ActionManager.schedulePackageInstall(
-                    user, server, nameId, evrId);
+                    user, server, nameId, evrId, archId);
         } 
         else {
             return new ValidatorError("system.entitle.novirtpackage", 
@@ -1644,6 +1646,8 @@ public class SystemManager extends BaseManager {
 
     /**
      * Return the list of systems subscribed to the given channel in the current set.
+     * Each entry in the result will be of type EssentialServerDto as per the query.
+     *
      * @param cid Channel
      * @param user User requesting the list
      * @param setLabel Set label
@@ -2178,5 +2182,54 @@ public class SystemManager extends BaseManager {
             hwDto = dr.get(0);
         }
         return hwDto;
+    }
+
+    /**
+     * Returns a mapping of servers in the SSM to the user-selected packages to remove
+     * that actually exist on those servers.
+     *
+     * @param user            identifies the user making the request
+     * @param packageSetLabel identifies the RhnSet used to store the packages selected
+     *                        by the user (this is needed for the query). This must be
+     *                        established by the caller prior to calling this method
+     * @return description of server information as well as a list of relevant packages
+     */
+    public static DataResult ssmSystemPackagesToRemove(User user,
+                                                       String packageSetLabel) {       
+        SelectMode m =
+            ModeFactory.getMode("System_queries", "system_set_remove_packages_conf");
+
+        Map<String, Object> params = new HashMap<String, Object>(3);
+        params.put("user_id", user.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
+        params.put("package_set_label", packageSetLabel);
+
+        DataResult result = makeDataResult(params, params, null, m);
+        return result;
+    }
+
+    /**
+     * Returns a mapping of servers in the SSM to user-selected packages to upgrade
+     * that actually exist on those servers
+     * 
+     * @param user            identifies the user making the request
+     * @param packageSetLabel identifies the RhnSet used to store the packages selected
+     *                        by the user (this is needed for the query). This must be
+     *                        established by the caller prior to calling this method
+     * @return description of server information as well as a list of all relevant packages
+     */
+    public static DataResult ssmSystemPackagesToUpgrade(User user,
+                                                        String packageSetLabel) {
+        
+        SelectMode m =
+            ModeFactory.getMode("System_queries", "ssm_package_upgrades_conf");
+        
+        Map<String, Object> params = new HashMap<String, Object>(3);
+        params.put("user_id", user.getId());
+        params.put("set_label", RhnSetDecl.SYSTEMS.getLabel());
+        params.put("package_set_label", packageSetLabel);
+        
+        DataResult result = makeDataResult(params, params, null, m);
+        return result;
     }
 }

@@ -39,6 +39,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *     #prop_array("entitlements", "string", "entitlementLabel")
  *     #prop_array("server_group_ids", "string", "serverGroupId")
  *     #prop_array("package_names", "string", "packageName")
+ *     #prop_array_begin("packages")
+ *       #struct("package")
+ *         #prop_desc("name", "string", "packageName")
+ *         #prop_desc("arch", "string", "archLabel - optional")
+ *       #struct_end()
+ *     #prop_array_end()
  *     #prop("boolean", "universal_default")
  *   #struct_end()
  */

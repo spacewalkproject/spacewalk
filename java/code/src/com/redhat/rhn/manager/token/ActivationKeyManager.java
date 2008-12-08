@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
@@ -259,7 +260,7 @@ public class ActivationKeyManager {
             
             if (label.equals("provisioning_entitled")) {
                 // Special case, clear all packages and configuration channels:
-                key.clearPackageNames();
+                key.clearPackages();
                 key.clearConfigChannels();
                 key.setDeployConfigs(false);
                 // TODO: clear configuration channels as well
@@ -304,21 +305,27 @@ public class ActivationKeyManager {
     }
 
     /**
-     * Add a PackageName to an activation key.
+     * Add a package to an activation key using the PackageName and PackageArch
+     * provided.  If desired, PackageArch may be null.
      * @param key Activation key to be acted upon
      * @param packageName PackageName to add
+     * @param packageArch PackageArch to add
      */
-    public void addPackageName(ActivationKey key, PackageName packageName) {
-        key.addPackageName(packageName);
+    public void addPackage(ActivationKey key, PackageName packageName,
+            PackageArch packageArch) {
+        key.addPackage(packageName, packageArch);
     }
 
     /**
-     * Remove a PackageName from an activation key.
+     * Removes all packages from the activation key that match the PackageName
+     * and PackageArch given.
      * @param key Activation key to be acted upon
      * @param packageName PackageName to remove
+     * @param packageArch PackageArch to remove
      */
-    public void removePackageName(ActivationKey key, PackageName packageName) {
-        key.removePackageName(packageName);
+    public void removePackage(ActivationKey key, PackageName packageName,
+            PackageArch packageArch) {
+        key.removePackage(packageName, packageArch);
     }
     
     /**
@@ -487,7 +494,7 @@ public class ActivationKeyManager {
                             PackageManager.RHNCFG_ACTIONS};
         for (String name : names) {
             PackageManager.lookupPackageName(name);
-            key.addPackageName(PackageManager.lookupPackageName(name));    
+            key.addPackage(PackageManager.lookupPackageName(name), null);
         }
     }
     

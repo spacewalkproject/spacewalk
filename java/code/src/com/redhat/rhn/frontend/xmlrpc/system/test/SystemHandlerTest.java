@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.xmlrpc.system.test;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
@@ -27,6 +29,7 @@ import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
@@ -92,7 +95,6 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
@@ -1431,22 +1433,29 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testScheduleSyncPackagesWithSystem() throws Exception {
+
+        Channel testChannel = ChannelFactoryTest.createTestChannel(admin);
+
+        Package p1 = PackageTest.createTestPackage(admin.getOrg());
+        Package p2 = PackageTest.createTestPackage(admin.getOrg());
+
+        testChannel.addPackage(p1);
+        testChannel.addPackage(p2);
+        ChannelFactory.save(testChannel);
+
         Server s1 = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
         Server s2 = ServerFactoryTest.createTestServer(admin, true,
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
-    
-        Channel testChannel = ChannelFactoryTest.createTestChannel(admin);
+
         s1.addChannel(testChannel);
         s2.addChannel(testChannel);
-        TestUtils.saveAndReload(s1);
-        TestUtils.saveAndReload(s2);        
-        
-        Package p1 = PackageManagerTest.addPackageToSystemAndChannel(
-                "foo-package" + TestUtils.randomString(), s1, testChannel);
 
-        PackageManagerTest.addPackageToSystemAndChannel(
-                "foo-package" + TestUtils.randomString(), s2, testChannel);
+        addServerPackageMapping(s1.getId(), p1);
+        addServerPackageMapping(s2.getId(), p2);
+
+        ServerFactory.save(s1);
+        ServerFactory.save(s2);
         
         List packagesToSync = new LinkedList();
         packagesToSync.add(new Integer(p1.getPackageName().getId().intValue()));
@@ -1822,5 +1831,19 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 server.getId().intValue());
         assertTrue(list.size() == 0);
         
+    }
+    private void addServerPackageMapping(Long serverId, Package packageIn) {
+        WriteMode wm = ModeFactory.getWriteMode("test_queries",
+            "insert_into_rhnServerPackage_with_arch");
+
+        Map<String, Long> params = new HashMap<String, Long>(4);
+        params.put("server_id", serverId);
+        params.put("pn_id", packageIn.getPackageName().getId());
+        params.put("evr_id", packageIn.getPackageEvr().getId());
+        params.put("arch_id", packageIn.getPackageArch().getId());
+
+        int result = wm.executeUpdate(params);
+
+        assert result == 1;
     }
 }

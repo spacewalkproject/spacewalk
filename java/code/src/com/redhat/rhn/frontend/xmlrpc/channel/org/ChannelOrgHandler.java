@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelAccessException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NotPermittedByOrgException;
@@ -171,6 +172,11 @@ public class ChannelOrgHandler extends BaseHandler {
             // different org
             throw new NotPermittedByOrgException(user.getOrg().getId().toString(), 
                     channel.getLabel(), channel.getOrg().getId().toString());
+        }
+        
+        // protected mode only for modifying individual orgs
+        if (!channel.getAccess().equals(Channel.PROTECTED)) {           
+            throw new InvalidChannelAccessException(channel.getAccess());
         }
         
         Org org = OrgFactory.lookupById(orgId.longValue());      

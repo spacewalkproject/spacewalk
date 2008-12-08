@@ -39,6 +39,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.CustomDataValue;
@@ -1019,9 +1020,9 @@ public class SystemManagerTest extends RhnBaseTestCase {
         upgradedPackageEvr =
             (PackageEvr)TestUtils.saveAndReload(upgradedPackageEvr);
         
-        populateServerErrataPackages(org, server,
+        ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_SECURITY);
-        populateServerErrataPackages(org, server,
+        ServerTestUtils.populateServerErrataPackages(org, server,
             upgradedPackageEvr, ErrataFactory.ERRATA_TYPE_BUG);
 
         // Test
@@ -1069,4 +1070,125 @@ public class SystemManagerTest extends RhnBaseTestCase {
         ErrataCacheManager.insertNeededPackageCache(
                 server.getId(), org.getId(), errata.getId(), installedPackage.getId());
     }
+
+    public void testSsmSystemPackagesToRemove() throws Exception {
+
+        // Setup
+        User admin = UserTestUtils.findNewUser("ssmUser1", "ssmOrg1");
+        Org org = admin.getOrg();
+
+        //    Create Test Servers
+        Server server1 = ServerTestUtils.createTestSystem(admin);
+        ServerFactory.save(server1);
+
+        Server server2 = ServerTestUtils.createTestSystem(admin);
+        ServerFactory.save(server2);
+
+        //    Create Test Packages
+        Package installedPackage1 = PackageTest.createTestPackage(org);
+        Package installedPackage2 = PackageTest.createTestPackage(org);
+
+        //    Associate the servers and packages
+        addServerPackageMapping(server1.getId(), installedPackage1);
+        addServerPackageMapping(server1.getId(), installedPackage2);
+
+        addServerPackageMapping(server2.getId(), installedPackage1);
+
+        //    Add the servers to the SSM set
+        RhnSet ssmSet = RhnSetManager.findByLabel(admin.getId(),
+            RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
+        if (ssmSet == null) {
+            ssmSet = RhnSetManager.createSet(admin.getId(),
+                RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
+        }
+
+        assert ssmSet != null;
+
+        ssmSet.addElement(server1.getId());
+        ssmSet.addElement(server2.getId());
+        RhnSetManager.store(ssmSet);
+
+        ssmSet = RhnSetManager.findByLabel(admin.getId(),
+            RhnSetDecl.SYSTEMS.getLabel(), SetCleanup.NOOP);
+        assert ssmSet != null;
+
+        ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage1);
+        ServerTestUtils.addServerPackageMapping(server1.getId(), installedPackage2);
+        
+        ServerTestUtils.addServerPackageMapping(server2.getId(), installedPackage1);
+        
+        //    Add the servers to the SSM set
+        ServerTestUtils.addServersToSsm(admin, server1.getId(), server2.getId());
+        
+        //    Simulate the user selecting every package in the list
+        RhnSet packagesSet =
+            RhnSetManager.createSet(admin.getId(),
+                RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
+
+        packagesSet.addElement(installedPackage1.getPackageName().getId(),
+            installedPackage1.getPackageEvr().getId(),
+            installedPackage1.getPackageArch().getId());
+
+        packagesSet.addElement(installedPackage2.getPackageName().getId(),
+            installedPackage2.getPackageEvr().getId(),
+            installedPackage2.getPackageArch().getId());
+
+        RhnSetManager.store(packagesSet);
+
+        packagesSet = RhnSetManager.findByLabel(admin.getId(),
+            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
+        assert packagesSet != null;
+
+        // Test
+        assertNotNull(packagesSet);
+        
+        // Test
+        DataResult result =
+            SystemManager.ssmSystemPackagesToRemove(admin, packagesSet.getLabel());
+        assertNotNull(result);
+        
+        //   Need explicit elaborate call here; list tag will do this in the UI
+        result.elaborate();
+
+        // Verify
+        assertEquals(2, result.size());
+
+        for (Object r : result) {
+            Map map = (Map)r;
+            
+            if (map.get("id").equals(server1.getId())) {
+                assertEquals(server1.getName(), map.get("system_name"));
+        
+                assertTrue(map.get("elaborator0") instanceof List);
+                List result1Packages = (List)map.get("elaborator0");
+                assertEquals(2, result1Packages.size());
+            }
+            else if (map.get("id").equals(server2.getId())) {
+                assertEquals(server2.getName(), (map.get("system_name")));
+        
+                assertTrue(map.get("elaborator0") instanceof List);
+                List result2Packages = (List)map.get("elaborator0");
+                assertEquals(1, result2Packages.size());                
+            }
+            else {
+                fail("Found ID that wasn't expected: " + map.get("id"));
+            }
+        }
+    }
+
+    private void addServerPackageMapping(Long serverId, Package packageIn) {
+        WriteMode wm = ModeFactory.getWriteMode("test_queries",
+            "insert_into_rhnServerPackage_with_arch");
+
+        Map<String, Long> params = new HashMap<String, Long>(4);
+        params.put("server_id", serverId);
+        params.put("pn_id", packageIn.getPackageName().getId());
+        params.put("evr_id", packageIn.getPackageEvr().getId());
+        params.put("arch_id", packageIn.getPackageArch().getId());
+
+        int result = wm.executeUpdate(params);
+
+        assert result == 1;
+    }
+
 }

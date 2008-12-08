@@ -2136,6 +2136,7 @@ public class SystemHandler extends BaseHandler {
             
             pkgMap.put("name_id", p.getPackageName().getId());
             pkgMap.put("evr_id", p.getPackageEvr().getId());
+            pkgMap.put("arch_id", p.getPackageArch().getId());
             packageMaps.add(pkgMap);
         }
         

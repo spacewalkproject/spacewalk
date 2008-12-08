@@ -31,7 +31,10 @@ rhnServerProfilePackage
         evr_id                  number 
 	    	    	    	constraint rhn_sprofile_evrid_nn not null
 	    	    	    	constraint rhn_sprofile_evrid_fk
-				    	references rhnPackageEvr(id)
+					references rhnPackageEvr(id),
+        package_arch_id         number
+                                constraint rhn_sprofile_package_fk
+                                        references rhnPackageArch(id)
 )
 	storage ( freelists 16 )
 	enable row movement
@@ -44,6 +47,9 @@ create index rhn_sprof_sp_sne_idx on
 	initrans 32
 	nologging;
 
+--
+-- Revision 1.7 2008/11/24
+-- bugzilla: 456532 -- adding package_arch_id
 --
 -- Revision 1.6  2003/10/07 14:12:49  pjones
 -- bugzilla: none -- cascade deps on rhnServerProfilePackage to make deletes

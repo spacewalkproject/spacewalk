@@ -3148,6 +3148,12 @@ user before attempting to deactivate their account.</source>
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Remove">
+<source>Remove</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Groups">
 <source>Groups</source>
         <context-group name="ctx">
@@ -7476,6 +7482,10 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.channel.duplicatechannellabel">
           <source>The channel label specified ({0}) already exists.</source>
       </trans-unit>   
+
+      <trans-unit id="api.channel.invalidchannelaccess">
+          <source>The channel access ({0}) is not allowed for this operation.</source>
+      </trans-unit>
 
       <trans-unit id="Certificate Administrators">
           <source>Certificate Administrators</source>

@@ -29,8 +29,9 @@ rhnSet
 	element		number
 			constraint rhn_set_elem_nn not null,
 	element_two	number,
+	element_three	number,
 	constraint	rhn_set_user_label_elem_unq
-		UNIQUE(user_id, label, element, element_two)
+		UNIQUE(user_id, label, element, element_two, element_three)
 		using index tablespace [[8m_tbs]]
 )
 	storage ( freelists 16 )
