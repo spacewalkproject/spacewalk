@@ -13,7 +13,7 @@ URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
 Group:        Applications/System
 BuildArch:    noarch
-Obsoletes:    rhns-proxy-monitoring <= 5.2.0
+Obsoletes:    rhns-proxy-monitoring < 5.3.0
 Provides:     rhns-proxy-monitoring
 Conflicts: rhnmd
 Requires: nocpulse-db-perl 
