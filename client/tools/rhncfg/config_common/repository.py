@@ -83,7 +83,7 @@ class Repository:
         # Returns the stat information as required by the API
         ret = {}
         fields = {
-            'mode'      : stat.ST_MODE & 0777,
+            'mode'      : stat.ST_MODE & 07777,
             'user'      : stat.ST_UID,
             'group'     : stat.ST_GID,
             'size'      : stat.ST_SIZE,
@@ -94,7 +94,7 @@ class Repository:
             ret[label] = file_stat[st]
 
         # server expects things like 644, 700, etc.
-        ret['mode'] = deci_to_octal(ret['mode'] & 0777)
+        ret['mode'] = deci_to_octal(ret['mode'] & 07777)
 
         #print ret['size']
         #if ret['size'] > self.get_maximum_file_size():

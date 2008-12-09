@@ -267,7 +267,7 @@ class DeployTransaction:
                     if os.path.isdir(dirname):
                         s = os.stat(dirname)
                         entry = {}
-                        entry["filemode"] = "%o" % (s[0] & 0777)
+                        entry["filemode"] = "%o" % (s[0] & 07777)
                         entry["uid"] = s[4]
                         entry["gid"] = s[5]
                         self.changed_dir_info[dirname] = entry
