@@ -24,6 +24,9 @@
             <rhn-tab name="Upgrade">
                 <rhn-tab-url>/rhn/ssm/PackageUpgrade.do</rhn-tab-url>
             </rhn-tab>
+            <rhn-tab name="Verify">
+                <rhn-tab-url>/rhn/ssm/PackageVerify.do</rhn-tab-url>
+            </rhn-tab>
    </rhn-tab>
 
    <rhn-tab name="Patches" acl="is(enable_solaris_support)">

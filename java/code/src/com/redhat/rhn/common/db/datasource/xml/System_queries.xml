@@ -842,9 +842,10 @@ ORDER BY S.name
   </query>
 </mode>
 
-<mode name="system_set_remove_packages_conf">
+<mode name="system_set_remove_or_verify_packages_conf">
    <query params="user_id, set_label, package_set_label">
-SELECT  DISTINCT S.id, S.name SYSTEM_NAME
+SELECT  DISTINCT S.id,
+        S.name SYSTEM_NAME
   FROM  rhnServer S,
         rhnServerPackage SP,
         rhnSet ST2,
@@ -861,7 +862,9 @@ SELECT  DISTINCT S.id, S.name SYSTEM_NAME
 ORDER BY UPPER(S.name), S.id
    </query>
    <elaborator params="user_id, package_set_label" multiple="t">
-SELECT  DISTINCT SP.server_id id, PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE
+SELECT  DISTINCT SP.server_id id,
+        PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label NVRE,
+        PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO
   FROM  rhnPackageEVR PE,
         rhnPackageName PN,
         rhnServerPackage SP,
@@ -873,7 +876,6 @@ SELECT  DISTINCT SP.server_id id, PN.name || '-' || PE.evr.as_vre_simple() || '-
    AND  SP.package_arch_id = PA.id
    </elaborator>
 </mode>
-
 
 <write-mode name="insert_ssm_remove_server_package">
    <query params="user_id, name_id, evr_id, arch_id">

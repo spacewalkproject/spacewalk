@@ -745,39 +745,6 @@ ORDER BY UPPER (PN.NAME)
   </query>
 </mode>
 
-<mode name="verify_packages_from_server_set">
-  <query params="user_id, set_label">
-SELECT   PN.ID || '|' || PE.ID AS ID,
-         PN.ID AS pn_id,
-         PE.ID AS pe_id,
-         PN.NAME,
-         PE.VERSION,
-         PE.release,
-         PE.epoch,
-         X.num_systems
-    FROM rhnPackageName PN,
-         rhnPackageEVR PE,
-         (SELECT   SP.name_id,
-                   SP.evr_id,
-                   COUNT (SP.server_id) num_systems
-              FROM rhnServerPackage SP,
-                   rhnSet S,
-                   rhnClientCapabilityName CCN,
-                   rhnClientCapability CC
-             WHERE s.user_id = :user_id
-               AND s.label = :set_label
-               AND s.ELEMENT = SP.server_id
-               AND SP.server_id = CC.server_id
-               AND CC.capability_name_id = CCN.id
-               AND CCN.name = 'packages.verify'
-          GROUP BY SP.name_id,
-                   SP.evr_id) X
-   WHERE PE.ID = X.evr_id
-     AND PN.ID = X.name_id
-ORDER BY UPPER (PN.NAME)
-  </query>
-</mode>
-
 <mode name="packages_in_set"  class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="set_label, user_id">
   SELECT  PN.id || '|' || PE.id AS ID_COMBO, PN.name || '-' || PE.evr.as_vre_simple() AS NVRE

@@ -30,8 +30,7 @@
              </rhn-tab>
 
              <rhn-tab name="Verify">
-		<rhn-tab-url>/network/systems/ssm/packages/verify.pxt</rhn-tab-url>
-		<rhn-tab-url>/network/systems/ssm/packages/verify_conf.pxt</rhn-tab-url>
+                <rhn-tab-url>/rhn/ssm/PackageVerify.do</rhn-tab-url>
              </rhn-tab>
 
 	</rhn-tab>
