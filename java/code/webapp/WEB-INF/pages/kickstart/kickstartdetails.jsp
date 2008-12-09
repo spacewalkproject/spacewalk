@@ -93,6 +93,7 @@
             <td><html:textarea property="comments" cols="80" rows="6"/></td>
           </tr>
                     
+
           <tr>          
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>

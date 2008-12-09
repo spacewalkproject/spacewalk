@@ -110,6 +110,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         this.kernelOptions = kernelOptionsIn;
     }
 
+
     
     /**
      * @param postKernelOptionsIn The postKernelOptions to set.
