@@ -2321,54 +2321,28 @@ def system_reg_message(server):
 
 # IN: 'e:name-version-release' or 'name-version-release:e'
 # OUT: {'name':name, 'version':version, 'release':release, 'epoch':epoch }
-def make_evr(nvre, source=0):
-    epoch = ''
-    name = ''
-    version = ''
-    release = ''
-    list = None
-    ret = None
-                                                                                                                                                                                    
-    #There is an epoch. A ':' is only included when an epoch is present
-    if string.find(nvre, ':') != -1:
-        holder = string.split(nvre, ':')
-                                                                                                                                                                                    
-        #holder[0] has the n,v,r,a
-        if string.find(holder[0], '-') != -1:
-            holder[0] = string.split(holder[0], '-')
-            ret = {
-                'name'      :   holder[0][0],
-                'version'   :   holder[0][1],
-                'release'   :   holder[0][2],
-                'epoch'     :   holder[1]
-            }
-        elif string.find(holder[1], '-') != -1:
-            holder[1] = string.split(holder[1], '-')
-            ret = {
-                'name'      :   holder[1][0],
-                'version'   :   holder[1][1],
-                'release'   :   holder[1][2],
-                'epoch'     :   holder[0]
-            }
-        else:
-            raise rhnFault(err_code = 21,
-                err_text = "NVRE is missing name, version, or release.")
-    elif string.find(nvre, '-') != -1:
-        nvre = string.split(nvre, '-')
-        ret = {
-            'name'      :   nvre[0],
-            'version'   :   nvre[1],
-            'release'   :   nvre[2],
-            'epoch'     :   None
-        }
+def make_evr(nvre, source=False):
+    import re
+    if ":" in nvre:
+        nvr, epoch = nvre.rsplit(":", 1)
+        if "-" in epoch:
+            nvr, epoch = epoch, nvr
     else:
-        return MakeEvrError(message = "NVRE is missing name, version, or release.")
-    if source:
-        for key in ret.keys():
-            if ret[key]:
-            	if string.find(ret[key], '.src') != -1:
-                    ret[key] = string.replace(ret[key], '.src', "")
-    return ret
+        nvr, epoch = nvre, ""
+
+    nvr_parts = nvr.rsplit("-", 2)
+    if len(nvr_parts) != 3:
+        raise rhnFault(err_code = 21, err_text = \
+                       "NVRE is missing name, version, or release.")
+
+    result = dict(zip(["name", "version", "release"], nvr_parts))
+    result["epoch"] = epoch
+
+    if source and result["release"].endswith(".src"):
+        result["release"] = result["release"][:-4]
+
+    return result
+
 
 def subscribe_to_tools_channel(server_id):
     """
