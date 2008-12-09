@@ -7,7 +7,7 @@ Name: spacewalk-admin
 # cd satellite/admin
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.4.2
+Version: 0.4.3
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Wed Nov 19 2008 Devan Goodwin <dgoodwin@redhat.com> 0.4.2-1
 - Replace use of perl-crypt-OpenPGP and perl-crypt-RIPEMD160 with gpg system call.
 - Validate certificates using gpg on the command line.
