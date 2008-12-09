@@ -19,9 +19,9 @@
 
 <ul>
     <li><a href="PackageInstall.do"><bean:message key="ssm.package.install"/></a></li>
-    <li><a href="PackageInstall.do"><bean:message key="ssm.package.upgrade"/></a></li>
+    <li><a href="PackageUpgrade.do"><bean:message key="ssm.package.upgrade"/></a></li>
     <li><a href="PackageRemove.do"><bean:message key="ssm.package.remove"/></a></li>
-    <li><a href="PackageInstall.do"><bean:message key="ssm.package.verify"/></a></li>
+    <li><a href="PackageVerify.do"><bean:message key="ssm.package.verify"/></a></li>
 </ul>
 
 </body>

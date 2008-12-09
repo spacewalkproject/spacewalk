@@ -85,12 +85,6 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
                     new ValidatorError("org.entitlements.system.defaultorg"));
         }
 
-        ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
-                this, dynaForm);
-        if (!errors.isEmpty()) {            
-            return errors;
-        }
-
         ActionErrors ae = new ActionErrors();
 
         List <Entitlement> entitlements = new LinkedList<Entitlement>();
@@ -103,7 +97,7 @@ public class OrgSystemSubscriptionsAction extends RhnAction {
             try {
                 newCount = Long.parseLong(count.trim());
             }
-            catch (NumberFormatException ex) {
+            catch (NumberFormatException ex) {                
                 ValidatorError error = new ValidatorError(
                         "orgsystemsubs.invalid", ent.getHumanReadableLabel());
                 return (RhnValidationHelper.validatorErrorToActionErrors(error));

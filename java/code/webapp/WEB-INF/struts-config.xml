@@ -6406,6 +6406,28 @@
                  path="/ssm/Packages.do"/>
      </action>                                          
     
+     <!-- SSM Package Verify Pages -->
+     <action path="/ssm/PackageVerify"
+         scope="request"
+         input="/WEB-INF/pages/ssm/packageverify.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectVerifyPackagesAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageverify.jsp" />
+        <forward name="confirm"
+                 path="/ssm/PackageVerifySchedule.do"/>
+     </action>                                          
+    
+     <action path="/ssm/PackageVerifySchedule"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/ssm/packageverifyschedule.jsp"
+         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SchedulePackageVerifyAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/ssm/packageverifyschedule.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>                                          
+    
   </action-mappings>
 
   <!-- ===================================== -->

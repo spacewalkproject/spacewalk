@@ -2197,7 +2197,8 @@ public class SystemManager extends BaseManager {
     public static DataResult ssmSystemPackagesToRemove(User user,
                                                        String packageSetLabel) {       
         SelectMode m =
-            ModeFactory.getMode("System_queries", "system_set_remove_packages_conf");
+            ModeFactory.getMode("System_queries",
+                                "system_set_remove_or_verify_packages_conf");
 
         Map<String, Object> params = new HashMap<String, Object>(3);
         params.put("user_id", user.getId());
@@ -2208,6 +2209,24 @@ public class SystemManager extends BaseManager {
         return result;
     }
 
+    /**
+     * Returns a mapping of servers in the SSM to the user-selected packages to verify
+     * that actually exist on those servers.
+     *
+     * @param user            identifies the user making the request
+     * @param packageSetLabel identifies the RhnSet used to store the packages selected
+     *                        by the user (this is needed for the query). This must be
+     *                        established by the caller prior to calling this method
+     * @return description of server information as well as a list of relevant packages
+     */
+    public static DataResult ssmSystemPackagesToVerify(User user,
+                                                       String packageSetLabel) {
+        // The query for this operation is the same as remove, so simply chain to
+        // that method; this method is to make the verify code not look like it 
+        // erronuously calls a remove query.
+        return ssmSystemPackagesToRemove(user, packageSetLabel);
+    }    
+    
     /**
      * Returns a mapping of servers in the SSM to user-selected packages to upgrade
      * that actually exist on those servers
