@@ -71,7 +71,7 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
-                helper.getKickstartMediaUrl());
+                helper.getKickstartMediaPath());
 
         Object[] args = new Object[]{handle, "ksmeta", 
                 ksmeta, xmlRpcToken};

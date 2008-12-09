@@ -172,21 +172,35 @@ public class KickstartUrlHelper {
     }
 
     /**
-     * Get the --url parameter for this kickstart.
+     * Get the --url parameter for this kickstart.  This is
+     * the full url including media path:
+     * 
+     * http://somehost.example.com/ks/dist/ks-rhel-i386-as-4-u2
      * 
      * @return String url to this KickstartData's --url
      */
     public String getKickstartMediaUrl() {
         log.debug("Formatting for view use.");
+        StringBuffer url = new StringBuffer();
+        url.append(protocol + host + getKickstartMediaPath());
+        log.debug("returning: " + url);
+        return url.toString();
+    }
+    
+    /**
+     * Get the media path for the KickstartableTree. Example:
+     * /ks/dist/ks-rhel-i386-as-4-u2
+     * 
+     * @return media path to the KickstartableTree ..
+     * /ks/dist/ks-rhel-i386-as-4-u2 
+     */
+    public String getKickstartMediaPath() {
         // /kickstart/dist/ks-rhel-i386-as-4-u2
         StringBuffer file = new StringBuffer();
         file.append(KS_DIST);
         file.append("/");
         file.append(this.ksTree.getLabel());
-        StringBuffer url = new StringBuffer();
-        url.append(protocol + host + file.toString());
-        log.debug("returning: " + url);
-        return url.toString();
+        return file.toString();
     }
     
     /**
