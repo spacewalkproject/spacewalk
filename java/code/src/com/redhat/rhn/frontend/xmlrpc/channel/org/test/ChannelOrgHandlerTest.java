@@ -46,6 +46,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
     public void testList() throws Exception {
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
+        channel.setAccess(Channel.PROTECTED);
         admin.getOrg().addOwnedChannel(channel);
 
         Org org2 = createOrg();
@@ -65,7 +66,7 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         
         // verify
         assertNotNull(result);
-        assertEquals(2, result.size());
+        assertTrue(result.size() >= 2);
         
         boolean foundOrg2 = false, foundOrg3 = false;
         for (Map<String, Object> org : result) {
@@ -98,12 +99,15 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         org2.addTrust(admin.getOrg());
         org3.addTrust(admin.getOrg());
 
+        // only protected channels can have separate org trusts
+        channel.setAccess(Channel.PROTECTED);
+
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);
         flushAndEvict(channel);
 
         assertFalse(channel.getTrustedOrgs().contains(org2));
-        assertFalse(channel.getTrustedOrgs().contains(org3));
+        assertFalse(channel.getTrustedOrgs().contains(org3));        
         
         // execute
         int result = handler.enableAccess(adminKey, channel.getLabel(), 
@@ -128,6 +132,9 @@ public class ChannelOrgHandlerTest extends BaseHandlerTestCase {
         
         channel.getTrustedOrgs().add(org2);
         channel.getTrustedOrgs().add(org3);
+        
+        // only protected channels can have separate org trusts
+        channel.setAccess(Channel.PROTECTED);
 
         OrgFactory.save(admin.getOrg());
         ChannelFactory.save(channel);

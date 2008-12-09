@@ -42,7 +42,6 @@ import com.redhat.rhn.manager.profile.ProfileManager;
 public class PackageListAction extends RhnAction implements Listable {
 
     private static final String DATA_SET = "pageList";
-    public static final String NAME = "profileName";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
@@ -58,10 +57,8 @@ public class PackageListAction extends RhnAction implements Listable {
         if (prid != null) {
             profile = ProfileManager.lookupByIdAndOrg(prid,
                     context.getLoggedInUser().getOrg());
-            if (profile != null) {
-                // This attribute will be used to include the profile name in UI pg header
-                request.setAttribute(NAME, profile.getName());
-            }
+            
+            request.setAttribute("profile", profile);
         }
 
         Map params = new HashMap();

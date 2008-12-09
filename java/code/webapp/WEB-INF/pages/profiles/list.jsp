@@ -8,6 +8,10 @@
 <html>
 <body>
 
+<html:messages id="message" message="true">
+    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
+</html:messages>
+
 <rhn:toolbar base="h1"
     img="/img/rhn-icon-packages.gif"
 	imgAlt="profile.list.header.alt">

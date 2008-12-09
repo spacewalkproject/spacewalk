@@ -114,6 +114,11 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         // http://www.javapractices.com/topic/TopicAction.do?Id=42
         
         KickstartData k = createKickstartWithOptions(user.getOrg());
+        KickstartWizardHelper wcmd = new KickstartWizardHelper(user);
+        wcmd.createCommand("url", 
+                "--url http://@@http_server@@/$media_url", k);
+
+        
         KickstartFactory.saveKickstartData(k);
         k = (KickstartData) reload(k);
         KickstartFactory.saveKickstartData(k);
@@ -127,7 +132,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
             contents.append(line);
             contents.append(System.getProperty("line.separator"));
         }
+        System.out.println("contents: " + contents);
         assertTrue(contents.indexOf("\\$") > 0);
+        assertTrue(contents.indexOf("\\$media_url") < 0);
+        assertTrue(contents.indexOf("$media_url") > 0);
     }
     
     public void testLookupByLabel() throws Exception {

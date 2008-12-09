@@ -9,8 +9,8 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1
-Release: 2%{?dist}
+Version: 0.4.1
+Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Obsoletes: rhns-proxy-docs < 5.3.0
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - Rename to spacewalk-proxy-docs
 - clean up spec

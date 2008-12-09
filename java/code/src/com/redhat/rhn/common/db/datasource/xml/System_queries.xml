@@ -217,20 +217,8 @@ SELECT  DISTINCT
    AND  ST.element = S.id
    AND  S.id = SNPC.server_id
    AND  SNPC.package_id = P.id
-   AND  P.name_id IN (
-           SELECT element
-             FROM rhnSet
-            WHERE user_id = :user_id
-              AND label = :package_set_label
-        )
-   AND  P.evr_id IN (
-           SELECT element_two
-             FROM rhnSet
-            WHERE user_id = :user_id
-              AND label = :package_set_label
-        )
-   AND  P.package_arch_id IN (
-           SELECT element_three
+   AND  (P.name_id, P.evr_id, P.package_arch_id) IN (
+           SELECT element, element_two, element_three
              FROM rhnSet
             WHERE user_id = :user_id
               AND label = :package_set_label
@@ -266,20 +254,8 @@ SELECT  DISTINCT
         rhnServerNeededPackageCache SNPC
  WHERE  SNPC.server_id IN (%s)
    AND  SNPC.package_id = P.id
-   AND  P.name_id IN (
-           SELECT element
-             FROM rhnSet
-            WHERE user_id = :user_id
-              AND label = :package_set_label
-        )
-   AND  P.evr_id IN (
-           SELECT element_two
-             FROM rhnSet
-            WHERE user_id = :user_id
-              AND label = :package_set_label
-        )
-   AND  P.package_arch_id IN (
-           SELECT element_three
+   AND  (P.name_id, P.evr_id, P.package_arch_id) IN (
+           SELECT element, element_two, element_three
              FROM rhnSet
             WHERE user_id = :user_id
               AND label = :package_set_label

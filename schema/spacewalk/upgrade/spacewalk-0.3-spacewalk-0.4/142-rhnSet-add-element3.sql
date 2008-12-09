@@ -17,7 +17,7 @@
 --
 
 alter table rhnSet add element_three NUMBER;
-alter table rhnSet drop constraint rhn_set_user_label_elem_unq;
+alter table rhnSet drop constraint rhn_set_user_label_elem_unq drop index;
 alter table rhnSet add constraint rhn_set_user_label_elem_unq
      unique(user_id, label, element, element_two, element_three);
 

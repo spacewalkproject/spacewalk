@@ -4679,6 +4679,14 @@
         <forward name="success" path="/profiles/PackageList.do" redirect="true" />
     </action>
 
+    <action path="/profiles/Delete"
+        name="deleteProfileForm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.profile.DeleteProfileAction">
+        <forward name="default" path="/WEB-INF/pages/profiles/delete.jsp"/>
+        <forward name="deleted" path="/profiles/List.do" redirect="true" />
+    </action>
+
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"
