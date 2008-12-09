@@ -35,8 +35,8 @@ options_table = [
         help="Satellite/Org Admin password"),
     Option("--satellite",       action="store", 
         help="Satellite server to run migration"),
-    Option("--serverId",               action="append", 
-        help="Server to migrate"),
+    Option("--systemId",               action="append", 
+        help="client system to migrate"),
     Option("--from-org-id",          action="store",
         help="Source Org ID"),
     Option("--to-org-id",          action="store",
@@ -45,7 +45,7 @@ options_table = [
         help="CSV File to process"),
 ]
 
-_csv_fields = [ 'server-id', 'from-org-id', 'to-org-id' ]
+_csv_fields = [ 'systemId', 'from-org-id', 'to-org-id' ]
 
 
 def main():
@@ -69,8 +69,8 @@ def main():
         migrate_data = []
 
     if not options.csv:
-        if not options.serverId:
-            print "Missing --serverId"
+        if not options.systemId:
+            print "Missing --systemId"
             return 1
 
         if not options.to_org_id:
@@ -86,7 +86,7 @@ def main():
             from_org_id = options.from_org_id or None
 
 
-        migrate_data = [[options.serverId, from_org_id, to_org_id]]
+        migrate_data = [[options.systemId, from_org_id, to_org_id]]
     
     username, password = getUsernamePassword(options.username, \
                             options.password)
