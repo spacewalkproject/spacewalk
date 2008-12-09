@@ -92,9 +92,7 @@ public class Profile {
         if (map == null || map.isEmpty()) {
             return null;
         }
-        
         Profile profile = new Profile(client);
-        profile.handle = (String) client.invokeTokenMethod("get_profile_handle", name);
         profile.dataMap = map;
         return profile;
     }
@@ -112,8 +110,6 @@ public class Profile {
         for (Map <String, Object> map : profiles) {
             profile.dataMap = map;
             if (id.equals(profile.getUid())) {
-                profile.handle = (String) client.invokeTokenMethod
-                                        ("get_profile_handle", profile.getName());
                 return profile;
             }
         }
@@ -137,9 +133,16 @@ public class Profile {
         }
         return profiles;
     }
+
+    private String getHandle() {
+        if (handle == null || "".equals(handle.trim())) {
+            handle = (String)client.invokeTokenMethod("get_profile_handle");
+        }
+        return handle;
+    }
     
     private void modify(String key, Object value) {
-        client.invokeTokenMethod("modify_profile", handle, key, value);
+        client.invokeTokenMethod("modify_profile", getHandle(), key, value);
         dataMap.put(key, value);
     }
     
@@ -147,7 +150,7 @@ public class Profile {
      * calls save_profile to complete the commit
      */
     public void save() {
-        client.invokeTokenMethod("save_profile", handle);
+        client.invokeTokenMethod("save_profile", getHandle());
         client.invokeTokenMethod("update");
     }
 
@@ -165,7 +168,6 @@ public class Profile {
     public void reload() {
         Profile newProfile = lookupById(client, getId());
         dataMap = newProfile.dataMap;
-        handle = newProfile.handle;
     }
     
     /**
@@ -358,8 +360,8 @@ public class Profile {
      * @param nameIn sets the new name
      */
     public void setName(String nameIn) {
-        client.invokeTokenMethod("rename_profile", handle, nameIn);
-        client.invokeTokenMethod("update", handle, nameIn);
+        client.invokeTokenMethod("rename_profile", getHandle(), nameIn);
+        client.invokeTokenMethod("update", getHandle(), nameIn);
         dataMap.put(NAME, nameIn);
         reload();
     }

@@ -16,6 +16,7 @@ package org.cobbler;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -84,9 +85,7 @@ public class Distro {
         if (map == null || map.isEmpty()) {
             return null;
         }
-        
         Distro distro = new Distro(client);
-        distro.handle = (String) client.invokeTokenMethod("get_distro_handle", name);
         distro.dataMap = map;
         return distro;
     }
@@ -104,16 +103,39 @@ public class Distro {
         for (Map <String, Object> map : distros) {
             distro.dataMap = map;
             if (id.equals(distro.getUid())) {
-                distro.handle = (String) client.invokeTokenMethod
-                                        ("get_distro_handle", distro.getName());
                 return distro;
             }
         }
         return null;
     }    
 
+    /**
+     * Returns a list of available Distros 
+     * @param connection the cobbler connection
+     * @return a list of Distros.
+     */
+    public static List<Distro> list(CobblerConnection connection) {
+        List <Distro> distros = new LinkedList<Distro>();
+        List <Map<String, Object >> cDistros = (List <Map<String, Object >>) 
+                                        connection.invokeTokenMethod("get_distros");
+        
+        for (Map<String, Object> distroMap : cDistros) {
+            Distro distro = new Distro(connection);
+            distro.dataMap = distroMap;
+            distros.add(distro);
+        }
+        return distros;
+    }
+
+    private String getHandle() {
+        if (handle == null || "".equals(handle.trim())) {
+            handle = (String)client.invokeTokenMethod("get_distro_handle");
+        }
+        return handle;
+    }
+    
     private void modify(String key, Object value) {
-        client.invokeTokenMethod("modify_distro", handle, key, value);
+        client.invokeTokenMethod("modify_distro", getHandle(), key, value);
         dataMap.put(key, value);
     }
     
@@ -121,7 +143,7 @@ public class Distro {
      * Save the distro
      */
     public void save() {
-        client.invokeTokenMethod("save_distro", handle);
+        client.invokeTokenMethod("save_distro", getHandle());
         client.invokeTokenMethod("update");
     }
 
@@ -139,7 +161,6 @@ public class Distro {
     public void reload() {
         Distro newDistro = lookupById(client, getId());
         dataMap = newDistro.dataMap;
-        handle = newDistro.handle;
     }
     
     /**
@@ -446,8 +467,8 @@ public class Distro {
      * @param nameIn sets the new name
      */
     public void setName(String nameIn) {
-        client.invokeTokenMethod("rename_distro", handle, nameIn);
-        client.invokeTokenMethod("update", handle, nameIn);
+        client.invokeTokenMethod("rename_distro", getHandle(), nameIn);
+        client.invokeTokenMethod("update", getHandle(), nameIn);
         dataMap.put(NAME, nameIn);
         reload();
     }
