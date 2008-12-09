@@ -56,7 +56,7 @@ public class CryptoTest extends BaseTestCaseWithUser {
     }
     
     public void testCryptoKeyKickstartAssoc() throws Exception {
-        KickstartData ksdata = KickstartDataTest.createTestKickstartData(user.getOrg());
+        KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         ksdata = addKeyToKickstart(ksdata);
         assertNotNull(ksdata.getCryptoKeys());
         assertTrue(ksdata.getCryptoKeys().size() > 0);

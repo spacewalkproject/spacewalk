@@ -81,6 +81,7 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         
     }
     
+    
     public void testGetCobblerMediaUrl() throws Exception {
         helper = new KickstartUrlHelper(ksdata);
         String expected = "http://" + 
@@ -113,4 +114,30 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         assertEquals(expectedRealPath, ty.getUrl());
         
     }
+    
+    
+    public void testGetKickstartMediaSessionPath() throws Exception {
+        // /ks/dist/session/35x45fed383beaeb31a184166b4c1040633/ks-f9-x86_64
+        KickstartSession session = 
+            KickstartSessionTest.createKickstartSession(ksdata, user);
+        TestUtils.saveAndFlush(session);
+        session = (KickstartSession) reload(session);
+        String encodedId = SessionSwap.encodeData(session.getId().toString());
+        String expected = "/ty/" + ""; 
+        String url = helper.getKickstartMediaPath(session);
+        // "/ty/weOyQenH";
+        String token = url.substring(url.lastIndexOf("/"));
+        token = token.split("/")[1];
+        TinyUrl ty = CommonFactory.lookupTinyUrl(token);
+        assertNotNull(ty);
+        System.out.println("TY: " + url + " expect: " + expected);
+        assertTrue(url.startsWith(expected));
+        // /ks/dist/session/143x8fb9d782967b2736618b2b4a9169c975/
+        //   ks-ChannelLabelGS5CmSOIuu9Vu2dOkc
+        String expectedRealPath = KickstartUrlHelper.KS_DIST + "/session/" + encodedId + 
+            "/" + ksdata.getTree().getLabel();
+        assertEquals(expectedRealPath, ty.getUrl());
+        
+    }
+
 }

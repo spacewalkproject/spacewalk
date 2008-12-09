@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.5
+Version: 0.4.6
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -100,6 +100,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
+- fixed Obsoletes: rhns-* < 5.3.0
+
 * Fri Dec  5 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
 - 474591 - move web data to /usr/share/nocpulse
 

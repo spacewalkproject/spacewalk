@@ -82,6 +82,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         pxtDelegate.updateWebUserId(request, response, user.getId());
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
+        Config.get().setString("kickstart.cobbler.dir", "/tmp/");
     }
     
     /**

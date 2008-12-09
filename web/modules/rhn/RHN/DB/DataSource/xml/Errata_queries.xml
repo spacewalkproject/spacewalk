@@ -1,27 +1,5 @@
 <datasource_modes>
 
-<mode name="org_pkg_errata">
-  <query params="org_id, pid">
-SELECT DISTINCT E.advisory_name,
-                TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS UPDATE_DATE,
-                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS ISSUE_DATE,
-                E.synopsis,
-                E.advisory_type,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnErrata E,
-       rhnAvailableChannels AC,
-       rhnChannelErrata EC,
-       rhnErrataPackage EP
- WHERE AC.org_id = :org_id
-   AND EP.package_id = :pid
-   AND EP.errata_id = EC.errata_id
-   AND EC.channel_id = AC.channel_id
-   AND EC.errata_id = E.id
-ORDER BY E.advisory_name
-  </query>
-</mode>
-
-
 <mode name="bugs_fixed">
   <query params="eid">
 SELECT  EBL.bug_id AS ID,
@@ -175,50 +153,6 @@ SELECT DISTINCT E.id, E.update_date
                       AND AEU.action_id = SA.action_id
                       AND AEU.errata_id = E.id )
 ORDER BY E.update_date, E.id
-  </query>
-  <elaborator name="errata_overview" />
-</mode>
-
-
-<mode name="relevant_to_channel_between">
-  <query params="cid, start_date_str, end_date_str">
-SELECT DISTINCT E.id,
-                E.advisory_name AS ADVISORY,
-                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS ISSUE_DATE,
-                TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS LONG_UPDATE_DATE,
-		E.synopsis,
-                E.advisory_type,
-                E.last_modified AS LAST_MODIFIED_SHORT,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnErrata E,
-       rhnChannelErrata CE
- WHERE CE.channel_id = :cid
-   AND CE.errata_id = E.id
-   AND E.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-   AND E.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY E.last_modified DESC, E.id
-  </query>
-  <elaborator name="errata_overview" />
-</mode>
-
-
-<mode name="relevant_to_channel_after">
-  <query params="cid, start_date_str">
-SELECT DISTINCT E.id,
-                E.advisory_name AS ADVISORY,
-                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS ISSUE_DATE,
-                TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS LONG_UPDATE_DATE,
-                E.update_date,
-		E.synopsis,
-                E.advisory_type,
-                E.last_modified AS LAST_MODIFIED_SHORT,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnErrata E,
-       rhnChannelErrata CE
- WHERE CE.channel_id = :cid
-   AND CE.errata_id = E.id
-   AND E.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY E.last_modified DESC, E.id
   </query>
   <elaborator name="errata_overview" />
 </mode>

@@ -93,10 +93,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
         netint.setNetmask("255.255.255.0");
         
         netint.setName(networkName);
-        
-        netint.setServer(server);
-        
-        TestUtils.saveAndFlush(netint);
+        server.addNetworkInterface(netint);
         return netint;
     }
 }

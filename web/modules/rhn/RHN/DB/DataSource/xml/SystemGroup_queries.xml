@@ -136,24 +136,6 @@ ORDER BY UPPER(SG.name)
 </mode>
 
 
-<mode name="visible_to_system">
-  <query params="sid, org_id, user_id">
-  SELECT MAX(DECODE(VSGM.server_id, :sid, 1, 0)) is_system_member,
-         VSGM.GROUP_ID id,
-         VSGM.GROUP_NAME,
-         VSGM.GROUP_TYPE,
-         VSGM.CURRENT_MEMBERS,
-         VSGM.MAX_MEMBERS,
-         DECODE(USGP.server_group_id,VSGM.group_id,1,0) AS USER_PERMITTED_ACCESS
-    FROM rhnVisServerGroupMembership VSGM, rhnUserServerGroupPerms USGP
-   WHERE VSGM.ORG_ID = :org_id
-     AND :user_id = USGP.user_id (+)
-     AND VSGM.group_id = USGP.server_group_id (+)
-GROUP BY VSGM.group_id, VSGM.group_name, VSGM.group_type, VSGM.current_members, VSGM.max_members, USGP.server_group_id
-ORDER BY UPPER(VSGM.group_name), VSGM.group_id
-  </query>
-</mode>
-
 <mode name="user_permissions">
   <query params="formvar_uid, org_id">
 SELECT SG.id, SG.name AS GROUP_NAME,
