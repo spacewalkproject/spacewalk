@@ -15617,6 +15617,53 @@ any of these revisions.  Are you sure you want to do this?</source>
          <source>Package upgrades scheduled</source>
        </trans-unit>
    </group>
+
+    <!-- ssm/packageverify.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageVerify.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.verify.select.header">
+         <source>Verifiable Packages</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.select.summary">
+         <source>Packages listed below may be removed from one or more systems.
+
+            Select one or more and click the &lt;b&gt;Verify Selected Packages&lt;/b&gt; button to schedule package removal.
+         </source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.select.confirm">
+         <source>Verify Selected Packages</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.select.numsystems">
+         <source>Systems</source>
+       </trans-unit>
+   </group>
+       
+    <!-- ssm/packageverifyschedule.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageVerifySchedule.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.verify.schedule.summary">
+         <source>Below is a list of the packages that will be verified, on a per system basis.
+         </source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.schedule.packages">
+         <source>Packages to Verify</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.schedule.toomanypackages">
+         <source>Package list truncated</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.message.packageverification">
+          <source>{0} package verification has been scheduled</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.verify.message.packageverifications">
+          <source>{0} package verifications have been scheduled</source>
+       </trans-unit>
+   </group>
        
      <!-- Kickstart stuff -->
      <trans-unit id="rootPassword">

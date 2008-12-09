@@ -248,6 +248,11 @@ public class RhnSetDecl {
     public static final RhnSetDecl SSM_UPGRADE_PACKAGES_LIST =
         make("ssm_upgrade_packages_list", SetCleanup.NOOP);
     
+    // Set of packages being verified from packages in the SSM (this is used by the
+    // query but the UI uses SessionSet)
+    public static final RhnSetDecl SSM_VERIFY_PACKAGES_LIST =
+        make("ssm_verify_packages_list", SetCleanup.NOOP);
+    
     // This cleanser is for when the set contains rhnVirtualInstance.id
     // instead of rhnServer.id
     public static final RhnSetDecl VIRTUAL_SYSTEMS = make("virtual_systems",

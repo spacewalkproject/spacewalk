@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -289,9 +290,9 @@ public class KickstartFactory extends HibernateFactory {
         String fileData = formatter.getFileData();
         // Escape the dollar signs
         fileData = StringUtils.replace(fileData, "$", "\\$");
-        
+        String mediapath = KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
         // TODO: Make this actually loop over cobbler vars vs just hard coded names
-        fileData = StringUtils.replace(fileData, "\\$media_url", "$media_url");
+        fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
         fileData = StringUtils.replace(fileData, "\\$activation_key", "$activation_key");
         
         try {

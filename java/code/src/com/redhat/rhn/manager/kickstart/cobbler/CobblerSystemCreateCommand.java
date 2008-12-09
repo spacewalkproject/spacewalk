@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
 
@@ -40,7 +41,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     
     private Server server;
 //    private KickstartData ksData;
-    private String mediaUrl;
+    private String mediaPath;
     
     private String name;
     /**
@@ -48,13 +49,13 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param ksDataIn profile to associate with with server.
-     * @param mediaUrlIn mediaUrl to override in the server profile.
+     * @param mediaPathIn mediaPath to override in the server profile.
      */
     public CobblerSystemCreateCommand(User userIn, Server serverIn, 
-            KickstartData ksDataIn, String mediaUrlIn) {
+            KickstartData ksDataIn, String mediaPathIn) {
         super(userIn);
         this.server = serverIn;
-        this.mediaUrl = mediaUrlIn;
+        this.mediaPath = mediaPathIn;
         name = (String)lookupCobblerProfile(ksDataIn).get("name");
     }
 
@@ -64,14 +65,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param nameIn profile nameIn to associate with with server.
-     * @param mediaUrlIn mediaUrl to override in the server profile.
+     * @param mediaPathIn media path to override in the server profile.
      */
     public CobblerSystemCreateCommand(User userIn, Server serverIn, 
-            String nameIn, String mediaUrlIn) {
+            String nameIn, String mediaPathIn) {
         super(userIn);
         this.server = serverIn;
         name = nameIn;
-        this.mediaUrl = mediaUrlIn;
+        this.mediaPath = mediaPathIn;
     }    
     
     /**
@@ -106,7 +107,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
-        ksmeta.put("media_url", this.mediaUrl);
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, this.mediaPath);
         ksmeta.put("activation_key", "somekey-todo");
 
         args = new Object[]{handle, "ksmeta", 

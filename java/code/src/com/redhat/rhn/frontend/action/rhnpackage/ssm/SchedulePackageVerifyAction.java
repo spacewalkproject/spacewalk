@@ -14,8 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Date;
@@ -28,10 +28,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.ActionMessage;
-import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
@@ -40,21 +40,22 @@ import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.rhnset.SetCleanup;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.server.Server;
 
 /**
- * Handles the display and capture of scheduling package removals for systems in the SSM.
- *
+ * Handles the display and capturing of scheduling package verifications for systems in 
+ * the SSM.
+ * 
  * @version $Revision$
  */
-public class SchedulePackageRemoveAction extends RhnListAction implements Listable {
+public class SchedulePackageVerifyAction extends RhnAction implements Listable {
 
     private static final String DATA_SET = "pageList";
 
@@ -95,20 +96,22 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
         // Stuff packages into an RhnSet to be used in the query
         String packagesDecl = (String) request.getAttribute("packagesDecl");
-        Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
+        if (packagesDecl != null) {
+            Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
+    
+            RhnSet packageSet = RhnSetManager.createSet(user.getId(),
+                RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
 
-        RhnSet packageSet = RhnSetManager.createSet(user.getId(),
-            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
-
-        for (String idCombo : data) {
-            PackageListItem item = PackageListItem.parse(idCombo);
-            packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
+            for (String idCombo : data) {
+                PackageListItem item = PackageListItem.parse(idCombo);
+                packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
+            }
+    
+            RhnSetManager.store(packageSet);
         }
-
-        RhnSetManager.store(packageSet);
-
+        
         DataResult results = SystemManager.ssmSystemPackagesToRemove(user,
-            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel());
+            RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel());
 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
 
@@ -116,7 +119,7 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
     }
 
     /**
-     * Creates the package removal action.
+     * Creates the package verification action.
      *
      * @param mapping  struts mapping
      * @param formIn   struts form
@@ -169,14 +172,14 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             List<Map<String, Long>> packageListData = PackageListItem.toKeyMaps(items);
             
             // Create the action
-            ActionManager.schedulePackageRemoval(user, server, packageListData, earliest);
+            ActionManager.schedulePackageVerify(user, server, packageListData, earliest);
         }
 
         // Remove the packages from session and the DB
         SessionSetHelper.obliterate(request, request.getParameter("packagesDecl"));
 
         RhnSetManager.deleteByLabel(user.getId(),
-            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel());
+            RhnSetDecl.SSM_VERIFY_PACKAGES_LIST.getLabel());
 
         ActionMessages msgs = new ActionMessages();
 
@@ -184,18 +187,16 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         LocalizationService l10n = LocalizationService.getInstance();
         if (numPackages == 1) {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("ssm.package.remove.message.packageremoval",
+                new ActionMessage("ssm.package.verify.message.packageverification",
                                   l10n.formatNumber(numPackages)));
         }
         else {
             msgs.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage("ssm.package.remove.message.packageremovals",
+                new ActionMessage("ssm.package.verify.message.packageverifications",
                                   l10n.formatNumber(numPackages)));
         }
         strutsDelegate.saveMessages(request, msgs);
 
         return mapping.findForward("confirm");
     }
-
 }
-

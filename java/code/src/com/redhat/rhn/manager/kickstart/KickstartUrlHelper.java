@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
@@ -39,10 +40,12 @@ public class KickstartUrlHelper {
     public static final String KS_DIST = "/ks/dist";
     public static final String KS_CFG = "/ks/cfg";
     public static final String COBBLER_SERVER_VARIABLE = "@@http_server@@";
-    public static final String COBBLER_MEDIA_VARIABLE = "media_url";
+    public static final String COBBLER_MEDIA_VARIABLE = "media_path";
     private KickstartData ksData;
     private String host;
     private String protocol;
+    private KickstartableTree ksTree;
+    
 
     /**
      * Constructor.
@@ -52,7 +55,17 @@ public class KickstartUrlHelper {
     public KickstartUrlHelper(KickstartData ksDataIn) {
         this(ksDataIn, COBBLER_SERVER_VARIABLE);
     }    
-    
+
+    /**
+     * Constructor.
+     *
+     * @param ksTreeIn who's URL you desire.
+     */
+    public KickstartUrlHelper(KickstartableTree ksTreeIn) {
+        this(null, COBBLER_SERVER_VARIABLE);
+        this.ksTree = ksTreeIn;
+    }    
+
     /**
      * Constructor.
      * 
@@ -62,6 +75,9 @@ public class KickstartUrlHelper {
     public KickstartUrlHelper(KickstartData ksDataIn, String hostIn) {
         this.ksData = ksDataIn;
         this.host = hostIn;
+        if (this.ksData != null) {
+            this.ksTree = ksDataIn.getTree();
+        }
         this.protocol = "http://";
     }
     
@@ -166,7 +182,7 @@ public class KickstartUrlHelper {
         StringBuffer file = new StringBuffer();
         file.append(KS_DIST);
         file.append("/");
-        file.append(ksData.getTree().getLabel());
+        file.append(this.ksTree.getLabel());
         StringBuffer url = new StringBuffer();
         url.append(protocol + host + file.toString());
         log.debug("returning: " + url);
@@ -222,7 +238,7 @@ public class KickstartUrlHelper {
         file.append(KS_DIST + "/session/");
         file.append(SessionSwap.encodeData(session.getId().toString()));
         file.append("/");
-        file.append(ksData.getTree().getLabel());
+        file.append(this.ksTree.getLabel());
         return file.toString();
     }
     

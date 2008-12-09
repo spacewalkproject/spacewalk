@@ -128,24 +128,24 @@ public class OrgDetailsAction extends RhnAction {
     private boolean validateForm(HttpServletRequest request, DynaActionForm form) {
         boolean retval = true;
 
-        String orgName = form.getString("orgName");
+        String orgName = form.getString("orgName");        
         RequestContext requestContext = new RequestContext(request);
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         Org currOrg = OrgFactory.lookupById(oid);
 
-        if (currOrg.getName().equals(orgName)) {
+        if (currOrg.getName().equals(orgName)) {            
             getStrutsDelegate().saveMessage("message.org_name_not_updated", 
                                         new String[] {"orgName"}, request);
             retval = false;
         }
-        else {
+        else {            
             try {
-                OrgManager.checkOrgName(orgName);
+                OrgManager.checkOrgName(orgName);              
             }
             catch (ValidatorException ve) {
                 getStrutsDelegate().saveMessages(request, ve.getResult());
-            }
-            retval = false;
+                retval = false;
+            }            
         }
         return retval;
     }
