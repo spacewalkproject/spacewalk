@@ -26,7 +26,7 @@ import java.util.Map;
 public class Distro {
     private String handle;
     private Map<String, Object> dataMap = new HashMap<String, Object>();
-    private XmlRpcHelper client;
+    private CobblerConnection client;
     private static final String COMMENT = "comment";
     private static final String KERNEL = "kernel";
     private static final String OWNERS = "owners";
@@ -48,7 +48,7 @@ public class Distro {
     private static final String TEMPLATE_FILES = "template_files";
     private static final String UID = "uid";
 
-    private Distro(XmlRpcHelper clientIn) {
+    private Distro(CobblerConnection clientIn) {
         client = clientIn;
     }
   
@@ -60,7 +60,7 @@ public class Distro {
      * @param initrd the initrd path of the distro
      * @return a new Distro
      */
-    public static Distro create(XmlRpcHelper client, 
+    public static Distro create(CobblerConnection client, 
                                 String name, String kernel, String initrd) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
@@ -78,7 +78,7 @@ public class Distro {
      * @param name the distro name
      * @return the distro that maps to the name or null
      */
-    public static Distro lookupByName(XmlRpcHelper client, String name) {
+    public static Distro lookupByName(CobblerConnection client, String name) {
         Map <String, Object> map = (Map<String, Object>)client.
                                     invokeTokenMethod("get_distro", name);
         if (map == null || map.isEmpty()) {
@@ -97,7 +97,7 @@ public class Distro {
      * @param id the uid to search for
      * @return the distro matching the UID
      */
-    public static Distro lookupById(XmlRpcHelper client, String id) {
+    public static Distro lookupById(CobblerConnection client, String id) {
         List<Map<String, Object>> distros = (List<Map<String, Object>>) 
                                                 client.invokeTokenMethod("get_distros");
         Distro distro = new Distro(client);
