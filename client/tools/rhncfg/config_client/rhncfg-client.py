@@ -22,7 +22,7 @@ if RHNROOT not in sys.path:
 from config_common.rhn_main import BaseMain
 
 class Main(BaseMain):
-    modes = ['diff', 'get', 'list', 'channels', 'verify']
+    modes = ['diff', 'get', 'list', 'elist', 'channels', 'verify']
     repository_class_name = 'ClientRepository'
     plugins_dir = 'config_client'
     config_section = 'rhncfg-client'
