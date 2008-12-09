@@ -15,9 +15,12 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -76,6 +79,16 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
         }
         return retval;
     }
-
+    
+    /**
+     * Returns the a new cobbler connection object 
+     * @param user the logged in user to ge the auth token
+     * @return the authenticated cobbler connection.
+     */
+    public static CobblerConnection getConnection(User user) {
+        String token = 
+            IntegrationService.get().getAuthToken(user.getLogin());
+        return new CobblerConnection(Config.get().getCobblerServerUrl(), token);        
+    }
 
 }

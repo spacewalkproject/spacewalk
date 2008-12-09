@@ -30,7 +30,7 @@ public class KickstartEditCommandTest extends BaseKickstartCommandTestCase {
         KickstartEditCommand command = new KickstartEditCommand(ksdata.getId(), user);
         command.setComments("My Comment");
         command.setActive(Boolean.TRUE);
-        command.setLabel("scooby kickstart");
+        command.setLabel("scoobykickstart");
         command.store();
         
         KickstartData k2 = command.getKickstartData();
@@ -51,7 +51,7 @@ public class KickstartEditCommandTest extends BaseKickstartCommandTestCase {
     
     public void testOrgDefault() throws Exception {
         assertFalse(ksdata.isOrgDefault().booleanValue());
-        KickstartData k1 = KickstartDataTest.createTestKickstartData(user.getOrg());
+        KickstartData k1 = KickstartDataTest.createKickstartWithChannel(user.getOrg());
         Long oldDefaultId = k1.getId();
         k1.setOrgDefault(Boolean.TRUE);
         assertTrue(k1.isOrgDefault().booleanValue());

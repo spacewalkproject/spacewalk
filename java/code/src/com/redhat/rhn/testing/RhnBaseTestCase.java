@@ -110,7 +110,7 @@ public abstract class RhnBaseTestCase extends TestCase {
         return reload(obj);
     }
     
-    protected Object reload(Object obj) throws HibernateException {
+    protected static Object reload(Object obj) throws HibernateException {
         assertNotNull(obj);
         Object result = TestUtils.reload(obj);
         assertNotSame(obj, result);

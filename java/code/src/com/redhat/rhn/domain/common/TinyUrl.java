@@ -119,11 +119,23 @@ public class TinyUrl {
     public String computeTinyUrl(String hostIn) {
         URL retval;
         try {
-            retval = new URL("http", hostIn, "/ty/" + this.token);
+            retval = new URL("http", hostIn, this.computeTinyPath());
         }
         catch (MalformedURLException e) {
             throw new ConfigException("We cant compute the TinyUrl. ", e);
         }
         return retval.toString();
     }
+    
+    /**
+     * Translate this TinyUrl's path into a just the path portion
+     * without the http://hostname: /ty/token
+     * 
+     * @return String path /ty/token   
+     */
+    public String computeTinyPath() {
+        return "/ty/" + this.token;
+    }
+    
+    
 }

@@ -85,34 +85,42 @@ public class ServerTest extends BaseTestCaseWithUser {
         
     }
     
+    public void testNetworkInterfaces() throws Exception {
+        Server s = ServerTestUtils.createTestSystem(user);
+        NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
+        s = (Server) TestUtils.saveAndReload(s);
+        Server s2 = ServerTestUtils.createTestSystem(user);
+        s2 = (Server) TestUtils.saveAndReload(s2);
+        NetworkInterfaceTest.createTestNetworkInterface(s2);
+        TestUtils.saveAndReload(s2);
+        assertTrue("we didnt make it to the end", true);
+    }
+    
     public void testGetIpAddress() throws Exception {
         Server s = ServerTestUtils.createTestSystem(user);
         s.setNetworkInterfaces(new HashSet());
         assertNull(s.getIpAddress());
-        
+            
         
         String hwAddr = "AA:AA:BB:BB:CC:CC";
         String ipAddr = "172.31.1.102";
 
         NetworkInterface aaa = NetworkInterfaceTest.createTestNetworkInterface(s, "aaa", 
                 ipAddr, hwAddr);
-        s.addNetworkInterface(aaa);
 
         NetworkInterface bbb = NetworkInterfaceTest.createTestNetworkInterface(s, "bbb", 
                 ipAddr, hwAddr);
-        s.addNetworkInterface(bbb);
 
         NetworkInterface zzz = NetworkInterfaceTest.createTestNetworkInterface(s, "zzz", 
                 ipAddr, hwAddr);
-        s.addNetworkInterface(zzz);
         
         NetworkInterface eth0 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth0", 
                 ipAddr, hwAddr);
-        s.addNetworkInterface(eth0);
         
         NetworkInterface eth1 = NetworkInterfaceTest.createTestNetworkInterface(s, "eth1", 
                 ipAddr, hwAddr);
-        s.addNetworkInterface(eth1);
+        
+        s = (Server) TestUtils.saveAndReload(s);
         
         assertNotNull(s.getIpAddress());
 
