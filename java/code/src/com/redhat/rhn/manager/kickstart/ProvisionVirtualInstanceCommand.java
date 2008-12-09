@@ -20,6 +20,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.user.User;
@@ -51,7 +52,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      * @param userIn user performing the kickstart
      */
     public ProvisionVirtualInstanceCommand(Long selectedServer, User userIn) {
-        super(selectedServer, null, null, userIn, null, null);
+        super(selectedServer, null, (KickstartData)null, userIn, null, null);
         this.setActivationType(ACTIVATION_TYPE_EXISTING);
         this.setPackagesToInstall(new LinkedList());
         this.setStaticDevice("");        

@@ -207,6 +207,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             String kickstartServerNameIn) {
         this(selectedHostServer, 
                 selectedTargetServer, 
+                
                 KickstartFactory.lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid), 
                 userIn, 
                 scheduleDateIn, 
@@ -260,8 +261,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         super(selectedHostServer);
         initialize(selectedHostServer, selectedTargetServer, userIn);
         this.setScheduleDate(scheduleDateIn);
-        this.setKsdata(data);
-        assert (this.getKsdata() != null);
+        if (data != null) {
+            this.setKsdata(data);
+            assert (this.getKsdata() != null);
+        }
 
         this.setKickstartServerName(kickstartServerNameIn);
     }
