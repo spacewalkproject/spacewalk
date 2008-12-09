@@ -105,8 +105,6 @@ public class TreeActionTest extends RhnMockStrutsTestCase {
         verifyFormValue(TreeCreateAction.BASE_PATH, BASE_PATH);
         verifyFormValue(TreeCreateAction.CHANNEL_ID, rhel5BaseChan.getId());
 
-        List ksPackages = (List)request.getAttribute(TreeCreateAction.KICKSTART_RPMS);
-        assertEquals(1, ksPackages.size());
     }
 
     /**

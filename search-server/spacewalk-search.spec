@@ -59,9 +59,6 @@ Spacewalk Server.
 %prep
 %setup -n %{name}-%{version}
 
-%build
-ant -Djar.version=%{version} clean all
-
 %install
 rm -fr ${RPM_BUILD_ROOT}
 ant -Djar.version=%{version} install
@@ -112,7 +109,7 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Mon Dec 8 2008 John Matthews <jmatthews@redhat.com>
+* Mon Dec 8 2008 John Matthews <jmatthews@redhat.com> 0.4.1-1
 - updates for "make test-srpm" to function
 
 * Fri Oct 24 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.4-1

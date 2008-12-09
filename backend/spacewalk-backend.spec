@@ -493,7 +493,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
-%attr(755,root,root) %{_bindir}/migrate-server
+%attr(755,root,root) %{_bindir}/migrate-system-profile
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
@@ -508,7 +508,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
-%{rhnroot}/satellite_tools/migrateServer.py*
+%{rhnroot}/satellite_tools/migrateSystemProfile.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*

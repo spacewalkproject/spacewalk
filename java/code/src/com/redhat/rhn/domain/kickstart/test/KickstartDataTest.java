@@ -40,7 +40,9 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.test.PackageNameTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.Token;
+import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.token.test.TokenTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
@@ -151,7 +153,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
             orgdef.setOrgDefault(Boolean.FALSE);
             KickstartFactory.saveKickstartData(orgdef);
         }
-        KickstartData k = createTestKickstartData(user.getOrg());
+        KickstartData k = createKickstartWithOptions(user.getOrg());
         k.setOrgDefault(Boolean.TRUE);
         KickstartFactory.saveKickstartData(k);
         flushAndEvict(k);
@@ -215,7 +217,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
     
     public void testDeleteKickstartData() throws Exception {
-        KickstartData ksd = createTestKickstartData(user.getOrg());
+        KickstartData ksd = createKickstartWithOptions(user.getOrg());
         assertNotNull(ksd);
         assertNotNull(ksd.getId());
         assertNotNull(ksd.getPackageNames());
@@ -572,7 +574,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(1, k2.getRaids().size());
         assertEquals(1, k2.getVolgroups().size());
         assertEquals(1, k2.getLogvols().size());
-        assertEquals(1, k2.getOptions().size()); // url and command from k creation
+        assertEquals(2, k2.getOptions().size()); // url and command from k creation
     }
 
     public void testDeepCopy() throws Exception {
@@ -581,10 +583,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         FileList list1 = createFileList1(user.getOrg());
         CommonFactory.saveFileList(list1);
         k.addPreserveFileList(list1);
-        KickstartDefaultRegToken t = new KickstartDefaultRegToken();
-        t.setKsdata(k);
-        t.setToken(TokenTest.createTestToken());
-        k.addDefaultRegToken(t.getToken());
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(user);
+        k.addDefaultRegToken(key.getToken());
+        
         KickstartFactory.saveKickstartData(k);
         k = (KickstartData) reload(k);
         k = CryptoTest.addKeyToKickstart(k);

@@ -765,15 +765,15 @@ public class KickstartFormatter {
         HashSet retval = new HashSet();
         Channel c = ksdata.getKickstartDefaults().getKstree().getChannel();
         for (ActivationKey key : keys) {
-            for (Channel chan : key.getChannels()) {
-                if (chan.isBaseChannel()) {
-                    c = chan;
-                    break;
+            if (key.getChannels() != null) {
+                for (Channel chan : key.getChannels()) {
+                    if (chan.isBaseChannel()) {
+                        c = chan;
+                        break;
+                    }
                 }
             }
         }
-       
-       
         for (int i = 0; i < UPDATE_PKG_NAMES.length; i++) {
             Long packageId = ChannelManager.getLatestPackageEqual(c.getId(),
                     UPDATE_PKG_NAMES[i]);
