@@ -40,7 +40,10 @@ public class CobblerConnection {
     private static Logger log = Logger.getLogger(CobblerConnection.class);
     
     private String token;
-
+    
+    protected CobblerConnection() {
+    }
+    
     /**
      * Constructor to setup the client based on 
      * user name and password.. Connects to cobbler
@@ -84,13 +87,14 @@ public class CobblerConnection {
         token = (String) invokeMethod("login", login, password);   
     }
     
+
     /**
      * Invoke an XMLRPC method.
      * @param procedureName to invoke
      * @param args to pass to method
      * @return Object returned.
      */
-    public Object invokeMethod(String procedureName, List args) {
+    private Object invokeMethod(String procedureName, List args) {
         log.debug("procedure: " + procedureName + " Orig ags: " + args);
         Object retval;
         try {

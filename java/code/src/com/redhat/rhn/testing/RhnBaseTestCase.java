@@ -25,6 +25,8 @@ import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.test.MockConnection;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -71,6 +73,8 @@ public abstract class RhnBaseTestCase extends TestCase {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
         Config.get().setString("kickstart.cobbler.dir", "/tmp/");
+        Config.get().setString(CobblerConnection.class.getName(),
+                                        MockConnection.class.getName());
     }
 
     /**

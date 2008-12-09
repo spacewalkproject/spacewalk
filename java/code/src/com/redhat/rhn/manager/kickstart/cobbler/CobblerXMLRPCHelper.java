@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
@@ -88,7 +89,9 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
     public static CobblerConnection getConnection(User user) {
         String token = 
             IntegrationService.get().getAuthToken(user.getLogin());
-        return new CobblerConnection(Config.get().getCobblerServerUrl(), token);        
+        return (CobblerConnection)MethodUtil.getClassFromConfig(
+                                CobblerConnection.class.getName(),
+                                Config.get().getCobblerServerUrl(), token); 
     }
 
 }

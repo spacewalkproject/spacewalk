@@ -18,18 +18,27 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
+import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.dto.kickstart.ScriptDto;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * KickstartLister
@@ -358,5 +367,32 @@ public class KickstartLister extends BaseManager {
         }
 
         return returnDataResult;
+    }
+    
+    /**
+     * Returns a list of Cobbler only profiles, that are not amongst the   
+     * given  list of kickstart dtos
+     * @param dtos the dtos to ignore  
+     * @param user the user object needed for cobbler conneciton
+     * @return list of cobbler profile dtos.
+     */
+    public List <CobblerProfileDto> listCobblerOnly(List <? extends KickstartDto> dtos, 
+                                            User user) {
+        Set<String> cobblerIds = new HashSet<String>();
+        
+        for (KickstartDto dto : dtos) {
+            if (!StringUtils.isBlank(dto.getCobblerId())) {
+                cobblerIds.add(dto.getCobblerId());
+            }
+        }
+        List <CobblerProfileDto> profiles = new LinkedList<CobblerProfileDto>();
+        
+        List<Profile> cProfiles = Profile.list(CobblerXMLRPCHelper.getConnection(user));
+        for (Profile profile : cProfiles) {
+            if (!cobblerIds.contains(profile.getId())) {
+                profiles.add(CobblerProfileDto.create(profile));
+            }            
+        }
+        return profiles;
     }
 }
