@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -25,6 +27,8 @@ import com.redhat.rhn.manager.kickstart.KickstartLister;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,8 +50,11 @@ public class KickstartsSetupAction  extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        DataResult result = KickstartLister.getInstance().kickstartsInOrg(user.getOrg(), 
-                null);
+        DataResult <KickstartDto>result = KickstartLister.getInstance().
+                            kickstartsInOrg(user.getOrg(), null);
+        List<CobblerProfileDto> dtos = KickstartLister.getInstance().
+                                                listCobblerOnly(result, user);  
+        result.addAll(dtos);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);
         TagHelper.bindElaboratorTo("ksList", result.getElaborator(), request);

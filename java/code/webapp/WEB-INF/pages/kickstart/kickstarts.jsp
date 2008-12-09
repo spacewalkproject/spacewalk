@@ -45,6 +45,9 @@
           				<c:when test="${current.advancedMode}">
           					<a href="/rhn/kickstart/AdvancedModeEdit.do?ksid=${current.id}"><c:out value="${current.label}" escapeXml="true" /></a>
           				</c:when>
+          				<c:when test="${current.cobbler}">
+          					<c:out value="${current.label}" escapeXml="true" />
+          				</c:when>          				
           				<c:otherwise>
           					<a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}"><c:out value="${current.label}" escapeXml="true" /></a>
           				</c:otherwise>

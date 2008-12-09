@@ -26,12 +26,11 @@ public class KickstartDto extends BaseDto {
     private Long orgId;
     private Long kstreeId;
     private String label;
-
     private String isOrgDefault;
     private String treeLabel;
     private boolean active;
     private Integer advancedMode;
-    
+    private String cobblerId;
     /**
      * @return if this is a raw KS
      */
@@ -148,5 +147,26 @@ public class KickstartDto extends BaseDto {
     public void setTreeLabel(String treeLabelIn) {
         this.treeLabel = treeLabelIn;
     }
-
+    
+    /**
+     * @return true if this dto represents a 
+     *  Cobbler Only Profile.
+     */
+    public boolean isCobbler() {
+        return false;
+    }
+    
+    /**
+     * @return the cobblerId
+     */
+    public String getCobblerId() {
+        return cobblerId;
+    }
+    
+    /**
+     * @param cobblerIdIn the cobblerId to set
+     */
+    public void setCobblerId(String cobblerIdIn) {
+        cobblerId = cobblerIdIn;
+    }    
 }

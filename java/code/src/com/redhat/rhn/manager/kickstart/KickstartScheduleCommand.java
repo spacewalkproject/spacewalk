@@ -44,6 +44,8 @@ import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ServerPath;
+import com.redhat.rhn.frontend.dto.kickstart.CobblerProfileDto;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
@@ -196,21 +198,71 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param userIn user performing the kickstart
      * @param scheduleDateIn Date to schedule the KS.
      * @param kickstartServerNameIn the name of the server who is serving the kickstart
+     */    
+    public KickstartScheduleCommand(Long selectedHostServer, 
+            Long selectedTargetServer,
+            Long ksid, 
+            User userIn, 
+            Date scheduleDateIn, 
+            String kickstartServerNameIn) {
+        this(selectedHostServer, 
+                selectedTargetServer, 
+                KickstartFactory.lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid), 
+                userIn, 
+                scheduleDateIn, 
+                kickstartServerNameIn);        
+    }
+    
+    /**
+     * Constructor for a kickstart where the host and the target may or may *not* be
+     * the same system.  If the target system does not yet exist, selectedTargetServer
+     * should be null.  To be used when you want to call the store() method.
+     * 
+     * @param selectedHostServer server to host the kickstart
+     * @param selectedTargetServer server to be kickstarted
+     * @param ksLabel label of the KickstartData we are using
+     * @param userIn user performing the kickstart
+     * @param scheduleDateIn Date to schedule the KS.
+     * @param kickstartServerNameIn the name of the server who is serving the kickstart
+     */    
+    public KickstartScheduleCommand(Long selectedHostServer, 
+            Long selectedTargetServer,
+            String ksLabel, 
+            User userIn, 
+            Date scheduleDateIn, 
+            String kickstartServerNameIn) {
+        this(selectedHostServer, 
+                selectedTargetServer, 
+                KickstartFactory.
+                lookupKickstartDataByLabelAndOrgId(ksLabel, userIn.getOrg().getId()), 
+                userIn, 
+                scheduleDateIn, 
+                kickstartServerNameIn);        
+    }    
+    /**
+     * Constructor for a kickstart where the host and the target may or may *not* be
+     * the same system.  If the target system does not yet exist, selectedTargetServer
+     * should be null.  To be used when you want to call the store() method.
+     * 
+     * @param selectedHostServer server to host the kickstart
+     * @param selectedTargetServer server to be kickstarted
+     * @param data  KickstartData object..
+     * @param userIn user performing the kickstart
+     * @param scheduleDateIn Date to schedule the KS.
+     * @param kickstartServerNameIn the name of the server who is serving the kickstart
      */
     public KickstartScheduleCommand(Long selectedHostServer, 
                                     Long selectedTargetServer,
-                                    Long ksid, 
+                                    KickstartData data, 
                                     User userIn, 
                                     Date scheduleDateIn, 
                                     String kickstartServerNameIn) {
         super(selectedHostServer);
         initialize(selectedHostServer, selectedTargetServer, userIn);
         this.setScheduleDate(scheduleDateIn);
-        if (ksid != null) {
-            this.setKsdata(KickstartFactory.
-                lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid));
-            assert (this.getKsdata() != null);
-        }
+        this.setKsdata(data);
+        assert (this.getKsdata() != null);
+
         this.setKickstartServerName(kickstartServerNameIn);
     }
 
@@ -250,9 +302,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return DataResult, else null if the server does not exist or 
      * does not have a base channel assigned
      */
-    public DataResult getKickstartProfiles() {
+    public DataResult<? extends KickstartDto> getKickstartProfiles() {
         log.debug("getKickstartProfiles()");
-        DataResult retval = new DataResult(Collections.EMPTY_LIST);
+        DataResult<KickstartDto> retval = new DataResult
+                                            <KickstartDto>(Collections.EMPTY_LIST);
 
         // Profiles are associated with the host; the target system might not be created
         // yet.  Also, the host will be the one performing the kickstart, so the profile
@@ -289,6 +342,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 retval = mode.execute(params);
             }
         }
+        
+        List<CobblerProfileDto> dtos = KickstartLister.getInstance().
+                                                listCobblerOnly(retval, user);
+        retval.addAll(dtos);
         return retval;
     }
     

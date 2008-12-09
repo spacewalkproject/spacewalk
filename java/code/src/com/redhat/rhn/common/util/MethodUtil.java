@@ -22,6 +22,7 @@ import com.redhat.rhn.common.translation.Translator;
 
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -47,9 +48,7 @@ public class MethodUtil {
      * and the class only has (Integer, Map, Map), you won't find the method.
      * This method uses Class.isAssignableFrom to solve this problem.
      */
-    private static boolean checkMethod(Method meth, Object[] params) {
-        Class[] declaredParams = meth.getParameterTypes();
-
+    private static boolean isCompatible(Class[] declaredParams, Object[] params) {
         if (params.length != declaredParams.length) {
             return false;
         }
@@ -86,7 +85,7 @@ public class MethodUtil {
             if (!Modifier.isStatic(meths[i].getModifiers())) {
                 throw new MethodNotStaticException("Method " + method + " is not static");
             }
-            if (checkMethod(meths[i], args)) {
+            if (isCompatible(meths[i].getParameterTypes(), args)) {
                 return meths[i].invoke(null, args);
             }
         }
@@ -228,11 +227,12 @@ public class MethodUtil {
      * if done improperly.
      * 
      * @param className to fetch
+     * @param args arguments to the constructor.
      * @return Object created.  will throw exception explosion if you 
      * define this incorrectly
      */
-    public static Object getClassFromConfig(String className) {
-        return callNewMethod(getClassNameFromConfig(className)); 
+    public static Object getClassFromConfig(String className, Object... args) {
+        return callNewMethod(getClassNameFromConfig(className), args); 
     }
 
     /**
@@ -244,18 +244,39 @@ public class MethodUtil {
     private static String getClassNameFromConfig(String className) {
         return Config.get().getString(className, className);
     }
+    
     /**
      * Create a new instance of the classname passed in.
      * 
      * @param className
      * @return instance of class passed in.
      */
-    private static Object callNewMethod(String className) {
+    private static Object callNewMethod(String className, Object... args) {
         Object retval = null;
         
         try {
-            retval = Thread.currentThread().
-                getContextClassLoader().loadClass(className).newInstance();
+            Class clazz = Thread.currentThread().
+                            getContextClassLoader().loadClass(className);
+            if (args == null || args.length == 0) {
+                retval = clazz.newInstance();                
+            }
+            else {
+                try {
+                    Constructor[] ctors = clazz.getConstructors();
+                    for (Constructor ctor : ctors) {
+                        if (isCompatible(ctor.getParameterTypes(), args)) {
+                            return ctor.newInstance(args);
+                        }
+                    }
+                }
+                catch (IllegalArgumentException e) {
+                    throw new RuntimeException(e);
+                }
+                catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
         }
         catch (InstantiationException e) {
            throw new RuntimeException(e);
@@ -269,5 +290,4 @@ public class MethodUtil {
         
         return retval;
     }
-
 }

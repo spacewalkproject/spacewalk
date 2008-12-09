@@ -52,4 +52,5 @@ public class KickstartChannelDto extends KickstartDto {
        }
        return super.getLabel();
     }
+    
 }

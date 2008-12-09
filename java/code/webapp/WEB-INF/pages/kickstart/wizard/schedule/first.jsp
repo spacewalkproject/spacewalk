@@ -104,7 +104,7 @@ function setInitialState() {
         <html:hidden property="sid" />
         <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.schedule.no.profiles.jsp">         
             <rhn:listdisplay renderDisabled="true" paging="true" filterBy="kickstartranges.jsp.profile">
-                <rhn:set type="radio" value="${current.id}" />
+                <rhn:set type="radio" value="${current.selectionKey}" />
                 <rhn:column header="kickstartranges.jsp.profile">
                     ${fn:escapeXml(current.label)}
                 </rhn:column>
