@@ -16,6 +16,7 @@ package org.cobbler;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ import java.util.Map;
 public class Distro {
     private String handle;
     private Map<String, Object> dataMap = new HashMap<String, Object>();
-    private XmlRpcHelper client;
+    private CobblerConnection client;
     private static final String COMMENT = "comment";
     private static final String KERNEL = "kernel";
     private static final String OWNERS = "owners";
@@ -48,7 +49,7 @@ public class Distro {
     private static final String TEMPLATE_FILES = "template_files";
     private static final String UID = "uid";
 
-    private Distro(XmlRpcHelper clientIn) {
+    private Distro(CobblerConnection clientIn) {
         client = clientIn;
     }
   
@@ -60,7 +61,7 @@ public class Distro {
      * @param initrd the initrd path of the distro
      * @return a new Distro
      */
-    public static Distro create(XmlRpcHelper client, 
+    public static Distro create(CobblerConnection client, 
                                 String name, String kernel, String initrd) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
@@ -78,15 +79,13 @@ public class Distro {
      * @param name the distro name
      * @return the distro that maps to the name or null
      */
-    public static Distro lookupByName(XmlRpcHelper client, String name) {
+    public static Distro lookupByName(CobblerConnection client, String name) {
         Map <String, Object> map = (Map<String, Object>)client.
                                     invokeTokenMethod("get_distro", name);
         if (map == null || map.isEmpty()) {
             return null;
         }
-        
         Distro distro = new Distro(client);
-        distro.handle = (String) client.invokeTokenMethod("get_distro_handle", name);
         distro.dataMap = map;
         return distro;
     }
@@ -97,23 +96,46 @@ public class Distro {
      * @param id the uid to search for
      * @return the distro matching the UID
      */
-    public static Distro lookupById(XmlRpcHelper client, String id) {
+    public static Distro lookupById(CobblerConnection client, String id) {
         List<Map<String, Object>> distros = (List<Map<String, Object>>) 
                                                 client.invokeTokenMethod("get_distros");
         Distro distro = new Distro(client);
         for (Map <String, Object> map : distros) {
             distro.dataMap = map;
             if (id.equals(distro.getUid())) {
-                distro.handle = (String) client.invokeTokenMethod
-                                        ("get_distro_handle", distro.getName());
                 return distro;
             }
         }
         return null;
     }    
 
+    /**
+     * Returns a list of available Distros 
+     * @param connection the cobbler connection
+     * @return a list of Distros.
+     */
+    public static List<Distro> list(CobblerConnection connection) {
+        List <Distro> distros = new LinkedList<Distro>();
+        List <Map<String, Object >> cDistros = (List <Map<String, Object >>) 
+                                        connection.invokeTokenMethod("get_distros");
+        
+        for (Map<String, Object> distroMap : cDistros) {
+            Distro distro = new Distro(connection);
+            distro.dataMap = distroMap;
+            distros.add(distro);
+        }
+        return distros;
+    }
+
+    private String getHandle() {
+        if (handle == null || "".equals(handle.trim())) {
+            handle = (String)client.invokeTokenMethod("get_distro_handle");
+        }
+        return handle;
+    }
+    
     private void modify(String key, Object value) {
-        client.invokeTokenMethod("modify_distro", handle, key, value);
+        client.invokeTokenMethod("modify_distro", getHandle(), key, value);
         dataMap.put(key, value);
     }
     
@@ -121,7 +143,7 @@ public class Distro {
      * Save the distro
      */
     public void save() {
-        client.invokeTokenMethod("save_distro", handle);
+        client.invokeTokenMethod("save_distro", getHandle());
         client.invokeTokenMethod("update");
     }
 
@@ -139,7 +161,6 @@ public class Distro {
     public void reload() {
         Distro newDistro = lookupById(client, getId());
         dataMap = newDistro.dataMap;
-        handle = newDistro.handle;
     }
     
     /**
@@ -446,8 +467,8 @@ public class Distro {
      * @param nameIn sets the new name
      */
     public void setName(String nameIn) {
-        client.invokeTokenMethod("rename_distro", handle, nameIn);
-        client.invokeTokenMethod("update", handle, nameIn);
+        client.invokeTokenMethod("rename_distro", getHandle(), nameIn);
+        client.invokeTokenMethod("update", getHandle(), nameIn);
         dataMap.put(NAME, nameIn);
         reload();
     }

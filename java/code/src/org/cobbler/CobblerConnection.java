@@ -33,11 +33,11 @@ import redstone.xmlrpc.XmlRpcClient;
  * @author paji
  * @version $Rev$
  */
-public class XmlRpcHelper {
+public class CobblerConnection {
     
     private XmlRpcClient client;
     
-    private static Logger log = Logger.getLogger(XmlRpcHelper.class);
+    private static Logger log = Logger.getLogger(CobblerConnection.class);
     
     private String token;
 
@@ -51,7 +51,7 @@ public class XmlRpcHelper {
      * @param pass the password
      * @throws XmlRpcException if there some communication issue..
      */
-    public XmlRpcHelper(String url, String user, String pass) {
+    public CobblerConnection(String url, String user, String pass) {
         try {
             client = new XmlRpcClient(url, false);
             login(user, pass);
@@ -70,7 +70,7 @@ public class XmlRpcHelper {
      * @param tokenIn the token
      * @throws XmlRpcException if there some communication issue..
      */    
-    public XmlRpcHelper(String url, String tokenIn) {
+    public CobblerConnection(String url, String tokenIn) {
         try {
             client = new XmlRpcClient(url, false);
             token = tokenIn; 

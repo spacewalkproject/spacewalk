@@ -17,6 +17,7 @@ package org.cobbler;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ import java.util.Map;
 public class Profile {
     private String handle;
     private Map<String, Object> dataMap = new HashMap<String, Object>();
-    private XmlRpcHelper client;
+    private CobblerConnection client;
     private static final String COMMENT = "comment";
     private static final String OWNERS = "owners";
     private static final String CTIME = "ctime";
@@ -57,7 +58,7 @@ public class Profile {
     private static final String VIRT_RAM = "virt_ram";
     private static final String DISTRO = "distro";    
 
-    private Profile(XmlRpcHelper clientIn) {
+    private Profile(CobblerConnection clientIn) {
         client = clientIn;
     }
 
@@ -68,7 +69,7 @@ public class Profile {
      * @param distro the distro allocated to this profile.
      * @return the newly created profile
      */
-    public static Profile create(XmlRpcHelper client, 
+    public static Profile create(CobblerConnection client, 
                                 String name, Distro distro) {
         Profile profile = new Profile(client);
         profile.handle = (String) client.invokeTokenMethod("new_profile");
@@ -85,15 +86,13 @@ public class Profile {
      * @param name the profile name
      * @return the profile that maps to the name or null
      */
-    public static Profile lookupByName(XmlRpcHelper client, String name) {
+    public static Profile lookupByName(CobblerConnection client, String name) {
         Map <String, Object> map = (Map<String, Object>)client.
                                     invokeTokenMethod("get_profile", name);
         if (map == null || map.isEmpty()) {
             return null;
         }
-        
         Profile profile = new Profile(client);
-        profile.handle = (String) client.invokeTokenMethod("get_profile_handle", name);
         profile.dataMap = map;
         return profile;
     }
@@ -104,23 +103,46 @@ public class Profile {
      * @param id the uid of the profile
      * @return the profile matching the given uid or null
      */
-    public static Profile lookupById(XmlRpcHelper client, String id) {
+    public static Profile lookupById(CobblerConnection client, String id) {
         List<Map<String, Object>> profiles = (List<Map<String, Object>>) 
                                                 client.invokeTokenMethod("get_profiles");
         Profile profile = new Profile(client);
         for (Map <String, Object> map : profiles) {
             profile.dataMap = map;
             if (id.equals(profile.getUid())) {
-                profile.handle = (String) client.invokeTokenMethod
-                                        ("get_profile_handle", profile.getName());
                 return profile;
             }
         }
         return null;
     }    
 
+    /**
+     * Returns a list of available profiles 
+     * @param connection the cobbler connection
+     * @return a list of profiles.
+     */
+    public static List<Profile> list(CobblerConnection connection) {
+        List <Profile> profiles = new LinkedList<Profile>();
+        List <Map<String, Object >> cProfiles = (List <Map<String, Object >>) 
+                                        connection.invokeTokenMethod("get_profiles");
+        
+        for (Map<String, Object> profMap : cProfiles) {
+            Profile profile = new Profile(connection);
+            profile.dataMap = profMap;
+            profiles.add(profile);
+        }
+        return profiles;
+    }
+
+    private String getHandle() {
+        if (handle == null || "".equals(handle.trim())) {
+            handle = (String)client.invokeTokenMethod("get_profile_handle");
+        }
+        return handle;
+    }
+    
     private void modify(String key, Object value) {
-        client.invokeTokenMethod("modify_profile", handle, key, value);
+        client.invokeTokenMethod("modify_profile", getHandle(), key, value);
         dataMap.put(key, value);
     }
     
@@ -128,7 +150,7 @@ public class Profile {
      * calls save_profile to complete the commit
      */
     public void save() {
-        client.invokeTokenMethod("save_profile", handle);
+        client.invokeTokenMethod("save_profile", getHandle());
         client.invokeTokenMethod("update");
     }
 
@@ -146,7 +168,6 @@ public class Profile {
     public void reload() {
         Profile newProfile = lookupById(client, getId());
         dataMap = newProfile.dataMap;
-        handle = newProfile.handle;
     }
     
     /**
@@ -339,8 +360,8 @@ public class Profile {
      * @param nameIn sets the new name
      */
     public void setName(String nameIn) {
-        client.invokeTokenMethod("rename_profile", handle, nameIn);
-        client.invokeTokenMethod("update", handle, nameIn);
+        client.invokeTokenMethod("rename_profile", getHandle(), nameIn);
+        client.invokeTokenMethod("update", getHandle(), nameIn);
         dataMap.put(NAME, nameIn);
         reload();
     }

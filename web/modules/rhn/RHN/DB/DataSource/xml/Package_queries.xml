@@ -184,63 +184,6 @@ ORDER BY UPPER(NVRE)
 </mode>
 
 
-<mode name="packages_in_channel_after">
-  <query params="cid, start_date_str">
-SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
-       P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY UPPER(NVRE)
-  </query>
-</mode>
-
-
-<mode name="packages_in_channel_between">
-  <query params="cid, start_date_str, end_date_str">
-SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
-       P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id,
-       PE.id as evr_id,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-   AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY UPPER(NVRE)
-  </query>
-</mode>
-
-
-
 <mode name="packages_in_channel">
   <query params="cid">
 SELECT P.id AS ID,
@@ -347,87 +290,6 @@ ORDER BY UPPER(NVRE)
 
 
 
-<mode name="packages_in_channel_after_by_date">
-  <query params="cid, start_date_str">
-SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
-       P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY P.last_modified, UPPER(NVRE)
-  </query>
-</mode>
-
-
-<mode name="packages_in_channel_between_by_date">
-  <query params="cid, start_date_str, end_date_str">
-SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
-       P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-   AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY P.last_modified, UPPER(NVRE)
-  </query>
-</mode>
-
-
-
-<mode name="packages_in_channel_by_date">
-  <query params="cid">
-SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
-       P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-ORDER BY P.last_modified, UPPER(NVRE)
-  </query>
-</mode>
-
 
 
 <mode name="packages_available_to_errata">
@@ -491,15 +353,6 @@ SELECT DISTINCT CNP.package_id as ID,
    AND PA.id = CNP.package_arch_id
 ORDER BY UPPER(nvre)
 </query>
-
-<mode name="newest_packages_in_channel_details">
-  <query name="newest_packages_in_channel"/>
-  <elaborator params="">
-SELECT P.id, P.description, P.summary, P.path, P.source_path
-  FROM rhnPackage P
- WHERE P.id IN (%s)
-  </elaborator>
-</mode>
 
 <mode name="latest_packages_in_channel">
   <query params="cid">
@@ -603,25 +456,6 @@ SELECT DISTINCT
    AND PA.arch_type_id = AT.id
    AND AT.label = 'solaris-patch-cluster'
 ORDER BY UPPER(NVREA)
-  </query>
-</mode>
-
-<mode name="oldest_packages_in_channel">
-  <query params="cid">
-<!-- attempt to get as close as possible to the packages in the base -->
-<!-- distribution, before any errata are applied -->
-SELECT CP.package_id AS id, PN.name
-   FROM rhnPackageName PN,
-        rhnPackage P,
-        rhnChannelPackage CP
-  WHERE CP.channel_id = :cid
-    AND P.id = CP.package_id
-    AND PN.id = P.name_id
-    AND NOT EXISTS (SELECT 1
-                      FROM rhnChannelErrata CE, rhnErrataPackage EP
-                     WHERE CE.channel_id = :cid
-                       AND CE.errata_id = EP.errata_id
-                       AND EP.package_id = P.id)
   </query>
 </mode>
 
@@ -1502,44 +1336,6 @@ SELECT  pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release 
   </query>
 </mode>
 
-<mode name="system_latest_all_available_packages">
-  <query params="sid">
-SELECT  pn.name AS NAME,
-        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        full_list.name_id || '|' || full_list.evr_id AS ID,
-        full_list.id AS REAL_ID,
-        full_list.evr.version AS VERSION,
-        full_list.evr.release AS RELEASE,
-        full_list.evr.epoch AS EPOCH,
-        full_list.arch_label AS ARCH_LABEL
-  FROM  (
-         SELECT  p.name_id name_id,
-                 p.id,
-                 p.evr_id,
-                 max(pe.evr) evr,
-                 pa.label as arch_label
-           FROM  rhnPackageArch PA, rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelNewestPackage CNP, rhnServerChannel SC
-          WHERE  sc.server_id = :sid
-            AND  sc.channel_id = cnp.channel_id
-            AND  cnp.package_id = p.id
-            AND  p.evr_id = pe.id
-            AND  p.package_arch_id = pa.id
-       GROUP BY  p.name_id, p.id, p.evr_id, pa.label
-       ) full_list,
-       rhnPackageName pn
- WHERE  full_list.name_id = pn.id
-   AND  NOT EXISTS (SELECT 1
-                      FROM rhnServerPackage SP, rhnPackageEVR PE2
-                     WHERE SP.server_id = :sid
-                       AND SP.name_id = full_list.name_id
-                       AND SP.evr_id = PE2.id
-                       AND PE2.evr &gt;= full_list.evr)
-ORDER BY  UPPER(pn.name), full_list.evr
-  </query>
-</mode>
-
-
 <mode name="ssm_packages_for_upgrade">
   <query params="user_id">
 SELECT  P.id AS ID,
@@ -1616,45 +1412,6 @@ ORDER BY  UPPER(NVRE)
   </query>
 </mode>
 
-<mode name="system_upgradable_package_list_no_errata_info">
-  <query params="sid">
-SELECT  distinct
-        pn.name,
-        PE.epoch FROM_EPOCH,
-        PE.version FROM_VERSION,
-        PE.release FROM_RELEASE,
-        full_list.evr.epoch TO_EPOCH,
-        full_list.evr.version TO_VERSION,
-        full_list.evr.release TO_RELEASE
-  FROM  (
-         SELECT  SOP.package_name_id name_id,
-                 MAX(pe.evr) evr,
-                 SOP.server_id server_id,
-                 SOP.errata_id errata_id,
-                 SOP.errata_advisory errata_advisory,
-                 pe.id as evr_id
-           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
-          WHERE  SOP.server_id = :sid
-            AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id,
-        SOP.errata_advisory, pe.id
-        ) full_list,
-        rhnPackageEVR PE,
-        rhnPackageName PN,
-        rhnChannelNewestPackage CNP,
-        rhnServerChannel SC,
-        rhnServerPackage SP
- WHERE  SC.server_id = :sid
-   AND  SP.server_id = :sid
-   AND  SP.name_id = PN.id
-   AND  SP.evr_id = PE.id
-   AND  SC.channel_id = CNP.channel_id
-   AND  CNP.name_id = full_list.name_id
-   AND  CNP.evr_id = full_list.evr_id
-   AND  full_list.name_id = PN.id
-  </query>
-</mode>
-
 <mode name="package_download_for_system_arch_select">
   <query params="set_label, user_id, sid">
 SELECT P.id, PN.name || '-' || PEVR.evr.as_vre_simple() as NVRE,
@@ -1683,14 +1440,6 @@ SELECT CP.package_id as ID,
    AND SC.server_id = :sid
    AND SC.channel_id = C.id
   </elaborator>
-</mode>
-
-<mode name="dynamic_packages_by_name">
-  <query params="broken_params">
-SELECT 'I AM A BROKEN QUERY THAT SHOULD NEVER BE RUN.  I EXIST BECAUSE
-LISTVIEWS MODE MUST EXIST IN DATASOURCE, EVEN IF IT IS LATER CHANGED.'
-FROM DUAL
-  </query>
 </mode>
 
 <mode name="packages_by_name">
