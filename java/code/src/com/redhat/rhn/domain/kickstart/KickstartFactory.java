@@ -289,6 +289,11 @@ public class KickstartFactory extends HibernateFactory {
         String fileData = formatter.getFileData();
         // Escape the dollar signs
         fileData = StringUtils.replace(fileData, "$", "\\$");
+        
+        // TODO: Make this actually loop over cobbler vars vs just hard coded names
+        fileData = StringUtils.replace(fileData, "\\$media_url", "$media_url");
+        fileData = StringUtils.replace(fileData, "\\$activation_key", "$activation_key");
+        
         try {
             File ksfile = new File(ksdataIn.getCobblerFileName());
             if (ksfile.exists()) {
