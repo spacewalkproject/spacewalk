@@ -44,6 +44,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
     
     public Object invokeMethod(String procedureName, List args) {
         methodsCalled.add(procedureName);
+        log.debug("invoking: " + procedureName + " with: " + args);
         
         if (procedureName.equals("new_profile") ||
                 procedureName.equals("new_distro")) {
@@ -58,6 +59,10 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 log.debug("Putting distro_name into map: " + args.get(2));
                 TestObjectStore.get().putObject("distro_name", args.get(2));
                 log.debug("mockobjects111: " + TestObjectStore.get().getObjects());
+            }
+            if (args.get(1).equals("ksmeta")) {
+                log.debug("putting ksmeta into store");
+                TestObjectStore.get().putObject("ksmeta", args.get(2));
             }
             return new String("1");
         }
@@ -76,8 +81,10 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 // into the return value.  Useful if you want to test creation
                 // then a fetch.
                 Map distro = new HashMap();
-                log.debug("mockobjects222: " + TestObjectStore.get().getObjects());
+                log.debug("mockobjects in getdistros: " + 
+                        TestObjectStore.get().getObjects());
                 distro.put("name", TestObjectStore.get().getObject("distro_name"));
+                distro.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
                 retval.add(distro);
                 return retval;
             }
@@ -126,7 +133,10 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 return retval;
             }
             else {
-                retval.put("name", TestUtils.randomString());
+                log.debug("mockobjects in getdistros: " + 
+                        TestObjectStore.get().getObjects());
+                retval.put("name", TestObjectStore.get().getObject("distro_name"));
+                retval.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
                 return retval;
             }
         }

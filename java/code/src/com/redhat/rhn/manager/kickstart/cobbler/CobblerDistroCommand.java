@@ -16,9 +16,12 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -64,6 +67,16 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
         invokeXMLRPC("modify_distro", handle, "kernel", 
                                 tree.getKernelPath(), xmlRpcToken);
 
+        // Setup the kickstart metadata so the URLs and activation key are setup
+        Map ksmeta = new HashMap();
+        KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
+                helper.getKickstartMediaUrl());
+
+        Object[] args = new Object[]{handle, "ksmeta", 
+                ksmeta, xmlRpcToken};
+        invokeXMLRPC("modify_distro", Arrays.asList(args));
+        
         log.debug("kernel path: " + tree.getInitrdPath());
         invokeXMLRPC("modify_distro", handle, "initrd",
                             tree.getInitrdPath(), xmlRpcToken);

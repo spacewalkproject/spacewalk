@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroDeleteCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroEditCommand;
@@ -124,6 +125,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
         assertNotNull(cmd.getDistroMap());
+        Map ksmeta = (Map) cmd.getDistroMap().get("ksmeta");
+        assertNotNull(ksmeta.get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
     }
 
     
