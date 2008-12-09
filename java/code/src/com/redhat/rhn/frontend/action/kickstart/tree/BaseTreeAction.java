@@ -40,7 +40,6 @@ public abstract class BaseTreeAction extends BaseEditAction {
     public static final String BASE_PATH = "basepath";
     public static final String CHANNEL_ID = "channelid";
     public static final String CHANNELS = "channels";
-    public static final String KICKSTART_RPMS = "kickstartrpms";
     public static final String INSTALLTYPES = "installtypes";
     public static final String LABEL = "label";
     public static final String NOCHANNELS = "nochannels";
