@@ -569,11 +569,6 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="entitlements"/>
 </mode>
 
-<mode name="selected_systems_selected_installed_packages">
-  <query name="selected_systems_selected_installed_packages" />
-  <elaborator name="system_package_data_from_set" />
-</mode>
-
 <mode name="selected_systems_installed_package">
   <query name="selected_systems_installed_package" />
   <elaborator params="name_id, evr_id" multiple="t">
