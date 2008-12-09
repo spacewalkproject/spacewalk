@@ -17,28 +17,41 @@
 Scan for unused datasource queries. Run from web or java with:
 
     ../scripts/datasource-query-usage.py **/*_queries.xml
+
+Writes out used_queries and unused_queries files.
+
+Be sure to remove the used_queries and unused_queries files in the directory
+before re-running.
 """
 
 import os
+import os.path
 import sys
 import xml.parsers.expat
 import commands
 
-def start_element(name, attrs):
+def start_element(name, attrs, filename):
     if name == "mode":
         query_name = attrs['name']
-        grep_for_hits(query_name)
+        grep_for_hits(filename, query_name)
 
 def dummy_element(name):
     pass
 
-def grep_for_hits(query_name):
+def grep_for_hits(filename, query_name):
     cmd = "grep -r %s * | grep -v '.xml' | wc -l" \
             % query_name
     (status, output) = commands.getstatusoutput(cmd)
     hits = int(output)
+    used = open("used_queries", "a")
+    unused = open("unused_queries", "a")
     if hits == 0:
         print("  Unused query: %s" % query_name)
+        unused.write(filename + "." + query_name + "\n")
+    else:
+        used.write(filename + "." + query_name + "\n")
+    used.close()
+    unused.close()
 
 if __name__ == "__main__":
     cwd = os.getcwd()
@@ -48,7 +61,7 @@ if __name__ == "__main__":
         f = open(filename, 'r')
         p = xml.parsers.expat.ParserCreate()
 
-        p.StartElementHandler = start_element
+        p.StartElementHandler = lambda x, y: start_element(x, y, os.path.basename(filename))
         p.EndElementHandler = dummy_element
         p.CharacterDataHandler = dummy_element
 
