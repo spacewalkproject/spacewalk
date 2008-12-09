@@ -39,7 +39,8 @@
             <c:out value="${current.name}" escapeXml="false"/>-<c:out value="${current.version}" escapeXml="false"/>-<c:out value="${current.release}" escapeXml="false"/>
         </rl:column>
 
-        <rl:column headerkey="packagelist.jsp.packagearch" bound="false">
+        <rl:column headerkey="packagelist.jsp.packagearch" bound="false"
+                   styleclass="thin-column">
             <c:choose>
                 <c:when test="${not empty current.arch}">${current.arch}</c:when>
                 <c:otherwise><bean:message
@@ -47,12 +48,13 @@
             </c:choose>
         </rl:column>
         
-        <rl:column headerkey="ssm.package.remove.select.numsystems" bound="false">
+        <rl:column headerkey="ssm.package.remove.select.numsystems" bound="false"
+                   styleclass="thin-column">
             <c:out value="${current.numSystems}"/>
         </rl:column>
                   
         <rl:column headerkey="ssm.package.upgrade.select.advisory" bound="false"
-                   styleclass="thin-column last-column">
+                   styleclass="last-column">
             <c:if test="${not empty current.advisory}">
               <c:if test="${current.advisoryType == 'Security Advisory'}">
                 <img src="/img/wrh-security.gif"
