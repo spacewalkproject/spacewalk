@@ -37,8 +37,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProfileDetailsAction extends RhnAction {
 
-    public static final String NAME = "profileName";
-
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -57,10 +55,7 @@ public class ProfileDetailsAction extends RhnAction {
             profile = ProfileManager.lookupByIdAndOrg(prid,
                     context.getLoggedInUser().getOrg());
 
-            if (profile != null) {
-                // This attribute will be used to include the profile name in UI pg header
-                request.setAttribute(NAME, profile.getName());
-            }
+            request.setAttribute("profile", profile);
         }
 
         if (!isSubmitted(form)) {

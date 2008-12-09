@@ -36,7 +36,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * DeleteProfileAction
+ * DeleteProfileAction - this action is used for stored profile deletion. 
+ * It is used when deleting the profile from the system details page
+ * (i.e. rhn/systems/details/packages/profiles/DeleteProfile.do) as well as
+ * from the stored profiles page (i.e. rhn/profiles/Delete.do).
  * @version $Rev$
  */
 public class DeleteProfileAction extends RhnAction {
@@ -54,11 +57,11 @@ public class DeleteProfileAction extends RhnAction {
         
         ActionForward forward = null;
         DynaActionForm f = (DynaActionForm)form;
-        Long prid = requestContext.getRequiredParam("prid");
+        Long prid = requestContext.getRequiredParam(RequestContext.PRID);
         User user = requestContext.getLoggedInUser();
         Profile profile = ProfileManager.lookupByIdAndOrg(prid, user.getOrg());
         request.setAttribute("profile", profile);
-        
+
         if (!isSubmitted(f)) {
             setup(request, f);
             forward =  strutsDelegate.forwardParams(mapping.findForward("default"),
@@ -67,16 +70,20 @@ public class DeleteProfileAction extends RhnAction {
         else {
             ActionMessages msgs = processForm(profile, f);
             strutsDelegate.saveMessages(request, msgs);
-    
+
             Map params = new HashMap();
-            params.put("sid", request.getParameter("sid"));
+            if (requestContext.getRequest().getRequestURI().contains(
+                    "systems/details/packages/profiles/DeleteProfile")) {
+                // we only care about the sid if the action is executed from the system
+                // details page...
+                params.put(RequestContext.SID, request.getParameter(RequestContext.SID));
+            }
             forward = strutsDelegate.forwardParams(mapping.findForward("deleted"),
                     params);
             if (log.isDebugEnabled() && (forward != null)) {
                 log.debug("Where are we going [" + forward.toString() + "]");
             }
         }
-        
         return forward;
     }
     
@@ -100,8 +107,16 @@ public class DeleteProfileAction extends RhnAction {
    
     private void setup(HttpServletRequest request, DynaActionForm form) {
         RequestContext requestContext = new RequestContext(request);
+
+        form.set(RequestContext.PRID, 
+                requestContext.getRequiredParam(RequestContext.PRID));
         
-        form.set("prid", requestContext.getRequiredParam("prid"));
-        form.set("sid", requestContext.getRequiredParam("sid"));
+        if (requestContext.getRequest().getRequestURI().contains(
+                "systems/details/packages/profiles/DeleteProfile")) {
+            // we only care about the sid if the action is executed from the system
+            // details page...
+            form.set(RequestContext.SID, 
+                    requestContext.getRequiredParam(RequestContext.SID));
+        }
     }
 }
