@@ -72,7 +72,7 @@ except rhnLockfile.LockfileLockedException:
 
 try:
     # NOTE: importing
-    from satellite_tools import migrateServer
+    from satellite_tools import migrateSystemProfile
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError, e:
@@ -88,7 +88,7 @@ def releaseLOCK():
 def main():
     # execute
     try:
-        return migrateServer.main()
+        return migrateSystemProfile.main()
     except KeyboardInterrupt:
         systemExit(0, "\nUser interrupted process.")
 

@@ -8,7 +8,7 @@ server and its history from source org to the destination org.
 Copyright (c) 2008 Red Hat, Inc.  Distributed under GPL.
 Author: Pradeep Kilambi <pkilambi@redhat.com>
 
-# $Id: migrateServer.py 
+# $Id: migrateSystemProfile.py 
 """
 
 import os
@@ -62,11 +62,6 @@ def main():
     SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
 
     client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
-
-    # Check data
-    if options.list_systems:
-        #lookup_server(options.list_systems)
-        return
 
     if options.csv:
         migrate_data = read_csv_file(options.csv)

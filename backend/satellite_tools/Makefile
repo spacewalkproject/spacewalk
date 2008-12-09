@@ -12,12 +12,12 @@ FILES	= __init__ connection diskImportLib messages \
             sync_handlers \
             syncLib SequenceServer xmlDiskDumper xmlDiskSource \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
-            satComputePkgHeaders updatePackages migrateServer
+            satComputePkgHeaders updatePackages migrateSystemProfile
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
-	  rhn-ssl-dbstore update-packages migrate-server cobbler-spacewalk-sync\
-	  spacewalk-cobbler-sync
+	  rhn-ssl-dbstore update-packages migrate-system-profile \
+          cobbler-spacewalk-sync spacewalk-cobbler-sync
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
