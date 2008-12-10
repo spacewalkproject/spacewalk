@@ -1,15 +1,10 @@
-%define rhnroot /%{_prefix}/share/rhn
+%define rhnroot /%{_datadir}/rhn
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd satellite/admin
-# make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Version: 0.4.3
 Release: 1%{?dist}
-Source0: %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/Internet
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -44,6 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %dir %{rhnroot}
 /sbin/rhn-satellite
+%{_initrddir}/rhn-satellite
 %{_bindir}/validate-sat-cert.pl
 %{_bindir}/validate-sat-cert
 %{_bindir}/rhn-config-satellite.pl
@@ -59,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 
+- 470590 - warn user that /etc/init.d/rhn-satellite is obsolete.
+
 * Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
 - fixed Obsoletes: rhns-* < 5.3.0
 

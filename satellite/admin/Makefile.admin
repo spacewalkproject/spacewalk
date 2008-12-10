@@ -19,7 +19,7 @@
 
 BINDIR	  = /usr/bin
 SBINDIR   = /sbin
-INITDIR   = /etc/init.d
+INITDIR   = /etc/rc.d/init.d
 GPGKEYDIR = /usr/share/rhn
 
 VERSION = $(shell echo `awk '{ print $$1 }' version`)
@@ -39,7 +39,6 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-load-ssl-cert.pl \
                validate-sat-cert.pl
 
-#INIT_SCRIPTS =
 SBIN_SCRIPTS = rhn-sat-restart-silent rhn-satellite
 
 GPGKEY_FILES = RHN-GPG-KEY
@@ -51,11 +50,13 @@ DIR_INSTALL    = install -d -m 755
 # install scripts
 all:
 
-install: $(PERL_SCRIPTS) $(PERL_DEST) $(INIT_SCRIPTS) $(INIT_DEST) $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
+install: $(PERL_SCRIPTS) $(PERL_DEST) INIT_SCRIPT $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
 	$(BIN_INSTALL) $(PERL_SCRIPTS) $(PERL_DEST)
-	#$(BIN_INSTALL) $(INIT_SCRIPTS) $(INIT_DEST)
 	$(GPGKEY_INSTALL) $(GPGKEY_FILES) $(GPGKEY_DEST)
 	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)	
+
+INIT_SCRIPT: $(INIT_DEST)
+	$(BIN_INSTALL) rhn-satellite.obsolete $(INIT_DEST)/rhn-satellite
 
 $(PERL_DEST): 
 	$(DIR_INSTALL) $@
