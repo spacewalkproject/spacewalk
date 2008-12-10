@@ -68,6 +68,7 @@ public class CobblerProfileDto extends KickstartDto {
     public static CobblerProfileDto create(Profile profile) {
         CobblerProfileDto dto = new CobblerProfileDto();
         dto.selectionKey = profile.getUid();
+        dto.setCobblerId(profile.getId());
         dto.setLabel(profile.getName());
         return dto;
     }

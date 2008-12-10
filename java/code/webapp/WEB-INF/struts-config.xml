@@ -705,6 +705,7 @@
             	   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="sid" type="java.lang.Long" />
             <form-property name="ksid" type="java.lang.Long" />
+            <form-property name="cobbler_id" type="java.lang.String" />
             <form-property name="wizardStep" type="java.lang.String" />
             <form-property name="prevStep" type="java.lang.String" />
             <form-property name="nextStep" type="java.lang.String" /> 
@@ -5218,6 +5219,8 @@
                 path="/WEB-INF/pages/kickstart/wizard/schedule/second.jsp" />
         <forward name="success"
                  redirect="true" path="/systems/details/kickstart/SessionStatus.do"/>
+        <forward name="cobbler-success"
+                 redirect="true" path="/systems/details/kickstart/ScheduleWizard.do"/>                 
     </action>
     
     <action path="/systems/details/virtualization/ProvisionVirtualizationWizard"

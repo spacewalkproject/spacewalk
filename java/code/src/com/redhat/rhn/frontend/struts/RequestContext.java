@@ -60,7 +60,9 @@ public class RequestContext {
     
     private static final Logger LOG = Logger.getLogger(RequestContext.class);
     
+    
     // Request IDs go here.
+    public static final String LABEL = "label";
     public static final String USER_ID = "uid";
     public static final String ORG_ID = "oid";
     public static final String PROBEID = "probe_id"; 
@@ -70,6 +72,7 @@ public class RequestContext {
     public static final String SID = "sid";
     public static final String CID = "cid";
     public static final String PRID = "prid";
+    public static final String COBBLER_ID = "cobbler_id";
     public static final String FILTER_STRING = "filter_string";
     public static final String PREVIOUS_FILTER_STRING = "prev_filter_value";
     public static final String LIST_DISPLAY_EXPORT = "lde";

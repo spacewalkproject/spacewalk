@@ -33,13 +33,13 @@ function setInitialState() {
   if(!scheduleAsap.checked && !scheduleDate.checked) {
       scheduleAsap.checked = true;
   }
-  var ksid = document.getElementById("ksid");
+  var cobbler_id = document.getElementById("cobbler_id");
   var wizform = document.getElementById("wizard-form");
   if(ksid.value == "") {  	
   	for(x = 0; x < wizform.length; x++) {
   	  if(wizform.elements[x].name == "items_selected") {
   	    wizform.elements[x].checked =  true;
-  	    ksid.value = wizform.elements[x].value;
+  	    cobbler_id.value = wizform.elements[x].value;
   	    break;
       }
     }
@@ -100,11 +100,11 @@ function setInitialState() {
         
         <!-- Store useful id fields-->
         <html:hidden property="wizardStep" value="first" styleId="wizard-step" />    
-        <html:hidden styleId="ksid" property="ksid" />
+        <html:hidden styleId="cobbler_id" property="cobbler_id" />
         <html:hidden property="sid" />
         <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.schedule.no.profiles.jsp">         
             <rhn:listdisplay renderDisabled="true" paging="true" filterBy="kickstartranges.jsp.profile">
-                <rhn:set type="radio" value="${current.selectionKey}" />
+                <rhn:set type="radio" value="${current.cobblerId}" />
                 <rhn:column header="kickstartranges.jsp.profile">
                     ${fn:escapeXml(current.label)}
                 </rhn:column>

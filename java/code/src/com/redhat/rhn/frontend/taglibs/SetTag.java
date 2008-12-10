@@ -28,7 +28,7 @@ import javax.servlet.jsp.JspWriter;
  * @version $Rev$
  */
 public class SetTag extends ColumnTag {
-
+    private String radioElement;
     private Long element;
     private Long elementTwo;
     private String img;
@@ -75,6 +75,7 @@ public class SetTag extends ColumnTag {
      */
     public SetTag(SetTag s) {
         super(s);
+        setRadioElement(s.radioElement);
         setElement(s.getElement());
         setElementTwo(s.getElementTwo());
         img = s.getImg();
@@ -107,7 +108,7 @@ public class SetTag extends ColumnTag {
             cbox.setAttribute("@@CHECKED@@", "");
             return cbox.render();
         }
-        else if (type.equals("radio")) {
+        else if (isRadio()) {
             return "";
         }
         return null;
@@ -197,6 +198,9 @@ public class SetTag extends ColumnTag {
      * @return Returns the value.
      */
     public String getValue() {
+        if (isRadio()) {
+            return radioElement;
+        }
         if (elementTwo == null) {
             return element.toString();
         }
@@ -210,6 +214,9 @@ public class SetTag extends ColumnTag {
         setElement(v);
     }
     
+    private void setRadioElement(String elem) {
+        radioElement = elem;
+    }
     
     /**
      * @return Returns the element.
@@ -220,12 +227,22 @@ public class SetTag extends ColumnTag {
         }
         return element.toString();
     }
+    
+    private boolean isRadio() {
+        return "radio".equals(getType());
+    }
+    
     /**
      * @param elementIn The element to set.
      */
     public void setElement(String elementIn) {
         if (elementIn != null && elementIn.length() > 0) {
-            element = new Long(elementIn);
+            if (isRadio()) {
+                radioElement = elementIn;
+            }
+            else {
+                element = new Long(elementIn);                
+            }
         }
     }
     /**
@@ -339,6 +356,7 @@ public class SetTag extends ColumnTag {
     public void release() {
         element = null;
         elementTwo = null;
+        radioElement = null;
         img = null;
         title = null;
         alt = null;

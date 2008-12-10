@@ -168,5 +168,5 @@ public class KickstartDto extends BaseDto {
      */
     public void setCobblerId(String cobblerIdIn) {
         cobblerId = cobblerIdIn;
-    }    
+    }
 }

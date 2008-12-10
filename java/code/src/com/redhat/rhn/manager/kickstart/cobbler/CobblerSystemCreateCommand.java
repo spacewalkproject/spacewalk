@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -107,7 +108,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
-        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, this.mediaPath);
+        if (!StringUtils.isBlank(mediaPath)) {
+            ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
+                                                    this.mediaPath);            
+        }
+
         ksmeta.put("activation_key", "somekey-todo");
 
         args = new Object[]{handle, "ksmeta", 

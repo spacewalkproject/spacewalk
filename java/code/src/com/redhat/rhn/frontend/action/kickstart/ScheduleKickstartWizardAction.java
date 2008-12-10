@@ -19,6 +19,8 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -30,6 +32,7 @@ import com.redhat.rhn.frontend.struts.wizard.RhnWizardAction;
 import com.redhat.rhn.frontend.struts.wizard.WizardStep;
 import com.redhat.rhn.frontend.taglibs.helpers.ListViewHelper;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -215,11 +218,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         if (!validateFirstSelections(form, ctx)) {   
             return runFirst(mapping, form, ctx, response, step);
         }
-        KickstartScheduleCommand cmd = 
-            new KickstartScheduleCommand(
-                    (Long) form.get(RequestContext.SID),
-                    (Long) form.get(RequestContext.KICKSTART_ID),
-                    ctx.getCurrentUser());
+        KickstartScheduleCommand cmd = getScheduleCommand(form, ctx, null, null);
         
         checkForKickstart(form, cmd, ctx);
         addRequestAttributes(ctx, cmd);
@@ -282,13 +281,8 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             scheduleTime = new Date();
         }
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
-        KickstartScheduleCommand cmd = 
-            new KickstartScheduleCommand(
-                    (Long) form.get(RequestContext.SID),
-                    (Long) form.get(RequestContext.KICKSTART_ID),
-                    ctx.getCurrentUser(),
-                    scheduleTime,
-                    helper.getKickstartHost());
+        KickstartScheduleCommand cmd = getScheduleCommand(form, ctx, 
+                                    scheduleTime, helper.getKickstartHost());
         
         
         cmd.setKernelParams(form.getString(KERNEL_PARAMS));
@@ -308,23 +302,24 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             cmd.setActivationType(KickstartScheduleCommand.ACTIVATION_TYPE_KEY);
             cmd.setActivationKeyId((Long) form.get(ACTIVATION_KEY));
         }
-        
-        // now setup system/package profiles for kickstart to sync
-        Profile pkgProfile = cmd.getKsdata().getKickstartDefaults().getProfile();
-        Long packageProfileId = pkgProfile != null ? pkgProfile.getId() : null;        
-        
-        //if user did not override package profile, then grab from ks profile if avail
-        if (!advancedConfig && packageProfileId != null) {
-            cmd.setProfileId(packageProfileId);
-            cmd.setProfileType(KickstartScheduleCommand.TARGET_PROFILE_TYPE_PACKAGE);
-        }
-        else {
-            /*NOTE: these values are essentially ignored if user did 
-             not go through advanced config and there is no package
-             profile to sync in the kickstart profile */
-            cmd.setProfileType(form.getString("targetProfileType"));
-            cmd.setServerProfileId((Long) form.get("targetProfile"));
-            cmd.setProfileId((Long) form.get("targetProfile"));
+        if (!cmd.isCobblerOnly()) {
+            // now setup system/package profiles for kickstart to sync
+            Profile pkgProfile = cmd.getKsdata().getKickstartDefaults().getProfile();
+            Long packageProfileId = pkgProfile != null ? pkgProfile.getId() : null;        
+            
+            //if user did not override package profile, then grab from ks profile if avail
+            if (!advancedConfig && packageProfileId != null) {
+                cmd.setProfileId(packageProfileId);
+                cmd.setProfileType(KickstartScheduleCommand.TARGET_PROFILE_TYPE_PACKAGE);
+            }
+            else {
+                /*NOTE: these values are essentially ignored if user did 
+                 not go through advanced config and there is no package
+                 profile to sync in the kickstart profile */
+                cmd.setProfileType(form.getString("targetProfileType"));
+                cmd.setServerProfileId((Long) form.get("targetProfile"));
+                cmd.setProfileId((Long) form.get("targetProfile"));
+            }
         }
         
         storeProxyInfo(form, ctx, cmd);
@@ -338,13 +333,53 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
                 return runFirst(mapping, form, ctx, response, step);
             }
         }
-        
-        createSuccessMessage(ctx.getRequest(), "kickstart.schedule.success", 
-                LocalizationService.getInstance().formatDate(scheduleTime));
         Map params = new HashMap();
         params.put(RequestContext.SID, form.get(RequestContext.SID));
         
+
+        if (cmd.isCobblerOnly()) {
+            createSuccessMessage(ctx.getRequest(), "kickstart.cobbler.schedule.success", 
+                    LocalizationService.getInstance().formatDate(scheduleTime));            
+            return getStrutsDelegate().forwardParams(
+                                mapping.findForward("cobbler-success"), params);
+        }
+        createSuccessMessage(ctx.getRequest(), "kickstart.schedule.success", 
+                LocalizationService.getInstance().formatDate(scheduleTime));        
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
+    }
+
+    /**
+     * Returns the kickstart schedule command
+     * @param form the dyna aciton form
+     * @param ctx the request context
+     * @param scheduleTime the schedule time
+     * @param host the  host url.
+     * @return the Ks schedule command
+     */
+    private KickstartScheduleCommand getScheduleCommand(DynaActionForm form,
+            RequestContext ctx, Date scheduleTime, String host) {
+        String cobblerId = form.getString(RequestContext.COBBLER_ID);
+        User user = ctx.getLoggedInUser();
+        KickstartScheduleCommand cmd;
+        KickstartData data = KickstartFactory.
+                lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerId);
+        if (data != null) {
+            cmd = 
+                new KickstartScheduleCommand(
+                        (Long) form.get(RequestContext.SID),
+                        data,
+                        ctx.getCurrentUser(),
+                        scheduleTime,
+                        host);            
+        }
+        else {
+            org.cobbler.Profile profile = org.cobbler.Profile.
+                    lookupById(CobblerXMLRPCHelper.getConnection(user), cobblerId);
+            cmd = KickstartScheduleCommand.createCobblerScheduleCommand((Long)
+                                                form.get(RequestContext.SID),
+                                     profile.getName(), user, scheduleTime,  host);
+        }
+        return cmd;
     }
 
     /**
@@ -368,12 +403,12 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
         boolean retval = false;
         String rawItemSelected = ctx.getRequest().getParameter("items_selected");
         if (rawItemSelected != null) {
-            form.set(RequestContext.KICKSTART_ID, new Long(rawItemSelected));
+            form.set(RequestContext.COBBLER_ID, rawItemSelected);
             if (form.get("scheduleAsap") != null) {
                 retval = true;
             }                
         } 
-        else if (form.get(RequestContext.KICKSTART_ID) != null) {
+        else if (form.get(RequestContext.COBBLER_ID) != null) {
             return true;
         }        
         return retval;

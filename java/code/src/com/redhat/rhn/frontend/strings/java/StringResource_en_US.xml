@@ -6144,6 +6144,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.cobbler.schedule.success">
+        <source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
+        </context-group>
+      </trans-unit>
 
       <trans-unit id="kickstart.schedule.noprofiles">
         <source>No profiles found that are compatible with this System.  Either you haven't created any Kickstart Profiles or this system does not have a Base Channel.</source>

@@ -94,9 +94,8 @@ public class KickstartFactory extends HibernateFactory {
     }
     
     /**
-     * 
-     * @param ksid Kickstart Data Id to lookup
      * @param orgIn Org associated with Kickstart Data
+     * @param ksid Kickstart Data Id to lookup
      * @return Kickstart Data object by ksid
      */
     public static KickstartData lookupKickstartDataByIdAndOrg(Org orgIn, Long ksid) {
@@ -106,7 +105,20 @@ public class KickstartFactory extends HibernateFactory {
                                       .setLong("org_id", orgIn.getId().longValue())
                                       .uniqueResult();
     }
-    
+
+    /**
+     * @param orgIn Org associated with Kickstart Data
+     * @param cobblerId Kickstart Data Cobbler Id Id to lookup
+     * @return Kickstart Data object by cobbler id
+     */
+    public static KickstartData lookupKickstartDataByCobblerIdAndOrg(Org orgIn, 
+                                    String cobblerId) {
+        return (KickstartData)  HibernateFactory.getSession()
+                                      .getNamedQuery("KickstartData.findByCobblerIdAndOrg")
+                                      .setString("id", cobblerId)
+                                      .setLong("org_id", orgIn.getId())
+                                      .uniqueResult();
+    }    
     /**
      * Lookup a KickstartData based on a label and orgId
      * @param label to lookup
