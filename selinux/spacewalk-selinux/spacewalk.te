@@ -14,6 +14,8 @@ type spacewalk_install_log_t;
 logging_log_file(spacewalk_install_log_t);
 type spacewalk_log_t;
 logging_log_file(spacewalk_log_t);
+type spacewalk_httpd_log_t;
+logging_log_file(spacewalk_httpd_log_t);
 
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
 allow restorecon_t spacewalk_install_log_t:file { append };
@@ -29,4 +31,6 @@ domain_auto_trans(java_t, spacewalk_initrc_exec_t, initrc_t)
 allow restorecon_t spacewalk_initrc_exec_t:file { relabelto getattr };
 
 allow httpd_t oracle_port_t:tcp_socket name_connect;
+
+filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t, file)
 
