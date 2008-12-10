@@ -36,6 +36,7 @@ import pwd
 import string
 import traceback
 import time
+import fcntl
 
 LOG = None
 
@@ -75,6 +76,10 @@ def getUidGid(username, groupname):
         sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; can't fetch GID." % groupname)
     return uid, gid
 
+# function for setting the close-on-exec flag
+def set_close_on_exec(fd):
+    s = fcntl.fcntl(fd, fcntl.F_GETFD)
+    fcntl.fcntl(fd, fcntl.F_SETFD, s | fcntl.FD_CLOEXEC)
 
 # Init the log
 def initLOG(log_file = "stderr", level = 0):
@@ -180,6 +185,7 @@ class rhnLog:
         try:
             # try to open it in line buffered mode
             self.fd = open(self.file, "a+", 1)
+            set_close_on_exec(self.fd)
             if newfileYN:
                 apache_uid, apache_gid = getUidGid('apache', 'apache')
                 if os.getuid() == 0:
