@@ -32,7 +32,7 @@ eval $(perl -V:vendorarch)
 
 MKFILE=$(rpm -ql oracle-instantclient-devel | grep demo.mk)
 
-perl Makefile.PL -m $MKFILE  PREFIX=%{_prefix}
+perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix}
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean 
