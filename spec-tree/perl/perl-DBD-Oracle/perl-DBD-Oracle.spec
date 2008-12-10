@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.22
-Release: 4%{?dist}
+Release: 5%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: %{name}-%{version}.tar.gz
@@ -62,7 +62,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
-* Wed Dec 10 2008 Michael Mraka <michael.mraka@redhat.com> 1.22-4
+* Wed Dec 10 2008 Michael Mraka <michael.mraka@redhat.com> 1.22-5
 - simplified %%build and %%instal stage
 - resolved #470999
 
