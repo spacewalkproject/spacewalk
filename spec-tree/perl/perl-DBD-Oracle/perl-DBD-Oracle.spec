@@ -40,15 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#kinda ugly but we need ORACLE_HOME to be set 
-%if "%{_lib}" == "lib64"
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
-%else
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
-%endif
-eval `perl '-V:installarchlib'`
-mkdir -p $RPM_BUILD_ROOT/$installarchlib
-make install
+make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 
 [ -x /usr/lib/rpm/brp-compress ] && /usr/lib/rpm/brp-compress
 
