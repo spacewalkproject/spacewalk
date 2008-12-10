@@ -8,6 +8,7 @@ require {
 	type java_t;
 	type initrc_t;
 	type oracle_port_t;
+	type system_mail_t;
 }
 
 type spacewalk_install_log_t;
@@ -39,4 +40,6 @@ manage_files_pattern(httpd_t, spacewalk_log_t, spacewalk_httpd_log_t)
 
 manage_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_dirs_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
+
+dontaudit system_mail_t httpd_t:file read;
 
