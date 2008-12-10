@@ -7,8 +7,9 @@ Group: Development/Libraries
 Source0: %{name}-%{version}.tar.gz
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
-BuildRequires: perl >= 0:5.6.1, perl-DBI
+BuildRequires: perl >= 0:5.6.1, perl(DBI)
 BuildRequires: oracle-instantclient-devel
+BuildRequires: oracle-instantclient-sqlplus
 Requires: perl >= 0:5.6.1
 
 %description
