@@ -81,7 +81,6 @@ def initiate(server_id, action_id):
         raise InvalidAction("Kickstart action without an associated kickstart")
     
     kickstart_host  = row['kickstart_host']
-    profile_name    = row['profile_name']
     virt_type       = row['virt_type']
     name            = row['guest_name']
     boot_image      = "spacewalk-koan"
@@ -94,7 +93,7 @@ def initiate(server_id, action_id):
     if not boot_image:
         raise InvalidAction("Boot image missing")
 
-    return (kickstart_host, profile_name, virt_type, ks_session_id, name, 
+    return (kickstart_host, virt_type, ks_session_id, name,
                 mem_kb, vcpus, disk_gb, append_string)
 
 def add_tools_channel(server_id, action_id):

@@ -59,9 +59,7 @@ def initiate(server_id, action_id):
     h.execute(action_id=action_id)
     files = map(lambda x: x['path'], h.fetchall_dict() or [])
     
-    profile_label = server_kickstart.get_kickstart_label(server_id, action_id)
-    
-    return (kickstart_host, profile_label, boot_image, append_string, static_device, files)
+    return (kickstart_host, boot_image, append_string, static_device, files)
 
 def schedule_sync(server_id, action_id):
     log_debug(3, server_id, action_id)

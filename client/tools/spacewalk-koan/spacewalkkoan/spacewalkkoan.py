@@ -28,7 +28,7 @@ from koan.app import Koan
 
 SHADOW      = "/tmp/ks-tree-shadow"
 
-def initiate(kickstart_host, profile_name, base, extra_append, static_device=None, preserve_files=[]):
+def initiate(kickstart_host, base, extra_append, static_device=None, preserve_files=[]):
 
     error_messages = {}
     success = 0
@@ -46,7 +46,7 @@ def initiate(kickstart_host, profile_name, base, extra_append, static_device=Non
         k.is_virt             = False
         k.is_replace          = True
         k.is_display          = False
-        k.profile             = profile_name
+        k.profile             = None
 	k.port                = 443 
         k.system              = None
         k.image               = None
@@ -85,7 +85,7 @@ def initiate(kickstart_host, profile_name, base, extra_append, static_device=Non
     
     return (0, "Kickstart initiate succeeded", error_messages)
 
-def initiate_guest(kickstart_host, profile_name, virt_type, name, mem_kb, 
+def initiate_guest(kickstart_host, virt_type, name, mem_kb,
                    vcpus, disk_gb, extra_append, log_notify_handler=None):
 
     error_messages = {}
@@ -96,10 +96,10 @@ def initiate_guest(kickstart_host, profile_name, virt_type, name, mem_kb,
         k.list_items          = False
         k.server              = kickstart_host
         k.is_virt             = True
-        k.is_replace          = False
+        k.is_replace          = True
         k.is_display          = False
 	k.port                = 443
-        k.profile             = profile_name
+        k.profile             = None
         k.system              = None
         k.image               = None
         k.live_cd             = None

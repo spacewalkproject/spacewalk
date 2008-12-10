@@ -16,7 +16,12 @@ FILES	= __init__ connection diskImportLib messages \
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
+<<<<<<< HEAD:backend/satellite_tools/Makefile
 	  rhn-ssl-dbstore update-packages migrate-system-profile
+=======
+	  rhn-ssl-dbstore update-packages migrate-system-profile \
+          spacewalk-cobbler-sync
+>>>>>>> 461162 remove profile label parameter from the spacewalk-koan call chain, fix problem w/ backend/satellite_tools makefile:backend/satellite_tools/Makefile
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)

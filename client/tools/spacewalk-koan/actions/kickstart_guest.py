@@ -39,7 +39,7 @@ __rhnexport__ = [
 # Public Interface
 ###############################################################################
 
-def initiate(kickstart_host, profile_name, virt_type, ks_session_id, name, mem_kb, vcpus, disk_gb, extra_append):
+def initiate(kickstart_host, virt_type, ks_session_id, name, mem_kb, vcpus, disk_gb, extra_append):
     error_code = 0
     status_message = 'Guest kickstart initiated successfully.'
     error_messages = {}
@@ -47,7 +47,7 @@ def initiate(kickstart_host, profile_name, virt_type, ks_session_id, name, mem_k
     log_notify_handler = KickstartLogNotifyHandler(ks_session_id)
 
     try:
-        spacewalkkoan.initiate_guest(kickstart_host, profile_name, 
+        spacewalkkoan.initiate_guest(kickstart_host,
                 virt_type, name, mem_kb, vcpus, disk_gb, extra_append, log_notify_handler)
     except Exception, e:
         error_code = 1
