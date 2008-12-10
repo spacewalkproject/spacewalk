@@ -25,7 +25,9 @@ import java.util.Set;
  * @author paji
  * @version $Rev$
  */
+
 public class Profile extends CobblerObject {
+
     private static final String DHCP_TAG = "dhcp_tag";
     private static final String KICKSTART = "kickstart";
     private static final String VIRT_BRIDGE = "virt_bridge";
@@ -120,6 +122,7 @@ public class Profile extends CobblerObject {
         return profiles;
     }
 
+
     /**
      * Returns a list of available profiles minus the excludes list
      * @param connection the cobbler connection
@@ -139,6 +142,7 @@ public class Profile extends CobblerObject {
                 profiles.add(profile);    
             }
             
+
         }
         return profiles;
     }
@@ -181,12 +185,14 @@ public class Profile extends CobblerObject {
     /* (non-Javadoc)
      * @see org.cobbler.CobblerObject#renameTo(java.lang.String)
      */
+
     @Override
     protected void invokeRename(String newNameIn) {
         client.invokeTokenMethod("rename_profile", getHandle(), newNameIn);
     }    
     
     /**
+
      * @return the DhcpTag
      */
      public String getDhcpTag() {

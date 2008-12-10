@@ -27,22 +27,16 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.cobbler.Profile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +55,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String  PRE_LOG = "pre_log";
     public static final String  KS_CFG = "ksCfg";
     
+
 
     public static final String  KERNEL_OPTIONS = "kernel_options";
     public static final String  POST_KERNEL_OPTIONS = "post_kernel_options";
@@ -168,6 +163,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 prof.save(); 
             }
 
+
             String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
             KickstartVirtualizationType ksVirtType = KickstartFactory.
                 lookupKickstartVirtualizationTypeByLabel(virtTypeLabel);
@@ -194,34 +190,5 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 ctx.getCurrentUser());
     }    
 
-    
-    private Map convertOptionsToMap(String options) throws InvalidOptionException {
-        Map toReturn = new HashMap<String, String>();
-        StringTokenizer token = new StringTokenizer(options);
-        while (token.hasMoreElements()) {
-            String option = token.nextToken();
-            String[] args = option.split("=");
-            if (args.length != 2) {
-                throw new InvalidOptionException(option);
-            }
-            else {
-                toReturn.put(args[0], args[1]);
-            }
-        }
-        return toReturn;
-    }
-    
-    private class InvalidOptionException extends Exception{
-        private String option;
-        
-        public InvalidOptionException(String optionIn) {
-            super();
-            option = optionIn; 
-        }
-        
-        public String getOption() {
-            return option;
-        }
-    }
     
 }
