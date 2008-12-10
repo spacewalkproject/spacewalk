@@ -62,7 +62,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 %changelog
 * Wed Dec 10 2008 Michael Mraka <michael.mraka@redhat.com> 1.22-3
-- simplified %build and %instal stage
+- simplified %%build and %%instal stage
 - resolved #470999
 
 * Tue Nov 25 2008 Miroslav Suchy <msuchy@redhat.com> 1.22-2
@@ -72,7 +72,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
 * Thu Oct 16 2008 Milan Zazrivec 1.21-4
 - bumped release for minor release tagging
-- added %{?dist} to release
+- added %%{?dist} to release
 
 * Tue Aug 26 2008 Mike McCune 1.21-3
 - Cleanup spec file to work in fedora and our new Makefile structure
