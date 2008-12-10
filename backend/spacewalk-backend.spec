@@ -548,6 +548,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 
+- fix build errors and finish removing of cobbler-spacewalk-sync and 
+  spacewalk-cobbler-sync from tools subpackage
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
 - fixed Obsoletes: rhns-* < 5.3.0
 
