@@ -8,7 +8,7 @@
 
 Name:           spacewalk-selinux
 Version:        0.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -110,6 +110,12 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Dec 10 2008 Jan Pazdziora 0.4.1-4
+- replace allows with macros
+- allow mod_perl (in httpd_t) to talk to the Oracle database
+- defined types for /var/log/rhn and /var/satellite
+- rhnpush works now
+
 * Wed Nov 26 2008 Jan Pazdziora 0.4.1-3
 - Spacewalk can now be restarted from WebUI, via /sbin/rhn-sat-restart-silent
 
