@@ -53,7 +53,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/Oraperl.pm
 %{perl_vendorarch}/oraperl.ph
-%{_mandir}/man3
+%{_mandir}/man3/*
 
 %files explain
 %defattr(-,root,root)
