@@ -28,30 +28,11 @@ ora_explain script
 %build
 eval $(perl -V:sitearch)
 eval $(perl -V:vendorarch)
-%ifarch i386
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client
-export LD_LIBRARY_PATH=/usr/lib/oracle/10.2.0.4/client/lib
-export ORACLE_INCLUDE=/usr/include/oracle/10.2.0.4/client
-%else
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64
-export LD_LIBRARY_PATH=/usr/lib/oracle/10.2.0.4/client64/lib
-export ORACLE_INCLUDE=/usr/include/oracle/10.2.0.4/client64
-%endif
 
-INCLUDES=$(echo -I$ORACLE_HOME/rdbms/public \
-                -I$ORACLE_HOME/rdbms/demo \
-                -I$ORACLE_HOME/network/public \
-                -I$ORACLE_INCLUDE \
-                -I$vendorarch/auto/DBI \
-                -I$sitearch/auto/DBI)
-# We can't trust the tests make by the Makefile.PL on modern Oracle installations
-# because it leads to bloat, duble linking and inneficient relocation. It's a wonder
-# it works at all
-perl Makefile.PL -l \
-    CC=gcc LD="gcc -v -Wl,-rpath,$ORACLE_HOME/lib" \
-    CCFLAGS="-D_GNU_SOURCE" \
-    PREFIX=$RPM_BUILD_ROOT/usr 
- make
+MKFILE=$(rpm -ql oracle-instantclient-devel | grep demo.mk)
+
+perl Makefile.PL -m $MKFILE  PREFIX=%{_prefix}
+make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
