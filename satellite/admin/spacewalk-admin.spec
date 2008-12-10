@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.4.3
+Version: 0.4.4
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -55,7 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
-* Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 
+* Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - 470590 - warn user that /etc/init.d/rhn-satellite is obsolete.
 
 * Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
