@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.14
+Version:      2.1.0
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -93,6 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 
 - 474551 - obsolete nslogs and ConfigPusher-General
+- bump up version for 0.4 branch
 
 * Tue Nov  4 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.14-1
 - 469708 - obsolete newer np-config
