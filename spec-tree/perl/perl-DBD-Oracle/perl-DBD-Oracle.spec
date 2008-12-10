@@ -9,7 +9,6 @@ Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
 BuildRequires: perl >= 0:5.6.1, perl(DBI)
 BuildRequires: oracle-instantclient-devel
-BuildRequires: oracle-instantclient-sqlplus
 Requires: perl >= 0:5.6.1
 
 %description
@@ -32,7 +31,9 @@ ora_explain script
 %build
 
 MKFILE=$(rpm -ql oracle-instantclient-devel | grep demo.mk)
-
+ORACLE_HOME=$(rpm -ql oracle-instantclient-basic | \
+    awk '/libclntsh.so/ { gsub("/lib/libclntsh.so.*", ""); print ;}')
+export ORACLE_HOME
 perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix}
 make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
 
