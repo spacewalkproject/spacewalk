@@ -24,11 +24,12 @@ ora_explain script
 
 %prep
 %define modname %(echo %{name}| sed 's/perl-//')
+%define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)
+%define perl_vendorarch %(eval "`%{__perl} -V:installvendorarch`"; echo $installvendorarch)
+
 %setup -q -n %{modname}-%{version} 
 
 %build
-eval $(perl -V:sitearch)
-eval $(perl -V:vendorarch)
 
 MKFILE=$(rpm -ql oracle-instantclient-devel | grep demo.mk)
 
@@ -42,20 +43,17 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
 
-[ -x /usr/lib/rpm/brp-compress ] && /usr/lib/rpm/brp-compress
-
-find $RPM_BUILD_ROOT/usr -type f -print | 
-    sed "s@^$RPM_BUILD_ROOT@@g" | 
-    grep -E -v 'perllocal.pod|\.packlist|ora_explain' \
-    > %{modname}-%{version}-filelist
-if [ "$(cat %{modname}-%{version}-filelist)X" = "X" ] ; then
-    echo "ERROR: EMPTY FILE LIST"
-    exit -1
-fi
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
-%files -f %{modname}-%{version}-filelist
+%files
 %defattr(-,root,root)
+%dir %{perl_vendorarch}/auto/DBD/
+%{perl_vendorarch}/auto/DBD/
+%dir %{perl_vendorarch}/DBD/
+%{perl_vendorarch}/DBD/
+%{perl_vendorarch}/Oraperl.pm
+%{perl_vendorarch}/oraperl.ph
+%{_mandir}/man3
 
 %files explain
 %defattr(-,root,root)
