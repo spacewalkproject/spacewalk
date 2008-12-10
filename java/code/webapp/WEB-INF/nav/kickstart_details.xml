@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<rhn-navi-tree label="kickstart_detail" invisible="1" formvar="ksid" title-depth="1">
+<rhn-navi-tree label="kickstart_detail" invisible="1" formvar="ksid" title-depth="1"
+      acl_mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
   <rhn-tab name="Kickstart Details" >    
     <rhn-tab-url>/rhn/kickstart/KickstartDetailsEdit.do</rhn-tab-url>
     <rhn-tab name="Details" >
@@ -9,9 +10,12 @@
     <rhn-tab name="Operating System">
       <rhn-tab-url>/rhn/kickstart/KickstartSoftwareEdit.do</rhn-tab-url>
     </rhn-tab>
+    <rhn-tab name="kickstart.variable.nav">
+      <rhn-tab-url>/rhn/kickstart/EditVariables.do</rhn-tab-url>
+    </rhn-tab>        
     <rhn-tab name="Advanced Options">
       <rhn-tab-url>/rhn/kickstart/KickstartOptionsEdit.do</rhn-tab-url>
-    </rhn-tab>    
+    </rhn-tab>
     <rhn-tab name="Bare Metal Kickstart">
       <rhn-tab-url>/rhn/kickstart/KickstartIpRangeEdit.do</rhn-tab-url>
     </rhn-tab>    

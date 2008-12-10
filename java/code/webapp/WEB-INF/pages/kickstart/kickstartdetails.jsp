@@ -79,10 +79,20 @@
             <td><table><tr><td><html:checkbox property="org_default" /></td><td><bean:message key="kickstartdetails.jsp.summary2" arg0="${ksurl}" /></td></tr></table></td>
           </tr>
           <tr>
+            <th><bean:message key="kickstartdetails.jsp.kernel_options"/></th>
+            <td><html:text property="kernel_options" maxlength="64" size="32" /></td>
+          </tr>                 
+          
+         <tr>
+            <th><bean:message key="kickstartdetails.jsp.post_kernel_options"/></th>
+            <td><html:text property="post_kernel_options" maxlength="64" size="32" /></td>
+          </tr>
+                      
+          <tr>
             <th><bean:message key="kickstartdetails.jsp.comments"/></th>
             <td><html:textarea property="comments" cols="80" rows="6"/></td>
-          </tr>          
-
+          </tr>
+                    
           <tr>          
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>

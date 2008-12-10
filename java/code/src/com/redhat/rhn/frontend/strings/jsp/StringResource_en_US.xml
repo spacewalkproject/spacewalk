@@ -9086,6 +9086,65 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
     </trans-unit>
+    
+    <trans-unit id="kickstart.variable.jsp.header">
+        <source>Kickstart Variables</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>    
+    
+    <trans-unit id="kickstart.variable.jsp.update">
+        <source>Update Variables</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>        
+    
+    
+    <trans-unit id="kickstart.variable.jsp.summary">
+        <source>Kickstart variables can be used to substitute values into kickstart profiles.  To define a variable simply add 'name=value' to the box below.  
+        			You would then use $name within the profile to substitute in the value.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>            
+    
+    
+    <trans-unit id="kickstart.variable.jsp.variabledetails">
+        <source>Variables</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>       
+    
+    <trans-unit id="kickstart.jsp.error.invalidvariable">
+        <source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>    
+    
+    <trans-unit id="kickstart.jsp.error.invalidoption">
+        <source>You have specified an invalid option '{0}'.  Options should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a space.  For example: 'ip=192.168.0.1 netmask=255.255.255.0'</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart Details</context>
+        </context-group>
+    </trans-unit>    
+
+    <trans-unit id="kickstartdetails.jsp.kernel_options">
+        <source>Kernel Options</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart Details</context>
+        </context-group>
+    </trans-unit>    
+
+    <trans-unit id="kickstartdetails.jsp.post_kernel_options">
+        <source>Post Kernel Options</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart Details</context>
+        </context-group>
+    </trans-unit>    
 
     <trans-unit id="kickstart.jsp.unregistered">
         <source>Unregistered System</source>

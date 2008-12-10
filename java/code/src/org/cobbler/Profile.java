@@ -34,10 +34,13 @@ public class Profile {
     private static final String OWNERS = "owners";
     private static final String CTIME = "ctime";
     private static final String KERNEL_OPTIONS_POST = "kernel_options_post";
+    private static final String SET_KERNEL_OPTIONS_POST = "kopts-post";
     private static final String DEPTH = "depth";
     private static final String KERNEL_OPTIONS = "kernel_options";
+    private static final String SET_KERNEL_OPTIONS = "kopts";
     private static final String NAME = "name";
     private static final String KS_META = "ks_meta";
+    private static final String SET_KS_META = "ksmeta";
     private static final String PARENT = "parent";
     private static final String MTIME = "mtime";
     private static final String MGMT_CLASSES = "mgmt_classes";
@@ -106,6 +109,10 @@ public class Profile {
     public static Profile lookupById(CobblerConnection client, String id) {
         List<Map<String, Object>> profiles = (List<Map<String, Object>>) 
                                                 client.invokeTokenMethod("get_profiles");
+        if (id == null) {
+            return null;
+        }
+        
         Profile profile = new Profile(client);
         for (Map <String, Object> map : profiles) {
             profile.dataMap = map;
@@ -136,7 +143,7 @@ public class Profile {
 
     private String getHandle() {
         if (handle == null || "".equals(handle.trim())) {
-            handle = (String)client.invokeTokenMethod("get_profile_handle");
+            handle = (String)client.invokeTokenMethod("get_profile_handle", this.getName());
         }
         return handle;
     }
@@ -320,8 +327,8 @@ public class Profile {
     /**
      * @return the kernelOptions
      */
-    public Map<String, Object> getKernelOptions() {
-        return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS);
+    public Map<String, String> getKernelOptions() {
+        return (Map<String, String>)dataMap.get(KERNEL_OPTIONS);
     }
 
     
@@ -329,23 +336,23 @@ public class Profile {
      * @param kernelOptionsIn the kernelOptions to set
      */
     public void setKernelOptions(Map<String, Object> kernelOptionsIn) {
-        modify(KERNEL_OPTIONS, kernelOptionsIn);
+        modify(SET_KERNEL_OPTIONS, kernelOptionsIn);
     }
 
     
     /**
      * @return the kernelMeta
      */
-    public Map<String, Object> getKsMeta() {
-        return (Map<String, Object>)dataMap.get(KS_META);
+    public Map<String, String> getKsMeta() {
+        return (Map<String, String>)dataMap.get(KS_META);
     }
 
     
     /**
      * @param kernelMetaIn the kernelMeta to set
      */
-    public void setKsMeta(Map<String, Object> kernelMetaIn) {
-        modify(KS_META, kernelMetaIn);
+    public void setKsMeta(Map<String, String> kernelMetaIn) {
+        modify(SET_KS_META, kernelMetaIn);
     }
 
     
@@ -370,8 +377,8 @@ public class Profile {
     /**
      * @return the kernelPostOptions
      */
-    public Map<String, Object> getKernelPostOptions() {
-        return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS_POST);
+    public Map<String, String> getKernelPostOptions() {
+        return (Map<String, String>)dataMap.get(KERNEL_OPTIONS_POST);
     }
 
     
@@ -379,7 +386,7 @@ public class Profile {
      * @param kernelPostOptionsIn the kernelPostOptions to set
      */
     public void setKernelPostOptions(Map<String, Object> kernelPostOptionsIn) {
-        modify(KERNEL_OPTIONS_POST, kernelPostOptionsIn);
+        modify(SET_KERNEL_OPTIONS_POST, kernelPostOptionsIn);
     }
 
     /**

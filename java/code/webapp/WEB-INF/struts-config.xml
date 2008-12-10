@@ -574,6 +574,9 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="virtualizationTypes" type="java.util.List" />
             <form-property name="virtualizationTypeLabel" type="java.lang.String" />
+            <form-property name="kernel_options" type="java.lang.String"/>
+            <form-property name="post_kernel_options" type="java.lang.String"/>
+            
         </form-bean>
         
         <form-bean name="kickstartDeleteForm"
@@ -658,6 +661,12 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>        
         
+      <form-bean name="kickstartVariableForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="variables" type="java.lang.String" />
+            <form-property name="submitted"  type="java.lang.Boolean"/>
+        </form-bean>           
+        
         <form-bean name="kickstartDownloadForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="filedata" type="java.lang.String" />
@@ -675,7 +684,9 @@
 			<form-property name="contents" type="java.lang.String" />
             <form-property name="org_default" type="java.lang.Boolean" />
             <form-property name="comments" type="java.lang.String" />
-            <form-property name="active" type="java.lang.Boolean" />  
+            <form-property name="active" type="java.lang.Boolean" /> 
+            <form-property name="kernel_options" type="java.lang.String"/>
+            <form-property name="post_kernel_options" type="java.lang.String"/>             
         </form-bean>
 
         <form-bean name="kickstartCreateWizardForm"
@@ -4865,6 +4876,18 @@
                  redirect="true"
                  />                   
     </action>
+    
+   <action path="/kickstart/EditVariables"
+        scope="request"
+        name="kickstartVariableForm"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartVariableAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+		<set-property property="acls" 
+                        value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                path="/WEB-INF/pages/kickstart/kickstartvariables.jsp"/>        
+    </action>
+    
 
     <action path="/kickstart/AdvancedModeEdit"
         scope="request"

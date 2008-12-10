@@ -30,6 +30,10 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     
     private static Logger log = Logger.getLogger(CobblerProfileCommand.class);
 
+    private Map kernelOptions;
+    private Map postKernelOptions;
+    
+    
     protected KickstartData ksData;
     
     /**
@@ -59,6 +63,35 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
                 this.ksData.getTree().getCobblerDistroName(), xmlRpcToken};
 
         invokeXMLRPC("modify_profile", Arrays.asList(args));
+        
+        if (kernelOptions != null) {
+            args = new Object[]{handle, "kernel_options", 
+                    kernelOptions, xmlRpcToken};
+            invokeXMLRPC("modify_profile", Arrays.asList(args));
+        }
+        
+        if (kernelOptions != null) {
+            args = new Object[]{handle, "kernel_options_post", 
+                    postKernelOptions, xmlRpcToken};
+            invokeXMLRPC("modify_profile", Arrays.asList(args));
+        }
+        
 
+    }
+
+    
+    /**
+     * @param kernelOptionsIn The kernelOptions to set.
+     */
+    public void setKernelOptions(Map kernelOptionsIn) {
+        this.kernelOptions = kernelOptionsIn;
+    }
+
+    
+    /**
+     * @param postKernelOptionsIn The postKernelOptions to set.
+     */
+    public void setPostKernelOptions(Map postKernelOptionsIn) {
+        this.postKernelOptions = postKernelOptionsIn;
     }
 }

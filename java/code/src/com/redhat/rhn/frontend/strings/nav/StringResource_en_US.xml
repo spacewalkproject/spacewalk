@@ -792,6 +792,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       
+    <trans-unit id="kickstart.variable.nav">
+        <source>Variables</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>            
+      
                  <trans-unit id="System Details">
 <source>System Details</source>
         <context-group name="ctx">

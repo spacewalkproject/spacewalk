@@ -30,6 +30,7 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -37,6 +38,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.upload.FormFile;
+import org.cobbler.Profile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +64,8 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String FILE_UPLOAD = "fileUpload"; 
     private static final String ORG_DEFAULT = "org_default";
     private static final String ACTIVE = "active";
+    private static final String  KERNEL_OPTIONS = "kernel_options";
+    private static final String  POST_KERNEL_OPTIONS = "post_kernel_options";
     
     private static final String CREATE_MODE = "create";
     
@@ -122,6 +126,20 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
             ks.setData(getData(context, form));
+                        
+            CobblerXMLRPCHelper cobblerHelper = new CobblerXMLRPCHelper();
+            Profile prof = Profile.lookupById(cobblerHelper.getConnection(
+                    context.getLoggedInUser()), ks.getCobblerId());
+            if (prof != null) {
+                prof.setKernelOptions(StringUtil.convertOptionsToMap(
+                    form.getString(KERNEL_OPTIONS), 
+                    "kickstart.jsp.error.invalidoption"));
+                prof.setKernelPostOptions(StringUtil.convertOptionsToMap(
+                    form.getString(POST_KERNEL_OPTIONS), 
+                    "kickstart.jsp.error.invalidoption"));
+                prof.save(); 
+            }
+            
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                                                         RequestContext.KICKSTART_ID,
                                                         ks.getId().toString());
@@ -149,6 +167,18 @@ public class AdvancedModeDetailsAction extends RhnAction {
                     context.getRequest());
             context.getRequest().setAttribute(KickstartFileDownloadAction.KSURL,
                     dcmd.getOrgDefaultUrl());
+            
+            CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
+            Profile prof = Profile.lookupById(helper.getConnection(
+                    context.getLoggedInUser()), data.getCobblerId());
+            if (prof != null) {
+                form.set(KERNEL_OPTIONS, 
+                   StringUtil.convertMapToString(prof.getKernelOptions(), " "));
+                form.set(POST_KERNEL_OPTIONS, 
+                        StringUtil.convertMapToString(
+                                prof.getKernelPostOptions(), " "));
+            }
+            
             form.set(ORG_DEFAULT, data.isOrgDefault());
             form.set(ACTIVE, data.isActive());            
         }

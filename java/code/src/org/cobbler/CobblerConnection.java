@@ -145,4 +145,12 @@ public class CobblerConnection {
     public void setToken(String tokenIn) {
         token = tokenIn;
     }
+    
+    /**
+     * get the cobbler token
+     */
+    public void getToken() {
+        return;
+    }
+    
 }
