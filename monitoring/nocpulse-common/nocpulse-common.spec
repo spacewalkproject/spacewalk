@@ -15,6 +15,11 @@ Requires(post): /sbin/runuser, openssh
 Obsoletes:     NPusers <= 1.17.50-1
 Obsoletes:     np-config <= 2.110.50-1
 
+Obsoletes:     nslogs < 2.3.0
+Provides:      nslogs = 2.3.0
+Obsoletes:     ConfigPusher-general < 1.3.0
+Provides:      ConfigPusher-general = 1.3.0
+
 %define package_name nocpulse
 %define identity %{_var}/lib/%{package_name}/.ssh/nocpulse-identity
 
@@ -86,6 +91,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 
+- 474551 - obsolete nslogs and ConfigPusher-General
+
 * Tue Nov  4 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.14-1
 - 469708 - obsolete newer np-config
 
