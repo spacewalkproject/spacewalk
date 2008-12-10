@@ -19,6 +19,8 @@ type spacewalk_httpd_log_t;
 logging_log_file(spacewalk_httpd_log_t);
 type spacewalk_data_t;
 files_type(spacewalk_data_t);
+type spacewalk_cache_t;
+files_type(spacewalk_cache_t);
 
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
 allow restorecon_t spacewalk_install_log_t:file { append };
@@ -42,4 +44,7 @@ manage_files_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 manage_dirs_pattern(httpd_t, spacewalk_data_t, spacewalk_data_t)
 
 dontaudit system_mail_t httpd_t:file read;
+
+manage_files_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
+manage_dirs_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
 
