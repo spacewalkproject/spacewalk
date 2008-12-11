@@ -28,9 +28,6 @@ use File::Copy;
 use IPC::Open3;
 use Symbol qw(gensym);
 
-my $ORACLE_HOME = qx{dbhome '*'};
-$ENV{PATH} .= ":$ORACLE_HOME/bin";
-
 my $usage = "usage: $0 --dsn=<dsn> --schema-deploy-file=<filename>"
   . " [ --log=<logfile> ] [ --clear-db ] [ --nofork ] [ --help ]\n";
 
