@@ -71,7 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_bindir}/sqlplus
 %{oraclelibdir}/10.2.0
-%config %{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %{_javadir}/ojdbc14.jar
 
 %post
