@@ -88,7 +88,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 
@@ -102,7 +102,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
 
 %files
 %defattr(-,root,root,0755)
