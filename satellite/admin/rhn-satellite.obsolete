@@ -2,6 +2,6 @@
 
 echo Warning: /etc/init.d/rhn-satellite is obsolete.
 echo Each service has its own init script now. 
-echo The whole suite can be manipulated using command /sbin/rhn-satellite instead.
+echo The whole suite can be manipulated using command /usr/sbin/rhn-satellite instead.
 
 
