@@ -207,14 +207,9 @@ public class LoginAction extends RhnAction {
     }
     
     private void performGracePeriodCheck(HttpServletRequest request) {
-        if (CertificateManager.getInstance().isSatelliteCertInGracePeriod()) {
-                long daysUntilExpiration = (CertificateManager.
-                                            getInstance().
-                                            getGracePeriodEndDate().
-                                            getTime()  -
-                                            System.currentTimeMillis()) /
-                                            86400000;
-     
+        CertificateManager man = CertificateManager.getInstance();
+        if (man.isSatelliteCertInGracePeriod()) {
+                long daysUntilExpiration = man.getDaysLeftBeforeCertExpiration();
                 createSuccessMessage(request,
                                      "satellite.graceperiod",
                                      new Long(daysUntilExpiration).toString());

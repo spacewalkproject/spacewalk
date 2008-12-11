@@ -44,7 +44,6 @@ import com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.manager.satellite.CertificateManager;
 
 /**
  * YourRhnAction
@@ -111,16 +110,7 @@ public class YourRhnAction extends RhnAction {
         PageControl pc = new PageControl();
         pc.setStart(1);
         pc.setPageSize(5);
-        
-        CertificateManager man = CertificateManager.getInstance();
-        if (man.isSatelliteCertInGracePeriod()) {
-            long daysUntilExpiration = (man.getGracePeriodEndDate().getTime()  - 
-                    System.currentTimeMillis()) / 
-                    86400000;
-            createSuccessMessage(request, 
-                    "satellite.graceperiod", 
-                    new Long(daysUntilExpiration).toString()); 
-        }
+                
         if (panes != null && panes.size() > 0) {
             anyListsSelected = true;
             for (Iterator iter = panes.keySet().iterator(); iter.hasNext();) {
