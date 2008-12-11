@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.7
+Version:        0.4.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -73,6 +73,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.8-1
+- resolved #471225 - moved /sbin stuff to /usr/sbin
+
 * Wed Dec  3 2008 Milan Zazrivec 0.4.7-1
 - updated fix for bz #473438
 
