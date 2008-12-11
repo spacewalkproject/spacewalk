@@ -592,7 +592,6 @@ sub oracle_setup_db {
     oracle_upgrade_start_db($opts);
 
     print Spacewalk::Setup::loc("* Setting up Oracle environment.\n");
-    oracle_setup_environment();
 
     oracle_check_for_users_and_groups();
 
@@ -623,19 +622,6 @@ sub oracle_check_for_users_and_groups {
         Spacewalk::Setup::check_users_exist(@required_users);
         Spacewalk::Setup::check_groups_exist(@required_groups);
     }
-}
-
-sub oracle_setup_environment {
-    $ENV{ORACLE_HOME} = qx{dbhome '*'} if (not $ENV{ORACLE_HOME});
-
-    if (not $ENV{ORACLE_HOME}) {
-        print Spacewalk::Setup::loc("Could not locate ORACLE_HOME.\n");
-        exit 1;
-    }
-    $ENV{PATH} .= ':' . $ENV{ORACLE_HOME}
-    if (not $ENV{PATH} =~ /(^|:)$ENV{ORACLE_HOME}(:|$)/);
-
-    return 1;
 }
 
 sub oracle_setup_embedded_db {
