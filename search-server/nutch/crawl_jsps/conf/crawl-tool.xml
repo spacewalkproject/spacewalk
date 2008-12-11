@@ -1,4 +1,4 @@
-<?xml version="1.0" ?> 
+<?xml version="1.0" ?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -43,7 +43,7 @@
 <property>
   <name>fetcher.server.delay</name>
   <value>1.0</value>
-  <description>The number of seconds the fetcher will delay between 
+  <description>The number of seconds the fetcher will delay between
    successive requests to the same server.</description>
 </property>
 

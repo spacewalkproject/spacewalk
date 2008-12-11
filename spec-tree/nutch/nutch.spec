@@ -22,8 +22,8 @@ Nutch is open source web-search software. It builds on Lucene Java, adding web-s
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/nutch
-cp -a * $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/nutch
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/nutch
+cp -a * $RPM_BUILD_ROOT/%{_prefix}/share/nutch
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -31,12 +31,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc %{_prefix}/share/rhn/search/nutch/LICENSE.txt
-%{_prefix}/share/rhn/search/nutch/*
+%doc %{_prefix}/share/nutch/LICENSE.txt
+%{_prefix}/share/nutch/*
 
 
 
 %changelog
-* Tue Dec 9 2008 John Matthews <jmatthews@redhat.com> 0.4.1-1
+* Tue Dec 9 2008 John Matthews <jmatthews@redhat.com> 1.0-0.1.20081201040121nightly
 - initial 
 

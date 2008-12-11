@@ -49,7 +49,7 @@ public class LoginSetupAction extends RhnAction {
             request.setAttribute(HAS_EXPIRED, new Boolean(true));
             return mapping.findForward("default");
         }
-        else if (CertificateManager.getInstance().isSatelliteCertInGracePeriod()) {
+        else if (man.isSatelliteCertInGracePeriod()) {
             long daysUntilExpiration = man.getDaysLeftBeforeCertExpiration();
             createSuccessMessage(request, 
                 "satellite.graceperiod", 

@@ -324,7 +324,7 @@ ORDER BY UPPER(C.name)
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.org_id = :org_id
- ORDER BY CFO.name DESC
+ ORDER BY CFO.name ASC
   </query>
 </mode>
 

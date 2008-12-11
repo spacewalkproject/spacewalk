@@ -49,7 +49,7 @@
 <property>
   <name>http.agent.name</name>
   <value></value>
-  <description>HTTP 'User-Agent' request header. MUST NOT be empty - 
+  <description>HTTP 'User-Agent' request header. MUST NOT be empty -
   please set this to a single word uniquely related to your organization.
 
   NOTE: You should also check other related properties:
@@ -95,7 +95,7 @@
 <property>
   <name>http.agent.url</name>
   <value></value>
-  <description>A URL to advertise in the User-Agent header.  This will 
+  <description>A URL to advertise in the User-Agent header.  This will
    appear in parenthesis after the agent name. Custom dictates that this
    should be a URL of a page explaining the purpose and behavior of this
    crawler.
@@ -114,7 +114,7 @@
 <property>
   <name>http.agent.version</name>
   <value>Nutch-1.0-dev</value>
-  <description>A version string to advertise in the User-Agent 
+  <description>A version string to advertise in the User-Agent
    header.</description>
 </property>
 
@@ -244,7 +244,7 @@
 
 <property>
   <name>ftp.content.limit</name>
-  <value>65536</value> 
+  <value>65536</value>
   <description>The length limit for downloaded content, in bytes.
   If this value is nonnegative (>=0), content longer than it will be truncated;
   otherwise, no truncation at all.
@@ -508,7 +508,7 @@
   <value>false</value>
   <description>If false, same host names are counted. If true,
   hosts' IP addresses are resolved and the same IP-s are counted.
-  
+
   -+-+-+- WARNING !!! -+-+-+-
   When set to true, Generator will create a lot of DNS lookup
   requests, rapidly. This may cause a DOS attack on
@@ -533,14 +533,14 @@
 <property>
   <name>fetcher.server.delay</name>
   <value>5.0</value>
-  <description>The number of seconds the fetcher will delay between 
+  <description>The number of seconds the fetcher will delay between
    successive requests to the same server.</description>
 </property>
 
 <property>
   <name>fetcher.server.min.delay</name>
   <value>0.0</value>
-  <description>The minimum number of seconds the fetcher will delay between 
+  <description>The minimum number of seconds the fetcher will delay between
   successive requests to the same server. This value is applicable ONLY
   if fetcher.threads.per.host is greater than 1 (i.e. the host blocking
   is turned off).</description>
@@ -556,13 +556,13 @@
  amount of time retrieved from robots.txt Crawl-Delay, however long that
  might be.
  </description>
-</property> 
+</property>
 
 <property>
   <name>fetcher.threads.fetch</name>
   <value>10</value>
   <description>The number of FetcherThreads the fetcher should use.
-    This is also determines the maximum number of requests that are 
+    This is also determines the maximum number of requests that are
     made at once (each FetcherThread handles one connection).</description>
 </property>
 
@@ -693,7 +693,7 @@
   in given order. For example, if this property has value:
   org.apache.nutch.indexer.basic.BasicIndexingFilter org.apache.nutch.indexer.more.MoreIndexingFilter
   then BasicIndexingFilter is applied first, and MoreIndexingFilter second.
-  
+
   Filter ordering might have impact on result if one filter depends on output of
   another filter.
   </description>
@@ -891,8 +891,8 @@
   include.  Any plugin not matching this expression is excluded.
   In any case you need at least include the nutch-extensionpoints plugin. By
   default Nutch includes crawling just HTML and plain text via HTTP,
-  and basic indexing and search plugins. In order to use HTTPS please enable 
-  protocol-httpclient, but be aware of possible intermittent problems with the 
+  and basic indexing and search plugins. In order to use HTTPS please enable
+  protocol-httpclient, but be aware of possible intermittent problems with the
   underlying commons-httpclient library.
   </description>
 </property>
@@ -900,7 +900,7 @@
 <property>
   <name>plugin.excludes</name>
   <value></value>
-  <description>Regular expression naming plugin directory names to exclude.  
+  <description>Regular expression naming plugin directory names to exclude.
   </description>
 </property>
 
@@ -959,8 +959,8 @@
 <property>
   <name>parser.html.outlinks.ignore_tags</name>
   <value></value>
-  <description>Comma separated list of HTML tags, from which outlinks 
-  shouldn't be extracted. Nutch takes links from: a, area, form, frame, 
+  <description>Comma separated list of HTML tags, from which outlinks
+  shouldn't be extracted. Nutch takes links from: a, area, form, frame,
   iframe, script, link, img. If you add any of those tags here, it
   won't be taken. Default is empty list. Probably reasonable value
   for most people would be "img,script,link".</description>

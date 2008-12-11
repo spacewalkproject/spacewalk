@@ -2,12 +2,12 @@
 <!--
   This is the authentication configuration file for protocol-httpclient.
   Different credentials for different authentication scopes can be
-  configured in this file. If a set of credentials is configured for a 
+  configured in this file. If a set of credentials is configured for a
   particular authentication scope (i.e. particular host, port number,
   scheme and realm), then that set of credentials would be sent only to
   servers falling under the specified authentication scope. Apart from
   this at most one set of credentials can be configured as 'default'.
-  
+
   When authentication is required to fetch a resource from a web-server,
   the authentication-scope is determined from the host, port, scheme and
   realm (if present) obtained from the URL of the page and the
