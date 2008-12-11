@@ -51,7 +51,7 @@ public class RestartCommandTest extends BaseTestCaseWithUser {
             if (!args[0].equals("/usr/bin/sudo")) {
                 return -2;
             }
-            else if (!args[1].equals("/sbin/rhn-sat-restart-silent")) {
+            else if (!args[1].equals("/usr/sbin/rhn-sat-restart-silent")) {
                 return -3;
             }
             else {

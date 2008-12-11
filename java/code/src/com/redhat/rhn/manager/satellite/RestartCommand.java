@@ -44,7 +44,7 @@ public class RestartCommand extends BaseConfigureCommand
         ValidatorError[] errors = new ValidatorError[1];
         List args = new LinkedList();
         args.add("/usr/bin/sudo");
-        args.add("/sbin/rhn-sat-restart-silent");
+        args.add("/usr/sbin/rhn-sat-restart-silent");
         
         int exitcode = e.execute((String[]) args.toArray(new String[0]));
         if (exitcode != 0) {
