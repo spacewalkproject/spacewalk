@@ -58,6 +58,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
 echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+ln -s %{instantclienthome}/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sqlplus
+
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
 ln -s %{instantclienthome}/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
@@ -66,6 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%{_bindir}/sqlplus
 %{oraclelibdir}/10.2.0
 %config %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %{_javadir}/ojdbc14.jar
