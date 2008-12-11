@@ -16,8 +16,14 @@ package com.redhat.rhn.manager.kickstart.test;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -58,5 +64,26 @@ public class KickstartWizardCommandTest extends BaseTestCaseWithUser {
         
         assertNotNull(cmd.getKickstartableTree(tree.getId()));
     }
+    
+    
+    // This tests a critical bit of functionality
+    // to ensure that when we create a KickstartData we also
+    // create a default KickstartSession that is used for
+    // bare metal/PXE installs and that there is a default key
+    // associated with it.
+    public void testStore() throws Exception {
+        
+        KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
+        KickstartWizardHelper cmd = new KickstartWizardHelper(user);
+        cmd.store(ksdata);
+        KickstartSession ksession = 
+            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata); 
+        assertNotNull(ksession);
+        ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
+        assertNotNull(key);
+        // Make sure its unlimited
+        assertNull(key.getUsageLimit());
+    }
+    
 
 }

@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -182,11 +183,24 @@ public class KickstartWizardHelper {
         ksdata.setOrg(currentUser.getOrg());
         ksdata.setCreated(new Date());
         if (!ksdata.isRawData()) {
-            ksdata.getCommand("url").setCreated(new Date());            
+            ksdata.getOption("url").setCreated(new Date());            
         }
 
         ksdata.getKickstartDefaults().setCreated(new Date());
-        KickstartFactory.saveKickstartData(ksdata);
+        
+        // Setup the default KickstartSession for this KickstartData
+        // We now do this because each profile needs a default key 
+        // associated with it because of the way we store the actual
+        // kickstart files on disk and have them templated through cobbler
+        KickstartSessionCreateCommand kcmd = new KickstartSessionCreateCommand(
+                this.currentUser.getOrg(), ksdata);
+        kcmd.store();
+        
+        KickstartSession ksess = 
+            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(ksdata); 
+        log.debug("Did we create the default session OK? : " +  ksess);
+        
+        KickstartFactory.saveKickstartData(ksdata, ksess);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
             new CobblerProfileCreateCommand(ksdata, currentUser);

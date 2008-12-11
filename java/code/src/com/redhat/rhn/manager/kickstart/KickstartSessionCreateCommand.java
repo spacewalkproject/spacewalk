@@ -48,10 +48,20 @@ public class KickstartSessionCreateCommand {
      * Constructor
      * @param owner who creates the session
      * @param ksdata KickstartData profile used for this session
+     */
+    public KickstartSessionCreateCommand(Org owner, KickstartData ksdata) {
+        this(owner, ksdata, null);
+    }    
+    
+    /**
+     * Constructor
+     * @param owner who creates the session
+     * @param ksdata KickstartData profile used for this session
      * @param clientIp Client IP of the kickstarting system.
      */
     public KickstartSessionCreateCommand(Org owner, KickstartData ksdata, String clientIp) {
         this.ksession = new KickstartSession();
+        this.ksession.setKickstartMode(KickstartSession.MODE_DEFAULT_SESSION);
         this.ksession.setOrg(owner);
         this.ksession.setDeployConfigs(Boolean.FALSE);
         this.ksession.setPackageFetchCount(new Long(0));
@@ -87,7 +97,7 @@ public class KickstartSessionCreateCommand {
         ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user, 
                 ksdata, null, 
                 this.ksession, toolsChannel, BooleanUtils.toBoolean(
-                        ksdata.getKickstartDefaults().getCfgManagementFlag()), note);
+                        ksdata.getKickstartDefaults().getCfgManagementFlag()), null, note);
         log.debug("added key: " + key.getKey());
         
         // Need to add child channels to the key so when kickstarting the 

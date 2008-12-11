@@ -38,6 +38,14 @@ import java.util.TreeMap;
  */
 public class KickstartSession {
 
+    // Indicating this KickstartSession is being 
+    // used for a 'one time' kickstart of a System
+    public static final String MODE_ONETIME = "one_time";
+    
+    // Indicating this KickstartSession is the default session
+    // that is associated with the KickstartData at creation time.
+    public static final String MODE_DEFAULT_SESSION = "default_session";
+    
     private Long id;
     private Long packageFetchCount;
 

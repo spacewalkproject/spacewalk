@@ -643,6 +643,7 @@ public class KickstartFormatter {
         retval.append(NEWLINE);        
         retval.append(NEWLINE);
         
+        log.debug("are there any tokens with this profile?  If so lets render rhnreg_ks");
         if (tokens.size() > 0) {
             log.debug("rhnreg: Adding activation/registration commands.");
             retval.append(ACT_KEY_CMD);
@@ -691,19 +692,20 @@ public class KickstartFormatter {
             log.debug("def reg tokens: " + this.ksdata.getDefaultRegTokens());
         }
         
-        
-        ActivationKey oneTimeKey = this.session == null ? null : 
+        ActivationKey defaultKey = this.session == null ? null : 
             ActivationKeyFactory.lookupByKickstartSession(this.session);
         
+        log.debug("generateActKeyTokens :: defaultKey: " + defaultKey);
+        
         //if we need a reactivation key, add one
-        if (oneTimeKey != null) {
-            log.debug("Session isn't null.  Lets generate a one-time activation key.");
+        if (defaultKey != null) {
+            log.debug("Session isn't null.  Lets use the profile's activation key.");
             //ActivationKey oneTimeKey = ActivationKeyFactory.
             //    lookupByKickstartSession(this.session);
-            if (oneTimeKey != null) {
-                tokens.add(oneTimeKey);
+            if (defaultKey != null) {
+                tokens.add(defaultKey);
                 if (log.isDebugEnabled()) {
-                    log.debug("Found one time activation key: " + oneTimeKey.getKey());
+                    log.debug("Found one time activation key: " + defaultKey.getKey());
                 }
             } 
             else {

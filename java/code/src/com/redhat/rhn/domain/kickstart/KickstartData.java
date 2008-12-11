@@ -696,6 +696,25 @@ public class KickstartData {
     }
  
     /**
+     * Convenience method to find a option (Command) by name stopping at the first match
+     * @param commandName Command name
+     * @return command if found, otherwise null
+     */
+    public KickstartCommand getOption(String commandName) {
+        KickstartCommand retval = null;
+        if (this.options != null && this.options.size() > 0) {
+            for (Iterator iter = this.options.iterator(); iter.hasNext();) {
+                KickstartCommand cmd = (KickstartCommand) iter.next();
+                if (cmd.getCommandName().getName().equals(commandName)) {
+                    retval = cmd;
+                    break;
+                }
+            }
+        }
+        return retval;
+    }
+
+    /**
      * Setter for command Options
      * @param o The Command Options List to set.
      */

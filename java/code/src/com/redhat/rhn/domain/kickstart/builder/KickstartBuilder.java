@@ -34,7 +34,6 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -360,13 +359,8 @@ public class KickstartBuilder {
         buildPreScripts(ksdata, parser.getPreScriptLines());
         buildPostScripts(ksdata, parser.getPostScriptLines());
         
-        
-        KickstartFactory.saveKickstartData(ksdata);
-        log.debug("KSData stored.  Calling cobbler.");
-        CobblerProfileCreateCommand cmd =
-            new CobblerProfileCreateCommand(ksdata, user);
-        cmd.store();
-        log.debug("store() - done.");
+        KickstartWizardHelper cmd = new KickstartWizardHelper(user);
+        cmd.store(ksdata);
         return ksdata;
     }
     

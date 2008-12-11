@@ -643,6 +643,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                      this.kickstartSession,
                                      toolsChannel, 
                                      cfgMgmtFlag,
+                                     1L,
                                      note);
         
         this.createdProfile = processProfileType(this.profileType);
@@ -695,6 +696,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         
         // Setup the KickstartSession
         kickstartSession.setPackageFetchCount(new Long(0));
+        kickstartSession.setKickstartMode(KickstartSession.MODE_ONETIME);
         kickstartSession.setDeployConfigs(deployConfig);
         kickstartSession.setAction(firstAction);
         kickstartSession.setKsdata(this.getKsdata());
@@ -833,6 +835,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @param toolsChannel containing up2date and autokickstart rpms
      * @param deployConfigs if you want to or not
      * @param note to add to key
+     * @param usageLimit to apply to the key.  null for unlimited.
      * @return ActivationKey that has been saved to the DB.
      */
     public static ActivationKey createKickstartActivationKey(User creator, 
@@ -840,14 +843,15 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             Server server,
             KickstartSession session, 
             Channel toolsChannel,             
-            boolean deployConfigs, 
+            boolean deployConfigs,
+            Long usageLimit,
             String note) {
         
         // Now create ActivationKey
         ActivationKey key = ActivationKeyManager.getInstance().
                                 createNewReActivationKey(creator, server, note, session);
         key.setDeployConfigs(deployConfigs);
-        key.setUsageLimit(new Long(1));
+        key.setUsageLimit(usageLimit);
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ActivationKeyFactory.save(key);
         

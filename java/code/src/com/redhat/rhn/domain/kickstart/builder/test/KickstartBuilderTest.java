@@ -367,5 +367,4 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         assertNotNull(urlCmd);
         assertTrue(urlCmd.getArguments().startsWith("http://"));
     }
-    
 }
