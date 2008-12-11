@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %dir %{rhnroot}
-/sbin/rhn-satellite
+%{_sbindir}/rhn-satellite
 %{_initrddir}/rhn-satellite
 %{_bindir}/validate-sat-cert.pl
 %{_bindir}/validate-sat-cert
@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-load-ssl-cert.pl
 %{_bindir}/rhn-deploy-ca-cert.pl
 %{_bindir}/rhn-install-ssl-cert.pl
-/sbin/rhn-sat-restart-silent
+%{_sbindir}/rhn-sat-restart-silent
 %{rhnroot}/RHN-GPG-KEY
 %{_mandir}/man3/validate-sat-cert.3.gz
 

@@ -18,7 +18,7 @@
 # $Id$
 
 BINDIR	  = /usr/bin
-SBINDIR   = /sbin
+SBINDIR   = /usr/sbin
 INITDIR   = /etc/rc.d/init.d
 GPGKEYDIR = /usr/share/rhn
 
