@@ -8,7 +8,7 @@
 
 Name:           spacewalk-selinux
 Version:        0.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -111,6 +111,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-6
+- resolved #471225 - moved rhn-sat-restart-silent to /usr/sbin
+
 * Wed Dec 10 2008 Jan Pazdziora 0.4.1-5
 - added type for /var/cache/rhn
 - registering clients, using yum, and kickstarting works now
