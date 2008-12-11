@@ -18,7 +18,7 @@
 				<source>Failed</source>
 				<target>Falhou</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Update Entitled Servers">
+			<trans-unit id="RHN Update Entitled Servers">
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
@@ -30,11 +30,11 @@
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Demo Entitled Servers">
+			<trans-unit id="RHN Demo Entitled Servers">
 				<source>Demo</source>
 				<target>Demo</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Management Entitled Servers">
+			<trans-unit id="RHN Management Entitled Servers">
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
@@ -46,7 +46,7 @@
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Provisioning Entitled Servers">
+			<trans-unit id="RHN Provisioning Entitled Servers">
 				<source>Provisioning</source>
 				<target>Provisioning</target>
 			</trans-unit>
@@ -70,7 +70,7 @@
 				<source>Non-Linux</source>
 				<target>Não-Linux</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Monitoring Entitled Servers">
+			<trans-unit id="RHN Monitoring Entitled Servers">
 				<source>Monitoring</source>
 				<target>Monitoring</target>
 			</trans-unit>
@@ -235,32 +235,32 @@
 				<target>Domínio de mail (ex.: 'redhat.com' para 'meuemail@redhat.com)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>@@PRODUCT_NAME@@ administrator email</source>
-				<target>E-mail do Administrador do @@PRODUCT_NAME@@ do @@PRODUCT_NAME@@</target>
+				<source>RHN Satellite administrator email</source>
+				<target>E-mail do Administrador do Satellite do RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>@@PRODUCT_NAME@@ database name</source>
-				<target>Nome do banco de dados do @@PRODUCT_NAME@@</target>
+				<source>RHN database name</source>
+				<target>Nome do banco de dados do RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>@@PRODUCT_NAME@@ database password</source>
-				<target>Senha do banco de dados do @@PRODUCT_NAME@@</target>
+				<source>RHN database password</source>
+				<target>Senha do banco de dados do RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>@@PRODUCT_NAME@@ Database table owner</source>
-				<target>Proprietário da tabela do banco de dados do @@PRODUCT_NAME@@</target>
+				<source>RHN Database table owner</source>
+				<target>Proprietário da tabela do banco de dados do RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>@@PRODUCT_NAME@@ database username</source>
-				<target>Nome de usuário do banco de dados do @@PRODUCT_NAME@@</target>
+				<source>RHN database username</source>
+				<target>Nome de usuário do banco de dados do RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
-				<target>Nome da máquina do @@PRODUCT_NAME@@ do @@PRODUCT_NAME@@ (FQDN)</target>
+				<source>RHN Satellite hostname (FQDN)</source>
+				<target>Nome da máquina do Satellite do RHN (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
-				<target>Porta do servidor web do @@PRODUCT_NAME@@ do @@PRODUCT_NAME@@ (80 para http, 443 para https)</target>
+				<source>RHN Satellite webserver port (80 for http, 443 for https)</source>
+				<target>Porta do servidor web do Satellite do RHN (80 para http, 443 para https)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2250,9 +2250,9 @@
 				<source>Oracle</source>
 				<target>Oracle</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
+			<trans-unit id="Satellite">
+				<source>Satellite</source>
+				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2559,8 @@
 				<target>O sistema foi reiniciado a fim de iniciar o processo de kickstart.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-				<target>O sistema baixou o arquivo de configuração do kickstart a partir do @@PRODUCT_NAME@@.</target>
+				<source>The system has downloaded the kickstart configuration file from RHN.</source>
+				<target>O sistema baixou o arquivo de configuração do kickstart a partir do RHN.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>O sistema está baixando os RPMs necessários para a instalação.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-				<target>O sistema registrou-se ao @@PRODUCT_NAME@@ com sucesso após o kickstart.</target>
+				<source>The system has successfully registered with RHN after kickstarting.</source>
+				<target>O sistema registrou-se ao RHN com sucesso após o kickstart.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

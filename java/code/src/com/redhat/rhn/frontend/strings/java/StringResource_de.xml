@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>Tipp</target>
 			</trans-unit>
-			<trans-unit id="About Spacewalk">
-				<source>About</source>
-				<target>&amp;Uuml;ber @@PRODUCT_NAME@@</target>
+			<trans-unit id="About RHN">
+				<source>About RHN</source>
+				<target>&amp;Uuml;ber RHN</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -258,9 +258,9 @@
 				<source>Config Channels</source>
 				<target>Konfig-Channels</target>
 			</trans-unit>
-			<trans-unit id="Contact Spacewalk">
-				<source>Contact @@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@ kontaktieren</target>
+			<trans-unit id="Contact RHN">
+				<source>Contact RHN</source>
+				<target>RHN kontaktieren</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -334,9 +334,9 @@
 				<source>File Preservation</source>
 				<target>Dateierhaltung</target>
 			</trans-unit>
-			<trans-unit id="Get Spacewalk Software">
-				<source>Get @@PRODUCT_NAME@@ Software</source>
-				<target>@@PRODUCT_NAME@@-Software erhalten</target>
+			<trans-unit id="Get RHN Software">
+				<source>Get RHN Software</source>
+				<target>RHN-Software erhalten</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,17 +394,17 @@
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk Guide">
-				<source>Management @@PRODUCT_NAME@@ Guide</source>
-				<target>Management @@PRODUCT_NAME@@-Handbuch</target>
+			<trans-unit id="Management Satellite Guide">
+				<source>Management Satellite Guide</source>
+				<target>Management Satellite-Handbuch</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk">
-				<source>Management @@PRODUCT_NAME@@</source>
-				<target>Management @@PRODUCT_NAME@@</target>
+			<trans-unit id="Management Satellite">
+				<source>Management Satellite</source>
+				<target>Management Satellite</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
-				<target>Management @@PRODUCT_NAME@@ Release Notes</target>
+			<trans-unit id="Management Satellite Release Notes">
+				<source>Management Satellite Release Notes</source>
+				<target>Management Satellite Release Notes</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -526,21 +526,29 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL-Migration FAQ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Management Tools">
-				<source>@@PRODUCT_NAME@@ Management Tools</source>
-				<target>@@PRODUCT_NAME@@ Management Tools</target>
+			<trans-unit id="RHN Management Satellite Tools">
+				<source>RHN Management Satellite Tools</source>
+				<target>RHN Management Satellite Tools</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Login">
-				<source>@@PRODUCT_NAME@@ Login</source>
-				<target>@@PRODUCT_NAME@@ Login</target>
+			<trans-unit id="RHN Security">
+				<source>RHN Security</source>
+				<target>RHN Sicherheit</target>
+			</trans-unit>
+			<trans-unit id="Red Hat Login">
+				<source>Red Hat Login</source>
+				<target>Red Hat Login</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>Login erstellen</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Support Tools">
-				<source>@@PRODUCT_NAME@@ Support Tools</source>
-				<target>@@PRODUCT_NAME@@ Support Tools</target>
+			<trans-unit id="RHN Support Tools">
+				<source>RHN Support Tools</source>
+				<target>RHN Support Tools</target>
+			</trans-unit>
+			<trans-unit id="Satellite Release Notes">
+				<source>Satellite Release Notes</source>
+				<target>Satellite Release Notes</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -730,6 +738,10 @@
 				<source>Your Preferences</source>
 				<target>Ihre Pr&amp;auml;ferenzen</target>
 			</trans-unit>
+			<trans-unit id="Your RHN">
+				<source>Your RHN</source>
+				<target>Ihr RHN</target>
+			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>Organisations-Anw&amp;auml;rter</target>
@@ -750,13 +762,13 @@
 				<source>Organization Administrators</source>
 				<target>Organisations-Administratoren</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Administrators">
-				<source>@@PRODUCT_NAME@@ Administrators</source>
-				<target>@@PRODUCT_NAME@@-Administratoren</target>
+			<trans-unit id="Satellite Administrators">
+				<source>Satellite Administrators</source>
+				<target>Satellite-Administratoren</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Super Users">
-				<source>@@PRODUCT_NAME@@ Super Users</source>
-				<target>@@PRODUCT_NAME@@-Superuser</target>
+			<trans-unit id="RHN Super Users">
+				<source>RHN Super Users</source>
+				<target>RHN-Superuser</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1175,11 +1187,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
+entitlements for the 'rhn-tools' software channel from your Satellite administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+channel is available to your Satellite. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1200,13 +1212,13 @@ available for this kickstart profile to function properly.
 &lt;li&gt;
 Steht Ihrer Organisation der Child-Software-Channel 'rhn-tools' f&amp;uuml;r den
 Basis-Channel dieses Kickstart-Profils zur Verf&amp;uuml;gung? Falls nicht, m&amp;uuml;ssen Sie sich
-Berechtigungen f&amp;uuml;r den Software-Channel 'rhn-tools' von Ihrem @@PRODUCT_NAME@@-Administrator
+Berechtigungen f&amp;uuml;r den Software-Channel 'rhn-tools' von Ihrem Satellite-Administrator
 einholen.
 &lt;/li&gt;
 &lt;li&gt;
 Stellen Sie sicher, dass der Sub-Channel 'rhn-tools' f&amp;uuml;r den Basis-Channel
-dieses Kickstart-Profils f&amp;uuml;r Ihren @@PRODUCT_NAME@@ zur Verf&amp;uuml;gung steht. Ist dies nicht der Fall,
-kontaktieren Sie Ihren @@PRODUCT_NAME@@-Administrator und fragen nach einem
+dieses Kickstart-Profils f&amp;uuml;r Ihren Satellite zur Verf&amp;uuml;gung steht. Ist dies nicht der Fall,
+kontaktieren Sie Ihren Satellite-Administrator und fragen nach einem
 'satellite-sync' f&amp;uuml;r den Channel 'rhn-tools' und versuchen es erneut.
 &lt;/li&gt;
 &lt;li&gt;
@@ -1351,16 +1363,16 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Solaris Paketliste neu laden</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
-				<target>@@PRODUCT_NAME@@ Daemon-Konfiguration</target>
+				<source>RHN Daemon Configuration</source>
+				<target>RHN Daemon-Konfiguration</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>Eingesetzte Pakete verifizieren</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
-				<target>Erm&amp;ouml;glicht rhn-applet-Verwendung mit einem @@PRODUCT_NAME@@</target>
+				<source>Allows for rhn-applet use with an RHN Satellite</source>
+				<target>Erm&amp;ouml;glicht rhn-applet-Verwendung mit einem RHN Satellite</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1447,8 +1459,8 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Organisations-Administrator</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>@@PRODUCT_NAME@@ Administrator</source>
-				<target>@@PRODUCT_NAME@@-Administrator</target>
+				<source>Satellite Administrator</source>
+				<target>Satellite-Administrator</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1459,8 +1471,8 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Channel-Administrator</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>@@PRODUCT_NAME@@ Superuser</source>
-				<target>@@PRODUCT_NAME@@ Superuser</target>
+				<source>Red Hat Network Superuser</source>
+				<target>Red Hat Network Superuser</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1475,8 +1487,8 @@ f&amp;uuml;r dieses Kickstart-Profil verf&amp;uuml;gbar machen, damit es ordnung
 				<target>Coma CMS Publisher</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>@@PRODUCT_NAME@@ Support Administrator</source>
-				<target>@@PRODUCT_NAME@@ Support Administrator</target>
+				<source>Red Hat Network Support Administrator</source>
+				<target>Red Hat Network Support Administrator</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2019,16 +2031,16 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Letzte System-Anmeldung:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current @@PRODUCT_NAME@@ time:</source>
-				<target>Aktuelle @@PRODUCT_NAME@@-Zeit:</target>
+				<source>Current RHN time:</source>
+				<target>Aktuelle RHN-Zeit:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>Gesch&amp;auml;tzte Anmeldezeit:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Dieses System hat sich in letzter Zeit nicht bei @@PRODUCT_NAME@@ angemeldet.  Da ein System nicht aktualisiert werden kann, wenn es sich nicht bei @@PRODUCT_NAME@@ anmeldet, ist es unwahrscheinlich, dass diese Aktion erfolgreich ist.&lt;br/&gt;&lt;br/&gt;&amp;Uuml;berpr&amp;uuml;fen Sie bitte das System und versichern Sie sich, dass rhnsd ausgef&amp;uuml;hrt wird (&lt;a href="/help/faq.pxt#15"&gt;Mehr Info&lt;/a&gt;).  Wenn der Daemon nicht l&amp;auml;uft, &lt;a href="/help/contact.pxt"&gt;kontaktieren Sie uns&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;ANMERKUNG:&lt;/strong&gt; Dieses System hat sich in letzter Zeit nicht bei Red Hat Network angemeldet.  Da ein System nicht aktualisiert werden kann, wenn es sich nicht bei RHN anmeldet, ist es unwahrscheinlich, dass diese Aktion erfolgreich ist.&lt;br/&gt;&lt;br/&gt;&amp;Uuml;berpr&amp;uuml;fen Sie bitte das System und versichern Sie sich, dass rhnsd ausgef&amp;uuml;hrt wird (&lt;a href="/help/faq.pxt#15"&gt;Mehr Info&lt;/a&gt;).  Wenn der Daemon nicht l&amp;auml;uft, &lt;a href="/help/contact.pxt"&gt;kontaktieren Sie uns&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2107,8 +2119,8 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Sekunden</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>Installation von Patch-Cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; wurde &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;eingeplant&lt;/a&gt;.</target>
+				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>Installation von Patch-Cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; wurde &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;eingeplant&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2226,9 +2238,9 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<source>General Config</source>
 				<target>Allgemeine Konfig</target>
 			</trans-unit>
-			<trans-unit id="Admin">
-				<source>Admin</source>
-				<target>@@PRODUCT_NAME@@-Tools</target>
+			<trans-unit id="Satellite Tools">
+				<source>Satellite Tools</source>
+				<target>Satellite-Tools</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2275,8 +2287,8 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Sie haben erfolgreich eine Paketprofil-Synchronisation f&amp;uuml;r &lt;strong&gt;{2}&lt;/strong&gt; von &lt;strong&gt;{3}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;eingeplant&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;HINWEIS:&lt;/strong&gt;Das @@PRODUCT_NAME@@ hat eine Hardwareaktualisierung f&amp;uuml;r &lt;strong&gt;{2}&lt;/strong&gt; &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;geplant&lt;/a&gt;, die vor der Paketprofil-Synchronisation durchgef&amp;uuml;hrt werden muss.  Dies ist erforderlich um zu verifizieren, dass das System in der Lage ist, Pakete zu vergleichen.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;HINWEIS:&lt;/strong&gt;Das Red Hat Network hat eine Hardwareaktualisierung f&amp;uuml;r &lt;strong&gt;{2}&lt;/strong&gt; &lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;geplant&lt;/a&gt;, die vor der Paketprofil-Synchronisation durchgef&amp;uuml;hrt werden muss.  Dies ist erforderlich um zu verifizieren, dass das System in der Lage ist, Pakete zu vergleichen.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3339,24 +3351,24 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Neustart</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>Sie haben Ihren ersten Benutzer f&amp;uuml;r den @@PRODUCT_NAME@@-Service erstellt.  Weitere Konfigurationen sollten durch &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;Hier klicken&lt;/strong&gt;&lt;/a&gt; fertiggestellt werden.</target>
+				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>Sie haben Ihren ersten Benutzer f&amp;uuml;r den RHN Satellite-Service erstellt.  Weitere Konfigurationen sollten durch &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;Hier klicken&lt;/strong&gt;&lt;/a&gt; fertiggestellt werden.</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
-				<target>Ihr @@PRODUCT_NAME@@-Zertifikat ist abgelaufen.  Bitte setzen Sie sich mit Red Hat in Verbindung f&amp;uuml;r ein neues Zertifikat.</target>
+				<target>Ihr Satellite-Zertifikat ist abgelaufen.  Bitte setzen Sie sich mit Red Hat in Verbindung f&amp;uuml;r ein neues Zertifikat.</target>
 			</trans-unit>
 			<trans-unit id="satellite.graceperiod">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.  Your satellite will become inactive in {0} day(s).</source>
-				<target>Ihr @@PRODUCT_NAME@@-Zertifikat ist abgelaufen.  Bitte setzen Sie sich mit Red Hat in Verbindung f&amp;uuml;r ein neues Zertifikat.  Ihr @@PRODUCT_NAME@@ wird in {0} Tag(en) inaktiv.</target>
+				<target>Ihr Satellite-Zertifikat ist abgelaufen.  Bitte setzen Sie sich mit Red Hat in Verbindung f&amp;uuml;r ein neues Zertifikat.  Ihr Satellite wird in {0} Tag(en) inaktiv.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.nocert">
 				<source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
 				<target>Es wurde kein Zertifikat gefunden.  Bitte w&amp;auml;hlen Sie eine lokale Zertifikat-Datei oder f&amp;uuml;gen Sie Inhalte in das Formular ein.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
-				<target>Das Zertifikat wurde hochgeladen.  Der @@PRODUCT_NAME@@ wurde reaktiviert.</target>
+				<source>Certificate uploaded.  Satellite has been re-activated.</source>
+				<target>Das Zertifikat wurde hochgeladen.  Der Satellite wurde reaktiviert.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3367,8 +3379,8 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Zertifikat ist abgelaufen</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
-				<target>Unbekannte @@PRODUCT_NAME@@-Version</target>
+				<source>Unknown Satellite version</source>
+				<target>Unbekannte Satellite-Version</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3387,28 +3399,28 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Keine &amp;uuml;brigen Management-Berechtigungen</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>@@PRODUCT_NAME@@ channel not found</source>
-				<target>@@PRODUCT_NAME@@-Channel nicht gefunden</target>
+				<source>Satellite channel not found</source>
+				<target>Satellite-Channel nicht gefunden</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
-				<target>Keine &amp;uuml;brigen @@PRODUCT_NAME@@-Channel-Berechtigungen</target>
+				<source>No Satellite channel entitlements remaining</source>
+				<target>Keine &amp;uuml;brigen Satellite-Channel-Berechtigungen</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
-				<target>Ung&amp;uuml;ltiges @@PRODUCT_NAME@@-Zertifikat</target>
+				<source>Invalid Satellite certificate</source>
+				<target>Ung&amp;uuml;ltiges Satellite-Zertifikat</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>Unbekannter Aktivierungsfehler</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
-				<target>@@PRODUCT_NAME@@ hat keinen Basis-Channel auf dem &amp;uuml;bergeordneten Server</target>
+				<source>Satellite has no base channel on parent server</source>
+				<target>Satellite hat keinen Basis-Channel auf dem &amp;uuml;bergeordneten Server</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
-				<target>Kein @@PRODUCT_NAME@@-Channel f&amp;uuml;r diese Version verf&amp;uuml;gbar</target>
+				<source>No Satellite channel available for this version</source>
+				<target>Kein Satellite-Channel f&amp;uuml;r diese Version verf&amp;uuml;gbar</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3419,8 +3431,8 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 				<target>Unbehandelter Fehler</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>@@PRODUCT_NAME@@ server hostname</source>
-				<target>@@PRODUCT_NAME@@-Server Hostname</target>
+				<source>Satellite server hostname</source>
+				<target>Satellite-Server Hostname</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3460,27 +3472,27 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.error">
 				<source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
-				<target>Es kam zu einem Fehler beim Neustart des @@PRODUCT_NAME@@.  Er kann manuell von der Konsole durch Eingabe des Befehl: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt; neu gestartet werden.  Bitte kontaktieren Sie unseren Kundendienst f&amp;uuml;r mehr Informationen.</target>
+				<target>Es kam zu einem Fehler beim Neustart des Satellite.  Er kann manuell von der Konsole durch Eingabe des Befehl: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt; neu gestartet werden.  Bitte kontaktieren Sie unseren Kundendienst f&amp;uuml;r mehr Informationen.</target>
 			</trans-unit>
 			<trans-unit id="config.storeconfig.error">
 				<source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
-				<target>Ein Fehler trat auf und die &amp;Auml;nderungen Ihrer @@PRODUCT_NAME@@-Konfiguration konnten nicht gespeichert werden. Bitte kontaktieren Sie unseren Support f&amp;uuml;r mehr Informationen</target>
+				<target>Ein Fehler trat auf und die &amp;Auml;nderungen Ihrer Satellite-Konfiguration konnten nicht gespeichert werden. Bitte kontaktieren Sie unseren Support f&amp;uuml;r mehr Informationen</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Der @@PRODUCT_NAME@@ wird neu gestartet. Wird diese Seite nicht in 5 Minuten aktualisieren, versuchen Sie es &lt;a href="/rhn/YourRhn.do"&gt;hier&lt;/a&gt; ansonsten manuell. </target>
+				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>Der Satellite wird neu gestartet. Wird diese Seite nicht in 5 Minuten aktualisieren, versuchen Sie es &lt;a href="/rhn/YourRhn.do"&gt;hier&lt;/a&gt; ansonsten manuell. </target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
-				<target>Bitte best&amp;auml;tigen Sie, dass Sie den @@PRODUCT_NAME@@-@@PRODUCT_NAME@@ neu starten wollen, durch Ankreuzen der Box in dem sich darunter befindenden Formular.</target>
+				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
+				<target>Bitte best&amp;auml;tigen Sie, dass Sie den RHN-Satellite neu starten wollen, durch Ankreuzen der Box in dem sich darunter befindenden Formular.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>@@PRODUCT_NAME@@ has been restarted.</source>
-				<target>Der @@PRODUCT_NAME@@ wurde neu gestartet.</target>
+				<source>RHN Satellite has been restarted.</source>
+				<target>Der RHN Satellite wurde neu gestartet.</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
-				<target>@@PRODUCT_NAME@@-Monitoring-Scout</target>
+				<source>RHN Monitoring Scout</source>
+				<target>RHN-Monitoring-Scout</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3573,7 +3585,7 @@ Benutzers vor dem Versuch, den Account zu deaktivieren.</target>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with @@PRODUCT_NAME@@:
+The following systems recently stopped checking in with Red Hat Network:
 
 {0}
 
@@ -3584,7 +3596,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>System checkt nicht ein:
 -------------------------
-Die folgenden Systeme haben vor kurzem aufgeh&amp;ouml;rt, sich bei @@PRODUCT_NAME@@ einzuchecken:
+Die folgenden Systeme haben vor kurzem aufgeh&amp;ouml;rt, sich bei Red Hat Network einzuchecken:
 
 {0}
 
@@ -3699,16 +3711,16 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>System &lt;strong&gt; {0} &lt;/strong&gt; kann nicht gekickstartet werden, weil es keinen Basis-Channel hat.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target>Sie besitzen keine &amp;uuml;brigen Abonnements f&amp;uuml;r den @@PRODUCT_NAME@@-Provisioning-Channel f&amp;uuml;r den derzeitigen Basis-Channel dieses Systems.</target>
+				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
+				<target>Sie besitzen keine &amp;uuml;brigen Abonnements f&amp;uuml;r den RHN-Provisioning-Channel f&amp;uuml;r den derzeitigen Basis-Channel dieses Systems.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target>Sie besitzen keine &amp;uuml;brigen Abonnements f&amp;uuml;r den @@PRODUCT_NAME@@-Provisioning-Channel f&amp;uuml;r den derzeitigen Basis-Channel dieses Systems.</target>
+				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
+				<target>Sie besitzen keine &amp;uuml;brigen Abonnements f&amp;uuml;r den RHN-Provisioning-Channel f&amp;uuml;r den derzeitigen Basis-Channel dieses Systems.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>Konnte die gebrauchten @@PRODUCT_NAME@@ Provisioning-Pakete angesichts des aktuellen Basis-Channel dieses Systems und gew&amp;uuml;nschten Ziel-Channel nicht finden: {0}</target>
+				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>Konnte die gebrauchten RHN Provisioning-Pakete angesichts des aktuellen Basis-Channel dieses Systems und gew&amp;uuml;nschten Ziel-Channel nicht finden: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3727,8 +3739,8 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>Eine neue Kickstart-Sitzung wurde f&amp;uuml;r dieses System initiiert.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>Die @@PRODUCT_NAME@@ Tool-Channels konnten nicht nachgeschlagen werden f&amp;uuml;r &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</target>
+				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<target>Die Red Hat Network Tool-Channels konnten nicht nachgeschlagen werden f&amp;uuml;r &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3743,8 +3755,8 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>Wir ben&amp;ouml;tigen die Version {0} oder h&amp;ouml;her von up2date um ein System zu kickstarten.  Dieses System hat {1} installiert, aber wir konnten in den Channels dieses Systems keine Version von up2date finden um es auf die ben&amp;ouml;tigte Version oder h&amp;ouml;her zu aktualisieren.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>Das Gastsystem hat in den vergangenen {0} Minuten nicht mit dem @@PRODUCT_NAME@@ kommuniziert. Der Installationsprozess schreitet m&amp;ouml;glicherweise aufgrund von Hardware-Einschr&amp;auml;nkungen langsam voran oder hat sich aufgeh&amp;auml;ngt.&lt;p/&gt;Sie k&amp;ouml;nnen die Ursache dieses Problem ggf. beheben, indem Sie auf dem Host-System &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ausf&amp;uuml;hren. Mit Hilfe dieses Befehls k&amp;ouml;nnen Sie sich mit der Textkonsole des Guests w&amp;auml;hrend der Installation verbinden und so zus&amp;auml;tzliche Informationen &amp;uuml;ber den Installationsstatus des Gastsystems erhalten.</target>
+				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>Das Gastsystem hat in den vergangenen {0} Minuten nicht mit dem Satellite kommuniziert. Der Installationsprozess schreitet m&amp;ouml;glicherweise aufgrund von Hardware-Einschr&amp;auml;nkungen langsam voran oder hat sich aufgeh&amp;auml;ngt.&lt;p/&gt;Sie k&amp;ouml;nnen die Ursache dieses Problem ggf. beheben, indem Sie auf dem Host-System &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ausf&amp;uuml;hren. Mit Hilfe dieses Befehls k&amp;ouml;nnen Sie sich mit der Textkonsole des Guests w&amp;auml;hrend der Installation verbinden und so zus&amp;auml;tzliche Informationen &amp;uuml;ber den Installationsstatus des Gastsystems erhalten.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -4079,8 +4091,8 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; wurde angepingt. Der OSA-Status wird innerhalb der n&amp;auml;chsten Minuten aktualisiert.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN Applet @@PRODUCT_NAME@@ Aktivierung &lt;a href="{0}"&gt;geplant&lt;/a&gt;</target>
+				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet Satellite Aktivierung &lt;a href="{0}"&gt;geplant&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4119,56 +4131,56 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>Keine Dateien oder Verzeichnisse wurden zum Abgleich ausgew&amp;auml;hlt. [&lt;a href="{1}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von 1 Datei auf dem System wurde mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{1}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von 1 Datei auf dem System wurde mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{1}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von {1} Dateien auf dem System wurden mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{2}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von {1} Dateien auf dem System wurden mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{2}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von 1 Verzeichnis auf dem System wurde mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{1}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von 1 Verzeichnis auf dem System wurde mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{1}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von {1} Verzeichnissen auf dem System wurden mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{2}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von {1} Verzeichnissen auf dem System wurden mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{2}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von 1 Datei und {1} Verzeichnis auf dem System wurde mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{2}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von 1 Datei und {1} Verzeichnis auf dem System wurde mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{2}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von 1 Datei und {1} von {2} Verzeichnis auf dem System wurde mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von 1 Datei und {1} von {2} Verzeichnis auf dem System wurde mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von @@PRODUCT_NAME@@ gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} von {1} Datei und {2} von 1 Verzeichnis auf dem System wurden mit den von RHN gemanagten Dateien und Verzeichnisse erfolgreich abgeglichen. [&lt;a href="{3}"&gt;Details ansehen&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target>Keine bereits vorhandenen Dateien des bestehenden Systems unterschieden sich von den von @@PRODUCT_NAME@@ gemanagten Dateien.</target>
+				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
+				<target>Keine bereits vorhandenen Dateien des bestehenden Systems unterschieden sich von den von RHN gemanagten Dateien.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-				<target>1 von 1 Datei auf dem System unterschied sich von den von @@PRODUCT_NAME@@ gemanagten Dateien</target>
+				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
+				<target>1 von 1 Datei auf dem System unterschied sich von den von RHN gemanagten Dateien</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target>{0} von {1} Dateien auf dem System unterschieden sich von den von @@PRODUCT_NAME@@ gemanagten Dateien.</target>
+				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
+				<target>{0} von {1} Dateien auf dem System unterschieden sich von den von RHN gemanagten Dateien.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4407,16 +4419,16 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>Eine Datei namens "{0}" existiert bereits in diesem Channel.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>Das System konnte den Channel "@@PRODUCT_NAME@@ Tools" nicht automatisch abonnieren. Dieser Channel enth&amp;auml;lt die f&amp;uuml;r Virtualisierung ben&amp;ouml;tigten Pakete. Die Ursache liegt mit hoher Wahrscheinlichkeit an fehlenden Channel-Berechtigungen.</target>
+				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>Das System konnte den Channel "Red Hat Network Tools" nicht automatisch abonnieren. Dieser Channel enth&amp;auml;lt die f&amp;uuml;r Virtualisierung ben&amp;ouml;tigten Pakete. Die Ursache liegt mit hoher Wahrscheinlichkeit an fehlenden Channel-Berechtigungen.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>Das System konnte den Channel "RHEL Virtualisierung" nicht automatisch abonnieren. Dieser Channel enth&amp;auml;lt die f&amp;uuml;r Virtualisierung ben&amp;ouml;tigten Pakete. Die Ursache liegt mit hoher Wahrscheinlichkeit an fehlenden Channel-Berechtigungen.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
-				<target>Konnte das Paket {0} nicht im Channel &lt;strong&gt;{1}&lt;/strong&gt; finden, welches zur Durchf&amp;uuml;hrung von Virtualisierung mit dem @@PRODUCT_NAME@@ ben&amp;ouml;tigt wird.</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
+				<target>Konnte das Paket {0} nicht im Channel &lt;strong&gt;{1}&lt;/strong&gt; finden, welches zur Durchf&amp;uuml;hrung von Virtualisierung mit dem Red Hat Network ben&amp;ouml;tigt wird.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
@@ -4592,7 +4604,7 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.defaultorg">
 				<source>You are not allowed to update entitlements in the Default Org.  These entitlements are determined by your satellite certificate file.</source>
-				<target>Sie d&amp;uuml;rfen keine Berechtigungen in der Default-Org aktualisieren.  Diese Berechtigungen werden durch die Zertifikat-Datei Ihres @@PRODUCT_NAME@@ bestimmt.</target>
+				<target>Sie d&amp;uuml;rfen keine Berechtigungen in der Default-Org aktualisieren.  Diese Berechtigungen werden durch die Zertifikat-Datei Ihres Satellite bestimmt.</target>
 			</trans-unit>
 			<trans-unit id="groupAdmins">
 				<source>Group Admins</source>

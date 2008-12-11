@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>ਟਿੱਪਣੀ</target>
 			</trans-unit>
-			<trans-unit id="About Spacewalk">
-				<source>About</source>
-				<target>@@PRODUCT_NAME@@ ਬਾਰੇ</target>
+			<trans-unit id="About RHN">
+				<source>About RHN</source>
+				<target>RHN ਬਾਰੇ</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -258,9 +258,9 @@
 				<source>Config Channels</source>
 				<target>ਸੰਰਚਨਾ ਚੈਨਲ</target>
 			</trans-unit>
-			<trans-unit id="Contact Spacewalk">
-				<source>Contact @@PRODUCT_NAME@@</source>
-				<target>ਸੰਪਰਕ @@PRODUCT_NAME@@</target>
+			<trans-unit id="Contact RHN">
+				<source>Contact RHN</source>
+				<target>ਸੰਪਰਕ RHN</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -334,9 +334,9 @@
 				<source>File Preservation</source>
 				<target>ਫਾਇਲ ਸੁਰੱਖਿਆ</target>
 			</trans-unit>
-			<trans-unit id="Get Spacewalk Software">
-				<source>Get @@PRODUCT_NAME@@ Software</source>
-				<target>@@PRODUCT_NAME@@ ਸਾਫਟਵੇਅਰ ਲਵੋ</target>
+			<trans-unit id="Get RHN Software">
+				<source>Get RHN Software</source>
+				<target>RHN ਸਾਫਟਵੇਅਰ ਲਵੋ</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,16 +394,16 @@
 				<source>Management</source>
 				<target>ਪਰਬੰਧਨ</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk Guide">
-				<source>Management @@PRODUCT_NAME@@ Guide</source>
+			<trans-unit id="Management Satellite Guide">
+				<source>Management Satellite Guide</source>
 				<target>ਪਰਬੰਧਨ ਸੈਟੇਲਾਈਟ ਗਾਈਡ</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk">
-				<source>Management @@PRODUCT_NAME@@</source>
+			<trans-unit id="Management Satellite">
+				<source>Management Satellite</source>
 				<target>ਪਰਬੰਧਨ ਸੈਟੇਲਾਈਟ</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+			<trans-unit id="Management Satellite Release Notes">
+				<source>Management Satellite Release Notes</source>
 				<target>ਪਰਬੰਧਨ ਸੈਟੇਲਾਈਟ ਜਾਰੀ ਸੂਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
@@ -526,21 +526,29 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL ਬਦਲ ਸਵਾਲ-ਜਵਾਬ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Management Tools">
-				<source>@@PRODUCT_NAME@@ Management Tools</source>
-				<target>@@PRODUCT_NAME@@ ਪਰਬੰਧਨ ਸੈਟੇਲਾਈਟ ਸੰਦ</target>
+			<trans-unit id="RHN Management Satellite Tools">
+				<source>RHN Management Satellite Tools</source>
+				<target>RHN ਪਰਬੰਧਨ ਸੈਟੇਲਾਈਟ ਸੰਦ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Login">
-				<source>@@PRODUCT_NAME@@ Login</source>
-				<target>@@PRODUCT_NAME@@ ਲਾਗਇਨ</target>
+			<trans-unit id="RHN Security">
+				<source>RHN Security</source>
+				<target>RHN ਸੁਰੱਖਿਆ</target>
+			</trans-unit>
+			<trans-unit id="Red Hat Login">
+				<source>Red Hat Login</source>
+				<target>Red Hat ਲਾਗਇਨ</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>ਲਾਗਇਨ ਬਣਾਓ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Support Tools">
-				<source>@@PRODUCT_NAME@@ Support Tools</source>
-				<target>@@PRODUCT_NAME@@ ਸਹਾਇਕ ਸੰਦ</target>
+			<trans-unit id="RHN Support Tools">
+				<source>RHN Support Tools</source>
+				<target>RHN ਸਹਾਇਕ ਸੰਦ</target>
+			</trans-unit>
+			<trans-unit id="Satellite Release Notes">
+				<source>Satellite Release Notes</source>
+				<target>ਸੈਟੇਲਾਈਟ ਜਾਰੀ ਸੂਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -732,6 +740,10 @@
 				<source>Your Preferences</source>
 				<target>ਮੇਰੀ ਪਸੰਦ</target>
 			</trans-unit>
+			<trans-unit id="Your RHN">
+				<source>Your RHN</source>
+				<target>ਤੁਹਾਡਾ RHN</target>
+			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>ਸੰਗਠਨ ਕਾਰਜ-ਸਾਧਕ</target>
@@ -752,13 +764,13 @@
 				<source>Organization Administrators</source>
 				<target>ਸੰਗਠਨ ਪਰਬੰਧਕ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Administrators">
-				<source>@@PRODUCT_NAME@@ Administrators</source>
+			<trans-unit id="Satellite Administrators">
+				<source>Satellite Administrators</source>
 				<target>ਸੈਟੇਲਾਈਟ ਪਰਬੰਧਕ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Super Users">
-				<source>@@PRODUCT_NAME@@ Super Users</source>
-				<target>@@PRODUCT_NAME@@ ਸੁਪਰ ਉਪਭੋਗੀ</target>
+			<trans-unit id="RHN Super Users">
+				<source>RHN Super Users</source>
+				<target>RHN ਸੁਪਰ ਉਪਭੋਗੀ</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1177,11 +1189,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
+entitlements for the 'rhn-tools' software channel from your Satellite administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+channel is available to your Satellite. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1351,16 +1363,16 @@ available for this kickstart profile to function properly.
 				<target>ਸਲੋਰਸ (Solaris) ਪੈਕੇਜ ਸੂਚੀ ਤਾਜ਼ਾ</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
-				<target>@@PRODUCT_NAME@@ ਡਾਈਮੋਨ ਸੰਰਚਨਾ</target>
+				<source>RHN Daemon Configuration</source>
+				<target>RHN ਡਾਈਮੋਨ ਸੰਰਚਨਾ</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>ਵੰਡੇ ਪੈਕੇਜਾਂ ਦੀ ਜਾਂਚ</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
-				<target>ਇੱਕ @@PRODUCT_NAME@@ ਸੈਟੇਲਾਈਟ ਨਾਲ rhn-applet ਵਰਤੋਂ ਲਈ ਸਵੀਕਾਰ</target>
+				<source>Allows for rhn-applet use with an RHN Satellite</source>
+				<target>ਇੱਕ RHN ਸੈਟੇਲਾਈਟ ਨਾਲ rhn-applet ਵਰਤੋਂ ਲਈ ਸਵੀਕਾਰ</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1447,7 +1459,7 @@ available for this kickstart profile to function properly.
 				<target>ਸੰਗਠਨ ਪਰਬੰਧਕ</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<source>Satellite Administrator</source>
 				<target>ਸੈਟੇਲਾਈਟ ਪਰਬੰਧਕ</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
@@ -1459,8 +1471,8 @@ available for this kickstart profile to function properly.
 				<target>ਚੈਨਲ ਪਰਬੰਧਕ</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>@@PRODUCT_NAME@@ Superuser</source>
-				<target>@@PRODUCT_NAME@@ ਨੈੱਟਵਰਕ ਸੁਪਰ-ਉਪਭੋਗੀ</target>
+				<source>Red Hat Network Superuser</source>
+				<target>Red Hat ਨੈੱਟਵਰਕ ਸੁਪਰ-ਉਪਭੋਗੀ</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1475,8 +1487,8 @@ available for this kickstart profile to function properly.
 				<target>ਕੋਮਾ (coma) CMS ਪਰਕਾਸ਼ਕ</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>@@PRODUCT_NAME@@ Support Administrator</source>
-				<target>@@PRODUCT_NAME@@ ਨੈੱਟਵਰਕ ਸਹਾਇਕ ਪਰਬੰਧਕ</target>
+				<source>Red Hat Network Support Administrator</source>
+				<target>Red Hat ਨੈੱਟਵਰਕ ਸਹਾਇਕ ਪਰਬੰਧਕ</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2019,16 +2031,16 @@ user before attempting to deactivate their account.</source>
 				<target>ਸਿਸਟਮ ਆਖਰੀ ਵਾਰ ਦਾਖਲ ਹੋਇਆ:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current @@PRODUCT_NAME@@ time:</source>
-				<target>ਮੌਜੂਦਾ @@PRODUCT_NAME@@ ਸਮਾਂ:</target>
+				<source>Current RHN time:</source>
+				<target>ਮੌਜੂਦਾ RHN ਸਮਾਂ:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>ਸੰਭਵ ਦਾਖਲ ਹੋਣ ਸਮਾਂ:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਹ ਸਿਸਟਮ ਹਾਲ਼ੇ ਰੈਡ ਹੈਟ ਨੈੱਟਵਰਕ (@@PRODUCT_NAME@@) ਵਿੱਚ ਦਾਖਲ ਨਹੀਂ ਹੋਇਆ ਹੈ।  ਕਿਉਕਿ ਇੱਕ ਸਿਸਟਮ ਦੇ @@PRODUCT_NAME@@ ਵਿੱਚ ਦਾਖਲ ਹੋਏ ਬਿਨਾਂ ਉਸ ਨੂੰ ਅੱਪਡੇਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਇਸਕਰਕੇ ਸੰਭਵ ਹੈ ਕਿ ਇਹ ਕਾਰਵਾਈ ਸਫ਼ਲ ਨਾ ਹੋਵੇ।&lt;br/&gt;&lt;br/&gt;ਕਿਰਪਾ ਕਰਕੇ ਸਿਸਟਮ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ rhnsd ਸੇਵਾ ਚੱਲ ਰਹੀ ਹੈ (&lt;a href="/help/faq.pxt#15"&gt;ਹੋਰ ਜਾਣਕਾਰੀ&lt;/a&gt;)। ਜੇਕਰ ਇਹ ਚੱਲਣ 'ਚ ਫੇਲ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ &lt;a href="/help/contact.pxt"&gt;ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ&lt;/a&gt;।</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;ਟਿੱਪਣੀ:&lt;/strong&gt; ਇਹ ਸਿਸਟਮ ਹਾਲ਼ੇ ਰੈਡ ਹੈਟ ਨੈੱਟਵਰਕ (Red Hat Network) ਵਿੱਚ ਦਾਖਲ ਨਹੀਂ ਹੋਇਆ ਹੈ।  ਕਿਉਕਿ ਇੱਕ ਸਿਸਟਮ ਦੇ RHN ਵਿੱਚ ਦਾਖਲ ਹੋਏ ਬਿਨਾਂ ਉਸ ਨੂੰ ਅੱਪਡੇਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਇਸਕਰਕੇ ਸੰਭਵ ਹੈ ਕਿ ਇਹ ਕਾਰਵਾਈ ਸਫ਼ਲ ਨਾ ਹੋਵੇ।&lt;br/&gt;&lt;br/&gt;ਕਿਰਪਾ ਕਰਕੇ ਸਿਸਟਮ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਯਕੀਨੀ ਬਣਾਓ ਕਿ rhnsd ਸੇਵਾ ਚੱਲ ਰਹੀ ਹੈ (&lt;a href="/help/faq.pxt#15"&gt;ਹੋਰ ਜਾਣਕਾਰੀ&lt;/a&gt;)। ਜੇਕਰ ਇਹ ਚੱਲਣ 'ਚ ਫੇਲ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ &lt;a href="/help/contact.pxt"&gt;ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ&lt;/a&gt;।</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2107,8 +2119,8 @@ user before attempting to deactivate their account.</source>
 				<target>ਸਕਿੰਟ</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>ਪੈਂਚ ਕਲਾਸਟਰ &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;ਸਮਾਂ-ਤਹਿ ਕੀਤਾ ਗਿਆ ਹੈ&lt;/a&gt;।</target>
+				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>ਪੈਂਚ ਕਲਾਸਟਰ &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;ਸਮਾਂ-ਤਹਿ ਕੀਤਾ ਗਿਆ ਹੈ&lt;/a&gt;।</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2226,8 +2238,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>ਸਧਾਰਨ ਸੰਰਚਨਾ</target>
 			</trans-unit>
-			<trans-unit id="Admin">
-				<source>Admin</source>
+			<trans-unit id="Satellite Tools">
+				<source>Satellite Tools</source>
 				<target>ਸੈਟੇਲਾਈਟ ਸੰਦ</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
@@ -2275,7 +2287,7 @@ user before attempting to deactivate their account.</source>
 				<target>ਤੁਸੀਂ &lt;strong&gt;{3}&lt;/strong&gt; ਤੋਂ &lt;strong&gt;{3}&lt;/strong&gt; ਲਈ ਇੱਕ ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਸਮਕਾਲੀ ਕਰਨ ਲਈ ਸਫ਼ਲਤਾਪੂਰਕ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;ਸਮਾਂ-ਤਹਿ&lt;/a&gt;&lt;/strong&gt; ਕੀਤਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
 				<target>&lt;strong&gt;ਸੂਚਨਾ:&lt;/strong&gt; Red Hat ਨੈੱਟਵਰਕ ਦੁਆਰਾ &lt;strong&gt;{2}&lt;/strong&gt; ਨੂੰ ਪੈਕੇਜ ਪਰੋਫਾਈਲ ਸਮਕਾਲਤਾ ਤੋਂ ਪਹਿਲਾਂ ਚੱਲਣ ਲਈ ਹਾਰਡਵੇਅਰ ਮੁੜ ਤਾਜ਼ਾ ਕਰਨ ਲਈ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;ਸਮਾਂ-ਤਹਿ&lt;/a&gt;&lt;/strong&gt; ਕੀਤਾ ਗਿਆ ਹੈ।  ਇਹ ਜਾਂਚ ਕਰਨ ਦੀ ਲੋੜ ਹੈ ਕਿ ਸਿਸਟਮ ਪੈਕੇਜਾਂ ਦੀ ਤੁਲਣਾ ਕਰ ਸਕਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
@@ -3339,8 +3351,8 @@ user before attempting to deactivate their account.</source>
 				<target>ਮੁੜ-ਚਾਲੂ</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>ਤੁਸੀਂ @@PRODUCT_NAME@@ ਸੈਟੇਲਾਈਟ ਸੇਵਾ ਲਈ ਆਪਣਾ ਪਹਿਲਾਂ ਉਪਭੋਗੀ ਬਣਾ ਲਿਆ ਹੈ।  ਹੋਰ ਸੰਰਚਨਾ ਨੂੰ &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;ਇਹ ਦਬਾਓ&lt;strong&gt; ਨਾਲ ਮੁਕੰਮਲ ਕੀਤਾ ਜਾਵੇਗਾ।</target>
+				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>ਤੁਸੀਂ RHN ਸੈਟੇਲਾਈਟ ਸੇਵਾ ਲਈ ਆਪਣਾ ਪਹਿਲਾਂ ਉਪਭੋਗੀ ਬਣਾ ਲਿਆ ਹੈ।  ਹੋਰ ਸੰਰਚਨਾ ਨੂੰ &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;ਇਹ ਦਬਾਓ&lt;/strong&gt;&lt;/a&gt; ਨਾਲ ਮੁਕੰਮਲ ਕੀਤਾ ਜਾਵੇਗਾ।</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3355,7 +3367,7 @@ user before attempting to deactivate their account.</source>
 				<target>ਕੋਈ ਸਰਟੀਫਿਕੇਟ ਨਹੀਂ ਲੱਭਿਆ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਲੋਕਲ ਸਰਟੀਫਿਕੇਟ ਫਾਇਲ ਦੀ ਚੋਣ ਕਰੋ ਜਾਂ ਫਾਰਮ ਵਿੱਚ ਭਾਗ ਚੇਪ ਦਿਓ।</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<source>Certificate uploaded.  Satellite has been re-activated.</source>
 				<target>ਸਰਟੀਫਿਕੇਟ ਅੱਪਲੋਡ ਕੀਤਾ ਗਿਆ ਹੈ।  ਸੈਟੇਲਾਈਟ ਨੂੰ ਮੁੜ-ਸਰਗਰਮ ਕੀਤਾ ਗਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
@@ -3367,7 +3379,7 @@ user before attempting to deactivate their account.</source>
 				<target>ਸਰਟੀਫਿਕੇਟ ਦੀ ਮਿਆਦ ਖਤਮ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<source>Unknown Satellite version</source>
 				<target>ਅਣਜਾਣ ਸੈਟੇਲਾਈਟ ਵਰਨ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
@@ -3387,15 +3399,15 @@ user before attempting to deactivate their account.</source>
 				<target>ਕੋਈ ਪਰਬੰਧ ਇੰਟਾਇਲਮਿੰਟ ਬਾਕੀ ਨਹੀਂ ਬਚੀ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<source>Satellite channel not found</source>
 				<target>ਸੈਟੇਲਾਈਟ ਚੈਨਲ ਨਹੀਂ ਲੱਭਾ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<source>No Satellite channel entitlements remaining</source>
 				<target>ਕੋਈ ਸੈਟੇਲਾਈਟ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟ ਬਾਕੀ ਨਹੀਂ ਬਚੀ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<source>Invalid Satellite certificate</source>
 				<target>ਗਲਤ ਸਰਵਰ ਸਰਟੀਫਿਕੇਟ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
@@ -3403,11 +3415,11 @@ user before attempting to deactivate their account.</source>
 				<target>ਅਣਜਾਣ ਸਰਗਰਮੀ ਗਲਤੀ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<source>Satellite has no base channel on parent server</source>
 				<target>ਸਰਵਰ ਕੋਲ ਮੁੱਢਲੇ ਸਰਵਰ ਉੱਤੇ ਕੋਈ ਅਧਾਰ ਚੈਨਲ ਨਹੀਂ ਹੈ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<source>No Satellite channel available for this version</source>
 				<target>ਇਹ ਵਰਜਨ ਲਈ ਕੋਈ ਸੈਟੇਲਾਈਟ ਚੈਨਲ ਉਪਲੱਬਧ ਨਹੀਂ</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
@@ -3419,7 +3431,7 @@ user before attempting to deactivate their account.</source>
 				<target>ਨਾ-ਸੁਧਾਰੀ ਗਲਤੀ</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<source>Satellite server hostname</source>
 				<target>ਸੈਟੇਲਾਈਟ ਸਰਵਰ ਮੇਜ਼ਬਾਨ-ਨਾਂ</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
@@ -3467,20 +3479,20 @@ user before attempting to deactivate their account.</source>
 				<target>ਇੱਕ ਗਲਤੀ ਹੋਈ ਹੈ ਅਤੇ ਤੁਹਾਡੀ ਸੈਟੇਲਾਈਟ ਸੰਰਚਨਾ ਤਬਦੀਲੀ ਸੰਭਾਲੀ ਨਹੀਂ ਜਾ ਸਕਦੀ। ਕਿਰਪਾ ਕਰਕੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ ਸਹਿਯੋਗੀਆਂ ਨਾਲ ਸੰਪਰਕ ਕਰੋ।</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
 				<target>ਸੈਟੇਲਾਈਟ ਮੁੜ-ਚਾਲੂ ਹੋ ਰਿਹਾ ਹੈ।  ਇਹ ਸਫ਼ਾ 5 ਮਿੰਟਾਂ ਵਿੱਚ ਮੁੜ-ਤਾਜ਼ਾ ਨਹੀਂ ਹੁੰਦਾ ਤਾਂ ਦਸਤੀ ਕੋਸ਼ਿਸ਼ ਕਰਨ ਲਈ &lt;a href="/rhn/YourRhn.do"&gt;ਇੱਥੇ&lt;/a&gt; ਦਬਾਓ।</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
-				<target>ਕਿਰਪਾ ਕਰਕੇ ਹੇਠ ਦਿੱਤੇ ਫਾਰਮ ਵਿੱਚ ਚੋਣ ਬਕਸੇ ਦੀ ਚੋਣ ਕਰਕੇ ਇਹ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ @@PRODUCT_NAME@@ ਸੈਟੇਲਾਈਟ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ।</target>
+				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
+				<target>ਕਿਰਪਾ ਕਰਕੇ ਹੇਠ ਦਿੱਤੇ ਫਾਰਮ ਵਿੱਚ ਚੋਣ ਬਕਸੇ ਦੀ ਚੋਣ ਕਰਕੇ ਇਹ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ RHN ਸੈਟੇਲਾਈਟ ਨੂੰ ਮੁੜ ਚਾਲੂ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ।</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>@@PRODUCT_NAME@@ has been restarted.</source>
-				<target>@@PRODUCT_NAME@@ ਸੈਟੇਲਾਈਟ ਮੁੜ-ਚਾਲੂ ਕੀਤਾ ਗਿਆ ਹੈ।</target>
+				<source>RHN Satellite has been restarted.</source>
+				<target>RHN ਸੈਟੇਲਾਈਟ ਮੁੜ-ਚਾਲੂ ਕੀਤਾ ਗਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
-				<target>@@PRODUCT_NAME@@ ਨਿਗਰਾਨੀ ਸਕਾਊਂਟ</target>
+				<source>RHN Monitoring Scout</source>
+				<target>RHN ਨਿਗਰਾਨੀ ਸਕਾਊਂਟ</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3573,7 +3585,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with @@PRODUCT_NAME@@:
+The following systems recently stopped checking in with Red Hat Network:
 
 {0}
 
@@ -3584,7 +3596,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>ਸਿਸਟਮ ਦਾਖਲ ਨਹੀਂ ਹੋਏ:
 -------------------------
-ਹੇਠ ਦਿੱਤੇ ਸਿਸਟਮ @@PRODUCT_NAME@@ ਵਿੱਚ ਦਾਖਲ ਹੋਣ ਤੋਂ ਰੁਕ ਗਏ ਹਨ:
+ਹੇਠ ਦਿੱਤੇ ਸਿਸਟਮ Red Hat Network ਵਿੱਚ ਦਾਖਲ ਹੋਣ ਤੋਂ ਰੁਕ ਗਏ ਹਨ:
 
 {0}
 
@@ -3699,16 +3711,16 @@ Follow this url to see the full list of inactive systems:
 				<target>ਸਿਸਟਮ &lt;strong&gt; {0} &lt;/strong&gt; ਕਿੱਕਸਟਾਰਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਕਿਉਂਕਿ ਇਸ ਦਾ ਅਧਾਰ ਚੈਨਲ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target>ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਿਸਟਮ ਦੇ ਵਰਤਮਾਨ ਅਧਾਰ ਚੈਨਲ ਲਈ @@PRODUCT_NAME@@ ਨਿਗਰਾਨੀ ਚੈਨਲ ਤੇ ਕੋਈ ਮੈਂਬਰੀ ਨਹੀਂ ਹੈ।</target>
+				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
+				<target>ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਿਸਟਮ ਦੇ ਵਰਤਮਾਨ ਅਧਾਰ ਚੈਨਲ ਲਈ RHN ਨਿਗਰਾਨੀ ਚੈਨਲ ਤੇ ਕੋਈ ਮੈਂਬਰੀ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target>ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਿਸਟਮ ਦੇ ਵਰਤਮਾਨ ਅਧਾਰ ਚੈਨਲ ਲਈ @@PRODUCT_NAME@@ ਨਿਗਰਾਨੀ ਚੈਨਲ ਤੇ ਕੋਈ ਮੈਂਬਰੀ ਨਹੀਂ ਹੈ।</target>
+				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
+				<target>ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਿਸਟਮ ਦੇ ਵਰਤਮਾਨ ਅਧਾਰ ਚੈਨਲ ਲਈ RHN ਨਿਗਰਾਨੀ ਚੈਨਲ ਤੇ ਕੋਈ ਮੈਂਬਰੀ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>ਲੋੜੀਂਦਾ @@PRODUCT_NAME@@ ਵਿਵਸਥਾ ਪੈਕੇਜ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਜੋ ਇਸ ਸਿਸਟਮ ਦਾ ਮੌਜੂਦਾ ਅਧਾਰ ਚੈਨਲ ਅਤੇ ਲੋੜੀਂਦਾ ਮੰਜ਼ਿਲ ਚੈਨਲ ਦਿੰਦਾ ਹੈ, ਨੂੰ ਲੱਭ ਨਹੀਂ ਸਕਿਆ: {0}</target>
+				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>ਲੋੜੀਂਦਾ RHN ਵਿਵਸਥਾ ਪੈਕੇਜ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਜੋ ਇਸ ਸਿਸਟਮ ਦਾ ਮੌਜੂਦਾ ਅਧਾਰ ਚੈਨਲ ਅਤੇ ਲੋੜੀਂਦਾ ਮੰਜ਼ਿਲ ਚੈਨਲ ਦਿੰਦਾ ਹੈ, ਨੂੰ ਲੱਭ ਨਹੀਂ ਸਕਿਆ: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3727,7 +3739,7 @@ Follow this url to see the full list of inactive systems:
 				<target>ਇਸ ਸਿਸਟਮ ਲਈ ਇੱਕ ਨਵਾਂ ਕਿੱਕਸਟਾਰਟ ਵਰਜਨ ਸ਼ੁਰੂ ਕੀਤਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
 				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; ਲਈ ਰੈੱਡ ਹੈਟ ਨੈੱਟਵਰਕ ਜੰਤਰ ਚੈਨਲ ਲੱਭ ਨਹੀਂ ਸਕਿਆ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
@@ -3743,7 +3755,7 @@ Follow this url to see the full list of inactive systems:
 				<target>ਸਾਨੂੰ ਸਿਸਟਮ ਕਿੱਕਸਟਾਰਟ ਕਰਨ ਵਾਸਤੇ up2date ਦੇ ਵਰਜਨ {0} ਜਾਂ ਜਿਆਦਾ ਦੀ ਲੋੜ ਹੈ। ਇਹ ਸਿਸਟਮ ਤੇ {1} ਇੰਸਟਾਲ ਹੈ ਪਰ ਅਸੀਂ ਇਸ ਸਿਸਟਮ ਦੇ ਚੈਨਲਾਂ ਉੱਪਰ ਇਸ ਨੂੰ ਉੱਪਰਲੇ ਵਰਜਨਾਂ ਤੱਕ ਅੱਪਡੇਟ ਕਰਨ ਲਈ up2date ਦਾ ਵਰਜਨ ਲੱਭ ਨਹੀਂ ਸਕਦੇ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
 				<target>ਗਿਸਟ ਸਿਸਟਮ ਪਿਛਲੇ {0} ਮਿੰਟਾਂ ਵਿੱਚ ਸੈਟੇਲਾਈਟ ਨਾਲ ਕੋਈ ਸੰਪਰਕ ਨਹੀਂ ਕੀਤਾ। ਇੰਸਟਾਲ ਕਾਰਜ ਹਾਰਟਵੇਅਰ ਜਾਣਕਾਰੀ ਕਰਕੇ ਹੌਲੀ ਹੌਲੀ ਤਰੱਕੀ ਕਰ ਰਿਹਾ ਹੋਵੇਗਾ, ਜਾਂ ਰੁਕ ਗਿਆ ਹੋ ਸਕਦਾ ਹੈ।&lt;p/&gt;ਤੁਸੀਂ ਇਸ ਮੁੱਦੇ ਨੂੰ ਹੱਲ ਕਰਨ ਲਈ ਗਿਸਟ ਸਿਸਟਮ ਉੱਪਰ &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ਚਲਾ ਸਕਦੇ ਹੋ। ਇਹ ਕਮਾਂਡ ਤੁਹਾਨੂੰ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਗਿਸਟ ਦੇ ਪਾਠ ਕੰਸੋਲ ਨਾਲ ਜੁੜਨ ਦੀ ਮਨਜੂਰੀ ਦਿੰਦੀ ਹੈ, ਜੋ ਇਸ ਗਿਸਟ ਸਿਸਟਮ ਦੀ ਇੰਸਟਾਲ ਹਾਲਤ ਬਾਰੇ ਹੋਰ ਜਾਣਕਾਰੀ ਦਿੰਦੀ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
@@ -3792,7 +3804,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="activation-key.java.deleted">
 				<source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been deleted.</source>
-				<target state="needs-review-translation">ਸਰਗਰਮ ਕੁੰਜੀ &lt;strong&gt;{0}&lt;/strong&gt; ਬਣਾਈ ਗਈ ਹੈ।</target>
+				<target>ਸਰਗਰਮ ਕੁੰਜੀ &lt;strong&gt;{0}&lt;/strong&gt; ਹਟਾਈ ਗਈ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="activation-key.java.modified">
 				<source>Activation key &lt;strong&gt;{0}&lt;/strong&gt; has been modified.</source>
@@ -4079,7 +4091,7 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; ਨੂੰ ਪਿੰਗ ਕੀਤਾ ਗਿਆ। OSA ਸਥਿਤੀ ਅਗਲੇ ਮਿੰਟ ਵਿੱਚ ਅੱਪਡੇਟ ਕੀਤੀ ਜਾਏਗੀ।</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
 				<target>RHN ਐਪਲਿਟ ਸੈਟੇਲਾਈਟ ਸਰਗਰਮੀ &lt;a href="{0}"&gt;ਤਹਿ ਕੀਤੀ ਹੈ&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
@@ -4119,56 +4131,56 @@ Follow this url to see the full list of inactive systems:
 				<target>ਕੋਈ ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਤੁਲਨਾ ਕਰਨ ਲਈ ਨਹੀਂ ਚੁਣੀ ਗਈ। [&lt;a href="{0}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲਾਂ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{1}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲਾਂ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{1}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{2}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{2}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{1}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{1}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਡਾਇਰੈਕਟਰੀ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{2}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਡਾਇਰੈਕਟਰੀ ਦੇ {0} ਦੀ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਤੁਲਨਾ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{2}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {1} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{2}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {1} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{2}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲ ਦੇ {0} ਅਤੇ {2} ਡਾਇਰੈਕਟਰੀ ਦੇ {1} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲ ਦੇ {0} ਅਤੇ {2} ਡਾਇਰੈਕਟਰੀ ਦੇ {1} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦੇ {0} ਅਤੇ 1 ਡਾਇਰੈਕਟਰੀ ਦੇ {2} ਦੀ ਤੁਲਨਾ ਸਫਲਤਾਪੂਰਕ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਕਟਰੀਆਂ ਨਾਲ ਕੀਤੀ ਗਈ ਹੈ। [&lt;a href="{3}"&gt; ਵੇਰਵਾ ਵੇਖੋ&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target>ਮੌਜੂਦਾ ਸਿਸਟਮ ਉੱਪਰ ਕੋਈ ਮੌਜੂਦਾ ਫਾਇਲ @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਨਹੀਂ ਹੈ।</target>
+				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
+				<target>ਮੌਜੂਦਾ ਸਿਸਟਮ ਉੱਪਰ ਕੋਈ ਮੌਜੂਦਾ ਫਾਇਲ RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਨਹੀਂ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲ ਦਾ 1 @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਹੈ</target>
+				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ 1 ਫਾਇਲ ਦਾ 1 RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਹੈ</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦਾ {0} @@PRODUCT_NAME@@-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਹੈ।</target>
+				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
+				<target>ਸਿਸਟਮ ਉੱਪਰ {1} ਫਾਇਲਾਂ ਦਾ {0} RHN-ਪਰਬੰਧਿਤ ਫਾਇਲਾਂ ਤੋਂ ਵੱਖਰੀ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4407,16 +4419,16 @@ Follow this url to see the full list of inactive systems:
 				<target>"{0}" ਨਾਂ ਵਾਲੀ ਇੱਕ ਫਾਇਲ ਪਹਿਲਾਂ ਹੀ ਇਸ ਚੈਨਲ ਤੇ ਮੌਜੂਦ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>ਸਿਸਟਮ ਨੂੰ @@PRODUCT_NAME@@ ਜੰਤਰ ਚੈਨਲ ਤੇ ਸਵੈ ਮੈਂਬਰ ਨਹੀਂ ਬਣਾ ਸਕਿਆ। ਇਸ ਚੈਨਲ ਉੱਪਰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਲਈ ਲੋੜੀਂਦੇ ਪੈਕੇਜ ਸ਼ਾਮਿਲ ਹਨ।  ਇਹ ਦਾ ਕਾਰਨ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦੀ ਕਮੀ ਹੁੰਦਾ ਹੈ।</target>
+				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>ਸਿਸਟਮ ਨੂੰ Red Hat Network ਜੰਤਰ ਚੈਨਲ ਤੇ ਸਵੈ ਮੈਂਬਰ ਨਹੀਂ ਬਣਾ ਸਕਿਆ। ਇਸ ਚੈਨਲ ਉੱਪਰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਲਈ ਲੋੜੀਂਦੇ ਪੈਕੇਜ ਸ਼ਾਮਿਲ ਹਨ।  ਇਹ ਦਾ ਕਾਰਨ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦੀ ਕਮੀ ਹੁੰਦਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>ਸਿਸਟਮ ਨੂੰ RHEL ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਚੈਨਲ ਤੇ ਸਵੈ ਹੀ ਮੈਂਬਰ ਨਹੀਂ ਬਣਾ ਸਕਦਾ।  ਇਸ ਚੈਨਲ ਉੱਪਰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਲਈ ਲੋੜੀਂਦੇ ਪੈਕੇਜ ਸ਼ਆਮਿਲ ਹਨ।  ਇਸ ਦਾ ਕਾਰਨ ਚੈਨਲ ਇੰਟਾਈਟਲਮੈਂਟਾਂ ਦੀ ਕਮੀ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
-				<target>{0} ਪੈਕਜੇ ਨੂੰ &lt;strong&gt;{1}&lt;/strong&gt; ਚੈਨਲ ਉੱਪਰ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਜਿਸ ਦੀ ਲੋੜ @@PRODUCT_NAME@@ ਨਾਲ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਲਾਗੂ ਕਰਨ ਲਈ ਹੈ।</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
+				<target>{0} ਪੈਕਜੇ ਨੂੰ &lt;strong&gt;{1}&lt;/strong&gt; ਚੈਨਲ ਉੱਪਰ ਨਹੀਂ ਲੱਭ ਸਕਿਆ ਜਿਸ ਦੀ ਲੋੜ Red Hat Network ਨਾਲ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਲਾਗੂ ਕਰਨ ਲਈ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
@@ -4476,6 +4488,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="api.systemgroup.lookupServerGroup">
 				<source>Unable to locate or access server group: "{0}"</source>
+				<target>ਸਰਵਰ ਗਰੁੱਪ ਨੂੰ ਲੱਭਣ ਜਾਂ ਵਰਤਣ ਵਿੱਚ ਅਸਮਰਥ: "{0}"</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.serverNotInGroup">
 				<source>The specified server is not a member of the specified group</source>
@@ -4627,15 +4640,15 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="changedByFirstName">
 				<source>Changed by First Name</source>
-				<target state="needs-review-translation">ਉਪਭੋਗੀ ਪਹਿਲਾਂ ਨਾਂ</target>
+				<target>ਪਹਿਲੇ ਨਾਂ ਨਾਲ ਤਬਦੀਲ ਕੀਤਾ</target>
 			</trans-unit>
 			<trans-unit id="changedByLastName">
 				<source>Changed by Last Name</source>
-				<target state="needs-review-translation">ਉਪਭੋਗੀ ਆਖਰੀ ਨਾਂ</target>
+				<target>ਆਖਰੀ ਨਾਂ ਨਾਲ ਤਬਦੀਲ ਕੀਤਾ</target>
 			</trans-unit>
 			<trans-unit id="changeDate">
 				<source>Change Date</source>
-				<target state="needs-review-translation">ਈ-ਮੇਲ ਤਬਦੀਲ</target>
+				<target>ਤਬਦੀਲ ਮਿਤੀ</target>
 			</trans-unit>
 			<trans-unit id="channelLabels">
 				<source>Channel Labels</source>

@@ -94,9 +94,13 @@
 				<source>Inactive</source>
 				<target>Inativo</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
+			<trans-unit id="system.nav.satellite">
+				<source>Satellite</source>
+				<target>Satellite</target>
+			</trans-unit>
+			<trans-unit id="Satellite">
+				<source>Satellite</source>
+				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -350,9 +354,9 @@
 				<source>Snapshots</source>
 				<target>Snapshots</target>
 			</trans-unit>
-			<trans-unit id="Installation Guide">
-				<source>Installation Guide</source>
-				<target>Guia do @@PRODUCT_NAME@@</target>
+			<trans-unit id="Satellite Guide">
+				<source>Satellite Guide</source>
+				<target>Guia do Satellite</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -382,9 +386,9 @@
 				<source>Sandbox</source>
 				<target>Sandbox</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Configuration">
-				<source>@@PRODUCT_NAME@@ Configuration</source>
-				<target>Configuração do @@PRODUCT_NAME@@</target>
+			<trans-unit id="Satellite Configuration">
+				<source>Satellite Configuration</source>
+				<target>Configuração do Satellite</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>

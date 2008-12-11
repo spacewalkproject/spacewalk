@@ -18,7 +18,7 @@
 				<source>Failed</source>
 				<target>Ошибка</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Update Entitled Servers">
+			<trans-unit id="RHN Update Entitled Servers">
 				<source>Update</source>
 				<target>Обновление</target>
 			</trans-unit>
@@ -30,11 +30,11 @@
 				<source>Update</source>
 				<target>Обновление</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Demo Entitled Servers">
+			<trans-unit id="RHN Demo Entitled Servers">
 				<source>Demo</source>
 				<target>Демо</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Management Entitled Servers">
+			<trans-unit id="RHN Management Entitled Servers">
 				<source>Management</source>
 				<target>Управление</target>
 			</trans-unit>
@@ -46,7 +46,7 @@
 				<source>Management</source>
 				<target>Управление</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Provisioning Entitled Servers">
+			<trans-unit id="RHN Provisioning Entitled Servers">
 				<source>Provisioning</source>
 				<target>Обеспечение</target>
 			</trans-unit>
@@ -70,7 +70,7 @@
 				<source>Non-Linux</source>
 				<target>Не Linux</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Monitoring Entitled Servers">
+			<trans-unit id="RHN Monitoring Entitled Servers">
 				<source>Monitoring</source>
 				<target>Мониторинг</target>
 			</trans-unit>
@@ -235,32 +235,32 @@
 				<target>Почтовый домен (например, "redhat.com" для myemail@redhat.com)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>@@PRODUCT_NAME@@ administrator email</source>
-				<target>Эл.адрес администратора @@PRODUCT_NAME@@</target>
+				<source>RHN Satellite administrator email</source>
+				<target>Эл.адрес администратора RHN Satellite</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>@@PRODUCT_NAME@@ database name</source>
-				<target>Имя базы данных @@PRODUCT_NAME@@</target>
+				<source>RHN database name</source>
+				<target>Имя базы данных RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>@@PRODUCT_NAME@@ database password</source>
-				<target>Пароль базы данных @@PRODUCT_NAME@@</target>
+				<source>RHN database password</source>
+				<target>Пароль базы данных RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>@@PRODUCT_NAME@@ Database table owner</source>
-				<target>Владелец таблицы базы данных @@PRODUCT_NAME@@</target>
+				<source>RHN Database table owner</source>
+				<target>Владелец таблицы базы данных RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>@@PRODUCT_NAME@@ database username</source>
-				<target>Имя пользователя базы данных @@PRODUCT_NAME@@</target>
+				<source>RHN database username</source>
+				<target>Имя пользователя базы данных RHN</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
-				<target>Имя узла @@PRODUCT_NAME@@ (FQDN)</target>
+				<source>RHN Satellite hostname (FQDN)</source>
+				<target>Имя узла RHN Satellite (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
-				<target>Порт сервера @@PRODUCT_NAME@@ (80 для http, 443 для https)</target>
+				<source>RHN Satellite webserver port (80 for http, 443 for https)</source>
+				<target>Порт сервера RHN Satellite (80 для http, 443 для https)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2250,9 +2250,9 @@
 				<source>Oracle</source>
 				<target>Oracle</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
+			<trans-unit id="Satellite">
+				<source>Satellite</source>
+				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2559,8 @@
 				<target>Произошел рестарт системы с целью начала кикстарта.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
-				<target>Файлы кикстарта загружены с @@PRODUCT_NAME@@.</target>
+				<source>The system has downloaded the kickstart configuration file from RHN.</source>
+				<target>Файлы кикстарта загружены с RHN.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>Загружаются пакеты для установки.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
-				<target>Регистрация системы в @@PRODUCT_NAME@@ произошла успешно по окончанию кикстарта.</target>
+				<source>The system has successfully registered with RHN after kickstarting.</source>
+				<target>Регистрация системы в RHN произошла успешно по окончанию кикстарта.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

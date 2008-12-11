@@ -427,16 +427,16 @@
 				<target>您可能正在使用 Konqueror 3.0，它並非在所有情況下都能夠正常地處理形式變數。繼續使用 Konqueror 3.0 會產生無預期的結果。假如您正在使用 Konqueror 3.0，請更換至其它的瀏覽器。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason2">
-				<source>Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
-				<target>您的登錄 session 也許已過期了。為了安全起見，@@PRODUCT_NAME@@ 會在您的登錄 session 靜止了 {0} 分鐘之後將它終結。如要再次登入請點選 &lt;a href="{1}"&gt;here&lt;/a&gt;。</target>
+				<source>Your login session has expired. For security reasons, Red Hat Network terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
+				<target>您的登錄 session 也許已過期了。為了安全起見，Red Hat Network 會在您的登錄 session 靜止了 {0} 分鐘之後將它終結。如要再次登入請點選 &lt;a href="{1}"&gt;here&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason3">
 				<source>You've found an error in our site. Please contact your Support representative with details of how you received this message.</source>
 				<target>您由本網站上找到了錯誤。請聯絡您的客戶服務人員，並詳述您是如何收到此訊息的。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason4">
-				<source>Your browser does not have cookies enabled. The @@PRODUCT_NAME@@ requires cookies in order to function; if you have disabled them, please re-enable them to use the site.</source>
-				<target>您瀏覽器的 cookies 並未被啟用。@@PRODUCT_NAME@@ 需要 cookies 才能產生作用，假如您將它停用的話，請重新將它們啟用以便使用此網站。</target>
+				<source>Your browser does not have cookies enabled. The Red Hat Network requires cookies in order to function; if you have disabled them, please re-enable them to use the site.</source>
+				<target>您瀏覽器的 cookies 並未被啟用。Red Hat Network 需要 cookies 才能產生作用，假如您將它停用的話，請重新將它們啟用以便使用此網站。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason5">
 				<source>You've done something naughty. Stop it.</source>
@@ -543,7 +543,7 @@
 				<target>組織管理員？</target>
 			</trans-unit>
 			<trans-unit id="satadmin.displayname">
-				<source>@@PRODUCT_NAME@@ Admin?</source>
+				<source>Satellite Admin?</source>
 				<target>衛星管理者？</target>
 			</trans-unit>
 			<trans-unit id="username.nopunc.displayname">
@@ -791,8 +791,8 @@
 				<target>要存取購買資訊、帳號或設定檔資訊、或繼續剛剛未完成的連線，請自以下登入。</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.redhatlogin">
-				<source>@@PRODUCT_NAME@@ Login / Email: </source>
-				<target>@@PRODUCT_NAME@@ 登入 / 電子郵件位址：</target>
+				<source>Red Hat Login / Email: </source>
+				<target>Red Hat 登入 / 電子郵件位址：</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.password">
 				<source>Password: </source>
@@ -811,28 +811,32 @@
 				<target>忘記登入帳號 / 密碼？</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.welcomemessage">
-				<source>Welcome to @@PRODUCT_NAME@@</source>
-				<target>歡迎使用 @@PRODUCT_NAME@@</target>
+				<source>Welcome to Red Hat Network</source>
+				<target>歡迎使用 Red Hat Network</target>
 			</trans-unit>
-                        <trans-unit id="login.jsp.satbody1">
-                          <source>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; is an open source (GPLv2) Linux systems management solution. Below are some links that should prove useful if you have any questions regarding your @@PRODUCT_NAME@@ server. </source>
-                        </trans-unit>
-                        <trans-unit id="login.jsp.satbody2">
-                          <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href=&quot;http://spacewalk.redhat.com&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
-                        </trans-unit>
-                        <trans-unit id="login.jsp.satbody3">
-                          <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href=&quot;http://spacewalk.redhat.com/communicate.html&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
-                        </trans-unit>
-                        <trans-unit id="login.jsp.satbody4">
-                          <source> </source>
-                        </trans-unit>
+			<trans-unit id="login.jsp.satbody1">
+				<source>&lt;strong&gt;Red Hat Network&lt;/strong&gt; is the premier service for maintaining your Enterprise's Linux infrastructure. Below are some links that should prove useful if you have any questions regarding your Satellite server or further questions about RHN.</source>
+				<target>&lt;strong&gt;Red Hat Network&lt;/strong&gt; 是您維護 Enterprise Linux 架構的最佳服務。如果您有任何衛星伺服器服務、或 RHN 的進一步問題，以下一些連結對您會有所幫助。</target>
+			</trans-unit>
+			<trans-unit id="login.jsp.satbody2">
+				<source>The latest Satellite &lt;a href="/rhn/help/release-notes/satellite/index.jsp"&gt; release notes&lt;/a&gt; are available.</source>
+				<target>最新的衛星伺服器《&lt;a href="/rhn/help/release-notes/satellite/index.jsp"&gt;發行公告&lt;/a&gt;》。</target>
+			</trans-unit>
+			<trans-unit id="login.jsp.satbody3">
+				<source>For support, please visit our support web site at &lt;a href="http://www.redhat.com/apps/support" target="_new"&gt; http://www.redhat.com/apps/support&lt;/a&gt;.</source>
+				<target>需要任何支援，請參閱我們的支援網站 &lt;a href="http://www.redhat.com/apps/support" target="_new"&gt;http://www.redhat.com/apps/support&lt;/a&gt;。</target>
+			</trans-unit>
+			<trans-unit id="login.jsp.satbody4">
+				<source>To add entitlements to your existing Satellite Certificate, or for more information about RHN products and services, please call your salesperson or contact Sales at 1-866-273-3428 x45606.</source>
+				<target>要為您現有的衛星伺服器認證增加權利，或需要更多關於 RHN 產品與服務的訊息，請連絡您的業務代表，或透過電話 1-886-273-3428 x45606 連絡業務人員。</target>
+			</trans-unit>
 			<trans-unit id="login.jsp.hostbody1">
-				<source>@@PRODUCT_NAME@@ is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
-				<target>@@PRODUCT_NAME@@ 是 Linux 的完整系統管理平台。它架構於開放式標準，使用簡單、以網際網路為基礎的圖形界面。它也支援模組化的設計：當網路持續成長，管理者能對整個架構做系統更新、管理、以及監控等動作。</target>
+				<source>Red Hat Network is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
+				<target>Red Hat Network 是 Linux 的完整系統管理平台。它架構於開放式標準，使用簡單、以網際網路為基礎的圖形界面。它也支援模組化的設計：當網路持續成長，管理者能對整個架構做系統更新、管理、以及監控等動作。</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.hostbody2">
-				<source>Red Hat currently features three @@PRODUCT_NAME@@ modules:</source>
-				<target>Red Hat 目前提供三個 @@PRODUCT_NAME@@ 模組：</target>
+				<source>Red Hat currently features three Red Hat Network modules:</source>
+				<target>Red Hat 目前提供三個 Red Hat Network 模組：</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.list1">
 				<source>Update: Easy software updates to your Red Hat systems.</source>
@@ -851,8 +855,8 @@
 				<target>了解 RHN 的更多資訊</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.note">
-				<source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;如果您在連接 @@PRODUCT_NAME@@ 時，有 SSL 連線的問題，請確定您使用的是 &lt;a href="/help/latest-up2date.pxt"&gt;最新版&lt;/a&gt; 的 up2date（RHEL 4 以下）或 yum（RHEL5 以上）與 rhn_register。</target>
+				<source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to Red Hat Network, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;如果您在連接 Red Hat Network 時，有 SSL 連線的問題，請確定您使用的是 &lt;a href="/help/latest-up2date.pxt"&gt;最新版&lt;/a&gt; 的 up2date（RHEL 4 以下）或 yum（RHEL5 以上）與 rhn_register。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.alt">
 				<source>Preferences Icon</source>
@@ -863,16 +867,16 @@
 				<target>電子郵件通知</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.leadin">
-				<source>@@PRODUCT_NAME@@ offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
-				<target>@@PRODUCT_NAME@@ 會在與您系統相關的勘誤釋出時，以電子郵件通知您；或以日報表電子郵件提醒您。</target>
+				<source>RHN offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
+				<target>RHN 會在與您系統相關的勘誤釋出時，以電子郵件通知您；或以日報表電子郵件提醒您。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.receivenote">
 				<source> Receive email notifications</source>
 				<target> 接收電子郵件通知</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.listsize">
-				<source>@@PRODUCT_NAME@@ List Page Size</source>
-				<target>@@PRODUCT_NAME@@ 列表頁大小</target>
+				<source>RHN List Page Size</source>
+				<target>RHN 列表頁大小</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.controlentry">
 				<source>This controls how many entries, like systems, would be displayed per page in a list context.</source>
@@ -891,8 +895,8 @@
 				<target>工作</target>
 			</trans-unit>
 			<trans-unit id="preferences.tasks.description">
-				<source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
-				<target> 任務導向清單，讓您可以快速的連接到不同領域的 @@PRODUCT_NAME@@ 使用者介面。</target>
+				<source> A task-oriented menu of quick links to different areas of the RHN user interface.</source>
+				<target> 任務導向清單，讓您可以快速的連接到不同領域的 RHN 使用者介面。</target>
 			</trans-unit>
 			<trans-unit id="preferences.critical-systems.name">
 				<source>Most Critical Systems</source>
@@ -971,8 +975,8 @@
 				<target>非啟用中的系統</target>
 			</trans-unit>
 			<trans-unit id="preferences.inactive-systems.description">
-				<source> Lists the registered @@PRODUCT_NAME@@ systems that recently stopped checking in.</source>
-				<target> 列出已向 @@PRODUCT_NAME@@ 登錄，但最近停止登入的系統。</target>
+				<source> Lists the registered RHN systems that recently stopped checking in.</source>
+				<target> 列出已向 RHN 登錄，但最近停止登入的系統。</target>
 			</trans-unit>
 			<trans-unit id="preferences.pending-actions.name">
 				<source>Recently Scheduled Actions</source>
@@ -1019,16 +1023,16 @@
 				<target>介面的語言</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.langs">
-				<source>Please select your preferred language from the list of currently supported languages below. The selected language will become the default language for the @@PRODUCT_NAME@@ interface.</source>
-				<target>請從下方所支援的語言列表中，選擇您偏好的語言。您所選擇的語言會成為 @@PRODUCT_NAME@@ 介面的預設語言。</target>
+				<source>Please select your preferred language from the list of currently supported languages below. The selected language will become the default language for the RHN interface.</source>
+				<target>請從下方所支援的語言列表中，選擇您偏好的語言。您所選擇的語言會成為 RHN 介面的預設語言。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Overview" Start Page</source>
-				<target>「您專屬的 @@PRODUCT_NAME@@」起始頁</target>
+				<source>"Your RHN" Start Page</source>
+				<target>「您專屬的 RHN」起始頁</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Overview" page upon login:</source>
-				<target>在登入時，於「您專屬的 @@PRODUCT_NAME@@」網頁中，顯示以下資訊：</target>
+				<source>Display the following information on my "Your RHN" page upon login:</source>
+				<target>在登入時，於「您專屬的 RHN」網頁中，顯示以下資訊：</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
 				<source>Red Hat Contact Options</source>
@@ -1215,8 +1219,8 @@
 				<target>隱私權聲明</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.release">
-				<source>@@PRODUCT_NAME@@ release &lt;a href="{0}"&gt;{1}&lt;/a&gt;</source>
-				<target>@@PRODUCT_NAME@@ 版本 &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target>
+				<source>Red Hat Network release &lt;a href="{0}"&gt;{1}&lt;/a&gt;</source>
+				<target>Red Hat Network 版本 &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="bugzilla.jsp.submitbug">
 				<source>Something wrong with this page?  Submit a &lt;a href="{0}"&gt;bug report&lt;/a&gt;.</source>
@@ -1347,8 +1351,8 @@
 				<target>系統群組圖示</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Overview Legend</source>
-				<target>您專屬的 @@PRODUCT_NAME@@ 圖示</target>
+				<source>Your RHN Legend</source>
+				<target>您專屬的 RHN 圖示</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
 				<source>Failed Actions</source>
@@ -1391,8 +1395,8 @@
 				<target> 為了與 {0} 一致，您必須擁有驗證過的電子郵件位址，以接收服務。目前您的電子郵件位址尚未通過認證。如果您想要改變您的位址，或想要再次收到電子郵件驗證，請在下方輸入您的電子郵件位址，按下「發送驗證」。</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.TermsAndConditions">
-				<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
-				<target>@@PRODUCT_NAME@@ 使用條款</target>
+				<source>Red Hat Network Terms and Conditions</source>
+				<target>Red Hat Network 使用條款</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.instructions">
 				<source>Please enter your new email address below.</source>
@@ -1419,8 +1423,8 @@
 				<target>頻道管理員狀態</target>
 			</trans-unit>
 			<trans-unit id="addresses.summary">
-				<source> Addresses associated with your @@PRODUCT_NAME@@ account are listed below. </source>
-				<target> 與您 @@PRODUCT_NAME@@ 帳號相關的位址都列在下面。</target>
+				<source> Addresses associated with your Red Hat Network account are listed below. </source>
+				<target> 與您 Red Hat Network 帳號相關的位址都列在下面。</target>
 			</trans-unit>
 			<trans-unit id="address.jsp.associated">
 				<source> The following addresses are associated with this user's account. </source>
@@ -1435,16 +1439,16 @@
 				<target>帳號停用</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message">
-				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
-to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
-				<target>您可以停用以下 @@PRODUCT_NAME@@ 帳號。&lt;b&gt;這會移除您
-登入 @@PRODUCT_NAME@@ Network 的能力。&lt;/b&gt;</target>
+				<source>You may deactivate your RHN account below. &lt;b&gt;This will remove your ability
+to log into Red Hat Network.&lt;/b&gt;</source>
+				<target>您可以停用以下 RHN 帳號。&lt;b&gt;這會移除您
+登入 RHN Network 的能力。&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
-@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
+RHN Organization Administrator to reactivate your account.</source>
 				<target>一旦您的帳號被停用，您就必須連絡您 組織的
-@@PRODUCT_NAME@@ 組織管理者才能重新啟用您的帳號。</target>
+RHN 組織管理者才能重新啟用您的帳號。</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
 				<source>You will be logged out immediately after pressing the 'Deactivate Account'
@@ -1605,8 +1609,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>連絡方法</target>
 			</trans-unit>
 			<trans-unit id="usercreate.contactSummary">
-				<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
-				<target> 我打算以下列方式從 Red Hat 收到資訊。（請注意：您可能會收到 Red Hat 的所有電子郵件，並不限於 @@PRODUCT_NAME@@。）</target>
+				<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding Red Hat Network.) </source>
+				<target> 我打算以下列方式從 Red Hat 收到資訊。（請注意：您可能會收到 Red Hat 的所有電子郵件，並不限於 Red Hat Network。）</target>
 			</trans-unit>
 			<trans-unit id="usercreate.mail">
 				<source> Regular Mail</source>
@@ -1637,8 +1641,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>建立登入帳號</target>
 			</trans-unit>
 			<trans-unit id="usercreate.corpSummary">
-				<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-				<target>企業登入帳號能讓您管理公司內部的系統，並購買 Red Hat 的商業級產品與服務。&lt;strong&gt;如果您的組織已經擁有 @@PRODUCT_NAME@@ 帳號，請勿使用本表格。相反地，您應該連絡您的 @@PRODUCT_NAME@@ 組織管理者，以建立您的帳號，好讓您向組織註冊。&lt;/strong&gt;</target>
+				<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing RHN business login, you should not use this form. Instead, you will need to contact your RHN Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
+				<target>企業登入帳號能讓您管理公司內部的系統，並購買 Red Hat 的商業級產品與服務。&lt;strong&gt;如果您的組織已經擁有 RHN 帳號，請勿使用本表格。相反地，您應該連絡您的 RHN 組織管理者，以建立您的帳號，好讓您向組織註冊。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="usercreate.personalSummary">
 				<source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
@@ -1661,8 +1665,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>存取 redhat.com 上的白皮書、網路廣播、以及產品資訊。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.enables3">
-				<source>access software updates, Errata, and maintenance from @@PRODUCT_NAME@@</source>
-				<target>從 @@PRODUCT_NAME@@ 存取軟體升級、勘誤、以及維護</target>
+				<source>access software updates, Errata, and maintenance from Red Hat Network</source>
+				<target>從 Red Hat Network 存取軟體升級、勘誤、以及維護</target>
 			</trans-unit>
 			<trans-unit id="usercreate.enables4">
 				<source>access Red Hat technical support, documentation, and Knowledgebase</source>
@@ -1797,11 +1801,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>本使用者是最後一名組織管理者，不能自組織管理者角色中刪除。</target>
 			</trans-unit>
 			<trans-unit id="satadmin.jsp.error.lastsatadmin">
-				<source>The user {0} is the last @@PRODUCT_NAME@@ Administrator and cannot be removed from the @@PRODUCT_NAME@@ Administrator role.</source>
+				<source>The user {0} is the last Satellite Administrator and cannot be removed from the Satellite Administrator role.</source>
 				<target>使用者 {0} 是最後一名衛星管理者，不能自衛星管理者角色中刪除。</target>
 			</trans-unit>
 			<trans-unit id="satadmin.jsp.error.notsatadmin">
-				<source>The user {0} is the not a @@PRODUCT_NAME@@ Administrator. Only users with @@PRODUCT_NAME@@ Administrator role can grant  or revoke @@PRODUCT_NAME@@ Administrator roles from other users.</source>
+				<source>The user {0} is the not a Satellite Administrator. Only users with Satellite Administrator role can grant  or revoke Satellite Administrator roles from other users.</source>
 				<target>使用者 {0} 並不是衛星管理者。只有擁有衛星管理者角色的使用者才可以賦予或移除其他使用者的衛星管理者角色。</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.pendingchange">
@@ -1937,8 +1941,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>確認使用者重新啟用</target>
 			</trans-unit>
 			<trans-unit id="userconfirm.jsp.summary">
-				<source>The following users will be reactivated.  These users will have access to @@PRODUCT_NAME@@ and retain all permissions, roles, and data that they had prior to being deactivated.</source>
-				<target>以下使用者將被重新啟動。這些使用者將能存取 @@PRODUCT_NAME@@，並保有停用前的所有權限、角色、以及資料。</target>
+				<source>The following users will be reactivated.  These users will have access to RHN and retain all permissions, roles, and data that they had prior to being deactivated.</source>
+				<target>以下使用者將被重新啟動。這些使用者將能存取 RHN，並保有停用前的所有權限、角色、以及資料。</target>
 			</trans-unit>
 			<trans-unit id="deleteuser.jsp.delete">
 				<source>Delete User</source>
@@ -1969,8 +1973,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>重新啟用使用者</target>
 			</trans-unit>
 			<trans-unit id="enableuser.jsp.body">
-				<source>&lt;p&gt;This action will allow this user to access @@PRODUCT_NAME@@.  This user will retain all permissions, roles, and data that he or she had before being deactivated.&lt;/p&gt;</source>
-				<target>&lt;p&gt;這動作能讓本使用者存取 @@PRODUCT_NAME@@。這使用者將會保留停用前的所有權限、角色、以及資料。&lt;/p&gt;</target>
+				<source>&lt;p&gt;This action will allow this user to access RHN.  This user will retain all permissions, roles, and data that he or she had before being deactivated.&lt;/p&gt;</source>
+				<target>&lt;p&gt;這動作能讓本使用者存取 RHN。這使用者將會保留停用前的所有權限、角色、以及資料。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.header">
 				<source>Modify Systems Administered</source>
@@ -2073,8 +2077,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>檢視您的購買紀錄</target>
 			</trans-unit>
 			<trans-unit id="purchasehistory.jsp.description1">
-				<source>At the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;, you can view &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;your purchase history and the expiration dates&lt;/a&gt;&lt;/strong&gt; for web &amp;amp; phone support, Red Hat Enterprise Linux subscriptions, and @@PRODUCT_NAME@@ software and service entitlements. You can view &lt;strong&gt;account details&lt;/strong&gt; such as:</source>
-				<target>在 &lt;strong&gt;Red Hat 支援網站&lt;/strong&gt;上，您可以檢視 &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt; 您的網站與電話支援、Red Hat Enterprise Linux 的訂閱服務、以及 @@PRODUCT_NAME@@ 軟體與服務權利的購買紀錄與過期日期&lt;/a&gt;&lt;/strong&gt;。您能夠檢視&lt;strong&gt;帳號的詳細資料&lt;/strong&gt;，例如：</target>
+				<source>At the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;, you can view &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;your purchase history and the expiration dates&lt;/a&gt;&lt;/strong&gt; for web &amp;amp; phone support, Red Hat Enterprise Linux subscriptions, and Red Hat Network software and service entitlements. You can view &lt;strong&gt;account details&lt;/strong&gt; such as:</source>
+				<target>在 &lt;strong&gt;Red Hat 支援網站&lt;/strong&gt;上，您可以檢視 &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt; 您的網站與電話支援、Red Hat Enterprise Linux 的訂閱服務、以及 Red Hat Network 軟體與服務權利的購買紀錄與過期日期&lt;/a&gt;&lt;/strong&gt;。您能夠檢視&lt;strong&gt;帳號的詳細資料&lt;/strong&gt;，例如：</target>
 			</trans-unit>
 			<trans-unit id="purchasehistory.jsp.item1">
 				<source>Subscription Status</source>
@@ -2093,8 +2097,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>服務 / 訂閱購買 &amp;amp; 過期日</target>
 			</trans-unit>
 			<trans-unit id="purchasehistory.jsp.description2">
-				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;View your purchase history and service/subscription expiration info now&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;. &lt;em&gt;This link will take you out of @@PRODUCT_NAME@@.&lt;/em&gt;</source>
-				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;立即檢視您的購買紀錄與服務 / 訂閱過期資訊&lt;/a&gt;&lt;/strong&gt;，這位於 &lt;strong&gt;Red Hat 支援網站&lt;/strong&gt;上。&lt;em&gt;本連結會讓您離開 @@PRODUCT_NAME@@。&lt;/em&gt;</target>
+				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;View your purchase history and service/subscription expiration info now&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;. &lt;em&gt;This link will take you out of Red Hat Network.&lt;/em&gt;</source>
+				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;立即檢視您的購買紀錄與服務 / 訂閱過期資訊&lt;/a&gt;&lt;/strong&gt;，這位於 &lt;strong&gt;Red Hat 支援網站&lt;/strong&gt;上。&lt;em&gt;本連結會讓您離開 Red Hat Network。&lt;/em&gt;</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
 				<source> Purchase or Renew </source>
@@ -2105,24 +2109,24 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>更新訂閱 &amp;amp; 權利</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.renew.description">
-				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renew&lt;/a&gt;&lt;/strong&gt; your &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; and &lt;strong&gt;@@PRODUCT_NAME@@ entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat Renewal Center&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;更新&lt;/a&gt;&lt;/strong&gt;您的&lt;strong&gt;Red Hat Enterprise Linux 訂閱服務&lt;/strong&gt;與 &lt;strong&gt;@@PRODUCT_NAME@@ 權利&lt;/strong&gt;，這都位於&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat 更新中心&lt;/a&gt;&lt;/strong&gt;。</target>
+				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renew&lt;/a&gt;&lt;/strong&gt; your &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; and &lt;strong&gt;Red Hat Network entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat Renewal Center&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;更新&lt;/a&gt;&lt;/strong&gt;您的&lt;strong&gt;Red Hat Enterprise Linux 訂閱服務&lt;/strong&gt;與 &lt;strong&gt;Red Hat Network 權利&lt;/strong&gt;，這都位於&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat 更新中心&lt;/a&gt;&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase">
 				<source>Purchase Additional Subscriptions</source>
 				<target>購買額外的訂閱服務</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description1">
-				<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;Provisionin 與管理服務都提供了 Red Hat Enterprise Linux 訂閱服務的額外功能。這些服務本身不會讓您用您的 @@PRODUCT_NAME@@ 帳號，成功註冊額外的系統設定檔。</target>
+				<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your RHN account.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;Provisionin 與管理服務都提供了 Red Hat Enterprise Linux 訂閱服務的額外功能。這些服務本身不會讓您用您的 RHN 帳號，成功註冊額外的系統設定檔。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;從&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 線上商店&lt;/a&gt;&lt;/strong&gt;購買&lt;/a&gt;&lt;/strong&gt;額外的&lt;strong&gt;Red Hat Enterprise Linux 訂閱服務&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description3">
-				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;@@PRODUCT_NAME@@ management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;從 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat 線上商店&lt;/a&gt;&lt;/strong&gt;購買&lt;/a&gt;&lt;/strong&gt;額外的&lt;strong&gt;@@PRODUCT_NAME@@ 管理與 provisioning 權利。</target>
+				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Network management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>從 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat 線上商店&lt;/a&gt;&lt;/strong&gt; &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;購買&lt;/a&gt;&lt;/strong&gt; 額外的 &lt;strong&gt;Red Hat Network 管理與 provisioning 權利&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements">
 				<source>View &amp;amp; Assign Entitlements to Systems</source>
@@ -2133,8 +2137,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt; 從&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;系統權利&lt;/a&gt;&lt;/strong&gt;網頁的左方導覽列中檢視您可用的系統權利數，並將系統權利套用到系統上。&lt;/a&gt;&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
-				<source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;您不能從 @@PRODUCT_NAME@@ 介面的&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;系統權利&lt;/a&gt;&lt;/strong&gt;網頁檢視權利的過期資訊。相反地，請從&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 支援網站&lt;/a&gt;&lt;/strong&gt;檢視權利的過期資訊。</target>
+				<source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the RHN interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;您不能從 RHN 介面的&lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;系統權利&lt;/a&gt;&lt;/strong&gt;網頁檢視權利的過期資訊。相反地，請從&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 支援網站&lt;/a&gt;&lt;/strong&gt;檢視權利的過期資訊。</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.address">
 				<source> Address</source>
@@ -2169,8 +2173,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>要管理您公司的系統，您需要&lt;strong&gt;企業&lt;/strong&gt;登入帳號，或購買企業版的 Red Hat 產品與服務。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_2">
-				<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
-				<target>如果您的組織有現有的 @@PRODUCT_NAME@@ 企業帳號，請連絡您的 @@PRODUCT_NAME@@ 組織管理者，建立您的帳號，好讓您向組織註冊。</target>
+				<source>If your organization has an existing RHN business login, you will need to contact your RHN Organization Administrator to create your account so you are registered with your organization. </source>
+				<target>如果您的組織有現有的 RHN 企業帳號，請連絡您的 RHN 組織管理者，建立您的帳號，好讓您向組織註冊。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createCorpNew">
 				<source>Create a new Business Login</source>
@@ -2633,20 +2637,20 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>確認安裝</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirmpatchsummary.plural">
-				<source>Click on the "confirm" button below to back out the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>按下下方的「確認」按鈕，好在下一次系統登入 @@PRODUCT_NAME@@ 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級檔。（最後登入時間：&lt;b&gt;{1}&lt;/b&gt;；下次預期登入時間：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+				<source>Click on the "confirm" button below to back out the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with RHN. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>按下下方的「確認」按鈕，好在下一次系統登入 RHN 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級檔。（最後登入時間：&lt;b&gt;{1}&lt;/b&gt;；下次預期登入時間：&lt;b&gt;{2}&lt;/b&gt;。）</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirmpatchsummary">
-				<source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>請按下下方的「確認」按鈕，在下次系統登入 @@PRODUCT_NAME@@ 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級。（最後登入：&lt;b&gt;{1}&lt;/b&gt;；預期下次登入：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+				<source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with RHN. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>請按下下方的「確認」按鈕，在下次系統登入 RHN 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級。（最後登入：&lt;b&gt;{1}&lt;/b&gt;；預期下次登入：&lt;b&gt;{2}&lt;/b&gt;。）</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirminstallpatchsummary.plural">
-				<source>Click on the "confirm" button below to install the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>請按下下方的「確認」按鈕，在下次系統登入 @@PRODUCT_NAME@@ 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級。（最後登入時間：&lt;b&gt;{1}&lt;/b&gt;；預期下次登入時間：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+				<source>Click on the "confirm" button below to install the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with RHN. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>請按下下方的「確認」按鈕，在下次系統登入 RHN 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級。（最後登入時間：&lt;b&gt;{1}&lt;/b&gt;；預期下次登入時間：&lt;b&gt;{2}&lt;/b&gt;。）</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirminstallpatchsummary">
-				<source>Click on the "confirm" button below to install the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>請按下下方的「確認」按鈕，在下次系統登入 @@PRODUCT_NAME@@ 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級。（最後登入：&lt;b&gt;{1}&lt;/b&gt;；預期下次登入：&lt;b&gt;{2}&lt;/b&gt;。）</target>
+				<source>Click on the "confirm" button below to install the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with RHN. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>請按下下方的「確認」按鈕，在下次系統登入 RHN 時，回溯 &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; 所列出的升級。（最後登入：&lt;b&gt;{1}&lt;/b&gt;；預期下次登入：&lt;b&gt;{2}&lt;/b&gt;。）</target>
 			</trans-unit>
 			<trans-unit id="upgradable.jsp.header">
 				<source>Upgradable Packages</source>
@@ -3317,11 +3321,11 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>以下系統有 &lt;strong&gt;{0}&lt;/strong&gt; 可套用：</target>
 			</trans-unit>
 			<trans-unit id="org.allusers.summary">
-				<source>The following list of all users on this @@PRODUCT_NAME@@, across organizations. Note that you will only have access to modify the details of users that are members of this organization you are currently logged into ({0}), and only if you have organization administrator privledges for this organization.</source>
+				<source>The following list of all users on this Satellite, across organizations. Note that you will only have access to modify the details of users that are members of this organization you are currently logged into ({0}), and only if you have organization administrator privledges for this organization.</source>
 				<target>以下清單列出了這台衛星伺服器上的所有組織成員。請注意，您只能存取以修改使用者的詳細資料，這些使用者限於您目前登入至（{0}）的組織上的成員，同時囿於您有這組織的組織管理者權限。</target>
 			</trans-unit>
 			<trans-unit id="org.allusers.title">
-				<source>Users Across @@PRODUCT_NAME@@</source>
+				<source>Users Across Satellite</source>
 				<target>衛星伺服器的所有使用者</target>
 			</trans-unit>
 			<trans-unit id="orgdetails.jsp.header">
@@ -3473,15 +3477,15 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>使用者</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.header">
-				<source>Software Channel Entitlements Across @@PRODUCT_NAME@@</source>
+				<source>Software Channel Entitlements Across Satellite</source>
 				<target>整個衛星伺服器的軟體頻道權利</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.description">
-				<source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
+				<source>The following is a list of all software channel entitlements on this Satellite, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
 				<target>以下是這台衛星伺服器的所有軟體頻道權利及其用法。請按下權利的名稱，以取得更多資訊。</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.description">
-				<source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
+				<source>The following is a list of all software channel entitlements on this Satellite, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
 				<target>以下是這台衛星伺服器的所有軟體頻道權利及其用法。請按下權利的名稱，以取得更多資訊。</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.noentitlements">
@@ -3557,8 +3561,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>由 {1} 的 {0}（{2}%）</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.tip">
-				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the @@PRODUCT_NAME@@
-as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
+				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the Satellite
+as reflected in this Satellite's certificate.</source>
 				<target>&lt;strong&gt;* 提示&lt;/strong&gt;「總數」指得是這個衛星認證所反映的可用衛星伺服器總數。</target>
 			</trans-unit>
 			<trans-unit id="satusers.tip">
@@ -3570,7 +3574,7 @@ organization. You may grant or remove the organization administrator role in the
 				<target>&lt;strong&gt;*提示：&lt;/strong&gt;組織管理員的權利在這階段並不能修改。相反地，請使用上方導覽列的「使用者」分頁，存取您組織個別使用者的基本資料。您可以從每個使用者的基本資料頁面，「詳細資料」分頁中的「角色」一節裡，賦予或移除組織管理者角色。</target>
 			</trans-unit>
 			<trans-unit id="organizations.tip">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your Satellite's default organization. Entitlements for this organization are linked to your Satellite certificate file, so they are not modifiable. If you remove entitlements from a non-default
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
@@ -3633,7 +3637,7 @@ deducted from the default organization.</source>
 				<target>組織用量</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementDetails.header.entitlementUsage.organizationUsage.counts">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this @@PRODUCT_NAME@@ have at least one registered system using this entitlement.</source>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this Satellite have at least one registered system using this entitlement.</source>
 				<target>這台衛星伺服器上 &lt;strong&gt;{1}&lt;/strong&gt; 組織的 &lt;strong&gt;{0}&lt;/strong&gt; 至少有一台已註冊的系統正在使用這個權利。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementDetails.header.accessGranted">
@@ -3669,7 +3673,7 @@ deducted from the default organization.</source>
 				<target>檢視 / 修改組織的權利數目</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-				<source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
+				<source>The current allocation of entitlements for '{0}' across the organizations on this Satellite is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
 				<target>整個組織間，這台衛星伺服器「{0}」目前分配的權利顯示如下。您可以在「提議的總數」欄裡修改每個組織的權利數目，但您所作的改變要到您按下下方的「更新」之後，才會生效。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.noOrgsFound">
@@ -3697,17 +3701,17 @@ deducted from the default organization.</source>
 				<target>可能的值：&lt;strong&gt;{0}&lt;/strong&gt; 到 &lt;strong&gt;{1}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.totaltip">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to the organizations (excluding the default Satellite organization) on this Satellite. It is not equal to the total available in the Satellite certificate.</source>
 				<target>&lt;strong&gt;提示：&lt;/strong&gt;「總數」指得是這台衛星伺服器上，一個組織
 （不包括預設的衛星組織）可用的權利數目。這與衛星認證所擁有的總數不同。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your Satellite certificate's
 value for this entitlement.</source>
 				<target>&lt;strong&gt;提示：&lt;/strong&gt;這總數反映了您衛星認證對這權利的值。</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.tip_allocated">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your Satellite certificate's
 value for this entitlement.</source>
 				<target>&lt;strong&gt;提示：&lt;/strong&gt;這總數反映了您衛星認證對這權利的值。</target>
 			</trans-unit>
@@ -3728,8 +3732,8 @@ value for this entitlement.</source>
 				<target>搜尋勘誤</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.summary">
-				<source>Erratum Search will return results from the complete set of errata released by @@PRODUCT_NAME@@.</source>
-				<target>搜尋勘誤會從 @@PRODUCT_NAME@@ 釋出的完整勘誤集中，傳回搜尋結果。</target>
+				<source>Erratum Search will return results from the complete set of errata released by Red Hat Network.</source>
+				<target>搜尋勘誤會從 Red Hat Network 釋出的完整勘誤集中，傳回搜尋結果。</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.instructions">
 				<source>Specify your search criteria below.</source>
@@ -4235,6 +4239,14 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>沒有代理伺服器。</target>
 			</trans-unit>
+			<trans-unit id="satellitelist.jsp.header">
+				<source>Satellite Servers</source>
+				<target>衛星伺服器</target>
+			</trans-unit>
+			<trans-unit id="satellitelist.jsp.nosystems">
+				<source>No satellite servers.</source>
+				<target>沒有衛星伺服器。</target>
+			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>沒有系統群組。</target>
@@ -4288,8 +4300,8 @@ value for this entitlement.</source>
 				<target>系統權利</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para1">
-				<source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
-				<target>要善用 @@PRODUCT_NAME@@，每台系統都必須對每項服務「&lt;strong&gt;享有權利&lt;/strong&gt;」。如果系統並未享有權利，您就不能為這台系統進行主要的軟體管理工作，例如安裝套件或套用勘誤升級。</target>
+				<source>In order to get the most out of Red Hat Network, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
+				<target>要善用 Red Hat Network，每台系統都必須對每項服務「&lt;strong&gt;享有權利&lt;/strong&gt;」。如果系統並未享有權利，您就不能為這台系統進行主要的軟體管理工作，例如安裝套件或套用勘誤升級。</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para2">
 				<source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -4336,8 +4348,8 @@ value for this entitlement.</source>
 				<target>&lt;a href="{0}" target="_new"&gt;資訊&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="demo-entitlements.jsp.about.info">
-				<source> The Demo entitlement is a free system entitlement that was granted with each new @@PRODUCT_NAME@@ (RHN) account. The Demo system entitlement is only intended to be used when subscribing an Red Hat Linux (end of life) system to RHN.  Red Hat Linux maintenance and errata support ended April 30, 2004. Red Hat no longer grants Demo system entitlements to new RHN accounts.&lt;p&gt; The Demo Entitlement can not be used with Red Hat Enterprise Linux will be removed at a later date.  Inactive systems associated with the Demo entitlements will be unentitled. An inactive system is a system that uses a Demo entitlement but has not checked in the past 30 days.&lt;/p&gt;</source>
-				<target> 示範（Demo）權利是免費的系統權利，授與每個新的 @@PRODUCT_NAME@@（RHN）帳號使用。示範權利只是用來向 RHN 訂閱 RHN 系統用。Red Hat Linux 的維護與勘誤支援已經在 2004 年四月卅日到期。Red Hat 不再為新的 RHN 帳號授與新的示範權利。&lt;p&gt;無法應用於 Red Hat Enterprise Linux 的示範權利將在之後被移除掉。  與這示範權利相關的非運作中系統之所有權利也將被移除。非運作中的系統是指使用示範權利，但在過去卅天內沒有登入的系統。&lt;/p&gt;</target>
+				<source> The Demo entitlement is a free system entitlement that was granted with each new Red Hat Network (RHN) account. The Demo system entitlement is only intended to be used when subscribing an Red Hat Linux (end of life) system to RHN.  Red Hat Linux maintenance and errata support ended April 30, 2004. Red Hat no longer grants Demo system entitlements to new RHN accounts.&lt;p&gt; The Demo Entitlement can not be used with Red Hat Enterprise Linux will be removed at a later date.  Inactive systems associated with the Demo entitlements will be unentitled. An inactive system is a system that uses a Demo entitlement but has not checked in the past 30 days.&lt;/p&gt;</source>
+				<target> 示範（Demo）權利是免費的系統權利，授與每個新的 Red Hat Network（RHN）帳號使用。示範權利只是用來向 RHN 訂閱 Red Hat Network 系統用。Red Hat Linux 的維護與勘誤支援已經在 2004 年四月卅日到期。Red Hat 不再為新的 RHN 帳號授與新的示範權利。&lt;p&gt;無法應用於 Red Hat Enterprise Linux 的示範權利將在之後被移除掉。  與這示範權利相關的非運作中系統之所有權利也將被移除。非運作中的系統是指使用示範權利，但在過去卅天內沒有登入的系統。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.entitlement_counts_message_unlimited">
 				<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
@@ -4376,16 +4388,16 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;管理&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToManagementEntitled.failure">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為&lt;strong&gt;管理&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;管理&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以將電腦從&lt;strong&gt;管理&lt;/strong&gt;權利降級至「更新」權利，或自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買，獲取更多的&lt;strong&gt;管理&lt;/strong&gt;權利。一旦您獲取更多&lt;strong&gt;管理&lt;/strong&gt;權利後，您就可以更新這些系統。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為&lt;strong&gt;管理&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;管理&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以將電腦從&lt;strong&gt;管理&lt;/strong&gt;權利降級至「更新」權利，或自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN 線上商店&lt;/strong&gt;&lt;/a&gt;購買，獲取更多的&lt;strong&gt;管理&lt;/strong&gt;權利。一旦您獲取更多&lt;strong&gt;管理&lt;/strong&gt;權利後，您就可以更新這些系統。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToUpdateEntitled.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經設定為&lt;strong&gt;更新&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToUpdateEntitled.failure">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定至&lt;strong&gt;升級&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;升級&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多&lt;strong&gt;更新&lt;/strong&gt;權利。一旦您獲取更多&lt;strong&gt;管理&lt;/strong&gt;權利後，您就可以更新這些系統。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定至&lt;strong&gt;升級&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;升級&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多&lt;strong&gt;更新&lt;/strong&gt;權利。一旦您獲取更多&lt;strong&gt;管理&lt;/strong&gt;權利後，您就可以更新這些系統。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unentitle.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
@@ -4404,8 +4416,8 @@ value for this entitlement.</source>
 				<target>已移除 &lt;strong&gt;{0}&lt;/strong&gt; 台系統的 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.provisioning.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利，但您沒有足夠的&lt;strong&gt;Provisioning&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利。一旦您獲取更多 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利後，您就可以更新這些系統。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利，但您沒有足夠的&lt;strong&gt;Provisioning&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利。一旦您獲取更多 &lt;strong&gt;Provisioning&lt;/strong&gt; 權利後，您就可以更新這些系統。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.provisioning.noManagement">
 				<source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4436,8 +4448,8 @@ value for this entitlement.</source>
 				<target>已將&lt;strong&gt;虛擬化&lt;/strong&gt;由 &lt;strong&gt;{0}&lt;/strong&gt; 台系統中移除掉了 這會造成任何與所選主機相關的客座耗費實體的頻道與系統權利。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為 &lt;strong&gt;虛擬化&lt;/strong&gt; 權利，但您沒有足夠的&lt;strong&gt;虛擬化&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多 &lt;strong&gt;虛擬化&lt;/strong&gt; 權利。一旦您獲取更多 &lt;strong&gt;虛擬化&lt;/strong&gt; 權利後，您就可以將這些系統升級。 &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化平台的話，它就會被降級為虛擬化。 </target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為 &lt;strong&gt;虛擬化&lt;/strong&gt; 權利，但您沒有足夠的&lt;strong&gt;虛擬化&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多 &lt;strong&gt;虛擬化&lt;/strong&gt; 權利。一旦您獲取更多 &lt;strong&gt;虛擬化&lt;/strong&gt; 權利後，您就可以將這些系統升級。 &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化平台的話，它就會被降級為虛擬化。 </target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.noManagement">
 				<source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4452,8 +4464,8 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統被設為&lt;strong&gt;虛擬化平台&lt;/strong&gt;。  &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化的話，它就會被升級為虛擬化平台。 </target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為 &lt;strong&gt;虛擬化平台&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;虛擬化平台&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多 &lt;strong&gt;虛擬化平台&lt;/strong&gt; 權利。一旦您獲取更多 &lt;strong&gt;虛擬化平台&lt;/strong&gt; 權利後，您就可以將這些系統升級。  &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化平台的話，它就會被降級為虛擬化。 </target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地設定為 &lt;strong&gt;虛擬化平台&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;虛擬化平台&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN 線上商店&lt;/strong&gt;&lt;/a&gt;購買更多 &lt;strong&gt;虛擬化平台&lt;/strong&gt; 權利。一旦您獲取更多 &lt;strong&gt;虛擬化平台&lt;/strong&gt; 權利後，您就可以將這些系統升級。  &lt;br/&gt; &lt;strong&gt;註： &lt;/strong&gt;假如系統先前就擁有虛擬化平台的話，它就會被降級為虛擬化。 </target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
 				<source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4472,8 +4484,8 @@ value for this entitlement.</source>
 				<target>已移除 &lt;strong&gt;{0}&lt;/strong&gt; 台系統的&lt;strong&gt;監控&lt;/strong&gt;權利。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地升級至&lt;strong&gt;監控&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;監控&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ 線上商店&lt;/strong&gt;&lt;/a&gt;購買，獲取更多的&lt;strong&gt;監控&lt;/strong&gt;權利。一旦您獲取更多&lt;strong&gt;監控&lt;/strong&gt;權利後，您就可以升級這些系統。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統已經成功地升級至&lt;strong&gt;監控&lt;/strong&gt;權利，但您沒有足夠的&lt;strong&gt;監控&lt;/strong&gt;權利給剩下 &lt;strong&gt;{1}&lt;/strong&gt; 台系統使用。您可以自&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;RHN 線上商店&lt;/strong&gt;&lt;/a&gt;購買，獲取更多的&lt;strong&gt;監控&lt;/strong&gt;權利。一旦您獲取更多&lt;strong&gt;監控&lt;/strong&gt;權利後，您就可以升級這些系統。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.noManagement">
 				<source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4484,8 +4496,8 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;監控&lt;/strong&gt;權利無法套用至 &lt;strong&gt;{0}&lt;/strong&gt; 台系統上，因為「監控」不支援 Solaris 系統。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization.setup_error">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法增加 &lt;strong&gt;虛擬化（平台）&lt;/strong&gt;。  這是因為系統在自動地訂閱至 @@PRODUCT_NAME@@ 工具與 RHEL 虛擬化頻道上出了錯誤，而這些是虛擬化所需的。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the RHN Tools and RHEL Virtualization channels which are required for virtualization.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; 台系統無法增加 &lt;strong&gt;虛擬化（平台）&lt;/strong&gt;。  這是因為系統在自動地訂閱至 RHN 工具與 RHEL 虛擬化頻道上出了錯誤，而這些是虛擬化所需的。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unknown.error">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
@@ -4676,16 +4688,16 @@ value for this entitlement.</source>
 				<target>您可能需要選擇至少一個「顯示圖表」或「顯示事件紀錄」。</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.header1">
-				<source>@@PRODUCT_NAME@@ Configuration - Monitoring</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器設定 - 偵測</target>
+				<source>RHN Satellite Configuration - Monitoring</source>
+				<target>RHN 衛星伺服器設定 - 偵測</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.header2">
 				<source>General Monitoring Config</source>
 				<target>一般監控設定</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.summary">
-				<source>After updating the configuration options below, monitoring services on this satellite and all of your Monitoring-enabled @@PRODUCT_NAME@@ Proxy servers will need to be restarted.  These actions will be scheduled automatically when you update this page.</source>
-				<target>更新以下設定選項後，這衛星伺服器與所有啟動監控服務的 @@PRODUCT_NAME@@ 伺服器之監控服務需要重新啟動。您更新本網頁時，系統會自動排程這些動作。</target>
+				<source>After updating the configuration options below, monitoring services on this satellite and all of your Monitoring-enabled RHN Proxy servers will need to be restarted.  These actions will be scheduled automatically when you update this page.</source>
+				<target>更新以下設定選項後，這衛星伺服器與所有啟動監控服務的 RHN 伺服器之監控服務需要重新啟動。您更新本網頁時，系統會自動排程這些動作。</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.update_config">
 				<source>Update Config</source>
@@ -4701,51 +4713,51 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="message.packageremoval">
 				<source>{0} package removal has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;移除 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的移除。</target>
 			</trans-unit>
 			<trans-unit id="message.packageremovals">
 				<source>{0} package removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;移除 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的移除。</target>
 			</trans-unit>
 			<trans-unit id="message.packageupgradessss">
 				<source>{0} package upgrade has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;升級 {0} 套件。</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的升級。</target>
 			</trans-unit>
 			<trans-unit id="message.packageupgrades">
 				<source>{0} package upgrades have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;升級 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的升級。</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>{0} package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;安裝 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的安裝。</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstalls">
 				<source>{0} package installs have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;安裝 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的安裝。</target>
 			</trans-unit>
 			<trans-unit id="message.packageverify">
 				<source>{0} package verification has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;驗證 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的驗證。</target>
 			</trans-unit>
 			<trans-unit id="message.packageverifys">
 				<source>{0} package verifications have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;驗證 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個套件的驗證。</target>
 			</trans-unit>
 			<trans-unit id="message.patchremoval">
 				<source>{0} patch removal has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;移除 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個升級檔的移除。</target>
 			</trans-unit>
 			<trans-unit id="message.patchremovals">
 				<source>{0} patch removals have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;移除 {0} 套件</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個升級檔的移除。</target>
 			</trans-unit>
 			<trans-unit id="message.patchinstall">
 				<source>{0} patch install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;安裝 {0} 升級檔</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個升級檔的安裝。</target>
 			</trans-unit>
 			<trans-unit id="message.patchinstalls">
 				<source>{0} patch installs have been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;</source>
-				<target>已經為 &lt;/a&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt;安裝 {0} 升級檔</target>
+				<target>已經為 &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt; &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;排程&lt;/a&gt; 了 {0} 個升級檔的安裝。</target>
 			</trans-unit>
 			<trans-unit id="removeconfirm.jsp.runremotecommand">
 				<source>Run Remote Command</source>
@@ -4893,7 +4905,7 @@ value for this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.summary">
 				<source>You can schedule a remote script to execute on this system below.  The script will run as the user you specify.&lt;/p&gt; &lt;p&gt;You must enable Remote Command execution on the target system, by adding a file to the local rhn configuration directory: &lt;code&gt;allowed-actions/script/run/&lt;/code&gt;.</source>
-				<target>您可以在下方排程遠端程序，好在本系統上執行。這程序檔會以您指定的使用者身份執行。&lt;/p&gt;&lt;p&gt;您必須在目標系統上的 rhn 設定目錄上，新增 &lt;code&gt;allowed-actions/script/run&lt;/code&gt; 檔案，以啟動遠端指令執行。</target>
+				<target>您可以在下方排程遠端程序，好在本系統上執行。這程序檔會以您指定的使用者身份執行。&lt;p&gt; &lt;/p&gt;您必須在目標系統上的 rhn 設定目錄上，新增 &lt;code&gt;allowed-actions/script/run&lt;/code&gt; 檔案，以啟動遠端指令執行。</target>
 			</trans-unit>
 			<trans-unit id="scheduleremote.jsp.run">
 				<source>Run</source>
@@ -5244,13 +5256,13 @@ value for this entitlement.</source>
 				<target>設定檔 &lt;strong&gt;{0}&lt;/strong&gt; 成功地自 &lt;strong&gt;{1}&lt;/strong&gt; 建立。</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.confirmsatadminrole">
-				<source>Confirm @@PRODUCT_NAME@@ Administrator Modification</source>
+				<source>Confirm Satellite Administrator Modification</source>
 				<target>確認修改衛星管理者</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.satadmin.description">
-				<source>Are you sure you would like to remove the "@@PRODUCT_NAME@@ Administrator" role from
+				<source>Are you sure you would like to remove the "Satellite Administrator" role from
 your own login? You will need to contact another satellite administrator to
-regain this role if you choose to remove it now.  You will no longer have access to the @@PRODUCT_NAME@@ configuration tools and
+regain this role if you choose to remove it now.  You will no longer have access to the Satellite configuration tools and
 organization management tools if you choose to remove this role from your login.</source>
 				<target>您確定要移除您自己登入帳號「衛星管理員」權利嗎？如果您現在移除的話，那麼之後
 您需要聯絡另一個衛星管理員才能重新成為這個角色。如果您決定移除的話，將來您將
@@ -5797,48 +5809,48 @@ organization management tools if you choose to remove this role from your login.
 				<target>時間</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.toolbar">
-				<source>@@PRODUCT_NAME@@ Configuration - General Configuration</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器設定 - 一般設定</target>
+				<source>RHN Satellite Configuration - General Configuration</source>
+				<target>RHN 衛星伺服器設定 - 一般設定</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.toolbar">
-				<source>@@PRODUCT_NAME@@ Configuration - Organizations</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器設定 - 組織</target>
+				<source>RHN Satellite Configuration - Organizations</source>
+				<target>RHN 衛星伺服器設定 - 組織</target>
 			</trans-unit>
 			<trans-unit id="config.restartrequired">
-				<source>The @@PRODUCT_NAME@@ must be restarted to reflect these changes.</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器必須重新啟動，以反映這些變更。</target>
+				<source>The RHN Satellite must be restarted to reflect these changes.</source>
+				<target>RHN 衛星伺服器必須重新啟動，以反映這些變更。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.header2">
-				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<source>Satellite Configuration</source>
 				<target>衛星伺服器的設定</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.summary">
-				<source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
-				<target>請在下方設定您的 @@PRODUCT_NAME@@ 衛星伺服器。HTTP 代理設定是給衛星伺服器與父 @@PRODUCT_NAME@@ 伺服器通訊用（如果使用這情況的話）。HTTP 代理必須使用「主機：連接埠」格式，但如果您不設定連接埠的話，系統會使用預設的 8080。用戶端系統連上這衛星伺服器上的 HTTP 代理設定可以不同，也可以在稍後設定。如果您啟用了「監控後端」，您也應該啟用「監控偵測」，或設定「監控偵測」為一台獨立的伺服器。如果您啟用這功能，您也必須啟用「監控後端」。</target>
+				<source>Configure your RHN Satellite below. The HTTP proxy settings are for the Satellite server's communication with the parent RHN server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this Satellite can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
+				<target>請在下方設定您的 RHN 衛星伺服器。HTTP 代理設定是給衛星伺服器與父 RHN 伺服器通訊用（如果使用這情況的話）。HTTP 代理必須使用「主機：連接埠」格式，但如果您不設定連接埠的話，系統會使用預設的 8080。用戶端系統連上這衛星伺服器上的 HTTP 代理設定可以不同，也可以在稍後設定。如果您啟用了「監控後端」，您也應該啟用「監控偵測」，或設定「監控偵測」為一台獨立的伺服器。如果您啟用這功能，您也必須啟用「監控後端」。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.header">
-				<source>@@PRODUCT_NAME@@ Organizations</source>
+				<source>Satellite Organizations</source>
 				<target>衛星伺服器的組織</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary1">
-				<source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
-on a @@PRODUCT_NAME@@.</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器能讓您在一台衛星伺服器上建立多個「
+				<source>Red Hat Network Satellite allows for the creation of multiple 'organizations'
+on a Satellite.</source>
+				<target>Red Hat Network 衛星伺服器能讓您在一台衛星伺服器上建立多個「
 組織」。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary2">
 				<source>Organizations are a way to place boundaries between sets of systems, system
 groups, software channels, subscriptions and entitlements, kickstart profiles,
 activation keys, configuration channels and files, users - everything
-you manage using @@PRODUCT_NAME@@. Each organization is managed by at least one
-organization administrator, and the entire @@PRODUCT_NAME@@ is managed by a @@PRODUCT_NAME@@
-administrator. The organizations on one @@PRODUCT_NAME@@ with multiple organizations
-function similarly to the organizations on multiple @@PRODUCT_NAME@@s with one
+you manage using Satellite. Each organization is managed by at least one
+organization administrator, and the entire Satellite is managed by a Satellite
+administrator. The organizations on one Satellite with multiple organizations
+function similarly to the organizations on multiple Satellites with one
 organization.</source>
 				<target>組織是設定系統、系統群組、軟體頻道、訂閱與權利、kickstart 設定檔、啟動金鑰、設定頻道與檔案、使用者界線的地方：您可以用衛星來管理任何東西。每個組織都由至少一個組織管理員所管理，整個衛星伺服器是由一名衛星管理者所管理。一台擁有多個組織功能的衛星上的組織，跟擁有一個組織的多台衛星伺服器上的組織相仿。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary3">
-				<source>To get started creating and managing organizations on your @@PRODUCT_NAME@@, refer to
+				<source>To get started creating and managing organizations on your Satellite, refer to
 the following tabs in the left navigation menu:</source>
 				<target>要開始建立、管理您衛星伺服器上的組織，請參考左方導覽列的分頁：</target>
 			</trans-unit>
@@ -5851,10 +5863,10 @@ the following tabs in the left navigation menu:</source>
 				<target>訂閱</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
-				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
+				<source>Manage the subscriptions on your Satellite. You may also look up what access is
 provided by each entitlement. On a per-entitlement basis, 
 you can allocate entitlements for any particular entitlement across all 
-organizations on your @@PRODUCT_NAME@@ here as well.</source>
+organizations on your Satellite here as well.</source>
 				<target>管理您衛星伺服氣上的訂閱服務。您也可以檢閱每個權利所提供的存取功能。
 在單一權利的基礎上，您也可以在此為任何衛星上得所有組織，分配特定的權
 利。</target>
@@ -5864,7 +5876,7 @@ organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>現在就移至訂閱服務</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description1">
-				<source>Create and manage organizations on your @@PRODUCT_NAME@@. On a per-organization basis, you can also allocate software subscription and system entitlements here.</source>
+				<source>Create and manage organizations on your Satellite. On a per-organization basis, you can also allocate software subscription and system entitlements here.</source>
 				<target>建立並管理衛星伺服氣上的組織。在單一組織的基礎上，您也可以在此分配軟體訂閱與系統權利。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link1">
@@ -5872,9 +5884,9 @@ organizations on your @@PRODUCT_NAME@@ here as well.</source>
 				<target>現在就移至組織</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description3">
-				<source>Create and manage organizations on your @@PRODUCT_NAME@@. You can not view all of the
-users on the @@PRODUCT_NAME@@ here, but you can look up the users with organization
-administrator privileges in all of the organizations on your @@PRODUCT_NAME@@ and you
+				<source>Create and manage organizations on your Satellite. You can not view all of the
+users on the Satellite here, but you can look up the users with organization
+administrator privileges in all of the organizations on your Satellite and you
 may also assign or take away an organization administrator's satellite
 administrator privileges.</source>
 				<target>建立並管理衛星伺服器上的組織。您無法在此檢視衛星伺服器上的所有用戶，但您
@@ -5894,7 +5906,7 @@ administrator privileges.</source>
 				<target>管理者的電子郵件地址</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.hostname">
-				<source>@@PRODUCT_NAME@@ Hostname</source>
+				<source>Satellite Hostname</source>
 				<target>衛星伺服器的主機名稱</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.proxy">
@@ -5930,7 +5942,7 @@ administrator privileges.</source>
 				<target>啟用 Solaris 的支援</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.disconnected">
-				<source>Disconnected @@PRODUCT_NAME@@</source>
+				<source>Disconnected Satellite</source>
 				<target>中斷與衛星伺服器的連線</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.monitoring_backend">
@@ -5942,28 +5954,28 @@ administrator privileges.</source>
 				<target>啟用監控偵察</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createFirstLogin">
-				<source>Create @@PRODUCT_NAME@@ Administrator</source>
+				<source>Create Satellite Administrator</source>
 				<target>建立衛星伺服器的管理者帳號</target>
 			</trans-unit>
 			<trans-unit id="usercreate.satSummary">
-				<source>Create the first @@PRODUCT_NAME@@ Administrator account. This account will have access to all resources on this @@PRODUCT_NAME@@. This account will also be able to create new users and delegate permissions to them.</source>
-				<target>建立第一個 @@PRODUCT_NAME@@ 衛星伺服器的管理者帳號。這帳號能存取這台 @@PRODUCT_NAME@@ 伺服器的所有資源。這帳號也可以用來建立新的使用者帳號，並賦予存取權限。</target>
+				<source>Create the first RHN Satellite Administrator account. This account will have access to all resources on this RHN Satellite. This account will also be able to create new users and delegate permissions to them.</source>
+				<target>建立第一個 RHN 衛星伺服器的管理者帳號。這帳號能存取這台 RHN 伺服器的所有資源。這帳號也可以用來建立新的使用者帳號，並賦予存取權限。</target>
 			</trans-unit>
 			<trans-unit id="monitoring.jsp.monitoringdisabled">
 				<source>Monitoring is disabled.  Please go to the &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;General&lt;/strong&gt;&lt;/a&gt; configuration page and select the Enable Monitoring checkbox.</source>
 				<target>監控已經停用。請連上&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;一般&lt;/strong&gt;&lt;/a&gt;設定頁，點選「啟用監控」勾選方塊。</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.toolbar">
-				<source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器設定 - 認證</target>
+				<source>RHN Satellite Configuration - Certificate</source>
+				<target>RHN 衛星伺服器設定 - 認證</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.summary">
-				<source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
-				<target>您必須提供 @@PRODUCT_NAME@@ 衛星伺服器認證。這認證能賦予您 @@PRODUCT_NAME@@ 衛星伺服器所提供的多種服務等級。</target>
+				<source>You must provide an RHN Satellite certificate. This certificate entitles you to the various levels of service provided by the RHN Satellite.</source>
+				<target>您必須提供 RHN 衛星伺服器認證。這認證能賦予您 RHN 衛星伺服器所提供的多種服務等級。</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.header2">
-				<source>@@PRODUCT_NAME@@ Certificate</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器認證</target>
+				<source>Red Hat Network Satellite Certificate</source>
+				<target>Red Hat Network 衛星伺服器認證</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.cert_file">
 				<source>Upload Certificate File:</source>
@@ -5974,21 +5986,21 @@ administrator privileges.</source>
 				<target>-或- 認證文字：</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.toolbar">
-				<source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器設定 - Bootstrap</target>
+				<source>RHN Satellite Configuration - Bootstrap</source>
+				<target>RHN 衛星伺服器設定 - Bootstrap</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.summary">
-				<source> The following information will be used to generate bootstrap scripts. These bootstrap scripts can be used to configure a client to use this @@PRODUCT_NAME@@ to receive updates. Once the bootstrap scripts have been generated, they will be available from  &lt;a href="/pub/bootstrap"&gt;this server&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
-Please note that some manual configuration of these scripts may still be required.  The bootstrap script can be found on the @@PRODUCT_NAME@@ Server's filesystem here: &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</source>
-				<target> 以下資訊會被用來產生 bootstrap 程序檔。這些 bootstrap 程序檔可以用來設定用戶端，以利用這台 @@PRODUCT_NAME@@ 衛星伺服器取得升級。一旦這 bootstrap 程序檔產生後，就可以從&lt;a href="/pub/bootstrap"&gt;這台伺服器&lt;/a&gt;上找到。&lt;br/&gt;&lt;br/&gt;
-請注意您還是需要手動設定這些程序檔的某些部份。bootstrap 程序檔可以在 @@PRODUCT_NAME@@ 衛星伺服器的檔案系統中找到：&lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</target>
+				<source> The following information will be used to generate bootstrap scripts. These bootstrap scripts can be used to configure a client to use this RHN Satellite to receive updates. Once the bootstrap scripts have been generated, they will be available from  &lt;a href="/pub/bootstrap"&gt;this server&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
+Please note that some manual configuration of these scripts may still be required.  The bootstrap script can be found on the RHN Satellite Server's filesystem here: &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</source>
+				<target> 以下資訊會被用來產生 bootstrap 程序檔。這些 bootstrap 程序檔可以用來設定用戶端，以利用這台 RHN 衛星伺服器取得升級。一旦這 bootstrap 程序檔產生後，就可以從&lt;a href="/pub/bootstrap"&gt;這台伺服器&lt;/a&gt;上找到。&lt;br/&gt;&lt;br/&gt;
+請注意您還是需要手動設定這些程序檔的某些部份。bootstrap 程序檔可以在 RHN 衛星伺服器的檔案系統中找到：&lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.header2">
 				<source>Client Bootstrap Script Configuration</source>
 				<target>用戶端 bootstrap 程序檔設定</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.hostname">
-				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<source>Satellite server hostname</source>
 				<target>衛星伺服器的主機名稱</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.ssl-cert">
@@ -6024,19 +6036,19 @@ Please note that some manual configuration of these scripts may still be require
 				<target>用戶端的 HTTP 代理之密碼</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.toolbar">
-				<source>@@PRODUCT_NAME@@ Configuration - Restart</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器設定 - 重新啟動</target>
+				<source>RHN Satellite Configuration - Restart</source>
+				<target>RHN 衛星伺服器設定 - 重新啟動</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.summary">
-				<source> The configuration changes require a restart of the @@PRODUCT_NAME@@. Please click Restart to restart the @@PRODUCT_NAME@@. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the @@PRODUCT_NAME@@.</source>
+				<source> The configuration changes require a restart of the Satellite. Please click Restart to restart the Satellite. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the Satellite.</source>
 				<target> 要讓改變後的設定生效，您必須重新啟動衛星伺服器。請選擇「重新取動」來重新啟動衛星伺服器。此網頁會在四分鐘內更新。  請注意這會影響所有登入這應用程式的使用者，以及試著向衛星伺服器註冊或與之互動的系統。</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.header2">
-				<source>Restart @@PRODUCT_NAME@@</source>
+				<source>Restart Satellite</source>
 				<target>重新啟動衛星伺服器</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.restart_satellite">
-				<source>Restart @@PRODUCT_NAME@@?</source>
+				<source>Restart Satellite?</source>
 				<target>重新啟動衛星伺服器？</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.restart">
@@ -6048,12 +6060,12 @@ Please note that some manual configuration of these scripts may still be require
 				<target>使用條款</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.desc-para">
-				<source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-				<target>請閱讀以下顯示的文件，選擇下方的「我接受」或「我不接受」按鈕，確認您接受或拒絕其中的使用條款。如果您不接受這些使用條款，就無法登入 @@PRODUCT_NAME@@。如果您這次接受這些使用條款，您不需要再次接受，除非使用條款的內容有所變動。</target>
+				<source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to Red Hat Network without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
+				<target>請閱讀以下顯示的文件，選擇下方的「我接受」或「我不接受」按鈕，確認您接受或拒絕其中的使用條款。如果您不接受這些使用條款，就無法登入 Red Hat Network。如果您這次接受這些使用條款，您不需要再次接受，除非使用條款的內容有所變動。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.consequence">
-				<source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
-				<target>如果您按下「我不接受」按鈕，拒絕以上使用條款，您會自動登出您的 @@PRODUCT_NAME@@ 帳號。</target>
+				<source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your Red Hat Network account.</source>
+				<target>如果您按下「我不接受」按鈕，拒絕以上使用條款，您會自動登出您的 Red Hat Network 帳號。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.button-accept">
 				<source>I Accept</source>
@@ -6064,24 +6076,24 @@ Please note that some manual configuration of these scripts may still be require
 				<target>我不接受</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.button-accept-subtext">
-				<source>This will continue your login to @@PRODUCT_NAME@@</source>
-				<target>這會繼續您登入 @@PRODUCT_NAME@@ 的動作</target>
+				<source>This will continue your login to Red Hat Network</source>
+				<target>這會繼續您登入 Red Hat Network 的動作</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.button-refuse-subtext">
-				<source>This will log you out of @@PRODUCT_NAME@@</source>
-				<target>這會讓您登出 @@PRODUCT_NAME@@</target>
+				<source>This will log you out of Red Hat Network</source>
+				<target>這會讓您登出 Red Hat Network</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.refused-desc">
-				<source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
-				<target>您已經拒絕接受與 Red Hat 產品與服務相關的使用條款。您必須接受這些使用條款，才能存取 @@PRODUCT_NAME@@ 與您的 Red Hat 訂閱服務。請按下以下連結，重新登入 @@PRODUCT_NAME@@，並接受這些使用條款。</target>
+				<source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access Red Hat Network and your Red Hat subscriptions. Please click on the link below to log back in to Red Hat Network and accept the Terms and Conditions of use.</source>
+				<target>您已經拒絕接受與 Red Hat 產品與服務相關的使用條款。您必須接受這些使用條款，才能存取 Red Hat Network 與您的 Red Hat 訂閱服務。請按下以下連結，重新登入 Red Hat Network，並接受這些使用條款。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.return-login">
-				<source>Link to Log in to @@PRODUCT_NAME@@</source>
-				<target>登入 @@PRODUCT_NAME@@ 的連結</target>
+				<source>Link to Log in to RHN</source>
+				<target>登入 RHN 的連結</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.error-desc">
-				<source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
-				<target>在處理您接受 Red Hat 使用條款時發生錯誤。請點選以下連結，重新登入 @@PRODUCT_NAME@@，並完成接受過程。</target>
+				<source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into Red Hat Network and complete the acceptance process.</source>
+				<target>在處理您接受 Red Hat 使用條款時發生錯誤。請點選以下連結，重新登入 Red Hat Network，並完成接受過程。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.print-version">
 				<source>Printer-Friendly Version</source>
@@ -6276,7 +6288,7 @@ Please note that some manual configuration of these scripts may still be require
 				<target>&lt;span class="small-text"&gt;「組織預設設定檔」的設定可以與手動建立或空機的 kickstart 檔案一起使用。請選擇這個選項，指出當&lt;a href="{0}" target="_new" &gt;&lt;strong&gt;這個連結&lt;/strong&gt;&lt;/a&gt;在 kickstart 檔案的 &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; 段落中，要用哪一個設定檔。這連結只有在組織預設值指定後才會發生作用。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.activeDescription">
-				<source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
+				<source>You cannot kickstart a system registered to Satellite using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
 				<target>您不能透過非作用中的 kickstart 設定檔，kickstart 已向衛星伺服器的系統。然而，非作用中的 kickstart 設定檔的 kickstart 檔案還是可以用作手動下載，以及空機 kickstart。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.org_default">
@@ -6317,7 +6329,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal_summary">
 				<source>&lt;p&gt; In order to kickstart "bare metal systems", you will need to provide them with a boot image that is compatible with the version of the operating system you are kickstarting to via boot CD. &lt;/p&gt; &lt;p&gt; Once these systems have booted using the appropriate image, you will need to provide a kickstart file. You may use the following URL in your Boot CD or in your PXE configuration to provide these systems with the kickstart file associated with this kickstart profile:&lt;/p&gt;</source>
-				<target>為了要 kickstart「全新的系統」，您需要提供一份開機映像檔，相容於您透過開機光碟所 kickstart 的版本。&lt;p&gt; &lt;p&gt; 一旦這些系統使用正確的映像檔啟動後，您還需要提供 kickstart 檔案。您可以使用您開機光碟或 PXE 設定中的以下網址，為這些系統提供與這 kickstart 設定檔相關的 kickstart 檔案：&lt;/p&gt;</target>
+				<target>&lt;p&gt;為了要 kickstart「全新的系統」，您需要提供一份開機映像檔，相容於您透過開機光碟所 kickstart 的版本。&lt;/p&gt; &lt;p&gt; 一旦這些系統使用正確的映像檔啟動後，您還需要提供 kickstart 檔案。您可以使用您開機光碟或 PXE 設定中的以下網址，為這些系統提供與這 kickstart 設定檔相關的 kickstart 檔案：&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartips.jsp.baremetal">
 				<source>Bare Metal Kickstart</source>
@@ -6412,8 +6424,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>刪除 Kickstart</target>
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.summary">
-				<source>You can associate one or more activation keys with this kickstart profile.  Activation keys will allow systems kickstarted with this profile to automatically register to @@PRODUCT_NAME@@, gain @@PRODUCT_NAME@@ service level entitlements, subscribe to specified software and configuration channels, and subscribe to specified system groups.  Activation keys can also specify packages to be installed on a system.  Please consider how this may affect your package selection in this profile's &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; tab.</source>
-				<target>您可以為這個 kickstart 設定檔設定一或多個啟動金鑰。啟動金鑰能讓利用這設定檔 kickstart 的系統，自動向 @@PRODUCT_NAME@@ 註冊，取得 @@PRODUCT_NAME@@ 服務等級的權利、訂閱特定的軟體並設定頻道、同時訂閱特定的系統群組。啟動金鑰也可以指定要安裝到系統的套件。請在設定檔的&lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;軟體&lt;/a&gt;分頁中，看看這將會如何影響您的套件管理。</target>
+				<source>You can associate one or more activation keys with this kickstart profile.  Activation keys will allow systems kickstarted with this profile to automatically register to RHN, gain RHN service level entitlements, subscribe to specified software and configuration channels, and subscribe to specified system groups.  Activation keys can also specify packages to be installed on a system.  Please consider how this may affect your package selection in this profile's &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; tab.</source>
+				<target>您可以為這個 kickstart 設定檔設定一或多個啟動金鑰。啟動金鑰能讓利用這設定檔 kickstart 的系統，自動向 RHN 註冊，取得 RHN 服務等級的權利、訂閱特定的軟體並設定頻道、同時訂閱特定的系統群組。啟動金鑰也可以指定要安裝到系統的套件。請在設定檔的&lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;軟體&lt;/a&gt;分頁中，看看這將會如何影響您的套件管理。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.nokeys">
 				<source>No activation keys available</source>
@@ -6460,8 +6472,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>軟體偏好設定</target>
 			</trans-unit>
 			<trans-unit id="kickstart.systemdetails.jsp.header3">
-				<source>@@PRODUCT_NAME@@ Preferences</source>
-				<target>@@PRODUCT_NAME@@ 偏好設定</target>
+				<source>RHN Preferences</source>
+				<target>RHN 偏好設定</target>
 			</trans-unit>
 			<trans-unit id="kickstart.systemdetails.jsp.header4">
 				<source>Root Password</source>
@@ -6500,20 +6512,20 @@ Please note that some manual configuration of these scripts may still be require
 				<target>停用 - 完全停用 SELinux</target>
 			</trans-unit>
 			<trans-unit id="kickstart.config.mgmt.jsp.label">
-				<source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Configuration&lt;br /&gt;Management</source>
-				<target>啟用 @@PRODUCT_NAME@@&lt;br /&gt;設定&lt;br /&gt;管理</target>
+				<source>Enable RHN&lt;br /&gt;Configuration&lt;br /&gt;Management</source>
+				<target>啟用 RHN&lt;br /&gt;設定&lt;br /&gt;管理</target>
 			</trans-unit>
 			<trans-unit id="kickstart.config.mgmt.tip.jsp.label">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to deploy configuration files from @@PRODUCT_NAME@@ to any system that uses this kickstart profile. If you do not use @@PRODUCT_NAME@@ configuration management, it is a good security practice to leave this box unchecked. You can always enable it on individual systems later.</source>
-				<target>&lt;strong&gt;提示：&lt;/strong&gt;啟用這功能可以讓您從 @@PRODUCT_NAME@@ 將設定檔發佈到任何使用這 kickstart 設定檔的系統上。就安全性來說，如果您不使用 @@PRODUCT_NAME@@ 設定管理，建議您不要勾選這個方塊。您可以在之後於每台電腦上，啟用這功能。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to deploy configuration files from RHN to any system that uses this kickstart profile. If you do not use RHN configuration management, it is a good security practice to leave this box unchecked. You can always enable it on individual systems later.</source>
+				<target>&lt;strong&gt;提示：&lt;/strong&gt;啟用這功能可以讓您從 RHN 將設定檔發佈到任何使用這 kickstart 設定檔的系統上。就安全性來說，如果您不使用 RHN 設定管理，建議您不要勾選這個方塊。您可以在之後於每台電腦上，啟用這功能。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.remote.cmd.jsp.label">
-				<source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Remote&lt;br /&gt;Commands</source>
-				<target>啟用 @@PRODUCT_NAME@@&lt;br /&gt;遠端&lt;br /&gt;指令</target>
+				<source>Enable RHN&lt;br /&gt;Remote&lt;br /&gt;Commands</source>
+				<target>啟用 RHN&lt;br /&gt;遠端&lt;br /&gt;指令</target>
 			</trans-unit>
 			<trans-unit id="kickstart.remote.cmd.tip.jsp.label">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to execute commands remotely from @@PRODUCT_NAME@@ on any system that uses this profile. It is a good security practice to leave this box unchecked unless you are sure you will use the remote command feature. You can always enable it on individual systems later.</source>
-				<target>&lt;strong&gt;提示：&lt;/strong&gt;啟用這項功能可以讓您在任何使用這設定檔的系統上，從 @@PRODUCT_NAME@@ 執行遠端指令。就安全性來說，如果您不使用 @@PRODUCT_NAME@@ 設定管理，建議您不要勾選這個方塊。您可以在之後於每台電腦上，啟用這功能。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to execute commands remotely from RHN on any system that uses this profile. It is a good security practice to leave this box unchecked unless you are sure you will use the remote command feature. You can always enable it on individual systems later.</source>
+				<target>&lt;strong&gt;提示：&lt;/strong&gt;啟用這項功能可以讓您在任何使用這設定檔的系統上，從 RHN 執行遠端指令。就安全性來說，如果您不使用 RHN 設定管理，建議您不要勾選這個方塊。您可以在之後於每台電腦上，啟用這功能。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.root.password.jsp.label">
 				<source>New Root&lt;br /&gt;Password</source>
@@ -6576,8 +6588,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>未定義公開金鑰或 SSL 認證。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>您可以在 kickstart 設定檔中，參照這些金鑰與（或）認證，好在 kickstart 過程中，安裝這些金鑰 / 認證。系統需要正確的金鑰，來安裝經過數位簽章的套件，並修正透過 @@PRODUCT_NAME@@ 代理伺服器或 @@PRODUCT_NAME@@ 衛星伺服器來安裝的 kickstart 認證。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>您可以在 kickstart 設定檔中，參照這些金鑰與（或）認證，好在 kickstart 過程中，安裝這些金鑰 / 認證。系統需要正確的金鑰，來安裝經過數位簽章的套件，並修正透過 RHN 代理伺服器或 RHN 衛星伺服器來安裝的 kickstart 認證。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6621,7 +6633,7 @@ Please note that some manual configuration of these scripts may still be require
 			</trans-unit>
 			<trans-unit id="keydelete.jsp.summary">
 				<source>Are you sure you want to delete this Key permanently?&lt;p&gt;&lt;strong&gt;If so please click the button once.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>您確定要永遠刪除這個金鑰？&lt;p&gt;&lt;strong&gt;如要刪除金鑰，請單擊按鈕。         &lt;/p&gt;     &lt;/strong&gt;</target>
+				<target>您確定要永遠刪除這個金鑰？&lt;p&gt;&lt;strong&gt;如要刪除金鑰，請單擊按鈕。&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="keycreate.jsp.filecontents">
 				<source>Key contents:</source>
@@ -6792,8 +6804,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;警告：&lt;/strong&gt;假如任何啟用金鑰與此 kickstart 設定檔相關（位於 &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;啟動金鑰分頁&lt;/a&gt;），上述的子頻道訂閱就會被置換掉。在此情況下，請使用一組啟用金鑰來指定子頻道訂閱。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip2">
-				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;如果您的系統透過 @@PRODUCT_NAME@@ 代理伺服器連線，您可以將安裝樹放在代理伺服器的 &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; 目錄中。</target>
+				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an RHN Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;如果您的系統透過 RHN 代理伺服器連線，您可以將安裝樹放在代理伺服器的 &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; 目錄中。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cryptokeys.jsp.submit">
 				<source>Update keys</source>
@@ -6832,13 +6844,13 @@ Please note that some manual configuration of these scripts may still be require
 You can access the network in this section, but you must use IP addresses (name service has not been configured at this point).  For more details on
 kickstart pre scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).
+You can also edit the post script for this kickstart below.  First, commands related to RHN will automatically be performed (for example, esystem registration to RHN).
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
 				<target>您可以在以下編輯這 kickstart 的 pre 與 post 描述檔。Kickstart pre 描述檔會在 kickstart 設定檔由系統解讀後，馬上執行。
 您可以使用這一節來存取網路，但您必須使用 IP 位址（此時名稱解析服務還沒被設定）。欲知 kickstart 中 pre 一節的設定，請參閱&lt;strong&gt;《Red Hat Enterprise Linux 系統管理指南》&lt;/strong&gt;。
 &lt;br/&gt;&lt;br/&gt;
-您也可以在下方編輯 kickstart 的 post 描述檔。首先，與 @@PRODUCT_NAME@@ 有關的指令會自動執行（舉例來說，向 @@PRODUCT_NAME@@ 註冊系統）。
+您也可以在下方編輯 kickstart 的 post 描述檔。首先，與 RHN 有關的指令會自動執行（舉例來說，向 RHN 註冊系統）。
 接下來，非 chroot 的 post 描述檔會被執行，最後則是 post 描述檔。欲知更多 kickstart post 描述檔的詳情，請參閱&lt;strong&gt;《Red Hat Enterprise Linux 系統管理指南》&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.langheader">
@@ -6870,8 +6882,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;這會指定程序檔的執行時間（kickstart 之前或之後）。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="post.jsp.summary">
-				<source>You can edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
-				<target>您可以在下方編輯 post 程序。首先，與 @@PRODUCT_NAME@@ 相關的指令會自動執行（舉例來說，使用 esystem 向 @@PRODUCT_NAME@@ 註冊）。接下來，非 chroot 的 post 程序會執行，最後是 post 程序。欲知更多 kickstart post 程序的詳細資料，請參閱《&lt;strong&gt;Red Hat Enterprise Linux 系統管理指南&lt;/strong&gt;》。</target>
+				<source>You can edit the post script for this kickstart below.  First, commands related to RHN will automatically be performed (for example, esystem registration to RHN).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
+				<target>您可以在下方編輯 post 程序。首先，與 RHN 相關的指令會自動執行（舉例來說，使用 esystem 向 RHN 註冊）。接下來，非 chroot 的 post 程序會執行，最後是 post 程序。欲知更多 kickstart post 程序的詳細資料，請參閱《&lt;strong&gt;Red Hat Enterprise Linux 系統管理指南&lt;/strong&gt;》。</target>
 			</trans-unit>
 			<trans-unit id="post.jsp.tip1">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
@@ -6910,8 +6922,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>以下指出您想要在 kickstart 過程中安裝到系統上的套件與套件組。每一行代表一個套件或套件組。欲知更多詳情，請參閱《&lt;em&gt;Red Hat Enterprise Linux 系統管理指南&lt;/em&gt;》。如果您希望將套件指定為由套件設定檔同步，請參閱 &lt;em&gt;套件設定檔&lt;/em&gt; 分頁來改變 kickstart 的軟體安裝方法。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.edit.pkgs.jsp.main2">
-				<source>&lt;b&gt;Note: only packages available in your Enterprise Linux install tree should be specified here.&lt;/b&gt; To install packages available in @@PRODUCT_NAME@@ software channels, please associate an appropriate activation key with this kickstart profile in the &lt;em&gt;Activation Keys&lt;/em&gt; tab.</source>
-				<target>&lt;b&gt;注意：只有在您 Enterprise Linux 安裝樹中的套件，才可以在此指定。&lt;/b&gt;要安裝 @@PRODUCT_NAME@@ 軟體頻道中的套件，請在&lt;em&gt;啟動金鑰&lt;/em&gt;分頁中，將適當的啟動金鑰與這個 kickstart 設定檔相連結。</target>
+				<source>&lt;b&gt;Note: only packages available in your Enterprise Linux install tree should be specified here.&lt;/b&gt; To install packages available in RHN software channels, please associate an appropriate activation key with this kickstart profile in the &lt;em&gt;Activation Keys&lt;/em&gt; tab.</source>
+				<target>&lt;b&gt;注意：只有在您 Enterprise Linux 安裝樹中的套件，才可以在此指定。&lt;/b&gt;要安裝 RHN 軟體頻道中的套件，請在&lt;em&gt;啟動金鑰&lt;/em&gt;分頁中，將適當的啟動金鑰與這個 kickstart 設定檔相連結。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.edit.pkgs.jsp.header1">
 				<source>Install Packages by Package Name and Group</source>
@@ -6926,8 +6938,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>條列項目</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>在「您專屬的 @@PRODUCT_NAME@@」網頁上，沒有目前已啟用的清單。您可以從&lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;您專屬的 @@PRODUCT_NAME@@ &gt; 偏好設定 &gt; 「您專屬的 @@PRODUCT_NAME@@」起始頁&lt;/a&gt;&lt;/strong&gt; 改變這一點。</target>
+				<source>No lists are currently enabled on the "Your RHN" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your RHN &gt; Your Preferences &gt; "Your RHN" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>在「您專屬的 RHN」網頁上，沒有目前已啟用的清單。您可以從&lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;您專屬的 RHN &gt; 偏好設定 &gt; 「您專屬的 RHN」起始頁&lt;/a&gt;&lt;/strong&gt; 改變這一點。</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
 				<source>User</source>
@@ -6954,8 +6966,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>加強功能的勘誤</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Overview</source>
-				<target>您專屬的 @@PRODUCT_NAME@@</target>
+				<source>Your RHN</source>
+				<target>您專屬的 RHN</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">
 				<source>Home Icon</source>
@@ -6995,7 +7007,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nogroups">
 				<source>&lt;strong&gt;You have no system groups.&lt;/strong&gt;&lt;p&gt;You can create a system group at &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;Systems &gt; System Set Manager &gt; Groups &gt; create new group&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;</source>
-				<target>&lt;strong&gt;您沒有任何系統群組。&lt;/strong&gt;&lt;p&gt;您可以從 &lt;strong&gt;系統 &gt; 系統設定管理員 &gt; 群組 &gt; 建立新群組&lt;/strong&gt;&lt;/a&gt; 建立。 &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;</target>
+				<target>&lt;strong&gt;您沒有任何系統群組。&lt;/strong&gt;&lt;p&gt;您可透過 &lt;a href="/network/systems/ssm/groups/create.pxt"&gt;&lt;strong&gt;系統 &gt; 系統設定管理員 &gt; 群組 &gt; 建立新群組&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt; 來建立系統群組。</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.systemgroups.description">
 				<source>system groups</source>
@@ -7070,8 +7082,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>檢視所有非啟動中的系統（{0}）</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noinactivesystems">
-				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
-				<target>&lt;strong&gt;沒有非運作中的系統。&lt;/strong&gt;&lt;p&gt;所有的系統都主動向 @@PRODUCT_NAME@@ 登入。您可以檢視所有系統的清單，網址是&lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;系統 &gt; 所有&lt;/a&gt;&lt;/strong&gt;。&lt;/p&gt;</target>
+				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into RHN at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
+				<target>&lt;strong&gt;沒有非運作中的系統。&lt;/strong&gt;&lt;p&gt;所有的系統都主動向 RHN 登入。您可以檢視所有系統的清單，網址是&lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;系統 &gt; 所有&lt;/a&gt;&lt;/strong&gt;。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="errata.sev.label.low">
 				<source>Low</source>
@@ -7103,7 +7115,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.task.searchfor">
 				<source>&lt;strong&gt;Search&lt;/strong&gt; for:</source>
-				<target>        搜尋&lt;/strong&gt;：                   &lt;strong&gt;</target>
+				<target>&lt;strong&gt;搜尋&lt;/strong&gt;：</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.subscriptions">
 				<source>Manage &lt;strong&gt;Entitlements&lt;/strong&gt; &amp;amp; &lt;strong&gt;Subscriptions&lt;/strong&gt;</source>
@@ -7114,11 +7126,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>管理 &lt;strong&gt;啟動金鑰&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.manage_sat_orgs">
-				<source>Manage &lt;strong&gt;@@PRODUCT_NAME@@ Organizations&lt;/strong&gt;</source>
+				<source>Manage &lt;strong&gt;Satellite Organizations&lt;/strong&gt;</source>
 				<target>管理 &lt;strong&gt;衛星組織&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.config_sat">
-				<source>&lt;strong&gt;Configure&lt;/strong&gt; @@PRODUCT_NAME@@</source>
+				<source>&lt;strong&gt;Configure&lt;/strong&gt; Satellite</source>
 				<target>&lt;strong&gt;設定&lt;/strong&gt;衛星伺服器</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.registersystem">
@@ -7179,7 +7191,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.header.hostedonly">
 				<source>You can also &lt;strong&gt;download ISO images&lt;/strong&gt; of channel content on the &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;Download Software&lt;/strong&gt;&lt;/a&gt; page.</source>
-				<target>您也可以從 &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;&lt;strong&gt;下載軟體&lt;/strong&gt;&lt;/a&gt; 網頁&lt;strong&gt;下載頻道內容的 ISO 映像檔&lt;/strong&gt;。</target>
+				<target>您也可以從 &lt;a href="/rhn/software/downloads/SupportedISOs.do"&gt;&lt;strong&gt;下載軟體&lt;/strong&gt;&lt;/a&gt; 網頁來&lt;strong&gt;下載頻道內容的 ISO 映像檔&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="channels.all.jsp.toolbar">
 				<source>Full Software Channel List</source>
@@ -7203,7 +7215,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 			</trans-unit>
 			<trans-unit id="channels.retired.jsp.header2">
 				<source>Alternatively, you may also view a list of &lt;a href="/rhn/software/channels/All.do"&gt;&lt;strong&gt;all channels&lt;/strong&gt;&lt;/a&gt; or a list of &lt;a href="/rhn/software/channels/Relevant.do"&gt; &lt;strong&gt;channels relevant to your organization&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>除此之外，您也可以檢視&lt;a href="/rhn/software/channels/All.do"&gt;&lt;strong&gt;所有頻道&lt;/strong&gt;&lt;/a&gt;的清單，或&lt;a href="/netwo&lt;/strongare/retired_channels.pxt"&gt;&lt;strong&gt;與您組織相關的所有頻道&lt;/strong&gt;&lt;/a&gt;之清單。</target>
+				<target>除此之外，您也可以檢視 &lt;a href="/rhn/software/channels/All.do"&gt;&lt;strong&gt;所有頻道&lt;/strong&gt;&lt;/a&gt;的清單，或一列 &lt;a href="/rhn/software/channels/Relevant.do"&gt; &lt;strong&gt;與您組織相關的所有頻道&lt;/strong&gt;&lt;/a&gt;之清單。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.jsp.header1">
 				<source>Troubleshooting</source>
@@ -7434,7 +7446,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>留白表示自動產生。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.blank.auto-generator.prefix-notice">
-				<source>Leave blank for automatic key generation. Note that the prefix is an indication of the @@PRODUCT_NAME@@ organization the key is associated with.</source>
+				<source>Leave blank for automatic key generation. Note that the prefix is an indication of the Satellite organization the key is associated with.</source>
 				<target>要自動產生金鑰，請留白。請注意前綴表示的是與這金鑰相關的衛星組織。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.edit-basechannel-tooltip">
@@ -7450,7 +7462,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>留白表示使用無限制。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.org_notice">
-				<source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the @@PRODUCT_NAME@@'s multiple organizations feature.</source>
+				<source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the Satellite's multiple organizations feature.</source>
 				<target>如果您直接修改了以上金鑰，請注意這金鑰的前方會加上「&lt;strong&gt;{0}&lt;/strong&gt;」。這是用來辨認組織是與哪一組金鑰相關聯，並與衛星的多個組織功能相關聯用的。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.rh-default">
@@ -7734,20 +7746,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>目標系統</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.summary">
-				<source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management.  For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable @@PRODUCT_NAME@@ Configuration Management' button below.</source>
-				<target>下列所列出的系統中沒有由 @@PRODUCT_NAME@@ 配置管理員所管理的檔案。 假如系統要能由 @@PRODUCT_NAME@@ 配置管理原來管理的話，它們會需要一項 provisioning 權利並安裝著特定的 rhncfg-* 套件。您能夠藉由點選下列的「啟用 @@PRODUCT_NAME@@ 配置管理員」按鈕來啟用配置管理員於您所選擇的系統之上。</target>
+				<source>The systems listed below do not have files managed via RHN configuration management.  For systems to be capable of being managed by RHN configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable RHN Configuration Management' button below.</source>
+				<target>下列所列出的系統中沒有由 RHN 配置管理員所管理的檔案。 假如系統要能由 RHN 配置管理原來管理的話，它們會需要一項 provisioning 權利並安裝著特定的 rhncfg-* 套件。您能夠藉由點選下列的「啟用 RHN 配置管理員」按鈕來啟用配置管理員於您所選擇的系統之上。</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.noSystems">
 				<source>No non-managed systems.</source>
 				<target>沒有未被管理的系統。</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.enable">
-				<source>Enable @@PRODUCT_NAME@@ Configuration Management</source>
-				<target>啟用 @@PRODUCT_NAME@@ 配置管理員</target>
+				<source>Enable RHN Configuration Management</source>
+				<target>啟用 RHN 配置管理員</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.capable">
-				<source>@@PRODUCT_NAME@@ Configuration Capable?</source>
-				<target>@@PRODUCT_NAME@@ 配置能用嗎？</target>
+				<source>RHN Configuration Capable?</source>
+				<target>RHN 配置能用嗎？</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.action">
 				<source>Actions needed for configuration capabilities.</source>
@@ -7762,8 +7774,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>附加 provisioning 權利</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.subscribetools">
-				<source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
-				<target>訂閱 @@PRODUCT_NAME@@ 工具的頻道</target>
+				<source>Subscribe to RHN Tools channel</source>
+				<target>訂閱 RHN 工具的頻道</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.installcfg">
 				<source>Schedule rhncfg package install</source>
@@ -7838,8 +7850,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>無法賦予 provisioning 權利。</target>
 			</trans-unit>
 			<trans-unit id="summary.jsp.rhntools">
-				<source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
-				<target>無法訂閱 @@PRODUCT_NAME@@ 工具頻道。</target>
+				<source>Could not subscribe to the RHN Tools channel.</source>
+				<target>無法訂閱 RHN 工具頻道。</target>
 			</trans-unit>
 			<trans-unit id="summary.jsp.packages">
 				<source>Could not schedule rhncfg* package installations.</source>
@@ -7858,8 +7870,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>裝央管理的配置頻道</target>
 			</trans-unit>
 			<trans-unit id="globalconfiglist.jsp.summary">
-				<source>The configuration channels listed below are &lt;strong&gt;centrally-managed&lt;/strong&gt;. This means that any system registered to @@PRODUCT_NAME@@ can subscribe to the configuration channels below. Any changes made to the files within one of these channels will affect every system subscribed to that channel.</source>
-				<target>以下列出的配置頻道為 &lt;strong&gt;中央管理&lt;/strong&gt;。這代表任何與 @@PRODUCT_NAME@@ 註冊的系統都能訂閱下列的配置頻道。任何對於在這些頻道中的檔案所作的改變都會影響到所有訂閱此頻道的系統。</target>
+				<source>The configuration channels listed below are &lt;strong&gt;centrally-managed&lt;/strong&gt;. This means that any system registered to RHN can subscribe to the configuration channels below. Any changes made to the files within one of these channels will affect every system subscribed to that channel.</source>
+				<target>以下列出的配置頻道為 &lt;strong&gt;中央管理&lt;/strong&gt;。這代表任何與 RHN 註冊的系統都能訂閱下列的配置頻道。任何對於在這些頻道中的檔案所作的改變都會影響到所有訂閱此頻道的系統。</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.configchannel">
 				<source>create new config channel</source>
@@ -8440,10 +8452,10 @@ a file or files, or copy the latest version into a set of local overrides or int
 				<target>無法找到任何系統。</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.descr">
-				<source>The systems listed below are capable of being managed by @@PRODUCT_NAME@@ configuration management
+				<source>The systems listed below are capable of being managed by RHN configuration management
 (meaning they have the required client software installed and have provisioning entitlements)
 but are not subscribed to {0}.</source>
-				<target>以下列出的系統能夠由 @@PRODUCT_NAME@@ 配置管理員來管理
+				<target>以下列出的系統能夠由 RHN 配置管理員來管理
 （這就表示它們安裝了必要的客戶端軟體並且擁有 provisioning 權利）
 不過並無訂閱至 {0}。</target>
 			</trans-unit>
@@ -8985,7 +8997,7 @@ centrally-managed configuration channel, {2}; below is a list of systems you may
 			</trans-unit>
 			<trans-unit id="filedetails.add_details.jspf.macro">
 				<source>Macro Delimiters &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>巨集符號 &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>巨集符號 &lt;span class="required-form-field"&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="filedetails.add_details.jspf.macro.start">
 				<source>Start Delimiter:</source>
@@ -9077,7 +9089,7 @@ You can, however, download this file.</source>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.path">
 				<source>Filename/Path &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>檔案名稱 / 路徑 &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>檔案名稱 / 路徑 &lt;span class="required-form-field"&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.ownership">
 				<source>Ownership:</source>
@@ -9085,15 +9097,15 @@ You can, however, download this file.</source>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.permissions">
 				<source>File Permissions Mode &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>檔案權限模式 &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>檔案權限模式 &lt;span class="required-form-field"&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.uid">
 				<source>User or User ID &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>使用者或使用者 ID &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>使用者或使用者 ID &lt;span class="required-form-field"&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="filedetails.properties.jspf.gid">
 				<source>Group or Group ID &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>群組或群組 ID &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>群組或群組 ID &lt;span class="required-form-field"&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="deletefile.jsp.header2">
 				<source>Delete Configuration File</source>
@@ -9234,8 +9246,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>下列清單顯示了所有藉由個別系統設定檔，被本地管理的配置檔案。請注意被本地管理的檔案能夠將特定系統上，中央管理的配置檔案給置換掉。</target>
 			</trans-unit>
 			<trans-unit id="managedsystems.jsp.summary">
-				<source>The systems listed below currently have &lt;strong&gt;@@PRODUCT_NAME@@ managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its @@PRODUCT_NAME@@ system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
-				<target>以下所列出的系統目前擁有 &lt;strong&gt;@@PRODUCT_NAME@@ 管理的配置檔案&lt;/strong&gt;。這代表各個系統的配置檔案都能藉由它的 @@PRODUCT_NAME@@ 系統設定檔來被&lt;strong&gt;本地管理&lt;/strong&gt;，並且各個系統的配置檔案都能藉由它的中央管理頻道（或兩者）來被&lt;strong&gt;中央管理&lt;/strong&gt;。置換掉中央管理檔案的本地管理檔案之數量能在以下的「本地管理的檔案」欄位中發現。</target>
+				<source>The systems listed below currently have &lt;strong&gt;RHN managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its RHN system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
+				<target>以下所列出的系統目前擁有 &lt;strong&gt;RHN 管理的配置檔案&lt;/strong&gt;。這代表各個系統的配置檔案都能藉由它的 RHN 系統設定檔來被&lt;strong&gt;本地管理&lt;/strong&gt;，並且各個系統的配置檔案都能藉由它的中央管理頻道（或兩者）來被&lt;strong&gt;中央管理&lt;/strong&gt;。置換掉中央管理檔案的本地管理檔案之數量能在以下的「本地管理的檔案」欄位中發現。</target>
 			</trans-unit>
 			<trans-unit id="managedsystems.jsp.noSystems">
 				<source>No configuration managed systems.</source>
@@ -9330,8 +9342,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>配置概要</target>
 			</trans-unit>
 			<trans-unit id="configoverview.jsp.summary">
-				<source>The list below shows all of the configuration files that are managed by your organization in @@PRODUCT_NAME@@. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
-				<target>以下清單顯示了 @@PRODUCT_NAME@@ 之中，所有由您組織所管理的配置檔案。此清單包含著由中央管理配置頻道管理的檔案以及藉由個別系統設定檔來被本地管理的檔案。</target>
+				<source>The list below shows all of the configuration files that are managed by your organization in RHN. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
+				<target>以下清單顯示了 RHN 之中，所有由您組織所管理的配置檔案。此清單包含著由中央管理配置頻道管理的檔案以及藉由個別系統設定檔來被本地管理的檔案。</target>
 			</trans-unit>
 			<trans-unit id="configoverview.jsp.configsummary">
 				<source>Configuration Summary</source>
@@ -9459,7 +9471,7 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="manage.jsp.uploadtab">
 				<source>File to Upload &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
-				<target>需上傳的檔案 &lt;span class=required-form-field&gt;*&lt;/span&gt;：</target>
+				<target>需上傳的檔案 &lt;span class="required-form-field"&gt;*&lt;/span&gt;：</target>
 			</trans-unit>
 			<trans-unit id="manage.jsp.uploadbutton">
 				<source>Upload File</source>
@@ -9846,8 +9858,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>比較配置檔案</target>
 			</trans-unit>
 			<trans-unit id="ssmdiff.jsp.summary">
-				<source>The following configuration files are associated with the systems in this set. You can select files and compare the @@PRODUCT_NAME@@-managed versions of the files to the versions of the files on the systems in your set.&lt;br /&gt;&lt;br /&gt;The comparisons for each system will not complete until each system checks in to @@PRODUCT_NAME@@. Once each comparison is complete, any differences between the files will be accessible from each system's events page.</source>
-				<target>下列配置檔案與此叢集中的系統相聯。您能夠選擇檔案，並拿這些檔案的 @@PRODUCT_NAME@@ 管理之版本與您叢集中的版本做比較。&lt;br /&gt;&lt;br /&gt;直到各個系統登錄至 @@PRODUCT_NAME@@ 中，各個系統之間的比較才能完成。一旦所有的比較都完成時，檔案之間的任何差異就能由各個系統中的事件頁面中存取。</target>
+				<source>The following configuration files are associated with the systems in this set. You can select files and compare the RHN-managed versions of the files to the versions of the files on the systems in your set.&lt;br /&gt;&lt;br /&gt;The comparisons for each system will not complete until each system checks in to RHN. Once each comparison is complete, any differences between the files will be accessible from each system's events page.</source>
+				<target>下列配置檔案與此叢集中的系統相聯。您能夠選擇檔案，並拿這些檔案的 RHN 管理之版本與您叢集中的版本做比較。&lt;br /&gt;&lt;br /&gt;直到各個系統登錄至 RHN 中，各個系統之間的比較才能完成。一旦所有的比較都完成時，檔案之間的任何差異就能由各個系統中的事件頁面中存取。</target>
 			</trans-unit>
 			<trans-unit id="diffconfirm.jsp.header">
 				<source>Confirm Configuration File Comparison</source>
@@ -10082,8 +10094,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>啟用配置管理</target>
 			</trans-unit>
 			<trans-unit id="ssmenable.jsp.summary">
-				<source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management. For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
-				<target>下列列出的系統並無由 @@PRODUCT_NAME@@ 配置管理員所管理的檔案。假如系統要能被 @@PRODUCT_NAME@@ 配置管理員管理的話，它們除了安裝了特定的 rhncfg-* 套件，還會需要一項 provisioning 權利。您能夠在下列所列出的系統上啟用配置管理員。&lt;strong&gt;請注意：&lt;/strong&gt;已啟用的系統不會有任何的改變。</target>
+				<source>The systems listed below do not have files managed via RHN configuration management. For systems to be capable of being managed by RHN configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
+				<target>下列列出的系統並無由 RHN 配置管理員所管理的檔案。假如系統要能被 RHN 配置管理員管理的話，它們除了安裝了特定的 rhncfg-* 套件，還會需要一項 provisioning 權利。您能夠在下列所列出的系統上啟用配置管理員。&lt;strong&gt;請注意：&lt;/strong&gt;已啟用的系統不會有任何的改變。</target>
 			</trans-unit>
 			<trans-unit id="ssmchannelsystems.jsp.summary">
 				<source>The systems listed below are those in your system set that are subscribed to {0}. Deployable Files are configuration files or directories in this channel that are not overridden by a local system configuration channel or a higher priority global channel.</source>
@@ -10334,8 +10346,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>匯入新的檔案</target>
 			</trans-unit>
 			<trans-unit id="sdcimportfile.jsp.newsummary">
-				<source>Specify the full path of any files you wish to import from this system into @@PRODUCT_NAME@@, one per line:</source>
-				<target>請指定任何您所希望由此系統匯入 @@PRODUCT_NAME@@ 的檔案的完整路徑，請一行一個列出：</target>
+				<source>Specify the full path of any files you wish to import from this system into RHN, one per line:</source>
+				<target>請指定任何您所希望由此系統匯入 RHN 的檔案的完整路徑，請一行一個列出：</target>
 			</trans-unit>
 			<trans-unit id="sdcimportfile.jsp.paths">
 				<source>File Paths:</source>
@@ -10430,8 +10442,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>將配置動作排程在不早於：</target>
 			</trans-unit>
 			<trans-unit id="sdcdifffile.jsp.summary">
-				<source>You may compare configuration files on {0} to @@PRODUCT_NAME@@ managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</source>
-				<target>您能夠拿 {0} 上的配置檔案與 @@PRODUCT_NAME@@ 所管理的配置檔案做比較。下列所列出的檔案是此系統訂閱的配置頻道中的檔案之可佈署版本。</target>
+				<source>You may compare configuration files on {0} to RHN managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</source>
+				<target>您能夠拿 {0} 上的配置檔案與 RHN 所管理的配置檔案做比較。下列所列出的檔案是此系統訂閱的配置頻道中的檔案之可佈署版本。</target>
 			</trans-unit>
 			<trans-unit id="sdcdeployfile.jsp.summary">
 				<source>The following configuration files are deployable to this system. Files from configuration channels with a higher priority take precedence over files from configuration channels with a lower priority.</source>
@@ -10503,12 +10515,12 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="kickstart.packageprofiles.jsp.summary">
 				<source>You may sync kickstarting systems to the package profile
-of a system registered to @@PRODUCT_NAME@@ by choosing a package profile
+of a system registered to RHN by choosing a package profile
 below.  &lt;strong&gt;Note&lt;/strong&gt;: This list will
 only show package profiles that were made against the same
 Base Channel chosen on the
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;Operating System&lt;/a&gt; page.</source>
-				<target>您可以將 kickstart 中的系統，與已經向 @@PRODUCT_NAME@@ 註冊的系統之套件清單
+				<target>您可以將 kickstart 中的系統，與已經向 RHN 註冊的系統之套件清單
 相同步，方法是從下方選擇套件設定檔。
 &lt;strong&gt;注意&lt;/strong&gt;：這清單只會
 顯示與&lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;作業系統&lt;/a&gt;網頁中，所選擇的相同基礎頻道。</target>
@@ -10525,20 +10537,20 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 要在 kickstart 時，讓系統訂閱軟體頻道，請參閱&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;啟動金鑰&lt;/a&gt;分頁。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.tip.proxy.jsp">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Date listed is last time proxy contacted @@PRODUCT_NAME@@.</source>
-				<target>&lt;strong&gt;提示：&lt;/strong&gt;列出的日期為上一次代理伺服器連上 @@PRODUCT_NAME@@ 的日期。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Date listed is last time proxy contacted RHN.</source>
+				<target>&lt;strong&gt;提示：&lt;/strong&gt;列出的日期為上一次代理伺服器連上 RHN 的日期。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.heading.proxy.jsp">
-				<source>Select @@PRODUCT_NAME@@ Proxy</source>
-				<target>請選擇 @@PRODUCT_NAME@@ 代理伺服器</target>
+				<source>Select RHN Proxy</source>
+				<target>請選擇 RHN 代理伺服器</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.msg.proxy.jsp">
-				<source>You may choose to use an @@PRODUCT_NAME@@ Proxy to access the files necessary for kickstart. This system will be registered to the @@PRODUCT_NAME@@ Proxy selected below after its kickstart has completed.</source>
-				<target>您可以選擇使用 @@PRODUCT_NAME@@ 代理伺服器存取 kickstart 所需的檔案。這系統在 kickstart 完成後，會向下方所選擇的 @@PRODUCT_NAME@@ 代理伺服器註冊。</target>
+				<source>You may choose to use an RHN Proxy to access the files necessary for kickstart. This system will be registered to the RHN Proxy selected below after its kickstart has completed.</source>
+				<target>您可以選擇使用 RHN 代理伺服器存取 kickstart 所需的檔案。這系統在 kickstart 完成後，會向下方所選擇的 RHN 代理伺服器註冊。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.default.proxy.jsp">
-				<source>Do not use an @@PRODUCT_NAME@@ Proxy</source>
-				<target>不使用 @@PRODUCT_NAME@@ 代理伺服器</target>
+				<source>Do not use an RHN Proxy</source>
+				<target>不使用 RHN 代理伺服器</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cannot.provision.guest">
 				<source>Re-provisioning guest systems is not currently supported.</source>
@@ -10621,16 +10633,16 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 				<target>額外的核心&lt;br /&gt;參數</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.system.profile.jsp">
-				<source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
-				<target>@@PRODUCT_NAME@@ 系統&lt;br /&gt;設定檔</target>
+				<source>RHN System&lt;br /&gt;Profile</source>
+				<target>RHN 系統&lt;br /&gt;設定檔</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 				<source>Sync Package&lt;br /&gt;Profile</source>
 				<target>同步套件&lt;br /&gt;設定檔</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.system.profile.option1.jsp">
-				<source>Use this system's existing @@PRODUCT_NAME@@ Profile</source>
-				<target>使用這台系統的現有 @@PRODUCT_NAME@@ 設定檔</target>
+				<source>Use this system's existing RHN Profile</source>
+				<target>使用這台系統的現有 RHN 設定檔</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
 				<source>Use the default guest profile</source>
@@ -10662,7 +10674,7 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 			</trans-unit>
 			<trans-unit id="kickstart.scriptdelete.jsp.summary1">
 				<source>Are you sure you want to delete this Kickstart Script?&lt;strong&gt;&lt;p&gt;WARNING: deleting this script will remove it from the Kickstart Profile..&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Please click the button only once.&lt;/strong&gt;&lt;/p&gt;</source>
-				<target>您確定要刪除這個 kickstart？&lt;strong&gt;&lt;p&gt;警告：刪除這個程序檔會將其從 kickstart 設定檔中移除。&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;請按下按鈕一次即可。&lt;/strong&gt;&lt;/p&gt;</target>
+				<target>您確定要刪除這個 kickstart？&lt;strong&gt;&lt;p&gt;警告：刪除這個程序檔會將其從 kickstart 設定檔中移除。&lt;/p&gt;&lt;/strong&gt;&lt;p&gt;&lt;strong&gt;請按下按鈕一次即可。&lt;/strong&gt;&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.scriptdelete.jsp.confirmdelete">
 				<source>Delete Kickstart Script</source>
@@ -10749,8 +10761,8 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 				<target>Kickstart 系統</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_register">
-				<source>Register system to @@PRODUCT_NAME@@</source>
-				<target>向 @@PRODUCT_NAME@@ 註冊系統</target>
+				<source>Register system to RHN</source>
+				<target>向 RHN 註冊系統</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_profile">
 				<source>Sync system to &lt;a href="/network/profiles/details.pxt?prid={0}"&gt;package profile&lt;/a&gt;</source>
@@ -10897,12 +10909,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 				<target>編輯 Kickstart 的散佈版本</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header1">
-				<source>The following details are needed to define a kickstartable distribution. The External Location field should be a valid URL to the base of the distribution tree. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
+				<source>The following details are needed to define a kickstartable distribution. The External Location field should be a valid URL to the base of the distribution tree. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by RHN and located in the RHN Tools child channels.&lt;br/&gt;&lt;br/&gt;
 
 The Distribution Label field should contain only letters, numbers, hyphens, periods, and underscores. It must also be at least 4 characters long.&lt;br/&gt;&lt;br/&gt;
 
 The External Location, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;</source>
-				<target>定義可 kickstart 的散佈版本時，需要以下詳細資料。「外部位置」欄位應該是該散佈樹的有效位址。Kickstart RPM 應是包含著 kickstart 佈署 script 的 rpm 名稱。這些 RPM 檔案都由 @@PRODUCT_NAME@@ 所提供，並位於「@@PRODUCT_NAME@@ 工具」子頻道中。&lt;br/&gt;&lt;br/&gt;
+				<target>定義可 kickstart 的散佈版本時，需要以下詳細資料。「外部位置」欄位應該是該散佈樹的有效位址。Kickstart RPM 應是包含著 kickstart 佈署 script 的 rpm 名稱。這些 RPM 檔案都由 RHN 所提供，並位於「RHN 工具」子頻道中。&lt;br/&gt;&lt;br/&gt;
 
 「散佈標籤」欄位僅能包含文數字、減號、句號與底線，同時至少包含四個字元。&lt;br/&gt;&lt;br/&gt;
 
@@ -10946,12 +10958,12 @@ The External Location, Kickstart RPM, Base Channel, and Installer Generation sho
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noautoks">
 				<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
+the RHN Tools channels for each supported parent channel.  You may
+need to perform a satellite sync of the RHN Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt;找不到任何 kickstart RPM。這些 RPM 都位於每個受支援的父頻道之
-「@@PRODUCT_NAME@@ 工具」頻道中。您可能需要在進行 kickstart 之前，或建立新的 kickstart 
-發佈版本前，針對「@@PRODUCT_NAME@@ 工具」進行衛星伺服器的同步工作。&lt;/strong&gt;</target>
+「RHN 工具」頻道中。您可能需要在進行 kickstart 之前，或建立新的 kickstart 
+發佈版本前，針對「RHN 工具」進行衛星伺服器的同步工作。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
 				<source> 
@@ -10980,8 +10992,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>檢視全部</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.disabled_checkbox_title">
-				<source>You cannot select this system - it is not registered to @@PRODUCT_NAME@@</source>
-				<target>您無法選擇此系統 - 它並未與 @@PRODUCT_NAME@@ 註冊</target>
+				<source>You cannot select this system - it is not registered to RHN</source>
+				<target>您無法選擇此系統 - 它並未與 RHN 註冊</target>
 			</trans-unit>
 			<trans-unit id="virtualguestslist.jsp.header">
 				<source>Hosted Virtual Systems</source>
@@ -11084,8 +11096,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>請按下下方的「確認」按鈕來排程接下來的動作。</target>
 			</trans-unit>
 			<trans-unit id="virtualguests_confirm.jsp.summary.delete">
-				<source>Click the Confirm button below to delete the following virtual systems.  This will remove all information about the virtual system from the @@PRODUCT_NAME@@. &lt;strong&gt;NOTE:&lt;/strong&gt; This will not remove the actual virtual machine from the host.</source>
-				<target>請按下底下的「確認」按鈕來刪除下列虛擬系統。 這會從 @@PRODUCT_NAME@@ 中將所有有關於虛擬系統的資訊都移除掉。&lt;strong&gt;請注意：&lt;/strong&gt;這不會將主機上實際的虛擬機器給移除掉。</target>
+				<source>Click the Confirm button below to delete the following virtual systems.  This will remove all information about the virtual system from the Red Hat Network. &lt;strong&gt;NOTE:&lt;/strong&gt; This will not remove the actual virtual machine from the host.</source>
+				<target>請按下底下的「確認」按鈕來刪除下列虛擬系統。 這會從 Red Hat Network 中將所有有關於虛擬系統的資訊都移除掉。&lt;strong&gt;請注意：&lt;/strong&gt;這不會將主機上實際的虛擬機器給移除掉。</target>
 			</trans-unit>
 			<trans-unit id="virtualguests_confirm.jsp.nosystems">
 				<source>No systems selected.</source>
@@ -11105,7 +11117,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.summary1">
 				<source>Please fill out the form below to create a new virtual system to be hosted on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>請填出下列的表格以在 &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt; 上建立一個新的虛擬系統</target>
+				<target>請填出下列的表格以在 &lt;img src="/img/rhn-listicon-system.gif"/&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt; 上建立一個新的虛擬系統</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.header2">
 				<source>Virtual System Hardware Configuration</source>
@@ -11133,7 +11145,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.memory_allocation.message2">
 				<source>megabytes of {0} megabytes total memory on &lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt;</source>
-				<target>&lt;img src="/img/rhn-listicon-system.gif"&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt; 上 {0} MB 的總計記憶體</target>
+				<target>&lt;img src="/img/rhn-listicon-system.gif"/&gt; &lt;a href="/rhn/systems/details/Overview.do?sid={1}"&gt;{2}&lt;/a&gt; 上 {0} MB 的總計記憶體</target>
 			</trans-unit>
 			<trans-unit id="virtualization.provision.first.jsp.memory_allocation.tip1">
 				<source>&lt;strong&gt;Tip:&lt;/strong&gt; A minimum of at least {0} megabytes of memory is recommended for installation.</source>
@@ -11252,7 +11264,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>上一次的配置佈署</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.last-rhn.comparison">
-				<source>Last @@PRODUCT_NAME@@ and System Comparison</source>
+				<source>Last RHN and System Comparison</source>
 				<target>上一次 RNH 與系統的比較</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.managed-files">
@@ -11376,8 +11388,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>Kernel：</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.sysid">
-				<source>@@PRODUCT_NAME@@ System ID:</source>
-				<target>@@PRODUCT_NAME@@ 系統 ID：</target>
+				<source>RHN System ID:</source>
+				<target>RHN 系統 ID：</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.lockstatus">
 				<source>Lock Status:</source>
@@ -11436,8 +11448,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>上一次 ping：</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet">
-				<source>@@PRODUCT_NAME@@ Applet:</source>
-				<target>@@PRODUCT_NAME@@ 程式：</target>
+				<source>RHN Applet:</source>
+				<target>RHN 程式：</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.schedulereboot">
 				<source>(&lt;a href="{0}"&gt;Schedule System Reboot&lt;/a&gt;)</source>
@@ -11508,8 +11520,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>可用的更新（&lt;a href="{0}"&gt;現在更新&lt;/a&gt;）</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.inactive">
-				<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
-				<target>&lt;strong&gt;系統未登錄於 @@PRODUCT_NAME@@ 之中&lt;/strong&gt;（&lt;a href="{0}"&gt;更多資訊&lt;/a&gt;）</target>
+				<source>&lt;strong&gt;System not checking in with RHN&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
+				<target>&lt;strong&gt;系統未登錄於 RHN 之中&lt;/strong&gt;（&lt;a href="{0}"&gt;更多資訊&lt;/a&gt;）</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.unentitled">
 				<source>&lt;strong&gt;System not entitled&lt;/strong&gt; (&lt;a href="{0}"&gt;entitle it here&lt;/a&gt;)</source>
@@ -11540,12 +11552,12 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>未啟用</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.reactivate">
-				<source>Reactivate rhn-applet for @@PRODUCT_NAME@@ usage.</source>
-				<target>重新啟用 @@PRODUCT_NAME@@ 程式來使用衛星伺服器。</target>
+				<source>Reactivate rhn-applet for Satellite usage.</source>
+				<target>重新啟用 RHN 程式來使用衛星伺服器。</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.activate">
-				<source>Activate rhn-applet for @@PRODUCT_NAME@@ usage."</source>
-				<target>啟用 @@PRODUCT_NAME@@ 程式來使用衛星伺服器。"</target>
+				<source>Activate rhn-applet for Satellite usage."</source>
+				<target>啟用 RHN 程式來使用衛星伺服器。"</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.header">
 				<source>Edit System Details</source>
@@ -11620,26 +11632,26 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;<
 				<target>並未設定通知方法。</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.logins">
-				<source>Red Hat Logins and @@PRODUCT_NAME@@</source>
-				<target>Red Hat 登入帳號與 @@PRODUCT_NAME@@</target>
+				<source>Red Hat Logins and Red Hat Network</source>
+				<target>Red Hat 登入帳號與 Red Hat Network</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.intro">
-				<source>@@PRODUCT_NAME@@ provides Red Hat subscription customers with software
+				<source>Red Hat Network provides Red Hat subscription customers with software
 downloads, updates, security errata, and systems management
-capabilities. To access these @@PRODUCT_NAME@@ benefits, customers must
-log in to @@PRODUCT_NAME@@ using a Red Hat login associated with at least
+capabilities. To access these Red Hat Network benefits, customers must
+log in to Red Hat Network using a Red Hat login associated with at least
 one &lt;strong&gt;active subscription&lt;/strong&gt; to a Red Hat product or
 service.</source>
-				<target>@@PRODUCT_NAME@@ 提供 Red Hat 訂閱用戶軟體
+				<target>Red Hat Network 提供 Red Hat 訂閱用戶軟體
 下載、更新、安全性勘誤、與系統管理
-之能力。要存取這些 @@PRODUCT_NAME@@ 的好處，用戶必須
+之能力。要存取這些 Red Hat Network 的好處，用戶必須
 使用 Red Hat 登入帳號（這帳號必須與至少
 一份&lt;strong&gt;啟用中的訂閱服務或產品&lt;/strong&gt;關聯）來登入 Red Hat
 Network。</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.tour.header">
-				<source>Want to see a demo of @@PRODUCT_NAME@@?</source>
-				<target>想要看看 @@PRODUCT_NAME@@ 的示範服務嗎？</target>
+				<source>Want to see a demo of Red Hat Network?</source>
+				<target>想要看看 Red Hat Network 的示範服務嗎？</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.tour.info">
 				<source>&lt;a href="{0}"&gt;Take the tour&lt;/a&gt; or &lt;a href="{1}"&gt;
@@ -11669,11 +11681,11 @@ purchase.</source>
 				<source>Red Hat logins are associated with valid, active subscriptions either
 at purchase time or during the activation of a subscription number.
 Please determine how you Red Hat subscription was fulfilled to determine
-  the best way to get access to @@PRODUCT_NAME@@ below.</source>
+  the best way to get access to Red Hat Network below.</source>
 				<target>Red Hat 登入帳號會與有效、啟用中的訂閱服務相連結；
 這訂閱服務是在購買時、或啟動訂閱號碼時啟用的。
 請決定您的 Red Hat 服務等級，以決定
-  以下最適用的 @@PRODUCT_NAME@@ 存取方式。</target>
+  以下最適用的 Red Hat Network 存取方式。</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.campus.header">
 				<source>Are you a campus subscription customer?</source>
@@ -11718,13 +11730,13 @@ locate this email, please &lt;a href="{0}"&gt;contact Customer Service&lt;/a&gt;
 Hat order, you may still need to
 &lt;a href="{0}"&gt;
 activate your subscription&lt;/a&gt; to associate it with your Red Hat login and gain access
-to @@PRODUCT_NAME@@. If you do not have a Red Hat login, you will be
+to Red Hat Network. If you do not have a Red Hat login, you will be
 guided through Red Hat login creation during activation. If you forgot
 your Red Hat login, please
 &lt;a href="{1}"&gt;complete our lost login form&lt;/a&gt; to recover it.</source>
 				<target>如果您向 Red Hat 下訂單時&lt;strong&gt;收到了一組訂閱號碼&lt;/strong&gt;，您可能
 還是需要&lt;a href="{0}"&gt;啟動您的訂閱服務&lt;/a&gt;，使之與您的 Red Hat 登入
-帳號相關連，並存取 @@PRODUCT_NAME@@。如果您沒有 Red Hat 的登入帳號，系統
+帳號相關連，並存取 Red Hat Network。如果您沒有 Red Hat 的登入帳號，系統
 會引領您取得帳號。如果您忘了 Red Hat 登入帳號，請完成&lt;a href="{1}"&gt;遺
 失登入帳號表單&lt;/a&gt;，以取回帳號。</target>
 			</trans-unit>
@@ -11737,17 +11749,17 @@ your Red Hat login, please
 				<target>伺服器無法連接至該服務，也因此無法完成您的需求。目前可能無法執行這項動作。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.header">
-				<source>@@PRODUCT_NAME@@ Outage Policy</source>
-				<target>@@PRODUCT_NAME@@ 停機政策</target>
+				<source>Red Hat Network Outage Policy</source>
+				<target>Red Hat Network 停機政策</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.intro">
-				<source>Our highest priority is your access to @@PRODUCT_NAME@@ and the
+				<source>Our highest priority is your access to Red Hat Network and the
 advantages of a registered account. We strive to maintain 100% uptime
-for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
+for your RHN service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>我們的首要目標是讓您存取 @@PRODUCT_NAME@@，以享用註冊用戶專屬的好處。
-我們希望能提供您廿四小時的 @@PRODUCT_NAME@@ 服務，但我們還是得進行定期維護，以升級
+				<target>我們的首要目標是讓您存取 Red Hat Network，以享用註冊用戶專屬的好處。
+我們希望能提供您廿四小時的 RHN 服務，但我們還是得進行定期維護，以升級
 一些功能、修正錯誤、並改進效能。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.scheduled-header">
@@ -11755,16 +11767,16 @@ performance.</source>
 				<target>已排程的維護時段</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.scheduled">
-				<source>Red Hat schedules all planned maintenance to @@PRODUCT_NAME@@ each
+				<source>Red Hat schedules all planned maintenance to Red Hat Network each
 Tuesday from 9pm-3am, Eastern U.S. Time (1am-7am UTC).  While Red Hat will not
 necessarily use every one of these windows to perform maintenance, we recommend that your
-enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
+enterprise develop business practices that allow this period of downtime for your RHN solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
 				<target>Red Hat 會在美東時間的周二
-晚間九點至隔日凌晨三點（凌晨一點至凌晨七點 UTC）對 @@PRODUCT_NAME@@ 進行維護。但 Red Hat 不一定會每週都進行維護；
-但我們建議您在設計 @@PRODUCT_NAME@@ 相關時程時，避開這個時段。
-Red Hat 會盡可能提前一週寄出電子郵件（如下），通知您 @@PRODUCT_NAME@@ 的站務維護時間。</target>
+晚間九點至隔日凌晨三點（凌晨一點至凌晨七點 UTC）對 Red Hat Network 進行維護。但 Red Hat 不一定會每週都進行維護；
+但我們建議您在設計 RHN 相關時程時，避開這個時段。
+Red Hat 會盡可能提前一週寄出電子郵件（如下），通知您 RHN 的站務維護時間。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.unscheduled-header">
 				<source>Unscheduled Maintenance Windows</source>
@@ -11775,7 +11787,7 @@ Red Hat 會盡可能提前一週寄出電子郵件（如下），通知您 @@PRO
 Network will attempt notification, again through the email outage list
 (see below), at least 12 hours or as soon as possible in advance of
 unscheduled maintenance.</source>
-				<target>您可能會遇到未排程的維護時段；但這很罕見。@@PRODUCT_NAME@@ 會儘可能提前十二小時，以電子郵件通知您這些未排程的維護時段。</target>
+				<target>您可能會遇到未排程的維護時段；但這很罕見。Red Hat Network 會儘可能提前十二小時，以電子郵件通知您這些未排程的維護時段。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.emergency-header">
 				<source>Emergency Maintenance</source>
@@ -11793,12 +11805,12 @@ on the email outage list as soon as possible.</source>
 				<target>停機通知</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.notification">
-				<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
+				<source>All RHN users are encouraged to join our optional email outage list.
 This email list will provide you with periodic updates about our
 scheduled downtime maintenance activities, and will also serve as the
 emailing list that Red Hat will use in the case of Unscheduled and
 Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-				<target>我們建議所有的 @@PRODUCT_NAME@@ 使用者加入我們的停機電子郵件清單（選用）。這清單會定期
+				<target>我們建議所有的 RHN 使用者加入我們的停機電子郵件清單（選用）。這清單會定期
 提供您停機維護活動，並做為非計劃與緊急維護事件的聯絡窗口。
 &lt;a href="{0}"&gt;請按此註冊停機電子郵件清單&lt;/a&gt;。</target>
 			</trans-unit>
@@ -11870,7 +11882,7 @@ The software channels listed below have ISO images available for products which 
 			</trans-unit>
 			<trans-unit id="download.isohelp.body">
 				<source>
-&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use @@PRODUCT_NAME@@ and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
+&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use RHN and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
 
 &lt;p&gt;Once curl is installed, at a shell prompt, cut and paste the URL for the ISO into the curl command as follows:&lt;/p&gt;
 
@@ -11880,16 +11892,16 @@ The software channels listed below have ISO images available for products which 
 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the @@PRODUCT_NAME@@ servers.&lt;/p&gt;
+&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the RHN servers.&lt;/p&gt;
 
-&lt;p&gt;You may also use wget to obtain the ISO files.  If you use @@PRODUCT_NAME@@ and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
+&lt;p&gt;You may also use wget to obtain the ISO files.  If you use RHN and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
 
 &lt;p&gt;Once wget is installed, at a shell prompt, cut and paste the URL for the ISO into the wget command as follows:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;</source>
 				<target>
-&lt;p&gt;我們建議您使用 &lt;strong&gt;curl&lt;/strong&gt; 來下載映像檔。假如您使用 @@PRODUCT_NAME@@ 但是目前沒有 curl 的話，您能夠藉由從 shell 提示執行「uda2date curl」（RHEL 4 以下）或「yum curl」（RHEL 5 以上）這項指令來安裝它。&lt;/p&gt;
+&lt;p&gt;我們建議您使用 &lt;strong&gt;curl&lt;/strong&gt; 來下載映像檔。假如您使用 RHN 但是目前沒有 curl 的話，您能夠藉由從 shell 提示執行「uda2date curl」（RHEL 4 以下）或「yum curl」（RHEL 5 以上）這項指令來安裝它。&lt;/p&gt;
 
 &lt;p&gt;一旦 curl 被安裝以後，請將 ISO 的 URL 剪下並貼至 shell 提示中的 curl 指令，就像是：&lt;/p&gt;
 
@@ -11899,9 +11911,9 @@ The software channels listed below have ISO images available for products which 
 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;URL 非常長因為它包含著 session 認證資訊。請確認您有加入單獨的引號。「&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;」這個選項能讓您在傳輸中斷時（比方說您斷線時）繼續下載。「&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;」（是字母 O 不是零）這個選項能夠將檔案儲存為與 @@PRODUCT_NAME@@ 伺服器上相同的名稱。&lt;/p&gt;
+&lt;p&gt;URL 非常長因為它包含著 session 認證資訊。請確認您有加入單獨的引號。「&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;」這個選項能讓您在傳輸中斷時（比方說您斷線時）繼續下載。「&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;」（是字母 O 不是零）這個選項能夠將檔案儲存為與 RHN 伺服器上相同的名稱。&lt;/p&gt;
 
-&lt;p&gt;您也許會想要使用 wget 來取得 ISO 檔案。如果您使用 @@PRODUCT_NAME@@ 並且目前沒有 wget 的話，您能夠藉由從您的指令列執行「up2date wget」（RHEL 4 以下）或「yum wget」（RHEL 5 以上）來安裝它。&lt;/p&gt;
+&lt;p&gt;您也許會想要使用 wget 來取得 ISO 檔案。如果您使用 RHN 並且目前沒有 wget 的話，您能夠藉由從您的指令列執行「up2date wget」（RHEL 4 以下）或「yum wget」（RHEL 5 以上）來安裝它。&lt;/p&gt;
 
 &lt;p&gt;一旦 wget 被安裝以後，請將 ISO 的 URL 剪下並貼至 shell 提示中的 wget 指令，就像是：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
@@ -11913,16 +11925,16 @@ The software channels listed below have ISO images available for products which 
 				<target>ISO 映像檔下載</target>
 			</trans-unit>
 			<trans-unit id="isodownload.hosted-only.warn">
-				<source>Downloading of ISO images is not supported on @@PRODUCT_NAME@@.</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器上並不支援 ISO 映像檔的下載。</target>
+				<source>Downloading of ISO images is not supported on RHN Satellite.</source>
+				<target>RHN 衛星伺服器上並不支援 ISO 映像檔的下載。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.not-paying.warn">
-				<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
-				<target>ISO 映像檔的下載只提供給擁有 @@PRODUCT_NAME@@ 付費權利的客戶。</target>
+				<source>Downloading of ISO images is only available to customers with paid entitlements to Red Hat Network.</source>
+				<target>ISO 映像檔的下載只提供給擁有 Red Hat Network 付費權利的客戶。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.not-paying.purchase">
-				<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-				<target>假如您有興趣購買 @@PRODUCT_NAME@@ 權利，請參閱我們的 &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; 購買資訊&lt;/a&gt;網頁並取得更多資訊。</target>
+				<source>If you are interested in buying Red Hat Network entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
+				<target>假如您有興趣購買 Red Hat Network 權利，請參閱我們的 &lt;a href="/rhn/account/SubscriptionManagement.do"&gt; 購買資訊&lt;/a&gt;網頁並取得更多資訊。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.tna">
 				<source>
@@ -12001,20 +12013,20 @@ Note that only one set of ISO images is necessary to install any particular rele
 				<target>&lt;strong&gt;檔案遺失：&lt;/strong&gt; {0}</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps">
-				<source>@@PRODUCT_NAME@@ Channel Content ISOs</source>
+				<source>Satellite Channel Content ISOs</source>
 				<target>衛星伺服器頻道內容的 ISO</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-descr1">
 				<source>
-Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your @@PRODUCT_NAME@@ Entitlement Certificate has been uploaded to @@PRODUCT_NAME@@ and correctly identifies the target channels.</source>
+Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your RHN Entitlement Certificate has been uploaded to RHN and correctly identifies the target channels.</source>
 				<target>
-下列為所有能與頻道 {0} 一起使用的頻道內容 ISO。假如任何頻道內容的 ISO 沒有顯現在下方，請確認您的 @@PRODUCT_NAME@@ 權利認證已被上傳至 @@PRODUCT_NAME@@ 並且正確地驗明目標頻道。</target>
+下列為所有能與頻道 {0} 一起使用的頻道內容 ISO。假如任何頻道內容的 ISO 沒有顯現在下方，請確認您的 RHN 權利認證已被上傳至 RHN 並且正確地驗明目標頻道。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-descr2">
 				<source>
 There are two types of channel content ISOs: Base Channel Content ISOs and Incremental Channel Content ISOs.
-You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt; if you need to initially populate a new @@PRODUCT_NAME@@ with channel content.
-Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your @@PRODUCT_NAME@@.</source>
+You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt; if you need to initially populate a new Satellite with channel content.
+Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your Satellite.</source>
 				<target>
 有兩種頻道內容 ISO：基礎頻道 ISO 與遞增頻道內容 ISO。
 假如您一開始需要將一個新的衛星伺服器集結於頻道內容，您會想要下載&lt;strong&gt;基礎頻道內容的 ISO&lt;/strong&gt;。
@@ -12022,20 +12034,20 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-note">
 				<source>
-&lt;strong&gt;Note:&lt;/strong&gt; Additional documentation on using @@PRODUCT_NAME@@ Channel Content ISOs is available in the &lt;em&gt;@@PRODUCT_NAME@@ Installation Guide&lt;/em&gt;, section 6.2.2.</source>
+&lt;strong&gt;Note:&lt;/strong&gt; Additional documentation on using Satellite Channel Content ISOs is available in the &lt;em&gt;Red Hat Network Satellite Installation Guide&lt;/em&gt;, section 6.2.2.</source>
 				<target>
-&lt;strong&gt;請注意：&lt;/strong&gt;有關於衛星伺服器頻道內容 ISO 使用上的額外文件能由 &lt;em&gt;@@PRODUCT_NAME@@ 衛星伺服器安裝指南&lt;/em&gt;中的章節 6.2.2. 取得。</target>
+&lt;strong&gt;請注意：&lt;/strong&gt;有關於衛星伺服器頻道內容 ISO 使用上的額外文件能由 &lt;em&gt;Red Hat Network 衛星伺服器安裝指南&lt;/em&gt;中的章節 6.2.2. 取得。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.no-access">
 				<source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
 				<target>您所嚐試存取的頻道不存在，或是您並沒有存取權限。請重新檢查您所連至此網頁的連結。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps.view-base">
-				<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
+				<source>View Base Channel Content ISOs for Satellite</source>
 				<target>檢視衛星伺服器的基礎頻道內容</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps.view-incr">
-				<source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
+				<source>View Incremental Channel Content ISOs for Satellite</source>
 				<target>檢視衛星伺服器的遞增頻道內容</target>
 			</trans-unit>
 			<trans-unit id="sdc.channels.edit.available">
@@ -12116,7 +12128,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="sdc.channels.confirmNewBase.fasTrackBetaNote">
 				<source>&lt;strong&gt;Note:&lt;/strong&gt; FasTrack and Beta software channels are intended as early access options for &lt;strong&gt;new&lt;/strong&gt; software releases. This is why they are not compatible with Extended Update Support, which is meant to keep a particular system compatible with a particular &lt;strong&gt;previous&lt;/strong&gt; software release.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;FasTrack 與 Beta 軟體頻道是故意用來給&lt;strong&gt;新&lt;/strong&gt;軟體釋出時使用的。這也是它們不與「延伸更新支援」相容的原因，這表示要保留特定系統與特定的   &lt;stro先前&lt;/strong&gt;軟體版本相容。ng&gt;</target>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;FasTrack 與 Beta 軟體頻道是故意用來給&lt;strong&gt;新&lt;/strong&gt;軟體釋出時使用的。這也是它們不與「延伸更新支援」相容的原因，這是用來保留特定系統針對於特定&lt;strong&gt;先前&lt;/strong&gt;軟體版本的相容性。</target>
 			</trans-unit>
 			<trans-unit id="sdc.channels.confirmNewBase.cancel">
 				<source>Cancel</source>
@@ -12191,8 +12203,8 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>非虛擬權利之主機的客座</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.para1">
-				<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-				<target>下列是與 @@PRODUCT_NAME@@ 中擁有虛擬權利的主機系統（也就是虛擬化或是虛擬化平台主機系統）無關聯的客座系統清單。這些系統所耗費的軟體與系統權利與普通的實體系統相同。</target>
+				<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in RHN.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
+				<target>下列是與 RHN 中擁有虛擬權利的主機系統（也就是虛擬化或是虛擬化平台主機系統）無關聯的客座系統清單。這些系統所耗費的軟體與系統權利與普通的實體系統相同。</target>
 			</trans-unit>
 			<trans-unit id="virtualentitlements.toolbar">
 				<source>Virtualization Entitlements</source>
@@ -12203,8 +12215,8 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>調和無虛擬化權利的主機之客座權利</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.para2">
-				<source>You may always delete the @@PRODUCT_NAME@@ system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-				<target>您能夠隨時刪除以上所列出的客座的 @@PRODUCT_NAME@@ 系統設定檔來空出它所耗費的軟體與系統權利（或是您能夠移除客座的系統權利來空出權利）。您能夠不將客座的設定檔刪除，不過還是能空出與客座關聯的實體權利：</target>
+				<source>You may always delete the RHN system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
+				<target>您能夠隨時刪除以上所列出的客座的 RHN 系統設定檔來空出它所耗費的軟體與系統權利（或是您能夠移除客座的系統權利來空出權利）。您能夠不將客座的設定檔刪除，不過還是能空出與客座關聯的實體權利：</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.guestsofknown">
 				<source>Guests of Known Hosts</source>
@@ -12219,24 +12231,24 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>非 Red Hat 虛擬化主機的客座</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.knownnote">
-				<source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
-				<target>假如您希望空出上述其中一個和 @@PRODUCT_NAME@@ 註冊的主機關聯的客座之實體權利，請增加虛擬化或者是虛擬化平台系統的權利。</target>
+				<source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with RHN please add either the Virtualization or Virtualization Platform system entitlement.</source>
+				<target>假如您希望空出上述其中一個和 RHN 註冊的主機關聯的客座之實體權利，請增加虛擬化或者是虛擬化平台系統的權利。</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote">
 				<source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
 				<target>假如以上列出的客座系統的主機被列為未知，而您想要空出此客座所耗費的實體權利，請確認：</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote1">
-				<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
-				<target>您客座的主機系統已與 @@PRODUCT_NAME@@ 註冊</target>
+				<source>The host system of your guest is registered to RHN</source>
+				<target>您客座的主機系統已與 RHN 註冊</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote2">
 				<source>The host has a Virtualization or Virtualization host applied to it</source>
 				<target>此主機擁有一個適用於它的虛擬化或虛擬化主機</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.note3">
-				<source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
-				<target>此主機訂閱了 @@PRODUCT_NAME@@ 工具頻道並且安裝了 rhn-virtualization-host 套件。</target>
+				<source>The host is subscribed to the RHN Tools channel and has the rhn-virtualization-host package installed.</source>
+				<target>此主機訂閱了 RHN 工具頻道並且安裝了 rhn-virtualization-host 套件。</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.nonredhatnote">
 				<source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
@@ -12283,7 +12295,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>提示：</target>
 			</trans-unit>
 			<trans-unit id="orgcreate.header2">
-				<source>Your &lt;strong&gt;@@PRODUCT_NAME@@ Administrator&lt;/strong&gt; role will not allow you to login into or modify this new organization, and your @@PRODUCT_NAME@@ login cannot be a member of more than one organization.  Consequently, you will need to create a new login for the initial &lt;strong&gt;Organization Administrator&lt;/strong&gt; for this organization:</source>
+				<source>Your &lt;strong&gt;Satellite Administrator&lt;/strong&gt; role will not allow you to login into or modify this new organization, and your Satellite login cannot be a member of more than one organization.  Consequently, you will need to create a new login for the initial &lt;strong&gt;Organization Administrator&lt;/strong&gt; for this organization:</source>
 				<target>您的&lt;strong&gt;衛星管理員&lt;/strong&gt;角色無法讓您登入或修改這個新的組織，同時您的衛星伺服器登入帳號無法成為超過一個組織的成員。因此，您需要為最初的&lt;strong&gt;組織管理員&lt;/strong&gt;建立這個組織的新登入帳號：</target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
@@ -12319,7 +12331,7 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>（附加）</target>
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.man_tip">
-				<source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
+				<source>Required for all systems registered to the Satellite.</source>
 				<target>向這部衛星伺服器註冊的所有系統都需要。</target>
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.mon_tip">
@@ -12343,12 +12355,12 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>可能的值：&lt;strong&gt;{0}&lt;/strong&gt; 到 &lt;strong&gt;{1}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.header">
-				<source>System Entitlements Across @@PRODUCT_NAME@@</source>
+				<source>System Entitlements Across Satellite</source>
 				<target>整個衛星伺服器的系統權利</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.tip">
-				<source>*&lt;strong&gt;Tip:&lt;/strong&gt;'Total' refers to the total available to the @@PRODUCT_NAME@@
-as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
+				<source>*&lt;strong&gt;Tip:&lt;/strong&gt;'Total' refers to the total available to the Satellite
+as reflected in this Satellite's certificate.</source>
 				<target>*&lt;strong&gt;提示：&lt;/strong&gt;「總數」指得是反映在這台衛星伺服器認證的可用衛星伺服器數量。</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.not_allocated">
@@ -12420,7 +12432,7 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;提示：&lt;/strong&gt;這些數字反映了目前整個組織中，所有給這權利使用的數量。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.description">
-				<source>The Current Allocation of entitlements for {0} across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
+				<source>The Current Allocation of entitlements for {0} across the organizations on this Satellite is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
 				<target>整個組織間，這台衛星伺服器 {0} 目前分配的權利顯示如下。您可以在「提議的總數」欄裡修改每個組織的權利數目，但您所作的改變要到您按下下方的「確認變更」之後，才會生效。</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.jsp.possible_vals">
@@ -12436,7 +12448,7 @@ as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
 				<target>取消變更</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.usage">
-				<source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
+				<source>Satellite-Wide Entitlement Usage</source>
 				<target>衛星伺服器的權利用量</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.inuse">
@@ -12458,7 +12470,7 @@ this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.tip">
 				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
-the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
+the organizations (excluding the default Satellite organization) on this Satellite. It is not equal to the total available in the Satellite certificate</source>
 				<target>&lt;strong&gt;*提示：&lt;/strong&gt;「總數」指得是這台衛星伺服器上，一個組織
 （不包括預設的衛星組織）可用的權利數目。這與衛星認證所擁有的總數不同。</target>
 			</trans-unit>
@@ -12729,7 +12741,7 @@ As a Channel Administrator, you may change the base channels your systems are su
 				<target>您要求的 CSV 檔案並未匯出，這可能是因為以下原因之一：</target>
 			</trans-unit>
 			<trans-unit id="badcsvaction.jsp.reason1">
-				<source>Your login session to the @@PRODUCT_NAME@@ expired. @@PRODUCT_NAME@@ sessions time out when your browser is left unattended for an extended period of time for security.</source>
+				<source>Your login session to the Satellite expired. Satellite sessions time out when your browser is left unattended for an extended period of time for security.</source>
 				<target>衛星伺服器的登入 session 已經過時。基於安全考量，若一段時間內，您的瀏覽器沒有與伺服器連線，session 就會中斷。</target>
 			</trans-unit>
 			<trans-unit id="badcsvaction.jsp.reason2">

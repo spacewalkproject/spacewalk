@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>提示</target>
 			</trans-unit>
-			<trans-unit id="About Spacewalk">
-				<source>About</source>
-				<target>關於 @@PRODUCT_NAME@@</target>
+			<trans-unit id="About RHN">
+				<source>About RHN</source>
+				<target>關於 RHN</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -258,9 +258,9 @@
 				<source>Config Channels</source>
 				<target>設定頻道</target>
 			</trans-unit>
-			<trans-unit id="Contact Spacewalk">
-				<source>Contact @@PRODUCT_NAME@@</source>
-				<target>連絡 @@PRODUCT_NAME@@</target>
+			<trans-unit id="Contact RHN">
+				<source>Contact RHN</source>
+				<target>連絡 RHN</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -334,9 +334,9 @@
 				<source>File Preservation</source>
 				<target>檔案保存</target>
 			</trans-unit>
-			<trans-unit id="Get Spacewalk Software">
-				<source>Get @@PRODUCT_NAME@@ Software</source>
-				<target>取得 @@PRODUCT_NAME@@ 軟體</target>
+			<trans-unit id="Get RHN Software">
+				<source>Get RHN Software</source>
+				<target>取得 RHN 軟體</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,16 +394,16 @@
 				<source>Management</source>
 				<target>管理</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk Guide">
-				<source>Management @@PRODUCT_NAME@@ Guide</source>
+			<trans-unit id="Management Satellite Guide">
+				<source>Management Satellite Guide</source>
 				<target>管理衛星伺服器指南</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk">
-				<source>Management @@PRODUCT_NAME@@</source>
+			<trans-unit id="Management Satellite">
+				<source>Management Satellite</source>
 				<target>管理衛星伺服器</target>
 			</trans-unit>
-			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+			<trans-unit id="Management Satellite Release Notes">
+				<source>Management Satellite Release Notes</source>
 				<target>管理衛星伺服器的發行公告</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
@@ -526,21 +526,29 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL 轉移 FAQ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Management Tools">
-				<source>@@PRODUCT_NAME@@ Management Tools</source>
-				<target>@@PRODUCT_NAME@@ 管理衛星伺服器工具</target>
+			<trans-unit id="RHN Management Satellite Tools">
+				<source>RHN Management Satellite Tools</source>
+				<target>RHN 管理衛星伺服器工具</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Login">
-				<source>@@PRODUCT_NAME@@ Login</source>
-				<target>@@PRODUCT_NAME@@ 登入帳號</target>
+			<trans-unit id="RHN Security">
+				<source>RHN Security</source>
+				<target>RHN 安全</target>
+			</trans-unit>
+			<trans-unit id="Red Hat Login">
+				<source>Red Hat Login</source>
+				<target>Red Hat 登入帳號</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>建立登入帳號</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Support Tools">
-				<source>@@PRODUCT_NAME@@ Support Tools</source>
-				<target>@@PRODUCT_NAME@@ 支援工具</target>
+			<trans-unit id="RHN Support Tools">
+				<source>RHN Support Tools</source>
+				<target>RHN 支援工具</target>
+			</trans-unit>
+			<trans-unit id="Satellite Release Notes">
+				<source>Satellite Release Notes</source>
+				<target>衛星伺服器的發行公告</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -730,6 +738,10 @@
 				<source>Your Preferences</source>
 				<target>您的偏好設定</target>
 			</trans-unit>
+			<trans-unit id="Your RHN">
+				<source>Your RHN</source>
+				<target>您專屬的 RHN</target>
+			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>組織申請者</target>
@@ -750,13 +762,13 @@
 				<source>Organization Administrators</source>
 				<target>組織管理者</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Administrators">
-				<source>@@PRODUCT_NAME@@ Administrators</source>
+			<trans-unit id="Satellite Administrators">
+				<source>Satellite Administrators</source>
 				<target>衛星管理者</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Super Users">
-				<source>@@PRODUCT_NAME@@ Super Users</source>
-				<target>@@PRODUCT_NAME@@ 超級使用者</target>
+			<trans-unit id="RHN Super Users">
+				<source>RHN Super Users</source>
+				<target>RHN 超級使用者</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1175,11 +1187,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
+entitlements for the 'rhn-tools' software channel from your Satellite administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
+channel is available to your Satellite. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1346,16 +1358,16 @@ available for this kickstart profile to function properly.
 				<target>更新 Solaris 套件清單</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
-				<target>@@PRODUCT_NAME@@ 系統程式的設定</target>
+				<source>RHN Daemon Configuration</source>
+				<target>RHN 系統程式的設定</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>驗證已佈署的套件</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
-				<target>允許 @@PRODUCT_NAME@@ 衛星伺服器使用 rhn-applet</target>
+				<source>Allows for rhn-applet use with an RHN Satellite</source>
+				<target>允許 RHN 衛星伺服器使用 rhn-applet</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1363,19 +1375,19 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="action.failedlink">
 				<source>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/a&gt;&lt;/strong&gt; failed to complete this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/a&gt;&lt;/strong&gt; 無法完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/strong&gt;&lt;/a&gt; 無法完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.failedlink.plural">
 				<source>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; failed to complete this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/a&gt;&lt;/strong&gt; 無法完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/FailedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/strong&gt;&lt;/a&gt; 無法完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.completelink">
 				<source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} system&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/a&gt;&lt;/strong&gt; 成功地完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/strong&gt;&lt;/a&gt; 成功地完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.completelink.plural">
 				<source>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} systems&lt;/a&gt;&lt;/strong&gt; successfully completed this action.&lt;br/&gt;&lt;br/&gt;</source>
-				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/a&gt;&lt;/strong&gt; 成功地完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
+				<target>&lt;a href="/rhn/schedule/CompletedSystems.do?aid={0}"&gt;&lt;strong&gt;{1} 系統&lt;/strong&gt;&lt;/a&gt; 成功地完成此項動作。&lt;br/&gt;&lt;br/&gt;</target>
 			</trans-unit>
 			<trans-unit id="action.name">
 				<source>Errata Update: {0} - {1}</source>
@@ -1442,7 +1454,7 @@ available for this kickstart profile to function properly.
 				<target>組織管理者</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<source>Satellite Administrator</source>
 				<target>衛星管理者</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
@@ -1454,8 +1466,8 @@ available for this kickstart profile to function properly.
 				<target>頻道管理者</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>@@PRODUCT_NAME@@ Superuser</source>
-				<target>@@PRODUCT_NAME@@ 超級使用者</target>
+				<source>Red Hat Network Superuser</source>
+				<target>Red Hat Network 超級使用者</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1470,8 +1482,8 @@ available for this kickstart profile to function properly.
 				<target>Coma CMS 出版者</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>@@PRODUCT_NAME@@ Support Administrator</source>
-				<target>@@PRODUCT_NAME@@ 支援管理者</target>
+				<source>Red Hat Network Support Administrator</source>
+				<target>Red Hat Network 支援管理者</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2013,16 +2025,16 @@ user before attempting to deactivate their account.</source>
 				<target>系統最後登入：</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current @@PRODUCT_NAME@@ time:</source>
-				<target>目前 @@PRODUCT_NAME@@ 時間：</target>
+				<source>Current RHN time:</source>
+				<target>目前 RHN 時間：</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>預期登入時間：</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 @@PRODUCT_NAME@@。如果系統未登入 @@PRODUCT_NAME@@，它就不能成功進行這動作。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確定 rhnsd 正在執行中（&lt;a href="/help/faq.pxt#15"&gt;更多資訊&lt;/a&gt;）。如果它執行失敗，請 &lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 Red Hat Network。如果系統未登入 RHN，它就不能成功進行這動作。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確定 rhnsd 正在執行中（&lt;a href="/help/faq.pxt#15"&gt;更多資訊&lt;/a&gt;）。如果它執行失敗，請 &lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2101,8 +2113,8 @@ user before attempting to deactivate their account.</source>
 				<target>秒</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>安裝升級叢集 &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 已經被 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;排程&lt;/a&gt;。</target>
+				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>安裝升級叢集 &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; 已經被 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;排程&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2220,8 +2232,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>一般設定</target>
 			</trans-unit>
-			<trans-unit id="Admin">
-				<source>Admin</source>
+			<trans-unit id="Satellite Tools">
+				<source>Satellite Tools</source>
 				<target>衛星伺服器工具</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
@@ -2269,8 +2281,8 @@ user before attempting to deactivate their account.</source>
 				<target>您已經成功地 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;排程&lt;/a&gt;&lt;/strong&gt; 套件設定檔的同步，針對來自 &lt;strong&gt;{3}&lt;/strong&gt;的&lt;strong&gt;{2}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;@@PRODUCT_NAME@@ 已經&lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;排程&lt;/a&gt;&lt;/strong&gt;硬體更新（針對&lt;strong&gt;{2}&lt;/strong&gt;），這會在套件設定檔同步之前執行。在系統得以比較套件前，這是必須確認的過程。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;Red Hat Network 已經&lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;排程&lt;/a&gt;&lt;/strong&gt;硬體更新（針對&lt;strong&gt;{2}&lt;/strong&gt;），這會在套件設定檔同步之前執行。在系統得以比較套件前，這是必須確認的過程。</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3333,8 +3345,8 @@ user before attempting to deactivate their account.</source>
 				<target>重新啟動</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>您已經為 @@PRODUCT_NAME@@ 衛星伺服器服務建立的第一個使用者。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;請按這裡&lt;/strong&gt;&lt;/a&gt;完成額外設定。</target>
+				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>您已經為 RHN 衛星伺服器服務建立的第一個使用者。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;請按這裡&lt;/strong&gt;&lt;/a&gt;完成額外設定。</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3349,7 +3361,7 @@ user before attempting to deactivate their account.</source>
 				<target>找不到認證。請選擇本機認證檔或將其內容貼至本表格。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<source>Certificate uploaded.  Satellite has been re-activated.</source>
 				<target>認證上傳完畢。衛星伺服器已經重新啟動。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
@@ -3361,7 +3373,7 @@ user before attempting to deactivate their account.</source>
 				<target>認證已過期</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<source>Unknown Satellite version</source>
 				<target>未知的衛星伺服器版本</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
@@ -3381,15 +3393,15 @@ user before attempting to deactivate their account.</source>
 				<target>沒有剩餘的管理權利</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<source>Satellite channel not found</source>
 				<target>找不到衛星頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<source>No Satellite channel entitlements remaining</source>
 				<target>沒有剩餘的衛星頻道權利</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<source>Invalid Satellite certificate</source>
 				<target>不正確的衛星認證</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
@@ -3397,11 +3409,11 @@ user before attempting to deactivate their account.</source>
 				<target>未知的啟動錯誤</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<source>Satellite has no base channel on parent server</source>
 				<target>衛星伺服器在父伺服器上沒有基礎頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<source>No Satellite channel available for this version</source>
 				<target>沒有適用於這版本的衛星伺服器頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
@@ -3413,7 +3425,7 @@ user before attempting to deactivate their account.</source>
 				<target>未被處理的錯誤</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<source>Satellite server hostname</source>
 				<target>衛星伺服器的主機名稱</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
@@ -3461,20 +3473,20 @@ user before attempting to deactivate their account.</source>
 				<target>發生錯誤，您對衛星伺服器的設定所做的改變無法儲存。欲知更多詳情，請尋求技術支援。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
 				<target>正在重新啟動衛星伺服器。如果五分鐘內本網頁更新，請按&lt;a href="/rhn/YourRhn.do"&gt;這裡&lt;/a&gt;手動更新。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
-				<target>請勾選以下表單中的方塊，確定您想要重新啟動 @@PRODUCT_NAME@@ 衛星伺服器。</target>
+				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
+				<target>請勾選以下表單中的方塊，確定您想要重新啟動 RHN 衛星伺服器。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>@@PRODUCT_NAME@@ has been restarted.</source>
-				<target>@@PRODUCT_NAME@@ 衛星伺服器已經重新啟動。</target>
+				<source>RHN Satellite has been restarted.</source>
+				<target>RHN 衛星伺服器已經重新啟動。</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
-				<target>@@PRODUCT_NAME@@ 監控偵測</target>
+				<source>RHN Monitoring Scout</source>
+				<target>RHN 監控偵測</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3567,7 +3579,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with @@PRODUCT_NAME@@:
+The following systems recently stopped checking in with Red Hat Network:
 
 {0}
 
@@ -3578,7 +3590,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>系統未登入：
 -------------------------
-以下系統最近並未登入 @@PRODUCT_NAME@@：
+以下系統最近並未登入 Red Hat Network：
 
 {0}
 
@@ -3693,16 +3705,16 @@ Follow this url to see the full list of inactive systems:
 				<target>無法 kickstart &lt;strong&gt;{0}&lt;/strong&gt;，因為它沒有基礎頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target>您已經沒有剩餘的訂閱至該系統目前基礎頻道的 @@PRODUCT_NAME@@ provisioning 頻道。</target>
+				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
+				<target>您已經沒有剩餘的訂閱至該系統目前基礎頻道的 RHN provisioning 頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
-				<target>您已經沒有剩餘的訂閱至該系統目前基礎頻道的 @@PRODUCT_NAME@@ provisioning 頻道。</target>
+				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
+				<target>您已經沒有剩餘的訂閱至該系統目前基礎頻道的 RHN provisioning 頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>找不到所需的 @@PRODUCT_NAME@@ Provisioning 套件，給這台系統的基礎頻道與目標頻道使用：{0}</target>
+				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>找不到所需的 RHN Provisioning 套件，給這台系統的基礎頻道與目標頻道使用：{0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3721,7 +3733,7 @@ Follow this url to see the full list of inactive systems:
 				<target>為這台系統準備的 kickstart 已經啟動。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
 				<target>找不到給 &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; 所使用的 Red Hat 工具頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
@@ -3737,7 +3749,7 @@ Follow this url to see the full list of inactive systems:
 				<target>我們需要 up2date {0} 以上（含）的版本，好對系統進行 kickstart。這台系統已安裝 {1}，但在這台系統上，我們找不到 up2date，無法將其升級至所需的版本。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
 				<target>過去 {0} 分鐘內，客座端系統並未與衛星伺服器通訊。因為硬體限制，安裝過程可能稍嫌緩慢，或停滯不前。您可以在主系統上執行 &lt;em&gt;virsh console &lt;strong&gt;客座端名稱&lt;/strong&gt;&lt;/em&gt; 進行障礙排除。這指令讓您連接到正在進行安裝的客座端之文字終端機，提供客座端系統安裝狀態的額外資訊。</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
@@ -4073,7 +4085,7 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 已被 ping 了。OSA 狀態會在接下來的一分鐘內更新。</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
 				<target>RHN 程式衛星伺服器的啟動程序已被 &lt;a href="{0}"&gt;排程&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
@@ -4098,11 +4110,11 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.failure">
 				<source>All file and/or directory ({0}) deployments failed. [&lt;a href={1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>所有檔案與 / 或目錄（{0}）的佈署都失敗了。「&lt;a href={1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<target>所有檔案與 / 或目錄（{0}）的佈署都失敗了。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>所有檔案與 / 或目錄（{0}）的佈署都成功了。「&lt;a href={1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<target>所有檔案與 / 或目錄（{0}）的佈署都成功了。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.noaction">
 				<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
@@ -4113,56 +4125,56 @@ Follow this url to see the full list of inactive systems:
 				<target>被用來做比較的檔案或目錄尚未被選擇。「&lt;a href="{0}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案的 {0} 已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案的 {0} 已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 與 1 個目錄的 {1} 已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案的 {0} 與 1 個目錄的 {1} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 與 {2} 個目錄的 {1} 已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案的 {0} 與 {2} 個目錄的 {1} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target>現存的系統中沒有存在任何與 @@PRODUCT_NAME@@ 所管理的檔案相異的檔案。</target>
+				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
+				<target>現存的系統中沒有存在任何與 RHN 所管理的檔案相異的檔案。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
-				<target>系統上有 1 個檔案中的 1 個檔案與 @@PRODUCT_NAME@@ 所管理的檔案不同</target>
+				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
+				<target>系統上有 1 個檔案中的 1 個檔案與 RHN 所管理的檔案不同</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
-				<target>系統上有 {1} 個檔案中的 {0} 個檔案與 @@PRODUCT_NAME@@ 所管理的檔案不同</target>
+				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
+				<target>系統上有 {1} 個檔案中的 {0} 個檔案與 RHN 所管理的檔案不同</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4326,7 +4338,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="systems.details.virt.insufficient.memory">
 				<source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
-				<target>主系統上記憶體不足，無法變更客座端的記憶體為您想要的大小。這台主機系統 &lt;strong&gt;{0}&lt;/strong&gt; 的記憶體大小為 {1}MB。您所修改的記憶體大小超過本主機所擁有的實際大小（包括 hypervisor 所需的 {2}MB 以及為目前客座端所保留的記憶體。）&lt;a href={3}&gt;請更新這台主機系統的硬體設定檔&lt;/a&gt;如果這台電腦的記憶體超過 {1}MB。</target>
+				<target>主系統上記憶體不足，無法變更客座端的記憶體為您想要的大小。這台主機系統 &lt;strong&gt;{0}&lt;/strong&gt; 的記憶體大小為 {1}MB。您所修改的記憶體大小超過本主機所擁有的實際大小（包括 hypervisor 所需的 {2}MB 以及為目前客座端所保留的記憶體。）&lt;a href="{3}"&gt;請更新這台主機系統的硬體設定檔&lt;/a&gt;如果這台電腦的記憶體超過 {1}MB。</target>
 			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
 				<source>{0} will require a reboot for max memory settings to take effect.</source>
@@ -4401,16 +4413,16 @@ Follow this url to see the full list of inactive systems:
 				<target>一個稱為「{0}」的檔案已存在此頻道中。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>無法自動地將系統訂閱至 @@PRODUCT_NAME@@ Tools 頻道。此頻道包含著虛擬化所需的套件。這通常是因為頻道權利不足。</target>
+				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>無法自動地將系統訂閱至 Red Hat Network Tools 頻道。此頻道包含著虛擬化所需的套件。這通常是因為頻道權利不足。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>無法自動地將系統訂閱至 RHEL Virtualization 頻道。此頻道包含著虛擬化所需的套件。這通常是因為頻道權利不足。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
-				<target>在 &lt;strong&gt;{1}&lt;/strong&gt; 頻道中無法找到 {0} 這個套件，此套件是 @@PRODUCT_NAME@@ 實施虛擬化時所需的套件。</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
+				<target>在 &lt;strong&gt;{1}&lt;/strong&gt; 頻道中無法找到 {0} 這個套件，此套件是 Red Hat Network 實施虛擬化時所需的套件。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>

@@ -94,9 +94,13 @@
 				<source>Inactive</source>
 				<target>休止中</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
+			<trans-unit id="system.nav.satellite">
+				<source>Satellite</source>
+				<target>Satellite</target>
+			</trans-unit>
+			<trans-unit id="Satellite">
+				<source>Satellite</source>
+				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -350,9 +354,9 @@
 				<source>Snapshots</source>
 				<target>スナップショット</target>
 			</trans-unit>
-			<trans-unit id="Installation Guide">
-				<source>Installation Guide</source>
-				<target>@@PRODUCT_NAME@@ ガイド</target>
+			<trans-unit id="Satellite Guide">
+				<source>Satellite Guide</source>
+				<target>Satellite ガイド</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -382,9 +386,9 @@
 				<source>Sandbox</source>
 				<target>サンドボックス</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Configuration">
-				<source>@@PRODUCT_NAME@@ Configuration</source>
-				<target>@@PRODUCT_NAME@@ 設定</target>
+			<trans-unit id="Satellite Configuration">
+				<source>Satellite Configuration</source>
+				<target>Satellite 設定</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>

@@ -3,20 +3,20 @@
 	<file source-language="en-US" target-language="zh-CN" datatype="po" original="en-US/template.xliff">
 		<body>
 			<trans-unit id="email.verify.subject">
-				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<source>Red Hat login Email Verification</source>
 				<target>红帽登录电子邮件验证</target>
 			</trans-unit>
 			<trans-unit id="email.verification.notice.subject">
-				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<source>Red Hat login Email Verification</source>
 				<target>红帽登录电子邮件验证</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
-				<source>Dear @@PRODUCT_NAME@@ User,
+				<source>Dear Red Hat Network User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+systems management capabilities through Red Hat Network.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click the link below
@@ -28,7 +28,7 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {1}
 
 {2}</source>
@@ -52,15 +52,15 @@ Thank you for using @@PRODUCT_NAME@@.
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.subject">
-				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
-				<target>您的 @@PRODUCT_NAME@@ 帐号已经准备好</target>
+				<source>Your RHN Account is ready</source>
+				<target>您的 RHN 帐号已经准备好</target>
 			</trans-unit>
 			<trans-unit id="email.newaccountbycreator.body">
 				<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on @@PRODUCT_NAME@@.
+provides you with access to manage systems on Red Hat Network.
 
   Red Hat login: {2}
        Password: {3}
@@ -70,7 +70,7 @@ provides you with access to manage systems on @@PRODUCT_NAME@@.
 
 Important: Please change your password upon logging in.
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {6}</source>
 				<target>您好，
 
@@ -94,7 +94,7 @@ Thank you for using @@PRODUCT_NAME@@.
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on @@PRODUCT_NAME@@.
+provides you with access to manage systems on Red Hat Network.
 
   Red Hat login: {0}
        Password: {1}
@@ -104,7 +104,7 @@ provides you with access to manage systems on @@PRODUCT_NAME@@.
 
 Important: Please change your password upon logging in.
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {4}</source>
 				<target>您好，
 
@@ -128,14 +128,14 @@ Thank you for using @@PRODUCT_NAME@@.
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on @@PRODUCT_NAME@@.
+provides you with access to manage systems on Red Hat Network.
 
   Red Hat login: {2}
          e-mail: {4}
 
   {5}
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {6}</source>
 				<target>您好，
 
@@ -152,8 +152,8 @@ Thank you for using @@PRODUCT_NAME@@.
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.subject">
-				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>@@PRODUCT_NAME@@ 用户创建的：{0}（{1}, {2}, {3}）</target>
+				<source>RHN User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target>RHN 用户创建的：{0}（{1}, {2}, {3}）</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.body">
 				<source>Hello,
@@ -167,7 +167,7 @@ please visit:
 
   {1}
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {2}</source>
 				<target>您好，
 
@@ -184,8 +184,8 @@ Thank you for using @@PRODUCT_NAME@@.
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.subject">
-				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
-				<target>@@PRODUCT_NAME@@ 帐号被取消激活：{0}</target>
+				<source>RHN Account Deactivated: {0}</source>
+				<target>RHN 帐号被取消激活：{0}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.body">
 				<source>
@@ -314,7 +314,7 @@ http://www.redhat.com/support/
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to @@PRODUCT_NAME@@
+account in the past day, but could not be entitled to Red Hat Network
 services.
 
 {0}
@@ -323,10 +323,10 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on @@PRODUCT_NAME@@ by following
+   delete your existing system profile on Red Hat Network by following
    the directions at https://rhn.redhat.com/help/faq/#26
 
-2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
+2) The number of systems you have connected to Red Hat Network exceeds
    the number of active Red Hat subscriptions associated with your
    account.  This may be because your subscriptions have expired or
    you need to purchase a Red Hat subscription.
@@ -349,7 +349,7 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using @@PRODUCT_NAME@@.</source>
+Thank you for using Red Hat Network.</source>
 				<target>
 尊敬的红帽用户，
 
@@ -399,7 +399,7 @@ http://www.redhat.com/about/contact/directory.html#custservice
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>
-@@PRODUCT_NAME@@ has determined that the following advisory is applicable to
+Red Hat Network has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
 Complete information about this errata can be found at the following location:
@@ -449,18 +449,18 @@ package profile for that server is out of date. In that case you should run
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Overview' (only systems for
+There is 1 affected system registered in 'Your RHN' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-有 1 个在“您的 @@PRODUCT_NAME@@”里注册的系统受到影响（仅显示
+有 1 个在“您的 RHN”里注册的系统受到影响（仅显示
 您已经显性地启用勘误警告的系统）。    </target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Overview' (only systems for
+There are {0} affected systems registered in 'Your RHN' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-有 {0} 个在“您的 @@PRODUCT_NAME@@”里注册的系统受到影响（仅显示
+有 {0} 个在“您的 RHN”里注册的系统受到影响（仅显示
 您已经显性地启用勘误警告的系统）。    </target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
@@ -495,8 +495,8 @@ You may address the issues outlined in this advisory in two ways:
 				<source>
 Changing Notification Preferences
 ---------------------------------
-To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
-and navigate from "Overview" / "Your Account" to the "Preferences" tab.
+To enable/disable your Errata Alert preferences globally please log in to RHN
+and navigate from "Your RHN" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 
@@ -509,8 +509,8 @@ click the "Details" tab.
 				<target>
 修改通知首选项
 ---------------------------------
-要启用/禁用您的全局勘误警告首选项，请登录到 @@PRODUCT_NAME@@
-并从 "您的 @@PRODUCT_NAME@@" / "您的帐号" 导航至 "首选项" 标签。
+要启用/禁用您的全局勘误警告首选项，请登录到 RHN
+并从 "您的 RHN" / "您的帐号" 导航至 "首选项" 标签。
 
         URL: {0}
 
@@ -522,15 +522,15 @@ click the "Details" tab.
 {2}    </target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.subject">
-				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
-				<target>@@PRODUCT_NAME@@ 每日状态报告：{0}</target>
+				<source>RHN Daily Status Report for {0}</source>
+				<target>RHN 每日状态报告：{0}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.body">
-				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
+				<source>This is the RHN Status Report for your account {0}, as of {1}.
 
 This email will be sent when any of the following apply to the specified systems:
 
-1.  The system fails to check in with @@PRODUCT_NAME@@ within a 24-hour window.
+1.  The system fails to check in with RHN within a 24-hour window.
 2.  The system registers scheduled action activity.
 
 {2}
@@ -543,14 +543,14 @@ To learn how to disable this email for systems:
 https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
 
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {5}
 {6}</source>
-				<target>这是您的账号 {0} 在 {1} 时的 @@PRODUCT_NAME@@ 状态报告。
+				<target>这是您的账号 {0} 在 {1} 时的 RHN 状态报告。
 
 这封电子邮件会在指定的系统出现以下任何情况时被发送：
 
-1.  系统在 24 小时内没有与 @@PRODUCT_NAME@@ 连接。
+1.  系统在 24 小时内没有与 RHN 连接。
 2.  系统注册了调度的行动。
 
 {2}
@@ -569,12 +569,12 @@ https://{4}/help/reference/s1-sm-your-rhn.html#S2-SM-YOUR-RHN-PREFS
 			</trans-unit>
 			<trans-unit id="email.verification.notice.body">
 				<source>
-Dear @@PRODUCT_NAME@@ User,
+Dear Red Hat Network User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+systems management capabilities through Red Hat Network.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -586,7 +586,7 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {1}
 {2}</source>
 				<target>
@@ -610,12 +610,12 @@ Thank you for using @@PRODUCT_NAME@@.
 			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
-Dear @@PRODUCT_NAME@@ User,
+Dear Red Hat Network User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through @@PRODUCT_NAME@@.
+systems management capabilities through Red Hat Network.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -630,7 +630,7 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using @@PRODUCT_NAME@@.
+Thank you for using Red Hat Network.
 {1}
 {2}</source>
 				<target>
@@ -657,29 +657,29 @@ Thank you for using @@PRODUCT_NAME@@.
 				<target>红帽登录电子邮件验证，最后一次通知</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
-				<target>红帽 @@PRODUCT_NAME@@ 服务器证书过期警告</target>
+				<source>Red Hat Satellite Server Certificate expiration warning</source>
+				<target>红帽 Satellite 服务器证书过期警告</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.body">
 				<source>
-Dear @@PRODUCT_NAME@@ User,
+Dear Red Hat Network User,
 
-This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+This email is being sent to you to inform you that your RHN Satellite Certificate
 has expired on your local satellite {0}. After {1} day(s) the systems 
-management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible. 
+management services provided by your RHN Satellite Server will become inaccessible. 
 Please contact your regional Red Hat Customer  Service Representative for information 
-on how to renew your @@PRODUCT_NAME@@ Certificate.
+on how to renew your Satellite Certificate.
 
-Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
+Thank you for using Red Hat Network.
+--the Red Hat Network Team</source>
 				<target>
 尊敬的红帽网络用户，
 
-这是一封通知邮件，您的 @@PRODUCT_NAME@@ 证书
+这是一封通知邮件，您的 RHN Satellite 证书
 已经在您本地的 satellite {0} 上过期。在 {1} 天后，由您的
-@@PRODUCT_NAME@@ 服务器所提供的系统管理服务将无法使用。
+RHN Satellite 服务器所提供的系统管理服务将无法使用。
 请联系红帽的客户服务部门来获得如果更新
-您的 @@PRODUCT_NAME@@ 证书的信息。
+您的 Satellite 证书的信息。
 
 非常感谢您使用红帽网络。
 --红帽网络管理团队</target>
@@ -690,24 +690,24 @@ Thank you for using @@PRODUCT_NAME@@.
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.body">
 				<source>
-Dear @@PRODUCT_NAME@@ User,
+Dear Red Hat Network User,
 
-This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
+This email is being sent to you to inform you that your RHN Satellite Certificate
 has expired on your local satellite {0}. The system management services will be inaccessible 
 until your certificate is renewed. Please contact your regional Red Hat 
-Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
+Customer Service Representative for information on how to renew your Satellite Certificate.
 
 
-Thank you for using @@PRODUCT_NAME@@.
---the @@PRODUCT_NAME@@ Team</source>
+Thank you for using Red Hat Network.
+--the Red Hat Network Team</source>
 				<target>
 尊敬的红帽网络用户，
 
-这是一封通知邮件，您的 @@PRODUCT_NAME@@ 证书
+这是一封通知邮件，您的 RHN Satellite 证书
 已经在您本地的 satellite {0} 上过期。在您更新您的
 证书前系统管理服务将无法使用。
 请联系红帽的客户服务部门来获得如果更新
-您的 @@PRODUCT_NAME@@ 证书的信息。
+您的 Satellite 证书的信息。
 
 
 非常感谢您使用红帽网络。

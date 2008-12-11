@@ -94,8 +94,12 @@
 				<source>Inactive</source>
 				<target>અસક્રિય</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk">
-				<source>@@PRODUCT_NAME@@</source>
+			<trans-unit id="system.nav.satellite">
+				<source>Satellite</source>
+				<target>સેટેલાઈટ</target>
+			</trans-unit>
+			<trans-unit id="Satellite">
+				<source>Satellite</source>
 				<target>સેટેલાઈટ</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
@@ -350,8 +354,8 @@
 				<source>Snapshots</source>
 				<target>સ્નેપશોટ</target>
 			</trans-unit>
-			<trans-unit id="Installation Guide">
-				<source>Installation Guide</source>
+			<trans-unit id="Satellite Guide">
+				<source>Satellite Guide</source>
 				<target>સેટેલાઈટ માર્ગદર્શન</target>
 			</trans-unit>
 			<trans-unit id="Software">
@@ -382,8 +386,8 @@
 				<source>Sandbox</source>
 				<target>સેન્ડબોક્સ</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Configuration">
-				<source>@@PRODUCT_NAME@@ Configuration</source>
+			<trans-unit id="Satellite Configuration">
+				<source>Satellite Configuration</source>
 				<target>સેટેલાઈટ રૂપરેખાંકન</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
