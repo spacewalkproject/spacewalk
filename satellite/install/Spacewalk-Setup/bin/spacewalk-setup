@@ -140,7 +140,7 @@ print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
 setup_cobbler(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Restarting services.\n");
-Spacewalk::Setup::system_or_exit(['/sbin/rhn-satellite', 'restart'], 40,
+Spacewalk::Setup::system_or_exit(['/usr/sbin/rhn-satellite', 'restart'], 40,
 	       'Could not restart the rhn-satellite service.');
 
 wait_for_tomcat($answers{hostname});
