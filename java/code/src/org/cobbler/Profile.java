@@ -265,15 +265,15 @@ public class Profile extends CobblerObject {
      /**
      * @return the VirtFileSize
      */
-     public long getVirtFileSize() {
-         return (Long)dataMap.get(VIRT_FILE_SIZE);
+     public int getVirtFileSize() {
+         return (Integer)dataMap.get(VIRT_FILE_SIZE);
      }
 
      /**
      * @return the VirtRam
      */
-     public long getVirtRam() {
-         return (Long)dataMap.get(VIRT_RAM);
+     public int getVirtRam() {
+         return (Integer)dataMap.get(VIRT_RAM);
      }
 
      /**

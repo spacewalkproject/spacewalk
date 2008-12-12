@@ -66,6 +66,10 @@ public class KickstartFactory extends HibernateFactory {
     public static final KickstartSessionState SESSION_STATE_CONFIG_ACCESSED =
         lookupSessionStateByLabel("configuration_accessed");
     
+    public static final KickstartVirtualizationType VIRT_TYPE_NONE = 
+        lookupKickstartVirtualizationTypeByLabel("none");
+    
+    
     private static final String KICKSTART_CANCELLED_MESSAGE = 
         "Kickstart cancelled due to action removal";
     

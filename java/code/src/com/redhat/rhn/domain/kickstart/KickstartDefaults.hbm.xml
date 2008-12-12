@@ -31,11 +31,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <property name="cfgManagementFlag" column="cfg_management_flag" not-null="true" type="yes_no" />
         <property name="remoteCommandFlag" column="remote_command_flag" not-null="true" type="yes_no" />
-        <property name="virtGuestName" type="string" column="virt_guest_name" />
-        <property name="virtMemKb" type="long" column="virt_mem_kb" />
-        <property name="virtVcpus" type="long" column="virt_vcpus" />
-        <property name="virtDiskGb" type="long" column="virt_disk_gb" />
-        <property name="virtBridge" type="string" column="virt_bridge" />
         <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
     </class>

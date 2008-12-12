@@ -47,11 +47,6 @@ rhnKickstartDefaults
             constraint rhn_ksd_kvt_fk
             references rhnKickstartVirtualizationType(id)
             on delete set null,
-        virt_guest_name         varchar2(256),
-        virt_mem_kb             number, 
-        virt_vcpus              number,
-        virt_disk_gb            number,
-        virt_bridge             varchar2(256),
         created                 date default(sysdate)
                                     constraint rhn_ksd_created_nn not null,
         modified                date default(sysdate)

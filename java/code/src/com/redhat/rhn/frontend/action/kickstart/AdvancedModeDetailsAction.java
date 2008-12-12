@@ -30,7 +30,6 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -38,7 +37,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.upload.FormFile;
-import org.cobbler.Profile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +81,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
+
         
         request.setAttribute(UPLOAD_KEY_LABEL, UPLOAD_KEY);
         context.copyParamToAttributes(RequestContext.KICKSTART_ID);
@@ -127,18 +126,8 @@ public class AdvancedModeDetailsAction extends RhnAction {
             }
             ks.setData(getData(context, form));
                         
-            CobblerXMLRPCHelper cobblerHelper = new CobblerXMLRPCHelper();
-            Profile prof = Profile.lookupById(cobblerHelper.getConnection(
-                    context.getLoggedInUser()), ks.getCobblerId());
-            if (prof != null) {
-                prof.setKernelOptions(StringUtil.convertOptionsToMap(
-                    form.getString(KERNEL_OPTIONS), 
-                    "kickstart.jsp.error.invalidoption"));
-                prof.setKernelPostOptions(StringUtil.convertOptionsToMap(
-                    form.getString(POST_KERNEL_OPTIONS), 
-                    "kickstart.jsp.error.invalidoption"));
-                prof.save(); 
-            }
+            KickstartDetailsEditAction.proccessCobblerFormValues(ks, form, 
+                    context.getLoggedInUser());
             
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                                                         RequestContext.KICKSTART_ID,
@@ -168,16 +157,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             context.getRequest().setAttribute(KickstartFileDownloadAction.KSURL,
                     dcmd.getOrgDefaultUrl());
             
-            CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-            Profile prof = Profile.lookupById(helper.getConnection(
-                    context.getLoggedInUser()), data.getCobblerId());
-            if (prof != null) {
-                form.set(KERNEL_OPTIONS, 
-                   StringUtil.convertMapToString(prof.getKernelOptions(), " "));
-                form.set(POST_KERNEL_OPTIONS, 
-                        StringUtil.convertMapToString(
-                                prof.getKernelPostOptions(), " "));
-            }
+            KickstartDetailsEditAction.setupCobblerFormValues(context, form, data);
             
             form.set(ORG_DEFAULT, data.isOrgDefault());
             form.set(ACTIVE, data.isActive());            

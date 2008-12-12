@@ -35,11 +35,6 @@ public class KickstartDefaults {
     private Date created;
     private Date modified;
 
-    private String virtGuestName;
-    private Long virtMemKb;
-    private Long virtVcpus;
-    private Long virtDiskGb;
-    private String virtBridge;
 
     /** 
      * Getter for id 
@@ -169,86 +164,6 @@ public class KickstartDefaults {
         this.modified = modifiedIn;
     }
 
-    
-    
-    /**
-     * @return the virtGuestName
-     */
-    public String getVirtGuestName() {
-        return virtGuestName;
-    }
-
-    
-    /**
-     * @param virtGuestNameIn the virtGuestName to set
-     */
-    public void setVirtGuestName(String virtGuestNameIn) {
-        this.virtGuestName = virtGuestNameIn;
-    }
-
-    
-    /**
-     * @return the virtMemKb
-     */
-    public Long getVirtMemKb() {
-        return virtMemKb;
-    }
-
-    
-    /**
-     * @param virtMemKbIn the virtMemKb to set
-     */
-    public void setVirtMemKb(Long virtMemKbIn) {
-        this.virtMemKb = virtMemKbIn;
-    }
-
-    
-    /**
-     * @return the virtVcpus
-     */
-    public Long getVirtVcpus() {
-        return virtVcpus;
-    }
-
-    
-    /**
-     * @param virtVcpusIn the virtVcpus to set
-     */
-    public void setVirtVcpus(Long virtVcpusIn) {
-        this.virtVcpus = virtVcpusIn;
-    }
-
-    
-    /**
-     * @return the virtDiskGb
-     */
-    public Long getVirtDiskGb() {
-        return virtDiskGb;
-    }
-
-    
-    /**
-     * @param virtDiskGbIn the virtDiskGb to set
-     */
-    public void setVirtDiskGb(Long virtDiskGbIn) {
-        this.virtDiskGb = virtDiskGbIn;
-    }
-
-    
-    /**
-     * @return the virtBridge
-     */
-    public String getVirtBridge() {
-        return virtBridge;
-    }
-
-    
-    /**
-     * @param virtBridgeIn the virtBridge to set
-     */
-    public void setVirtBridge(String virtBridgeIn) {
-        this.virtBridge = virtBridgeIn;
-    }
 
     /**
      * @return the profile
