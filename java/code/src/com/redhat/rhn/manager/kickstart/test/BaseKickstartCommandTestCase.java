@@ -28,7 +28,7 @@ public class BaseKickstartCommandTestCase extends BaseTestCaseWithUser {
     public void setUp() throws Exception {
         super.setUp();
         this.ksdata = KickstartDataTest.
-            createKickstartWithChannel(user.getOrg());
+            createKickstartWithDefaultKey(user.getOrg());
         
     }
     

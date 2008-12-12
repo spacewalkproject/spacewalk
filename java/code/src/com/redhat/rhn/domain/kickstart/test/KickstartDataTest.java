@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartPreserveFileList;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
+import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
@@ -47,6 +48,8 @@ import com.redhat.rhn.domain.token.test.TokenTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
+import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
@@ -57,6 +60,7 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.hibernate.Session;
 
 import java.io.BufferedReader;
@@ -510,15 +514,20 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         return k;
     }
 
+    public static KickstartData createKickstartWithDefaultKey(Org orgIn) throws Exception {
+        KickstartData ksdata = createKickstartWithChannel(orgIn);
+        KickstartSessionCreateCommand kcmd = new KickstartSessionCreateCommand(
+               orgIn, ksdata);
+        kcmd.store();
+        return ksdata;
+    }
+    
     public static KickstartData createKickstartWithChannel(Org orgIn) throws Exception {
         KickstartData ksdata = KickstartDataTest.createTestKickstartData(orgIn); 
         KickstartDefaults d1 = KickstartDataTest.createDefaults(ksdata, 
                 UserTestUtils.ensureOrgAdminExists(orgIn));
         ksdata.setKickstartDefaults(d1);
-
-        KickstartWizardHelper cmd = new KickstartWizardHelper(
-                UserFactory.findRandomOrgAdmin(orgIn));
-        cmd.store(ksdata);
+        
         return ksdata;
     }
     

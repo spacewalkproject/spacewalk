@@ -406,7 +406,9 @@ public class KickstartLister extends BaseManager {
 
         for (KickstartDto dto : dtos) {
             Profile p = Profile.lookupById(conn, dto.getCobblerId());
-            dto.setCobblerUrl(KickstartUrlHelper.getCobblerProfileUrl(p.getName()));
+            if (p != null) {
+                dto.setCobblerUrl(KickstartUrlHelper.getCobblerProfileUrl(p.getName()));
+            }
         }
     }
 }

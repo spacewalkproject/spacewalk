@@ -79,14 +79,18 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         KickstartSession ksession = 
             KickstartFactory.
                 lookupDefaultKickstartSessionForKickstartData(this.ksData); 
-        ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
+        if (ksession != null) {
+            ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
 
-        args = new Object[]{handle, "redhat_management_key", 
-                key.getKey(), xmlRpcToken};
+            args = new Object[]{handle, "redhat_management_key", 
+                    key.getKey(), xmlRpcToken};
 
-        invokeXMLRPC("modify_profile", Arrays.asList(args));
-
-
+            invokeXMLRPC("modify_profile", Arrays.asList(args));
+        }
+        else {
+            log.warn("We could not find a default kickstart session for this ksdata: " + 
+                    ksData.getLabel());
+        }
         
         if (kernelOptions != null) {
             args = new Object[]{handle, "kernel_options_post", 

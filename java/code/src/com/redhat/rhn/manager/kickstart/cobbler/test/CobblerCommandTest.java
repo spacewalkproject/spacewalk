@@ -49,7 +49,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         super.setUp();
         
         user = UserTestUtils.createUserInOrgOne();
-        this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
+        this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
         user.addRole(RoleFactory.ORG_ADMIN);
 
