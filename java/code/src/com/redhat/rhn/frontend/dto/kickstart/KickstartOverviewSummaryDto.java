@@ -59,7 +59,7 @@ public class KickstartOverviewSummaryDto extends BaseDto {
     /**
      * @return Returns label of install type
      */
-    public String getlabel() {
+    public String getLabel() {
         return label;
     }
 

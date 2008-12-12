@@ -77,7 +77,7 @@ public class KickstartHandler extends BaseHandler {
     public List listKickstartableTrees(String sessionKey,
             String channelLabel) {
         return new KickstartTreeHandler().
-            listKickstartableTrees(sessionKey, channelLabel);
+            list(sessionKey, channelLabel);
     }
 
     /**

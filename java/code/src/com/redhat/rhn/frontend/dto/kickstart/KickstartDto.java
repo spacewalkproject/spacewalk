@@ -31,13 +31,13 @@ public class KickstartDto extends BaseDto {
     private boolean active;
     private Integer advancedMode;
     private String cobblerId;
+    private String cobblerUrl;
     /**
      * @return if this is a raw KS
      */
     public boolean isAdvancedMode() {
         return advancedMode != null && 1 == advancedMode;
     }
-
     
     /**
      * @param raw the raw to set
@@ -168,5 +168,19 @@ public class KickstartDto extends BaseDto {
      */
     public void setCobblerId(String cobblerIdIn) {
         cobblerId = cobblerIdIn;
+    }
+    
+    /**
+     * @return the cobblerUrl
+     */
+    public String getCobblerUrl() {
+        return cobblerUrl;
+    }
+    
+    /**
+     * @param cobblerUrlIn the cobblerUrl to set
+     */
+    public void setCobblerUrl(String cobblerUrlIn) {
+        cobblerUrl = cobblerUrlIn;
     }
 }

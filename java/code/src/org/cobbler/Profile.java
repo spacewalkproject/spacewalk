@@ -15,38 +15,17 @@
 
 package org.cobbler;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
  * @author paji
  * @version $Rev$
  */
-public class Profile {
-    private String handle;
-    private Map<String, Object> dataMap = new HashMap<String, Object>();
-    private CobblerConnection client;
-    private static final String COMMENT = "comment";
-    private static final String OWNERS = "owners";
-    private static final String CTIME = "ctime";
-    private static final String KERNEL_OPTIONS_POST = "kernel_options_post";
-    private static final String SET_KERNEL_OPTIONS_POST = "kopts-post";
-    private static final String DEPTH = "depth";
-    private static final String KERNEL_OPTIONS = "kernel_options";
-    private static final String SET_KERNEL_OPTIONS = "kopts";
-    private static final String NAME = "name";
-    private static final String KS_META = "ks_meta";
-    private static final String SET_KS_META = "ksmeta";
-    private static final String PARENT = "parent";
-    private static final String MTIME = "mtime";
-    private static final String MGMT_CLASSES = "mgmt_classes";
-    private static final String TEMPLATE_FILES = "template_files";
-    private static final String UID = "uid";
-
+public class Profile extends CobblerObject {
     private static final String DHCP_TAG = "dhcp_tag";
     private static final String KICKSTART = "kickstart";
     private static final String VIRT_BRIDGE = "virt_bridge";
@@ -91,7 +70,7 @@ public class Profile {
      */
     public static Profile lookupByName(CobblerConnection client, String name) {
         Map <String, Object> map = (Map<String, Object>)client.
-                                    invokeTokenMethod("get_profile", name);
+                                    invokeMethod("get_profile", name);
         if (map == null || map.isEmpty()) {
             return null;
         }
@@ -108,7 +87,7 @@ public class Profile {
      */
     public static Profile lookupById(CobblerConnection client, String id) {
         List<Map<String, Object>> profiles = (List<Map<String, Object>>) 
-                                                client.invokeTokenMethod("get_profiles");
+                                                client.invokeMethod("get_profiles");
         if (id == null) {
             return null;
         }
@@ -131,7 +110,7 @@ public class Profile {
     public static List<Profile> list(CobblerConnection connection) {
         List <Profile> profiles = new LinkedList<Profile>();
         List <Map<String, Object >> cProfiles = (List <Map<String, Object >>) 
-                                        connection.invokeTokenMethod("get_profiles");
+                                        connection.invokeMethod("get_profiles");
         
         for (Map<String, Object> profMap : cProfiles) {
             Profile profile = new Profile(connection);
@@ -141,254 +120,72 @@ public class Profile {
         return profiles;
     }
 
-    private String getHandle() {
-        if (handle == null || "".equals(handle.trim())) {
-            handle = (String)client.invokeTokenMethod("get_profile_handle", this.getName());
+    /**
+     * Returns a list of available profiles minus the excludes list
+     * @param connection the cobbler connection
+     * @param excludes a list of cobbler ids to file on 
+     * @return a list of profiles.
+     */
+    public static List<Profile> list(CobblerConnection connection,
+                                Set<String> excludes) {
+        List <Profile> profiles = new LinkedList<Profile>();
+        List <Map<String, Object >> cProfiles = (List <Map<String, Object >>) 
+                                        connection.invokeMethod("get_profiles");
+        
+        for (Map<String, Object> profMap : cProfiles) {
+            Profile profile = new Profile(connection);
+            profile.dataMap = profMap;
+            if (!excludes.contains(profile.getId())) {
+                profiles.add(profile);    
+            }
+            
         }
-        return handle;
+        return profiles;
     }
     
-    private void modify(String key, Object value) {
+    @Override
+    protected String invokeGetHandle() {
+        return (String)client.invokeTokenMethod("get_profile_handle", this.getName());
+    }
+    
+    @Override
+    protected void invokeModify(String key, Object value) {
         client.invokeTokenMethod("modify_profile", getHandle(), key, value);
-        dataMap.put(key, value);
     }
     
     /**
      * calls save_profile to complete the commit
      */
-    public void save() {
+    @Override
+    protected void invokeSave() {
         client.invokeTokenMethod("save_profile", getHandle());
-        client.invokeTokenMethod("update");
     }
 
     /**
      * removes the kickstart profile from cobbler.
      */
-    public void remove() {
+    @Override
+    protected void invokeRemove() {
         client.invokeTokenMethod("remove_profile", getName());
-        client.invokeTokenMethod("update");
     }
     
     /**
      * reloads the kickstart profile.
      */
-    public void reload() {
+    @Override
+    protected void reload() {
         Profile newProfile = lookupById(client, getId());
         dataMap = newProfile.dataMap;
     }
-    
-    /**
-     * @return the comment
-     */
-    public String getComment() {
-        return (String)dataMap.get(COMMENT);
-    }
 
+    /* (non-Javadoc)
+     * @see org.cobbler.CobblerObject#renameTo(java.lang.String)
+     */
+    @Override
+    protected void invokeRename(String newNameIn) {
+        client.invokeTokenMethod("rename_profile", getHandle(), newNameIn);
+    }    
     
-    /**
-     * @param commentIn the comment to set
-     */
-    public void setComment(String commentIn) {
-        modify(COMMENT, commentIn);
-    }
-    
-    /**
-     * @return the managementClasses
-     */
-    public List<String> getManagementClasses() {
-        return (List<String>)dataMap.get(MGMT_CLASSES);
-    }
-
-    
-    /**
-     * @param managementClassesIn the managementClasses to set
-     */
-    public void setManagementClasses(List<String> managementClassesIn) {
-        modify(MGMT_CLASSES, managementClassesIn);
-    }
-
-    
-    /**
-     * @return the templateFiles
-     */
-    public Map<String, String> getTemplateFiles() {
-        return (Map<String, String>)dataMap.get(TEMPLATE_FILES);
-    }
-
-    
-    /**
-     * @param templateFilesIn the templateFiles to set
-     */
-    public void setTemplateFiles(Map<String, String> templateFilesIn) {
-        modify(TEMPLATE_FILES, templateFilesIn);
-    }
-
-    
-    /**
-     * @return the uid
-     */
-    public String getUid() {
-        return (String)dataMap.get(UID);
-    }
-
-    /**
-     * @return the uid
-     */
-    public String getId() {
-        return getUid();
-    }
-    
-    /**
-     * @param uidIn the uid to set
-     */
-    public void setUid(String uidIn) {
-        modify(UID, uidIn);
-    }
-
-    
-    /**
-     * @return the parent
-     */
-    public String getParent() {
-        return (String)dataMap.get(PARENT);
-    }
-
-    
-    /**
-     * @param parentIn the parent to set
-     */
-    public void setParent(String parentIn) {
-        modify(PARENT, parentIn);
-    }
-    
-    /**
-     * @return the owners
-     */
-    public List<String> getOwners() {
-        return (List<String>)dataMap.get(OWNERS);
-    }
-
-    
-    /**
-     * @param ownersIn the owners to set
-     */
-    public void setOwners(List<String> ownersIn) {
-        modify(OWNERS, ownersIn);
-    }
-
-    
-    /**
-     * @return the created
-     */
-    public Date getCreated() {
-        return (Date)dataMap.get(CTIME);
-    }
-
-    
-    /**
-     * @param createdIn the created to set
-     */
-    public void setCreated(Date createdIn) {
-        modify(CTIME, createdIn);
-    }
-
-    
-    /**
-     * @return the modified
-     */
-    public Date getModified() {
-        return (Date)dataMap.get(MTIME);
-    }
-
-    
-    /**
-     * @param modifiedIn the modified to set
-     */
-    public void setModified(Date modifiedIn) {
-        modify(MTIME, modifiedIn);
-    }
-
-    /**
-     * @return the depth
-     */
-    public int getDepth() {
-        return (Integer)dataMap.get(DEPTH);
-    }
-
-    
-    /**
-     * @param depthIn the depth to set
-     */
-    public void setDepth(int depthIn) {
-        modify(DEPTH, depthIn);
-    }
-
-    
-    /**
-     * @return the kernelOptions
-     */
-    public Map<String, String> getKernelOptions() {
-        return (Map<String, String>)dataMap.get(KERNEL_OPTIONS);
-    }
-
-    
-    /**
-     * @param kernelOptionsIn the kernelOptions to set
-     */
-    public void setKernelOptions(Map<String, Object> kernelOptionsIn) {
-        modify(SET_KERNEL_OPTIONS, kernelOptionsIn);
-    }
-
-    
-    /**
-     * @return the kernelMeta
-     */
-    public Map<String, String> getKsMeta() {
-        return (Map<String, String>)dataMap.get(KS_META);
-    }
-
-    
-    /**
-     * @param kernelMetaIn the kernelMeta to set
-     */
-    public void setKsMeta(Map<String, String> kernelMetaIn) {
-        modify(SET_KS_META, kernelMetaIn);
-    }
-
-    
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return (String)dataMap.get(NAME);
-    }
-
-    /**
-     * @param nameIn sets the new name
-     */
-    public void setName(String nameIn) {
-        client.invokeTokenMethod("rename_profile", getHandle(), nameIn);
-        client.invokeTokenMethod("update", getHandle(), nameIn);
-        dataMap.put(NAME, nameIn);
-        reload();
-    }
-    
-    
-    /**
-     * @return the kernelPostOptions
-     */
-    public Map<String, String> getKernelPostOptions() {
-        return (Map<String, String>)dataMap.get(KERNEL_OPTIONS_POST);
-    }
-
-    
-    /**
-     * @param kernelPostOptionsIn the kernelPostOptions to set
-     */
-    public void setKernelPostOptions(Map<String, Object> kernelPostOptionsIn) {
-        modify(SET_KERNEL_OPTIONS_POST, kernelPostOptionsIn);
-    }
-
     /**
      * @return the DhcpTag
      */
@@ -579,5 +376,4 @@ public class Profile {
       public void  setDistro(String name) {
           modify(DISTRO, name);
       }
-      
 }

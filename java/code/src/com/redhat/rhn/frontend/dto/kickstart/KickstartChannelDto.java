@@ -38,19 +38,4 @@ public class KickstartChannelDto extends KickstartDto {
     public String getChannelLabel() {
         return this.channelLabel;
     }
-
-    
-    /**
-     * returns the label
-     * had to be overridden to add special logic.
-     * @return returns the channel label
-     */
-    @Override
-    public String getLabel() {
-       if (isAdvancedMode()) {
-           return super.getLabel() + "*";
-       }
-       return super.getLabel();
-    }
-    
 }

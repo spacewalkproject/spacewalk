@@ -32,6 +32,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -130,6 +131,17 @@ public class KickstartFactory extends HibernateFactory {
                                       .setString("label", label)
                                       .setLong("org_id", orgId.longValue())
                                       .uniqueResult();
+    }
+    
+    /**
+     * Returns a list of kickstart data cobbler ids
+     * this is useful for cobbler only profiles..
+     * @return a list of cobbler ids.  
+     */
+    public static List<String> listKickstartDataCobblerIds() {
+        return singleton.listObjectsByNamedQuery("KickstartData.cobblerIds",
+                                                        Collections.EMPTY_MAP);
+        
     }
     
     /**
@@ -931,5 +943,6 @@ public class KickstartFactory extends HibernateFactory {
     public static void removeKickstartScript(KickstartScript script) {
         singleton.removeObject(script);
     }
+    
     
 }

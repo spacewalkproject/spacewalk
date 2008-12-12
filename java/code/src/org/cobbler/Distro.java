@@ -14,8 +14,6 @@
  */
 package org.cobbler;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,30 +22,15 @@ import java.util.Map;
  * @author paji
  * @version $Rev$
  */
-public class Distro {
-    private String handle;
-    private Map<String, Object> dataMap = new HashMap<String, Object>();
-    private CobblerConnection client;
-    private static final String COMMENT = "comment";
+public class Distro extends CobblerObject {
     private static final String KERNEL = "kernel";
-    private static final String OWNERS = "owners";
-    private static final String CTIME = "ctime";
-    private static final String KERNEL_OPTIONS_POST = "kernel_options_post";
+
     private static final String ARCH = "arch";
     private static final String BREED = "breed";
-    private static final String DEPTH = "depth";
-    private static final String KERNEL_OPTIONS = "kernel_options";
-    private static final String NAME = "name";
-    private static final String KS_META = "ks_meta";
     private static final String OS_VERSION = "os_version";
     private static final String INITRD = "initrd";
     private static final String SOURCE_REPOS = "source_repos";
-    private static final String PARENT = "parent";
-    private static final String MTIME = "mtime";
     private static final String TREE_BUILD_TIME = "tree_build_time";
-    private static final String MGMT_CLASSES = "mgmt_classes";
-    private static final String TEMPLATE_FILES = "template_files";
-    private static final String UID = "uid";
 
     private Distro(CobblerConnection clientIn) {
         client = clientIn;
@@ -81,7 +64,7 @@ public class Distro {
      */
     public static Distro lookupByName(CobblerConnection client, String name) {
         Map <String, Object> map = (Map<String, Object>)client.
-                                    invokeTokenMethod("get_distro", name);
+                                    invokeMethod("get_distro", name);
         if (map == null || map.isEmpty()) {
             return null;
         }
@@ -98,7 +81,7 @@ public class Distro {
      */
     public static Distro lookupById(CobblerConnection client, String id) {
         List<Map<String, Object>> distros = (List<Map<String, Object>>) 
-                                                client.invokeTokenMethod("get_distros");
+                                                client.invokeMethod("get_distros");
         Distro distro = new Distro(client);
         for (Map <String, Object> map : distros) {
             distro.dataMap = map;
@@ -117,7 +100,7 @@ public class Distro {
     public static List<Distro> list(CobblerConnection connection) {
         List <Distro> distros = new LinkedList<Distro>();
         List <Map<String, Object >> cDistros = (List <Map<String, Object >>) 
-                                        connection.invokeTokenMethod("get_distros");
+                                        connection.invokeMethod("get_distros");
         
         for (Map<String, Object> distroMap : cDistros) {
             Distro distro = new Distro(connection);
@@ -127,37 +110,44 @@ public class Distro {
         return distros;
     }
 
-    private String getHandle() {
-        if (handle == null || "".equals(handle.trim())) {
-            handle = (String)client.invokeTokenMethod("get_distro_handle");
-        }
-        return handle;
+    @Override
+    protected String invokeGetHandle() {
+        return (String)client.invokeTokenMethod("get_distro_handle");
     }
     
-    private void modify(String key, Object value) {
+    @Override
+    protected void invokeModify(String key, Object value) {
         client.invokeTokenMethod("modify_distro", getHandle(), key, value);
-        dataMap.put(key, value);
     }
     
     /**
      * Save the distro
      */
-    public void save() {
+    @Override
+    protected void invokeSave() {
         client.invokeTokenMethod("save_distro", getHandle());
-        client.invokeTokenMethod("update");
     }
 
     /**
      * Remove the distro 
      */
-    public void remove() {
+    @Override
+    protected void invokeRemove() {
         client.invokeTokenMethod("remove_distro", getName());
-        client.invokeTokenMethod("update");
+    }
+
+    /**
+     * Rename the distro 
+     */
+    @Override
+    protected void invokeRename(String newNameIn) {
+        client.invokeTokenMethod("rename_distro", getHandle(), newNameIn);
     }
     
     /**
      * Reloads the distro
      */
+    @Override
     public void reload() {
         Distro newDistro = lookupById(client, getId());
         dataMap = newDistro.dataMap;
@@ -177,22 +167,6 @@ public class Distro {
     public void setArch(String archIn) {
         modify(ARCH, archIn);
     }
-    
-    /**
-     * @return the comment
-     */
-    public String getComment() {
-        return (String)dataMap.get(COMMENT);
-    }
-
-    
-    /**
-     * @param commentIn the comment to set
-     */
-    public void setComment(String commentIn) {
-        modify(COMMENT, commentIn);
-    }
-
     
     /**
      * @return the kernelPath
@@ -256,77 +230,6 @@ public class Distro {
     public void setSourceRepos(List<String> sourceReposIn) {
         modify(SOURCE_REPOS, sourceReposIn);
     }
-
-    
-    /**
-     * @return the managementClasses
-     */
-    public List<String> getManagementClasses() {
-        return (List<String>)dataMap.get(MGMT_CLASSES);
-    }
-
-    
-    /**
-     * @param managementClassesIn the managementClasses to set
-     */
-    public void setManagementClasses(List<String> managementClassesIn) {
-        modify(MGMT_CLASSES, managementClassesIn);
-    }
-
-    
-    /**
-     * @return the templateFiles
-     */
-    public Map<String, String> getTemplateFiles() {
-        return (Map<String, String>)dataMap.get(TEMPLATE_FILES);
-    }
-
-    
-    /**
-     * @param templateFilesIn the templateFiles to set
-     */
-    public void setTemplateFiles(Map<String, String> templateFilesIn) {
-        modify(TEMPLATE_FILES, templateFilesIn);
-    }
-
-    
-    /**
-     * @return the uid
-     */
-    public String getUid() {
-        return (String)dataMap.get(UID);
-    }
-
-    /**
-     * @return the uid
-     */
-    public String getId() {
-        return getUid();
-    }
-    
-    /**
-     * @param uidIn the uid to set
-     */
-    public void setUid(String uidIn) {
-        modify(UID, uidIn);
-    }
-
-    
-    /**
-     * @return the parent
-     */
-    public String getParent() {
-        return (String)dataMap.get(PARENT);
-    }
-
-    
-    /**
-     * @param parentIn the parent to set
-     */
-    public void setParent(String parentIn) {
-        modify(PARENT, parentIn);
-    }
-
     
     /**
      * @return the treeBuildTime
@@ -342,55 +245,6 @@ public class Distro {
     public void setTreeBuildTime(long treeBuildTimeIn) {
         modify(TREE_BUILD_TIME, treeBuildTimeIn);
     }
-
-    
-    /**
-     * @return the owners
-     */
-    public List<String> getOwners() {
-        return (List<String>)dataMap.get(OWNERS);
-    }
-
-    
-    /**
-     * @param ownersIn the owners to set
-     */
-    public void setOwners(List<String> ownersIn) {
-        modify(OWNERS, ownersIn);
-    }
-
-    
-    /**
-     * @return the created
-     */
-    public Date getCreated() {
-        return (Date)dataMap.get(CTIME);
-    }
-
-    
-    /**
-     * @param createdIn the created to set
-     */
-    public void setCreated(Date createdIn) {
-        modify(CTIME, createdIn);
-    }
-
-    
-    /**
-     * @return the modified
-     */
-    public Date getModified() {
-        return (Date)dataMap.get(MTIME);
-    }
-
-    
-    /**
-     * @param modifiedIn the modified to set
-     */
-    public void setModified(Date modifiedIn) {
-        modify(MTIME, modifiedIn);
-    }
-
     
     /**
      * @return the breed
@@ -406,87 +260,4 @@ public class Distro {
     public void setBreed(String breedIn) {
         modify(BREED, breedIn);
     }
-
-    
-    /**
-     * @return the depth
-     */
-    public int getDepth() {
-        return (Integer)dataMap.get(DEPTH);
-    }
-
-    
-    /**
-     * @param depthIn the depth to set
-     */
-    public void setDepth(int depthIn) {
-        modify(DEPTH, depthIn);
-    }
-
-    
-    /**
-     * @return the kernelOptions
-     */
-    public Map<String, Object> getKernelOptions() {
-        return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS);
-    }
-
-    
-    /**
-     * @param kernelOptionsIn the kernelOptions to set
-     */
-    public void setKernelOptions(Map<String, Object> kernelOptionsIn) {
-        modify(KERNEL_OPTIONS, kernelOptionsIn);
-    }
-
-    
-    /**
-     * @return the kernelMeta
-     */
-    public Map<String, Object> getKsMeta() {
-        return (Map<String, Object>)dataMap.get(KS_META);
-    }
-
-    
-    /**
-     * @param kernelMetaIn the kernelMeta to set
-     */
-    public void setKsMeta(Map<String, Object> kernelMetaIn) {
-        modify(KS_META, kernelMetaIn);
-    }
-
-    
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return (String)dataMap.get(NAME);
-    }
-
-    /**
-     * @param nameIn sets the new name
-     */
-    public void setName(String nameIn) {
-        client.invokeTokenMethod("rename_distro", getHandle(), nameIn);
-        client.invokeTokenMethod("update", getHandle(), nameIn);
-        dataMap.put(NAME, nameIn);
-        reload();
-    }
-    
-    
-    /**
-     * @return the kernelPostOptions
-     */
-    public Map<String, Object> getKernelPostOptions() {
-        return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS_POST);
-    }
-
-    
-    /**
-     * @param kernelPostOptionsIn the kernelPostOptions to set
-     */
-    public void setKernelPostOptions(Map<String, Object> kernelPostOptionsIn) {
-        modify(KERNEL_OPTIONS_POST, kernelPostOptionsIn);
-    }
-    
 }

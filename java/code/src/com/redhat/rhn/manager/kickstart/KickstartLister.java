@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
@@ -27,8 +28,9 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
 import org.cobbler.Profile;
 
 import java.util.Collections;
@@ -370,29 +372,41 @@ public class KickstartLister extends BaseManager {
     }
     
     /**
-     * Returns a list of Cobbler only profiles, that are not amongst the   
-     * given  list of kickstart dtos
-     * @param dtos the dtos to ignore  
+     * Returns a list of Cobbler only profiles. 
+     * i.e profiles that are not part of spacewalk
+     * but are part of cobbler. 
      * @param user the user object needed for cobbler conneciton
      * @return list of cobbler profile dtos.
      */
-    public List <CobblerProfileDto> listCobblerOnly(List <? extends KickstartDto> dtos, 
-                                            User user) {
-        Set<String> cobblerIds = new HashSet<String>();
+    public List <CobblerProfileDto> listCobblerProfiles(User user) {
+        Set<String> excludes = new HashSet<String>(
+                    KickstartFactory.listKickstartDataCobblerIds());
         
-        for (KickstartDto dto : dtos) {
-            if (!StringUtils.isBlank(dto.getCobblerId())) {
-                cobblerIds.add(dto.getCobblerId());
-            }
-        }
         List <CobblerProfileDto> profiles = new LinkedList<CobblerProfileDto>();
         
-        List<Profile> cProfiles = Profile.list(CobblerXMLRPCHelper.getConnection(user));
+        List<Profile> cProfiles = Profile.list(CobblerXMLRPCHelper.getConnection(user),
+                                                                excludes);
         for (Profile profile : cProfiles) {
-            if (!cobblerIds.contains(profile.getId())) {
-                profiles.add(CobblerProfileDto.create(profile));
-            }            
+            Distro distro = profile.getDistro(); 
+            if (!distro.getKsMeta().containsKey("org") ||
+                    user.getOrg().getId().equals(distro.getKsMeta().get("org"))) {
+                profiles.add(CobblerProfileDto.create(profile));    
+            }
         }
         return profiles;
+    }
+    
+    /**
+     * Sets the kickstart url for the passed in cobbler profiles.
+     * @param dtos the kickstart dto
+     * @param user the user object needed to connect to cobbler
+     */
+    public void setKickstartUrls(List <KickstartDto> dtos, User user) {
+        CobblerConnection conn = CobblerXMLRPCHelper.getConnection(user);
+
+        for (KickstartDto dto : dtos) {
+            Profile p = Profile.lookupById(conn, dto.getCobblerId());
+            dto.setCobblerUrl(KickstartUrlHelper.getCobblerProfileUrl(p.getName()));
+        }
     }
 }

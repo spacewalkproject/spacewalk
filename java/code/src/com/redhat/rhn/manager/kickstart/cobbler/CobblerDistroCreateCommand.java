@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -52,6 +53,9 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         invokeXMLRPC("modify_distro", handle, "name",
                 tree.getCobblerDistroName(), xmlRpcToken);
         updateCobblerFields(handle);
+        Map<String, Object> meta = new HashMap<String, Object>();
+        meta.put("org", user.getOrg().getId());
+        invokeXMLRPC("modify_distro", handle, "ksmeta", meta, xmlRpcToken);
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
         invokeCobblerUpdate();
         Map cDist = getDistroMap();

@@ -54,11 +54,10 @@
           			</c:choose>
 					 
 					<c:if test="${current.isOrgDefault == 'Y'}">
-		            *
+		            ?
 		          </c:if>
       		</rl:column>  	      
-      		
-      		<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.active"  sortattr="active" styleclass="last-column">
+      		<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
 	      		<c:if test="${current.active}">
 	            <img src="/img/rhn-listicon-ok.gif" alt="<bean:message key="kickstart.jsp.active"/>" 
 	            									title="<bean:message key="kickstart.jsp.active"/>"/>
@@ -67,12 +66,27 @@
 	            <img src="/img/rhn-listicon-error.gif" alt="<bean:message key="kickstart.jsp.inactive"/>" 
 	            									   title="<bean:message key="kickstart.jsp.inactive"/>"/>
 	          </c:if>          
-      		</rl:column>      		
-      		
+      		</rl:column>
+                <rl:column headerkey="kickstart.distro.label.jsp">
+                    <c:out value="${current.treeLabel}"/>
+                </rl:column>      		
+            <rl:column headerkey="kickstart.distro.sw_managed.jsp"  styleclass="last-column">
+            	<c:choose>
+                    <c:when test="${current.cobbler}">
+                    	<img src="/img/rhn-listicon-error.gif">
+                    </c:when>
+					<c:otherwise>
+						<img src="/img/rhn-listicon-checked.gif">
+                	</c:otherwise>
+                </c:choose>
+            </rl:column>
        </rl:list>
+       
       </rl:listset>
 </div>
-  <bean:message key="kickstart.list.jsp.orgdefault"/>
+  <p><rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip></p>
+  <p><rhn:tooltip>? - <bean:message key="kickstart.list.jsp.orgdefault"/></rhn:tooltip></p>
+
 </body>
 </html:html>
 

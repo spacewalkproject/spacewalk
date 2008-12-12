@@ -51,7 +51,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * search.")
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
-    public List listKickstartableTrees(String sessionKey,
+    public List list(String sessionKey,
             String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
@@ -72,7 +72,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #array() $KickstartInstallType #array_end()
      */
-    public List listKickstartInstallTypes(String sessionKey) {
+    public List listInstallTypes(String sessionKey) {
         return KickstartFactory.lookupKickstartInstallTypes();
     }
     
@@ -98,7 +98,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createTree(String sessionKey, String treeLabel,
+    public int create(String sessionKey, String treeLabel,
             String basePath, String channelLabel,
             String installType) {
 
@@ -108,7 +108,7 @@ public class KickstartTreeHandler extends BaseHandler {
         TreeCreateOperation create = new TreeCreateOperation(loggedInUser);
         create.setBasePath(basePath);
         create.setChannel(getChannel(channelLabel, loggedInUser));
-        create.setInstallType(getKickstartInstallType(installType));
+        create.setInstallType(getInstallType(installType));
         create.setLabel(treeLabel);
         ValidatorError ve = create.store();
         if (ve != null) {
@@ -132,7 +132,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * kickstart tree you want to delete")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int deleteTree(String sessionKey, String treeLabel) {
+    public int delete(String sessionKey, String treeLabel) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
@@ -207,7 +207,7 @@ public class KickstartTreeHandler extends BaseHandler {
      *
      * @xmlrpc.returntype #return_int_success()
      */
-    public int editTree(String sessionKey, String treeLabel, String basePath,
+    public int update(String sessionKey, String treeLabel, String basePath,
                  String channelLabel, String installType) {
 
         
@@ -220,7 +220,7 @@ public class KickstartTreeHandler extends BaseHandler {
         }
         op.setBasePath(basePath);
         op.setChannel(getChannel(channelLabel, loggedInUser));
-        op.setInstallType(getKickstartInstallType(installType));
+        op.setInstallType(getInstallType(installType));
         
         ValidatorError ve = op.store();
         if (ve != null) {
@@ -244,7 +244,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "newLabel" "new label to change too")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int renameTree(String sessionKey, String originalLabel, String newLabel) {
+    public int rename(String sessionKey, String originalLabel, String newLabel) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureConfigAdmin(loggedInUser);
@@ -271,7 +271,7 @@ public class KickstartTreeHandler extends BaseHandler {
         return channel;
     }
     
-    private KickstartInstallType getKickstartInstallType(String installType) {
+    private KickstartInstallType getInstallType(String installType) {
         KickstartInstallType type = 
             KickstartFactory.lookupKickstartInstallTypeByLabel(installType);
         if (type == null) {

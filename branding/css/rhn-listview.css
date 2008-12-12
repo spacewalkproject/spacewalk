@@ -1,4 +1,11 @@
 /* -- General list stuff -- */
+table.list img {
+      vertical-align: middle !important;
+}
+
+table.list td {
+      vertical-align: middle !important;
+}
 table.list, table.list-doubleheader {
         font-size: 10px;
         background: #c0c0c0 url(/img/table_corner_tr.gif) top right no-repeat;

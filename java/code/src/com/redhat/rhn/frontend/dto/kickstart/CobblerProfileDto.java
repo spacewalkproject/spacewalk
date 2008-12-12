@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.frontend.dto.kickstart;
 
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
+
 import org.cobbler.Profile;
 
 import java.util.LinkedList;
@@ -59,6 +61,7 @@ public class CobblerProfileDto extends KickstartDto {
         return "";
     }
     
+    
     /**
      * Create as CobblerProfileDto instance
      *  from the given Cobbler profile object
@@ -70,6 +73,9 @@ public class CobblerProfileDto extends KickstartDto {
         dto.selectionKey = profile.getUid();
         dto.setCobblerId(profile.getId());
         dto.setLabel(profile.getName());
+        dto.setTreeLabel(profile.getDistro().getName());
+        dto.setCobblerUrl(KickstartUrlHelper.
+                    getCobblerProfileUrl(profile.getName()));
         return dto;
     }
     
