@@ -22,7 +22,7 @@ import string
 from server import rhnSQL
 from server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport, importLib
-
+from satCerts import get_all_orgs, NoOrgIdError
 import diskImportLib
 import xmlSource
 import syncCache
@@ -183,6 +183,9 @@ def get_channel_handler():
 def import_channels(channels, orgid=None):
     collection = ChannelCollection()
     batch = []
+
+    orgs = get_all_orgs()
+ 
     for c in channels:
         try:
             timestamp = collection.get_channel_timestamp(c)
@@ -194,6 +197,9 @@ def import_channels(channels, orgid=None):
 
         if orgid is not None and c_obj['org_id'] is not None:
             c_obj['org_id'] = orgid
+            if c_obj['org_id'] not in orgs:
+                raise NoOrgIdError("Error: Unable to lookup Org Id %s " \
+                                    % c_obj['org_id'])
             for family in c_obj['families']:
                 if str(c_obj['org_id']) != \
                    family['label'].split('-')[-1]:
