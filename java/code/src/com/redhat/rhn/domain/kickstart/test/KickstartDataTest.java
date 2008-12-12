@@ -31,7 +31,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartPreserveFileList;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
-import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
@@ -46,9 +45,7 @@ import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.token.test.TokenTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
-import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
@@ -60,7 +57,6 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.hibernate.Session;
 
 import java.io.BufferedReader;
