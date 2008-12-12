@@ -38,7 +38,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        List ksTrees = handler.listKickstartableTrees(adminKey, 
+        List ksTrees = handler.list(adminKey, 
                 baseChan.getLabel());
         assertTrue(ksTrees.size() > 0);
         
@@ -62,7 +62,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
             origCount = trees.size();
         }
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
-        handler.createTree(adminKey, label, 
+        handler.create(adminKey, label, 
                 "http://localhost/ks", 
                 baseChan.getLabel(), KickstartInstallType.RHEL_5);
         assertTrue(origCount + 1 == KickstartFactory.
@@ -76,7 +76,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         String newBase = "/tmp/new-base-path";
         Channel newChan = ChannelFactoryTest.createTestChannel(admin);
         
-        handler.editTree(adminKey, testTree.getLabel(), 
+        handler.update(adminKey, testTree.getLabel(), 
                 newBase, newChan.getLabel(), 
                 testTree.getInstallType().getLabel());
 
@@ -90,7 +90,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String newLabel = "newlabel-" + TestUtils.randomString();
-        handler.renameTree(adminKey, testTree.getLabel(), newLabel);
+        handler.rename(adminKey, testTree.getLabel(), newLabel);
         assertEquals(newLabel, testTree.getLabel());
     }
 
@@ -99,12 +99,12 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
         String label = testTree.getLabel();
-        handler.deleteTree(adminKey, label);
+        handler.delete(adminKey, label);
         assertNull(KickstartFactory.lookupKickstartTreeByLabel(label, admin.getOrg()));
     }
 
     public void testListTreeTypes() throws Exception {
-        List types = handler.listKickstartInstallTypes(adminKey);
+        List types = handler.listInstallTypes(adminKey);
         assertNotNull(types);
         assertTrue(types.size() > 0);
         System.out.println("type: " + types.get(0).getClass().getName());
