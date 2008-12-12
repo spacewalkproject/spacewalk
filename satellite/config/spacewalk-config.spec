@@ -87,7 +87,7 @@ fi
 
 %postun
 if [ "x$1" == "x0" ] ; then
-	perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
+    perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
 %post
@@ -95,8 +95,8 @@ fi
 /sbin/chkconfig --add satellite-httpd
 
 perl -i -ne 'print unless /satellite-httpd\.pid/;
-	if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
-		/etc/logrotate.d/httpd
+    if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
+        /etc/logrotate.d/httpd
 
 %changelog
 * Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
