@@ -141,8 +141,13 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
             else {
                 log.debug("mockobjects in getdistros: " + 
                         TestObjectStore.get().getObjects());
-                retval.put("name", TestObjectStore.get().getObject("distro_name"));
-                retval.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
+                if (TestObjectStore.get().getObjects().containsKey("distro_name")) {
+                    retval.put("name", TestObjectStore.get().getObject("distro_name"));
+                    retval.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
+                }
+                else {
+                    retval.put("name", TestUtils.randomString());
+                }
                 return retval;
             }
         }

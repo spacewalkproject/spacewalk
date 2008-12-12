@@ -734,6 +734,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     
     public void testGetNetwork() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
+        server.setNetworkInterfaces(new HashSet());
         assertNull(server.getIpAddress());
         assertNull(server.getHostname());
         Network testNetwork = NetworkTest.createTestNetwork();
