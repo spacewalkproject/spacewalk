@@ -33,7 +33,6 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
         k.getPartitions().clear();
         assertEquals(0, k.getPartitions().size());
         KickstartFactory.saveKickstartData(k);
-        k = (KickstartData) reload(k);
         
         KickstartPartitionCommand cmd = new KickstartPartitionCommand(k.getId(), user);
         
@@ -44,7 +43,8 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
             "logvol / --vgname=myvg --name=rootvol --size=1000 --grow\n";
 
         assertNull(cmd.parsePartitions(partitions));
-        cmd.populatePartitions();
+        String parts = cmd.populatePartitions();
+        assertNotNull(parts);
         assertNotNull(cmd);
         assertNull(cmd.store());
         assertEquals(3, k.getPartitions().size());
@@ -92,7 +92,6 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());      
         k.getPartitions().clear();
         KickstartFactory.saveKickstartData(k);
-        k = (KickstartData) reload(k);
         
         KickstartPartitionCommand cmd = new KickstartPartitionCommand(k.getId(), user);
         String partitions = "partition swap.01 --size=5150 --ondisk=sda\n" +
