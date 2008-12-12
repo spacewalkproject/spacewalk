@@ -50,7 +50,7 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
         assertNotNull(row.getOrgId());
         assertNotNull(row.getLabel());
         assertNotNull(row.getTreeLabel());
-        assertNotNull(row.getIsOrgDefault());
+        assertFalse(row.isOrgDefault());
    }
    
    public void testListKeys() throws Exception {

@@ -52,6 +52,13 @@ public class KickstartsSetupAction  extends RhnAction {
         User user =  requestContext.getLoggedInUser();
         DataResult <KickstartDto>result = KickstartLister.getInstance().
                             kickstartsInOrg(user.getOrg(), null);
+        for (KickstartDto dto : result) {
+            if (dto.isOrgDefault()) {
+                request.setAttribute("orgDefaultExists", Boolean.TRUE);
+                break;
+            }
+        }
+        
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
                                                 listCobblerProfiles(user);  
         result.addAll(dtos);
