@@ -141,11 +141,11 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 - remove sudoers file entirely - install.sh handles it now
 
 * Thu Jul 15 2004 Robin Norwood <rnorwood@redhat.com>
-- exclude sudoers from %ghost list
+- exclude sudoers from %%ghost list
 - add rhn_monitoring.conf only for RHEL3
 
 * Tue Jul  6 2004 Chip Turner <cturner@redhat.com>
-- add %ghost to the files we'll override
+- add %%ghost to the files we'll override
 
 * Tue Aug 20 2002 Cristian Gafton <gafton@redhat.com>
 - port to the new build system
