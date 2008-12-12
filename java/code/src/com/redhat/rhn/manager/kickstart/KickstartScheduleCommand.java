@@ -117,7 +117,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     
     private User user;
     private KickstartData ksdata;
-    private String label;
+    private String cobblerProfileLabel;
     private boolean cobblerOnly;
     private KickstartSession kickstartSession;
     private Date scheduleDate;
@@ -319,7 +319,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(selectedHostServer,
                         selectedTargetServer, (KickstartData)null, 
                         userIn, scheduleDateIn, kickstartServerNameIn);
-        cmd.label = label;
+        cmd.cobblerProfileLabel = label;
         cmd.cobblerOnly =  true;
         return cmd;
         
@@ -570,11 +570,15 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (!cobblerOnly) {
             // Setup Cobbler system profile
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
+            String tokenList = 
+                KickstartFormatter.generateActivationKeyString(
+                        ksdata, this.kickstartSession);
             
             CobblerSystemCreateCommand cmd = 
                 new CobblerSystemCreateCommand(this.user, this.getServer(),
                         this.ksdata, uhelper.
-                        getKickstartMediaPath(this.kickstartSession));
+                        getKickstartMediaPath(this.kickstartSession),
+                        tokenList);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -582,8 +586,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
         else {
             CobblerSystemCreateCommand cmd = 
-                new CobblerSystemCreateCommand(this.user, this.getServer(),
-                        label, null);
+                new CobblerSystemCreateCommand(this.user, 
+                        this.getServer(), cobblerProfileLabel);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;

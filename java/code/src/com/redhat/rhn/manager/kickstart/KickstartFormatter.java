@@ -534,7 +534,8 @@ public class KickstartFormatter {
                 
         retval.append(renderKeys() + NEWLINE);
         
-        List<ActivationKey> tokens = generateActKeyTokens();
+        List<ActivationKey> tokens = generateActKeyTokens(this.ksdata, 
+                this.session);
         
         HashSet updatePackages = getUpdatePackages(tokens);
         HashSet freshPackages = getFreshPackages(tokens);
@@ -680,20 +681,46 @@ public class KickstartFormatter {
     }
 
     /**
+     * Generate a comma separated list of activation keys to use with the 
+     * associated KickstartData and KickstartSession
+     * @param ksdata to get list from
+     * @param ksession session containing keys
+     * 
+     * @return String list of activationkeys separated by comman
+     */
+    public static String generateActivationKeyString(KickstartData ksdata, 
+            KickstartSession ksession) {
+        StringBuffer retval = new StringBuffer();
+        List<ActivationKey> tokens = generateActKeyTokens(ksdata, ksession);
+        for (Iterator itr = tokens.iterator(); itr.hasNext();) {
+            ActivationKey act = (ActivationKey) itr.next();
+            log.debug("rhnreg: key name: " + act.getKey());
+            retval.append(act.getKey());
+            if (itr.hasNext()) {
+                retval.append(",");
+            }
+        }
+        log.debug("generateActivationKeyString: " + retval);
+        return retval.toString();
+    }
+    
+    
+    /**
      * @return
      */
-    private List<ActivationKey> generateActKeyTokens() {
+    private static List<ActivationKey> generateActKeyTokens(KickstartData ksdata, 
+            KickstartSession ksession) {
         List<ActivationKey> tokens = new ArrayList<ActivationKey>();
         log.debug("Computing Activation Keys");
         // If we are in a KickstartSession and dont have any activation keys 
         // associated with this KickstartProfile then we want to create a 
         // one time key.
         if (log.isDebugEnabled()) {
-            log.debug("def reg tokens: " + this.ksdata.getDefaultRegTokens());
+            log.debug("def reg tokens: " + ksdata.getDefaultRegTokens());
         }
         
-        ActivationKey defaultKey = this.session == null ? null : 
-            ActivationKeyFactory.lookupByKickstartSession(this.session);
+        ActivationKey defaultKey = ksession == null ? null : 
+            ActivationKeyFactory.lookupByKickstartSession(ksession);
         
         log.debug("generateActKeyTokens :: defaultKey: " + defaultKey);
         
@@ -710,13 +737,13 @@ public class KickstartFormatter {
             } 
             else {
                 log.error("We should have gotten an activation key with this session: " + 
-                        this.session.getId());
+                        ksession.getId());
             }
         }
         log.debug("tokens size: " + tokens.size());
         //add the activation keys associated with the kickstart profile
-        if (this.ksdata.getDefaultRegTokens() != null) {
-            if (this.ksdata.getDefaultRegTokens().size() > 0) {
+        if (ksdata.getDefaultRegTokens() != null) {
+            if (ksdata.getDefaultRegTokens().size() > 0) {
                 for (Iterator itr = ksdata.getDefaultRegTokens().iterator(); 
                     itr.hasNext();) {
                     Token tk = (Token)itr.next();

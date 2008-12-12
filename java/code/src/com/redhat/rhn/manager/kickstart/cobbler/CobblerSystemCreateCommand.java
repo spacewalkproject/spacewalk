@@ -43,39 +43,43 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private Server server;
 //    private KickstartData ksData;
     private String mediaPath;
-    
     private String name;
+    private String activationKeys;
+    
     /**
      * Constructor
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param ksDataIn profile to associate with with server.
      * @param mediaPathIn mediaPath to override in the server profile.
+     * @param activationKeysIn to add to the system record.  Used when the system
+     * re-registers to Spacewalk
      */
     public CobblerSystemCreateCommand(User userIn, Server serverIn, 
-            KickstartData ksDataIn, String mediaPathIn) {
+            KickstartData ksDataIn, String mediaPathIn, String activationKeysIn) {
         super(userIn);
         this.server = serverIn;
         this.mediaPath = mediaPathIn;
         name = (String)lookupCobblerProfile(ksDataIn).get("name");
+        this.activationKeys = activationKeysIn;
     }
-
-
+    
+    
     /**
      * Constructor
      * @param userIn who is requesting the sync
      * @param serverIn profile we want to create in cobbler
      * @param nameIn profile nameIn to associate with with server.
-     * @param mediaPathIn media path to override in the server profile.
      */
     public CobblerSystemCreateCommand(User userIn, Server serverIn, 
-            String nameIn, String mediaPathIn) {
+            String nameIn) {
         super(userIn);
         this.server = serverIn;
         name = nameIn;
-        this.mediaPath = mediaPathIn;
     }    
-    
+        
+
+
     /**
      * Store the System to cobbler
      * @return ValidatorError if the store failed.
@@ -105,6 +109,13 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         args = new String[]{handle, "profile", 
                 name, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
+        
+        args = new Object[]{handle, "redhat_management_key", 
+                this.activationKeys, xmlRpcToken};
+
+        invokeXMLRPC("modify_system", Arrays.asList(args));
+
+        
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();

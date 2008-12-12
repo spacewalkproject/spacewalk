@@ -69,16 +69,16 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         NetworkInterface device = NetworkInterfaceTest.createTestNetworkInterface(s);
         s.addNetworkInterface(device);
         
-        CobblerSystemCreateCommand cmd = new 
-            CobblerSystemCreateCommand(user, s, ksdata, "http://localhost/test/path");
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
+                    "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
         Map systemMap = cmd.getSystemMap(); 
         assertNotNull(systemMap);
         assertTrue(systemMap.containsKey("name"));
         
         // Ensure we can call it twice.
-        cmd = new 
-            CobblerSystemCreateCommand(user, s, ksdata, "http://localhost/test/path");
+        cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
+                "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
         
     }
