@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.user.User;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -75,8 +76,9 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
                     postKernelOptions, xmlRpcToken};
             invokeXMLRPC("modify_profile", Arrays.asList(args));
         }
-        
-
+        Map<String, Object> meta = new HashMap<String, Object>();
+        meta.put("org", user.getOrg().getId());
+        invokeXMLRPC("modify_profile", handle, "ksmeta", meta, xmlRpcToken);        
     }
 
     

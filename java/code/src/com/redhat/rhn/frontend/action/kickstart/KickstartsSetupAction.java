@@ -53,7 +53,7 @@ public class KickstartsSetupAction  extends RhnAction {
         DataResult <KickstartDto>result = KickstartLister.getInstance().
                             kickstartsInOrg(user.getOrg(), null);
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
-                                                listCobblerOnly(result, user);  
+                                                listCobblerProfiles(user);  
         result.addAll(dtos);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);

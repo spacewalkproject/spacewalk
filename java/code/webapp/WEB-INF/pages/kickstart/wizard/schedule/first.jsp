@@ -7,6 +7,7 @@
 <html>
 
 <head>
+
 <meta http-equiv="Pragma" content="no-cache" />
 
 <script language="javascript">
@@ -106,13 +107,24 @@ function setInitialState() {
             <rhn:listdisplay renderDisabled="true" paging="true" filterBy="kickstartranges.jsp.profile">
                 <rhn:set type="radio" value="${current.cobblerId}" />
                 <rhn:column header="kickstartranges.jsp.profile">
-                    ${fn:escapeXml(current.label)}
+                    <a href="${current.cobblerUrl}">${fn:escapeXml(current.label)}</a>
                 </rhn:column>
-                <rhn:column header="kickstart.channel.label.jsp">
-                    ${fn:escapeXml(current.channelLabel)}
-                </rhn:column>      
+                <rhn:column header="kickstart.distro.label.jsp">
+                    <c:out value="${current.treeLabel}"/>
+                </rhn:column>
+                <rhn:column header="kickstart.distro.sw_managed.jsp">
+                	<c:choose>
+	                    <c:when test="${current.cobbler}">
+	                    	<img src="/img/rhn-listicon-error.gif">
+	                    </c:when>
+						<c:otherwise>
+							<img src="/img/rhn-listicon-checked.gif">
+                    	</c:otherwise>
+                    </c:choose>
+                </rhn:column>                
             </rhn:listdisplay>          
         </rhn:list>
+    	<rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip>
         <c:if test="${requestScope.hasProxies == 'true'}">    
         <h2>
           <img src="/img/rhn-icon-proxy.gif"

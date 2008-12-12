@@ -165,7 +165,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.isOrgDefault = :isOrgDefault
                    and t.org = :org]]>
     </query>
-    
+    <query name="KickstartData.cobblerIds">
+        <![CDATA[select t.cobblerId from com.redhat.rhn.domain.kickstart.KickstartData as t]]>
+    </query>    
     <sql-query name="commandPartitions">
             <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.partitions"/>
                 SELECT {partcol.*}

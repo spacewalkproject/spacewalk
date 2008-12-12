@@ -426,7 +426,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
         
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
-                                                listCobblerOnly(retval, user);
+                                            listCobblerProfiles(user);
         retval.addAll(dtos);
         return retval;
     }

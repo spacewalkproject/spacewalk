@@ -15913,6 +15913,25 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     </trans-unit>
+    <trans-unit id="kickstart.distro.cobbler-only.tooltip">
+        <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+    </trans-unit> 
+    
+	<trans-unit id="kickstart.distro.sw_managed.jsp">
+        <source>@@PRODUCT_NAME@@ Managed?*</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+    </trans-unit>     
+    <trans-unit id="kickstart.distro.label.jsp">
+        <source>Distribution</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
+        </context-group>
+    </trans-unit>    
     <trans-unit id="kickstart.schedule.heading4.jsp">
         <source>Advanced Kickstart Configuration</source>
         <context-group name="ctx">
@@ -19886,7 +19905,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
 	 <trans-unit id="kickstart.list.jsp.orgdefault">
-        <source>&lt;strong&gt;*Tip:&lt;/strong&gt; This is your organizations default kickstart profile.</source>
+        <source>This is your organizations default kickstart profile.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
