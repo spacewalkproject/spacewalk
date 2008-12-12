@@ -4,9 +4,15 @@ Name: spacewalk-config
 Summary: Spacewalk Configuration
 Version: 0.4.6
 Release: 1%{?dist}
+# This src.rpm is canonical upstream.
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd spacewalk
+# make srpm TAG=%{name}-%{version}-%{release}
+URL: http://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
-Group: RHN/Server
+Group: Applications/System
 BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 Requires: perl(Satcon)
