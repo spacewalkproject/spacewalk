@@ -57,7 +57,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         // Config.get().setString(CobblerXMLRPCHelper.class.getName(),
         //        CobblerXMLRPCHelper.class.getName());
         //commitAndCloseSession();
-
         
         CobblerDistroCreateCommand dcreate = new 
             CobblerDistroCreateCommand(ksdata.getTree(), user);

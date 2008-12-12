@@ -45,7 +45,9 @@ import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.token.test.TokenTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
@@ -118,7 +120,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartData k = createKickstartWithOptions(user.getOrg());
         KickstartWizardHelper wcmd = new KickstartWizardHelper(user);
         wcmd.createCommand("url", 
-                "--url http://@@http_server@@/$media_url", k);
+                "--url http://@@http_server@@/$" + 
+                KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, k);
 
         
         KickstartFactory.saveKickstartData(k);
@@ -136,8 +139,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         }
         System.out.println("contents: " + contents);
         assertTrue(contents.indexOf("\\$") > 0);
-        assertTrue(contents.indexOf("\\$media_url") < 0);
-        assertTrue(contents.indexOf("$media_url") > 0);
+        assertTrue(contents.indexOf("\\$" + 
+                KickstartUrlHelper.COBBLER_MEDIA_VARIABLE) < 0);
+        assertTrue(contents.indexOf("$" + 
+                KickstartUrlHelper.COBBLER_MEDIA_VARIABLE) > 0);
     }
     
     public void testLookupByLabel() throws Exception {
@@ -510,6 +515,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartDefaults d1 = KickstartDataTest.createDefaults(ksdata, 
                 UserTestUtils.ensureOrgAdminExists(orgIn));
         ksdata.setKickstartDefaults(d1);
+
+        KickstartWizardHelper cmd = new KickstartWizardHelper(
+                UserFactory.findRandomOrgAdmin(orgIn));
+        cmd.store(ksdata);
         return ksdata;
     }
     

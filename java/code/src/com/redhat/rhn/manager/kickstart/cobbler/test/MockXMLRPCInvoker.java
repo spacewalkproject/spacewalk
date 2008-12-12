@@ -61,8 +61,14 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 log.debug("mockobjects111: " + TestObjectStore.get().getObjects());
             }
             if (args.get(1).equals("ksmeta")) {
-                log.debug("putting ksmeta into store");
-                TestObjectStore.get().putObject("ksmeta", args.get(2));
+                log.debug("putting ksmeta into store: " + args.get(2));
+                if (TestObjectStore.get().getObject("ksmeta") != null) {
+                    Map ksmeta = (Map) TestObjectStore.get().getObject("ksmeta");
+                    ksmeta.putAll((Map) args.get(2));
+                }
+                else {
+                    TestObjectStore.get().putObject("ksmeta", args.get(2));
+                }
             }
             return new String("1");
         }
