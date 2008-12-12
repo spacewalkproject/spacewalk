@@ -61,6 +61,7 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: rhel-instnum
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 
