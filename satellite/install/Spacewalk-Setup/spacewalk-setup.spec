@@ -20,6 +20,10 @@ Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
 Requires:       /sbin/restorecon
+Requires:       spacewalk-admin
+Requires:       spacewalk-certs-tools
+Requires:       perl-Satcon
+Requires:       spacewalk-backend-tools
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial

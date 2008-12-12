@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.7
+Version: 0.4.8
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -61,6 +61,7 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Requires: rhel-instnum
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 
@@ -548,6 +549,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Dec 12 2008 Jan Pazdziora 0.4.8-1
+- 476212 - adding Requires rhel-instnum
+- 461162 - remove profile label parameter from the spacewalk-koan call chain
+- 461162 - fix problem w/ backend/satellite_tools makefile
+- 461162 - remove spacewalk-cobbler-sync as well
+- set close-on-exec on log files
+
 * Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.7-1
 - fix build errors and finish removing of cobbler-spacewalk-sync and 
   spacewalk-cobbler-sync from tools subpackage

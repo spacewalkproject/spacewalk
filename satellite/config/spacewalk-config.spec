@@ -2,11 +2,17 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.6
+Version: 0.4.7
 Release: 1%{?dist}
+# This src.rpm is canonical upstream.
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd spacewalk
+# make srpm TAG=%{name}-%{version}-%{release}
+URL: http://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
-Group: RHN/Server
+Group: Applications/System
 BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 Requires: perl(Satcon)
@@ -33,7 +39,7 @@ make -f Makefile.config
 rm -Rf $RPM_BUILD_ROOT
 make -f Makefile.config install PREFIX=$RPM_BUILD_ROOT DEST=%{prepdir}
 
-find $RPM_BUILD_ROOT -type f |
+find $RPM_BUILD_ROOT%{prepdir} |
     egrep -v "/etc/init.d/satellite-httpd" |
     sed -e "s@^$RPM_BUILD_ROOT@@g" > config-filelist
 
@@ -68,10 +74,9 @@ ln -s ../../../httpd/conf/ssl.key $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/s
 rm -rf $RPM_BUILD_ROOT
 
 %files -f config-filelist
-%defattr(-,root,root)
+%defattr(0664,root,root,0775)
 %attr(0775,root,root) %{prepdir}/etc/tomcat5
 %attr(0775,root,root) /etc/init.d/satellite-httpd
-%dir %{prepdir}
 %attr(0775,root,root) %{prepdir}/etc/init.d/satellite-httpd
 /etc/rhn/satellite-httpd/modules
 /etc/rhn/satellite-httpd/logs
@@ -88,7 +93,7 @@ fi
 
 %postun
 if [ "x$1" == "x0" ] ; then
-	perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
+    perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
 %post
@@ -96,10 +101,15 @@ fi
 /sbin/chkconfig --add satellite-httpd
 
 perl -i -ne 'print unless /satellite-httpd\.pid/;
-	if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
-		/etc/logrotate.d/httpd
+    if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
+        /etc/logrotate.d/httpd
 
 %changelog
+* Fri Dec 12 2008 Jan Pazdziora 0.4.7-1
+- addressed rpmlint's error and warnings
+- fixed 474306 - added directories to %%files
+- fixed 461162 - configs for cobbler
+
 * Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
 - fixed Obsoletes: rhns-* < 5.3.0
 
@@ -142,11 +152,11 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 - remove sudoers file entirely - install.sh handles it now
 
 * Thu Jul 15 2004 Robin Norwood <rnorwood@redhat.com>
-- exclude sudoers from %ghost list
+- exclude sudoers from %%ghost list
 - add rhn_monitoring.conf only for RHEL3
 
 * Tue Jul  6 2004 Chip Turner <cturner@redhat.com>
-- add %ghost to the files we'll override
+- add %%ghost to the files we'll override
 
 * Tue Aug 20 2002 Cristian Gafton <gafton@redhat.com>
 - port to the new build system
