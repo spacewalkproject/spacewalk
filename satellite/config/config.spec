@@ -33,7 +33,7 @@ make -f Makefile.config
 rm -Rf $RPM_BUILD_ROOT
 make -f Makefile.config install PREFIX=$RPM_BUILD_ROOT DEST=%{prepdir}
 
-find $RPM_BUILD_ROOT -type f |
+find $RPM_BUILD_ROOT |
     egrep -v "/etc/init.d/satellite-httpd" |
     sed -e "s@^$RPM_BUILD_ROOT@@g" > config-filelist
 
@@ -68,10 +68,9 @@ ln -s ../../../httpd/conf/ssl.key $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/s
 rm -rf $RPM_BUILD_ROOT
 
 %files -f config-filelist
-%defattr(-,root,root)
+%defattr(0664,root,root,0775)
 %attr(0775,root,root) %{prepdir}/etc/tomcat5
 %attr(0775,root,root) /etc/init.d/satellite-httpd
-%dir %{prepdir}
 %attr(0775,root,root) %{prepdir}/etc/init.d/satellite-httpd
 /etc/rhn/satellite-httpd/modules
 /etc/rhn/satellite-httpd/logs
