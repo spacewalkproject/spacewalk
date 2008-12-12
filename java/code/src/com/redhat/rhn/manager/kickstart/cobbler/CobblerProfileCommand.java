@@ -15,6 +15,10 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
@@ -69,6 +73,19 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
                     kernelOptions, xmlRpcToken};
             invokeXMLRPC("modify_profile", Arrays.asList(args));
         }
+        
+        // redhat_management_key
+        KickstartSession ksession = 
+            KickstartFactory.
+                lookupDefaultKickstartSessionForKickstartData(this.ksData); 
+        ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
+
+        args = new Object[]{handle, "redhat_management_key", 
+                key.getKey(), xmlRpcToken};
+
+        invokeXMLRPC("modify_profile", Arrays.asList(args));
+
+
         
         if (kernelOptions != null) {
             args = new Object[]{handle, "kernel_options_post", 
