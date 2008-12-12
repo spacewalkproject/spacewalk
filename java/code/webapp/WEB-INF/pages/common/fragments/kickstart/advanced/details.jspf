@@ -38,6 +38,11 @@
             </td>
         </tr>
         
+         <c:if test="${is_virt}">
+          	 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
+          </c:if> 
+        
+        
         <c:if test="${empty requestScope.create}">
           <tr>
             <th><bean:message key="kickstartdetails.jsp.active"/></th>

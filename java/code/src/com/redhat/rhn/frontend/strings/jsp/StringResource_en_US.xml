@@ -9108,7 +9108,43 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>            
+    </trans-unit>       
+    
+    <trans-unit id="kickstartdetails.jsp.virt_disk_path">
+        <source>Virtual Disk Path</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>        
+    
+    <trans-unit id="kickstartdetails.jsp.virt_mem_kb">
+        <source>Virtual Memory (in kilobytes)</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>                    
+    
+   <trans-unit id="kickstartdetails.jsp.virt_cpus">
+        <source>Number of Virtual CPUs</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>           
+    
+   <trans-unit id="kickstartdetails.jsp.virt_disk_size">
+        <source>Virtual Disk Space (in GB)</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>          
+    
+   <trans-unit id="kickstartdetails.jsp.virt_bridge">
+        <source>Virtual Bridge</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>       
+    
     
     
     <trans-unit id="kickstart.variable.jsp.variabledetails">

@@ -47,6 +47,14 @@
               <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
             </td>
           </tr>
+          
+          
+          <c:if test="${is_virt}">
+          	 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/virtoptions.jspf" %>
+          </c:if> 
+          
+          
+          
           <tr>
             <th><bean:message key="kickstartdetails.jsp.active"/></th>
             <td>

@@ -31,20 +31,12 @@ public class KickstartDefaultsTest extends BaseTestCaseWithUser {
         KickstartData ksdata = KickstartTestHelper.createTestKickStart(user);
         KickstartDefaults ksdefaults = ksdata.getKickstartDefaults();
         assertNotNull(ksdefaults);
-        ksdefaults.setVirtBridge("xenbr0");
-        ksdefaults.setVirtDiskGb(20L);
-        ksdefaults.setVirtGuestName("some-name");
-        ksdefaults.setVirtMemKb(200000L);
-        ksdefaults.setVirtVcpus(2L);
+
         KickstartFactory.saveKickstartData(ksdata);
         ksdata = (KickstartData) reload(ksdata);
         ksdefaults = ksdata.getKickstartDefaults();
         
-        assertNotNull(ksdefaults.getVirtBridge());
-        assertNotNull(ksdefaults.getVirtGuestName());
-        assertNotNull(ksdefaults.getVirtDiskGb());
-        assertNotNull(ksdefaults.getVirtMemKb());
-        assertNotNull(ksdefaults.getVirtVcpus());
+
     }
 
 }
