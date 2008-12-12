@@ -33,7 +33,7 @@ make -f Makefile.config
 rm -Rf $RPM_BUILD_ROOT
 make -f Makefile.config install PREFIX=$RPM_BUILD_ROOT DEST=%{prepdir}
 
-find $RPM_BUILD_ROOT |
+find $RPM_BUILD_ROOT%{prepdir} |
     egrep -v "/etc/init.d/satellite-httpd" |
     sed -e "s@^$RPM_BUILD_ROOT@@g" > config-filelist
 
