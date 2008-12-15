@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -78,8 +78,9 @@ ldconfig
 
 
 %changelog
-* Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-15
-- added /usr/bin/sqlplus
+* Mon Dec 15 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-16
+- added /usr/bin/sqlplus for 64bit platforms
+- added filesystem standard compatible link /usr/lib64/oracle/10.2.0.4/client
 - added Requires: libstdc++.so.5 to satisfy instantclient libs
 - added Provides: ojdbc14, Obsoletes: rhn-oracle-jdbc
 - fixed rpmlint warnings
