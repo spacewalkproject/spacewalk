@@ -326,7 +326,7 @@ public class KickstartFactory extends HibernateFactory {
         String mediapath = KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
         // TODO: Make this actually loop over cobbler vars vs just hard coded names
         fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
-        fileData = StringUtils.replace(fileData, "\\$activation_key", "$activation_key");
+        fileData = StringUtils.replace(fileData, "\\$SNIPPET", "$SNIPPET");
         
         try {
             File ksfile = new File(ksdataIn.getCobblerFileName());

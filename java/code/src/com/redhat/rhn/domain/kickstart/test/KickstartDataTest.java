@@ -144,6 +144,11 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                 KickstartUrlHelper.COBBLER_MEDIA_VARIABLE) < 0);
         assertTrue(contents.indexOf("$" + 
                 KickstartUrlHelper.COBBLER_MEDIA_VARIABLE) > 0);
+        
+        // Check for SNIPPETS
+        assertTrue(contents.indexOf("\\$SNIPPET") < 0);
+        assertTrue(contents.indexOf("$SNIPPET") > 0);
+
     }
     
     public void testLookupByLabel() throws Exception {
