@@ -15,12 +15,15 @@
 
 package org.cobbler.test;
 
+import com.redhat.rhn.testing.TestUtils;
+
 import org.cobbler.CobblerConnection;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -61,13 +64,21 @@ public class MockConnection extends CobblerConnection {
     public Object invokeMethod(String name, Object... args) {
         //no op -> mock version .. 
         // we'll add more useful constructs in the future..
+        System.out.println("called: " + name + " args: " + args);
+        Object retval = null;
+        
         if ("get_distros".equals(name) || "get_profiles".equals(name)) {
-            return Collections.EMPTY_LIST;
+            Map row = new HashMap();
+            row.put("name", TestUtils.randomString());
+            retval = new LinkedList();
+            ((LinkedList) retval).add(row);
         }
         else if ("get_distro".equals(name) || "get_profile".equals(name)) {
-            return Collections.EMPTY_MAP;    
+            retval = new HashMap();
+            ((Map) retval).put("name", TestUtils.randomString());
         }
-        return null;
+        System.out.println("retval: " + retval);
+        return retval;
     }
     
     /**

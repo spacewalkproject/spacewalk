@@ -95,6 +95,7 @@ public class CobblerConnection {
      * @return Object returned.
      */
     private Object invokeMethod(String procedureName, List args) {
+        System.out.println("CobblerConn.invoke: " + procedureName);
         log.debug("procedure: " + procedureName + " Orig ags: " + args);
         Object retval;
         try {
