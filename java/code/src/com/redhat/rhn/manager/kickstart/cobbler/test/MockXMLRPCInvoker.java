@@ -119,6 +119,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 Map profile = new HashMap();
                 log.debug("mockobjects222: " + TestObjectStore.get().getObjects());
                 profile.put("name", TestObjectStore.get().getObject("profile_name"));
+                profile.put("uid", TestObjectStore.get().getObject("uid"));
                 retval.add(profile);
                 return retval;
             }

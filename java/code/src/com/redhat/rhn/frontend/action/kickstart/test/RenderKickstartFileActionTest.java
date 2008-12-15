@@ -45,15 +45,10 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         // Set orgId to null to indicate that this kickstart tree is
         // *owned* by Red Hat.
         ksdata.getTree().setOrg(null);
-        KickstartHelper helper = new KickstartHelper(getRequest());
-        
         // Simulate a default download URL:
         String output = executeDownloadTest("/some/fake/kickstart/path");
         // Check to make sure we tinyfied the url
         assertTrue(output.indexOf("/ty/") > 0);
-        // Check to make sure we get the one-time-activation key 
-        // listed first in the rhnreg_ks command
-        assertTrue(output.indexOf("," + key.getKey()) > 0);
     }
     
     public void testProxyDownload() throws Exception {
@@ -115,12 +110,9 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
             executeDownloadTest("http://someserver.somedomain.com/kstree/rhel4");
         assertTrue(output.
                 indexOf("url --url http://someserver.somedomain.com/kstree/rhel4") > 0);
-        Pattern p = Pattern.compile("rhnreg_ks.*");
+        Pattern p = Pattern.compile("SNIPPET.*");
         Matcher m = p.matcher(output);
         assertTrue(m.find());
-        assertTrue(m.group().indexOf(",") > 0);
-        assertTrue(m.group().indexOf("profilename") > 0);
-        
     }
     
     public void testGpgSslKeys() throws Exception {
@@ -163,13 +155,10 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         setRequestPathInfo("/kickstart/DownloadFile");
         actionPerform();
         String output = bos.toString();
-        Pattern p = Pattern.compile("rhnreg_ks.*");
+        Pattern p = Pattern.compile("redhat_register.*");
         Matcher m = p.matcher(output);
         assertTrue(m.find());
-        assertTrue(m.group().indexOf(",") > 0);
-        assertTrue(m.group().indexOf("profilename") < 0);
-        String expectedUrl = "url --url http://localhost.redhat.com/ks/dist/" +
-            "ks-ChannelLabel";
+        String expectedUrl = "url --url http://@@http_server@@/$media_path";
         // Will remove this after i get this test working.
         System.out.println("Output: " + output);
         assertTrue(output.indexOf(expectedUrl) > 0);
@@ -205,9 +194,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         actionPerform();
         String ksFileContents = bos.toString();
         assertTrue(ksFileContents.indexOf("url --url") > 0);
-        assertTrue(ksFileContents.indexOf("rhnreg_ks") > 0);
-        assertTrue(ksFileContents.indexOf("--profilename=") > 0);
-        assertTrue(ksFileContents.indexOf("perl -npe 's/xmlrpc.rhn.redhat.com/") > 0);
+        assertTrue(ksFileContents.indexOf("$SNIPPET('redhat_register')") > 0);
         
         return ksFileContents;
         

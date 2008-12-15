@@ -30,6 +30,8 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 
 import org.apache.struts.action.DynaActionForm;
+import org.cobbler.CobblerConnection;
+import org.cobbler.test.MockConnection;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -83,6 +85,8 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
         Config.get().setString("kickstart.cobbler.dir", "/tmp/");
+        Config.get().setString(CobblerConnection.class.getName(),
+                MockConnection.class.getName());
     }
     
     /**

@@ -584,21 +584,15 @@ public class KickstartFormatter {
             retval.append(VIRT_HOST_GRUB_FIX);
         }
         
+        // For rhel2,3,4 we import a different key.  otherwise we just
+        // rely on the cobbler snippet below to import the key.
         if (this.ksdata.isRhel2()) {
             retval.append(IMPORT_RHN_KEY2 + NEWLINE);
         }
         else if (this.ksdata.isRhel3() || this.ksdata.isRhel4()) {
             retval.append(IMPORT_RHN_KEY34 + NEWLINE);
         }
-        else if (this.ksdata.isRhel5()) {
-            retval.append(IMPORT_RHN_KEY5 + NEWLINE);
-        }
-        else {
-            log.error("Could not generate GPG import line.  " +
-                          "Unknown version of RHEL: " + 
-                          this.ksdata.getInstallType());
-        }
-        
+ 
         if (log.isDebugEnabled()) {
             log.debug("kickstart_host: [" + XMLRPC_HOST + "] kshost: [" +
                     this.ksHost + "] indexof: " + 
@@ -642,35 +636,10 @@ public class KickstartFormatter {
         retval.append(NEWLINE);
         retval.append(KSTREE);
         retval.append(NEWLINE);        
-        retval.append(NEWLINE);
         
-        log.debug("are there any tokens with this profile?  If so lets render rhnreg_ks");
-        if (tokens.size() > 0) {
-            log.debug("rhnreg: Adding activation/registration commands.");
-            retval.append(ACT_KEY_CMD);
-            // Append rhnreg_ks:
-            // rhnreg_ks --activationkey=a67509953c07b886229c2a1691922069
-            //     --profilename="aa-test-4AS-profile-ks"
-            retval.append("\"");
-            for (Iterator itr = tokens.iterator(); itr.hasNext();) {
-                ActivationKey act = (ActivationKey) itr.next();
-                log.debug("rhnreg: key name: " + act.getKey());
-                retval.append(act.getKey());
-                
-                if (itr.hasNext()) {
-                    retval.append(",");
-                }
-            }
-            retval.append("\"");
-            if (this.session != null && 
-                    this.session.getOldServer() != null) {
-                retval.append(" --profilename=\"");
-                retval.append(this.session.getOldServer().getName());
-                retval.append("\" ");
-            }
-            retval.append(NEWLINE);
-            retval.append(RHNCHECK + NEWLINE);
-        }
+        retval.append("# begin cobbler snippet" + NEWLINE);
+        retval.append("$SNIPPET('redhat_register')" + NEWLINE);
+        retval.append("# end cobbler snippet" + NEWLINE);
         
         retval.append(NEWLINE);
         retval.append(RHNCHECK + NEWLINE);
