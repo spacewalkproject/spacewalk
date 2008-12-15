@@ -33,11 +33,12 @@ Spacewalk Configuration Templates
 echo "%{name} %{version}" > version
 
 %build
-make -f Makefile.config
 
 %install
 rm -Rf $RPM_BUILD_ROOT
-make -f Makefile.config install PREFIX=$RPM_BUILD_ROOT DEST=%{prepdir}
+
+mkdir -p $RPM_BUILD_ROOT%{prepdir}
+mv * $RPM_BUILD_ROOT%{prepdir}/
 
 find $RPM_BUILD_ROOT%{prepdir} |
     egrep -v "/etc/init.d/satellite-httpd" |
