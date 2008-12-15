@@ -46,8 +46,9 @@
   as is.  If relative, it is searched for on the classpath.</description>
 </property>
 
+<property>
 <name>plugin.includes</name>
-    <value>protocol-file|urlfilter-regex|parse-(xml|text|html|js|pdf)|index-basic|query-(basic|site|url)</value>
+    <value>protocol-file|urlfilter-regex|parse-(xml|text|html|js|pdf)|index-basic|query-(basic|site|url)|summary-basic|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
 </property>
 
 <property>

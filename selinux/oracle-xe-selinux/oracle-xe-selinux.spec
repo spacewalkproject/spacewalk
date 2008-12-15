@@ -6,10 +6,16 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         5%{?dist}
+Release:         6%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
+# This src.rpm is canonical upstream.
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd spacewalk
+# make srpm TAG=%{name}-%{version}-%{release}
+URL:             http://fedorahosted.org/spacewalk
 Source1:         %{modulename}.if
 Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
@@ -80,12 +86,12 @@ rm -rf %{buildroot}
 
 ORACLE_UID=`id -u oracle`
 if [ -z "$ORACLE_UID" ] ; then
-	echo "The oracle user has to exist with uid < 500 before installing this package."
-	exit 1
+    echo "The oracle user has to exist with uid < 500 before installing this package."
+    exit 1
 elif [ $ORACLE_UID -ge 500 ] ; then
-	echo "The oracle user has to exist with uid < 500 before installing this package."
-	echo "User with uid [$ORACLE_UID] found which is not good."
-	exit 1
+    echo "The oracle user has to exist with uid < 500 before installing this package."
+    echo "User with uid [$ORACLE_UID] found which is not good."
+    exit 1
 fi
 
 %post
@@ -137,6 +143,10 @@ fi
 /etc/ld.so.conf.d/oracle-xe.conf
 
 %changelog
+* Mon Dec 15 2008 Jan Pazdziora 10.2-6
+- added textrel_shlib_t for libocci.so.10.1
+- minor .spec cleanup
+
 * Tue Nov 18 2008 Jan Pazdziora 10.2-5
 - added multiple textrel_shlib_t's
 - added /etc/ld.so.conf.d/oracle-xe.conf

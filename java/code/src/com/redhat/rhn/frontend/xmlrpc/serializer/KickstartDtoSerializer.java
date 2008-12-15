@@ -57,7 +57,7 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
         helper.add("tree_label", ks.getTreeLabel());
         helper.add("name", ks.getLabel());
         helper.add("advanced_mode", ks.isAdvancedMode());
-        if (ks.getIsOrgDefault().equals("Y")) {
+        if (ks.isOrgDefault()) {
             helper.add("org_default", true);
         }
         else {

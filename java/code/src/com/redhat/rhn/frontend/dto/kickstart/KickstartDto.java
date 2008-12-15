@@ -16,6 +16,9 @@ package com.redhat.rhn.frontend.dto.kickstart;
 
 import com.redhat.rhn.frontend.dto.BaseDto;
 
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+
 /**
  * DTO for a com.redhat.rhn.domain.kickstart.KickStartData
  * @version $Rev: 50942 $
@@ -120,8 +123,9 @@ public class KickstartDto extends BaseDto {
     /**
      * @return Returns the isOrgDefault.
      */
-    public String getIsOrgDefault() {
-        return isOrgDefault;
+    public boolean isOrgDefault() {
+        return !StringUtils.isBlank(isOrgDefault) &&
+                BooleanUtils.toBoolean(isOrgDefault, "Y", "N");
     }
 
     

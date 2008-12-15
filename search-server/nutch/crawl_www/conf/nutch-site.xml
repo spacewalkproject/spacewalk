@@ -46,7 +46,18 @@
   as is.  If relative, it is searched for on the classpath.</description>
 </property>
 
-
+<property>
+  <name>plugin.includes</name>
+  <value>protocol-httpclient|urlfilter-regex|parse-(text|html|js)|index-(basic|anchor)|query-(basic|site|url)|summary-basic|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
+  <description>Regular expression naming plugin directory names to
+  include.  Any plugin not matching this expression is excluded.
+  In any case you need at least include the nutch-extensionpoints plugin. By
+  default Nutch includes crawling just HTML and plain text via HTTP,
+  and basic indexing and search plugins. In order to use HTTPS please enable
+  protocol-httpclient, but be aware of possible intermittent problems with the
+  underlying commons-httpclient library.
+  </description>
+</property>
 
 
 </configuration>

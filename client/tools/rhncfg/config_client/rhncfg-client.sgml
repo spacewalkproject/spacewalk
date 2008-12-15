@@ -61,6 +61,16 @@
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>elist</term>
+        <listitem>
+            <para>
+              List the configuration files for the machine and the labels
+              of the config channels containing them which provides an
+              ls-esque style output. Used alone.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>get <replaceable>CONFIG_FILEPATH</replaceable></term>
         <listitem>
             <para>
@@ -112,6 +122,7 @@
 <RefSect1><Title>Examples/Summary</Title>
 <simplelist>
         <member><command>&RHNCFGC; list</command></member>
+        <member><command>&RHNCFGC; elist</command></member>
         <member><command>&RHNCFGC; get /etc/foo.conf</command></member>
         <member><command>&RHNCFGC; channels</command></member>
         <member><command>&RHNCFGC; diff</command></member>

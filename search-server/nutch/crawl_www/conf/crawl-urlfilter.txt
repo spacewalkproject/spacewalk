@@ -38,7 +38,7 @@
 
 # accept hosts in MY.DOMAIN.NAME
 #+^http://([a-z0-9]*\.)*MY.DOMAIN.NAME/
-+^http://([a-z0-9]*\.)*redhat.com/
-
+#+^http://([a-z0-9]*\.)*redhat.com/
++^http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/
 # skip everything else
 -.

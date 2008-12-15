@@ -50,11 +50,10 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         String id = (String) invokeXMLRPC("new_profile", xmlRpcToken);
         log.debug("id: " + id);
         invokeXMLRPC("modify_profile", id, "name", 
-                                CobblerCommand.makeCobblerName(this.ksData), xmlRpcToken);
+                           CobblerCommand.makeCobblerName(this.ksData), xmlRpcToken);
         updateCobblerFields(id);
-        
         Map<String, Object> meta = new HashMap<String, Object>();
-        meta.put("org", user.getOrg().getId());
+        meta.put("org", ksData.getOrg().getId());
         invokeXMLRPC("modify_profile", id, "ksmeta", meta, xmlRpcToken);
         invokeXMLRPC("save_profile", id, xmlRpcToken);
         

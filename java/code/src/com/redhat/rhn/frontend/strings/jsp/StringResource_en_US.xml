@@ -15955,7 +15955,12 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     </trans-unit> 
-    
+    <trans-unit id="kickstarts.distro.cobbler-only.tooltip">
+        <source>Kickstart profiles that are not managed by @@PRODUCT_NAME@@ can not be edited in the @@PRODUCT_NAME@@ UI. To modify these profiles, please log onto the @@PRODUCT_NAME@@ server and run the 'cobbler edit profile' command. For more information, consult the @@PRODUCT_NAME@@ Reference Guide.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/Kickstarts.do</context>
+        </context-group>
+    </trans-unit>    
 	<trans-unit id="kickstart.distro.sw_managed.jsp">
         <source>@@PRODUCT_NAME@@ Managed?*</source>
         <context-group name="ctx">
@@ -19288,7 +19293,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       </trans-unit>
       <trans-unit id="org.trust.org">
-        <source>Organization</source>o
+        <source>Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
@@ -19337,6 +19342,12 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="org.trust.system">
         <source>System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="org.trust.updated">
+        <source>The {0} organization's trusts have been updated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>

@@ -53,8 +53,8 @@
           				</c:otherwise>
           			</c:choose>
 					 
-					<c:if test="${current.isOrgDefault == 'Y'}">
-		            ?
+					<c:if test="${current.orgDefault}">
+		            **
 		          </c:if>
       		</rl:column>  	      
       		<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.active"  sortattr="active">
@@ -84,8 +84,10 @@
        
       </rl:listset>
 </div>
-  <p><rhn:tooltip>* - <bean:message key="kickstart.distro.cobbler-only.tooltip"/></rhn:tooltip></p>
-  <p><rhn:tooltip>? - <bean:message key="kickstart.list.jsp.orgdefault"/></rhn:tooltip></p>
+  <p><rhn:tooltip>* - <bean:message key="kickstarts.distro.cobbler-only.tooltip"/></rhn:tooltip></p>
+  <c:if test="${not empty requestScope.orgDefaultExists}">
+  	<p><rhn:tooltip>** - <bean:message key="kickstart.list.jsp.orgdefault"/></rhn:tooltip></p>
+  </c:if>
 
 </body>
 </html:html>

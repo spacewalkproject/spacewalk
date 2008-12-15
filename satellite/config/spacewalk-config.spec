@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.7
+Version: 0.4.8
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -78,6 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0775,root,root) %{prepdir}/etc/tomcat5
 %attr(0775,root,root) /etc/init.d/satellite-httpd
 %attr(0775,root,root) %{prepdir}/etc/init.d/satellite-httpd
+%attr(0775,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
 /etc/rhn/satellite-httpd/modules
 /etc/rhn/satellite-httpd/logs
 /etc/rhn/satellite-httpd/run
@@ -105,6 +106,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
         /etc/logrotate.d/httpd
 
 %changelog
+* Mon Dec 15 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.8-1
+- fixed satidmap.pl permissions
+
 * Fri Dec 12 2008 Jan Pazdziora 0.4.7-1
 - addressed rpmlint's error and warnings
 - fixed 474306 - added directories to %%files

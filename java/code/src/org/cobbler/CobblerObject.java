@@ -248,8 +248,8 @@ public abstract class CobblerObject {
     /**
      * @return the kernelMeta
      */
-    public Map<String, String> getKsMeta() {
-        return (Map<String, String>)dataMap.get(KS_META);
+    public Map<String, Object> getKsMeta() {
+        return (Map<String, Object>)dataMap.get(KS_META);
     }
 
     
@@ -300,5 +300,13 @@ public abstract class CobblerObject {
     
     protected boolean isBlank(String str) {
         return str == null || str.trim().length() == 0;
+    }
+    
+    /**
+     * {@inheritDoc} 
+     */
+    @Override
+    public String toString() {
+        return "DataMap = " + dataMap;
     }
 }

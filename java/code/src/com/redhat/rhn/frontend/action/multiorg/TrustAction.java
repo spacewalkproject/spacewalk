@@ -249,8 +249,9 @@ public class TrustAction extends FormDispatcher {
         for (Org removed : getRemoved(theOrg, set)) {
             theOrg.removeTrust(removed);
         }
+        
         OrgFactory.save(theOrg);
-
+        createSuccessMessage(request, "org.trust.updated", theOrg.getName());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         makeParamMap(request);
         Map params = makeParamMap(request);
