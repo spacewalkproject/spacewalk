@@ -57,9 +57,6 @@ Compatibility package so that perl-DBD-Oracle will install.
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT/%{oraclelibdir}
-
-ln -s %{instantclientbase} $RPM_BUILD_ROOT%{oraclelibdir}/10.2.0
 
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
 echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
@@ -68,6 +65,9 @@ echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{na
 %ifarch x86_64 s390x
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 ln -s %{instantclienthome}/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sqlplus
+
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}
+ln -s %{instantclienthome} $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}/client
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
@@ -80,8 +80,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %ifarch x86_64 s390x
 %{_bindir}/sqlplus
+%{_libdir}/oracle
 %endif
-%{oraclelibdir}/10.2.0
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %{_javadir}/ojdbc14.jar
 
