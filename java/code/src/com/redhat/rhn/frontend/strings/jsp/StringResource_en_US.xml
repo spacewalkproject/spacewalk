@@ -19293,7 +19293,7 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         </context-group>
       </trans-unit>
       <trans-unit id="org.trust.org">
-        <source>Organization</source>o
+        <source>Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
@@ -19342,6 +19342,12 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="org.trust.system">
         <source>System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="org.trust.updated">
+        <source>The {0} organization's trusts have been updated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
