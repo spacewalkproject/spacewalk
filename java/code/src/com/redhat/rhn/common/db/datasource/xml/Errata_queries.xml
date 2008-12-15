@@ -153,7 +153,7 @@ ORDER BY  E.advisory_type DESC, E.update_date DESC,  E.id
 
 <mode name="count_critical_errata_for_system">
   <query params="user_id, sid">
-SELECT COUNT(E.ID) AS COUNT
+SELECT COUNT(DISTINCT E.ID) AS COUNT
   FROM rhnErrata E,
        rhnServerNeededPackageCache SNEC,
        rhnUserServerPerms USP
@@ -168,7 +168,7 @@ SELECT COUNT(E.ID) AS COUNT
 
 <mode name="count_noncritical_errata_for_system">
   <query params="user_id, sid">
-SELECT COUNT(E.ID) AS COUNT
+SELECT COUNT(DISTINCT E.ID) AS COUNT
   FROM rhnErrata E,
        rhnServerNeededPackageCache SNEC,
        rhnUserServerPerms USP
