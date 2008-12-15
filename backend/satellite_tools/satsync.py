@@ -413,6 +413,8 @@ class Syncer:
                     '   debug/output level: %s' % CFG.DEBUG])
             if CFG.ISS_PARENT:
                 self.xmlWireServer.setServerHandler(isIss=1)
+            else:
+                self.xmlWireServer.setServerHandler()
 
         if not self.mountpoint:
             # check and fetch systemid (NOTE: systemid kept in memory... may or may not
