@@ -12,6 +12,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 Requires:       oracle-instantclient-basic >= 10.2.0
+Requires:       oracle-instantclient-sqlplus >= 10.2.0
 Requires(post): ldconfig
 
 %ifarch x86_64
