@@ -29,10 +29,16 @@ Requires:       libstdc++.so.5%{?lib64}
 %description
 Compatibility package so that perl-DBD-Oracle will install.
 
+%ifarch s390 s390x
+%define icversion 10.2.0.2
+%else
+%define icversion 10.2.0.4
+%endif
+
 # do not replace /usr/lib with _libdir macro here
 # oracle installs there even on 64bit platforms
 %define oraclelibdir            /usr/lib/oracle
-%define instantclientbase       %{oraclelibdir}/10.2.0.4
+%define instantclientbase       %{oraclelibdir}/%{icversion}
 
 %ifarch x86_64 s390x
 %define clientdir       client64
