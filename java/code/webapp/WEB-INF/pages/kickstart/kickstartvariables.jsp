@@ -12,13 +12,13 @@
 
 
 
- <rhn:require acl="is_ks_raw(${ksdata.id})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
+ <rhn:require acl="is_ks_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
 	<%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
  </rhn:require>
    
  
  
-  <rhn:require acl="is_ks_not_raw(${ksdata.id})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
+  <rhn:require acl="is_ks_not_raw(${ksid})" mixins="com.redhat.rhn.common.security.acl.KickstartAclHandler">
   	<html:messages id="message" message="true">
 		  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 		</html:messages>
@@ -55,7 +55,7 @@
             <td align="right" colspan="2"><html:submit><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
           </tr>
       </table>
-	  <html:hidden property="ksid" value="${ksdata.id}"/>
+	  <html:hidden property="ksid" value="${ksid}"/>
       <html:hidden property="submitted" value="true"/>
     </html:form>
 </div>

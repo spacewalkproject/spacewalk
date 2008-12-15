@@ -12,6 +12,9 @@
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
 
+
+
+
 <div class="toolbar-h1">
   <div class="toolbar">
     <span class="toolbar">
@@ -20,6 +23,8 @@
    </div><img alt="<bean:message key="kickstarts.alt.img"/>" src="/img/rhn-kickstart_profile.gif" />  
   <bean:message key="kickstart.kickstartable_distributions.jsp" />    
 </div>
+
+
 <div class="page-summary">
   <p>
     <bean:message key="kickstart.kickstartable_distributions_text.jsp" />

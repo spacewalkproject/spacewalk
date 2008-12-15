@@ -14,21 +14,22 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
-import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.acl.AclManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
-import org.cobbler.Profile;
+import org.cobbler.CobblerObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
  * KickstartDetailsEdit extends RhnAction
  * @version $Rev: 1 $
  */
-public class KickstartVariableAction extends BaseKickstartEditAction {
+public abstract class KickstartVariableAction extends RhnAction {
     
     public static final String VARIABLES = "variables";
 
@@ -48,23 +49,51 @@ public class KickstartVariableAction extends BaseKickstartEditAction {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        KickstartData data = context.lookupAndBindKickstartData();
+        
+        
+        if (!AclManager.hasAcl("user_role(org_admin) or user_role(config_admin)", 
+                request, null)) {
+                //Throw an exception with a nice error message so the user
+                //knows what went wrong.
+                LocalizationService ls = LocalizationService.getInstance();
+                PermissionException pex =
+                    new PermissionException(
+                        "Only Org Admins or Configuration Admins can modify kickstarts");
+                pex.setLocalizedTitle(ls.getMessage("permission.jsp.summary.acl.header"));
+                pex.setLocalizedSummary(ls.getMessage(
+                        "permission.jsp.summary.acl.reason5"));
+                throw pex;
+        }
+        
        
-        return super.execute(mapping, formIn, request, response);
+        String cobblerId = getCobblerId(context);        
+        
+        if (isSubmitted((DynaActionForm) formIn)) {
+            ValidatorError ve = processFormValues(request, (DynaActionForm) formIn, 
+                    cobblerId);
+            if (ve != null) {
+                ValidatorError[] verr = {ve};
+                getStrutsDelegate().saveMessages(request,
+                        RhnValidationHelper.validatorErrorToActionErrors(verr));
+            } 
+            
+        }
+        
+        setupFormValues(context, (DynaActionForm) formIn, cobblerId);
+        request.setAttribute(getObjectString(), request.getParameter(getObjectString()));
+        
+        
+        return getStrutsDelegate().forwardParams(mapping.findForward("default"), 
+                request.getParameterMap());
         
     }
     /**
      * {@inheritDoc}
      */
     protected void setupFormValues(RequestContext ctx, 
-            DynaActionForm form, BaseKickstartCommand cmdIn) {
-        KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
-
-        
-        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        Profile prof = Profile.lookupById(helper.getConnection(
-                ctx.getLoggedInUser()), cmd.getKickstartData().getCobblerId());
-        form.set(VARIABLES, StringUtil.convertMapToString(prof.getKsMeta(), "\n"));
+            DynaActionForm form, String cId) {
+        CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
+        form.set(VARIABLES, StringUtil.convertMapToString(cobj.getKsMeta(), "\n"));
     }
         
 
@@ -73,20 +102,19 @@ public class KickstartVariableAction extends BaseKickstartEditAction {
      */
     protected ValidatorError processFormValues(HttpServletRequest request, 
             DynaActionForm form, 
-            BaseKickstartCommand cmdIn) {
+            String cId) {
         
         ValidatorError error = null;
-        KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
+        
         RequestContext ctx = new RequestContext(request);
-        KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
+
     
         try {
-            CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-            Profile prof = Profile.lookupById(helper.getConnection(
-                    ctx.getLoggedInUser()), cmd.getKickstartData().getCobblerId());
-            prof.setKsMeta(StringUtil.convertOptionsToMap((String)form.get(VARIABLES), 
-                    "kickstart.jsp.error.invalidoption"));
-            prof.save();
+            
+            CobblerObject cobj = getCobblerObject(cId, ctx.getLoggedInUser());
+            cobj.setKsMeta(StringUtil.convertOptionsToMap((String)form.get(VARIABLES), 
+                    "kickstart.jsp.error.invalidvariable"));
+            cobj.save();
             
             return null;
         }
@@ -99,14 +127,24 @@ public class KickstartVariableAction extends BaseKickstartEditAction {
         return "kickstart.details.success";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected BaseKickstartCommand getCommand(RequestContext ctx) {
-        return new KickstartEditCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
-                ctx.getCurrentUser());
-    }
 
+    /**
+     * 
+     * @param context
+     * @return
+     */
+    protected abstract String getCobblerId(RequestContext context);
+    
+    protected abstract String getObjectString();
+        
+    
+    /**
+     * Get the CobblerObject that we'll use to set the ksmeta data
+     * @param cobblerId the cobbler Id
+     * @param user the user requesting
+     * @return the CobblerObject (either a profile or distro)
+     */
+    protected abstract CobblerObject getCobblerObject(String cobblerId, User user);
 
     
 }

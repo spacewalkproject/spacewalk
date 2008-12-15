@@ -112,7 +112,7 @@ public class Distro extends CobblerObject {
 
     @Override
     protected String invokeGetHandle() {
-        return (String)client.invokeTokenMethod("get_distro_handle");
+        return (String)client.invokeTokenMethod("get_distro_handle", this.getName());
     }
     
     @Override
