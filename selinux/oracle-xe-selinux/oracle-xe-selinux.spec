@@ -80,12 +80,12 @@ rm -rf %{buildroot}
 
 ORACLE_UID=`id -u oracle`
 if [ -z "$ORACLE_UID" ] ; then
-	echo "The oracle user has to exist with uid < 500 before installing this package."
-	exit 1
+    echo "The oracle user has to exist with uid < 500 before installing this package."
+    exit 1
 elif [ $ORACLE_UID -ge 500 ] ; then
-	echo "The oracle user has to exist with uid < 500 before installing this package."
-	echo "User with uid [$ORACLE_UID] found which is not good."
-	exit 1
+    echo "The oracle user has to exist with uid < 500 before installing this package."
+    echo "User with uid [$ORACLE_UID] found which is not good."
+    exit 1
 fi
 
 %post
