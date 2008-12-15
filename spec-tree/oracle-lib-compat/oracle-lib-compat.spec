@@ -36,20 +36,6 @@ Compatibility package so that perl-DBD-Oracle will install.
 %define icversion 10.2.0.4
 %endif
 
-# do not replace /usr/lib with _libdir macro here
-# oracle installs there even on 64bit platforms
-%define oraclelibdir            /usr/lib/oracle
-%define instantclientbase       %{oraclelibdir}/%{icversion}
-
-%ifarch x86_64 s390x
-%define clientdir       client64
-%else  # i386 s390
-%define clientdir       client
-%endif
-
-%define instantclienthome       %{instantclientbase}/%{clientdir}
-%define oraclexeserverhome      %{oraclelibdir}/xe/app/oracle/product/10.2.0/server
-
 %prep
 
 %build
@@ -58,20 +44,22 @@ Compatibility package so that perl-DBD-Oracle will install.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
-install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
-echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
-echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
+echo %{_libdir}/oracle/%{icversion}/client/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+# do not replace /usr/lib with _libdir macro here
+# XE server is 32bit even on 64bit platforms
+echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 %ifarch x86_64 s390x
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-ln -s %{instantclienthome}/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sqlplus
+ln -s ../%{_lib}/oracle/%{icversion}/client/bin/sqlplus $RPM_BUILD_ROOT%{_bindir}/sqlplus
 
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}
-ln -s %{instantclienthome} $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}/client
+ln -s ../../../lib/oracle/%{icversion}/client64 $RPM_BUILD_ROOT%{_libdir}/oracle/%{icversion}/client
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/%{_javadir}
-ln -s %{instantclienthome}/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
+ln -s ../../%{_lib}/oracle/%{icversion}/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/%{_javadir}/ojdbc14.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
