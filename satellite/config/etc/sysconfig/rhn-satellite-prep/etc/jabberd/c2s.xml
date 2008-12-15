@@ -53,7 +53,7 @@
     <!-- If logging to syslog, this is the log facility
          (local0 - local7)                        [default: local3] -->
     <facility>local3</facility>
-    
+
     <!-- If logging to file, this is the filename of the logfile -->
     <!--
     <file>/var/log/jabberd/c2s.log</file>
@@ -144,7 +144,7 @@
          determines what happens. -->
     <access>
       <!-- Rule check order (default: allow,deny)
-           
+
            allow,deny - Check allow rules, then check deny rules.
                         Allow by default.
            deny,allow - Check deny rules, then check allow rules.
@@ -188,7 +188,7 @@
       <idle>0</idle>
 
       <!-- Keepalives.
-           
+
            Connections that have not sent data for longer than this many
            seconds will have a single whitespace character sent to them.
            This will force the TCP connection to be closed if they have
@@ -198,7 +198,7 @@
       <keepalive>60</keepalive>
 
     </check>
-    
+
   </io>
 
   <!-- Authentication/registration database configuration -->
@@ -288,7 +288,7 @@
     <db>
       <!-- Directory to store database files under -->
       <path>/var/lib/jabberd</path>
-      
+
       <!-- Synchronize the database to disk after each write. If you
            disable this, database accesses may be faster, but data may
            be lost if jabberd crashes. -->
@@ -319,7 +319,7 @@
       <!--
       <ssl/>
       -->
-      
+
       <!-- DN to bind as for searches. If unspecified, the searches
            will be done anonymously. -->
       <!--

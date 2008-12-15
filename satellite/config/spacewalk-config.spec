@@ -37,8 +37,8 @@ echo "%{name} %{version}" > version
 %install
 rm -Rf $RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT%{prepdir}
-mv * $RPM_BUILD_ROOT%{prepdir}/
+mkdir -p $RPM_BUILD_ROOT
+mv etc $RPM_BUILD_ROOT/
 
 find $RPM_BUILD_ROOT%{prepdir} |
     egrep -v "/etc/init.d/satellite-httpd" |

@@ -91,7 +91,7 @@
       <!-- Transacation support. If this is commented out, transactions
            will be disabled. This might make database accesses faster,
            but data may be lost if jabberd crashes.
-           
+
            This will need to be disabled if you are using a MySQL
            earlier than v3.23.xx, as transaction support did not appear
            until this version. -->
@@ -128,7 +128,7 @@
       <sync/>
     </db>
   </storage>
-  
+
   <!-- Access control information -->
   <aci>
     <!-- The JIDs listed here will get access to all restricted
