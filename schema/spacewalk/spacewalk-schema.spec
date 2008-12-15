@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.8
+Version:        0.4.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -49,6 +49,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Mon Dec 15 2008 Jan Pazdziora 0.4.9-1
+- 461162 - adding virt options for cobbler
+- 461162 - add type 'auto' virtualization
+- remove vmware choice from vm type list
+- drop also unique index associated with constraint
+- updated the alter script numbers to have things go sequential
+- 456532 - initial changes to stored profiles to support multiarch
+- initial commit for stored profiles to support multiarch
+- fixed upgrade script to upgrade the constraint as well
+- added new rhnSet column to clean SQL create scripts
+- added upgrade scripts to add necessary column to rhnSet
+- updates to rhnRegTokenPackages to include id as primary key as well as sequence for generating ids
+- making the arch_id column nullable
+- updating rhnRegTokenPackages to include arch_id column
+- 461162 - initial commit of the manager layer for cobbler
+- changes by multiple authors
+
 * Fri Dec  5 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.8-1
 - fix monitoring paths in schema
 
