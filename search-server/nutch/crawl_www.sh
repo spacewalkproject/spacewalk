@@ -33,4 +33,5 @@ fi
 #Need to adjust nutch RPM so it's scripts under bin are executable by all
 #Need to learn how to redirect hadoop/nutch logs to /var/log output
 
-${NUTCH_HOME}/bin/nutch crawl ${NUTCH_CONF_DIR}/../urls -dir ${OUTPUT_DIR}
+${NUTCH_HOME}/bin/nutch crawl ${NUTCH_CONF_DIR}/../urls -dir ${OUTPUT_DIR} -depth 10 -threads 50
+
