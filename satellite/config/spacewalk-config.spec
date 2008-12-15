@@ -78,6 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0775,root,root) %{prepdir}/etc/tomcat5
 %attr(0775,root,root) /etc/init.d/satellite-httpd
 %attr(0775,root,root) %{prepdir}/etc/init.d/satellite-httpd
+%attr(0775,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
 /etc/rhn/satellite-httpd/modules
 /etc/rhn/satellite-httpd/logs
 /etc/rhn/satellite-httpd/run
