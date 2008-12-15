@@ -167,6 +167,7 @@ ORDER BY S.org_id
       AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; sysdate - 1)
           OR
           (KSS.label = 'created' AND KS.last_action &lt; sysdate - 6))
+      AND (KS.kickstart_mode != 'default_session' OR KS.kickstart_mode is NULL)
    </query>
 </mode>
 
