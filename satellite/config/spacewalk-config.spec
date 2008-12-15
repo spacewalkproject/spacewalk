@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.7
+Version: 0.4.8
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -106,6 +106,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
         /etc/logrotate.d/httpd
 
 %changelog
+* Mon Dec 15 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.8-1
+- fixed satidmap.pl permissions
+
 * Fri Dec 12 2008 Jan Pazdziora 0.4.7-1
 - addressed rpmlint's error and warnings
 - fixed 474306 - added directories to %%files
