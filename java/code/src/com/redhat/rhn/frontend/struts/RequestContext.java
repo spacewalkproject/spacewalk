@@ -85,6 +85,7 @@ public class RequestContext {
     
     public static final String METHOD_ID = "cmid";
     public static final String KICKSTART_ID = "ksid";
+    public static final String KICKSTART_TREE_ID = "kstid";
     public static final String KEY_ID = "key_id";
     public static final String FILE_LIST_ID = "file_list_id";
     public static final String KICKSTART_SCRIPT_ID = "kssid";

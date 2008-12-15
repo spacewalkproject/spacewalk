@@ -4890,13 +4890,26 @@
    <action path="/kickstart/EditVariables"
         scope="request"
         name="kickstartVariableForm"
-        type="com.redhat.rhn.frontend.action.kickstart.KickstartVariableAction"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartProfileVariableAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
 		<set-property property="acls" 
                         value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                 path="/WEB-INF/pages/kickstart/kickstartvariables.jsp"/>        
     </action>
+    
+    
+   <action path="/kickstart/tree/EditVariables"
+        scope="request"
+        name="kickstartVariableForm"
+        type="com.redhat.rhn.frontend.action.kickstart.tree.KickstartTreeVariableAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+		<set-property property="acls" 
+                        value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                path="/WEB-INF/pages/kickstart/kickstarttreevariables.jsp"/>        
+    </action>    
+    
     
 
     <action path="/kickstart/AdvancedModeEdit"

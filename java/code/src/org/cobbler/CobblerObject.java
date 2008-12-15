@@ -232,8 +232,8 @@ public abstract class CobblerObject {
     /**
      * @return the kernelOptions
      */
-    public Map<String, String> getKernelOptions() {
-        return (Map<String, String>)dataMap.get(KERNEL_OPTIONS);
+    public Map<String, Object> getKernelOptions() {
+        return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS);
     }
 
     
@@ -282,8 +282,8 @@ public abstract class CobblerObject {
     /**
      * @return the kernelPostOptions
      */
-    public Map<String, String> getKernelPostOptions() {
-        return (Map<String, String>)dataMap.get(KERNEL_OPTIONS_POST);
+    public Map<String, Object> getKernelPostOptions() {
+        return (Map<String, Object>)dataMap.get(KERNEL_OPTIONS_POST);
     }
 
     

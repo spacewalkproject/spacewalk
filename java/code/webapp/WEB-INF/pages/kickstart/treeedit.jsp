@@ -25,9 +25,17 @@
   <bean:message key="treeedit.jsp.toolbar"/>
 </rhn:toolbar>
 
-<bean:message key="treecreate.jsp.header1"/>
+
+	  <rhn:dialogmenu mindepth="0" maxdepth="1" 
+	    definition="/WEB-INF/nav/kickstart_tree_details.xml" 
+	    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+
+
+
 
 <h2><bean:message key="treeedit.jsp.header2"/></h2>
+<bean:message key="treecreate.jsp.header1"/>
+
 
 <div>
     <html:form method="post" action="/kickstart/TreeEdit.do" styleId="dist-tree-form">

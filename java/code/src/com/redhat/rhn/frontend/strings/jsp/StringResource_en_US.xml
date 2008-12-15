@@ -9110,6 +9110,15 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>       
     
+    
+    <trans-unit id="kickstarttree.variable.jsp.summary">
+        <source>Any variables specified below will be usable in any profile that uses this distro.  They can be overridden in each profile as well.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>           
+    
+    
     <trans-unit id="kickstartdetails.jsp.virt_disk_path">
         <source>Virtual Disk Path</source>
         <context-group name="ctx">
