@@ -16,8 +16,6 @@ package com.redhat.rhn.frontend.xmlrpc.system.test;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
@@ -95,6 +93,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
@@ -1452,14 +1451,15 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         s1.addChannel(testChannel);
         s2.addChannel(testChannel);
 
-        addServerPackageMapping(s1.getId(), p1);
-        addServerPackageMapping(s2.getId(), p2);
+        PackageManagerTest.associateSystemToPackageWithArch(s1, p1);
+        PackageManagerTest.associateSystemToPackageWithArch(s2, p2);
 
         ServerFactory.save(s1);
         ServerFactory.save(s2);
         
         List packagesToSync = new LinkedList();
-        packagesToSync.add(new Integer(p1.getPackageName().getId().intValue()));
+        packagesToSync.add(new Integer(p2.getPackageName().getId().intValue()));
+        
         // This call has an embedded transaction in the stored procedure:
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
         // which can cause deadlocks.  We are forced to call commitAndCloseTransaction()
@@ -1832,19 +1832,5 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 server.getId().intValue());
         assertTrue(list.size() == 0);
         
-    }
-    private void addServerPackageMapping(Long serverId, Package packageIn) {
-        WriteMode wm = ModeFactory.getWriteMode("test_queries",
-            "insert_into_rhnServerPackage_with_arch");
-
-        Map<String, Long> params = new HashMap<String, Long>(4);
-        params.put("server_id", serverId);
-        params.put("pn_id", packageIn.getPackageName().getId());
-        params.put("evr_id", packageIn.getPackageEvr().getId());
-        params.put("arch_id", packageIn.getPackageArch().getId());
-
-        int result = wm.executeUpdate(params);
-
-        assert result == 1;
     }
 }

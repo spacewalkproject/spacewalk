@@ -420,6 +420,19 @@ public class PackageListItem extends IdComboDto {
         return this.getName() + "-" + e + "-" + v + "-" + r;
     }
     
+    /**
+     * Get a string representation of NEVRA:
+     * 
+     * @return String representation of package's NEVRA
+     */
+    public String getNevra() {
+        String e = (this.getEpoch() != null) ? this.getEpoch() : "0";
+        String v = (this.getVersion() != null) ? this.getVersion() : "0";
+        String r = (this.getRelease() != null) ? this.getRelease() : "0";
+        String a = (this.getArch() != null) ? this.getArch() : "0";
+        return this.getName() + "-" + e + "-" + v + "-" + r + "-" + a;
+    }
+
 
     /**
      * {@inheritDoc}
@@ -455,7 +468,7 @@ public class PackageListItem extends IdComboDto {
     
     /**
      * Basically constructs a PackageListItem from a selection key.
-     * @param key the seslect key string containing other metadata
+     * @param key the select key string containing other metadata
      * @return the constructed PackageListItem.
      */
     public static PackageListItem parse(String key) {
@@ -498,6 +511,9 @@ public class PackageListItem extends IdComboDto {
         if (this.getEpoch() != null) {
             builder.append("epoch", this.getEpoch());
         }
+        if (this.getArch() != null) {
+            builder.append("arch", this.getArch());
+        }
         if (this.getTimestamp() != null) {
             builder.append("timestamp", this.getTimestamp());
         }
@@ -519,11 +535,8 @@ public class PackageListItem extends IdComboDto {
         if (this.getArchId() != null) {
             builder.append("archId", this.getArchId());
         }
-        if (this.getArch() != null) {
-            builder.append("idCombo", this.getIdCombo());
-        }
         if (this.getPath() != null) {
-            builder.append("idCombo", this.getIdCombo());
+            builder.append("path", this.getPath());
         }
         if (this.getEvr() != null) {
             builder.append("evr", this.getEvr());
@@ -532,7 +545,7 @@ public class PackageListItem extends IdComboDto {
             builder.append("evra", this.getEvra());
         }
         if (this.getSummary() != null) {
-            builder.append("idCombo", this.getIdCombo());
+            builder.append("summary", this.getSummary());
         }
         if (this.getNvrea() != null) {
             builder.append("nvrea", this.getNvrea());

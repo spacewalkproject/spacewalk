@@ -17,11 +17,10 @@ package com.redhat.rhn.frontend.action.rhnpackage.profile;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnpackage.MissingPackagesException;
-import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -33,6 +32,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +43,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MissingPackageAction extends BaseProfilesAction {
     
+    private static final CompareProfileSetupAction DECL_ACTION = 
+        new CompareProfileSetupAction();
+
     private boolean isSystemSync(RequestContext rctx) {
         String s = rctx.getParam("sync", true);
         return "system".equals(s);
@@ -54,7 +57,7 @@ public class MissingPackageAction extends BaseProfilesAction {
     }
     
     private PackageAction syncToVictim(RequestContext requestContext, Long sid,
-            RhnSet pkgs, String option) {
+            Set pkgIdCombos, String option) {
         
         PackageAction pa = null;
         Long time = requestContext.getParamAsLong("date");
@@ -70,14 +73,12 @@ public class MissingPackageAction extends BaseProfilesAction {
             Long prid = requestContext.getRequiredParam("prid");
             
             pa = ProfileManager.syncToProfile(requestContext.getCurrentUser(), sid,
-                    prid, pkgs.getElementValues(), option, earliest);
+                    prid, pkgIdCombos, option, earliest);
             
             if (pa == null) {
                 createMessage(requestContext.getRequest(), "message.nopackagestosync");
                 return null;
             }
-            
-            
             
             List args = new ArrayList();
             args.add(sid.toString());
@@ -91,7 +92,7 @@ public class MissingPackageAction extends BaseProfilesAction {
         else if (isSystemSync(requestContext)) {
             Long sid1 = requestContext.getRequiredParam("sid_1");
             pa = ProfileManager.syncToSystem(requestContext.getCurrentUser(), sid,
-                    sid1, pkgs.getElementValues(), option, earliest);
+                    sid1, pkgIdCombos, option, earliest);
             
             if (pa == null) {
                 createMessage(requestContext.getRequest(), "message.nopackagestosync");
@@ -150,12 +151,13 @@ public class MissingPackageAction extends BaseProfilesAction {
         RequestContext rctx = new RequestContext(request);
         Long sid = new RequestContext(request).getRequiredParam("sid");
         //Long prid = RhnHelper.getParamAsLong(request, "prid", true);
-        RhnSet pkgs = getSetDecl().get(rctx.getCurrentUser());
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+                getDecl(sid));
         Map params = new HashMap();
         params.put("sid", sid);
      
         try {
-            syncToVictim(rctx, sid, pkgs, ProfileManager.OPTION_REMOVE);
+            syncToVictim(rctx, sid, pkgIdCombos, ProfileManager.OPTION_REMOVE);
             
             return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
                     params);
@@ -181,12 +183,14 @@ public class MissingPackageAction extends BaseProfilesAction {
             HttpServletResponse response) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        RhnSet pkgs = getSetDecl().get(requestContext.getCurrentUser());
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+                getDecl(sid));
         Map params = new HashMap();
         params.put("sid", sid);
         
         try {
-            syncToVictim(requestContext, sid, pkgs, ProfileManager.OPTION_SUBSCRIBE);
+            syncToVictim(requestContext, sid, pkgIdCombos, 
+                    ProfileManager.OPTION_SUBSCRIBE);
 
             return getStrutsDelegate().forwardParams(mapping.findForward("newprofile"),
                     params);
@@ -205,19 +209,19 @@ public class MissingPackageAction extends BaseProfilesAction {
                                        HttpServletRequest request) {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
-        RhnSet pkgs = getSetDecl().get(requestContext.getCurrentUser());
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, getDecl(sid));
         
         if (isProfileSync(requestContext)) {
             Long prid = requestContext.getRequiredParam("prid");
 
-            return ProfileManager.getMissingProfilePackages(requestContext.getCurrentUser(),
-                    sid, prid, pkgs.getElementValues(), null);
+            return ProfileManager.getMissingProfilePackages(
+                    requestContext.getCurrentUser(), sid, prid, pkgIdCombos, null);
         }
         else if (isSystemSync(requestContext)) {
             Long sid1 = requestContext.getRequiredParam("sid_1");
             
-            return ProfileManager.getMissingSystemPackages(requestContext.getCurrentUser(),
-                    sid, sid1, pkgs, null);            
+            return ProfileManager.getMissingSystemPackages(
+                    requestContext.getCurrentUser(),  sid, sid1, pkgIdCombos, null);
         }
         
         return null;
@@ -226,30 +230,15 @@ public class MissingPackageAction extends BaseProfilesAction {
     /**
      * {@inheritDoc}
      */
-    protected void processMethodKeys(Map map) {
-        map.put("missingpkgs.jsp.selectnewpackageprofile",
-                "selectNewPackageProfile");
-        map.put("missingpkgs.jsp.removelistedpackagesfromsync",
-                "removePackagesFromSync");
-        map.put("missingpkgs.jsp.subscribetochannels",
-                "subscribeToChannels");
+    protected Map getKeyMethodMap() {
+        Map map = new HashMap();
+        map.put("missingpkgs.jsp.selectnewpackageprofile", "selectNewPackageProfile");
+        map.put("missingpkgs.jsp.removelistedpackagesfromsync", "removePackagesFromSync");
+        map.put("missingpkgs.jsp.subscribetochannels", "subscribeToChannels");
+        return map;
+    }  
+    
+    protected String getDecl(Long sid) {
+        return DECL_ACTION.getDecl(sid);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
-                                   Map params) {
-        params.put("sid", request.getParameter("sid"));
-        params.put("sync", request.getParameter("sync"));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC;
-    }
-
 }

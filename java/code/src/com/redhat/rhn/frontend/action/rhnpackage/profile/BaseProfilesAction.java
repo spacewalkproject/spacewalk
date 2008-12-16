@@ -15,8 +15,8 @@
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
-import com.redhat.rhn.frontend.action.common.RhnSetAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnLookupDispatchAction;
 
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionMessage;
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  * removing duplicate code from the profile actions.
  * @version $Rev: 60028 $
  */
-public abstract class BaseProfilesAction extends RhnSetAction {
+public abstract class BaseProfilesAction extends RhnLookupDispatchAction {
 
     protected void createMessage(HttpServletRequest req, String key,
             List params) {
@@ -77,5 +77,4 @@ public abstract class BaseProfilesAction extends RhnSetAction {
     protected void createMessage(HttpServletRequest req, String key) {
         createMessage(req, key, null);
     }
-    
 }

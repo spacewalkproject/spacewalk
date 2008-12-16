@@ -17,13 +17,16 @@ package com.redhat.rhn.manager.profile.test;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.NoBaseChannelFoundException;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
@@ -31,12 +34,9 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ProfileDto;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
@@ -47,8 +47,10 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * ProfileManagerTest
@@ -59,31 +61,43 @@ public class ProfileManagerTest extends RhnBaseTestCase {
     public void testSyncSystems() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         UserTestUtils.addManagement(user.getOrg());
-        Server s1 = ServerFactoryTest.createTestServer(user);
-        Server s2 = ServerFactoryTest.createTestServer(user);
-        s1.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        s2.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-    
-        assertFalse(SystemManager.clientCapable(s1.getId(), "packages.runTransaction"));
         
         Channel testChannel = ChannelFactoryTest.createTestChannel(user);
-        
-        Package p1 = PackageManagerTest.addPackageToSystemAndChannel(
-                "foo-package" + TestUtils.randomString(), s1, testChannel);
 
-        PackageManagerTest.addPackageToSystemAndChannel(
-                "foo-package" + TestUtils.randomString(), s2, testChannel);
+        Package p1 = PackageTest.createTestPackage(user.getOrg());
+        Package p2 = PackageTest.createTestPackage(user.getOrg());
+
+        testChannel.addPackage(p1);
+        testChannel.addPackage(p2);
+        ChannelFactory.save(testChannel);
+
+        Server s1 = ServerFactoryTest.createTestServer(user, true,
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
+        Server s2 = ServerFactoryTest.createTestServer(user, true,
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
+
+        s1.addChannel(testChannel);
+        s2.addChannel(testChannel);
+
+        PackageManagerTest.associateSystemToPackageWithArch(s1, p1);
+        PackageManagerTest.associateSystemToPackageWithArch(s2, p2);
         
-        RhnSet selected = RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.get(user); 
-        selected.addElement(p1.getPackageName().getId());
-        RhnSetManager.store(selected);
+        ServerFactory.save(s1);
+        ServerFactory.save(s2);
+
+        StringBuilder idCombo = new StringBuilder();
+        idCombo.append(p1.getPackageName().getId()).append("|");
+        idCombo.append(p1.getPackageEvr().getId()).append("|");
+        idCombo.append(p1.getPackageArch().getId());
+        Set idCombos = new HashSet();
+        idCombos.add(idCombo.toString());
         
         // This call has an embedded transaction in the stored procedure:
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
         // which can cause deadlocks.  We are forced to call commitAndCloseTransaction()
         commitAndCloseSession();
         PackageAction action = ProfileManager.syncToSystem(
-                user, s1.getId(), s2.getId(), selected.getElementValues(), 
+                user, s1.getId(), s2.getId(), idCombos, 
                 ProfileManager.OPTION_REMOVE, new Date());
         assertNotNull(action);
         assertNotNull(action.getPrerequisite());
@@ -626,5 +640,4 @@ public class ProfileManagerTest extends RhnBaseTestCase {
                     ", " + pm.getNameId());
         }
     }
-    
 }
