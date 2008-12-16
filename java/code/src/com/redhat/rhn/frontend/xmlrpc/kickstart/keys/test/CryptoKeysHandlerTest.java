@@ -18,9 +18,12 @@ import java.util.List;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.keys.CryptoKeysHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.frontend.dto.CryptoKeyDto;
+import com.redhat.rhn.testing.UserTestUtils;
 import com.redhat.rhn.common.util.MD5Crypt;
 import org.apache.commons.lang.RandomStringUtils;
 
@@ -33,13 +36,16 @@ public class CryptoKeysHandlerTest extends BaseHandlerTestCase {
 
     public void testListAllKeys() throws Exception {
         // Setup
-        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        User otherOrg = UserTestUtils.findNewUser();
+        CryptoKey key = CryptoTest.createTestKey(otherOrg.getOrg());
         KickstartFactory.saveCryptoKey(key);
         flushAndEvict(key);
 
         // Test
         CryptoKeysHandler handler = new CryptoKeysHandler();
-        List allKeys = handler.listAllKeys(regularKey);
+        
+        List allKeys = handler.listAllKeys(
+                XmlRpcTestUtils.getSessionKey(otherOrg));
         
         // Verify
         assertNotNull(allKeys);

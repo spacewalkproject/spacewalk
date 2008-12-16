@@ -29,7 +29,7 @@ import java.util.Date;
 public class KickstartIpTest extends BaseTestCaseWithUser {
 
     public void testKickstartDataTest() throws Exception {
-        KickstartData k = KickstartDataTest.createTestKickstartData(user.getOrg());
+        KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         assertNotNull(k);
         k = addIpRangesToKickstart(k);
         assertEquals(2, k.getIps().size());
