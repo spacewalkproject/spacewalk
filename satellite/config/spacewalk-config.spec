@@ -47,6 +47,7 @@ ln -s ../../../httpd/conf/magic $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/mag
 ln -s ../../../httpd/conf/ssl.crt $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/ssl.crt
 ln -s ../../../httpd/conf/ssl.key $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/ssl.key
 
+tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc --exclude=etc/tomcat5 | tar -C $RPM_BUILD_ROOT -xvf -
 
 %clean
 rm -rf $RPM_BUILD_ROOT
