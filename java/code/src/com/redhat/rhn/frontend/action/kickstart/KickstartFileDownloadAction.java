@@ -16,22 +16,15 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.DynaActionForm;
-import org.cobbler.Profile;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -71,19 +64,12 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         HttpServletRequest request = ctx.getRequest();
         KickstartFileDownloadCommand cmd = (KickstartFileDownloadCommand) cmdIn;
-        KickstartHelper helper = new KickstartHelper(request);
+        KickstartData data = cmd.getKickstartData();
+        
         KickstartUrlHelper urlHelper = new KickstartUrlHelper(
-                cmd.getKickstartData(), helper.getKickstartHost());
-        
+                data, Config.get().getCobblerHost());        
+        KickstartHelper helper = new KickstartHelper(request);
 
-        Profile prof = Profile.lookupById(
-                CobblerXMLRPCHelper.getConnection(ctx.getLoggedInUser()),
-                cmd.getKickstartData().getCobblerId());
-        
-        String  url = "http://" + Config.get().getCobblerHost() +  
-        urlHelper.getCobblerProfileUrl(prof.getName());
-        
-        String contents = downloadUrl(url);
         
         /*
          * To generate the file data, our kickstart channel must have at least
@@ -92,9 +78,10 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
          * not needed.
          */
         if (helper.verifyKickstartChannel(
-                cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
-            request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(contents));
-            request.setAttribute(KSURL, url);
+                    cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
+            request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
+                    KickstartManager.renderKickstart(data)));
+            request.setAttribute(KSURL, KickstartUrlHelper.getCobblerProfileUrl(data));
         }
         else {
             request.setAttribute(INVALID_CHANNEL, "true");
@@ -111,43 +98,7 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
     }
     
     
-    /**
-     * Downloads text from the URL and returns it as a string
-     * @param url the url
-     * @return the text downloaded
-     */
-    private String downloadUrl(String url) {
-        StringBuffer toReturn = new StringBuffer();
-        URL u;
-        InputStream is = null;
-        try {
-           u = new URL(url);
-           is = u.openStream();      
-           BufferedReader br = new BufferedReader(new InputStreamReader(is));
-           
-           String s;          
-           while ((s = br.readLine()) != null) {
-               toReturn.append(s + "\n");
-           }
-        } 
-        catch (MalformedURLException mue) {
-            toReturn.append(mue.getLocalizedMessage());
-        } 
-        catch (IOException ioe) {
-            toReturn.append(ioe.getLocalizedMessage());
-        }
-        finally {
-           try {
-              if (is != null) {
-                  is.close();
-              }
-           } 
-           catch (IOException ioe) {
-               toReturn.append(ioe.getLocalizedMessage());
-           }
-        }
-        return toReturn.toString();
-    }
+
     
         
 }

@@ -75,7 +75,7 @@ public class CobblerProfileDto extends KickstartDto {
         dto.setLabel(profile.getName());
         dto.setTreeLabel(profile.getDistro().getName());
         dto.setCobblerUrl(KickstartUrlHelper.
-                    getCobblerProfileUrl(profile.getName()));
+                    getCobblerProfilePath(profile.getName()));
         return dto;
     }
     

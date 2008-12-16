@@ -59,13 +59,6 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
 
     }
 
-    public void testGetKickstartViewUrl() {
-        String expected = "http://spacewalk.example.com/" +
-            "ks/cfg/org/" + ksdata.getOrg().getId() + "/view_label/" +
-            ksdata.getLabel(); 
-        assertEquals(expected, helper.getKickstartViewUrl());
-    }
-
     public void testGetKickstartOrgDefaultUrl() {
         String expected = "http://spacewalk.example.com/" +
             "ks/cfg/org/" + ksdata.getOrg().getId() + "/org_default";
