@@ -1,6 +1,6 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.9
+Version:        1.10
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
@@ -46,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
-* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.10-1
 - remove satcon-make-rpm.pl
 
 * Thu Nov 20 2008 Jan Pazdziora 1.9-1
