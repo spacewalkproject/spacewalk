@@ -8,7 +8,7 @@ Summary: OSAD agent
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.9.0
+Version: 5.9.1
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -117,6 +117,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Dec 16 2008 Michael Mraka <michael.mraka@redhat.com> 5.9.1-1
+- resolves #474548 - bumped version
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.2-1
 - resolves #467717 - fixed sysvinit scripts
 
