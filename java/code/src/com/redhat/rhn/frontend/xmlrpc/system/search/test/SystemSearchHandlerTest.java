@@ -24,5 +24,12 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
  *
  */
 public class SystemSearchHandlerTest extends BaseHandlerTestCase {
-    //empty for now
+
+    /**
+     * empty test to act as a place holder
+     * @throws Exception
+     */
+    public void testDummy() throws Exception {
+        assertTrue(true);
+    }
 }
