@@ -28,7 +28,6 @@ Requires: jakarta-commons-configuration
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
-Requires: jakarta-commons-io = 0:1.1
 Requires: jasper5
 Requires: jcommon
 Requires: jfreechart
@@ -58,7 +57,6 @@ BuildRequires: jpam
 BuildRequires: tanukiwrapper
 BuildRequires: javamail
 BuildRequires: jsp
-BuildRequires: jakarta-commons-io
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: asm
