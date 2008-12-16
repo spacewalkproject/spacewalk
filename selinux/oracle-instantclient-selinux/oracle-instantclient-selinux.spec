@@ -5,6 +5,12 @@ Release:	3%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
+# This src.rpm is canonical upstream.
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd spacewalk
+# make srpm TAG=%{name}-%{version}-%{release}
+URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
