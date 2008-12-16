@@ -15,6 +15,8 @@
 
 package org.cobbler.test;
 
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.cobbler.CobblerConnection;
@@ -70,6 +72,15 @@ public class MockConnection extends CobblerConnection {
         if ("get_distros".equals(name) || "get_profiles".equals(name)) {
             Map row = new HashMap();
             row.put("name", TestUtils.randomString());
+            row.put("uid", TestObjectStore.get().getObject("uid"));
+            row.put("virt_bridge", "xenb0");
+            row.put("virt_cpus", Integer.valueOf(1));
+            row.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+            row.put("virt_path", "/tmp/foo");
+            row.put("virt_file_size", Integer.valueOf(8));
+            row.put("virt_ram", Integer.valueOf(512));
+            row.put("kernel_options", new HashMap());
+            row.put("kernel_options_post", new HashMap());
             retval = new LinkedList();
             ((LinkedList) retval).add(row);
         }

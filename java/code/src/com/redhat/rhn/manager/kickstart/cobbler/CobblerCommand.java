@@ -229,14 +229,14 @@ public abstract class CobblerCommand {
         args.add(xmlRpcToken);
         List<Map> profiles = (List) invokeXMLRPC("get_profiles", args);
         for (Map row : profiles) {
-            log.debug("getDistroMap.ROW: " + row + 
+            log.debug("getProfileMap.ROW: " + row + 
                     " looking for: " + uid);
             String id = (String) row.get("uid");
             if (id != null && id.equals(uid)) {
                 return row;
             }
         }
-        return null;
+        return new HashMap();
     }
     
     protected void invokeCobblerUpdate() {

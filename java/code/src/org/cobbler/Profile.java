@@ -98,6 +98,7 @@ public class Profile extends CobblerObject {
         for (Map <String, Object> map : profiles) {
             profile.dataMap = map;
             if (id.equals(profile.getUid())) {
+                System.out.println("Profile: " + profile);
                 return profile;
             }
         }

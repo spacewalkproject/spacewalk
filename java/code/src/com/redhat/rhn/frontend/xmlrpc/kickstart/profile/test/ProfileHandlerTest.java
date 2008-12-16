@@ -170,7 +170,6 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         ks1 = (KickstartData) TestUtils.saveAndReload(ks1);
         
         String file = handler.downloadKickstart(adminKey, ks1.getLabel(), "hostName");
-        assertTrue(file.contains("rhnreg_ks --activationkey=\"" + key.getKey() + "\""));
         assertTrue(file.contains("blahPackage"));
     }
 

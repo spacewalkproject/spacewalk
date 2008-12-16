@@ -18,6 +18,7 @@ import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -111,6 +112,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 for (int i = 0; i < 10; i++) {
                     Map distro = new HashMap();
                     distro.put("name", TestUtils.randomString());
+                    distro.put("uid", String.valueOf(RandomUtils.nextInt(5000)));
                     retval.add(distro);
                 }
                 // Put the mock distro we created with the call to modify_distro

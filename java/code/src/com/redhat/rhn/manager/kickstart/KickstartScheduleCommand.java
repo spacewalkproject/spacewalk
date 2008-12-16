@@ -233,7 +233,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             String kickstartServerNameIn) {
         this(selectedHostServer, 
                 selectedTargetServer, 
-                
                 KickstartFactory.lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid), 
                 userIn, 
                 scheduleDateIn, 
