@@ -59,7 +59,7 @@ use constant DEFAULT_BACKUP_DIR =>
 
 use constant SCHEMAS_DIR => '/usr/share/spacewalk/schema/';
 
-use constant COBBLER_COMMAND => '/usr/bin/cobbler-setup';
+use constant COBBLER_COMMAND => './cobbler-setup';
 
 my %opts = Spacewalk::Setup::parse_options();
 
