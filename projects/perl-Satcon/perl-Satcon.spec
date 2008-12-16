@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com>
+- remove satcon-make-rpm.pl
+
 * Thu Nov 20 2008 Jan Pazdziora 1.9-1
 - make satcon-deploy-tree.pl SELinux-aware
 

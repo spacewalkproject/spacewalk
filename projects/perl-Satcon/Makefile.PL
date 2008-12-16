@@ -6,5 +6,5 @@ WriteMakefile(
     'VERSION_FROM'	=> 'lib/Satcon.pm', # finds $VERSION
     'PREREQ_PM'		=> {}, # e.g., Module::Name => 1.1
     'AUTHOR'            => 'Spacewalk <spacewalk-devel@redhat.com>',
-    'EXE_FILES' => [ 'bin/satcon-build-dictionary.pl', 'bin/satcon-deploy-tree.pl', 'bin/satcon-make-rpm.pl'],
+    'EXE_FILES' => [ 'bin/satcon-build-dictionary.pl', 'bin/satcon-deploy-tree.pl'],
 );
