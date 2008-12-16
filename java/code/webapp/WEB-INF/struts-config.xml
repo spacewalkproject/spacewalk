@@ -452,17 +452,6 @@
             <form-property name="date_am_pm"  type="java.lang.Integer"/>
         </form-bean>
         
-        <form-bean name="syncSystemsForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="use_date"  type="java.lang.Boolean"/>
-            <form-property name="date_year"  type="java.lang.Integer"/>
-            <form-property name="date_month"  type="java.lang.Integer"/>
-            <form-property name="date_day"  type="java.lang.Integer"/>
-            <form-property name="date_hour"  type="java.lang.Integer"/>
-            <form-property name="date_minute"  type="java.lang.Integer"/>
-            <form-property name="date_am_pm"  type="java.lang.Integer"/>
-        </form-bean>
-        
         <form-bean name="applyErrataConfirmForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="use_date"  type="java.lang.Boolean"/>
@@ -3736,6 +3725,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.CompareProfileSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/compareprofiles.jsp"/>
+        <forward name="submit"
+                 path="/systems/details/packages/profiles/SyncProfiles.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/CompareProfilesSubmit"
@@ -3758,6 +3750,9 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.CompareSystemSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/profiles/comparesystems.jsp"/>
+        <forward name="submit"
+                 path="/systems/details/packages/profiles/SyncSystems.do"
+                 redirect="true" />
     </action>
 
     <action path="/systems/details/packages/profiles/CompareSystemsSubmit"
@@ -3775,7 +3770,7 @@
     
     <action path="/systems/details/packages/profiles/SyncProfiles"
         scope="request"
-        name="syncProfilesForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/profiles/syncprofile.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncProfilesSetupAction">
         <forward name="default"
@@ -3784,7 +3779,7 @@
 
     <action path="/systems/details/packages/profiles/SyncProfilesSubmit"
         scope="request"
-        name="syncProfilesForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/profiles/syncprofile.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncProfilesAction"
         parameter="dispatch">
@@ -3804,7 +3799,7 @@
     
     <action path="/systems/details/packages/profiles/SyncSystems"
         scope="request"
-        name="syncSystemsForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/profiles/syncsystem.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncSystemsSetupAction">
         <forward name="default"
@@ -3813,7 +3808,7 @@
 
     <action path="/systems/details/packages/profiles/SyncSystemsSubmit"
         scope="request"
-        name="syncSystemsForm"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/profiles/syncsystem.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.profile.SyncSystemsProfilesAction"
         parameter="dispatch">

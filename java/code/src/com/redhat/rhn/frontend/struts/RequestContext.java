@@ -70,6 +70,7 @@ public class RequestContext {
     public static final String FILTER_ID = "filter_id";
     public static final String ERRATA_ID = "eid";
     public static final String SID = "sid";
+    public static final String SID1 = "sid_1";
     public static final String CID = "cid";
     public static final String PRID = "prid";
     public static final String COBBLER_ID = "cobbler_id";

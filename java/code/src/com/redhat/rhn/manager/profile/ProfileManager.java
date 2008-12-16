@@ -31,7 +31,6 @@ import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileType;
-import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
@@ -225,7 +224,7 @@ public class ProfileManager extends BaseManager {
                             null, PackageMetadata.KEY_THIS_ONLY, param);
                     log.debug("plist is null - adding KEY_THIS_ONLY: " + 
                             pm.getSystem().getVersion());
-                    skipPkg.add(syspkgitem.getNevr());
+                    skipPkg.add(syspkgitem.getNevra());
                     result.add(pm);
                 }
             } 
@@ -243,7 +242,7 @@ public class ProfileManager extends BaseManager {
 
                             PackageListItem profpkgitem = (PackageListItem) plist.get(j);
 
-                            if (skipPkg.contains(profpkgitem.getNevr())) {
+                            if (skipPkg.contains(profpkgitem.getNevra())) {
                                 // this package was evaluated on a previous pass through
                                 // the plist and identified as a match on the syslist; 
                                 // therefore, it may be skipped
@@ -261,12 +260,12 @@ public class ProfileManager extends BaseManager {
                                         PackageMetadata pm = createPackageMetadata(
                                                 syspkgitem, null,
                                                 PackageMetadata.KEY_THIS_ONLY, param);
-                                        skipPkg.add(syspkgitem.getNevr());
+                                        skipPkg.add(syspkgitem.getNevra());
                                         result.add(pm);
 
                                         pm = createPackageMetadata(null, profpkgitem,
                                                 PackageMetadata.KEY_OTHER_ONLY, param);
-                                        skipPkg.add(profpkgitem.getNevr());
+                                        skipPkg.add(profpkgitem.getNevra());
                                         result.add(pm);
                                     }
                                 }
@@ -288,14 +287,14 @@ public class ProfileManager extends BaseManager {
                                             pm.setComparison(
                                                     PackageMetadata.KEY_OTHER_ONLY);
                                             compareMap.put(evrKey, pm);
-                                            skipPkg.add(syspkgitem.getNevr());
-                                            skipPkg.add(profpkgitem.getNevr());
+                                            skipPkg.add(syspkgitem.getNevra());
+                                            skipPkg.add(profpkgitem.getNevra());
                                         }
                                     }
                                     else {
                                         log.debug("Removing from cm: " + evrKey);
                                         compareMap.remove(evrKey);
-                                        skipPkg.add(profpkgitem.getNevr());
+                                        skipPkg.add(profpkgitem.getNevra());
                                         // pkg found in both plist & syslist, skip to next
                                         // syslist entry
                                         break;
@@ -303,7 +302,7 @@ public class ProfileManager extends BaseManager {
                                 }
                             }
                         }
-                        if (!skipPkg.contains(syspkgitem.getNevr())) {
+                        if (!skipPkg.contains(syspkgitem.getNevra())) {
                             
                             // reached end of plist w/o finding match in syslist
                             // or recording a difference; therefore, add one now
@@ -313,7 +312,7 @@ public class ProfileManager extends BaseManager {
                                     null, PackageMetadata.KEY_THIS_ONLY, param);
                             
                             log.debug("*** adding a PM(1): " + pm.hashCode());
-                            skipPkg.add(syspkgitem.getNevr());
+                            skipPkg.add(syspkgitem.getNevra());
                             result.add(pm);
                         }
                     }
@@ -336,12 +335,12 @@ public class ProfileManager extends BaseManager {
                         // pkg arches do not match; therefore, no need to check evr
                         PackageMetadata pm = createPackageMetadata(syspkgitem, null,
                                 PackageMetadata.KEY_THIS_ONLY, param);
-                        skipPkg.add(syspkgitem.getNevr());
+                        skipPkg.add(syspkgitem.getNevra());
                         result.add(pm);
 
                         pm = createPackageMetadata(null, profpkgitem,
                                 PackageMetadata.KEY_OTHER_ONLY, param);
-                        skipPkg.add(profpkgitem.getNevr());
+                        skipPkg.add(profpkgitem.getNevra());
                         result.add(pm);
                     }
                     else {
@@ -353,8 +352,8 @@ public class ProfileManager extends BaseManager {
                             result.add(pm);
                         }
                     }
-                    skipPkg.add(profpkgitem.getNevr());
-                    skipPkg.add(syspkgitem.getNevr());
+                    skipPkg.add(profpkgitem.getNevra());
+                    skipPkg.add(syspkgitem.getNevra());
                 }
             }
         }
@@ -379,7 +378,7 @@ public class ProfileManager extends BaseManager {
                 for (int i = 0; i < plist.size(); i++) {
                     PackageListItem profpkgitem = (PackageListItem) plist.get(i);
 
-                    if (!skipPkg.contains(profpkgitem.getNevr())) {
+                    if (!skipPkg.contains(profpkgitem.getNevra())) {
                         
                         PackageMetadata pm = createPackageMetadata(
                                 null, profpkgitem, PackageMetadata.KEY_OTHER_ONLY, param);
@@ -542,35 +541,34 @@ public class ProfileManager extends BaseManager {
      * @param prid Profile we're syncing with.
      * @param orgid Org id
      * @param pc PageControl
-     * @param pkgs Set of packages selected.
+     * @param pkgIdCombos Set of packages selected.
      * @return DataResult of PackageMetadata's suitable for listview display.
      */
     public static DataResult prepareSyncToProfile(Long sid, Long prid,
-            Long orgid, PageControl pc, Set pkgs) {
+            Long orgid, PageControl pc, Set pkgIdCombos) {
         Map profilesMap = new HashMap();
         List packagesToSync = new ArrayList();
         // seems like a waste, but that's how it works
         DataResult profiles = compareServerToProfile(sid, prid, orgid, null);
         
-        // in order to search the list by nameid, it's easiest to
-        // create a map instead of looping through n times where n
+        // in order to search the list by combo id (name_id|evr_id|arch_id), 
+        // it's easiest to create a map instead of looping through n times where n
         // is the size of the RhnSet.
         for (Iterator itr = profiles.iterator(); itr.hasNext();) {
             PackageMetadata pm = (PackageMetadata) itr.next();
-            profilesMap.put(pm.getNameId(), pm);
+            profilesMap.put(pm.getIdCombo(), pm);
         }
         
         // find all of the items in profiles which are in RhnSet
-        for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
-            Long packageId = (Long) itr.next();
-            PackageMetadata pm = (PackageMetadata) profilesMap.get(packageId);
+        for (Iterator itr = pkgIdCombos.iterator(); itr.hasNext();) {
+            String pkgIdCombo = (String) itr.next();
+            PackageMetadata pm = (PackageMetadata) profilesMap.get(pkgIdCombo);
             pm.updateActionStatus();
             packagesToSync.add(pm);
         }
         
         Collections.sort(packagesToSync);
         return prepareList(packagesToSync, pc);
-        
     }
     
     /**
@@ -579,11 +577,12 @@ public class ProfileManager extends BaseManager {
      * @param sid1 Profile we're syncing with.
      * @param orgid Org id
      * @param pc PageControl
-     * @param pkgs Set of packages selected.
+     * @param pkgIdCombos Set of packages selected.
      * @return DataResult of PackageMetadata's suitable for listview display.
      */
     public static DataResult prepareSyncToServer(Long sid, Long sid1,
-            Long orgid, PageControl pc, Set pkgs) {
+            Long orgid, PageControl pc, Set pkgIdCombos) {
+        
         Map profilesMap = new HashMap();
         List packagesToSync = new ArrayList();
         // seems like a waste, but that's how it works
@@ -592,33 +591,32 @@ public class ProfileManager extends BaseManager {
             log.debug("  profiles .. " + profiles);
         }
 
-        // in order to search the list by nameid, it's easiest to
-        // create a map instead of looping through n times where n
+        // in order to search the list by combo id (name_id|evr_id|arch_id), 
+        // it's easiest to create a map instead of looping through n times where n
         // is the size of the RhnSet.
         for (Iterator itr = profiles.iterator(); itr.hasNext();) {
             
             PackageMetadata pm = (PackageMetadata) itr.next();
             if (log.isDebugEnabled()) {
-                log.debug("  pm, putting: " + pm.getNameId());
+                log.debug("  pm, putting: " + pm.getIdCombo());
             }
 
-            profilesMap.put(pm.getNameId(), pm);
+            profilesMap.put(pm.getIdCombo(), pm);
         }
-        
+
         // find all of the items in profiles which are in RhnSet
-        for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
-            Long packageId = (Long) itr.next();
+        for (Iterator itr = pkgIdCombos.iterator(); itr.hasNext();) {
+            String pkgIdCombo = (String) itr.next();
             if (log.isDebugEnabled()) {
-                log.debug("  rse, fetching: " + packageId);
+                log.debug("  rse, fetching: " + pkgIdCombo);
             }
-            PackageMetadata pm = (PackageMetadata) profilesMap.get(packageId);
+            PackageMetadata pm = (PackageMetadata) profilesMap.get(pkgIdCombo);
             pm.updateActionStatus();
             packagesToSync.add(pm);
         }
         
         Collections.sort(packagesToSync);
         return prepareList(packagesToSync, pc);
-        
     }
     
     /**
@@ -626,14 +624,14 @@ public class ProfileManager extends BaseManager {
      * @param user Current user
      * @param sid Server id to be affected.
      * @param sid1 Profile id to be used to sync.
-     * @param pkgs Set of packages which will be synced.
+     * @param pkgIdCombos Set of packages which will be synced.
      * @param missingoption Defines what do to if packages go missing.  null means
      * ask the user.
      * @param earliest The earliest Date to perform this action
      * @return The PackageAction which was scheduled containing the sync information.
      */
     public static PackageAction syncToSystem(User user, Long sid, Long sid1,
-            Set pkgs, String missingoption, Date earliest) {
+            Set pkgIdCombos, String missingoption, Date earliest) {
         
         if (log.isDebugEnabled()) {
             log.debug("in syncToSystem: " + missingoption);
@@ -646,7 +644,7 @@ public class ProfileManager extends BaseManager {
         }
         
         DataResult dr = prepareSyncToServer(sid, sid1, user.getOrg().getId(),
-                null, pkgs);
+                null, pkgIdCombos);
         
         if (log.isDebugEnabled()) {
             log.debug("prepareTosyncServer results: " + dr);
@@ -669,7 +667,6 @@ public class ProfileManager extends BaseManager {
             if (log.isDebugEnabled()) {
                 log.debug("created an action: " + action);
             }
-            
         }
         else if (OPTION_REMOVE.equals(missingoption)) {
             // User chose to have missing packages removed.  So we will remove
@@ -824,17 +821,17 @@ public class ProfileManager extends BaseManager {
      * @param user Current user
      * @param sid Server id to be affected.
      * @param prid Profile id to be used to sync.
-     * @param pkgs Set of packages which will be synced.
+     * @param pkgIdCombos Set of packages which will be synced.
      * @param missingoption Defines what do to if packages go missing.  null means
      * ask the user.
      * @param earliest The earliest time to perform this action
      * @return The PackageAction which was scheduled containing the sync information.
      */
     public static PackageAction syncToProfile(User user, Long sid, Long prid,
-            Set pkgs, String missingoption, Date earliest) {
+            Set pkgIdCombos, String missingoption, Date earliest) {
         
         DataResult dr = prepareSyncToProfile(sid, prid, user.getOrg().getId(),
-                null, pkgs);
+                null, pkgIdCombos);
         
         // dr should be the list of packages and actions that need to be taken.
         // Now get the channels of the victim (victim being the server).
@@ -870,7 +867,6 @@ public class ProfileManager extends BaseManager {
                     dr.remove(pm);
                 }
             }
-            
             
             if (log.isDebugEnabled()) {
                 log.debug("DataResult size after removals [" + dr.size() + "]");    
@@ -966,15 +962,15 @@ public class ProfileManager extends BaseManager {
      * @param user Current user
      * @param sid Server id
      * @param prid Profile id
-     * @param pkgs Set of packages 
+     * @param pkgIdCombos Set of packages 
      * @param pc page control
      * @return a list of missing packages.
      */
     public static DataResult getMissingProfilePackages(User user, Long sid,
-            Long prid, Set pkgs, PageControl pc) {
+            Long prid, Set pkgIdCombos, PageControl pc) {
         
         DataResult dr = prepareSyncToProfile(sid, prid, user.getOrg().getId(),
-                null, pkgs);
+                null, pkgIdCombos);
         Server server = ServerFactory.lookupById(sid);
         Set channels = server.getChannels();
         List missingpkgs = findMissingPackages(dr, channels);
@@ -993,15 +989,15 @@ public class ProfileManager extends BaseManager {
      * @param user Current user
      * @param sid Server id
      * @param sid1 Profile id
-     * @param pkgs Set of packages 
+     * @param pkgIdCombos Set of packages 
      * @param pc page control
      * @return a list of missing packages.
      */
     public static DataResult getMissingSystemPackages(User user, Long sid,
-            Long sid1, RhnSet pkgs, PageControl pc) {
+            Long sid1, Set pkgIdCombos, PageControl pc) {
         
         DataResult dr = prepareSyncToServer(sid, sid1, user.getOrg().getId(),
-                null, pkgs.getElementValues());
+                null, pkgIdCombos);
         Server server = ServerFactory.lookupById(sid);
         Set channels = server.getChannels();
         List missingpkgs = findMissingPackages(dr, channels);
@@ -1087,10 +1083,8 @@ public class ProfileManager extends BaseManager {
     private static List findMissingPackages(DataResult pkgs, Set channels) {
 
         List missingPkgs = new ArrayList();
-        Map pkgsInChannelsByNameId = new HashMap();
         
         DataResult pkgsInChannels = new DataResult(new ArrayList());
-        
         for (Iterator itr = channels.iterator(); itr.hasNext();) {
             Channel c = (Channel) itr.next();
             DataResult dr = getPackagesInChannelByIdCombo(c.getId());
@@ -1098,20 +1092,34 @@ public class ProfileManager extends BaseManager {
         }
 
         // now determine which packages are in pkgs but not in pkgsInChannels
-        // create map for easy searching and removing dupes
-        // TODO: why don't we use where channel_id IN (list of channels) instead
-        // of calling a query n times where n is the size of the channel list?
-        for (Iterator itr = pkgsInChannels.iterator(); itr.hasNext();)  {
-            PackageListItem pli = (PackageListItem) itr.next();
-            pkgsInChannelsByNameId.put(pli.getIdCombo(), pli);
-        }
         
+        // using pkgsInChannels, build a map of name ids (i.e. key) to list 
+        // of packages (i.e. value) associated w/the id
+        Map pkgsInChannelsByNameId = buildPackagesMap(pkgsInChannels);
+
+        // for each of the pkgs to be synced
         for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
             PackageMetadata pm = (PackageMetadata) itr.next();
-            PackageListItem match = (PackageListItem)
-                    pkgsInChannelsByNameId.get(pm.getIdCombo());
-
-            if (match == null) {
+            // retrieve the packages with the same name that exist w/in channels
+            List<PackageListItem> pkgsInChannel = (List<PackageListItem>)
+                    pkgsInChannelsByNameId.get(pm.getNameId());
+            
+            // attempt to locate a package from pkgsInChannel that has the same nvre
+            // as the pkg to be synced
+            boolean foundMatch = false;
+            if (pkgsInChannel != null) {
+                for (int i = 0; i < pkgsInChannel.size(); i++) {
+                    PackageListItem pkgInChannel = (PackageListItem) pkgsInChannel.get(i);
+                    if (pkgInChannel.getVersion().equals(pm.getVersion()) &&
+                        pkgInChannel.getRelease().equals(pm.getRelease()) &&
+                        (epochcmp(pkgInChannel.getEpoch(), pm.getEpoch()) == 0)) {
+                    
+                        foundMatch = true;
+                        break;  //stop searching for match
+                    }
+                }
+            }
+            if (!foundMatch) {
                 missingPkgs.add(pm);
             }
         }
@@ -1164,29 +1172,19 @@ public class ProfileManager extends BaseManager {
     }
     
     /**
-     * compares metadatas
-     * @param p1 TODO
-     * @param p2 TODO
+     * compares metadatas from 2 package list items
+     * @param p1 the first PackageListItem
+     * @param p2 the second PackageListItem
      * @return 1, -1, or 0
      */
     private static int vercmp(PackageListItem p1, PackageListItem p2) {
-        if (p1.getEpoch() != null && p2.getEpoch() == null) {
-            return 1;
-        }
-        else if (p1.getEpoch() == null && p2.getEpoch() != null) {
-            return -1;
-        }
 
-        if (p1.getEpoch() != null && p2.getEpoch() != null) {
-            int e1 = Integer.parseInt(p1.getEpoch());
-            int e2 = Integer.parseInt(p2.getEpoch());
-            if (e1 < e2) {
-                return -1;
-            }
-            else if (e1 > e2) {
-                return 1;
-            }
+        int epochCmpValue = epochcmp(p1.getEpoch(), p2.getEpoch());
+        if (epochCmpValue != 0) {
+            // Epochs are different; therefore, no need to check version/release
+            return epochCmpValue;
         }
+        
         log.debug("Epoch is the same.  Checking version: " + p1.getVersion() +
                 " vs: " + p2.getVersion());
         RpmVersionComparator rpmvercmp = new RpmVersionComparator();
@@ -1198,7 +1196,55 @@ public class ProfileManager extends BaseManager {
                 " vs: " + p2.getRelease());
         return rpmvercmp.compare(p1.getRelease(), p2.getRelease());
     }
-    
+
+    /**
+     * compare 2 epoch values
+     * @param e1 the first epoch value
+     * @param e2 the second epoch value
+     * @return 1 indicating e1 > e2, -1 indicating e1 < e2, or 0 indicating e1 == e2
+     */
+    private static int epochcmp(String e1, String e2) {
+
+        int epoch1 = -1, epoch2 = -1;
+        if (e1 != null) {
+            epoch1 = Integer.parseInt(e1);
+        }
+        if (e1 != null) {
+            epoch2 = Integer.parseInt(e2);
+        }
+
+        // Epoch of 0 and null should be treated as if they are equal.  
+        // This is necessary due to an issue that exists where packages in a channel
+        // have an epoch of null; however, when a client installs the same package 
+        // (e.g. using yum install) the epoch for the package associated with the 
+        // system is stored as 0.
+
+        boolean e1IsNull = false, e2IsNull = false;
+        if ((epoch1 == -1) || (epoch1 == 0)) {
+            e1IsNull = true;
+        }
+        if ((epoch2 == -1) || (epoch2 == 0)) {
+            e2IsNull = true;
+        }
+        
+        if (e1IsNull && !e2IsNull) {
+            return -1;
+        }
+        else if (!e1IsNull && e2IsNull) {
+            return 1;
+        }
+
+        if (!e1IsNull && !e2IsNull) {
+            if (epoch1 < epoch2) {
+                return -1;
+            }
+            else if (epoch1 > epoch2) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     /**
      * Returns the list of stored profiles.
      * @param orgId The id of the org the profiles are associated with.

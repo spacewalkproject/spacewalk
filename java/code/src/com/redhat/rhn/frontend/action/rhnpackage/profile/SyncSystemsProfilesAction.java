@@ -14,15 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnpackage.MissingPackagesException;
-import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
@@ -36,6 +34,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,8 +45,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SyncSystemsProfilesAction extends BaseProfilesAction {
     
-    private static Logger log = Logger
-            .getLogger(SyncSystemsProfilesAction.class);
+    private static Logger log = Logger.getLogger(SyncSystemsProfilesAction.class);
+    private static final String DATA_SET = "pageList";
+    private static final CompareSystemSetupAction DECL_ACTION = 
+        new CompareSystemSetupAction();
 
     /**
      * Schedules the synchronization of packages.
@@ -66,7 +67,6 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
         User user = requestContext.getCurrentUser();
         Long sid = requestContext.getRequiredParam("sid");
         Long sid1 = requestContext.getRequiredParam("sid_1");
-        RhnSet pkgs = getSetDecl().get(requestContext.getCurrentUser());
         
         //get the earliest time this action should be performed from the form
         DynaActionForm form = (DynaActionForm) formIn;
@@ -78,34 +78,42 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
         }
         
         try {
+            Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+                    getDecl(sid));
+
             PackageAction pa = ProfileManager.syncToSystem(user, sid, sid1, 
-                    pkgs.getElementValues(), null, earliest);
+                    pkgIdCombos, null, earliest);
             
-            addHardwareMessage(pa, requestContext);
+            if (pa != null) {
+                addHardwareMessage(pa, requestContext);
             
-            // sid, actionid, servername, profilename
-            List args = new ArrayList();
-            args.add(sid.toString());
-            args.add(pa.getId().toString());
-            args.add(requestContext.lookupAndBindServer().getName());
-            args.add(SystemManager.lookupByIdAndUser(sid1, user).getName());
+                // sid, actionid, servername, profilename
+                List args = new ArrayList();
+                args.add(sid.toString());
+                args.add(pa.getId().toString());
+                args.add(requestContext.lookupAndBindServer().getName());
+                args.add(SystemManager.lookupByIdAndUser(sid1, user).getName());
             
-            createMessage(request, "message.syncpackages", args);
+                createMessage(request, "message.syncpackages", args);
+            }
+            else {
+                createMessage(request, "message.nopackagestosync");
+            }
             
             if (log.isDebugEnabled()) {
                 log.debug("Returned from syncToProfile");
             }
             
             Map params = new HashMap();
-            params.put("sid", sid);
-            params.put("sid_1", sid1);
+            params.put(RequestContext.SID, sid);
+            params.put(RequestContext.SID1, sid1);
             return getStrutsDelegate().forwardParams(mapping.findForward("success"),
                     params);
         }
         catch (MissingPackagesException mpe) {
             Map params = new HashMap();
-            params.put("sid", sid);
-            params.put("sid_1", sid1);
+            params.put(RequestContext.SID, sid);
+            params.put(RequestContext.SID1, sid1);
             params.put("sync", "system");
             params.put("date", new Long(earliest.getTime()));
             return getStrutsDelegate().forwardParams(mapping.findForward("missing"),
@@ -116,42 +124,16 @@ public class SyncSystemsProfilesAction extends BaseProfilesAction {
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
-                                       HttpServletRequest request) {
-        RequestContext requestContext = new RequestContext(request);
-        
-        Long sid = requestContext.getRequiredParam("sid");
-        Long sid1 = requestContext.getRequiredParam("sid_1");
-        
-        return ProfileManager.compareServerToServer(sid, sid1,
-                user.getOrg().getId(), null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processMethodKeys(Map map) {
+    protected Map getKeyMethodMap() {
+        Map map = new HashMap();
         map.put("schedulesync.jsp.schedulesync", "scheduleSync");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
-                                   Map params) {
-        params.put("sid", request.getParameter("sid"));
-        params.put("sid_1", request.getParameter("sid_1"));
-        getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)formIn, "date",
-                DatePicker.YEAR_RANGE_POSITIVE);
-    }
+        return map;
+    }  
     
     /**
      * {@inheritDoc}
      */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC;
+    public String getDecl(Long sid) {
+        return DECL_ACTION.getDecl(sid);
     }
-
 }

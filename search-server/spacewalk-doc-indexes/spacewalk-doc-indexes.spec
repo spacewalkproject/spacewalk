@@ -28,9 +28,10 @@ documentation/help searches
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/indexes/docs
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/indexes/docs/segments
-cp -a * $RPM_BUILD_ROOT/%{_prefix}/share/rhn/indexes/docs
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
+cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
+cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -38,12 +39,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{_prefix}/share/rhn/indexes/docs
-%dir %{_prefix}/share/rhn/indexes/docs/segments
-%{_prefix}/share/rhn/indexes/docs
+%{_prefix}/share/rhn/search/indexes/docs
 
 
 %changelog
-* Tues Dec 16 2008 John Matthews <jmatthews@redhat.com> 0.4.1-1
+* Tue Dec 16 2008 John Matthews <jmatthews@redhat.com> 0.4.1-1
 - initial
 

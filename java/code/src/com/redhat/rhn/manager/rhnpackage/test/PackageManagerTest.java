@@ -171,6 +171,32 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
     }
     
     /**
+     * This method inserts a record into the rhnServerPackage mapping
+     * table to associate a given Server with a particular Package.
+     * The web code doesn't actually create any of these records, but
+     * this will be needed by the backend code.
+     * @param srvr Server to associate with the packages
+     * @param p The package 
+     */
+    public static void associateSystemToPackageWithArch(Server srvr, Package p) {
+        try {
+            WriteMode m = ModeFactory.getWriteMode("test_queries",
+                "insert_into_rhnServerPackage_with_arch");
+
+            Map<String, Long> params = new HashMap<String, Long>(4);
+            params.put("server_id", srvr.getId());
+            params.put("pn_id", p.getPackageName().getId());
+            params.put("evr_id", p.getPackageEvr().getId());
+            params.put("arch_id", p.getPackageArch().getId());
+
+            m.executeUpdate(params);
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /**
      * Add a new Package to the specified Channel and associate the system 
      * with it. 
      * @param s

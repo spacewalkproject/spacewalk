@@ -31,7 +31,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc %{_prefix}/share/nutch/LICENSE.txt
+%attr(755, root, root) %{_prefix}/share/nutch/bin/*
 %{_prefix}/share/nutch/*
 
 

@@ -2,7 +2,8 @@
 
 <mode name="profile_overview" class="com.redhat.rhn.frontend.dto.ProfileOverviewDto">
   <query params="org_id">
-SELECT SP.ID, SP.NAME, SP.created, C.name CHANNEL_NAME
+SELECT SP.ID, SP.NAME, C.name CHANNEL_NAME,
+       TO_CHAR(SP.created, 'YYYY-MM-DD') AS CREATED
   FROM rhnChannel C,
        rhnServerProfile SP
  WHERE SP.org_id = :org_id
