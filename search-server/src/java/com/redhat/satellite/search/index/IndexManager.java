@@ -102,9 +102,9 @@ public class IndexManager {
             canLookupDocSummary = initDocSummary(docSegmentsDir);
             log.info("canLookupDocSummary = " + canLookupDocSummary);
         }
-        catch (IOException io) {
-            log.info("Caught exception: " + io);
-            io.printStackTrace();
+        catch (Exception e) {
+            log.info("Caught exception: " + e);
+            e.printStackTrace();
             log.info("Lookup for Documentation search summaries will be disabled");
             canLookupDocSummary = false;
         }
