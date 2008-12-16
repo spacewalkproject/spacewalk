@@ -73,6 +73,7 @@ public class IndexManager {
     private int min_ngram;
     private int max_ngram;
     private boolean canLookupDocSummary = false;
+    private boolean filterDocResults = false;
     private FetchedSegments docSegments;
     private AnalyzerFactory nutchAnalyzerFactory;
     // Name conflict with our Configuration class and Hadoop's
@@ -97,6 +98,7 @@ public class IndexManager {
         system_score_threshold = config.getDouble("search.system_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
+        filterDocResults = config.getBoolean("search.doc.limit_results");
         String docSegmentsDir = config.getString("search.doc_segments_dir", null);
         try {
             canLookupDocSummary = initDocSummary(docSegmentsDir);
@@ -379,7 +381,7 @@ public class IndexManager {
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
-            if (isScoreAcceptable(indexName, hits, x)) {
+            if (!isScoreAcceptable(indexName, hits, x)) {
                 break;
             }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
@@ -441,9 +443,21 @@ public class IndexManager {
         }
         return retval;
     }
-    
+    /**
+     *
+     * @param indexName
+     * @param hits
+     * @param x
+     * @return  true - score is acceptable
+     *          false - score is NOT acceptable
+     * @throws IOException
+     */
     private boolean isScoreAcceptable(String indexName, Hits hits, int x)
         throws IOException {
+        if ((indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) &&
+                (!filterDocResults)) {
+            return true;
+        }
         /**
          * Dropping matches which are a poor fit.
          * system searches are filtered based on "system_score_threshold"
@@ -461,11 +475,11 @@ public class IndexManager {
                             hits.length() + ", due to their score being below " +
                             "system_score_threshold = " + system_score_threshold);
                 }
-                return true;
+                return false;
             }
         }
         else if (((hits.score(x) < score_threshold) && (x > 10)) ||
-                (hits.score(x) < 0.01)) {
+                (hits.score(x) < 0.001)) {
             /**
              * Dropping matches which are a poor fit.
              * First term is configurable, it allows matches like spelling errors or
@@ -478,9 +492,9 @@ public class IndexManager {
                         hits.length() + ", due to their score being below " +
                         "score_threshold = " + score_threshold);
             }
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     
     /**
