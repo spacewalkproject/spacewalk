@@ -40,29 +40,6 @@ rm -Rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
 
-find $RPM_BUILD_ROOT%{prepdir} |
-    egrep -v "/etc/init.d/satellite-httpd" |
-    sed -e "s@^$RPM_BUILD_ROOT@@g" > config-filelist
-
-find $RPM_BUILD_ROOT%{prepdir}/etc -type f |
-    egrep -v "/etc/rhn/satellite-httpd/conf/httpd.conf" |
-    egrep -v "jabberd" |
-    egrep -v "/etc/tomcat5/tomcat5.conf" |
-    egrep -v "/etc/init.d/satellite-httpd" |
-    sed -e "s@^$RPM_BUILD_ROOT%{prepdir}/@%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /@g" >> config-filelist
-
-# debugging
-cat config-filelist
-
-mkdir -p $RPM_BUILD_ROOT/etc
-cp -apv $RPM_BUILD_ROOT%{prepdir}/etc $RPM_BUILD_ROOT
-rm $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/httpd.conf
-rm -Rf $RPM_BUILD_ROOT/etc/jabberd
-rm $RPM_BUILD_ROOT/etc/tomcat5/tomcat5.conf
-
-# make rhn.conf zero-length so it doesn't conflict with the file from rhns
-echo -n > $RPM_BUILD_ROOT/etc/rhn/rhn.conf
-
 ln -s ../../httpd/logs $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/logs
 ln -s ../../httpd/run $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/run
 ln -s ../../httpd/modules $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/modules
@@ -74,18 +51,39 @@ ln -s ../../../httpd/conf/ssl.key $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/s
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f config-filelist
-%defattr(0664,root,root,0775)
-%attr(0775,root,root) %{prepdir}/etc/tomcat5
-%attr(0775,root,root) /etc/init.d/satellite-httpd
-%attr(0775,root,root) %{prepdir}/etc/init.d/satellite-httpd
-%attr(0775,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
-/etc/rhn/satellite-httpd/modules
-/etc/rhn/satellite-httpd/logs
-/etc/rhn/satellite-httpd/run
+%files
+%defattr(0644,root,root,0755)
+%attr(0755,root,root) %{prepdir}/etc/tomcat5
+%attr(0755,root,root) /etc/init.d/satellite-httpd
+%attr(0755,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
+%attr(0755,root,root) /etc/rhn/satellite-httpd/conf/startup.pl
+%config(noreplace) /etc/httpd/conf.d/satellite-installed.conf
+%config(noreplace) /etc/jabberd/s2s.xml
+%config(noreplace) /etc/rhn/satellite-httpd/conf/httpd.conf
+%config(noreplace) /etc/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
+%config(noreplace) /etc/rhn/satellite-httpd/conf/rhnweb.conf
+%config(noreplace) /etc/rhn/satellite-httpd/conf/ssl.conf
+%config(noreplace) /etc/rhn/satellite-httpd/conf/workers.properties
+%config(noreplace) /etc/webapp-keyring.gpg
+%dir /etc/jabberd
+%dir /etc/rhn
+%dir /etc/rhn/satellite-httpd
+%dir /etc/rhn/satellite-httpd/conf
+%dir /etc/rhn/satellite-httpd/conf/rhn
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/jabberd/c2s.xml
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/jabberd/sm.xml
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/rhn/cluster.ini
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/rhn/rhn.conf
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/sysconfig/satellite-httpd
 /etc/rhn/satellite-httpd/conf/magic
 /etc/rhn/satellite-httpd/conf/ssl.crt
 /etc/rhn/satellite-httpd/conf/ssl.key
+/etc/rhn/satellite-httpd/logs
+/etc/rhn/satellite-httpd/modules
+/etc/rhn/satellite-httpd/run
+/etc/satname
+%{prepdir}
+
 
 %preun
 if [ $1 = 0 ] ; then
