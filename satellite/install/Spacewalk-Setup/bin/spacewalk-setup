@@ -93,12 +93,14 @@ choose_database_schema(\%answers);
 # If Oracle was selected, call the Oracle specific setup script. If it turns
 # out we need a PostgreSQL specific setup script as well, refactor this to
 # something generic.
-
-if ($answers{'database'} eq 'oracle') {
+if ($answers{'db-backend'} eq 'oracle') {
     Spacewalk::Setup::oracle_setup_db(\%opts, \%answers);
 }
+elsif ($answers{'db-backend'} eq 'postgresql') {
+    Spacewalk::Setup::postgresql_setup_db(\%opts, \%answers);
+}
 else {
-    die "No idea how to install to database: " . $answers{'database'};
+    die "No idea how to install to database: " . $answers{'db-backend'};
 }
 
 print Spacewalk::Setup::loc("* Setting up users and groups.\n");
@@ -107,11 +109,6 @@ setup_users_and_groups();
 setup_services();
 setup_gpg(\%opts);
 
-
-
-
-
-# TODO: Pickup removing Oracle code below:
 setup_admin_email(\%opts, \%answers, \%rhnOptions);
 
 print Spacewalk::Setup::loc("* Performing initial configuration.\n");
@@ -168,12 +165,12 @@ sub choose_database_schema {
     push(@valid_schemas, "oracle");
     # Uncomment this to enable installation of postgresql schema:
     # NOTE: useful for development ONLY at this time.
-    #push(@valid_schemas, "postgresql");
+    push(@valid_schemas, "postgresql");
     my %is_valid_schema = ();
 
     if (scalar(@valid_schemas) eq 1) {
         print "Only one database option available, assuming: " . $valid_schemas[0] . "\n";
-        $answers->{'database'} = $valid_schemas[0];
+        $answers->{'db-backend'} = $valid_schemas[0];
     }
     else {
         print "Available database backends:\n";
@@ -190,7 +187,7 @@ sub choose_database_schema {
                 my $text = shift;
                 $is_valid_schema{$text}
             },
-            -answer => \$answers->{'database'});
+            -answer => \$answers->{'db-backend'});
     }
 
 }
@@ -298,7 +295,7 @@ sub valid_ssl_cert_password {
 sub valid_cert_countries {
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
 
   my $sth = $dbh->prepare(<<EOQ);
   SELECT VC.code AS CODE,
@@ -792,80 +789,88 @@ sub load_satellite_certificate {
 }
 
 sub populate_initial_configs {
-  my $opts = shift;
-  my $answers = shift;
+    my $opts = shift;
+    my $answers = shift;
 
-  my %nls_database_paramaters = Spacewalk::Setup::get_nls_database_parameters($answers);
+    # TODO: This may need to be addressed. Can query this for postgresql with 
+    # "show client_encoding;":
+    my $charset = 'UTF8';
+    if ($answers{'db-backend'} eq 'oracle') {
+        my %nls_database_paramaters = Spacewalk::Setup::get_nls_database_parameters($answers);
+        $charset = $nls_database_paramaters{NLS_CHARACTERSET};
+    }
+    print "Charset = " . $charset . "\n";
 
-  my %config_opts =
+    my %config_opts =
     (
-     mount_point => $answers->{'mount-point'} || '/var/satellite',
-     kickstart_mount_point => $answers->{'kickstart-mount-point'} || $answers->{'mount-point'} || '/var/satellite',
-     serverDOTsatelliteDOThttp_proxy => $answers->{'rhn-http-proxy'} || '',
-     serverDOTsatelliteDOThttp_proxy_username => $answers->{'rhn-http-proxy-username'} || '',
-     serverDOTsatelliteDOThttp_proxy_password => $answers->{'rhn-http-proxy-password'} || '',
-     webDOTis_monitoring_backend => 0,
-     webDOTis_monitoring_scout => 0,
-     webDOTenable_solaris_support => 0,
-     jabberDOThostname => $answers->{hostname},
-     osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
-     encrypted_passwords => 1,
-     default_db => sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
-     db_user => $answers->{'db-user'},
-     db_password => $answers->{'db-password'},
-     db_sid => $answers->{'db-sid'},
-     db_host => $answers->{'db-host'},
-     db_port => $answers->{'db-port'},
-     traceback_mail => $answers->{'admin-email'},
-     jabberDOTusername => 'rhn-dispatcher-sat',
-     jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
-     serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
-     serverDOTnls_lang => 'english.' . $nls_database_paramaters{NLS_CHARACTERSET},
-     server_secret_key => generate_secret(),
-     webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
-     monitoringDOTdbname => $answers->{'db-sid'},
-     monitoringDOTusername => $answers->{'db-user'},
-     monitoringDOTpassword => $answers->{'db-password'},
-     monitoringDOTsmonDOTaddr => '127.0.0.1',
-     monitoringDOTsmonDOTfqdn => 'localhost',
-     monitoringDOTsmonDOTtestaddr => '127.0.0.1',
-     monitoringDOTsmonDOTtestfqdn => 'localhost',
-     monitoringDOTorahome => '/opt/oracle',
-     monitoringDOTdbd => 'Oracle',
-     monitoringDOTscout_shared_key => '', # blank for now.
+        mount_point => $answers->{'mount-point'} || '/var/satellite',
+        kickstart_mount_point => $answers->{'kickstart-mount-point'} || $answers->{'mount-point'} || '/var/satellite',
+        serverDOTsatelliteDOThttp_proxy => $answers->{'rhn-http-proxy'} || '',
+        serverDOTsatelliteDOThttp_proxy_username => $answers->{'rhn-http-proxy-username'} || '',
+        serverDOTsatelliteDOThttp_proxy_password => $answers->{'rhn-http-proxy-password'} || '',
+        webDOTis_monitoring_backend => 0,
+        webDOTis_monitoring_scout => 0,
+        webDOTenable_solaris_support => 0,
+        jabberDOThostname => $answers->{hostname},
+        osadispatcherDOTosa_ssl_cert => '/var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT',
+        encrypted_passwords => 1,
+        default_db => sprintf('%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+        db_backend => $answers->{'db-backend'},
+        db_user => $answers->{'db-user'},
+        db_password => $answers->{'db-password'},
+        db_sid => $answers->{'db-sid'},
+        db_host => $answers->{'db-host'},
+        db_port => $answers->{'db-port'},
+        traceback_mail => $answers->{'admin-email'},
+        jabberDOTusername => 'rhn-dispatcher-sat',
+        jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
+        serverDOTsatelliteDOTca_chain => '/usr/share/rhn/RHNS-CA-CERT',
+        serverDOTnls_lang => 'english.' . $charset,
+        server_secret_key => generate_secret(),
+        webDOTssl_available => $opts->{'skip-ssl-cert-generation'} ? 0 : 1,
+        monitoringDOTdbname => $answers->{'db-sid'},
+        monitoringDOTusername => $answers->{'db-user'},
+        monitoringDOTpassword => $answers->{'db-password'},
+        monitoringDOTsmonDOTaddr => '127.0.0.1',
+        monitoringDOTsmonDOTfqdn => 'localhost',
+        monitoringDOTsmonDOTtestaddr => '127.0.0.1',
+        monitoringDOTsmonDOTtestfqdn => 'localhost',
+        monitoringDOTorahome => '/opt/oracle',
+        monitoringDOTdbd => 'Oracle',
+        monitoringDOTscout_shared_key => '', # blank for now.
     );
 
-  for ($config_opts{'db_password'}) {
-    s/\\/\\\\/g if defined $_;
-  }
-
-  my $parent;
-  if ($answers->{disconnected} || $opts->{disconnected}) {
-    $parent = '';
-    write_config( { 'disconnected' => "1" },
-		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
-
-  }
-  else {
-    $parent = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
-  }
-
-  write_config( { 'server.satellite.rhn_parent' => $parent },
-		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
-
-  foreach my $opt_name (qw/session_swap_secret session_secret/) {
-    foreach my $i (1 .. 4) {
-      $config_opts{"${opt_name}_${i}"} = generate_secret();
+    for ($config_opts{'db_password'}) {
+        s/\\/\\\\/g if defined $_;
     }
-  }
 
-  generate_satcon_dict();
-  write_config(\%config_opts,
-	       '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+    my $parent;
+    if ($answers->{disconnected} || $opts->{disconnected}) {
+        $parent = '';
+        write_config( { 'disconnected' => "1" },
+            '/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
-  satcon_deploy();
+    }
+    else {
+        $parent = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
+    }
 
-  return \%config_opts;
+    write_config( { 'server.satellite.rhn_parent' => $parent },
+        '/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
+
+    foreach my $opt_name (qw/session_swap_secret session_secret/) {
+        foreach my $i (1 .. 4) {
+            $config_opts{"${opt_name}_${i}"} = generate_secret();
+        }
+    }
+
+    generate_satcon_dict();
+    write_config(\%config_opts,
+        '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+
+    satcon_deploy();
+
+    return \%config_opts;
 }
 
 # given a list of directories (by default, /var/satellite)
@@ -916,7 +921,7 @@ sub final_db_config {
   my $options = shift;
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
 SELECT TS.value
   FROM rhnTemplateString TS
@@ -1048,7 +1053,7 @@ sub update_monitoring_environment {
   my $answers = shift;
   my $db_name = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(?)
@@ -1073,7 +1078,7 @@ sub update_monitoring_config {
   my $answers = shift;
   my $mon_config = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = ?,
@@ -1142,7 +1147,7 @@ sub random_password {
 sub clear_db {
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
 
   print Spacewalk::Setup::loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
 
