@@ -16,7 +16,6 @@ Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-Group: Applications/Internet
 #Requires: apache-ibatis-sqlmap
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
