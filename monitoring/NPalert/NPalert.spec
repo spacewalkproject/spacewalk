@@ -136,6 +136,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com>
+- 472895 - remove grouped_fields from Class::MethodMaker declaration
+
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.23-1
 - 474591 - move web data to /usr/share/nocpulse
 

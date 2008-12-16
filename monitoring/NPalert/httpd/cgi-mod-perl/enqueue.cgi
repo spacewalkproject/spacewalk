@@ -280,8 +280,7 @@ sub DumpAlert {
   my($alert) = @_;
 
   my $str = "";
-  my @methods=$alert->all_methods;
-  foreach my $param (@methods) {
+  foreach my $param (NOCpulse::Notif::Alert::ALL_METHODS) {
        $str .= "$param=$alert->{$param}\n";
   }
   return $str;

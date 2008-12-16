@@ -3,18 +3,8 @@ package NOCpulse::Probe::ItemStatus;
 use strict;
 use Data::Dumper;
 
-use Class::MethodMaker
-  grouped_fields => 
-  [
-   transient_fields => 
-   [qw(
-       sequence
-       label
-       units
-       value_format
-      )],
-   persistent_fields => 
-   [qw(
+use constant PERSISTENT_FIELDS =>
+    qw(
        name
        value
        message
@@ -26,8 +16,16 @@ use Class::MethodMaker
        zero_percentage_divisor
        status_changed
        need_notify
-      )],
-  ],
+      );
+
+use Class::MethodMaker
+  get_set => 
+  [qw(
+       sequence
+       label
+       units
+       value_format
+      ), PERSISTENT_FIELDS],
   counter =>
   [qw(
       renotified_count

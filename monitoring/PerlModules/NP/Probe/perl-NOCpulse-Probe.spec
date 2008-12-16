@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com>
+- 472895 - remove grouped_fields from Class::MethodMaker declaration
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.3-1
 - 467441 - fix namespace
 
