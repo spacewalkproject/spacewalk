@@ -17,7 +17,7 @@
 
         </td></tr>
         <tr><td>
-          <pre style="overflow: scroll;">${filedata}</pre>
+          <pre style="overflow: scroll; width: 800px; height: 800px">${filedata}</pre>
         </td></tr>
   </table>
 </div>
