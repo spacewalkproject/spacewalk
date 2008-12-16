@@ -147,26 +147,6 @@
 </tr>
 <tr class="list-row-odd">
   <td class="first-column">
-    <c:if test="${configuration_accessed}">
-      <img src="/img/rhn-listicon-ok.gif"/>
-    </c:if>
-  </td>
-  <td style="text-align: left;" class="last-column">
-    <bean:message key="kickstart.session_status.jsp.status_access_file" />
-  </tr>  
-</tr>
-<tr class="list-row-even">
-  <td class="first-column">
-    <c:if test="${started}">
-      <img src="/img/rhn-listicon-ok.gif"/>
-    </c:if>
-  </td>
-  <td style="text-align: left;" class="last-column">
-    <bean:message key="kickstart.session_status.jsp.status_kickstart" />
-  </tr>  
-</tr>
-<tr class="list-row-odd">
-  <td class="first-column">
     <c:if test="${registered}">
       <img src="/img/rhn-listicon-ok.gif"/>
     </c:if>
