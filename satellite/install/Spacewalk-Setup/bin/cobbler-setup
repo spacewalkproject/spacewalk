@@ -27,20 +27,20 @@ def copy(src, dest):
     shutil.copy(src, dest)
 
 def gen_template(template, answers, output):
-	t = template.Template(file=template, searchList=answers)
+	t = Template(file=template, searchList=answers)
 	open(output,"w").write(t.respond())
 
 def main():
     answers = loadFile(DEFAULTS).next()
-    answers['server'] = gethostbyname(gethostname())
+    answers['server'] = gethostname()
     answers['next_server'] = answers['server']
     answers['redhat_management_server'] = answers['server']
     answers['redhat_management_type'] = 'site'
     answers['authn_module'] = 'authn_spacewalk'
-    gen_template(SETTINGS_TEMPLATE, answers, TMP_SETTINGS)
-    gen_template(MODULES_TEMPLATE, answers, TMP_MODULES)
-    copy(TMP_SETTINGS, SETTINGS)
-    copy(TMP_MODULES, MODULES)
+    gen_template(SETTINGS_TEMPLATE, answers, TEMP_SETTINGS)
+    gen_template(MODULES_TEMPLATE, answers, TEMP_MODULES)
+    copy(TEMP_SETTINGS, SETTINGS)
+    copy(TEMP_MODULES, MODULES)
     
 if __name__=="__main__":
     main()
