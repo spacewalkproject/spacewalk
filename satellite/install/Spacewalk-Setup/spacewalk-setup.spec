@@ -72,11 +72,15 @@ rm -rf %{buildroot}
 %doc Changes README
 %{perl_vendorlib}/*
 %{_bindir}/spacewalk-setup
+%{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
 
 
 %changelog
+* Tue Dec 16 2008 Partha Aji <paji@redhat.com> 0.4.10-1
+- added the cobbler setup module to build the spacewalk rpm.
+
 * Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.9-1
 - resolved #471225 - moved /sbin stuff to /usr/sbin
 
