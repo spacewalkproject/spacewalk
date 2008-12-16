@@ -8,7 +8,7 @@ Summary:      Probe execution framework
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.183.3
+Version:      1.183.4
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -74,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.4-1
 - 472895 - remove grouped_fields from Class::MethodMaker declaration
 
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.3-1
