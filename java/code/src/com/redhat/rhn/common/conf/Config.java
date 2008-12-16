@@ -632,7 +632,7 @@ public class Config {
      */
     public String getCobblerServerUrl() {
         String cobblerServer = getCobblerHost();
-        int cobblerServerPort = getInt("cobbler_server.port", 80);
+        int cobblerServerPort = getInt("cobbler.port", 80);
         return "http://" + cobblerServer + ":" + cobblerServerPort + "/cobbler_api_rw";
     }
     
@@ -642,7 +642,7 @@ public class Config {
      * @return the cobbler hostname
      */
     public String getCobblerHost() {
-        return getString("cobbler_server.host", "localhost");
+        return getString("cobbler.host", "localhost");
     }
     
 

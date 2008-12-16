@@ -5,6 +5,9 @@ from socket import gethostbyname, gethostname
 import shutil
 from os.path import exists, join, dirname, basename, isdir, isfile
 from os import system
+import sys
+sys.path.append('/usr/share/rhn')
+import common
 
 TEMPLATES_DIR = '/usr/share/cobbler/installer_templates'
 MODULES_TEMPLATE = join(TEMPLATES_DIR, 'modules.conf.template')
@@ -18,6 +21,7 @@ SETTINGS = join(CONFIG_DIR, 'settings')
 TEMP_MODULES = '/tmp/modules.conf'
 TEMP_SETTINGS = '/tmp/settings'
 
+    
 def copy(src, dest):
     if exists(dest):
         if isfile(dest):
@@ -41,6 +45,9 @@ def main():
     gen_template(MODULES_TEMPLATE, answers, TEMP_MODULES)
     copy(TEMP_SETTINGS, SETTINGS)
     copy(TEMP_MODULES, MODULES)
+
+    system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
+                                        common.rhnConfig._CONFIG_FILE))
     
 if __name__=="__main__":
     main()
