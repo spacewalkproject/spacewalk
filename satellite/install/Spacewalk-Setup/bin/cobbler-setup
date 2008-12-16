@@ -31,7 +31,7 @@ def gen_template(template, answers, output):
 	open(output,"w").write(t.respond())
 
 def main():
-    answers = cyaml.loadFile(DEFAULTS).next()
+    answers = loadFile(DEFAULTS).next()
     answers['server'] = gethostbyname(gethostname())
     answers['next_server'] = answers['server']
     answers['redhat_management_server'] = answers['server']
