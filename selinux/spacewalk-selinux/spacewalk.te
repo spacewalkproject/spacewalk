@@ -25,7 +25,7 @@ files_type(spacewalk_cache_t);
 allow httpd_t spacewalk_install_log_t:file { append ioctl };
 allow restorecon_t spacewalk_install_log_t:file { append };
 
-allow httpd_t self:process { execstack execmem execheap };
+allow httpd_t self:process { execheap };
 
 dontaudit httpd_sys_script_t httpd_log_t:file { ioctl };
 
