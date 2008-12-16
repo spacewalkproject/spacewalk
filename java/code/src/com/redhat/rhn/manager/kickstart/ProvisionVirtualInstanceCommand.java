@@ -74,15 +74,60 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
 
         // We'll pass in the host server here, since the host server is the
         // only one that exists.
-
-        super(selectedServer, null, ksid, userIn, scheduleDateIn, kickstartServerNameIn);
-        this.setScheduleDate(scheduleDateIn);
-        this.setKsdata(KickstartFactory.
-            lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid));
-        this.setKickstartServerName(kickstartServerNameIn);
-        assert (this.getKsdata() != null);
+        this(selectedServer, KickstartFactory.
+                        lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid),
+                        userIn, scheduleDateIn, kickstartServerNameIn);
     }
 
+    /**
+     * Constructor to be used when you want to call the store() 
+     * method.
+     * 
+     * @param selectedServer server to kickstart
+     * @param ksData the KickstartData we are using
+     * @param userIn user performing the kickstart
+     * @param scheduleDateIn Date to schedule the KS.
+     * @param kickstartServerNameIn the name of the server who is kickstarting 
+     *                              this machine 
+     */
+    public ProvisionVirtualInstanceCommand(Long selectedServer, 
+                                KickstartData ksData, 
+            User userIn, Date scheduleDateIn, String kickstartServerNameIn) {
+
+        // We'll pass in the host server here, since the host server is the
+        // only one that exists.
+
+        super(selectedServer, null, ksData, userIn, scheduleDateIn, kickstartServerNameIn);
+    }    
+
+    /**
+     * Creates the Kickstart Sechdule command that works with a cobbler  only
+     *  kickstart where the host and the target may or may *not* be
+     * the same system.  If the target system does not yet exist, selectedTargetServer
+     * should be null.  To be used when you want to call the store() method.
+     * 
+     * @param selectedServer server to host the kickstart
+     * @param label cobbler only profile label.
+     * @param userIn user performing the kickstart
+     * @param scheduleDateIn Date to schedule the KS.
+     * @param kickstartServerNameIn the name of the server who is serving the kickstart
+     * @return the created cobbler only profile aware kickstartScheduleCommand
+     */
+    public static ProvisionVirtualInstanceCommand createCobblerScheduleCommand(
+                                            Long selectedServer,
+                                            String label, 
+                                            User userIn, 
+                                            Date scheduleDateIn, 
+                                            String kickstartServerNameIn) {
+        
+        ProvisionVirtualInstanceCommand cmd = new 
+                                        ProvisionVirtualInstanceCommand(selectedServer,
+                     (KickstartData)null,  userIn, scheduleDateIn, kickstartServerNameIn);
+        cmd.cobblerProfileLabel = label;
+        cmd.cobblerOnly =  true;
+        return cmd;
+        
+    }    
     /**
      * @param prereqAction the prerequisite for this action
      *
@@ -108,13 +153,12 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     public Action scheduleKickstartAction(Action prereqAction) {
     
         KickstartSession ksSession = getKickstartSession();
-    
+        Long sessionId = (ksSession != null) ? ksSession.getId() : null;
         //TODO -- It feels a little dirty to pass in this & this.getExtraOptions,
         //but I don't know that I understand the implications of making getExtraOptions
         //a public method.
         KickstartGuestAction ksAction = (KickstartGuestAction)
-            ActionManager.scheduleKickstartGuestAction(this, 
-                                                       ksSession.getId());
+            ActionManager.scheduleKickstartGuestAction(this, sessionId);
     
         ksAction.setPrerequisite(prereqAction.getId());
         ActionFactory.save(ksAction);

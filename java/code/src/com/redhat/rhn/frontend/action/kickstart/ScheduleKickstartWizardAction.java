@@ -356,7 +356,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @param host the  host url.
      * @return the Ks schedule command
      */
-    private KickstartScheduleCommand getScheduleCommand(DynaActionForm form,
+    protected KickstartScheduleCommand getScheduleCommand(DynaActionForm form,
             RequestContext ctx, Date scheduleTime, String host) {
         String cobblerId = form.getString(RequestContext.COBBLER_ID);
         User user = ctx.getLoggedInUser();

@@ -117,8 +117,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     
     private User user;
     private KickstartData ksdata;
-    private String cobblerProfileLabel;
-    private boolean cobblerOnly;
+    protected String cobblerProfileLabel;
+    protected boolean cobblerOnly;
     private KickstartSession kickstartSession;
     private Date scheduleDate;
     private List packagesToInstall;

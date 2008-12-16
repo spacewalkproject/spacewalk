@@ -14,11 +14,19 @@
  */
 package com.redhat.rhn.frontend.action.systems.virtualization;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
+import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.struts.wizard.WizardStep;
+import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
+import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -28,16 +36,11 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
-import com.redhat.rhn.frontend.action.kickstart.ScheduleKickstartWizardAction;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.frontend.struts.wizard.WizardStep;
-import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
-import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 /**
  * ProvisionVirtualizationWizardAction extends ScheduleKickstartWizardAction
  * @version $Rev$
@@ -118,13 +121,9 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             scheduleTime = new Date();
         }
         KickstartHelper helper = new KickstartHelper(ctx.getRequest());
-        ProvisionVirtualInstanceCommand cmd = 
-            new ProvisionVirtualInstanceCommand(
-                (Long) form.get(RequestContext.SID),
-                (Long) form.get(RequestContext.KICKSTART_ID),
-                ctx.getCurrentUser(),
-                scheduleTime,
-                helper.getKickstartHost());
+        
+        ProvisionVirtualInstanceCommand cmd = getScheduleCommand(form,
+                                ctx, scheduleTime, helper.getKickstartHost());
         
         if (StringUtils.isEmpty(form.getString(USE_EXISTING_PROFILE))) {
             form.set(USE_EXISTING_PROFILE, Boolean.TRUE.toString());
@@ -170,7 +169,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }
-
+    @Override
     protected KickstartScheduleCommand getKickstartScheduleCommand(Long sid,
                                                                    User currentUser) {
         return (KickstartScheduleCommand)
@@ -223,5 +222,32 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         }       
 
         return errors;
+    }
+    
+    @Override
+    protected ProvisionVirtualInstanceCommand getScheduleCommand(DynaActionForm form,
+            RequestContext ctx, Date scheduleTime, String host) {
+        String cobblerId = form.getString(RequestContext.COBBLER_ID);
+        User user = ctx.getLoggedInUser();
+        ProvisionVirtualInstanceCommand cmd;
+        KickstartData data = KickstartFactory.
+                lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerId);
+        if (data != null) {
+            cmd = 
+                new ProvisionVirtualInstanceCommand(
+                        (Long) form.get(RequestContext.SID),
+                        data,
+                        ctx.getCurrentUser(),
+                        scheduleTime,
+                        host);            
+        }
+        else {
+            org.cobbler.Profile profile = org.cobbler.Profile.
+                    lookupById(CobblerXMLRPCHelper.getConnection(user), cobblerId);
+            cmd = ProvisionVirtualInstanceCommand.createCobblerScheduleCommand((Long)
+                                                form.get(RequestContext.SID),
+                                     profile.getName(), user, scheduleTime,  host);
+        }
+        return cmd;
     }
 }
