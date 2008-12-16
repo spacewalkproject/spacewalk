@@ -8,16 +8,14 @@ fi
 
 export NUTCH_HOME=/usr/share/nutch
 export NUTCH_CONF_DIR=`pwd`/crawl_www/conf
-export NUTCH_OPTS=-Djava.util.logging.config.file="${NUTCH_CONF}/logging.properties"
+export NUTCH_OPTS=
 export NUTCH_LOG_DIR=`pwd`/logs
-export NUTCH_LOG_FILE=$0.log
 export OUTPUT_DIR=`pwd`/data/crawl_www
 
 echo "NUTCH_HOME = ${NUTCH_HOME}"
 echo "NUTCH_CONF_DIR = ${NUTCH_CONF_DIR}"
 echo "NUTCH_OPTS = ${NUTCH_OPTS}"
 echo "NUTCH_LOG_DIR = ${NUTCH_LOG_DIR}"
-echo "NUTCH_LOG_FILE = ${NUTCH_LOG_FILE}"
 echo "OUTPUT_DIR = ${OUTPUT_DIR}"
 
 if [ ! -d ${NUTCH_LOG_DIR} ]; then
@@ -25,13 +23,10 @@ if [ ! -d ${NUTCH_LOG_DIR} ]; then
     mkdir ${NUTCH_LOG_DIR}
 fi
 
-
 if [ ! -d ${OUTPUT_DIR} ]; then
     echo "Creating output directory ${OUTPUT_DIR}"
     mkdir -p ${OUTPUT_DIR}
 fi
-#Need to adjust nutch RPM so it's scripts under bin are executable by all
-#Need to learn how to redirect hadoop/nutch logs to /var/log output
 
-${NUTCH_HOME}/bin/nutch crawl ${NUTCH_CONF_DIR}/../urls -dir ${OUTPUT_DIR} -depth 10 -threads 50
+${NUTCH_HOME}/bin/nutch crawl ${NUTCH_CONF_DIR}/../urls -dir ${OUTPUT_DIR} -depth 10 -threads 50 | tee ${NUTCH_LOG_DIR}/$0.log
 
