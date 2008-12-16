@@ -1,16 +1,16 @@
 
-Name:            oracle-instantclient-selinux
-Version:         10.2
-Release:         3%{?dist}
-Summary:         SELinux support for Oracle Instant Client
-Group:           System Environment/Base
-License:         GPLv2+
-BuildRoot:       %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArch:       noarch
+Name:		oracle-instantclient-selinux
+Version:	10.2
+Release:	3%{?dist}
+Summary:	SELinux support for Oracle Instant Client
+Group:		System Environment/Base
+License:	GPLv2+
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:	noarch
 
-Requires(post):   /usr/sbin/semanage, /sbin/restorecon
-Requires(postun):  /usr/sbin/semanage, /sbin/restorecon
-Requires:         oracle-instantclient-basic
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
+Requires:	oracle-instantclient-basic
 
 %description
 SELinux support for Oracle Instant Client.
