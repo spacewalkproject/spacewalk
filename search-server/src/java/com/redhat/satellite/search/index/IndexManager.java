@@ -661,8 +661,6 @@ public class IndexManager {
         analyzer.addAnalyzer("arch", new KeywordAnalyzer());
         analyzer.addAnalyzer("version", new KeywordAnalyzer());
         analyzer.addAnalyzer("filename", new KeywordAnalyzer());
-        analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
-        analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
         return analyzer;
     }
 
