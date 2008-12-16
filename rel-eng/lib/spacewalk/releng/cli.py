@@ -82,7 +82,7 @@ class CLI:
 
         parser.add_option("--tag-release", dest="tag_release",
                 action="store_true",
-                help="Tag a new release of the package. (i.e. x.y.z-R+1")
+                help="Tag a new release of the package.")
         parser.add_option("--keep-version", dest="keep_version",
                 action="store_true",
                 help="Use spec file version/release to tag package.")
