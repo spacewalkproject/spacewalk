@@ -879,9 +879,10 @@ IS
         org_id := rhn_user.get_org_id(user_id_in);
 
         -- channel might be shared
-        if rhn_channel.shared_user_role_check(channel_id_in, user_id_in, role_in) = 1 then
+        if role_in = 'subscribe' and
+           rhn_channel.shared_user_role_check(channel_id_in, user_id_in, role_in) = 1 then
             return 1;
-            end if;
+        end if;
         
         if role_in = 'manage' and 
            NVL(rhn_channel.get_org_id(channel_id_in), -1) <> org_id then
