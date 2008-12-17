@@ -113,7 +113,9 @@
         <rhn-tab-url>/rhn/software/downloads/RetiredISOs.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do" />
+    <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do">
+      <rhn-tab-directory>/network/software/packages</rhn-tab-directory>
+    </rhn-tab>
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
       <rhn-tab-url>/network/software/channels/manage/index.pxt</rhn-tab-url>
