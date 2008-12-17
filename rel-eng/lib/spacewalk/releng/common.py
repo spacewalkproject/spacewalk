@@ -134,8 +134,8 @@ class BuildCommon:
         This call will error out if the spec file cannot be located in the
         current working directory.
         """
-        spec_file_path = os.path.join(self.full_project_dir,
-                self.spec_file_name)
+        spec_file_path = os.path.join(os.getcwd(),
+                find_spec_file())
         if not os.path.exists(spec_file_path):
             error_out("Unable to get project name from spec file: %s" %
                     spec_file_path)
