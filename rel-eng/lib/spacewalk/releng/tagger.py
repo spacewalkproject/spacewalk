@@ -22,7 +22,7 @@ import StringIO
 from time import strftime
 
 from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
-        debug, get_spec_version_and_release
+        debug, get_spec_version_and_release, error_out
 
 
 class VersionTagger(BuildCommon):
@@ -85,7 +85,7 @@ class VersionTagger(BuildCommon):
             # TODO: Instead of dying here, we could try to add one automatically
             # and generate the changelog entries from the first line of the git commit
             # history for all commits since the last package version was tagged.
-            raise Exception("No changelog entry found: '* %s %s <%s>'" % (
+            error_out("No changelog entry found: '* %s %s <%s>'" % (
                 self.today, self.git_user, self.git_email))
         else:
             debug("Found changelog entry.")
