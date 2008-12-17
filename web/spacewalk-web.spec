@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com>
+- 226915 - db_name can be different from db instance name
+
 * Wed Dec 17 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.7-1
 - 476812 - monitoring should be aware of multiorg
 

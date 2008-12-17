@@ -336,9 +336,14 @@ EOQ
 
 sub update_monitoring_environment {
   my $class = shift;
-  my $db_name = shift;
 
   my $dbh = RHN::DB->connect;
+  # BZ 226915 we cannot use db_name from %answers - it contains instance name
+  # we want real db name
+  my $sth = $dbh->prepare(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+  $sth->execute;
+  my ($db_name) = $sth->fetchrow;
+
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(:db_name)

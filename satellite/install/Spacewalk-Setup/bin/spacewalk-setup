@@ -1028,7 +1028,7 @@ sub setup_monitoring {
 
   my $dbname = $mon_config{RHN_DB_NAME};
 
-  update_monitoring_environment($answers, $dbname);
+  update_monitoring_environment($answers);
 
   my $org_id = RHN::SatInstall->get_satellite_org_id();
   my $sc = new RHN::SatCluster(customer_id => $org_id,
@@ -1046,9 +1046,14 @@ sub setup_monitoring {
 
 sub update_monitoring_environment {
   my $answers = shift;
-  my $db_name = shift;
 
   my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  # BZ 226915 we cannot use db_name from %answers - it contains instance name
+  # we want real db name
+  my $sth = $dbh->prepare(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+  $sth->execute;
+  my ($db_name) = $sth->fetchrow;
+
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(?)

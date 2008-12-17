@@ -78,6 +78,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com> 
+- 226915 - db_name can be different from db instance name
+
 * Tue Dec 16 2008 Partha Aji <paji@redhat.com> 0.4.10-1
 - added the cobbler setup module to build the spacewalk rpm.
 
