@@ -226,6 +226,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 17 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- 476893 - update perl package verify access query to be multiorg aware
+- 461593 - fixing web site nav for package details
+
 * Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.8-1
 - 226915 - db_name can be different from db instance name
 
