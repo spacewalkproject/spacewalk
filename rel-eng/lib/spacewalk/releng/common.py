@@ -50,17 +50,19 @@ def error_out(error_msgs):
         print "ERROR: %s" % error_msgs
     sys.exit(1)
 
-def find_spec_file():
+def find_spec_file(in_dir=None):
     """
     Find the first spec file in the current directory. (hopefully there's
     only one)
 
     Returns only the file name, rather than the full path.
     """
-    for f in os.listdir(os.getcwd()):
+    if in_dir == None:
+        in_dir = os.getcwd()
+    for f in os.listdir(in_dir):
         if f.endswith(".spec"):
             return f
-    error_out(["Unable to locate a spec file in %s" % os.getcwd()])
+    error_out(["Unable to locate a spec file in %s" % in_dir])
 
 def find_git_root():
     """
@@ -120,44 +122,28 @@ class BuildCommon:
 
         self.git_root = find_git_root() 
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
-        self.relative_project_dir = self._get_relative_project_dir(
-                self.git_root) # i.e. java/
-        self.full_project_dir = os.getcwd()
-        self.spec_file_name = find_spec_file()
-        self.project_name = self._get_project_name()
 
-    def _get_project_name(self):
+    def _get_project_name_from_spec(self):
         """
         Get the project name from the spec file.
 
         Uses the spec file in the current git branch as opposed to the copy
         we make using git archive. This is done because we use this
         information to know what git tag to use to generate that archive.
+
+        This call will error out if the spec file cannot be located in the
+        current working directory.
         """
         spec_file_path = os.path.join(self.full_project_dir,
                 self.spec_file_name)
         if not os.path.exists(spec_file_path):
-            raise Exception("Unable to get project name from spec file: %s" %
+            error_out("Unable to get project name from spec file: %s" %
                     spec_file_path)
 
         output = run_command(
             "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
             spec_file_path)
         return output
-
-    def _get_relative_project_dir(self, git_root):
-        """
-        Returns the patch to the project we're working with relative to the
-        git root.
-
-        *MUST* be called before doing any os.cwd().
-
-        i.e. java/, satellite/install/Spacewalk-setup/, etc.
-        """
-        # TODO: I think this can be done with rel-eng/packages/ data instead.
-        current_dir = os.getcwd()
-        relative = current_dir[len(git_root) + 1:] + "/"
-        return relative
 
     def _get_latest_tagged_version(self):
         """

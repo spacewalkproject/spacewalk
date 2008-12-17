@@ -25,7 +25,7 @@ from optparse import OptionParser
 
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
-from spacewalk.releng.common import find_spec_file, find_git_root, \
+from spacewalk.releng.common import find_git_root, \
         error_out, debug
 
 def get_class_by_name(name):
@@ -142,7 +142,6 @@ class CLI:
         Check for exactly one spec file and ensure dir is somewhere within a 
         git checkout.
         """
-        find_spec_file()
         find_git_root()
 
     def _read_project_config(self, project_dir):
