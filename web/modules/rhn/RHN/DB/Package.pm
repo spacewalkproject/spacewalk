@@ -1313,21 +1313,26 @@ sub org_permission_check {
   my $org_id = shift;
 
     my $query = <<EOQ;
-SELECT	CP.package_id
-  FROM  rhnChannelPackage CP, rhnChannelFamilyMembers CFM, rhnChannelFamilyPermissions CFP
- WHERE  (CFP.org_id IS NULL OR CFP.org_id = ?)
-   AND  CFP.channel_family_id = CFM.channel_family_id
-   AND  CFM.channel_id = CP.channel_id
-   AND  CP.package_id = ?
+SELECT 1
+  FROM rhnPackage P
+ WHERE p.id = :pid
+   AND (   P.org_id = :org_id
+        OR EXISTS (SELECT 1
+                     FROM rhnChannelPackage CP,
+                          rhnAvailableChannels AC
+                    WHERE AC.org_id = :org_id
+                      AND AC.channel_id = CP.channel_id
+                      AND CP.package_id = :pid)
+       )
 EOQ
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare($query);
-  $sth->execute($org_id, $pid);
+  $sth->execute_h(org_id => $org_id, pid => $pid);
 
   my ($has_permission) = $sth->fetchrow();
   $sth->finish();
-
+  warn "HAS PERM is $has_permission";
   return $has_permission;
 }
 

@@ -5,8 +5,11 @@
 all ::
 
 rhnActionOverview		:: rhnAction rhnActionType web_contact
-rhnAvailableChannels		:: rhnServer rhnServerChannel \
-				   rhnOrgChannelTreeView rhn_channel_HEAD
+rhnAvailableChannels		:: rhnServer \
+				   rhnServerChannel \
+				   rhnOrgChannelTreeView \
+				   rhnSharedChannelTreeView \
+				   rhn_channel_HEAD 
 rhnCDDevice			:: rhnDevice
 rhnChannelFamilyServerPhysical :: rhnServerEntitlementView \
 		   					 rhnChannelFamilyVirtSubLevel \
@@ -146,3 +149,5 @@ rhn_host_monitoring		:: rhnServer rhnServerNetInterface \
 				   rhn_server_monitoring_info
 web_customer_orders		:: web_user_order web_user_order_line \
 				   rh_product web_customer_product web_contact
+rhnSharedChannelView		:: rhnChannel rhnChannelTrust rhnTrustedOrgs
+rhnSharedChannelTreeView	:: rhnSharedChannelView

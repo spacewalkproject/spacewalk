@@ -36,6 +36,13 @@ class VersionTagger(BuildCommon):
     def __init__(self, keep_version=False, debug=False):
         BuildCommon.__init__(self, debug)
 
+        self.full_project_dir = os.getcwd()
+        self.spec_file_name = find_spec_file()
+        self.project_name = self._get_project_name_from_spec()
+
+        self.relative_project_dir = self._get_relative_project_dir(
+                self.git_root) # i.e. java/
+
         self.spec_file = os.path.join(self.full_project_dir,
                 self.spec_file_name)
         self.keep_version = keep_version
@@ -112,6 +119,19 @@ class VersionTagger(BuildCommon):
         f.write(buf.getvalue())
         f.close()
         buf.close()
+
+    def _get_relative_project_dir(self, git_root):
+        """
+        Returns the patch to the project we're working with relative to the
+        git root.
+
+        *MUST* be called before doing any os.cwd().
+
+        i.e. java/, satellite/install/Spacewalk-setup/, etc.
+        """
+        current_dir = os.getcwd()
+        relative = current_dir[len(git_root) + 1:] + "/"
+        return relative
 
     def _bump_version(self, release=False):
         """

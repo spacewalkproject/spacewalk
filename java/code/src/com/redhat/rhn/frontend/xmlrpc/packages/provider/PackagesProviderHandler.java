@@ -48,8 +48,8 @@ public class PackagesProviderHandler extends BaseHandler {
      * @param sessionKey  the session key
      * @return List of package providers
      * 
-     * @xmlrpc.doc List all Package Providers 
-     *          (requires the user to be a Satellite admin).
+     * @xmlrpc.doc List all Package Providers.
+     * User executing the request must be a Satellite administrator.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype 
      *  #array()
@@ -71,13 +71,13 @@ public class PackagesProviderHandler extends BaseHandler {
      * @param providerName the provider name
      * @return set of package keys
      * 
-     * @xmlrpc.doc List all security keys associated with a package provider 
-     *      (requires the user to be a Satellite admin).
+     * @xmlrpc.doc List all security keys associated with a package provider. 
+     * User executing the request must be a Satellite administrator.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param param_desc("string", "providerName", "The provider name")
+     * @xmlrpc.param #param_desc("string", "providerName", "The provider name")
      * @xmlrpc.returntype 
      *  #array()
-     *      $PackageKeySeriazlier
+     *      $PackageKeySerializer
      *  #array_end()
      */
     public Set<PackageKey> listKeys(String sessionKey, String providerName) {
@@ -101,13 +101,13 @@ public class PackagesProviderHandler extends BaseHandler {
      * @return 1 on success
      * 
      * @xmlrpc.doc Associate a package security key and with the package provider.  
-     *      If the provider or key doesn't exist, it is created 
-     *      (requires the user to be a Satellite admin).
+     *      If the provider or key doesn't exist, it is created. User executing the
+     *      request must be a Satellite administrator.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param param_desc("string", "providerName", "The provider name")
-     * @xmlrpc.param param_desc("string", "key", "The actual key")
-     * @xmlrpc.param param_desc("string", "type", "The type of the key, 
-     *          (currently only 'gpg' is supported")
+     * @xmlrpc.param #param_desc("string", "providerName", "The provider name")
+     * @xmlrpc.param #param_desc("string", "key", "The actual key")
+     * @xmlrpc.param #param_desc("string", "type", "The type of the key. Currently,
+     * only 'gpg' is supported") 
      * @xmlrpc.returntype 
      *      #return_int_success()
      */

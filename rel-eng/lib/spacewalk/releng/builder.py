@@ -15,11 +15,12 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
+import re
 import sys
 import commands
 
 from spacewalk.releng.common import BuildCommon, read_config, run_command, \
-        check_tag_exists, debug, error_out, get_spec_version
+        check_tag_exists, debug, error_out, get_spec_version, find_spec_file
 
 class Builder(BuildCommon):
     """
@@ -37,11 +38,13 @@ class Builder(BuildCommon):
         self.dist = dist
         self.test = test
 
+        self.project_name = self._get_project_name(tag)
+
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
         # of build.py)
         self.config = read_config()
-        self.rpmbuild_basedir = self.full_project_dir
+        self.rpmbuild_basedir = os.getcwd()
         if self.config.has_key('RPMBUILD_BASEDIR'):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
 
@@ -63,6 +66,8 @@ class Builder(BuildCommon):
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
 
+        self.relative_project_dir = self._get_relative_project_dir()
+
         tgz_base = self._get_tgz_name_and_ver()
         self.tgz_filename = tgz_base + ".tar.gz"
         self.tgz_dir = tgz_base
@@ -76,11 +81,11 @@ class Builder(BuildCommon):
         self.rpmbuild_gitcopy = os.path.join(self.rpmbuild_sourcedir,
                 self.tgz_dir)
 
-        # NOTE: The spec file we actually use is the one exported by git
-        # archive into the temp build directory. This is done so we can
-        # modify the version/release on the fly when building test rpms
-        # that use a git SHA1 for their version.
-        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
+        # NOTE: These are defined later when/if we actually dump a copy of the
+        # project source at the tag we're building. Only then can we search for
+        # a spec file.
+        self.spec_file_name = None
+        self.spec_file = None
 
     def run(self, options):
         """
@@ -126,11 +131,6 @@ class Builder(BuildCommon):
         if self.test:
             self._setup_test_specfile()
 
-        # TODO: Looks wrong, this might be using the latest spec file in git
-        # when it should be using the spec file from the git commit we're
-        # building:
-        os.chdir(self.full_project_dir)
-
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -160,6 +160,20 @@ class Builder(BuildCommon):
         Remove all temporary files and directories.
         """
         commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
+
+    def _get_project_name(self, tag):
+        """
+        Extract the project name from the specified tag or a spec file in the
+        current working directory. Error out if neither is present.
+        """
+        if tag != None:
+            p = re.compile('(.*?)-(\d.*)')
+            m = p.match(tag)
+            if not m:
+                error_out("Unable to determine project name in tag: %s" % tag)
+            return m.group(1)
+        else:
+            return self._get_project_name_from_spec()
 
     def _create_build_dirs(self):
         """
@@ -195,7 +209,6 @@ class Builder(BuildCommon):
         self._create_build_dirs()
 
         print "Building version: %s" % self.display_version
-        debug("Using spec file: %s" % self.spec_file)
         os.chdir(os.path.abspath(self.git_root))
         print "Creating %s from git tag: %s..." % (self.tgz_filename,
                 self.git_commit_id)
@@ -212,11 +225,34 @@ class Builder(BuildCommon):
                     self.rpmbuild_sourcedir,
                     self.tgz_filename
             )
+        print(archive_cmd)
         run_command(archive_cmd)
 
         # Extract the source so we can get at the spec file, etc.
         run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
             self.tgz_filename))
+
+        # NOTE: The spec file we actually use is the one exported by git
+        # archive into the temp build directory. This is done so we can
+        # modify the version/release on the fly when building test rpms
+        # that use a git SHA1 for their version.
+        self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
+        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
+        debug("Using spec file: %s" % self.spec_file)
+
+    def _get_relative_project_dir(self):
+        """
+        Return the project's sub-directory relative to the git root.
+        This could be a different directory than where the project currently
+        resides, so we export a copy of the project's metadata from
+        rel-eng/packages/ at the point in time of the tag we are building.
+        """
+        cmd = "git show %s:rel-eng/packages/%s" % (self.git_commit_id,
+                self.project_name)
+        pkg_metadata = run_command(cmd).strip()
+        tokens = pkg_metadata.split(" ")
+        debug("Got package metadata: %s" % tokens)
+        return tokens[1]
 
     def _get_rpmbuild_dir_options(self):
         return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
