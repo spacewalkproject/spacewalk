@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.7
+Version: 0.4.8
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,7 +226,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.8-1
 - 226915 - db_name can be different from db instance name
 
 * Wed Dec 17 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.7-1
