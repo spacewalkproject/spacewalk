@@ -14,8 +14,8 @@ URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon
-Requires(postun):	/usr/sbin/semanage, /sbin/restorecon
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires:	oracle-instantclient-basic
 
 %description
@@ -38,6 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/'${i//./\\.}
+	/usr/bin/execstack -c /usr/lib/oracle/10.2.0.4/client/lib/$i
 done
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
 
@@ -46,6 +47,7 @@ if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/'${i//./\\.}
+		/usr/bin/execstack -s /usr/lib/oracle/10.2.0.4/client/lib/$i
 	done
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
 fi
