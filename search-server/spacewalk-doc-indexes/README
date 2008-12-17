@@ -1,0 +1,14 @@
+This package will generate lucene index files for help documents.
+The specific docs which will be examined are specified by a file located at:
+    crawl_www/urls/urls.txt
+Nutch must be installed on the system, a RPM is provided at ../../spec-tree/nutch
+
+To run:
+1) ./crawl_www.sh
+2) make test-srpm (or similar build step)
+3) install the RPM
+4) restart search-server (/sbin/service rhn-search restart)
+
+To test:
+http://127.0.0.1/rhn/help/Search.do
+
