@@ -373,17 +373,9 @@ sub get_satellite_org_id {
   my $class = shift;
   my $dbh = RHN::DB->connect;
 
-  my $sth = $dbh->prepare("SELECT id FROM web_customer");
+  my $sth = $dbh->prepare("SELECT MIN(id) FROM web_customer");
   $sth->execute;
   my ($org_id) = $sth->fetchrow;
-
-  if (defined $org_id) {
-    # are there more rows?  if so, the db has more than one org; likely a production db, bail
-    if ($sth->fetchrow) {
-      $sth->finish;
-      throw "Attempt to get satellite_org_id on database with more than one org";
-    }
-  }
 
   return $org_id;
 }

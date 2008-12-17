@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Dec 17 2008 Miroslav Suchy <msuchy@redhat.com>
+- 476812 - monitoring should be aware of multiorg
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
 - resolved #474545 - fixed Obsoletes
 
