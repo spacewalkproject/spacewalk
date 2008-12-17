@@ -32,21 +32,21 @@ install -d $RPM_BUILD_ROOT/%{rhnroot}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so
+
 %post
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libnnz10\.so'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libclntsh\.so\.10\.1'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libociei\.so'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libocci\.so\.10\.1'
+for i in %used_libs ; do
+	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/'${i//./\\.}
+done
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
 
 %postun
 if [ $1 -eq 0 ]; then
 	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libnnz10\.so'
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libclntsh\.so\.10\.1'
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libociei\.so'
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libocci\.so\.10\.1'
+	for i in %used_libs ; do
+		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/'${i//./\\.}
+	done
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
 fi
 
