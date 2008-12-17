@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.integration;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 
@@ -86,6 +87,12 @@ public class IntegrationService {
      */
     private String authorize(String login) {
         
+        //Handle the taskomatic case (Where we can't rely on the tokenStore since it's
+        //  a completely different VM)
+        if (login.equals(Config.get().getString(Config.COBBLER_TASKOMATIC_USER))) {
+            return Config.get().getString(Config.WEB_SESSION_SECRET_1);
+        }
+        
         String md5random = SessionSwap.computeMD5Hash(
                 RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
         // Store the md5random number in our map 
@@ -127,6 +134,13 @@ public class IntegrationService {
      * @return boolean if valid or not.
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
+        
+        if (login.equals(Config.get().getString(Config.COBBLER_TASKOMATIC_USER))) {
+            log.debug("checkRandomToken called with taskomatic user!");
+            return encodedRandom.equals(
+                    Config.get().getString(Config.WEB_SESSION_SECRET_1));
+        }
+        
         log.debug("checkRandomToken called with username: " + login);
         if (!randomTokenStore.containsKey(login)) {
             log.debug("login not stored.  invalid check!");
