@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -55,6 +55,9 @@ fi
 %files
 
 %changelog
+* Wed Dec 17 2008 Jan Pazdziora 10.2-5
+- clear the execstack flag on InstantClient libraries
+
 * Tue Dec 16 2008 Jan Pazdziora 10.2-4
 - added textrel_shlib_t to libocci.so.10.1
 - minor .spec cleanup
