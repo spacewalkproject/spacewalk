@@ -30,8 +30,8 @@ documentation/help searches
 rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
-cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
-cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
+cp -a search-server/spacewalk-doc-indexes/data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
+cp -a search-server/spacewalk-doc-indexes/data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -43,6 +43,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Dec 16 2008 John Matthews <jmatthews@redhat.com> 0.4.1-1
+* Wed Dec 17 2008 John Matthews <jmatthews@redhat.com> 0.4.1-1
 - initial
 
