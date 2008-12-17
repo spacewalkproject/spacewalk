@@ -13,31 +13,10 @@
 # in this software or its documentation.
 
 import os
+import re
 import os.path
 import sys
 import commands
-
-from string import strip
-
-def read_config():
-    """
-    Read config settings in from ~/.spacewalk-build-rc.
-    """
-    file_loc = os.path.expanduser("~/.spacewalk-build-rc")
-    try:
-        f = open(file_loc)
-    except:
-        # File doesn't exist but that's ok because it's optional.
-        return {}
-    config = {}
-    #print "Reading config file: %s" % file_loc
-    for line in f.readlines():
-        tokens = line.split(" = ")
-        if len(tokens) != 2:
-            raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
-        config[tokens[0]] = strip(tokens[1])
-        #print "   %s = %s" % (tokens[0], strip(tokens[1]))
-    return config
 
 def error_out(error_msgs):
     """
@@ -93,7 +72,7 @@ def check_tag_exists(tag):
     """ Check that the given git tag exists. """
     (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
     if status > 0:
-        raise Exception("Unable to locate git tag: %s" % tag)
+        error_out("Unable to locate git tag: %s" % tag)
 
 def debug(text):
     """
@@ -110,6 +89,43 @@ def get_spec_version(sourcedir, spec_file_name):
         command = """rpm -q --qf '%%{version}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
         return run_command(command)
 
+def get_project_name(tag=None):
+    """
+    Extract the project name from the specified tag or a spec file in the
+    current working directory. Error out if neither is present.
+    """
+    if tag != None:
+        p = re.compile('(.*?)-(\d.*)')
+        m = p.match(tag)
+        if not m:
+            error_out("Unable to determine project name in tag: %s" % tag)
+        return m.group(1)
+    else:
+        spec_file_path = os.path.join(os.getcwd(), find_spec_file())
+        if not os.path.exists(spec_file_path):
+            error_out("Unable to get project name from spec file: %s" %
+                    spec_file_path)
+
+        output = run_command(
+            "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
+            spec_file_path)
+        return output
+
+def get_relative_project_dir(project_name, commit):
+    """
+    Return the project's sub-directory relative to the git root.
+
+    This could be a different directory than where the project currently
+    resides, so we export a copy of the project's metadata from
+    rel-eng/packages/ at the point in time of the tag we are building.
+    """
+    cmd = "git show %s:rel-eng/packages/%s" % (commit,
+            project_name)
+    pkg_metadata = run_command(cmd).strip()
+    tokens = pkg_metadata.split(" ")
+    debug("Got package metadata: %s" % tokens)
+    return tokens[1]
+
 
 
 class BuildCommon:
@@ -122,28 +138,6 @@ class BuildCommon:
 
         self.git_root = find_git_root() 
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
-
-    def _get_project_name_from_spec(self):
-        """
-        Get the project name from the spec file.
-
-        Uses the spec file in the current git branch as opposed to the copy
-        we make using git archive. This is done because we use this
-        information to know what git tag to use to generate that archive.
-
-        This call will error out if the spec file cannot be located in the
-        current working directory.
-        """
-        spec_file_path = os.path.join(os.getcwd(),
-                find_spec_file())
-        if not os.path.exists(spec_file_path):
-            error_out("Unable to get project name from spec file: %s" %
-                    spec_file_path)
-
-        output = run_command(
-            "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
-            spec_file_path)
-        return output
 
     def _get_latest_tagged_version(self):
         """

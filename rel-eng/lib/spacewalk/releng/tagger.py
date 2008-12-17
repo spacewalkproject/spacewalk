@@ -22,7 +22,8 @@ import StringIO
 from time import strftime
 
 from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
-        debug, get_spec_version_and_release, error_out
+        debug, get_spec_version_and_release, error_out, \
+        get_project_name
 
 
 class VersionTagger(BuildCommon):
@@ -38,7 +39,7 @@ class VersionTagger(BuildCommon):
 
         self.full_project_dir = os.getcwd()
         self.spec_file_name = find_spec_file()
-        self.project_name = self._get_project_name_from_spec()
+        self.project_name = get_project_name(tag=None)
 
         self.relative_project_dir = self._get_relative_project_dir(
                 self.git_root) # i.e. java/

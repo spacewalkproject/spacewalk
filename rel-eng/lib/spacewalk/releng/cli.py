@@ -19,14 +19,18 @@ Command line interface for building Spacewalk and Satellite packages from git ta
 
 import sys
 import os
+import random
+import commands
 import ConfigParser
 
 from optparse import OptionParser
+from string import strip
 
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
-from spacewalk.releng.common import find_git_root, \
-        error_out, debug
+from spacewalk.releng.common import find_git_root, run_command, \
+        error_out, debug, get_project_name, get_relative_project_dir, \
+        check_tag_exists
 
 def get_class_by_name(name):
     """
@@ -53,6 +57,26 @@ def get_class_by_name(name):
     debug("Importing %s" % name)
     c = getattr(mod, class_name)
     return c
+
+def read_global_config():
+    """
+    Read config settings in from ~/.spacewalk-build-rc.
+    """
+    file_loc = os.path.expanduser("~/.spacewalk-build-rc")
+    try:
+        f = open(file_loc)
+    except:
+        # File doesn't exist but that's ok because it's optional.
+        return {}
+    config = {}
+    #print "Reading config file: %s" % file_loc
+    for line in f.readlines():
+        tokens = line.split(" = ")
+        if len(tokens) != 2:
+            raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
+        config[tokens[0]] = strip(tokens[1])
+        #print "   %s = %s" % (tokens[0], strip(tokens[1]))
+    return config
 
 
 
@@ -94,9 +118,16 @@ class CLI:
         if options.debug:
             os.environ['DEBUG'] = "true"
 
-        project_dir = os.getcwd()
+        if options.tag:
+            check_tag_exists(options.tag)
+
+        global_config = read_global_config()
+
+        # TODO: necessary?
         self._check_for_project_dir()
-        config = self._read_project_config(project_dir)
+
+        config = self._read_project_config(global_config, options.tag,
+                options.no_cleanup)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
@@ -120,10 +151,13 @@ class CLI:
         if config.has_option("buildconfig", "tagger"):
             tagger_class = get_class_by_name(config.get("buildconfig", "tagger"))
 
+        debug("Using builder class: %s" % builder_class)
+        debug("Using tagger class: %s" % tagger_class)
+
         # Now that we have command line options, instantiate builder/tagger:
         if found_builder_options:
             builder = builder_class(
-                    config=config,
+                    global_config=global_config,
                     tag=options.tag,
                     dist=options.dist,
                     test=options.test,
@@ -144,11 +178,48 @@ class CLI:
         """
         find_git_root()
 
-    def _read_project_config(self, project_dir):
+    def _read_project_config(self, global_config, tag, no_cleanup):
         """
         Read and return project build properties if they exist.
         """
+        # TODO: Could pass this into builders/taggers instead of looking it up
+        # twice.
+        project_name = get_project_name(tag=tag)
+        debug("Determined package name to be: %s" % project_name)
+
+        properties_file = os.path.join(os.getcwd(), "build.py.props")
+
+        if tag:
+            # Check for a build.py.props back when this tag was created:
+            relative_dir = get_relative_project_dir(project_name, tag)
+            temp_filename = "%s-%s" % (random.randint(1, 10000),
+                    "build.py.props")
+            properties_file = os.path.join(os.getcwd(), temp_filename)
+            if global_config.has_key('RPMBUILD_BASEDIR'):
+                properties_file = os.path.join(global_config[
+                    'RPMBUILD_BASEDIR'], temp_filename)
+
+            # Touch the file, if the git show fails it will remain empty.
+            run_command("touch %s" % properties_file)
+            cmd = "git show %s:%s%s" % (tag, relative_dir,
+                    "build.py.props")
+            debug(cmd)
+            (status, output) = commands.getstatusoutput(cmd)
+            if status == 0:
+                f = open(properties_file, 'w')
+                f.write(output)
+                f.write("\n\n")
+                f.close()
+
+        debug("Checking build.py.props: %s" % properties_file)
+
         config = ConfigParser.ConfigParser()
-        path = os.path.join(project_dir, "build.py.props")
-        config.read(path)
+        config.read(properties_file)
+
+        # TODO: This should be safe but still feels wrong:
+        if tag and not no_cleanup:
+            # Delete the temp properties file we created.
+            run_command("rm %s" % properties_file)
+
         return config
+

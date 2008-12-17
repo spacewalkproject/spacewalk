@@ -15,12 +15,12 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
-import re
 import sys
 import commands
 
-from spacewalk.releng.common import BuildCommon, read_config, run_command, \
-        check_tag_exists, debug, error_out, get_spec_version, find_spec_file
+from spacewalk.releng.common import BuildCommon, run_command, \
+        check_tag_exists, debug, error_out, get_spec_version, find_spec_file, \
+        get_project_name, get_relative_project_dir
 
 class Builder(BuildCommon):
     """
@@ -31,22 +31,21 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, config=None, tag=None, dist=None, test=False,
+    def __init__(self, global_config=None, tag=None, dist=None, test=False,
             debug=False):
         BuildCommon.__init__(self, debug)
 
         self.dist = dist
         self.test = test
 
-        self.project_name = self._get_project_name(tag)
+        self.project_name = get_project_name(tag=tag)
 
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
         # of build.py)
-        self.config = read_config()
         self.rpmbuild_basedir = os.getcwd()
-        if self.config.has_key('RPMBUILD_BASEDIR'):
-            self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
+        if global_config.has_key('RPMBUILD_BASEDIR'):
+            self.rpmbuild_basedir = global_config['RPMBUILD_BASEDIR']
 
         # Determine which package version we should build:
         if tag:
@@ -59,14 +58,14 @@ class Builder(BuildCommon):
                         file_path, "Perhaps you need to --tag-release first?"])
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
-        check_tag_exists(self.build_tag)
 
         self.display_version = self._get_display_version()
         self.git_commit_id = self._get_build_commit()
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
 
-        self.relative_project_dir = self._get_relative_project_dir()
+        self.relative_project_dir = get_relative_project_dir(
+                project_name=self.project_name, commit=self.git_commit_id)
 
         tgz_base = self._get_tgz_name_and_ver()
         self.tgz_filename = tgz_base + ".tar.gz"
@@ -161,20 +160,6 @@ class Builder(BuildCommon):
         """
         commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
 
-    def _get_project_name(self, tag):
-        """
-        Extract the project name from the specified tag or a spec file in the
-        current working directory. Error out if neither is present.
-        """
-        if tag != None:
-            p = re.compile('(.*?)-(\d.*)')
-            m = p.match(tag)
-            if not m:
-                error_out("Unable to determine project name in tag: %s" % tag)
-            return m.group(1)
-        else:
-            return self._get_project_name_from_spec()
-
     def _create_build_dirs(self):
         """
         Create the build directories. Can safely be called multiple times.
@@ -225,7 +210,7 @@ class Builder(BuildCommon):
                     self.rpmbuild_sourcedir,
                     self.tgz_filename
             )
-        print(archive_cmd)
+        debug(archive_cmd)
         run_command(archive_cmd)
 
         # Extract the source so we can get at the spec file, etc.
@@ -239,20 +224,6 @@ class Builder(BuildCommon):
         self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
         self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
         debug("Using spec file: %s" % self.spec_file)
-
-    def _get_relative_project_dir(self):
-        """
-        Return the project's sub-directory relative to the git root.
-        This could be a different directory than where the project currently
-        resides, so we export a copy of the project's metadata from
-        rel-eng/packages/ at the point in time of the tag we are building.
-        """
-        cmd = "git show %s:rel-eng/packages/%s" % (self.git_commit_id,
-                self.project_name)
-        pkg_metadata = run_command(cmd).strip()
-        tokens = pkg_metadata.split(" ")
-        debug("Got package metadata: %s" % tokens)
-        return tokens[1]
 
     def _get_rpmbuild_dir_options(self):
         return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
@@ -374,7 +345,6 @@ class UpstreamBuilder(NoTgzBuilder):
         check_tag_exists(self.upstream_tag)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, self.spec_file_name)
-
 
     def _tgz(self):
         """
