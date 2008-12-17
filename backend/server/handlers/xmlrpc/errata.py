@@ -21,7 +21,7 @@ from common import rhnFault, rhnFlags, log_debug, log_error
 
 # server modules imports
 from server.rhnLib import parseRPMName
-from server import rhnSQL, rhnHandler
+from server import rhnSQL, rhnHandler, rhnCapability
 
 # Errata class --- retrieve (via xmlrpc) package errata.
 class Errata(rhnHandler):
@@ -183,17 +183,27 @@ class Errata(rhnHandler):
         self.auth_system(system_id)
         # log this thing
         log_debug(1, self.server_id, errata_id)
-        
+
+        client_caps = rhnCapability.get_client_capabilities()
+        log_debug(3,"Client Capabilities", client_caps)
+        multiarch = 0
+        if client_caps and client_caps.has_key('packages.update'):
+            cap_info =  client_caps['packages.update']
+        if cap_info and cap_info['version'] > 1:
+            multiarch = 1
+ 
         statement = """
         select distinct
                pn.name,
-	       pe.epoch,
-	       pe.version, 
-               pe.release	
+               pe.epoch,
+               pe.version, 
+               pe.release,
+               pa.label arch
         from
                rhnPackageName pn,
                rhnPackageEVR pe, 
-               rhnPackage p, 
+               rhnPackage p,
+               rhnPackageArch pa, 
                rhnChannelPackage cp, 
                rhnServerChannel sc,
                rhnErrataPackage ep
@@ -201,7 +211,8 @@ class Errata(rhnHandler):
                    ep.errata_id = :errata_id
                and ep.package_id = p.id
                and p.name_id = pn.id
-               and p.evr_id = pe.id 
+               and p.evr_id = pe.id
+               and p.package_arch_id = pa.id 
                and sc.server_id = :server_id
                and sc.channel_id = cp.channel_id
                and cp.package_id = p.id
@@ -220,10 +231,14 @@ class Errata(rhnHandler):
 		if package['epoch'] is None:
 		   package['epoch'] = ""
 
+                pkg_arch = ''
+                if multiarch:
+                    pkg_arch = package['arch'] or ''
                 ret.append([package['name'], 
                             package['version'],
-			    package['release'],
-	                    package['epoch']])
+                            package['release'],
+                            package['epoch'],
+                            pkg_arch])
         return ret
 
 
