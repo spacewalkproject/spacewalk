@@ -46,6 +46,7 @@ Obsoletes:        oracle-10gR2-selinux
 SELinux policy module supporting Oracle.
 
 %prep
+rm -rf SELinux
 mkdir -p SELinux
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} SELinux
 
