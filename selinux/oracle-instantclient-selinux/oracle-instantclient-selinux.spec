@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -61,6 +61,10 @@ fi
 %files
 
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 10.2-6
+- 64bit InstantClient uses /usr/lib/oracle/10.2.0.4/client64
+- add Requires of oracle-nofcontext-selinux
+
 * Wed Dec 17 2008 Jan Pazdziora 10.2-5
 - clear the execstack flag on InstantClient libraries
 
