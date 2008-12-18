@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         6%{?dist}
+Release:         7%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -143,6 +143,9 @@ fi
 /etc/ld.so.conf.d/oracle-xe.conf
 
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 10.2-7
+- switch to using oracle-nofcontext-selinux
+
 * Mon Dec 15 2008 Jan Pazdziora 10.2-6
 - added textrel_shlib_t for libocci.so.10.1
 - minor .spec cleanup
