@@ -60,7 +60,7 @@ rhnPackage
 			constraint rhn_package_vendor_nn not null,
         payload_format  varchar2(32),
 				-- do we care?
-        compat          smallint default 0
+        compat          number(1) default 0
                         constraint rhn_package_compat_check
                                 check (compat in (1,0)),
                                 -- Y/N .  This makes ``dont use compat if 
