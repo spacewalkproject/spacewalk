@@ -29,7 +29,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-xe-univ
-Requires:         oracle-selinux
+Requires:         oracle-nofcontext-selinux
 
 %description
 SELinux policy module supporting Oracle XE server.
@@ -79,7 +79,7 @@ echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib > $RPM_BUILD_ROOT/e
 %clean
 rm -rf %{buildroot}
 
-%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app
+%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle
 %define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
 
 %pre
