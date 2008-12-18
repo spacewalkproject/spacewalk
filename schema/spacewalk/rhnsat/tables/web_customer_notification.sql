@@ -36,7 +36,7 @@ web_customer_notification
 				constraint web_cust_not_creat_nn not null
 )
 	enable row movement
-	nocache nomonitoring;
+	nocache ;
 
 --
 --
