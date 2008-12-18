@@ -1,0 +1,7 @@
+file:///shared/repo/trunk/eng/docs/guides/channel-mgmt/en/
+file:///shared/repo/trunk/eng/docs/guides/client-config/en/
+file:///shared/repo/trunk/eng/docs/guides/proxy/rhn511/en/
+file:///shared/repo/trunk/eng/docs/guides/reference/en/
+file:///shared/repo/trunk/eng/docs/guides/satellite/en/
+file:///shared/repo/trunk/eng/docs/release-notes/satellite/rhn510/en-US/
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="server">
+    <select id="getServerByIdOrDate" parameterClass="java.util.Map"
+        resultClass="com.redhat.satellite.search.db.models.Server">
+            SELECT
+                s.id as id,
+                s.name as name,
+                s.description as description,
+                s.info as info,
+                s.created as registered,
+                sl.machine as machine,
+                sl.rack as rack,
+                sl.room as room,
+                sl.building as building,
+                sl.address1 as address1,
+                sl.address2 as address2,
+                sl.city as city,
+                sl.state as state,
+                sl.country as country,
+                rsn.hostname as hostname,
+                rsn.ipaddr as ipaddr,
+                dmi.vendor as dmiVendor,
+                dmi.system as dmiSystem,
+                dmi.product as dmiProduct,
+                dmi.bios_vendor as dmiBiosVendor,
+                dmi.bios_version as dmiBiosVersion,
+                dmi.bios_release as dmiBiosRelease,
+                dmi.asset as dmiAsset,
+                dmi.board as dmiBoard,
+                cpu.bogomips as cpuBogoMIPS,
+                cpu.cache as cpuCache,
+                cpu.family as cpuFamily,
+                cpu.mhz as cpuMhz,
+                cpu.stepping as cpuStepping,
+                cpu.flags as cpuFlags,
+                cpu.model as cpuModel,
+                cpu.version as cpuVersion,
+                cpu.vendor as cpuVendor,
+                cpu.nrcpu as cpuNumberOfCpus,
+                cpu.acpiversion as cpuAcpiVersion,
+                cpu.apic as cpuApic,
+                cpu.apmversion as cpuApmVersion,
+                cpu.chipset as cpuChipset,
+                si.checkin as checkin,
+                rr.ram as ram,
+                rr.swap as swap
+            FROM rhnServer s
+                INNER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
+                INNER JOIN rhnServerInfo si on s.id = si.server_id
+                INNER JOIN rhnRam rr on s.id = rr.server_id
+                LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
+                LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
+                LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id
+            WHERE s.modified >= #last_modified#
+                or s.id > #id#
+            ORDER by s.id ASC
+    </select>
+
+   <delete id="deleteLastServer">
+   		DELETE rhnIndexerWork where object_type = 'server'
+   </delete>
+   <insert id="createLastServer"
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('server', #id#, #last_modified#)
+	</insert>
+	<update id="updateLastServer"
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'server'
+	</update>
+	<select id="getLastServerId"
+		    resultClass="java.lang.Long">
+		SELECT last_id from rhnIndexerWork where object_type='server'
+	</select>
+	<select id="getLastServerIndexRun"
+            resultClass="java.util.Date">
+        SELECT last_modified from rhnIndexerWork where object_type='server'
+    </select>
+	<select id="verifyServerVisibility" resultClass="string">
+		SELECT object_id
+		FROM rhnVisibleObjects
+		WHERE pxt_session_id = #session_id#
+		AND object_type = #object_type#
+		AND object_id IN
+		<iterate property="id_list" open="(" close=")" conjunction=",">
+		    #id_list[]#
+		</iterate>
+	</select>   		   
+    <select id="maxServerId" resultClass="java.lang.Long">
+        SELECT MAX(ID)
+          FROM rhnServer
+    </select>
+    <select id="queryAllServerIds" resultClass="Long">
+        SELECT id from rhnServer
+    </select>
+</sqlMap>

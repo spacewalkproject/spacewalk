@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+<property>
+  <name>http.agent.name</name>
+  <value>Spacewalk</value>
+  <description>HTTP 'User-Agent' request header. MUST NOT be empty -
+  please set this to a single word uniquely related to your organization.
+
+  NOTE: You should also check other related properties:
+
+        http.robots.agents
+        http.agent.description
+        http.agent.url
+        http.agent.email
+        http.agent.version
+
+  and set their values appropriately.
+
+  </description>
+</property>
+
+<property>
+  <name>fetcher.server.delay</name>
+  <value>0</value>
+  <description>The number of seconds the fetcher will delay between
+   successive requests to the same server.</description>
+</property>
+
+<property>
+  <name>fetcher.threads.per.host</name>
+  <value>50</value>
+  <description>This number is the maximum number of threads that
+    should be allowed to access a host at one time.</description>
+</property>
+
+<property>
+  <name>plugin.folders</name>
+  <value>/usr/share/nutch/plugins</value>
+  <description>Directories where nutch plugins are located.  Each
+  element may be a relative or absolute path.  If absolute, it is used
+  as is.  If relative, it is searched for on the classpath.</description>
+</property>
+
+<property>
+<name>plugin.includes</name>
+    <value>protocol-file|urlfilter-regex|parse-(xml|text|html|js|pdf)|index-basic|query-(basic|site|url)|summary-basic|scoring-opic|urlnormalizer-(pass|regex|basic)</value>
+</property>
+
+<property>
+    <name>file.content.limit</name> <value>-1</value>
+</property>
+
+</configuration>
