@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.1%{?obtag}%{?dist}%{?repo}
+Release:         23.2%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -45,12 +45,32 @@ Obsoletes:        oracle-10gR2-selinux
 %description
 SELinux policy module supporting Oracle.
 
+%package -n oracle-nofcontext-selinux
+Summary:         SELinux policy module supporting Oracle, without file contexts
+Group:           System Environment/Base
+%if "%{selinux_policyver}" != ""
+Requires:         selinux-policy >= %{selinux_policyver}
+%endif
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Conflicts:       oracle-selinux
+
+%description -n oracle-nofcontext-selinux
+SELinux policy module defining types and interfaces for
+Oracle RDBMS, without specifying any file contexts.
+
 %prep
+rm -rf SELinux
 mkdir -p SELinux
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} SELinux
 
 # Make file contexts relative to oracle_base
 perl -pi -e 's#%{default_oracle_base}#%{oracle_base}#g' SELinux/%{modulename}.fc
+
+# Create oracle-nofcontext source files
+cp SELinux/%{modulename}.if SELinux/%{modulename}-nofcontext.if
+cp SELinux/%{modulename}.te SELinux/%{modulename}-nofcontext.te
+sed -i 's!^policy_module(oracle,!policy_module(oracle-nofcontext,!' SELinux/%{modulename}-nofcontext.te
 
 %build
 # Build SELinux policy modules
@@ -59,6 +79,7 @@ for selinuxvariant in %{selinux_variants}
 do
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
     mv %{modulename}.pp %{modulename}.pp.${selinuxvariant}
+    mv %{modulename}-nofcontext.pp %{modulename}-nofcontext.pp.${selinuxvariant}
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
 cd -
@@ -73,6 +94,8 @@ for selinuxvariant in %{selinux_variants}
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
     install -p -m 644 %{modulename}.pp.${selinuxvariant} \
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
+    install -p -m 644 %{modulename}-nofcontext.pp.${selinuxvariant} \
+           %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}-nofcontext.pp
   done
 cd -
 
@@ -80,6 +103,8 @@ cd -
 install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
 install -p -m 644 SELinux/%{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+install -p -m 644 SELinux/%{modulename}-nofcontext.if \
+  %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
@@ -105,6 +130,18 @@ test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || 
 /sbin/restorecon -R -v /etc || :
 /sbin/restorecon -R -v /var/tmp || :
 
+%post -n oracle-nofcontext-selinux
+# Install SELinux policy modules
+for selinuxvariant in %{selinux_variants}
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -i \
+      %{_datadir}/selinux/${selinuxvariant}/%{modulename}-nofcontext.pp &> /dev/null || :
+  done
+
+# add an oracle port if it does not already exist
+SEPORT_STATUS=`semanage port -l | grep -c ^oracle`
+test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || :
+
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -125,13 +162,36 @@ if [ $1 -eq 0 ]; then
   /sbin/restorecon -R -v /var/tmp || :
 fi
 
+%postun -n oracle-nofcontext-selinux
+# Clean up after package removal
+if [ $1 -eq 0 ]; then
+ # remove an existing oracle port
+ SEPORT_STATUS=`semanage port -l | grep -c ^oracle`
+ test ${SEPORT_STATUS} -gt 0 && semanage port -d -t oracle_port_t -p tcp 1521 || :
+
+  # Remove SELinux policy modules
+  for selinuxvariant in %{selinux_variants}
+    do
+      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename}-nofcontext &> /dev/null || :
+    done
+fi
+
 %files
 %defattr(-,root,root,0755)
 %doc SELinux/%{modulename}.fc SELinux/%{modulename}.if SELinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
+%files -n oracle-nofcontext-selinux
+%defattr(-,root,root,0755)
+%doc SELinux/%{modulename}-nofcontext.fc SELinux/%{modulename}-nofcontext.if SELinux/%{modulename}-nofcontext.te
+%{_datadir}/selinux/*/%{modulename}-nofcontext.pp
+%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
+
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 0.1-23.2
+- adde oracle-nofcontext-selinux subpackage
+
 * Fri Oct  3 2008 Jan Pazdziora - 0.1-23.1
 - remove audit-archive-selinux, rsync-ssh-selinux (Build)Requires
 

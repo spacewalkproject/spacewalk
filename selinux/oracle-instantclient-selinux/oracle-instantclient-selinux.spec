@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -12,11 +12,11 @@ License:	GPLv2+
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArch:	noarch
 
 Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires:	oracle-instantclient-basic
+Requires:	oracle-nofcontext-selinux
 
 %description
 SELinux support for Oracle Instant Client.
@@ -32,29 +32,39 @@ install -d $RPM_BUILD_ROOT/%{rhnroot}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%ifarch x86_64 s390x
+%define clientdir client64
+%else
+%define clientdir client
+%endif
+
 %define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so
 
 %post
-/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
+/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/bin/sqlplus'
 for i in %used_libs ; do
-	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/'${i//./\\.}
-	/usr/bin/execstack -c /usr/lib/oracle/10.2.0.4/client/lib/$i
+	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/lib/'${i//./\\.}
+	/usr/bin/execstack -c /usr/lib/oracle/10.2.0.4/%{clientdir}/lib/$i
 done
-/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
+/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/%{clientdir} || :
 
 %postun
 if [ $1 -eq 0 ]; then
-	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
+	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/bin/sqlplus'
 	for i in %used_libs ; do
-		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/'${i//./\\.}
-		/usr/bin/execstack -s /usr/lib/oracle/10.2.0.4/client/lib/$i
+		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/lib/'${i//./\\.}
+		/usr/bin/execstack -s /usr/lib/oracle/10.2.0.4/%{clientdir}/lib/$i
 	done
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/%{clientdir} || :
 fi
 
 %files
 
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 10.2-6
+- 64bit InstantClient uses /usr/lib/oracle/10.2.0.4/client64
+- add Requires of oracle-nofcontext-selinux
+
 * Wed Dec 17 2008 Jan Pazdziora 10.2-5
 - clear the execstack flag on InstantClient libraries
 

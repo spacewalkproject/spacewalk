@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.integration;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 
@@ -59,7 +60,7 @@ public class IntegrationService {
      * @param login to lookup Cobbler xmlrpc token
      * @return String xmlrpc token - null if not defined
      */
-    public String getAuthToken(String login) {
+    public String getAuthToken(String login) {        
         String token = cobblerAuthTokenStore.get(login);
         if (token == null) {
             token = this.authorize(login);
@@ -86,21 +87,30 @@ public class IntegrationService {
      */
     private String authorize(String login) {
         
-        String md5random = SessionSwap.computeMD5Hash(
-                RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
-        // Store the md5random number in our map 
-        // and send over the encoded version of it.  
-        // On the return checkRandomToken() call
-        // we will decode the encoded data to make sure it is the
-        // unaltered random number.
-        randomTokenStore.put(login, md5random);
-        String encodedRandom = SessionSwap.encodeData(md5random);
-
+        String passwd;
         
+        //Handle the taskomatic case (Where we can't rely on the tokenStore since it's
+        //  a completely different VM)
+        if (login.equals(Config.get().getString(Config.COBBLER_TASKOMATIC_USER))) {
+            
+            passwd = Config.get().getString(Config.WEB_SESSION_SECRET_1);
+        }
+        else {
+            String md5random = SessionSwap.computeMD5Hash(
+                    RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
+            // Store the md5random number in our map 
+            // and send over the encoded version of it.  
+            // On the return checkRandomToken() call
+            // we will decode the encoded data to make sure it is the
+            // unaltered random number.
+            randomTokenStore.put(login, md5random);
+            passwd  = SessionSwap.encodeData(md5random);
+        }
+
         log.debug("Authorize called with username: " + login);
         // Get the cobbler ticket
         CobblerLoginCommand lcmd = new CobblerLoginCommand();
-        String token =  lcmd.login(login, encodedRandom);
+        String token =  lcmd.login(login, passwd);
         log.debug("Cobbler returned non-null token? :: " + (token == null));
         if (token != null) {
             this.setAuthorizationToken(login, token);
@@ -127,6 +137,13 @@ public class IntegrationService {
      * @return boolean if valid or not.
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
+        
+        if (login.equals(Config.get().getString(Config.COBBLER_TASKOMATIC_USER))) {
+            log.debug("checkRandomToken called with taskomatic user!");
+            return encodedRandom.equals(
+                    Config.get().getString(Config.WEB_SESSION_SECRET_1));
+        }
+        
         log.debug("checkRandomToken called with username: " + login);
         if (!randomTokenStore.containsKey(login)) {
             log.debug("login not stored.  invalid check!");
