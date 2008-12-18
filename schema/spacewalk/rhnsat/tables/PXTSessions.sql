@@ -27,7 +27,7 @@ create table PXTSessions (
                         constraint pxtsessions_value_nn not null
 )
 	enable row movement
-	nocache  nologging;
+	  nologging;
 
 create unique index pxt_sessions_pk
 	on PXTSessions(id)
