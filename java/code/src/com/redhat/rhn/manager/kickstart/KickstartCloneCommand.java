@@ -51,7 +51,7 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
                     "Can't call store twice on this Command");
         }
         // we keep the name and the label the same.
-        clonedKickstart = this.ksdata.deepCopy(user, newLabel, newLabel);
+        clonedKickstart = this.ksdata.deepCopy(user, newLabel);
         KickstartFactory.saveKickstartData(clonedKickstart);
         // TODO: COBBLERIZE
         // CobblerProfileCreateCommand cmd =

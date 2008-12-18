@@ -783,9 +783,8 @@ public class KickstartHandler extends BaseHandler {
 
         try {
             KickstartRawData data = builder.createRawData(profileLabel,
-                                                     tree, virtualizationType);
-            data.setData(kickstartFileContents);
-
+                                                     tree, kickstartFileContents,
+                                                     virtualizationType);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);

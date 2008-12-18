@@ -317,10 +317,16 @@ public class KickstartFactory extends HibernateFactory {
     public static void saveKickstartData(KickstartData ksdataIn, 
             KickstartSession ksession) {
         singleton.saveObject(ksdataIn);
-        
-        KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", 
-                ksdataIn, ksession);
-        String fileData = formatter.getFileData();
+        String fileData = null;
+        if (ksdataIn.isRawData()) {
+            KickstartRawData rawData = (KickstartRawData) ksdataIn;
+            fileData = rawData.getData();
+        }
+        else {
+            KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", 
+                    ksdataIn, ksession);
+            fileData = formatter.getFileData();
+        }
         // Escape the dollar signs
         fileData = StringUtils.replace(fileData, "$", "\\$");
         String mediapath = KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;

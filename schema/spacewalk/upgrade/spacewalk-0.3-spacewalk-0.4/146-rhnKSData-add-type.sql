@@ -16,22 +16,22 @@
 -- $Id$
 --
 
-create table
-rhnKSRawData
-(
-    kickstart_id      number
-            constraint rhn_ks_raw_data_tid_nn not null
-			constraint rhn_ks_raw_data_fk
-				references rhnKSData(id)
-                on delete cascade,
-    data	blob
-)	
-    storage ( freelists 16 )
-	enable row movement
-	initrans 32;
+ALTER TABLE rhnKsData
+ADD ks_type varchar(8);
+
+UPDATE rhnKsData SET ks_type = 'wizard';
+
+ALTER TABLE rhnKsData 
+ADD CONSTRAINT rhn_ks_type_nn CHECK (ks_type IS NOT NULL);
+
+ALTER TABLE rhnKsData 
+ADD CONSTRAINT rhn_ks_type_ck CHECK (ks_type in ('wizard', 'raw'));
 
 show errors
 
 -- $Log$
--- Revision 1  2008/10/01 7:01:05  paji
--- basically created the KsRawData schema
+-- Revision 2  2008/12/02 16:51:05.2 jsherrill
+-- Add cobbler_id column
+--
+-- Revision 1  2008/10/01 7:01:05  mmccune
+-- Removed the unused name column

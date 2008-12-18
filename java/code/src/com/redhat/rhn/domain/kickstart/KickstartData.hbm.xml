@@ -3,7 +3,7 @@
 PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.redhat.rhn.domain.kickstart.KickstartData" table="RHNKSDATA" >
+    <class name="com.redhat.rhn.domain.kickstart.KickstartData" table="RHNKSDATA" discriminator-value="wizard">
 
         <id name="id" type="long" column="id">
             <meta attribute="scope-set">protected</meta>
@@ -11,6 +11,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_KS_ID_SEQ</param>
             </generator>
         </id>
+        <discriminator column = "ks_type"
+                type="string"/>
 
         <many-to-one name="org"
                      column="org_id"
@@ -18,6 +20,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      outer-join="true"
                      not-null="true" />
         <property name="label" column="label" not-null="true" type="string" length="64" />
+        <property name="kickstartType" column="ks_type" type="string" length="8" 
+                    insert="false" update="false" />
         <property name="comments" column="comments"  type="string" length="4000" />
         <property name="active" column="active" not-null="true" type="yes_no" />
 	    <property name="postLog" column="postLog" not-null="false" type="yes_no" />
@@ -31,7 +35,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
         <property name="staticDevice" column="static_device"  type="string" length="32" />
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
-
         <list name="packageNames" table="rhnKickstartPackage" lazy="true">
           <key column="kickstart_id"/>
           <index column="position"/>
@@ -140,13 +143,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
             <loader query-ref="customOptions"/>
         </set>                 
-
-		<joined-subclass name="com.redhat.rhn.domain.kickstart.KickstartRawData"
-            table="rhnKSRawData">
-            <key column="kickstart_id"/>
-            <property name="dataBlob" type="blob" column="data" lazy="true"/>
-        </joined-subclass>               
+        <subclass name="com.redhat.rhn.domain.kickstart.KickstartRawData"
+            discriminator-value="raw">
+        </subclass>               
     </class>
+       
 
     <query name="KickstartData.findByCobblerIdAndOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.cobblerId = :id and t.org = :org_id]]>

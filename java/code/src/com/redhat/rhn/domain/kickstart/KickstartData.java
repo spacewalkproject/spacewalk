@@ -50,6 +50,7 @@ import java.util.regex.Pattern;
 public class KickstartData {
 
     private Long id;
+    protected String kickstartType;
     private Org org;
     private String label;
     private String comments;
@@ -88,6 +89,8 @@ public class KickstartData {
     
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
+    protected static final String TYPE_WIZARD = "wizard";
+    protected static final String TYPE_RAW = "raw";
 
     
     /**
@@ -113,6 +116,7 @@ public class KickstartData {
         verboseUp2date = new Boolean(false);
         nonChrootPost = new Boolean(false);
         childChannels = new HashSet();
+        kickstartType = TYPE_WIZARD;
     }
     
     /**
@@ -1071,18 +1075,17 @@ public class KickstartData {
      * NOTE: We also don't clone isOrgDefault.
      * 
      * @param user who is doing the cloning
-     * @param newName to set on the cloned object
      * @param newLabel to set on the cloned object
      * @return KickstartData that is cloned.
      */
-    public KickstartData deepCopy(User user, String newName, String newLabel) {
+    public KickstartData deepCopy(User user, String newLabel) {
         KickstartData cloned = new KickstartData();
-        updateCloneDetails(cloned, user, newName, newLabel);
+        updateCloneDetails(cloned, user, newLabel);
         return cloned;
     }
     
     protected void updateCloneDetails(KickstartData cloned, User user, 
-                                    String newName, String newLabel) {
+                                    String newLabel) {
         cloned.setLabel(newLabel);
         cloned.setActive(this.isActive());
         cloned.setPostLog(this.getPostLog());
@@ -1394,4 +1397,21 @@ public class KickstartData {
     public void setCobblerId(String cobblerIdIn) {
         this.cobblerId = cobblerIdIn;
     }
+
+    
+    /**
+     * @return the kickstartType
+     */
+    protected String getKickstartType() {
+        return kickstartType;
+    }
+
+    
+    /**
+     * @param kickstartTypeIn the kickstartType to set
+     */
+    protected void setKickstartType(String kickstartTypeIn) {
+        this.kickstartType = kickstartTypeIn;
+    }
+    
 }

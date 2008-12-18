@@ -413,13 +413,16 @@ public class KickstartBuilder {
      * @param label the kickstart label
      * @param tree the Ks tree
      * @param virtType and KS virt type.
+     * @param fileContents to actually write out to disk.
      * @return new Kickstart Raw Data object
      */
     public KickstartRawData createRawData(String label, 
                                     KickstartableTree tree,
+                                    String fileContents,
                                     String virtType) {
         checkRoles();
         KickstartRawData ksdata = new KickstartRawData();
+        ksdata.setData(fileContents);
         setupBasicInfo(label, ksdata, tree, virtType);
         KickstartWizardHelper cmd = new KickstartWizardHelper(user);
         cmd.store(ksdata);

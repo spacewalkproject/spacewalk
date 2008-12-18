@@ -115,16 +115,18 @@ public class AdvancedModeDetailsAction extends RhnAction {
             
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartRawData ks;
+            String fileData = getData(context, form);
             if (isCreateMode(context.getRequest())) {
-                ks = builder.createRawData(label, tree, virtType);
+                ks = builder.createRawData(label, tree, fileData, virtType);
             }
             else {
                 ks = getKsData(context);
+                ks.setData(fileData);
                 builder.update(ks, label, tree, virtType);
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
-            ks.setData(getData(context, form));
+            
                         
             KickstartDetailsEditAction.proccessCobblerFormValues(ks, form, 
                     context.getLoggedInUser());

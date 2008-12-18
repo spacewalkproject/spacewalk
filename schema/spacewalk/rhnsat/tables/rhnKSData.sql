@@ -25,6 +25,10 @@ rhnKSData
 				constraint rhn_ks_id_nn not null
 				constraint rhn_ks_id_pk primary key
 					using index tablespace [[8m_tbs]],
+	ks_type			varchar2(8) 
+				constraint rhn_ks_type_nn not null,
+				constraint rhn_ks_type_ck
+					check (type in ('wizard','raw')),
 	org_id			number
 				constraint rhn_ks_oid_nn not null
 				constraint rhn_ks_oid_fk
