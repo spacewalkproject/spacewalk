@@ -19,9 +19,6 @@ ALTER TABLE rhnChannel
 ADD channel_access  varchar2(10) default 'private';
 
 ALTER TABLE rhnChannel
-ADD channel_access  varchar2(10) default 'private';
-
-ALTER TABLE rhnChannel
 ADD maint_name  varchar2(128);
 
 ALTER TABLE rhnChannel
