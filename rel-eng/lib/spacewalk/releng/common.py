@@ -70,6 +70,9 @@ def run_command(command):
 
 def check_tag_exists(tag):
     """ Check that the given git tag exists. """
+    # TODO: This is letting you build tags that do not exist in the remote repo.
+    # Replace with same method used in Makefile.srpm. Watch for usage of 
+    # TAG_SHA1
     (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
     if status > 0:
         error_out("Unable to locate git tag: %s" % tag)
