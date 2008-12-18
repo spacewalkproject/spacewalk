@@ -28,7 +28,7 @@ rhnKSData
 	ks_type			varchar2(8) 
 				constraint rhn_ks_type_nn not null,
 				constraint rhn_ks_type_ck
-					check (type in ('wizard','raw')),
+					check (ks_type in ('wizard','raw')),
 	org_id			number
 				constraint rhn_ks_oid_nn not null
 				constraint rhn_ks_oid_fk
