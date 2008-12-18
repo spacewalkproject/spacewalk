@@ -34,6 +34,14 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     /**
      * Constructor
      * @param ksTreeIn to sync
+     */
+    public CobblerDistroCreateCommand(KickstartableTree ksTreeIn) {
+        super(ksTreeIn);
+    }
+    
+    /**
+     * Constructor
+     * @param ksTreeIn to sync
      * @param userIn - user wanting to sync with cobbler
      */
     public CobblerDistroCreateCommand(KickstartableTree ksTreeIn,

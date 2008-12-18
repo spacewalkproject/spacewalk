@@ -53,6 +53,14 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
     }
 
     /**
+     * @param ksTreeIn - KickstartableTree to sync
+     */
+    public CobblerDistroCommand(KickstartableTree ksTreeIn) {
+        super();
+        this.tree = ksTreeIn;
+    }
+
+    /**
      * Get the distribution associated with the current KickstartData
      * @return Map of cobbler distro fields.
      */

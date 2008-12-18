@@ -64,7 +64,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
         List <KickstartableTree> trees = KickstartFactory.lookupKickstartTrees();
 
-        //Any distros exist on spacewalk and not on the satellite?
+        //Any distros exist on spacewalk and not in cobbler?
         Map<String, Map> cobblerDistros = getDistros();
         for (KickstartableTree tree : trees) {
             if (!cobblerDistros.containsKey(tree.getCobblerId())) {
@@ -98,7 +98,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     }
     
     private void createDistro(KickstartableTree tree) {
-        CobblerDistroCreateCommand creator = new CobblerDistroCreateCommand(tree, user);
+        CobblerDistroCreateCommand creator = new CobblerDistroCreateCommand(tree);
         creator.store();
     }
     
