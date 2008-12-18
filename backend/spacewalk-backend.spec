@@ -549,6 +549,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Dec 18 2008 Pradeep Kilambi <pkilambi@redhat.com>
+- 476055 - fixing sat activation to work by setting the right handler
+- 457629 - multiarch support for errata updates
+
 * Fri Dec 12 2008 Jan Pazdziora 0.4.8-1
 - 476212 - adding Requires rhel-instnum
 - 461162 - remove profile label parameter from the spacewalk-koan call chain
