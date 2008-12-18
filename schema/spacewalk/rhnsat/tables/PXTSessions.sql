@@ -26,7 +26,6 @@ create table PXTSessions (
         value           varchar2(4000)
                         constraint pxtsessions_value_nn not null
 )
-	organization heap
 	storage	( freelists 16 )
 	initrans	32
 	enable row movement
