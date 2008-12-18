@@ -15,7 +15,7 @@ Summary:      NOCpulse notification system
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.24
+Version:      1.125.25
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -136,7 +136,7 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Dec 18 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Dec 18 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.25-1
 - fix path to notif-escalator.log
 
 * Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.24-1
