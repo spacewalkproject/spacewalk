@@ -340,7 +340,7 @@ sub update_monitoring_environment {
   my $dbh = RHN::DB->connect;
   # BZ 226915 we cannot use db_name from %answers - it contains instance name
   # we want real db name
-  my ($db_name) = $dbh->selectrow_arrayr(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+  my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
 
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
