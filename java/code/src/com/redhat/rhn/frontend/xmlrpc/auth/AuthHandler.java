@@ -120,6 +120,9 @@ public class AuthHandler extends BaseHandler {
      */
     public int checkAuthToken(String login, String token) {
         int retval = 0;
+        
+        
+        
         boolean valid = IntegrationService.get().
             checkRandomToken(login, token);
         if (valid) {

@@ -141,6 +141,9 @@ public class Config {
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
 
     public static final String PRODUCT_NAME = "web.product_name";
+    
+    public static final String COBBLER_TASKOMATIC_USER = "web.taskomatic_cobbler_user";
+    
 
     /**
      * The default maximum size for config revisions,  (128 K)

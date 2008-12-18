@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.9
+Version: 0.4.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,6 +226,14 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 0.4.12-1
+- 461162 - adding support for cobbler auth for taskomatic that actually works
+- more fixes for the $sth variable
+
+* Thu Dec 18 2008 Jan Pazdziora 0.4.10-1
+- WebUI will report Spacewalk release 0.4
+- fixing duplicated $sth variable
+
 * Wed Dec 17 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.4.9-1
 - 476893 - update perl package verify access query to be multiorg aware
 - 461593 - fixing web site nav for package details

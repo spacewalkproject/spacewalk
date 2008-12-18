@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.10
+Version:        0.4.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -78,6 +78,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 0.4.11-1
+- fixing duplicated $sth variable
+
 * Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.10-1
 - 226915 - db_name can be different from db instance name
 
