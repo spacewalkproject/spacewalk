@@ -53,6 +53,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Conflicts:       oracle-selinux
 
 %description -n oracle-nofcontext-selinux
 SELinux policy module defining types and interfaces for
