@@ -44,7 +44,7 @@ public class KickstartDto extends BaseDto {
     }
     
     /**
-     * @param raw the raw to set
+     * @param typeIn to set
      */
     public void setKickstartType(String typeIn) {
         this.kickstartType = typeIn;
