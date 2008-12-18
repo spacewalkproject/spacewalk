@@ -89,8 +89,8 @@ public class KickstartData {
     
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
-    protected static final String TYPE_WIZARD = "wizard";
-    protected static final String TYPE_RAW = "raw";
+    public static final String TYPE_WIZARD = "wizard";
+    public static final String TYPE_RAW = "raw";
 
     
     /**

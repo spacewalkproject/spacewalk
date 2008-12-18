@@ -245,7 +245,7 @@ ORDER BY F.usage_count DESC, F.subject
   <query params="org_id">
   SELECT KS.id, KS.org_id, KS.label, KS.is_org_default, 
          KS.active,  KSD.kstree_id, KT.label as tree_label,KS.cobbler_id, 
-        NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
+         KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT
    WHERE KS.org_id = :org_id
      AND KSD.kickstart_id = KS.id
@@ -268,7 +268,7 @@ ORDER BY F.usage_count DESC, F.subject
   SELECT DISTINCT KS.id, KS.org_id, KS.label,
          KS.active,  KSD.kstree_id,KS.cobbler_id ,KT.label as tree_label,
          c.label as channel_label, 
-         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
+         KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD
     	 inner join rhnKSData KS on KSD.kickstart_id = KS.id
     	 inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
@@ -288,7 +288,7 @@ ORDER BY KS.label, KS.id
   <query params="org_id,prim_arch_id,sec_arch_id">
   SELECT DISTINCT KS.id, KS.org_id, KS.label,KS.cobbler_id,
          KS.active,  KSD.kstree_id, c.label as channel_label,
-         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
+         KS.ks_type as kickstart_type
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT, rhnChannel C, rhnKickstartVirtualizationType KVT
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'

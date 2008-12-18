@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto.kickstart;
 
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -32,21 +33,21 @@ public class KickstartDto extends BaseDto {
     private String isOrgDefault;
     private String treeLabel;
     private boolean active;
-    private Integer advancedMode;
+    private String kickstartType;
     private String cobblerId;
     private String cobblerUrl;
     /**
      * @return if this is a raw KS
      */
     public boolean isAdvancedMode() {
-        return advancedMode != null && 1 == advancedMode;
+        return kickstartType.equals(KickstartData.TYPE_RAW);
     }
     
     /**
      * @param raw the raw to set
      */
-    public void setAdvancedMode(Integer raw) {
-        this.advancedMode = raw;
+    public void setKickstartType(String typeIn) {
+        this.kickstartType = typeIn;
     }
 
     /**

@@ -262,7 +262,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[SELECT {k.*}
                     FROM rhnKickstartDefaults ksd,
                          rhnksdata k
-                         LEFT OUTER JOIN rhnKSRawData k_1_ on K.id = k_1_.kickstart_id
             	    WHERE k.id = ksd.kickstart_id
                     AND ksd.kstree_id = :kstree_id]]>
 		<return alias="k" class="com.redhat.rhn.domain.kickstart.KickstartData" />
