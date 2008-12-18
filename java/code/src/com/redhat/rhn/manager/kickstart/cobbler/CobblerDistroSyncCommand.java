@@ -69,12 +69,13 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         for (KickstartableTree tree : trees) {
             if (!cobblerDistros.containsKey(tree.getCobblerId())) {
                 try {
+                    log.debug("tree in spacewalk but not in cobbler. " +
+                            "creating distro in cobbler : " + tree.getLabel());
                     createDistro(tree);
                     tree.setModified(new Date());
                 }
                 catch (RuntimeException e) {
-                    //we want to handle distro creation error conditions better..
-                    // TODO add remove here
+                    log.error("error syncing distro. we will continue", e);
                 }
             }
         }
