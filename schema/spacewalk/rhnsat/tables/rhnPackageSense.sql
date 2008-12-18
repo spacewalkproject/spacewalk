@@ -26,15 +26,13 @@ rhnPackageSense
 	label		varchar2(32)
 			constraint rhn_pkg_sense_label_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pkg_sense_label_uq
 	on rhnPackageSense(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.8  2003/01/30 16:11:28  pjones

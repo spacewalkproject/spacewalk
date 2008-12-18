@@ -36,17 +36,14 @@ rhnRam
         modified        date default(sysdate)
 			constraint rhn_ram_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_ram_id_seq;
 
 create index rhn_ram_sid_idx on
         rhnRam(server_id)
         tablespace [[4m_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

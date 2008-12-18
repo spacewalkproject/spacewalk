@@ -33,21 +33,18 @@ rhnSnapshotConfigRevision
 	modified		date default(sysdate)
 				constraint rhn_snapshotcr_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_snapshotcr_sid_crid_uq
 	on rhnSnapshotConfigRevision( snapshot_id, config_revision_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_sscr_crid_sid_idx
 on rhnSnapshotConfigRevision ( config_revision_id, snapshot_id )
         tablespace [[2m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_snapshotcr_mod_trig

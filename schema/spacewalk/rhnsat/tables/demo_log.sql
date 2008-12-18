@@ -26,8 +26,6 @@ create table demo_log (
 create index dl_oid_sid_idx
     on demo_log (org_id, server_id)
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32
     nologging;
 
 

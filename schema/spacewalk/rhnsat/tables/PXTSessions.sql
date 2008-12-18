@@ -26,17 +26,12 @@ create table PXTSessions (
         value           varchar2(4000)
                         constraint pxtsessions_value_nn not null
 )
-	organization heap
-	storage	( freelists 16 )
-	initrans	32
 	enable row movement
-	nocache nomonitoring nologging;
+	  nologging;
 
 create unique index pxt_sessions_pk
 	on PXTSessions(id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 alter table PXTSessions add constraint pxt_sessions_pk
@@ -47,15 +42,11 @@ create sequence pxt_id_seq;
 create index PXTSessions_user
 	on PXTSessions(web_user_id) 
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index PXTSessions_expires
 	on PXTSessions(expires)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 --

@@ -29,18 +29,15 @@ rhnServerLock
         created         date default (sysdate)
 			constraint rhn_server_lock_created_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_server_lock_sid_unq on
         rhnServerLock(server_id)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_server_lock_lid_unq on
         rhnServerLock(locker_id)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;

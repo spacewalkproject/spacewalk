@@ -23,14 +23,12 @@ create table rhnInfoPane (
             constraint rhn_info_pane_labl_nn not null,
     acl     varchar2(4000)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 create sequence rhn_info_pane_id_seq;
 
 create unique index rhn_info_pane_labl_uq
     on rhnInfoPane (label)
     tablespace [[4m_tbs]]
-    storage ( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;

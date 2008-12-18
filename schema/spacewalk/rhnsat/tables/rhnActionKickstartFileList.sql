@@ -34,21 +34,18 @@ rhnActionKickstartFileList
 	modified		date default (sysdate)
 				constraint rhn_actionksfl_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_actionksfl_aksid_flid_uq
 	on rhnActionKickstartFileList( action_ks_id, file_list_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_actionksfl_flid_idx
 	on rhnActionKickstartFileList( file_list_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_actionksfl_mod_trig

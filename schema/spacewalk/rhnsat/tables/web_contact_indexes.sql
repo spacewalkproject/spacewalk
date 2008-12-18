@@ -20,13 +20,13 @@ create index web_contact_oid_id
 	on web_contact(org_id, id)
 	parallel 6
 	tablespace [[web_index_tablespace_2]]
-	storage(pctincrease 1);
+  ;
 	
 create index web_contact_id_oid_cust_luc on
 	web_contact(id,oracle_contact_id,org_id,login_uc)
 	parallel 6
 	tablespace [[web_index_tablespace_2]]
-	storage(pctincrease 1);
+  ;
 
 --create unique index web_contact_utf_name_filter on
 --    	web_contact(convert(login, 'WE8ISO8859P1'))

@@ -33,22 +33,19 @@ rhnServerPreserveFileList
 	modified	date default (sysdate)
 			constraint rhn_serverpfl_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_serverpfl_ksid_flid_uq
 	on rhnServerPreserveFileList( server_id, file_list_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- needed for delete server
 create index rhn_serverpfl_flid_ksid_idx
 	on rhnServerPreserveFileList( file_list_id, server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_serverpfl_mod_trig

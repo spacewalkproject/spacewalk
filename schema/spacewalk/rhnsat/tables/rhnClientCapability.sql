@@ -45,15 +45,13 @@ rhnClientCapability
 	modified	date default(sysdate)
 			constraint rhn_clientcap_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_clientcap_sid_cap_uq
 	on rhnClientCapability(server_id, capability_name_id)
 	tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_clientcap_mod_trig

@@ -38,17 +38,15 @@ rhnFile
 	modified	date default(sysdate)
 			constraint rhn_file_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_file_id_seq;
 
 create unique index rhn_file_path_uq
 	on rhnFile(path)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

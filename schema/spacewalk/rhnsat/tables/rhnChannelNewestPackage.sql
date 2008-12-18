@@ -47,31 +47,27 @@ rhnChannelNewestPackage
 					references rhnPackage(id)
 					on delete cascade
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_cnp_cnep_idx
 	on rhnChannelNewestPackage(channel_id, name_id, 
 		package_arch_id, evr_id, package_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnChannelNewestPackage add constraint rhn_cnp_cid_nid_uq
 	unique ( channel_id, name_id, package_arch_id );
 
 create index rhn_cnp_necp_idx
 	on rhnChannelNewestPackage(name_id, evr_id, channel_id, package_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- robin wants this so that deletion of packages is quicker
 create index rhn_cnp_pid_idx
 	on rhnChannelNewestPackage( package_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.6  2003/03/18 20:33:45  pjones

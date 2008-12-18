@@ -30,17 +30,15 @@ rhnPackageGroup
         modified        date default(sysdate)
 			constraint rhn_package_group_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_package_group_id_seq;
 
 create unique index rhn_package_group_name_uq
 	on rhnPackageGroup(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_package_group_mod_trig

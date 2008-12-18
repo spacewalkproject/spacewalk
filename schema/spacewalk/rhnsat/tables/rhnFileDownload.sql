@@ -36,27 +36,23 @@ rhnFileDownload
 					references web_contact(id)
 					on delete set null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_filedl_uid_fid_idx
 	on rhnFileDownload ( user_id, file_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_filedl_token_idx
 	on rhnFileDownload ( token )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_filedl_start_idx
         on rhnFileDownload ( start_time )
         tablespace [[8m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 --
 -- Revision 1.4  2003/12/02 21:47:31  cturner

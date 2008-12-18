@@ -34,9 +34,8 @@ rhnServerArch
 	modified	date default(sysdate)
 			constraint rhn_sarch_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_arch_id_seq start with 1000;
 
@@ -44,16 +43,14 @@ create sequence rhn_server_arch_id_seq start with 1000;
 create index rhn_sarch_id_l_n_idx
 	on rhnServerArch(id,label,name)
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnServerArch add constraint rhn_sarch_id_pk primary key (id);
 
 -- these too.
 create index rhn_sarch_l_id_n_idx
 	on rhnServerArch(label,id,name)
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnServerArch add constraint rhn_sarch_label_uq unique ( label );
 
 create or replace trigger

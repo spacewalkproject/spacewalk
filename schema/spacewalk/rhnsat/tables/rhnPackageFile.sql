@@ -56,21 +56,17 @@ rhnPackageFile
 	modified	date default (sysdate)
 			constraint rhn_package_file_modified_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_package_file_pid_cid_uq
 	on rhnPackageFile(package_id, capability_id)
 	tablespace [[32m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_package_file_cid_pid_idx
 	on rhnPackageFile(capability_id, package_id)
 	tablespace [[32m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

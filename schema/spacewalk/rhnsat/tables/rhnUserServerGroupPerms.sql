@@ -32,20 +32,16 @@ rhnUserServerGroupPerms
         modified        date default(sysdate)
                         constraint rhn_usgp_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create UNIQUE index rhn_usgp_u_sg_p_uq
 	on rhnUserServerGroupPerms(user_id, server_group_id)
         tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create index rhn_usgp_sg_u_p_idx
         on rhnUserServerGroupPerms(server_group_id, user_id)
         tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 --

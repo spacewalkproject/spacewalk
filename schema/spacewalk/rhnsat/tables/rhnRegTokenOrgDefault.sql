@@ -34,13 +34,11 @@ rhnRegTokenOrgDefault
 
 create unique index rhn_reg_token_def_org_id_idx
 	on rhnRegTokenOrgDefault(org_id)
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_reg_token_def_uid_idx
 	on rhnRegTokenOrgDefault (reg_token_id, org_id)
-	storage( freelists 16 )
-	initrans 32;
+  ;
 	
 --
 -- Revision 1.1  2003/11/07 04:10:51  cturner

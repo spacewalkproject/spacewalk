@@ -35,21 +35,18 @@ rhnSnapshotConfigChannel
 	modified		date default(sysdate)
 				constraint rhn_snapshotcc_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_snapshotcc_sid_ccid_uq
 	on rhnSnapshotConfigChannel( snapshot_id, config_channel_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_snpsht_cc_ccid_sid_idx
 on rhnSnapshotConfigChannel ( config_channel_id, snapshot_id )
         tablespace [[4m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_snapshotcc_mod_trig

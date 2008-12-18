@@ -28,21 +28,17 @@ create table rhnPathChannelMap
 	created		date default SYSDATE,
 	modified	date default SYSDATE
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_path_channel_map_p_cid_uq 
 	on rhnPathChannelMap(path, channel_id)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_path_channel_map_cid_p_idx
 	on rhnPathChannelMap(channel_id, path)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

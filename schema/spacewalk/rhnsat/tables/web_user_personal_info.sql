@@ -25,7 +25,7 @@ web_user_personal_info
 				constraint personal_info_web_user_id_fk
 					references web_contact(id)
 					on delete cascade,
-	prefix			varchar(12) default ' '
+	prefix			varchar2(12) default ' '
 				constraint wupi_prefix_nn not null
 				constraint wupi_prefix_fk
 					references web_user_prefix(text),
@@ -92,9 +92,9 @@ create index wupi_email_uc_idx
 --         PIN                     NUMBER,
 --         created                 date            default(sysdate),
 --         modified                date            default(sysdate),
---         first_names_ol varchar(128),
---         last_name_ol varchar(128),
---         genqual_ol varchar(12),
+--         first_names_ol varchar2(128),
+--         last_name_ol varchar2(128),
+--         genqual_ol varchar2(12),
 --         PARENT_COMPANY_OL VARCHAR2(128),
 --         COMPANY_OL  VARCHAR2(128),
 --         TITLE_OL VARCHAR2(128)

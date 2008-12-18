@@ -39,31 +39,27 @@ rhnProduct
 	modified	date default (sysdate)
 			constraint rhn_product_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_product_id_idx
 	on rhnProduct(id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnProduct add constraint rhn_product_id_pk
 	primary key ( id );
 
 create index rhn_product_label_idx
 	on rhnProduct(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnProduct add constraint rhn_product_label_uq
 	unique ( label );
 
 create index rhn_product_name_idx
 	on rhnProduct(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnProduct add constraint rhn_product_name_uq
 	unique ( name );
 

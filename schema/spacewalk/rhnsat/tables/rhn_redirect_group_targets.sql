@@ -26,9 +26,8 @@ rhn_redirect_group_targets
     contact_group_id    number   (12)
         constraint rhn_rdrgt_group_id_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_redirect_group_targets 
     is 'rdrgt  redirect group targets';
@@ -36,14 +35,12 @@ comment on table rhn_redirect_group_targets
 create unique index rhn_rdrgt_pk 
     on rhn_redirect_group_targets ( redirect_id , contact_group_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_rdrgt_redirect_id_idx 
     on rhn_redirect_group_targets ( redirect_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_redirect_group_targets 
     add constraint rhn_rdrgt_pk primary key ( redirect_id, contact_group_id );

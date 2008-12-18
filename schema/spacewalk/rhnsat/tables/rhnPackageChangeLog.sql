@@ -38,9 +38,8 @@ rhnPackageChangelog
         modified        date default(sysdate)
 			constraint rhn_pkg_changelog_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_pkg_cl_id_seq;
 
@@ -48,8 +47,7 @@ create sequence rhn_pkg_cl_id_seq;
 create unique index rhn_pkg_cl_pid_n_txt_time_uq
         on rhnPackageChangelog(package_id, name, text, time)
         nologging tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger 
 rhn_package_changelog_mod_trig

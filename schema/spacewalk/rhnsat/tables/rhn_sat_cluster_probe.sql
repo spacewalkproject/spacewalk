@@ -26,17 +26,15 @@ rhn_sat_cluster_probe
         constraint rhn_sclpb_probe_id_nn not null
         constraint rhn_sclpb_probe_id_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     probe_type      varchar2 (12) default 'satcluster'
         constraint rhn_sclpb_probe_type_nn not null
         constraint rhn_sclpb_probe_type_ck check (probe_type='satcluster'),
     sat_cluster_id  number   (12)
         constraint rhn_sclpb_sat_cluster_id_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_sat_cluster_probe 
     is 'sclpb  satellite cluster probe definitions';
@@ -44,14 +42,12 @@ comment on table rhn_sat_cluster_probe
 create index rhn_sclpb_sat_cluster_id_idx 
     on rhn_sat_cluster_probe ( sat_cluster_id ) 
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_sclpb_pid_ptype_idx
     on rhn_sat_cluster_probe ( probe_id, probe_type )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 
 alter table rhn_sat_cluster_probe

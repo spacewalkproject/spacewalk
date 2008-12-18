@@ -37,17 +37,15 @@ rhnKickstartCommandName
                             check ( required in ('Y', 'N') )
 )
 
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_kscommandname_id_seq;
 
 create index rhn_kscommandname_name_id_idx
 	on rhnKickstartCommandName( name, id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnKickstartCommandName add constraint rhn_kscommandname_name_uq
 	unique ( name );
 

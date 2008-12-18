@@ -28,13 +28,11 @@ create table rhnUserInfoPane (
                 references rhnInfoPane(id)
                 on delete cascade
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 
 create unique index rhnusrinfopane_uid_pid_uq
     on rhnUserInfoPane ( user_id, pane_id )
     tablespace [[4m_tbs]]
-    storage ( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;

@@ -31,15 +31,12 @@ rhnActionPackageAnswerfile
 			constraint rhn_act_p_af_mod_nn not null
 )
 	tablespace [[blob]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_act_p_af_aid_idx
 	on rhnActionPackageAnswerfile( action_package_id )
 	tablespace [[2m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

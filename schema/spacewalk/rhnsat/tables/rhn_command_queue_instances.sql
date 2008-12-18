@@ -25,7 +25,7 @@ rhn_command_queue_instances
         constraint rhn_cqins_recid_nn not null
         constraint rhn_cqins_recid_pk primary key
             using index tablespace [[4m_tbs]]
-            storage( pctincrease 1 freelists 16 ),
+            ,
     command_id          number   (12)
         constraint rhn_cqins_command_id_nn not null,
     notes               varchar2 (2000),
@@ -38,9 +38,8 @@ rhn_command_queue_instances
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_queue_instances 
     is 'cqins  command queue instance definitions';
@@ -48,8 +47,6 @@ comment on table rhn_command_queue_instances
 create index rhn_cqins_command_id_idx 
     on rhn_command_queue_instances ( command_id )
     tablespace [[4m_tbs]]
-    storage ( pctincrease 1 freelists 16 )
-    initrans 32
     logging;
 
 alter table rhn_command_queue_instances

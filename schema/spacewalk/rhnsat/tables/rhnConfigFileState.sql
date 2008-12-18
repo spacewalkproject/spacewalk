@@ -34,15 +34,13 @@ rhnConfigFileState
 	modified	date default(sysdate)
 			constraint rhn_cfstate_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cfstate_label_id_uq
 	on rhnConfigFileState( label, id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_cfstate_mod_trig

@@ -33,21 +33,17 @@ rhnErrataPackageTmp
 	modified	date default (sysdate)
 			constraint rhn_err_pkgtmp_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_err_pkgtmp_eid_pid_uq
 	on rhnErrataPackageTmp(errata_id, package_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_err_pkgtmp_pid_eid_idx
 	on rhnErrataPackageTmp(package_id, errata_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

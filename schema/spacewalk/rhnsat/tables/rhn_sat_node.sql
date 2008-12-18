@@ -25,8 +25,7 @@ rhn_sat_node
 				constraint rhn_satnd_recid_nn not null
 				constraint rhn_satnd_recid_pk primary key
 					using index tablespace [[2m_tbs]]
-					storage( pctincrease 1 freelists 16 )
-					initrans 32,
+					,
         server_id               number
                                 constraint rhn_satnd_sid_fk
 	   			        references rhnServer(id),
@@ -51,9 +50,8 @@ rhn_sat_node
 	scout_shared_key	varchar2(64)
 				constraint rhn_satnd_ssk_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 comment on table rhn_sat_node is 'satnd  satellite node';
 
@@ -61,15 +59,13 @@ create index rhn_sat_node_scid_idx
 on rhn_sat_node ( sat_cluster_id )
    tablespace [[64k_tbs]]
    nologging
-   storage ( pctincrease 1 freelists 16 )
-   initrans 32;
+  ;
 
 create index rhn_sat_node_sid_idx
 on rhn_sat_node ( server_id )
    tablespace [[64k_tbs]]
    nologging
-   storage ( pctincrease 1 freelists 16 )
-   initrans 32;
+  ;
 
 alter table rhn_sat_node add constraint rhn_satnd_cmdtg_rid_tar_ty_fk
     foreign key ( recid, target_type )

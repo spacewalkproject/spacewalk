@@ -29,17 +29,15 @@ create table rhn_probe_state
     output                           varchar2 (4000),
     last_check                       date
 ) 
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_probe_state is 'prbst  probe state';
 
 create unique index rhn_prbst_probe_id_scout_id_pk 
     on rhn_probe_state ( probe_id, scout_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_probe_state 
     add constraint prbst_probe_id_scout_id_pk 

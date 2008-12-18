@@ -29,21 +29,18 @@ rhnErrataKeywordTmp
 	modified	date default(sysdate)
 			constraint rhn_err_keywordtmp_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_err_keywordtmp_eid_uq
 	on rhnErrataKeywordTmp(keyword,errata_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_errkwtmp_eid_idx
 	on rhnErrataKeywordTmp(errata_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_errata_keywordtmp_mod_trig

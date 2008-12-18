@@ -27,14 +27,12 @@ rhnProxyInfo
 			constraint rhn_proxy_info_peid_fk
 				references rhnPackageEVR(id)
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_proxy_info_sid_unq on
         rhnProxyInfo(server_id)
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.7  2004/02/24 16:35:28  pjones

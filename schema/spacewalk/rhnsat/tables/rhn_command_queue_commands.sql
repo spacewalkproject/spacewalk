@@ -25,7 +25,7 @@ rhn_command_queue_commands
         constraint rhn_cqcmd_recid_nn not null
         constraint rhn_cqcmd_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 ),
+            ,
     description         varchar2 (40)
         constraint rhn_cqcmd_description_nn not null,
     notes               varchar2 (2000),
@@ -42,9 +42,8 @@ rhn_command_queue_commands
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_queue_commands 
     is 'cqcmd  command queue command definitions';

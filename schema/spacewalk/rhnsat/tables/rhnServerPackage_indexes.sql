@@ -20,8 +20,6 @@ create index rhn_sp_snep_idx on
         rhnServerPackage(server_id, name_id, evr_id, package_arch_id)
 	parallel 6
         tablespace [[128m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 --

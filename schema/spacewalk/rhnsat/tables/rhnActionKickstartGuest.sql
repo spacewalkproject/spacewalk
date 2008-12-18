@@ -40,21 +40,18 @@ rhnActionKickstartGuest
 	modified		date default(sysdate)
 				constraint rhn_actionks_xenguest_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_actionks_xenguest_aid_uq
 	on rhnActionKickstartGuest( action_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_actionks_xenguest_id_idx
 	on rhnActionKickstartGuest( id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnActionKickstartGuest add constraint rhn_actionks_xenguest_id_pk
 	primary key ( id );
 

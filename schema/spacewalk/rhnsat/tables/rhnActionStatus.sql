@@ -23,15 +23,14 @@ rhnActionStatus
 			constraint rhn_action_status_id_nn not null
 			constraint rhn_action_status_pk primary key
 				using index tablespace [[64k_tbs]],
-	name		varchar(16),
+	name		varchar2(16),
 	created		date default (sysdate)
 			constraint rhn_action_status_created_nn not null,
 	modified	date default (sysdate)
 			constraint rhn_action_status_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 --
 -- Revision 1.14  2003/01/30 16:11:28  pjones

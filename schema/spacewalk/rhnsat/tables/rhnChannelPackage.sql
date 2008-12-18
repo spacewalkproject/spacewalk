@@ -32,21 +32,17 @@ rhnChannelPackage
 	modified	date default (sysdate)
 			constraint rhn_cp_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cp_cp_uq
 	on rhnChannelPackage(channel_id,package_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_cp_pc_idx 
        on rhnChannelPackage(package_id, channel_id)
        tablespace [[64k_tbs]]
-       storage ( freelists 16 )
-       initrans 32
        nologging;
 
 --

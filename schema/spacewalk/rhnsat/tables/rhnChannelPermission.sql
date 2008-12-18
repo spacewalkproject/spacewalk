@@ -38,15 +38,13 @@ rhnChannelPermission
 	modified	date default(sysdate)
 			constraint rhn_cperm_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cperm_cid_uid_rid_idx
 	on rhnChannelPermission(channel_id, user_id, role_id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_cperm_mod_trig

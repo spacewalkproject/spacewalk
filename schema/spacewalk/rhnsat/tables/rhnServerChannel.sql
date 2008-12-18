@@ -31,21 +31,17 @@ create table rhnServerChannel
 	modified	date default(sysdate)
 			constraint rhn_sc_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_sc_sid_cid_uq
 	on rhnServerChannel(server_id, channel_id)
 	tablespace [[8m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_sc_cid_sid_idx
 	on rhnServerChannel(channel_id, server_id)
 	tablespace [[8m_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 --

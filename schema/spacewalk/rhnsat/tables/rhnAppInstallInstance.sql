@@ -34,9 +34,8 @@ rhnAppInstallInstance
 	modified	date default (sysdate)
 			constraint rhn_appinst_instance_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_appinst_istance_mod_trig
@@ -51,16 +50,14 @@ show errors
 create index rhn_appinst_instance_id_idx
 	on rhnAppInstallInstance( id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnAppInstallInstance add constraint rhn_appinst_instance_id_pk
 	primary key ( id );
 
 create index rhn_appinst_instance_lv_id_idx
 	on rhnAppInstallInstance( label, version, id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnAppInstallInstance add constraint rhn_appinst_instance_lv_uq
 	unique ( label, version );
 

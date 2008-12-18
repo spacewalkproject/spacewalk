@@ -36,8 +36,7 @@ rhn_url_probe
         constraint rhn_urlpb_probe_id_nn not null
         constraint rhn_urlpb_probe_id_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     probe_type                       varchar2 (12)  default 'url'
         constraint rhn_urlpb_probe_type_nn not null
         constraint rhn_urlpb_probe_type_ck check (probe_type='url'),
@@ -49,9 +48,8 @@ rhn_url_probe
     scout_warning_threshold          number   (12)  default -1,
     scout_critical_threshold         number   (12)  default -1
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_url_probe 
     is 'urlpb  url probe';
@@ -64,8 +62,7 @@ alter table rhn_url_probe
 
 create index rhn_url_probe_pid_ptype_idx
     on rhn_url_probe ( probe_id, probe_type )
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 --
 --Revision 1.3  2004/05/07 23:30:22  kja

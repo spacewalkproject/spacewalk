@@ -35,9 +35,8 @@ rhn_command_queue_instances_bk
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 --
 --Revision 1.2  2004/05/04 23:02:54  kja

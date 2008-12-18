@@ -31,9 +31,8 @@ rhn_probe_param_value
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_probe_param_value 
     is 'ppval  param value for a probe running a command';
@@ -41,8 +40,7 @@ comment on table rhn_probe_param_value
 create unique index rhn_ppval_p_id_cmd_id_parm_pk 
     on rhn_probe_param_value ( probe_id, command_id, param_name )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_probe_param_value 
     add constraint rhn_ppval_p_id_cmd_id_parm_pk 

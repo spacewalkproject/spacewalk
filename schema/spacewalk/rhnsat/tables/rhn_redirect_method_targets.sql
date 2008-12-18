@@ -26,9 +26,8 @@ rhn_redirect_method_targets
     contact_method_id   number   (12)
         constraint rhn_rdrme_method_id not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_redirect_method_targets 
     is 'rdrme  redirect method targets';
@@ -36,20 +35,17 @@ comment on table rhn_redirect_method_targets
 create unique index rhn_rdrme_pk 
     on rhn_redirect_method_targets ( redirect_id , contact_method_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_rdrme_redirect_id_idx 
     on rhn_redirect_method_targets ( redirect_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_rdrme_cmid_idx
     on rhn_redirect_method_targets ( contact_method_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_redirect_method_targets 
     add constraint rhn_rdrme_pk primary key ( redirect_id, contact_method_id );

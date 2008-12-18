@@ -28,25 +28,23 @@ rhnPackageCapability
 			constraint rhn_pkg_capability_id_nn not null
 			constraint rhn_pkg_capability_id_pk primary key
 				using index tablespace [[4m_tbs]],
-	name		varchar(256)
+	name		varchar2(256)
                         constraint rhn_pkg_capability_name_nn not null,
-	version		varchar(64), -- I really hate this.
+	version		varchar2(64), -- I really hate this.
 	created		date default (sysdate)
 			constraint rhn_pkg_capability_created_nn not null,
 	modified	date default (sysdate)
 			constraint rhn_pkg_capability_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_pkg_capability_id_seq;
 
 create unique index rhn_pkg_cap_name_version_uq
 	on rhnPackageCapability(name, version)
 	tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_pkg_capability_mod_trig

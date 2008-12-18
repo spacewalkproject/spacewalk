@@ -37,27 +37,23 @@ rhnServerMessage
 	modified	date default (sysdate)
 			constraint rhn_sm_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_sm_uq
 	on rhnServerMessage(server_id, message_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_sm_mi_sid_uq
 	on rhnServerMessage(message_id, server_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index RHN_SRVR_MSSG_SRVR_EVNT_IDX
 on rhnServerMessage ( server_event )
         tablespace [[64k_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_sm_mod_trig

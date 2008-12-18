@@ -38,15 +38,13 @@ rhnPushDispatcher
 		modified	date default sysdate
 				constraint rhn_pushdispatch_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_pushdispatch_jid_id_idx
 	on rhnPushDispatcher( jabber_id, id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnPushDispatcher add constraint rhn_pushdispatch_jid_uq
 	unique ( jabber_id );
 

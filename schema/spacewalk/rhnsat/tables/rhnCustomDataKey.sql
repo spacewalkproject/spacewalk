@@ -46,15 +46,13 @@ rhnCustomDataKey
 	modified	date default (sysdate)
 			constraint rhn_cdatakey_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 	
 create index rhn_cdatakey_oid_label_id_idx
 	on rhnCustomDataKey(org_id, label, id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnCustomDataKey add constraint rhn_cdatakey_oid_label_uq
 	unique ( org_id, label );
 

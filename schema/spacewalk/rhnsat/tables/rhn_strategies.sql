@@ -27,8 +27,7 @@ rhn_strategies
         constraint rhn_strat_recid_ck check (recid > 0)
         constraint rhn_strat_recid_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     name                varchar2 (80),
     comp_crit           varchar2 (80),
     esc_crit            varchar2 (80),
@@ -39,9 +38,8 @@ rhn_strategies
         constraint rhn_strat_ack_comp_ck 
             check (ack_completed in ( 'All', 'One','No' ))
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_strategies 
     is 'strat  strategy definitions';

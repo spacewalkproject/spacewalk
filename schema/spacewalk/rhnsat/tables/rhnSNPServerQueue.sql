@@ -25,16 +25,13 @@ create table rhnSNPServerQueue
 	processed	number default(0)
 			constraint rhn_sec_np_processed_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 -- to support deleting.
 create index rhn_sec_np_sid_idx
 	on rhnSNPServerQueue( server_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 --

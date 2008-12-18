@@ -21,11 +21,11 @@
 -- EXCLUDE: production
 
 create table valid_countries (
-    code       varchar(2)    NOT NULL
+    code       varchar2(2)    NOT NULL
                              CONSTRAINT valid_countries_pk
                              PRIMARY KEY,
-    short_name varchar(80) NOT NULL,
-    name       varchar(240)
+    short_name varchar2(80) NOT NULL,
+    name       varchar2(240)
 )
 	enable row movement
 	;
@@ -273,10 +273,10 @@ insert into valid_countries(code,short_name,name) values ('SE','Sweden','Kingom 
 
 create table valid_countries_tl (
     lang          char(2)     NOT NULL,
-    code          varchar(2)  NOT NULL
+    code          varchar2(2)  NOT NULL
 			      CONSTRAINT valid_countries_tl_code
                                 REFERENCES valid_countries(code),
-    short_name_tl varchar(80) NOT NULL,
+    short_name_tl varchar2(80) NOT NULL,
                               CONSTRAINT valid_countries_tl_unq
                                 UNIQUE (lang, code)
 );

@@ -20,22 +20,20 @@ rhnActionVirtResume
                 constraint rhn_avresume_aid_fk
                     references rhnAction( id )
                     on delete cascade,
-    uuid        varchar(128)
+    uuid        varchar2(128)
                 constraint rhn_avresume_uuid_nn not null,
     created     date default(sysdate)
                 constraint rhn_avresume_creat_nn not null,
     modified    date default(sysdate)
                 constraint rhn_avresume_mod_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 create unique index rhn_avresume_aid_uq
     on rhnActionVirtResume( action_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhnActionVirtResume add constraint rhn_avresume_aid_pk
     primary key ( action_id );

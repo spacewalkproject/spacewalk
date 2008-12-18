@@ -30,21 +30,18 @@ rhnCryptoKeyKickstart
                                 references rhnKSData(id)
 				on delete cascade
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_ckey_ks_uq
 	on rhnCryptoKeyKickstart(crypto_key_id, ksdata_id)
 	tablespace [[4m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_ckey_ks__ckuq
 	on rhnCryptoKeyKickstart(ksdata_id, crypto_key_id)
 	tablespace [[4m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.1  2003/11/15 20:28:24  cturner

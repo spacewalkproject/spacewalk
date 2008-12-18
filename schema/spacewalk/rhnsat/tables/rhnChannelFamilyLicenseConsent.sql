@@ -36,28 +36,22 @@ rhnChannelFamilyLicenseConsent
 	modified	date default (sysdate)
 			constraint rhn_cfl_consent_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cfl_consent_cf_s_uq
 	on rhnChannelFamilyLicenseConsent(channel_family_id, server_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_cfl_consent_uid_idx
 	on rhnChannelFamilyLicenseConsent ( user_id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_cfl_consent_sid_idx
 	on rhnChannelFamilyLicenseConsent( server_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

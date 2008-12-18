@@ -30,15 +30,13 @@ rhnRegTokenChannels
                                 references rhnChannel(id)
 				on delete cascade
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_reg_tok_chn_uq
 	on rhnRegTokenChannels(token_id, channel_id)
 	tablespace [[4m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.4  2003/04/14 15:40:16  pjones

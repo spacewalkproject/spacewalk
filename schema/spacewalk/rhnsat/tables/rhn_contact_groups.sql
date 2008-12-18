@@ -26,8 +26,7 @@ rhn_contact_groups
         constraint rhn_cntgp_recid_notzero check (recid > 0)
         constraint rhn_cntgp_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     contact_group_name      varchar2 (30)
         constraint rhn_cntgp_group_name_nn not null,
     customer_id             number   (12)
@@ -47,9 +46,8 @@ rhn_contact_groups
     notification_format_id  number   (12) default 4
         constraint rhn_cntgp_notif_fmt_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_contact_groups 
     is 'cntgp  contact group definitions';
@@ -57,14 +55,12 @@ comment on table rhn_contact_groups
 create index rhn_cntgp_strategy_id_idx
     on rhn_contact_groups ( strategy_id )
     tablespace [[2m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_cntgp_customer_id_idx
     on rhn_contact_groups ( customer_id )
     tablespace [[2m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_contact_groups
     add constraint rhn_cntgp_cstmr_customer_id_fk

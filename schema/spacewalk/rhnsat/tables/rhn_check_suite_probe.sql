@@ -25,16 +25,15 @@ rhn_check_suite_probe
         constraint rhn_ckspb_probe_id_nn not null
         constraint rhn_ckspb_probe_id_pk primary key
             using index tablespace [[4m_tbs]]
-            storage( pctincrease 1 freelists 16 ),
+            ,
     probe_type      varchar2 (12) default 'suite' 
         constraint rhn_ckspb_probe_type_nn not null
         constraint rhn_ckspb_probe_type_ck check ( probe_type = 'suite' ),
     check_suite_id  number   (12)
         constraint rhn_ckspb_check_suite_id_nn not null
 ) 
-    storage ( pctincrease 1 freelists 16 ) 
     enable row movement
-    initrans 32; 
+  ;
 
 comment on table rhn_check_suite_probe 
     is 'CKSPB  Check suite probe definitions (monitoring)';
@@ -42,8 +41,7 @@ comment on table rhn_check_suite_probe
 create index rhn_ckspb_check_suite_id_idx 
     on rhn_check_suite_probe ( check_suite_id )
     tablespace [[4m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_check_suite_probe
     add constraint rhn_ckspb_cksut_ck_suite_id_fk

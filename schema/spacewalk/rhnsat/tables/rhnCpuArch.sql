@@ -30,9 +30,8 @@ rhnCpuArch
 	modified	date default(sysdate)
 			constraint rhn_cpuarch_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_cpu_arch_id_seq start with 200;
 
@@ -40,16 +39,14 @@ create sequence rhn_cpu_arch_id_seq start with 200;
 create index rhn_cpuarch_id_l_n_idx
 	on rhnCpuArch(id,label,name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnCpuArch add constraint rhn_cpuarch_id_pk primary key (id);
 
 -- these too.
 create index rhn_cpuarch_l_id_n_idx
 	on rhnCpuArch(label,id,name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnCpuArch add constraint rhn_cpuarch_label_uq unique ( label );
 
 create or replace trigger

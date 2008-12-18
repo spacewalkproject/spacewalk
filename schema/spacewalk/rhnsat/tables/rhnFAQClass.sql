@@ -24,29 +24,26 @@ rhnFAQClass
 		    constraint rhn_faq_class_id_nn not null
 		    constraint rhn_faq_class_id_pk primary key
 			using index tablespace [[64k_tbs]]
-			storage(pctincrease 1),
+			,
 	name	    varchar2(128),
 	label       varchar2(32)
 	    	    constraint rhn_faq_class_label_nn not null,
 	ordering  number
 	            constraint rhn_faq_class_or_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 CREATE SEQUENCE RHN_FAQ_CLASS_ID_SEQ START WITH 101;
 
 create unique index rhn_faqclass_label_uq
 	on rhnFAQClass(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create unique index rhn_faqclass_or_uq
 	on rhnFAQClass(ordering)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.7  2003/05/19 21:56:22  cturner

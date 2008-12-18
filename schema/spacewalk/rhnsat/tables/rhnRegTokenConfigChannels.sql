@@ -32,21 +32,18 @@ rhnRegTokenConfigChannels
 	position		number
 				constraint rhn_regtok_confchan_pos_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_regtok_confchan_t_cc_uq
 	on rhnRegTokenConfigChannels( token_id, config_channel_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_regtok_confchan_ccid_idx
 	on rhnRegTokenConfigChannels( config_channel_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --
