@@ -136,6 +136,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec 18 2008 Miroslav Suchý <msuchy@redhat.com>
+- fix path to notif-escalator.log
+
 * Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.24-1
 - 472895 - remove grouped_fields from Class::MethodMaker declaration
 
