@@ -20,7 +20,7 @@ rhnActionVirtVcpu
                 constraint rhn_avcpu_aid_fk
                     references rhnAction(id)
                     on delete cascade,
-    uuid        varchar(128)
+    uuid        varchar2(128)
                 constraint rhn_avcpu_uuid_nn not null,
     vcpu      number
                 constraint rhn_avcpu_vcpus_nn not null,

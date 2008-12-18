@@ -20,7 +20,7 @@ rhnActionVirtSuspend
                 constraint rhn_avsuspend_aid_fk
                     references rhnAction(id)
                     on delete cascade,
-    uuid        varchar(128)
+    uuid        varchar2(128)
                 constraint rhn_avsuspend_uuid_nn not null,
     created     date default(sysdate)
                 constraint rhn_avsuspend_creat_nn not null,

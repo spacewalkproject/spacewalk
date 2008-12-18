@@ -29,20 +29,20 @@ rhnServer
                         constraint rhn_server_oid_fk
                                 references web_customer(id)
 				on delete cascade,
-        digital_server_id varchar(64)
+        digital_server_id varchar2(64)
 			constraint rhn_server_dsi_nn not null,
 	server_arch_id	number
 			constraint rhn_server_said_nn not null
 			constraint rhn_server_said_fk
 				references rhnServerArch(id),
-        os              varchar(64)
+        os              varchar2(64)
 			constraint rhn_server_os_nn not null,
-        release         varchar(64)
+        release         varchar2(64)
 			constraint rhn_server_release_nn not null,
-        name            varchar(128),
-        description     varchar(256),
-        info            varchar(128),
-        secret          varchar(32)
+        name            varchar2(128),
+        description     varchar2(256),
+        info            varchar2(128),
+        secret          varchar2(32)
 			constraint rhn_server_secret_nn not null,
 	creator_id	number
 			constraint rhn_server_creator_fk

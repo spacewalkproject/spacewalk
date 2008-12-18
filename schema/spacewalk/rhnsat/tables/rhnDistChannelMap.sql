@@ -19,9 +19,9 @@
 create table
 rhnDistChannelMap 
 (
-	os		varchar(64)
+	os		varchar2(64)
 			constraint rhn_dcm_os_nn not null,
-	release		varchar(64)
+	release		varchar2(64)
 			constraint rhn_dcm_release_nn not null,
 	channel_arch_id	number
 			constraint rhn_dcm_caid_nn not null

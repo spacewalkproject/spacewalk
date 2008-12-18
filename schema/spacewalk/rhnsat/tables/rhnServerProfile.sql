@@ -30,9 +30,9 @@ rhnServerProfile
 	    	    	constraint rhn_server_profile_bcid_nn not null
 	    	    	constraint rhn_server_profile_bcid_fk
 			    	references rhnChannel(id),
-        name            varchar(128),
-        description     varchar(256),
-        info            varchar(128),
+        name            varchar2(128),
+        description     varchar2(256),
+        info            varchar2(128),
 	profile_type_id number
 	    	    	constraint rhn_server_profile_ptype_nn not null
 	    	    	constraint rhn_server_profile_ptype_fk

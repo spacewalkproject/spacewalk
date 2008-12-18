@@ -32,7 +32,7 @@ rhnServerAction
                         constraint rhn_server_action_status_fk
                         references rhnActionStatus(id),
         result_code     number,
-        result_msg      varchar(1024),
+        result_msg      varchar2(1024),
         pickup_time     date,
 	remaining_tries	number default(5)
 			constraint rhn_server_action_remaining_nn not null,

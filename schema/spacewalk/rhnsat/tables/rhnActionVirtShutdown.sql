@@ -20,7 +20,7 @@ rhnActionVirtShutdown
                 constraint rhn_avshutdown_aid_fk 
                     references rhnAction(id)
                     on delete cascade,
-    uuid        varchar(128)
+    uuid        varchar2(128)
                 constraint rhn_avshutdown_uuid_nn not null,
     created     date default(sysdate)
                 constraint rhn_avshutdown_creat_nn not null,

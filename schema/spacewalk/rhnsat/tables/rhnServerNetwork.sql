@@ -27,7 +27,7 @@ rhnServerNetwork
 			constraint rhn_servernetwork_sid_nn not null
                         constraint rhn_servernetwork_sid_fk
                                 references rhnServer(id),
-        hostname        varchar(128),
+        hostname        varchar2(128),
         ipaddr          char(16),
         created         date default (sysdate)
 			constraint rhn_servernetwork_created_nn not null,

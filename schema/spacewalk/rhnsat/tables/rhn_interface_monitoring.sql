@@ -25,7 +25,7 @@ rhn_interface_monitoring
         constraint rhn_monif_server_pk primary key
             using index tablespace [[8m_tbs]]
             ,
-    server_name     varchar (32)   
+    server_name     varchar2 (32)
         constraint rhn_monif_server_name_nn not null
 )
     enable row movement

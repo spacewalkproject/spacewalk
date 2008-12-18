@@ -20,7 +20,7 @@ rhnActionVirtSetMemory
                 constraint rhn_avsm_aid_fk
                     references rhnAction(id)
                     on delete cascade,
-    uuid        varchar(128)
+    uuid        varchar2(128)
                 constraint rhn_avsm_uuid_nn not null,
     memory      number
                 constraint rhn_avsm_mem_nn not null,

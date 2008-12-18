@@ -15,7 +15,7 @@
 create table rhnVisibleObjects(
   pxt_session_id number not null,
   object_id number not null,
-  object_type varchar(40) not null,
+  object_type varchar2(40) not null,
   constraint rhn_vis_objs_sess_fk
     foreign key (pxt_session_id)
     references PXTSessions(id)

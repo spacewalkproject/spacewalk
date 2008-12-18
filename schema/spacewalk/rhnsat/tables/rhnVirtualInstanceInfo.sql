@@ -20,7 +20,7 @@
 create table
 rhnVirtualInstanceInfo
 (
-	name                    varchar(128),
+	name                    varchar2(128),
 	instance_id		number
 				constraint rhn_vii_viid_nn not null
 				constraint rhn_vii_viid_fk

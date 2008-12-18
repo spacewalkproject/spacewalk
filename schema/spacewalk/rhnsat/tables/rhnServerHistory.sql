@@ -27,9 +27,9 @@ rhnServerHistory
 			constraint rhn_serverhistory_sid_nn not null
                         constraint rhn_serverhistory_sid_fk
                                 references rhnServer(id),
-        summary         varchar(256)
+        summary         varchar2(256)
 			constraint rhn_serverhistory_summary_nn not null,
-        details         varchar(4000),
+        details         varchar2(4000),
         created         date default (sysdate)
 			constraint rhn_serverhistory_created_nn not null,
         modified        date default (sysdate)

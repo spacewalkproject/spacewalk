@@ -17,7 +17,7 @@ rhnActionVirtStart
 (
     action_id   number  
                 constraint rhn_avstart_aid_nn not null,
-    uuid        varchar(128)
+    uuid        varchar2(128)
                 constraint rhn_avstart_uuid_nn not null,
     created     date default(sysdate)
                 constraint rhn_avstart_creat_nn not null,
