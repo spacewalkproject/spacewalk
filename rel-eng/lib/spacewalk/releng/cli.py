@@ -32,6 +32,13 @@ from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
         check_tag_exists
 
+BUILD_PROPS_FILENAME = "build.py.props"
+ASSUMED_NO_TAR_GZ_PROPS = """
+[buildconfig]
+builder = spacewalk.releng.builder.NoTgzBuilder
+tagger = spacewalk.releng.tagger.ReleaseTagger
+"""
+
 def get_class_by_name(name):
     """
     Get a Python class specified by it's fully qualified name.
@@ -147,9 +154,11 @@ class CLI:
         builder_class = Builder
         tagger_class = VersionTagger
         if config.has_option("buildconfig", "builder"):
-            builder_class = get_class_by_name(config.get("buildconfig", "builder"))
+            builder_class = get_class_by_name(config.get("buildconfig",
+                "builder"))
         if config.has_option("buildconfig", "tagger"):
-            tagger_class = get_class_by_name(config.get("buildconfig", "tagger"))
+            tagger_class = get_class_by_name(config.get("buildconfig",
+                "tagger"))
 
         debug("Using builder class: %s" % builder_class)
         debug("Using tagger class: %s" % tagger_class)
@@ -181,19 +190,26 @@ class CLI:
     def _read_project_config(self, global_config, tag, no_cleanup):
         """
         Read and return project build properties if they exist.
+
+        This is done by checking for a build.py.props in the projects
+        directory at the time the tag was made.
+
+        To accomodate older tags prior to build.py, we also check for
+        the presence of a Makefile with NO_TAR_GZ, and include a hack to
+        assume build properties in this scenario.
         """
         # TODO: Could pass this into builders/taggers instead of looking it up
         # twice.
         project_name = get_project_name(tag=tag)
         debug("Determined package name to be: %s" % project_name)
 
-        properties_file = os.path.join(os.getcwd(), "build.py.props")
+        properties_file = os.path.join(os.getcwd(), BUILD_PROPS_FILENAME)
 
         if tag:
             # Check for a build.py.props back when this tag was created:
             relative_dir = get_relative_project_dir(project_name, tag)
             temp_filename = "%s-%s" % (random.randint(1, 10000),
-                    "build.py.props")
+                    BUILD_PROPS_FILENAME)
             properties_file = os.path.join(os.getcwd(), temp_filename)
             if global_config.has_key('RPMBUILD_BASEDIR'):
                 properties_file = os.path.join(global_config[
@@ -202,16 +218,29 @@ class CLI:
             # Touch the file, if the git show fails it will remain empty.
             run_command("touch %s" % properties_file)
             cmd = "git show %s:%s%s" % (tag, relative_dir,
-                    "build.py.props")
+                    BUILD_PROPS_FILENAME)
             debug(cmd)
             (status, output) = commands.getstatusoutput(cmd)
             if status == 0:
                 f = open(properties_file, 'w')
                 f.write(output)
-                f.write("\n\n")
                 f.close()
+            else:
+                # No build.py.props found, but to accomodate packages tagged
+                # before they existed, check for a Makefile with NO_TAR_GZ
+                # defined and make some assumptions based on that.
+                cmd = "git show %s:%s%s | grep NO_TAR_GZ" % \
+                        (tag, relative_dir, "Makefile")
+                debug(cmd)
+                (status, output) = commands.getstatusoutput(cmd)
+                if status == 0 and output != "":
+                    debug("Found Makefile with NO_TAR_GZ")
+                    f = open(properties_file, 'w')
+                    f.write(ASSUMED_NO_TAR_GZ_PROPS)
+                    f.close()
 
-        debug("Checking build.py.props: %s" % properties_file)
+        debug("Checking for build properties in temp file: %s" %
+                properties_file)
 
         config = ConfigParser.ConfigParser()
         config.read(properties_file)
