@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.1%{?obtag}%{?dist}%{?repo}
+Release:         23.2%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -189,6 +189,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 0.1-23.2
+- adde oracle-nofcontext-selinux subpackage
+
 * Fri Oct  3 2008 Jan Pazdziora - 0.1-23.1
 - remove audit-archive-selinux, rsync-ssh-selinux (Build)Requires
 
