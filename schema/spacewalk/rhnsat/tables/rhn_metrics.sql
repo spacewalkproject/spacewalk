@@ -32,9 +32,8 @@ rhn_metrics
     command_class       varchar2 (255) default 'nothing'
         constraint rhn_metric_cmd_class_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_metrics 
     is 'metrc  metric definitions';
@@ -42,14 +41,12 @@ comment on table rhn_metrics
 create unique index rhn_metrc_cmd_cl_met_id_pk 
     on rhn_metrics ( command_class, metric_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_metrc_storage_unit_id_idx 
     on rhn_metrics ( storage_unit_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_metrics 
     add constraint rhn_metrc_cmd_cl_metric_id_pk 

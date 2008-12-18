@@ -25,24 +25,21 @@ rhnUserMessageStatus
 	label		varchar2(48)
 			constraint rhn_um_status_label_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_um_status_id_seq;
 
 create unique index rhn_um_status_label_uq
 	on rhnUserMessageStatus(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- last created gets used in Rule, make it the most useful index.
 create index rhn_um_status_label_id_idx
 	on rhnUserMessageStatus(label,id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.2  2003/01/30 16:11:28  pjones

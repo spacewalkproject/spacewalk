@@ -39,15 +39,13 @@ rhnPackageDelta
 	modified	date default(sysdate)
 			constraint	rhn_packagedelta_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_packagedelta_label_id_idx
 	on rhnPackageDelta(label, id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhnPackageDelta add
 	constraint rhn_packagedelta_id_pk primary key (id)

@@ -25,8 +25,7 @@ rhn_physical_location
         constraint rhn_phslc_recid_nn not null
         constraint rhn_phslc_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     location_name       varchar2 (40),
     address1            varchar2 (255),
     address2            varchar2 (255),
@@ -41,9 +40,8 @@ rhn_physical_location
     customer_id         number   (12)  default 999
         constraint rhn_phslc_cust_id_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_physical_location 
     is 'phslc  physical location records';

@@ -29,21 +29,18 @@ rhnSnapshotServerGroup
 				constraint rhn_snapshotsg_sgid_fk
 					references rhnServerGroup(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_snapshotsg_sid_sgid_uq
 	on rhnSnapshotServerGroup( snapshot_id, server_group_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_snapshotsg_sgid_idx
 	on rhnSnapshotServerGroup( server_group_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_snapshotsg_mod_trig

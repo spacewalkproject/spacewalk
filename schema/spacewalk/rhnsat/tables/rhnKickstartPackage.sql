@@ -34,15 +34,13 @@ rhnKickstartPackage
 	modified		date default(sysdate)
 				constraint rhn_kspackage_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_kspackage_id_idx
 	on rhnKickstartPackage( kickstart_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_kspackage_mod_trig

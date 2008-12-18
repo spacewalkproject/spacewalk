@@ -34,15 +34,13 @@ rhnServerProfileType
 	modified	date default(sysdate)
 			constraint rhn_sproftype_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_sproftype_label_id_idx
 	on rhnServerProfileType( label, id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhnServerProfileType add constraint rhn_sproftype_label_uq
 	unique ( label );

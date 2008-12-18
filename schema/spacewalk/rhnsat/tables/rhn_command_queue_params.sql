@@ -27,9 +27,8 @@ rhn_command_queue_params
         constraint rhn_cqprm_ord_nn not null,
     value           varchar2 (1024)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_queue_params 
     is 'cqprm   command queue parameter definitions';
@@ -37,8 +36,7 @@ comment on table rhn_command_queue_params
 create unique index rhn_cqprm_instance_id_ord_pk 
     on rhn_command_queue_params ( instance_id, ord )
     tablespace [[4m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_command_queue_params 
     add constraint rhn_cqprm_instance_id_ord_pk 

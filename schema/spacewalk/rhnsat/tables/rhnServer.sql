@@ -23,7 +23,7 @@ rhnServer
 			constraint rhn_server_id_nn not null
                         constraint rhn_server_id_pk primary key
 	                        using index tablespace [[4m_tbs]]
-				storage( pctincrease 1 freelists 16 ),
+				,
         org_id          number
                         constraint rhn_server_oid_nn not null
                         constraint rhn_server_oid_fk
@@ -68,38 +68,30 @@ rhnServer
         modified        date default (sysdate)
 			constraint rhn_server_modified_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_id_seq start with 1000010000 order;
 
 create unique index rhn_server_dsid_uq
 	on rhnServer(digital_server_id)
 	tablespace [[8m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_server_oid_id_idx
 	on rhnServer(org_id,id)
         tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_server_created_id_idx
 	on rhnServer(created,id)
         tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 -- this keeps delete_user from being _too_ slow
 create index rhn_server_creator_idx
 	on rhnServer(creator_id)
 	tablespace [[2m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

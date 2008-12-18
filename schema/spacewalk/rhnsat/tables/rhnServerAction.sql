@@ -42,17 +42,15 @@ rhnServerAction
         modified        date default (sysdate)
 			constraint rhn_server_action_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 -- you can't create foreign keys to column lists made unique by 
 -- "create unique index".  shame on you, oracle.
 create index rhn_ser_act_sid_aid_s_idx
         on rhnServerAction(server_id, action_id, status)
         tablespace [[8m_tbs]]
-        storage( freelists 16 )
-        initrans 32;
+  ;
 
 alter table rhnServerAction
 	add constraint rhn_server_action_sid_aid_uq
@@ -61,8 +59,6 @@ alter table rhnServerAction
 create index rhn_ser_act_aid_sid_s_idx
 	on rhnServerAction(action_id, server_id, status)
 	tablespace [[8m_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

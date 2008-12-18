@@ -69,45 +69,34 @@ rhnChannel
 	modified	date default (sysdate)
 			constraint rhn_channel_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_channel_id_seq start with 101;
 
 create unique index rhn_channel_label_uq
 	on rhnChannel(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create unique index rhn_channel_name_uq
 	on rhnChannel(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create index rhn_channel_org_idx
 	on rhnChannel(org_id, id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 create index rhn_channel_url_id_idx
 	on rhnChannel(label, id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 create index rhn_channel_parent_id_idx
 	on rhnChannel(parent_channel, id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 create index rhn_channel_access_idx
 	on rhnChannel(channel_access)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 show errors

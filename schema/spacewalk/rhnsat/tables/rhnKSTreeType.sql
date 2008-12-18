@@ -28,14 +28,12 @@ rhnKSTreeType
         modified        date default(sysdate)
                         constraint rhn_kstreetype_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_kstree_type_seq;
 
 create unique index rhn_kstreetype_label_uq 
 	on rhnKSTreeType(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;

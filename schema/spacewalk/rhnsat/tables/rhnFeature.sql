@@ -31,15 +31,13 @@ rhnFeature
         modified        date default(sysdate)
                         constraint rhn_feature_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_feature_seq;
 
 create unique index rhn_feature_label_uq_idx 
 	on rhnFeature(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 

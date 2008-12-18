@@ -39,23 +39,20 @@ rhnErrataFileTmp
 	modified	date default(sysdate)
 			constraint rhn_erratafiletmp_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_erratafiletmp_id_idx
 	on rhnErrataFileTmp ( id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnErrataFileTmp add constraint rhn_erratafiletmp_id_pk
 	primary key ( id );
 
 create index rhn_erratafiletmp_eid_file_idx
 	on rhnErrataFileTmp ( errata_id, filename )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnErrataFileTmp add constraint rhn_erratafiletmp_eid_file_uq
 	unique ( errata_id, filename );
 

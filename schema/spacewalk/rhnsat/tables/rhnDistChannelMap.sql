@@ -32,15 +32,13 @@ rhnDistChannelMap
 			constraint rhn_dcm_cid_fk
 				references rhnChannel(id) on delete cascade
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_dcm_os_release_caid_idx
 	on rhnDistChannelMap(os, release, channel_arch_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnDistChannelMap add constraint rhn_dcm_os_release_caid_uq
 	unique ( os, release, channel_arch_id );
 

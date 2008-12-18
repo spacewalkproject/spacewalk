@@ -39,9 +39,8 @@ rhnEmailAddress
 				constraint rhn_eaddress_modified_nn not null
 )
 	tablespace [[8m_data_tbs]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_eaddress_id_seq;
 

@@ -23,7 +23,7 @@ rhnPackageSource
 			constraint rhn_pkgsrc_id_nn not null
                         constraint rhn_pkgsrc_id_pk primary key
 				using index tablespace [[64k_tbs]]
-			storage(pctincrease 1),
+			,
         org_id          number
                         constraint rhn_pkgsrc_oid_fk
 				references web_customer(id)
@@ -63,17 +63,15 @@ rhnPackageSource
         modified        date default (sysdate)
 			constraint rhn_pkgsrc_modified_nn not null
 )
-	storage( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_package_source_id_seq;
 
 create unique index rhn_pkgsrc_srid_oid_uq
 	on rhnPackageSource(source_rpm_id, org_id)
 	tablespace [[64k_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_pkgsrc_mod_trig

@@ -52,9 +52,8 @@ rhnKickstartableTree
 	modified	date default(sysdate)
 			constraint rhn_kstree_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_kstree_mod_trig
@@ -75,16 +74,14 @@ show errors
 create index rhn_kstree_id_pk
 	on rhnKickstartableTree( id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnKickstartableTree add constraint rhn_kstree_id_pk
 	primary key ( id );
 
 create unique index rhn_kstree_oid_label_uq
 	on rhnKickstartableTree( org_id, label )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

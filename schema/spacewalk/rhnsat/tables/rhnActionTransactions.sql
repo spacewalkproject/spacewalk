@@ -34,28 +34,24 @@ rhnActionTransactions
 				references rhnTransaction(id)
 				on delete cascade
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_at_aid_ftid_ttid_uq
 	on rhnActionTransactions(action_id, from_trans_id, to_trans_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_act_trans_from_to_idx
 on rhnActionTransactions ( from_trans_id, to_trans_id, action_id )
    tablespace [[64k_tbs]]
-   storage ( freelists 16 )
-   initrans 32;
+  ;
 
 
 create index rhn_act_trans_to_from_idx
 on rhnActionTransactions ( to_trans_id, from_trans_id, action_id )
    tablespace [[64k_tbs]]
-   storage ( freelists 16 )
-   initrans 32;
+  ;
 
 --
 -- Revision 1.5  2003/08/25 14:59:44  pjones

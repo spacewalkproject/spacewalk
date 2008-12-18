@@ -35,9 +35,8 @@ rhn_command_queue_execs_bk
     target_type         varchar2 (10)
         constraint rhn_cqcmdbk_target_type_nn not null
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 --
 --Revision 1.2  2004/05/04 23:02:54  kja

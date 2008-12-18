@@ -30,15 +30,13 @@ rhnRegTokenGroups
                                 references rhnServerGroup(id)
 				on delete cascade
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_reg_tok_grp_uq
 	on rhnRegTokenGroups(token_id, server_group_id)
 	tablespace [[4m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.4  2003/04/14 15:40:16  pjones

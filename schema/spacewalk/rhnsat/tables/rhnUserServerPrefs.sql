@@ -37,28 +37,22 @@ rhnUserServerPrefs
         modified        date default(sysdate)
                         constraint rhn_userServerPrefs_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_usprefs_uid_sid_n_uq
 	on rhnUserServerPrefs(user_id, server_id, name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_usprefs_n_sid_uid_idx
 	on rhnUserServerPrefs(name, server_id, user_id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_usprefs_sid_uid_n_idx
 	on rhnUserServerPrefs(server_id, user_id, name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

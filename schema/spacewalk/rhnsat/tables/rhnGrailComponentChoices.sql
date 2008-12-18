@@ -31,21 +31,17 @@ rhnGrailComponentChoices
         component_mode  varchar2(64)
                         constraint rhn_grail_comp_ch_mode_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_grail_comp_ch_user_ord_uq
 	on rhnGrailComponentChoices(user_id,ordering)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_grail_cmp_ch_user
 	on rhnGrailComponentChoices(user_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 --

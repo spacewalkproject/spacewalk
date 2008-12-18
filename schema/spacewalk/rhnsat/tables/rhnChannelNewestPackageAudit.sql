@@ -29,15 +29,13 @@ rhnChannelNewestPackageAudit
         caller                  varchar2(256)
                                 constraint rhn_cnp_at_caller_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_cnp_a_t_all_idx
 	on rhnChannelNewestPackageAudit(channel_id, refresh_time, caller)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.2  2003/01/30 16:11:28  pjones

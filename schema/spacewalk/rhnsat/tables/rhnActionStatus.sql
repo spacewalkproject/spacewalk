@@ -29,9 +29,8 @@ rhnActionStatus
 	modified	date default (sysdate)
 			constraint rhn_action_status_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 --
 -- Revision 1.14  2003/01/30 16:11:28  pjones

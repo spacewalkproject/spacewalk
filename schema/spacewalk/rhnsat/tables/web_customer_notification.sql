@@ -35,9 +35,7 @@ web_customer_notification
 	creation_date		date
 				constraint web_cust_not_creat_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32
 	nocache nomonitoring;
 
 --

@@ -25,8 +25,7 @@ rhn_url_probe_step
         constraint rhn_urlps_recid_nn not null
         constraint rhn_urlps_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     url_probe_id        number   (12)
         constraint rhn_urlps_url_prob_id_nn not null,
     step_number         number   (3)
@@ -80,9 +79,8 @@ rhn_url_probe_step
         constraint rhn_urlps_cookie_sec_ck check (cookie_secure in ('0','1')),
     cookie_maxage       number   (9)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_url_probe_step 
     is 'urlps  url probe step';
@@ -90,8 +88,7 @@ comment on table rhn_url_probe_step
 create unique index rhn_urlps_url_pr_id_stp_n_uq 
     on rhn_url_probe_step ( url_probe_id, step_number )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_url_probe_step
     add constraint rhn_urlps_urlpb_url_pr_id_fk

@@ -17,15 +17,12 @@
 create unique index rhn_sgmembers_sid_sgid_uq
 	on rhnServerGroupMembers(server_id, server_group_id)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_sgmembers_sgid_sid_idx
 	on rhnServerGroupMembers(server_group_id, server_id)
 	parallel 6
         tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 --

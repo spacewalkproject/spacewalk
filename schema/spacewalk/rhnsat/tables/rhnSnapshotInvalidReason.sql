@@ -34,15 +34,13 @@ rhnSnapshotInvalidReason
 	modified		date default(sysdate)
 				constraint rhn_ssinvalid_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_ssinvalid_label_uq
 	on rhnSnapshotInvalidReason(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_ssinvalid_mod_trig

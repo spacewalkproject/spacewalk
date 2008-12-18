@@ -28,8 +28,7 @@ rhnPackageKeyType
 	modified	date default(sysdate)
 			constraint rhn_pkg_key_type_modified_nn not null
 )
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_package_key_type_id_seq start with 100;
 
@@ -37,8 +36,7 @@ create sequence rhn_package_key_type_id_seq start with 100;
 create index rhn_pkg_key_type_id_n_idx
 	on rhnPackageKeyType(id,label)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnPackageKeyType add constraint rhn_pkg_key_type_id_pk primary key (id);
 alter table rhnPackageKeyType add constraint rhn_pkg_key_type_label_uq unique ( label );
 

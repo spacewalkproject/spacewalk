@@ -34,15 +34,13 @@ rhnOrgQuota
 	modified	date default(sysdate)
 			constraint rhn_orgquota_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_orgquota_oid_uq
 	on rhnOrgQuota(org_id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_orgquota_mod_trig

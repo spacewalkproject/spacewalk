@@ -35,8 +35,7 @@ rhnPackageKey
 	modified	date default(sysdate)
 			constraint rhn_pkey_modified_nn not null
 )
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_pkey_id_seq start with 100;
 
@@ -44,8 +43,7 @@ create sequence rhn_pkey_id_seq start with 100;
 create index rhn_pkey_id_k_pid_idx
 	on rhnPackageKey(id,key_id,provider_id,key_type_id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnPackageKey add constraint rhn_pkey_id_pk primary key (id);
 alter table rhnPackageKey add constraint rhn_pkey_keyid_uq unique ( key_id );
 

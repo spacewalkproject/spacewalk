@@ -50,9 +50,8 @@ rhn_command_parameter
     last_update_user        varchar2 (40),
     last_update_date        date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_parameter 
     is 'CPARM  A parameter for a particular command';
@@ -63,20 +62,17 @@ comment on column rhn_command_parameter.field_visible
 create unique index rhn_cparm_cmd_id_param_name_uq 
     ON rhn_command_parameter ( command_id, param_name )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_cparm_id_p_name_p_type_uq 
     on rhn_command_parameter ( command_id, param_name, param_type )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_cparm_cmd_id_field_orde_uq 
     on rhn_command_parameter (command_id, field_order)
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_command_parameter 
     add constraint rhn_cparm_id_parm_name_pk

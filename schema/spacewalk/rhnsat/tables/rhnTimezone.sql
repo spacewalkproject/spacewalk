@@ -29,15 +29,13 @@ rhnTimezone
 	display_name    varchar2(128)
 	    	    	constraint rhn_timezone_display_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_timezone_id_idx
 	on rhnTimezone( id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnTimezone add constraint rhn_timezone_id_pk
 	primary key ( id );
 

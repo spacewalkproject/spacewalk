@@ -25,8 +25,7 @@ rhn_snmp_alert
         constraint rhn_snmpa_recid_nn not null
         constraint rhn_snmpa_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     sender_cluster_id   number   (12)
         constraint rhn_snmpa_send_clust_id_nn not null,
     dest_ip             varchar2 (255)
@@ -49,9 +48,8 @@ rhn_snmp_alert
     host_name           varchar2 (255),
     support_center      varchar2 (255)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_snmp_alert 
     is 'snmpa  snmp alerts';
@@ -65,8 +63,7 @@ create index rhn_snmp_alrt_scid_idx
 on rhn_snmp_alert ( sender_cluster_id )
    tablespace [[64k_tbs]]
    nologging
-   storage ( pctincrease 1 freelists 16 )
-   initrans 32;
+  ;
 
 create sequence rhn_snmp_alert_recid_seq;
 

@@ -26,8 +26,7 @@ rhn_schedules
         constraint rhn_sched_recid_ck check (recid > 0)
         constraint rhn_sched_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     schedule_type_id    number   (12)
         constraint rhn_sched_type_id_nn not null,
     description         varchar2 (40) default 'unknown'
@@ -36,9 +35,8 @@ rhn_schedules
     last_update_date    date,
     customer_id         number   (12)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_schedules 
     is 'sched  schedule definitions';
@@ -46,14 +44,12 @@ comment on table rhn_schedules
 create index rhn_sched_schedule_type_id_idx 
     on rhn_schedules ( schedule_type_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_cust_cust_id_desc_uq 
     on rhn_schedules ( customer_id, description )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_schedules
     add constraint rhn_sched_cstmr_cust_id_fk

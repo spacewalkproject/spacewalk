@@ -37,23 +37,20 @@ rhnTemplateString
 	modified	date default(sysdate)
 			constraint rhn_template_str_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_template_str_icl_idx
 	on rhnTemplateString ( id, category_id, label )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnTemplateString add constraint rhn_template_str_id_pk
 	primary key ( id );
 
 create index rhn_template_str_cid_label_idx
 	on rhnTemplateString ( category_id, label )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnTemplateString add constraint rhn_template_str_cid_label_uq
 	unique ( category_id, label );
 

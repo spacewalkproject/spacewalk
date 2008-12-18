@@ -33,15 +33,13 @@ rhnFileListMembers
 	modified		date default (sysdate)
 				constraint rhn_flmembers_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_flmembers_flid_cfnid_uq
 	on rhnFileListMembers( file_list_id, config_file_name_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_flmembers_mod_trig

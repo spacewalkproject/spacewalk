@@ -37,9 +37,8 @@ rhnKSTreeFile
 	modified		date default(sysdate)
 				constraint rhn_kstreefile_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_kstreefile_mod_trig
@@ -59,8 +58,7 @@ show errors
 create unique index rhn_kstreefile_kid_rfn_uq
 	on rhnKSTreeFile ( kstree_id, relative_filename )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

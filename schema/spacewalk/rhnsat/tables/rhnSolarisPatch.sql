@@ -37,9 +37,8 @@ create table rhnSolarisPatch (
    patchinfo         varchar2(4000)
 )
 	tablespace [[8m_data_tbs]]
-	storage( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create trigger
 rhn_solaris_p_mod_trig

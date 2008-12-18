@@ -32,17 +32,15 @@ rhnUserGroupType
 	modified	date default(sysdate)
 			constraint rhn_userGroupType_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_usergroup_type_seq;
 
 create index rhn_usergrouptype_label_id_idx
 	on rhnUserGroupType ( label, id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnUserGroupType add
 	constraint rhn_usergrouptype_label_uq unique ( label );
 

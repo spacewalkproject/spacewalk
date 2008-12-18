@@ -36,16 +36,14 @@ rhnChannelProduct
 	modified	date default (sysdate)
 			constraint rhn_channelprod_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_channelprod_id_seq;
 
 create unique index rhn_channelprod_p_v_b_uq
 	on rhnChannelProduct(product, version, beta)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --

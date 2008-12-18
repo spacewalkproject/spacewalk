@@ -35,23 +35,20 @@ rhnErrataNotificationQueue
 	modified		date default(sysdate)
 				constraint rhn_enqueue_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_enqueue_eid_idx
 	on rhnErrataNotificationQueue ( errata_id, org_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnErrataNotificationQueue add constraint rhn_enqueue_eoid_uq
 	unique ( errata_id, org_id );
 
 create index rhn_enqueue_na_eid_idx
 	on rhnErrataNotificationQueue ( next_action, errata_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_enqueue_mod_trig

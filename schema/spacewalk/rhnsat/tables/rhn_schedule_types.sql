@@ -27,13 +27,11 @@ rhn_schedule_types
         constraint rhn_schtp_recid_ck check (recid > 0)
         constraint rhn_schtp_recid_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     description     varchar2 (40)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_schedule_types 
     is 'schtp  schedule types';

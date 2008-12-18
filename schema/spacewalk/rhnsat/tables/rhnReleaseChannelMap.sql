@@ -31,13 +31,11 @@ rhnReleaseChannelMap
                         constraint rhn_rcm_default_ck
                             check (is_default in ('Y', 'N'))
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_rcm_prod_ver_rel_caid_idx
 	on rhnReleaseChannelMap(product, version, release, channel_arch_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 

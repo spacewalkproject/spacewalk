@@ -35,15 +35,13 @@ rhnPackageDeltaElement
 				constraint rhn_pdelement_tpid_fk
 					references rhnTransactionPackage(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pdelement_pdid_tpid_uq
 	on rhnPackageDeltaElement(package_delta_id, transaction_package_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.1  2003/06/10 19:42:25  pjones

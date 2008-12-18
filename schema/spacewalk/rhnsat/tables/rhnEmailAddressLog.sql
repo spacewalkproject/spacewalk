@@ -32,25 +32,21 @@ rhnEmailAddressLog
 				constraint rhn_eaddresslog_created_nn not null
 )
 	tablespace [[8m_data_tbs]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_eaddresslog_uid_idx
 	on rhnEmailAddressLog(user_id)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create index rhn_eaddresslog_a_idx
 	on rhnEmailAddressLog(address)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create index rhn_eaddresslog_created_idx
 	on rhnEmailAddressLog(created)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.7  2003/02/18 16:08:49  pjones

@@ -38,45 +38,31 @@ create table rhnServerNeededPackageCache
 				references rhnPackage(id)
 				on delete cascade
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32
 	nologging;
 
 create index rhn_snpc_pid_idx
 	on rhnServerNeededPackageCache(package_id)
 	parallel
 	tablespace [[128m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	pctfree 10
-	initrans 32
 	nologging;
 
 create index rhn_snpc_sid_idx
 	on rhnServerNeededPackageCache(server_id)
 	parallel
 	tablespace [[128m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	pctfree 10
-	initrans 32
 	nologging;
 
 create index rhn_snpc_eid_idx
 	on rhnServerNeededPackageCache(errata_id)
 	parallel
 	tablespace [[128m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	pctfree 10
-	initrans 32
 	nologging;
 
 create index rhn_snpc_oid_idx
 	on rhnServerNeededPackageCache(org_id)
 	parallel
 	tablespace [[128m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	pctfree 10
-	initrans 32
 	nologging;
 
 --

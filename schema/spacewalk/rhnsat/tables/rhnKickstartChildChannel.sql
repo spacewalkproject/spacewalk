@@ -30,15 +30,13 @@ rhnKickstartChildChannel
         modified        date default(sysdate)
                         constraint rhn_ks_cc_mod_nn not null
 )
-        storage( freelists 16 )
 	enable row movement
-        initrans 32;
+  ;
 
 create unique index rhn_ks_cc_uq
         on rhnKickstartChildChannel(channel_id, ksdata_id)
         tablespace [[4m_tbs]]
-        storage( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_ks_cc_mod_trig

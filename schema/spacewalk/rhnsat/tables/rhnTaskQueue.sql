@@ -31,23 +31,17 @@ rhnTaskQueue
 	earliest	date default sysdate
 			constraint rhn_task_queue_earliest_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32
 	nologging;
 
 create index rhn_task_queue_org_task_idx
 	on rhnTaskQueue(org_id, task_name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_task_queue_earliest
 	on rhnTaskQueue(earliest)
         tablespace [[64k_tbs]]
-        storage ( freelists 16 )
-        initrans 32
         nologging;
 
 --

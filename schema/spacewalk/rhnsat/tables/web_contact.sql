@@ -22,7 +22,7 @@ web_contact
 	id		number
 			constraint web_contact_pk primary key
 				using index tablespace [[web_index_tablespace_2]]
-				storage(pctincrease 1),
+				,
 	org_id		number
 			constraint web_contact_org_nn not null
 			constraint web_contact_org_fk
@@ -34,7 +34,7 @@ web_contact
 			constraint web_contact_login_uc_nn not null
 			constraint web_contact_login_uc_unq unique
 				using index tablespace [[web_index_tablespace_2]]
-				storage(pctincrease 1),
+				,
 	password	varchar2(38)
 			constraint web_contact_password_nn not null,
 	old_password	varchar2(38),
@@ -45,14 +45,13 @@ web_contact
 	oracle_contact_id number
 			constraint web_contact_ocid_unq unique
 				using index tablespace [[web_index_tablespace_2]]
-				storage(pctincrease 1),
+				,
 	ignore_flag	char(1) default('N')
 			constraint web_contact_ignore_nn not null
 			constraint web_contact_ignore_ck
 				check (ignore_flag in ('N','Y'))
 )
 tablespace [[web_tablespace_2]]
-storage(pctincrease 1)
 enable row movement
 ;
 

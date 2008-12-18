@@ -26,16 +26,13 @@ create table rhnRegTokenEntitlement (
                         constraint rhn_reg_tok_ent_sgtid_fk references rhnServerGroupType(id)
                         on delete cascade
 )
-   storage( freelists 16 )
    enable row movement
-   initrans 32;
+  ;
 
 
 create unique index rhn_rte_rtid_sgtid_uq_idx
 on rhnRegTokenEntitlement (reg_token_id, server_group_type_id)
    tablespace [[64k_tbs]]
-   storage( freelists 16 )
-   initrans 32
    nologging;
 
 

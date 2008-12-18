@@ -28,15 +28,13 @@ rhnCVE
         name            varchar2(13) -- like:  CXX-XXXX-XXXX
 			constraint rhn_cve_name_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cve_name_uq
 	on rhnCVE(name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_cve_id_seq;
 

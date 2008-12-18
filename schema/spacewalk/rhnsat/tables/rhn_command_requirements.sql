@@ -26,14 +26,12 @@ rhn_command_requirements
         constraint rhn_creqs_name_nn not null
         constraint rhn_creqs_name_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     description varchar2 (4000)
         constraint rhn_creqs_description_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_requirements 
     is 'creqs storage for system requirements for commands';

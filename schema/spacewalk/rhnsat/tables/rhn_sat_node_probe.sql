@@ -25,17 +25,15 @@ rhn_sat_node_probe
         constraint rhn_sndpb_probe_id_nn not null
         constraint rhn_sndpb_probe_id_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     probe_type      varchar2 (12)  default 'satnode'
         constraint rhn_sndpb_probe_type_nn not null
         constraint rhn_sndpb_probe_type_ck check (probe_type='satnode'), 
     sat_node_id     number   (12)
         constraint rhn_sndpb_sat_node_id_nn not null
 ) 
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_sat_node_probe 
     is 'sndpb  satellite node probe definitions';
@@ -43,14 +41,12 @@ comment on table rhn_sat_node_probe
 create index rhn_sndpb_sat_node_id_idx 
     on rhn_sat_node_probe ( sat_node_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_sndpb_pid_ptype_idx
     on rhn_sat_node_probe ( probe_id, probe_type )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_sat_node_probe
     add constraint rhn_sndpb_pr_recid_pr_typ_fk

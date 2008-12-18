@@ -31,9 +31,8 @@ rhn_current_state_summaries
     state_count                      number   (9),
     last_check                       date
 )  
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_current_state_summaries
     is 'cursu  current state summaries (monitoring)';
@@ -41,8 +40,7 @@ comment on table rhn_current_state_summaries
 create unique index rhn_current_state_summaries_pk 
 on rhn_current_state_summaries ( customer_id, template_id, state )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_current_state_summaries 
     add constraint rhn_current_state_summaries_pk 

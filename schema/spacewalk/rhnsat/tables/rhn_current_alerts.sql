@@ -25,8 +25,7 @@ rhn_current_alerts
         constraint rhn_alrts_recid_nn not null
         constraint rhn_alrts_recid_pk primary key
             using index tablespace [[128m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     date_submitted      date,
     last_server_change  date,
     date_completed      date    default to_date('31-12-9999', 'dd-mm-yyyy'),
@@ -50,9 +49,8 @@ rhn_current_alerts
     last_update_date    date,
     event_timestamp     date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_current_alerts 
     is 'alrts  current alert records';
@@ -60,56 +58,47 @@ comment on table rhn_current_alerts
 create index rhn_alrts_service_probe_id_idx
     on rhn_current_alerts ( service_probe_id )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_current_server_idx
     on rhn_current_alerts ( current_server )  
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_in_progress_idx
     on rhn_current_alerts ( in_progress ) 
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_ticket_id_idx
     on rhn_current_alerts ( ticket_id )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_customer_id_idx
     on rhn_current_alerts ( customer_id )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_netsaint_id_idx
     on rhn_current_alerts ( netsaint_id )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_probe_type_idx
     on rhn_current_alerts ( probe_type )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_original_server_idx
     on rhn_current_alerts ( original_server )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_alrts_host_probe_id_idx
     on rhn_current_alerts ( host_probe_id )
     tablespace [[128m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create sequence rhn_current_alerts_recid_seq;
 

@@ -34,17 +34,14 @@ rhnServerNetwork
         modified        date default (sysdate)
 			constraint rhn_servernetwork_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_net_id_seq;
 
 create index rhn_servernetwork_sid_id_idx
 	on rhnServerNetwork(server_id,id)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

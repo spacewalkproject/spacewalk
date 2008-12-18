@@ -42,39 +42,32 @@ rhnServerProfile
         modified        date default (sysdate)
 			constraint rhn_server_profile_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_profile_id_seq;
 
 create unique index rhn_server_profile_noid_uq
     	on rhnServerProfile(org_id,name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_sprofile_id_oid_bc_idx
 	on rhnServerProfile(id,org_id,base_channel)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnServerProfile add
 	constraint rhn_server_profile_id_pk primary key (id);
 
 create index rhn_server_profile_o_id_bc_idx
 	on rhnServerProfile(org_id,id,base_channel)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 -- for channel deletion
 create index rhn_server_profile_bc_idx
 	on rhnServerProfile(base_channel)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 --

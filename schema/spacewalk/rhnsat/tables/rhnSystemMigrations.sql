@@ -35,17 +35,14 @@ rhnSystemMigrations
         migrated        date default (sysdate)
                         constraint rhn_sys_mig_migrated_nn not null
 )
-        storage ( pctincrease 1 freelists 16 )
         enable row movement
-        initrans 32;
+  ;
 
 create index rsm_org_id_to_idx
         on rhnSystemMigrations ( org_id_to )
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 
 create index rsm_org_id_from_idx
         on rhnSystemMigrations ( org_id_from )
-        storage ( freelists 16 )
-        initrans 32;
+  ;

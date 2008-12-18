@@ -32,16 +32,13 @@ create table rhnWebContactChangeLog (
     date_completed         date default(sysdate)
                            constraint rhn_wcon_cl_modified_nn not null
 )
-storage( pctincrease 1 freelists 16 )
 enable row movement
-initrans 32;
+  ;
 
 create sequence rhn_wcon_disabled_seq;
 
 create index rhn_wcon_disabled_wcon_id_idx
        on rhnWebContactChangeLog(web_contact_id)
-       storage (pctincrease 1 freelists 16)
-       initrans 32
        nologging;
 
 --

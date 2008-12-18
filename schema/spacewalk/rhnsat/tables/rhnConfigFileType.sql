@@ -32,9 +32,8 @@ create table rhnConfigFileType
 	modified		date default(sysdate)
 				constraint rhn_conffiletype_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_conffiletype_mod_trig

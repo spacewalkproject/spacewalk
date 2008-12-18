@@ -23,15 +23,13 @@ create table rhnActionPackageOrder (
                            constraint rhn_act_pkg_order_nn not null
 )
 tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
 	enable row movement
-initrans 32;
+  ;
 
 create index rhn_act_pkg_apid_idx
 on rhnActionPackageOrder (action_package_id)
 tablespace [[32m_tbs]]
-storage ( freelists 16 )
-initrans 32;
+  ;
 
 
 --

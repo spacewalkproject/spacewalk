@@ -39,9 +39,8 @@ rhnActionConfigFileName
 	modified		date default(sysdate)
 				constraint rhn_actioncf_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 alter table rhnActionConfigFileName
 	add constraint rhn_actioncf_name_aid_sid_fk
@@ -52,20 +51,17 @@ alter table rhnActionConfigFileName
 create unique index rhn_actioncf_name_asc_uq
 	on rhnActionConfigFileName ( action_id, server_id, config_file_name_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_actioncf_name_sac_uq
         on rhnActionConfigFileName ( server_id, action_id, config_file_name_id )
         tablespace [[2m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create index rhn_act_cnfg_fn_crid_idx
 on rhnActionConfigFileName ( config_revision_id )
         tablespace [[2m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_actioncf_name_mod_trig

@@ -27,15 +27,13 @@ rhnActionVirtSuspend
     modified    date default(sysdate)
                 constraint rhn_avsuspend_mod_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 create unique index rhn_avsuspend_aid_uq
     on rhnActionVirtSuspend( action_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhnActionVirtSuspend add constraint rhn_avsuspend_aid_pk
     primary key ( action_id );

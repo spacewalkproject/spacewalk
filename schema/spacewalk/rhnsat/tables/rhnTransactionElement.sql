@@ -32,15 +32,13 @@ rhnTransactionElement
 				constraint rhn_transelem_tpid_fk
 					references rhnTransactionPackage(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_transelem_tid_tpid_uq
 	on rhnTransactionElement(transaction_id,transaction_package_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 
 --

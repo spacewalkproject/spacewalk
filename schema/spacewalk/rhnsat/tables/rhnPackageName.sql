@@ -26,15 +26,13 @@ rhnPackageName
         name            varchar2(128)
 			constraint rhn_pn_name_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pn_name_uq
 	on rhnPackageName(name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_pkg_name_seq;
 

@@ -25,8 +25,7 @@ rhn_redirect_criteria
         constraint rhn_rdrcr_recid_nn not null
         constraint rhn_rdrcr_recid_pk primary key
             using index tablespace [[4m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     redirect_id     number   (12)
         constraint rhn_rdrcr_redirect_id_nn not null,
     match_param     varchar2 (255)
@@ -35,9 +34,8 @@ rhn_redirect_criteria
     inverted        char     (1) default 0
         constraint rhn_rdrcr_inverted_nn not null
 ) 
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_redirect_criteria 
     is 'rdrcr  redirect criteria';
@@ -45,8 +43,7 @@ comment on table rhn_redirect_criteria
 create index rhn_rdrcr_redirect_id_idx 
     on rhn_redirect_criteria ( redirect_id )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_redirect_criteria
     add constraint rhn_rdrcr_rdrct_redirect_id_fk

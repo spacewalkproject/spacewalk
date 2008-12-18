@@ -26,12 +26,9 @@ rhn_redirect_match_types
         constraint rhn_rdrmt_name_nn not null
         constraint rhn_rdrmt_name_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_redirect_match_types 
     is 'rdrmt  redirect match types';

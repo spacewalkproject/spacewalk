@@ -34,9 +34,8 @@ rhnPackageArch
 	modified	date default(sysdate)
 			constraint rhn_parch_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_package_arch_id_seq start with 100;
 
@@ -44,16 +43,14 @@ create sequence rhn_package_arch_id_seq start with 100;
 create index rhn_parch_id_l_n_idx
 	on rhnPackageArch(id,label,name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnPackageArch add constraint rhn_parch_id_pk primary key (id);
 
 -- these too.
 create index rhn_parch_l_id_n_idx
 	on rhnPackageArch(label,id,name)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnPackageArch add constraint rhn_parch_label_uq unique ( label );
 
 create or replace trigger

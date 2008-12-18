@@ -34,22 +34,19 @@ rhnKickstartPreserveFileList
 	modified	date default (sysdate)
 			constraint rhn_kspreservefl_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_kspreservefl_ksid_flid_uq
 	on rhnKickstartPreserveFileList( kickstart_id, file_list_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- needed for delete_server
 create index rhn_kspreservefl_flid_ksid_idx
 	on rhnKickstartPreserveFileList( file_list_id, kickstart_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_kspreservefl_mod_trig

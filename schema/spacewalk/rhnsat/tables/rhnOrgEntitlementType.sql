@@ -32,17 +32,15 @@ rhnOrgEntitlementType
         modified        date default(sysdate)
                         constraint rhn_org_ent_type_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_org_entitlement_type_seq;
 
 create unique index rhn_org_entitle_type_label_uq 
 	on rhnOrgEntitlementType(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_org_ent_type_mod_trig

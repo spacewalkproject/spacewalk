@@ -30,9 +30,8 @@ rhn_command_center_state
     last_update_date          date
         constraint rhn_cmdcs_last_date_nn not null
 ) 
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_center_state 
     is 'CMDCS  State of the command center (monitoring)';

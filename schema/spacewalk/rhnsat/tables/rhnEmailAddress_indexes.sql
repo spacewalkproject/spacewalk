@@ -23,8 +23,7 @@
 create index rhn_eaddress_id_idx
 	on rhnEmailAddress ( id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnEmailAddress add
 	constraint rhn_eaddress_id_pk primary key ( id );
 
@@ -32,8 +31,7 @@ alter table rhnEmailAddress add
 create index rhn_eaddress_uid_sid_addr_idx
 	on rhnEmailAddress ( user_id, state_id, address )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnEmailAddress add
 	constraint rhn_eaddress_uid_sid_uq unique ( user_id, state_id );
 
@@ -41,8 +39,7 @@ alter table rhnEmailAddress add
 create index rhn_eaddress_niusa_idx
 	on rhnEmailAddress ( next_action, id, user_id, state_id, address )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.7  2003/04/29 15:20:46  pjones

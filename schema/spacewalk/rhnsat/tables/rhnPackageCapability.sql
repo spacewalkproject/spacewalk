@@ -36,17 +36,15 @@ rhnPackageCapability
 	modified	date default (sysdate)
 			constraint rhn_pkg_capability_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_pkg_capability_id_seq;
 
 create unique index rhn_pkg_cap_name_version_uq
 	on rhnPackageCapability(name, version)
 	tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_pkg_capability_mod_trig

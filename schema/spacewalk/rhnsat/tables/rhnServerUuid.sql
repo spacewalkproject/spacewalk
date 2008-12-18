@@ -27,21 +27,18 @@ rhnServerUuid
 	uuid            varchar2(36)
 	                constraint rhn_server_uuid_uuid_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_server_uuid_sid_unq on
         rhnServerUuid(server_id)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_serveruuid_uuid_sid_unq on
     rhnServerUUID ( uuid, server_id )
     tablespace [[4m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 
 --

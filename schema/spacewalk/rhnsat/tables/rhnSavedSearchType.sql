@@ -29,25 +29,22 @@ rhnSavedSearchType
 	modified	date default(sysdate)
 			constraint rhn_sstype_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_sstype_id_seq;
 
 create index rhn_sstype_id_label_idx
 	on rhnSavedSearchType(id,label)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnSavedSearchType add
 	constraint rhn_sstype_id_pk primary key (id);
 
 create index rhn_sstype_label_id_idx
 	on rhnSavedSearchType(label,id)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnSavedSearchType add
 	constraint rhn_sstype_label_uq unique (label);
 

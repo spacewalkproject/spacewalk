@@ -28,9 +28,8 @@ rhn_command_queue_sessions
     last_update_user    varchar2 (40),        
     last_update_date    date
 )  
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_queue_sessions 
     is 'cqses  command queue sessions';
@@ -38,8 +37,7 @@ comment on table rhn_command_queue_sessions
 create unique index rhn_cqses_cid_uq
 	on rhn_command_queue_sessions( contact_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhn_command_queue_sessions
     add constraint rhn_cqses_cntct_contact_idfk

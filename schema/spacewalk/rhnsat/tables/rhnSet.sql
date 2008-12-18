@@ -34,9 +34,8 @@ rhnSet
 		UNIQUE(user_id, label, element, element_two, element_three)
 		using index tablespace [[8m_tbs]]
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 alter table rhnSet nologging;
 

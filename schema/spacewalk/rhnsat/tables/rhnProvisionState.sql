@@ -33,15 +33,13 @@ rhnProvisionState
 	modified	date default(sysdate)
 			constraint rhn_provstate_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_provstate_l_id_idx
 	on rhnProvisionState(label, id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnProvisionState add constraint rhn_provstate_l_uq
 	unique ( label );
 

@@ -30,13 +30,11 @@ rhn_server_monitoring_info
         constraint rhn_host_recid_nn not null
         constraint rhn_host_recid_pk primary key
             using index tablespace [[4m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     os_id               number (12)
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_server_monitoring_info 
     is 'host   additional fields to rhn_server for monitoring servers';

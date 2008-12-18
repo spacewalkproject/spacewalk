@@ -23,7 +23,7 @@ rhnServerGroup
                         constraint rhn_servergroup_id_nn not null
                         constraint rhn_servergroup_id_pk primary key
                                 using index tablespace [[4m_tbs]]
-				storage(pctincrease 1),
+				,
         name            varchar2(64)
                         constraint rhn_servergroup_name_nn not null,
         description     varchar2(1024)
@@ -44,17 +44,15 @@ rhnServerGroup
         modified        date default(sysdate)
                         constraint rhn_servergroup_modified_nn not null
 )
-	storage( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_group_id_seq;
 
 create unique index rhn_servergroup_oid_name_uq
 	on rhnServerGroup(org_id, name)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.17  2003/03/14 23:24:17  pjones

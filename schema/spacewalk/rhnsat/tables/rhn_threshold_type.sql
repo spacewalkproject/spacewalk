@@ -26,8 +26,7 @@ rhn_threshold_type
         constraint rhn_trtyp_name_nn not null
         constraint rhn_trtyp_name_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     description         varchar2 (80)
         constraint rhn_trtyp_desc_nn not null,
     ordinal             number   (3)
@@ -35,9 +34,8 @@ rhn_threshold_type
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_threshold_type 
     is 'trtyp threshold type:warn_min, warn_max, crit_min, crit_max';

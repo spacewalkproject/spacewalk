@@ -39,15 +39,13 @@ rhnConfigContent
 				constraint rhn_confcontent_mod_nn not null
 )
 	tablespace [[blob]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_confcontent_md5_uq
 	on rhnConfigContent( md5sum )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_confcontent_mod_trig

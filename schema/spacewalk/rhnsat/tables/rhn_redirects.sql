@@ -25,8 +25,7 @@ rhn_redirects
         constraint rhn_rdrct_recid_nn not null 
         constraint rhn_rdrct_recid_pk primary key
             using index tablespace [[8m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     customer_id                      number   (12),
     contact_id                       number   (12),
     redirect_type                    varchar2 (20)
@@ -48,9 +47,8 @@ rhn_redirects
     recurring_dur_type              number(12,0) default 12
            constraint rhn_rdrct_rec_dtype_valid check ( recurring_dur_type in (12,11,5,3,1) )
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_redirects 
     is 'rdrct  redirect definitions';
@@ -58,14 +56,12 @@ comment on table rhn_redirects
 create index rhn_rdrct_customer_id_idx 
     on rhn_redirects ( customer_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_rdrct_redirect_type_idx 
     on rhn_redirects ( redirect_type )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_redirects 
     add constraint rhn_rdrct_start_lte_expir check (start_date <= expiration );
@@ -73,8 +69,7 @@ alter table rhn_redirects
 create index rhn_rdrct_cid_idx
 	on rhn_redirects( contact_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhn_redirects
     add constraint rhn_rdrct_cntct_contact_id_fk
