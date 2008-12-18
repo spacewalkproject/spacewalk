@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.9
+Version:        0.4.10
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Thu Dec 18 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
+- 476644 - fixed rhn_org.delete_user
+
 * Mon Dec 15 2008 Jan Pazdziora 0.4.9-1
 - 461162 - adding virt options for cobbler
 - 461162 - add type 'auto' virtualization
