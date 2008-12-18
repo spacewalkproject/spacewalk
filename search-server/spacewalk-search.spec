@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.4
+Version: 0.4.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -108,7 +108,7 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Wed Dec 17 2008 John Matthews <jmatthews@redhat.com> 0.4.4-1
+* Thu Dec 18 2008 John Matthews <jmatthews@redhat.com> 0.4.7-1
 - rebuild for spacewalk 0.4
 - added doc search
 
