@@ -17,6 +17,7 @@ BuildArch:	noarch
 Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires:	oracle-instantclient-basic
+Requires:	oracle-nofcontext-selinux
 
 %description
 SELinux support for Oracle Instant Client.
