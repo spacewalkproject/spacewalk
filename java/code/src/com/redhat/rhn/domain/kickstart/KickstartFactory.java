@@ -316,13 +316,16 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void saveKickstartData(KickstartData ksdataIn, 
             KickstartSession ksession) {
+        log.debug("saveKickstartData: " + ksdataIn.getLabel());
         singleton.saveObject(ksdataIn);
         String fileData = null;
         if (ksdataIn.isRawData()) {
+            log.debug("saveKickstartData is raw, use file");
             KickstartRawData rawData = (KickstartRawData) ksdataIn;
             fileData = rawData.getData();
         }
         else {
+            log.debug("saveKickstartData wizard.  use object");
             KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", 
                     ksdataIn, ksession);
             fileData = formatter.getFileData();
@@ -337,6 +340,7 @@ public class KickstartFactory extends HibernateFactory {
         try {
             File ksfile = new File(ksdataIn.getCobblerFileName());
             if (ksfile.exists()) {
+                log.debug("file exists, deleting");
                 ksfile.delete();
             }
             ksfile.createNewFile();
@@ -347,6 +351,7 @@ public class KickstartFactory extends HibernateFactory {
             finally {
               output.close();
             }
+            log.debug("done writing file.");
         } 
         catch (Exception e) {
             log.error("Error trying to write KS file to disk: [" + 
