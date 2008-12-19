@@ -37,6 +37,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Dec 9 2008 John Matthews <jmatthews@redhat.com> 1.0-0.1.20081201040121nightly
+* Fri Dec 19 2008 John Matthews <jmatthews@redhat.com> 1.0-0.1.20081201040121nightly
 - initial 
 
