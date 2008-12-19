@@ -753,6 +753,22 @@ public class StringUtil {
     }
     
     
+    /**
+     * Add a path onto another path (either local path or networked service).  
+     *      This ensures double '/'s aren't included 
+     * @param originalPath  The start of the path (i.e. http://localhost/, or /var/www/)
+     * @param toAdd what to add  (i.e.  /pub/test.file)
+     * @return the full path with no duplicate '/'s
+     */
+    public static String addPath(String originalPath, String toAdd) {
+        if (originalPath.charAt(originalPath.length() - 1) != '/') {
+            originalPath = originalPath + "/";
+        }   
+        if (toAdd.charAt(0) == '/') {
+            toAdd = toAdd.substring(1);
+        }
+        return originalPath + toAdd;
+    }
     
     
     

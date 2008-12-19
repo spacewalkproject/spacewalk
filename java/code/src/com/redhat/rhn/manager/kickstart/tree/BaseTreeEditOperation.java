@@ -77,7 +77,20 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         
         KickstartFactory.saveKickstartableTree(this.tree);
         // Sync to cobbler
-        getCobblerCommand().store();
+        try {
+            getCobblerCommand().store();
+        }
+        catch (RuntimeException e) {
+            HibernateFactory.rollbackTransaction();
+            if (e.getMessage().contains("kernel not found")) {
+                return new ValidatorError("kickstart.tree.invalidkernel", 
+                        this.tree.getKernelPath());
+            }
+            else if (e.getMessage().contains("initrd not found")) {
+                return new ValidatorError("kickstart.tree.invalidinitrd", 
+                        this.tree.getInitrdPath());
+            }
+        }
         return null;
     }
 

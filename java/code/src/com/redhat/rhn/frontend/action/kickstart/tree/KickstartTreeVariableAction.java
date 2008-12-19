@@ -39,7 +39,7 @@ public class KickstartTreeVariableAction extends KickstartVariableAction {
 
     @Override
     protected String getCobblerId(RequestContext context) {
-        Long kstid = context.getRequiredParam(RequestContext.KICKSTART_TREE_ID);
+        Long kstid = context.getRequiredParam(RequestContext.KSTREE_ID);
         KickstartableTree tree = KickstartFactory.lookupKickstartTreeByIdAndOrg(
                 kstid, context.getLoggedInUser().getOrg());
         if (tree == null) {
@@ -50,7 +50,7 @@ public class KickstartTreeVariableAction extends KickstartVariableAction {
 
     @Override
     protected String getObjectString() {
-        return RequestContext.KICKSTART_TREE_ID;
+        return RequestContext.KSTREE_ID;
     }
 
 }

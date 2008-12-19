@@ -33,7 +33,7 @@ public class TreeEditAction extends BaseTreeAction {
     protected void processRequestAttributes(RequestContext rctx, PersistOperation opr) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) opr;
         rctx.getRequest().setAttribute(RequestContext.KSTREE, bte.getTree());
-        
+                
         super.processRequestAttributes(rctx, opr);
     }
 
@@ -48,6 +48,11 @@ public class TreeEditAction extends BaseTreeAction {
      * {@inheritDoc}
      */
     protected PersistOperation getCommand(RequestContext ctx) {
+        if (ctx.getRequest().getParameter(RequestContext.KSTREE_ID) != null) {
+            ctx.getRequest().setAttribute(RequestContext.KSTREE_ID, 
+                    ctx.getRequest().getParameter(RequestContext.KSTREE_ID));
+        }
+        
         return new TreeEditOperation(ctx.getRequiredParam(RequestContext.KSTREE_ID), 
                 ctx.getCurrentUser());
     }

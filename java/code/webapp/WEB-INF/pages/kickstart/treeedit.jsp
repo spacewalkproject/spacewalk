@@ -48,7 +48,7 @@
           </c:if>
 		 </table>
       <html:hidden property="submitted" value="true"/>
-      <html:hidden property="kstid" value="${kstree.id}"/>
+      <html:hidden property="kstid" value="${kstid}"/>
     </html:form>
 </div>
 </body>
