@@ -14,15 +14,18 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -336,7 +339,20 @@ public class KickstartFactory extends HibernateFactory {
         // TODO: Make this actually loop over cobbler vars vs just hard coded names
         fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
         fileData = StringUtils.replace(fileData, "\\$SNIPPET", "$SNIPPET");
-        
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
+                Config.get().getCobblerAutomatedUser()), ksdataIn.getCobblerId());
+        if (p != null && p.getKsMeta() != null) {
+            Map ksmeta = p.getKsMeta();
+            Iterator i = ksmeta.keySet().iterator();
+            while (i.hasNext()) {
+                String name = (String) i.next();
+                log.debug("fixing ksmeta: " + name);
+                fileData = StringUtils.replace(fileData, "\\$" + name, "$" + name);
+            }
+        }
+        else {
+            log.debug("No ks meta for this profile.");
+        }
         try {
             File ksfile = new File(ksdataIn.getCobblerFileName());
             if (ksfile.exists()) {

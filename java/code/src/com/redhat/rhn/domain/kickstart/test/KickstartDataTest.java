@@ -122,7 +122,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                 "--url http://@@http_server@@/$" + 
                 KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, k);
 
-        
         KickstartFactory.saveKickstartData(k);
         k = (KickstartData) reload(k);
         KickstartFactory.saveKickstartData(k);

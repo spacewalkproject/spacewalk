@@ -105,9 +105,7 @@ public abstract class KickstartVariableAction extends RhnAction {
             String cId) {
         
         ValidatorError error = null;
-        
         RequestContext ctx = new RequestContext(request);
-
     
         try {
             

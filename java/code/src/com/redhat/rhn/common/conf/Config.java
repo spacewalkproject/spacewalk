@@ -142,7 +142,7 @@ public class Config {
 
     public static final String PRODUCT_NAME = "web.product_name";
     
-    public static final String COBBLER_TASKOMATIC_USER = "web.taskomatic_cobbler_user";
+    public static final String COBBLER_AUTOMATED_USER = "web.taskomatic_cobbler_user";
     
 
     /**
@@ -684,6 +684,16 @@ public class Config {
     public String getKickstartPackageName() {
         return StringUtils.defaultIfEmpty(getString(KICKSTART_PACKAGE_NAME),
                 DEFAULT_KICKSTART_PACKAGE_NAME).trim();        
+    }
+    
+    /**
+     * Get the user string for use with authorization between Spacewalk
+     * and Cobbler if there is no actual user in context.
+     * 
+     * @return String from our config
+     */
+    public String getCobblerAutomatedUser() {
+        return getString(Config.COBBLER_AUTOMATED_USER, "taskomatic_user");
     }
 }
 
