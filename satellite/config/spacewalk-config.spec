@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.9
+Version: 0.4.10
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -105,6 +105,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
         /etc/logrotate.d/httpd
 
 %changelog
+* Fri Dec 19 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
+- fixed list of files which conflict with jabberd
+
 * Tue Dec 16 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.9-1
 - fixed %%file attributes and permissions
 
