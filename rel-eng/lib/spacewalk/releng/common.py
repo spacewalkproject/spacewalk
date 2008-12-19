@@ -70,9 +70,28 @@ def run_command(command):
 
 def check_tag_exists(tag):
     """ Check that the given git tag exists. """
-    # TODO: This is letting you build tags that do not exist in the remote repo.
-    # Replace with same method used in Makefile.srpm. Watch for usage of 
-    # TAG_SHA1
+    rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
+
+    tag_sha1 = run_command(
+            "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
+            % tag)
+    debug("Local tag SHA1: %s" % tag_sha1)
+    upstream_repo = run_command("cat %s" % os.path.join(rel_eng_dir,
+        "upstream-repo"))
+    debug("Upstream repo: %s" % upstream_repo)
+    upstream_tag_sha1 = run_command("git ls-remote %s --tag %s | awk '{ print $1 ; exit }'" %
+            (upstream_repo, tag))
+    if upstream_tag_sha1 == "":
+        error_out(["Tag does not exist in upstream repo: %s" % tag,
+            "You must build.py --tag-release, then git push and git push --tags"])
+    debug("Upstream tag SHA1: %s" % upstream_tag_sha1)
+    if upstream_tag_sha1 != tag_sha1:
+        error_out("Tag %s references %s locally but %s upstream." % (tag,
+            tag_sha1, upstream_tag_sha1))
+
+    commit_id = run_command('git rev-list --max-count=1 %s' %
+            tag_sha1)
+
     (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
     if status > 0:
         error_out("Unable to locate git tag: %s" % tag)

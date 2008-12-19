@@ -76,7 +76,6 @@ def read_global_config():
         # File doesn't exist but that's ok because it's optional.
         return {}
     config = {}
-    #print "Reading config file: %s" % file_loc
     for line in f.readlines():
         if line.strip() == "":
             continue
@@ -84,7 +83,6 @@ def read_global_config():
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
-        #print "   %s = %s" % (tokens[0], strip(tokens[1]))
     return config
 
 
@@ -132,9 +130,6 @@ class CLI:
 
         global_config = read_global_config()
 
-        # TODO: necessary?
-        self._check_for_project_dir()
-
         config = self._read_project_config(global_config, options.tag,
                 options.no_cleanup)
 
@@ -169,6 +164,7 @@ class CLI:
         if found_builder_options:
             builder = builder_class(
                     global_config=global_config,
+                    build_config=config,
                     tag=options.tag,
                     dist=options.dist,
                     test=options.test,
@@ -179,15 +175,6 @@ class CLI:
             tagger = tagger_class(keep_version=options.keep_version,
                     debug=options.debug)
             tagger.run(options)
-
-    def _check_for_project_dir(self):
-        """
-        Make sure we're running against a project directory we can build.
-        
-        Check for exactly one spec file and ensure dir is somewhere within a 
-        git checkout.
-        """
-        find_git_root()
 
     def _read_project_config(self, global_config, tag, no_cleanup):
         """

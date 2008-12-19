@@ -31,8 +31,8 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, global_config=None, tag=None, dist=None, test=False,
-            debug=False):
+    def __init__(self, global_config=None, build_config=None, tag=None,
+            dist=None, test=False, debug=False):
         BuildCommon.__init__(self, debug)
 
         self.dist = dist
@@ -333,12 +333,16 @@ class UpstreamBuilder(NoTgzBuilder):
     upstream tag, and apply those changes in the spec file before building
     the package.
     """
-    def __init__(self, config=None, tag=None, dist=None, test=False,
-            debug=False):
-        NoTgzBuilder.__init__(self, debug)
-        if not config.has_option("buildconfig", "upstream_name"):
+    def __init__(self, global_config=None, build_config=None, tag=None,
+            dist=None, test=False, debug=False):
+
+        NoTgzBuilder.__init__(self, global_config=global_config,
+                build_config=build_config, tag=tag, dist=dist,
+                test=test, debug=debug)
+
+        if not build_config.has_option("buildconfig", "upstream_name"):
             error_out("Property 'upstream_name' not found in build.py.props")
-        self.upstream_name = config.get("buildconfig", "upstream_name")
+        self.upstream_name = build_config.get("buildconfig", "upstream_name")
         self.upstream_version = self._get_upstream_version()
         print("Building upstream tgz for %s %s" % (self.upstream_name,
                 self.upstream_version))
@@ -360,7 +364,7 @@ class UpstreamBuilder(NoTgzBuilder):
         cmd = "git show %s:%s%s > %s" % (self.git_commit_id,
                 self.relative_project_dir, self.spec_file_name,
                 self.spec_file)
-        print cmd
+        debug(cmd)
 
         # TODO: grab the upstream tgz
         # place both in rpmbuild_sourcedir

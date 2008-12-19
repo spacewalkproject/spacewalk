@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.10
+Version: 0.4.20
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -39,6 +39,7 @@ rm -Rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
+mv var $RPM_BUILD_ROOT/
 
 ln -s ../../httpd/logs $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/logs
 ln -s ../../httpd/run $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/run
@@ -61,6 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) /etc/init.d/satellite-httpd
 %attr(0755,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) /etc/rhn/satellite-httpd/conf/startup.pl
+%attr(0644,root,root) /var/lib/cobbler/snippets/spacewalk_file_preservation
 %config(noreplace) /etc/httpd/conf.d/satellite-installed.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/httpd.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
@@ -105,6 +107,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
         /etc/logrotate.d/httpd
 
 %changelog
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.11-1
+- added file preservation snippet to cobbler
+
 * Fri Dec 19 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
 - fixed list of files which conflict with jabberd
 
