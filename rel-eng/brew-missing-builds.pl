@@ -9,7 +9,7 @@ if (not defined $tag) {
 	die "usage: $0 brew-tag-to-check\n";
 }
 
-my @brew_data = sort map { /^(\S+)/ and $1 } `brew list-tagged --quiet --latest $tag | sed 's/\.el[4|5][\.sw]*//g'`;
+my @brew_data = sort map { /^(\S+)/ and $1 } `brew list-tagged --quiet --latest $tag`;
 
 my ($self_dir) = ($0 =~ m!(.*/)!);
 if (not $self_dir) {
