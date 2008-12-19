@@ -1,7 +1,7 @@
 Name: nutch
 Version: 1.0
 Release: 0.2.20081201040121nightly%{?dist}
-Summary: open source web-search software
+Summary: Open source web-search software
 
 Group: Development/Tools
 License: ASL 2.0
