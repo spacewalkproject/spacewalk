@@ -38,9 +38,8 @@ rhnActionConfigChannel
 	modified		date default(sysdate)
 				constraint rhn_actioncc_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 alter table rhnActionConfigChannel 
 	add constraint rhn_actioncc_sid_aid_fk
@@ -50,20 +49,17 @@ alter table rhnActionConfigChannel
 create unique index rhn_actioncc_aid_sid_uq
 	on rhnActionConfigChannel ( action_id, server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_actioncc_sid_aid_ccid_idx
 	on rhnActionConfigChannel ( server_id, action_id, config_channel_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_act_cc_ccid_aid_sid_idx
 on rhnActionConfigChannel (config_channel_id, action_id, server_id)
         tablespace [[4m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_actioncc_mod_trig

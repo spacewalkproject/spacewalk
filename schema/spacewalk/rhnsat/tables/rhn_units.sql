@@ -26,8 +26,7 @@ rhn_units
         constraint rhn_units_unit_id_nn not null
         constraint rhn_units_unit_id_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     quantum_id          varchar2 (10)
         constraint rhn_units_quantum_id_nn not null,
     unit_label          varchar2 (20),
@@ -38,9 +37,8 @@ rhn_units
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_units 
     is 'units  unit definitions';
@@ -48,8 +46,7 @@ comment on table rhn_units
 create index rhn_units_quantum_id_idx 
     on rhn_units ( quantum_id )
     tablespace [[64k_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_units
     add constraint rhn_units_qnta0_quantum_id_fk

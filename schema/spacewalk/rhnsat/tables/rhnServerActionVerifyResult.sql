@@ -84,9 +84,8 @@ rhnServerActionVerifyResult
 	modified		date default(sysdate)
 				constraint rhn_sactionvr_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_sactionvr_sanec_uq
 	on rhnServerActionVerifyResult(
@@ -94,8 +93,7 @@ create unique index rhn_sactionvr_sanec_uq
 		package_name_id, package_evr_id, package_arch_id,
 		package_capability_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_sactionvr_mod_trig

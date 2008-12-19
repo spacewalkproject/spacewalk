@@ -25,8 +25,7 @@ rhn_probe
         constraint rhn_probe_recid_nn not null
         constraint rhn_probe_recid_pk primary key
             using index tablespace [[8m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     probe_type                       varchar2 (15)
         constraint rhn_probe_probe_type_nn not null,
     description                      varchar2 (255)
@@ -50,9 +49,8 @@ rhn_probe
     last_update_user                 varchar2 (40),
     last_update_date                 date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_probe 
     is 'probe  probe definitions';
@@ -60,32 +58,27 @@ comment on table rhn_probe
 create unique index rhn_probe_recid_probe_type_uq 
     on rhn_probe ( recid, probe_type )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_probe_check_command_id_idx 
     on rhn_probe ( command_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_probe_customer_id_idx 
     on rhn_probe ( customer_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_probe_probe_type_idx 
     on rhn_probe ( probe_type )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_probe_contact_grp_idx 
     on rhn_probe ( contact_group_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_probe 
     add constraint rhn_probe_recid_probe_type_uq 

@@ -38,15 +38,13 @@ rhnServerActionPackageResult
 				constraint rhn_sap_result_mod_nn not null
 )
 	tablespace [[blob]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_sap_result_sid_apid_uq
 	on rhnServerActionPackageResult( server_id, action_package_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_sap_result_mod_trig

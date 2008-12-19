@@ -28,8 +28,7 @@ rhn_time_zone_names
         constraint rhn_tznms_java_id_nn not null
         constraint rhn_tznms_java_id_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     display_name                     varchar2 (60)
         constraint rhn_tznms_display_name_nn not null,
     gmt_offset_minutes               number   (4)
@@ -39,9 +38,8 @@ rhn_time_zone_names
     last_update_user                 varchar2 (40),
     last_update_date                 date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_time_zone_names 
     is 'tznms  time zone names';
@@ -49,8 +47,7 @@ comment on table rhn_time_zone_names
 create unique index rhn_time_zone_names_uq 
     on rhn_time_zone_names ( display_name )
     tablespace [[64k_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_time_zone_names 
     add constraint rhn_time_zone_names_uq unique ( display_name );

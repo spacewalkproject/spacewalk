@@ -41,9 +41,8 @@ rhnErrataFile
 	modified	date default(sysdate)
 			constraint rhn_erratafile_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_errata_file_mod_trig
@@ -58,16 +57,14 @@ show errors
 create index rhn_erratafile_id_idx
 	on rhnErrataFile ( id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnErrataFile add constraint rhn_erratafile_id_pk
 	primary key ( id );
 
 create index rhn_erratafile_eid_file_idx
 	on rhnErrataFile ( errata_id, filename )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhnErrataFile add constraint rhn_erratafile_eid_file_uq
        unique ( errata_id, filename );

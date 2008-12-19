@@ -43,17 +43,14 @@ rhnDevice
 	modified	date default (sysdate)
 			constraint rhn_device_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_hw_dev_id_seq;
 
 create index rhn_device_server_id_idx
 	on rhnDevice(server_id)
 	tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

@@ -44,9 +44,8 @@ rhnAppInstallSession
 	modified	date default (sysdate)
 			constraint rhn_appinst_session_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_appinst_session_mod_trig
@@ -61,26 +60,22 @@ show errors
 create index rhn_appinst_session_id_iid_idx
 	on rhnAppInstallSession( id, instance_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_appinst_session_iid_id_idx
     on rhnAppInstallSession( instance_id, id )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_appinst_sessn_uid_iid_idx
     on rhnAppInstallSession( user_id, instance_id )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_appinst_sessn_sid_iid_idx
     on rhnAppInstallSession( server_id, instance_id )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhnAppInstallSession add constraint rhn_appinst_sessiond_id_pk
 	primary key ( id );

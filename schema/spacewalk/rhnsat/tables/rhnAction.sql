@@ -53,9 +53,8 @@ rhnAction
 	modified	date default (sysdate)
 			constraint rhn_action_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 -- this is common with the stuff used by rhnServerHistory now
 create sequence rhn_event_id_seq;
@@ -63,22 +62,16 @@ create sequence rhn_event_id_seq;
 create index rhn_action_oid_idx
 	on rhnAction(org_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_action_scheduler_idx
 	on rhnAction(scheduler)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_action_prereq_id_idx
         on rhnAction(prerequisite, id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

@@ -46,8 +46,7 @@ create index rhn_bl_obs_nepi_idx
 	on rhnBlacklistObsoletes ( name_id, evr_id, package_arch_id, 
 		ignore_name_id )
 --	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnBlacklistObsoletes add constraint rhn_bl_obs_nepi_uq
 	unique ( name_id, evr_id, package_arch_id, ignore_name_id );
 

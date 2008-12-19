@@ -23,7 +23,7 @@ rhnPackage
 			constraint rhn_package_id_nn not null
                         constraint rhn_package_id_pk primary key
 				using index tablespace [[4m_tbs]]
-				storage(pctincrease 1),
+				,
         org_id          number
                         constraint rhn_package_oid_fk
 				references web_customer(id)
@@ -60,7 +60,7 @@ rhnPackage
 			constraint rhn_package_vendor_nn not null,
         payload_format  varchar2(32),
 				-- do we care?
-        compat          smallint default 0
+        compat          number(1) default 0
                         constraint rhn_package_compat_check
                                 check (compat in (1,0)),
                                 -- Y/N .  This makes ``dont use compat if 
@@ -80,37 +80,29 @@ rhnPackage
         header_end      number default -1
                         constraint rhn_package_he_nn not null
 )
-	storage( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_package_id_seq;
 
 create unique index rhn_package_md5_oid_uq
 	on rhnPackage(md5sum, org_id)
         tablespace [[2m_tbs]]
-        storage( pctincrease 1 freelists 16 )
-        initrans 32;
+  ;
 
 create index rhn_package_oid_id_idx
 	on rhnPackage(org_id, id)
 	tablespace [[64k_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_package_id_nid_paid_idx
 	on rhnPackage(id,name_id, package_arch_id)
 	tablespace [[2m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 	
 create index rhn_package_nid_id_idx
 	on rhnPackage(name_id,id)
 	tablespace [[2m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

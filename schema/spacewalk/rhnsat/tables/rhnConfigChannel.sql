@@ -44,15 +44,13 @@ rhnConfigChannel
 	modified		date default(sysdate)
 				constraint rhn_confchan_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_confchan_oid_label_type_uq
 	on rhnConfigChannel( org_id, label, confchan_type_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

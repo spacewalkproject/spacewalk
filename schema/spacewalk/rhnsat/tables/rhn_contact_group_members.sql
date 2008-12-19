@@ -41,9 +41,8 @@ rhn_contact_group_members
 	last_update_date	date
 				constraint rhn_cntgm_last_date_nn not null
 )  
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 comment on table rhn_contact_group_members 
 	is 'cntgm  contact group membership records';
@@ -52,8 +51,7 @@ comment on table rhn_contact_group_members
 create index rhn_cntgm_cgid_order_idx 
 	on rhn_contact_group_members( contact_group_id, order_number )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
- 	initrans 32;
+  ;
 alter table rhn_contact_group_members add constraint rhn_cntgm_cgid_order_pk 
 	primary key ( contact_group_id, order_number );
 
@@ -61,15 +59,13 @@ alter table rhn_contact_group_members add constraint rhn_cntgm_cgid_order_pk
 create index rhn_cntgm_mcmid_idx
 	on rhn_contact_group_members( member_contact_method_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- supports rhn_cntgm_mcgid_fk's delete cascade
 create index rhn_cntgm_mcgid_idx
 	on rhn_contact_group_members( member_contact_group_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

@@ -29,22 +29,17 @@ rhnServerTokenRegs
 			constraint rhn_srv_reg_tok_sid_fk
 				references rhnServer(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_srv_reg_tok_ts_idx
 	on rhnServerTokenRegs(token_id, server_id)
    tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index RHN_SRVR_TKN_RGS_SID_TID_IDX
 on rhnServerTokenRegs ( server_id, token_id )
         tablespace [[64k_tbs]]
-        storage ( freelists 16 )
-        initrans 32
         nologging;
 
 --

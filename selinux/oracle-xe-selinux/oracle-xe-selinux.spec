@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         6%{?dist}
+Release:         7%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -29,7 +29,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-xe-univ
-Requires:         oracle-selinux
+Requires:         oracle-nofcontext-selinux
 
 %description
 SELinux policy module supporting Oracle XE server.
@@ -79,7 +79,7 @@ echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib > $RPM_BUILD_ROOT/e
 %clean
 rm -rf %{buildroot}
 
-%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app
+%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle
 %define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
 
 %pre
@@ -143,6 +143,9 @@ fi
 /etc/ld.so.conf.d/oracle-xe.conf
 
 %changelog
+* Thu Dec 18 2008 Jan Pazdziora 10.2-7
+- switch to using oracle-nofcontext-selinux
+
 * Mon Dec 15 2008 Jan Pazdziora 10.2-6
 - added textrel_shlib_t for libocci.so.10.1
 - minor .spec cleanup

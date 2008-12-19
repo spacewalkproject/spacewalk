@@ -26,15 +26,13 @@ rhnSourceRPM
 	name		varchar2(128)
 			constraint rhn_sourcerpm_name_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_srpm_name_uq
 	on rhnSourceRPM(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_sourcerpm_id_seq;
 

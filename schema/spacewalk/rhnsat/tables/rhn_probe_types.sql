@@ -26,14 +26,12 @@ rhn_probe_types
         constraint rhn_prbtp_probe_type_nn not null
         constraint rhn_prbtp_probe_type_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     type_description    varchar2 (200)
         constraint rhn_prbtp_type_desc_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_probe_types 
     is 'prbtp  probe types';

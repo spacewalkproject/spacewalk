@@ -29,20 +29,16 @@ rhnSnapshotChannel
 				constraint rhn_snapchan_cid_fk
 					references rhnChannel(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_snapchan_sid_cid_uq
 	on rhnSnapshotChannel( snapshot_id, channel_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create index rhn_snapshot_cid_idx
 	on rhnSnapshotChannel( channel_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

@@ -41,6 +41,17 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         super(ksDataIn, userIn);
     }
 
+    /**
+     * Call this if you want to use the taskomatic_user.
+     * 
+     * Useful for automated non-user initiated syncs
+     * @param ksDataIn to sync
+     */
+    public CobblerProfileCreateCommand(KickstartData ksDataIn) {
+        super(ksDataIn);
+    }
+
+
 
      /**
      * Save the Cobbler profile to cobbler.

@@ -28,21 +28,18 @@ rhnUserServerPerms
 			constraint rhn_usperms_sid_fk
 				references rhnServer(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_usperms_uid_sid_uq
 	on rhnUserServerPerms( user_id, server_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_usperms_sid_idx
 	on rhnUserServerPerms( server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

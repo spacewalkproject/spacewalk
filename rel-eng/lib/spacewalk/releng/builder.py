@@ -243,10 +243,12 @@ class Builder(BuildCommon):
         if self.test:
             return self._get_git_head_commit()
         else:
-            output = run_command(
+            tag_sha1 = run_command(
                     "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
                     % self.build_tag)
-            return output
+            commit_id = run_command('git rev-list --max-count=1 %s' % 
+                    tag_sha1)
+            return commit_id
 
     def _get_commit_timestamp(self, sha1_or_tag):
         """

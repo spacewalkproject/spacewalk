@@ -26,8 +26,7 @@ rhn_schedule_weeks
         constraint rhn_schwk_recid_ck check (recid > 0)
         constraint rhn_schwk_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     schedule_id             number   (12)
         constraint rhn_schwk_sched_id_nn not null,
     component_schedule_id   number   (12),
@@ -35,9 +34,8 @@ rhn_schedule_weeks
     last_update_user        varchar2 (40),
     last_update_date        date
 ) 
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_schedule_weeks 
     is 'schwk  individual week records for schedules';
@@ -45,14 +43,12 @@ comment on table rhn_schedule_weeks
 create index rhn_schwk_schedule_id_idx 
     on rhn_schedule_weeks ( schedule_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_schwk_comp_sched_id_idx 
     on rhn_schedule_weeks ( component_schedule_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_schedule_weeks
     add constraint rhn_schwk_sched_comp_sched_fk

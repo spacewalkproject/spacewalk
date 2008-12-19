@@ -37,15 +37,13 @@ rhnActionConfigDateFile
 	modified		date default(sysdate)
 				constraint rhn_actioncd_file_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_actioncd_file_aid_fn_idx
 	on rhnActionConfigDateFile(action_id, file_name)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_actioncd_file_mod_trig

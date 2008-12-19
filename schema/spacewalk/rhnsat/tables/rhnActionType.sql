@@ -36,20 +36,17 @@ rhnActionType
 				constraint rhn_action_type_unlck_ck
 					check (unlocked_only in ('Y','N'))
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 	
 create unique index rhn_action_type_label_uq
 	on rhnActionType(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create unique index rhn_action_type_name_uq
 	on rhnActionType(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.19  2003/10/23 18:37:55  misa

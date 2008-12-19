@@ -30,9 +30,8 @@ rhnErrataKeyword
 	modified	date default(sysdate)
 			constraint rhn_err_keyword_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_errata_keyword_mod_trig
@@ -47,14 +46,12 @@ show errors
 create unique index rhn_err_keyword_eid_uq
 	on rhnErrataKeyword(keyword,errata_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_errkw_eid_idx
 	on rhnErrataKeyword(errata_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.13  2004/12/07 23:17:01  misa

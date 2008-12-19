@@ -85,33 +85,28 @@ rhnKickstartSession
 	modified		date default(sysdate)
 				constraint rhn_ks_session_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_ks_session_oid_idx
 	on rhnKickstartSession( org_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_ks_session_osid_aid_idx
 	on rhnKickstartSession( old_server_id, action_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_ks_session_nsid_idx
 	on rhnKickstartSession( new_server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_ks_session_hsid_idx
 	on rhnKickstartSession( host_server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

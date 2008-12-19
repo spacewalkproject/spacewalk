@@ -33,15 +33,13 @@ rhnTransactionOperation
 	modified	date default(sysdate)
 			constraint rhn_transop_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_transop_label_id_idx
 	on rhnTransactionOperation(label,id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.2  2003/01/30 16:11:28  pjones

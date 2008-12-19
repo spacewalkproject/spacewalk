@@ -34,22 +34,19 @@ rhnKickstartDefaultRegToken
 	modified		date default (sysdate)
 				constraint rhn_ksdrt_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_ksdrt_ksid_rtid_idx
 	on rhnKickstartDefaultRegToken( kickstart_id, regtoken_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- supports the "on delete cascade"
 create index rhn_ksdrt_rtid_idx
 	on rhnKickstartDefaultRegToken( regtoken_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_ksdrt_mod_trig

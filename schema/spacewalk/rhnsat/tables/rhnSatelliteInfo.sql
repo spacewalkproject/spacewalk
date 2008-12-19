@@ -41,9 +41,8 @@ rhnSatelliteInfo
         modified        date default (sysdate)
                         constraint rhn_satellite_info_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_satellite_info_mod_trig
@@ -58,8 +57,7 @@ show errors
 create index rhn_satellite_info_sid_idx on
 	rhnSatelliteInfo ( server_id )
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnSatelliteInfo add constraint rhn_satellite_info_sid_uq
 	unique ( server_id );
 

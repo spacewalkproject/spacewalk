@@ -26,9 +26,8 @@ rhn_redirect_email_targets
     email_address   varchar2 (255)
         constraint rhn_rdret_email_addr_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_redirect_email_targets 
     is 'rdret  redirect email targets';
@@ -36,14 +35,12 @@ comment on table rhn_redirect_email_targets
 create unique index rhn_rdret_pk 
     on rhn_redirect_email_targets ( redirect_id, email_address )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_rdret_redirect_id_idx 
     on rhn_redirect_email_targets ( redirect_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_redirect_email_targets 
     add constraint rhn_rdret_pk primary key ( redirect_id, email_address );

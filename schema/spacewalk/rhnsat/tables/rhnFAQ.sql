@@ -25,7 +25,7 @@ rhnFAQ
 			constraint rhn_faq_id_nn not null
 			constraint rhn_faq_id_pk primary key
 				using index tablespace [[64k_tbs]] 
-                                storage(pctincrease 1),
+                                ,
 	class_id	number
 			constraint rhn_faq_class_fk
 				references rhnFAQClass(id),
@@ -40,9 +40,8 @@ rhnFAQ
         modified        date default(sysdate)
                         constraint rhn_faq_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_faq_id_seq;
 

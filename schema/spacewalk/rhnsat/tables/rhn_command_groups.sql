@@ -28,9 +28,8 @@ rhn_command_groups
                 using index tablespace [[64k_tbs]],
     description varchar2 (80)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_groups 
     is 'CMDGR  Command group definitions';

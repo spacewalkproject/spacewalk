@@ -23,26 +23,26 @@ rhnServer
 			constraint rhn_server_id_nn not null
                         constraint rhn_server_id_pk primary key
 	                        using index tablespace [[4m_tbs]]
-				storage( pctincrease 1 freelists 16 ),
+				,
         org_id          number
                         constraint rhn_server_oid_nn not null
                         constraint rhn_server_oid_fk
                                 references web_customer(id)
 				on delete cascade,
-        digital_server_id varchar(64)
+        digital_server_id varchar2(64)
 			constraint rhn_server_dsi_nn not null,
 	server_arch_id	number
 			constraint rhn_server_said_nn not null
 			constraint rhn_server_said_fk
 				references rhnServerArch(id),
-        os              varchar(64)
+        os              varchar2(64)
 			constraint rhn_server_os_nn not null,
-        release         varchar(64)
+        release         varchar2(64)
 			constraint rhn_server_release_nn not null,
-        name            varchar(128),
-        description     varchar(256),
-        info            varchar(128),
-        secret          varchar(32)
+        name            varchar2(128),
+        description     varchar2(256),
+        info            varchar2(128),
+        secret          varchar2(32)
 			constraint rhn_server_secret_nn not null,
 	creator_id	number
 			constraint rhn_server_creator_fk
@@ -68,38 +68,30 @@ rhnServer
         modified        date default (sysdate)
 			constraint rhn_server_modified_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_id_seq start with 1000010000 order;
 
 create unique index rhn_server_dsid_uq
 	on rhnServer(digital_server_id)
 	tablespace [[8m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_server_oid_id_idx
 	on rhnServer(org_id,id)
         tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_server_created_id_idx
 	on rhnServer(created,id)
         tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 -- this keeps delete_user from being _too_ slow
 create index rhn_server_creator_idx
 	on rhnServer(creator_id)
 	tablespace [[2m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

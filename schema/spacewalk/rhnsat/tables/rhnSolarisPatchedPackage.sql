@@ -29,15 +29,12 @@ create table rhnSolarisPatchedPackage (
                         on delete cascade
 )
 tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
 enable row movement
-initrans 32;
+  ;
 
 create index rhn_solaris_patchedp_sid_idx
 on rhnSolarisPatchedPackage ( server_id )
    tablespace [[8m_tbs]]
-   storage( pctincrease 1 freelists 16 )
-   initrans 32
    nologging;
 
 --

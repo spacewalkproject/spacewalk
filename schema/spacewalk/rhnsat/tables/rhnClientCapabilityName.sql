@@ -27,9 +27,8 @@ rhnClientCapabilityName
 			constraint rhn_clientcapnam_name_nn not null
 			constraint rhn_clientcapnam_name_unq unique
 ) 
-	storage (freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_client_capname_id_seq;
 

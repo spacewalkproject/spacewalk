@@ -27,16 +27,12 @@ rhnServerInfo
 	checkin		date default(sysdate),
 	checkin_counter number default(0)
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32
 	nologging;
 
 create unique index rhn_server_info_sid_unq on
         rhnServerInfo(server_id)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

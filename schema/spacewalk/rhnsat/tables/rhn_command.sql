@@ -25,7 +25,7 @@ rhn_command
         constraint rhn_cmmnd_recid_nn not null
         constraint rhn_cmmnd_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage(pctincrease 1),
+            ,
     name                varchar2 (40)                   
         constraint rhn_cmmnd_name_nn not null,
     description         varchar2 (80)                   
@@ -45,9 +45,8 @@ rhn_command
     version_support     varchar2 (1024),
     help_url            varchar2 (1024)
 )
-    storage( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command 
     is 'CMMND A command that probes can run';
@@ -64,14 +63,12 @@ comment on column rhn_command.for_host_probe
 create unique index rhn_cmmnd_name_uq
     on rhn_command ( name )
     tablespace [[2m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_cmmnd_recid_comm_cl_uq
     on rhn_command ( recid, command_class )
     tablespace [[2m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_command
     add constraint rhn_cmmnd_name_uq

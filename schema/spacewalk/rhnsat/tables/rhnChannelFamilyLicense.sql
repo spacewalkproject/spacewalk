@@ -31,15 +31,13 @@ rhnChannelFamilyLicense
 	modified	date default (sysdate)
 			constraint rhn_cfl_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cf_license_cfid_uq
 	on rhnChannelFamilyLicense(channel_family_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_cf_license_mod_trig

@@ -30,17 +30,15 @@ rhnPackageEVR
         evr             evr_t
 			constraint rhn_pe_evr_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_pkg_evr_seq;
 
 create unique index rhn_pe_v_r_e_uq
 	on rhnPackageEVR(version, release, epoch)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.9  2004/06/09 23:01:50  misa

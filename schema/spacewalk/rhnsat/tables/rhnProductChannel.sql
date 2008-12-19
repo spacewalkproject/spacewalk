@@ -33,23 +33,20 @@ rhnProductChannel
 	modified	date default (sysdate)
 			constraint rhn_pc_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_pc_cid_pid_idx
 	on rhnProductChannel ( channel_id, product_id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnProductChannel add constraint rhn_pc_cid_pid_idx
 	unique ( channel_id, product_id );
 
 create index rhn_pc_pid_cid_idx
 	on rhnProductChannel ( product_id, channel_id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.1  2003/03/11 00:37:16  pjones

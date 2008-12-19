@@ -29,21 +29,18 @@ rhnSnapshotPackage
 					references rhnPackageNevra(id)
 				constraint rhn_snapshotpkg_nid_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_snapshotpkg_sid
     	on rhnSnapshotPackage( snapshot_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_snapshotpkg_sid_nid_uq
 	on rhnSnapshotPackage( snapshot_id, nevra_id )
 	tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_snapshotpkg_mod_trig

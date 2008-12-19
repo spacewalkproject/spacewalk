@@ -39,15 +39,13 @@ rhnPackageNEVRA
 				constraint rhn_pkgnevra_paid_fk
 					references rhnPackageArch(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_pkgnevra_nid_evrid_id_idx
 	on rhnPackageNEVRA( name_id, evr_id, id )
 	tablespace [[32m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhnPackageNEVRA
 add constraint rhn_pkgnevra_nid_eid_paid_uq

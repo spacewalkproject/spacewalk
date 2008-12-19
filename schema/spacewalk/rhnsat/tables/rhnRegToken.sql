@@ -44,29 +44,22 @@ rhnRegToken
 			constraint rhn_reg_token_deployconfs_ck
 				check (deploy_configs in ('Y','N'))
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_reg_token_org_id_idx
 	on rhnRegToken(org_id, id)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_reg_token_uid_idx
 	on rhnRegToken ( user_id )
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_reg_token_sid_idx
 	on rhnRegToken( server_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create sequence rhn_reg_token_seq;

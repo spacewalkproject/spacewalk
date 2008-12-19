@@ -46,15 +46,13 @@ rhnKickstartSessionHistory
 	modified		date default(sysdate)
 				constraint rhn_ks_sessionhist_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_ks_sessionhist_ksid_idx
 	on rhnKickstartSessionHistory( kickstart_session_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_ks_sessionhist_mod_trig

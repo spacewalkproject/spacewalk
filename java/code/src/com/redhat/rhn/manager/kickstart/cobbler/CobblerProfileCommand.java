@@ -49,6 +49,19 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         super(userIn);
         this.ksData = ksDataIn;
     }
+    
+    /**
+     * Call this if you want to use the taskomatic_user.
+     * 
+     * Useful for automated non-user initiated syncs
+     * 
+     * @param ksDataIn - KickstartData to sync
+     */
+    public CobblerProfileCommand(KickstartData ksDataIn) {
+        super();
+        this.ksData = ksDataIn;
+    }
+    
 
     /**
      * Get the Cobbler profile associated with this KickstartData
@@ -98,7 +111,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             invokeXMLRPC("modify_profile", Arrays.asList(args));
         }
         Map<String, Object> meta = new HashMap<String, Object>();
-        meta.put("org", user.getOrg().getId());
+        meta.put("org", this.ksData.getOrg().getId());
         invokeXMLRPC("modify_profile", handle, "ksmeta", meta, xmlRpcToken);        
     }
 

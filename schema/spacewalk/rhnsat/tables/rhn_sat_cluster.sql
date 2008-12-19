@@ -25,8 +25,7 @@ rhn_sat_cluster
         constraint rhn_satcl_recid_nn not null
         constraint rhn_satcl_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     target_type             varchar2 (10) default 'cluster'
         constraint rhn_satcl_target_type_nn not null
         constraint rhn_satcl_target_type_ck check (target_type in ('cluster')),
@@ -46,9 +45,8 @@ rhn_sat_cluster
     pem_public_key          varchar2 (2000),
     pem_public_key_hash     varchar2 (20)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_sat_cluster 
     is 'satcl  satellite cluster';
@@ -62,8 +60,7 @@ alter table rhn_sat_cluster
 create index rhn_satcl_cid_idx
 	on rhn_sat_cluster( customer_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhn_sat_cluster
     add constraint rhn_satcl_cstmr_customer_id_fk
     foreign key ( customer_id )

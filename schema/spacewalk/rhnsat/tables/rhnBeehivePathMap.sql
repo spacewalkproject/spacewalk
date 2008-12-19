@@ -30,9 +30,8 @@ create table rhnBeehivePathMap
     created         date default SYSDATE,
     modified        date default SYSDATE
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_beehive_path_map_mod_trig

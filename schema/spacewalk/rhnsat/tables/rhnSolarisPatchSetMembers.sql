@@ -30,21 +30,18 @@ create table rhnSolarisPatchSetMembers (
                      constraint rhn_solaris_psm_modified_nn not null
 )
 tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
 enable row movement
-initrans 32;
+  ;
 
 create index rhn_solaris_psm_pid_psid_idx
 on rhnSolarisPatchSetMembers (patch_id, patch_set_id)
 tablespace [[4m_tbs]]
-storage ( freelists 16 )
-initrans 32;
+  ;
 
 create index rhn_solaris_psm_psid_pid_idx
 on rhnSolarisPatchSetMembers (patch_set_id, patch_id)
 tablespace [[4m_tbs]]
-storage ( freelists 16 )
-initrans 32;
+  ;
 
 create trigger
 rhn_solaris_psm_mod_trig

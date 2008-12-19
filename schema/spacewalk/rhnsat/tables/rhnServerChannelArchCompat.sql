@@ -32,21 +32,18 @@ rhnServerChannelArchCompat
 	modified	date default(sysdate)
 			constraint rhn_sc_ac_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_sc_ac_caid_paid
 	on rhnServerChannelArchCompat(server_arch_id, channel_arch_id)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_sc_ac_paid_caid
 	on rhnServerChannelArchCompat(channel_arch_id, server_arch_id)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_sc_ac_mod_trig

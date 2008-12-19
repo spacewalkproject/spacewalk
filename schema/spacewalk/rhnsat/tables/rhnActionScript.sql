@@ -42,15 +42,13 @@ rhnActionScript
 			constraint rhn_actscript_mod_nn not null
 )
 	tablespace [[blob]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_actscript_aid_uq_idx on
 	rhnActionScript( action_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_actscript_mod_trig

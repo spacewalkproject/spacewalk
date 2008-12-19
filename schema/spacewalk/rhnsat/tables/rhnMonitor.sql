@@ -38,23 +38,20 @@ rhnMonitor
 			references rhnMonitorGranularity(id),
     value       varchar2(4000)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_monitor_bid_seq;
 
 create index rhn_monitor_bid_idx
     	on rhnMonitor(batch_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_monitor_idx
     	on rhnMonitor(server_id, probe_id, granularity, timestamp, component, field)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.6  2003/01/30 16:11:28  pjones

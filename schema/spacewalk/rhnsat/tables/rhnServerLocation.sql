@@ -41,17 +41,15 @@ rhnServerLocation
         modified        date default (sysdate)
 			constraint rhn_serverlocation_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_loc_id_seq;
 
 create unique index rhn_serverlocation_sid_uq
 	on rhnServerLocation ( server_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_serverlocation_mod_trig

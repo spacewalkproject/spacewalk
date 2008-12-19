@@ -44,15 +44,12 @@ rhnActionPackage
 			constraint rhn_act_p_paid_fk
 				references rhnPackageArch(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_act_p_aid_idx
 	on rhnActionPackage(action_id)
 	tablespace [[4m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 --

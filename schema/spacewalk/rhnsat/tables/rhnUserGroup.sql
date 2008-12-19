@@ -23,8 +23,7 @@ rhnUserGroup
                         constraint rhn_user_group_id_nn not null
                         constraint rhn_user_group_pk primary key
                                 using index tablespace [[8m_tbs]]
-				storage( pctincrease 1 freelists 16 )
-				initrans 32,
+				,
         name            varchar2(64)
                         constraint rhn_user_group_name_nn not null,
         description     varchar2(1024)
@@ -46,9 +45,8 @@ rhnUserGroup
         modified        date default(sysdate)
                         constraint rhn_usergroup_type_modified_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 --
 -- Revision 1.19  2003/03/14 23:15:14  pjones

@@ -26,8 +26,7 @@ rhn_notification_formats
         constraint rhn_ntfmt_recid_nn not null
         constraint rhn_ntfmt_recid_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     customer_id         number   (12),
     description         varchar2 (255)
         constraint rhn_ntfmt_desc_nn not null,
@@ -39,9 +38,8 @@ rhn_notification_formats
         constraint rhn_ntfmt_max_body_nn not null,
     reply_format        varchar2 (4000)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_notification_formats 
     is 'ntfmt  notification message formats';
@@ -49,8 +47,7 @@ comment on table rhn_notification_formats
 create index rhn_ntfmt_customer_idx 
     on rhn_notification_formats ( customer_id )
     tablespace [[64k_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_notification_formats
     add constraint rhn_ntfmt_customer_fk

@@ -48,15 +48,13 @@ create table rhnConfigFile
 	modified		date default(sysdate)
 				constraint rhn_conffile_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_conffile_cc_cfn_s_idx
 	on rhnConfigFile( config_channel_id, config_file_name_id, state_id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhnConfigFile add constraint rhn_conffile_ccid_cfnid_uq
 	unique ( config_channel_id, config_file_name_id );
@@ -64,8 +62,7 @@ alter table rhnConfigFile add constraint rhn_conffile_ccid_cfnid_uq
 create index rhn_cnf_fl_lcrid_idx
 on rhnConfigFile ( latest_config_revision_id )
         tablespace [[8m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_conffile_mod_trig

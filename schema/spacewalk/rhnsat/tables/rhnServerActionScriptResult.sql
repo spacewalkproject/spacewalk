@@ -41,21 +41,17 @@ rhnServerActionScriptResult
 				constraint rhn_serveras_result_mod_nn not null
 )
 	tablespace [[blob]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_serveras_result_sas_uq
 	on rhnServerActionScriptResult( server_id, action_script_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_serveras_result_asid_idx
 	on rhnServerActionScriptResult( action_script_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

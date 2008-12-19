@@ -28,20 +28,17 @@ rhnUserMessageType
 	name		varchar2(96)
 			constraint rhn_um_type_name_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_um_type_label_uq
 	on rhnUserMessageType(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create unique index rhn_um_type_name_uq
 	on rhnUserMessageType(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.3  2003/01/30 16:11:28  pjones

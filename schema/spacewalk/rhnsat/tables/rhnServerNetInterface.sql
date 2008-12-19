@@ -35,9 +35,8 @@ rhnServerNetInterface
 	modified	date default sysdate
 			constraint rhn_srv_net_iface_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_srv_net_iface_mod_trig
@@ -52,8 +51,7 @@ show errors
 create index rhn_srv_net_iface_sid_name_idx
 	on rhnServerNetInterface ( server_id, name )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnServerNetInterface add constraint rhn_srv_net_iface_sid_name_uq
 	unique ( server_id, name );
 

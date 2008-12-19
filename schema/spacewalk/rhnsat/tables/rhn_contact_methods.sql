@@ -26,8 +26,7 @@ rhn_contact_methods
         constraint rhn_cmeth_recid_notzero check (recid > 0) 
         constraint rhn_cmeth_recid_pk primary key
             using index tablespace [[2m_tbs]]
-                storage( pctincrease 1 freelists 16 )
-                initrans 32,
+                ,
     method_name                      varchar2 (20),
     contact_id                       number   (12)
         constraint rhn_cmeth_contact_id_nn not null,
@@ -51,9 +50,8 @@ rhn_contact_methods
         constraint rhn_cmeth_notif_fmt_nn not null,
     sender_sat_cluster_id            number   (12)
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_contact_methods 
     is 'cmeth  contact method definitions';
@@ -61,32 +59,27 @@ comment on table rhn_contact_methods
 create index rhn_cmeth_sndr_scid_idx
     on rhn_contact_methods ( sender_sat_cluster_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_cmeth_contact_id_idx
     on rhn_contact_methods ( contact_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_cmeth_id_name_uq
     on rhn_contact_methods ( contact_id, method_name )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_cmeth_method_type_id_idx
     on rhn_contact_methods ( method_type_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_cmeth_schedule_id_idx
     on rhn_contact_methods ( schedule_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_contact_methods
     add constraint rhn_cmeth_contact_id_fk

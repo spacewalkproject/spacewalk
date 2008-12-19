@@ -28,28 +28,24 @@ rhnMessageType
 	name		varchar2(96)
 			constraint rhn_m_type_name_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_mt_id_seq;
 
 create unique index rhn_m_type_label_uq
 	on rhnMessageType(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 create unique index rhn_m_type_name_uq
 	on rhnMessageType(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_m_type_label_id_idx
 	on rhnMessageType(label,id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.2  2003/01/30 16:11:28  pjones

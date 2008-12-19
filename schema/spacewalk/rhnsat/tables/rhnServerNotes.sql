@@ -39,24 +39,19 @@ rhnServerNotes
         modified        date default(sysdate)
                         constraint rhn_servernotes_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_note_id_seq;
 
 create index rhn_servernotes_sid_idx
 	on rhnServerNotes(server_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create index rhn_servernotes_creator_idx
 	on rhnServerNotes ( creator )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

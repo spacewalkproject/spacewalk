@@ -32,22 +32,18 @@ rhnPackageSyncBlacklist
 	modified		date default(sysdate)
 				constraint rhn_packagesyncbl_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_packagesyncbl_pnid_oid_uq on
 	rhnPackageSyncBlacklist( package_name_id, org_id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- for the delete cascade
 create index rhn_packagesyncbl_oid_idx on
 	rhnPackageSyncBlacklist( org_id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

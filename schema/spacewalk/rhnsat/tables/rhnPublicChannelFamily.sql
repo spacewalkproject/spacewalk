@@ -34,8 +34,7 @@ rhnPublicChannelFamily
 create unique index rhn_pubcf_co_uq on
 	rhnPublicChannelFamily(channel_family_id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

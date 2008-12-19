@@ -35,9 +35,8 @@ rhn_command_queue_execs
     target_type         varchar2 (10)
         constraint rhn_cqexe_target_type_nn not null
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_queue_execs 
     is 'cqexe  command queue execution records';
@@ -48,20 +47,17 @@ create unique index rhn_cqexe_inst_id_nsaint_pk
 create index rhn_command_queue_netsaint_idx 
     on rhn_command_queue_execs ( netsaint_id )
     tablespace [[8m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_cqexe_instance_id_idx 
     on rhn_command_queue_execs ( instance_id )
     tablespace [[8m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_cqexe_date_executed_idx 
     on rhn_command_queue_execs ( date_executed )
     tablespace [[8m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_command_queue_execs 
     add constraint rhn_cqexe_inst_id_nsaint_pk 

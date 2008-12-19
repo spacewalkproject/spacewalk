@@ -27,9 +27,8 @@ rhn_service_probe_origins
     decoupled           char     (1) default '0'
         constraint rhn_srvpo_decoupled_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_service_probe_origins 
     is 'srvpo  mapping from a replicated service probe to the check suite probe it was copied from.  uq instead of pk because need to set origin_probe_id to null!!!';
@@ -37,14 +36,12 @@ comment on table rhn_service_probe_origins
 create unique index rhn_srvpo_serv_pr_id_orig_uq 
     on rhn_service_probe_origins ( service_probe_id, origin_probe_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
  create unique index rhn_srvpo_serv_orig_pr_id_uq
     on rhn_service_probe_origins ( origin_probe_id, service_probe_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_service_probe_origins 
     add constraint rhn_srvpo_serv_pr_id_orig_uq 

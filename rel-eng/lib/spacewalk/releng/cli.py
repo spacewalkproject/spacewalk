@@ -78,7 +78,9 @@ def read_global_config():
     config = {}
     #print "Reading config file: %s" % file_loc
     for line in f.readlines():
-        tokens = line.split(" = ")
+        if line.strip() == "":
+            continue
+        tokens = line.split("=")
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])

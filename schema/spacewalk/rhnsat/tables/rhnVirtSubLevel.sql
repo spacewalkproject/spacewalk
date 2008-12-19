@@ -28,16 +28,14 @@ create table rhnVirtSubLevel (
     modified date default sysdate
              constraint rhn_vsl_modified_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 create sequence rhn_virt_sl_seq;    
 
 create index rhn_vsl_label_id_name_idx
     on rhnVirtSubLevel(label, id, name)
     tablespace [[64k_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 

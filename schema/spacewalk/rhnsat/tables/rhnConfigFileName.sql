@@ -30,23 +30,20 @@ rhnConfigFileName
 	modified	date default(sysdate)
 			constraint rhn_cfname_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_cfname_id_pk
 	on rhnConfigFileName ( id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnConfigFileName add constraint
 	rhn_cfname_id_pk primary key ( id );
 
 create unique index rhn_cfname_path_uq
 	on rhnConfigFileName ( path )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_cfname_mod_trig

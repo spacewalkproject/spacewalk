@@ -38,15 +38,13 @@ rhnCryptoKey
 					references rhnCryptoKeyType(id),
 	key			blob
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_cryptokey_oid_desc_uq
 	on rhnCryptoKey( org_id, description )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

@@ -29,21 +29,18 @@ rhnActionErrataUpdate
 				references rhnErrata(id)
 				on delete cascade
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_act_eu_aid_eid_idx
 	on rhnActionErrataUpdate(action_id, errata_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_act_eu_eid_aid_idx
 	on rhnActionErrataUpdate(errata_id, action_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.14  2003/08/21 21:29:29  pjones

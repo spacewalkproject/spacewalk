@@ -33,21 +33,18 @@ rhnPackageObsoletes
         modified        date default (sysdate)
                         constraint rhn_pkg_obsoletes_mtime_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pkg_obsol_pid_cid_s_uq
 	on rhnPackageObsoletes(package_id, capability_id, sense)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_pkg_obsoletes_cid_idx
 	on rhnPackageObsoletes(capability_id)
         nologging tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_pkg_obsoletes_mod_trig

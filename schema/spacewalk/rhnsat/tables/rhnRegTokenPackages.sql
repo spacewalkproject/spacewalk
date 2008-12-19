@@ -38,22 +38,19 @@ rhnRegTokenPackages
                                 references rhnPackageArch(id)
                                 on delete cascade
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_reg_tok_pkg_uq
 	on rhnRegTokenPackages(id, token_id, name_id, arch_id)
 	tablespace [[4m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 -- need this for delete cascade speed
 create index rhn_reg_tok_pkg_nid_idx
 	on rhnRegtokenPackages(name_id)
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_reg_tok_pkg_id_seq;
 
