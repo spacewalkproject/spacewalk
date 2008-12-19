@@ -49,7 +49,7 @@ sub diff_it {
 			next;
 		}
 		my $b = $brew_data->[$bi];
-		$b =~ s/\.el\d\.sw$//;
+		$b =~ s/\.el\d(\.sw)?$//;
 		my $t = $tagged_data->[$ti];
 		$t =~ s/^(buildsys-macros-.+)\.sw$/$1/;
 		if ($t =~ /^(.+)-(.+)-1$/
