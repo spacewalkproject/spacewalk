@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.7
+Version: 0.4.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -213,6 +213,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Dec 19 2008 Mike McCune <mmccune@gmail.com> 0.4.8-1
+- latest changes
+
 * Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.7-1
 - resolved #471225 - moved rhn-sat-restart-silent to /usr/sbin
 
