@@ -62,7 +62,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0755,root,root) /etc/init.d/satellite-httpd
 %attr(0755,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) /etc/rhn/satellite-httpd/conf/startup.pl
-%attr(0644,root,root) /var/lib/cobbler/snippets/spacewalk_file_preservation
 %config(noreplace) /etc/httpd/conf.d/satellite-installed.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/httpd.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
@@ -70,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/rhn/satellite-httpd/conf/ssl.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/workers.properties
 %config(noreplace) /etc/webapp-keyring.gpg
+%config(noreplace) /var/lib/cobbler/kickstarts/spacewalk-sample.ks
+%config(noreplace) /var/lib/cobbler/snippets/spacewalk_file_preservation
 %dir /etc/rhn
 %dir /etc/rhn/satellite-httpd
 %dir /etc/rhn/satellite-httpd/conf
@@ -109,6 +110,7 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 %changelog
 * Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.11-1
 - added file preservation snippet to cobbler
+- added sample spacewalk kickstart template to cobbler
 
 * Fri Dec 19 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
 - fixed list of files which conflict with jabberd
