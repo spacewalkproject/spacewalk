@@ -76,7 +76,6 @@ def read_global_config():
         # File doesn't exist but that's ok because it's optional.
         return {}
     config = {}
-    #print "Reading config file: %s" % file_loc
     for line in f.readlines():
         if line.strip() == "":
             continue
@@ -84,7 +83,6 @@ def read_global_config():
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
-        #print "   %s = %s" % (tokens[0], strip(tokens[1]))
     return config
 
 
@@ -169,6 +167,7 @@ class CLI:
         if found_builder_options:
             builder = builder_class(
                     global_config=global_config,
+                    build_config=config,
                     tag=options.tag,
                     dist=options.dist,
                     test=options.test,
