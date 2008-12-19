@@ -88,13 +88,13 @@ tgz : git-archive-to-tar-gz
 git-archive-unpack : git-archive-to-tar-gz unpack-tar-gz
 
 rpm srpm : check-tag git-archive-unpack
-	$(MAKE) -C $(RPMBUILD_SOURCEDIR) x-build-$@ X_RPMBUILD_DIR=$(RPMBUILD_DIR) $(DIST_PARAMS) $(COMMIT_PARAMS)
+	$(MAKE) --no-print-directory -C $(RPMBUILD_SOURCEDIR) x-build-$@ X_RPMBUILD_DIR=$(RPMBUILD_DIR) $(DIST_PARAMS) $(COMMIT_PARAMS)
 
 test-srpm :
-	$(MAKE) srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+	$(MAKE) --no-print-directory srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
 
 test-rpm :
-	$(MAKE) rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+	$(MAKE) --no-print-directory rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
 
 check-tag :
 	@if test -n "$(TAG)" ; then \
@@ -176,10 +176,10 @@ upload-tgz : tgz
 	@scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) $(FEDORAHOSTED_USER)@fedorahosted.org:spacewalk
 
 %.src.rpm %.srpm :
-	$(MAKE) srpm TAG=$*
+	$(MAKE) --no-print-directory srpm TAG=$*
 
 %.tar.gz %.tgz :
-	$(MAKE) tgz TAG=$*
+	$(MAKE) --no-print-directory tgz TAG=$*
 
 .PHONY : tgz git-archive-unpack git-archive-to-tar-gz unpack-tar-gz \
 	rpm srpm test-srpm test-rpm \
