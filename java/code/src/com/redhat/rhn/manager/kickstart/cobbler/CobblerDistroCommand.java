@@ -81,6 +81,10 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
                 helper.getKickstartMediaPath());
 
+        if (tree.getOrgId() != null) {
+            ksmeta.put("org", tree.getOrg().getId());
+        }
+        
         Object[] args = new Object[]{handle, "ksmeta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_distro", Arrays.asList(args));
