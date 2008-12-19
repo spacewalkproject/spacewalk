@@ -18,6 +18,7 @@ import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.log4j.Logger;
@@ -88,7 +89,10 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
             distSync.store();
             
             CobblerProfileSyncCommand profSync = new CobblerProfileSyncCommand();
-            profSync.store();  
+            profSync.store();
+            
+            CobblerSystemSyncCommand systemSync = new CobblerSystemSyncCommand();
+            profSync.store();
         }
         
         LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
