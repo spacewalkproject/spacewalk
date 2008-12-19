@@ -5,6 +5,23 @@ if [ 0$UID -gt 0 ]; then
        exit 1
 fi
 
+print_help () {
+	cat <<HELP
+usage: configure-proxy.sh [options]
+
+options:
+  -h, --help            show this help message and exit
+HELP
+	exit
+}
+
+while [ $# -ge 1 ]; do
+	case $1 in
+            --help | -h)  print_help;;
+    esac
+    shift
+done
+
 default_or_input () {
 	unset INPUT
         read INPUT

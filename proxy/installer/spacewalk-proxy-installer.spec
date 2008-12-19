@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Dec 19 2008 Miroslav Suchy <msuchy@redhat.com>
-- add man page for configure-proxy.sh
+- add man page for configure-proxy.sh and --help option
 
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
 - fixed Obsoletes: rhns-* < 5.3.0
