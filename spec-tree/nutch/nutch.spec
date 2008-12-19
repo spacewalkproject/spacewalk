@@ -1,6 +1,6 @@
 Name: nutch
 Version: 1.0
-Release: 0.1.20081201040121nightly%{?dist}
+Release: 0.2.20081201040121nightly%{?dist}
 Summary: open source web-search software
 
 Group: Development/Tools
@@ -37,6 +37,6 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Dec 19 2008 John Matthews <jmatthews@redhat.com> 1.0-0.1.20081201040121nightly
+* Fri Dec 19 2008 John Matthews <jmatthews@redhat.com> 1.0-0.2.20081201040121nightly
 - initial 
 
