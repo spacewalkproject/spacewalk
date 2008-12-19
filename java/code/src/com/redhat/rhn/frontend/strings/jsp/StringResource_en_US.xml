@@ -16492,13 +16492,13 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
       </trans-unit>
 
      <trans-unit id="treecreate.jsp.header1">
-<source>The following details are needed to define a kickstartable distribution. The External Location field should be a valid URL to the base of the distribution tree. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
+<source>The following details are needed to define a kickstartable distribution. The tree path field should be a valid path to a installation tree located on this @@PRODUCT_NAME@@  server. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
 
 The Distribution Label field should contain only letters, numbers, hyphens, periods, and underscores. It must also be at least 4 characters long.&lt;br/&gt;&lt;br/&gt;
 
-The External Location, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
+The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-From within the specified location, a kernel should be available at "./images/pxeboot/vmlinuz" and an initrd image should be available at "./images/pxeboot/initrd.img".
+From within the specified tree path, a kernel should be available at "./images/pxeboot/vmlinuz" and an initrd image should be available at "./images/pxeboot/initrd.img".
 </source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
@@ -16541,7 +16541,7 @@ From within the specified location, a kernel should be available at "./images/px
       </trans-unit>
 
      <trans-unit id="tree-form.jspf.location">
-<source>External Location (url)</source>
+<source>Tree Path:</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
         </context-group>
