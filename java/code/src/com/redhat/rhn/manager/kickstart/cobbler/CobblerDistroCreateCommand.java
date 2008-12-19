@@ -62,11 +62,6 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
                 tree.getCobblerDistroName(), xmlRpcToken);
         updateCobblerFields(handle);
 
-        if (tree.getOrgId() != null) {
-            Map<String, Object> meta = new HashMap<String, Object>();
-            meta.put("org", tree.getOrg().getId());
-            invokeXMLRPC("modify_distro", handle, "ksmeta", meta, xmlRpcToken);
-        }
         invokeXMLRPC("save_distro", handle, xmlRpcToken);
         invokeCobblerUpdate();
         Map cDist = getDistroMap();
