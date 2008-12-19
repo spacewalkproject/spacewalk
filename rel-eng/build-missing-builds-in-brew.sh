@@ -15,7 +15,7 @@ rel-eng/brew-missing-builds.pl $TAG | \
           (
             cd $package && make srpm DIST='.el5' | \
             awk '/Wrote:/ {print $2}' | \
-            xargs -I packagepath echo brew build $TAG packagepath
+            xargs -I packagepath brew build $TAG packagepath
           )
 done
 
