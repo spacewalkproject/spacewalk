@@ -54,16 +54,16 @@ install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
-install rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
-install __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
-install rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
-install configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
+install -m 644 __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
+install -m 644 rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 644 configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %dir %{defaultdir}
 %{defaultdir}/c2s.xml
 %{defaultdir}/sm.xml
