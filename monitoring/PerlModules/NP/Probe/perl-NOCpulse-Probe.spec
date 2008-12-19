@@ -1,13 +1,8 @@
 %define npbin        /opt/home/nocpulse/bin
 Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/Probe
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      1.183.4
 Release:      1%{?dist}
 BuildArch:    noarch

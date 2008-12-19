@@ -1,13 +1,8 @@
 Name:         SatConfig-bootstrap-server
 Version:      1.13.1
 Release:      1%{?dist}
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Summary:      Provides scout info for boostrap
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SatConfig/bootstrap-server
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))

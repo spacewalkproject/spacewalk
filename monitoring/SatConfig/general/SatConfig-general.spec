@@ -7,13 +7,8 @@ Name:         SatConfig-general
 Version:      1.215.44
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SatConfig/general
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source:	      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Group:        Development/Libraries
 License:      GPLv2
 BuildArch:    noarch

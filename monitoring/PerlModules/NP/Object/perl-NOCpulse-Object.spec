@@ -2,13 +2,8 @@ Name:         perl-NOCpulse-Object
 Version:      1.26.7
 Release:      1%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/Object
-# make test-srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug)

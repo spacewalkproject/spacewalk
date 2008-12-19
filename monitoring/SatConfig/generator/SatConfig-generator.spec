@@ -6,13 +6,8 @@ Name:         SatConfig-generator
 Version:      2.29.8
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SatConfig/generator
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source:	      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:     SatConfig-dbsynch

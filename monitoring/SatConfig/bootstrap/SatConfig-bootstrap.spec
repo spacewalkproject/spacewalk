@@ -2,13 +2,8 @@ Name:         SatConfig-bootstrap
 Version:      1.11.2
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - satellite id installer
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SatConfig/bootstrap
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source:	      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	  nocpulse-common

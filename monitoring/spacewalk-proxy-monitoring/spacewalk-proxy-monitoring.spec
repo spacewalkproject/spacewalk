@@ -1,14 +1,9 @@
 
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      0.4.2
 Release:      1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/spacewalk-proxy-monitoring
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
 Group:        Applications/System

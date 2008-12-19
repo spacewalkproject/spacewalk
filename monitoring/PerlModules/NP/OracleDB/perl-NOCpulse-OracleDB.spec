@@ -2,13 +2,8 @@ Name:         perl-NOCpulse-OracleDB
 Version: 	  1.28.10
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/OracleDB
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(NOCpulse::Debug) perl(NOCpulse::Config) perl(NOCpulse::Utils::XML) perl(NOCpulse::Object)

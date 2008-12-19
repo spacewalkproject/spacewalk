@@ -1,14 +1,9 @@
 %define registry	%{_sysconfdir}/rc.d/np.d/apachereg
 Name:         status_log_acceptor
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      0.12.6
 Release:      1%{?dist}
 Summary:      Current state log acceptor
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/status_log_acceptor
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))

@@ -1,13 +1,8 @@
 %define config_dir     %{_var}/lib/nocpulse/trapReceiver
 Name:         SatConfig-installer
 Summary:      Satellite Configuration System - command line installer
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SatConfig/installer
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      3.24.4
 Release:      1%{?dist}
 BuildArch:    noarch

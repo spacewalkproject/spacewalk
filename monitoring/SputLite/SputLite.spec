@@ -6,15 +6,10 @@
 %define vardir         /var/lib/nocpulse
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SputLite
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      0.48.3
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SputLite
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))

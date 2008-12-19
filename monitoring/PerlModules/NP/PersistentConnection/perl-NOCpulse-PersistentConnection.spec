@@ -1,13 +1,8 @@
 Name:         perl-NOCpulse-PersistentConnection
-Source0:      %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      1.5.3
 Release:      1%{?dist}
 Summary:      Persistent HTTP connection over SSL
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/PersistentConnection
-# make test-srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))

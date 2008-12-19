@@ -8,13 +8,8 @@
 # Package specific stuff
 Name:         NPalert
 Summary:      NOCpulse notification system
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/NPalert
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      1.125.25
 Release:      1%{?dist}
 BuildArch:    noarch

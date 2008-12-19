@@ -1,13 +1,8 @@
 Name:         eventReceivers
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      2.20.9
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/eventReceivers
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Group:        Applications/Internet
