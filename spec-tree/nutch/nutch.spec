@@ -12,7 +12,9 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: java >= 0:1.5.0
 
 %description
-Nutch is open source web-search software. It builds on Lucene Java, adding web-specifics, such as a crawler, a link-graph database, parsers for HTML and other document formats, etc.
+Nutch is open source web-search software. It builds on Lucene Java, 
+adding web-specifics, such as a crawler, a link-graph database, parsers for 
+HTML and other document formats, etc.
 
 %prep
 %setup -q -n nutch-2008-12-01_04-01-21
