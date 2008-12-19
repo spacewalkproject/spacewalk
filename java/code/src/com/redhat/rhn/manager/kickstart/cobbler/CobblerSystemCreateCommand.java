@@ -110,8 +110,15 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 name, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
-        args = new Object[]{handle, "redhat_management_key", 
-                this.activationKeys, xmlRpcToken};
+        
+        if (this.activationKeys == null || this.activationKeys.length() == 0) {
+            log.error("This cobbler profile does not " +
+                "have a redhat_management_key set ");
+        }
+        else {
+            args = new Object[]{handle, "redhat_management_key", 
+                    this.activationKeys, xmlRpcToken};
+        }
 
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
