@@ -5371,7 +5371,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/treeedit.jsp"/>
         <forward name="success"
-                 redirect="true" path="/kickstart/ViewTrees.do"/>
+                 path="/WEB-INF/pages/kickstart/treeedit.jsp"/>
     </action>
     
     <action path="/kickstart/TreeDelete"

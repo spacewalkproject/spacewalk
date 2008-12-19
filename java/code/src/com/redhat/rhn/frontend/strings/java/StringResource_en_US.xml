@@ -6276,6 +6276,20 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
         
+      <trans-unit id="kickstart.tree.invalidkernel">
+        <source>The kernel could not be found at the specified location: {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
+        </context-group>
+      </trans-unit>        
+      
+      <trans-unit id="kickstart.tree.invalidinitrd">
+        <source>The initrd could not be found at the specified location: {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/TreeEdit.do</context>
+        </context-group>
+      </trans-unit>              
+        
       <trans-unit id="kickstart.tree.inuse">
         <source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
         <context-group name="ctx">

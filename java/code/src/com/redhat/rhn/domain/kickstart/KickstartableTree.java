@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
@@ -246,9 +247,10 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the kernel path
      */
     public String getKernelPath() {
-        return getAbsolutePath() + "/images/pxeboot/vmlinuz";
+        return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
     }
 
+    
     /**
      * Returns the Initrd path 
      * includes the mount point 
@@ -256,7 +258,7 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the Initrd path
      */
     public String getInitrdPath() {
-        return getAbsolutePath() + "/images/pxeboot/initrd.img";
+        return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
     }
 
     
