@@ -40,7 +40,10 @@ public class KickstartDto extends BaseDto {
      * @return if this is a raw KS
      */
     public boolean isAdvancedMode() {
-        return kickstartType.equals(KickstartData.TYPE_RAW);
+        if (kickstartType != null) {
+            return kickstartType.equals(KickstartData.TYPE_RAW);
+        }
+        return false;
     }
     
     /**
