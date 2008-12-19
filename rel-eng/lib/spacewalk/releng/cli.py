@@ -130,9 +130,6 @@ class CLI:
 
         global_config = read_global_config()
 
-        # TODO: necessary?
-        self._check_for_project_dir()
-
         config = self._read_project_config(global_config, options.tag,
                 options.no_cleanup)
 
@@ -178,15 +175,6 @@ class CLI:
             tagger = tagger_class(keep_version=options.keep_version,
                     debug=options.debug)
             tagger.run(options)
-
-    def _check_for_project_dir(self):
-        """
-        Make sure we're running against a project directory we can build.
-        
-        Check for exactly one spec file and ensure dir is somewhere within a 
-        git checkout.
-        """
-        find_git_root()
 
     def _read_project_config(self, global_config, tag, no_cleanup):
         """
