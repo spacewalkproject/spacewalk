@@ -1,0 +1,61 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNPROXY "Spacewalk Proxy Server" >
+<!ENTITY SCRIPTNAME "Spacewalk Procy Configure script" >
+<!ENTITY SCRIPTCOMMAND "configure-proxy.sh" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 0.4</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&SCRIPTCOMMAND;</command></RefName>
+<RefPurpose>
+Configures and activates &RHNPROXY;.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&SCRIPTCOMMAND;</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+This script asks all necessary questions to configure &RHNPROXY; 
+and then deploys configuration files and activates the &RHNPROXY;.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhn-proxy-activate(8)</member>
+    <member>rhn-proxy-debug(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Miroslav Suchý <email>msuchy@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
