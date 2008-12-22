@@ -67,7 +67,10 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
+<<<<<<< HEAD:java/code/src/com/redhat/rhn/manager/system/SystemManager.java
 import com.redhat.rhn.manager.token.ActivationKeyManager;
+=======
+>>>>>>> 461162 - add system to cobbler if provisioning is granted:java/code/src/com/redhat/rhn/manager/system/SystemManager.java
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -1435,7 +1438,6 @@ public class SystemManager extends BaseManager {
             cmd.store();
             log.debug("cobbler system record created.");
         }
-        
         boolean checkCounts = true;
         if (server.isVirtualGuest()) {
             Server host = server.getVirtualInstance().getHostSystem(); 
