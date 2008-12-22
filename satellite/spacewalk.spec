@@ -85,6 +85,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
+- Removing cobbler requirement down to RPMs that actually need it 
+
 * Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - require spacewalk-monitoring instead each individual monitoring package
 
