@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.17
+Version:        0.4.18
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -80,7 +80,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com> 0.4.18-1
 - Adding cobbler requirement
 
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.17-1
