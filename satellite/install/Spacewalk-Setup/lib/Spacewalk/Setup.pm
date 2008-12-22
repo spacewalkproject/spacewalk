@@ -147,7 +147,9 @@ sub load_answer_file {
 
     next unless -r $file;
 
-    print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
+    if ($file eq $options->{'answer-file'}) {
+      print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
+    }
     open FH, $file or die Spacewalk::Setup::loc("Could not open answer file: %s\n", $!);
 
     while (my $line = <FH>) {
