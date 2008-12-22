@@ -839,18 +839,16 @@ sub populate_initial_configs {
     s/\\/\\\\/g if defined $_;
   }
 
-  my $parent;
+  my %rhnopt = ();
   if ($answers->{disconnected} || $opts->{disconnected}) {
-    $parent = '';
-    write_config( { 'disconnected' => "1" },
-		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
-
+    $rhnopt{'server.satellite.rhn_parent'} = '';
+    $rhnopt{'disconnected'} = "1";
   }
   else {
-    $parent = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
+    $rhnopt{'server.satellite.rhn_parent'} = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
   }
 
-  write_config( { 'server.satellite.rhn_parent' => $parent },
+  write_config( %rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
   foreach my $opt_name (qw/session_swap_secret session_secret/) {
