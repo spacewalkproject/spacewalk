@@ -48,7 +48,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         // Simulate a default download URL:
         String output = executeDownloadTest("/some/fake/kickstart/path");
         // Check to make sure we tinyfied the url
-        assertTrue(output.indexOf("/ty/") > 0);
+        assertTrue(output.indexOf("$media_path") > 0);
     }
     
     public void testProxyDownload() throws Exception {
@@ -85,7 +85,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         ksdata.getTree().setOrg(null);
         String output = 
             executeDownloadTest("/kickstart/dist/ks-rhel-i386-as-4/");
-        assertTrue(output.indexOf("/ty/") > 0);
+        assertTrue(output.indexOf("$media_path") > 0);
     }
     
 
