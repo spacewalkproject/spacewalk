@@ -87,7 +87,7 @@ sub process_node {
   my $tree = shift;
   my $xml_node = shift;
 
-  my %valid_child_nodes = map {$_ => 1} qw/rhn-tab rhn-tab-url rhn-tab-directory rhn-formvar/;
+  my %valid_child_nodes = map {$_ => 1} qw/rhn-tab rhn-tab-url rhn-tab-name rhn-tab-directory rhn-formvar/;
 
   for my $node (grep { $_->isa("XML::LibXML::Element") } $xml_node->childNodes) {
     unless ($valid_child_nodes{$node->nodeName}) {
@@ -112,6 +112,15 @@ sub process_node {
     }
     my $url = $text_nodes[0]->getData;
     $navi_node->add_url($url);
+  }
+
+  for my $url_node (grep { $_->nodeName eq 'rhn-tab-name' } $xml_node->childNodes) {
+    my $url;
+    for my $text_node ($url_node->childNodes) {
+      $url .= ($text_node->nodeName eq 'pxt-config') ?
+               PXT::Config->get($text_node->getAttribute('var')) : $text_node->getData;
+    }
+    $navi_node->add_name($url);
   }
 
   for my $url_node (grep { $_->nodeName eq 'rhn-tab-directory' } $xml_node->childNodes) {
