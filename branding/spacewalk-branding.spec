@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.1.6
+Version:    0.4.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -53,6 +53,9 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/
 
 %changelog
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
+- added spacewalk-public.cert and spacewalk-cert.conf
+
 * Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.6-1
 - fix square corner on left tab.
 
