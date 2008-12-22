@@ -850,7 +850,7 @@ sub populate_initial_configs {
   if ($answers->{'product_name'}) {
     $rhnopt{'web.product_name'} = $answers->{'product_name'};
   }
-  write_config( %rhnopt,
+  write_config( \%rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
   foreach my $opt_name (qw/session_swap_secret session_secret/) {
