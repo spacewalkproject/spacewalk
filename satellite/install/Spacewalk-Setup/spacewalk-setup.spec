@@ -47,10 +47,11 @@ find %{buildroot} -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/spacewalk-public.cert %{buildroot}/%{_datadir}/spacewalk/setup/
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
+install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
