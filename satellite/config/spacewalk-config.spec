@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.20
+Version: 0.4.21
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -108,6 +108,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
         /etc/logrotate.d/httpd
 
 %changelog
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.21-1
+- product_name moved to spacewalk-branding
+
 * Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.11-1
 - added file preservation snippet to cobbler
 - added sample spacewalk kickstart template to cobbler
