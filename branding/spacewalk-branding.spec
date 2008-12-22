@@ -28,11 +28,12 @@ Spacewalk specific branding, CSS, and images.
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
+install -d -m 755 %{buildroot}%{_datadir}/spacewalk
 cp -R css %{buildroot}/%{_var}/www/html/
 cp -R img %{buildroot}/%{_var}/www/html/
 cp -R templates %{buildroot}/%{_var}/www/html/
 cp -R styles %{buildroot}/%{_var}/www/html/nav/
-
+cp -R setup  %{buildroot}%{_datadir}/spacewalk/
 
 %clean
 rm -rf %{buildroot}
@@ -49,7 +50,7 @@ rm -rf %{buildroot}
 /%{_var}/www/html/templates/.htaccess
 %dir /%{_var}/www/html/nav/styles
 /%{_var}/www/html/nav/styles/*
-
+%{_datadir}/spacewalk/
 
 %changelog
 * Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.6-1
