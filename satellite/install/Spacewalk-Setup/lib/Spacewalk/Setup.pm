@@ -271,6 +271,7 @@ sub set_spinning_callback {
 }
 
 sub init_log_files {
+  my $product_name = shift;
   my @args = @_;
 
   if (not -e RHN_LOG_DIR) {
@@ -287,7 +288,7 @@ sub init_log_files {
     or die "Could not open '" . Spacewalk::Setup::INSTALL_LOG_FILE .
         "': $!";
 
-  my $log_header = "RHN Satellite installation log.\nCommand: "
+  my $log_header = "$product_name installation log.\nCommand: "
     . $0 . " " . join(" ", @args) . "\n\n";
 
   print FH $log_header;
