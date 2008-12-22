@@ -60,8 +60,13 @@ public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
         helper.add("channel_id", ctn.getId());
         helper.add("channel_label", ctn.getChannelLabel());
         helper.add("channel_name", ctn.getName());
-        helper.add("channel_parent_label", ctn.getParentOrSelfLabel());
-        helper.add("provider_name", ctn.getOrgName());
+        
+        if (ctn.getOrgId() != null) {
+            helper.add("provider_name", ctn.getOrgName());
+        }
+        else {
+            helper.add("provider_name", "Red Hat, Inc.");
+        }
         
         helper.add("packages", ctn.getPackageCount());
 

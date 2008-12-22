@@ -809,7 +809,7 @@ public class ErrataHandler extends BaseHandler {
      *      #struct("errata info")
      *          #prop("string", "synopsis")
      *          #prop("string", "advisory_name")
-     *          #prop("string", "advisory_release")
+     *          #prop("int", "advisory_release")
      *          #prop_desc("string", "advisory_type", "Type of advisory (one of the 
      *                  following: 'Security Advisory', 'Product Enhancement Advisory', 
      *                  or 'Bug Fix Advisory'")
@@ -818,7 +818,6 @@ public class ErrataHandler extends BaseHandler {
      *          #prop("string", "description")
      *          #prop("string", "references")
      *          #prop("string", "notes")
-     *          #prop("string", "")
      *          #prop("string", "solution")
      *       #struct_end()
      *  @xmlrpc.param
@@ -836,9 +835,7 @@ public class ErrataHandler extends BaseHandler {
      *       #array_single("string", "channelLabel - list of channels the errata should be 
      *                  published too, ignored if publish is set to false")
      * @xmlrpc.returntype 
-     *          #array()
-     *              $ErrataSerializer
-     *          #array_end()
+     *      $ErrataSerializer
      */
     public Errata create(String sessionKey, Map errataInfo,
             List bugs, List keywords, List packageIds, boolean publish, 
