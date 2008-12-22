@@ -142,12 +142,14 @@ sub load_answer_file {
   my $options = shift;
   my $answers = shift;
 
-  for my $file (glob(Spacewalk::Setup::DEFAULT_ANSWER_FILE_GLOB),
-      $options->{'answer-file'}) {
+  my @files = glob(Spacewalk::Setup::DEFAULT_ANSWER_FILE_GLOB);
+  push @files, $options->{'answer-file'} if $options->{'answer-file'};
+
+  for my $file (@files) {
 
     next unless -r $file;
 
-    if ($file eq $options->{'answer-file'}) {
+    if ($options->{'answer-file'} and $file eq $options->{'answer-file'}) {
       print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
     }
     open FH, $file or die Spacewalk::Setup::loc("Could not open answer file: %s\n", $!);
