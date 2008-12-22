@@ -80,6 +80,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
+- Adding cobbler requirement
+
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.17-1
 - changed defaults.conf to default.d/*
 - moved spacewalk-public.cert to spacewalk-branding

@@ -46,6 +46,7 @@ Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
+Requires: cobbler >= 0:1.4
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1.5.0
@@ -138,6 +139,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
+Requires: cobbler >= 0:1.4
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Requires(post): chkconfig
@@ -213,6 +215,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
+- Adding proper cobbler requirement with version
+
 * Fri Dec 19 2008 Mike McCune <mmccune@gmail.com> 0.4.8-1
 - latest changes
 

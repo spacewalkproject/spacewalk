@@ -22,7 +22,6 @@ Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-Requires: cobbler
 Requires(pre): httpd
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
@@ -193,6 +192,7 @@ Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
+Requires: cobbler >= 0:1.4
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 
@@ -549,6 +549,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
+- Adding proper cobbler requirement with version
+
 * Thu Dec 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.9-1
 - 476055 - fixing sat activation to work by setting the right handler
 - 457629 - multiarch support for errata updates
