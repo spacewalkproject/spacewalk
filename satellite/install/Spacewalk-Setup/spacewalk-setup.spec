@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.13
+Version:        0.4.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -78,7 +78,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.13-1
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.14-1
 - changed defaults.conf to default.d/*
 - moved spacewalk-public.cert to spacewalk-branding
 
