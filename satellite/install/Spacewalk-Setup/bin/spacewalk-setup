@@ -850,6 +850,9 @@ sub populate_initial_configs {
   if ($answers->{'product_name'}) {
     $rhnopt{'web.product_name'} = $answers->{'product_name'};
   }
+  if ($answers->{'product_version'}) {
+    $rhnopt{'web.version'} = $answers->{'product_version'};
+  }
   write_config( \%rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
