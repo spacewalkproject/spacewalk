@@ -24,6 +24,8 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
+Requires:       cobbler >= 0:1.4
+
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
