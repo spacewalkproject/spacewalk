@@ -847,7 +847,9 @@ sub populate_initial_configs {
   else {
     $rhnopt{'server.satellite.rhn_parent'} = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
   }
-
+  if ($answers->{'product_name'}) {
+    $rhnopt{'web.product_name'} = $answers->{'product_name'};
+  }
   write_config( %rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
