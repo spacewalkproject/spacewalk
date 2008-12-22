@@ -30,8 +30,8 @@ use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
-use constant DEFAULT_ANSWER_FILE =>
-  SHARED_DIR . '/defaults.conf';
+use constant DEFAULT_ANSWER_FILE_GLOB =>
+  SHARED_DIR . '/defaults.d/*.conf';
 
 use constant DEFAULT_RHN_CONF_LOCATION =>
   '/etc/rhn/rhn.conf';
@@ -142,27 +142,26 @@ sub load_answer_file {
   my $options = shift;
   my $answers = shift;
 
-  my $file = $options->{'answer-file'};
+  for my $file (glob(Spacewalk::Setup::DEFAULT_ANSWER_FILE_GLOB),
+      $options->{'answer-file'}) {
 
-  $file ||= Spacewalk::Setup::DEFAULT_ANSWER_FILE;
+    next unless -r $file;
 
-  return unless -r $file;
+    print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
+    open FH, $file or die Spacewalk::Setup::loc("Could not open answer file: %s\n", $!);
 
-  print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
-  open FH, $file or die Spacewalk::Setup::loc("Could not open answer file: %s\n", $!);
+    while (my $line = <FH>) {
+      next if substr($line, 0, 1) eq '#';
+      $line =~ /([\w-]*)\s*=\s*(.*)/;
+      my ($key, $value) = ($1, $2);
 
-  while (my $line = <FH>) {
-    next if substr($line, 0, 1) eq '#';
-    $line =~ /([\w-]*)\s*=\s*(.*)/;
-    my ($key, $value) = ($1, $2);
+      next unless $key;
 
-    next unless $key;
+      $answers->{$key} = $value;
+    }
 
-    $answers->{$key} = $value;
+    close FH;
   }
-
-  close FH;
-
   return;
 }
 
