@@ -36,14 +36,17 @@ public class KickstartDto extends BaseDto {
     private String kickstartType;
     private String cobblerId;
     private String cobblerUrl;
+    private int virtMemory;
+    private int virtSpace;
+    private int virtCpus;
+    private String virtBridge;
+    
+    
     /**
      * @return if this is a raw KS
      */
     public boolean isAdvancedMode() {
-        if (kickstartType != null) {
-            return kickstartType.equals(KickstartData.TYPE_RAW);
-        }
-        return false;
+        return KickstartData.TYPE_RAW.equals(kickstartType);
     }
     
     /**
@@ -190,5 +193,69 @@ public class KickstartDto extends BaseDto {
      */
     public void setCobblerUrl(String cobblerUrlIn) {
         cobblerUrl = cobblerUrlIn;
+    }
+
+    
+    /**
+     * @return Returns the virtMemory.
+     */
+    public int getVirtMemory() {
+        return virtMemory;
+    }
+
+    
+    /**
+     * @param virtMemoryIn The virtMemory to set.
+     */
+    public void setVirtMemory(int virtMemoryIn) {
+        this.virtMemory = virtMemoryIn;
+    }
+
+    
+    /**
+     * @return Returns the virtSpace.
+     */
+    public int getVirtSpace() {
+        return virtSpace;
+    }
+
+    
+    /**
+     * @param virtSpaceIn The virtSpace to set.
+     */
+    public void setVirtSpace(int virtSpaceIn) {
+        this.virtSpace = virtSpaceIn;
+    }
+
+    
+    /**
+     * @return Returns the virtCpus.
+     */
+    public int getVirtCpus() {
+        return virtCpus;
+    }
+
+    
+    /**
+     * @param virtCpusIn The virtCpus to set.
+     */
+    public void setVirtCpus(int virtCpusIn) {
+        this.virtCpus = virtCpusIn;
+    }
+
+    
+    /**
+     * @return Returns the virtBridge.
+     */
+    public String getVirtBridge() {
+        return virtBridge;
+    }
+
+    
+    /**
+     * @param virtBridgeIn The virtBridge to set.
+     */
+    public void setVirtBridge(String virtBridgeIn) {
+        this.virtBridge = virtBridgeIn;
     }
 }

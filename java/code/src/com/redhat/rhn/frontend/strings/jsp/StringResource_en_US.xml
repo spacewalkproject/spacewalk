@@ -9120,7 +9120,14 @@ Please note that some manual configuration of these scripts may still be require
     
     
     <trans-unit id="kickstartdetails.jsp.virt_disk_path">
-        <source>Virtual Disk Path</source>
+        <source>Virtual Storage Path</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart</context>
+        </context-group>
+    </trans-unit>        
+
+    <trans-unit id="kickstartdetails.jsp.virt_disk_path.tip">
+        <source>&lt;strong&gt;Tip:&lt;/strong&gt; You may specify a file path (/var/lib/xen/images/disk), a Volume Group (VolGroup00), or a partiion (/dev/sda5).  You can also specify multiple virtual disks by comma separating the filepaths, volume group, or partition (/dev/sdb1,/devsdc1).</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
@@ -15958,6 +15965,36 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
             <context context-type="sourcefile">/rhn/systems/details/kickstart/ScheduleWizard.do</context>
         </context-group>
     </trans-unit>
+    
+    <trans-unit id="kickstart.channel.virtCpu.jsp">
+        <source>Cpus</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+        </context-group>
+    </trans-unit>    
+    
+    <trans-unit id="kickstart.channel.virtMemory.jsp">
+        <source>Memory</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+        </context-group>
+    </trans-unit>   
+    
+    <trans-unit id="kickstart.channel.virtBridge.jsp">
+        <source>Bridge</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+        </context-group>
+    </trans-unit>   
+    
+    <trans-unit id="kickstart.channel.virtDisk.jsp">
+        <source>Disk Size</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+        </context-group>
+    </trans-unit>               
+    
+    
     <trans-unit id="kickstart.distro.cobbler-only.tooltip">
         <source> Profiles that are not @@PRODUCT_NAME@@-managed are not guaranteed to register systems to @@PRODUCT_NAME@@ after kickstart. You may wish to review these kickstarts (click on the profile name to do so) to confirm whether or not your system will reappear in the @@PRODUCT_NAME@@ system list after kickstart.</source>
         <context-group name="ctx">
@@ -16935,7 +16972,7 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       </trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.header1">
-        <source>Create New Virtual System</source>
+        <source>Select a Kickstart Profile</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
@@ -16949,11 +16986,18 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
       </trans-unit>
 
       <trans-unit id="virtualization.provision.first.jsp.header2">
-        <source>Virtual System Hardware Configuration</source>
+        <source>Define the Virtual System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
+      
+      <trans-unit id="virtualization.provision.first.jsp.header3">
+        <source>Virtual System Hardware Overrides</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
+      </trans-unit>      
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.header">
         <source>Guest Name:</source>
@@ -16961,6 +17005,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
+      
+      <trans-unit id="virtualization.provision.first.jsp.virt_bridge.example">
+        <source>(ex. xenbr0)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
+      </trans-unit>      
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.message1">
         <source>What name shall be used to identify the guest on this host?</source>
@@ -16997,22 +17048,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	</context-group>
       </trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.memory_allocation.tip1">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; The default values provided for memory and diskspace are the minimum requirements for &lt;strong&gt;Enterprise Linux 3 and 4&lt;/strong&gt;. However, a minimum of &lt;strong&gt;{0}&lt;/strong&gt; memory is recommended on &lt;strong&gt;Enterprise Linux 5&lt;/strong&gt; for all architectures except for &lt;strong&gt;PowerPC&lt;/strong&gt;, which requires a minimum of &lt;strong&gt;{1}&lt;/strong&gt; of memory.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      </trans-unit>
-
       <trans-unit id="virtualization.provision.first.jsp.virtual_cpus.header">
         <source>Virtual CPUs:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      </trans-unit>
-
-      <trans-unit id="virtualization.provision.first.jsp.virtual_cpus.message2">
-        <source>virtual CPU(s)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
@@ -17031,6 +17068,14 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
       </trans-unit>
+      
+     <trans-unit id="virtualization.provision.override.jsp.message">
+        <source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
+      </trans-unit>      
+      
 
       <trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
         <source>Use the virtual host system's disk space: </source>
@@ -17039,15 +17084,8 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	</context-group>
       </trans-unit>
 
-      <trans-unit id="virtualization.provision.first.jsp.storage.local.megabytes">
-        <source>megabytes.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
-	</context-group>
-      </trans-unit>
-
-      <trans-unit id="virtualization.provision.first.jsp.storage.tip1">
-        <source>&lt;strong&gt;Tip:&lt;/strong&gt; A minimum of {0} megabytes of storage is recommended for installation on most architectures; however, a minimum of {1} megabytes is recommended for the IA-64 architecture.</source>
+      <trans-unit id="virtualization.provision.first.jsp.storage.local.gigabytes">
+        <source>gigabytes.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>

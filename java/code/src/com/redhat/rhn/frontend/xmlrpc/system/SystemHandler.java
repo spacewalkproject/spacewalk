@@ -1521,9 +1521,9 @@ public class SystemHandler extends BaseHandler {
                 ksdata.getId(), loggedInUser, new Date(), url); 
         
         cmd.setGuestName(guestName);
-        cmd.setMemoryAllocation(memoryMb.toString());
-        cmd.setVirtualCpus(vcpus.toString());
-        cmd.setLocalStorageMb(storageMb.toString());
+        cmd.setMemoryAllocation(new Long(memoryMb));
+        cmd.setVirtualCpus(new Long(vcpus.toString()));
+        cmd.setLocalStorageSize(new Long(storageMb));
 
         // Store the new KickstartSession to the DB.
         ValidatorError ve = cmd.store();

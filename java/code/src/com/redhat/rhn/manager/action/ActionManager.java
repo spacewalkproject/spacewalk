@@ -1270,21 +1270,15 @@ public class ActionManager extends BaseManager {
         KickstartGuestActionDetails kad = new KickstartGuestActionDetails();
         kad.setAppendString(pcmd.getExtraOptions());
         kad.setParentAction(ksAction);
-
-        Long memMb = new Long(pcmd.getMemoryAllocation());
-        Long memKb = new Long(memMb.longValue() * 1024);
-        kad.setMemKb(memKb);
         
+        kad.setDiskGb(pcmd.getLocalStorageSize());
+        kad.setMemKb(pcmd.getMemoryAllocation().longValue() * 1024);
+        kad.setVirtBridge(pcmd.getVirtBridge());
+        kad.setDiskPath(pcmd.getFilePath());
         kad.setVcpus(new Long(pcmd.getVirtualCpus()));
         kad.setGuestName(pcmd.getGuestName());
         kad.setKickstartSessionId(ksSessionId);
 
-        // We are ignoring the storageType argument for now, because
-        // we just support local storage.
-
-        Double lsMb = new Double(pcmd.getLocalStorageMb());
-        Double lsGb = new Double(lsMb.doubleValue() / 1024);
-        kad.setDiskGb(new Long(java.lang.Math.round(lsGb.doubleValue() * 10) / 10));
         kad.setKickstartHost(pcmd.getKickstartServerName());
         ksAction.setKickstartGuestActionDetails(kad);
         return ksAction;

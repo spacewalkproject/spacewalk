@@ -34,7 +34,9 @@ rhnActionKickstartGuest
 	mem_kb			number, 
 	vcpus			number,
 	disk_gb			number,
-    kickstart_host  varchar2(256),
+        disk_path		varchar2(256),
+        virt_bridge		varchar(256),
+        kickstart_host          varchar2(256),
 	created			date default(sysdate)
 				constraint rhn_actionks_xenguest_creat_nn not null,
 	modified		date default(sysdate)
