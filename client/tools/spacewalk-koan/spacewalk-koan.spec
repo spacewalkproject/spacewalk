@@ -12,7 +12,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1.1
+Version: 0.1.2
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/actions/kickstart_guest.py*
 
 %changelog
-* Tue Dec 23 2008 Mike McCune <mmccune@gmail.com>
+* Tue Dec 23 2008 Mike McCune <mmccune@gmail.com> 0.1.2-1
 - tagging release with support for virt
 * Tue Nov 25 2008 Mike McCune - 0.1.1-1
 - tagging release
