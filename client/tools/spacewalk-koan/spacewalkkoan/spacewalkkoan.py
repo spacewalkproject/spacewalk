@@ -86,7 +86,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, preserve_fi
     return (0, "Kickstart initiate succeeded", error_messages)
 
 def initiate_guest(kickstart_host, virt_type, name, mem_kb,
-                   vcpus, disk_gb, extra_append, log_notify_handler=None):
+                   vcpus, disk_gb, virt_bridge, disk_path, extra_append, log_notify_handler=None):
 
     error_messages = {}
     success = 0
@@ -103,9 +103,9 @@ def initiate_guest(kickstart_host, virt_type, name, mem_kb,
         k.system              = None
         k.image               = None
         k.live_cd             = None
-        k.virt_path           = None
+        k.virt_path           = disk_path
         k.virt_type           = virt_type
-        k.virt_bridge         = None
+        k.virt_bridge         = virt_bridge
         k.no_gfx              = True
         k.add_reinstall_entry = None
         k.kopts_override      = None

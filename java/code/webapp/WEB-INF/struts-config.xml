@@ -740,6 +740,8 @@
 			<!-- Needed for scheduling Virtualization stuff-->            
 		    <form-property name="memoryAllocation" type="java.lang.String" />
 		    <form-property name="virtualCpus" type="java.lang.String" />
+		    <form-property name="virtBridge" type="java.lang.String" />
+		    <form-property name="diskPath" type="java.lang.String" />
 		    <form-property name="storageType" type="java.lang.String" />
 		    <form-property name="localStorageMegabytes" type="java.lang.String" />
 		    <form-property name="guestName" type="java.lang.String" />

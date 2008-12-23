@@ -17,7 +17,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="kickstartHost" type="string" column="kickstart_host"/>
         <property name="appendString" type="string" column="append_string"/>
         <property name="guestName" type="string" column="guest_name"/>
-	<property name="memKb" type="long" column="mem_kb"/>
+        <property name="diskPath" type="string" column="disk_path"/>
+        <property name="virtBridge" type="string" column="virt_bridge"/>
+	    <property name="memKb" type="long" column="mem_kb"/>
         <property name="vcpus" type="long" column="vcpus"/>
         <property name="diskGb" type="long" column="disk_gb"/>
 

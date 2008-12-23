@@ -613,9 +613,9 @@ public class ActionManagerTest extends RhnBaseTestCase {
                                                 kickstartHost);
         
         command.setGuestName("testGuest1");
-        command.setMemoryAllocation("262144");
-        command.setLocalStorageMb("2048");
-        command.setVirtualCpus("2");
+        command.setMemoryAllocation(262144L);
+        command.setLocalStorageSize(2L);
+        command.setVirtualCpus(2L);
         command.setKickstartSession(ksSession);
         KickstartGuestAction ka =
             ActionManager.scheduleKickstartGuestAction(command, ksSession.getId());

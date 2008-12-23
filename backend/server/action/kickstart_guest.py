@@ -27,7 +27,7 @@ __rhnexport__ = ['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_chann
 
 _query_initiate_guest = rhnSQL.Statement("""
  select  ksd.label as profile_name, akg.kickstart_host, kvt.label as virt_type, 
-       akg.mem_kb, akg.vcpus, 
+       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge 
        akg.disk_gb, akg.append_string, 
        akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest akg, 
         rhnKSData ksd, rhnKickstartSession ksess,
@@ -89,12 +89,15 @@ def initiate(server_id, action_id):
     disk_gb         = row['disk_gb']
     mem_kb          = row['mem_kb']
     ks_session_id   = row['ks_session_id']
+    virt_bridge     = row['virt_bridge']
+    disk_path       = row['disk_path']
+    
     
     if not boot_image:
         raise InvalidAction("Boot image missing")
 
     return (kickstart_host, virt_type, ks_session_id, name,
-                mem_kb, vcpus, disk_gb, append_string)
+                mem_kb, vcpus, disk_gb, virt_bridge, disk_path, append_string)
 
 def add_tools_channel(server_id, action_id):
     subscribe_to_tools_channel(server_id)
