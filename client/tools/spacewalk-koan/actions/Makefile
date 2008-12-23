@@ -5,10 +5,12 @@
 TOP         = ..
 ROOT        = /usr/share/rhn
 SUBDIR      = actions
-FILES       = kickstart, kickstart_guest
+FILES       = kickstart
 CAPS        = kickstart
 CAPS_DIR    = /etc/sysconfig/rhn/clientCaps.d
 EXTRA_DIRS  = $(CAPS_DIR)
+
+VIRT_FILES = kickstart_guest
 
 # now include some Macros
 include $(TOP)/Makefile.defs
