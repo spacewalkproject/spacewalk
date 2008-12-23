@@ -5,7 +5,7 @@
 TOP         = ..
 ROOT        = /usr/share/rhn
 SUBDIR      = actions
-FILES       = kickstart
+FILES       = kickstart, kickstart_guest
 CAPS        = kickstart
 CAPS_DIR    = /etc/sysconfig/rhn/clientCaps.d
 EXTRA_DIRS  = $(CAPS_DIR)
