@@ -96,7 +96,7 @@ def initiate_guest(kickstart_host, virt_type, name, mem_kb,
         k.list_items          = False
         k.server              = kickstart_host
         k.is_virt             = True
-        k.is_replace          = True
+        k.is_replace          = False
         k.is_display          = False
 	k.port                = 443
         k.profile             = None

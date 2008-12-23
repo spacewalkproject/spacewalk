@@ -63,6 +63,8 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/actions/kickstart_guest.py*
 
 %changelog
+* Tue Dec 23 2008 Mike McCune <mmccune@gmail.com>
+- tagging release with support for virt
 * Tue Nov 25 2008 Mike McCune - 0.1.1-1
 - tagging release
 * Tue Oct 28 2008 Mike McCune - 1.0.0-1
