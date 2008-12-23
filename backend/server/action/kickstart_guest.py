@@ -27,7 +27,7 @@ __rhnexport__ = ['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_chann
 
 _query_initiate_guest = rhnSQL.Statement("""
  select  ksd.label as profile_name, akg.kickstart_host, kvt.label as virt_type, 
-       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge 
+       akg.mem_kb, akg.vcpus, akg.disk_path, akg.virt_bridge,  
        akg.disk_gb, akg.append_string, 
        akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest akg, 
         rhnKSData ksd, rhnKickstartSession ksess,

@@ -60,6 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/sbin/*
 %{rhnroot}/spacewalkkoan/*
 %{rhnroot}/actions/kickstart.py*
+%{rhnroot}/actions/kickstart_guest.py*
 
 %changelog
 * Tue Nov 25 2008 Mike McCune - 0.1.1-1
