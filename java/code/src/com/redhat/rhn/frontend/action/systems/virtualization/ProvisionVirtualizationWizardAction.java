@@ -299,8 +299,8 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         }
         else {
             cmd = ProvisionVirtualInstanceCommand.createCobblerScheduleCommand((Long)
-                                                form.get(RequestContext.SID),
-                                                cobblerProfile.getName(), user, scheduleTime,  host);
+                     form.get(RequestContext.SID), cobblerProfile.getName(), 
+                     user, scheduleTime,  host);
         }
         return cmd;
     }
