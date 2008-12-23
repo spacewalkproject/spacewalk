@@ -68,7 +68,7 @@ function setInitialState() {
     <html:hidden property="date_hour" />
     <html:hidden property="date_minute" />
     <html:hidden property="date_am_pm" />
-    <html:hidden property="ksid" />
+    <html:hidden property="cobbler_id" />
     <html:hidden property="sid" />
     <html:hidden property="proxyHost" />
 
