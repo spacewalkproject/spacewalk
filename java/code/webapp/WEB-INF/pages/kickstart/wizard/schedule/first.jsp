@@ -36,7 +36,7 @@ function setInitialState() {
   }
   var cobbler_id = document.getElementById("cobbler_id");
   var wizform = document.getElementById("wizard-form");
-  if(ksid.value == "") {  	
+  if(cobbler_id.value == "") {  	
   	for(x = 0; x < wizform.length; x++) {
   	  if(wizform.elements[x].name == "items_selected") {
   	    wizform.elements[x].checked =  true;
@@ -48,7 +48,7 @@ function setInitialState() {
   else {
     for(x = 0; x < wizform.length; x++) {
   	  if(wizform.elements[x].name == "items_selected"
-  	    && wizform.elements[x].value == ksid.value) {
+  	    && wizform.elements[x].value == cobbler_id.value) {
   	    wizform.elements[x].checked =  true;  	    
   	    break;
       }

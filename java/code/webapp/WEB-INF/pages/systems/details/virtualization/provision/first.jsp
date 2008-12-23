@@ -33,13 +33,13 @@ function setInitialState() {
   if(!scheduleAsap.checked && !scheduleDate.checked) {
       scheduleAsap.checked = true;
   }
-  var ksid = document.getElementById("ksid");
+  var cobbler_id = document.getElementById("cobbler_id");
   var wizform = document.getElementById("wizard-form");
-  if(ksid.value == "") {  	
+  if(cobbler_id.value == "") {  	
   	for(x = 0; x < wizform.length; x++) {
   	  if(wizform.elements[x].name == "items_selected") {
   	    wizform.elements[x].checked =  true;
-  	    ksid.value = wizform.elements[x].value;
+  	    cobbler_id.value = wizform.elements[x].value;
   	    break;
       }
     }
@@ -47,7 +47,7 @@ function setInitialState() {
   else {
     for(x = 0; x < wizform.length; x++) {
   	  if(wizform.elements[x].name == "items_selected"
-  	    && wizform.elements[x].value == ksid.value) {
+  	    && wizform.elements[x].value == cobbler_id.value) {
   	    wizform.elements[x].checked =  true;  	    
   	    break;
       }
@@ -80,7 +80,7 @@ function setInitialState() {
 <html:form method="POST" action="/systems/details/virtualization/ProvisionVirtualizationWizard.do" styleId="wizard-form">
 
     <html:hidden property="wizardStep" value="first" styleId="wizard-step" />
-    <html:hidden styleId="ksid" property="ksid" />
+    <html:hidden styleId="cobbler_id" property="cobbler_id" />
     <html:hidden property="sid" />
     
 	<!--Store form variables obtained from previous page -->
@@ -135,7 +135,7 @@ function setInitialState() {
 
     <rhn:list pageList="${requestScope.pageList}" noDataText="virtualization.provision.first.jsp.no.profiles">         
         <rhn:listdisplay renderDisabled="true" paging="true" filterBy="kickstartranges.jsp.profile">
-            <rhn:set type="radio" value="${current.id}" />
+            <rhn:set type="radio" value="${current.cobblerId}" />
             <rhn:column header="kickstartranges.jsp.profile">
                 ${current.label}
             </rhn:column>
