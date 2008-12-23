@@ -145,7 +145,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         }
         
         
-       setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), "br0");
+       setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), "xenbr0");
        setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(), 1);
        setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(), 3);
        setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(), 262144);  

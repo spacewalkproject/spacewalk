@@ -66,8 +66,11 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         Map<String, Object> meta = new HashMap<String, Object>();
         meta.put("org", ksData.getOrg().getId());
         invokeXMLRPC("modify_profile", id, "ksmeta", meta, xmlRpcToken);
+        invokeXMLRPC("modify_profile", id, "virt_path", "/var/lib/xen/" + 
+                ksData.getLabel(), xmlRpcToken);
+        invokeXMLRPC("modify_profile", id, "virt_bridge", "xenbr0", xmlRpcToken);
         invokeXMLRPC("save_profile", id, xmlRpcToken);
-        
+                
         invokeCobblerUpdate();
         Map cProfile = getProfileMap();
         ksData.setCobblerId((String)cProfile.get("uid"));
