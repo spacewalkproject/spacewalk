@@ -55,13 +55,13 @@ class Builder(BuildCommon):
         else:
             self.build_version = self._get_latest_tagged_version()
             if self.build_version == None:
-                error_out(["Unable to lookup latest package info from %s" %
-                        file_path, "Perhaps you need to --tag-release first?"])
+                error_out(["Unable to lookup latest package info.",
+                        "Perhaps you need to --tag-release first?"])
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
 
         self.display_version = self._get_display_version()
-        print("Building version: %s" % self.display_version)
+        print("Building %s" % (self.build_tag))
 
         self.git_commit_id = get_build_commit(tag=self.build_tag, 
                 test=self.test)
@@ -342,11 +342,19 @@ class SatelliteBuilder(NoTgzBuilder):
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
         check_tag_exists(self.upstream_tag)
 
-        self.spec_file = os.path.join(self.rpmbuild_sourcedir, self.spec_file_name)
+        self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
+                self.spec_file_name)
 
-        # TODO: grab the upstream tgz
-        # place both in rpmbuild_sourcedir
-        pass
+        # Create the upstream tgz:
+        prefix = "%s-%s" % (self.upstream_name, self.upstream_version)
+        tgz_filename = "%s.tar.gz" % prefix
+        commit = get_build_commit(tag=self.upstream_tag)
+        relative_dir = get_relative_project_dir(
+                project_name=self.upstream_name, commit=commit)
+        print("Creating %s from git tag: %s..." % (tgz_filename, commit))
+        create_tgz(self.git_root, prefix, commit, relative_dir, 
+                self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
+                    tgz_filename))
 
     def _get_upstream_version(self):
         """
