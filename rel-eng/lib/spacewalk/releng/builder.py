@@ -356,6 +356,24 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
                     tgz_filename))
 
+        self._generate_patches()
+
+    def _generate_patches(self):
+        """
+        Generate patches for any differences between our tag and the
+        upstream tag.
+        """
+        # TODO: Generates one big satellite.patch. Would be nice if this could
+        # be one patch per commit but this might be difficult to extract from
+        # git reliably. Checking for SHA1's in one branch but not another 
+        # could easily return incorrect results. A straight up diff may be
+        # the only way.
+
+        # TODO: Patch includes changes to the spec file, are these harmless?
+        run_command("git diff %s..%s -- %s > %s" %
+                (self.upstream_tag, self.build_tag, self.relative_project_dir,
+                    os.path.join(self.rpmbuild_sourcedir, "satellite.patch")))
+
     def _get_upstream_version(self):
         """
         Get the upstream version. Checks for "upstreamversion" in the spec file
