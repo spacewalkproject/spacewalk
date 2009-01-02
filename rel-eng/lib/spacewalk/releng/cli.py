@@ -141,12 +141,6 @@ class CLI:
             error_out("Cannot invoke both build and tag options at the " +
                     "same time.")
 
-        # Some options imply other options, handle those deps here:
-        if options.srpm:
-            options.tgz = True
-        if options.rpm:
-            options.tgz = True
-
         # Check what type of package we're building:
         builder_class = Builder
         tagger_class = VersionTagger

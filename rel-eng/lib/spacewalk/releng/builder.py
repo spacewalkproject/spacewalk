@@ -80,6 +80,9 @@ class Builder(BuildCommon):
         self.rpmbuild_gitcopy = os.path.join(self.rpmbuild_sourcedir,
                 self.tgz_dir)
 
+        # Set to true if we've already created a tgz:
+        self.ran_tgz = False
+
         # NOTE: These are defined later when/if we actually dump a copy of the
         # project source at the tag we're building. Only then can we search for
         # a spec file.
@@ -119,70 +122,8 @@ class Builder(BuildCommon):
                 (self.rpmbuild_sourcedir, self.tgz_filename,
                     self.rpmbuild_basedir))
 
+        self.ran_tgz = True
         print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
-
-    def _srpm(self):
-        """
-        Build a source RPM.
-        """
-        self._create_build_dirs()
-
-        if self.test:
-            self._setup_test_specfile()
-
-        define_dist = ""
-        if self.dist:
-            define_dist = "--define 'dist %s'" % self.dist
-
-        cmd = "rpmbuild %s %s --nodeps -bs %s" % \
-                (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
-        output = run_command(cmd)
-        print output
-
-    def _rpm(self):
-        """ Build an RPM. """
-        self._create_build_dirs()
-
-        if self.test:
-            self._setup_test_specfile()
-
-        define_dist = ""
-        if self.dist:
-            define_dist = "--define 'dist %s'" % self.dist
-        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % \
-                (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
-        output = run_command(cmd)
-        print output
-
-    def _cleanup(self):
-        """
-        Remove all temporary files and directories.
-        """
-        commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
-
-    def _create_build_dirs(self):
-        """
-        Create the build directories. Can safely be called multiple times.
-        """
-        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
-            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
-
-    def _setup_test_specfile(self):
-        if self.test:
-            # If making a test rpm we need to get a little crazy with the spec
-            # file we're building off. (note that this is a temp copy of the
-            # spec) Swap out the actual release for one that includes the git
-            # SHA1 we're building for our test package:
-            cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
-                    (
-                        self.rel_eng_dir,
-                        self.spec_file,
-                        self.git_commit_id,
-                        self.project_name,
-                        self.display_version,
-                        self.tgz_filename
-                    )
-            run_command(cmd)
 
     def _setup_sources(self):
         """
@@ -225,6 +166,73 @@ class Builder(BuildCommon):
         self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
         self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
         debug("Using spec file: %s" % self.spec_file)
+
+    def _srpm(self):
+        """
+        Build a source RPM.
+        """
+        self._create_build_dirs()
+        if not self.ran_tgz:
+            self._tgz()
+
+        if self.test:
+            self._setup_test_specfile()
+
+        define_dist = ""
+        if self.dist:
+            define_dist = "--define 'dist %s'" % self.dist
+
+        cmd = "rpmbuild %s %s --nodeps -bs %s" % \
+                (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
+        output = run_command(cmd)
+        print output
+
+    def _rpm(self):
+        """ Build an RPM. """
+        self._create_build_dirs()
+        if not self.ran_tgz:
+            self._tgz()
+
+        if self.test:
+            self._setup_test_specfile()
+
+        define_dist = ""
+        if self.dist:
+            define_dist = "--define 'dist %s'" % self.dist
+        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % \
+                (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
+        output = run_command(cmd)
+        print output
+
+    def _cleanup(self):
+        """
+        Remove all temporary files and directories.
+        """
+        commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
+
+    def _create_build_dirs(self):
+        """
+        Create the build directories. Can safely be called multiple times.
+        """
+        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
+            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
+
+    def _setup_test_specfile(self):
+        if self.test:
+            # If making a test rpm we need to get a little crazy with the spec
+            # file we're building off. (note that this is a temp copy of the
+            # spec) Swap out the actual release for one that includes the git
+            # SHA1 we're building for our test package:
+            cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
+                    (
+                        self.rel_eng_dir,
+                        self.spec_file,
+                        self.git_commit_id,
+                        self.project_name,
+                        self.display_version,
+                        self.tgz_filename
+                    )
+            run_command(cmd)
 
     def _get_rpmbuild_dir_options(self):
         return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
@@ -293,6 +301,7 @@ class NoTgzBuilder(Builder):
         # TODO: Does it make sense to allow user to create a tgz for this type
         # of project?
         self._setup_sources()
+        self.ran_tgz = True
 
     def _get_rpmbuild_dir_options(self):
         """
@@ -331,7 +340,7 @@ class SatelliteBuilder(NoTgzBuilder):
 
     i.e. satellite-java-0.4.0-5 built from spacewalk-java-0.4.0-1 and any 
     patches applied in satellite git.
-    i.e. spacewalk-setup-0.4.0-2 built from spacewalk-setup-0.4.0-1 and any
+    i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
     def __init__(self, global_config=None, build_config=None, tag=None,
