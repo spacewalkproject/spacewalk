@@ -20,7 +20,8 @@ import commands
 
 from spacewalk.releng.common import BuildCommon, run_command, \
         check_tag_exists, debug, error_out, find_spec_file, \
-        get_project_name, get_relative_project_dir
+        get_project_name, get_relative_project_dir, get_build_commit, \
+        get_git_head_commit, create_tgz
 
 class Builder(BuildCommon):
     """
@@ -60,7 +61,10 @@ class Builder(BuildCommon):
                     self.build_version)
 
         self.display_version = self._get_display_version()
-        self.git_commit_id = self._get_build_commit()
+        print("Building version: %s" % self.display_version)
+
+        self.git_commit_id = get_build_commit(tag=self.build_tag, 
+                test=self.test)
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
 
@@ -134,28 +138,14 @@ class Builder(BuildCommon):
         """
         self._create_build_dirs()
 
-        print "Building version: %s" % self.display_version
-        os.chdir(os.path.abspath(self.git_root))
-        print "Creating %s from git tag: %s..." % (self.tgz_filename,
-                self.git_commit_id)
-        timestamp = self._get_commit_timestamp(self.git_commit_id)
-
-        debug("Copying git source to: %s" % self.rpmbuild_gitcopy)
-        archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s" % \
-            (
-                    self.tgz_dir,
-                    self.git_commit_id,
-                    self.relative_project_dir,
-                    self.rel_eng_dir,
-                    timestamp,
-                    self.git_commit_id,
-                    self.rpmbuild_sourcedir,
-                    self.tgz_filename
-            )
-        debug(archive_cmd)
-        run_command(archive_cmd)
+        print("Creating %s from git tag: %s..." % (self.tgz_filename, 
+            self.git_commit_id))
+        create_tgz(self.git_root, self.tgz_dir, self.git_commit_id, 
+                self.relative_project_dir, self.rel_eng_dir, 
+                os.path.join(self.rpmbuild_sourcedir, self.tgz_filename))
 
         # Extract the source so we can get at the spec file, etc.
+        debug("Copying git source to: %s" % self.rpmbuild_gitcopy)
         run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
             self.tgz_filename))
 
@@ -247,29 +237,6 @@ class Builder(BuildCommon):
         """
         return "%s-%s" % (self.project_name, self.display_version)
 
-    def _get_build_commit(self):
-        """ Return the git commit we should build. """
-        if self.test:
-            return self._get_git_head_commit()
-        else:
-            tag_sha1 = run_command(
-                    "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
-                    % self.build_tag)
-            commit_id = run_command('git rev-list --max-count=1 %s' % 
-                    tag_sha1)
-            return commit_id
-
-    def _get_commit_timestamp(self, sha1_or_tag):
-        """
-        Get the timestamp of the git commit or tag we're building. Used to
-        keep the hash the same on all .tar.gz's we generate for a particular
-        version regardless of when they are generated.
-        """
-        output = run_command(
-                "git rev-list --timestamp --max-count=1 %s | awk '{print $1}'"
-                % sha1_or_tag)
-        return output
-
     def _get_display_version(self):
         """
         Get the package display version to build.
@@ -279,14 +246,10 @@ class Builder(BuildCommon):
         branch.
         """
         if self.test:
-            version = "git-" + self._get_git_head_commit()
+            version = "git-" + get_git_head_commit()
         else:
             version = self.build_version.split("-")[0]
         return version
-
-    def _get_git_head_commit(self):
-        """ Return the SHA1 of the HEAD commit on the current git branch. """
-        return commands.getoutput('git rev-parse --verify HEAD')
 
 
 
