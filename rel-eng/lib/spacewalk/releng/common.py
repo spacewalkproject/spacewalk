@@ -107,10 +107,6 @@ def get_spec_version_and_release(sourcedir, spec_file_name):
         command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
         return run_command(command)
 
-def get_spec_version(sourcedir, spec_file_name):
-        command = """rpm -q --qf '%%{version}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
-        return run_command(command)
-
 def get_project_name(tag=None):
     """
     Extract the project name from the specified tag or a spec file in the

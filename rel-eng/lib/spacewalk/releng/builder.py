@@ -19,7 +19,7 @@ import sys
 import commands
 
 from spacewalk.releng.common import BuildCommon, run_command, \
-        check_tag_exists, debug, error_out, get_spec_version, find_spec_file, \
+        check_tag_exists, debug, error_out, find_spec_file, \
         get_project_name, get_relative_project_dir
 
 class Builder(BuildCommon):
@@ -199,6 +199,7 @@ class Builder(BuildCommon):
                 self.git_commit_id)
         timestamp = self._get_commit_timestamp(self.git_commit_id)
 
+        debug("Copying git source to: %s" % self.rpmbuild_gitcopy)
         archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s" % \
             (
                     self.tgz_dir,
@@ -289,8 +290,8 @@ class NoTgzBuilder(Builder):
     """
     def _tgz(self):
         """ Override parent behavior, we already have a tgz. """
-        #raise Exception("Cannot build .tar.gz for project %s" %
-        #        self.project_name)
+        # TODO: Does it make sense to allow user to create a tgz for this type
+        # of project?
         self._setup_sources()
 
     def _get_rpmbuild_dir_options(self):
@@ -322,16 +323,16 @@ class NoTgzBuilder(Builder):
 
 
 
-class UpstreamBuilder(NoTgzBuilder):
+class SatelliteBuilder(NoTgzBuilder):
     """
-    Builder for packages that rename and patch upstream versions.
+    Builder for packages that are based off some upstream version in Spacewalk
+    git. Commits applied in Satellite git become patches applied to the 
+    upstream Spacewalk tarball.
 
-    These packages reference an UpstreamName and UpstreamVersion in their
-    spec file which identifies a specific git commit in the repository
-    which is to serve as the baseline for this package. We then generate a
-    patch of any changes between this projects most recent tag, and the
-    upstream tag, and apply those changes in the spec file before building
-    the package.
+    i.e. satellite-java-0.4.0-5 built from spacewalk-java-0.4.0-1 and any 
+    patches applied in satellite git.
+    i.e. spacewalk-setup-0.4.0-2 built from spacewalk-setup-0.4.0-1 and any
+    patches applied in satellite git.
     """
     def __init__(self, global_config=None, build_config=None, tag=None,
             dist=None, test=False, debug=False):
@@ -340,31 +341,36 @@ class UpstreamBuilder(NoTgzBuilder):
                 build_config=build_config, tag=tag, dist=dist,
                 test=test, debug=debug)
 
-        if not build_config.has_option("buildconfig", "upstream_name"):
-            error_out("Property 'upstream_name' not found in build.py.props")
-        self.upstream_name = build_config.get("buildconfig", "upstream_name")
+        if not build_config or not build_config.has_option("buildconfig", 
+                "upstream_name"):
+            # No upstream_name defined, assume we're keeping the project name:
+            self.upstream_name = self.project_name
+        else:
+            self.upstream_name = build_config.get("buildconfig", "upstream_name")
+        # Need to assign these after we've exported a copy of the spec file:
+        self.upstream_version = None 
+        self.upstream_tag = None
+
+    def _setup_sources(self):
+        # TODO: Wasteful step here, all we really need is a way to look for a
+        # spec file at the point in time this release was tagged.
+        NoTgzBuilder._setup_sources(self)
+        # If we knew what it was named at that point in time we could just do:
+        # Export a copy of our spec file at the revision to be built:
+#        cmd = "git show %s:%s%s > %s" % (self.git_commit_id,
+#                self.relative_project_dir, self.spec_file_name,
+#                self.spec_file)
+#        debug(cmd)
+        self._create_build_dirs()
+
         self.upstream_version = self._get_upstream_version()
-        print("Building upstream tgz for %s %s" % (self.upstream_name,
-                self.upstream_version))
-        self.upstream_tag = "%s-%s-1" % (self.upstream_name,
+        self.upstream_tag = "%s-%s-1" % (self.upstream_name, 
                 self.upstream_version)
+
+        print("Building upstream tgz for tag: %s" % (self.upstream_tag))
         check_tag_exists(self.upstream_tag)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, self.spec_file_name)
-
-    def _tgz(self):
-        """
-        Override parent behavior to just create our git copy, and then get
-        the tgz for our upstream project tag we intend to build off.
-        """
-        NoTgzBuilder._tgz(self)
-
-    def _setup_sources(self):
-        # Export a copy of our spec file at the revision to be built:
-        cmd = "git show %s:%s%s > %s" % (self.git_commit_id,
-                self.relative_project_dir, self.spec_file_name,
-                self.spec_file)
-        debug(cmd)
 
         # TODO: grab the upstream tgz
         # place both in rpmbuild_sourcedir
@@ -372,13 +378,23 @@ class UpstreamBuilder(NoTgzBuilder):
 
     def _get_upstream_version(self):
         """
-        Get the upstream version. For now we expect this to be the same as
-        the Version in the spec file.
+        Get the upstream version. Checks for "upstreamversion" in the spec file
+        and uses it if found. Otherwise assumes the upstream version is equal 
+        to the version we're building.
 
         i.e. satellite-java-0.4.15 will be built on spacewalk-java-0.4.15
-        with just the package Release being incremented on rebuilds.
+        with just the package release being incremented on rebuilds. 
         """
-        return get_spec_version(self.rpmbuild_sourcedir, self.spec_file_name)
+
+        # Use upstreamversion if defined in the spec file:
+        (status, output) = commands.getstatusoutput(
+            "cat %s | grep 'define upstreamversion' | awk '{ print $3 ; exit }'" %
+            self.spec_file)
+        if status == 0 and output != "":
+            return output
+
+        # Otherwise, assume we use our version:
+        return self.display_version
 
     def _get_rpmbuild_dir_options(self):
         """
