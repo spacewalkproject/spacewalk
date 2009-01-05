@@ -33,6 +33,7 @@ import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.entitlement.ProvisioningEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
@@ -46,6 +47,7 @@ import com.redhat.rhn.domain.server.ServerLock;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceState;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
@@ -64,6 +66,8 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
+import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -1418,6 +1422,18 @@ public class SystemManager extends BaseManager {
                     return error;
                 }
             }
+        }
+        if (ent instanceof ProvisioningEntitlement) {
+            log.debug("Creating cobbler system record");
+            String note = "Reactivation key for " + server.getName() + ".";
+            ActivationKey key = ActivationKeyManager.getInstance().
+                        createNewReActivationKey(server.getCreator(), server, note);
+            log.debug("created reactivation key: " + key.getKey());
+            CobblerSystemCreateCommand cmd = 
+                new CobblerSystemCreateCommand(server.getCreator(), server,
+                        null, null, key.getKey());
+            cmd.store();
+            log.debug("cobbler system record created.");
         }
         
         boolean checkCounts = true;

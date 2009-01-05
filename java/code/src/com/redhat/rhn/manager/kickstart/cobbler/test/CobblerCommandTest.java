@@ -83,6 +83,17 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         
     }
     
+    public void testSystemCreateNoKSProfile() throws Exception {
+        Server server = ServerTestUtils.createTestSystem(user);
+        CobblerSystemCreateCommand cmd = 
+            new CobblerSystemCreateCommand(server.getCreator(), server,
+                    null, null, "foo,bar,baz");
+        cmd.store();
+        Map systemMap = cmd.getSystemMap(); 
+        assertNotNull(systemMap);
+        assertTrue(systemMap.containsKey("name"));
+    }
+    
     public void testProfileCreate() throws Exception {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
                 ksdata, user);

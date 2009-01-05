@@ -41,7 +41,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private static Logger log = Logger.getLogger(CobblerSystemCreateCommand.class);
     
     private Server server;
-//    private KickstartData ksData;
     private String mediaPath;
     private String name;
     private String activationKeys;
@@ -60,7 +59,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         super(userIn);
         this.server = serverIn;
         this.mediaPath = mediaPathIn;
-        name = (String)lookupCobblerProfile(ksDataIn).get("name");
+        if (ksDataIn != null) {
+            name = (String)lookupCobblerProfile(ksDataIn).get("name");
+        }
         this.activationKeys = activationKeysIn;
     }
     
