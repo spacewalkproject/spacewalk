@@ -52,6 +52,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     private String filePath;
     private String virtBridge;
 
+
     /**
      * Constructor
      * @param selectedServer server to kickstart
