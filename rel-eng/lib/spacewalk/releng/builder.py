@@ -15,6 +15,7 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
+import re
 import sys
 import commands
 
@@ -22,6 +23,8 @@ from spacewalk.releng.common import BuildCommon, run_command, \
         check_tag_exists, debug, error_out, find_spec_file, \
         get_project_name, get_relative_project_dir, get_build_commit, \
         get_git_head_commit, create_tgz
+
+SAT_PATCH_NAME = "satellite.patch"
 
 class Builder(BuildCommon):
     """
@@ -155,7 +158,6 @@ class Builder(BuildCommon):
         # that use a git SHA1 for their version.
         self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
         self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
-        debug("Using spec file: %s" % self.spec_file)
 
     def _srpm(self):
         """
@@ -168,6 +170,7 @@ class Builder(BuildCommon):
         if self.test:
             self._setup_test_specfile()
 
+        debug("Using spec file: %s" % self.spec_file)
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -344,6 +347,8 @@ class SatelliteBuilder(NoTgzBuilder):
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)
+        run_command("cp %s %s" % (os.path.join(self.rpmbuild_gitcopy, 
+            self.spec_file_name), self.spec_file))
 
         # Create the upstream tgz:
         prefix = "%s-%s" % (self.upstream_name, self.upstream_version)
@@ -357,6 +362,7 @@ class SatelliteBuilder(NoTgzBuilder):
                     tgz_filename))
 
         self._generate_patches()
+        self._insert_patches_into_spec_file()
 
     def _generate_patches(self):
         """
@@ -370,9 +376,59 @@ class SatelliteBuilder(NoTgzBuilder):
         # the only way.
 
         # TODO: Patch includes changes to the spec file, are these harmless?
+        # TODO: Is this a safe scheme for generating reproducable patches?
+        # TODO: Should this be done when tagging the release and committed to
+        # git?
+        os.chdir(os.path.join(self.git_root, self.relative_project_dir))
         run_command("git diff %s..%s -- %s > %s" %
                 (self.upstream_tag, self.build_tag, self.relative_project_dir,
-                    os.path.join(self.rpmbuild_sourcedir, "satellite.patch")))
+                    os.path.join(self.rpmbuild_sourcedir, SAT_PATCH_NAME)))
+
+    def _insert_patches_into_spec_file(self):
+        """
+        Insert the generated patches into the copy of the spec file we'll be
+        building with.
+        """
+        f = open(self.spec_file, 'r')
+        lines = f.readlines()
+
+        patch_pattern = re.compile('^Patch(\d+):')
+        source_pattern = re.compile('^Source\d+:')
+
+        # Find the largest PatchX: line, or failing that SourceX:
+        patch_number = 0 # What number should we use for our PatchX line
+        patch_insert_index = 0 # Where to insert our PatchX line in the list
+        patch_apply_index = 0 # Where to insert our %patchX line in the list
+        array_index = 0 # Current index in the array
+        for line in lines:
+            match = source_pattern.match(line)
+            if match:
+                patch_insert_index = array_index + 1
+
+            match = patch_pattern.match(line)
+            if match:
+                patch_insert_index = array_index + 1
+                patch_number = int(match.group(1)) + 1
+
+            if line.startswith("%setup"):
+                patch_apply_index = array_index + 2 # already added a line
+
+            array_index += 1
+        
+        if patch_insert_index == 0 or patch_apply_index == 0:
+            error_out("Unable to insert PatchX or %patchX lines in spec file")
+
+        lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
+            SAT_PATCH_NAME))
+        lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
+            SAT_PATCH_NAME))
+        f.close()
+
+        # Now write out the modified lines to the spec file copy:
+        f = open(self.spec_file, 'w')
+        for line in lines:
+            f.write(line)
+        f.close()
 
     def _get_upstream_version(self):
         """
