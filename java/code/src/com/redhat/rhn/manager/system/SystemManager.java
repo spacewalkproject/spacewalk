@@ -33,7 +33,6 @@ import com.redhat.rhn.common.validator.ValidatorWarning;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.entitlement.ProvisioningEntitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
@@ -66,11 +65,14 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+<<<<<<< HEAD:java/code/src/com/redhat/rhn/manager/system/SystemManager.java
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 <<<<<<< HEAD:java/code/src/com/redhat/rhn/manager/system/SystemManager.java
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 =======
 >>>>>>> 461162 - add system to cobbler if provisioning is granted:java/code/src/com/redhat/rhn/manager/system/SystemManager.java
+=======
+>>>>>>> Revert "461162 - add system to cobbler if provisioning is granted" - this was done properly in master:java/code/src/com/redhat/rhn/manager/system/SystemManager.java
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.BooleanUtils;
