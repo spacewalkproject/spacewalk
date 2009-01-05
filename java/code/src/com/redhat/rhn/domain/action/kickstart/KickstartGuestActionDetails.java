@@ -37,6 +37,8 @@ public class KickstartGuestActionDetails extends ActionChild {
     private Long kickstartId;
     private String virtBridge;
     private String diskPath;
+    private String cobblerProfile;
+    
     
     /**
      * Adds a FileList object to fileLists.
@@ -213,6 +215,22 @@ public class KickstartGuestActionDetails extends ActionChild {
      */
     public void setDiskPath(String diskPathIn) {
         this.diskPath = diskPathIn;
+    }
+
+    
+    /**
+     * @return Returns the cobblerProfile.
+     */
+    public String getCobblerProfile() {
+        return cobblerProfile;
+    }
+
+    
+    /**
+     * @param cobblerProfileIn The cobblerProfile to set.
+     */
+    public void setCobblerProfile(String cobblerProfileIn) {
+        this.cobblerProfile = cobblerProfileIn;
     }
 
 }
