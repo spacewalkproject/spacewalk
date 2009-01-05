@@ -47,7 +47,7 @@ def initiate(kickstart_host, cobbler_profile, virt_type, ks_session_id, name, me
     log_notify_handler = KickstartLogNotifyHandler(ks_session_id)
 
     try:
-        spacewalkkoan.initiate_guest(kickstart_host, cobbler_profile
+        spacewalkkoan.initiate_guest(kickstart_host, cobbler_profile,
                 virt_type, name, mem_kb, vcpus, disk_gb, virt_bridge, disk_path, extra_append, log_notify_handler)
     except Exception, e:
         error_code = 1
