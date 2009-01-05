@@ -107,10 +107,6 @@ def get_spec_version_and_release(sourcedir, spec_file_name):
         command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
         return run_command(command)
 
-def get_spec_version(sourcedir, spec_file_name):
-        command = """rpm -q --qf '%%{version}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
-        return run_command(command)
-
 def get_project_name(tag=None):
     """
     Extract the project name from the specified tag or a spec file in the
@@ -148,6 +144,53 @@ def get_relative_project_dir(project_name, commit):
     debug("Got package metadata: %s" % tokens)
     return tokens[1]
 
+def get_build_commit(tag, test=False):
+    """ Return the git commit we should build. """
+    if test:
+        return get_git_head_commit()
+    else:
+        tag_sha1 = run_command(
+                "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
+                % tag)
+        commit_id = run_command('git rev-list --max-count=1 %s' % 
+                tag_sha1)
+        return commit_id
+
+def get_git_head_commit():
+    """ Return the SHA1 of the HEAD commit on the current git branch. """
+    return commands.getoutput('git rev-parse --verify HEAD')
+
+def get_commit_timestamp(sha1_or_tag):
+    """
+    Get the timestamp of the git commit or tag we're building. Used to
+    keep the hash the same on all .tar.gz's we generate for a particular
+    version regardless of when they are generated.
+    """
+    output = run_command(
+            "git rev-list --timestamp --max-count=1 %s | awk '{print $1}'"
+            % sha1_or_tag)
+    return output
+
+def create_tgz(git_root, prefix, commit, relative_dir, rel_eng_dir, 
+    dest_tgz):
+    """
+    Create a .tar.gz from a projects source in git.
+    """
+    os.chdir(os.path.abspath(git_root))
+    timestamp = get_commit_timestamp(commit)
+
+    archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s" % \
+        (
+                prefix,
+                commit,
+                relative_dir,
+                rel_eng_dir,
+                timestamp,
+                commit,
+                dest_tgz
+        )
+    #debug(archive_cmd)
+    run_command(archive_cmd)
 
 
 class BuildCommon:
