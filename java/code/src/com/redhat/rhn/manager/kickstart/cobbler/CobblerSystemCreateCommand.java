@@ -18,8 +18,10 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
+import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -65,6 +67,23 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.activationKeys = activationKeysIn;
     }
     
+    /**
+     * Constructor to be used for a system outside tthe context 
+     * of actually kickstarting it to a specific profile.  
+     * @param serverIn profile we want to create in cobbler
+     */
+    public CobblerSystemCreateCommand(Server serverIn) {
+        super(serverIn.getCreator());
+        this.server = serverIn;
+        this.mediaPath = null;
+        String note = "Reactivation key for " + server.getName() + ".";
+        ActivationKey key = ActivationKeyManager.getInstance().
+                    createNewReActivationKey(server.getCreator(), server, note);
+        log.debug("created reactivation key: " + key.getKey());
+        this.activationKeys = key.getKey();
+    }
+    
+
     
     /**
      * Constructor
@@ -86,6 +105,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return ValidatorError if the store failed.
      */
     public ValidatorError store() {
+        
+        
+        
         String handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
         log.debug("handle: " + handle);
         invokeXMLRPC("modify_system", handle, "name", server.getName(),

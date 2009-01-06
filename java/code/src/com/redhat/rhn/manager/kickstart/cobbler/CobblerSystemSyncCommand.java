@@ -16,13 +16,10 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.server.Server;
 
 import org.apache.log4j.Logger;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,72 +65,13 @@ public class CobblerSystemSyncCommand extends CobblerCommand {
      */
     @Override
     public ValidatorError store() {
-        //First are there any profiles within spacewalk that aren't within cobbler
-        List<KickstartData> profiles = KickstartFactory.listAllKickstartData();
-
-        
         Map<String, Map> systemNames = getModifiedSystemNames();
         log.debug("systemNames: " + systemNames);
-        
-        //Are there any profiles on cobbler that have changed     
-        /*for (KickstartData profile : profiles) {
-            if (profileNames.containsKey(profile.getCobblerId())) {
-                Map cobProfile = profileNames.get(profile.getCobblerId());
-                log.debug(profile.getLabel() + ": " + cobProfile.get("mtime") +
-                    " - " + profile.getModified().getTime());
-                if (((Double)cobProfile.get("mtime")).longValue() >
-                      profile.getModified().getTime() / 1000) {
-                    syncProfileToSpacewalk(cobProfile, profile);
-                }
-            }
-        }*/  
-        
-        
         return null;
     }
     
-    private void createProfile(KickstartData profile) {
-        CobblerProfileCreateCommand creator = new CobblerProfileCreateCommand(profile, 
-                                        user);
-        creator.store();
+    private void createSystem(Server server) {
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server);
+        cmd.store();
     }
-
-    
-    /**
-     * Sync s the following things:
-     *  Distro (if applicable)
-     *  
-     * then overwrites the 'kickstart' attribute within the cobbler profile
-     *      (in case they changed it to something spacewalk doesn't know about)
-     * @param cobblerProfile
-     * @param profile
-     */
-    private void syncProfileToSpacewalk(Map cobblerProfile, KickstartData profile) {
-        log.debug("Syncing profile: " + profile.getLabel() + " known in cobbler as: " +
-                cobblerProfile.get("name"));
-        //Do we need to sync the distro?
-        Map distro = (Map) invokeXMLRPC("get_distro", cobblerProfile.get("distro"));
-        if (!distro.get("uid").equals(profile.getTree().getCobblerId())) {
-            //lookup the distro locally:
-            KickstartableTree tree = KickstartFactory.lookupKickstartTreeByCobblerId(
-                       (String)distro.get("uid"));
-            if (tree == null) {
-                //TODO Throw ERRROR/LOG
-            }
-            else {
-                profile.setTree(tree);
-            }
-        }
-        
-        //Now re-set the filename in case someone set it incorrectly
-        String handle = (String) invokeXMLRPC("get_profile_handle", 
-                cobblerProfile.get("name"), xmlRpcToken);
-        invokeXMLRPC("modify_profile", handle, "kickstart", profile.getCobblerFileName(), 
-                xmlRpcToken);
-        invokeXMLRPC("save_profile", handle, xmlRpcToken);
-        
-        //Lets update the modified date just to make sure
-        profile.setModified(new Date());
-    }
-
 }

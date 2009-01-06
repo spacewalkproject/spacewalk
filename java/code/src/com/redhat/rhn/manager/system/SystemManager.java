@@ -1430,8 +1430,7 @@ public class SystemManager extends BaseManager {
                         createNewReActivationKey(server.getCreator(), server, note);
             log.debug("created reactivation key: " + key.getKey());
             CobblerSystemCreateCommand cmd = 
-                new CobblerSystemCreateCommand(server.getCreator(), server,
-                        null, null, key.getKey());
+                new CobblerSystemCreateCommand(server);
             cmd.store();
             log.debug("cobbler system record created.");
         }

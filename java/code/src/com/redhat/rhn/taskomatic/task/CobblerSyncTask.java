@@ -92,7 +92,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
             profSync.store();
             
             CobblerSystemSyncCommand systemSync = new CobblerSystemSyncCommand();
-            profSync.store();
+            systemSync.store();
         }
         
         LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
