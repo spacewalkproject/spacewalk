@@ -57,6 +57,10 @@ public class DeviceSerializer implements XmlRpcCustomSerializer {
         helper.add("description", dev.getDescription());
         helper.add("pcitype", dev.getPcitype());
         helper.add("bus", dev.getBus());
+        helper.add("prop1", dev.getProp1());
+        helper.add("prop2", dev.getProp2());
+        helper.add("prop3", dev.getProp3());
+        helper.add("prop4", dev.getProp4());
         helper.writeTo(output);        
     }
     
