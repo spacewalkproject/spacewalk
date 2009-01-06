@@ -28,5 +28,5 @@ insert into rhnKickstartVirtualizationType (id, name, label)
     values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenpv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-     values (rhn_kvt_id_seq.nextval, 'none', 'none');
+     values (rhn_kvt_id_seq.nextval, 'None', 'auto');
 
