@@ -132,8 +132,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                                                     this.mediaPath);            
         }
 
-        ksmeta.put("activation_key", "somekey-todo");
-
         args = new Object[]{handle, "ksmeta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));

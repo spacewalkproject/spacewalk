@@ -76,7 +76,7 @@ public class CobblerSystemSyncCommand extends CobblerCommand {
         log.debug("systemNames: " + systemNames);
         
         //Are there any profiles on cobbler that have changed     
-        for (KickstartData profile : profiles) {
+        /*for (KickstartData profile : profiles) {
             if (profileNames.containsKey(profile.getCobblerId())) {
                 Map cobProfile = profileNames.get(profile.getCobblerId());
                 log.debug(profile.getLabel() + ": " + cobProfile.get("mtime") +
@@ -86,7 +86,7 @@ public class CobblerSystemSyncCommand extends CobblerCommand {
                     syncProfileToSpacewalk(cobProfile, profile);
                 }
             }
-        }  
+        }*/  
         
         
         return null;
