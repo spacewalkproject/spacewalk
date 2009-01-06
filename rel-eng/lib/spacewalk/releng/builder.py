@@ -41,10 +41,6 @@ class Builder(BuildCommon):
         self.test = test
 
         self.project_name = get_project_name(tag=tag)
-
-        # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
-        # use it, otherwise use the current working directory. (i.e. location
-        # of build.py)
         self.rpmbuild_basedir = build_dir
 
         # Determine which package version we should build:

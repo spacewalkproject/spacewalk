@@ -76,7 +76,7 @@ def lookup_build_dir():
         f = open(file_loc)
     except:
         # File doesn't exist but that's ok because it's optional.
-        return {}
+        return os.getcwd()
     config = {}
     for line in f.readlines():
         if line.strip() == "":
