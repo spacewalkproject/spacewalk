@@ -199,9 +199,7 @@ class BuildCommon:
     Builder and Tagger classes require a little bit of the same functionality.
     Placing that code here to be inherited by both.
     """
-    def __init__(self, debug=False):
-        self.debug = debug
-
+    def __init__(self):
         self.git_root = find_git_root() 
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
 

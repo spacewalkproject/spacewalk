@@ -34,8 +34,8 @@ class VersionTagger(BuildCommon):
     Releases will be tagged by incrementing the package version,
     and the actual RPM "release" will always be set to 1.
     """
-    def __init__(self, keep_version=False, debug=False):
-        BuildCommon.__init__(self, debug)
+    def __init__(self, keep_version=False):
+        BuildCommon.__init__(self)
 
         self.full_project_dir = os.getcwd()
         self.spec_file_name = find_spec_file()

@@ -24,8 +24,6 @@ from spacewalk.releng.common import BuildCommon, run_command, \
         get_project_name, get_relative_project_dir, get_build_commit, \
         get_git_head_commit, create_tgz
 
-SAT_PATCH_NAME = "satellite.patch"
-
 class Builder(BuildCommon):
     """
     Parent builder class.
@@ -36,8 +34,8 @@ class Builder(BuildCommon):
     """
 
     def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
-        BuildCommon.__init__(self, debug)
+            dist=None, test=False):
+        BuildCommon.__init__(self)
 
         self.dist = dist
         self.test = test
@@ -170,7 +168,7 @@ class Builder(BuildCommon):
         if self.test:
             self._setup_test_specfile()
 
-        debug("Using spec file: %s" % self.spec_file)
+        debug("Creating srpm from spec file: %s" % self.spec_file)
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -178,7 +176,7 @@ class Builder(BuildCommon):
         cmd = "rpmbuild %s %s --nodeps -bs %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
-        print output
+        print(output)
 
     def _rpm(self):
         """ Build an RPM. """
@@ -310,11 +308,11 @@ class SatelliteBuilder(NoTgzBuilder):
     patches applied in satellite git.
     """
     def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
+            dist=None, test=False):
 
         NoTgzBuilder.__init__(self, global_config=global_config,
                 build_config=build_config, tag=tag, dist=dist,
-                test=test, debug=debug)
+                test=test)
 
         if not build_config or not build_config.has_option("buildconfig", 
                 "upstream_name"):
@@ -325,6 +323,8 @@ class SatelliteBuilder(NoTgzBuilder):
         # Need to assign these after we've exported a copy of the spec file:
         self.upstream_version = None 
         self.upstream_tag = None
+        self.patch_filename = None
+        self.patch_file = None
 
     def _setup_sources(self):
         # TODO: Wasteful step here, all we really need is a way to look for a
@@ -379,10 +379,18 @@ class SatelliteBuilder(NoTgzBuilder):
         # TODO: Is this a safe scheme for generating reproducable patches?
         # TODO: Should this be done when tagging the release and committed to
         # git?
+        self.patch_filename = "%s-to-%s.patch" % (self.upstream_tag,
+                self.build_tag)
+        self.patch_file = os.path.join(self.rpmbuild_sourcedir,
+                self.patch_filename)
         os.chdir(os.path.join(self.git_root, self.relative_project_dir))
-        run_command("git diff %s..%s -- %s > %s" %
-                (self.upstream_tag, self.build_tag, self.relative_project_dir,
-                    os.path.join(self.rpmbuild_sourcedir, SAT_PATCH_NAME)))
+        debug("Patch filename: %s" % self.patch_filename)
+        debug("Patch file: %s" % self.patch_file)
+        patch_command = "git diff --relative %s..%s > %s" % \
+                (self.upstream_tag, self.build_tag, self.patch_file)
+        debug("Generating patch with: %s" % patch_command)
+        output = run_command(patch_command)
+        print(output)
 
     def _insert_patches_into_spec_file(self):
         """
@@ -419,9 +427,9 @@ class SatelliteBuilder(NoTgzBuilder):
             error_out("Unable to insert PatchX or %patchX lines in spec file")
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
-            SAT_PATCH_NAME))
+            self.patch_filename))
         lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
-            SAT_PATCH_NAME))
+            self.patch_filename))
         f.close()
 
         # Now write out the modified lines to the spec file copy:
@@ -439,7 +447,6 @@ class SatelliteBuilder(NoTgzBuilder):
         i.e. satellite-java-0.4.15 will be built on spacewalk-java-0.4.15
         with just the package release being incremented on rebuilds. 
         """
-
         # Use upstreamversion if defined in the spec file:
         (status, output) = commands.getstatusoutput(
             "cat %s | grep 'define upstreamversion' | awk '{ print $3 ; exit }'" %

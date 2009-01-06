@@ -15,6 +15,8 @@
 
 package org.cobbler;
 
+import org.apache.log4j.Logger;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,11 @@ import java.util.Set;
  */
 
 public class Profile extends CobblerObject {
+
+    /**
+     * Logger for this class
+     */
+    private static Logger log = Logger.getLogger(Profile.class);
 
     private static final String DHCP_TAG = "dhcp_tag";
     private static final String KICKSTART = "kickstart";
@@ -99,7 +106,7 @@ public class Profile extends CobblerObject {
         for (Map <String, Object> map : profiles) {
             profile.dataMap = map;
             if (id.equals(profile.getUid())) {
-                System.out.println("Profile: " + profile);
+                log.debug("Profile: " + profile);
                 return profile;
             }
         }

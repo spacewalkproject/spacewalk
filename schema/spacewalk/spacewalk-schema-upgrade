@@ -288,3 +288,92 @@ sub get_shortest_path {
 
 1;
 
+=head1 NAME
+
+spacewalk-schema-upgrade - utility for Spacewalk / Satellite schema upgrade
+
+=head1 SYNOPSIS
+
+B<spacewalk-schema-upgrade>
+[B<-y>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<-y>
+
+Proceed without asking for confirmation.
+
+=back
+
+=head1 DESCRIPTION
+
+B<spacewalk-schema-upgrade> is utility for Spacewalk and Satellite database
+schema upgrade.
+
+Let's assume you're upgrading your Satellite or Spacewalk installation
+from an earlier version and you are done with the package upgrade part
+plus any other steps that were required for your installation to be ready
+for schema upgrade. What B<spacewalk-schema-upgrade> will do for you at this
+point is:
+
+=over 5
+
+=item
+
+Read the database connection string from existing config file.
+
+=item
+
+Read the version of your current (i.e. old) schema from database.
+
+=item
+
+Find the schema version you are about to upgrade to (using an rpm query
+command).
+
+=item
+
+Find shortest upgrade path between said schema versions.
+
+=item
+
+Ask the user for confirmation to proceed with the upgrade (can be overriden
+with B<-y> switch).
+
+=item
+
+Proceed with the schema upgrade following the upgrade path found, putting
+the output from executed sql scripts (including errors if any)
+into F</var/log/spacewalk/schema-upgrade>. For this step it is important
+that you have sqlplus command in your PATH.
+
+=back
+
+=head1 FILES
+
+=over 5
+
+=item F</etc/sysconfig/rhn/schema-upgrade>
+
+Directory containing directories with schema upgrade scripts (one directory for
+every major upgrade step).
+
+=item F</etc/rhn/rhn.conf>
+
+Default configuration file containing database connection string
+(default_db option).
+
+=item F</var/log/spacewalk/schema-upgrade>
+
+Directory containing output from sql upgrade scripts.
+
+=back
+
+=head1 AUTHORS
+
+Jan Pazdziora
+
+=cut
+
