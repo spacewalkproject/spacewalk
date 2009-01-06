@@ -170,7 +170,7 @@ class Builder(BuildCommon):
         if self.test:
             self._setup_test_specfile()
 
-        debug("Using spec file: %s" % self.spec_file)
+        debug("Creating srpm from spec file: %s" % self.spec_file)
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -178,7 +178,7 @@ class Builder(BuildCommon):
         cmd = "rpmbuild %s %s --nodeps -bs %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
-        print output
+        print(output)
 
     def _rpm(self):
         """ Build an RPM. """
@@ -380,9 +380,13 @@ class SatelliteBuilder(NoTgzBuilder):
         # TODO: Should this be done when tagging the release and committed to
         # git?
         os.chdir(os.path.join(self.git_root, self.relative_project_dir))
-        run_command("git diff %s..%s -- %s > %s" %
-                (self.upstream_tag, self.build_tag, self.relative_project_dir,
-                    os.path.join(self.rpmbuild_sourcedir, SAT_PATCH_NAME)))
+        patch_file = os.path.join(self.rpmbuild_sourcedir, SAT_PATCH_NAME)
+        debug("Writing patch file: %s" % patch_file)
+        patch_command = "git diff --relative %s..%s > %s" % \
+                (self.upstream_tag, self.build_tag, patch_file)
+        debug("Generating patch with: %s" % patch_command)
+        output = run_command(patch_command)
+        print output
 
     def _insert_patches_into_spec_file(self):
         """
