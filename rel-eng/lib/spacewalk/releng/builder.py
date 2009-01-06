@@ -447,7 +447,6 @@ class SatelliteBuilder(NoTgzBuilder):
         i.e. satellite-java-0.4.15 will be built on spacewalk-java-0.4.15
         with just the package release being incremented on rebuilds. 
         """
-
         # Use upstreamversion if defined in the spec file:
         (status, output) = commands.getstatusoutput(
             "cat %s | grep 'define upstreamversion' | awk '{ print $3 ; exit }'" %
