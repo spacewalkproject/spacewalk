@@ -33,7 +33,7 @@ public class Profile extends CobblerObject {
     /**
      * Logger for this class
      */
-    private static final Logger log = Logger.getLogger(Profile.class);
+    private static Logger log = Logger.getLogger(Profile.class);
 
     private static final String DHCP_TAG = "dhcp_tag";
     private static final String KICKSTART = "kickstart";

@@ -47,7 +47,7 @@ public class SystemRecord extends CobblerObject {
      * @return the newly created system record
      */
     public static SystemRecord create(CobblerConnection client, 
-                                String name, Distro distro) {
+                                String name) {
         SystemRecord sys = new SystemRecord(client);
         sys.handle = (String) client.invokeTokenMethod("new_system");
         sys.modify(NAME, name);
