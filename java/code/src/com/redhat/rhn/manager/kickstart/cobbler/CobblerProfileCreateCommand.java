@@ -16,9 +16,13 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
+import org.cobbler.Profile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,19 +62,24 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
      * @return ValidatorError if there was a problem
      */
     public ValidatorError store() {
-        String id = (String) invokeXMLRPC("new_profile", xmlRpcToken);
-        log.debug("id: " + id);
-        invokeXMLRPC("modify_profile", id, "name", 
-                           CobblerCommand.makeCobblerName(this.ksData), xmlRpcToken);
-        updateCobblerFields(id);
-        Map<String, Object> meta = new HashMap<String, Object>();
-        meta.put("org", ksData.getOrg().getId());
-        invokeXMLRPC("modify_profile", id, "ksmeta", meta, xmlRpcToken);
-        invokeXMLRPC("modify_profile", id, "virt_path", "/var/lib/xen/" + 
-                ksData.getLabel(), xmlRpcToken);
-        invokeXMLRPC("modify_profile", id, "virt_bridge", "xenbr0", xmlRpcToken);
-        invokeXMLRPC("save_profile", id, xmlRpcToken);
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
+        
+        KickstartableTree tree = ksData.getTree();
+        Distro distro =  getDistroForKickstart(ksData);
+        
+        Profile prof = Profile.create(con, CobblerCommand.makeCobblerName(this.ksData),
+                distro);
+        prof.setVirtType(ksData.getKickstartDefaults().getVirtualizationType().getLabel());
+        
+        Map<String, String> meta = new HashMap<String, String>();
+        meta.put("org", ksData.getOrg().getId().toString());
+        prof.setKsMeta(meta);
+        prof.setVirtPath("/var/lib/xen/" + ksData.getLabel());
+        prof.setVirtBridge("xenbr0");
+        prof.save();
                 
+        updateCobblerFields(prof);
+
         invokeCobblerUpdate();
         Map cProfile = getProfileMap();
         ksData.setCobblerId((String)cProfile.get("uid"));

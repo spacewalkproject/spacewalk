@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.org.trusts;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -200,7 +201,8 @@ public class OrgTrustHandler extends BaseHandler {
 
         String since = OrgManager.getTrustedSince(user, user.getOrg(), trustOrg);
         if (since != null) {
-            details.put("trusted_since", since);
+            Date dateSince = new Date(since);
+            details.put("trusted_since", dateSince);
         }
         details.put("channels_provided", 
                 OrgManager.getSharedChannels(user, trustOrg, user.getOrg()));

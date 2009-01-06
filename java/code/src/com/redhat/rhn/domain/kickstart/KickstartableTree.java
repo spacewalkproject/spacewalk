@@ -36,6 +36,7 @@ public class KickstartableTree extends BaseDomainHelper {
     private String label;
     private Date lastModified;
     private String cobblerId;
+    private String cobblerXenId;
 
     private Org org;
     private KickstartTreeType treeType;
@@ -221,6 +222,13 @@ public class KickstartableTree extends BaseDomainHelper {
     public String getCobblerDistroName() {
         return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
+    
+    /**
+     * @return the cobblerDistroName
+     */
+    public String getCobblerXenDistroName() {
+        return CobblerCommand.makeCobblerName(getLabel() + ":xen", getOrg());
+    }    
 
 
     /**
@@ -250,7 +258,6 @@ public class KickstartableTree extends BaseDomainHelper {
         return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
     }
 
-    
     /**
      * Returns the Initrd path 
      * includes the mount point 
@@ -261,6 +268,25 @@ public class KickstartableTree extends BaseDomainHelper {
         return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
     }
 
+    /**
+     * Returns the kernel path for the xen kernel 
+     * includes the mount point 
+     * its an absolute path.
+     * @return the kernel path
+     */
+    public String getKernelXenPath() {
+        return StringUtil.addPath(getAbsolutePath(), "/images/xen/vmlinuz");
+    }
+    
+    /**
+     * Returns the Initrd path for the xen kernel
+     * includes the mount point 
+     * its an absolute path.
+     * @return the Initrd path
+     */
+    public String getInitrdXenPath() {
+        return StringUtil.addPath(getAbsolutePath(), "/images/xen/initrd.img");
+    }    
     
     /**
      * @return Returns the cobblerId.
@@ -275,6 +301,25 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public void setCobblerId(String cobblerIdIn) {
         this.cobblerId = cobblerIdIn;
+    }
+
+    
+    /**
+     * Gets the cobblerXenId, which is the cobbler id corresponding to the 
+     *      cobbler distro that is pointing to Xen PV boot images instead of regular
+     *      boot images (yes this sucks) 
+     * @return Returns the cobblerXenId.
+     */
+    public String getCobblerXenId() {
+        return cobblerXenId;
+    }
+
+    
+    /**
+     * @param cobblerXenIdIn The cobblerXenId to set.
+     */
+    public void setCobblerXenId(String cobblerXenIdIn) {
+        this.cobblerXenId = cobblerXenIdIn;
     }
     
 }

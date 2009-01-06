@@ -16,20 +16,14 @@
 -- $Id$
 --
 
-ALTER TABLE rhnActionKickstartGuest
- ADD kickstart_host varchar2(256);
 
-ALTER TABLE rhnActionKickstartGuest
- ADD disk_path varchar2(256);
 
-ALTER TABLE rhnActionKickstartGuest
- ADD virt_bridge varchar2(256);
-
-ALTER TABLE rhnActionKickstartGuest
- ADD cobbler_profile varchar2(256);
+ALTER TABLE rhnServer
+ADD cobbler_id varchar(64);
 
 show errors
 
 -- $Log$
--- Revision 1  2008/10/29 7:01:05  mmccune
--- add new kickstart_host for koan usage
+-- Revision 1  2009/01/06 16:51 mmccune
+-- Add cobbler_id column
+

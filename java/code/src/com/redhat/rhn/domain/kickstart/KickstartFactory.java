@@ -72,6 +72,8 @@ public class KickstartFactory extends HibernateFactory {
     public static final KickstartVirtualizationType VIRT_TYPE_NONE = 
         lookupKickstartVirtualizationTypeByLabel("none");
     
+    public static final KickstartVirtualizationType VIRT_TYPE_XEN_PV = 
+        lookupKickstartVirtualizationTypeByLabel("xenpv");
     
     private static final String KICKSTART_CANCELLED_MESSAGE = 
         "Kickstart cancelled due to action removal";

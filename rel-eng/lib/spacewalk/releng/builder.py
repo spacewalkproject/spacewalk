@@ -15,6 +15,7 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
+import re
 import sys
 import commands
 
@@ -32,9 +33,9 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
-        BuildCommon.__init__(self, debug)
+    def __init__(self, build_dir=None, build_config=None, tag=None,
+            dist=None, test=False):
+        BuildCommon.__init__(self)
 
         self.dist = dist
         self.test = test
@@ -44,9 +45,7 @@ class Builder(BuildCommon):
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
         # of build.py)
-        self.rpmbuild_basedir = os.getcwd()
-        if global_config.has_key('RPMBUILD_BASEDIR'):
-            self.rpmbuild_basedir = global_config['RPMBUILD_BASEDIR']
+        self.rpmbuild_basedir = build_dir
 
         # Determine which package version we should build:
         if tag:
@@ -155,7 +154,6 @@ class Builder(BuildCommon):
         # that use a git SHA1 for their version.
         self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
         self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
-        debug("Using spec file: %s" % self.spec_file)
 
     def _srpm(self):
         """
@@ -168,6 +166,7 @@ class Builder(BuildCommon):
         if self.test:
             self._setup_test_specfile()
 
+        debug("Creating srpm from spec file: %s" % self.spec_file)
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -175,7 +174,7 @@ class Builder(BuildCommon):
         cmd = "rpmbuild %s %s --nodeps -bs %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
-        print output
+        print(output)
 
     def _rpm(self):
         """ Build an RPM. """
@@ -306,12 +305,12 @@ class SatelliteBuilder(NoTgzBuilder):
     i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
-    def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
+    def __init__(self, build_dir=None, build_config=None, tag=None,
+            dist=None, test=False):
 
-        NoTgzBuilder.__init__(self, global_config=global_config,
+        NoTgzBuilder.__init__(self, build_dir=build_dir,
                 build_config=build_config, tag=tag, dist=dist,
-                test=test, debug=debug)
+                test=test)
 
         if not build_config or not build_config.has_option("buildconfig", 
                 "upstream_name"):
@@ -322,6 +321,8 @@ class SatelliteBuilder(NoTgzBuilder):
         # Need to assign these after we've exported a copy of the spec file:
         self.upstream_version = None 
         self.upstream_tag = None
+        self.patch_filename = None
+        self.patch_file = None
 
     def _setup_sources(self):
         # TODO: Wasteful step here, all we really need is a way to look for a
@@ -344,6 +345,8 @@ class SatelliteBuilder(NoTgzBuilder):
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)
+        run_command("cp %s %s" % (os.path.join(self.rpmbuild_gitcopy, 
+            self.spec_file_name), self.spec_file))
 
         # Create the upstream tgz:
         prefix = "%s-%s" % (self.upstream_name, self.upstream_version)
@@ -357,6 +360,7 @@ class SatelliteBuilder(NoTgzBuilder):
                     tgz_filename))
 
         self._generate_patches()
+        self._insert_patches_into_spec_file()
 
     def _generate_patches(self):
         """
@@ -370,9 +374,67 @@ class SatelliteBuilder(NoTgzBuilder):
         # the only way.
 
         # TODO: Patch includes changes to the spec file, are these harmless?
-        run_command("git diff %s..%s -- %s > %s" %
-                (self.upstream_tag, self.build_tag, self.relative_project_dir,
-                    os.path.join(self.rpmbuild_sourcedir, "satellite.patch")))
+        # TODO: Is this a safe scheme for generating reproducable patches?
+        # TODO: Should this be done when tagging the release and committed to
+        # git?
+        self.patch_filename = "%s-to-%s.patch" % (self.upstream_tag,
+                self.build_tag)
+        self.patch_file = os.path.join(self.rpmbuild_sourcedir,
+                self.patch_filename)
+        os.chdir(os.path.join(self.git_root, self.relative_project_dir))
+        debug("Patch filename: %s" % self.patch_filename)
+        debug("Patch file: %s" % self.patch_file)
+        patch_command = "git diff --relative %s..%s > %s" % \
+                (self.upstream_tag, self.build_tag, self.patch_file)
+        debug("Generating patch with: %s" % patch_command)
+        output = run_command(patch_command)
+        print(output)
+
+    def _insert_patches_into_spec_file(self):
+        """
+        Insert the generated patches into the copy of the spec file we'll be
+        building with.
+        """
+        f = open(self.spec_file, 'r')
+        lines = f.readlines()
+
+        patch_pattern = re.compile('^Patch(\d+):')
+        source_pattern = re.compile('^Source\d+:')
+
+        # Find the largest PatchX: line, or failing that SourceX:
+        patch_number = 0 # What number should we use for our PatchX line
+        patch_insert_index = 0 # Where to insert our PatchX line in the list
+        patch_apply_index = 0 # Where to insert our %patchX line in the list
+        array_index = 0 # Current index in the array
+        for line in lines:
+            match = source_pattern.match(line)
+            if match:
+                patch_insert_index = array_index + 1
+
+            match = patch_pattern.match(line)
+            if match:
+                patch_insert_index = array_index + 1
+                patch_number = int(match.group(1)) + 1
+
+            if line.startswith("%setup"):
+                patch_apply_index = array_index + 2 # already added a line
+
+            array_index += 1
+        
+        if patch_insert_index == 0 or patch_apply_index == 0:
+            error_out("Unable to insert PatchX or %patchX lines in spec file")
+
+        lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
+            self.patch_filename))
+        lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
+            self.patch_filename))
+        f.close()
+
+        # Now write out the modified lines to the spec file copy:
+        f = open(self.spec_file, 'w')
+        for line in lines:
+            f.write(line)
+        f.close()
 
     def _get_upstream_version(self):
         """
@@ -383,7 +445,6 @@ class SatelliteBuilder(NoTgzBuilder):
         i.e. satellite-java-0.4.15 will be built on spacewalk-java-0.4.15
         with just the package release being incremented on rebuilds. 
         """
-
         # Use upstreamversion if defined in the spec file:
         (status, output) = commands.getstatusoutput(
             "cat %s | grep 'define upstreamversion' | awk '{ print $3 ; exit }'" %

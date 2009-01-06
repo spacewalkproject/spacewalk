@@ -79,6 +79,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private ProvisionState provisionState;
     private Date channelsChanged;
     private Date created;
+    private String cobblerId;
     private Set devices;
     private ServerInfo serverInfo;
     private CPU cpu;
@@ -1618,6 +1619,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
      */
     public InstalledPackage getReleasePackage() {
         return PackageManager.lookupReleasePackageFor(this);
+    }
+
+    /**
+     * @return Returns the cobblerId.
+     */
+    public String getCobblerId() {
+        return cobblerId;
+    }
+
+    /**
+     * @param cobblerIdIn The cobblerId to set.
+     */
+    public void setCobblerId(String cobblerIdIn) {
+        this.cobblerId = cobblerIdIn;
     }
 
 }
