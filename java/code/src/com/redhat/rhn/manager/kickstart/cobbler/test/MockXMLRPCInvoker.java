@@ -163,6 +163,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
             else {
                 retval.put("name", TestUtils.randomString());
                 retval.put("redhat-management-key", TestUtils.randomString());
+                retval.put("uid", String.valueOf(RandomUtils.nextInt(5000)));
                 return retval;
             }
         }
