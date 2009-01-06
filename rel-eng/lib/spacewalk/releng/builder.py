@@ -24,8 +24,6 @@ from spacewalk.releng.common import BuildCommon, run_command, \
         get_project_name, get_relative_project_dir, get_build_commit, \
         get_git_head_commit, create_tgz
 
-SAT_PATCH_NAME = "satellite.patch"
-
 class Builder(BuildCommon):
     """
     Parent builder class.
