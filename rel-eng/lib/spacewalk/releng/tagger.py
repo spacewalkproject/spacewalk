@@ -25,7 +25,6 @@ from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
         debug, get_spec_version_and_release, error_out, \
         get_project_name
 
-
 class VersionTagger(BuildCommon):
     """
     Standard Tagger class, used for tagging packages built from source in
@@ -256,8 +255,9 @@ class ReleaseTagger(VersionTagger):
     """
     Tagger which increments the spec file release instead of version.
 
-    This is primarily used for packages build from a .tar.gz checked directly
-    into git.
+    Used for:
+      - Packages we build from a tarball checked directly into git.
+      - Satellite packages built on top of Spacewalk tarballs.
     """
 
     def _tag_release(self):

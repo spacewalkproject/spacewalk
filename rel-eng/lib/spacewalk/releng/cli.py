@@ -66,16 +66,17 @@ def get_class_by_name(name):
     c = getattr(mod, class_name)
     return c
 
-def read_global_config():
+def lookup_build_dir():
     """
-    Read config settings in from ~/.spacewalk-build-rc.
+    Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
+    return the current working directory.
     """
     file_loc = os.path.expanduser("~/.spacewalk-build-rc")
     try:
         f = open(file_loc)
     except:
         # File doesn't exist but that's ok because it's optional.
-        return {}
+        return os.getcwd()
     config = {}
     for line in f.readlines():
         if line.strip() == "":
@@ -84,7 +85,12 @@ def read_global_config():
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
-    return config
+
+    build_dir = os.getcwd()
+    if config.has_key('RPMBUILD_BASEDIR'):
+        build_dir = config["RPMBUILD_BASEDIR"]
+
+    return build_dir
 
 
 
@@ -129,9 +135,8 @@ class CLI:
         if options.tag:
             check_tag_exists(options.tag)
 
-        global_config = read_global_config()
-
-        config = self._read_project_config(global_config, options.tag,
+        build_dir = lookup_build_dir()
+        config = self._read_project_config(build_dir, options.tag,
                 options.no_cleanup)
 
         # Check for builder options and tagger options, if one or more from both
@@ -162,7 +167,7 @@ class CLI:
         # Now that we have command line options, instantiate builder/tagger:
         if found_builder_options:
             builder = builder_class(
-                    global_config=global_config,
+                    build_dir=build_dir,
                     build_config=config,
                     tag=options.tag,
                     dist=options.dist,
@@ -173,7 +178,7 @@ class CLI:
             tagger = tagger_class(keep_version=options.keep_version)
             tagger.run(options)
 
-    def _read_project_config(self, global_config, tag, no_cleanup):
+    def _read_project_config(self, build_dir, tag, no_cleanup):
         """
         Read and return project build properties if they exist.
 
@@ -212,10 +217,7 @@ class CLI:
 
             temp_filename = "%s-%s" % (random.randint(1, 10000),
                     BUILD_PROPS_FILENAME)
-            temp_props_file = os.path.join(os.getcwd(), temp_filename)
-            if global_config.has_key('RPMBUILD_BASEDIR'):
-                temp_props_file = os.path.join(global_config[
-                    'RPMBUILD_BASEDIR'], temp_filename)
+            temp_props_file = os.path.join(build_dir, temp_filename)
 
             if status == 0:
                 properties_file = temp_props_file

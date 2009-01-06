@@ -33,7 +33,7 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, global_config=None, build_config=None, tag=None,
+    def __init__(self, build_dir=None, build_config=None, tag=None,
             dist=None, test=False):
         BuildCommon.__init__(self)
 
@@ -41,13 +41,7 @@ class Builder(BuildCommon):
         self.test = test
 
         self.project_name = get_project_name(tag=tag)
-
-        # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
-        # use it, otherwise use the current working directory. (i.e. location
-        # of build.py)
-        self.rpmbuild_basedir = os.getcwd()
-        if global_config.has_key('RPMBUILD_BASEDIR'):
-            self.rpmbuild_basedir = global_config['RPMBUILD_BASEDIR']
+        self.rpmbuild_basedir = build_dir
 
         # Determine which package version we should build:
         if tag:
@@ -307,10 +301,10 @@ class SatelliteBuilder(NoTgzBuilder):
     i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
-    def __init__(self, global_config=None, build_config=None, tag=None,
+    def __init__(self, build_dir=None, build_config=None, tag=None,
             dist=None, test=False):
 
-        NoTgzBuilder.__init__(self, global_config=global_config,
+        NoTgzBuilder.__init__(self, build_dir=build_dir,
                 build_config=build_config, tag=tag, dist=dist,
                 test=test)
 
