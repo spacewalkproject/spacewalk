@@ -47,6 +47,16 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
         methodsCalled.add(procedureName);
         log.debug("invoking: " + procedureName + " with: " + args);
         
+        // Check that none of the args are null
+        // because xmlrpc doesnt allow this.
+        for (int i = 0; i < args.size(); i++) {
+            if (args.get(i) == null) {
+                throw new NullPointerException(
+                        "One of the args is null: " + args);
+            }
+        }
+        
+        
         if (procedureName.equals("new_profile") ||
                 procedureName.equals("new_distro")) {
             return new String("1");
