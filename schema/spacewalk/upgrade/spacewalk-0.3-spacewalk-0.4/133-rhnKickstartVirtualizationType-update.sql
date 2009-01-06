@@ -20,6 +20,12 @@ update rhnKickstartVirtualizationType
     set label = 'xenpv' where label = 'para_guest';
 
 update rhnKickstartVirtualizationType
+    set label = 'auto' where label = 'none';
+
+update rhnKickstartVirtualizationType
+    set name = 'None' where label = 'auto';
+
+update rhnKickstartVirtualizationType
     set name = 'XEN Para-Virtualized Guest' where label = 'xenpv';
 
 insert into rhnKickstartVirtualizationType (id, name, label)
@@ -27,9 +33,6 @@ insert into rhnKickstartVirtualizationType (id, name, label)
 
 insert into rhnKickstartVirtualizationType (id, name, label)
     values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv');
-
-insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'Auto-detect', 'auto');
 
 show errors
 
