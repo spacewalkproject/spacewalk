@@ -161,13 +161,11 @@ class CLI:
                     build_config=config,
                     tag=options.tag,
                     dist=options.dist,
-                    test=options.test,
-                    debug=options.debug)
+                    test=options.test)
             builder.run(options)
 
         if found_tagger_options:
-            tagger = tagger_class(keep_version=options.keep_version,
-                    debug=options.debug)
+            tagger = tagger_class(keep_version=options.keep_version)
             tagger.run(options)
 
     def _read_project_config(self, global_config, tag, no_cleanup):

@@ -34,8 +34,8 @@ class Builder(BuildCommon):
     """
 
     def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
-        BuildCommon.__init__(self, debug)
+            dist=None, test=False):
+        BuildCommon.__init__(self)
 
         self.dist = dist
         self.test = test
@@ -308,11 +308,11 @@ class SatelliteBuilder(NoTgzBuilder):
     patches applied in satellite git.
     """
     def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
+            dist=None, test=False):
 
         NoTgzBuilder.__init__(self, global_config=global_config,
                 build_config=build_config, tag=tag, dist=dist,
-                test=test, debug=debug)
+                test=test)
 
         if not build_config or not build_config.has_option("buildconfig", 
                 "upstream_name"):
