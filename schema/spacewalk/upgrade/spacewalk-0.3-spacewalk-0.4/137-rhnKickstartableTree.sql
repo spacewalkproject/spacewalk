@@ -21,6 +21,9 @@
 ALTER TABLE rhnKickstartableTree
 ADD cobbler_id varchar(64);
 
+ALTER TABLE rhnKickstartableTree
+ADD cobbler_xen_id varchar(64);
+
 show errors
 
 -- $Log$

@@ -28,6 +28,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -268,12 +269,12 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             return;
         }
         
-        prof.setKernelOptions(StringUtil.convertOptionsToMap(
-                form.getString(KERNEL_OPTIONS), 
-                "kickstart.jsp.error.invalidvariable"));
-        prof.setKernelPostOptions(StringUtil.convertOptionsToMap(
-                form.getString(POST_KERNEL_OPTIONS), 
-                "kickstart.jsp.error.invalidoption")); 
+        CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
+        cmd.setKernelOptions(StringUtil.convertOptionsToMap(
+                form.getString(KERNEL_OPTIONS), "kickstart.jsp.error.invalidvariable"));
+        cmd.setPostKernelOptions(StringUtil.convertOptionsToMap(
+                form.getString(POST_KERNEL_OPTIONS), "kickstart.jsp.error.invalidoption"));
+        cmd.store();
         
         if (KickstartDetailsEditAction.saveVirtOptions(ksdata, form)) {
             prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
@@ -282,7 +283,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             prof.setVirtBridge(form.getString(VIRT_BRIDGE));
             prof.setVirtPath(form.getString(VIRT_PATH));
         }
-
         prof.save(); 
     }
 
