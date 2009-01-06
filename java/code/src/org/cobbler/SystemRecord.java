@@ -159,8 +159,8 @@ public class SystemRecord extends CobblerObject {
      * removes the kickstart system from cobbler.
      */
     @Override
-    protected void invokeRemove() {
-        client.invokeTokenMethod("remove_system", getName());
+    protected boolean invokeRemove() {
+        return (Boolean) client.invokeTokenMethod("remove_system", getName());
     }
     
     /**

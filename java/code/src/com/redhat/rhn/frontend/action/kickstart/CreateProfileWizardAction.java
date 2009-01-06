@@ -30,6 +30,7 @@ import com.redhat.rhn.frontend.struts.wizard.RhnWizardAction;
 import com.redhat.rhn.frontend.struts.wizard.WizardStep;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -39,6 +40,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.cobbler.Distro;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
@@ -191,6 +193,19 @@ public class CreateProfileWizardAction extends RhnWizardAction {
 
                 KickstartableTree tree = cmd.getKickstartableTree(treeId);
                 ctx.getRequest().setAttribute("selectedTree", tree);
+                  
+                //validate we have a distro for the tree + virt type combination
+                KickstartVirtualizationType vType = 
+                    KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
+                        form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
+                Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, 
+                        vType, ctx.getLoggedInUser());
+                if (distro == null) {
+                    ValidatorException.raiseException(
+                            "kickstart.cobbler.profile.invalidvirt"); 
+                }
+                
+                
                 if (form.get(DEFAULT_DOWNLOAD_PARAM) == null) {
                     form.set(DEFAULT_DOWNLOAD_PARAM, Boolean.TRUE);
                 }
@@ -342,6 +357,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         ActionErrors errs = 
             RhnValidationHelper.validateDynaActionForm(this, form, fieldNames);
         boolean retval = errs.size() == 0;
+                
         if (!retval) {
             saveMessages(ctx.getRequest(), errs);
         }
