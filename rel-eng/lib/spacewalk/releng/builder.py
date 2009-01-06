@@ -325,6 +325,8 @@ class SatelliteBuilder(NoTgzBuilder):
         # Need to assign these after we've exported a copy of the spec file:
         self.upstream_version = None 
         self.upstream_tag = None
+        self.patch_filename = None
+        self.patch_file = None
 
     def _setup_sources(self):
         # TODO: Wasteful step here, all we really need is a way to look for a
@@ -379,14 +381,18 @@ class SatelliteBuilder(NoTgzBuilder):
         # TODO: Is this a safe scheme for generating reproducable patches?
         # TODO: Should this be done when tagging the release and committed to
         # git?
+        self.patch_filename = "%s-to-%s.patch" % (self.upstream_tag,
+                self.build_tag)
+        self.patch_file = os.path.join(self.rpmbuild_sourcedir,
+                self.patch_filename)
         os.chdir(os.path.join(self.git_root, self.relative_project_dir))
-        patch_file = os.path.join(self.rpmbuild_sourcedir, SAT_PATCH_NAME)
-        debug("Writing patch file: %s" % patch_file)
+        debug("Patch filename: %s" % self.patch_filename)
+        debug("Patch file: %s" % self.patch_file)
         patch_command = "git diff --relative %s..%s > %s" % \
-                (self.upstream_tag, self.build_tag, patch_file)
+                (self.upstream_tag, self.build_tag, self.patch_file)
         debug("Generating patch with: %s" % patch_command)
         output = run_command(patch_command)
-        print output
+        print(output)
 
     def _insert_patches_into_spec_file(self):
         """
@@ -423,9 +429,9 @@ class SatelliteBuilder(NoTgzBuilder):
             error_out("Unable to insert PatchX or %patchX lines in spec file")
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
-            SAT_PATCH_NAME))
+            self.patch_filename))
         lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
-            SAT_PATCH_NAME))
+            self.patch_filename))
         f.close()
 
         # Now write out the modified lines to the spec file copy:
