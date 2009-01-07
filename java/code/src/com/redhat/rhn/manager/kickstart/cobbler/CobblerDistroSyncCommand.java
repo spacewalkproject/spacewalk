@@ -107,7 +107,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 log.debug("tree in spacewalk but not in cobbler. " +
                         "creating non-xenpv distro in cobbler : " + tree.getLabel());
                 
-                Distro distro = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
+                Distro distro = Distro.create(
+                        CobblerXMLRPCHelper.getConnection(
+                                   Config.get().getCobblerAutomatedUser()),
                         tree.getCobblerDistroName(), tree.getKernelPath(), 
                         tree.getInitrdPath());
                 tree.setCobblerId(distro.getUid());
@@ -116,7 +118,9 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             else if (tree.doesParaVirt() && xen) {
                 log.debug("tree in spacewalk but not in cobbler. " +
                         "creating xenpv distro in cobbler : " + tree.getLabel());
-                Distro distroXen = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
+                Distro distroXen = Distro.create(
+                        CobblerXMLRPCHelper.getConnection(
+                                Config.get().getCobblerAutomatedUser()),
                     tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
                     tree.getInitrdXenPath()); 
                 tree.setCobblerXenId(distroXen.getUid());
