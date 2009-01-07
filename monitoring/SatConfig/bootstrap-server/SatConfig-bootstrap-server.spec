@@ -1,5 +1,5 @@
 Name:         SatConfig-bootstrap-server
-Version:      1.13.1
+Version:      1.13.2
 Release:      1%{?dist}
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Summary:      Provides scout info for boostrap
@@ -44,6 +44,9 @@ install -m 644 Apache.SatConfig-bootstrap-server $RPM_BUILD_ROOT%{_sysconfdir}/r
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan  7 2009 Milan Zazrivec 1.13.2-1
+- build for Spacewalk 0.4
+
 * Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.13.1-1
 - spec cleanup for Fedora
 
