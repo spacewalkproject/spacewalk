@@ -137,11 +137,11 @@ class CLI:
 
         build_dir = lookup_build_dir()
         global_config = self._read_global_config()
-        pkg_config = self._read_project_config(build_dir, options.tag,
-                options.no_cleanup)
-
         if options.tag:
             check_tag_exists(options.tag)
+
+        pkg_config = self._read_project_config(build_dir, options.tag,
+                options.no_cleanup)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:

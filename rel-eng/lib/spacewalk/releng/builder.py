@@ -342,11 +342,7 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        if not self.global_config.has_option("globalconfig",
-                "upstream_git_url"):
-            error_out("Unable to find upstream_git_url in global config.")
-        check_tag_exists(self.upstream_tag, repo_url=self.global_config.get(
-            "globalconfig", "upstream_git_url"))
+        check_tag_exists(self.upstream_tag)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)
