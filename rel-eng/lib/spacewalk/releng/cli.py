@@ -135,14 +135,30 @@ class CLI:
         if len(sys.argv) < 2:
             print parser.error("Must supply an argument. Try -h for help.")
 
+        # Check for builder options and tagger options, if one or more from both
+        # groups are found, error out:
+        (building, tagging) = self._validate_options(options)
+
         if options.debug:
             os.environ['DEBUG'] = "true"
 
         build_dir = lookup_build_dir()
         global_config = self._read_global_config()
-
-        # TODO: Some of this doesn't need to be run if we're not building:
         package_name = get_project_name(tag=options.tag)
+        pkg_config = self._read_project_config(package_name, build_dir,
+                options.tag, options.no_cleanup)
+
+        # Now that we have command line options, instantiate builder/tagger:
+        if building:
+            self._run_builder(package_name, options, pkg_config,
+                    global_config, build_dir)
+
+        if tagging:
+            self._run_tagger(options, pkg_config, global_config)
+
+    def _run_builder(self, package_name, options, pkg_config, global_config,
+            build_dir):
+
         build_tag = None
         build_version = None
         # Determine which package version we should build:
@@ -159,55 +175,41 @@ class CLI:
         if not options.offline:
             check_tag_exists(build_tag)
 
-        pkg_config = self._read_project_config(package_name, build_dir,
-                options.tag, options.no_cleanup)
-
-        # Check for builder options and tagger options, if one or more from both
-        # groups are found, error out:
-        found_builder_options = (options.tgz or options.srpm or options.rpm)
-        found_tagger_options = (options.tag_release)
-        if found_builder_options and found_tagger_options:
-            error_out("Cannot invoke both build and tag options at the " +
-                    "same time.")
-
-        # Use project specific config to determine which builder/tagger to use.
-        # If none exists, use the global default builder/tagger.
         builder_class = None
-        tagger_class = None
         if pkg_config.has_option("buildconfig", "builder"):
             builder_class = get_class_by_name(pkg_config.get("buildconfig",
                 "builder"))
         else:
             builder_class = get_class_by_name(global_config.get(
                 GLOBALCONFIG_SECTION, DEFAULT_BUILDER))
+        debug("Using builder class: %s" % builder_class)
+
+        # Instantiate the builder:
+        builder = builder_class(
+                name=package_name,
+                version=build_version,
+                tag=build_tag,
+                build_dir=build_dir,
+                pkg_config=pkg_config,
+                global_config=global_config,
+                dist=options.dist,
+                test=options.test,
+                offline=options.offline)
+
+        builder.run(options)
+
+    def _run_tagger(self, options, pkg_config, global_config):
+        tagger_class = None
         if pkg_config.has_option("buildconfig", "tagger"):
             tagger_class = get_class_by_name(pkg_config.get("buildconfig",
                 "tagger"))
         else:
             tagger_class = get_class_by_name(global_config.get(
                 GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
-
-        debug("Using builder class: %s" % builder_class)
         debug("Using tagger class: %s" % tagger_class)
 
-        # Now that we have command line options, instantiate builder/tagger:
-        if found_builder_options:
-            builder = builder_class(
-                    name=package_name,
-                    version=build_version,
-                    tag=build_tag,
-                    build_dir=build_dir,
-                    pkg_config=pkg_config,
-                    global_config=global_config,
-                    dist=options.dist,
-                    test=options.test,
-                    offline=options.offline)
-
-            builder.run(options)
-
-        if found_tagger_options:
-            tagger = tagger_class(keep_version=options.keep_version)
-            tagger.run(options)
+        tagger = tagger_class(keep_version=options.keep_version)
+        tagger.run(options)
 
     def _read_global_config(self):
         """
@@ -306,3 +308,10 @@ class CLI:
 
         return config
 
+    def _validate_options(self, options):
+        found_builder_options = (options.tgz or options.srpm or options.rpm)
+        found_tagger_options = (options.tag_release)
+        if found_builder_options and found_tagger_options:
+            error_out("Cannot invoke both build and tag options at the " +
+                    "same time.")
+        return (found_builder_options, found_tagger_options)
