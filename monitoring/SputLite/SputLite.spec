@@ -1,5 +1,5 @@
 %define ap_home        %{_datadir}/nocpulse
-%define cgi_bin        %ap_home/cgi-bin
+%define cgi_bin        /var/www/cgi-bin
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define templatedir    %ap_home/templates
 %define bin            %{_bindir}
