@@ -78,6 +78,7 @@ sub parse_options {
 		    "skip-db-population",
 		    "skip-gpg-key-import",
 		    "skip-ssl-cert-generation",
+                    "skip-ssl-vhost-setup",
             "skip-services-check",
             "skip-logfile-init",
 		    "clear-db",
@@ -92,7 +93,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]] [--run-cobbler]");
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]] [--run-cobbler]");
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -1222,6 +1223,18 @@ Do not import Red Hat's GPG key.
 =item B<--skip-ssl-cert-generation>
 
 Do not generate the SSL certificates for the Satellite.
+
+=item B<--skip-ssl-vhost-setup>
+
+Do not configure the default SSL virtual host for Spacewalk.
+
+Note that if you choose to have Spacewalk setup skip this step,
+it's up to you to ensure that the following are included
+in the virtual host definition:
+
+RewriteEngine on
+RewriteOptions inherit
+SSLProxyEngine on
 
 =item B<--upgrade>
 

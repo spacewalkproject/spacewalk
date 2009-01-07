@@ -18,15 +18,12 @@
 
 
 
-ALTER TABLE rhnKickstartableTree
-ADD cobbler_id varchar2(64);
-
-ALTER TABLE rhnKickstartableTree
-ADD cobbler_xen_id varchar2(64);
+ALTER TABLE rhnServer
+ADD cobbler_id varchar(64);
 
 show errors
 
 -- $Log$
--- Revision 1  2008/12/02 16:51 jsherrill
+-- Revision 1  2009/01/06 16:51 mmccune
 -- Add cobbler_id column
 

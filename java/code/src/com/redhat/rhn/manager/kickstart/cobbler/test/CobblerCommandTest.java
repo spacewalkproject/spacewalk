@@ -72,6 +72,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
                     "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
+        assertNotNull(s.getCobblerId());
         Map systemMap = cmd.getSystemMap(); 
         assertNotNull(systemMap);
         assertTrue(systemMap.containsKey("name"));

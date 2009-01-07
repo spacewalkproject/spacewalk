@@ -72,6 +72,8 @@ public class KickstartFactory extends HibernateFactory {
     public static final KickstartVirtualizationType VIRT_TYPE_NONE = 
         lookupKickstartVirtualizationTypeByLabel("none");
     
+    public static final KickstartVirtualizationType VIRT_TYPE_XEN_PV = 
+        lookupKickstartVirtualizationTypeByLabel("xenpv");
     
     private static final String KICKSTART_CANCELLED_MESSAGE = 
         "Kickstart cancelled due to action removal";
@@ -156,11 +158,12 @@ public class KickstartFactory extends HibernateFactory {
      * @param cobblerId the cobbler id to lookup 
      * @return the Kickstartable Tree object
      */    
-    public static KickstartableTree lookupKickstartTreeByCobblerId(String cobblerId) {
+    public static KickstartableTree 
+                    lookupKickstartTreeByCobblerIdOrXenId(String cobblerId) {
         Map map = new HashMap();
         map.put("cid", cobblerId);
         return (KickstartableTree) singleton.lookupObjectByNamedQuery(
-                "KickstartableTree.findByCobblerId", map);
+                "KickstartableTree.findByCobblerIdorXenId", map);
     }
     
     

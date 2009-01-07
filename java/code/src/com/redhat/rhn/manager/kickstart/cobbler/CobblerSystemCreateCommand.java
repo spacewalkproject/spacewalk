@@ -129,10 +129,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 inet, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
-        args = new String[]{handle, "profile", 
-                name, xmlRpcToken};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
-        
+        if (name != null) {
+            args = new String[]{handle, "profile", 
+                    name, xmlRpcToken};
+            invokeXMLRPC("modify_system", Arrays.asList(args));
+        }
         
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +
@@ -159,6 +160,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
         invokeXMLRPC("save_system", handle, xmlRpcToken);
+        
+        Map cSystem = getSystemMap();
+        server.setCobblerId((String)cSystem.get("uid"));
         return null;
     }
 

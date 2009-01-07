@@ -68,23 +68,25 @@ def run_command(command):
         raise Exception("Error running command")
     return output
 
-def check_tag_exists(tag):
-    """ Check that the given git tag exists. """
-    rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
+def check_tag_exists(tag, repo_url):
+    """
+    Check that the given git tag exists in a git repository.
+    """
+    debug("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
 
     tag_sha1 = run_command(
             "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
             % tag)
     debug("Local tag SHA1: %s" % tag_sha1)
-    upstream_repo = run_command("cat %s" % os.path.join(rel_eng_dir,
-        "upstream-repo"))
-    debug("Upstream repo: %s" % upstream_repo)
-    upstream_tag_sha1 = run_command("git ls-remote %s --tag %s | awk '{ print $1 ; exit }'" %
-            (upstream_repo, tag))
+
+    upstream_tag_sha1 = run_command(
+            "git ls-remote %s --tag %s | awk '{ print $1 ; exit }'" %
+            (repo_url, tag))
     if upstream_tag_sha1 == "":
-        error_out(["Tag does not exist in upstream repo: %s" % tag,
-            "You must build.py --tag-release, then git push and git push --tags"])
-    debug("Upstream tag SHA1: %s" % upstream_tag_sha1)
+        error_out(["Tag does not exist in remote git repo: %s" % tag,
+            "You must --tag-release, then git push and git push --tags"])
+
+    debug("Remote tag SHA1: %s" % upstream_tag_sha1)
     if upstream_tag_sha1 != tag_sha1:
         error_out("Tag %s references %s locally but %s upstream." % (tag,
             tag_sha1, upstream_tag_sha1))
@@ -199,9 +201,7 @@ class BuildCommon:
     Builder and Tagger classes require a little bit of the same functionality.
     Placing that code here to be inherited by both.
     """
-    def __init__(self, debug=False):
-        self.debug = debug
-
+    def __init__(self):
         self.git_root = find_git_root() 
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
 

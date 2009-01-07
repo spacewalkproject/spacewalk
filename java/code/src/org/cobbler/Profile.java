@@ -48,6 +48,7 @@ public class Profile extends CobblerObject {
     private static final String VIRT_FILE_SIZE = "virt_file_size";
     private static final String VIRT_RAM = "virt_ram";
     private static final String DISTRO = "distro";    
+    private static final String REDHAT_KEY = "redhat_management_key";
 
     private Profile(CobblerConnection clientIn) {
         client = clientIn;
@@ -177,8 +178,8 @@ public class Profile extends CobblerObject {
      * removes the kickstart profile from cobbler.
      */
     @Override
-    protected void invokeRemove() {
-        client.invokeTokenMethod("remove_profile", getName());
+    protected boolean invokeRemove() {
+        return (Boolean) client.invokeTokenMethod("remove_profile", getName());
     }
     
     /**
@@ -380,6 +381,11 @@ public class Profile extends CobblerObject {
       * @param distroIn the Distro
       */
       public void  setDistro(Distro distroIn) {
+          if (distroIn == null) {
+              log.warn("Profile.setDistro was called with null.  This shouldn't happen, " +
+                 "so we're ignoring");
+              return;
+          }
           setDistro(distroIn.getName());
       }
 
@@ -389,5 +395,12 @@ public class Profile extends CobblerObject {
       */
       public void  setDistro(String name) {
           modify(DISTRO, name);
+      }
+      
+      /**
+       * @param key the red hat activation key
+       */
+      public void setRedHatManagementKey(String key) {
+          modify(REDHAT_KEY, key);
       }
 }
