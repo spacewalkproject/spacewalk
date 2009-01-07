@@ -3,6 +3,18 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 
+<script language="javascript" type="text/javascript" src="/javascript/editarea/edit_area/edit_area_full.js"></script>
+<script language="javascript" type="text/javascript">
+editAreaLoader.init({
+        id : "contents"
+        ,syntax: "css"
+        ,syntax_selection_allow: "css,html,js,php,python,vb,xml,c,cpp,sql,basic,pas,perl,bash"
+        ,start_highlight: true
+        ,allow_toggle: true
+        ,toolbar: "search,go_to_line,undo,redo,reset_highlight,highlight,syntax_selection"
+});
+</script>
+
 <html:xhtml/>
 <html>
 <body>
