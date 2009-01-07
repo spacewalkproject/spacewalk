@@ -112,7 +112,7 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
-* Tue Jan 6 2009 Dave Parker <dparker@redhat.com>
+* Tue Jan 06 2009 Dave Parker <dparker@redhat.com>
 - remove satellite-httpd, instead use stock httpd configuration
 
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.21-1
