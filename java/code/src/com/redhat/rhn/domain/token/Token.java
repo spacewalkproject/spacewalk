@@ -215,6 +215,9 @@ public class Token implements Identifiable {
      * @param u The usageLimit to set.
      */
     public void setUsageLimit(Long u) {
+        if (u != null && u < 0) {
+            u = null;
+        }
         this.usageLimit = u;
     }
     

@@ -33,12 +33,13 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, build_dir=None, build_config=None, tag=None,
-            dist=None, test=False):
+    def __init__(self, build_dir=None, pkg_config=None, global_config=None,
+            tag=None, dist=None, test=False):
         BuildCommon.__init__(self)
 
         self.dist = dist
         self.test = test
+        self.global_config = global_config
 
         self.project_name = get_project_name(tag=tag)
         self.rpmbuild_basedir = build_dir
@@ -54,6 +55,10 @@ class Builder(BuildCommon):
                         "Perhaps you need to --tag-release first?"])
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
+
+        # TODO: Happens twice if the user specifies --tag. Move this and
+        # affiliated settings into the CLI and pass them into the builder.
+        check_tag_exists(self.build_tag)
 
         self.display_version = self._get_display_version()
         print("Building %s" % (self.build_tag))
@@ -301,19 +306,19 @@ class SatelliteBuilder(NoTgzBuilder):
     i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
-    def __init__(self, build_dir=None, build_config=None, tag=None,
-            dist=None, test=False):
+    def __init__(self, build_dir=None, pkg_config=None, global_config=None,
+            tag=None, dist=None, test=False):
 
         NoTgzBuilder.__init__(self, build_dir=build_dir,
-                build_config=build_config, tag=tag, dist=dist,
-                test=test)
+                pkg_config=pkg_config, global_config=global_config, tag=tag,
+                dist=dist, test=test)
 
-        if not build_config or not build_config.has_option("buildconfig", 
+        if not pkg_config or not pkg_config.has_option("buildconfig",
                 "upstream_name"):
             # No upstream_name defined, assume we're keeping the project name:
             self.upstream_name = self.project_name
         else:
-            self.upstream_name = build_config.get("buildconfig", "upstream_name")
+            self.upstream_name = pkg_config.get("buildconfig", "upstream_name")
         # Need to assign these after we've exported a copy of the spec file:
         self.upstream_version = None 
         self.upstream_tag = None
@@ -337,7 +342,11 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        check_tag_exists(self.upstream_tag)
+        if not self.global_config.has_option("globalconfig",
+                "upstream_git_url"):
+            error_out("Unable to find upstream_git_url in global config.")
+        check_tag_exists(self.upstream_tag, repo_url=self.global_config.get(
+            "globalconfig", "upstream_git_url"))
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)

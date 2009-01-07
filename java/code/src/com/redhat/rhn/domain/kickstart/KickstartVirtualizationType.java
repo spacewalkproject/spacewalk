@@ -24,14 +24,14 @@ import java.util.Date;
  * Class representation of the table rhnKickstartVirtualizationType.
  * @version $Rev$
  */
-public class KickstartVirtualizationType {
+public class KickstartVirtualizationType 
+                        implements Comparable<KickstartVirtualizationType> {
 
     /**
      * These are the constants for the labels that are stored in this database 
      * table.
      */
-    public static final String NONE       = "none";
-    public static final String AUTO       = "auto";
+    public static final String AUTO  = "auto";
     public static final String XEN_PARAVIRT = "xenpv";
     public static final String XEN_FULLYVIRT = "xenfv";
     public static final String KVM_FULLYVIRT = "qemu";
@@ -142,6 +142,14 @@ public class KickstartVirtualizationType {
     public int hashCode() {
         return new HashCodeBuilder().append(this.getId()).
             append(this.getLabel()).toHashCode();
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public int compareTo(KickstartVirtualizationType arg0) {
+        return getLabel().compareTo(arg0.getLabel());
     }
 
 }

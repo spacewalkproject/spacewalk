@@ -94,7 +94,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.param #param_desc("string", "baseChannelLabel", "Leave empty to accept 
      * default.")
-     * @xmlrpc.param #param_desc("int", "usageLimit", "Leave blank for unlimited.")
+     * @xmlrpc.param #param_desc("int", "usageLimit", "Leave blank or -1 for unlimited.")
      * @xmlrpc.param #array()
      * #options()
      *   #item_desc("string", "Add-on entitlement label to associate with the key.")
@@ -136,7 +136,7 @@ public class ActivationKeyHandler extends BaseHandler {
             akm.validateAddOnEntitlements(entitlements, true);
 
             Long limit = null;
-            if (usageLimit != null) {
+            if (usageLimit != null && Long.valueOf(usageLimit) >= 0) {
                 limit = Long.valueOf(usageLimit);
             }
             

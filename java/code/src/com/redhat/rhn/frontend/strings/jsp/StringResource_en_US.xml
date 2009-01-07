@@ -15727,6 +15727,12 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.package.upgrade.message.packageupgrade">
          <source>Package upgrades scheduled</source>
        </trans-unit>
+       <trans-unit id="ssm.package.upgrade.schedule.toomanypackages">
+         <source>Package list truncated</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.upgrade.schedule.packages">
+         <source>Package to Upgrade</source>
+       </trans-unit>
    </group>
 
     <!-- ssm/packageverify.jsp -->

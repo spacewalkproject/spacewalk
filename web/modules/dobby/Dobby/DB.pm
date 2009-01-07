@@ -221,8 +221,7 @@ sub shrink_segment {
     $query = sprintf("alter table %s.%s shrink space",
                      @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
   } elsif ($seg->{SEGMENT_TYPE} eq 'INDEX') {
-    # of course we can do 'alter ... shrink space' here but rebuild is better
-    $query = sprintf("alter index %s.%s rebuild online compute statistics parallel",
+    $query = sprintf("alter index %s.%s shrink space",
                      @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
   } else {
     printf "ERROR: do not know how to shrink %s %s.%s\n",
