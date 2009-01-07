@@ -51,7 +51,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     protected Map<String, Distro> getDistros() {
         Map<String, Distro> toReturn = new HashMap<String, Distro>();
         List<Distro> distros = Distro.list(CobblerXMLRPCHelper.getConnection(
-                Config.COBBLER_AUTOMATED_USER));
+                Config.get().getCobblerAutomatedUser()));
         for (Distro distro : distros) {
             toReturn.put((String)distro.getUid(), distro);
         }
