@@ -12,11 +12,11 @@
 <html:errors/>
 
 <h2>
-    <bean:message key="ssm.package.remove.select.header"/>
+    <bean:message key="ssm.package.upgrade.select.header"/>
 </h2>
 
 <div class="page-summary">
-    <p><bean:message key="ssm.package.remove.select.summary"/></p>
+    <p><bean:message key="ssm.package.upgrade.select.summary"/></p>
 </div>
 
 <rl:listset name="groupSet" legend="system-group">
@@ -48,7 +48,7 @@
             </c:choose>
         </rl:column>
         
-        <rl:column headerkey="ssm.package.remove.select.numsystems" bound="false"
+        <rl:column headerkey="ssm.package.upgrade.select.numsystems" bound="false"
                    styleclass="thin-column">
             <c:out value="${current.numSystems}"/>
         </rl:column>
