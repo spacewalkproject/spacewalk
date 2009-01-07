@@ -30,7 +30,7 @@ from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
 from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
-        check_tag_exists
+        check_tag_exists, get_latest_tagged_version
 
 BUILD_PROPS_FILENAME = "build.py.props"
 GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
@@ -120,6 +120,9 @@ class CLI:
                     "(i.e. spacewalk-java-0.4.0-1)")
         parser.add_option("--debug", dest="debug", action="store_true",
                 help="Print debug messages.", default=False)
+        parser.add_option("--offline", dest="offline", action="store_true",
+                help="Don't attempt any remote communication. (avoid using this)",
+                default=False)
 
         parser.add_option("--tag-release", dest="tag_release",
                 action="store_true",
@@ -137,11 +140,27 @@ class CLI:
 
         build_dir = lookup_build_dir()
         global_config = self._read_global_config()
-        if options.tag:
-            check_tag_exists(options.tag)
 
-        pkg_config = self._read_project_config(build_dir, options.tag,
-                options.no_cleanup)
+        # TODO: Some of this doesn't need to be run if we're not building:
+        package_name = get_project_name(tag=options.tag)
+        build_tag = None
+        build_version = None
+        # Determine which package version we should build:
+        if options.tag:
+            build_tag = options.tag
+            build_version = build_tag[len(package_name + "-"):]
+        else:
+            build_version = get_latest_tagged_version(package_name)
+            if build_version == None:
+                error_out(["Unable to lookup latest package info.",
+                        "Perhaps you need to --tag-release first?"])
+            build_tag = "%s-%s" % (package_name, build_version)
+
+        if not options.offline:
+            check_tag_exists(build_tag)
+
+        pkg_config = self._read_project_config(package_name, build_dir,
+                options.tag, options.no_cleanup)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
@@ -174,12 +193,16 @@ class CLI:
         # Now that we have command line options, instantiate builder/tagger:
         if found_builder_options:
             builder = builder_class(
+                    name=package_name,
+                    version=build_version,
+                    tag=build_tag,
                     build_dir=build_dir,
                     pkg_config=pkg_config,
                     global_config=global_config,
-                    tag=options.tag,
                     dist=options.dist,
-                    test=options.test)
+                    test=options.test,
+                    offline=options.offline)
+
             builder.run(options)
 
         if found_tagger_options:
@@ -209,7 +232,7 @@ class CLI:
 
         return config
 
-    def _read_project_config(self, build_dir, tag, no_cleanup):
+    def _read_project_config(self, project_name, build_dir, tag, no_cleanup):
         """
         Read and return project build properties if they exist.
 
@@ -222,9 +245,6 @@ class CLI:
 
         If no project specific config can be found, use the global config.
         """
-        # TODO: Could pass this into builders/taggers instead of looking it up
-        # twice.
-        project_name = get_project_name(tag=tag)
         debug("Determined package name to be: %s" % project_name)
 
         properties_file = None

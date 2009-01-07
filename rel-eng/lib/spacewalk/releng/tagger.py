@@ -21,11 +21,11 @@ import StringIO
 
 from time import strftime
 
-from spacewalk.releng.common import find_spec_file, run_command, BuildCommon, \
-        debug, get_spec_version_and_release, error_out, \
-        get_project_name
+from spacewalk.releng.common import find_spec_file, run_command, \
+        debug, get_spec_version_and_release, error_out, find_git_root, \
+        get_project_name, get_latest_tagged_version
 
-class VersionTagger(BuildCommon):
+class VersionTagger(object):
     """
     Standard Tagger class, used for tagging packages built from source in
     git. (as opposed to packages which commit a tarball directly into git).
@@ -34,7 +34,8 @@ class VersionTagger(BuildCommon):
     and the actual RPM "release" will always be set to 1.
     """
     def __init__(self, keep_version=False):
-        BuildCommon.__init__(self)
+        self.git_root = find_git_root()
+        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
 
         self.full_project_dir = os.getcwd()
         self.spec_file_name = find_spec_file()
@@ -144,7 +145,7 @@ class VersionTagger(BuildCommon):
         Checks for the keep version option and if found, won't actually
         bump the version or release.
         """
-        old_version = self._get_latest_tagged_version()
+        old_version = get_latest_tagged_version(self.project_name)
         if old_version == None:
             old_version = "untagged"
         # TODO: Do this here instead of calling out to an external Perl script:
