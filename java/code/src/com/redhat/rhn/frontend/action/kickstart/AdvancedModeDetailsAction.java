@@ -65,8 +65,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String FILE_UPLOAD = "fileUpload"; 
     private static final String ORG_DEFAULT = "org_default";
     private static final String ACTIVE = "active";
-    private static final String  KERNEL_OPTIONS = "kernel_options";
-    private static final String  POST_KERNEL_OPTIONS = "post_kernel_options";
     
     private static final String CREATE_MODE = "create";
     
@@ -176,7 +174,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
         
         if (isCreateMode(context.getRequest())) {
-            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, KickstartVirtualizationType.NONE);    
+            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, KickstartVirtualizationType.AUTO);
         }
         else {
             KickstartRawData data = getKsData(context);

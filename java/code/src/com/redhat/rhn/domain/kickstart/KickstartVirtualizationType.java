@@ -30,8 +30,7 @@ public class KickstartVirtualizationType {
      * These are the constants for the labels that are stored in this database 
      * table.
      */
-    public static final String NONE       = "none";
-    public static final String AUTO       = "auto";
+    public static final String AUTO  = "auto";
     public static final String XEN_PARAVIRT = "xenpv";
     public static final String XEN_FULLYVIRT = "xenfv";
     public static final String KVM_FULLYVIRT = "qemu";
