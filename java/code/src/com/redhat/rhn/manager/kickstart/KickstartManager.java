@@ -34,6 +34,5 @@ public class KickstartManager extends BaseManager {
         return DownloadUtils.downloadUrl(KickstartUrlHelper.getCobblerProfileUrl(data));
     }
     
-
     
 }
