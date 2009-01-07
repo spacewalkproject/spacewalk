@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.21
+Version: 0.4.22
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -112,7 +112,7 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
-* Tue Jan 06 2009 Dave Parker <dparker@redhat.com>
+* Tue Jan 06 2009 Dave Parker <dparker@redhat.com> 0.4.22-1
 - remove satellite-httpd, instead use stock httpd configuration
 
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.21-1
