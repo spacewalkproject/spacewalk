@@ -23,7 +23,7 @@ update rhnKickstartVirtualizationType
     set label = 'auto' where label = 'none';
 
 update rhnKickstartVirtualizationType
-    set name = 'None' where label = 'auto';
+    set name = 'Auto' where label = 'auto';
 
 update rhnKickstartVirtualizationType
     set name = 'XEN Para-Virtualized Guest' where label = 'xenpv';
