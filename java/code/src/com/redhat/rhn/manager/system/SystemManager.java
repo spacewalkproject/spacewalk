@@ -116,10 +116,7 @@ public class SystemManager extends BaseManager {
         "Registered by (\\w+) using rhn_register client"};
 
     public static final String NO_SLOT_KEY = "system.entitle.noslots";
-    private static final Long VIRT_OVERHEAD_MB = 
-        new Long(Config.get().getInt("web.virt.hypervisor.overhead", 256));
-    private static final String HARDWARE_DETAILS_URL = 
-                                "/network/systems/details/hardware.pxt?sid=";
+
     private SystemManager() {
     }
     
