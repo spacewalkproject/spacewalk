@@ -167,6 +167,10 @@ on this system."),
      Make sure the package does not have any duplicate dependencies or
      does not already exists on the server
      """),
+     55: _("""
+     The --force rhnpush option is disabled on this server. 
+     Please contact your Satellite administrator for more help.
+     """),
 
      # 60-70: token errors
      60: _("Invalid system registration token"),

@@ -455,9 +455,17 @@ sub channel_details {
     $parent_channel = $channel->parent->name;
   }
 
+  my @servers = RHN::Channel->servers($cid);
+  my $trusted_subscribed = 0;
+  foreach my $sid(@servers) {
+    my $server = RHN::Server->lookup(-id => $sid);
+    $trusted_subscribed += 1 if $server->org_id != $channel->org_id;
+  }
+
   my $channel_family_data = $channel->family;
   my %subst;
-
+  
+  $subst{trusted_subscribed} = $trusted_subscribed;
   $subst{channel_name} = $channel->name;
   $subst{channel_id} = $channel->id;
   $subst{channel_label} = $channel->label;
@@ -468,6 +476,7 @@ sub channel_details {
   $subst{channel_last_modified} = $pxt->user->convert_time($channel->last_modified);
 
   $subst{channel_eol} = $channel->end_of_life;
+  $subst{trusted_orgs} = $channel->trusted_orgs;
 
   PXT::Utils->escapeHTML_multi(\%subst);
 

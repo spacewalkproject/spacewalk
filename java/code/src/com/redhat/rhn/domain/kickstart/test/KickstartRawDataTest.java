@@ -40,7 +40,7 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
         tree = KickstartableTreeTest.createTestKickstartableTree();
         ksdata = createRawData(user, "boring" + TestUtils.randomString(), tree, 
                 fileContents,
-                KickstartVirtualizationType.NONE);
+                KickstartVirtualizationType.AUTO);
 
     }
 

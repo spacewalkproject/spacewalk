@@ -253,7 +253,7 @@ def _get_ks_virt_type(type_id):
 
     # XXX: we should have better constraints on the db so this doesn't happen.
     if not row:
-        kstype = 'none'
+        kstype = 'auto'
     else:
         kstype = row['label']
     log_debug(1, "KS_TYPE: %s" % kstype)

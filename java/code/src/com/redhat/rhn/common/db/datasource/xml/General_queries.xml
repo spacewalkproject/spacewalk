@@ -277,7 +277,7 @@ ORDER BY F.usage_count DESC, F.subject
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
-     AND (   KVT.label = 'none'
+     AND (   KVT.label = 'auto'
           OR KVT.label = 'para_host'
           OR KVT.label IS NULL)
 ORDER BY KS.label, KS.id
@@ -297,7 +297,7 @@ ORDER BY KS.label, KS.id
      AND KT.channel_id = C.id
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
      AND KSD.virtualization_type = KVT.id
-     AND KVT.label not in ('none','para_host')
+     AND KVT.label not in ('auto','para_host')
 ORDER BY KS.label, KS.id
   </query>    
 </mode>

@@ -59,17 +59,12 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         tree.setCobblerId((String) distro.getUid());
         invokeCobblerUpdate();
         
-        try {
+        if (tree.doesParaVirt()) {
             Distro distroXen = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
                 tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
                 tree.getInitrdXenPath()); 
             tree.setCobblerXenId(distroXen.getUid());
         }
-        catch (Exception e) {
-            log.debug(tree.getBasePath() + " does not contain xen images");
-        }
-       
-        
         return null;
     }
 

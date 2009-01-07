@@ -19,12 +19,12 @@ import re
 import sys
 import commands
 
-from spacewalk.releng.common import BuildCommon, run_command, \
+from spacewalk.releng.common import run_command, find_git_root, \
         check_tag_exists, debug, error_out, find_spec_file, \
         get_project_name, get_relative_project_dir, get_build_commit, \
         get_git_head_commit, create_tgz
 
-class Builder(BuildCommon):
+class Builder(object):
     """
     Parent builder class.
 
@@ -33,28 +33,22 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, build_dir=None, build_config=None, tag=None,
-            dist=None, test=False):
-        BuildCommon.__init__(self)
+    def __init__(self, name=None, version=None, tag=None, build_dir=None,
+            pkg_config=None, global_config=None, dist=None, test=False,
+            offline=False):
 
+        self.git_root = find_git_root()
+        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+
+        self.project_name = name
+        self.build_tag = tag
+        self.build_version = version
         self.dist = dist
         self.test = test
+        self.global_config = global_config
+        self.offline=offline
 
-        self.project_name = get_project_name(tag=tag)
         self.rpmbuild_basedir = build_dir
-
-        # Determine which package version we should build:
-        if tag:
-            self.build_tag = tag
-            self.build_version = self.build_tag[len(self.project_name + "-"):]
-        else:
-            self.build_version = self._get_latest_tagged_version()
-            if self.build_version == None:
-                error_out(["Unable to lookup latest package info.",
-                        "Perhaps you need to --tag-release first?"])
-            self.build_tag = "%s-%s" % (self.project_name,
-                    self.build_version)
-
         self.display_version = self._get_display_version()
         print("Building %s" % (self.build_tag))
 
@@ -301,19 +295,21 @@ class SatelliteBuilder(NoTgzBuilder):
     i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
-    def __init__(self, build_dir=None, build_config=None, tag=None,
-            dist=None, test=False):
+    def __init__(self, name=None, version=None, tag=None, build_dir=None,
+            pkg_config=None, global_config=None, dist=None, test=False,
+            offline=False):
 
-        NoTgzBuilder.__init__(self, build_dir=build_dir,
-                build_config=build_config, tag=tag, dist=dist,
-                test=test)
+        NoTgzBuilder.__init__(self, name=name, version=version, tag=tag,
+                build_dir=build_dir, pkg_config=pkg_config,
+                global_config=global_config, dist=dist, test=test,
+                offline=offline)
 
-        if not build_config or not build_config.has_option("buildconfig", 
+        if not pkg_config or not pkg_config.has_option("buildconfig",
                 "upstream_name"):
             # No upstream_name defined, assume we're keeping the project name:
             self.upstream_name = self.project_name
         else:
-            self.upstream_name = build_config.get("buildconfig", "upstream_name")
+            self.upstream_name = pkg_config.get("buildconfig", "upstream_name")
         # Need to assign these after we've exported a copy of the spec file:
         self.upstream_version = None 
         self.upstream_tag = None
@@ -337,7 +333,8 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        check_tag_exists(self.upstream_tag)
+        if not self.offline:
+            check_tag_exists(self.upstream_tag)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)
