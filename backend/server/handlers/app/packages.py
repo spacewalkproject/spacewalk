@@ -354,7 +354,7 @@ class Packages(RPC_Base):
                     continue
                 _md5sum_sql_filter = ""
                 md5sum_exists = 0
-                if package.has_key('md5sum'):
+                if package.has_key('md5sum') and CFG.ENABLE_NVREA:
                     md5sum_exists = 1
                     _md5sum_sql_filter = """and p.md5sum =: md5sum"""
 
@@ -486,7 +486,7 @@ class Packages(RPC_Base):
 
             pkg_info = pkg_infos[pkg] 
             _md5sum_sql_filter = ""
-            if pkg_info.has_key('md5sum'):
+            if pkg_info.has_key('md5sum') and CFG.ENABLE_NVREA:
                 md5sum_exists = 1
                 _md5sum_sql_filter = """and p.md5sum =: md5sum"""
             
