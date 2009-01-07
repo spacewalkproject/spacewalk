@@ -88,6 +88,9 @@ rm -rf %{buildroot}
 - moved spacewalk-public.cert to spacewalk-branding
 - resolved #477490, #477493
 
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.10-1
+- added apache default ssl server config generation to spacewalk-setup
+
 * Thu Dec 18 2008 Jan Pazdziora 0.4.11-1
 - fixing duplicated $sth variable
 

@@ -1,6 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 %define rhnconf %{_sysconfdir}/rhn
 %define httpdconf %{rhnconf}/satellite-httpd/conf
+%define apacheconfd %{_sysconfdir}/httpd/conf.d
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
@@ -356,7 +357,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server.conf
 # main httpd config
-%attr(640,root,apache) %config %{httpdconf}/rhn_server.conf 
+%attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
 # logs and other stuff
 %config %{_sysconfdir}/logrotate.d/rhn_server
 # translations
@@ -551,6 +552,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %changelog
 * Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
 - Adding proper cobbler requirement with version
+
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.9-1
+- Reconfigured backed to use stock apache server rather than satellite-httpd
 
 * Thu Dec 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.9-1
 - 476055 - fixing sat activation to work by setting the right handler
