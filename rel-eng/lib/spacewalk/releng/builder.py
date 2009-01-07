@@ -33,12 +33,13 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, build_dir=None, pkg_config=None, tag=None,
-            dist=None, test=False):
+    def __init__(self, build_dir=None, pkg_config=None, global_config=None,
+            tag=None, dist=None, test=False):
         BuildCommon.__init__(self)
 
         self.dist = dist
         self.test = test
+        self.global_config = global_config
 
         self.project_name = get_project_name(tag=tag)
         self.rpmbuild_basedir = build_dir
@@ -301,8 +302,8 @@ class SatelliteBuilder(NoTgzBuilder):
     i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
-    def __init__(self, build_dir=None, pkg_config=None, tag=None,
-            dist=None, test=False):
+    def __init__(self, build_dir=None, pkg_config=None, global_config=None,
+            tag=None, dist=None, test=False):
 
         NoTgzBuilder.__init__(self, build_dir=build_dir,
                 pkg_config=pkg_config, tag=tag, dist=dist,
@@ -337,7 +338,8 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        check_tag_exists(self.upstream_tag)
+        check_tag_exists(self.upstream_tag,
+                self.global_config.get("globalconfig", "repo_url"))
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)
