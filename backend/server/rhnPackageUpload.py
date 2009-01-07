@@ -136,10 +136,11 @@ def _authenticate(authobj, channels, null_org, force):
 
         # XXX don't allow superusers to force stuff
         if force:
-            raise rhnFault(4, "Cannot force push")
+            raise rhnFault(4, "Cannot force push nullorg content", explain=0)
 
-    if force and not CFG.ENABLE_NVREA:
-        raise rhnFault(4, "Server is not enabled for force upload.")
+
+    if force and not CFG.FORCE_PACKAGE_UPLOAD:
+        raise rhnFault(55, "Package Upload Failed", explain=0)
 
     authobj.authzOrg(params)
     if channels:

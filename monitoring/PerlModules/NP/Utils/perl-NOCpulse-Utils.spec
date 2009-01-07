@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Utils
-Version:      1.14.10
+Version:      1.14.11
 Release:      1%{?dist}
 Summary:      NOCpulse utility packages
 URL:          https://fedorahosted.org/spacewalk
@@ -45,6 +45,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan  7 2009 Milan Zazrivec 1.14.11-1
+- include documentation fixes
+
 * Wed Dec  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.14.10-1
 - changed Source0 to point to fedorahosted.org
 

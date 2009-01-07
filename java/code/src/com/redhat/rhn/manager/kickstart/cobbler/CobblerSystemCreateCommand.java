@@ -71,11 +71,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * Constructor to be used for a system outside tthe context 
      * of actually kickstarting it to a specific profile.  
      * @param serverIn profile we want to create in cobbler
+     * @param cobblerProfileName the name of the cobbler profile 
+     * to associate with system
      */
-    public CobblerSystemCreateCommand(Server serverIn) {
+    public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName) {
         super(serverIn.getCreator());
         this.server = serverIn;
         this.mediaPath = null;
+        this.name = cobblerProfileName;
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
                     createNewReActivationKey(server.getCreator(), server, note);
@@ -129,11 +132,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 inet, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
-        if (name != null) {
-            args = new String[]{handle, "profile", 
-                    name, xmlRpcToken};
-            invokeXMLRPC("modify_system", Arrays.asList(args));
-        }
+        args = new String[]{handle, "profile", 
+                name, xmlRpcToken};
+        invokeXMLRPC("modify_system", Arrays.asList(args));
         
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +

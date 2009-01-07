@@ -163,6 +163,7 @@ public abstract class RhnAction extends Action {
         getStrutsDelegate().saveMessages(request, messages);
      }
 
+    
     /**
      * Add a success message to the request with 1 parameter:
      *  
@@ -186,14 +187,32 @@ public abstract class RhnAction extends Action {
     }
     
     /**
+     * Add a success message to the request with any parameters.
+     *  
+     * @param req to add the message to
+     * @param msgKey resource key to lookup
+     * @param params String values to fill in 
+     */
+    protected void createMessage(HttpServletRequest req, String msgKey, 
+            String[] params) {
+        
+        ActionMessages msg = new ActionMessages();
+        for (int i = 0; i < params.length; i++) {
+            params[i] = StringEscapeUtils.escapeHtml(params[i]);
+        }
+        msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(msgKey, params));
+        saveMessages(req, msg);
+    }
+    
+    
+    /**
      * Add a success message to the request.
      *  
      * @param req to add the message to
      * @param msgKey resource key to lookup
      */
     protected void addMessage(HttpServletRequest req, String msgKey) {
-        createSuccessMessage(req, msgKey, null);
-        
+        createSuccessMessage(req, msgKey, (String) null);
     }
     
     /**

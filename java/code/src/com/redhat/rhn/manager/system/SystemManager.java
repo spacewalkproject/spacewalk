@@ -116,10 +116,7 @@ public class SystemManager extends BaseManager {
         "Registered by (\\w+) using rhn_register client"};
 
     public static final String NO_SLOT_KEY = "system.entitle.noslots";
-    private static final Long VIRT_OVERHEAD_MB = 
-        new Long(Config.get().getInt("web.virt.hypervisor.overhead", 256));
-    private static final String HARDWARE_DETAILS_URL = 
-                                "/network/systems/details/hardware.pxt?sid=";
+
     private SystemManager() {
     }
     
@@ -1131,6 +1128,25 @@ public class SystemManager extends BaseManager {
                                                     Channel channel) {
         unsubscribeServerFromChannel(user, server, channel, true);
     }
+    
+    /**
+     * Unsubscribe given server from the given channel.
+     * @param user The user performing the operation
+     * @param sid The id of the server to be unsubscribed
+     * @param cid The id of the channel from which the server will be unsubscribed
+     */
+    public static void unsubscribeServerFromChannel(User user, Long sid, 
+            Long cid) {
+        if (ChannelManager.verifyChannelSubscribe(user, cid)) {
+            CallableMode m = ModeFactory.getCallableMode("Channel_queries",
+                    "unsubscribe_server_from_channel");
+            Map in = new HashMap();
+            in.put("server_id", sid);
+            in.put("channel_id", cid);
+            
+            m.execute(in, new HashMap());
+        }
+    }
 
     /**
      * Unsubscribe given server from the given channel.
@@ -1175,7 +1191,7 @@ public class SystemManager extends BaseManager {
                                                     Channel channel) {
         return unsubscribeServerFromChannel(server, channel, false);
     }
-    
+
     /**
      * Unsubscribe given server from the given channel. If you use this method, 
      * YOU BETTER KNOW WHAT YOU'RE DOING!!! (Use the version that takes a user as well if
@@ -1419,17 +1435,6 @@ public class SystemManager extends BaseManager {
                 }
             }
         }
-        /*if (ent instanceof ProvisioningEntitlement) {
-            log.debug("Creating cobbler system record");
-            String note = "Reactivation key for " + server.getName() + ".";
-            ActivationKey key = ActivationKeyManager.getInstance().
-                        createNewReActivationKey(server.getCreator(), server, note);
-            log.debug("created reactivation key: " + key.getKey());
-            CobblerSystemCreateCommand cmd = 
-                new CobblerSystemCreateCommand(server);
-            cmd.store();
-            log.debug("cobbler system record created.");
-        }*/
         boolean checkCounts = true;
         if (server.isVirtualGuest()) {
             Server host = server.getVirtualInstance().getHostSystem(); 
