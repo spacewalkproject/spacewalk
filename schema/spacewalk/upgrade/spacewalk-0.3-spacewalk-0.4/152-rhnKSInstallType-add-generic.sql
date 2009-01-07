@@ -12,25 +12,9 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
-insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
-                'rhel_5','Red Hat Enterprise Linux 5'
-        );
-
-insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
-                'rhel_4','Red Hat Enterprise Linux 4'
-        );
-
-insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
-                'rhel_3','Red Hat Enterprise Linux 3'
-        );
-
-insert into rhnKSInstallType (id, label, name)
-        values (rhn_ksinstalltype_id_seq.nextval,
-                'rhel_2.1','Red Hat Enterprise Linux 2.1'
-        );
+--
+-- $Id$
+--
 
 insert into rhnKSInstallType (id, label, name)
         values (rhn_ksinstalltype_id_seq.nextval,
@@ -52,4 +36,9 @@ insert into rhnKSInstallType (id, label, name)
                 'generic_rpm','Generic RPM'
         );
 
-commit;
+show errors
+
+-- $Log$
+-- Revision 1  2009/01/06 16:51 mmccune
+-- Add cobbler_id column
+

@@ -1435,17 +1435,6 @@ public class SystemManager extends BaseManager {
                 }
             }
         }
-        /*if (ent instanceof ProvisioningEntitlement) {
-            log.debug("Creating cobbler system record");
-            String note = "Reactivation key for " + server.getName() + ".";
-            ActivationKey key = ActivationKeyManager.getInstance().
-                        createNewReActivationKey(server.getCreator(), server, note);
-            log.debug("created reactivation key: " + key.getKey());
-            CobblerSystemCreateCommand cmd = 
-                new CobblerSystemCreateCommand(server);
-            cmd.store();
-            log.debug("cobbler system record created.");
-        }*/
         boolean checkCounts = true;
         if (server.isVirtualGuest()) {
             Server host = server.getVirtualInstance().getHostSystem(); 
