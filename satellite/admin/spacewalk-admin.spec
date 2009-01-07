@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Jan 07 2009 Dave Parker <dparker@redhat.com>
+- change /usr/sbin/rhn-satellite to restart httpd as opposed to satellite-httpd
+
 * Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
 - resolved #471225 - moved /sbin stuff to /usr/sbin
 
