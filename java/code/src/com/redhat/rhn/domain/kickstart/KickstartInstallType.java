@@ -70,7 +70,14 @@ public class KickstartInstallType extends BaseDomainHelper {
     public boolean isRhel2() {
         return RHEL_21.equals(getLabel());
     }
-        
+
+    /**
+     * @return true if the installer type is rhel  
+     */    
+    public boolean isRhel() {
+        return !isFedora() && !isGeneric();
+    }
+    
     /**
      * @return true if the installer type is Fedora 
      */

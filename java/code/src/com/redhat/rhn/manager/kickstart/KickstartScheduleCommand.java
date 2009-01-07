@@ -804,11 +804,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             return error;
         }
         
-        // Check that we have a valid up2date version
-        log.debug("** Checking valid up2date");
-        error = validateUp2dateVersion();
-        if (error != null) {
-            return error;
+        if (ksdata.isRhel()) {
+            // Check that we have a valid up2date version
+            log.debug("** Checking valid up2date");
+            error = validateUp2dateVersion();
+            if (error != null) {
+                return error;
+            }
         }
         
         
