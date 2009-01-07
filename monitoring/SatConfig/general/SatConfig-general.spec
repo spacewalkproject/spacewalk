@@ -4,7 +4,7 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.215.44
+Version:      1.215.46
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -67,6 +67,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan  7 2009 Milan Zazrivec 1.215.46-1
+- bz #474591 - move web data to /usr/share/nocpulse
+
 * Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.44-1
 - 472910 - fix paths to nofitication configs
 
