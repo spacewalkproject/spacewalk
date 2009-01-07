@@ -220,6 +220,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Tue Jan 06 2009 Mike McCune <mmccune@gmail.com>
+- Latest spacewalk 0.4 changes.
+
 * Tue Dec 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
 - modified layout decorators
 
