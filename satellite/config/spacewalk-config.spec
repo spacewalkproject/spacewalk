@@ -112,6 +112,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Tues Jan 6 2009 Dave Parker <dparker@redhat.com>
+- remove satellite-httpd, instead use stock httpd configuration
+
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.21-1
 - product_name moved to spacewalk-branding
 
