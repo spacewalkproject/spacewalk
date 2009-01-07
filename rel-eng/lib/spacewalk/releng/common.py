@@ -204,31 +204,23 @@ def get_git_repo_url():
     """
     return run_command("git config remote.origin.url")
 
-
-
-class BuildCommon:
+def get_latest_tagged_version(package_name):
     """
-    Builder and Tagger classes require a little bit of the same functionality.
-    Placing that code here to be inherited by both.
+    Return the latest git tag for this package in the current branch.
+    Uses the info in rel-eng/packages/package-name and error out if the
+    file does not exist.
+
+    Returns None if file does not exist.
     """
-    def __init__(self):
-        self.git_root = find_git_root() 
-        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+    git_root = find_git_root()
+    rel_eng_dir = os.path.join(git_root, "rel-eng")
+    file_path = "%s/packages/%s" % (rel_eng_dir, package_name)
+    debug("Getting latest package info from: %s" % file_path)
+    if not os.path.exists(file_path):
+        return None
 
-    def _get_latest_tagged_version(self):
-        """
-        Return the latest git tag for this package in the current branch.
-        Uses the info in rel-eng/packages/package-name and error out if the
-        file does not exist.
+    output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
+    return output
 
-        Returns None if file does not exist.
-        """
-        file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
-        debug("Getting latest package info from: %s" % file_path)
-        if not os.path.exists(file_path):
-            return None
-
-        output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
-        return output
 
 
