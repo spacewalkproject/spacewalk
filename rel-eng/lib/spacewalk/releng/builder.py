@@ -33,7 +33,7 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, build_dir=None, build_config=None, tag=None,
+    def __init__(self, build_dir=None, pkg_config=None, tag=None,
             dist=None, test=False):
         BuildCommon.__init__(self)
 
@@ -301,19 +301,19 @@ class SatelliteBuilder(NoTgzBuilder):
     i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
     patches applied in satellite git.
     """
-    def __init__(self, build_dir=None, build_config=None, tag=None,
+    def __init__(self, build_dir=None, pkg_config=None, tag=None,
             dist=None, test=False):
 
         NoTgzBuilder.__init__(self, build_dir=build_dir,
-                build_config=build_config, tag=tag, dist=dist,
+                pkg_config=pkg_config, tag=tag, dist=dist,
                 test=test)
 
-        if not build_config or not build_config.has_option("buildconfig", 
+        if not pkg_config or not pkg_config.has_option("buildconfig",
                 "upstream_name"):
             # No upstream_name defined, assume we're keeping the project name:
             self.upstream_name = self.project_name
         else:
-            self.upstream_name = build_config.get("buildconfig", "upstream_name")
+            self.upstream_name = pkg_config.get("buildconfig", "upstream_name")
         # Need to assign these after we've exported a copy of the spec file:
         self.upstream_version = None 
         self.upstream_tag = None
