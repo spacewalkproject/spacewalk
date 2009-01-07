@@ -138,6 +138,9 @@ def _authenticate(authobj, channels, null_org, force):
         if force:
             raise rhnFault(4, "Cannot force push")
 
+    if force and not CFG.ENABLE_NVREA:
+        raise rhnFault(4, "Server is not enabled for force upload.")
+
     authobj.authzOrg(params)
     if channels:
         authobj.authzChannels(channels)
