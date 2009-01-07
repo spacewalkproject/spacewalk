@@ -164,6 +164,7 @@ function setInitialState() {
           <table width="100%">
             <tr>
               <td align="right">
+	        <input type="button" value="<bean:message key="kickstart.schedule.button0.jsp" />" onclick="setStep('fourth');moveNext();" />
                 <input type="button" value="<bean:message key="kickstart.schedule.button1.jsp" />" onclick="setStep('second');moveNext();" />
                 <input type="button" value="<bean:message key="kickstart.schedule.button2.jsp" />" onclick="setStep('third');moveNext();" />
               </td>
