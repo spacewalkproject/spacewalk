@@ -22,10 +22,13 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.util.LabelValueBean;
+import org.cobbler.Distro;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -191,11 +194,29 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             DynaActionForm form,  
             BaseKickstartCommand cmdIn) {
         
+        RequestContext ctx = new RequestContext(request);
+        
+        KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
+                (Long) form.get(TREE), 
+                ctx.getLoggedInUser().getOrg());
+        
+        Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, 
+                cmdIn.getKickstartData().getKickstartDefaults().getVirtualizationType(),
+                ctx.getLoggedInUser());
+        if (distro == null) {
+            return new ValidatorError("kickstart.cobbler.profile.invalidtreeforvirt");
+        }
+        
+        
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         ValidatorError ve = cmd.updateKickstartableTree(
                 (Long) form.get(CHANNEL), cmdIn.getUser().getOrg().getId(), 
                 (Long) form.get(TREE),
                 (String) form.getString(URL));
+        
+        CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(
+                cmdIn.getKickstartData(), ctx.getLoggedInUser());
+        cpec.store();
 
         // Process the selected child channels
         String[] childchannelIds = request.getParameterValues(CHILD_CHANNELS);

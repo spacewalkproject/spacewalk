@@ -65,7 +65,11 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
         
         KickstartableTree tree = ksData.getTree();
-        Distro distro =  getDistroForKickstart(ksData);
+        Distro distro =  getDistroForKickstart();
+        
+        if (distro == null) {
+            return new ValidatorError("kickstart.cobbler.profile.invalidvirt");
+        }
         
         Profile prof = Profile.create(con, CobblerCommand.makeCobblerName(this.ksData),
                 distro);

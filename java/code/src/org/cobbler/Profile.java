@@ -178,8 +178,8 @@ public class Profile extends CobblerObject {
      * removes the kickstart profile from cobbler.
      */
     @Override
-    protected void invokeRemove() {
-        client.invokeTokenMethod("remove_profile", getName());
+    protected boolean invokeRemove() {
+        return (Boolean) client.invokeTokenMethod("remove_profile", getName());
     }
     
     /**
@@ -381,6 +381,11 @@ public class Profile extends CobblerObject {
       * @param distroIn the Distro
       */
       public void  setDistro(Distro distroIn) {
+          if (distroIn == null) {
+              log.warn("Profile.setDistro was called with null.  This shouldn't happen, " +
+                 "so we're ignoring");
+              return;
+          }
           setDistro(distroIn.getName());
       }
 

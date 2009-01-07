@@ -120,10 +120,11 @@ public class CobblerProfileSyncCommand extends CobblerCommand {
                 cobblerProfile.get("name"));
         //Do we need to sync the distro?
         Map distro = (Map) invokeXMLRPC("get_distro", cobblerProfile.get("distro"));
-        if (!distro.get("uid").equals(profile.getTree().getCobblerId())) {
+        if (!distro.get("uid").equals(profile.getTree().getCobblerId()) &&
+               !distro.get("uid").equals(profile.getTree().getCobblerXenId())) {
             //lookup the distro locally:
-            KickstartableTree tree = KickstartFactory.lookupKickstartTreeByCobblerId(
-                       (String)distro.get("uid"));
+            KickstartableTree tree = KickstartFactory.
+                    lookupKickstartTreeByCobblerIdOrXenId((String)distro.get("uid"));
             if (tree == null) {
                 //TODO Throw ERRROR/LOG
             }

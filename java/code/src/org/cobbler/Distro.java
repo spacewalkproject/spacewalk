@@ -132,8 +132,8 @@ public class Distro extends CobblerObject {
      * Remove the distro 
      */
     @Override
-    protected void invokeRemove() {
-        client.invokeTokenMethod("remove_distro", getName());
+    protected boolean invokeRemove() {
+        return (Boolean) client.invokeTokenMethod("remove_distro", getName());
     }
 
     /**

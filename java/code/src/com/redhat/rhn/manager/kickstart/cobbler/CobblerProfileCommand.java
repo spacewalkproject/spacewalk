@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -77,7 +77,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     
     protected void updateCobblerFields(Profile profile) {
         profile.setKickstart(this.ksData.getCobblerFileName());
-        profile.setDistro(getDistroForKickstart(this.ksData));
+        profile.setDistro(getDistroForKickstart());
         if (kernelOptions != null) {
             profile.setKernelOptions(kernelOptions);
         }
@@ -107,25 +107,11 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      * Get the cobbler distro for a particular kickstart file
      *      selects the xen or non-xen cobbler distro depending
      *      upon the virt type
-     * @param data the kickstart data
      * @return the distro object
      */
-    protected Distro getDistroForKickstart(KickstartData data) {
-        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
-        KickstartableTree tree = ksData.getTree();
-        Distro distro;
-        if (ksData.getKickstartDefaults().getVirtualizationType().equals(
-                                        KickstartFactory.VIRT_TYPE_XEN_PV)) {
-            if (tree.getCobblerXenId() == null) {
-                throw new ValidatorException("exception.profile.xennotsupported");
-            }
-            else {
-                return Distro.lookupById(con, tree.getCobblerXenId());
-            }
-        }
-        else {
-            return Distro.lookupById(con, tree.getCobblerId());
-        }
+    public Distro getDistroForKickstart() {
+        return getCobblerDistroForVirtType(ksData.getTree(), 
+                ksData.getKickstartDefaults().getVirtualizationType(), user);
     }
     
     /**
@@ -143,4 +129,31 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     public void setPostKernelOptions(Map postKernelOptionsIn) {
         this.postKernelOptions = postKernelOptionsIn;
     }
+
+    /**
+     * Get the cobbler distro for a particular tree and virt type combo
+     *      selects the xen or non-xen cobbler distro depending
+     *      upon the virt type
+     * @param tree the kickstart tree
+     * @param virtType the virt type
+     * @param user the user doing the query
+     * @return null if there is none, otherwise the cobbler distro
+     */
+    public static Distro getCobblerDistroForVirtType(KickstartableTree tree, 
+            KickstartVirtualizationType virtType, User user) {
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
+        Distro distro;
+        if (virtType.equals(KickstartFactory.VIRT_TYPE_XEN_PV)) {
+            if (tree.getCobblerXenId() == null) {
+                return null;
+            }
+            else {
+                return Distro.lookupById(con, tree.getCobblerXenId());
+            }
+        }
+        else {
+            return Distro.lookupById(con, tree.getCobblerId());
+        }
+    }
+    
 }

@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.action.kickstart;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -30,6 +31,7 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -37,6 +39,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.upload.FormFile;
+import org.cobbler.Distro;
 
 import java.util.HashMap;
 import java.util.List;
@@ -231,7 +234,24 @@ public class AdvancedModeDetailsAction extends RhnAction {
                                             VALIDATION_XSD);
          if (!result.isEmpty()) {
              throw new ValidatorException(result);
-         }        
+         }
+         
+      
+         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
+                 (Long) form.get(KSTREE_ID_PARAM), 
+                 context.getLoggedInUser().getOrg());
+         KickstartVirtualizationType vType =
+             KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
+                 form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
+         
+         Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, vType,
+                 context.getLoggedInUser());
+         if (distro == null) {
+             ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt"); 
+         }
+         
+         
+         
    }
     
     private String getData(RequestContext context, DynaActionForm form) {

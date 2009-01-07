@@ -82,9 +82,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		]]>
     </query>
 
-    <query name="KickstartableTree.findByCobblerId">
+    <query name="KickstartableTree.findByCobblerIdOrXenId">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.cobblerId = :cid ]]>
+        		where k.cobblerId = :cid or k.cobblerXenId = :cid]]>
     </query>
     
     <query name="KickstartableTree.verifyTreeAssignment">
