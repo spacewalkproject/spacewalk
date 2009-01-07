@@ -37,7 +37,6 @@ GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
 GLOBALCONFIG_SECTION = "globalconfig"
 DEFAULT_BUILDER = "default_builder"
 DEFAULT_TAGGER = "default_tagger"
-REPO_URL = "repo_url"
 ASSUMED_NO_TAR_GZ_PROPS = """
 [buildconfig]
 builder = spacewalk.releng.builder.NoTgzBuilder
@@ -142,8 +141,7 @@ class CLI:
                 options.no_cleanup)
 
         if options.tag:
-            check_tag_exists(options.tag,
-                    global_config.get(GLOBALCONFIG_SECTION, REPO_URL))
+            check_tag_exists(options.tag)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
@@ -202,7 +200,6 @@ class CLI:
         required_global_config = [
                 (GLOBALCONFIG_SECTION, DEFAULT_BUILDER),
                 (GLOBALCONFIG_SECTION, DEFAULT_TAGGER),
-                (GLOBALCONFIG_SECTION, REPO_URL),
         ]
         for section, option in required_global_config:
             if not config.has_section(section) or not \

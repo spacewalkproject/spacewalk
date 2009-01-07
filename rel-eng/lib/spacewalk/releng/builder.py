@@ -56,6 +56,10 @@ class Builder(BuildCommon):
             self.build_tag = "%s-%s" % (self.project_name,
                     self.build_version)
 
+        # TODO: Happens twice if the user specifies --tag. Move this and
+        # affiliated settings into the CLI and pass them into the builder.
+        check_tag_exists(self.build_tag)
+
         self.display_version = self._get_display_version()
         print("Building %s" % (self.build_tag))
 
@@ -306,8 +310,8 @@ class SatelliteBuilder(NoTgzBuilder):
             tag=None, dist=None, test=False):
 
         NoTgzBuilder.__init__(self, build_dir=build_dir,
-                pkg_config=pkg_config, tag=tag, dist=dist,
-                test=test)
+                pkg_config=pkg_config, global_config=global_config, tag=tag,
+                dist=dist, test=test)
 
         if not pkg_config or not pkg_config.has_option("buildconfig",
                 "upstream_name"):
@@ -338,8 +342,11 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        check_tag_exists(self.upstream_tag,
-                self.global_config.get("globalconfig", "repo_url"))
+        if not self.global_config.has_option("globalconfig",
+                "upstream_git_url"):
+            error_out("Unable to find upstream_git_url in global config.")
+        check_tag_exists(self.upstream_tag, repo_url=self.global_config.get(
+            "globalconfig", "upstream_git_url"))
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)

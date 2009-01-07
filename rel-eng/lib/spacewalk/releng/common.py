@@ -68,10 +68,12 @@ def run_command(command):
         raise Exception("Error running command")
     return output
 
-def check_tag_exists(tag, repo_url):
+def check_tag_exists(tag, repo_url=None):
     """
     Check that the given git tag exists in a git repository.
     """
+    if not repo_url:
+        repo_url = get_git_repo_url()
     debug("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
 
     tag_sha1 = run_command(
@@ -193,6 +195,14 @@ def create_tgz(git_root, prefix, commit, relative_dir, rel_eng_dir,
         )
     #debug(archive_cmd)
     run_command(archive_cmd)
+
+def get_git_repo_url():
+    """
+    Return the url of this git repo.
+
+    Uses ~/.git/config remote origin url.
+    """
+    return run_command("git config remote.origin.url")
 
 
 
