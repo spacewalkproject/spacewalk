@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.13
+Version: 0.4.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan  7 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.14-1
+- fixed db-control shrink-segments
+
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.13-1
 - added product_name branding
 

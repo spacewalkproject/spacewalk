@@ -34,6 +34,9 @@ from spacewalk.releng.common import find_git_root, run_command, \
 
 BUILD_PROPS_FILENAME = "build.py.props"
 GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
+GLOBALCONFIG_SECTION = "globalconfig"
+DEFAULT_BUILDER = "default_builder"
+DEFAULT_TAGGER = "default_tagger"
 ASSUMED_NO_TAR_GZ_PROPS = """
 [buildconfig]
 builder = spacewalk.releng.builder.NoTgzBuilder
@@ -132,12 +135,13 @@ class CLI:
         if options.debug:
             os.environ['DEBUG'] = "true"
 
+        build_dir = lookup_build_dir()
+        global_config = self._read_global_config()
+        pkg_config = self._read_project_config(build_dir, options.tag,
+                options.no_cleanup)
+
         if options.tag:
             check_tag_exists(options.tag)
-
-        build_dir = lookup_build_dir()
-        config = self._read_project_config(build_dir, options.tag,
-                options.no_cleanup)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
@@ -147,20 +151,23 @@ class CLI:
             error_out("Cannot invoke both build and tag options at the " +
                     "same time.")
 
-        # Check what type of package we're building:
+        # Use project specific config to determine which builder/tagger to use.
+        # If none exists, use the global default builder/tagger.
         builder_class = None
         tagger_class = None
-
-        if config.has_option("buildconfig", "builder"):
-            builder_class = get_class_by_name(config.get("buildconfig",
+        if pkg_config.has_option("buildconfig", "builder"):
+            builder_class = get_class_by_name(pkg_config.get("buildconfig",
                 "builder"))
         else:
-            error_out("Unable to determine builder class to use.")
-        if config.has_option("buildconfig", "tagger"):
-            tagger_class = get_class_by_name(config.get("buildconfig",
+            builder_class = get_class_by_name(global_config.get(
+                GLOBALCONFIG_SECTION, DEFAULT_BUILDER))
+        if pkg_config.has_option("buildconfig", "tagger"):
+            tagger_class = get_class_by_name(pkg_config.get("buildconfig",
                 "tagger"))
         else:
-            error_out("Unable to determine tagger class to use.")
+            tagger_class = get_class_by_name(global_config.get(
+                GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
+
         debug("Using builder class: %s" % builder_class)
         debug("Using tagger class: %s" % tagger_class)
 
@@ -168,7 +175,8 @@ class CLI:
         if found_builder_options:
             builder = builder_class(
                     build_dir=build_dir,
-                    build_config=config,
+                    pkg_config=pkg_config,
+                    global_config=global_config,
                     tag=options.tag,
                     dist=options.dist,
                     test=options.test)
@@ -177,6 +185,29 @@ class CLI:
         if found_tagger_options:
             tagger = tagger_class(keep_version=options.keep_version)
             tagger.run(options)
+
+    def _read_global_config(self):
+        """
+        Read global build.py configuration from the rel-eng dir of the git
+        repository we're being run from.
+        """
+        rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
+        filename = os.path.join(rel_eng_dir, GLOBAL_BUILD_PROPS_FILENAME)
+        config = ConfigParser.ConfigParser()
+        config.read(filename)
+
+        # Verify the config contains what we need from it:
+        required_global_config = [
+                (GLOBALCONFIG_SECTION, DEFAULT_BUILDER),
+                (GLOBALCONFIG_SECTION, DEFAULT_TAGGER),
+        ]
+        for section, option in required_global_config:
+            if not config.has_section(section) or not \
+                config.has_option(section, option):
+                    error_out("%s missing required config: %s %s" % (
+                        filename, section, option))
+
+        return config
 
     def _read_project_config(self, build_dir, tag, no_cleanup):
         """
@@ -241,17 +272,12 @@ class CLI:
                     f.close()
                     wrote_temp_file = True
 
-        if properties_file == None:
-            # Use the default properties file if we weren't able to locate one
-            # for this specific package:
-            rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
-            properties_file = os.path.join(rel_eng_dir,
-                    GLOBAL_BUILD_PROPS_FILENAME)
-
-        debug("Using build properties: %s" % properties_file)
-
         config = ConfigParser.ConfigParser()
-        config.read(properties_file)
+        if properties_file != None:
+            debug("Using build properties: %s" % properties_file)
+            config.read(properties_file)
+        else:
+            debug("Unable to locate build properties for this package.")
 
         # TODO: Not thrilled with this:
         if wrote_temp_file and not no_cleanup:
