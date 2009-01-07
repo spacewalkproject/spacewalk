@@ -1,3 +1,4 @@
 [globalconfig]
 default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
+repo_url = git://git.fedorahosted.org/git/spacewalk.git/
