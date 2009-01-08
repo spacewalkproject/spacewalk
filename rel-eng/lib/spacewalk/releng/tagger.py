@@ -179,7 +179,7 @@ class VersionTagger(object):
         metadata_file = os.path.join(self.rel_eng_dir, "packages",
                 self.project_name)
         f = open(metadata_file, 'w')
-        f.write("%s %s" % (new_version, self.relative_project_dir))
+        f.write("%s %s\n" % (new_version, self.relative_project_dir))
         f.close()
 
         # Git add it (in case it's a new file):
