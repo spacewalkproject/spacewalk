@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -28,6 +29,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.ActionMessage;
+import org.apache.commons.lang.StringUtils;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
@@ -43,6 +45,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -94,11 +97,42 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         if (packagesDecl != null) {
             Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
 
-            RhnSet packageSet = RhnSetManager.createSet(user.getId(),
-                RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
+            // bz465892 - As the selected packages are parsed, remove duplicates
+            // keeping the highest EVR
+            Map<Long, PackageListItem> packageNameIdsToItems =
+                new HashMap<Long, PackageListItem>(data.size());
             
             for (String idCombo : data) {
                 PackageListItem item = PackageListItem.parse(idCombo);
+                
+                PackageListItem existing = packageNameIdsToItems.get(item.getIdOne()); 
+                if (existing != null) {
+                    String[] existingParts = splitEvr(existing.getNvre());
+                    String[] itemParts = splitEvr(item.getNvre());
+                    
+                    PackageEvr existingEvr = new PackageEvr();
+                    existingEvr.setEpoch(existingParts[0]);
+                    existingEvr.setVersion(existingParts[1]);
+                    existingEvr.setRelease(existingParts[2]);
+                    
+                    PackageEvr itemEvr = new PackageEvr();
+                    itemEvr.setEpoch(itemParts[0]);
+                    itemEvr.setVersion(itemParts[1]);
+                    itemEvr.setRelease(itemParts[2]);
+
+                    if (existingEvr.compareTo(itemEvr) < 0) {
+                        packageNameIdsToItems.put(item.getIdOne(), item);
+                    }
+                }
+                else {
+                    packageNameIdsToItems.put(item.getIdOne(), item);
+                }
+            }
+
+            RhnSet packageSet = RhnSetManager.createSet(user.getId(),
+                RhnSetDecl.SSM_UPGRADE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
+            
+            for (PackageListItem item : packageNameIdsToItems.values()) {
                 packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
             }
             
@@ -111,6 +145,16 @@ public class SchedulePackageUpgradeAction extends RhnAction implements Listable 
         TagHelper.bindElaboratorTo("groupList", results.getElaborator(), request);
         
         return results;
+    }
+    
+    private String[] splitEvr(String evr) {
+        String[] values = StringUtils.split(evr, "-");
+        for (int i = 0; i < values.length; i++) {
+            if ("null".equals(values[i])) {
+                values[i] = null;
+            }
+        }
+        return values;
     }
     
     private ActionForward executePackageAction(ActionMapping mapping,
