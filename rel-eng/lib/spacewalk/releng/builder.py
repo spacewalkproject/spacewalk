@@ -333,8 +333,8 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag [%s]" % (self.upstream_tag))
-        if not self.offline and (self.upstream_tag != self.build_tag):
-            check_tag_exists(self.upstream_tag)
+        if self.upstream_tag != self.build_tag:
+            check_tag_exists(self.upstream_tag, offline=self.offline)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
                 self.spec_file_name)
