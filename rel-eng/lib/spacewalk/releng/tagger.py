@@ -33,9 +33,10 @@ class VersionTagger(object):
     Releases will be tagged by incrementing the package version,
     and the actual RPM "release" will always be set to 1.
     """
-    def __init__(self, keep_version=False):
+    def __init__(self, global_config=None, keep_version=False):
         self.git_root = find_git_root()
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+        self.global_config = global_config
 
         self.full_project_dir = os.getcwd()
         self.spec_file_name = find_spec_file()
@@ -70,11 +71,10 @@ class VersionTagger(object):
         """
         self._check_today_in_changelog()
         new_version = self._bump_version()
-        self._check_tag_does_not_exist(new_version)
+        self._check_tag_does_not_exist(self._get_new_tag(new_version))
         self._update_changelog(new_version)
 
-        new_tag = self._get_new_tag(new_version)
-        self._update_package_metadata(new_version, new_tag)
+        self._update_package_metadata(new_version)
 
     def _check_today_in_changelog(self):
         """ 
@@ -163,7 +163,7 @@ class VersionTagger(object):
             old_version, new_version)
         return new_version
 
-    def _update_package_metadata(self, new_version, new_tag, release=False):
+    def _update_package_metadata(self, new_version, release=False):
         """
         We track package metadata in the rel-eng/packages/ directory. Each
         file here stores the latest package version (for the git branch you
@@ -175,11 +175,17 @@ class VersionTagger(object):
         """
         self._clear_package_metadata()
 
+        suffix = ""
+        # If global config specifies a tag suffix, use it:
+        if self.global_config.has_option("globalconfig", "tag_suffix"):
+            suffix = self.global_config.get("globalconfig", "tag_suffix")
+
+        new_version_w_suffix = "%s%s" % (new_version, suffix)
         # Write out our package metadata:
         metadata_file = os.path.join(self.rel_eng_dir, "packages",
                 self.project_name)
         f = open(metadata_file, 'w')
-        f.write("%s %s\n" % (new_version, self.relative_project_dir))
+        f.write("%s %s\n" % (new_version_w_suffix, self.relative_project_dir))
         f.close()
 
         # Git add it (in case it's a new file):
@@ -194,11 +200,13 @@ class VersionTagger(object):
 
         run_command('git commit -m "Automatic commit of package ' +
                 '[%s] %s [%s]."' % (self.project_name, release_type,
-                    new_version))
+                    new_version_w_suffix))
 
         tag_msg = "Tagging package [%s] version [%s] in directory [%s]." % \
-                (self.project_name, new_version, self.relative_project_dir)
+                (self.project_name, new_version_w_suffix,
+                        self.relative_project_dir)
 
+        new_tag = self._get_new_tag(new_version)
         print "Creating new tag: %s" % new_tag
         run_command('git tag -m "%s" %s' % (tag_msg, new_tag))
 
@@ -252,7 +260,11 @@ class VersionTagger(object):
 
     def _get_new_tag(self, new_version):
         """ Returns the actual tag we'll be creating. """
-        return "%s-%s" % (self.project_name, new_version)
+        suffix = ""
+        # If global config specifies a tag suffix, use it:
+        if self.global_config.has_option("globalconfig", "tag_suffix"):
+            suffix = self.global_config.get("globalconfig", "tag_suffix")
+        return "%s-%s%s" % (self.project_name, new_version, suffix)
 
 
 
@@ -264,7 +276,6 @@ class ReleaseTagger(VersionTagger):
       - Packages we build from a tarball checked directly into git.
       - Satellite packages built on top of Spacewalk tarballs.
     """
-    _tag_suffix = ""
 
     def _tag_release(self):
         """
@@ -272,26 +283,9 @@ class ReleaseTagger(VersionTagger):
         """
         self._check_today_in_changelog()
         new_version = self._bump_version(release=True)
-        new_version_w_suffix = "%s%s" % (new_version, self._tag_suffix)
-        new_tag = self._get_new_tag(new_version)
 
-        self._check_tag_does_not_exist(new_tag)
+        self._check_tag_does_not_exist(self._get_new_tag(new_version))
         self._update_changelog(new_version)
-        self._update_package_metadata(new_version_w_suffix, new_tag,
-                release=True)
+        self._update_package_metadata(new_version, release=True)
 
 
-class SatelliteReleaseTagger(ReleaseTagger):
-    """
-    Tagger for packages being tagged in the Satellite git repo.
-
-    Appends "-sat" to the git tag name, otherwise behaves exactly like the
-    ReleaseTagger.
-    """
-    _tag_suffix = "-sat"
-
-    def _get_new_tag(self, new_version):
-        """ Returns the actual tag we'll be creating. """
-        # Override parent behavior to add the "-sat" suffix. Used to indicate
-        # that this package was tagged in Satellite git, not Spacewalk.
-        return "%s-%s%s" % (self.project_name, new_version, self._tag_suffix)
