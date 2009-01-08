@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.NetworkInterface;
@@ -33,6 +34,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
+import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -51,6 +53,12 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         user = UserTestUtils.createUserInOrgOne();
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
+        KickstartableTree tree = this.ksdata.getTree();
+        TestObjectStore.get().putObject("distro_name", tree.getLabel());
+        tree.setCobblerId((String) TestObjectStore.get().getObject("uid"));
+        //System.out.println("TreeID1: " + tree.getId());
+        //System.out.println("TreeID1.cobblerId: " + tree.getCobblerId());
+        //tree = (KickstartableTree) TestUtils.saveAndReload(tree);
         user.addRole(RoleFactory.ORG_ADMIN);
 
         // Uncomment this if you want the tests to actually talk to cobbler
@@ -82,17 +90,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
                 "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
         
-    }
-    
-    public void testSystemCreateNoKSProfile() throws Exception {
-        Server server = ServerTestUtils.createTestSystem(user);
-        CobblerSystemCreateCommand cmd = 
-            new CobblerSystemCreateCommand(server.getCreator(), server,
-                    null, null, "foo,bar,baz");
-        cmd.store();
-        Map systemMap = cmd.getSystemMap(); 
-        assertNotNull(systemMap);
-        assertTrue(systemMap.containsKey("name"));
     }
     
     public void testProfileCreate() throws Exception {
@@ -136,7 +133,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
         assertNotNull(cmd.getDistroMap());
-        Map ksmeta = (Map) cmd.getDistroMap().get("ksmeta");
+        Map ksmeta = (Map) cmd.getDistroMap().get("ks_meta");
         assertNotNull(ksmeta.get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
     }
 
@@ -145,7 +142,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerDistroDeleteCommand cmd = new 
             CobblerDistroDeleteCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
-        assertTrue(cmd.getDistroMap().isEmpty());
     }
     
     public void testDistroEdit() throws Exception {

@@ -68,10 +68,12 @@ def run_command(command):
         raise Exception("Error running command")
     return output
 
-def check_tag_exists(tag, repo_url):
+def check_tag_exists(tag, repo_url=None):
     """
     Check that the given git tag exists in a git repository.
     """
+    if not repo_url:
+        repo_url = get_git_repo_url()
     debug("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
 
     tag_sha1 = run_command(
@@ -194,31 +196,31 @@ def create_tgz(git_root, prefix, commit, relative_dir, rel_eng_dir,
     #debug(archive_cmd)
     run_command(archive_cmd)
 
-
-
-class BuildCommon:
+def get_git_repo_url():
     """
-    Builder and Tagger classes require a little bit of the same functionality.
-    Placing that code here to be inherited by both.
+    Return the url of this git repo.
+
+    Uses ~/.git/config remote origin url.
     """
-    def __init__(self):
-        self.git_root = find_git_root() 
-        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+    return run_command("git config remote.origin.url")
 
-    def _get_latest_tagged_version(self):
-        """
-        Return the latest git tag for this package in the current branch.
-        Uses the info in rel-eng/packages/package-name and error out if the
-        file does not exist.
+def get_latest_tagged_version(package_name):
+    """
+    Return the latest git tag for this package in the current branch.
+    Uses the info in rel-eng/packages/package-name and error out if the
+    file does not exist.
 
-        Returns None if file does not exist.
-        """
-        file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
-        debug("Getting latest package info from: %s" % file_path)
-        if not os.path.exists(file_path):
-            return None
+    Returns None if file does not exist.
+    """
+    git_root = find_git_root()
+    rel_eng_dir = os.path.join(git_root, "rel-eng")
+    file_path = "%s/packages/%s" % (rel_eng_dir, package_name)
+    debug("Getting latest package info from: %s" % file_path)
+    if not os.path.exists(file_path):
+        return None
 
-        output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
-        return output
+    output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
+    return output
+
 
 

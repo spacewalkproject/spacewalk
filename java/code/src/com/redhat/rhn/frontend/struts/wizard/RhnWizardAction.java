@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.struts.wizard;
 
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
@@ -55,6 +57,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev $
  */
 public abstract class RhnWizardAction extends RhnAction {
+
+    /**
+     * Logger for this class
+     */
+    private static Logger log = Logger.getLogger(RhnWizardAction.class);
     
     public static final String STEP_START = "start";
     public static final String STEP_PARAM = "wizardStep";
@@ -77,7 +84,9 @@ public abstract class RhnWizardAction extends RhnAction {
         DynaActionForm dynaForm = (DynaActionForm) form;
         String step = dynaForm.getString(STEP_PARAM);
         ActionForward retval = null;
+        
         if (step != null) {
+            log.debug("Step selected: " + step);
             retval = dispatch(step, mapping, form, ctx, response);
         }
         return retval;

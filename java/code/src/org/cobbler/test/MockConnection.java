@@ -66,12 +66,12 @@ public class MockConnection extends CobblerConnection {
     public Object invokeMethod(String name, Object... args) {
         //no op -> mock version .. 
         // we'll add more useful constructs in the future..
-        System.out.println("called: " + name + " args: " + args);
+        // System.out.println("called: " + name + " args: " + args);
         Object retval = null;
         
         if ("get_distros".equals(name) || "get_profiles".equals(name)) {
             Map row = new HashMap();
-            row.put("name", TestUtils.randomString());
+            row.put("name", TestObjectStore.get().getObject("distro_name"));
             row.put("uid", TestObjectStore.get().getObject("uid"));
             row.put("virt_bridge", "xenb0");
             row.put("virt_cpus", Integer.valueOf(1));
@@ -81,14 +81,20 @@ public class MockConnection extends CobblerConnection {
             row.put("virt_ram", Integer.valueOf(512));
             row.put("kernel_options", new HashMap());
             row.put("kernel_options_post", new HashMap());
+            row.put("ks_meta", new HashMap());
             retval = new LinkedList();
             ((LinkedList) retval).add(row);
         }
         else if ("get_distro".equals(name) || "get_profile".equals(name)) {
             retval = new HashMap();
             ((Map) retval).put("name", TestUtils.randomString());
+            ((Map) retval).put("uid", TestObjectStore.get().getObject("uid"));
+            ((Map) retval).put("ks_meta", new HashMap());
         }
-        System.out.println("retval: " + retval);
+        else if ("remove_distro".equals(name)) {
+            return Boolean.TRUE;
+        }
+        // System.out.println("retval: " + retval);
         return retval;
     }
     

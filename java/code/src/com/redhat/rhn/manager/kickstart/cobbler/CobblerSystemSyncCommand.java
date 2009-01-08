@@ -16,7 +16,6 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.server.Server;
 
 import org.apache.log4j.Logger;
 
@@ -69,9 +68,5 @@ public class CobblerSystemSyncCommand extends CobblerCommand {
         log.debug("systemNames: " + systemNames);
         return null;
     }
-    
-    private void createSystem(Server server) {
-        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(server);
-        cmd.store();
-    }
+
 }

@@ -24,39 +24,13 @@
 	  <rhn:dialogmenu mindepth="0" maxdepth="1" 
 	    definition="/WEB-INF/nav/kickstart_tree_details.xml" 
 	    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-	
 
-	<h2><bean:message key="kickstart.variable.jsp.header"/></h2>
-
-
-<div>
-  <p>
-    <bean:message key="kickstart.variable.jsp.summary"/>
-   <p> <bean:message key="kickstarttree.variable.jsp.summary"/> </p>
-    
-  </p>
-  <br>
-    <html:form method="post" action="/kickstart/tree/EditVariables.do">
-      <table class="details">
-          <tr>
-              <th>
-                  <bean:message key="kickstart.variable.jsp.variabledetails"/>:
-              </th>
-              <td>
-                  <html:textarea rows="25" cols="60" property="variables"/>
-              </td>
-          </tr>
-          
-          
-          
-          <tr>          
-            <td align="right" colspan="2"><html:submit><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
-          </tr>
-      </table>
-	  <html:hidden property="kstid" value="${kstid}"/>
-      <html:hidden property="submitted" value="true"/>
-    </html:form>
-</div>
+<c:import url="/WEB-INF/pages/common/fragments/kickstart/cobbler-variables.jspf">
+	<c:param name = "summary" value = "kickstarttree.variable.jsp.summary"/>
+	<c:param name = "post_url" value="/kickstart/tree/EditVariables.do"/>
+	<c:param name = "name" value="kstid"/>
+	<c:param name = "value" value="${param.kstid}"/>
+</c:import>
 </body>
 </html:html>
 

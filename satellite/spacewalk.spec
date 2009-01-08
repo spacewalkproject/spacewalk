@@ -59,6 +59,8 @@ Requires:       spacewalk-monitoring
 # Requires:       rhn-solaris-bootstrap
 # Requires:       rhn_solaris_bootstrap_5_1_0_3
 
+# SELinux
+Requires:       spacewalk-selinux
 
 
 %description

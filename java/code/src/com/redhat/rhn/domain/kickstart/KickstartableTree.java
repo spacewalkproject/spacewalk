@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -320,6 +321,15 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public void setCobblerXenId(String cobblerXenIdIn) {
         this.cobblerXenId = cobblerXenIdIn;
+    }
+    
+    /**
+     * Check to see if the selected tree support xen paravirt
+     * @return true if it can, false otherwise
+     */
+    public boolean doesParaVirt() {
+        File kernel = new File(this.getKernelXenPath());
+        return kernel.exists();
     }
     
 }

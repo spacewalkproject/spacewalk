@@ -64,6 +64,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         if (ksDataIn != null) {
             name = (String)lookupCobblerProfile(ksDataIn).get("name");
         }
+        else {
+            throw new NullPointerException("ksDataIn cant be null");
+        }
         this.activationKeys = activationKeysIn;
     }
     
@@ -71,11 +74,14 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * Constructor to be used for a system outside tthe context 
      * of actually kickstarting it to a specific profile.  
      * @param serverIn profile we want to create in cobbler
+     * @param cobblerProfileName the name of the cobbler profile 
+     * to associate with system
      */
-    public CobblerSystemCreateCommand(Server serverIn) {
+    public CobblerSystemCreateCommand(Server serverIn, String cobblerProfileName) {
         super(serverIn.getCreator());
         this.server = serverIn;
         this.mediaPath = null;
+        this.name = cobblerProfileName;
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
                     createNewReActivationKey(server.getCreator(), server, note);
@@ -105,10 +111,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return ValidatorError if the store failed.
      */
     public ValidatorError store() {
+        String handle = null;
         
+        if (getSystemMap() != null) {
+            handle = (String) invokeXMLRPC("get_system_handle",
+                    this.server.getName(), xmlRpcToken);
+        }
+        else {
+            handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
+        }
         
-        
-        String handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
         log.debug("handle: " + handle);
         invokeXMLRPC("modify_system", handle, "name", server.getName(),
                                  xmlRpcToken);
@@ -129,11 +141,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 inet, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
 
-        if (name != null) {
-            args = new String[]{handle, "profile", 
-                    name, xmlRpcToken};
-            invokeXMLRPC("modify_system", Arrays.asList(args));
-        }
+        args = new String[]{handle, "profile", 
+                name, xmlRpcToken};
+        invokeXMLRPC("modify_system", Arrays.asList(args));
         
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
             log.error("This cobbler profile does not " +
