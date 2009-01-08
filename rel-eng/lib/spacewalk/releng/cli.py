@@ -172,7 +172,7 @@ class CLI:
                         "Perhaps you need to --tag-release first?"])
             build_tag = "%s-%s" % (package_name, build_version)
 
-        if not options.offline:
+        if not options.offline and not options.test:
             check_tag_exists(build_tag)
 
         builder_class = None

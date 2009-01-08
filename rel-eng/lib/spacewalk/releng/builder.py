@@ -50,7 +50,7 @@ class Builder(object):
 
         self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
-        print("Building %s" % (self.build_tag))
+        print("Building package: %s" % (self.build_tag))
 
         self.git_commit_id = get_build_commit(tag=self.build_tag, 
                 test=self.test)
@@ -333,7 +333,7 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.upstream_version)
 
         print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        if not self.offline:
+        if not self.offline and (self.upstream_tag != self.build_tag):
             check_tag_exists(self.upstream_tag)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
@@ -351,6 +351,11 @@ class SatelliteBuilder(NoTgzBuilder):
         create_tgz(self.git_root, prefix, commit, relative_dir, 
                 self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
                     tgz_filename))
+
+        # If these are equal then the tag we're building was likely created in 
+        # Spacewalk and thus we don't need to do any patching.
+        if (self.upstream_tag == self.build_tag):
+            return
 
         self._generate_patches()
         self._insert_patches_into_spec_file()
@@ -445,8 +450,11 @@ class SatelliteBuilder(NoTgzBuilder):
         if status == 0 and output != "":
             return output
 
+        if self.test:
+            return self.build_version.split("-")[0]
         # Otherwise, assume we use our version:
-        return self.display_version
+        else:
+            return self.display_version
 
     def _get_rpmbuild_dir_options(self):
         """
