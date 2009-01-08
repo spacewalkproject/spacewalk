@@ -88,14 +88,14 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 TestObjectStore.get().putObject("distro_name", args.get(2));
                 log.debug("mockobjects111: " + TestObjectStore.get().getObjects());
             }
-            if (args.get(1).equals("ks_meta")) {
-                log.debug("putting ks_meta into store: " + args.get(2));
-                if (TestObjectStore.get().getObject("ks_meta") != null) {
-                    Map ksmeta = (Map) TestObjectStore.get().getObject("ks_meta");
+            if (args.get(1).equals("ksmeta")) {
+                log.debug("putting ksmeta into store: " + args.get(2));
+                if (TestObjectStore.get().getObject("ksmeta") != null) {
+                    Map ksmeta = (Map) TestObjectStore.get().getObject("ksmeta");
                     ksmeta.putAll((Map) args.get(2));
                 }
                 else {
-                    TestObjectStore.get().putObject("ks_meta", args.get(2));
+                    TestObjectStore.get().putObject("ksmeta", args.get(2));
                 }
             }
             return new String("1");
@@ -110,7 +110,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                     Map distro = new HashMap();
                     distro.put("name", TestUtils.randomString());
                     distro.put("uid", TestUtils.randomString());
-                    distro.put("ks_meta", TestUtils.randomString());
+                    distro.put("ksmeta", TestUtils.randomString());
                     retval.add(distro);
                 }
                 // Put the mock distro we created with the call to modify_distro
@@ -120,13 +120,13 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 log.debug("mockobjects in getdistros: " + 
                         TestObjectStore.get().getObjects());
                 distro.put("name", TestObjectStore.get().getObject("distro_name"));
-                if (TestObjectStore.get().getObject("ks_meta") != null) {
-                    distro.put("ks_meta", TestObjectStore.get().getObject("ks_meta"));
+                if (TestObjectStore.get().getObject("ksmeta") != null) {
+                    distro.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
                 }
                 else {
                     Map ksmeta = new HashMap();
                     ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, "/ks/dist/foo");
-                    distro.put("ks_meta", ksmeta);
+                    distro.put("ksmeta", ksmeta);
                 }
                 
                 distro.put("uid", TestObjectStore.get().getObject("uid"));
@@ -144,7 +144,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                         TestObjectStore.get().getObjects());
                 if (TestObjectStore.get().getObjects().containsKey("distro_name")) {
                     retval.put("name", TestObjectStore.get().getObject("distro_name"));
-                    retval.put("ks_meta", TestObjectStore.get().getObject("ks_meta"));
+                    retval.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
                 }
                 else {
                     retval.put("name", TestUtils.randomString());
