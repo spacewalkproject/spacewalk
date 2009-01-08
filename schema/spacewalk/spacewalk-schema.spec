@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.11
+Version:        0.4.12
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -30,6 +30,7 @@ SCHEMA_VER=$(echo %{version} | sed 's/%{?dist}$//')
 make -f Makefile.schema \
   UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=$SCHEMA_VER RELEASE=%{release} \
   all
+pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -39,6 +40,8 @@ install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 tar cf - -C upgrade . | tar xf - -C $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -47,8 +50,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{rhnroot}/*
 %{_bindir}/%{name}-upgrade
+%{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jan  7 2009 Milan Zazrivec 0.4.12-1
+- added spacewalk-schema-upgrade manual page (bz #479003)
+- renamed two sql upgrade scripts to use uniform extension
+
 * Thu Dec 18 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.4.11-1
 - fixed duplicate modification of rhnChannel
 

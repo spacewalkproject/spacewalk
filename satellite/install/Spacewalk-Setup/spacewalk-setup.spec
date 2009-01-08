@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.11
+Version:        0.4.19
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -24,6 +24,8 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
+Requires:       cobbler >= 0:1.4
+
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
@@ -47,10 +49,10 @@ find %{buildroot} -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/spacewalk-public.cert %{buildroot}/%{_datadir}/spacewalk/setup/
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
+install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
@@ -78,6 +80,20 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan  8 2009 Milan Zazrivec 0.4.19-1
+- Build for Spacewalk 0.4
+
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com> 0.4.18-1
+- Adding cobbler requirement
+
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.17-1
+- changed defaults.conf to default.d/*
+- moved spacewalk-public.cert to spacewalk-branding
+- resolved #477490, #477493
+
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.10-1
+- added apache default ssl server config generation to spacewalk-setup
+
 * Thu Dec 18 2008 Jan Pazdziora 0.4.11-1
 - fixing duplicated $sth variable
 

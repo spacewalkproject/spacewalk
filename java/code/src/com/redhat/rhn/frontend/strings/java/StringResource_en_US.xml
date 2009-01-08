@@ -6144,6 +6144,12 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="kickstart.schedule.cobblercreate">
+        <source>System record created for {0} in Cobbler.  This will allow you to kickstart this system using the {1} profile from {0}'s terminal with the usage of the 'koan' command.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="kickstart.cobbler.schedule.success">
         <source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
         <context-group name="ctx">
@@ -7898,6 +7904,12 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
      </trans-unit>
+     <trans-unit id="kickstart.cobbler.profile.invalidvirt">
+        <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
+     </trans-unit>      
+     <trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
+        <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a differnt distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+     </trans-unit>             
     </body>
   </file>
 </xliff>

@@ -15,14 +15,16 @@
 """ Code for building Spacewalk/Satellite tarballs, srpms, and rpms. """
 
 import os
+import re
 import sys
 import commands
 
-from spacewalk.releng.common import BuildCommon, run_command, \
-        check_tag_exists, debug, error_out, get_spec_version, find_spec_file, \
-        get_project_name, get_relative_project_dir
+from spacewalk.releng.common import run_command, find_git_root, \
+        check_tag_exists, debug, error_out, find_spec_file, \
+        get_project_name, get_relative_project_dir, get_build_commit, \
+        get_git_head_commit, create_tgz
 
-class Builder(BuildCommon):
+class Builder(object):
     """
     Parent builder class.
 
@@ -31,36 +33,27 @@ class Builder(BuildCommon):
     desired behavior.
     """
 
-    def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
-        BuildCommon.__init__(self, debug)
+    def __init__(self, name=None, version=None, tag=None, build_dir=None,
+            pkg_config=None, global_config=None, dist=None, test=False,
+            offline=False):
 
+        self.git_root = find_git_root()
+        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+
+        self.project_name = name
+        self.build_tag = tag
+        self.build_version = version
         self.dist = dist
         self.test = test
+        self.global_config = global_config
+        self.offline=offline
 
-        self.project_name = get_project_name(tag=tag)
-
-        # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
-        # use it, otherwise use the current working directory. (i.e. location
-        # of build.py)
-        self.rpmbuild_basedir = os.getcwd()
-        if global_config.has_key('RPMBUILD_BASEDIR'):
-            self.rpmbuild_basedir = global_config['RPMBUILD_BASEDIR']
-
-        # Determine which package version we should build:
-        if tag:
-            self.build_tag = tag
-            self.build_version = self.build_tag[len(self.project_name + "-"):]
-        else:
-            self.build_version = self._get_latest_tagged_version()
-            if self.build_version == None:
-                error_out(["Unable to lookup latest package info from %s" %
-                        file_path, "Perhaps you need to --tag-release first?"])
-            self.build_tag = "%s-%s" % (self.project_name,
-                    self.build_version)
-
+        self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
-        self.git_commit_id = self._get_build_commit()
+        print("Building %s" % (self.build_tag))
+
+        self.git_commit_id = get_build_commit(tag=self.build_tag, 
+                test=self.test)
         self.project_name_and_sha1 = "%s-%s" % (self.project_name,
                 self.git_commit_id)
 
@@ -79,6 +72,9 @@ class Builder(BuildCommon):
         # A copy of the git code from commit we're building:
         self.rpmbuild_gitcopy = os.path.join(self.rpmbuild_sourcedir,
                 self.tgz_dir)
+
+        # Set to true if we've already created a tgz:
+        self.ran_tgz = False
 
         # NOTE: These are defined later when/if we actually dump a copy of the
         # project source at the tag we're building. Only then can we search for
@@ -119,17 +115,48 @@ class Builder(BuildCommon):
                 (self.rpmbuild_sourcedir, self.tgz_filename,
                     self.rpmbuild_basedir))
 
+        self.ran_tgz = True
         print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
+
+    def _setup_sources(self):
+        """
+        Create a copy of the git source for the project from the commit ID
+        we're building.
+
+        Created in the temporary rpmbuild SOURCES directory.
+        """
+        self._create_build_dirs()
+
+        print("Creating %s from git tag: %s..." % (self.tgz_filename, 
+            self.git_commit_id))
+        create_tgz(self.git_root, self.tgz_dir, self.git_commit_id, 
+                self.relative_project_dir, self.rel_eng_dir, 
+                os.path.join(self.rpmbuild_sourcedir, self.tgz_filename))
+
+        # Extract the source so we can get at the spec file, etc.
+        debug("Copying git source to: %s" % self.rpmbuild_gitcopy)
+        run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
+            self.tgz_filename))
+
+        # NOTE: The spec file we actually use is the one exported by git
+        # archive into the temp build directory. This is done so we can
+        # modify the version/release on the fly when building test rpms
+        # that use a git SHA1 for their version.
+        self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
+        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
 
     def _srpm(self):
         """
         Build a source RPM.
         """
         self._create_build_dirs()
+        if not self.ran_tgz:
+            self._tgz()
 
         if self.test:
             self._setup_test_specfile()
 
+        debug("Creating srpm from spec file: %s" % self.spec_file)
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
@@ -137,11 +164,13 @@ class Builder(BuildCommon):
         cmd = "rpmbuild %s %s --nodeps -bs %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
-        print output
+        print(output)
 
     def _rpm(self):
         """ Build an RPM. """
         self._create_build_dirs()
+        if not self.ran_tgz:
+            self._tgz()
 
         if self.test:
             self._setup_test_specfile()
@@ -184,47 +213,6 @@ class Builder(BuildCommon):
                     )
             run_command(cmd)
 
-    def _setup_sources(self):
-        """
-        Create a copy of the git source for the project from the commit ID
-        we're building.
-
-        Created in the temporary rpmbuild SOURCES directory.
-        """
-        self._create_build_dirs()
-
-        print "Building version: %s" % self.display_version
-        os.chdir(os.path.abspath(self.git_root))
-        print "Creating %s from git tag: %s..." % (self.tgz_filename,
-                self.git_commit_id)
-        timestamp = self._get_commit_timestamp(self.git_commit_id)
-
-        archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s" % \
-            (
-                    self.tgz_dir,
-                    self.git_commit_id,
-                    self.relative_project_dir,
-                    self.rel_eng_dir,
-                    timestamp,
-                    self.git_commit_id,
-                    self.rpmbuild_sourcedir,
-                    self.tgz_filename
-            )
-        debug(archive_cmd)
-        run_command(archive_cmd)
-
-        # Extract the source so we can get at the spec file, etc.
-        run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
-            self.tgz_filename))
-
-        # NOTE: The spec file we actually use is the one exported by git
-        # archive into the temp build directory. This is done so we can
-        # modify the version/release on the fly when building test rpms
-        # that use a git SHA1 for their version.
-        self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
-        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
-        debug("Using spec file: %s" % self.spec_file)
-
     def _get_rpmbuild_dir_options(self):
         return """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
             (self.rpmbuild_sourcedir, self.rpmbuild_builddir,
@@ -238,29 +226,6 @@ class Builder(BuildCommon):
         """
         return "%s-%s" % (self.project_name, self.display_version)
 
-    def _get_build_commit(self):
-        """ Return the git commit we should build. """
-        if self.test:
-            return self._get_git_head_commit()
-        else:
-            tag_sha1 = run_command(
-                    "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
-                    % self.build_tag)
-            commit_id = run_command('git rev-list --max-count=1 %s' % 
-                    tag_sha1)
-            return commit_id
-
-    def _get_commit_timestamp(self, sha1_or_tag):
-        """
-        Get the timestamp of the git commit or tag we're building. Used to
-        keep the hash the same on all .tar.gz's we generate for a particular
-        version regardless of when they are generated.
-        """
-        output = run_command(
-                "git rev-list --timestamp --max-count=1 %s | awk '{print $1}'"
-                % sha1_or_tag)
-        return output
-
     def _get_display_version(self):
         """
         Get the package display version to build.
@@ -270,14 +235,10 @@ class Builder(BuildCommon):
         branch.
         """
         if self.test:
-            version = "git-" + self._get_git_head_commit()
+            version = "git-" + get_git_head_commit()
         else:
             version = self.build_version.split("-")[0]
         return version
-
-    def _get_git_head_commit(self):
-        """ Return the SHA1 of the HEAD commit on the current git branch. """
-        return commands.getoutput('git rev-parse --verify HEAD')
 
 
 
@@ -289,9 +250,10 @@ class NoTgzBuilder(Builder):
     """
     def _tgz(self):
         """ Override parent behavior, we already have a tgz. """
-        #raise Exception("Cannot build .tar.gz for project %s" %
-        #        self.project_name)
+        # TODO: Does it make sense to allow user to create a tgz for this type
+        # of project?
         self._setup_sources()
+        self.ran_tgz = True
 
     def _get_rpmbuild_dir_options(self):
         """
@@ -322,63 +284,169 @@ class NoTgzBuilder(Builder):
 
 
 
-class UpstreamBuilder(NoTgzBuilder):
+class SatelliteBuilder(NoTgzBuilder):
     """
-    Builder for packages that rename and patch upstream versions.
+    Builder for packages that are based off some upstream version in Spacewalk
+    git. Commits applied in Satellite git become patches applied to the 
+    upstream Spacewalk tarball.
 
-    These packages reference an UpstreamName and UpstreamVersion in their
-    spec file which identifies a specific git commit in the repository
-    which is to serve as the baseline for this package. We then generate a
-    patch of any changes between this projects most recent tag, and the
-    upstream tag, and apply those changes in the spec file before building
-    the package.
+    i.e. satellite-java-0.4.0-5 built from spacewalk-java-0.4.0-1 and any 
+    patches applied in satellite git.
+    i.e. spacewalk-setup-0.4.0-20 built from spacewalk-setup-0.4.0-1 and any
+    patches applied in satellite git.
     """
-    def __init__(self, global_config=None, build_config=None, tag=None,
-            dist=None, test=False, debug=False):
+    def __init__(self, name=None, version=None, tag=None, build_dir=None,
+            pkg_config=None, global_config=None, dist=None, test=False,
+            offline=False):
 
-        NoTgzBuilder.__init__(self, global_config=global_config,
-                build_config=build_config, tag=tag, dist=dist,
-                test=test, debug=debug)
+        NoTgzBuilder.__init__(self, name=name, version=version, tag=tag,
+                build_dir=build_dir, pkg_config=pkg_config,
+                global_config=global_config, dist=dist, test=test,
+                offline=offline)
 
-        if not build_config.has_option("buildconfig", "upstream_name"):
-            error_out("Property 'upstream_name' not found in build.py.props")
-        self.upstream_name = build_config.get("buildconfig", "upstream_name")
-        self.upstream_version = self._get_upstream_version()
-        print("Building upstream tgz for %s %s" % (self.upstream_name,
-                self.upstream_version))
-        self.upstream_tag = "%s-%s-1" % (self.upstream_name,
-                self.upstream_version)
-        check_tag_exists(self.upstream_tag)
-
-        self.spec_file = os.path.join(self.rpmbuild_sourcedir, self.spec_file_name)
-
-    def _tgz(self):
-        """
-        Override parent behavior to just create our git copy, and then get
-        the tgz for our upstream project tag we intend to build off.
-        """
-        NoTgzBuilder._tgz(self)
+        if not pkg_config or not pkg_config.has_option("buildconfig",
+                "upstream_name"):
+            # No upstream_name defined, assume we're keeping the project name:
+            self.upstream_name = self.project_name
+        else:
+            self.upstream_name = pkg_config.get("buildconfig", "upstream_name")
+        # Need to assign these after we've exported a copy of the spec file:
+        self.upstream_version = None 
+        self.upstream_tag = None
+        self.patch_filename = None
+        self.patch_file = None
 
     def _setup_sources(self):
+        # TODO: Wasteful step here, all we really need is a way to look for a
+        # spec file at the point in time this release was tagged.
+        NoTgzBuilder._setup_sources(self)
+        # If we knew what it was named at that point in time we could just do:
         # Export a copy of our spec file at the revision to be built:
-        cmd = "git show %s:%s%s > %s" % (self.git_commit_id,
-                self.relative_project_dir, self.spec_file_name,
-                self.spec_file)
-        debug(cmd)
+#        cmd = "git show %s:%s%s > %s" % (self.git_commit_id,
+#                self.relative_project_dir, self.spec_file_name,
+#                self.spec_file)
+#        debug(cmd)
+        self._create_build_dirs()
 
-        # TODO: grab the upstream tgz
-        # place both in rpmbuild_sourcedir
-        pass
+        self.upstream_version = self._get_upstream_version()
+        self.upstream_tag = "%s-%s-1" % (self.upstream_name, 
+                self.upstream_version)
+
+        print("Building upstream tgz for tag: %s" % (self.upstream_tag))
+        if not self.offline:
+            check_tag_exists(self.upstream_tag)
+
+        self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
+                self.spec_file_name)
+        run_command("cp %s %s" % (os.path.join(self.rpmbuild_gitcopy, 
+            self.spec_file_name), self.spec_file))
+
+        # Create the upstream tgz:
+        prefix = "%s-%s" % (self.upstream_name, self.upstream_version)
+        tgz_filename = "%s.tar.gz" % prefix
+        commit = get_build_commit(tag=self.upstream_tag)
+        relative_dir = get_relative_project_dir(
+                project_name=self.upstream_name, commit=commit)
+        print("Creating %s from git tag: %s..." % (tgz_filename, commit))
+        create_tgz(self.git_root, prefix, commit, relative_dir, 
+                self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
+                    tgz_filename))
+
+        self._generate_patches()
+        self._insert_patches_into_spec_file()
+
+    def _generate_patches(self):
+        """
+        Generate patches for any differences between our tag and the
+        upstream tag.
+        """
+        # TODO: Generates one big satellite.patch. Would be nice if this could
+        # be one patch per commit but this might be difficult to extract from
+        # git reliably. Checking for SHA1's in one branch but not another 
+        # could easily return incorrect results. A straight up diff may be
+        # the only way.
+
+        # TODO: Patch includes changes to the spec file, are these harmless?
+        # TODO: Is this a safe scheme for generating reproducable patches?
+        # TODO: Should this be done when tagging the release and committed to
+        # git?
+        self.patch_filename = "%s-to-%s.patch" % (self.upstream_tag,
+                self.build_tag)
+        self.patch_file = os.path.join(self.rpmbuild_sourcedir,
+                self.patch_filename)
+        os.chdir(os.path.join(self.git_root, self.relative_project_dir))
+        debug("Patch filename: %s" % self.patch_filename)
+        debug("Patch file: %s" % self.patch_file)
+        patch_command = "git diff --relative %s..%s > %s" % \
+                (self.upstream_tag, self.build_tag, self.patch_file)
+        debug("Generating patch with: %s" % patch_command)
+        output = run_command(patch_command)
+        print(output)
+
+    def _insert_patches_into_spec_file(self):
+        """
+        Insert the generated patches into the copy of the spec file we'll be
+        building with.
+        """
+        f = open(self.spec_file, 'r')
+        lines = f.readlines()
+
+        patch_pattern = re.compile('^Patch(\d+):')
+        source_pattern = re.compile('^Source\d+:')
+
+        # Find the largest PatchX: line, or failing that SourceX:
+        patch_number = 0 # What number should we use for our PatchX line
+        patch_insert_index = 0 # Where to insert our PatchX line in the list
+        patch_apply_index = 0 # Where to insert our %patchX line in the list
+        array_index = 0 # Current index in the array
+        for line in lines:
+            match = source_pattern.match(line)
+            if match:
+                patch_insert_index = array_index + 1
+
+            match = patch_pattern.match(line)
+            if match:
+                patch_insert_index = array_index + 1
+                patch_number = int(match.group(1)) + 1
+
+            if line.startswith("%setup"):
+                patch_apply_index = array_index + 2 # already added a line
+
+            array_index += 1
+        
+        if patch_insert_index == 0 or patch_apply_index == 0:
+            error_out("Unable to insert PatchX or %patchX lines in spec file")
+
+        lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
+            self.patch_filename))
+        lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
+            self.patch_filename))
+        f.close()
+
+        # Now write out the modified lines to the spec file copy:
+        f = open(self.spec_file, 'w')
+        for line in lines:
+            f.write(line)
+        f.close()
 
     def _get_upstream_version(self):
         """
-        Get the upstream version. For now we expect this to be the same as
-        the Version in the spec file.
+        Get the upstream version. Checks for "upstreamversion" in the spec file
+        and uses it if found. Otherwise assumes the upstream version is equal 
+        to the version we're building.
 
         i.e. satellite-java-0.4.15 will be built on spacewalk-java-0.4.15
-        with just the package Release being incremented on rebuilds.
+        with just the package release being incremented on rebuilds. 
         """
-        return get_spec_version(self.rpmbuild_sourcedir, self.spec_file_name)
+        # Use upstreamversion if defined in the spec file:
+        (status, output) = commands.getstatusoutput(
+            "cat %s | grep 'define upstreamversion' | awk '{ print $3 ; exit }'" %
+            self.spec_file)
+        if status == 0 and output != "":
+            return output
+
+        # Otherwise, assume we use our version:
+        return self.display_version
 
     def _get_rpmbuild_dir_options(self):
         """

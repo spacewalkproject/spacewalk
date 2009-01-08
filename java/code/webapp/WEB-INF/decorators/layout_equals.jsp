@@ -14,6 +14,7 @@
 	  <decorator:head />
   </head>
   <body onload="<decorator:getProperty property="body.onload" />">
+   <div id="wrap">
     <div id="top-wrap" class="wrap">
       <jsp:include page="/WEB-INF/includes/header.jsp" />
     </div>
@@ -22,6 +23,7 @@
         <decorator:body />
       </div><!-- end content -->
       <jsp:include page="/WEB-INF/includes/footer.jsp" />
-    </div>
+    </div><!-- end bottom-wrap -->
+   </div><!-- end wrap -->
   </body>
 </html:html>

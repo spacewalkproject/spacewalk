@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -24,9 +25,12 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -41,10 +45,13 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     private static Logger log = Logger.getLogger(ProvisionVirtualInstanceCommand.class);
     
     private String guestName;
-    private String memoryAllocation;
-    private String virtualCpus;
+    private Long memoryAllocation;
+    private Long virtualCpus;
     private String storageType;
-    private String localStorageMb;
+    private Long localStorage;
+    private String filePath;
+    private String virtBridge;
+
 
     /**
      * Constructor
@@ -192,37 +199,31 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     /**
      * @return Returns the memoryAllocation
      */
-    public String getMemoryAllocation() {
+    public Long getMemoryAllocation() {
         return memoryAllocation;
     }
 
     /**
      * @param memoryAllocationIn the memoryAllocation to set.
      */
-    public void setMemoryAllocation(String memoryAllocationIn) {
+    public void setMemoryAllocation(Long memoryAllocationIn) {
         this.memoryAllocation = memoryAllocationIn;
     }
 
     /**
      * @return Returns the virtualCpus
      */
-    public String getVirtualCpus() {
+    public Long getVirtualCpus() {
         return virtualCpus;
     }
 
     /**
      * @param virtualCpusIn the virtualCpus to set.
      */
-    public void setVirtualCpus(String virtualCpusIn) {
+    public void setVirtualCpus(Long virtualCpusIn) {
         this.virtualCpus = virtualCpusIn;
     }
 
-    /**
-     * @return Returns the storageType
-     */
-    public String getStorageType() {
-        return storageType;
-    }
 
     /**
      * @param storageTypeIn the storageType to set.
@@ -234,15 +235,64 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     /**
      * @return Returns the localStorageMb
      */
-    public String getLocalStorageMb() {
-        return localStorageMb;
+    public Long getLocalStorageSize() {
+        return localStorage;
     }
 
     /**
-     * @param localStorageMbIn the localStorageMb to set.
+     * @param localStorageIn the localStorage to set.
      */
-    public void setLocalStorageMb(String localStorageMbIn) {
-        this.localStorageMb = localStorageMbIn;
+    public void setLocalStorageSize(Long localStorageIn) {
+        this.localStorage = localStorageIn;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public DataResult<? extends KickstartDto> getKickstartProfiles() {
+        DataResult<? extends KickstartDto> result =  super.getKickstartProfiles();
+        for (KickstartDto dto : result) {
+            Profile prf = Profile.lookupById(
+                    CobblerXMLRPCHelper.getConnection(this.getUser()), dto.getCobblerId());
+            dto.setVirtBridge(prf.getVirtBridge());
+            dto.setVirtCpus(prf.getVirtCpus());
+            dto.setVirtMemory(prf.getVirtRam());
+            dto.setVirtSpace(prf.getVirtFileSize());
+        }
+        return result;
+    }
+
+    
+    /**
+     * @return Returns the filePath.
+     */
+    public String getFilePath() {
+        return filePath;
+    }
+
+    
+    /**
+     * @param filePathIn The filePath to set.
+     */
+    public void setFilePath(String filePathIn) {
+        this.filePath = filePathIn;
+    }
+
+    
+    /**
+     * @return Returns the virtBridge.
+     */
+    public String getVirtBridge() {
+        return virtBridge;
+    }
+
+    
+    /**
+     * @param virtBridgeIn The virtBridge to set.
+     */
+    public void setVirtBridge(String virtBridgeIn) {
+        this.virtBridge = virtBridgeIn;
     }
     
 }

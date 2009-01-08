@@ -421,12 +421,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                     params.put("sec_arch_id", arch.getId().toString());
                 }
                 retval = mode.execute(params);
+                if (log.isDebugEnabled()) {
+                    log.debug("got back from DB: " + retval);
+                }
                 KickstartLister.getInstance().setKickstartUrls(retval, user);
             }
         }
         
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
                                             listCobblerProfiles(user);
+        if (log.isDebugEnabled()) {
+            log.debug("got back from cobbler: " + dtos);
+        }
         retval.addAll(dtos);
         return retval;
     }
@@ -804,11 +810,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             return error;
         }
         
-        // Check that we have a valid up2date version
-        log.debug("** Checking valid up2date");
-        error = validateUp2dateVersion();
-        if (error != null) {
-            return error;
+        if (ksdata.isRhel()) {
+            // Check that we have a valid up2date version
+            log.debug("** Checking valid up2date");
+            error = validateUp2dateVersion();
+            if (error != null) {
+                return error;
+            }
         }
         
         

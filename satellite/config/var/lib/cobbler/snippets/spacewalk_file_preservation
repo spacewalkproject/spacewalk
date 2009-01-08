@@ -1,0 +1,9 @@
+%post --nochroot
+mkdir /mnt/sysimage/tmp/ks-tree-copy
+if [ -d /oldtmp/ks-tree-shadow ]; then
+cp -fa /oldtmp/ks-tree-shadow/* /mnt/sysimage/tmp/ks-tree-copy
+elif [ -d /tmp/ks-tree-shadow ]; then
+cp -fa /tmp/ks-tree-shadow/* /mnt/sysimage/tmp/ks-tree-copy
+fi
+cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
+cp -f /tmp/ks-pre.log /mnt/sysimage/root/

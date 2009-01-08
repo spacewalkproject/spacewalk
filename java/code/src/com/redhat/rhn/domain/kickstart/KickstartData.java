@@ -762,6 +762,16 @@ public class KickstartData {
     }
 
     /**
+     * @return if this kickstart profile is rhel  installer type
+     */
+    public boolean isRhel() {
+        if (getInstallType() != null) {
+            return getInstallType().isRhel();
+        }
+        return false;
+    }
+    
+    /**
      * @return if this kickstart profile is rhel 5 installer type
      */
     public boolean isRhel5() {

@@ -1,5 +1,5 @@
 %define ap_home        %{_datadir}/nocpulse
-%define cgi_bin        %ap_home/cgi-bin
+%define cgi_bin        /var/www/cgi-bin
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define templatedir    %ap_home/templates
 %define bin            %{_bindir}
@@ -7,7 +7,7 @@
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.48.3
+Version:      0.48.4
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -98,6 +98,9 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan 07 2009 Dave Parker <dparker@redhat.com> 0.48.4-1
+- 461162 - move sputlite cgi programs to stock location in /var/www/cgi-bin
+
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.3-1
 - 474591 - move web data to /usr/share/nocpulse
 

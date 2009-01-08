@@ -14,6 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         </id>
   
   		<property name="cobblerId" column="cobbler_id"  type="string" length="64" />
+  		<property name="cobblerXenId" column="cobbler_xen_id"  type="string" length="64" />
         <property name="basePath" type="string" column="base_path"/>
         <property name="label" type="string" column="label"/>
         <property name="lastModified" type="date" column="last_modified"/>
@@ -81,9 +82,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		]]>
     </query>
 
-    <query name="KickstartableTree.findByCobblerId">
+    <query name="KickstartableTree.findByCobblerIdOrXenId">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
-        		where k.cobblerId = :cid ]]>
+        		where k.cobblerId = :cid or k.cobblerXenId = :cid]]>
     </query>
     
     <query name="KickstartableTree.verifyTreeAssignment">

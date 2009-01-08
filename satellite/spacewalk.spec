@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
 Version:        0.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
 Group:          Applications/Internet
@@ -47,7 +47,6 @@ Requires:       rhnpush
 # Misc
 Requires:       spacewalk-schema
 Requires:       spacewalk-config
-Requires:       cobbler
 Requires:       yum-utils
 
 # Requires:       osa-dispatcher
@@ -60,6 +59,8 @@ Requires:       spacewalk-monitoring
 # Requires:       rhn-solaris-bootstrap
 # Requires:       rhn_solaris_bootstrap_5_1_0_3
 
+# SELinux
+Requires:       spacewalk-selinux
 
 
 %description
@@ -86,6 +87,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com> 0.4.2-2
+- Removing cobbler requirement down to RPMs that actually need it 
+
 * Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - require spacewalk-monitoring instead each individual monitoring package
 

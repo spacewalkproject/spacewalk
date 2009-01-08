@@ -69,7 +69,7 @@ public abstract class CobblerCommand {
      */
     public CobblerCommand() {
         xmlRpcToken = IntegrationService.get().getAuthToken(
-                Config.get().getString(Config.COBBLER_TASKOMATIC_USER));
+                Config.get().getCobblerAutomatedUser());
         log.debug("Unauthenticated Cobbler call");
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 

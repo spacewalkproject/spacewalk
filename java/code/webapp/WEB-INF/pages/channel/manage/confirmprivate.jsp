@@ -55,10 +55,7 @@
          bound="false"
          sortable="false"
          headerkey="org.trust.systems.affected">
-            <a
-href="OrgTrusts.do?affectedSystems=1&oid=${org.id}&oid=${current.org.id}">
-               ${fn:length(current.subscribed)}
-            </a>
+            ${fn:length(current.subscribed)}
       </rl:column>
    </rl:list>
    <hr/>

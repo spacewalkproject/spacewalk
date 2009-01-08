@@ -190,7 +190,7 @@ fi
 
 %changelog
 * Thu Dec 18 2008 Jan Pazdziora 0.1-23.2
-- adde oracle-nofcontext-selinux subpackage
+- added oracle-nofcontext-selinux subpackage
 
 * Fri Oct  3 2008 Jan Pazdziora - 0.1-23.1
 - remove audit-archive-selinux, rsync-ssh-selinux (Build)Requires

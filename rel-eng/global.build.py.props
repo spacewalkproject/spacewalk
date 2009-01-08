@@ -1,0 +1,3 @@
+[globalconfig]
+default_builder = spacewalk.releng.builder.Builder
+default_tagger = spacewalk.releng.tagger.VersionTagger

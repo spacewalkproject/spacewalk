@@ -39,14 +39,14 @@
             ${current.server_name}
         </rl:column>
 
-        <rl:column headerkey="ssm.package.remove.schedule.packages" bound="false"
+        <rl:column headerkey="ssm.package.upgrade.schedule.packages" bound="false"
                    sortable="false">
             <c:forEach begin="0" end="19" items="${current.elaborator0}" var="item" varStatus="status">
                 <c:out value="${item.nvre}"/><br/>
             </c:forEach>
 
             <c:if test="${fn:length(current.elaborator0) > 19}">
-                <i><bean:message key="ssm.package.remove.schedule.toomanypackages"/></i>
+                <i><bean:message key="ssm.package.upgrade.schedule.toomanypackages"/></i>
             </c:if>                
             
         </rl:column>

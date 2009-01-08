@@ -18,7 +18,8 @@
 <rhn-channel-details>
 
     <div class="page-summary">
-      <p>Are you sure you wish to delete this channel?  Packages in the channel will be removed from the channel, but will remain on the server.  You will be given the option to delete them after the channel has been deleted.  Errata related to the channel will no longer be related to the channel, and may be orphaned.  If the channel has child channels, it cannot be deleted; the child channels must be deleted first.</p>
+      <p>Are you sure you wish to delete this channel?  Packages in the channel will be removed from the channel, but will remain on the server.  You will be given the option to delete them after the channel has been deleted.  Errata related to the channel will no longer be related to the channel, and may be orphaned.  If the channel has child channels, it cannot be deleted; the child channels must be deleted first.
+     </p>
     </div>
 
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
@@ -58,7 +59,35 @@
 
 </table>
 
+    <h2>Trusted Organizations</h2>
+    <div class="page-summary">
+      <p>Channel deletion will affect any Trusted Organizations that have systems subscribed to the <strong>{channel_name}</strong> channel.
+     </p>
+    </div>
+
+<table class="details">
+  <tr>
+    <th>Organizations affected</th>
+    <td>{trusted_orgs}</td>
+  </tr>
+  <tr>
+    <th>Systems subscribed</th>
+    <td>{trusted_subscribed}</td>
+  </tr>
+</table>
+
 <pxt-form method="POST">
+    <h2>Unsubscribe Systems</h2>
+    <div class="page-summary">
+      <p>Unsubscribe all trusted organization systems that are subscribed to the <strong>{channel_name}</strong> channel. Subscribed systems will lose access to packages specific to this channel.
+     </p>
+    </div>
+<table class="details">
+  <tr>
+    <th>Unsubscribe Systems</th>
+    <td><input type="checkbox" name="force_unsubscribe" value="1"/></td>
+  </tr>
+</table>
 <div align="right">
 <hr />
     <input type="submit" name="confirm_delete" value="Delete Channel" />

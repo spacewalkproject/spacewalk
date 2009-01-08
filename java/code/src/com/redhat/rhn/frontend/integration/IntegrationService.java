@@ -91,7 +91,7 @@ public class IntegrationService {
         
         //Handle the taskomatic case (Where we can't rely on the tokenStore since it's
         //  a completely different VM)
-        if (login.equals(Config.get().getString(Config.COBBLER_TASKOMATIC_USER))) {
+        if (login.equals(Config.get().getString(Config.COBBLER_AUTOMATED_USER))) {
             
             passwd = Config.get().getString(Config.WEB_SESSION_SECRET_1);
         }
@@ -138,7 +138,7 @@ public class IntegrationService {
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
         
-        if (login.equals(Config.get().getString(Config.COBBLER_TASKOMATIC_USER))) {
+        if (login.equals(Config.get().getString(Config.COBBLER_AUTOMATED_USER))) {
             log.debug("checkRandomToken called with taskomatic user!");
             return encodedRandom.equals(
                     Config.get().getString(Config.WEB_SESSION_SECRET_1));

@@ -51,7 +51,7 @@ public abstract class CobblerObject {
 
     protected abstract void invokeModify(String key, Object value);
     protected abstract void invokeSave();
-    protected abstract void invokeRemove();
+    protected abstract boolean invokeRemove();
     protected abstract String invokeGetHandle();
     protected abstract void reload();
     protected abstract void invokeRename(String newName);
@@ -78,10 +78,10 @@ public abstract class CobblerObject {
 
     /**
      * removes the kickstart object from cobbler.
+     * @return true if sucessfull
      */
-    public void remove() {
-        invokeRemove();
-        client.invokeTokenMethod("remove_profile", getName());
+    public boolean remove() {
+        return invokeRemove();
     }
     
     

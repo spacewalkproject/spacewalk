@@ -14,6 +14,23 @@
  */
 package com.redhat.rhn.manager.system;
 
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.conf.Config;
@@ -60,28 +77,11 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NotActivatedSatelliteException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.BaseManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * SystemManager
@@ -116,10 +116,7 @@ public class SystemManager extends BaseManager {
         "Registered by (\\w+) using rhn_register client"};
 
     public static final String NO_SLOT_KEY = "system.entitle.noslots";
-    private static final Long VIRT_OVERHEAD_MB = 
-        new Long(Config.get().getInt("web.virt.hypervisor.overhead", 256));
-    private static final String HARDWARE_DETAILS_URL = 
-                                "/network/systems/details/hardware.pxt?sid=";
+
     private SystemManager() {
     }
     
@@ -1131,6 +1128,25 @@ public class SystemManager extends BaseManager {
                                                     Channel channel) {
         unsubscribeServerFromChannel(user, server, channel, true);
     }
+    
+    /**
+     * Unsubscribe given server from the given channel.
+     * @param user The user performing the operation
+     * @param sid The id of the server to be unsubscribed
+     * @param cid The id of the channel from which the server will be unsubscribed
+     */
+    public static void unsubscribeServerFromChannel(User user, Long sid, 
+            Long cid) {
+        if (ChannelManager.verifyChannelSubscribe(user, cid)) {
+            CallableMode m = ModeFactory.getCallableMode("Channel_queries",
+                    "unsubscribe_server_from_channel");
+            Map in = new HashMap();
+            in.put("server_id", sid);
+            in.put("channel_id", cid);
+            
+            m.execute(in, new HashMap());
+        }
+    }
 
     /**
      * Unsubscribe given server from the given channel.
@@ -1175,7 +1191,7 @@ public class SystemManager extends BaseManager {
                                                     Channel channel) {
         return unsubscribeServerFromChannel(server, channel, false);
     }
-    
+
     /**
      * Unsubscribe given server from the given channel. If you use this method, 
      * YOU BETTER KNOW WHAT YOU'RE DOING!!! (Use the version that takes a user as well if
@@ -1419,7 +1435,6 @@ public class SystemManager extends BaseManager {
                 }
             }
         }
-        
         boolean checkCounts = true;
         if (server.isVirtualGuest()) {
             Server host = server.getVirtualInstance().getHostSystem(); 

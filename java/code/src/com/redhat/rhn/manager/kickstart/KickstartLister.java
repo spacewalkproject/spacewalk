@@ -379,6 +379,7 @@ public class KickstartLister extends BaseManager {
      * @return list of cobbler profile dtos.
      */
     public List <CobblerProfileDto> listCobblerProfiles(User user) {
+        logger.debug("Adding cobblerProfiles to the list");
         Set<String> excludes = new HashSet<String>(
                     KickstartFactory.listKickstartDataCobblerIds());
         
@@ -394,6 +395,7 @@ public class KickstartLister extends BaseManager {
             }
 
         }
+        logger.debug("Returning cobbler profiles: " + profiles);
         return profiles;
     }
     

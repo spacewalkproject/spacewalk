@@ -68,23 +68,27 @@ def run_command(command):
         raise Exception("Error running command")
     return output
 
-def check_tag_exists(tag):
-    """ Check that the given git tag exists. """
-    rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
+def check_tag_exists(tag, repo_url=None):
+    """
+    Check that the given git tag exists in a git repository.
+    """
+    if not repo_url:
+        repo_url = get_git_repo_url()
+    debug("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
 
     tag_sha1 = run_command(
             "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
             % tag)
     debug("Local tag SHA1: %s" % tag_sha1)
-    upstream_repo = run_command("cat %s" % os.path.join(rel_eng_dir,
-        "upstream-repo"))
-    debug("Upstream repo: %s" % upstream_repo)
-    upstream_tag_sha1 = run_command("git ls-remote %s --tag %s | awk '{ print $1 ; exit }'" %
-            (upstream_repo, tag))
+
+    upstream_tag_sha1 = run_command(
+            "git ls-remote %s --tag %s | awk '{ print $1 ; exit }'" %
+            (repo_url, tag))
     if upstream_tag_sha1 == "":
-        error_out(["Tag does not exist in upstream repo: %s" % tag,
-            "You must build.py --tag-release, then git push and git push --tags"])
-    debug("Upstream tag SHA1: %s" % upstream_tag_sha1)
+        error_out(["Tag does not exist in remote git repo: %s" % tag,
+            "You must --tag-release, then git push and git push --tags"])
+
+    debug("Remote tag SHA1: %s" % upstream_tag_sha1)
     if upstream_tag_sha1 != tag_sha1:
         error_out("Tag %s references %s locally but %s upstream." % (tag,
             tag_sha1, upstream_tag_sha1))
@@ -105,10 +109,6 @@ def debug(text):
 
 def get_spec_version_and_release(sourcedir, spec_file_name):
         command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
-        return run_command(command)
-
-def get_spec_version(sourcedir, spec_file_name):
-        command = """rpm -q --qf '%%{version}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
         return run_command(command)
 
 def get_project_name(tag=None):
@@ -148,33 +148,79 @@ def get_relative_project_dir(project_name, commit):
     debug("Got package metadata: %s" % tokens)
     return tokens[1]
 
+def get_build_commit(tag, test=False):
+    """ Return the git commit we should build. """
+    if test:
+        return get_git_head_commit()
+    else:
+        tag_sha1 = run_command(
+                "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
+                % tag)
+        commit_id = run_command('git rev-list --max-count=1 %s' % 
+                tag_sha1)
+        return commit_id
 
+def get_git_head_commit():
+    """ Return the SHA1 of the HEAD commit on the current git branch. """
+    return commands.getoutput('git rev-parse --verify HEAD')
 
-class BuildCommon:
+def get_commit_timestamp(sha1_or_tag):
     """
-    Builder and Tagger classes require a little bit of the same functionality.
-    Placing that code here to be inherited by both.
+    Get the timestamp of the git commit or tag we're building. Used to
+    keep the hash the same on all .tar.gz's we generate for a particular
+    version regardless of when they are generated.
     """
-    def __init__(self, debug=False):
-        self.debug = debug
+    output = run_command(
+            "git rev-list --timestamp --max-count=1 %s | awk '{print $1}'"
+            % sha1_or_tag)
+    return output
 
-        self.git_root = find_git_root() 
-        self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
+def create_tgz(git_root, prefix, commit, relative_dir, rel_eng_dir, 
+    dest_tgz):
+    """
+    Create a .tar.gz from a projects source in git.
+    """
+    os.chdir(os.path.abspath(git_root))
+    timestamp = get_commit_timestamp(commit)
 
-    def _get_latest_tagged_version(self):
-        """
-        Return the latest git tag for this package in the current branch.
-        Uses the info in rel-eng/packages/package-name and error out if the
-        file does not exist.
+    archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s" % \
+        (
+                prefix,
+                commit,
+                relative_dir,
+                rel_eng_dir,
+                timestamp,
+                commit,
+                dest_tgz
+        )
+    #debug(archive_cmd)
+    run_command(archive_cmd)
 
-        Returns None if file does not exist.
-        """
-        file_path = "%s/packages/%s" % (self.rel_eng_dir, self.project_name)
-        debug("Getting latest package info from: %s" % file_path)
-        if not os.path.exists(file_path):
-            return None
+def get_git_repo_url():
+    """
+    Return the url of this git repo.
 
-        output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
-        return output
+    Uses ~/.git/config remote origin url.
+    """
+    return run_command("git config remote.origin.url")
+
+def get_latest_tagged_version(package_name):
+    """
+    Return the latest git tag for this package in the current branch.
+    Uses the info in rel-eng/packages/package-name and error out if the
+    file does not exist.
+
+    Returns None if file does not exist.
+    """
+    git_root = find_git_root()
+    rel_eng_dir = os.path.join(git_root, "rel-eng")
+    file_path = "%s/packages/%s" % (rel_eng_dir, package_name)
+    debug("Getting latest package info from: %s" % file_path)
+    if not os.path.exists(file_path):
+        return None
+
+    output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
+    return output
+
 
 

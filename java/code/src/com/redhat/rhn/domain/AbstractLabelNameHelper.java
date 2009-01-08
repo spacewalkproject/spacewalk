@@ -77,9 +77,9 @@ public class AbstractLabelNameHelper extends BaseDomainHelper {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(id)
-                                    .append(name)
-                                    .append(label)
+        return new HashCodeBuilder().append(this.getId())
+                                    .append(this.getName())
+                                    .append(this.getLabel())
                                     .toHashCode();
     }
 
@@ -91,9 +91,9 @@ public class AbstractLabelNameHelper extends BaseDomainHelper {
             return false;
         }
         AbstractLabelNameHelper other = (AbstractLabelNameHelper) oth;
-        return new EqualsBuilder().append(id, other.id)
-                                  .append(name, other.name)
-                                  .append(label, other.label)
+        return new EqualsBuilder().append(this.getId(), other.getId())
+                                  .append(this.getName(), other.getName())
+                                  .append(this.getLabel(), other.getLabel())
                                   .isEquals();
     }
 

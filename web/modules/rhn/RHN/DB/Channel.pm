@@ -264,6 +264,26 @@ EOQ
   return @ret;
 }
 
+sub trusted_orgs {
+  my $self = shift;
+  my $cid;
+
+  if (ref $self) {
+    $cid = $self->id;
+  }
+  else {
+    $cid = shift;
+  }
+  die "No channel id" unless defined $cid;
+  my $trust_orgs = {};
+  foreach my $sid ($self->servers) {
+    my $server = RHN::Server->lookup(-id => $sid);
+    $trust_orgs->{$server->org_id} += 1 if $server->org_id != $self->org_id;
+  }
+
+  return keys %{$trust_orgs};
+}
+
 
 ################################
 # Channel package functions

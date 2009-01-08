@@ -63,6 +63,7 @@ rhnServer
 			constraint rhn_server_psid_fk
 				references rhnProvisionState(id),
 	channels_changed date,
+	cobbler_id              varchar2(64),
         created         date default (sysdate)
 			constraint rhn_server_created_nn not null,
         modified        date default (sysdate)

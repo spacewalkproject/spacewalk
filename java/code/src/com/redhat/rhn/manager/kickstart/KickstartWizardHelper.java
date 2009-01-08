@@ -63,7 +63,7 @@ public class KickstartWizardHelper {
      * Retrieve a list of the valid virtualization types
      * @return list of VirtualizationTypes
      */
-    public List getVirtualizationTypes() {
+    public List getVirtualizationTypes() {        
         return KickstartFactory.lookupVirtualizationTypes();
     }
 

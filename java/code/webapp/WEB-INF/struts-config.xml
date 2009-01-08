@@ -740,6 +740,8 @@
 			<!-- Needed for scheduling Virtualization stuff-->            
 		    <form-property name="memoryAllocation" type="java.lang.String" />
 		    <form-property name="virtualCpus" type="java.lang.String" />
+		    <form-property name="virtBridge" type="java.lang.String" />
+		    <form-property name="diskPath" type="java.lang.String" />
 		    <form-property name="storageType" type="java.lang.String" />
 		    <form-property name="localStorageMegabytes" type="java.lang.String" />
 		    <form-property name="guestName" type="java.lang.String" />
@@ -5327,6 +5329,16 @@
         <forward name="success"
                  redirect="true" path="/kickstart/KickstartDetailsEdit.do"/>
     </action>
+ 
+   <action path="/systems/details/kickstart/Variables"
+        scope="request"
+        name="kickstartVariableForm"
+        type="com.redhat.rhn.frontend.action.systems.provisioning.kickstart.VariablesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                path="/WEB-INF/pages/systems/details/kickstart/variables.jsp"/>        
+    </action>
+ 
       
     <action path="/systems/details/kickstart/SessionStatus"
         scope="request"
