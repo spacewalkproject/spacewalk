@@ -34,6 +34,7 @@ Requires:       spacewalk-config
 Requires:       spacewalk-admin
 Requires:       spacewalk-backend
 Requires:       spacewalk-backend-server
+Requires:       oracle-instantclient-selinux
 
 %description
 SELinux policy module supporting Spacewalk Server.
