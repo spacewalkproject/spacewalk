@@ -1,5 +1,13 @@
 policy_module(spacewalk,@@VERSION@@)
 
+## <desc>
+## <p>
+## Allow Spacewalk to work with data (/var/satellite) stored
+## on NFS-mounted directories.
+## </p>
+## </desc>
+gen_tunable(spacewalk_nfs_mountpoint,false)
+
 require {
 	type httpd_t;
 	type restorecon_t;
