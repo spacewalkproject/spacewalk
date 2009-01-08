@@ -74,7 +74,7 @@ def check_tag_exists(tag, repo_url=None):
     """
     if not repo_url:
         repo_url = get_git_repo_url()
-    debug("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
+    print("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
 
     tag_sha1 = run_command(
             "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"

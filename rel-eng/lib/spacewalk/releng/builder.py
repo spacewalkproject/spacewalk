@@ -50,7 +50,7 @@ class Builder(object):
 
         self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
-        print("Building %s" % (self.build_tag))
+        print("Building package [%s]" % (self.build_tag))
 
         self.git_commit_id = get_build_commit(tag=self.build_tag, 
                 test=self.test)
@@ -332,8 +332,8 @@ class SatelliteBuilder(NoTgzBuilder):
         self.upstream_tag = "%s-%s-1" % (self.upstream_name, 
                 self.upstream_version)
 
-        print("Building upstream tgz for tag: %s" % (self.upstream_tag))
-        if not self.offline:
+        print("Building upstream tgz for tag [%s]" % (self.upstream_tag))
+        if not self.offline and (self.upstream_tag != self.build_tag):
             check_tag_exists(self.upstream_tag)
 
         self.spec_file = os.path.join(self.rpmbuild_sourcedir, 
@@ -352,6 +352,11 @@ class SatelliteBuilder(NoTgzBuilder):
                 self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
                     tgz_filename))
 
+        # If these are equal then the tag we're building was likely created in 
+        # Spacewalk and thus we don't need to do any patching.
+        if (self.upstream_tag == self.build_tag and not self.test):
+            return
+
         self._generate_patches()
         self._insert_patches_into_spec_file()
 
@@ -360,25 +365,15 @@ class SatelliteBuilder(NoTgzBuilder):
         Generate patches for any differences between our tag and the
         upstream tag.
         """
-        # TODO: Generates one big satellite.patch. Would be nice if this could
-        # be one patch per commit but this might be difficult to extract from
-        # git reliably. Checking for SHA1's in one branch but not another 
-        # could easily return incorrect results. A straight up diff may be
-        # the only way.
-
-        # TODO: Patch includes changes to the spec file, are these harmless?
-        # TODO: Is this a safe scheme for generating reproducable patches?
-        # TODO: Should this be done when tagging the release and committed to
-        # git?
-        self.patch_filename = "%s-to-%s.patch" % (self.upstream_tag,
-                self.build_tag)
+        self.patch_filename = "%s-to-%s-%s.patch" % (self.upstream_tag,
+                self.project_name, self.display_version)
         self.patch_file = os.path.join(self.rpmbuild_sourcedir,
                 self.patch_filename)
         os.chdir(os.path.join(self.git_root, self.relative_project_dir))
-        debug("Patch filename: %s" % self.patch_filename)
-        debug("Patch file: %s" % self.patch_file)
+        print("Generating patch [%s]" % self.patch_filename)
+        debug("Patch: %s" % self.patch_file)
         patch_command = "git diff --relative %s..%s > %s" % \
-                (self.upstream_tag, self.build_tag, self.patch_file)
+                (self.upstream_tag, self.git_commit_id, self.patch_file)
         debug("Generating patch with: %s" % patch_command)
         output = run_command(patch_command)
         print(output)
@@ -445,8 +440,11 @@ class SatelliteBuilder(NoTgzBuilder):
         if status == 0 and output != "":
             return output
 
+        if self.test:
+            return self.build_version.split("-")[0]
         # Otherwise, assume we use our version:
-        return self.display_version
+        else:
+            return self.display_version
 
     def _get_rpmbuild_dir_options(self):
         """
