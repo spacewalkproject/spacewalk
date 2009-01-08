@@ -1015,7 +1015,11 @@ sub mkdir_mount_points {
       die "Failed to retrieve uid of user apache, the user does not seem to exist.\n";
     }
     chown $apache_uid, -1, $dir or die "Error chowning dir [$dir] to [apache]: $!\n";
-    system('/sbin/restorecon', '-rvv', $dir);
+    if (-l $dir) {
+      system('/sbin/restorecon', '-rvv', $dir, "$dir/.");
+    } else {
+      system('/sbin/restorecon', '-rvv', $dir);
+    }
   }
 }
 
