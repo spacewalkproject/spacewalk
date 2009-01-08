@@ -421,12 +421,18 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                     params.put("sec_arch_id", arch.getId().toString());
                 }
                 retval = mode.execute(params);
+                if (log.isDebugEnabled()) {
+                    log.debug("got back from DB: " + retval);
+                }
                 KickstartLister.getInstance().setKickstartUrls(retval, user);
             }
         }
         
         List<CobblerProfileDto> dtos = KickstartLister.getInstance().
                                             listCobblerProfiles(user);
+        if (log.isDebugEnabled()) {
+            log.debug("got back from cobbler: " + dtos);
+        }
         retval.addAll(dtos);
         return retval;
     }
