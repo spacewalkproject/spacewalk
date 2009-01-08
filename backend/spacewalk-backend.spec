@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.9
+Version: 0.4.10
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -550,6 +550,18 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan  8 2009 Jan Pazdziora 0.4.10-1
+- more changes for nvrea error handling
+- changed all references of none to auto w.r.t
+  rhnKickstartVirtualizationType
+- 467115 - adding a switch so users can turn off same nvrea different
+  vendor package uploads
+- eliminate satellite-httpd daemon, migrate to 'stock' apache
+- 461162 - adding support to push the cobbler profile name down to koan
+- 461162 - adding some virt options and spiffifying the virt provisioning page
+- 461162 - moving cobbler requirement down to the RPMs that actually use it
+- changes are by multiple authors
+
 * Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
 - Adding proper cobbler requirement with version
 

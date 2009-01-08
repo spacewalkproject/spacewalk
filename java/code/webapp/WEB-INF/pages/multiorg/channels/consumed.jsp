@@ -34,7 +34,10 @@ function showFiltered() {
 	<bean:message key="orgtrust.jsp.channelconsume.summary" arg0="${trustorg}" />
 </p>
 
-<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
+<form method="post" name="rhn_list" action="/rhn/multiorg/channels/Consumed.do">
+  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
+  <input type="hidden" name="oid" value="${param.oid}"/>
+</form>
 
 </body>
 </html>
