@@ -165,7 +165,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                                                     this.mediaPath);            
         }
 
-        args = new Object[]{handle, "ks_meta", 
+        args = new Object[]{handle, "ksmeta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
