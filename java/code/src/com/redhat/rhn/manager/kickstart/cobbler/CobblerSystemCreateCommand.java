@@ -112,6 +112,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public ValidatorError store() {
         String handle = null;
+        log.debug("Map null?: " + (getSystemMap != null));
         
         if (getSystemMap() != null) {
             handle = (String) invokeXMLRPC("get_system_handle",
@@ -165,7 +166,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                                                     this.mediaPath);            
         }
 
-        args = new Object[]{handle, "ks_meta", 
+        args = new Object[]{handle, "ksmeta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
