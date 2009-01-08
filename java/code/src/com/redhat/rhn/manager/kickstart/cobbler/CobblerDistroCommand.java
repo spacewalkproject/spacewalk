@@ -85,7 +85,7 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
             ksmeta.put("org", tree.getOrg().getId());
         }
         
-        Object[] args = new Object[]{handle, "ksmeta", 
+        Object[] args = new Object[]{handle, "ks_meta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_distro", Arrays.asList(args));
         

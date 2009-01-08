@@ -29,36 +29,11 @@
 	    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 	
   </rhn:require>
- 
-	<h2><bean:message key="kickstart.variable.jsp.header"/></h2>
-
-
-<div>
-  <p>
-    <bean:message key="kickstart.variable.jsp.summary"/>
-  </p>
-  <br>
-    <html:form method="post" action="/kickstart/EditVariables.do">
-      <table class="details">
-          <tr>
-              <th>
-                  <bean:message key="kickstart.variable.jsp.variabledetails"/>:
-              </th>
-              <td>
-                  <html:textarea rows="25" cols="60" property="variables"/>
-              </td>
-          </tr>
-          
-          
-          
-          <tr>          
-            <td align="right" colspan="2"><html:submit><bean:message key="kickstart.variable.jsp.update"/></html:submit></td>
-          </tr>
-      </table>
-	  <html:hidden property="ksid" value="${ksid}"/>
-      <html:hidden property="submitted" value="true"/>
-    </html:form>
-</div>
+<c:import url="/WEB-INF/pages/common/fragments/kickstart/cobbler-variables.jspf">
+	<c:param name = "post_url" value="/kickstart/EditVariables.do"/>
+	<c:param name = "name" value="ksid"/>
+	<c:param name = "value" value="${param.ksid}"/>
+</c:import>
 </body>
 </html:html>
 

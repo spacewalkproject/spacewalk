@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -46,7 +47,6 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
     public Object invokeMethod(String procedureName, List args) {
         methodsCalled.add(procedureName);
         log.debug("invoking: " + procedureName + " with: " + args);
-        
         // Check that none of the args are null
         // because xmlrpc doesnt allow this.
         for (int i = 0; i < args.size(); i++) {
@@ -55,13 +55,30 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                         "One of the args is null: " + args);
             }
         }
-        
-        
-        if (procedureName.equals("new_profile") ||
-                procedureName.equals("new_distro")) {
-            return new String("1");
+        if (procedureName.equals("token_check")) {
+            return new Boolean(true);
         }
-        else if (procedureName.equals("modify_distro")) {
+        else if (procedureName.equals("login")) {
+            return TestUtils.randomString();
+        }
+        Object distroRet = handleDistroMethods(procedureName, args);
+        Object profileRet = handleProfileMethods(procedureName, args);
+        Object systemRet = handleSystemMethods(procedureName, args);
+        
+        if (distroRet != null) {
+            return distroRet;
+        }
+        if (profileRet != null) {
+            return profileRet;
+        }
+        if (systemRet != null) {
+            return systemRet;
+        }
+        return new Object();
+    }
+    
+    private Object handleDistroMethods(String procedureName, List args) {
+        if (procedureName.equals("modify_distro")) {
             if (args.get(1).equals("name")) {
                 log.debug("ARGS: " + args);
                 // Stick the mock name into our mockObjects map
@@ -71,14 +88,14 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 TestObjectStore.get().putObject("distro_name", args.get(2));
                 log.debug("mockobjects111: " + TestObjectStore.get().getObjects());
             }
-            if (args.get(1).equals("ksmeta")) {
-                log.debug("putting ksmeta into store: " + args.get(2));
-                if (TestObjectStore.get().getObject("ksmeta") != null) {
-                    Map ksmeta = (Map) TestObjectStore.get().getObject("ksmeta");
+            if (args.get(1).equals("ks_meta")) {
+                log.debug("putting ks_meta into store: " + args.get(2));
+                if (TestObjectStore.get().getObject("ks_meta") != null) {
+                    Map ksmeta = (Map) TestObjectStore.get().getObject("ks_meta");
                     ksmeta.putAll((Map) args.get(2));
                 }
                 else {
-                    TestObjectStore.get().putObject("ksmeta", args.get(2));
+                    TestObjectStore.get().putObject("ks_meta", args.get(2));
                 }
             }
             return new String("1");
@@ -92,6 +109,8 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 for (int i = 0; i < 10; i++) {
                     Map distro = new HashMap();
                     distro.put("name", TestUtils.randomString());
+                    distro.put("uid", TestUtils.randomString());
+                    distro.put("ks_meta", TestUtils.randomString());
                     retval.add(distro);
                 }
                 // Put the mock distro we created with the call to modify_distro
@@ -101,10 +120,45 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 log.debug("mockobjects in getdistros: " + 
                         TestObjectStore.get().getObjects());
                 distro.put("name", TestObjectStore.get().getObject("distro_name"));
-                distro.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
+                if (TestObjectStore.get().getObject("ks_meta") != null) {
+                    distro.put("ks_meta", TestObjectStore.get().getObject("ks_meta"));
+                }
+                else {
+                    Map ksmeta = new HashMap();
+                    ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, "/ks/dist/foo");
+                    distro.put("ks_meta", ksmeta);
+                }
+                
+                distro.put("uid", TestObjectStore.get().getObject("uid"));
                 retval.add(distro);
                 return retval;
             }
+        }
+        else if (procedureName.equals("get_distro")) {
+            Map retval = new HashMap();
+            if (methodsCalled.contains("remove_distro")) {
+                return retval;
+            }
+            else {
+                log.debug("mockobjects in getdistros: " + 
+                        TestObjectStore.get().getObjects());
+                if (TestObjectStore.get().getObjects().containsKey("distro_name")) {
+                    retval.put("name", TestObjectStore.get().getObject("distro_name"));
+                    retval.put("ks_meta", TestObjectStore.get().getObject("ks_meta"));
+                }
+                else {
+                    retval.put("name", TestUtils.randomString());
+                }
+                return retval;
+            }
+        }
+        return null;
+    }
+
+    private Object handleProfileMethods(String procedureName, List args) {
+        if (procedureName.equals("new_profile") ||
+                procedureName.equals("new_distro")) {
+            return new String("1");
         }
         else if (procedureName.equals("modify_profile")) {
             if (args.get(1).equals("name")) {
@@ -146,36 +200,8 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 return retval;
             }
         }
-        else if (procedureName.equals("get_distro")) {
-            Map retval = new HashMap();
-            if (methodsCalled.contains("remove_distro")) {
-                return retval;
-            }
-            else {
-                log.debug("mockobjects in getdistros: " + 
-                        TestObjectStore.get().getObjects());
-                if (TestObjectStore.get().getObjects().containsKey("distro_name")) {
-                    retval.put("name", TestObjectStore.get().getObject("distro_name"));
-                    retval.put("ksmeta", TestObjectStore.get().getObject("ksmeta"));
-                }
-                else {
-                    retval.put("name", TestUtils.randomString());
-                }
-                return retval;
-            }
-        }
-        else if (procedureName.equals("get_system")) {
-            Map retval = new HashMap();
-            if (methodsCalled.contains("remove_system") ||
-                    !methodsCalled.contains("save_system")) {
-                return retval;
-            }
-            else {
-                retval.put("name", TestUtils.randomString());
-                retval.put("redhat-management-key", TestUtils.randomString());
-                retval.put("uid", String.valueOf(RandomUtils.nextInt(5000)));
-                return retval;
-            }
+        else if (procedureName.equals("remove_profile")) {
+            return new Boolean(true);
         }
         else if (procedureName.equals("get_profile_handle")) {
             log.debug("get_profile_handle.ARGS: " + args);
@@ -190,19 +216,33 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
         else if (procedureName.equals("remove_distro")) {
             return new Boolean(true);
         }
-        else if (procedureName.equals("remove_profile")) {
-            return new Boolean(true);
-        }
-        else if (procedureName.equals("token_check")) {
-            return new Boolean(true);
-        }
-        else if (procedureName.equals("login")) {
-            return TestUtils.randomString();
-        }
-        else if (procedureName.equals("new_system")) {
-            return TestUtils.randomString();
-        }
-        return new Object();
+        return null;
     }
+    
+    private Object handleSystemMethods(String procedureName, List args) {
+        if (procedureName.equals("new_system")) {
+            return TestUtils.randomString();
+        }
+        else if (procedureName.equals("get_system_handle")) {
+            log.debug("get_system_handle.ARGS: " + args);
+            TestObjectStore.get().putObject("system_name", args.get(0));
+            return TestUtils.randomString();
+        }
+        else if (procedureName.equals("get_system")) {
+            Map retval = new HashMap();
+            if (methodsCalled.contains("remove_system") ||
+                    !methodsCalled.contains("save_system")) {
+                return retval;
+            }
+            else {
+                retval.put("name", TestUtils.randomString());
+                retval.put("redhat-management-key", TestUtils.randomString());
+                retval.put("uid", String.valueOf(RandomUtils.nextInt(5000)));
+                return retval;
+            }
+        }
+        return null;
+    }
+
 
 }
