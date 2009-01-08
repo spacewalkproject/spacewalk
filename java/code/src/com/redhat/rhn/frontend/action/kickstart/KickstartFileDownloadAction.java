@@ -14,10 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -61,9 +64,12 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
             DynaActionForm form, BaseKickstartCommand cmdIn) {
         HttpServletRequest request = ctx.getRequest();
         KickstartFileDownloadCommand cmd = (KickstartFileDownloadCommand) cmdIn;
-        KickstartHelper helper = new KickstartHelper(request);
+        KickstartData data = cmd.getKickstartData();
+        
         KickstartUrlHelper urlHelper = new KickstartUrlHelper(
-                cmd.getKickstartData(), helper.getKickstartHost());
+                data, Config.get().getCobblerHost());        
+        KickstartHelper helper = new KickstartHelper(request);
+
         
         /*
          * To generate the file data, our kickstart channel must have at least
@@ -72,9 +78,10 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
          * not needed.
          */
         if (helper.verifyKickstartChannel(
-                cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
-            request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(cmd.getFileData()));
-            request.setAttribute(KSURL, urlHelper.getKickstartViewUrl());
+                    cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
+            request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
+                    KickstartManager.renderKickstart(data)));
+            request.setAttribute(KSURL, KickstartUrlHelper.getCobblerProfileUrl(data));
         }
         else {
             request.setAttribute(INVALID_CHANNEL, "true");
@@ -89,5 +96,9 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
                 ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser(), ctx.getRequest());
     }
+    
+    
+
+    
         
 }

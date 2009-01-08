@@ -12,7 +12,7 @@ use NOCpulse::Log::Logger;
 use NOCpulse::Probe::Error;
 use NOCpulse::Probe::MessageCatalog;
 use NOCpulse::Probe::Result;
-
+use NOCpulse::Probe::ItemStatus;
 
 use Class::MethodMaker
   static_get_set =>
@@ -150,7 +150,7 @@ sub save_result {
     my @stripped_item_list = ();
     foreach my $item ($result->item_named_values) {
         my %hash = ();
-        my @fields = ($item->persistent_fields,
+        my @fields = (NOCpulse::Probe::ItemStatus::PERSISTENT_FIELDS,
                       'renotified_count',
                       'status_notified_time');
         foreach my $field (@fields) {

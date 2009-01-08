@@ -53,6 +53,14 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
     }
 
     /**
+     * @param ksTreeIn - KickstartableTree to sync
+     */
+    public CobblerDistroCommand(KickstartableTree ksTreeIn) {
+        super();
+        this.tree = ksTreeIn;
+    }
+
+    /**
      * Get the distribution associated with the current KickstartData
      * @return Map of cobbler distro fields.
      */
@@ -73,7 +81,11 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
                 helper.getKickstartMediaPath());
 
-        Object[] args = new Object[]{handle, "ksmeta", 
+        if (tree.getOrgId() != null) {
+            ksmeta.put("org", tree.getOrg().getId());
+        }
+        
+        Object[] args = new Object[]{handle, "ks_meta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_distro", Arrays.asList(args));
         

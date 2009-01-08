@@ -70,23 +70,20 @@ rhnErrata
                         constraint rhn_errata_sevid_fk
                                 references rhnErrataSeverity(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_errata_id_seq;
 
 create unique index rhn_errata_advisory_uq
 	on rhnErrata(advisory)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_errata_advisory_name_uq
 	on rhnErrata(advisory_name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.22  2004/11/01 21:47:41  pjones

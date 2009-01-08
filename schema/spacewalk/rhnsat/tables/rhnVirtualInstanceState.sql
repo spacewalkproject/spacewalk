@@ -33,16 +33,14 @@ rhnVirtualInstanceState
 	modified		date default (sysdate)
 				constraint rhn_vis_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_vis_id_seq;
 
 create unique index rhn_vis_lbl_id_idx on
     rhnVirtualInstanceState(label, id)
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 
 --

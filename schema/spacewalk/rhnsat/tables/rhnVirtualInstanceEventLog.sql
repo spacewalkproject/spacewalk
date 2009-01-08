@@ -60,17 +60,15 @@ rhnVirtualInstanceEventLog
 	modified		date default (sysdate)
 				constraint rhn_viel_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_viel_id_seq;
 
 create index rhn_viel_vii_idx
 	on rhnVirtualInstanceEventLog(virtual_instance_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 
 

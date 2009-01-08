@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.9
+Version: 0.4.22
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -39,15 +39,16 @@ rm -Rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
+mv var $RPM_BUILD_ROOT/
 
-ln -s ../../httpd/logs $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/logs
-ln -s ../../httpd/run $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/run
-ln -s ../../httpd/modules $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/modules
-ln -s ../../../httpd/conf/magic $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/magic
-ln -s ../../../httpd/conf/ssl.crt $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/ssl.crt
-ln -s ../../../httpd/conf/ssl.key $RPM_BUILD_ROOT/etc/rhn/satellite-httpd/conf/ssl.key
+ln -s ../../../httpd/conf/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/server.key
+ln -s ../../../httpd/conf/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/server.crt
 
-tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc --exclude=etc/tomcat5 | tar -C $RPM_BUILD_ROOT -xvf -
+tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
+     --exclude=etc/tomcat5 \
+     --exclude=etc/jabberd \
+     | tar -C $RPM_BUILD_ROOT -xvf -
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -55,57 +56,78 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(0644,root,root,0755)
 %attr(0755,root,root) %{prepdir}/etc/tomcat5
-%attr(0755,root,root) /etc/init.d/satellite-httpd
 %attr(0755,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) /etc/rhn/satellite-httpd/conf/startup.pl
-%config(noreplace) /etc/httpd/conf.d/satellite-installed.conf
-%config(noreplace) /etc/jabberd/s2s.xml
-%config(noreplace) /etc/rhn/satellite-httpd/conf/httpd.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
-%config(noreplace) /etc/rhn/satellite-httpd/conf/rhnweb.conf
-%config(noreplace) /etc/rhn/satellite-httpd/conf/ssl.conf
+%config(noreplace) /etc/httpd/conf.d/zz-spacewalk-www.conf
 %config(noreplace) /etc/rhn/satellite-httpd/conf/workers.properties
 %config(noreplace) /etc/webapp-keyring.gpg
-%dir /etc/jabberd
+%config(noreplace) /var/lib/cobbler/kickstarts/spacewalk-sample.ks
+%config(noreplace) /var/lib/cobbler/snippets/spacewalk_file_preservation
 %dir /etc/rhn
 %dir /etc/rhn/satellite-httpd
 %dir /etc/rhn/satellite-httpd/conf
 %dir /etc/rhn/satellite-httpd/conf/rhn
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/jabberd/c2s.xml
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/jabberd/sm.xml
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/rhn/cluster.ini
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/rhn/rhn.conf
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/sysconfig/satellite-httpd
-/etc/rhn/satellite-httpd/conf/magic
-/etc/rhn/satellite-httpd/conf/ssl.crt
-/etc/rhn/satellite-httpd/conf/ssl.key
-/etc/rhn/satellite-httpd/logs
-/etc/rhn/satellite-httpd/modules
-/etc/rhn/satellite-httpd/run
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/pki/tls/private/server.key
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/pki/tls/certs/server.crt
+# NOTE: If if you change these, you need to make a corresponding change in
+# spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
+%config /etc/pki/tls/private/spacewalk.key
+%config /etc/pki/tls/certs/spacewalk.crt
 /etc/satname
 %{prepdir}
 
+%pre
+# This section should be taken one time only as we obsolete
+# satellite-httpd.  This can be removed after 0.4
+# has been released
+if [ -f /etc/init.d/satellite-httpd ] ; then
+    /sbin/service satellite-httpd stop >/dev/null 2>&1
+    /sbin/chkconfig --del satellite-httpd
+    perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
+fi
+
 
 %preun
+# This section can be removed after 0.4 has been released
 if [ $1 = 0 ] ; then
     /sbin/service satellite-httpd stop >/dev/null 2>&1
     /sbin/chkconfig --del satellite-httpd
 fi
 
 %postun
+# This section can be removed after 0.4 has been released
 if [ "x$1" == "x0" ] ; then
     perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
-%post
-# This adds the proper /etc/rc*.d links for the script
-/sbin/chkconfig --add satellite-httpd
 
-perl -i -ne 'print unless /satellite-httpd\.pid/;
-    if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
-        /etc/logrotate.d/httpd
+%post
+
+cat >> /etc/sysconfig/httpd <<EOF
+export ORACLE_HOME=/opt/oracle
+export NLS_LANG=english.AL32UTF8
+EOF
 
 %changelog
+* Tue Jan 06 2009 Dave Parker <dparker@redhat.com> 0.4.22-1
+- remove satellite-httpd, instead use stock httpd configuration
+
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.21-1
+- product_name moved to spacewalk-branding
+
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.11-1
+- added file preservation snippet to cobbler
+- added sample spacewalk kickstart template to cobbler
+
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.10-1
+- reconfigured spacewalk to use stock apache installation rather than satellite-httpd
+
+* Fri Dec 19 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
+- fixed list of files which conflict with jabberd
+
 * Tue Dec 16 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.9-1
 - fixed %%file attributes and permissions
 

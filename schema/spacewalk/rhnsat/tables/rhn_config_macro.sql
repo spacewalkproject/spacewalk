@@ -32,9 +32,8 @@ rhn_config_macro
     last_update_user    varchar2 (40),
     last_update_date    date
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_config_macro 
     is 'confm configuration macro def';
@@ -42,8 +41,7 @@ comment on table rhn_config_macro
 create unique index rhn_confm_environment_name_pk 
     on rhn_config_macro ( environment, name )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_config_macro 
     add constraint rhn_confm_environment_name_pk 

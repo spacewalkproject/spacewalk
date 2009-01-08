@@ -336,9 +336,12 @@ EOQ
 
 sub update_monitoring_environment {
   my $class = shift;
-  my $db_name = shift;
 
   my $dbh = RHN::DB->connect;
+  # BZ 226915 we cannot use db_name from %answers - it contains instance name
+  # we want real db name
+  my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(:db_name)
@@ -373,17 +376,9 @@ sub get_satellite_org_id {
   my $class = shift;
   my $dbh = RHN::DB->connect;
 
-  my $sth = $dbh->prepare("SELECT id FROM web_customer");
+  my $sth = $dbh->prepare("SELECT MIN(id) FROM web_customer");
   $sth->execute;
   my ($org_id) = $sth->fetchrow;
-
-  if (defined $org_id) {
-    # are there more rows?  if so, the db has more than one org; likely a production db, bail
-    if ($sth->fetchrow) {
-      $sth->finish;
-      throw "Attempt to get satellite_org_id on database with more than one org";
-    }
-  }
 
   return $org_id;
 }

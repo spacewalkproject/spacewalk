@@ -87,11 +87,21 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
      * @return the authenticated cobbler connection.
      */
     public static CobblerConnection getConnection(User user) {
+        return getConnection(user.getLogin());
+    }
+
+    /**
+     * Returns the new cobbler object, if you can't specify a user
+     * @param userName the username
+     * @return the autehnticated cobbler connection
+     */
+    public static CobblerConnection getConnection(String userName) {
         String token = 
-            IntegrationService.get().getAuthToken(user.getLogin());
+            IntegrationService.get().getAuthToken(userName);
         return (CobblerConnection)MethodUtil.getClassFromConfig(
                                 CobblerConnection.class.getName(),
                                 Config.get().getCobblerServerUrl(), token); 
     }
-
+    
+    
 }

@@ -28,9 +28,8 @@ rhnEntitlementLog
 	edate		date
 			constraint rhn_entitlement_log_edate_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 --
 -- Revision 1.2  2003/01/30 16:11:28  pjones

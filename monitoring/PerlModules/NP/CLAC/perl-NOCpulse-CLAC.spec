@@ -2,13 +2,8 @@ Name:         perl-NOCpulse-CLAC
 Version:      1.9.6
 Release:      1%{?dist}
 Summary:      NOCpulse Command Line Application framework for Perl
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/SetID
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:    noarch
 Group:        Development/Libraries

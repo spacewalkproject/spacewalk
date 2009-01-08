@@ -27,6 +27,16 @@ for my $file (sort < ${self_dir}packages/* >) {
 		and push @tagged_data, File::Basename::basename($file) . "-" . $version;
 }
 
+my %ignore_different_release;
+local *IGNORE_REL;
+if (open IGNORE_REL, "< ${self_dir}brew-ignore-different-release-$tag") {
+	while (<IGNORE_REL>) {
+		chomp;
+		$ignore_different_release{$_} = 1;
+	}
+	close IGNORE_REL;
+}
+
 exit diff_it(\@brew_data, \@tagged_data);
 
 sub diff_it {
@@ -39,9 +49,17 @@ sub diff_it {
 			next;
 		}
 		my $b = $brew_data->[$bi];
-		$b =~ s/\.el\d\.sw$//;
+		$b =~ s/\.el\d(\.sw)?$//;
 		my $t = $tagged_data->[$ti];
 		$t =~ s/^(buildsys-macros-.+)\.sw$/$1/;
+		if ($t =~ /^(.+)-(.+)-1$/
+			and exists $ignore_different_release{$1}) {
+			my $name_version = "$1-$2";
+			if ($b =~ /^(.+-.+)-(.+)$/
+				and $name_version eq $1) {
+				$b = $t;
+			}
+		}
 		if ($b lt $t) {
 			push @extra, $brew_data->[$bi++];
 		} elsif ($b gt $t) {

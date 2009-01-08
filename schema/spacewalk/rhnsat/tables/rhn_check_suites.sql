@@ -25,7 +25,7 @@ rhn_check_suites
         constraint rhn_cksut_recid_nn not null
         constraint rhn_cksut_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 ),
+            ,
     customer_id         number   (12)
         constraint rhn_cksut_custid_nn not null,
     suite_name          varchar2 (40)
@@ -36,9 +36,8 @@ rhn_check_suites
     last_update_date    date
         constraint rhn_cksut_last_date_nn not null
 ) 
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_check_suites 
     is 'CKSUT  check suites';
@@ -46,8 +45,7 @@ comment on table rhn_check_suites
 create index rhn_cksut_cid_idx
 	on rhn_check_suites( customer_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhn_check_suites
     add constraint rhn_cksut_cstmr_customer_id_fk

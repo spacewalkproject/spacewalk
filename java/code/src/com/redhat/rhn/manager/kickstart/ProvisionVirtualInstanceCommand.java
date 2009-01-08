@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -24,9 +25,12 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -41,10 +45,13 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     private static Logger log = Logger.getLogger(ProvisionVirtualInstanceCommand.class);
     
     private String guestName;
-    private String memoryAllocation;
-    private String virtualCpus;
+    private Long memoryAllocation;
+    private Long virtualCpus;
     private String storageType;
-    private String localStorageMb;
+    private Long localStorage;
+    private String filePath;
+    private String virtBridge;
+
 
     /**
      * Constructor
@@ -74,15 +81,60 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
 
         // We'll pass in the host server here, since the host server is the
         // only one that exists.
-
-        super(selectedServer, null, ksid, userIn, scheduleDateIn, kickstartServerNameIn);
-        this.setScheduleDate(scheduleDateIn);
-        this.setKsdata(KickstartFactory.
-            lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid));
-        this.setKickstartServerName(kickstartServerNameIn);
-        assert (this.getKsdata() != null);
+        this(selectedServer, KickstartFactory.
+                        lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksid),
+                        userIn, scheduleDateIn, kickstartServerNameIn);
     }
 
+    /**
+     * Constructor to be used when you want to call the store() 
+     * method.
+     * 
+     * @param selectedServer server to kickstart
+     * @param ksData the KickstartData we are using
+     * @param userIn user performing the kickstart
+     * @param scheduleDateIn Date to schedule the KS.
+     * @param kickstartServerNameIn the name of the server who is kickstarting 
+     *                              this machine 
+     */
+    public ProvisionVirtualInstanceCommand(Long selectedServer, 
+                                KickstartData ksData, 
+            User userIn, Date scheduleDateIn, String kickstartServerNameIn) {
+
+        // We'll pass in the host server here, since the host server is the
+        // only one that exists.
+
+        super(selectedServer, null, ksData, userIn, scheduleDateIn, kickstartServerNameIn);
+    }    
+
+    /**
+     * Creates the Kickstart Sechdule command that works with a cobbler  only
+     *  kickstart where the host and the target may or may *not* be
+     * the same system.  If the target system does not yet exist, selectedTargetServer
+     * should be null.  To be used when you want to call the store() method.
+     * 
+     * @param selectedServer server to host the kickstart
+     * @param label cobbler only profile label.
+     * @param userIn user performing the kickstart
+     * @param scheduleDateIn Date to schedule the KS.
+     * @param kickstartServerNameIn the name of the server who is serving the kickstart
+     * @return the created cobbler only profile aware kickstartScheduleCommand
+     */
+    public static ProvisionVirtualInstanceCommand createCobblerScheduleCommand(
+                                            Long selectedServer,
+                                            String label, 
+                                            User userIn, 
+                                            Date scheduleDateIn, 
+                                            String kickstartServerNameIn) {
+        
+        ProvisionVirtualInstanceCommand cmd = new 
+                                        ProvisionVirtualInstanceCommand(selectedServer,
+                     (KickstartData)null,  userIn, scheduleDateIn, kickstartServerNameIn);
+        cmd.cobblerProfileLabel = label;
+        cmd.cobblerOnly =  true;
+        return cmd;
+        
+    }    
     /**
      * @param prereqAction the prerequisite for this action
      *
@@ -108,13 +160,12 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     public Action scheduleKickstartAction(Action prereqAction) {
     
         KickstartSession ksSession = getKickstartSession();
-    
+        Long sessionId = (ksSession != null) ? ksSession.getId() : null;
         //TODO -- It feels a little dirty to pass in this & this.getExtraOptions,
         //but I don't know that I understand the implications of making getExtraOptions
         //a public method.
         KickstartGuestAction ksAction = (KickstartGuestAction)
-            ActionManager.scheduleKickstartGuestAction(this, 
-                                                       ksSession.getId());
+            ActionManager.scheduleKickstartGuestAction(this, sessionId);
     
         ksAction.setPrerequisite(prereqAction.getId());
         ActionFactory.save(ksAction);
@@ -148,37 +199,31 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     /**
      * @return Returns the memoryAllocation
      */
-    public String getMemoryAllocation() {
+    public Long getMemoryAllocation() {
         return memoryAllocation;
     }
 
     /**
      * @param memoryAllocationIn the memoryAllocation to set.
      */
-    public void setMemoryAllocation(String memoryAllocationIn) {
+    public void setMemoryAllocation(Long memoryAllocationIn) {
         this.memoryAllocation = memoryAllocationIn;
     }
 
     /**
      * @return Returns the virtualCpus
      */
-    public String getVirtualCpus() {
+    public Long getVirtualCpus() {
         return virtualCpus;
     }
 
     /**
      * @param virtualCpusIn the virtualCpus to set.
      */
-    public void setVirtualCpus(String virtualCpusIn) {
+    public void setVirtualCpus(Long virtualCpusIn) {
         this.virtualCpus = virtualCpusIn;
     }
 
-    /**
-     * @return Returns the storageType
-     */
-    public String getStorageType() {
-        return storageType;
-    }
 
     /**
      * @param storageTypeIn the storageType to set.
@@ -190,15 +235,64 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     /**
      * @return Returns the localStorageMb
      */
-    public String getLocalStorageMb() {
-        return localStorageMb;
+    public Long getLocalStorageSize() {
+        return localStorage;
     }
 
     /**
-     * @param localStorageMbIn the localStorageMb to set.
+     * @param localStorageIn the localStorage to set.
      */
-    public void setLocalStorageMb(String localStorageMbIn) {
-        this.localStorageMb = localStorageMbIn;
+    public void setLocalStorageSize(Long localStorageIn) {
+        this.localStorage = localStorageIn;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public DataResult<? extends KickstartDto> getKickstartProfiles() {
+        DataResult<? extends KickstartDto> result =  super.getKickstartProfiles();
+        for (KickstartDto dto : result) {
+            Profile prf = Profile.lookupById(
+                    CobblerXMLRPCHelper.getConnection(this.getUser()), dto.getCobblerId());
+            dto.setVirtBridge(prf.getVirtBridge());
+            dto.setVirtCpus(prf.getVirtCpus());
+            dto.setVirtMemory(prf.getVirtRam());
+            dto.setVirtSpace(prf.getVirtFileSize());
+        }
+        return result;
+    }
+
+    
+    /**
+     * @return Returns the filePath.
+     */
+    public String getFilePath() {
+        return filePath;
+    }
+
+    
+    /**
+     * @param filePathIn The filePath to set.
+     */
+    public void setFilePath(String filePathIn) {
+        this.filePath = filePathIn;
+    }
+
+    
+    /**
+     * @return Returns the virtBridge.
+     */
+    public String getVirtBridge() {
+        return virtBridge;
+    }
+
+    
+    /**
+     * @param virtBridgeIn The virtBridge to set.
+     */
+    public void setVirtBridge(String virtBridgeIn) {
+        this.virtBridge = virtBridgeIn;
     }
     
 }

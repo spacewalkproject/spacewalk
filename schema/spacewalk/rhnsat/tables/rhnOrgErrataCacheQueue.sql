@@ -27,15 +27,13 @@ create table rhnOrgErrataCacheQueue
         processed       number default(0)
                         constraint rhn_oecq_oid_processed_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_oecq_oid_uq
         on rhnOrgErrataCacheQueue(org_id)
         tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- make it nologging.  went live 12/14/01
 alter table rhnOrgErrataCacheQueue nologging;

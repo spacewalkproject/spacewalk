@@ -25,6 +25,10 @@ rhnKSData
 				constraint rhn_ks_id_nn not null
 				constraint rhn_ks_id_pk primary key
 					using index tablespace [[8m_tbs]],
+	ks_type			varchar2(8) 
+				constraint rhn_ks_type_nn not null,
+				constraint rhn_ks_type_ck
+					check (ks_type in ('wizard','raw')),
 	org_id			number
 				constraint rhn_ks_oid_nn not null
 				constraint rhn_ks_oid_fk
@@ -72,15 +76,13 @@ rhnKSData
 	modified		date default(sysdate)
 				constraint rhn_ks_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_ks_oid_label_id_idx
 	on rhnKSData( org_id, label, id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnKSData add constraint rhn_ks_oid_label_uq
 	unique ( org_id, label );
 

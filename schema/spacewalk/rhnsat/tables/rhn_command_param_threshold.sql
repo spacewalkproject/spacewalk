@@ -38,9 +38,8 @@ rhn_command_param_threshold
     command_class           varchar2 (255)
         constraint rhn_coptr_command_class_nn not null
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_param_threshold 
     is 'coptr  a parameter for a particular command';
@@ -48,8 +47,7 @@ comment on table rhn_command_param_threshold
 create unique index rhn_coptr_id_p_name_p_type_pk 
     on rhn_command_param_threshold ( command_id, param_name, param_type )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_command_param_threshold 
     add constraint rhn_coptr_id_p_name_p_type_pk 

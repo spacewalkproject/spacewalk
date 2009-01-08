@@ -15,11 +15,13 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 
+import java.io.File;
 import java.util.Date;
 
 /**
@@ -35,6 +37,7 @@ public class KickstartableTree extends BaseDomainHelper {
     private String label;
     private Date lastModified;
     private String cobblerId;
+    private String cobblerXenId;
 
     private Org org;
     private KickstartTreeType treeType;
@@ -220,6 +223,13 @@ public class KickstartableTree extends BaseDomainHelper {
     public String getCobblerDistroName() {
         return CobblerCommand.makeCobblerName(getLabel(), getOrg());
     }
+    
+    /**
+     * @return the cobblerDistroName
+     */
+    public String getCobblerXenDistroName() {
+        return CobblerCommand.makeCobblerName(getLabel() + ":xen", getOrg());
+    }    
 
 
     /**
@@ -246,7 +256,7 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the kernel path
      */
     public String getKernelPath() {
-        return getAbsolutePath() + "/images/pxeboot/vmlinuz";
+        return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
     }
 
     /**
@@ -256,9 +266,28 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the Initrd path
      */
     public String getInitrdPath() {
-        return getAbsolutePath() + "/images/pxeboot/initrd.img";
+        return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
     }
 
+    /**
+     * Returns the kernel path for the xen kernel 
+     * includes the mount point 
+     * its an absolute path.
+     * @return the kernel path
+     */
+    public String getKernelXenPath() {
+        return StringUtil.addPath(getAbsolutePath(), "/images/xen/vmlinuz");
+    }
+    
+    /**
+     * Returns the Initrd path for the xen kernel
+     * includes the mount point 
+     * its an absolute path.
+     * @return the Initrd path
+     */
+    public String getInitrdXenPath() {
+        return StringUtil.addPath(getAbsolutePath(), "/images/xen/initrd.img");
+    }    
     
     /**
      * @return Returns the cobblerId.
@@ -273,6 +302,34 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public void setCobblerId(String cobblerIdIn) {
         this.cobblerId = cobblerIdIn;
+    }
+
+    
+    /**
+     * Gets the cobblerXenId, which is the cobbler id corresponding to the 
+     *      cobbler distro that is pointing to Xen PV boot images instead of regular
+     *      boot images (yes this sucks) 
+     * @return Returns the cobblerXenId.
+     */
+    public String getCobblerXenId() {
+        return cobblerXenId;
+    }
+
+    
+    /**
+     * @param cobblerXenIdIn The cobblerXenId to set.
+     */
+    public void setCobblerXenId(String cobblerXenIdIn) {
+        this.cobblerXenId = cobblerXenIdIn;
+    }
+    
+    /**
+     * Check to see if the selected tree support xen paravirt
+     * @return true if it can, false otherwise
+     */
+    public boolean doesParaVirt() {
+        File kernel = new File(this.getKernelXenPath());
+        return kernel.exists();
     }
     
 }

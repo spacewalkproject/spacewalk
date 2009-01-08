@@ -33,6 +33,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             length="64"/>
         <property name="lastBoot" column="last_boot" type="long"/>
         <property name="channelsChanged" column="channels_changed" type="date"/>
+        <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
                 
         <set name="notes" cascade="all" lazy="true" inverse="true">
             <key column="server_id"/>

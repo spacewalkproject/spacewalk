@@ -28,15 +28,13 @@ create table rhnSNPErrataQueue
 	processed	number default(0) -- this should get a check as well?
 			constraint rhn_snpErrQueue_processed_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_snpErrQueue_eid_uq
 	on rhnSNPErrataQueue(errata_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.9  2003/08/14 19:59:07  pjones

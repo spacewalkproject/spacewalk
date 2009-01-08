@@ -46,31 +46,27 @@ rhnSavedSearch
 			constraint rhn_savedsearch_invert_ck
 				check (invert in ('Y','N'))
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_savedsearch_id_seq;
 
 create index rhn_savedsearch_id_wcid_idx
 	on rhnSavedSearch(id, web_contact_id)
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnSavedSearch add
 	constraint rhn_savedsearch_id_pk primary key (id);
 
 create index rhn_savedsearch_wcid_id_idx
 	on rhnSavedSearch(web_contact_id, id)
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_savedsearch_name_wcid_idx
 	on rhnSavedSearch(name, web_contact_id)
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnSavedSearch add 
 	constraint rhn_savedsearch_name_wcid_uq unique (name, web_contact_id);
 

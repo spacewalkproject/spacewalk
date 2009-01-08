@@ -31,9 +31,8 @@ rhn_config_parameter
     last_update_user    varchar2 (40),
     last_update_date    date
 )  
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_config_parameter 
     is 'confp  configuration parameter definition';
@@ -41,8 +40,7 @@ comment on table rhn_config_parameter
 create unique index rhn_confp_group_name_name_pk 
     on rhn_config_parameter ( group_name,  name ) 
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_config_parameter 
     add constraint rhn_confp_group_name_name_pk primary key ( group_name, name);

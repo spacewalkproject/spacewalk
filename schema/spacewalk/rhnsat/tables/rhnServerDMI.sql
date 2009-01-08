@@ -40,17 +40,14 @@ rhnServerDMI
         modified        date default(sysdate)
 			constraint rhn_server_dmi_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_dmi_id_seq;
 
 create index rhn_server_dmi_sid_idx on
         rhnServerDMI(server_id)
         tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

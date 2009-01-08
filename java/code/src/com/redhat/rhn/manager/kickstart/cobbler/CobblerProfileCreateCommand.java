@@ -16,9 +16,13 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
+import org.cobbler.Profile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,22 +45,45 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         super(ksDataIn, userIn);
     }
 
+    /**
+     * Call this if you want to use the taskomatic_user.
+     * 
+     * Useful for automated non-user initiated syncs
+     * @param ksDataIn to sync
+     */
+    public CobblerProfileCreateCommand(KickstartData ksDataIn) {
+        super(ksDataIn);
+    }
+
+
 
      /**
      * Save the Cobbler profile to cobbler.
      * @return ValidatorError if there was a problem
      */
     public ValidatorError store() {
-        String id = (String) invokeXMLRPC("new_profile", xmlRpcToken);
-        log.debug("id: " + id);
-        invokeXMLRPC("modify_profile", id, "name", 
-                           CobblerCommand.makeCobblerName(this.ksData), xmlRpcToken);
-        updateCobblerFields(id);
-        Map<String, Object> meta = new HashMap<String, Object>();
-        meta.put("org", ksData.getOrg().getId());
-        invokeXMLRPC("modify_profile", id, "ksmeta", meta, xmlRpcToken);
-        invokeXMLRPC("save_profile", id, xmlRpcToken);
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
         
+        KickstartableTree tree = ksData.getTree();
+        Distro distro =  getDistroForKickstart();
+        
+        if (distro == null) {
+            return new ValidatorError("kickstart.cobbler.profile.invalidvirt");
+        }
+        
+        Profile prof = Profile.create(con, CobblerCommand.makeCobblerName(this.ksData),
+                distro);
+        prof.setVirtType(ksData.getKickstartDefaults().getVirtualizationType().getLabel());
+        
+        Map<String, String> meta = new HashMap<String, String>();
+        meta.put("org", ksData.getOrg().getId().toString());
+        prof.setKsMeta(meta);
+        prof.setVirtPath("/var/lib/xen/" + ksData.getLabel());
+        prof.setVirtBridge("xenbr0");
+        prof.save();
+                
+        updateCobblerFields(prof);
+
         invokeCobblerUpdate();
         Map cProfile = getProfileMap();
         ksData.setCobblerId((String)cProfile.get("uid"));

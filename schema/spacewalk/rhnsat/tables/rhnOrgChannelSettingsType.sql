@@ -31,15 +31,13 @@ rhnOrgChannelSettingsType
 	modified	date default(sysdate)
 			constraint rhn_ocstngs_type_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_ocstngs_type_l_id_idx
 	on rhnOrgChannelSettingsType( label, id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_orgcsettings_type_mod_trig

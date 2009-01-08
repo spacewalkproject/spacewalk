@@ -236,6 +236,7 @@ public class KickstartFormatter {
         for (Iterator itr = l.iterator(); itr.hasNext();) {
             KickstartCommand command = (KickstartCommand)itr.next();
             String cname = command.getCommandName().getName();  
+            log.debug("getCommands name: " + cname);
             
             if (cname.matches(PARTREGEX)) {
                 commands.append(handlePart(cname, command.getArguments()));
@@ -293,26 +294,18 @@ public class KickstartFormatter {
         
         if (urlLocation.startsWith("/")) { 
             log.debug("URL is not customized.");
-            if (this.session != null) {
-                log.debug("Formatting for session use.");
-                // /ks/dist/session/
-                // 94xe86321bae3cb74551d995e5eafa065c0/ks-rhel-i386-as-4-u2
-                StringBuffer url = new StringBuffer();
-                url.append("--url ");
-                url.append(urlHelper.getKickstartMediaSessionUrl(this.session));
-                log.debug("constructed: " + url);
-                argVal = url.toString();
-            }
-            else {
-                log.debug("Formatting for view use.");
-                // /kickstart/dist/ks-rhel-i386-as-4-u2
-                StringBuffer url = new StringBuffer();
-                url.append("--url ");
-                url.append(urlHelper.getCobblerMediaUrl());
-                log.debug("constructed: " + url);
-                argVal = url.toString();
-            }
+            log.debug("Formatting for view use.");
+            // /kickstart/dist/ks-rhel-i386-as-4-u2
+            StringBuffer url = new StringBuffer();
+            url.append("--url ");
+            url.append(urlHelper.getCobblerMediaUrl());
+            log.debug("constructed: " + url);
+            argVal = url.toString();
         }
+        else {
+            log.debug("Just return the arg value.");
+        }
+        log.debug("returning url: " + argVal);
         return argVal;
     }
 

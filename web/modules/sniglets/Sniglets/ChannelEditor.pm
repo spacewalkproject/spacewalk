@@ -107,11 +107,19 @@ sub channel_delete_cb {
 
   my @servers = RHN::Channel->servers($cid);
 
+  my $force_unsub = $pxt->dirty_param('force_unsubscribe') || 0;
+
   if (@servers) {
     my $servers_link = $pxt->dirty_param('servers_link');
     throw "param 'servers_link' needed but not provided" unless $servers_link;
-    $pxt->push_message(local_alert => sprintf('You cannot delete a channel which has systems subscribed.  Click <a href="%s?cid=%d">here</a> to see the list of systems subscribed to this channel.', $servers_link, $cid));
-    return;
+    unless ($force_unsub == 1) {
+      $pxt->push_message(local_alert => "There are currently systems subscribed to this channel. Please confirm system channel removal by selecting the unsubscribe checkbox.");
+      return;
+    }
+    foreach my $sid(@servers) {
+      my $server = RHN::Server->lookup(-id => $sid);
+      $server->unsubscribe_from_channel($cid);
+    }
   }
 
   my $channel = RHN::Channel->lookup(-id => $cid);

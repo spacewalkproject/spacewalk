@@ -154,6 +154,13 @@ sub add_url {
   push @{$self->{urls}}, $url;
 }
 
+sub add_name {
+  my $self = shift;
+  my $name = shift;
+
+  $self->{name} .= $name;
+}
+
 sub add_formvar {
   my $self = shift;
   my $formvar = shift;

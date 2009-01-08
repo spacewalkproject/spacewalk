@@ -19,8 +19,8 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-
-import java.util.Map;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -50,18 +50,29 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
      */
     @Override
     public ValidatorError store() {
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
         
-        Map distro = this.getDistroMap();
-        if (distro == null || distro.isEmpty()) {
+        Distro dis = Distro.lookupById(con, tree.getCobblerId());
+        
+        if (dis == null) {
             log.warn("No cobbler distro associated with this Tree.");
             return null;
         }
-        Boolean rc = (Boolean) invokeXMLRPC("remove_distro", 
-                                    distro.get("name"), xmlRpcToken);
-        if (rc == null || !rc.booleanValue()) {
+        if (!dis.remove()) {
             return new ValidatorError("cobbler.distro.remove_failed");
         }
         
+        if (tree.getCobblerXenId() != null) {
+            dis = Distro.lookupById(con, tree.getCobblerXenId());
+            if (dis == null) {
+                log.warn("No cobbler distro associated with this Tree.");
+                return null;
+            }
+            if (!dis.remove()) {
+                return new ValidatorError("cobbler.distro.remove_failed");
+            }
+        }
+
         invokeCobblerUpdate();
         return null;
         

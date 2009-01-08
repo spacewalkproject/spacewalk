@@ -25,7 +25,7 @@ rhn_check_probe
         constraint rhn_chkpb_probe_id_nn not null
         constraint rhn_chkpb_probe_id_pk primary key
             using index tablespace [[4m_tbs]]
-            storage( pctincrease 1 freelists 16 ),
+            ,
     probe_type      varchar2 (12) default 'check' 
         constraint rhn_chk_probe_type_nn not null
         constraint chkpb_probe_type_ck 
@@ -35,9 +35,8 @@ rhn_check_probe
     sat_cluster_id  number   (12)
         constraint rhn_chk_sat_cluster_id_nn not null
 )
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_check_probe 
     is 'CHKPB  Service check probe definitions (monitoring)';
@@ -45,20 +44,17 @@ comment on table rhn_check_probe
 create index rhn_chkpb_host_id_idx 
     on rhn_check_probe ( host_id )
     tablespace [[4m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_chkpb_sat_cluster_id_idx
     on rhn_check_probe ( sat_cluster_id )
     tablespace [[4m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_chkpb_pid_ptype_uq_idx
     on rhn_check_probe ( probe_id, probe_type )
     tablespace [[4m_tbs]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_check_probe
     add constraint rhn_chkpb_host_id_fk

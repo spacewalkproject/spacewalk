@@ -30,15 +30,13 @@ rhnUserReserved
         modified        date default(sysdate)
 			constraint rhn_user_res_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_user_res_login_uc_uq
 	on rhnUserReserved(login_uc)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_user_res_mod_trig

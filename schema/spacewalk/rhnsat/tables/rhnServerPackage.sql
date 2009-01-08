@@ -25,9 +25,8 @@ rhnServerPackage
         package_arch_id number
 )
 	tablespace [[server_package_tablespace]]
-	storage( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_server_package_id_seq;
 

@@ -40,15 +40,13 @@ rhnTransactionPackage
 			constraint rhn_transpack_paid_fk
 				references rhnPackageArch(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_transpack_onea_uq
 	on rhnTransactionPackage(operation, name_id, evr_id, package_arch_id)
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create sequence rhn_transpack_id_seq;
 

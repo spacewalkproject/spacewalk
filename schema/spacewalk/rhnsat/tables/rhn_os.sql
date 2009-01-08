@@ -26,13 +26,11 @@ rhn_os
         constraint rhn_os000_recid_nn not null
         constraint rhn_os000_recid_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     os_name     varchar2 (128)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_os 
     is 'os000  operating systems';

@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import java.util.Date;
-
 /**
  *
  * ProfileOverviewDto class represents a stored profile typically listed
@@ -27,7 +25,7 @@ public class ProfileOverviewDto extends BaseDto {
 
     private Long id;
     private String name;
-    private Date created;
+    private String created;
     private String channelName;
 
     /**
@@ -82,7 +80,7 @@ public class ProfileOverviewDto extends BaseDto {
      * Retrieve profile creation date
      * @return date profile was created
      */
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
@@ -90,7 +88,7 @@ public class ProfileOverviewDto extends BaseDto {
      * Set profile creation date
      * @param createdIn date profile was created
      */
-    public void setCreated(Date createdIn) {
+    public void setCreated(String createdIn) {
         created = createdIn;
     }
 }

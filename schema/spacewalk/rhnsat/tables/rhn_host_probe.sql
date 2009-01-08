@@ -25,8 +25,7 @@ rhn_host_probe
         constraint rhn_hstpb_probe_id_nn not null
         constraint rhn_hstpb_probe_id_pk primary key
             using index tablespace [[4m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     probe_type      varchar2 (12) default 'host'
         constraint rhn_hstpb_probe_type_nn not null
         constraint rhn_hstpb_probe_type_ck check ( probe_type='host' ),
@@ -35,9 +34,8 @@ rhn_host_probe
     sat_cluster_id  number   (12)
         constraint rhn_hstpb_sat_cl_id_nn not null
 )  
-    storage ( pctincrease 1 freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_host_probe 
     is 'hstpb  host probe definitions';
@@ -45,20 +43,17 @@ comment on table rhn_host_probe
 create index rhn_hstpb_host_id_idx 
     on rhn_host_probe ( host_id )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_hstpb_sat_cluster_id_idx 
     on rhn_host_probe ( sat_cluster_id )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create unique index rhn_hstpb_pbid_ptype_idx
     on rhn_host_probe ( probe_id, probe_type )
     tablespace [[4m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_host_probe
     add constraint rhn_hstpb_host_id_fk

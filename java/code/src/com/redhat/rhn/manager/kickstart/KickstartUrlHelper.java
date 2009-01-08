@@ -14,15 +14,18 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 
 import java.util.Date;
 
@@ -93,21 +96,7 @@ public class KickstartUrlHelper {
         this.host = hostIn;
         this.protocol = protocolIn;
     }
-    
-    /**
-     * Get the 'view only' url for a Kickstart cfg file
-     * 
-     * @return String url
-     */
-    public String getKickstartViewUrl() {
-
-        StringBuffer urlBuf = new StringBuffer();        
-        urlBuf.append("/view_label/");
-        urlBuf.append(StringEscapeUtils.escapeHtml(ksData.getLabel()));
-
-        return getKickstartFileUrlBase() + urlBuf.toString();
-    }
-    
+   
 
     /**
      * The definitive method for getting the URL to a given 
@@ -284,7 +273,20 @@ public class KickstartUrlHelper {
      * @param profileName the name of the profile
      * @return the KS url.
      */
-    public static String getCobblerProfileUrl(String profileName) {
+    public static String getCobblerProfilePath(String profileName) {
         return COBBLER_URL_BASE_PATH + profileName;
+    }
+    
+    /**
+     * Get the cobbler profile url
+     * @param data the kickstart data
+     * @return the url
+     */
+    public static String getCobblerProfileUrl(KickstartData data) {
+        Profile prof = Profile.lookupById(
+                CobblerXMLRPCHelper.getConnection("kickstart-url"), 
+                data.getCobblerId());      
+        return "http://" + Config.get().getCobblerHost() + COBBLER_URL_BASE_PATH + 
+                    prof.getName();
     }
 }

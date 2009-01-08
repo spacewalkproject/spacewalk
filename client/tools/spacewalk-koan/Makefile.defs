@@ -28,17 +28,24 @@ INSTALL_DIR	= $(INSTALL) -m 755 -d
 PYFILES		= $(addsuffix .py,$(FILES))
 PYCFILES	= $(addsuffix .pyc,$(FILES))
 
+# This is for the subdir part
+VIRT_PYFILES		= $(addsuffix .py,$(VIRT_FILES))
+VIRT_PYCFILES	= $(addsuffix .pyc,$(VIRT_FILES))
+VIRT_PYOFILES	= $(addsuffix .pyo,$(VIRT_FILES))
+
 # what do we need to install and where
 INSTALL_FILES	+= $(PYFILES) $(PYCFILES)
 INSTALL_DEST	?= $(ROOT)/$(SUBDIR)
 
+VIRT_INSTALL_FILES =  $(VIRT_PYFILES) $(VIRT_PYCFILES) $(VIRT_PYOFILES)
+
 DIRS		+= $(addprefix $(PREFIX), \
 			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST))
 
-all :: $(INSTALL_FILES)
+all :: $(INSTALL_FILES) $(VIRT_INSTALL_FILES)
 
-install :: all $(DIRS) $(INSTALL_FILES)
-	@$(foreach f,$(INSTALL_FILES), \
+install :: all $(DIRS) $(INSTALL_FILES) 
+	@$(foreach f,$(INSTALL_FILES) $(VIRT_INSTALL_FILES), \
 		$(INSTALL_DATA) $(f) $(PREFIX)$(INSTALL_DEST)/$(f) ; )
 
 $(DIRS):

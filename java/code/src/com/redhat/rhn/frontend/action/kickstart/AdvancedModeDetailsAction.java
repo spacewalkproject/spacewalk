@@ -18,6 +18,7 @@ package com.redhat.rhn.frontend.action.kickstart;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -30,6 +31,7 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -37,6 +39,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.upload.FormFile;
+import org.cobbler.Distro;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,8 +65,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String FILE_UPLOAD = "fileUpload"; 
     private static final String ORG_DEFAULT = "org_default";
     private static final String ACTIVE = "active";
-    private static final String  KERNEL_OPTIONS = "kernel_options";
-    private static final String  POST_KERNEL_OPTIONS = "post_kernel_options";
     
     private static final String CREATE_MODE = "create";
     
@@ -115,16 +116,18 @@ public class AdvancedModeDetailsAction extends RhnAction {
             
             KickstartBuilder builder = new KickstartBuilder(user);
             KickstartRawData ks;
+            String fileData = getData(context, form);
             if (isCreateMode(context.getRequest())) {
-                ks = builder.createRawData(label, tree, virtType);
+                ks = builder.createRawData(label, tree, fileData, virtType);
             }
             else {
                 ks = getKsData(context);
+                ks.setData(fileData);
                 builder.update(ks, label, tree, virtType);
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
-            ks.setData(getData(context, form));
+            
                         
             KickstartDetailsEditAction.proccessCobblerFormValues(ks, form, 
                     context.getLoggedInUser());
@@ -171,7 +174,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
         
         if (isCreateMode(context.getRequest())) {
-            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, KickstartVirtualizationType.NONE);    
+            form.set(VIRTUALIZATION_TYPE_LABEL_PARAM, KickstartVirtualizationType.AUTO);
         }
         else {
             KickstartRawData data = getKsData(context);
@@ -229,7 +232,24 @@ public class AdvancedModeDetailsAction extends RhnAction {
                                             VALIDATION_XSD);
          if (!result.isEmpty()) {
              throw new ValidatorException(result);
-         }        
+         }
+         
+      
+         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
+                 (Long) form.get(KSTREE_ID_PARAM), 
+                 context.getLoggedInUser().getOrg());
+         KickstartVirtualizationType vType =
+             KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
+                 form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
+         
+         Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, vType,
+                 context.getLoggedInUser());
+         if (distro == null) {
+             ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt"); 
+         }
+         
+         
+         
    }
     
     private String getData(RequestContext context, DynaActionForm form) {

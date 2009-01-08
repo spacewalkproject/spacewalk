@@ -6,24 +6,22 @@ use strict;
 
 use base qw(NOCpulse::Probe::Shell::SSH);
 
-use Class::MethodMaker
-  grouped_fields =>
-  [
-   oracle_fields =>
-   [qw(
+use constant ORACLE_FIELDS =>
+  qw(
        ORACLE_HOME
        ora_host
        ora_password
        ora_port
        ora_sid
        ora_user
-      )],
-  ],
+      );
+
+use Class::MethodMaker
   get_set =>
   [qw(
       _connect_string
       _use_sqlplus_end_marker
-     )],
+     ), ORACLE_FIELDS],
   new_with_init => 'new',
   ;
 
@@ -45,7 +43,7 @@ sub init {
 
     $self->SUPER::init(%args);
 
-    my %ora_args = $self->_transfer_args(\%args, [$self->oracle_fields]);
+    my %ora_args = $self->_transfer_args(\%args, [ORACLE_FIELDS]);
     $self->hash_init(%ora_args);
 
     my $tns = "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=" .

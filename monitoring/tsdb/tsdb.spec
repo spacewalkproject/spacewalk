@@ -4,15 +4,10 @@
 %define bdbdir      %{_var}/lib/nocpulse/tsdb/bdb
 %define npbin       %{_bindir}
 Name:         tsdb
-Source0:      %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      1.27.17
 Release:      1%{?dist}
 Summary:      Time Series Database
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/tsdb
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 Requires:     perl-NOCpulse-Utils perl(NOCpulse::Debug) perl(IO::Stringy) perl(Class::MethodMaker) perl(Date::Manip)
 BuildArch:    noarch

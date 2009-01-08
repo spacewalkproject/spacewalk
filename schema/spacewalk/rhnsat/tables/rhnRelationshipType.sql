@@ -31,23 +31,20 @@ rhnRelationshipType
 	modified		date default(sysdate)
 				constraint rhn_reltype_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_reltype_id_label_idx
 	on rhnRelationshipType ( id, label )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnRelationshipType add constraint rhn_reltype_id_pk
 	primary key ( id );
 
 create index rhn_reltype_label_id_idx
 	on rhnRelationshipType ( label, id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnRelationshipType add constraint rhn_reltype_label_uq
 	unique ( label );
 

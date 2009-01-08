@@ -70,6 +70,7 @@ public class RequestContext {
     public static final String FILTER_ID = "filter_id";
     public static final String ERRATA_ID = "eid";
     public static final String SID = "sid";
+    public static final String SID1 = "sid_1";
     public static final String CID = "cid";
     public static final String PRID = "prid";
     public static final String COBBLER_ID = "cobbler_id";
@@ -85,11 +86,10 @@ public class RequestContext {
     
     public static final String METHOD_ID = "cmid";
     public static final String KICKSTART_ID = "ksid";
-    public static final String KICKSTART_TREE_ID = "kstid";
+    public static final String KSTREE_ID = "kstid";
     public static final String KEY_ID = "key_id";
     public static final String FILE_LIST_ID = "file_list_id";
     public static final String KICKSTART_SCRIPT_ID = "kssid";
-    public static final String KSTREE_ID = "kstid";
     public static final String CONFIG_FILE_ID = "cfid";
     public static final String SERVER_GROUP_ID = "sgid";
     // Request Attributes go here:

@@ -55,21 +55,18 @@ rhnActionPackageRemovalFailure
 	sense			number
 				constraint rhn_apr_failure_sense_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_apr_failure_aid_sid_idx
 	on rhnActionPackageRemovalFailure( action_id, server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_apr_failure_sid_idx
 	on rhnActionPackageRemovalFailure( server_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.6  2004/02/24 17:35:42  pjones

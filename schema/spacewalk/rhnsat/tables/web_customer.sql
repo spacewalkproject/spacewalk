@@ -23,17 +23,17 @@ web_customer
 			constraint web_customer_id_nn not null
 			constraint web_customer_id_pk primary key
 				using index tablespace [[web_index_tablespace_2]]
-				storage(pctincrease 1),
+				,
 	name		varchar2(128)
 			constraint web_customer_name_nn not null,
 	oracle_customer_id number
 			constraint web_customer_ocid_unq unique
 				using index tablespace [[web_index_tablespace_2]]
-				storage(pctincrease 1),
+				,
 	oracle_customer_number number
 			constraint web_customer_ocn_unq unique
 				using index tablespace [[web_index_tablespace_2]]
-				storage(pctincrease 1),
+				,
 	customer_type	char(1) default ('P')
 			constraint web_customer_type_nn not null
 			constraint web_customer_type_list
@@ -45,7 +45,6 @@ web_customer
 			constraint web_customer_modified_nn not null
 )
 tablespace [[web_tablespace_2]]
-storage(pctincrease 1)
 	enable row movement
 	;
 
@@ -54,8 +53,7 @@ create sequence web_customer_id_seq start with 2;
 create unique index web_customer_name_uq_idx
     on web_customer(name)
     tablespace [[web_tablespace_2]]
-    storage( pctincrease 1 freelists 16 )
-    initrans 32;
+  ;
 
 
 --

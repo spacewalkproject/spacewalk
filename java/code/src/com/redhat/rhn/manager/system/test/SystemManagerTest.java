@@ -1089,10 +1089,10 @@ public class SystemManagerTest extends RhnBaseTestCase {
         Package installedPackage2 = PackageTest.createTestPackage(org);
 
         //    Associate the servers and packages
-        addServerPackageMapping(server1.getId(), installedPackage1);
-        addServerPackageMapping(server1.getId(), installedPackage2);
+        PackageManagerTest.associateSystemToPackageWithArch(server1, installedPackage1);
+        PackageManagerTest.associateSystemToPackageWithArch(server1, installedPackage2);
 
-        addServerPackageMapping(server2.getId(), installedPackage1);
+        PackageManagerTest.associateSystemToPackageWithArch(server2, installedPackage1);
 
         //    Add the servers to the SSM set
         RhnSet ssmSet = RhnSetManager.findByLabel(admin.getId(),
@@ -1175,20 +1175,4 @@ public class SystemManagerTest extends RhnBaseTestCase {
             }
         }
     }
-
-    private void addServerPackageMapping(Long serverId, Package packageIn) {
-        WriteMode wm = ModeFactory.getWriteMode("test_queries",
-            "insert_into_rhnServerPackage_with_arch");
-
-        Map<String, Long> params = new HashMap<String, Long>(4);
-        params.put("server_id", serverId);
-        params.put("pn_id", packageIn.getPackageName().getId());
-        params.put("evr_id", packageIn.getPackageEvr().getId());
-        params.put("arch_id", packageIn.getPackageArch().getId());
-
-        int result = wm.executeUpdate(params);
-
-        assert result == 1;
-    }
-
 }

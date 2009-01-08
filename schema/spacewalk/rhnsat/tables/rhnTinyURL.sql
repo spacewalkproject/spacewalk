@@ -32,13 +32,11 @@ rhnTinyURL
         expires         date default (sysdate)
                         constraint rhn_tu_expires_nn not null
 )
-        storage ( freelists 16 )
 	enable row movement
-        initrans 32;
+  ;
 
 create unique index rhn_tu_token_uq
         on rhnTinyURL(token)
         tablespace [[2m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 

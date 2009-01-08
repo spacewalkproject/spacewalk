@@ -350,7 +350,7 @@ sub test_to_file {
 
   my $result=NOCpulse::Notif::Alert->from_file($filename);
 
-  foreach ($result->all_methods) {
+  foreach (NOCpulse::Notif::Alert::ALL_METHODS) {
     $self->assert($result->$_ eq $alert->$_, "test_to_file ($_)");
   }
 }

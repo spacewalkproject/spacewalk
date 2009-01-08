@@ -27,9 +27,8 @@ rhn_command_class
         constraint rhn_comcl_class_name_pk primary key
             using index tablespace [[2m_tbs]]
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 COMMENT ON TABLE rhn_command_class IS 'COMCL Command classes';
 

@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.1.6
+Version:    0.4.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -28,11 +28,12 @@ Spacewalk specific branding, CSS, and images.
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
+install -d -m 755 %{buildroot}%{_datadir}/spacewalk
 cp -R css %{buildroot}/%{_var}/www/html/
 cp -R img %{buildroot}/%{_var}/www/html/
 cp -R templates %{buildroot}/%{_var}/www/html/
 cp -R styles %{buildroot}/%{_var}/www/html/nav/
-
+cp -R setup  %{buildroot}%{_datadir}/spacewalk/
 
 %clean
 rm -rf %{buildroot}
@@ -49,9 +50,12 @@ rm -rf %{buildroot}
 /%{_var}/www/html/templates/.htaccess
 %dir /%{_var}/www/html/nav/styles
 /%{_var}/www/html/nav/styles/*
-
+%{_datadir}/spacewalk/
 
 %changelog
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
+- added spacewalk-public.cert and spacewalk-cert.conf
+
 * Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.6-1
 - fix square corner on left tab.
 

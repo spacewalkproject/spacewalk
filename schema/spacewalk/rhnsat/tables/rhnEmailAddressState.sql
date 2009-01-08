@@ -30,25 +30,22 @@ rhnEmailAddressState
 				constraint rhn_eastate_modified_nn not null
 )
 	tablespace [[8m_data_tbs]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_eastate_id_seq;
 
 create index rhn_eastate_id_label_idx
 	on rhnEmailAddressState ( id, label )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnEmailAddressState add
 	constraint rhn_eastate_id_pk primary key ( id );
 
 create index rhn_eastate_label_id_idx
 	on rhnEmailAddressState ( label, id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnEmailAddressState add
 	constraint rhn_eastate_label_uq unique ( label );
 

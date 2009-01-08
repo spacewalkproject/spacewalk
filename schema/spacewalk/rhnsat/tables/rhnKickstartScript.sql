@@ -45,23 +45,20 @@ rhnKickstartScript
 	modified		date default (sysdate)
 				constraint rhn_ksscript_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_ksscript_id_idx
 	on rhnKickstartScript( id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnKickstartScript add constraint rhn_ksscript_id_pk
 	primary key ( id );
 
 create index rhn_ksscript_ksid_pos_idx
 	on rhnKickstartScript( kickstart_id, position )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnKickstartScript add constraint rhn_ksscript_ksid_pos_uq
 	unique ( kickstart_id, position );
 

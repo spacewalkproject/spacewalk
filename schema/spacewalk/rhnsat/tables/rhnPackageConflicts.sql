@@ -33,21 +33,17 @@ rhnPackageConflicts
         modified        date default (sysdate)
                         constraint rhn_pkg_conflicts_mtime_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pkg_confl_pid_cid_s_uq
 	on rhnPackageConflicts(package_id, capability_id, sense)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_pkg_conflicts_cid_idx
 	on rhnPackageConflicts(capability_id)
         tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

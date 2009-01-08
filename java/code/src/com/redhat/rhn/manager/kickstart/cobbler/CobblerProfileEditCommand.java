@@ -19,8 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-
-import java.util.Map;
+import org.cobbler.Profile;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -47,23 +46,18 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
      */
     public ValidatorError store() {
         log.debug("ProfileMap: " + this.getProfileMap());
-        Map cProfile = getProfileMap();
-        String cProfileName = (String)cProfile.get("name");
         
-        String handle = (String) invokeXMLRPC("get_profile_handle",
-                cProfileName, xmlRpcToken);
+        String cobName = makeCobblerName(ksData);
         
-        String spacewalkName = makeCobblerName(ksData);
-        
-        if (!spacewalkName.equals(cProfileName)) {
-            invokeXMLRPC("rename_profile", handle, spacewalkName, xmlRpcToken);
-            invokeCobblerUpdate();
-            handle = (String) invokeXMLRPC("get_profile_handle", 
-                                            spacewalkName, xmlRpcToken);            
+        Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
+                ksData.getCobblerId());
+      
+        if (!cobName.equals(prof.getName())) {
+            prof.setName(makeCobblerName(ksData));
+            prof.save();
         }
-        updateCobblerFields(handle);
-        
-        invokeXMLRPC("save_profile", handle, xmlRpcToken);
+        updateCobblerFields(prof);
+
         return null;
     }
 }

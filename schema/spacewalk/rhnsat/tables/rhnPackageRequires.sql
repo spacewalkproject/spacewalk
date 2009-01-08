@@ -47,21 +47,18 @@ rhnPackageRequires
         modified        date default (sysdate)
                         constraint rhn_pkg_requires_mtime_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pkg_req_pid_cid_s_uq
 	on rhnPackageRequires(package_id, capability_id, sense)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_pkg_requires_cid_idx
 	on rhnPackageRequires(capability_id)
         nologging tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_pkg_requires_mod_trig

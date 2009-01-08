@@ -48,6 +48,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 
 import java.util.ArrayList;
@@ -548,7 +549,7 @@ public class KickstartHandler extends BaseHandler {
             String host) {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
-        return ksData.getFileData(host, null);
+        return KickstartManager.renderKickstart(ksData);
     }
 
     /**
@@ -782,9 +783,8 @@ public class KickstartHandler extends BaseHandler {
 
         try {
             KickstartRawData data = builder.createRawData(profileLabel,
-                                                     tree, virtualizationType);
-            data.setData(kickstartFileContents);
-
+                                                     tree, kickstartFileContents,
+                                                     virtualizationType);
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);

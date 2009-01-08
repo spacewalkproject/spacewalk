@@ -32,21 +32,17 @@ rhnServerServerGroupArchCompat
 	modified	date default(sysdate)
 			constraint rhn_ssg_ac_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_ssg_ac_said_sgt_uq
 	on rhnServerServerGroupArchCompat(server_arch_id, server_group_type)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_ssg_ac_sgt_said_idx
 	on rhnServerServerGroupArchCompat(server_group_type, server_arch_id)
 	tablespace [[64k_tbs]]
-	storage( freelists 16 )
-	initrans 32
 	nologging;
 
 create or replace trigger

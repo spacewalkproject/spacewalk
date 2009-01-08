@@ -26,8 +26,7 @@ rhn_deployed_probe
         constraint rhn_dprob_recid_nn not null
         constraint rhn_dprob_recid_pk primary key
             using index tablespace [[8m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     probe_type                       varchar2 (15)
         constraint rhn_dprob_probe_type_nn not null,
     description                      varchar2 (255),
@@ -53,35 +52,30 @@ rhn_deployed_probe
     last_update_user                 varchar2 (40),
     last_update_date                 date
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_deployed_probe is 'dprob  deployed_probe definitions';
 
 create unique index rhn_dprob_recid_probe_type_uq 
     on rhn_deployed_probe ( recid, probe_type )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_dprob_check_command_id_idx 
     on rhn_deployed_probe ( command_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_dprob_customer_id_idx 
     on rhn_deployed_probe ( customer_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 create index rhn_dprob_sat_cluster_id_idx 
     on rhn_deployed_probe ( sat_cluster_id )
     tablespace [[8m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_deployed_probe 
     add constraint dprob_recid_probe_type_uq unique ( recid, probe_type );

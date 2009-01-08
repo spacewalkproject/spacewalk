@@ -113,7 +113,9 @@
         <rhn-tab-url>/rhn/software/downloads/RetiredISOs.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do" />
+    <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do">
+      <rhn-tab-directory>/network/software/packages</rhn-tab-directory>
+    </rhn-tab>
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
       <rhn-tab-url>/network/software/channels/manage/index.pxt</rhn-tab-url>
@@ -201,7 +203,8 @@
     </rhn-tab>
     <rhn-tab name="Users" acl="user_role(satellite_admin); global_config(satellite)" url="/rhn/admin/multiorg/Users.do">
     </rhn-tab>
-    <rhn-tab name="Spacewalk Configuration" acl="user_role(satellite_admin)" url="/rhn/admin/config/GeneralConfig.do">
+    <rhn-tab acl="user_role(satellite_admin)" url="/rhn/admin/config/GeneralConfig.do">
+      <rhn-tab-name><pxt-config var="product_name"/> Configuration</rhn-tab-name>
       <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
       <rhn-tab-url>/internal/satellite/config/restart_required.pxt</rhn-tab-url>
       <rhn-tab-url>/internal/satellite/config/restart_in_progress.pxt</rhn-tab-url>

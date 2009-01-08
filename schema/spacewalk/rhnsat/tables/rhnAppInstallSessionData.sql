@@ -38,9 +38,8 @@ rhnAppInstallSessionData
 			constraint rhn_appinst_sdata_mod_nn not null
 )
 	tablespace [[blob]]
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_appinst_sdata_mod_trig
@@ -55,16 +54,14 @@ show errors
 create index rhn_appinst_sdata_id_idx
 	on rhnAppInstallSessionData( id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnAppInstallSessionData add constraint rhn_appinst_sdata_id_pk
 	primary key ( id );
 
 create index rhn_appinst_sdata_sid_k_id_idx
 	on rhnAppInstallSessionData( session_id, key, id )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnAppInstallSessionData add constraint rhn_appinst_sdata_sid_k_uq
 	unique ( session_id, key );
 

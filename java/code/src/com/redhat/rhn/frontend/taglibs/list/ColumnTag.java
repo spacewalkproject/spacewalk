@@ -42,6 +42,7 @@ public class ColumnTag extends BodyTagSupport {
     protected String sortAttribute;
     protected boolean isBound;
     protected String headerKey;
+    protected String headerText;
     protected String headerStyle;
     protected String headerClass;
     protected boolean sortable;
@@ -74,6 +75,16 @@ public class ColumnTag extends BodyTagSupport {
         headerKey = key;
     }
  
+    /**
+     * Sets the text to display in the column's header.  "header text" may be used
+     * instead of a header key in cases where there is no resource bundle needed.
+     * For example, if column heading was a system name and didn't need translation.
+     * @param text text
+     */
+    public void setHeadertext(String text) {
+        headerText = text;
+    }
+    
     /**
      * Sets the CSS class for the header
      * @param styleIn CSS class name
@@ -166,6 +177,7 @@ public class ColumnTag extends BodyTagSupport {
         attributeName = null;
         isBound = false;
         headerKey = null;
+        headerText = null;
         headerStyle = null;
         headerClass = null;
         filterAttr = null;
@@ -173,7 +185,7 @@ public class ColumnTag extends BodyTagSupport {
     }
     
     protected void renderHeader() throws JspException {
-        if (headerKey == null) {
+        if ((headerKey == null) && (headerText == null)) {
             return;
         }
         ListTagUtil.write(pageContext, "<th");
@@ -210,7 +222,12 @@ public class ColumnTag extends BodyTagSupport {
             writeSortLink();
         }
         LocalizationService ls = LocalizationService.getInstance();
-        ListTagUtil.write(pageContext, ls.getMessage(headerKey));
+        if (headerKey != null) {
+            ListTagUtil.write(pageContext, ls.getMessage(headerKey));
+        }
+        else {
+            ListTagUtil.write(pageContext, headerText);
+        }
         if (isSortable()) {
             ListTagUtil.write(pageContext, "</a>");
         }

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.dto.kickstart;
 
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -32,21 +33,27 @@ public class KickstartDto extends BaseDto {
     private String isOrgDefault;
     private String treeLabel;
     private boolean active;
-    private Integer advancedMode;
+    private String kickstartType;
     private String cobblerId;
     private String cobblerUrl;
+    private int virtMemory;
+    private int virtSpace;
+    private int virtCpus;
+    private String virtBridge;
+    
+    
     /**
      * @return if this is a raw KS
      */
     public boolean isAdvancedMode() {
-        return advancedMode != null && 1 == advancedMode;
+        return KickstartData.TYPE_RAW.equals(kickstartType);
     }
     
     /**
-     * @param raw the raw to set
+     * @param typeIn to set
      */
-    public void setAdvancedMode(Integer raw) {
-        this.advancedMode = raw;
+    public void setKickstartType(String typeIn) {
+        this.kickstartType = typeIn;
     }
 
     /**
@@ -186,5 +193,69 @@ public class KickstartDto extends BaseDto {
      */
     public void setCobblerUrl(String cobblerUrlIn) {
         cobblerUrl = cobblerUrlIn;
+    }
+
+    
+    /**
+     * @return Returns the virtMemory.
+     */
+    public int getVirtMemory() {
+        return virtMemory;
+    }
+
+    
+    /**
+     * @param virtMemoryIn The virtMemory to set.
+     */
+    public void setVirtMemory(int virtMemoryIn) {
+        this.virtMemory = virtMemoryIn;
+    }
+
+    
+    /**
+     * @return Returns the virtSpace.
+     */
+    public int getVirtSpace() {
+        return virtSpace;
+    }
+
+    
+    /**
+     * @param virtSpaceIn The virtSpace to set.
+     */
+    public void setVirtSpace(int virtSpaceIn) {
+        this.virtSpace = virtSpaceIn;
+    }
+
+    
+    /**
+     * @return Returns the virtCpus.
+     */
+    public int getVirtCpus() {
+        return virtCpus;
+    }
+
+    
+    /**
+     * @param virtCpusIn The virtCpus to set.
+     */
+    public void setVirtCpus(int virtCpusIn) {
+        this.virtCpus = virtCpusIn;
+    }
+
+    
+    /**
+     * @return Returns the virtBridge.
+     */
+    public String getVirtBridge() {
+        return virtBridge;
+    }
+
+    
+    /**
+     * @param virtBridgeIn The virtBridge to set.
+     */
+    public void setVirtBridge(String virtBridgeIn) {
+        this.virtBridge = virtBridgeIn;
     }
 }

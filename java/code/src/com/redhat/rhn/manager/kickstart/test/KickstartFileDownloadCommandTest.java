@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
 import com.redhat.rhn.testing.RhnMockHttpServletRequest;
 
 /**
@@ -46,15 +45,5 @@ public class KickstartFileDownloadCommandTest extends
         RhnMockHttpServletRequest req = new RhnMockHttpServletRequest();        
         //req.setRequestURI("http://localhost.redhat.com");
         req.setRequestURL("http://localhost.redhat.com/");        
-
-        KickstartFileDownloadCommand cmd = 
-            new KickstartFileDownloadCommand(ksdata.getId(), user, req);
-        assertNotNull(cmd.getViewURL());
-        
-        String actualFile = cmd.getFileData();
-        assertNotNull(actualFile);
-        assertTrue(actualFile.indexOf("key " + fakeKey) > 0);
-        assertTrue(actualFile.indexOf("key --skip") < 0);
-        System.out.println("file: \n" + cmd.getFileData());
     }
 }

@@ -1,21 +1,20 @@
 package NOCpulse::Notif::Alert;             
 
 use strict;
+use constant ALL_METHODS => qw (alert_id checkCommand
+                              clusterDesc clusterId commandLongName current_time
+                              customerId debug email fmt_message fmt_subject
+                              groupId groupName hostAddress hostName hostProbeId
+                              hoststate mac message notrouble osName
+                              physicalLocationName probeDescription
+                              probeGroupName probeId probeType replyaddr
+                              requires_ack
+                              satcluster send_id server_id servicestate snmp
+                              snmpPort state subject ticket_id time type
+                              version);
 use Class::MethodMaker
   new_hash_init      =>   'new',
-  grouped_fields     =>   [ all_methods => [qw (alert_id checkCommand 
-                              clusterDesc clusterId commandLongName current_time
-                              customerId debug email fmt_message fmt_subject 
-                              groupId groupName hostAddress hostName hostProbeId
-                              hoststate mac message notrouble osName 
-                              physicalLocationName probeDescription 
-                              probeGroupName probeId probeType replyaddr 
-                              requires_ack
-                              satcluster send_id server_id servicestate snmp 
-                              snmpPort state subject ticket_id time type 
-                              version) ] 
-                           ],
-  get_set            =>    [ qw (_is_completed ack_wait )],
+  get_set            =>    [ ALL_METHODS, qw (_is_completed ack_wait )],
   boolean            =>    [ qw (auto_ack)],
   list               =>    [ qw( originalDestinations newDestinations strategies)];
 
@@ -67,12 +66,11 @@ sub from_query {
   my $query=shift;
 
   my $instance=$class->new();
-  my @methods=$instance->all_methods;
 
   my @params=$query->all_parameters;
   my $key;
   foreach $key (@params) {
-    if (grep { /^$key$/ } @methods) {
+    if (grep { /^$key$/ } (ALL_METHODS)) {
       $instance->$key($query->param($key));
     } else {
       $Log->log(3,"Deleting $key\n") if $key;
@@ -334,10 +332,6 @@ Get or set the acknowledgement wait time for the current send, i.e. the number o
 =item alert_id ( [$number] )
 
 Gets or sets the alert's identification number, used for tracking and clearing the alert.
-
-=item all_methods ( )
-
-Return a list of all the methods providing encapsulation for data contained in this object.
 
 =item auto_ack ( [$boolean] )
 

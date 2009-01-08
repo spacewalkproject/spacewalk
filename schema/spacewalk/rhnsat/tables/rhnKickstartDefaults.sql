@@ -52,15 +52,13 @@ rhnKickstartDefaults
         modified                date default(sysdate)
                                     constraint rhn_ksd_modified_nn not null
 )
-        storage ( freelists 16 )
     enable row movement
-        initrans 32;
+  ;
 
 create index rhn_ksd_kstid_idx
         on rhnKickstartDefaults( kstree_id )
         tablespace [[8m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_ksd_mod_trig

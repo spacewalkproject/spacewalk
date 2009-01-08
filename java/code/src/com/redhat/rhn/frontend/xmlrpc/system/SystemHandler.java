@@ -1521,9 +1521,9 @@ public class SystemHandler extends BaseHandler {
                 ksdata.getId(), loggedInUser, new Date(), url); 
         
         cmd.setGuestName(guestName);
-        cmd.setMemoryAllocation(memoryMb.toString());
-        cmd.setVirtualCpus(vcpus.toString());
-        cmd.setLocalStorageMb(storageMb.toString());
+        cmd.setMemoryAllocation(new Long(memoryMb));
+        cmd.setVirtualCpus(new Long(vcpus.toString()));
+        cmd.setLocalStorageSize(new Long(storageMb));
 
         // Store the new KickstartSession to the DB.
         ValidatorError ve = cmd.store();
@@ -2823,17 +2823,30 @@ public class SystemHandler extends BaseHandler {
         if (!isCompatible(loggedInUser, target, source)) {
             throw new InvalidSystemException();
         }
-        
-        // Convert the integer packageIds to longs:
-        Set longPackageIds = new HashSet();
+
+        // For each of the package ids provided, retrieve the pkg id combo
+        // which includes name_id|evr_id|arch_id
+        Set pkgIdCombos = new HashSet();
         for (Iterator it = packageIds.iterator(); it.hasNext();) {
             Integer i = (Integer)it.next();
-            longPackageIds.add(new Long(i.longValue()));
+            
+            Package pkg = PackageManager.lookupByIdAndUser(i.longValue(), loggedInUser);
+            if (pkg != null) {
+                StringBuilder idCombo = new StringBuilder();
+                idCombo.append(pkg.getPackageName().getId()).append("|");
+                if (pkg.getPackageEvr() != null) {
+                    idCombo.append(pkg.getPackageEvr().getId()).append("|");
+                }
+                if (pkg.getPackageArch() != null) {
+                    idCombo.append(pkg.getPackageArch().getId());
+                }
+                pkgIdCombos.add(idCombo);
+            }
         }
 
         try {
             ProfileManager.syncToSystem(loggedInUser, new Long(targetServerId.longValue()), 
-                    new Long(sourceServerId.longValue()), longPackageIds, null, 
+                    new Long(sourceServerId.longValue()), pkgIdCombos, null, 
                     earliest);
         }
         catch (MissingEntitlementException e) {

@@ -8,9 +8,14 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.7
+Version: 0.4.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd java
+# make test-srpm
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -46,6 +51,7 @@ Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
+Requires: cobbler >= 0:1.4
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1.5.0
@@ -138,6 +144,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
+Requires: cobbler >= 0:1.4
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Requires(post): chkconfig
@@ -213,6 +220,18 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Tue Jan 06 2009 Mike McCune <mmccune@gmail.com> 0.4.11-1
+- Latest spacewalk 0.4 changes.
+
+* Tue Dec 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.10-1
+- modified layout decorators
+
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com> 0.4.9-1
+- Adding proper cobbler requirement with version
+
+* Fri Dec 19 2008 Mike McCune <mmccune@gmail.com> 0.4.8-1
+- latest changes
+
 * Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.7-1
 - resolved #471225 - moved rhn-sat-restart-silent to /usr/sbin
 

@@ -57,9 +57,8 @@ rhnConfigRevision
         default null
         constraint rhn_confrevision_cid_fk references web_contact(id) 
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 -- lemme know if we need more indices here.  We don't really support any 
 -- interesting form of deleting rhnConfigContents or rhnConfigInfo,
@@ -68,8 +67,7 @@ rhnConfigRevision
 create unique index rhn_confrevision_cfid_rev_uq
 	on rhnConfigRevision( config_file_id, revision )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 --

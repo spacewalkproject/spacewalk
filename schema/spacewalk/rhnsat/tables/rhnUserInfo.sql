@@ -75,15 +75,13 @@ rhnUserInfo
 			constraint rhn_user_info_modified_nn not null,
         preferred_locale varchar2(8)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_user_info_uid_email_idx
 	on rhnUserInfo ( user_id, email_notify )
 	tablespace [[4m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 alter table rhnUserInfo add
 	constraint rhn_user_info_uid_uq unique ( user_id );
 

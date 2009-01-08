@@ -32,23 +32,20 @@ rhnGrailComponents
                         constraint rhn_grail_comp_role_type_fk
                                 references rhnUserGroupType(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_grail_components_seq;
 
 create unique index rhn_grail_comp_pkg_mode_uq
 	on rhnGrailComponents(component_pkg, component_mode)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_grail_comp_label_uq
 	on rhnGrailComponents(component_label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- 
 --

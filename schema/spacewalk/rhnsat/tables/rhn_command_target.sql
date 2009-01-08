@@ -30,9 +30,8 @@ create table
     customer_id number   (12)
         constraint rhn_cmdtg_cust_id_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_command_target 
     is 'cmdtg  command target (cluster or node)';
@@ -40,8 +39,7 @@ comment on table rhn_command_target
 create unique index rhn_cmdtg_recid_pk 
     on rhn_command_target ( recid, target_type )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_command_target 
     add constraint rhn_cmdtg_recid_target_type_pk 
@@ -50,8 +48,7 @@ alter table rhn_command_target
 create index rhn_cmdtg_cid_idx
 	on rhn_command_target( customer_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhn_command_target
     add constraint rhn_cmdtg_cstmr_customer_id_fk

@@ -36,9 +36,8 @@ rhnSatelliteChannelFamily
         modified        date default (sysdate)
                         constraint rhn_sat_cf_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_sat_cf_mod_trig
@@ -53,16 +52,14 @@ show errors
 create index rhn_sat_cf_sid_cfid_idx on
 	rhnSatelliteChannelFamily ( server_id, channel_family_id )
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnSatelliteChannelFamily add constraint rhn_sat_cf_sid_cfid_uq
 	unique ( server_id, channel_family_id );
 
 create index rhn_sat_cf_cfid_sid_idx on
         rhnSatelliteChannelFamily( channel_family_id, server_id )
 	tablespace [[2m_tbs]]
-	storage( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.4  2004/02/09 16:38:38  pjones

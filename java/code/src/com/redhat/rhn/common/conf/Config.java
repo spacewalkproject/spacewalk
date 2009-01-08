@@ -141,6 +141,9 @@ public class Config {
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
 
     public static final String PRODUCT_NAME = "web.product_name";
+    
+    public static final String COBBLER_AUTOMATED_USER = "web.taskomatic_cobbler_user";
+    
 
     /**
      * The default maximum size for config revisions,  (128 K)
@@ -631,11 +634,20 @@ public class Config {
      * @return http url
      */
     public String getCobblerServerUrl() {
-        String cobblerServer =
-            getString("cobbler_server.host", "localhost");
-        int cobblerServerPort = getInt("cobbler_server.port", 80);
+        String cobblerServer = getCobblerHost();
+        int cobblerServerPort = getInt("cobbler.port", 80);
         return "http://" + cobblerServer + ":" + cobblerServerPort + "/cobbler_api_rw";
     }
+    
+    
+    /**
+     * Get just the cobbler hostname
+     * @return the cobbler hostname
+     */
+    public String getCobblerHost() {
+        return getString("cobbler.host", "localhost");
+    }
+    
 
     /**
      * Return true if this is a Spacewalk instance. (as opposed to Satellite)
@@ -672,6 +684,16 @@ public class Config {
     public String getKickstartPackageName() {
         return StringUtils.defaultIfEmpty(getString(KICKSTART_PACKAGE_NAME),
                 DEFAULT_KICKSTART_PACKAGE_NAME).trim();        
+    }
+    
+    /**
+     * Get the user string for use with authorization between Spacewalk
+     * and Cobbler if there is no actual user in context.
+     * 
+     * @return String from our config
+     */
+    public String getCobblerAutomatedUser() {
+        return getString(Config.COBBLER_AUTOMATED_USER, "taskomatic_user");
     }
 }
 

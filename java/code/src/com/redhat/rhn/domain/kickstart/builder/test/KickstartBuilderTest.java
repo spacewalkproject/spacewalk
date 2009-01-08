@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParsingException;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.domain.kickstart.test.KickstartRawDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
@@ -92,53 +93,25 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         return ksData;
     }
     
-    private KickstartRawData createRawData(String label, 
-                                        KickstartableTree tree,
-                                            String virtType) {
-        KickstartBuilder builder = new KickstartBuilder(user);
-        KickstartRawData data = builder.createRawData(label, tree, 
-                                                       virtType);
-        assertNotNull(data);
-        assertEquals(label, data.getLabel());
-        assertEquals(virtType, 
-                    data.getKickstartDefaults().getVirtualizationType().getLabel());
-        assertEquals(tree, data.getKickstartDefaults().getKstree());
-        assertEquals(user.getOrg(), data.getOrg());
-        return data;
-    }
 
     public void testKickstartRawData() throws Exception {
 
         
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         try {
-            createRawData("badvirttype", tree, "whatever");
+            KickstartRawDataTest.createRawData(user, 
+                    "badvirttype", tree, "some contents", "whatever");
             fail();
         }
         catch (InvalidVirtualizationTypeException e) {
             // expected
         }
-        createRawData("decent", tree, KickstartVirtualizationType.XEN_PARAVIRT);
-        KickstartRawData data = createRawData("boring", tree, 
-                                    KickstartVirtualizationType.PARA_HOST);
-        
-        
-    }   
-    
-    public void testLookupAndSaveKickstartRawData() throws Exception {
-        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-        
-        KickstartRawData data = createRawData("boring" + TestUtils.randomString(), tree, 
+        KickstartRawDataTest.createRawData(user, "decent", tree, 
+                "some contents", KickstartVirtualizationType.XEN_PARAVIRT);
+        KickstartRawData data = KickstartRawDataTest.createRawData(user, 
+                "boring", tree, "some contents",
                 KickstartVirtualizationType.PARA_HOST);
-        String text = "I am a genius!!!!"; 
-        data.setData(text);
-        KickstartFactory.saveKickstartData(data);
-        long id = data.getId();
-        flushAndEvict(data);
-        KickstartData checker = KickstartFactory.
-                    lookupKickstartDataByIdAndOrg(user.getOrg(), id);
-        assertTrue(checker instanceof KickstartRawData);
-        assertEquals(text, ((KickstartRawData) checker).getData());
+        assertNotNull(data);
     }
     
     public void testEncryptRootpw() throws Exception {

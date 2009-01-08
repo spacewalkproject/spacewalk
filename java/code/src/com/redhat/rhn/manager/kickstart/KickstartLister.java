@@ -379,6 +379,7 @@ public class KickstartLister extends BaseManager {
      * @return list of cobbler profile dtos.
      */
     public List <CobblerProfileDto> listCobblerProfiles(User user) {
+        logger.debug("Adding cobblerProfiles to the list");
         Set<String> excludes = new HashSet<String>(
                     KickstartFactory.listKickstartDataCobblerIds());
         
@@ -394,6 +395,7 @@ public class KickstartLister extends BaseManager {
             }
 
         }
+        logger.debug("Returning cobbler profiles: " + profiles);
         return profiles;
     }
     
@@ -408,7 +410,7 @@ public class KickstartLister extends BaseManager {
         for (KickstartDto dto : dtos) {
             Profile p = Profile.lookupById(conn, dto.getCobblerId());
             if (p != null) {
-                dto.setCobblerUrl(KickstartUrlHelper.getCobblerProfileUrl(p.getName()));
+                dto.setCobblerUrl(KickstartUrlHelper.getCobblerProfilePath(p.getName()));
             }
         }
     }

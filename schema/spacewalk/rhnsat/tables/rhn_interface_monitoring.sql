@@ -24,14 +24,12 @@ rhn_interface_monitoring
         constraint rhn_monif_server_id_nn not null
         constraint rhn_monif_server_pk primary key
             using index tablespace [[8m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
-    server_name     varchar (32)   
+            ,
+    server_name     varchar2 (32)
         constraint rhn_monif_server_name_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_interface_monitoring
    is 'monif  Monitoring interface.  The one entry from rhnservernetinterface to be used for monitoring on a host.';
@@ -45,8 +43,7 @@ create unique index rhn_int_mont_sid_sname_idx
 on rhn_interface_monitoring ( server_id, server_name )
    tablespace [[8m_tbs]]
    nologging
-   storage ( pctincrease 1 freelists 16 )
-   initrans 32;
+  ;
 
 
 --

@@ -40,16 +40,14 @@ rhnTransaction
 			unique(server_id, rpm_trans_id)
 			using index tablespace [[8m_tbs]]
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_transaction_id_seq;
 
 create index rhn_trans_id_sid_ts_rtid_idx
 	on rhnTransaction(id,server_id,timestamp, rpm_trans_id)
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnTransaction add constraint rhn_trans_id_pk primary key (id)
 	using index tablespace [[8m_tbs]];
 

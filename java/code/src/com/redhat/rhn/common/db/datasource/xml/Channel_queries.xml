@@ -380,6 +380,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	<query params="user_id">
 	select Distinct C.id, 
 		   C.name, 
+		   C.label as channel_label,
 		   C.parent_channel as parent_id,
 			(SELECT COUNT(P.package_id)
 			  FROM rhnChannelPackage P
@@ -401,6 +402,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
    select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
+         C.label as channel_label,
          (SELECT COUNT(P.package_id)
            FROM rhnChannelPackage P
            WHERE P.channel_id = C.id
@@ -421,6 +423,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
    select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
+         C.label as channel_label,
          (SELECT COUNT(P.package_id)
            FROM rhnChannelPackage P
            WHERE P.channel_id = C.id
@@ -447,6 +450,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
    select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
+         C.label as channel_label,
          (SELECT COUNT(P.package_id)
            FROM rhnChannelPackage P
            WHERE P.channel_id = C.id
@@ -470,6 +474,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	select Distinct C.id, 
 		   C.name, 
 		   C.parent_channel as parent_id,
+		   C.label as channel_label,
 			(SELECT COUNT(P.package_id)
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
@@ -488,6 +493,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	select Distinct C.id, 
 		   C.name, 
 		   C.parent_channel as parent_id,
+		   C.label as channel_label,
 			(SELECT COUNT(P.package_id)
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id

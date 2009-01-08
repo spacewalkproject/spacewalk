@@ -36,21 +36,17 @@ rhnPrivateChannelFamily
 	modified		date default (sysdate)
 				constraint rhn_privcf_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_privcf_oid_cfid_uq
 	on rhnPrivateChannelFamily( org_id, channel_family_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_cfperm_cfid_oid_idx on
 	rhnPrivateChannelFamily( channel_family_id, org_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32
 	nologging;
 
 --

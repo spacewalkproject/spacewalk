@@ -26,8 +26,7 @@ rhn_schedule_days
         constraint rhn_schdy_recid_ck check (recid > 0)
         constraint rhn_schdy_recid_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     schedule_id         number   (12),
     ord                 number   (3),
     start_1             date,
@@ -41,9 +40,8 @@ rhn_schedule_days
     last_update_user    varchar2 (40),
     last_update_date    varchar2 (40)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_schedule_days 
     is 'schdy  individual day records for schedules';
@@ -51,8 +49,7 @@ comment on table rhn_schedule_days
 create index rhn_schdy_schedule_id_idx 
     on rhn_schedule_days ( schedule_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_schedule_days
     add constraint rhn_schdy_sched_schedule_id_fk

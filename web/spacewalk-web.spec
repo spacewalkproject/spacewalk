@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.6
+Version: 0.4.14
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,6 +226,30 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan  7 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.14-1
+- fixed db-control shrink-segments
+
+* Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.13-1
+- added product_name branding
+
+* Thu Dec 18 2008 Jan Pazdziora 0.4.12-1
+- 461162 - adding support for cobbler auth for taskomatic that actually works
+- more fixes for the $sth variable
+
+* Thu Dec 18 2008 Jan Pazdziora 0.4.10-1
+- WebUI will report Spacewalk release 0.4
+- fixing duplicated $sth variable
+
+* Wed Dec 17 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.4.9-1
+- 476893 - update perl package verify access query to be multiorg aware
+- 461593 - fixing web site nav for package details
+
+* Wed Dec 17 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.8-1
+- 226915 - db_name can be different from db instance name
+
+* Wed Dec 17 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.7-1
+- 476812 - monitoring should be aware of multiorg
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.6-1
 - resolved #474545 - fixed Obsoletes
 

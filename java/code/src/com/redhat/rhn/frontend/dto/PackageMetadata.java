@@ -244,6 +244,57 @@ public class PackageMetadata extends BaseDto implements Comparable {
     }
 
     /**
+     * Returns the epoch of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     * @return the epoch of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     */
+    public String getEpoch() {
+        if (system != null) {
+            return system.getEpoch();
+        }
+        else if (other != null) {
+            return other.getEpoch();
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Returns the version of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     * @return the version of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     */
+    public String getVersion() {
+        if (system != null) {
+            return system.getVersion();
+        }
+        else if (other != null) {
+            return other.getVersion();
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Returns the release of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     * @return the release of the Package, if both the system and
+     * other PackageListItem are null, returns null.
+     */
+    public String getRelease() {
+        if (system != null) {
+            return system.getRelease();
+        }
+        else if (other != null) {
+            return other.getRelease();
+        }
+        
+        return null;
+    }
+    
+    /**
      * {@inheritDoc}
      */
     public int compareTo(Object o) {
@@ -345,4 +396,11 @@ public class PackageMetadata extends BaseDto implements Comparable {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getSelectionKey() {
+        return getIdCombo(); 
+    }
 }

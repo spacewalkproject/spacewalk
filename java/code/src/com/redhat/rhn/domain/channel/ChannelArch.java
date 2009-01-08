@@ -155,7 +155,7 @@ public class ChannelArch extends BaseDomainHelper {
         }
         
         ChannelArch castOther = (ChannelArch) other;
-        return new EqualsBuilder().append(id, castOther.id).isEquals();
+        return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
     }
 
     
@@ -163,15 +163,18 @@ public class ChannelArch extends BaseDomainHelper {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(id).toHashCode();
+        return new HashCodeBuilder().append(this.getId()).toHashCode();
     }
 
     /**
      * {@inheritDoc}
      */
     public String toString() {
-        return new ToStringBuilder(this).append("id", id)
-                .append("label", label).append("name", name).append("archType",
-                        archType).toString();
+        return new ToStringBuilder(this)
+                .append("id", this.getId())
+                .append("label", this.getLabel())
+                .append("name", this.getName())
+                .append("archType", this.getArchType())
+                .toString();
     }
 }

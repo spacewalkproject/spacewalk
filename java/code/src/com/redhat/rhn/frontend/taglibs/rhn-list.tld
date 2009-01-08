@@ -148,6 +148,11 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
+      <name>headertext</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
       <name>headerclass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

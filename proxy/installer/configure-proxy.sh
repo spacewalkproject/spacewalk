@@ -5,6 +5,32 @@ if [ 0$UID -gt 0 ]; then
        exit 1
 fi
 
+print_help () {
+	cat <<HELP
+usage: configure-proxy.sh [options]
+
+options:
+  --answer-file=filename
+            Indicates the location of an answer file to be use for answering
+            questions asked during the installation process. See man page for
+            for an example and documentation.
+  -h, --help            
+            show this help message and exit
+HELP
+	exit
+}
+
+while [ $# -ge 1 ]; do
+	case $1 in
+            --help | -h)  print_help;;
+            --answer-file=*) . `echo $1 | cut -d= -f2`;;
+    esac
+    shift
+done
+
+##FIXME - neeed to finish
+echo ${VERSION:=bbbb}
+
 default_or_input () {
 	unset INPUT
         read INPUT
@@ -31,8 +57,9 @@ DIR=/usr/share/doc/proxy/conf-template
 VERSION=`rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2`
 HOSTNAME=`hostname`
 
+echo $VERSION
 echo -n "Proxy version to activate [$VERSION]: "
-VERSION=`default_or_input $VERSION`
+VERSION |=`default_or_input $VERSION`
 
 RHN_PARENT=`grep serverURL= /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' |awk -F/ '{print $3}'`
 echo -n "RHN Parent [$RHN_PARENT]: "

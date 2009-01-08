@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.4.3
+Version: 0.4.4
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -37,6 +37,8 @@ Run configure-proxy.sh after installation to configure proxy.
 %build
 /usr/bin/docbook2man rhn-proxy-activate.sgml
 /usr/bin/gzip rhn-proxy-activate.8
+/usr/bin/docbook2man configure-proxy.sh.sgml
+/usr/bin/gzip configure-proxy.sh.8
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -52,15 +54,16 @@ install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
-install rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
-install __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
-install rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
+install -m 644 __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
+install -m 644 rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
+install -m 644 configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %dir %{defaultdir}
 %{defaultdir}/c2s.xml
 %{defaultdir}/sm.xml
@@ -68,13 +71,16 @@ rm -rf $RPM_BUILD_ROOT
 %{defaultdir}/squid.conf
 %{defaultdir}/rhn.conf
 %{_usr}/sbin/configure-proxy.sh
-%{_mandir}/man8/rhn-proxy-activate.8.gz
+%{_mandir}/man8/*
 %dir %{_usr}/share/rhn/installer
 %{_usr}/share/rhn/installer/__init__.py*
 %{_usr}/share/rhn/installer/rhn_proxy_activate.py*
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Fri Dec 19 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
+- add man page for configure-proxy.sh and --help option
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
 - fixed Obsoletes: rhns-* < 5.3.0
 

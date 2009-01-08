@@ -8,14 +8,9 @@
 # Package specific stuff
 Name:         NPalert
 Summary:      NOCpulse notification system
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/NPalert
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.23
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version:      1.125.25
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -136,6 +131,12 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Dec 18 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.25-1
+- fix path to notif-escalator.log
+
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.24-1
+- 472895 - remove grouped_fields from Class::MethodMaker declaration
+
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.23-1
 - 474591 - move web data to /usr/share/nocpulse
 

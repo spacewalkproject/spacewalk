@@ -50,7 +50,6 @@ public class ErrataDocumentBuilder implements DocumentBuilder {
             }
             else if (name.equals("advisoryName")) {
                 store = Field.Store.YES;
-                tokenize = Field.Index.UN_TOKENIZED;
             }
 
             doc.add(new Field(name, String.valueOf(value), store,

@@ -115,8 +115,9 @@ public class EditChannelAction extends RhnAction implements Listable {
             createSuccessMessage(request, "message.channelupdated",
                     form.getString("name"));
         }
+        // handler for private confirmation page
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
-            edit(form, errors, ctx);
+            makePrivate(form, errors, ctx);
             createSuccessMessage(request, "message.channelupdated",
                     form.getString("name"));
         }
@@ -216,7 +217,27 @@ public class EditChannelAction extends RhnAction implements Listable {
         ChannelFactory.save(c);
         return c;
     }
-    
+
+    private Channel makePrivate(DynaActionForm form,
+                                ActionErrors errors,
+                                RequestContext ctx) {
+        // need to unsubscribe all systems from the trusted orgs from this
+        // channel
+        Long cid = ctx.getParamAsLong("cid");
+        Org org = ctx.getLoggedInUser().getOrg();
+        Set<Org> trustedorgs = org.getTrustedOrgs();
+        for (Org o : trustedorgs) {
+            DataResult<Map> dr =
+                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
+            for (Map item : dr) {
+                Long sid = (Long)item.get("id");
+                User user = ctx.getLoggedInUser();
+                SystemManager.unsubscribeServerFromChannel(user, sid, cid);
+            }
+        }
+        return edit(form, errors, ctx);
+    }
+
     private Channel edit(DynaActionForm form,
                          ActionErrors errors,
                          RequestContext ctx) {

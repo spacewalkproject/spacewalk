@@ -49,27 +49,23 @@ rhnActionConfigRevision
 	modified		date default(sysdate)
 				constraint rhn_actioncr_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_actioncr_aid_sid_crid_uq
 	on rhnActionConfigRevision( action_id, server_id, config_revision_id )
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_actioncr_sid_aid_idx
 	on rhnActionConfigRevision( server_id, action_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_act_cr_crid_idx
 on rhnActionConfigRevision ( config_revision_id )
         tablespace [[4m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create or replace trigger
 rhn_actioncr_mod_trig

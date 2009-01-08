@@ -1,11 +1,12 @@
 package NOCpulse::Notif::SendInfo;             
 
 use strict;
+
+use constant ALL_FIELDS => qw ( alertId contactId completed customerId expiration
+                          hostProbeId probeId sendId infoTime);
 use Class::MethodMaker
   new_hash_init => 'new', 
-  grouped_fields => [
-    all_fields => [ qw ( alertId contactId completed customerId expiration 
-                          hostProbeId probeId sendId infoTime) ] ] ; 
+  get_set => [ ALL_FIELDS ] ; 
 
 use NOCpulse::Log::Logger;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
@@ -30,7 +31,7 @@ sub from_string {
 sub store_string {
 ##################
   my $self=shift;
-  my %hash = map { $_ => $self->{$_} } $self->all_fields;
+  my %hash = map { $_ => $self->{$_} } (ALL_FIELDS);
   my $string=join(',',%hash);
   return $string;
 }
@@ -85,10 +86,6 @@ Create a new object from the given string.
 =item alertId ( [ $alertId ] )
 
 Get or set the alert id associated with the represented send.
-
-=item all_fields ( )
-
-Return a list of all the data fields encapsulated in this object.
 
 =item contactId ( [ $contactId ] )
 

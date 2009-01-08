@@ -35,21 +35,18 @@ rhnKickstartIPRange
         modified                date default(sysdate)
                                 constraint rhn_ksip_modified_nn not null
 )
-        storage ( freelists 16 )
 	enable row movement
-        initrans 32;
+  ;
 
 create index rhn_ksip_kickstart_id_idx
         on rhnKickstartIPRange( kickstart_id )
         tablespace [[4m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 create index rhn_ksip_org_id_idx
         on rhnKickstartIPRange( org_id )
         tablespace [[4m_tbs]]
-        storage ( freelists 16 )
-        initrans 32;
+  ;
 
 alter table rhnKickstartIPRange add constraint rhn_ksip_oid_min_max_uq
        	unique ( org_id, min, max );

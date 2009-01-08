@@ -32,14 +32,12 @@ rhnPackageKeyAssociation
 	modified	date default (sysdate)
 			constraint rhn_pkeya_modified_nn not null
 )
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_pkeya_pk_uq
 	on rhnPackageKeyAssociation(package_id,key_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- Revision 1.1  2008/07/01 02:00:55  jlsherrill
 -- initial add

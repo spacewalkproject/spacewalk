@@ -19,6 +19,15 @@
 ALTER TABLE rhnActionKickstartGuest
  ADD kickstart_host varchar2(256);
 
+ALTER TABLE rhnActionKickstartGuest
+ ADD disk_path varchar2(256);
+
+ALTER TABLE rhnActionKickstartGuest
+ ADD virt_bridge varchar2(256);
+
+ALTER TABLE rhnActionKickstartGuest
+ ADD cobbler_profile varchar2(256);
+
 show errors
 
 -- $Log$

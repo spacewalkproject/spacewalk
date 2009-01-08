@@ -26,13 +26,11 @@ rhn_db_environment
         constraint rhn_dbenv_db_name_nn not null
         constraint rhn_dbenv_db_name_pk primary key
             using index tablespace [[64k_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     environment varchar2 (255)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_db_environment 
     is 'dbenv environments - database_names xref';

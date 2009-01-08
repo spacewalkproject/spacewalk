@@ -14,16 +14,17 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
+import java.util.Set;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -38,7 +39,11 @@ import javax.servlet.http.HttpServletResponse;
  * SyncSystemsSetupAction
  * @version $Rev$
  */
-public class SyncSystemsSetupAction extends RhnListAction {
+public class SyncSystemsSetupAction extends RhnAction {
+    
+    private static final String DATA_SET = "pageList";
+    private static final CompareSystemSetupAction DECL_ACTION = 
+        new CompareSystemSetupAction();
     
     /** {@inheritDoc} */
     public final ActionForward execute(ActionMapping mapping,
@@ -48,28 +53,27 @@ public class SyncSystemsSetupAction extends RhnListAction {
         
         RequestContext requestContext = new RequestContext(request);
         
-        Long sid = requestContext.getRequiredParam("sid");
-        Long sid1 = requestContext.getRequiredParam("sid_1");
+        Long sid = requestContext.getRequiredParam(RequestContext.SID);
+        Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
         
         User user = requestContext.getLoggedInUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         Server server1 = SystemManager.lookupByIdAndUser(sid1, user);
         
-        PageControl pc = new PageControl();
-        clampListBounds(pc, request, user);
-        
-        DataResult dr = getDataResult(requestContext, user, pc);
-        RhnSet set = RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.get(user);
+        DataResult itemsToBeSynced = getDataResult(request, user);
         
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);
        
         request.setAttribute("date", picker);
-        request.setAttribute("pageList", dr);
-        request.setAttribute("set", set);
         request.setAttribute("system", server);
         request.setAttribute("system1", server1);
+        requestContext.copyParamToAttributes(RequestContext.SID);
+        requestContext.copyParamToAttributes(RequestContext.SID1);
+        request.setAttribute(ListTagHelper.PARENT_URL, 
+                request.getRequestURI() + "?sid=" + sid + "&sid_1=" + sid1);  
+        request.setAttribute(DATA_SET, itemsToBeSynced);
             
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                                       request.getParameterMap());
@@ -77,22 +81,28 @@ public class SyncSystemsSetupAction extends RhnListAction {
     
     /**
      * Gets the List of differing packages between two servers
-     * @param requestContext The RequestContext
+     * @param request HttpServletRequest
      * @param user The logged in user
      * @param pc PageControl
      * @return List of packages and differences
      */
-    protected DataResult getDataResult(RequestContext requestContext, User user,
-            PageControl pc) {
+    protected DataResult getDataResult(HttpServletRequest request, User user) {
+
+        RequestContext requestContext = new RequestContext(request);
 
         Long sid = requestContext.getRequiredParam("sid");
         Long sid1 = requestContext.getRequiredParam("sid_1");
 
-        RhnSet pkgs = RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC.get(user);
+        Set <String> pkgIdCombos = SessionSetHelper.lookupAndBind(request, 
+                getDecl(sid));
+
         DataResult dr = ProfileManager.prepareSyncToServer(sid, sid1,
-                user.getOrg().getId(), pc, pkgs.getElementValues());
+                user.getOrg().getId(), null, pkgIdCombos);
         
         return dr;
     }
 
+    protected String getDecl(Long sid) {
+        return DECL_ACTION.getDecl(sid);
+    }
 }

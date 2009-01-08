@@ -32,11 +32,13 @@ import com.redhat.rhn.frontend.struts.wizard.RhnWizardAction;
 import com.redhat.rhn.frontend.struts.wizard.WizardStep;
 import com.redhat.rhn.frontend.taglibs.helpers.ListViewHelper;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -60,6 +62,12 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev $
  */
 public class ScheduleKickstartWizardAction extends RhnWizardAction {
+
+    /**
+     * Logger for this class
+     */
+    private static Logger log = Logger
+            .getLogger(ScheduleKickstartWizardAction.class);
     
     public static final String SYNCH_PACKAGES = "syncPackages";
     public static final String ACTIVATION_KEYS = "activationKeys";
@@ -87,6 +95,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             String stepName = m.getName().substring(3).toLowerCase();
             WizardStep wizStep = new WizardStep();
             wizStep.setWizardMethod(m);
+            log.debug("Step name: " + stepName);
             if (stepName.equals("first")) {
                 wizStep.setNext("second");
                 wizardSteps.put(RhnWizardAction.STEP_START, wizStep);
@@ -97,6 +106,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             }
             else if (stepName.equals("third")) {
                 wizStep.setPrevious("second");
+            }
+            else if (stepName.equals("fourth")) {
+                wizStep.setPrevious("first");
             }
             wizardSteps.put(stepName, wizStep);
         }        
@@ -134,7 +146,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public ActionForward runFirst(ActionMapping mapping, DynaActionForm form, 
             RequestContext ctx, HttpServletResponse response, 
             WizardStep step) throws Exception {
-
+        log.debug("runFirst");
         Long sid = (Long) form.get(RequestContext.SID);
         User user = ctx.getCurrentUser();
         
@@ -210,7 +222,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public ActionForward runSecond(ActionMapping mapping, DynaActionForm form, 
             RequestContext ctx, HttpServletResponse response, 
             WizardStep step) throws Exception {
-        
+        log.debug("runSecond");
         Long sid = (Long) form.get(RequestContext.SID);
         User user = ctx.getCurrentUser();
         
@@ -267,7 +279,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     public ActionForward runThird(ActionMapping mapping, DynaActionForm form, 
             RequestContext ctx, HttpServletResponse response, 
             WizardStep step) throws Exception {
-        
+        log.debug("runThird");
         if (!validateFirstSelections(form, ctx)) {            
             return runFirst(mapping, form, ctx, response, step);
         }
@@ -349,6 +361,49 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
     }
 
     /**
+     * Setup the system for provisioning with cobbler.
+     * 
+     * @param mapping ActionMapping for struts
+     * @param form DynaActionForm representing the form
+     * @param ctx RequestContext request context
+     * @param response HttpServletResponse response object
+     * @param step WizardStep what step are we on?
+     *
+     * @return ActionForward struts action forward
+     * @throws Exception if something goes amiss
+     */
+    public ActionForward runFourth(ActionMapping mapping, DynaActionForm form, 
+            RequestContext ctx, HttpServletResponse response, 
+            WizardStep step) throws Exception {
+    
+        log.debug("runFourth");
+        Long sid = (Long) form.get(RequestContext.SID);
+        String cobblerId = form.getString(RequestContext.COBBLER_ID);
+        
+        log.debug("runFourth.cobblerId: " + cobblerId);
+        
+        User user = ctx.getCurrentUser();
+        Server server = SystemManager.lookupByIdAndUser(sid, user);
+        
+        Map params = new HashMap();
+        params.put(RequestContext.SID, sid);
+        
+        log.debug("Creating cobbler system record");
+        org.cobbler.Profile profile = org.cobbler.Profile.
+            lookupById(CobblerXMLRPCHelper.getConnection(user), cobblerId);
+        CobblerSystemCreateCommand cmd = 
+            new CobblerSystemCreateCommand(server, profile.getName());
+        cmd.store();
+        log.debug("cobbler system record created.");
+        String[] args = new String[2];
+        args[0] = server.getName();
+        args[1] = profile.getName();
+        createMessage(ctx.getRequest(), "kickstart.schedule.cobblercreate", args);        
+        return getStrutsDelegate().
+            forwardParams(mapping.findForward("cobbler-success"), params);
+    }
+    
+    /**
      * Returns the kickstart schedule command
      * @param form the dyna aciton form
      * @param ctx the request context
@@ -356,7 +411,7 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
      * @param host the  host url.
      * @return the Ks schedule command
      */
-    private KickstartScheduleCommand getScheduleCommand(DynaActionForm form,
+    protected KickstartScheduleCommand getScheduleCommand(DynaActionForm form,
             RequestContext ctx, Date scheduleTime, String host) {
         String cobblerId = form.getString(RequestContext.COBBLER_ID);
         User user = ctx.getLoggedInUser();

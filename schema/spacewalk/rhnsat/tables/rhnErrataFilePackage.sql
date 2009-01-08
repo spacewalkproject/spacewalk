@@ -34,9 +34,8 @@ rhnErrataFilePackage
 	modified	date default (sysdate)
 			constraint rhn_efilep_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_efilep_mod_trig
@@ -51,8 +50,7 @@ show errors
 create index rhn_efilep_efid_pid_idx
 	on rhnErrataFilePackage( errata_file_id, package_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnErrataFilePackage add constraint rhn_efilep_efid_uq
 	unique ( errata_file_id );
 
@@ -61,8 +59,7 @@ alter table rhnErrataFilePackage add constraint rhn_efilep_efid_uq
 create index rhn_efilep_pid_idx
 	on rhnErrataFilePackage ( package_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.5  2004/12/07 23:17:01  misa

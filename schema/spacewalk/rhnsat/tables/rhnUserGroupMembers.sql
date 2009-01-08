@@ -33,9 +33,8 @@ rhnUserGroupMembers
 	modified	date default(sysdate)
 			constraint rhn_ugmembers_modified_nn not null
 )
-	storage ( pctincrease 1 freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 --
 -- Revision 1.16  2003/02/18 16:08:49  pjones

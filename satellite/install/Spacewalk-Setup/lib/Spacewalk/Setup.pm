@@ -30,8 +30,8 @@ use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
-use constant DEFAULT_ANSWER_FILE =>
-  SHARED_DIR . '/defaults.conf';
+use constant DEFAULT_ANSWER_FILE_GLOB =>
+  SHARED_DIR . '/defaults.d/*.conf';
 
 use constant DEFAULT_RHN_CONF_LOCATION =>
   '/etc/rhn/rhn.conf';
@@ -78,6 +78,7 @@ sub parse_options {
 		    "skip-db-population",
 		    "skip-gpg-key-import",
 		    "skip-ssl-cert-generation",
+                    "skip-ssl-vhost-setup",
             "skip-services-check",
             "skip-logfile-init",
 		    "clear-db",
@@ -92,7 +93,7 @@ sub parse_options {
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]] [--run-cobbler]");
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [--skip-ssl-vhost-setup] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]] [--run-cobbler]");
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -142,27 +143,30 @@ sub load_answer_file {
   my $options = shift;
   my $answers = shift;
 
-  my $file = $options->{'answer-file'};
+  my @files = glob(Spacewalk::Setup::DEFAULT_ANSWER_FILE_GLOB);
+  push @files, $options->{'answer-file'} if $options->{'answer-file'};
 
-  $file ||= Spacewalk::Setup::DEFAULT_ANSWER_FILE;
+  for my $file (@files) {
 
-  return unless -r $file;
+    next unless -r $file;
 
-  print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
-  open FH, $file or die Spacewalk::Setup::loc("Could not open answer file: %s\n", $!);
+    if ($options->{'answer-file'} and $file eq $options->{'answer-file'}) {
+      print Spacewalk::Setup::loc("* Loading answer file: %s.\n", $file);
+    }
+    open FH, $file or die Spacewalk::Setup::loc("Could not open answer file: %s\n", $!);
 
-  while (my $line = <FH>) {
-    next if substr($line, 0, 1) eq '#';
-    $line =~ /([\w-]*)\s*=\s*(.*)/;
-    my ($key, $value) = ($1, $2);
+    while (my $line = <FH>) {
+      next if substr($line, 0, 1) eq '#';
+      $line =~ /([\w-]*)\s*=\s*(.*)/;
+      my ($key, $value) = ($1, $2);
 
-    next unless $key;
+      next unless $key;
 
-    $answers->{$key} = $value;
+      $answers->{$key} = $value;
+    }
+
+    close FH;
   }
-
-  close FH;
-
   return;
 }
 
@@ -268,6 +272,7 @@ sub set_spinning_callback {
 }
 
 sub init_log_files {
+  my $product_name = shift;
   my @args = @_;
 
   if (not -e RHN_LOG_DIR) {
@@ -284,7 +289,7 @@ sub init_log_files {
     or die "Could not open '" . Spacewalk::Setup::INSTALL_LOG_FILE .
         "': $!";
 
-  my $log_header = "RHN Satellite installation log.\nCommand: "
+  my $log_header = "$product_name installation log.\nCommand: "
     . $0 . " " . join(" ", @args) . "\n\n";
 
   print FH $log_header;
@@ -1331,6 +1336,18 @@ Do not import Red Hat's GPG key.
 =item B<--skip-ssl-cert-generation>
 
 Do not generate the SSL certificates for the Satellite.
+
+=item B<--skip-ssl-vhost-setup>
+
+Do not configure the default SSL virtual host for Spacewalk.
+
+Note that if you choose to have Spacewalk setup skip this step,
+it's up to you to ensure that the following are included
+in the virtual host definition:
+
+RewriteEngine on
+RewriteOptions inherit
+SSLProxyEngine on
 
 =item B<--upgrade>
 

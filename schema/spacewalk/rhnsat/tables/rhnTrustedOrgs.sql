@@ -34,12 +34,10 @@ rhnTrustedOrgs
         modified        date default (sysdate)
                         constraint rhn_trusted_orgs_modified_nn not null
 )
-	storage( pctincrease 1 freelists 16)
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_trusted_orgs_oid_uq
 	on rhnTrustedOrgs(org_id,org_trust_id)
 	tablespace [[2m_tbs]]
-	storage( pctincrease 1 freelists 16)
-	initrans 32;
+  ;

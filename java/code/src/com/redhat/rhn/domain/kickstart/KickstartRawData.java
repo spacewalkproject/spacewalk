@@ -15,10 +15,8 @@
 
 package com.redhat.rhn.domain.kickstart;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.user.User;
-
-import java.sql.Blob;
 
 
 /**
@@ -27,39 +25,35 @@ import java.sql.Blob;
  * @version $Rev$
  */
 public class KickstartRawData extends KickstartData {
-    private Blob dataBlob;
+    
+    private String data;
+
+    /**
+     * Constructor
+     */
+    public KickstartRawData() {
+        super();
+        this.kickstartType = TYPE_RAW;
+    }
     
     /**
      * the actual raw data asa string. ....
      * @return the raw data
      */
     public String getData() {
-        return HibernateFactory.blobToString(getDataBlob());
+        if (this.data == null) {
+            this.data = FileUtils.
+                readStringFromFile(this.getCobblerFileName());
+        }
+        return this.data;
     }
     
     /**
      * set the raw data info.
-     * @param data raw data
+     * @param dataIn raw data
      */
-    public void setData(String data) {
-        setDataBlob(HibernateFactory.stringToBlob(data));
-    }
-    
-    /**
-     * internal for hibernate only
-     * @return the dataBlob
-     */
-    Blob getDataBlob() {
-        return dataBlob;
-    }
-
-    
-    /**
-     * internal for hibernate only
-     * @param blob the dataBlob to set
-     */
-    void setDataBlob(Blob blob) {
-        this.dataBlob = blob;
+    public void setData(String dataIn) {
+        this.data = dataIn;
     }
     
     /** {@inheritDoc} */
@@ -70,11 +64,11 @@ public class KickstartRawData extends KickstartData {
     
     /** {@inheritDoc} */
     @Override
-    public KickstartData deepCopy(User user, String newName, String newLabel) {
-        KickstartRawData data = new KickstartRawData();
-        updateCloneDetails(data, user, newName, newLabel);
-        data.setDataBlob(getDataBlob());
-        return data;
+    public KickstartData deepCopy(User user, String newLabel) {
+        KickstartRawData copied = new KickstartRawData();
+        updateCloneDetails(copied, user, newLabel);
+        copied.data = this.data;
+        return copied;
     }
     
     /** {@inheritDoc} */

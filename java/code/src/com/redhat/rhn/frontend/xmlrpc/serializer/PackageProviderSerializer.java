@@ -31,9 +31,10 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *
  * @xmlrpc.doc 
  *   #struct("package provider")
- *   #array()
+ *   #prop("string", "name")
+ *   #prop_array_begin("keys")
  *      $PackageKeySerializer
- *     #array_end()
+ *   #prop_array_end()
  *   #struct_end()
  */
 public class PackageProviderSerializer implements XmlRpcCustomSerializer {

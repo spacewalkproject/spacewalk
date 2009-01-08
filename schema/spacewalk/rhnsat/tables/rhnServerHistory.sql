@@ -27,23 +27,21 @@ rhnServerHistory
 			constraint rhn_serverhistory_sid_nn not null
                         constraint rhn_serverhistory_sid_fk
                                 references rhnServer(id),
-        summary         varchar(256)
+        summary         varchar2(256)
 			constraint rhn_serverhistory_summary_nn not null,
-        details         varchar(4000),
+        details         varchar2(4000),
         created         date default (sysdate)
 			constraint rhn_serverhistory_created_nn not null,
         modified        date default (sysdate)
 			constraint rhn_serverhistory_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_server_hist_server_id_idx
 	on rhnServerHistory(server_id)
 	tablespace [[4m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
   
 -- we use the rhn_event_id_seq for the history ids
 

@@ -17,14 +17,17 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
+import org.cobbler.Profile;
 
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,6 +52,19 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         super(userIn);
         this.ksData = ksDataIn;
     }
+    
+    /**
+     * Call this if you want to use the taskomatic_user.
+     * 
+     * Useful for automated non-user initiated syncs
+     * 
+     * @param ksDataIn - KickstartData to sync
+     */
+    public CobblerProfileCommand(KickstartData ksDataIn) {
+        super();
+        this.ksData = ksDataIn;
+    }
+    
 
     /**
      * Get the Cobbler profile associated with this KickstartData
@@ -58,50 +74,45 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         return lookupCobblerProfile(this.ksData);
     }
     
-
-    protected void updateCobblerFields(String handle) {
-        Object[] args = new String[]{handle, "kickstart", 
-                this.ksData.getCobblerFileName(), xmlRpcToken};
-        invokeXMLRPC("modify_profile", Arrays.asList(args));
-
-        args = new Object[]{handle, "distro", 
-                this.ksData.getTree().getCobblerDistroName(), xmlRpcToken};
-
-        invokeXMLRPC("modify_profile", Arrays.asList(args));
-        
+    
+    protected void updateCobblerFields(Profile profile) {
+        profile.setKickstart(this.ksData.getCobblerFileName());
+        profile.setDistro(getDistroForKickstart());
         if (kernelOptions != null) {
-            args = new Object[]{handle, "kernel_options", 
-                    kernelOptions, xmlRpcToken};
-            invokeXMLRPC("modify_profile", Arrays.asList(args));
+            profile.setKernelOptions(kernelOptions);
         }
-        
+        if (postKernelOptions != null) {
+            profile.setKernelPostOptions(postKernelOptions);
+        }
         // redhat_management_key
         KickstartSession ksession = 
-            KickstartFactory.
-                lookupDefaultKickstartSessionForKickstartData(this.ksData); 
+            KickstartFactory.lookupDefaultKickstartSessionForKickstartData(this.ksData); 
         if (ksession != null) {
             ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
-
-            args = new Object[]{handle, "redhat_management_key", 
-                    key.getKey(), xmlRpcToken};
-
-            invokeXMLRPC("modify_profile", Arrays.asList(args));
+            profile.setRedHatManagementKey(key.getKey());
         }
         else {
             log.warn("We could not find a default kickstart session for this ksdata: " + 
                     ksData.getLabel());
         }
         
-        if (kernelOptions != null) {
-            args = new Object[]{handle, "kernel_options_post", 
-                    postKernelOptions, xmlRpcToken};
-            invokeXMLRPC("modify_profile", Arrays.asList(args));
-        }
-        Map<String, Object> meta = new HashMap<String, Object>();
-        meta.put("org", user.getOrg().getId());
-        invokeXMLRPC("modify_profile", handle, "ksmeta", meta, xmlRpcToken);        
+        Map meta = profile.getKsMeta();
+        meta.put("org", this.ksData.getOrg().getId());
+        profile.setKsMeta(meta);
+        
+        profile.save();
     }
-
+    
+    /**
+     * Get the cobbler distro for a particular kickstart file
+     *      selects the xen or non-xen cobbler distro depending
+     *      upon the virt type
+     * @return the distro object
+     */
+    public Distro getDistroForKickstart() {
+        return getCobblerDistroForVirtType(ksData.getTree(), 
+                ksData.getKickstartDefaults().getVirtualizationType(), user);
+    }
     
     /**
      * @param kernelOptionsIn The kernelOptions to set.
@@ -118,4 +129,31 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     public void setPostKernelOptions(Map postKernelOptionsIn) {
         this.postKernelOptions = postKernelOptionsIn;
     }
+
+    /**
+     * Get the cobbler distro for a particular tree and virt type combo
+     *      selects the xen or non-xen cobbler distro depending
+     *      upon the virt type
+     * @param tree the kickstart tree
+     * @param virtType the virt type
+     * @param user the user doing the query
+     * @return null if there is none, otherwise the cobbler distro
+     */
+    public static Distro getCobblerDistroForVirtType(KickstartableTree tree, 
+            KickstartVirtualizationType virtType, User user) {
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
+        Distro distro;
+        if (virtType.equals(KickstartFactory.VIRT_TYPE_XEN_PV)) {
+            if (tree.getCobblerXenId() == null) {
+                return null;
+            }
+            else {
+                return Distro.lookupById(con, tree.getCobblerXenId());
+            }
+        }
+        else {
+            return Distro.lookupById(con, tree.getCobblerId());
+        }
+    }
+    
 }

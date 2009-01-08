@@ -65,9 +65,11 @@ public abstract class CobblerCommand {
     
     /**
      * Construct a CobblerCommand without using authentication
+     *  This should only be used for taskomatic!
      */
     public CobblerCommand() {
-        xmlRpcToken = IntegrationService.get().getAuthToken("taskomatic");
+        xmlRpcToken = IntegrationService.get().getAuthToken(
+                Config.get().getCobblerAutomatedUser());
         log.debug("Unauthenticated Cobbler call");
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 

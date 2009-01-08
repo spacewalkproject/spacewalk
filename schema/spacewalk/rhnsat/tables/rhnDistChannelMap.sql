@@ -19,9 +19,9 @@
 create table
 rhnDistChannelMap 
 (
-	os		varchar(64)
+	os		varchar2(64)
 			constraint rhn_dcm_os_nn not null,
-	release		varchar(64)
+	release		varchar2(64)
 			constraint rhn_dcm_release_nn not null,
 	channel_arch_id	number
 			constraint rhn_dcm_caid_nn not null
@@ -32,15 +32,13 @@ rhnDistChannelMap
 			constraint rhn_dcm_cid_fk
 				references rhnChannel(id) on delete cascade
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_dcm_os_release_caid_idx
 	on rhnDistChannelMap(os, release, channel_arch_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnDistChannelMap add constraint rhn_dcm_os_release_caid_uq
 	unique ( os, release, channel_arch_id );
 

@@ -38,23 +38,20 @@ rhnChannelFamily
 	modified	date default (sysdate)
 			constraint rhn_channel_family_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create sequence rhn_channel_family_id_seq start with 1000;
 
 create unique index rhn_channel_family_label_uq
 	on rhnChannelFamily(label)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_channel_family_name_uq
 	on rhnChannelFamily(name)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_channel_family_mod_trig

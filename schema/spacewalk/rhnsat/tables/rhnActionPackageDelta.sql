@@ -30,15 +30,12 @@ rhnActionPackageDelta
 					references rhnPackageDelta(id)
 					on delete cascade
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_act_pd_aid_pdid_idx
 	on rhnActionPackageDelta(action_id, package_delta_id)
 	tablespace [[8m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 
 --

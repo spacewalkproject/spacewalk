@@ -155,9 +155,7 @@ public class FilePreservationListHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "name", "name of the file list to retrieve 
      * details for")
      * @xmlrpc.returntype
-     *   #array()
      *     $FileListSerializer
-     *   #array_end()
      */
     public FileList getDetails(String sessionKey, String name) 
         throws FaultException {

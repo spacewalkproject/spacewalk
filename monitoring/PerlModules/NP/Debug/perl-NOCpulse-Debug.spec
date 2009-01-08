@@ -2,13 +2,8 @@ Name:         perl-NOCpulse-Debug
 Version:      1.23.8
 Release:      1%{?dist}
 Summary:      Perl debug output package
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/Debug
-# make test-rpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     nocpulse-common
 BuildRequires: nocpulse-common perl(Error) perl(Class::MethodMaker)

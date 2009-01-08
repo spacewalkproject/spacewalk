@@ -32,15 +32,13 @@ rhnUserMessage
 			constraint rhn_um_status_fk
 				references rhnUserMessageStatus(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_um_uid_mid_uq
 	on rhnUserMessage(user_id, message_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.7  2003/01/30 16:11:28  pjones

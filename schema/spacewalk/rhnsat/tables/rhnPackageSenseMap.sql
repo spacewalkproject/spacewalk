@@ -26,15 +26,13 @@ rhnPackageSenseMap
 			constraint rhn_pkg_sensemap_sid_fk
 				references rhnPackageSense(id)
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pkg_sensemap_s_sid_uq
 	on rhnPackageSenseMap(sense,sense_id)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 --
 -- Revision 1.8  2003/01/30 16:11:28  pjones

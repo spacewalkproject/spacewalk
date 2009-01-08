@@ -1,14 +1,9 @@
 %define npbin        /opt/home/nocpulse/bin
 Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/Probe
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
-Version:      1.183.3
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version:      1.183.4
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -74,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Dec 16 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.4-1
+- 472895 - remove grouped_fields from Class::MethodMaker declaration
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.3-1
 - 467441 - fix namespace
 

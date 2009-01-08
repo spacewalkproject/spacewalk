@@ -28,6 +28,8 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -36,6 +38,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
+import org.cobbler.Distro;
 import org.cobbler.Profile;
 
 import java.util.List;
@@ -144,13 +147,22 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                     prof.getKernelPostOptions(), " "));
         }
         
-        
-       setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), "br0");
-       setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(), 1);
-       setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(), 3);
-       setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(), 262144);  
-       setFormValueOrDefault(form, VIRT_PATH, prof.getVirtPath(), "/var/lib/xen/" + 
-               data.getLabel());
+       if (prof == null) {
+           form.set(VIRT_BRIDGE, "xenbr0");
+           form.set(VIRT_CPU, 1);
+           form.set(VIRT_DISK_SIZE, 3);
+           form.set(VIRT_MEMORY, 262144);
+           form.set(VIRT_PATH, "/var/lib/xen/" +  data.getLabel());
+       }
+       else {
+           setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), "xenbr0");
+           setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(), 1);
+           setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(), 3);
+           setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(), 262144);  
+           setFormValueOrDefault(form, VIRT_PATH, prof.getVirtPath(), "/var/lib/xen/" + 
+                   data.getLabel());
+       }
+
        
        //Should we show virt options?
        ctx.getRequest().setAttribute(IS_VIRT, !data.getKickstartDefaults().
@@ -184,6 +196,18 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
         cmd.setComments(form.getString(COMMENTS));
         try {
+            
+
+            KickstartVirtualizationType vType = 
+                KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
+                    form.getString(VIRTUALIZATION_TYPE_LABEL));
+            
+            Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(
+                    cmdIn.getKickstartData().getTree(), vType, ctx.getLoggedInUser());
+            if (distro == null) {
+                ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt"); 
+            }
+            
             
             if (!cmdIn.getKickstartData().getLabel().equals(form.getString(LABEL))) {
                 builder.validateNewLabel(form.getString(LABEL));
@@ -261,6 +285,8 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      */
     public static void proccessCobblerFormValues(KickstartData ksdata, 
                                             DynaActionForm form, User user) {
+        
+        
         CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
         Profile prof = Profile.lookupById(helper.getConnection(user), 
                 ksdata.getCobblerId());
@@ -268,12 +294,12 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             return;
         }
         
-        prof.setKernelOptions(StringUtil.convertOptionsToMap(
-                form.getString(KERNEL_OPTIONS), 
-                "kickstart.jsp.error.invalidvariable"));
-        prof.setKernelPostOptions(StringUtil.convertOptionsToMap(
-                form.getString(POST_KERNEL_OPTIONS), 
-                "kickstart.jsp.error.invalidoption")); 
+        CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
+        cmd.setKernelOptions(StringUtil.convertOptionsToMap(
+                form.getString(KERNEL_OPTIONS), "kickstart.jsp.error.invalidvariable"));
+        cmd.setPostKernelOptions(StringUtil.convertOptionsToMap(
+                form.getString(POST_KERNEL_OPTIONS), "kickstart.jsp.error.invalidoption"));
+        cmd.store();
         
         if (KickstartDetailsEditAction.saveVirtOptions(ksdata, form)) {
             prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
@@ -282,7 +308,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             prof.setVirtBridge(form.getString(VIRT_BRIDGE));
             prof.setVirtPath(form.getString(VIRT_PATH));
         }
-
         prof.save(); 
     }
 

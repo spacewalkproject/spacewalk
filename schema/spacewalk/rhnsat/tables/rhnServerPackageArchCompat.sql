@@ -34,16 +34,14 @@ rhnServerPackageArchCompat
 	modified	date default(sysdate)
 			constraint rhn_sp_ac_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_sp_ac_said_paid_pref
 	on rhnServerPackageArchCompat(
 		server_arch_id, package_arch_id, preference)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnServerPackageArchCompat add constraint rhn_sp_ac_said_paid_uq
 	unique ( server_arch_id, package_arch_id );
 
@@ -51,8 +49,7 @@ create index rhn_sp_ac_paid_said_pref
 	on rhnServerPackageArchCompat(
 	 	package_arch_id, server_arch_id, preference)
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 alter table rhnServerPackageArchCompat add constraint rhn_sp_ac_pref_said_uq
 	unique ( preference, server_arch_id )

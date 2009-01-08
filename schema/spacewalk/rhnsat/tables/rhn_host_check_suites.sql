@@ -26,9 +26,8 @@ rhn_host_check_suites
     suite_id        number   (12)
         constraint rhn_hstck_suite_id_nn not null
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_host_check_suites 
     is 'hstck  check suites used by hosts. the host_probe_id must reference a probe oftype hostprobe.';
@@ -36,8 +35,7 @@ comment on table rhn_host_check_suites
 create unique index rhn_hstck_suite_id_probe_id_pk 
     on rhn_host_check_suites ( host_probe_id , suite_id )
     tablespace [[2m_tbs]]
-    storage ( freelists 16 )
-    initrans 32;
+  ;
 
 alter table rhn_host_check_suites 
     add constraint rhn_hstck_suite_id_probe_id_pk 

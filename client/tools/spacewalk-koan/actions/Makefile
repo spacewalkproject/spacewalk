@@ -10,6 +10,8 @@ CAPS        = kickstart
 CAPS_DIR    = /etc/sysconfig/rhn/clientCaps.d
 EXTRA_DIRS  = $(CAPS_DIR)
 
+VIRT_FILES = kickstart_guest
+
 # now include some Macros
 include $(TOP)/Makefile.defs
 

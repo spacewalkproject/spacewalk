@@ -19,9 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.cobbler.Distro;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -30,6 +28,14 @@ import java.util.Map;
 public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     
     private static Logger log = Logger.getLogger(CobblerDistroCreateCommand.class);
+    
+    /**
+     * Constructor
+     * @param ksTreeIn to sync
+     */
+    public CobblerDistroCreateCommand(KickstartableTree ksTreeIn) {
+        super(ksTreeIn);
+    }
     
     /**
      * Constructor
@@ -48,21 +54,17 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     public ValidatorError store() {
         log.debug("Token : [" + xmlRpcToken + "]");
         
-        String handle = (String) invokeXMLRPC("new_distro", xmlRpcToken);
-        // <channel label>--<ks tree label>
-        invokeXMLRPC("modify_distro", handle, "name",
-                tree.getCobblerDistroName(), xmlRpcToken);
-        updateCobblerFields(handle);
-
-        if (tree.getOrgId() != null) {
-            Map<String, Object> meta = new HashMap<String, Object>();
-            meta.put("org", tree.getOrg().getId());
-            invokeXMLRPC("modify_distro", handle, "ksmeta", meta, xmlRpcToken);
-        }
-        invokeXMLRPC("save_distro", handle, xmlRpcToken);
+        Distro distro = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
+                tree.getCobblerDistroName(), tree.getKernelPath(), tree.getInitrdPath());
+        tree.setCobblerId((String) distro.getUid());
         invokeCobblerUpdate();
-        Map cDist = getDistroMap();
-        tree.setCobblerId((String) cDist.get("uid"));      
+        
+        if (tree.doesParaVirt()) {
+            Distro distroXen = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
+                tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
+                tree.getInitrdXenPath()); 
+            tree.setCobblerXenId(distroXen.getUid());
+        }
         return null;
     }
 

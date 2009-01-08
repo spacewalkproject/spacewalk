@@ -36,22 +36,17 @@ rhnActivationKey
 	modified	date default sysdate
 			constraint rhn_act_key_modified_nn not null
 )
-	storage( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_act_key_kssid_rtid_idx
 on rhnActivationKey (ks_session_id, reg_token_id)
         tablespace [[64k_tbs]]
-        storage( freelists 16 )
-        initrans 32
         nologging;
 
 create index rhn_act_key_rtid_idx 
     on rhnActivationKey (reg_token_id)
     tablespace [[64k_tbs]]
-    storage ( freelists 16 )
-    initrans 32
     nologging;
 
 

@@ -37,22 +37,19 @@ rhnServerConfigChannel
 	modified		date default(sysdate)
 				constraint rhn_servercc_mod_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_servercc_sid_ccid_uq
 	on rhnServerConfigChannel( server_id, config_channel_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 -- this one is needed for the deletion on rhnConfigChannel
 create index rhn_servercc_ccid_idx
 	on rhnServerConfigChannel( config_channel_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_servercc_mod_trig

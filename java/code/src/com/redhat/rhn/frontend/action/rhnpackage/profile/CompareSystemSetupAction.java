@@ -14,31 +14,125 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.profile;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * CompareSystemSetupAction
  * @version $Rev$
  */
-public class CompareSystemSetupAction extends BaseSetListAction {
+public class CompareSystemSetupAction extends RhnAction {
+
+    private static final String LIST_NAME = "compareList";
+    public static final String DATA_SET = "pageList";
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+        
+        RequestContext requestContext = new RequestContext(request);
+        processRequestAttributes(requestContext);
+        
+        Long sid = requestContext.getRequiredParam(RequestContext.SID);
+        Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
+        Set sessionSet = SessionSetHelper.lookupAndBind(request, getDecl(sid));
+
+        //if its not submitted
+        // ==> this is the first visit to this page
+        // clear the 'dirty set'
+        if (!requestContext.isSubmitted()) {
+            sessionSet.clear();
+        }        
+
+        SessionSetHelper helper = new SessionSetHelper(request);
+        
+        if (request.getParameter("dispatch") != null) {
+            // if its one of the Dispatch actions handle it..            
+            helper.updateSet(sessionSet, LIST_NAME);
+            if (!sessionSet.isEmpty()) {
+                return handleDispatchAction(mapping, requestContext);
+            }
+            else {
+                RhnHelper.handleEmptySelection(request);
+            }
+        }   
+        DataResult dataSet = getDataResult(requestContext);
+        // if its a list action update the set and the selections
+        if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
+            helper.execute(sessionSet, LIST_NAME, dataSet);
+        }        
+
+        // if I have a previous set selections populate data using it       
+        if (!sessionSet.isEmpty()) {
+            helper.syncSelections(sessionSet, dataSet);
+            ListTagHelper.setSelectedAmount(LIST_NAME, sessionSet.size(), request);
+        }
+        
+        request.setAttribute(ListTagHelper.PARENT_URL, 
+                request.getRequestURI() + "?sid=" + sid + "&sid_1=" + sid1);  
+        
+        request.setAttribute(DATA_SET, dataSet);
+        
+        ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(sid), request);
+        TagHelper.bindElaboratorTo(LIST_NAME, dataSet.getElaborator(), request);
+        
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    private ActionForward handleDispatchAction(ActionMapping mapping,
+            RequestContext context) {
+
+        Long sid = context.getRequiredParam(RequestContext.SID);
+        Long sid1 = context.getRequiredParam(RequestContext.SID1);
+
+        Map params = new HashMap();
+        params.put(RequestContext.SID, sid.toString());
+        params.put(RequestContext.SID1, sid1.toString());
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+        return strutsDelegate.forwardParams(mapping.findForward("submit"), params);
+    }
+
+    /**
+     * Basically returns the declaration used to store the set of keys..
+     * @param sid the server Id
+     * @return the declaration.
+     */
+    public String getDecl(Long sid) {
+        return getClass().getName() + sid.toString();
+    }
 
     /**
      * {@inheritDoc}
      */
-    protected DataResult getDataResult(RequestContext requestContext, PageControl pc) {
+    protected DataResult getDataResult(RequestContext requestContext) {
         
-        Long sid = requestContext.getRequiredParam("sid");
-        Long sid1 = requestContext.getRequiredParam("sid_1");
+        Long sid = requestContext.getRequiredParam(RequestContext.SID);
+        Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
         
         DataResult dr = ProfileManager.compareServerToServer(sid,
-                sid1, requestContext.getCurrentUser().getOrg().getId(), pc);
+                sid1, requestContext.getCurrentUser().getOrg().getId(), null);
         
         return dr;
     }
@@ -47,29 +141,14 @@ public class CompareSystemSetupAction extends BaseSetListAction {
      * {@inheritDoc}
      */
     protected void processRequestAttributes(RequestContext requestContext) {
-        super.processRequestAttributes(requestContext);
-        Long sid1 = requestContext.getRequiredParam("sid_1");
+        
+        Long sid1 = requestContext.getRequiredParam(RequestContext.SID1);
         
         requestContext.lookupAndBindServer();
+        
         Server server1 = SystemManager.lookupByIdAndUser(sid1,
                 requestContext.getCurrentUser());
+        
         requestContext.getRequest().setAttribute("systemname", server1.getName());
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processPageControl(PageControl pc) {
-        pc.setIndexData(true);
-        pc.setFilterColumn("name");
-        pc.setFilter(true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public RhnSetDecl getSetDecl() {
-        return RhnSetDecl.PACKAGES_FOR_SYSTEM_SYNC;
-    }
-
 }

@@ -4,16 +4,11 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.215.44
+Version:      1.215.46
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/SatConfig/general
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source:	      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Group:        Development/Libraries
 License:      GPLv2
 BuildArch:    noarch
@@ -72,6 +67,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan  7 2009 Milan Zazrivec 1.215.46-1
+- bz #474591 - move web data to /usr/share/nocpulse
+
 * Mon Dec  1 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.44-1
 - 472910 - fix paths to nofitication configs
 

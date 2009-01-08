@@ -19,39 +19,31 @@
 create unique index rhn_ug_oid_name_uq
 	on rhnUserGroup(org_id, name)
 	tablespace [[32m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 
 create index rhn_ug_id_name_org
 	on rhnUserGroup(id, name, org_id)
 	parallel 6
 	tablespace [[32m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 	
 create index rhn_ug_org_id_name_idx
 	on rhnUserGroup(org_id, id, name)
 	parallel 6
 	tablespace [[32m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 	
 create index rhn_ug_org_id_type_idx
 	on rhnUserGroup(group_type, id)
 	parallel 6
 	tablespace [[8m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32
 	nologging;
 	
 create index rhn_ug_org_id_gtype_idx
 	on rhnUserGroup(org_id, group_type, id)
 	parallel 6
 	tablespace [[8m_tbs]]
-	storage ( pctincrease 1 freelists 16 )
-	initrans 32;
+  ;
 alter table rhnUserGroup add constraint rhn_ug_oid_gt_uq
 	unique ( org_id, group_type );
 

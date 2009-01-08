@@ -34,8 +34,22 @@ insert into rhnKSInstallType (id, label, name)
 
 insert into rhnKSInstallType (id, label, name)
         values (rhn_ksinstalltype_id_seq.nextval,
+                'fedora_8','Fedora 8'
+        );
+
+insert into rhnKSInstallType (id, label, name)
+        values (rhn_ksinstalltype_id_seq.nextval,
                 'fedora_9','Fedora 9'
         );
 
+insert into rhnKSInstallType (id, label, name)
+        values (rhn_ksinstalltype_id_seq.nextval,
+                'fedora_10','Fedora 10'
+        );
+
+insert into rhnKSInstallType (id, label, name)
+        values (rhn_ksinstalltype_id_seq.nextval,
+                'generic_rpm','Generic RPM'
+        );
 
 commit;

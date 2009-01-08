@@ -14,15 +14,18 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -69,6 +72,8 @@ public class KickstartFactory extends HibernateFactory {
     public static final KickstartVirtualizationType VIRT_TYPE_NONE = 
         lookupKickstartVirtualizationTypeByLabel("none");
     
+    public static final KickstartVirtualizationType VIRT_TYPE_XEN_PV = 
+        lookupKickstartVirtualizationTypeByLabel("xenpv");
     
     private static final String KICKSTART_CANCELLED_MESSAGE = 
         "Kickstart cancelled due to action removal";
@@ -153,11 +158,12 @@ public class KickstartFactory extends HibernateFactory {
      * @param cobblerId the cobbler id to lookup 
      * @return the Kickstartable Tree object
      */    
-    public static KickstartableTree lookupKickstartTreeByCobblerId(String cobblerId) {
+    public static KickstartableTree 
+                    lookupKickstartTreeByCobblerIdOrXenId(String cobblerId) {
         Map map = new HashMap();
         map.put("cid", cobblerId);
         return (KickstartableTree) singleton.lookupObjectByNamedQuery(
-                "KickstartableTree.findByCobblerId", map);
+                "KickstartableTree.findByCobblerIdorXenId", map);
     }
     
     
@@ -316,21 +322,44 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void saveKickstartData(KickstartData ksdataIn, 
             KickstartSession ksession) {
+        log.debug("saveKickstartData: " + ksdataIn.getLabel());
         singleton.saveObject(ksdataIn);
-        
-        KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", 
-                ksdataIn, ksession);
-        String fileData = formatter.getFileData();
+        String fileData = null;
+        if (ksdataIn.isRawData()) {
+            log.debug("saveKickstartData is raw, use file");
+            KickstartRawData rawData = (KickstartRawData) ksdataIn;
+            fileData = rawData.getData();
+        }
+        else {
+            log.debug("saveKickstartData wizard.  use object");
+            KickstartFormatter formatter = new KickstartFormatter("@@http_server@@", 
+                    ksdataIn, ksession);
+            fileData = formatter.getFileData();
+        }
         // Escape the dollar signs
         fileData = StringUtils.replace(fileData, "$", "\\$");
         String mediapath = KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
         // TODO: Make this actually loop over cobbler vars vs just hard coded names
         fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
         fileData = StringUtils.replace(fileData, "\\$SNIPPET", "$SNIPPET");
-        
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
+                Config.get().getCobblerAutomatedUser()), ksdataIn.getCobblerId());
+        if (p != null && p.getKsMeta() != null) {
+            Map ksmeta = p.getKsMeta();
+            Iterator i = ksmeta.keySet().iterator();
+            while (i.hasNext()) {
+                String name = (String) i.next();
+                log.debug("fixing ksmeta: " + name);
+                fileData = StringUtils.replace(fileData, "\\$" + name, "$" + name);
+            }
+        }
+        else {
+            log.debug("No ks meta for this profile.");
+        }
         try {
             File ksfile = new File(ksdataIn.getCobblerFileName());
             if (ksfile.exists()) {
+                log.debug("file exists, deleting");
                 ksfile.delete();
             }
             ksfile.createNewFile();
@@ -341,6 +370,7 @@ public class KickstartFactory extends HibernateFactory {
             finally {
               output.close();
             }
+            log.debug("done writing file.");
         } 
         catch (Exception e) {
             log.error("Error trying to write KS file to disk: [" + 

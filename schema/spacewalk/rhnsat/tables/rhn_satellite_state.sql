@@ -27,8 +27,7 @@ rhn_satellite_state
         constraint rhn_satst_sat_id_nn not null
         constraint rhn_satst_sat_id_pk primary key
             using index tablespace [[2m_tbs]]
-            storage( pctincrease 1 freelists 16 )
-            initrans 32,
+            ,
     last_check                       date,
     probe_count                      number   (10),
     pct_ok                           number   (10,2),
@@ -45,9 +44,8 @@ rhn_satellite_state
     min_latency                      number   (10,2),
     avg_latency                      number   (10,2)
 )
-    storage ( freelists 16 )
     enable row movement
-    initrans 32;
+  ;
 
 comment on table rhn_satellite_state 
     is 'satst  satellite state (monitoring)';

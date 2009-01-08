@@ -43,21 +43,18 @@ rhnPushClient
 	modified	date default sysdate
 			constraint rhn_pclient_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create unique index rhn_pclient_name_uq
 	on rhnPushClient( name )
 	tablespace [[8m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create unique index rhn_pclient_sid_uq
 	on rhnPushClient( server_id )
 	tablespace [[2m_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 
 create or replace trigger
 rhn_pclient_mod_trig

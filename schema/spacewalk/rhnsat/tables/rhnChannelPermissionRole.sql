@@ -32,23 +32,20 @@ rhnChannelPermissionRole
 	modified	date default(sysdate)
 			constraint rhn_cperm_role_modified_nn not null
 )
-	storage ( freelists 16 )
 	enable row movement
-	initrans 32;
+  ;
 
 create index rhn_cperm_role_id_pk
 	on rhnChannelPermissionRole ( id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnChannelPermissionRole add constraint
 	rhn_cperm_role_id_pk primary key ( id );
 
 create index rhn_cperm_role_label_id_idx
 	on rhnChannelPermissionRole ( label, id )
 	tablespace [[64k_tbs]]
-	storage ( freelists 16 )
-	initrans 32;
+  ;
 alter table rhnChannelPermissionRole add constraint
 	rhn_cperm_role_label_uq unique ( label );
 

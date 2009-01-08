@@ -1,12 +1,13 @@
 %define rhnroot %{_prefix}/share/rhn
 %define rhnconf %{_sysconfdir}/rhn
 %define httpdconf %{rhnconf}/satellite-httpd/conf
+%define apacheconfd %{_sysconfdir}/httpd/conf.d
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.8
+Version: 0.4.9
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -22,7 +23,6 @@ Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
 BuildRequires: docbook-utils
-Requires: cobbler
 Requires(pre): httpd
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
@@ -193,6 +193,7 @@ Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
+Requires: cobbler >= 0:1.4
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 
@@ -356,7 +357,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server.conf
 # main httpd config
-%attr(640,root,apache) %config %{httpdconf}/rhn_server.conf 
+%attr(640,root,apache) %config %{apacheconfd}/zz-spacewalk-server.conf
 # logs and other stuff
 %config %{_sysconfdir}/logrotate.d/rhn_server
 # translations
@@ -549,6 +550,16 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
+- Adding proper cobbler requirement with version
+
+* Fri Dec 19 2008 Dave Parker <dparker@redhat.com> 0.4.9-1
+- Reconfigured backed to use stock apache server rather than satellite-httpd
+
+* Thu Dec 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.9-1
+- 476055 - fixing sat activation to work by setting the right handler
+- 457629 - multiarch support for errata updates
+
 * Fri Dec 12 2008 Jan Pazdziora 0.4.8-1
 - 476212 - adding Requires rhel-instnum
 - 461162 - remove profile label parameter from the spacewalk-koan call chain
