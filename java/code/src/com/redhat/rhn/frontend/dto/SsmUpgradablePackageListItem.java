@@ -26,6 +26,11 @@ public class SsmUpgradablePackageListItem extends PackageListItem {
     private Long advisoryId;
     private Long numSystems;
 
+    @Override
+    public String getSelectionKey() {
+        return getIdCombo() + "~*~" + getEpoch() + "-" + getVersion() + "-" + getRelease();
+    }
+
     /**
      * @return description of the advisory
      */

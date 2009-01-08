@@ -208,7 +208,8 @@ class CLI:
                 GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
         debug("Using tagger class: %s" % tagger_class)
 
-        tagger = tagger_class(keep_version=options.keep_version)
+        tagger = tagger_class(global_config=global_config,
+                keep_version=options.keep_version)
         tagger.run(options)
 
     def _read_global_config(self):

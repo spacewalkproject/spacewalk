@@ -98,7 +98,7 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Jan 07 2009 Dave Parker <dparker@redhat.com>
+* Wed Jan 07 2009 Dave Parker <dparker@redhat.com> 0.48.4-1
 - 461162 - move sputlite cgi programs to stock location in /var/www/cgi-bin
 
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.3-1
