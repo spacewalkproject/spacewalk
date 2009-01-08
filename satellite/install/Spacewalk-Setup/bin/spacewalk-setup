@@ -999,7 +999,7 @@ sub mkdir_mount_points {
   my %dirs;
   @dirs{@_} = @_;
   my $apache_uid;
-  for my $dir (keys %dirs) {
+  for my $dir (sort { length $a <=> length $b } keys %dirs) {
     if (not -e $dir) {
       my @parts = grep { $_ ne '' } split /\//, $dir;
       my $path = '';
