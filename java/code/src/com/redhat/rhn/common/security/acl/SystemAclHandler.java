@@ -14,6 +14,14 @@
  */
 package com.redhat.rhn.common.security.acl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -21,11 +29,8 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * SystemAclHandler
@@ -33,6 +38,11 @@ import java.util.Map;
  */
 public class SystemAclHandler extends BaseHandler implements AclHandler {
 
+    /**
+     * Logger for this class
+     */
+    private static Logger log = Logger.getLogger(SystemAclHandler.class);
+    
     /**
      * 
      */
@@ -167,6 +177,32 @@ public class SystemAclHandler extends BaseHandler implements AclHandler {
         return (KickstartFactory.lookupKickstartSessionByServer(sid) != null); 
     }
     
+    /**
+     * Checks to see if a cobbler system record exists for this system  
+     * @param ctx Context Map to pass in
+     * @param params Parameters to use (unused)
+     * @return true if a system has a session
+     */
+    public boolean aclCobblerSystemRecordExists(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        Long sid = getAsLong(map.get("sid"));
+        User user = (User)map.get("user");
+        Server server = SystemManager.lookupByIdAndUser(sid, user);
+        if (StringUtils.isBlank(server.getCobblerId())) {
+            return false;
+        }
+        try {
+            SystemRecord record = SystemRecord.lookupById(
+                                    CobblerXMLRPCHelper.getConnection(user),
+                                                    server.getCobblerId());
+            return record != null;
+        }
+        catch (Exception e) {
+            log.error("Cobbler connection errored out for Id" + 
+                                                server.getCobblerId(), e);
+            return false;
+        }
+    }
     /**
      * Checks to see if an org has proxies
      * @param ctx Context Map to pass in

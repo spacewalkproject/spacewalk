@@ -138,6 +138,7 @@
         <rhn-tab-url>/rhn/systems/details/kickstart/SessionCancel.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Schedule" url="/rhn/kickstart/ScheduleWizard.do"/>
+      <rhn-tab name="kickstart.variable.nav" url="/rhn/systems/details/kickstart/Variables.do" acl="cobbler_system_record_exists()"/>
     </rhn-tab>
 
     <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/network/systems/details/history/snapshots/index.pxt" hide_all_children_unless_active="1">
