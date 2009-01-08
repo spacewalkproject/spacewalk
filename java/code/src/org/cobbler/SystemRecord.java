@@ -232,6 +232,15 @@ public class SystemRecord extends CobblerObject {
      public int getVirtRam() {
          return (Integer)dataMap.get(VIRT_RAM);
      }
+     /**
+      * true if netboot enabled is true
+      * false other wise
+      * @return netboot enabled value
+      */
+     public boolean isNetbootEnabled() {
+         return Boolean.TRUE.toString().
+             equalsIgnoreCase((String.valueOf(dataMap.get(NETBOOT_ENABLED))));
+     }
  
       /**
       * @param virtBridgeIn the VirtBridge
@@ -275,4 +284,11 @@ public class SystemRecord extends CobblerObject {
           modify(VIRT_RAM, virtRamIn);
       }
 
+      /**
+       * Enable netboot
+       * @param enable true to enable net boot.
+       */
+      public void enableNetboot(boolean enable) {
+          modify(NETBOOT_ENABLED, enable);
+      }
 }

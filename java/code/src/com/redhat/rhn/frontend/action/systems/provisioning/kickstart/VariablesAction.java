@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
 import org.cobbler.CobblerObject;
 import org.cobbler.SystemRecord;
 
@@ -36,6 +37,8 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
  * @version $Rev$
  */
 public class VariablesAction extends KickstartVariableAction {
+    private static final String NETBOOT_ENABLED = "netbootEnabled";
+    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -43,8 +46,20 @@ public class VariablesAction extends KickstartVariableAction {
                                  HttpServletResponse response) {
         RequestContext ctx = new RequestContext(request);
         Server server = ctx.lookupAndBindServer();
-        User user = ctx.getLoggedInUser();
+        User user = ctx.getLoggedInUser();        
         SdcHelper.ssmCheck(ctx.getRequest(), server.getId(), user);
+        DynaActionForm form = (DynaActionForm)formIn;
+        SystemRecord rec = (SystemRecord) 
+                        getCobblerObject(server.getCobblerId(), user);        
+        if (isSubmitted(form)) {
+            if (!Boolean.valueOf(rec.isNetbootEnabled()).
+                                    equals(form.get(NETBOOT_ENABLED))) {
+                rec.enableNetboot(Boolean.TRUE.equals(form.get(NETBOOT_ENABLED)));
+                rec.save();
+            }
+
+        }
+        form.set(NETBOOT_ENABLED, rec.isNetbootEnabled());
         return super.execute(mapping, formIn, request, response);
     }
     

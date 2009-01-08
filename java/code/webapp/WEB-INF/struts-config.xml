@@ -659,6 +659,7 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="variables" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="netbootEnabled" type="java.lang.Boolean"/>
         </form-bean>           
         
         <form-bean name="kickstartDownloadForm"
