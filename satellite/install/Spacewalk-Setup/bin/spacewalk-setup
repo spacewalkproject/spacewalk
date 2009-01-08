@@ -969,7 +969,7 @@ sub populate_initial_configs {
     $rhnopt{'server.satellite.rhn_parent'} = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
   }
   if ($answers->{'product_name'}) {
-    $rhnopt{'web.product_name'} = $answers->{'product_name'};
+    $rhnopt{'product_name'} = $answers->{'product_name'};
   }
   if ($answers->{'product_version'}) {
     $rhnopt{'web.version'} = $answers->{'product_version'};

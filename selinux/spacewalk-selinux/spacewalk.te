@@ -17,6 +17,7 @@ require {
 	type initrc_t;
 	type oracle_port_t;
 	type system_mail_t;
+	type nfs_t;
 }
 
 type spacewalk_install_log_t;
@@ -58,3 +59,9 @@ dontaudit system_mail_t httpd_t:file read;
 manage_files_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
 manage_dirs_pattern(httpd_t, spacewalk_cache_t, spacewalk_cache_t)
 
+tunable_policy(`spacewalk_nfs_mountpoint',`
+	manage_files_pattern(httpd_t, nfs_t, nfs_t)
+	manage_lnk_files_pattern(httpd_t, nfs_t, nfs_t)
+	manage_dirs_pattern(httpd_t, nfs_t, nfs_t)
+	read_lnk_files_pattern(restorecon_t, nfs_t, nfs_t)
+')
