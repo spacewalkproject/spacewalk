@@ -207,7 +207,7 @@ class VersionTagger(object):
                         self.relative_project_dir)
 
         new_tag = self._get_new_tag(new_version)
-        print "Creating new tag: %s" % new_tag
+        print "Creating new tag [%s]" % new_tag
         run_command('git tag -m "%s" %s' % (tag_msg, new_tag))
 
     def _check_tag_does_not_exist(self, new_tag):
