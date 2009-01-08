@@ -28,8 +28,8 @@ public class KickstartInstallType extends BaseDomainHelper {
     public static final String RHEL_3 = "rhel_3";
     public static final String RHEL_4 = "rhel_4";
     public static final String RHEL_5 = "rhel_5";
-    public static final String FEDORA = "fedora";
-    public static final String GENERIC = "generic";
+    private static final String FEDORA = "fedora";
+    private static final String GENERIC = "generic";
     
     private Long id;
     private String label;
@@ -75,14 +75,14 @@ public class KickstartInstallType extends BaseDomainHelper {
      * @return true if the installer type is rhel  
      */    
     public boolean isRhel() {
-        return !isFedora() && !isGeneric();
+        return isRhel2() || isRhel2() || isRhel3() || isRhel4() || isRhel5();
     }
     
     /**
      * @return true if the installer type is Fedora 
      */
     public boolean isFedora() {
-        return FEDORA.equals(getLabel());
+        return getLabel().startsWith(FEDORA);
     }    
     
     /**

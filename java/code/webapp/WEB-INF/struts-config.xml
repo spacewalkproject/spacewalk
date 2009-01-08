@@ -5329,6 +5329,16 @@
         <forward name="success"
                  redirect="true" path="/kickstart/KickstartDetailsEdit.do"/>
     </action>
+ 
+   <action path="/systems/details/kickstart/Variables"
+        scope="request"
+        name="kickstartVariableForm"
+        type="com.redhat.rhn.frontend.action.systems.provisioning.kickstart.VariablesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default"
+                path="/WEB-INF/pages/systems/details/kickstart/variables.jsp"/>        
+    </action>
+ 
       
     <action path="/systems/details/kickstart/SessionStatus"
         scope="request"
