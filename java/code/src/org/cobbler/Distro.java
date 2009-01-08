@@ -80,6 +80,9 @@ public class Distro extends CobblerObject {
      * @return the distro matching the UID
      */
     public static Distro lookupById(CobblerConnection client, String id) {
+        if (id == null) {
+            return null;
+        }
         List<Map<String, Object>> distros = (List<Map<String, Object>>) 
                                                 client.invokeMethod("get_distros");
         Distro distro = new Distro(client);

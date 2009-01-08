@@ -64,6 +64,9 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         if (ksDataIn != null) {
             name = (String)lookupCobblerProfile(ksDataIn).get("name");
         }
+        else {
+            throw new NullPointerException("ksDataIn cant be null");
+        }
         this.activationKeys = activationKeysIn;
     }
     
@@ -108,10 +111,16 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return ValidatorError if the store failed.
      */
     public ValidatorError store() {
+        String handle = null;
         
+        if (getSystemMap() != null) {
+            handle = (String) invokeXMLRPC("get_system_handle",
+                    this.server.getName(), xmlRpcToken);
+        }
+        else {
+            handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
+        }
         
-        
-        String handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
         log.debug("handle: " + handle);
         invokeXMLRPC("modify_system", handle, "name", server.getName(),
                                  xmlRpcToken);
@@ -156,7 +165,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                                                     this.mediaPath);            
         }
 
-        args = new Object[]{handle, "ksmeta", 
+        args = new Object[]{handle, "ks_meta", 
                 ksmeta, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
