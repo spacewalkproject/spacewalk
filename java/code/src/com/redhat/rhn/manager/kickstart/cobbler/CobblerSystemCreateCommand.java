@@ -114,7 +114,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         String handle = null;
         log.debug("Map null?: " + (getSystemMap() != null));
         
-        if (getSystemMap() != null) {
+        Map systemMp = getSystemMap();
+        if (systemMp != null && !systemMp.isEmpty()) {
             handle = (String) invokeXMLRPC("get_system_handle",
                     this.server.getName(), xmlRpcToken);
         }
