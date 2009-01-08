@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
 Version:        0.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
 Group:          Applications/Internet
@@ -87,6 +87,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Thu Jan  8 2009 Jan Pazdziora 0.4.2-3
+- Require spacewalk-selinux, making it a mandatory rpm
+
 * Mon Dec 22 2008 Mike McCune <mmccune@gmail.com> 0.4.2-2
 - Removing cobbler requirement down to RPMs that actually need it 
 
