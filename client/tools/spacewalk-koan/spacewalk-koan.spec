@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Jan 09 2009 Partha Aji <paji@redhat.com> 0.1.3-1
-- tagging release with a minor fix on 0.1.2-1
+- tagging release with a minor fix on 0.1.3-1
 * Tue Dec 23 2008 Mike McCune <mmccune@gmail.com> 0.1.2-1
 - tagging release with support for virt
 * Tue Nov 25 2008 Mike McCune - 0.1.1-1
