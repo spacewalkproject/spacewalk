@@ -974,6 +974,12 @@ sub populate_initial_configs {
   if ($answers->{'product_version'}) {
     $rhnopt{'web.version'} = $answers->{'product_version'};
   }
+  if ($answers->{'enable_nvrea'}) {
+    $rhnopt{'enable_nvrea'} = $answers->{'enable_nvrea'};
+  }
+  if ($answers->{'force_package_upload'}) {
+    $rhnopt{'force_package_upload'} = $answers->{'force_package_upload'};
+  }
   write_config( \%rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
 
