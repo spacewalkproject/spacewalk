@@ -7917,6 +7917,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="snapshots.basechannel">
         <source>Base Channel Updated</source>
      </trans-unit>
+     <trans-unit id="snapshots.entitlements">
+        <source>Entitlements Changed</source>
+     </trans-unit>
        
     </body>
   </file>

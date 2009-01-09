@@ -293,12 +293,9 @@ public class SystemDetailsEditAction extends RhnAction {
         }
         
         if (needsSnapshot) {
-            ServerSnapshot snapshot = new ServerSnapshot();
-            snapshot.setOrg(user.getOrg());
-            snapshot.setServer(s);
-            snapshot.setReason("Entitlements Changed");
-
-            ServerFactory.saveSnapshot(snapshot);
+            String message = 
+                LocalizationService.getInstance().getMessage("snapshots.entitlements");
+            SystemManager.snapshotServer(s, message);            
         }
         
         return success;
