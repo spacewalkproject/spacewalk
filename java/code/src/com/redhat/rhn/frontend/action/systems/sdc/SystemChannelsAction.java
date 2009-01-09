@@ -274,7 +274,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
                     request);
 
             String message = 
-                LocalizationService.getInstance().getMessage("snapshots.basechannel");            
+                LocalizationService.getInstance().getMessage("snapshots.basechannel");
             SystemManager.snapshotServer(s, message);
         }
         SdcHelper.ssmCheck(request, s.getId(), user);
