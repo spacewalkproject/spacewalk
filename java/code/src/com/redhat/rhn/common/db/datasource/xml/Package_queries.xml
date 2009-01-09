@@ -1168,6 +1168,7 @@ ORDER BY  UPPER(PN.name)
   <query params="sid">
 SELECT  pn.id AS id,
         pn.name AS name,
+        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS nvre,
         pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS id_combo
   FROM  rhnPackageName PN,
         (
