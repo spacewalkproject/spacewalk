@@ -348,8 +348,8 @@ sub syscall_retry {
       -answer => \$localAnswer
   );
   if ( $localAnswer =~ /^[Ii]/ ) {
-      return 1;
       Spacewalk::Setup::loc("Ignoring error and continuing\n");
+      return 1;
   } elsif ( $localAnswer =~ /^[Qq]/ ) {
       die("Ending run at user's request");
   }
