@@ -133,7 +133,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
             CobblerDistroCreateCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
         assertNotNull(cmd.getDistroMap());
-        Map ksmeta = (Map) cmd.getDistroMap().get("ks_meta");
+        Map ksmeta = (Map) cmd.getDistroMap().get("ksmeta");
         assertNotNull(ksmeta.get(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE));
     }
 

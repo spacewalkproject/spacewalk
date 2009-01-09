@@ -42,15 +42,18 @@ public class Distro extends CobblerObject {
      * @param name the name of the distro
      * @param kernel the kernel path of the distro
      * @param initrd the initrd path of the distro
+     * @param ksmeta inital ksmeta to set
      * @return a new Distro
      */
     public static Distro create(CobblerConnection client, 
-                                String name, String kernel, String initrd) {
+                                String name, String kernel, String initrd, 
+                                Map ksmeta) {
         Distro distro = new Distro(client);
         distro.handle = (String) client.invokeTokenMethod("new_distro");
         distro.modify(NAME, name);
         distro.setKernel(kernel);
         distro.setInitrd(initrd);
+        distro.setKsMeta(ksmeta);
         distro.save();
         distro = lookupByName(client, name);
         return distro;

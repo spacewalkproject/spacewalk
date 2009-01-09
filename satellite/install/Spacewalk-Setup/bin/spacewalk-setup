@@ -348,8 +348,8 @@ sub syscall_retry {
       -answer => \$localAnswer
   );
   if ( $localAnswer =~ /^[Ii]/ ) {
-      return 1;
       Spacewalk::Setup::loc("Ignoring error and continuing\n");
+      return 1;
   } elsif ( $localAnswer =~ /^[Qq]/ ) {
       die("Ending run at user's request");
   }
@@ -969,7 +969,7 @@ sub populate_initial_configs {
     $rhnopt{'server.satellite.rhn_parent'} = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
   }
   if ($answers->{'product_name'}) {
-    $rhnopt{'web.product_name'} = $answers->{'product_name'};
+    $rhnopt{'product_name'} = $answers->{'product_name'};
   }
   if ($answers->{'product_version'}) {
     $rhnopt{'web.version'} = $answers->{'product_version'};
@@ -999,7 +999,8 @@ sub mkdir_mount_points {
   my %dirs;
   @dirs{@_} = @_;
   my $apache_uid;
-  for my $dir (keys %dirs) {
+  my $seen_nfs = 0;
+  for my $dir (sort { length $a <=> length $b } keys %dirs) {
     if (not -e $dir) {
       my @parts = grep { $_ ne '' } split /\//, $dir;
       my $path = '';
@@ -1015,7 +1016,26 @@ sub mkdir_mount_points {
       die "Failed to retrieve uid of user apache, the user does not seem to exist.\n";
     }
     chown $apache_uid, -1, $dir or die "Error chowning dir [$dir] to [apache]: $!\n";
-    system('/sbin/restorecon', '-rvv', $dir);
+    my @paths = $dir;
+    if (-l $paths[0]) {
+      # if the path is a symlink, we will try to restorecon
+      # the target as well
+      push @paths, "$paths[0]/.";
+    }
+    for my $path (@paths) {
+      my $is_nfs = 0;
+      my $type = `ls -d --scontext -- $path`;
+      if (defined $type
+        and $type =~ /^.+?:.+?:(.+?)(:|\s)/
+        and $1 eq 'nfs_t') {
+        if (not $seen_nfs) {
+          system('/usr/sbin/setsebool', '-P', 'spacewalk_nfs_mountpoint', 1);
+	  $seen_nfs = 1;
+        }
+      } else {
+        system('/sbin/restorecon', '-rvv', $path);
+      }
+    }
   }
 }
 

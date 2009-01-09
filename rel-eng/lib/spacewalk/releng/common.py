@@ -68,19 +68,24 @@ def run_command(command):
         raise Exception("Error running command")
     return output
 
-def check_tag_exists(tag, repo_url=None):
+def check_tag_exists(tag, offline=False):
     """
     Check that the given git tag exists in a git repository.
     """
-    if not repo_url:
-        repo_url = get_git_repo_url()
-    debug("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
+    (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
+    if status > 0:
+        error_out("Tag does not exist locally: [%s]" % tag)
 
     tag_sha1 = run_command(
             "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
             % tag)
     debug("Local tag SHA1: %s" % tag_sha1)
 
+    if offline:
+        return
+
+    repo_url = get_git_repo_url()
+    print("Checking for tag [%s] in git repo [%s]" % (tag, repo_url))
     upstream_tag_sha1 = run_command(
             "git ls-remote %s --tag %s | awk '{ print $1 ; exit }'" %
             (repo_url, tag))
@@ -92,13 +97,6 @@ def check_tag_exists(tag, repo_url=None):
     if upstream_tag_sha1 != tag_sha1:
         error_out("Tag %s references %s locally but %s upstream." % (tag,
             tag_sha1, upstream_tag_sha1))
-
-    commit_id = run_command('git rev-list --max-count=1 %s' %
-            tag_sha1)
-
-    (status, output) = commands.getstatusoutput("git tag | grep %s" % tag)
-    if status > 0:
-        error_out("Unable to locate git tag: %s" % tag)
 
 def debug(text):
     """

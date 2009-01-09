@@ -145,19 +145,6 @@ class CLI:
         build_dir = lookup_build_dir()
         global_config = self._read_global_config()
         package_name = get_project_name(tag=options.tag)
-        pkg_config = self._read_project_config(package_name, build_dir,
-                options.tag, options.no_cleanup)
-
-        # Now that we have command line options, instantiate builder/tagger:
-        if building:
-            self._run_builder(package_name, options, pkg_config,
-                    global_config, build_dir)
-
-        if tagging:
-            self._run_tagger(options, pkg_config, global_config)
-
-    def _run_builder(self, package_name, options, pkg_config, global_config,
-            build_dir):
 
         build_tag = None
         build_version = None
@@ -165,15 +152,29 @@ class CLI:
         if options.tag:
             build_tag = options.tag
             build_version = build_tag[len(package_name + "-"):]
-        else:
+        elif building:
             build_version = get_latest_tagged_version(package_name)
             if build_version == None:
                 error_out(["Unable to lookup latest package info.",
                         "Perhaps you need to --tag-release first?"])
             build_tag = "%s-%s" % (package_name, build_version)
 
-        if not options.offline:
-            check_tag_exists(build_tag)
+        if not options.test and building:
+            check_tag_exists(build_tag, offline=options.offline)
+
+        pkg_config = self._read_project_config(package_name, build_dir,
+                options.tag, options.no_cleanup)
+
+        # Now that we have command line options, instantiate builder/tagger:
+        if building:
+            self._run_builder(package_name, build_tag, build_version, options,
+                    pkg_config, global_config, build_dir)
+
+        if tagging:
+            self._run_tagger(options, pkg_config, global_config)
+
+    def _run_builder(self, package_name, build_tag, build_version, options,
+            pkg_config, global_config, build_dir):
 
         builder_class = None
         if pkg_config.has_option("buildconfig", "builder"):
@@ -208,7 +209,8 @@ class CLI:
                 GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
         debug("Using tagger class: %s" % tagger_class)
 
-        tagger = tagger_class(keep_version=options.keep_version)
+        tagger = tagger_class(global_config=global_config,
+                keep_version=options.keep_version)
         tagger.run(options)
 
     def _read_global_config(self):

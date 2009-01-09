@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.19
+Version:        0.4.20
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -80,6 +80,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan  8 2009 Jan Pazdziora 0.4.20-1
+- support symlinked and NFS-mounted /var/satellite during setup
+- run chkconfig for "stock" httpd
+
 * Thu Jan  8 2009 Milan Zazrivec 0.4.19-1
 - Build for Spacewalk 0.4
 

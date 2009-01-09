@@ -103,6 +103,7 @@ def initiate_guest(kickstart_host, cobbler_profile, virt_type, name, mem_kb,
         k.system              = None
         k.image               = None
         k.live_cd             = None
+        k.virt_name           = name
         k.virt_path           = disk_path
         k.virt_type           = virt_type
         k.virt_bridge         = virt_bridge

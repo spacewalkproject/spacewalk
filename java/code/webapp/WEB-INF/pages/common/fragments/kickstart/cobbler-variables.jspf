@@ -14,6 +14,16 @@
   <br>
     <html:form method="post" action="${param.post_url}">
       <table class="details">
+		<c:if test= "${not empty param.show_netboot}">
+		      <tr>
+              <th>
+                  <bean:message key="kickstart.variable.jsp.netboot-enabled"/>:
+              </th>
+              <td>
+                  <html:checkbox property="netbootEnabled"/>
+              </td>
+          </tr>
+		</c:if>      
           <tr>
               <th>
                   <bean:message key="kickstart.variable.jsp.variabledetails"/>:
