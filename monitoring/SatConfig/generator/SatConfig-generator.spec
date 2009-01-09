@@ -44,7 +44,7 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 %files
 %defattr(-,root,root,-)
 %dir %{install_prefix}
-%dir %{db_dir}
+%dir %attr(-,nocpulse,nocpulse) %{db_dir}
 %dir %{registry}
 %{install_prefix}/ConfigDocument.pm
 %{install_prefix}/GenerateConfig.pm
@@ -54,6 +54,9 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jan  9 2009 Milan Zazrivec
+- fixed /var/lib/nocpulse ownership
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.8-1
 - 467441 - fix namespace
 
