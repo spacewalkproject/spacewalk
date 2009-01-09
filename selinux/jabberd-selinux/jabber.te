@@ -98,3 +98,4 @@ optional_policy(`
 ')
 
 kernel_read_system_state(jabberd_t)
+corecmd_search_bin(jabberd_t)
