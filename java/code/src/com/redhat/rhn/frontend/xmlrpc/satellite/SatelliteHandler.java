@@ -86,12 +86,12 @@ public class SatelliteHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      * #struct("channel/system entitlements")
-     *   #array()
+     *   #prop_array_begin("system")
      *     $EntitlementServerGroupSerializer
-     *   #array_end()
-     *   #array()
+     *   #prop_array_end()
+     *   #prop_array_begin("channel")
      *     $ChannelOverviewSerializer
-     *   #array_end()
+     *   #prop_array_end()
      * #struct_end()
      */
     public Map listEntitlements(String sessionKey) {
