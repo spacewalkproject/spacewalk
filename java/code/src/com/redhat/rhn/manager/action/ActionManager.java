@@ -232,7 +232,6 @@ public class ActionManager extends BaseManager {
             Action a = (Action)iter.next();
             actionsToDeleteBuffer.append(" " + a.getId());
         }
-        ActionFactory.deleteServerActionsByParent(actionsToDelete);
 
         Set servers = new HashSet();
         Iterator serverActionsIter = action.getServerActions().iterator();
@@ -240,9 +239,9 @@ public class ActionManager extends BaseManager {
             ServerAction sa = (ServerAction)serverActionsIter.next();
             servers.add(sa.getServer());
         }
-
         KickstartFactory.failKickstartSessions(actionsToDelete, servers);
-        
+
+        ActionFactory.deleteServerActionsByParent(actionsToDelete);
     }
 
     /**
