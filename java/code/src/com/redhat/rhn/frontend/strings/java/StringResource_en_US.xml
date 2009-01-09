@@ -7909,7 +7909,15 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>      
      <trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
         <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a differnt distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
-     </trans-unit>             
+     </trans-unit>
+       
+     <trans-unit id="snapshots.childchannel">
+        <source>Child Channels Updated</source>
+     </trans-unit>
+     <trans-unit id="snapshots.basechannel">
+        <source>Base Channel Updated</source>
+     </trans-unit>
+       
     </body>
   </file>
 </xliff>
