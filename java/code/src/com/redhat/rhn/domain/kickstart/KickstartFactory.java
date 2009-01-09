@@ -69,8 +69,8 @@ public class KickstartFactory extends HibernateFactory {
     public static final KickstartSessionState SESSION_STATE_CONFIG_ACCESSED =
         lookupSessionStateByLabel("configuration_accessed");
     
-    public static final KickstartVirtualizationType VIRT_TYPE_NONE = 
-        lookupKickstartVirtualizationTypeByLabel("none");
+    public static final KickstartVirtualizationType VIRT_TYPE_AUTO = 
+        lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.AUTO);
     
     public static final KickstartVirtualizationType VIRT_TYPE_XEN_PV = 
         lookupKickstartVirtualizationTypeByLabel("xenpv");

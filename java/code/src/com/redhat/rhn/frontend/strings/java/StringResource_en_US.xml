@@ -7918,7 +7918,10 @@ Follow this url to see the full list of inactive systems:
         <source>Base Channel Updated</source>
      </trans-unit>
      <trans-unit id="snapshots.entitlements">
-        <source>Entitlements Changed</source>
+        <source>Entitlements Updated</source>
+     </trans-unit>
+     <trans-unit id="snapshots.configchannel">
+        <source>Configuration Channels Updated</source>
      </trans-unit>
        
     </body>
