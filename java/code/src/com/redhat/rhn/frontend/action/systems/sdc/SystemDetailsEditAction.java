@@ -42,8 +42,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerSnapshot;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
 import com.redhat.rhn.frontend.dto.EntitlementDto;
