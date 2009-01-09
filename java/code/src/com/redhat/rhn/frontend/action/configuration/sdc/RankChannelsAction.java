@@ -24,6 +24,8 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.common.localization.LocalizationService;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -106,6 +108,11 @@ public class RankChannelsAction extends BaseRankChannels {
         RhnSet set = getRhnSet(user);        
         set.clear();
         RhnSetManager.store(set);
+
+        // bz 444517 - Create a snapshot to capture this change
+        String message =
+            LocalizationService.getInstance().getMessage("snapshots.configchannel");
+        SystemManager.snapshotServer(server, message);
         
         String[] params = {server.getName()};
         getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success", 
