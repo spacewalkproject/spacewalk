@@ -2,4 +2,4 @@
 
 /var/lib/jabber(/.*)?		gen_context(system_u:object_r:jabberd_var_lib_t,s0)
 /var/log/jabber(/.*)?		gen_context(system_u:object_r:jabberd_log_t,s0)
-/etc/rc.d/init.d/jabber	--	gen_context(system_u:object_r:jabber_script_exec_t,s0)
+/etc/rc.d/init.d/jabberd	--	gen_context(system_u:object_r:jabber_script_exec_t,s0)
