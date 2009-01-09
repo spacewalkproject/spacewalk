@@ -84,6 +84,7 @@ for selinuxvariant in %{selinux_variants}
   done
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
+/sbin/restorecon -rvvi /var/run/jabberd
 
 %postun
 # Clean up after package removal
@@ -96,6 +97,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
+/sbin/restorecon -rvvi /var/run/jabberd
 
 %files
 %defattr(-,root,root,0755)
