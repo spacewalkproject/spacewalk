@@ -100,3 +100,4 @@ optional_policy(`
 kernel_read_system_state(jabberd_t)
 corecmd_search_bin(jabberd_t)
 corecmd_exec_bin(jabberd_t)
+dev_read_urand(jabberd_t)
