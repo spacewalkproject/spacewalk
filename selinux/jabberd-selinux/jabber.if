@@ -1,0 +1,15 @@
+## <summary>Jabber instant messaging server</summary>
+
+########################################
+## <summary>
+##	Connect to jabber over a TCP socket  (Deprecated)
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`jabber_tcp_connect',`
+	refpolicywarn(`$0($*) has been deprecated.')
+')

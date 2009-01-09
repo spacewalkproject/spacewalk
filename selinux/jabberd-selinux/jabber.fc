@@ -1,0 +1,4 @@
+/usr/sbin/jabberd	--	gen_context(system_u:object_r:jabberd_exec_t,s0)
+
+/var/lib/jabber(/.*)?		gen_context(system_u:object_r:jabberd_var_lib_t,s0)
+/var/log/jabber(/.*)?		gen_context(system_u:object_r:jabberd_log_t,s0)
