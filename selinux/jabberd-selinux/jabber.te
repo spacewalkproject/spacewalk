@@ -96,3 +96,5 @@ optional_policy(`
 optional_policy(`
 	udev_read_db(jabberd_t)
 ')
+
+kernel_read_system_state(jabberd_t)
