@@ -42,6 +42,8 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerSnapshot;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
 import com.redhat.rhn.frontend.dto.EntitlementDto;
@@ -199,7 +201,7 @@ public class SystemDetailsEditAction extends RhnAction {
             }
             
             Set validAddons = user.getOrg().getValidAddOnEntitlementsForOrg();
-            success = checkVirtEntitlements(request, daForm, validAddons, s);
+            success = checkVirtEntitlements(request, daForm, validAddons, s, user);
         } 
  
         return success;
@@ -213,9 +215,13 @@ public class SystemDetailsEditAction extends RhnAction {
      * @return true if validation succeeds, false otherwise.
      */
     private boolean checkVirtEntitlements(HttpServletRequest request, 
-            DynaActionForm daForm, Set validAddons, Server s) {
+            DynaActionForm daForm, Set validAddons, Server s, User user) {
 
         boolean success = true;
+        
+        // Tracks whether or not a change has been made that requires a new snapshot
+        // to be made
+        boolean needsSnapshot = false;
         
         //Check add-on entitlements for V18n
         //Basically make sure both Virt and Virt_platform are not checked
@@ -262,6 +268,8 @@ public class SystemDetailsEditAction extends RhnAction {
                         success = false;
                     } 
                     else {
+                        needsSnapshot = true;
+                        
                         if (log.isDebugEnabled()) {
                             log.debug("entitling worked?: " + s.hasEntitlement(e));
                         }
@@ -278,8 +286,16 @@ public class SystemDetailsEditAction extends RhnAction {
                          s.hasEntitlement(e)) {
                     log.debug("removing entitlement: " + e);
                     SystemManager.removeServerEntitlement(s.getId(), e);
+                    
+                    needsSnapshot = true;
                 }
             }
+        }
+        
+        if (needsSnapshot) {
+            String message = 
+                LocalizationService.getInstance().getMessage("snapshots.entitlements");
+            SystemManager.snapshotServer(s, message);            
         }
         
         return success;

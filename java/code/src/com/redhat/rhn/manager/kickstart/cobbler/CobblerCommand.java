@@ -26,6 +26,7 @@ import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -243,5 +244,15 @@ public abstract class CobblerCommand {
     
     protected void invokeCobblerUpdate() {
         invokeXMLRPC("update", xmlRpcToken);
+    }
+    
+    protected CobblerConnection getCobblerConnection() {
+        if (user == null) {
+            return CobblerXMLRPCHelper.getConnection(
+                    Config.get().getCobblerAutomatedUser());
+        }
+        else {
+            return CobblerXMLRPCHelper.getConnection(user);
+        }
     }
 }

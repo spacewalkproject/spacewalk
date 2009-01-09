@@ -82,6 +82,12 @@ ifdef COMMIT
 COMMIT_PARAMS = COMMIT=$(COMMIT)
 endif
 
+ifdef DIR
+DIR_OR_PREFIX := $(DIR)
+else
+DIR_OR_PREFIX := $(GIT_PREFIX)
+endif
+
 tgz : git-archive-to-tar-gz
 	@echo "Wrote: $(RPMBUILD_DIR)$(NAME_TAR_GZ)"
 
@@ -91,10 +97,10 @@ rpm srpm : check-tag git-archive-unpack
 	$(MAKE) --no-print-directory -C $(RPMBUILD_SOURCEDIR) x-build-$@ X_RPMBUILD_DIR=$(RPMBUILD_DIR) $(DIST_PARAMS) $(COMMIT_PARAMS)
 
 test-srpm :
-	$(MAKE) --no-print-directory srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+	$(MAKE) --no-print-directory srpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR_OR_PREFIX)
 
 test-rpm :
-	$(MAKE) --no-print-directory rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR)
+	$(MAKE) --no-print-directory rpm COMMIT=$(HEAD_COMMIT_SHA1) NAME=$(NAME) DIR=$(DIR_OR_PREFIX)
 
 check-tag :
 	@if test -n "$(TAG)" ; then \
