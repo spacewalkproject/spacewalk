@@ -1,7 +1,6 @@
-%define ap_home        %{_datadir}/nocpulse
 %define cgi_bin        /var/www/cgi-bin
-%define cgi_mod_perl   %ap_home/cgi-mod-perl
-%define templatedir    %ap_home/templates
+%define cgi_mod_perl   /var/www/cgi-mod-perl
+%define templatedir    /var/www/templates
 %define bin            %{_bindir}
 %define vardir         /var/lib/nocpulse
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
@@ -98,6 +97,9 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Jan 10 2009 Milan Zazrivec
+- move content from under /usr/share/nocpulse to /var/www
+
 * Wed Jan 07 2009 Dave Parker <dparker@redhat.com> 0.48.4-1
 - 461162 - move sputlite cgi programs to stock location in /var/www/cgi-bin
 
