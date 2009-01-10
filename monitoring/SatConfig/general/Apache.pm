@@ -200,10 +200,10 @@ sub virtualServer
               $self->addVirtualDirectives($vs[0]);
               $self->addVsRewriteRules($vs[0]);
        
-              $vs[0]->add('directive',ScriptAlias=>'/cgi-bin/ /usr/share/nocpulse/cgi-bin');
+              $vs[0]->add('directive',ScriptAlias=>'/cgi-bin/ /var/www/cgi-bin');
               $vs[0]->add('directive',AddHandler => 'cgi-script .cgi');
               $vs[0]->add('directive',Alias=>'/depot/ /opt/apache/htdocs/depot/');
-              $vs[0]->add('directive',Alias=>'/cgi-mod-perl/ /usr/share/nocpulse/cgi-mod-perl/');
+              $vs[0]->add('directive',Alias=>'/cgi-mod-perl/ /var/www/cgi-mod-perl/');
 
               my $serverStatus = $vs[0]->add('section','Location','/server-status');
               $serverStatus->add('directive',SetHandler => 'server-status' );

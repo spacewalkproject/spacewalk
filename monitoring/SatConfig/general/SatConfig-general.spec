@@ -67,6 +67,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Jan 10 2009 Milan Zazrivec
+- move content from under /usr/share/nocpulse to /var/www
+
 * Wed Jan  7 2009 Milan Zazrivec 1.215.46-1
 - bz #474591 - move web data to /usr/share/nocpulse
 
