@@ -98,7 +98,7 @@ ApacheNotifAdmin -- "SysVStep" style init script for starting the Apache daemon 
 
 Notifier  -- "SysVStep" style init script for starting the notifserver.pl daemon.  Stop this daemon to prevent notifications from being sent.  Notifications will continue to enqueue as long as Apache is running.
 
-/usr/share/nocpulse/cgi-bin
+/var/www/cgi-bin
 
 ack.cgi -- NOT IN USE
 
@@ -106,15 +106,15 @@ alertmgr.cgi -- Internal-use tool that allows one to acknowledge and clear alert
 
 redirmgr.cgi -- Internal-use tool that allows one to configure a redirect (advaned notification).
 
-/usr/share/nocpulse/cgi-mod-perl
+/var/www/cgi-mod-perl
 enqueue.cgi -- This script enqueues notification requests from satellites sent via http by the event receiver box.  It does some basic screening and will reject notifications missing complete information.  Enqueued alerts (notifications) are placed in Storable format and put in $NOTIFICATION_HOME/queue/alert_queue.  Log file is /var/tmp/enqueue.log.
 
 notifserver-test.cgi
 
-/usr/share/nocpulse/htdocs
+/var/www/htdocs
 This directory is the document root.  It contains templates and index page for the internal-use notification tools.
 
-/usr/share/nocpulse/templates
+/var/www/templates
 This directory contains html templates used be the internal-use notification tools.
 
 /var/tmp
