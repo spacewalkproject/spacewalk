@@ -1,6 +1,5 @@
-%define ap_home        %{_datadir}/nocpulse
-%define cgi_bin        %ap_home/cgi-bin
-%define cgi_mod_perl   %ap_home/cgi-mod-perl
+%define cgi_bin        %{_var}/www/cgi-bin
+%define cgi_mod_perl   %{_var}/www/cgi-mod-perl
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SNMPAlerts
 Version:      0.5.3
@@ -48,6 +47,9 @@ install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Jan 10 2009 Milan Zazrivec
+- move web data to /var/www
+
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 474591 - move web data to /usr/share/nocpulse
 
