@@ -6,7 +6,7 @@
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.48.4
+Version:      0.48.5
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -97,7 +97,7 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Sat Jan 10 2009 Milan Zazrivec
+* Sat Jan 10 2009 Milan Zazrivec 0.48.5-1
 - move content from under /usr/share/nocpulse to /var/www
 
 * Wed Jan 07 2009 Dave Parker <dparker@redhat.com> 0.48.4-1
