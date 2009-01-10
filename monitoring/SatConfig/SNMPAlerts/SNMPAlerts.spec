@@ -2,7 +2,7 @@
 %define cgi_mod_perl   %{_var}/www/cgi-mod-perl
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SNMPAlerts
-Version:      0.5.3
+Version:      0.5.4
 Release:      1%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 URL:          https://fedorahosted.org/spacewalk
@@ -47,7 +47,7 @@ install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Sat Jan 10 2009 Milan Zazrivec
+* Sat Jan 10 2009 Milan Zazrivec 0.5.4-1
 - move web data to /var/www
 
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
