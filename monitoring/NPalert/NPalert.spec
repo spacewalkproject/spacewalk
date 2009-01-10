@@ -1,6 +1,6 @@
 %define install_prefix     %{_var}/lib/notification
 %define log_dir            %{_var}/log/notification
-%define httpd_prefix       %{_datadir}/nocpulse
+%define httpd_prefix       %{_var}/www
 %define notif_user         nocpulse
 %define registry           %{_sysconfdir}/rc.d/np.d/apachereg
 %define log_rotate_prefix  %{_sysconfdir}/logrotate.d/
@@ -131,6 +131,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sat Jan 10 2009 Milan Zazrivec
+- move web data from under /usr/share/nocpulse to /var/www
+
 * Thu Dec 18 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.25-1
 - fix path to notif-escalator.log
 
