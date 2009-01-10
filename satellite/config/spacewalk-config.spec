@@ -112,6 +112,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Sat Jan 10 2009 Milan Zazrivec
+- update rhn_monitoring.conf to use /var/www for web content
+
 * Tue Jan 06 2009 Dave Parker <dparker@redhat.com> 0.4.22-1
 - remove satellite-httpd, instead use stock httpd configuration
 
