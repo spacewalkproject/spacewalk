@@ -41,7 +41,7 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{name}-%{version}
 %build
 # Build SELinux policy modules
 cd %{name}-%{version}
-### perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
+perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
