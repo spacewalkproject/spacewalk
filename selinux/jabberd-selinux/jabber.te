@@ -103,3 +103,4 @@ corecmd_exec_bin(jabberd_t)
 dev_read_urand(jabberd_t)
 allow jabberd_t self:fifo_file ioctl;
 corenet_tcp_connect_jabber_interserver_port(jabberd_t)
+corenet_non_ipsec_sendrecv(jabberd_t)
