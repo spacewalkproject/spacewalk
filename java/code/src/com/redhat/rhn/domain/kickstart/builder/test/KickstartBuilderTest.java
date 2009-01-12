@@ -277,8 +277,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartBuilder builder = new KickstartBuilder(user);
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-        KickstartData ksData = builder.createFromParser(parser, "mykslabel", "none", tree, 
-                null);
+        KickstartData ksData = builder.createFromParser(parser, "mykslabel", 
+                KickstartVirtualizationType.AUTO, tree, null);
         assertEquals(19, ksData.getCommands().size());
         assertEquals(100, ksData.getPackageNames().size());
         assertEquals(1, ksData.getScripts().size());
@@ -292,9 +292,11 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartBuilder builder = new KickstartBuilder(user);
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-        builder.createFromParser(parser, "mykslabel", "none", tree, null);
+        builder.createFromParser(parser, "mykslabel", 
+                KickstartVirtualizationType.AUTO, tree, null);
         try {
-            builder.createFromParser(parser, "mykslabel", "none", tree, null);
+            builder.createFromParser(parser, "mykslabel", 
+                    KickstartVirtualizationType.AUTO, tree, null);
             fail();
         }
         catch (ValidatorException e) {
@@ -321,8 +323,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartBuilder builder = new KickstartBuilder(user);
         
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-        KickstartData data = builder.createFromParser(parser, "upgrade-ks" , "none", tree, 
-                null);
+        KickstartData data = builder.createFromParser(parser, "upgrade-ks", 
+                KickstartVirtualizationType.AUTO, tree, null);
         
         assertNotNull(data.getCommand("upgrade"));
         assertNull(data.getCommand("install"));
@@ -332,7 +334,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartParser parser = createKickstartParser("samplekickstart1.ks");
         KickstartBuilder builder = new KickstartBuilder(user);
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
-        KickstartData data = builder.createFromParser(parser, "testing-profile" , "none", 
+        KickstartData data = builder.createFromParser(parser, "testing-profile",
+                KickstartVirtualizationType.AUTO, 
                 tree, KICKSTART_HOST);
         
         assertNull(data.getCommand("nfs"));

@@ -124,26 +124,17 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
         
         log.debug("handle: " + handle);
-        invokeXMLRPC("modify_system", handle, "name", server.getName(),
+        invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
                                  xmlRpcToken);
         
         if (this.server.getNetworkInterfaces() == null ||
                 this.server.getNetworkInterfaces().isEmpty()) {
             return new ValidatorError("kickstart.no.network.error");
         }
-        Iterator i = this.server.getNetworkInterfaces().iterator();
-        Map inet = new HashMap();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
-            inet.put("macaddress-" + n.getName(), n.getHwaddr());
-        }
-        log.debug("Networks: " + inet);
-        
-        Object[] args = new Object[]{handle, "modify-interface", 
-                inet, xmlRpcToken};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
 
-        args = new String[]{handle, "profile", 
+        processNetworkInterfaces(handle, xmlRpcToken, server);
+        
+        Object[] args = new String[]{handle, "profile", 
                 name, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
@@ -157,8 +148,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
 
         invokeXMLRPC("modify_system", Arrays.asList(args));
-
-        
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
@@ -176,6 +165,27 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         Map cSystem = getSystemMap();
         server.setCobblerId((String)cSystem.get("uid"));
         return null;
+    }
+
+    protected Object getCobblerSystemRecordName() {
+        return this.server.getName();
+    }
+    
+    protected void processNetworkInterfaces(String handleIn, 
+            String xmlRpcTokenIn,
+            Server serverIn) {
+        Iterator i = serverIn.getNetworkInterfaces().iterator();
+        Map inet = new HashMap();
+        while (i.hasNext()) {
+            NetworkInterface n = (NetworkInterface) i.next();
+            inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        }
+        log.debug("Networks: " + inet);
+        
+        Object[] args = new Object[]{handleIn, "modify-interface", 
+                inet, xmlRpcTokenIn};
+        invokeXMLRPC("modify_system", Arrays.asList(args));
+
     }
 
     /**

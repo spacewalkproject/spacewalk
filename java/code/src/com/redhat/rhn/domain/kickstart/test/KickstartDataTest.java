@@ -407,7 +407,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.addPackageName(pn2);
         TestUtils.saveAndFlush(k);
         k.setCobblerId(k.getId().toString());
-        TestObjectStore.get().putObject("uid", k.getId().toString());
+        TestObjectStore.get().putObject("profile_uid", k.getId().toString());
         TestObjectStore.get().putObject("profile_name", k.getLabel());
         
         SortedSet<KickstartCommand> optionsSet = new TreeSet<KickstartCommand>();
