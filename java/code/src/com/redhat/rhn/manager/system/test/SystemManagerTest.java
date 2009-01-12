@@ -396,14 +396,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.canEntitleServer(server, 
                 EntitlementManager.VIRTUALIZATION_PLATFORM));
         
-        assertNull(SystemManager.entitleServer(server, 
-                EntitlementManager.VIRTUALIZATION));
-        assertNull(SystemManager.entitleServer(server, 
-                EntitlementManager.VIRTUALIZATION_PLATFORM));
-        assertNull(SystemManager.entitleServer(server, 
-                EntitlementManager.MONITORING));
-        assertNull(SystemManager.entitleServer(server, 
-                EntitlementManager.PROVISIONING));
+        assertFalse(SystemManager.entitleServer(server,
+                EntitlementManager.VIRTUALIZATION).hasErrors());
+        assertFalse(SystemManager.entitleServer(server,
+                EntitlementManager.VIRTUALIZATION_PLATFORM).hasErrors());
+        assertFalse(SystemManager.entitleServer(server,
+                EntitlementManager.MONITORING).hasErrors());
+        assertFalse(SystemManager.entitleServer(server,
+                EntitlementManager.PROVISIONING).hasErrors());
         server = (Server) reload(server);
         
         assertTrue(server.hasEntitlement(EntitlementManager.PROVISIONING));
@@ -447,8 +447,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         guest.addChannel(ChannelTestUtils.createBaseChannel(user));
         ServerTestUtils.addVirtualization(user, guest);
         
-        assertNotNull(SystemManager.entitleServer(guest, 
-                EntitlementManager.VIRTUALIZATION));
+        assertTrue(SystemManager.entitleServer(guest,
+                EntitlementManager.VIRTUALIZATION).hasErrors());
         assertFalse(guest.hasEntitlement(EntitlementManager.VIRTUALIZATION));
     }
     
@@ -465,10 +465,11 @@ public class SystemManagerTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(group);
         TestUtils.flushAndEvict(group);
         
-        ValidatorError error = 
+        ValidatorResult vr =
             SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-        assertNotNull("we shoulda gotten an error", error);
-        assertEquals("system.entitle.noslots", error.getKey());
+        assertTrue("we shoulda gotten an error", vr.hasErrors());
+        ValidatorError ve = vr.getErrors().get(0);
+        assertEquals("system.entitle.noslots", ve.getKey());
         
         Server host = ServerTestUtils.createVirtHostWithGuests(user, 1);
         Server guest = ((VirtualInstance) 
@@ -482,11 +483,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(pgroup);
         TestUtils.flushAndEvict(pgroup);
         
-        assertNull(SystemManager.entitleServer(host, EntitlementManager.PROVISIONING));
+        assertFalse(SystemManager.entitleServer(host, EntitlementManager.PROVISIONING)
+                .hasErrors());
         assertTrue(host.hasEntitlement(EntitlementManager.PROVISIONING));
-        assertNotNull(SystemManager.entitleServer(server, EntitlementManager.PROVISIONING));
+        assertTrue(SystemManager.entitleServer(server, EntitlementManager.PROVISIONING)
+                .hasErrors());
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        assertNull(SystemManager.entitleServer(guest, EntitlementManager.PROVISIONING));
+        assertFalse(SystemManager.entitleServer(host, EntitlementManager.PROVISIONING)
+                .hasErrors());
     }
     
     public void testVirtualEntitleServer() throws Exception {
@@ -507,14 +511,14 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.canEntitleServer(server, 
                 EntitlementManager.VIRTUALIZATION));
         
-        ValidatorError retval = SystemManager.entitleServer(server, 
+        ValidatorResult retval = SystemManager.entitleServer(server,
                 EntitlementManager.VIRTUALIZATION);
         
         server = (Server) reload(server);
         
         String key = null;
-        if (retval != null) {
-            key = retval.getKey();
+        if (retval.getErrors().size() > 0) {
+            key = retval.getErrors().get(0).getKey();
         }
         assertNull("Got back: " + key, retval);
         
@@ -541,17 +545,17 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 EntitlementManager.VIRTUALIZATION));
         assertFalse(SystemManager.hasEntitlement(host.getId(), 
                         EntitlementManager.VIRTUALIZATION_PLATFORM));        
-        ValidatorError err = SystemManager.entitleServer(host, 
+        ValidatorResult result = SystemManager.entitleServer(host,
                                         EntitlementManager.VIRTUALIZATION_PLATFORM);
-        assertNull(err);
+        assertFalse(result.hasErrors());
         assertTrue(SystemManager.hasEntitlement(host.getId(), 
                                 EntitlementManager.VIRTUALIZATION_PLATFORM));
         assertFalse(SystemManager.hasEntitlement(host.getId(), 
                                         EntitlementManager.VIRTUALIZATION));
         host = (Server) reload(host);
-        err = SystemManager.entitleServer(host,
+        result = SystemManager.entitleServer(host,
                                         EntitlementManager.VIRTUALIZATION);
-         assertNull(err);
+         assertFalse(result.hasErrors());
          assertTrue(SystemManager.hasEntitlement(host.getId(), 
                                  EntitlementManager.VIRTUALIZATION));
          assertFalse(SystemManager.hasEntitlement(host.getId(), 

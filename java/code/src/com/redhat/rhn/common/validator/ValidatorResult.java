@@ -96,6 +96,7 @@ public class ValidatorResult {
         getErrors().addAll(result.getErrors());
         getWarnings().addAll(result.getWarnings());
     }
+
     /**
      * 
      * @return TODO
@@ -117,11 +118,19 @@ public class ValidatorResult {
         }
         return str.toString();
     }
+
     /**
      * 
      * @return true if there are no errors or warnings..
      */
     public boolean isEmpty() {
         return getWarnings().isEmpty() && getErrors().isEmpty();
+    }
+
+    /**
+     * @return true if errors exist in this result.
+     */
+    public boolean hasErrors() {
+        return getErrors().size() > 0;
     }
 }
