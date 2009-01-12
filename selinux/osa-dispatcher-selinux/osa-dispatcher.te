@@ -8,3 +8,5 @@ files_read_etc_files(osa_dispatcher_t)
 libs_use_ld_so(osa_dispatcher_t)
 libs_use_shared_libs(osa_dispatcher_t)
 
+miscfiles_read_localization(osa_dispatcher_t)
+
