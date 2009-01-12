@@ -4,3 +4,7 @@ type osa_dispatcher_t;
 type osa_dispatcher_exec_t;
 init_daemon_domain(osa_dispatcher_t,osa_dispatcher_exec_t)
 
+files_read_etc_files(osa_dispatcher_t)
+libs_use_ld_so(osa_dispatcher_t)
+libs_use_shared_libs(osa_dispatcher_t)
+
