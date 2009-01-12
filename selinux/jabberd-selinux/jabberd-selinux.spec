@@ -83,6 +83,8 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
+/usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 || :
+
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
 /sbin/restorecon -rvvi /var/run/jabberd
 
@@ -94,6 +96,8 @@ if [ $1 -eq 0 ]; then
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
+
+  /usr/sbin/semanage port -d -t jabber_interserver_port_t -p tcp 5347 || :
 fi
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
