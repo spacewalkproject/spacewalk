@@ -150,7 +150,7 @@ sub tablespace_extend {
   my $sz = shift;
 
   my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts ADD DATAFILE '$fn' SIZE $sz REUSE;");
+  $dbh->do("ALTER TABLESPACE $ts ADD DATAFILE '$fn' SIZE $sz REUSE");
 }
 
 sub report_database_stats {
