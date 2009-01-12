@@ -85,9 +85,6 @@ Summary: Handler for /APP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-app < 5.3.0
-# We really don't need specspo installed, it will do bad things when we read
-# rpms
-Conflicts: specspo
 Obsoletes: rhns-app < 5.3.0
 
 %description app
@@ -99,9 +96,6 @@ Summary: Handler for /XP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xp < 5.3.0
-# We really don't need specspo installed, it will do bad things when we read
-# rpms
-Conflicts: specspo
 Obsoletes: rhns-xp < 5.3.0
 
 %description xp
@@ -550,6 +544,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+- Mon Jan 12 2009 Jan Pazdziora
+- 479640 - remove conflict with specspo; if it causes problems,
+  it should be fixed properly, either in our code or in specspo
+
 * Thu Jan  8 2009 Jan Pazdziora 0.4.10-1
 - more changes for nvrea error handling
 - changed all references of none to auto w.r.t
