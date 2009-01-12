@@ -232,7 +232,6 @@ public class ActionManager extends BaseManager {
             Action a = (Action)iter.next();
             actionsToDeleteBuffer.append(" " + a.getId());
         }
-        ActionFactory.deleteServerActionsByParent(actionsToDelete);
 
         Set servers = new HashSet();
         Iterator serverActionsIter = action.getServerActions().iterator();
@@ -240,9 +239,9 @@ public class ActionManager extends BaseManager {
             ServerAction sa = (ServerAction)serverActionsIter.next();
             servers.add(sa.getServer());
         }
-
         KickstartFactory.failKickstartSessions(actionsToDelete, servers);
-        
+
+        ActionFactory.deleteServerActionsByParent(actionsToDelete);
     }
 
     /**
@@ -1409,8 +1408,8 @@ public class ActionManager extends BaseManager {
      * packages given as a list.
      * @param scheduler The user scheduling the action.
      * @param srvr The server that this action is for.
-     * @param pkgs A list of maps containing keys 'name_id' and 'evr_id'
-     *             with Long values.
+     * @param pkgs A list of maps containing keys 'name_id', 'evr_id' and 
+     *             optional 'arch_id' with Long values.
      * @param type The type of the package action.  One of the static types found in
      *             ActionFactory
      * @param earliestAction The earliest time that this action could happen.
@@ -1444,7 +1443,6 @@ public class ActionManager extends BaseManager {
           // hibernate. It seems terribly inefficient to lookup a
           // packagename and packageevr object to insert the ids into the
           // correct table if I already have the ids.
-          WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action"); 
           for (Iterator itr = pkgs.iterator(); itr.hasNext();) {
               Map rse = (Map) itr.next();
               Map params = new HashMap();
@@ -1460,7 +1458,16 @@ public class ActionManager extends BaseManager {
               params.put("action_id", action.getId());
               params.put("name_id", nameId);
               params.put("evr_id", evrId);
-              params.put("arch_id", archId);
+
+              WriteMode m = null;
+              if (archId == null) {
+                  m = ModeFactory.getWriteMode("Action_queries", 
+                          "schedule_action_no_arch");
+              } 
+              else {
+                  params.put("arch_id", archId);
+                  m = ModeFactory.getWriteMode("Action_queries", "schedule_action"); 
+              }
               m.executeUpdate(params);
           }
         }
