@@ -3,6 +3,10 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 
+<head>
+<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
+</head>
+
 <html:xhtml/>
 <html>
 <body>
