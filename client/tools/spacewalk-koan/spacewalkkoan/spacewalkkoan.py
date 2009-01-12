@@ -86,7 +86,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, preserve_fi
     
     return (0, "Kickstart initiate succeeded", error_messages)
 
-def initiate_guest(kickstart_host, cobbler_profile, virt_type, name, mem_kb,
+def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
                    vcpus, disk_gb, virt_bridge, disk_path, extra_append, log_notify_handler=None):
 
     error_messages = {}
@@ -100,8 +100,8 @@ def initiate_guest(kickstart_host, cobbler_profile, virt_type, name, mem_kb,
         k.is_replace          = False
         k.is_display          = False
 	k.port                = 443
-        k.profile             = cobbler_profile
-        k.system              = None
+        k.profile             = None
+        k.system              = cobbler_system_name
         k.image               = None
         k.live_cd             = None
         k.virt_name           = name

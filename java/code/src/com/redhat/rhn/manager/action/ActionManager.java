@@ -63,6 +63,7 @@ import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.kickstart.ProvisionVirtualInstanceCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerVirtualSystemCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -1282,7 +1283,9 @@ public class ActionManager extends BaseManager {
         
         Profile cProfile = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
            pcmd.getUser()), pcmd.getKsdata().getCobblerId());
-        kad.setCobblerProfile(cProfile.getName());
+        CobblerVirtualSystemCommand vcmd = new CobblerVirtualSystemCommand(
+                pcmd.getServer(), cProfile.getName());
+        kad.setCobblerSystemName(vcmd.getCobblerSystemRecordName());
 
         kad.setKickstartHost(pcmd.getKickstartServerName());
         ksAction.setKickstartGuestActionDetails(kad);
