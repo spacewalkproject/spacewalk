@@ -14,37 +14,50 @@
  */
 package com.redhat.rhn.frontend.action.systems.entitlements;
 
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
+
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
+
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
+
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
+
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
+
 import com.redhat.rhn.domain.user.User;
+
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
+
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+
 import com.redhat.rhn.manager.monitoring.ScoutConfigPushCommand;
+
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.log4j.Logger;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
-
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Class representing the submit action of the Systeme Eintitlements page
@@ -357,10 +370,11 @@ public class SystemEntitlementsSubmitAction extends
                         }
                         else if (SystemManager.canEntitleServer(sid, ent)) {
                             log.debug("we can entitle.  Lets entitle to : " + ent);
-                            ValidatorError ve = 
+                            ValidatorResult vr =
                                 SystemManager.entitleServer(user.getOrg(), sid, ent);
-                            log.debug("entitleServer.VE: " + ve);
-                            if (ve != null) {
+                            log.debug("entitleServer.VE: " + vr.getMessage());
+                            if (vr.getErrors().size() > 0) {
+                                ValidatorError ve = vr.getErrors().get(0);
                                 if (ve.getKey().equals(SystemManager.NO_SLOT_KEY)) {
                                     failureDueToSlotsCount++;
                                     i.remove();

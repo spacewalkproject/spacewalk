@@ -26,32 +26,48 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.common.validator.ValidatorWarning;
+
+import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
+
+import com.redhat.rhn.domain.org.Org;
+
+import com.redhat.rhn.domain.role.RoleFactory;
+
+import com.redhat.rhn.domain.server.Location;
+import com.redhat.rhn.domain.server.Server;
+
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserServerPreferenceId;
+
+import com.redhat.rhn.frontend.dto.EntitlementDto;
+
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+
+import com.redhat.rhn.manager.action.ActionManager;
+
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
+
+import com.redhat.rhn.manager.system.SystemManager;
+
+import com.redhat.rhn.manager.user.UserManager;
+
 import org.apache.log4j.Logger;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.util.LabelValueBean;
 
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.Location;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserServerPreferenceId;
-import com.redhat.rhn.frontend.dto.EntitlementDto;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.system.SystemManager;
-import com.redhat.rhn.manager.user.UserManager;
+import org.apache.struts.util.LabelValueBean;
 
 /**
  * SystemDetailsEditAction
@@ -257,12 +273,21 @@ public class SystemDetailsEditAction extends RhnAction {
                 if (Boolean.TRUE.equals(daForm.get(e.getLabel())) &&
                     SystemManager.canEntitleServer(s, e)) {
                     log.debug("Entitling server with: " + e);
-                    ValidatorError error = SystemManager.entitleServer(s, e);
-                    if (error != null) {
-                        log.debug("Got error: " + error);
+                    ValidatorResult vr = SystemManager.entitleServer(s, e);
+
+                    if (vr.getWarnings().size() > 0) {
+                        getStrutsDelegate().saveMessages(request,
+                                RhnValidationHelper.validatorWarningToActionMessages(
+                                    vr.getWarnings().toArray(new ValidatorWarning [] {})));
+                    }
+
+
+                    if (vr.getErrors().size() > 0) {
+                        ValidatorError ve = vr.getErrors().get(0);
+                        log.debug("Got error: " + ve);
                         getStrutsDelegate().saveMessages(request, 
                                 RhnValidationHelper.
-                                            validatorErrorToActionErrors(error));
+                                            validatorErrorToActionErrors(ve));
                         success = false;
                     } 
                     else {
