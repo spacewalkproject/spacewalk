@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -110,6 +110,10 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Jan 12 2009 Jan Pazdziora 1.4.0-2
+- changes to allow /etc/init.d/jabberd start on RHEL 5.2 to run
+  without any AVC denials
+
 * Mon Jan 12 2009 Jan Pazdziora 1.4.0-1
 - the initial release, with data from selinux-policy-3.3.1-42.fc9.src.rpm
 - based on spacewalk-selinux
