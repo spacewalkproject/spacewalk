@@ -1,0 +1,6 @@
+policy_module(osa-dispatcher,@@VERSION@@)
+
+type osa_dispatcher_t;
+type osa_dispatcher_exec_t;
+init_daemon_domain(osa_dispatcher_t,osa_dispatcher_exec_t)
+

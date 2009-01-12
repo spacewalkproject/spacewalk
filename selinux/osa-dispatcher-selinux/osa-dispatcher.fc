@@ -1,0 +1,1 @@
+/usr/sbin/osa-dispatcher	gen_context(system_u:object_r:osa_dispatcher_exec_t,s0)
