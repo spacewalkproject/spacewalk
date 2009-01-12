@@ -1427,6 +1427,7 @@ SELECT  DISTINCT ST.element AS ID
 <query name="system_search_results" params="">
   SELECT  S.ID, S.DESCRIPTION,
     S.created as created,
+    S.running_kernel as running_kernel,
     CPU.nrcpu as cpu_number_of_cpus,
     CPU.mhz as cpu_mhz,
     CPU.model as cpu_model,
