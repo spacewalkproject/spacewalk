@@ -104,7 +104,7 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
-* Thu Jan  9 2009 Jan Pazdziora
+* Mon Jan 12 2009 Jan Pazdziora 1.4.0-1
 - the initial release, with data from selinux-policy-3.3.1-42.fc9.src.rpm
 - based on spacewalk-selinux
 - which was inspired by Rob Myers' oracle-selinux
