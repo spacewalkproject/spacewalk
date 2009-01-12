@@ -31,6 +31,7 @@ public class SystemSearchResult extends SystemOverview {
     private String matchingField;
     private String hostname;
     private String description;
+    private String runningKernel;
     private Long cpuNumberOfCpus;
     private String cpuMhz;
     private String cpuModel;
@@ -144,6 +145,19 @@ public class SystemSearchResult extends SystemOverview {
         this.description = descriptionIn;
     }
     
+    /**
+     * @return the runningKernel
+     */
+    public String getRunningKernel() {
+        return runningKernel;
+    }
+
+    /**
+     * @param runningKernelIn the runningKernel to set
+     */
+    public void setRunningKernel(String runningKernelIn) {
+        this.runningKernel = runningKernelIn;
+    }
     
     /**
      * @return the cpuNumberOfCpus

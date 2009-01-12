@@ -2802,6 +2802,13 @@ available for this kickstart profile to function properly.
         </context-group>
      </trans-unit>
 
+    <trans-unit id="systemsearch_running_kernel">
+        <source>Running Kernel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
      <trans-unit id="systemsearch.jsp.location">
 		<source>Location</source>
         <context-group name="ctx">

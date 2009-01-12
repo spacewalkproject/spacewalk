@@ -77,6 +77,8 @@ public class Server extends GenericRecord {
     private String ram;
     private String swap;
 
+    private String runningKernel;
+
     /**
      * @return the name
      */
@@ -637,5 +639,19 @@ public class Server extends GenericRecord {
      */
     public void setSwap(String swapIn) {
         this.swap = NumberTools.longToString(Long.parseLong(swapIn));
+    }
+
+    /**
+     * @return the running kernel
+     */
+    public String getRunningKernel() {
+        return runningKernel;
+    }
+
+    /**
+     * @param runningKernelIn the runningKernel to set
+     */
+    public void setRunningKernel(String runningKernelIn) {
+        this.runningKernel = runningKernelIn;
     }
 }

@@ -11,6 +11,7 @@
                 s.description as description,
                 s.info as info,
                 s.created as registered,
+                s.running_kernel as runningKernel,
                 sl.machine as machine,
                 sl.rack as rack,
                 sl.room as room,

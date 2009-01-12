@@ -80,6 +80,7 @@ public class SystemSearchHelper {
     public static final String IP = "systemsearch_ip";
     public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
     public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
+    public static final String RUNNING_KERNEL = "systemsearch_running_kernel";
     public static final String LOC_ADDRESS = "systemsearch_location_address";
     public static final String LOC_BUILDING = "systemsearch_location_building";
     public static final String LOC_ROOM = "systemsearch_location_room";
@@ -341,6 +342,10 @@ public class SystemSearchHelper {
         else if (NEEDED_PACKAGES.equals(mode)) {
             query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
+        }
+        else if (RUNNING_KERNEL.equals(mode)) {
+            query = "runningKernel:(" + terms + ")";
+            index = SERVER_INDEX;
         }
         else if (LOC_ADDRESS.equals(mode)) {
             query = "address1:(" + terms + ") address2:(" + terms + ")";
