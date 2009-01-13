@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.system.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -489,9 +490,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.entitleServer(server, EntitlementManager.PROVISIONING)
                 .hasErrors());
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        ValidatorResult rs = 
-            SystemManager.entitleServer(host, EntitlementManager.PROVISIONING);
-        assertFalse(rs.hasErrors());
+        assertTrue(host.hasEntitlement(EntitlementManager.PROVISIONING));
     }
     
     public void testVirtualEntitleServer() throws Exception {
@@ -521,12 +520,15 @@ public class SystemManagerTest extends RhnBaseTestCase {
         if (retval.getErrors().size() > 0) {
             key = retval.getErrors().get(0).getKey();
         }
-        assertNull("Got back: " + key, retval);
+        assertFalse("Got back: " + key, retval.hasErrors());
         
         // Test stuff!
         assertTrue(server.hasEntitlement(EntitlementManager.VIRTUALIZATION));
         assertTrue(server.getChannels().contains(rhnTools));
-        assertTrue(server.getChannels().contains(rhelVirt));
+        if (!Config.get().isSpacewalk()) {
+            assertTrue(server.getChannels().contains(rhelVirt));
+        }
+        
         
         // Test removal
         SystemManager.removeServerEntitlement(server.getId(), 
