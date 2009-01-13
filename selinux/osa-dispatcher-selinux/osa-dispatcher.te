@@ -38,3 +38,5 @@ manage_files_pattern(osa_dispatcher_t,osa_dispatcher_log_t,osa_dispatcher_log_t)
 init_rw_utmp(osa_dispatcher_t)
 
 read_files_pattern(osa_dispatcher_t,httpd_sys_content_t,httpd_sys_content_t)
+
+allow osa_dispatcher_t self:fifo_file rw_fifo_file_perms;
