@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.20
+Version:        0.4.21
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -80,6 +80,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Jan 13 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.21-1
+- 477492 - Remove "assuming Oracle" message from spacewalk-setup.
+
 * Thu Jan  8 2009 Jan Pazdziora 0.4.20-1
 - support symlinked and NFS-mounted /var/satellite during setup
 - run chkconfig for "stock" httpd
