@@ -489,8 +489,9 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.entitleServer(server, EntitlementManager.PROVISIONING)
                 .hasErrors());
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        assertFalse(SystemManager.entitleServer(host, EntitlementManager.PROVISIONING)
-                .hasErrors());
+        ValidatorResult rs = 
+            SystemManager.entitleServer(host, EntitlementManager.PROVISIONING);
+        assertFalse(rs.hasErrors());
     }
     
     public void testVirtualEntitleServer() throws Exception {
