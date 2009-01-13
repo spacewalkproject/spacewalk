@@ -28,7 +28,7 @@ gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
 if [ $1 -eq 1 ] ; then
   getent group %{name} >/dev/null || groupadd -r %{name}
   getent passwd %{name} >/dev/null || \
-  useradd -r -g %{name} -G apache -d %{_var}/lib/%{name} -s /sbin/tcsh -c "NOCpulse user" %{name}
+  useradd -r -g %{name} -d %{_var}/lib/%{name} -c "RHNMD daemon" %{name}
 fi
 
 %post
