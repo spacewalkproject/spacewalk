@@ -51,15 +51,16 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         super.setUp();
         
         user = UserTestUtils.createUserInOrgOne();
+        user.addRole(RoleFactory.ORG_ADMIN);
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
-        KickstartableTree tree = this.ksdata.getTree();
-        TestObjectStore.get().putObject("distro_name", tree.getLabel());
-        tree.setCobblerId((String) TestObjectStore.get().getObject("uid"));
+        // KickstartableTree tree = this.ksdata.getTree();
+        // TestObjectStore.get().putObject("distro_name", tree.getLabel());
+        // tree.setCobblerId((String) TestObjectStore.get().getObject("distro_uid"));
         //System.out.println("TreeID1: " + tree.getId());
         //System.out.println("TreeID1.cobblerId: " + tree.getCobblerId());
         //tree = (KickstartableTree) TestUtils.saveAndReload(tree);
-        user.addRole(RoleFactory.ORG_ADMIN);
+        
 
         // Uncomment this if you want the tests to actually talk to cobbler
         // Config.get().setString(CobblerXMLRPCHelper.class.getName(),

@@ -129,7 +129,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                     distro.put("ksmeta", ksmeta);
                 }
                 
-                distro.put("uid", TestObjectStore.get().getObject("uid"));
+                distro.put("uid", TestObjectStore.get().getObject("distro_uid"));
                 retval.add(distro);
                 return retval;
             }

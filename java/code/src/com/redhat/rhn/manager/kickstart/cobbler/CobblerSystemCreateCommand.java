@@ -117,7 +117,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         Map systemMp = getSystemMap();
         if (systemMp != null && !systemMp.isEmpty()) {
             handle = (String) invokeXMLRPC("get_system_handle",
-                    this.server.getName(), xmlRpcToken);
+                    this.getCobblerSystemRecordName(), xmlRpcToken);
         }
         else {
             handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
@@ -205,7 +205,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public Map getSystemMap() {
         List < String > args = new ArrayList();
-        args.add(this.server.getName());
+        args.add(getCobblerSystemRecordName());
         args.add(xmlRpcToken);
         Map retval = (Map) invokeXMLRPC("get_system", args);
         return retval;
