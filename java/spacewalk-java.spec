@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.12
+Version: 0.4.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -220,6 +220,10 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Tue Jan 13 2009 Mike McCune <mmccune@gmail.com> 0.4.13-1
+- 461162 - adding org to system record name
+- 461162 - unit test fixes.
+
 * Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.4.12-1
 - Boatload of changes from end of 0.4 set of bugs/features
 
