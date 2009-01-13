@@ -3,6 +3,7 @@ policy_module(osa-dispatcher,@@VERSION@@)
 require {
 	type var_log_t;
 	type spacewalk_log_t;
+	type httpd_sys_content_t;
 }
 
 type osa_dispatcher_t;
@@ -35,3 +36,5 @@ filetrans_pattern(osa_dispatcher_t,spacewalk_log_t,osa_dispatcher_log_t,{ file d
 manage_files_pattern(osa_dispatcher_t,osa_dispatcher_log_t,osa_dispatcher_log_t)
 
 init_rw_utmp(osa_dispatcher_t)
+
+read_files_pattern(osa_dispatcher_t,httpd_sys_content_t,httpd_sys_content_t)
