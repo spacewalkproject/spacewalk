@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com>
+- 479837 - Support rpm, which contains files with filename + path longer than 256 chars
+
 * Tue Jan 13 2009 Milan Zazrivec 0.4.13-1
 - 461162 - cleanup dead code in systemmanager and add new distro types
 - 461162 - more virt-type fixing
