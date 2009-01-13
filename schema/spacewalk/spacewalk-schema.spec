@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.12
+Version:        0.4.13
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -53,6 +53,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Jan 13 2009 Milan Zazrivec 0.4.13-1
+- 461162 - cleanup dead code in systemmanager and add new distro types
+- 461162 - more virt-type fixing
+- 461162 - get the virtualization provisioning tracking system to work with a :virt system record
+- 476730 - increase advisory column to 37
+
 * Wed Jan  7 2009 Milan Zazrivec 0.4.12-1
 - added spacewalk-schema-upgrade manual page (bz #479003)
 - renamed two sql upgrade scripts to use uniform extension
