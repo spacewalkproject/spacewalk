@@ -40,3 +40,5 @@ init_rw_utmp(osa_dispatcher_t)
 read_files_pattern(osa_dispatcher_t,httpd_sys_content_t,httpd_sys_content_t)
 
 allow osa_dispatcher_t self:fifo_file rw_fifo_file_perms;
+
+allow osa_dispatcher_t self:udp_socket create_socket_perms;
