@@ -1,5 +1,5 @@
 %define np_name nocpulse
-%define identity %{_var}/lib/%{name}/.ssh/ssh_host_dsa_key
+%define identity %{_var}/lib/%{np_name}/.ssh/ssh_host_dsa_key
 
 Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
@@ -36,7 +36,7 @@ fi
 
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{name}
+    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
 fi
 
 %install
@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %{_sysconfdir}/pam.d/rhnmd
-%dir %{_var}/lib/%{name}
+%dir %{_var}/lib/%{np_name}
 %attr(750,nocpulse,nocpulse) %{_var}/lib/%{np_name}
 %attr(700,nocpulse,nocpulse) %{_var}/lib/%{np_name}/.ssh
 %config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
