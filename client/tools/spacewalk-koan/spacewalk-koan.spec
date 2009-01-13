@@ -12,7 +12,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1.4
+Version: 0.1.5
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/actions/kickstart_guest.py*
 
 %changelog
-* Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.1.4-1
+* Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.1.5-1
 - 461162 - get the virtualization provisioning tracking system to work with a :virt system record.
 - 461162 - Quick fix to get spacewalk koan going with a ks....
 
