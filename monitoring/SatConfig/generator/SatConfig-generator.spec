@@ -3,7 +3,7 @@
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.9
+Version:      2.29.10
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 URL:          https://fedorahosted.org/spacewalk
@@ -54,7 +54,7 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com>
+* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.10-1
 - 253506 - fix excessive "my" declaration
 
 * Fri Jan  9 2009 Milan Zazrivec 2.29.9-1
