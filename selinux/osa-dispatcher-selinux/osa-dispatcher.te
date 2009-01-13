@@ -4,6 +4,8 @@ require {
 	type var_log_t;
 	type spacewalk_log_t;
 	type httpd_sys_content_t;
+	type oracle_port_t;
+	type jabber_client_port_t;
 }
 
 type osa_dispatcher_t;
@@ -44,3 +46,6 @@ allow osa_dispatcher_t self:fifo_file rw_fifo_file_perms;
 corenet_udp_bind_lo_node(osa_dispatcher_t)
 
 sysnet_dns_name_resolve(osa_dispatcher_t)
+
+allow osa_dispatcher_t oracle_port_t:tcp_socket name_connect;
+allow osa_dispatcher_t jabber_client_port_t:tcp_socket name_connect;
