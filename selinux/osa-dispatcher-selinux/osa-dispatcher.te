@@ -15,3 +15,5 @@ corecmd_exec_sbin(osa_dispatcher_t)
 kernel_read_system_state(osa_dispatcher_t)
 
 files_read_usr_files(osa_dispatcher_t)
+
+dev_read_urand(osa_dispatcher_t)
