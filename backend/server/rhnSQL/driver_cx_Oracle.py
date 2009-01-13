@@ -459,9 +459,6 @@ class Database(sql_base.Database):
                 value = "english.UTF8"
             os.environ["NLS_LANG"] = value
 
-        if not os.environ.has_key("ORACLE_HOME"):
-            os.environ["ORACLE_HOME"] = os.popen("dbhome '*'").read()
-
     # Should return a sequence [code, message, ...] or an error message if no
     # code is to be found
     def _get_oracle_error_info(self, error):
