@@ -17,8 +17,8 @@
 Port 4545
 Protocol 2
 ListenAddress 0.0.0.0
-HostKey /opt/nocpulse/etc/ssh_host_dsa_key
-AuthorizedKeysFile /opt/nocpulse/.ssh/authorized_keys
+HostKey /etc/nocpulse/ssh_host_dsa_key
+AuthorizedKeysFile /var/lib/nocpulse/.ssh/authorized_keys
 PidFile /var/run/rhnmd.pid
 ServerKeyBits 768
 LoginGraceTime 600
