@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com>
+- 479161 - explicitly call disconnect
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.28.10-1
 - 467441 - fix namespace
 
