@@ -7484,6 +7484,10 @@ Follow this url to see the full list of inactive systems:
           <source>Invalid errata type, &quot;{0}&quot;. Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
       </trans-unit>
       
+      <trans-unit id="api.errata.invalidadvisoryrelease">
+          <source>Invalid advisory release, &quot;{0}&quot;. Maximum value is {1}.</source>
+      </trans-unit>
+
       <trans-unit id="api.errata.nochannelsselected">
           <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
       </trans-unit>

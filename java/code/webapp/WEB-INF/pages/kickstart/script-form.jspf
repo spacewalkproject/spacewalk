@@ -24,7 +24,7 @@
                   <bean:message key="kickstart.script.contents"/><span class="required-form-field">*</span>
               </th>
               <td>
-                  <html:textarea rows="24" cols="80" property="contents"/>
+                  <textarea name="contents" rows="24" cols="80" id="contents"><bean:write name="kickstartScriptForm" property="contents" /></textarea><br />
               </td>
           </tr>
           <tr>

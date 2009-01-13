@@ -48,7 +48,7 @@
          styleclass="first-column"
          headerkey="org.trust.org"
          sortattr="name">
-            <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name}
+            <a href="/rhn/multiorg/OrgTrustDetails.do?oid=${current.org.id}"> ${current.org.name}
 </a>
       </rl:column>
       <rl:column

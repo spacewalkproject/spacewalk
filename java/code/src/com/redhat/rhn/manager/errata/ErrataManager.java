@@ -66,6 +66,8 @@ public class ErrataManager extends BaseManager {
     
     private static Logger log = Logger.getLogger(ErrataManager.class);
     public static final String DATE_FORMAT_PARSE_STRING = "yyyy-MM-dd";
+    public static final long MAX_ADVISORY_RELEASE = 9999;
+
     private ErrataManager() {
     }
     
