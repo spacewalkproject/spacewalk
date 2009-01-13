@@ -490,7 +490,8 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertTrue(SystemManager.entitleServer(server, EntitlementManager.PROVISIONING)
                 .hasErrors());
         guest.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        assertTrue(host.hasEntitlement(EntitlementManager.PROVISIONING));
+        assertFalse(SystemManager.entitleServer(guest, EntitlementManager.PROVISIONING)
+                .hasErrors());
     }
     
     public void testVirtualEntitleServer() throws Exception {
