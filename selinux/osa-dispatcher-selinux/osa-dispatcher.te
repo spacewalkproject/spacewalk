@@ -1,8 +1,16 @@
 policy_module(osa-dispatcher,@@VERSION@@)
 
+require {
+	type var_log_t;
+	type spacewalk_log_t;
+}
+
 type osa_dispatcher_t;
 type osa_dispatcher_exec_t;
 init_daemon_domain(osa_dispatcher_t,osa_dispatcher_exec_t)
+
+type osa_dispatcher_log_t;
+logging_log_file(osa_dispatcher_log_t)
 
 files_read_etc_files(osa_dispatcher_t)
 libs_use_ld_so(osa_dispatcher_t)
@@ -17,3 +25,11 @@ kernel_read_system_state(osa_dispatcher_t)
 files_read_usr_files(osa_dispatcher_t)
 
 dev_read_urand(osa_dispatcher_t)
+
+files_search_var(osa_dispatcher_t)
+allow osa_dispatcher_t var_log_t:dir search_dir_perms;
+allow osa_dispatcher_t spacewalk_log_t:dir search_dir_perms;
+# We cannot use logging_log_filetrans here because /var/log/rhn has
+# type spacewalk_log_t.
+filetrans_pattern(osa_dispatcher_t,spacewalk_log_t,osa_dispatcher_log_t,{ file dir })
+manage_files_pattern(osa_dispatcher_t,osa_dispatcher_log_t,osa_dispatcher_log_t)
