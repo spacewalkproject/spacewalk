@@ -33,3 +33,5 @@ allow osa_dispatcher_t spacewalk_log_t:dir search_dir_perms;
 # type spacewalk_log_t.
 filetrans_pattern(osa_dispatcher_t,spacewalk_log_t,osa_dispatcher_log_t,{ file dir })
 manage_files_pattern(osa_dispatcher_t,osa_dispatcher_log_t,osa_dispatcher_log_t)
+
+init_rw_utmp(osa_dispatcher_t)
