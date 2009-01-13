@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.16
+Version: 0.4.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,6 +226,11 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.4.17-1
+- adding editarea as reqquired by Colin.Coe@woodside.com.au's patches coming up.
+- 479738 - update Help to point to the help page
+- 479600 - fixed typo
+
 * Mon Jan 12 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.16-1
 - resolved #479600
 
