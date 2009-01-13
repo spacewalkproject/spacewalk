@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.12
+Version: 0.4.13
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -544,6 +544,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jan 13 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.13-1
+- resolved #479826
+- resolved #479825
+
 * Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.4.12-1
 - 461162 - get the virtualization provisioning tracking system to work with a :virt system record.
 - 479640 - remove conflict with specspo; if it causes problems,
