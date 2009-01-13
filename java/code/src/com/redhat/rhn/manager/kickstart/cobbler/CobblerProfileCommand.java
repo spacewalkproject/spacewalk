@@ -150,7 +150,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         else {
              con = CobblerXMLRPCHelper.getConnection(user);
         }
-        Distro distro;
         if (virtType.equals(KickstartFactory.VIRT_TYPE_XEN_PV)) {
             if (tree.getCobblerXenId() == null) {
                 return null;

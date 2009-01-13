@@ -65,7 +65,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
     private static final String NEXT_STEP_PARAM = "nextStep";
     private static final String KICKSTART_LABEL_PARAM = "kickstartLabel";
     private static final String KSTREE_ID_PARAM = "kstreeId";
-    private static final String VIRTUALIZATION_TYPE_LABEL_PARAM = "virtualizationTypeLabel";
+    
     private static final String DEFAULT_DOWNLOAD_PARAM = "defaultDownload";
     private static final String USER_DOWNLOAD_PARAM = "userDefinedDownload";
     private static final String ROOT_PASSWORD_PARAM = "rootPassword";
@@ -77,6 +77,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
     public static final String NOTREES_PARAM = "notrees";
     public static final String NOCHANNELS_PARAM = "nochannels";
     public static final String VIRTUALIZATION_TYPES_PARAM = "virtualizationTypes";
+    public static final String VIRTUALIZATION_TYPE_LABEL_PARAM = "virtualizationTypeLabel";
     
     private static Logger log = Logger.getLogger(CreateProfileWizardAction.class);
 
@@ -196,9 +197,9 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                 ctx.getRequest().setAttribute("selectedTree", tree);
                   
                 //validate we have a distro for the tree + virt type combination
+                String typeParam = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
                 KickstartVirtualizationType vType = 
-                    KickstartFactory.lookupKickstartVirtualizationTypeByLabel(
-                        form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM));
+                    KickstartFactory.lookupKickstartVirtualizationTypeByLabel(typeParam);
                 Distro distro = CobblerProfileCommand.getCobblerDistroForVirtType(tree, 
                         vType, ctx.getLoggedInUser());
                 if (distro == null) {

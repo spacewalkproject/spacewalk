@@ -20,12 +20,14 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.frontend.action.kickstart.CreateProfileWizardAction;
+import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -183,22 +185,35 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         verifyForward("first");
     }
     
-    public void testDownloadValidation() {
+    public void testDownloadValidation() throws Exception {
         clearRequestParameters();
         setRequestPathInfo("/kickstart/CreateProfileWizard");        
         addRequestParameter("wizardStep", "third");
         addRequestParameter("kickstartLabel", label);
-        addRequestParameter("kstreeId", "12997");
+        KickstartVirtualizationType type = (KickstartVirtualizationType)  
+            KickstartFactory.lookupVirtualizationTypes().iterator().next();
+        addRequestParameter(CreateProfileWizardAction.VIRTUALIZATION_TYPE_LABEL_PARAM, 
+                type.getLabel());
+        Channel c = ChannelTestUtils.createBaseChannel(user);
+        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree(c);
+        addRequestParameter("kstreeId", tree.getId().toString());
         actionPerform();
         verifyForward("second");
     }
     
-    public void testUserDownloadValidation() {
+    public void testUserDownloadValidation() throws Exception {
         clearRequestParameters();
         setRequestPathInfo("/kickstart/CreateProfileWizard");        
         addRequestParameter("wizardStep", "third");
         addRequestParameter("kickstartLabel", label);
-        addRequestParameter("kstreeId", "12997");
+        KickstartVirtualizationType type = (KickstartVirtualizationType)  
+        KickstartFactory.lookupVirtualizationTypes().iterator().next();
+        addRequestParameter(CreateProfileWizardAction.VIRTUALIZATION_TYPE_LABEL_PARAM, 
+            type.getLabel());
+        Channel c = ChannelTestUtils.createBaseChannel(user);
+        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree(c);
+        addRequestParameter("kstreeId", tree.getId().toString());
+
         addRequestParameter("defaultDownload", "false");        
         actionPerform();
         verifyForward("second");
@@ -207,7 +222,9 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         setRequestPathInfo("/kickstart/CreateProfileWizard");        
         addRequestParameter("wizardStep", "third");
         addRequestParameter("kickstartLabel", label);
-        addRequestParameter("kstreeId", "12997");
+        addRequestParameter("kstreeId", tree.getId().toString());
+        addRequestParameter(CreateProfileWizardAction.VIRTUALIZATION_TYPE_LABEL_PARAM, 
+                type.getLabel());
         addRequestParameter("defaultDownload", "false");
         addRequestParameter("userDefinedDownload", "htp://blahblahblbah.com/blahblah");
         actionPerform();
