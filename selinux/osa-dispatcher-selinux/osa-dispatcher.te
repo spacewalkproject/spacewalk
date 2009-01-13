@@ -12,3 +12,4 @@ miscfiles_read_localization(osa_dispatcher_t)
 corecmd_exec_bin(osa_dispatcher_t)
 corecmd_exec_sbin(osa_dispatcher_t)
 
+kernel_read_system_state(osa_dispatcher_t)
