@@ -33,6 +33,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ServerTestUtils;
+import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -52,13 +53,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         user.addRole(RoleFactory.ORG_ADMIN);
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
-        // KickstartableTree tree = this.ksdata.getTree();
-        // TestObjectStore.get().putObject("distro_name", tree.getLabel());
-        // tree.setCobblerId((String) TestObjectStore.get().getObject("distro_uid"));
-        //System.out.println("TreeID1: " + tree.getId());
-        //System.out.println("TreeID1.cobblerId: " + tree.getCobblerId());
-        //tree = (KickstartableTree) TestUtils.saveAndReload(tree);
-        
 
         // Uncomment this if you want the tests to actually talk to cobbler
         // Config.get().setString(CobblerXMLRPCHelper.class.getName(),
@@ -88,7 +82,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
                 "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
-        
     }
     
     public void testProfileCreate() throws Exception {

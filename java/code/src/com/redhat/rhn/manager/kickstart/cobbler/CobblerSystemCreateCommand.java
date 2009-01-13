@@ -172,7 +172,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      * @return String name of cobbler system record. 
      */
     public String getCobblerSystemRecordName() {
-        return this.server.getName();
+        return this.server.getName() + ":" + 
+            this.server.getOrg().getId();
     }
     
     protected void processNetworkInterfaces(String handleIn, 
