@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.14
+Version:        0.4.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -53,7 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.14-1
+* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.15-1
 - 479837 - Support rpm, which contains files with filename + path longer than 256 chars
 
 * Tue Jan 13 2009 Milan Zazrivec 0.4.13-1
