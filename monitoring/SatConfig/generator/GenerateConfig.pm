@@ -55,7 +55,7 @@ sub handler {
         CFDBRecord->ReleaseAllInstances;
 	
         # Generate the satellite configuration
-        my $satClusterId = $satCluster->get_RECID;
+        $satClusterId = $satCluster->get_RECID;
         eval {
             ProbeRecord->LoadForSatellite($satClusterId); # Loads CommandParamRecord as well
         };

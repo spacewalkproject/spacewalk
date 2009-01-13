@@ -54,6 +54,9 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com>
+- 253506 - fix excessive "my" declaration
+
 * Fri Jan  9 2009 Milan Zazrivec 2.29.9-1
 - fixed /var/lib/nocpulse ownership
 
