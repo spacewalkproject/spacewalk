@@ -15,6 +15,12 @@ init_daemon_domain(osa_dispatcher_t,osa_dispatcher_exec_t)
 type osa_dispatcher_log_t;
 logging_log_file(osa_dispatcher_log_t)
 
+type osa_dispatcher_var_run_t;
+files_pid_file(osa_dispatcher_var_run_t)
+files_pid_filetrans(osa_dispatcher_t,osa_dispatcher_var_run_t,file)
+create_files_pattern(osa_dispatcher_t,var_run_t,osa_dispatcher_var_run_t)
+write_files_pattern(osa_dispatcher_t,var_run_t,osa_dispatcher_var_run_t)
+
 files_read_etc_files(osa_dispatcher_t)
 libs_use_ld_so(osa_dispatcher_t)
 libs_use_shared_libs(osa_dispatcher_t)
