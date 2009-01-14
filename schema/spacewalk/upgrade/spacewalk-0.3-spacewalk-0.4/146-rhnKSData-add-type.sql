@@ -22,7 +22,7 @@ ADD ks_type varchar(8);
 UPDATE rhnKsData SET ks_type = 'wizard';
 
 ALTER TABLE rhnKsData 
-ADD CONSTRAINT rhn_ks_type_nn CHECK (ks_type IS NOT NULL);
+MODIFY ks_type CONSTRAINT rhn_ks_type_nn NOT NULL;
 
 ALTER TABLE rhnKsData 
 ADD CONSTRAINT rhn_ks_type_ck CHECK (ks_type in ('wizard', 'raw'));
