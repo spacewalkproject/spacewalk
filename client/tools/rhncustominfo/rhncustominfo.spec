@@ -3,7 +3,7 @@ Summary: set and list custom values for RHN-enabled machines
 Group: RHN/Client
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.2
+Version: 0.4.1
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 14 2009 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.2-1
+Resolves - #251060
+
 * Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.2-1
 - adding dist tag
 
