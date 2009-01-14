@@ -46,6 +46,7 @@ use RHN::Exception;
 use RHN::API::Exception;
 use RHN::API::Parser;
 use RHN::I18N;
+use RHN::Mail;
 
 our $make_vile;
 

@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.4.3
+Version: 0.4.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -149,7 +149,7 @@ make -f Makefile.proxy
 %install
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
-install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn
+install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn/proxy-auth
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
@@ -301,6 +301,7 @@ fi
 %attr(640,root,apache) %config(noreplace) %{httpdconf}/rhn_proxy.conf
 # the cache
 %attr(750,apache,root) %dir %{_var}/cache/rhn
+%attr(750,apache,root) %dir %{_var}/cache/rhn/proxy-auth
 
 %files package-manager
 %defattr(-,root,root)
@@ -331,6 +332,10 @@ fi
 
 
 %changelog
+* Wed Jan 14 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
+- own /var/cache/rhn/proxy-auth
+- fix typo in broker/rhnBroker.py
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.3-1
 - fixed Obsoletes: rhns-* < 5.3.0
 

@@ -104,24 +104,36 @@ class CLI:
         usage = "usage: %prog [options] arg"
         parser = OptionParser(usage)
         parser.add_option("--tgz", dest="tgz", action="store_true",
-                help="build .tar.gz")
+                help="Build .tar.gz")
         parser.add_option("--srpm", dest="srpm", action="store_true",
-                help="build srpm")
+                help="Build srpm")
         parser.add_option("--rpm", dest="rpm", action="store_true",
-                help="build rpm")
+                help="Build rpm")
         parser.add_option("--dist", dest="dist",
-                help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
+                help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
+        parser.add_option("--brew", dest="brew",
+                help="Submit srpm for build in a brew tag.")
+        parser.add_option("--koji", dest="koji",
+                help="Submit srpm for build in a koji tag.")
+        parser.add_option("--koji-opts", dest="koji_opts",
+                help="%s %s %s" %
+                (
+                    "Options to use with brew/koji command.",
+                    "Tag and package name will be appended automatically.",
+                    "Default is 'build --nowait'.",
+                ))
+
         parser.add_option("--test", dest="test", action="store_true",
-                help="Use current branch HEAD instead of latest package tag.")
+                help="use current branch HEAD instead of latest package tag")
         parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
-                help="Do not clean up temporary build directories/files.")
+                help="do not clean up temporary build directories/files")
         parser.add_option("--tag", dest="tag",
-                help="Build a specific tag instead of the latest version. " +
+                help="build a specific tag instead of the latest version " +
                     "(i.e. spacewalk-java-0.4.0-1)")
         parser.add_option("--debug", dest="debug", action="store_true",
-                help="Print debug messages.", default=False)
+                help="print debug messages", default=False)
         parser.add_option("--offline", dest="offline", action="store_true",
-                help="Don't attempt any remote communication. (avoid using this)",
+                help="do not attempt any remote communication (avoid using this please)",
                 default=False)
 
         parser.add_option("--tag-release", dest="tag_release",
@@ -316,4 +328,10 @@ class CLI:
         if found_builder_options and found_tagger_options:
             error_out("Cannot invoke both build and tag options at the " +
                     "same time.")
+        if options.srpm and options.rpm:
+            error_out("Please choose only one of --srpm and --rpm")
+        if (options.brew or options.koji) and not (options.rpm or options.srpm):
+            error_out("Must specify --srpm or --rpm with --brew/--koji")
+        if options.test and options.tag:
+            error_out("Cannot build test version of specific tag.")
         return (found_builder_options, found_tagger_options)
