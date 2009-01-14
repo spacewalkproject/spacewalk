@@ -8,7 +8,7 @@
 
 Name:           osa-dispatcher-selinux
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SELinux policy module supporting osa-dispatcher
 
 Group:          System Environment/Base
@@ -108,6 +108,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Jan 14 2009 Jan Pazdziora 1.0.0-2
+- changes to allow service osa-dispatcher start on RHEL 5.2 to run
+  without any AVC denials except one caused by lookup of /root/.rpmmacros
+
 * Mon Jan 12 2009 Jan Pazdziora
 - the initial release
 - based on spacewalk-selinux
