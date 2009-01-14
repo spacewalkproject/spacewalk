@@ -52,6 +52,7 @@ sub diff_it {
 		$b =~ s/\.el\d(sat)?(\.sw)?$//;
 		my $t = $tagged_data->[$ti];
 		$t =~ s/^(buildsys-macros-.+)\.sw$/$1/;
+		$t =~ s/-sat$//;
 		if ($t =~ /^(.+)-(.+)-1$/
 			and exists $ignore_different_release{$1}) {
 			my $name_version = "$1-$2";
