@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.21
+Version:        0.4.22
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jan 14 2009 Jan Pazdziora 0.4.22-1
+- 479971 - require jabberd so that the jabberd user exists.
+
 * Tue Jan 13 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.21-1
 - 477492 - Remove "assuming Oracle" message from spacewalk-setup.
 
