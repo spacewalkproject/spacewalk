@@ -8,7 +8,7 @@ Summary: OSAD agent
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.9.1
+Version: 5.9.2
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -198,7 +198,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
-* Wed Jan 14 2009 Jan Pazdziora
+* Wed Jan 14 2009 Jan Pazdziora 5.9.2-1
 - separate package osa-dispatcher-selinux merged in as a subpackage
 
 * Wed Jan 14 2009 Jan Pazdziora
