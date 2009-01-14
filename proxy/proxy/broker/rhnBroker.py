@@ -70,7 +70,7 @@ class BrokerHandler(SharedHandler):
             log_debug(-1, 'WARNING: no hostname in the incoming headers; '
                           'punting: %s' % hostname)
         hostname = string.split(parseUrl(hostname)[1], ':')[0]
-        self.proxyAuth = rhnProxyAuth.get_proxy_auth(hostname)
+        self.proxyAuth =  proxy.rhnProxyAuth.get_proxy_auth(hostname)
 
         self._initConnectionVariables(req)
 
