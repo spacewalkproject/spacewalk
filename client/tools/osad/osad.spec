@@ -46,11 +46,42 @@ Requires(preun): initscripts
 %description -n osa-dispatcher
 OSA dispatcher
 
+%package -n osa-dispatcher-selinux
+%define selinux_variants mls strict targeted
+%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
+%define POLICYCOREUTILSVER 1.33.12-1
+
+%define moduletype apps
+%define modulename osa-dispatcher
+
+Summary: SELinux policy module supporting osa-dispatcher
+Group: System Environment/Base
+BuildRequires: checkpolicy, selinux-policy-devel, hardlink
+BuildRequires: policycoreutils >= %{POLICYCOREUTILSVER}
+
+%if "%{selinux_policyver}" != ""
+Requires: selinux-policy >= %{selinux_policyver}
+%endif
+Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires: osa-dispatcher
+
+%description -n osa-dispatcher-selinux
+SELinux policy module supporting osa-dispatcher.
+
 %prep
 %setup -q
 
 %build
 make -f Makefile.osad all
+
+perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
+for selinuxvariant in %{selinux_variants}
+do
+    make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
+    mv osa-dispatcher-selinux/%{modulename}.pp osa-dispatcher-selinux/%{modulename}.pp.${selinuxvariant}
+    make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
+done
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -58,6 +89,21 @@ install -d $RPM_BUILD_ROOT%{rhnroot}
 make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
 # Create the auth file
 touch $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rhn/osad-auth.conf
+
+for selinuxvariant in %{selinux_variants}
+  do
+    install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
+    install -p -m 644 osa-dispatcher-selinux/%{modulename}.pp.${selinuxvariant} \
+           %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
+  done
+
+# Install SELinux interfaces
+install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
+install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
+  %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+
+# Hardlink identical policy module packages together
+/usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,6 +129,33 @@ if [ $1 = 0 ]; then
     /sbin/service osa-dispatcher stop > /dev/null 2>&1
     /sbin/chkconfig --del osa-dispatcher
 fi
+
+%post -n osa-dispatcher-selinux
+# Install SELinux policy modules
+for selinuxvariant in %{selinux_variants}
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      && /usr/sbin/semodule -s ${selinuxvariant} -i \
+        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
+  done
+
+/usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290 || :
+
+rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
+/sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
+
+%postun -n osa-dispatcher-selinux
+# Clean up after package removal
+if [ $1 -eq 0 ]; then
+  for selinuxvariant in %{selinux_variants}
+    do
+      /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+        && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
+    done
+fi
+
+rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
+/sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
 
 %files
 %defattr(-,root,root)
@@ -115,8 +188,29 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
 %attr(755,root,root) %{_sysconfdir}/init.d/osa-dispatcher
 
+%files -n osa-dispatcher-selinux
+%defattr(-,root,root,0755)
+%doc osa-dispatcher-selinux/%{modulename}.fc
+%doc osa-dispatcher-selinux/%{modulename}.if
+%doc osa-dispatcher-selinux/%{modulename}.te
+%{_datadir}/selinux/*/%{modulename}.pp
+%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+
 # $Id$
 %changelog
+* Wed Jan 14 2009 Jan Pazdziora
+- separate package osa-dispatcher-selinux merged in as a subpackage
+
+* Wed Jan 14 2009 Jan Pazdziora
+- changes to osa-dispatcher-selinux to allow service osa-dispatcher start
+  on RHEL 5.2 to run without any AVC denials except one caused by lookup
+  of /root/.rpmmacros
+
+* Mon Jan 12 2009 Jan Pazdziora
+- the initial release of osa-dispatcher-selinux
+- based on spacewalk-selinux
+- which was inspired by Rob Myers' oracle-selinux
+
 * Tue Dec 16 2008 Michael Mraka <michael.mraka@redhat.com> 5.9.1-1
 - resolves #474548 - bumped version
 
