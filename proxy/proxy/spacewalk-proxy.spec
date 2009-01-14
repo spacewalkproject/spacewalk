@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.4.4
+Version: 0.4.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -332,7 +332,7 @@ fi
 
 
 %changelog
-* Wed Jan 14 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
+* Wed Jan 14 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
 - own /var/cache/rhn/proxy-auth
 - fix typo in broker/rhnBroker.py
 
