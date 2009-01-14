@@ -254,7 +254,7 @@ class BrokerHandler(SharedHandler):
     def _prepHandler(self):
         """ prep handler and check PROXY_AUTH's expiration. """
         SharedHandler._prepHandler(self)
-        #rhnProxyAuth.PROXY_AUTH.verifyToken()
+        #proxy.rhnProxyAuth.PROXY_AUTH.verifyToken()
 
     # --- PRIVATE METHODS ---
 
@@ -444,7 +444,7 @@ class BrokerHandler(SharedHandler):
         log_debug(2, token, channel)
         self.clientServerId = token['X-RHN-Server-ID']
 
-        shelf = rhnProxyAuth.get_auth_shelf()
+        shelf = proxy.rhnProxyAuth.get_auth_shelf()
         if not shelf.has_key(self.clientServerId):
             # should this ever happen?
             msg = _("Invalid session key - server ID not found in cache: %s") \
@@ -504,7 +504,7 @@ def _dictEquals(d1, d2, exceptions=[]):
 
 def _writeToCache(key, value):
     """ Open a connection to the shelf """
-    shelf = rhnProxyAuth.get_auth_shelf()
+    shelf = proxy.rhnProxyAuth.get_auth_shelf()
     # Cache the thing
     shelf[key] = value
     log_debug(2, "successfully returning")
