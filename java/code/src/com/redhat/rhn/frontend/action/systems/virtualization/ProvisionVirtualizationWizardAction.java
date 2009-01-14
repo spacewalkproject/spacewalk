@@ -150,7 +150,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         cmd.setProfileId((Long) form.get("targetProfile"));
         
         
-        cmd.setGuestName(GUEST_NAME);
+        cmd.setGuestName(form.getString(GUEST_NAME));
         
         
         //If the virt options are overridden use them, otherwise use 
