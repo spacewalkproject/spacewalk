@@ -83,6 +83,8 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
+/usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290 || :
+
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
 
