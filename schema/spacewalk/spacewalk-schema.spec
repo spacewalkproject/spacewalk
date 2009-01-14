@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.16
+Version:        0.4.17
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Jan 14 2009 Mike McCune <mmccune@gmail.com> 0.4.17-1
+- 461162 - correcting to match upgrade scripts
+
 * Wed Jan 14 2009 Milan Zazrivec 0.4.16-1
 - fixes for #479950 - spacewalk 0.4: new and upgraded schemas do not match
 
