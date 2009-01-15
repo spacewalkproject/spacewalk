@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.22
-Release: 6%{?dist}
+Release: 6.git.779cfb8e5344d1efd4c10f2378d7dd335f1ca583%{?dist}
 License:  GPL+ or Artistic
 Group: Development/Libraries
 Source0: %{name}-%{version}.tar.gz
@@ -63,7 +63,7 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
-* Thu Jan 15 2009 Dennis Gilmore <dgilmore@redhat.com> 1.22-6
+* Wed Jan 14 2009 Dennis Gilmore <dgilmore@redhat.com> 1.22-6
 - BR perl(ExtUtils::MakeMaker)
 
 * Wed Dec 10 2008 Michael Mraka <michael.mraka@redhat.com> 1.22-5

@@ -1,61 +1,78 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
-Version: 1.22
-Release: 6%{?dist}
+Version: 1.21
+Release: 4%{?dist}
 License:  GPL+ or Artistic
-Group: Development/Libraries
+Group: Applications/CPAN
 Source0: %{name}-%{version}.tar.gz
+Patch0: DBD-Oracle-1.14-blobsyn.patch
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
-BuildRequires: perl >= 0:5.6.1, perl(DBI)
-BuildRequires: perl(ExtUtils::MakeMaker)
+BuildRequires: perl >= 0:5.6.1, perl-DBI
 BuildRequires: oracle-instantclient-devel
-Requires: perl >= 0:5.6.1
+Requires: perl >= 0:5.6.1, oracle-instantclient-basic
 
 %description
 DBD-Oracle module for perl
 
 %package explain
 Summary: Oora_explain script from DBD-Oracle module for perl
-Group: Development/Libraries
+Group: Applications/CPAN
 
 %description explain
 ora_explain script
 
 %prep
 %define modname %(echo %{name}| sed 's/perl-//')
-%define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)
-%define perl_vendorarch %(eval "`%{__perl} -V:installvendorarch`"; echo $installvendorarch)
-
 %setup -q -n %{modname}-%{version} 
+%patch0 -p1
 
 %build
-
-MKFILE=$(rpm -ql oracle-instantclient-devel | grep demo.mk)
-ORACLE_HOME=$(rpm -ql oracle-instantclient-basic | \
-    awk '/libclntsh.so/ { gsub("/lib/libclntsh.so.*", ""); print ;}')
-export ORACLE_HOME
-perl Makefile.PL -m $MKFILE INSTALLDIRS="vendor" PREFIX=%{_prefix}
-make  %{?_smp_mflags} OPTIMIZE="%{optflags}"
+eval $(perl -V:sitearch)
+eval $(perl -V:vendorarch)
+INCLUDES=$(echo -I$ORACLE_HOME/rdbms/public \
+                -I$ORACLE_HOME/rdbms/demo \
+                -I$ORACLE_HOME/network/public \
+                -I$vendorarch/auto/DBI \
+                -I$sitearch/auto/DBI)
+# We can't trust the tests make by the Makefile.PL on modern Oracle installations
+# because it leads to bloat, duble linking and inneficient relocation. It's a wonder
+# it works at all
+perl Makefile.PL -l \
+    CC=gcc LD="gcc -v -Wl,-rpath,$ORACLE_HOME/lib" \
+    CCFLAGS="-D_GNU_SOURCE" \
+    PREFIX=$RPM_BUILD_ROOT/usr 
+ make
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make PREFIX=$RPM_BUILD_ROOT%{_prefix} pure_install
+#kinda ugly but we need ORACLE_HOME to be set 
+%if "%{_lib}" == "lib64"
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
+%else
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
+%endif
+eval `perl '-V:installarchlib'`
+mkdir -p $RPM_BUILD_ROOT/$installarchlib
+make install
 
+[ -x /usr/lib/rpm/brp-compress ] && /usr/lib/rpm/brp-compress
+
+find $RPM_BUILD_ROOT/usr -type f -print | 
+    sed "s@^$RPM_BUILD_ROOT@@g" | 
+    grep -E -v 'perllocal.pod|\.packlist|ora_explain' \
+    > %{modname}-%{version}-filelist
+if [ "$(cat %{modname}-%{version}-filelist)X" = "X" ] ; then
+    echo "ERROR: EMPTY FILE LIST"
+    exit -1
+fi
 rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 
-%files
+%files -f %{modname}-%{version}-filelist
 %defattr(-,root,root)
-%dir %{perl_vendorarch}/auto/DBD/
-%{perl_vendorarch}/auto/DBD/
-%dir %{perl_vendorarch}/DBD/
-%{perl_vendorarch}/DBD/
-%{perl_vendorarch}/Oraperl.pm
-%{perl_vendorarch}/oraperl.ph
-%{_mandir}/man3/*
 
 %files explain
 %defattr(-,root,root)
@@ -63,21 +80,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
-* Thu Jan 15 2009 Dennis Gilmore <dgilmore@redhat.com> 1.22-6
-- BR perl(ExtUtils::MakeMaker)
-
-* Wed Dec 10 2008 Michael Mraka <michael.mraka@redhat.com> 1.22-5
-- simplified %%build and %%instal stage
-- resolved #470999
-
-* Tue Nov 25 2008 Miroslav Suchy <msuchy@redhat.com> 1.22-2
-- added buildrequires for oracle-lib-compat
-- rebased to DBD::Oracle 1.22
-- removed DBD-Oracle-1.14-blobsyn.patch
-
 * Thu Oct 16 2008 Milan Zazrivec 1.21-4
 - bumped release for minor release tagging
-- added %%{?dist} to release
+- added %{?dist} to release
 
 * Tue Aug 26 2008 Mike McCune 1.21-3
 - Cleanup spec file to work in fedora and our new Makefile structure
