@@ -522,6 +522,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
+%{_mandir}/man8/migrate-system-profile.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
@@ -544,6 +545,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 15 2009 Milan Zazrivec
+- include migrate-system-profile manual page
+
 * Wed Jan 14 2009 Dave Parker <dparker@redhat.com> 0.4.18-1
 - bz461162 added rule to redirect port 80 requests to /rpc/api to /rhn/rpc/api
 
