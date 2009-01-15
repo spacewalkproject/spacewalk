@@ -359,7 +359,7 @@ sub syscall_retry {
 sub setup_ssl_vhost {
   my $opts = shift;
   my $answers = shift;
-  if ($opts{"skip-ssl-vhost-setup"} || $opts{"upgrade"}) {
+  if ($opts{"skip-ssl-vhost-setup"}) {
     print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
     return;
   }
