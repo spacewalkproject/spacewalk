@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 15 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.1-1
+- BZ#476562 Extended list(elist) option for rhncfg
+
 * Thu Oct 16 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.1-1
 - BZ#428721 - fixes filemode and ownership
 
