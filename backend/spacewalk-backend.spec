@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.15
+Version: 0.4.16
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -544,6 +544,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Jan 14 2009 Dave Parker <dparker@redhat.com> 0.4.16-1
+- bz461162 added rule to redirect port 80 requests to /rpc/api to /rhn/rpc/api
+
 * Tue Jan 13 2009 Mike McCune <mmccune@gmail.com> 0.4.15-1
 - 461162 - for some reason with our new httpd rework this rewrite rule needs 
   to be in both config files.  Filed space05 bug: 479911 to address this.
