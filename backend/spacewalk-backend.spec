@@ -545,6 +545,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 15 2009 Pradeep Kilambi 0.4.20-1
+- include migrate-system-profile.8 file in the spec
+
 * Thu Jan 15 2009 Milan Zazrivec 0.4.20-1
 - include migrate-system-profile manual page
 
