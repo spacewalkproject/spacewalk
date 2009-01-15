@@ -32,6 +32,7 @@ from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
         check_tag_exists, get_latest_tagged_version
 
+DEFAULT_BUILD_DIR = "/tmp/spacewalk-build"
 BUILD_PROPS_FILENAME = "build.py.props"
 GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
 GLOBALCONFIG_SECTION = "globalconfig"
@@ -74,12 +75,14 @@ def lookup_build_dir():
     Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
     return the current working directory.
     """
+    build_dir = DEFAULT_BUILD_DIR
     file_loc = os.path.expanduser("~/.spacewalk-build-rc")
     try:
         f = open(file_loc)
     except:
         # File doesn't exist but that's ok because it's optional.
-        return os.getcwd()
+        return build_dir
+
     config = {}
     for line in f.readlines():
         if line.strip() == "":
@@ -89,7 +92,6 @@ def lookup_build_dir():
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
 
-    build_dir = os.getcwd()
     if config.has_key('RPMBUILD_BASEDIR'):
         build_dir = config["RPMBUILD_BASEDIR"]
 
