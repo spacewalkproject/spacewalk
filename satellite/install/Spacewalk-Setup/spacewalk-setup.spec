@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.22
+Version:        0.4.23
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jan 15 2009 Milan Zazrivec 0.4.23-1
+- upgrade setup fixes
+
 * Wed Jan 14 2009 Jan Pazdziora 0.4.22-1
 - 479971 - require jabberd so that the jabberd user exists.
 
