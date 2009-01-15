@@ -20442,7 +20442,7 @@ given channel.</source>
       </trans-unit>                                          
        
       <trans-unit id="layout.jsp.productname">
-			<source>Spacewalk</source>
+            <source>@@PRODUCT_NAME@@</source>
       </trans-unit>                                          
 
       <trans-unit id="channel.edit.jsp.name">
