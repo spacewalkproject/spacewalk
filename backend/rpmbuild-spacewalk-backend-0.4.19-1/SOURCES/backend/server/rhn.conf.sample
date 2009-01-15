@@ -1,0 +1,188 @@
+# rhn.conf.sample - THIS FILE IS USED FOR REFERENCE ONLY!
+#
+# The /etc/rhn/rhn.conf file should be created initially upon install.
+#
+# This file will attempt to better illustrate the possible settings for
+# the file /etc/rhn/rhn.conf.
+#
+# $Id$
+
+# How this configuration scheme works:
+#
+# Settings are structured hierarchically. All main components (RHN Server
+# Server Satellite, and web) currently use this file. Settings are
+# differentiated by a dot-delimited
+# prefix. For example (ignore the initial comments; this is an illustration).
+#
+# debug = 3  # All debug levels for all components is 3
+# traceback_mail = xxx@redhat.com # all tracebacks for all components go to
+#                                 # xxx@redhat.com.
+# proxy.traceback_mail = yyy@redhat.com # All proxy (broker & redirect) emails
+#                                       # go to yyy@redhat.com now (overriding
+#                                       # xxx@redhat.com).
+# proxy.broker.debug = 4  # RHN Proxy broker now runs at debug level 4, but
+#                         # redirect and auth_cache still run at debug level 3
+
+
+#### THE SETTINGS ####
+# NOTE: All settings listed are the defaults unless overridden
+#       Items left uncommented are the settings most likely needing to be
+#       changed.
+#
+# Common (global to all components) settings
+#
+#debug = 5
+traceback_mail = user0@example.com, user1@example.com
+#quiet_mail = 15 # can set in other components... no need to change though.
+
+#
+# server
+#
+server.default_db = oracleuser/oraclepassword@oracleinstance
+#server.mount_point = /pub
+#server.disallow_user_creation = 0
+#server.log_file = /var/log/rhn/rhn_server.log
+
+#
+# server.satellite
+#
+#server.satellite.log_file = /var/log/rhn/rhn_server_satellite.log
+#server.satellite.encrypted_passwords = 0
+#server.satellite.http_proxy = 
+#server.satellite.http_proxy_username = 
+#server.satellite.http_proxy_username = 
+
+#
+# server.app
+#
+# -no settings at this level-
+
+#
+# server.app
+#
+#server.app.log_file = /var/log/rhn/rhn_server_app.log
+
+#
+# web
+#
+web.download_url = #FIXME
+web.mail_server_errors = user0@redhat.com, user1@redhat.com
+
+#web.session_swap_secret_1 = *installer generated*
+#web.session_swap_secret_2 = *installer generated*
+#web.session_swap_secret_3 = *installer generated*
+#web.session_swap_secret_4 = *installer generated*
+
+#web.session_secret_1 = *installer generated*
+#web.session_secret_2 = *installer generated*
+#web.session_secret_3 = *installer generated*
+#web.session_secret_4 = *installer generated*
+
+web.rhnproc_server = #FIXME
+web.rhnproc_port =   #FIXME
+
+
+
+
+### COMPONENT DEFINITIONS ###
+#
+# *global*          - if the option is defined without a component prepended,
+#                     then that option is set globally unless overridden.
+#                     E.g. traceback_mail = bob@company.com, mary@company.com
+#
+# server            - all components that are of base component type "server"
+#                     will inherit these settings.
+#
+# server.satellite  - settings for the satellite component of the RHN Server.
+#                     E.g. server.satellite.traceback_mail = jill@company.com
+#                     (all error message for all server.satellite components
+#                     now are sent to Jill, whereas non-server.satellite
+#                     component error messages are still sent to Bob and Mary).
+#
+# server.app
+#                   - settings for the app components of the RHN Server.
+#
+# web               - XXX: web stuff
+
+
+
+
+### CONFIGURATION OPTION DEFINITIONS ###
+#
+#   NOTE: All components don't necessary understand all options listed below.
+#         Use the sample settings above as a reference as to what can and cannot
+#         be set. Comment (#) anything you wish to be unset/defaulted.
+#
+#   ** SERVER COMPONENT OPTIONS**
+#
+#   traceback_mail  - indicates where tracebacks (crash information) is mailed.
+#                     traceback_mail = user0@company.com, user1@company.com
+#                     NOTE: any options with a comma indicates a list of items.
+#
+#   quiet_mail      - The two main components of the RHN Proxy Solution (broker
+#                     and redirect) use Apache extensively. As Apache reuses
+#                     processes, sometimes an error may occurs that generates
+#                     multiple copies of the same "traceback". The quiet_mail
+#                     setting limits the number of duplicate tracebacks sent
+#                     from 1 error.
+#
+#   debug           - Debug level. To increase verbosity of logs to the log
+#                     files, increase the value.
+#                     Debug levels are arbitrary to a certain degree, but here
+#                     is a rough summary of what each means:
+#                     LEVEL   MEANING
+#                     0       nearly nothing at all is logged
+#                     1       minimal debug information logged
+#                     2       some debug information logged
+#                     3       somewhat verbose (most function calls and methods
+#                             are logged)
+#                     4       verbose
+#                     5       very verbose (nearly everything)
+#                     6       everything including some things only meaningful
+#                             to developers
+#
+#   log_file        - each component can have it's own log file.
+#
+#   mount_point     - FIXME
+#
+#   encrypted_passwords
+#                   - client passwords can be stored encrypted or plaintext
+#                     in the database. Possible values are 0 and 1.
+#
+#   http_proxy      - this is only used for component server.satellite and is
+#                     only important to the satellite-sync tool. If one must
+#                     connect to Red Hat's servers via a corporate http_proxy
+#                     it can be set here. To leave it unset, either comment
+#                     that line or leave the value blank.
+#                     e.g. somehttpproxy.example.com:8080
+#                     ...or, to leave unset:
+#                     e.g. proxy.broker.http_proxy =
+#
+#   http_proxy_username
+#   http_proxy_password
+#                   - username and password for that http_proxy if need be.
+#
+#
+#   ** WEB COMPONENT OPTIONS**
+#
+#   download_url    - FIXME
+#
+#   mail_server_errors = user0@redhat.com, user1@redhat.com
+#
+#   session_swap_secret_1
+#   session_swap_secret_2
+#   session_swap_secret_3
+#   session_swap_secret_4
+#                   - these are produced by the initial installation. Do not
+#                     even think of altering these.
+#
+#   session_secret_1
+#   session_secret_2
+#   session_secret_3
+#   session_secret_4
+#                   - these are produced by the initial installation. Do not
+#                     even think of altering these.
+#
+#   rhnproc_server  - FIXME
+#   rhnproc_port    - FIXME
+#

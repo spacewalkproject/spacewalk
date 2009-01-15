@@ -1,0 +1,19 @@
+Python Backend Tests
+
+Use runtests*.py scripts to run the various suites of tests. Install
+python-testoob if you'd like slightly prettier test output or tools
+like --regex=testname.
+
+runtests.py
+- Pure unit tests, no disk, network, or database required.
+- Should be lightning fast and able to run in just about any environment.
+
+runtests-postgresql.py
+- PostgreSQL database tests.
+- Requires connectivity to a PostgreSQL database, read script for connection
+  details.
+
+runtests-oracle.py
+- Oracle database tests.
+- Requires connectivity to an Oracle database, read script for connection
+  details.

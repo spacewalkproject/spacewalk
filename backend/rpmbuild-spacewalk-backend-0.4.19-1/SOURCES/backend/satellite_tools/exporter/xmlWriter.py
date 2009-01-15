@@ -1,0 +1,158 @@
+#!/usr/bin/python
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+# 
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation. 
+#
+# UTF-8 aware XML writer
+#
+
+import re
+import sys
+
+class XMLWriter:
+    """
+    XML writer, UTF-8 aware
+    """
+    if hasattr(sys, 'version_info'):
+        # new enough
+        _with_native_unicode = 1
+    else:
+        import iconv
+        _with_native_unicode = 0
+    
+    # We escape &<>'" and chars UTF-8 does not properly escape (everything
+    # other than tab (\x09), newline and carriage return (\x0a and \x0d) and
+    # stuff above ASCII 32)
+    _re = re.compile("(&|<|>|'|\"|[^\x09\x0a\x0d\x20-\xFF])")
+    _escaped_chars = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&apos;',
+    }
+    def __init__(self, charset="iso-8859-1", encoding = "UTF-8", 
+            stream=sys.stdout, skip_xml_decl=0):
+        self.tag_stack = []
+        if charset[:9] != "iso-8859-":
+            raise Exception, "Unsupported charset"
+
+        self.charset = charset
+        self.encoding = encoding
+        self.stream = stream
+        if not skip_xml_decl:
+            self.stream.write('<?xml version="1.0" encoding="%s"?>' % self.encoding)
+        if not self._with_native_unicode:
+            # self.iconv is the iconv module
+            self._cd = self.iconv.CD(self.encoding, self.charset)
+
+    def _convert(self, s):
+        # Converts the string to the desired encoding
+        if not self._with_native_unicode:
+            return self._cd.iconv(s)
+        return unicode(s, self.charset).encode(self.encoding)
+
+    def open_tag(self, name, attributes={}, namespace=None):
+        "Opens a tag with the specified attributes"
+        return self._open_tag(None, name, attributes=attributes, 
+            namespace=namespace)
+
+    def empty_tag(self, name, attributes={}, namespace=None):
+        "Writes an empty tag with the specified attributes"
+        return self._open_tag(1, name, attributes=attributes,
+            namespace=namespace)
+    
+    # Now the function that does most of the work for open_tag and empty_tag
+    def _open_tag(self, empty, name, attributes={}, namespace=None):
+        if namespace:
+            name = "%s:%s" % (namespace, name)
+        self.stream.write("<")
+        self.data(name)
+        # Dump the attributes, if any
+        if attributes:
+            for k, v in attributes.items():
+                self.stream.write(" ")
+                self.data(k)
+                self.stream.write('="')
+                self.data(v)
+                self.stream.write('"')
+        if empty:
+            self.stream.write("/")
+        self.stream.write(">")
+
+        if not empty:
+            self.tag_stack.append(name)
+
+    def close_tag(self, name, namespace=None):
+        """
+        Closes a previously open tag.
+        This function raises an exception if the tag was not opened before, or
+        if it's been closed already.
+        """
+        if not self.tag_stack:
+            raise Exception, "Could not close tag %s: empty tag stack" % name
+        if namespace:
+            name = "%s:%s" % (namespace, name)
+
+        if self.tag_stack[-1] != name:
+            raise Exception, "Could not close tag %s if not opened before" % name
+        self.tag_stack.pop()
+
+        self.stream.write("</")
+        self.data(name)
+        self.stream.write(">")
+
+    def data(self, data_string):
+        "Writes the data, performing the necessary UTF-8 conversions"
+        if data_string is None:
+            data_string = ""
+        else:
+            data_string = str(data_string)
+
+        data_string = self._re.sub(self._sub_function, data_string)
+        self.stream.write(self._convert(data_string))
+
+    # Helper functions
+
+    # Substitution function for re
+    def _sub_function(self, match_object):
+        c = match_object.group()
+        if self._escaped_chars.has_key(c):
+            return self._escaped_chars[c]
+        #return "&#%d;" % ord(c)
+        return '?'
+
+    def flush(self):
+        self.stream.flush()
+
+    def __del__(self):
+        if self._with_native_unicode:
+            # Nothing to do
+            return
+        self._cd.close()
+        self._cd = None
+
+if __name__ == '__main__':
+    weirdtag = chr(248) + 'gootag'
+    writer = XMLWriter()
+    writer.open_tag(weirdtag)
+    writer.open_tag("message")
+    writer.open_tag("text", attributes={'from' : 'Trond Eivind Glomsrød', 'to' : "Bernhard Rosenkr)Bänzer"})
+    writer.data("String with \"quotes\", 'apostroph', Trond Eivind Glomsrød\n  and Bernhard Rosenkr)Bänzer")
+    r = re.compile("(&|<|>|'|\"|[^\x09\x0a\x0d\x20-\xFF])")
+    writer.close_tag("text")
+    writer.close_tag("message")
+    writer.empty_tag("yahoo", attributes={'abc' : 1})
+    writer.close_tag(weirdtag)
+    print
+    

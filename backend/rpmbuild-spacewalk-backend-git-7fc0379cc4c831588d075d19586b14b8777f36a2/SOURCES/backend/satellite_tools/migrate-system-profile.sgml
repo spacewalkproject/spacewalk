@@ -1,0 +1,125 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Management Satellite Server" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>migrate-system-profile</RefEntryTitle><manvolnum>8</manvolnum>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>migrate-system-profile</command></RefName>
+<RefPurpose>
+Migrate a system between orgs. &RHNSAT;.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>migrate-system-profile</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> --satellite=<replaceable>SATELLITE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-u<replaceable>USERNAME</replaceable></arg>
+        <arg>--username=<replaceable>USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p<replaceable>PASSWORD</replaceable></arg>
+        <arg>--password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> --systemId=<replaceable>SYSTEMID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> --from-org-id=<replaceable>SOURCE_ORG_ID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> --to-org-id=<replaceable>TARGET_ORG_ID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg> --csv=<replaceable>CSV_FILE</replaceable> </arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg><arg> --verbose </arg>
+    </cmdsynopsis>   
+    <cmdsynopsis>
+        <arg>-h</arg><arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>migrate-system-profile</emphasis> migrates a system from one org to another.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--satellite </term>
+        <listitem>
+            <para> Satellite server on which migration needs to run. </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u<replaceable>USERNAME</replaceable>
+        --username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>username of user that has administrative access to migrate a system from the source org.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p<replaceable>PASSWORD</replaceable>
+        --password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>>password of user that has administrative access to migrate a system from the source org.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--systemId=<replaceable>SYSTEMID</replaceable></term>
+        <listitem>
+            <para> client system id to be migrated on the satellite server. </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--from-org-id=<replaceable>SOURCE_ORG_ID</replaceable></term>
+        <listitem>
+            <para> Source org id the client system belongs to. </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--to-org-id=<replaceable>TARGET_ORG_ID</replaceable></term>
+        <listitem>
+            <para> Target org id the client system will be migrated to. </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--csv=<replaceable>CSV_FILE</replaceable> </term>
+        <listitem>
+            <para> CSV file with data to be migrated. Each line should be of the format:
+                     systemId,from-org-id>,to-org-id </para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Pradeep Kilambi <email>pkilambi@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+

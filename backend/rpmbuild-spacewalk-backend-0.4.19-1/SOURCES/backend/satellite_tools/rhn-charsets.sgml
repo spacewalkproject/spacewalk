@@ -1,0 +1,86 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY COMMAND "rhn-charsets" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&COMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&COMMAND;</command></RefName>
+<RefPurpose>
+Fetch the database characterset types for an &RHNSAT;.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&COMMAND;</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--db <replaceable>USERNAME/PASSWORD@SID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg> <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+    <para> <emphasis>&COMMAND;</emphasis> fetches the database characterset
+    ('NLS_CHARACTERSET', 'NLS_NCHAR_CHARACTERSET') values for an &RHNSAT;.  By
+    default it uses the database connection string found in /etc/rhn/rhn.conf.
+    </para>
+
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--db <replaceable>USERNAME/PASSWORD@SID</replaceable></term>
+        <listitem>
+            <para>alternative database string. Default value is the DEFAULT_DB
+                  setting in /etc/rhn/rhn.conf</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member>/etc/rhn/rhn.conf</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>db-control(1) - embedded database environment only!</member>
+    <member>rhn-charsets(8)</member>
+    <member>rhnpush(8)</member>
+    <member>rhn-satellite-activate(8)</member>
+    <member>rhn-schema-version(8)</member>
+    <member>rhn-ssl-dbstore(8)</member>
+    <member>satellite-sync(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+

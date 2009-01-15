@@ -1,0 +1,99 @@
+                             migrate-system-profile
+
+Name
+
+   migrate-system-profile -- Migrate a system between organizations on the
+   RHN Satellite server .
+
+Synopsis
+
+                                                                             
+                                                                             
+   migrate-system-profile [options ...]                                      
+                                                                             
+                                                                             
+                                                                             
+   [ --satellite=SATELLITE]                                                  
+                                                                             
+                                                                             
+                                                                             
+   [-uUSERNAME] [--username=USERNAME]                                        
+                                                                             
+                                                                             
+                                                                             
+   [-pPASSWORD] [--password=PASSWORD]                                        
+                                                                             
+                                                                             
+                                                                             
+   [ --systemId=SYSTEMID]                                                    
+                                                                             
+                                                                             
+                                                                             
+   [ --from-org-id=SOURCE_ORG_ID]                                            
+                                                                             
+                                                                             
+                                                                             
+   [ --to-org-id=TARGET_ORG_ID]                                              
+                                                                             
+                                                                             
+                                                                             
+   [ --csv=CSV_FILE ]                                                        
+                                                                             
+                                                                             
+                                                                             
+   [-v] [ --verbose ]                                                        
+                                                                             
+                                                                             
+                                                                             
+                                                                             
+   [-h] [--help]                                                             
+
+Description
+
+   migrate-system-profile migrates a system from one org to another.
+
+Options
+
+   -h, --help
+
+           Display the help screen with a list of options.
+
+   --satellite
+
+           Satellite server on which migration needs to run.
+
+   -uUSERNAME --username=USERNAME
+
+           username of user that has administrative access to migrate a
+           system from the source org.
+
+   -pPASSWORD --password=PASSWORD
+
+           >password of user that has administrative access to migrate a
+           system from the source org.
+
+   --systemId=SYSTEMID
+
+           client system id to be migrated on the satellite server.
+
+   --from-org-id=SOURCE_ORG_ID
+
+           Source org id the client system belongs to.
+
+   --to-org-id=TARGET_ORG_ID
+
+           Target org id the client system will be migrated to.
+
+   --csv=CSV_FILE
+
+           CSV file with data to be migrated. Each line should be of the
+           format: systemId,from-org-id>,to-org-id
+
+Authors
+
+   Pradeep Kilambi <[1]pkilambi@redhat.com>
+
+References
+
+   Visible links
+   1. mailto:pkilambi@redhat.com

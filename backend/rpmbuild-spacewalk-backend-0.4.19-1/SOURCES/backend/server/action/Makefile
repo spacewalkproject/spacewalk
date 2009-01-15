@@ -1,0 +1,13 @@
+# Makefile for the action handlers module
+#
+# $Id$
+
+TOP	= ../..
+SUBDIR	= server/action
+
+FILES	= __init__ configfiles kickstart kickstart_guest packages errata hardware reboot \
+          rollback activation solarispkgs script rhnsd rhn_applet virt kickstart_host \
+          utils
+
+include $(TOP)/Makefile.defs
+

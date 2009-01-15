@@ -1,0 +1,490 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNSYNC "RHN Satellite Incremental Synchronization Tool" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>satellite-sync</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 3.1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>satellite-sync</command></RefName>
+<RefPurpose>
+Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red Hat's RHN DB and RPM repository.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>satellite-sync</command>
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>-m<replaceable>DIRECTORY</replaceable></arg>
+        <arg>--mount-point=<replaceable>DIRECTORY</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--list-channels</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-c<replaceable>CHANNEL</replaceable></arg>
+        <arg>--channel=<replaceable>CHANNEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--iss-parent=<replaceable>ISS_PARENT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p</arg> <arg>--print-configuration</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--step=[<replaceable>channels|rpms|packages|<!--source-packages|srpms|-->errata|kickstarts</replaceable>]</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-rpms</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-packages</arg> <arg>--force-all-packages</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-ssl</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--force-all-errata</arg>
+    </cmdsynopsis>
+<!--
+    <cmdsynopsis>
+        <arg>- -source-packages</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>- -no-source-packages</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>- -no-srpms</arg>
+    </cmdsynopsis>
+-->
+    <cmdsynopsis>
+        <arg>--no-errata</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-kickstarts</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--cache-refresh-level=<replaceable>REFRESH_LEVEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--debug-level=<replaceable>DEBUG_LEVEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--email</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--traceback-mail=<replaceable>EMAIL_ADDESS(ES)</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-s<replaceable>HOSTNAME</replaceable></arg>
+        <arg>--server=<replaceable>HOSTNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy=<replaceable>HOSTNAME:PORT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy-username=<replaceable>USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy-password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--ca-cert=<replaceable>SSL_CA_CERT_FULL_PATH</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-d<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
+        <arg>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--orgid=<replaceable>ORGID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--systemid=<replaceable>SYSTEMID_PATH</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--batch-size=<replaceable>BATCH_SIZE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--list-error-codes</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-ssl</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg> <arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The &RHNSYNC; (<emphasis>satellite-sync</emphasis>) synchronizes
+    an &RHNSAT; with Red Hat's RHN servers.
+</para>
+<para>
+    This tool enables an &RHNSAT; to update its database metadata and
+    RPM packages with that of Red Hat. This action can be performed via
+    the internet (ie. directly) or via the local file-system (an update/channel
+    CD dumped to the appropriate mount point).
+</para>
+<para>
+    Options set by default if no options given: --cache-refresh-level 2, and
+    all --step options.
+</para>
+<para>
+    The --step options describe a step in a process (channels,
+    rpms, packages, errata, kickstarts). I.e. by default, the process is:
+</para>
+<para>
+        <!--
+        <simplelist>
+            <member>o arches: sync arch data</member>
+        </simplelist>
+        <simplelist>
+            <member>o channel-families: sync channel family data</member>
+        </simplelist>
+        -->
+        <simplelist>
+            <member>o channels: sync channel data</member>
+        </simplelist>
+        <simplelist>
+            <member>o rpms: sync (fetch) rpms</member>
+        </simplelist>
+        <simplelist>
+            <member>o packages: sync full package metadata for those rpms fetched successfully</member>
+        </simplelist>
+        <simplelist>
+            <member>o errata: sync errata data</member>
+        </simplelist>
+        <simplelist>
+            <member>o kickstarts: sync kickstart data</member>
+        </simplelist>
+</para>
+<para>
+    Each option is dependent on the other. So, for example, if you use
+    "--step packages" and no other option, all other steps that occur prior to
+    the "packages" step will be performed as well.
+</para>
+<para>
+    As can be imagined, "--step channels" is called for nearly all operations.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-m<replaceable>DIRECTORY</replaceable>,
+            --mount-point=<replaceable>DIRECTORY</replaceable></term>
+        <listitem>
+            <para>mount point for import : disk update or disconnected install only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-channels</term>
+        <listitem>
+            <para>list all available channels for import/syncing and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c<replaceable>CHANNEL</replaceable>,
+            --channel=<replaceable>CHANNEL</replaceable></term>
+        <listitem>
+            <para>process data for this channel only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--iss-parent</term>
+        <listitem>
+            <para>parent satellite to import content from.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p, --print-configuration</term>
+        <listitem>
+            <para>print the current configuration and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-ssl</term>
+        <listitem>
+            <para>turn off SSL (not recommended).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-rpms</term>
+        <listitem>
+            <para>do not fetch actual rpms.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-packages</term>
+        <listitem>
+            <para>do not process full package metadata.</para>
+        </listitem>
+    </varlistentry>
+    <!--
+    <varlistentry>
+        <term>- -source-packages</term>
+        <listitem>
+            <para>do not process source package metadata.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>- -no-source-packages</term>
+        <listitem>
+            <para>do not process source package metadata.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>- -no-srpms</term>
+        <listitem>
+            <para></para>
+        </listitem>
+    </varlistentry>
+    -->
+    <varlistentry>
+        <term>--no-errata</term>
+        <listitem>
+            <para>do not process errata data.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-kickstarts</term>
+        <listitem>
+            <para>do not process kickstart data (provisioning feature).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force-all-packages</term>
+        <listitem>
+            <simpara>forcibly process all full package metadata regardless of diff results.</simpara>
+            <simpara>This option will automatically enable --step rpms.</simpara>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force-all-errata</term>
+        <listitem>
+            <simpara>forcibly process all errata metadata regardless of diff results.</simpara>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--cache-refresh-level=<replaceable>REFRESH_LEVEL</replaceable></term>
+        <listitem>
+            <para>DEPRECATED: provided for backward compatability only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--debug-level=<replaceable>DEBUG_LEVEL</replaceable></term>
+        <listitem>
+            <para>Override the level (amount) of messaging to both the
+            log files and the screen. This debug level is set in
+            /etc/rhn/rhn.conf (the debug variable). The default setting
+            (for normal levels of messaging) is 2. --debug-level can be set
+            to a level between 0 (nearly no messaging) to 6 (insane amount of
+            messaging).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--email</term>
+        <listitem>
+            <para>e-mail a report of what was synced/imported (sent to whomever
+            is considered the receiver of "traceback_email").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--traceback-mail=<replaceable>EMAIL_ADDRESS(ES)</replaceable></term>
+        <listitem>
+            <para>alternative email address(es) for all sync correspondence.
+            Example: --traceback-mail="user1@example.com, user2@example.com".</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s<replaceable>HOSTNAME</replaceable>,
+           --server=<replaceable>HOSTNAME</replaceable></term>
+        <listitem>
+            <para>alternative server with which to connect (hostname).</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>DEBUGGING and EXPERIMENTAL Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--step=[<replaceable>channels|rpms|packages|errata|kickstarts</replaceable>]</term>
+        <listitem>
+            <para>DEBUG ONLY:</para>
+            <para>Perform the sync process *only* to the step specified</para>
+            <variablelist>
+                <!--
+                <varlistentry>
+                <term>channel-families</term>
+                <listitem>
+                    <para>process channel family data. ***don't use this
+                    option*** It is rarely used. The step, "channels",
+                    or nearly any other step, will process channel families
+                    as well.</para>
+                </listitem>
+                </varlistentry>
+                -->
+                <varlistentry>
+                <term>channels</term>
+                <listitem>
+                    <para>process channel data. This option will automatically
+                    enable the "arches" step.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>rpms</term>
+                <listitem>
+                    <para>fetch rpms and fill repository. This option will
+                    automatically enable the "channels" step.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>packages</term>
+                <listitem>
+                    <para>process full package metadata (can be very slow). This
+                    option will automatically enable the "rpms" step.</para>
+                </listitem>
+                </varlistentry>
+                <!--
+                <varlistentry>
+                <term>source-packages</term>
+                <listitem>
+                    <para>process source package metadata.</para>
+                    <para>this option will automatically enable -step packages.</para>
+                </listitem>
+                </varlistentry>
+                -->
+                <varlistentry>
+                <term>errata</term>
+                <listitem>
+                    <para>process errata data. This option will
+                    automatically enable the "channels" step.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>kickstarts</term>
+                <listitem>
+                    <simpara>process kickstart data (metadata and files) for 
+                    provisioning. This option will automatically enable the 
+                    "channels" step.</simpara>
+                </listitem>
+                </varlistentry>
+            </variablelist>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy=<replaceable>HOSTNAME:PORT</replaceable></term>
+        <listitem>
+            <para>alternative http proxy (hostname:port)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>alternative http proxy username</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>alternative http proxy password</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ca-cert=<replaceable>SSL_CA_CERT_FULL_PATH</replaceable></term>
+        <listitem>
+            <para>alternative SSL CA Cert (fullpath to cert file)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d<replaceable>DBUSERNAME/DBPASSWORD@DB</replaceable>,
+           --db=<replaceable>DBUSERNAME/DBPASSWORD@DB</replaceable></term>
+        <listitem>
+            <para>alternative database connection string (username/password@sid).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--orgid=<replaceable>ORGID</replaceable></term>
+        <listitem>
+            <para>org to which the sync imports data. defaults to the org in the export.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--systemid=<replaceable>SYSTEMID_PATH</replaceable></term>
+        <listitem>
+            <para>DEBUG ONLY: alternative path to digital system id. This option
+            is generally only useful for internal testing.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--batch-size=<replaceable>BATCH_SIZE</replaceable></term>
+        <listitem>
+            <para>DEBUG ONLY: maximum batch-size for XML/database-import processing
+            (1..50).</para>
+            <para>This option should not be used except for debugging
+            purposes. The most useful case being --batch-size=1 where the
+            XML parser and database import process each piece of meta-data
+            one at a time, isolating any issues.</para>
+            <para>WARNING: --batch-size=1 will dramatically slow down the
+            sync process.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--list-error-codes</term>
+        <listitem>
+            <para>list the possible exit codes for satellite-sync</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member><command>satellite-sync --list-channels</command></member>
+        <member><command>satellite-sync --channel=rhel-i386-as-3</command></member>
+        <member><command>satellite-sync -c rhel-i386-as-3 -c redhat-advanced-server-i386</command></member>
+        <member><command>satellite-sync -m /var/tmp/channel-dumps --list-channels</command></member>
+        <member><command>satellite-sync -m /var/tmp/channel-dumps -c rhel-i386-as-3</command></member>
+        <member><command>satellite-sync --iss-parent=stage-satellite.yourorg.com -c rhel-i386-as-4</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>db-control(1) - embedded database environment only!</member>
+    <member>rhn-charsets(8)</member>
+    <member>rhnpush(8)</member>
+    <member>rhn-satellite-activate(8)</member>
+    <member>rhn-schema-version(8)</member>
+    <member>rhn-ssl-dbstore(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+    <member>Pradeep Kilambi <email>pkilambi@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
+
+<!--
+vim: sw=4
+-->
