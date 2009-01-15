@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.15
+Version: 0.4.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -220,6 +220,11 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Thu Jan 15 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.16-1
+- 456467 - Fixed bug where the set of packages to remove was being cleared
+- before scheduling
+
+
 * Wed Jan 14 2009 Mike McCune <mmccune@gmail.com> 0.4.15-1
 - 461162 - properly fetch guest name from form
 
