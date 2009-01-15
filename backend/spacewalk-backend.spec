@@ -522,6 +522,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
+%{_mandir}/man8/migrate-system-profile.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
