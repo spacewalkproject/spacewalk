@@ -1483,7 +1483,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ServerFactory.save(s2);
         
         List packagesToSync = new LinkedList();
-        packagesToSync.add(new Integer(p2.getPackageName().getId().intValue()));
+        packagesToSync.add(new Integer(p2.getId().intValue()));
         
         // This call has an embedded transaction in the stored procedure:
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)
