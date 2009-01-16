@@ -4,7 +4,7 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.0
+Version:      1.216.1
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -67,7 +67,7 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com>
+* Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.1-1
 - fix path to generate_config.log
 
 * Sat Jan 10 2009 Milan Zazrivec 1.215.47-1
