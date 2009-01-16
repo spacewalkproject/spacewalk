@@ -131,6 +131,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com>
+- fix path to notif-escalator.log again
+
 * Sat Jan 10 2009 Milan Zazrivec 1.125.26-1
 - move web data from under /usr/share/nocpulse to /var/www
 
