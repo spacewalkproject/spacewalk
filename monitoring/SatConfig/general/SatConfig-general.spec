@@ -68,7 +68,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.2-1
-- fix path to generate_config.log, notif-launcher.log and notif-escalator.log
+- fix path to generate_config.log, notif-launcher.log,
+  notif-escalator.log and notifier.log
 
 * Sat Jan 10 2009 Milan Zazrivec 1.215.47-1
 - move content from under /usr/share/nocpulse to /var/www
