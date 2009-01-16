@@ -16,5 +16,8 @@
 -- $Id$
 --
 
-alter TABLE rhnPackage MODIFY (compat number(1));
+alter TABLE rhnPackage add (compat_new number(1) default 0);
+update rhnPackage set compat_new = compat;
+alter TABLE rhnPackage drop column compat;
+alter TABLE rhnPackage rename column compat_new to compat;
 show errors
