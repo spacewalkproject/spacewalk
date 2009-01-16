@@ -10,7 +10,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.125.26
+Version:      1.125.27
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -131,7 +131,7 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com>
+* Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com> 1.125.27-1
 - fix path to notif-escalator.log again
 
 * Sat Jan 10 2009 Milan Zazrivec 1.125.26-1
