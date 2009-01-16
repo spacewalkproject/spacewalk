@@ -2894,6 +2894,7 @@ public class SystemHandler extends BaseHandler {
             Integer i = (Integer)it.next();
             
             Package pkg = PackageManager.lookupByIdAndUser(i.longValue(), loggedInUser);
+
             if (pkg != null) {
                 StringBuilder idCombo = new StringBuilder();
                 idCombo.append(pkg.getPackageName().getId()).append("|");
@@ -2903,7 +2904,7 @@ public class SystemHandler extends BaseHandler {
                 if (pkg.getPackageArch() != null) {
                     idCombo.append(pkg.getPackageArch().getId());
                 }
-                pkgIdCombos.add(idCombo);
+                pkgIdCombos.add(idCombo.toString());
             }
         }
 
