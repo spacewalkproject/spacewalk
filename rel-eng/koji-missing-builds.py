@@ -48,11 +48,11 @@ for rpm in rpmlist[1]:
     nvrs.append(rpmname)
     kojinames.append([rpm['name'], rpmname])
 
-pkgfileList = os.listdir('packages/')
+pkgfileList = os.listdir( '%s/packages/' % str(os.path.abspath(__file__)).strip('koji-missing-builds.py'))
 pkgfileList.remove('.README')
 
 for pkg in pkgfileList:
-    fd = open('packages/%s' % pkg)
+    fd = open('%s/packages/%s' % (str(os.path.abspath(__file__)).strip('koji-missing-builds.py'), pkg))
     pkginfo = fd.read()
     fd.close()
     pkginfo = pkginfo.split()
