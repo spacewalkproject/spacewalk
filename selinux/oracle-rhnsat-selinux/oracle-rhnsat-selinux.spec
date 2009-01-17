@@ -24,8 +24,7 @@ Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-selinux
 Requires:         oracle-server = 10.2.0.4
-Requires:         oracle-selinux >= 0.1-23.1
-Requires:         oracle-selinux < 0.1-23.2
+Requires:         oracle-nofcontext-selinux
 
 %description
 SELinux policy module supporting Satellite embedded Oracle server.
@@ -83,7 +82,7 @@ for selinuxvariant in %{selinux_variants}
 rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
 
 # Fix up database files
-/sbin/restorecon -R -v /rhnsat || :
+/sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
 
 %postun
 # Clean up after package removal
@@ -98,7 +97,7 @@ if [ $1 -eq 0 ]; then
   rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
 
   # Clean up any remaining file contexts (shouldn't be any really)
-  /sbin/restorecon -R -v /rhnsat || :
+  /sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
 fi
 
 %files
