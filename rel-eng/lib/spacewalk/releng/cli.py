@@ -111,13 +111,13 @@ class CLI:
                 help="Build srpm")
         parser.add_option("--rpm", dest="rpm", action="store_true",
                 help="Build rpm")
-        parser.add_option("--dist", dest="dist",
+        parser.add_option("--dist", dest="dist", metavar="DISTTAG",
                 help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
-        parser.add_option("--brew", dest="brew",
+        parser.add_option("--brew", dest="brew", metavar="BREWTAG",
                 help="Submit srpm for build in a brew tag.")
-        parser.add_option("--koji", dest="koji",
+        parser.add_option("--koji", dest="koji", metavar="KOJITAG",
                 help="Submit srpm for build in a koji tag.")
-        parser.add_option("--koji-opts", dest="koji_opts",
+        parser.add_option("--koji-opts", dest="koji_opts", metavar="KOJIOPTIONS",
                 help="%s %s %s" %
                 (
                     "Options to use with brew/koji command.",
@@ -129,7 +129,7 @@ class CLI:
                 help="use current branch HEAD instead of latest package tag")
         parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
                 help="do not clean up temporary build directories/files")
-        parser.add_option("--tag", dest="tag",
+        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
                 help="build a specific tag instead of the latest version " +
                     "(i.e. spacewalk-java-0.4.0-1)")
         parser.add_option("--debug", dest="debug", action="store_true",
