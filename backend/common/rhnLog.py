@@ -184,7 +184,7 @@ class rhnLog:
         # else, open it as a real file, with locking and stuff        
         try:
             # try to open it in line buffered mode
-            self.fd = open(self.file, "a+", 1)
+            self.fd = open(self.file, "a", 1)
             set_close_on_exec(self.fd)
             if newfileYN:
                 apache_uid, apache_gid = getUidGid('apache', 'apache')
