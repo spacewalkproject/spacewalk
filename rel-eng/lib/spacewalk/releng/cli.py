@@ -144,10 +144,29 @@ class CLI:
         parser.add_option("--keep-version", dest="keep_version",
                 action="store_true",
                 help="Use spec file version/release to tag package.")
+
+        parser.add_option("--untagged-diffs", dest="untagged_report",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out diffs for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
+
         (options, args) = parser.parse_args()
 
         if len(sys.argv) < 2:
             print parser.error("Must supply an argument. Try -h for help.")
+
+        global_config = self._read_global_config()
+
+        # TODO: Shortcut here, build.py does some things unrelated to
+        # building/tagging packages, check for these options, do what's
+        # requested, and exit rather than start looking up data specific
+        # to building etc. This really should be cleaned up.
+        if options.untagged_report:
+            self._run_untagged_report(global_config)
+            sys.exit(1)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
@@ -157,7 +176,6 @@ class CLI:
             os.environ['DEBUG'] = "true"
 
         build_dir = lookup_build_dir()
-        global_config = self._read_global_config()
         package_name = get_project_name(tag=options.tag)
 
         build_tag = None
@@ -179,12 +197,11 @@ class CLI:
         pkg_config = self._read_project_config(package_name, build_dir,
                 options.tag, options.no_cleanup)
 
-        # Now that we have command line options, instantiate builder/tagger:
+        # Actually do things:
         if building:
             self._run_builder(package_name, build_tag, build_version, options,
                     pkg_config, global_config, build_dir)
-
-        if tagging:
+        elif tagging:
             self._run_tagger(options, pkg_config, global_config)
 
     def _run_builder(self, package_name, build_tag, build_version, options,
@@ -226,6 +243,57 @@ class CLI:
         tagger = tagger_class(global_config=global_config,
                 keep_version=options.keep_version)
         tagger.run(options)
+
+    def _run_untagged_report(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_diff(global_config, md_file, version, project_dir)
+
+    def _print_diff(self, global_config, package_name, version, project_dir):
+        """
+        Print a diff between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git diff --relative %s..%s" % \
+                (last_tag, "HEAD")
+        output = run_command(patch_command)
+
+        # If the diff contains 1 line then there is no diff:
+        linecount = len(output.split("\n"))
+        if linecount == 1:
+            return
+
+        # Otherwise, print out info on the diff for this package:
+        print("#" * len(package_name))
+        print(package_name)
+        print("#" * len(package_name))
+        print("")
+        print patch_command
+        print("")
+        print(output)
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
 
     def _read_global_config(self):
         """
