@@ -69,15 +69,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartIpRange" />
         </set>
         
-        <set name="options" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" >
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandOptions"/>
-        </set>
-        
-
-        
         <bag  name="partitions" inverse="true" table="rhnKickstartCommand"
              cascade="all-delete-orphan" outer-join="false" >
              <key column="kickstart_id"/>
@@ -178,14 +169,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 AND cname.name = 'partitions'
     </sql-query>
     
-    <sql-query name="commandOptions">
-            <load-collection alias="optcol" role="com.redhat.rhn.domain.kickstart.KickstartData.options"/>
-                SELECT {optcol.*}
-                FROM rhnKickstartCommand optcol, rhnKickstartCommandName cname 
+    <sql-query name="commandSort">
+            <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>
+                SELECT {sortcol.*}
+                FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname 
                 WHERE KICKSTART_ID = :id
-                AND optcol.ks_command_name_id = cname.id
-                AND cname.name NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom')
-    </sql-query>    
+                AND sortcol.ks_command_name_id = cname.id
+                ORDER BY cname.sort_order
+    </sql-query>
+    
+    
     
     <sql-query name="commandRaids">
             <load-collection alias="raidcol" role="com.redhat.rhn.domain.kickstart.KickstartData.raids"/>
@@ -221,15 +214,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 WHERE KICKSTART_ID = :id
                 AND includecol.ks_command_name_id = cname.id
                 AND cname.name = 'include'
-    </sql-query>
-    
-    <sql-query name="commandSort">
-            <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>
-                SELECT {sortcol.*}
-                FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND sortcol.ks_command_name_id = cname.id
-                ORDER BY cname.sort_order
     </sql-query>
     
     <sql-query name="commandRepos">

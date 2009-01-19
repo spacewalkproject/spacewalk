@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import org.apache.log4j.Logger;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -46,6 +48,12 @@ import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
  * @version $Rev: 1 $
  */
 public class KickstartAdvancedOptionsAction extends RhnAction {
+
+    /**
+     * Logger for this class
+     */
+    private static Logger log = Logger
+            .getLogger(KickstartAdvancedOptionsAction.class);
 
     public static final String OPTIONS = "options";
     public static final String CUSTOM_OPTIONS = "customOptions";
@@ -124,21 +132,24 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                         s.add(kc);
                     }                
                 }
-                cmd.getKickstartData().getOptions().clear();
-                cmd.getKickstartData().getOptions().addAll(s);
+                log.debug("Clearing all options");
+                cmd.getKickstartData().getCommands().removeAll(
+                        cmd.getKickstartData().getOptions());
+                log.debug("Adding all from GUI");
+                cmd.getKickstartData().getCommands().addAll(s);
+                
                 
 
                 //set custom options
                 String customOps = request.getParameter(CUSTOM_OPTIONS);
                 Set customSet = new HashSet();
-               if (customOps != null) { 
-                       for (StringTokenizer strtok = 
-                           new StringTokenizer(customOps, NEWLINE); 
-                   
-                                                    strtok .hasMoreTokens();) {
+                log.debug("Adding custom options");
+                if (customOps != null) {
+                    for (StringTokenizer strtok = new StringTokenizer(
+                            customOps, NEWLINE); strtok.hasMoreTokens();) {
                         KickstartCommand custom = new KickstartCommand();
-                        custom.setCommandName(
-                                KickstartFactory.lookupKickstartCommandName("custom"));
+                        custom.setCommandName(KickstartFactory
+                                .lookupKickstartCommandName("custom"));
                         custom.setArguments(strtok.nextToken());
                         custom.setKickstartData(cmd.getKickstartData());
                         custom.setCustomPosition(customSet.size());
@@ -146,11 +157,14 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                         custom.setModified(new Date());
                         customSet.add(custom);
                     }
-                   cmd.getKickstartData().getCustomOptions().clear();
-                   cmd.getKickstartData().getCustomOptions().addAll(customSet);    
-               }
+                    log.debug("Clearing custom options");
+                    cmd.getKickstartData().getCustomOptions().clear();
+                    log.debug("Adding all");
+                    cmd.getKickstartData().getCustomOptions().addAll(customSet);
+                }
 
                 cmd.store();
+                log.debug("stored.");
                 displayList = cmd.getDisplayOptions(); //refresh after storing
                 createSuccessMessage(request, getSuccessKey(), null);
             }

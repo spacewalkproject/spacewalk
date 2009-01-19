@@ -183,8 +183,8 @@ public class KickstartWizardHelper {
         ksdata.setOrg(currentUser.getOrg());
         ksdata.setCreated(new Date());
         if (!ksdata.isRawData()) {
-            if (ksdata.getOption("url") != null) {
-                ksdata.getOption("url").setCreated(new Date());
+            if (ksdata.getCommand("url") != null) {
+                ksdata.getCommand("url").setCreated(new Date());
             }
             if (ksdata.getCommand("url") != null) {
                 ksdata.getCommand("url").setCreated(new Date());

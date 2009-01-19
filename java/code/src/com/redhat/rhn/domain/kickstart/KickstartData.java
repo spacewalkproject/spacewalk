@@ -31,7 +31,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -72,13 +74,13 @@ public class KickstartData {
     private Set defaultRegTokens;
     private Set preserveFileLists;
     private List<PackageName> packageNames;        
-    private Set<KickstartCommand> commands;    
+    private Set<KickstartCommand> commands;
     private Collection partitions;   // rhnKickstartCommand partitions
     private Set includes;     // rhnKickstartCommand includes
     private Set raids;        // rhnKickstartCommand raids
     private Set logvols;      // rhnKickstartCommand logvols
     private Set volgroups;    // rhnKickstartCommand volgroups
-    private Set<KickstartCommand> options;      // rhnKickstartCommand options
+    
     private Set repos;        // rhnKickstartCommand repo
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
@@ -92,6 +94,10 @@ public class KickstartData {
     public static final String TYPE_WIZARD = "wizard";
     public static final String TYPE_RAW = "raw";
 
+    private static String[] advancedOptions = 
+        {"partitions", "raids", "logvols", "volgroups", "include", "repo", "custom"};
+    
+    private static final List ADANCED_OPTIONS = Arrays.asList(advancedOptions); 
     
     /**
      * Initializes properties.
@@ -107,7 +113,6 @@ public class KickstartData {
         raids = new TreeSet();
         logvols = new TreeSet();
         volgroups = new TreeSet();
-        options = new HashSet();
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
         postLog = new Boolean(false);
@@ -696,44 +701,25 @@ public class KickstartData {
      * @return Returns Kickstartcommand options 
      */
     public Set<KickstartCommand> getOptions() {
-        return this.options;
-    }
- 
-    /**
-     * Convenience method to find a option (Command) by name stopping at the first match
-     * @param commandName Command name
-     * @return command if found, otherwise null
-     */
-    public KickstartCommand getOption(String commandName) {
-        KickstartCommand retval = null;
-        if (this.options != null && this.options.size() > 0) {
-            for (Iterator iter = this.options.iterator(); iter.hasNext();) {
+        // 'partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom'
+        logger.debug("returning all commands except: " + ADANCED_OPTIONS);
+        Set retval = new HashSet();
+        if (this.commands != null && this.commands.size() > 0) {
+            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
                 KickstartCommand cmd = (KickstartCommand) iter.next();
-                if (cmd.getCommandName().getName().equals(commandName)) {
-                    retval = cmd;
-                    break;
+                logger.debug("working with: " + cmd.getCommandName().getName());
+                if (!ADANCED_OPTIONS.contains(cmd.getCommandName().getName())) {
+                    logger.debug("not contained within filtered list. adding to retval");
+                    retval.add(cmd);
                 }
             }
         }
-        return retval;
-    }
-
-    /**
-     * Setter for command Options
-     * @param o The Command Options List to set.
-     */
-    public void setOptions(Set o) {
-        this.options = o;
-    }
-        
-    /**
-     * Adds a option KickstartCommand object to options set.
-     * @param o option to add
-     */
-    public void addOption(KickstartCommand o) {
-        options.add(o);
+        logger.debug("returning: " + retval);
+        return Collections.unmodifiableSet(retval);
     }
     
+    
+     
     /**
      * 
      * @param kd KickstartDefaults to set
