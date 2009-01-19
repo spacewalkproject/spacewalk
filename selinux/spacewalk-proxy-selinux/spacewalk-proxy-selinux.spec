@@ -87,7 +87,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -rvvi /var/log/rhn
+/sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth
 
 %postun
 # Clean up after package removal
@@ -99,7 +99,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvvi /var/log/rhn
+/sbin/restorecon -rvvi /var/log/rhn /var/cache/rhn/proxy-auth
 
 %files
 %defattr(-,root,root,0755)
