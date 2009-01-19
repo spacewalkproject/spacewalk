@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhn-client-tools
-Version: 0.4.19
+Version: 0.4.20
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -193,7 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
-* Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com>
+* Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.20-1
 - Remove usage of version and sources files.
 
 * Fri Dec  5 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-17
