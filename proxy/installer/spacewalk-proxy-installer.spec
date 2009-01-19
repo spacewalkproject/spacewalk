@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.5.0
+Version: 0.5.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
-* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com>
+* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
 
 * Fri Dec 19 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
