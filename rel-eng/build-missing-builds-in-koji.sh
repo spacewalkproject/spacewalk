@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG=dist-5E-sw-0.4-candidate
+TAG=dist-5E-sw-0.5-candidate
 pushd `pwd`
 
 cd `dirname $0`/..
