@@ -61,7 +61,10 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
-* Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> -
+* Tue Nov 11 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.5.3-30%{?dist}
+- Resolves: #470988
+
+* Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.5.3-28%{?dist}
 - Resolves: #467043
 
 * Tue Oct 21 2008 John Matthews <jmatthews@redhat.com> - 0.5.3-27%{?dist}
