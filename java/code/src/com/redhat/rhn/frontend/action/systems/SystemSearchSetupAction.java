@@ -229,7 +229,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                       addErrors(request, errs);
                       request.setAttribute(SEARCH_STRING, null);
                       daForm.set(SEARCH_STRING, null);
-
+                      return mapping.findForward("error");
                   }
                   
                   Map forwardParams = makeParamMap(request);
