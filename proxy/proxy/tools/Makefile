@@ -19,7 +19,7 @@ SGMLS	= $(wildcard *.sgml)
 MANS	= $(patsubst %.sgml,%.8,$(SGMLS))
 
 BINDIR	= /usr/bin
-INITDIR = /etc/init.d
+INITDIR = /etc/rc.d/init.d
 MANDIR	?= /usr/share/man
 
 EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR) $(INITDIR)

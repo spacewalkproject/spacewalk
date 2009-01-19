@@ -78,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
+
 * Fri Dec 19 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - add man page for configure-proxy.sh and --help option
 

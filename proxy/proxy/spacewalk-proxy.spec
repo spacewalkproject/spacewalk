@@ -225,7 +225,7 @@ fi
 SERVICES="squid httpd jabberd MonitoringScout"
 
 for service in $SERVICES; do
-    if [ -e %{_sysconfdir}/init.d/$service ]; then
+    if [ -e %{_initrddir}/$service ]; then
         /sbin/chkconfig $service off
     fi
 done
@@ -321,7 +321,7 @@ fi
 %dir %{destdir}
 %dir %{destdir}/tools
 # service
-%attr(755,root,root) %{_sysconfdir}/init.d/rhn-proxy
+%attr(755,root,root) %{_initrddir}/rhn-proxy
 # bins
 %attr(755,root,root) %{_bindir}/rhn-proxy-debug
 # libs
@@ -332,6 +332,9 @@ fi
 
 
 %changelog
+* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
+
 * Wed Jan 14 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
 - own /var/cache/rhn/proxy-auth
 - fix typo in broker/rhnBroker.py

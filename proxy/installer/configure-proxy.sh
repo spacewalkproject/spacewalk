@@ -229,4 +229,4 @@ cat /etc/httpd/conf.d/ssl.conf.bak \
 	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
 	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > /etc/httpd/conf.d/ssl.conf
 
-/etc/init.d/rhn-proxy restart
+/sbin/service rhn-proxy restart
