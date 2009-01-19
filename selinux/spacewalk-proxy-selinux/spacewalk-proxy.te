@@ -1,0 +1,15 @@
+policy_module(spacewalk-proxy,@@VERSION@@)
+
+require {
+	type httpd_t;
+}
+
+type spacewalk_log_t;
+logging_log_file(spacewalk_log_t);
+type spacewalk_proxy_httpd_log_t;
+logging_log_file(spacewalk_proxy_httpd_log_t);
+
+filetrans_pattern(httpd_t, spacewalk_log_t, spacewalk_proxy_httpd_log_t, file)
+create_files_pattern(httpd_t, spacewalk_log_t, spacewalk_proxy_httpd_log_t)
+append_files_pattern(httpd_t, spacewalk_log_t, spacewalk_proxy_httpd_log_t)
+
