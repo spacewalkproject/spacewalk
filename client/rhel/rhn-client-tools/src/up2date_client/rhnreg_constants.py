@@ -354,7 +354,6 @@ SSL_CERT_EXPIRED           = _("<b><span size=\"12000\">Incompatible Certificate
                                " The certificate is expired. Please ensure you have the correct "
                                " certificate and your system time is correct.")
 
-
 SSL_CERT_FILE_NOT_FOUND_ERRER = _("Please verify the value of sslCACert in "
                                   "/etc/sysconfig/rhn/up2date")
 

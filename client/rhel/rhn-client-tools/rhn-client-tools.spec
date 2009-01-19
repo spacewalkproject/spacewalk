@@ -11,6 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires: rhnlib >= 2.1
+Requires: yum-rhn-plugin >= 0.5.3-30
 Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
@@ -98,7 +99,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/sysconfig/rhn/up2date
 %config(noreplace) /etc/logrotate.d/up2date
 %config(noreplace) /etc/rpm/macros.up2date
-%config(noreplace) /etc/yum.repos.d/rhn-emerg-updates.repo
 
 # dirs
 %dir /usr/share/rhn
@@ -194,6 +194,24 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
+* Fri Dec  5 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-17
+- Resolves: #473429 #473425
+
+* Tue Nov 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-15
+- Resolves: #249425 #405671
+
+* Wed Nov 12 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-10
+- Resolves: #471245
+
+* Tue Nov 11 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-9
+- Resolves: #249425 #470496 #231902 #470481
+
+* Wed Nov  5 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-8
+- Resolves: #429334 #249425 #231902
+
+* Mon Oct 27 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-6
+- Resolves: #467887
+
 * Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-5
 - Resolves: #467705 #467870 #468039
 

@@ -225,6 +225,7 @@ def doCall(method, *args, **kwargs):
             if e.errcode == 404:
                 log.log_me("Could not find URL, %s" % (e.url))
                 log.log_me("Check server name and/or URL, then retry\n");
+
             (errCode, errMsg) = rpclib.reportError(e.headers)
             reset = 0
             if abs(errCode) == 34:
