@@ -2,13 +2,8 @@ Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
 Group:   Applications/Internet
 License: GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd proxy/proxy
-# make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 0.5.0
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
@@ -334,6 +329,7 @@ fi
 %changelog
 * Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com>
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
+- point Source0 to fedorahosted.org
 
 * Wed Jan 14 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
 - own /var/cache/rhn/proxy-auth
