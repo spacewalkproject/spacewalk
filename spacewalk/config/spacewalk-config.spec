@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.4.24
+Version: 0.5.1
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -112,6 +112,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Mon Jan 19 2009 Jan Pazdziora 0.5.1-1
+- rebuilt for 0.5, after repository reorg
+
 * Wed Jan 14 2009 Mike McCune <mmccune@gmail.com> 0.4.24-1
 - 480095 - old package name for taskomatic
 
