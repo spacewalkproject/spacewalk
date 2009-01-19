@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         3%{?dist}
+Release:         4%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -22,7 +22,6 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:         oracle-selinux
 Requires:         oracle-server = 10.2.0.4
 Requires:         oracle-nofcontext-selinux
 
@@ -107,6 +106,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 10.2-4
+- Remove missed dependency on oracle-selinux.
+
 * Sat Jan 17 2009 Jan Pazdziora 10.2-3
 - require oracle-nofcontext-selinux, not oracle-selinux
 
