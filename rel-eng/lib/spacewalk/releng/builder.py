@@ -191,7 +191,7 @@ class Builder(object):
         output = run_command(cmd)
         print output
         files_written = self._find_wrote_in_rpmbuild_output(output)
-        if len(files_written) != 2:
+        if len(files_written) < 2:
             error_out("Error parsing rpmbuild output")
         self.srpm_location = files_written[0]
 
