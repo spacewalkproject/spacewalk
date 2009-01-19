@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.2
+Version: 0.5.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Mon Jan 19 2009 Jan Pazdziora 0.5.1-1
+- rebuilt for 0.5, after repository reorg
+
 * Tue Dec  9 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.2-1
 - fixed Obsoletes: rhns-* < 5.3.0
 
