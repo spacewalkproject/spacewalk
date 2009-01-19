@@ -194,6 +194,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
+* Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.19-4
+- blerg.
+
 * Fri Dec  5 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-17
 - Resolves: #473429 #473425
 
