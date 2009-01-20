@@ -147,7 +147,7 @@ public class ActivationKeyHandler extends BaseHandler {
         Map<String, String> values = new HashMap<String, String>();
         values.put("description", description);
         values.put("key", key);
-        if (usageLimit != null) {
+        if (usageLimit != null && usageLimit >= 0) {
             values.put("usageLimit", usageLimit.toString());
         }
 
