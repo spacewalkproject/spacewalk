@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
+- add proxy 5.3 webui installer
+
 * Thu Jan 15 2009 Jan Pazdziora 0.4.18-1
 - 479948 - add missing use RHN::Mail
 
