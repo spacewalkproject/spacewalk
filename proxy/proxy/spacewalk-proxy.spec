@@ -292,19 +292,17 @@ fi
 %dir %{destdir}/tools
 # service
 %attr(755,root,root) %{_sbindir}/rhn-proxy
-# bins
-%attr(755,root,root) %{_bindir}/rhn-proxy-debug
 # libs
 %{destdir}/tools/__init__.py*
 # mans
 %{_mandir}/man8/rhn-proxy.8*
-%{_mandir}/man8/rhn-proxy-debug.8*
 
 
 %changelog
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
 - 480328 - do not call chkconfig on
 - 480326 - do not start services
+- 465947 - remove rhn-proxy-debug
 
 * Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy

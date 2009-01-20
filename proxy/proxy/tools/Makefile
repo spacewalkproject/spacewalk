@@ -7,7 +7,7 @@ SUBDIR	= proxy/tools
 
 FILES = __init__  
 
-SCRIPTS = rhn-proxy-debug 
+SCRIPTS =  
 
 SERVICE_SCRIPTS = rhn-proxy
 
@@ -15,7 +15,6 @@ SERVICE_SCRIPTS = rhn-proxy
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 
 SGMLS	= $(wildcard *.sgml)
-#SGMLS	= rhn-proxy-debug.sgml
 MANS	= $(patsubst %.sgml,%.8,$(SGMLS))
 
 BINDIR	= /usr/bin
