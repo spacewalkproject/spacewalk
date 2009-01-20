@@ -9,13 +9,8 @@ Group: Applications/Internet
 License: GPLv2
 Version: 0.5.0
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd backend
-# make test-srpm
 URL:       https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
@@ -547,6 +542,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %changelog
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
 - 480757 - fix filenames generation in repomd for custom channels
+- change Source0 to point to fedorahosted.org
 
 * Thu Jan 15 2009 Pradeep Kilambi 0.4.22-1
 - include migrate-system-profile.8 file in the spec
