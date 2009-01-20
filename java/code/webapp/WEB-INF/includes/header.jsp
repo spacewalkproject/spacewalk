@@ -24,7 +24,9 @@
 
 <div id="header">
       <rhn:require acl="is(satellite)">
+        <a href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
           <img src="/img/logo.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" />
+        </a>
       </rhn:require>
       <rhn:require acl="user_authenticated()">
  <div id="searchbar">
