@@ -154,7 +154,7 @@ if [ -f %{_sysconfdir}/sysconfig/rhn/systemid ]; then
     chown root.apache %{_sysconfdir}/sysconfig/rhn/systemid
     chmod 0640 %{_sysconfdir}/sysconfig/rhn/systemid
 fi
-/sbin/service httpd graceful > /dev/null 2>&1
+/sbin/service httpd condrestart > /dev/null 2>&1
 
 # In case of an upgrade, get the configured package list directory and clear it
 # out.  Don't worry; it will be rebuilt by the proxy.
@@ -179,7 +179,7 @@ rm -rf $RHN_PKG_DIR/list
 exit 0
 
 %post redirect
-/sbin/service httpd graceful > /dev/null 2>&1
+/sbin/service httpd condrestart > /dev/null 2>&1
 # Make sure the scriptlet returns with success
 exit 0
 
@@ -191,18 +191,14 @@ if rhncfg-client verify %{_sysconfdir}/rhn/rhn.conf 2>&1|grep 'Not found'; then
      %{_bindir}/rhncfg-client get %{_sysconfdir}/rhn/rhn.conf
 fi > /dev/null 2>&1
 if rhncfg-client verify %{_sysconfdir}/squid/squid.conf | grep -E '(modified|missing)'; then
-    /sbin/service squid stop
     rhncfg-client get %{_sysconfdir}/squid/squid.conf 
     rm -rf %{_var}/spool/squid/*
     %{_usr}/sbin/squid -z
-    /sbin/service squid start
+    /sbin/service squid condrestart
 fi > /dev/null 2>&1
 if rhncfg-client verify %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf | grep -E '(modified|missing)'; then
-    /sbin/service httpd stop
     %{_usr}/bin/rhncfg-client get %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf
-    /sbin/service httpd start
-else 
-    /sbin/service httpd graceful
+/sbin/service httpd condrestart
 fi > /dev/null 2>&1
 
 exit 0
@@ -308,6 +304,7 @@ fi
 %changelog
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
 - 480328 - do not call chkconfig on
+- 480326 - do not start services
 
 * Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy

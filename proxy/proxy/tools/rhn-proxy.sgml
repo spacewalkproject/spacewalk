@@ -8,7 +8,7 @@
 
 <RefMeta>
 <RefEntryTitle>&COMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
-<RefMiscInfo>Version 4.0</RefMiscInfo>
+<RefMiscInfo>Version 0.5</RefMiscInfo>
 </RefMeta>
 
 <RefNameDiv>
@@ -22,7 +22,7 @@
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>/sbin/service &COMMAND; start|stop|status|restart|reload</command> 
+        <command>/usr/sbin/&COMMAND; start|stop|status|restart|reload</command> 
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
