@@ -545,6 +545,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480757 - fix filenames generation in repomd for custom channels
+
 * Thu Jan 15 2009 Pradeep Kilambi 0.4.22-1
 - include migrate-system-profile.8 file in the spec
 
