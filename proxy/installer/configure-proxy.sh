@@ -229,4 +229,15 @@ cat /etc/httpd/conf.d/ssl.conf.bak \
 	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
 	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > /etc/httpd/conf.d/ssl.conf
 
-/sbin/service rhn-proxy restart
+echo "Enabling Spacewalk Proxy."
+if [ $ENABLE_SCOUT -ne 0 ]; then
+  MonitoringScout="MonitoringScout"
+fi
+for service in squid httpd jabberd $MonitoringScout; do
+  /sbin/chkconfig --add $service 
+  if [ "$1" = "1" ] ; then  # first install
+      /sbin/chkconfig --level 345 $service on 
+  fi
+done
+/usr/sbin/rhn-proxy restart
+

@@ -16,6 +16,7 @@ Requires: rhncfg
 Requires: rhncfg-management
 Requires: rhncfg-actions
 Requires: glibc-common
+Requires: chkconfig
 Requires: httpd
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
@@ -78,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480328 - enable services after installation
+
 * Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
 

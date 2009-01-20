@@ -120,8 +120,6 @@ Group:   Applications/Internet
 Summary: Miscellaneous tools for the Spacewalk Proxy Server
 Requires: %{name}-broker
 Requires: python-optik
-Requires(post): chkconfig
-Requires(preun): chkconfig
 Requires(preun): initscripts
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools < 5.3.0
@@ -207,24 +205,6 @@ else
     /sbin/service httpd graceful
 fi > /dev/null 2>&1
 
-# Make sure the services are configured to start
-# Dependent services are handled by the rhn-proxy service, so make
-# sure they do not start on their own, and are instead governed by
-# rhn-proxy, which does start on boot.
-
-/sbin/chkconfig --add rhn-proxy
-if [ "$1" = "1" ] ; then  # first install
-    /sbin/chkconfig --level 345 rhn-proxy on
-fi
-
-SERVICES="squid httpd jabberd MonitoringScout"
-
-for service in $SERVICES; do
-    if [ -e %{_initrddir}/$service ]; then
-        /sbin/chkconfig $service off
-    fi
-done
-
 exit 0
 
 %preun broker
@@ -233,8 +213,7 @@ rm -rf %{_var}/cache/rhn/*
 
 %preun
 if [ $1 = 0 ] ; then
-    /sbin/service rhn-proxy stop >/dev/null 2>&1
-    /sbin/chkconfig --del rhn-proxy
+    /sbin/service httpd condrestart >/dev/null 2>&1
 fi
 
 # Empty files list for rhns-proxy-management, we use it only to pull in the 
@@ -316,7 +295,7 @@ fi
 %dir %{destdir}
 %dir %{destdir}/tools
 # service
-%attr(755,root,root) %{_initrddir}/rhn-proxy
+%attr(755,root,root) %{_sbindir}/rhn-proxy
 # bins
 %attr(755,root,root) %{_bindir}/rhn-proxy-debug
 # libs
@@ -327,6 +306,9 @@ fi
 
 
 %changelog
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480328 - do not call chkconfig on
+
 * Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
 - point Source0 to fedorahosted.org
