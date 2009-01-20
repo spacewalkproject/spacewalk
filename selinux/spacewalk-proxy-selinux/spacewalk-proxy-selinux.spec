@@ -8,7 +8,7 @@
 
 Name:           spacewalk-proxy-selinux
 Version:        0.5.1
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
 Group:          System Environment/Base
@@ -110,5 +110,5 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
-* Mon Jan 19 2008 Jan Pazdziora
+* Tue Jan 20 2009 Jan Pazdziora 0.5.1-1
 - the initial release, based on spacewalk-selinux
