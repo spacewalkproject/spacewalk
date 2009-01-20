@@ -24,13 +24,18 @@ Requires: squid
 Requires: spacewalk-backend
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
-Requires: %{name}-tools = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
 Requires: jabberd
+Requires: sos
+Requires(preun): initscripts
 Obsoletes: rhns-proxy < 5.3.0
 Obsoletes: rhns-proxy-management < 5.3.0
+BuildRequires: /usr/bin/docbook2man
+Obsoletes: rhns-proxy-tools < 5.3.0
+Obsoletes: spacewalk-proxy-tools < 0.5.0
+Provides: spacewalk-proxy-tools
 
 %description management
 Spacewalk Management Proxy components.
@@ -115,24 +120,6 @@ resources to package update and deployment.
 This package contains the Command rhn_package_manager, which  manages 
 an Spacewalk Proxy Server's custom channel.
 
-%package tools
-Group:   Applications/Internet
-Summary: Miscellaneous tools for the Spacewalk Proxy Server
-Requires: %{name}-broker
-Requires: python-optik
-Requires(preun): initscripts
-BuildRequires: /usr/bin/docbook2man
-Obsoletes: rhns-proxy-tools < 5.3.0
-
-%description tools
-The Spacewalk Proxy Server allows package proxying/caching
-and local package delivery services for groups of local servers from
-Spacewalk Server. This service adds flexibility and economy of
-resources to package update and deployment.
-
-This package contains miscellaneous tools used in support of an
-Spacewalk Proxy Server.
-
 %prep
 %setup -q
 
@@ -183,8 +170,8 @@ exit 0
 # Make sure the scriptlet returns with success
 exit 0
 
-%post tools
-# The rhns-proxy-tools package is also our "upgrades" package.
+%post management
+# The spacewalk-proxy-management package is also our "upgrades" package.
 # We deploy new conf from configuration channel if needed
 # we deploy new conf only if we install from webui and conf channel exist
 if rhncfg-client verify %{_sysconfdir}/rhn/rhn.conf 2>&1|grep 'Not found'; then
@@ -211,11 +198,6 @@ rm -rf %{_var}/cache/rhn/*
 if [ $1 = 0 ] ; then
     /sbin/service httpd condrestart >/dev/null 2>&1
 fi
-
-# Empty files list for rhns-proxy-management, we use it only to pull in the 
-# dependency with the other packages
-%files management
-%defattr(-,root,root)
 
 %files broker
 %defattr(-,root,root)
@@ -285,15 +267,12 @@ fi
 %{rhnroot}/PackageManager/__init__.py*
 %{_mandir}/man8/rhn_package_manager.8.gz
 
-%files tools
+%files management
 %defattr(-,root,root)
 # dirs
 %dir %{destdir}
-%dir %{destdir}/tools
-# service
+# start/stop script
 %attr(755,root,root) %{_sbindir}/rhn-proxy
-# libs
-%{destdir}/tools/__init__.py*
 # mans
 %{_mandir}/man8/rhn-proxy.8*
 
@@ -303,6 +282,7 @@ fi
 - 480328 - do not call chkconfig on
 - 480326 - do not start services
 - 465947 - remove rhn-proxy-debug
+- 465947 - remove spacewalk-proxy-tools package
 
 * Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
