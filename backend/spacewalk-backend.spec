@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.0
+Version: 0.5.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -540,7 +540,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - 480757 - fix filenames generation in repomd for custom channels
 - change Source0 to point to fedorahosted.org
 
