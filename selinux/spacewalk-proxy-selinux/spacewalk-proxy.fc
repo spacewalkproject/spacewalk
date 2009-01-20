@@ -5,3 +5,5 @@
 
 /var/cache/rhn/proxy-auth(/.*)? gen_context(system_u:object_r:spacewalk_proxy_cache_t,s0)
 
+/var/spool/rhn-proxy(/.*)? gen_context(system_u:object_r:spacewalk_proxy_data_t,s0)
+
