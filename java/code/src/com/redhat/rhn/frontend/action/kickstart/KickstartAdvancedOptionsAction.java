@@ -132,13 +132,8 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                         s.add(kc);
                     }                
                 }
-                log.debug("Clearing all options");
-                cmd.getKickstartData().getCommands().removeAll(
-                        cmd.getKickstartData().getOptions());
-                log.debug("Adding all from GUI");
-                cmd.getKickstartData().getCommands().addAll(s);
-                
-                
+                log.debug("updating options");
+                cmd.getKickstartData().setOptions(s);
 
                 //set custom options
                 String customOps = request.getParameter(CUSTOM_OPTIONS);
@@ -158,9 +153,8 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
                         customSet.add(custom);
                     }
                     log.debug("Clearing custom options");
-                    cmd.getKickstartData().getCustomOptions().clear();
+                    cmd.getKickstartData().setCustomOptions(customSet);
                     log.debug("Adding all");
-                    cmd.getKickstartData().getCustomOptions().addAll(customSet);
                 }
 
                 cmd.store();
