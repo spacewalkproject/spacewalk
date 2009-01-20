@@ -448,8 +448,8 @@ class SatelliteBuilder(NoTgzBuilder):
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
             self.patch_filename))
-        lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
-            self.patch_filename))
+        lines.insert(patch_apply_index, "%%patch%s -p1 -b .%s\n" % (patch_number,
+            self.patch_filename[0:-len(".patch")]))
         f.close()
 
         # Now write out the modified lines to the spec file copy:
