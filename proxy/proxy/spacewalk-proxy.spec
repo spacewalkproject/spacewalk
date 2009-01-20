@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.5.1
+Version: 0.5.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -278,7 +278,7 @@ fi
 
 
 %changelog
-* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com>
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - 480328 - do not call chkconfig on
 - 480326 - do not start services
 - 465947 - remove rhn-proxy-debug
