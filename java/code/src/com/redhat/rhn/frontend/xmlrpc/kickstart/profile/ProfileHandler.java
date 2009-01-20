@@ -514,8 +514,7 @@ public class ProfileHandler extends BaseHandler {
                 customSet.add(kc);
             }                
         }
-        cmd.getKickstartData().getOptions().clear();
-        cmd.getKickstartData().getOptions().addAll(customSet);
+        cmd.getKickstartData().setOptions(customSet);
            
         return 1;        
     }
@@ -602,8 +601,7 @@ public class ProfileHandler extends BaseHandler {
                cmd.getKickstartData().setCustomOptions(customSet);
            }
            else {
-               cmd.getKickstartData().getCustomOptions().clear();
-               cmd.getKickstartData().getCustomOptions().addAll(customSet);
+               cmd.getKickstartData().setCustomOptions(customSet);
            }
            cmd.store();
        }

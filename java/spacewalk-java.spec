@@ -220,6 +220,10 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* 
+- 480636 - simplifying the commands vs options into one real collection 
+  managed by hibernate vs 2 that both contained the same things
+
 * Thu Jan 15 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.16-1
 - 456467 - Fixed bug where the set of packages to remove was being cleared
 - before scheduling
