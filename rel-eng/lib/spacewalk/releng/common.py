@@ -106,7 +106,7 @@ def debug(text):
         print text
 
 def get_spec_version_and_release(sourcedir, spec_file_name):
-        command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s | head -1""" % (sourcedir, spec_file_name)
+        command = """rpm -q --qf '%%{version}-%%{release}\n' --define "_sourcedir %s" --define 'dist %%undefined' --specfile %s 2> /dev/null | head -1""" % (sourcedir, spec_file_name)
         return run_command(command)
 
 def get_project_name(tag=None):
