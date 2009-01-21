@@ -1,10 +1,8 @@
 Summary: RHN support for yum
 Name: yum-rhn-plugin
 Source: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-#Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
-Release: %{expand: %(awk '{ print $2 }' %{SOURCE1})}
+Version: 0.5.3
+Release: 27%{?dist}
 License: GPLv2
 Group: System Environment/Base
 Url: http://rhn.redhat.com
@@ -61,6 +59,9 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- Remove usage of version and sources files.
+
 * Tue Nov 11 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.5.3-30%{?dist}
 - Resolves: #470988
 
