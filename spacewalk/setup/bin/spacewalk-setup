@@ -967,7 +967,7 @@ sub populate_initial_configs {
   }
   for my $key (qw/product_name web.version enable_nvrea force_package_upload
           web.l10n_resourcebundles/) {
-    if ($answers->{$key}) {
+    if (defined($answers->{$key})) {
       $rhnopt{$key} = $answers->{$key};
     }
   }
