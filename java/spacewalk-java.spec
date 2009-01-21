@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.16
+Version: 0.5.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -50,6 +50,8 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
+Requires: spacewalk-taskomatic
+Requires: spacewalk-search
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 0:1.4
 BuildRequires: ant
@@ -220,14 +222,14 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* 
+* Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.1-1
+- Add java dependency on spacewalk-taskomatic and spacewalk-search.
 - 480636 - simplifying the commands vs options into one real collection 
   managed by hibernate vs 2 that both contained the same things
 
 * Thu Jan 15 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.16-1
 - 456467 - Fixed bug where the set of packages to remove was being cleared
 - before scheduling
-
 
 * Wed Jan 14 2009 Mike McCune <mmccune@gmail.com> 0.4.15-1
 - 461162 - properly fetch guest name from form
