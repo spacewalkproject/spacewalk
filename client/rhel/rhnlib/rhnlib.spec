@@ -1,18 +1,14 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
-Name: rhnlib
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 Summary: Python libraries for the RHN project
+Name: rhnlib
+Source0: %{name}-%{version}.tar.gz
+Version: 2.5.5
+Release: 5%{?dist}
 
 Group: Development/Libraries
 License: GPLv2
 Url: http://rhn.redhat.com
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-%define main_source_dir  %(echo %{main_source} | sed 's/\.tar\.gz$//')
-Source0: %{main_source}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -26,7 +22,7 @@ Red Hat Network (http://rhn.redhat.com) software.
 
 
 %prep
-%setup -q -n %{main_source_dir}
+%setup -q
 if [ ! -e setup.py ]; then
     sed -e 's/@VERSION@/%{version}/' -e 's/@NAME@/%{name}/' setup.py.in > setup.py
 fi
@@ -82,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/rhnlib*.egg-info
 
 %changelog
+* Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- Remove usage of version and sources files.
+
 * Fri Jun 20 2008 Devan Goodwin <dgoodwin@redhat.com> - 2.2.5-5
 - Updating for Fedora 9.
 
