@@ -627,36 +627,22 @@ EOF
       print loc(<<'EOF');
 Please install the packages listed above and rerun the Satellite installer.
 EOF
-      if ($have_yum) {
-        print_yum_commands(\%needed_rpms);
-      } else {
-        print_up2date_commands(\%needed_rpms);
-      }
+      print_up2date_commands(\%needed_rpms);
       exit 6;
     }
-    if (not($have_yum ? yum_is_available() : up2date_is_available())) {
+    if (not(up2date_is_available())) {
       print loc(<<'EOF');
 We will not try to install the packages now as this system appears not to be
 registered with RHN. Please install the packages listed above and rerun
 the Satellite installer.
 EOF
-      if ($have_yum) {
-        print_yum_commands(\%needed_rpms);
-      } else {
-        print_up2date_commands(\%needed_rpms);
-      }
+      print_up2date_commands(\%needed_rpms);
       exit 5;
     }
     if (not defined $run_updater) {
-      if ($have_yum) {
-        print loc(<<'EOF');
-We can try to install the needed packages now, by running yum install.
-EOF
-      } else {
-        print loc(<<'EOF');
+      print loc(<<'EOF');
 We can try to install the needed packages now, by running up2date -i.
 EOF
-      }
       ask(-question => loc('Do you want to run this command now [y/N]'),
           -answer => \$run_updater,
           -test => qr/^/,
@@ -667,11 +653,7 @@ EOF
 Very well, we won't install these packages now. Please rerun the installer
 once you have installed them. Thank you.
 EOF
-        if ($have_yum) {
-          print_yum_commands(\%needed_rpms);
-        } else {
-          print_up2date_commands(\%needed_rpms);
-        }
+        print_up2date_commands(\%needed_rpms);
         exit 2;
       }
     }
@@ -685,24 +667,6 @@ Installing packages. The log can be found in
 
 You can tail -f in another terminal to see the progress.
 EOF
-
-    if ($have_yum) {
-      my @command = ( "yum", "-y", "install", sort keys %needed_rpms );
-      print loc("Running %s\n", "@command");
-      my $ret = system_debug(@command);
-      if ($ret) {
-        print loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
-We've tried to run the yum command but it looks like it failed. Please
-review the log file
-
-	%s
-
-and fix whatever the problem might be.
-EOF
-        exit 3;
-      }
-      return;
-    }
 
     for my $arch (get_arches_for_needed_rpms(\%needed_rpms)) {
       my $ret = 0;
