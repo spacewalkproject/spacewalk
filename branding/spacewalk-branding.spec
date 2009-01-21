@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.5.0
+Version:    0.5.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -53,7 +53,7 @@ rm -rf %{buildroot}
 %{_datadir}/spacewalk/
 
 %changelog
-* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
+* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.1-1
 - modified branding according to jsp layout changes
 
 * Mon Dec 22 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
