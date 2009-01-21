@@ -216,21 +216,6 @@ Please download the latest rhn-upgrade package from the Satellite channel on RHN
 EOH
       exit 23;
     }
-
-    print "FIXME: need to avoid this test here.\n";
-#    setup_db_connection($opts, $answers);
-#    my $dbh = get_dbh($answers);
-#    my $min_org_id = $dbh->selectrow_array(q!
-#      select min(id) from web_customer
-#    !);
-#    $dbh->disconnect();
-#    if (defined $min_org_id and $min_org_id > 1) {
-#      print loc(<<EOH, $min_org_id);
-#ERROR: Upgrade flag passed, but there is no organization with id 1 (min is [%s]).
-#Please contact support.
-#EOH
-#      exit 34;
-#    }
   }
 
   return 1;
