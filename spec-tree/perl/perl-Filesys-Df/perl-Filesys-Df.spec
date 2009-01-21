@@ -1,6 +1,6 @@
 Name:           perl-Filesys-Df
 Version:        0.92
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Perl extension for filesystem disk space information
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com>
+* Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.92-6
 - obsolete perl-Filesys-Statvfs-Df for satellite's 5.3.0 benefit
 
 * Thu Oct 16 2008 Milan Zazrivec 0.92-4
