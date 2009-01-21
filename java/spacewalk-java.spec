@@ -222,8 +222,13 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com>
+- fixed branding stuff
+
 * Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.1-1
 - Add java dependency on spacewalk-taskomatic and spacewalk-search.
+
+* Tue Jan 20 2009 Mike McCune <mmccune@gmail.com> 0.4.17-1
 - 480636 - simplifying the commands vs options into one real collection 
   managed by hibernate vs 2 that both contained the same things
 
