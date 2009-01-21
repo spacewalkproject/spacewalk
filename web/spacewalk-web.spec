@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.1
+Version: 0.5.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,7 +226,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - 480894 - add to Channel.pm 5.3 channels
 
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
