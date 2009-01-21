@@ -899,12 +899,16 @@ sub up2date_is_available {
   return;
 }
 
+my $yum_available;
 sub yum_is_available {
+  return $yum_available if defined $yum_available;
   print loc("** Checking if yum is available ...\n");
   if (grep /^No Repositories Available/, `LC_ALL=C yum list base 2>&1`) {
-    return;
+    $yum_available = 0;
+  } else {
+    $yum_available = 1;
   }
-  return 1;
+  return $yum_available;
 }
 
 sub install_updates_packages {
