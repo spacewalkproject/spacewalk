@@ -965,17 +965,10 @@ sub populate_initial_configs {
   else {
     $rhnopt{'server.satellite.rhn_parent'} = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
   }
-  if ($answers->{'product_name'}) {
-    $rhnopt{'product_name'} = $answers->{'product_name'};
-  }
-  if ($answers->{'product_version'}) {
-    $rhnopt{'web.version'} = $answers->{'product_version'};
-  }
-  if ($answers->{'enable_nvrea'}) {
-    $rhnopt{'enable_nvrea'} = $answers->{'enable_nvrea'};
-  }
-  if ($answers->{'force_package_upload'}) {
-    $rhnopt{'force_package_upload'} = $answers->{'force_package_upload'};
+  for my $key (qw/product_name web.version enable_nvrea force_package_upload/) {
+    if ($answers->{$key}) {
+      $rhnopt{$key} = $answers->{$key};
+    }
   }
   write_config( \%rhnopt,
 		'/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
