@@ -4,6 +4,10 @@ require Exporter;
 use warnings;
 use strict;
 
+use Exporter 'import';
+use vars '@EXPORT_OK';
+@EXPORT_OK = qw(loc system_debug system_or_exit);
+
 use Getopt::Long;
 use Symbol qw(gensym);
 use IPC::Open3;
