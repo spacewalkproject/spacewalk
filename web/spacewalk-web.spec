@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480894 - add to Channel.pm 5.3 channels
+
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
 - add proxy 5.3 webui installer
 - 480328 - rhn-proxy is not service any more
