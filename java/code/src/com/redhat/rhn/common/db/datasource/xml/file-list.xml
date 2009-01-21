@@ -6,7 +6,6 @@
     <template name="package_search_setbuilder" filename="xml/package_search_setbuilder.xml" />
     <template name="config_queries" filename="xml/config_queries.xml" />
     <template name="profile_queries" filename="xml/profile_queries.xml" />
-    <template name="CustomInfo_queries" filename="xml/CustomInfo_queries.xml" />
     <template name="SystemGroup_queries" filename="xml/SystemGroup_queries.xml" />
     <template name="database_queries" filename="xml/database_queries.xml" />
     <template name="System_queries" filename="xml/System_queries.xml" />
@@ -18,7 +17,6 @@
     <template name="General_queries" filename="xml/General_queries.xml" />
     <template name="User_queries" filename="xml/User_queries.xml" />
     <template name="Set_queries" filename="xml/Set_queries.xml" />
-    <template name="KSTree_queries" filename="xml/KSTree_queries.xml" />
     <template name="Org_queries" filename="xml/Org_queries.xml" />
     <template name="Monitoring_queries" filename="xml/Monitoring_queries.xml" />
 

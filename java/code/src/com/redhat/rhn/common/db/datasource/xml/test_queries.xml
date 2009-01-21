@@ -424,26 +424,11 @@ insert into rhnClientCapability (server_id, capability_name_id, version)
     </query>
 </write-mode>    
 
-<mode name="lookup_ifexistconfig_filename">
-  <query params="name_in">
-    SELECT id 
-          FROM rhnConfigFileName
-         WHERE path = :name_in
-  </query>
-</mode>
-
-
 <write-mode name="update_group_type">
     <query params="type_id, sgid">
 update rhnServerGroup set group_type = :type_id where id = :sgid 
     </query>
 </write-mode>
-
-<mode name="find_daily_summary_queue_entry">
-    <query params="org_id">
-SELECT COUNT(*) AS queued from rhnDailySummaryQueue where org_id = :org_id
-    </query>
-</mode>
 
 <mode name="package_install_list">
     <query params="action_id">
@@ -451,12 +436,6 @@ SELECT * from rhntransactionpackage where
   id in (select transaction_package_id from rhnPackageDeltaElement where PACKAGE_DELTA_ID = 
   (select id from rhnPackageDelta where id = (select PACKAGE_DELTA_ID from rhnActionPackageDelta 
   where action_id = :action_id)))
-    </query>
-</mode>
-	
-<mode name="select_virtual_instance_nextval">
-    <query params="">
-select RHN_VI_ID_SEQ.nextval as ID from dual
     </query>
 </mode>
 	
@@ -476,18 +455,6 @@ SELECT * FROM rhnVirtualInstance WHERE id = :id
 <mode name="get_debug_log">
     <query params="">
 SELECT * FROM time_series order by entry_time
-    </query>
-</mode>
-
-<mode name="server_group_dump">
-    <query params="">
-SELECT max_members, current_members FROM rhnServerGroup where group_type = 3
-    </query>
-</mode>
-
-<mode name="get_test_orgs">
-    <query params="">
-SELECT id from web_customer where UPPER(name) like 'TESTORG%'
     </query>
 </mode>
 

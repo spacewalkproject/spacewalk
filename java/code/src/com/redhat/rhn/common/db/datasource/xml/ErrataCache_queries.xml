@@ -29,14 +29,6 @@ select server_id, org_id, errata_id, package_id
    </query>
 </mode>
 
-<mode name="verify_errata_cache_contents">
-	<query params="org_id, errata_id">
-select count(server_id) 
-from rhnServerNeededErrataCache 
-where org_id = :org_id and errata_id = :errataId
-	</query>
-</mode>
-  
 <write-mode name="insert_needed_package_cache">
   <query params="server_id, org_id, errata_id, package_id">
 INSERT INTO rhnServerNeededPackageCache
