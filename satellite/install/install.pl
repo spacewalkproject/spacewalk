@@ -707,6 +707,7 @@ Please install the packages listed above and rerun the Satellite installer.
 EOF
       exit 5;
   }
+  return;
 }
 
 sub install_required_rpms {
