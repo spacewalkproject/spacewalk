@@ -78,15 +78,15 @@ my $run_updater;
 if (defined $opts{'run-updater'}) {
   if ($opts{'run-updater'} eq ''
     or $opts{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
-    $run_updater = 1; 
+    $run_updater = 1;
   } else {
-    $run_updater = 0; 
+    $run_updater = 0;
   }
 } elsif (defined $answers{'run-updater'}) {
   if ($answers{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
-    $run_updater = 1; 
+    $run_updater = 1;
   } else {
-    $run_updater = 0; 
+    $run_updater = 0;
   }
 }
 
@@ -204,7 +204,7 @@ EOH
 #EOH
 #      exit 34;
 #    }
-  }  
+  }
 
   return 1;
 }
