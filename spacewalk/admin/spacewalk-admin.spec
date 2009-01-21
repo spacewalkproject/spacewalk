@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.1
+Version: 0.5.2
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.2-1
+- fixed branding stuff
+ 
 * Mon Jan 19 2009 Jan Pazdziora 0.5.1-1
 - rebuilt for 0.5, after repository reorg
 
