@@ -14,6 +14,8 @@ Requires:       spacewalk-setup
 
 # Java
 Requires:       spacewalk-java
+Requires:       spacewalk-taskomatic
+Requires:       spacewalk-search
 
 # Perl
 Requires:       spacewalk-html

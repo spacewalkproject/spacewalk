@@ -50,8 +50,6 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
-Requires: spacewalk-taskomatic
-Requires: spacewalk-search
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 0:1.4
 BuildRequires: ant
