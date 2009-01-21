@@ -34,7 +34,7 @@ Obsoletes: rhns-proxy < 5.3.0
 Obsoletes: rhns-proxy-management < 5.3.0
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools < 5.3.0
-Obsoletes: spacewalk-proxy-tools < 0.5.0
+Obsoletes: spacewalk-proxy-tools < 0.5.3
 Provides: spacewalk-proxy-tools
 
 %description management
@@ -278,6 +278,9 @@ fi
 
 
 %changelog
+* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 
+- fix conflicts with spacewalk-proxy-tools
+
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - 480328 - do not call chkconfig on
 - 480326 - do not start services
