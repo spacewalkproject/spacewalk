@@ -90,11 +90,12 @@ if (defined $opts{'run-updater'}) {
   }
 }
 
-my %rpm_qa;
+my (%rpm_qa, $needed_rpms);
 if ($have_yum) {
   @rpm_qa{ map { chomp ; $_; } `rpm -qa --qf '%{name}\n'` } = ();
   print loc("* Checking for uninstalled prerequisited.\n");
-  check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
+  $needed_rpms = check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
+  $needed_rpms = {} if not defined $needed_rpms;
 } else {
   print loc("* Installing required packages.\n");
   install_required_rpms(\%opts, \%answers, $run_updater);
@@ -105,6 +106,25 @@ install_updates_packages();
 
 print loc("* Installing RHN packages.\n");
 install_rhn_packages();
+
+if ($have_yum) {
+  my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
+    glob("Satellite/*.rpm EmbeddedDB/*.rpm");
+  my %current_rpm_qa =
+    map { ( $_ => 1 ) }
+    grep { not exists $rpm_qa{$_} and not exists $satellite_rpms{$_} }
+    map { chomp ; $_; } `rpm -qa --qf '%{name}\n'`;
+  my @extra_rpms = grep { not exists $needed_rpms->{$_} } sort keys %current_rpm_qa;
+  if (@extra_rpms) {
+    print loc("Warning: more packages were installed by yum than expected:\n");
+    print map "\t$_\n", @extra_rpms;
+  }
+  my @not_installed_rpms = grep { not exists $current_rpm_qa{$_} } sort keys %$needed_rpms;
+  if (@not_installed_rpms) {
+    print loc("Warning: yum did not install the following packages:\n");
+    print map "\t$_\n", @not_installed_rpms;
+  }
+}
 
 # Call spacewalk-setup:
 print loc("* Now running spacewalk-setup.\n");
@@ -638,7 +658,7 @@ There are some packages from Red Hat Enterprise Linux that are not part
 of the @base group that Satellite will require to be installed on this
 system. The installer will try resolve the dependencies automatically.
 EOF
-      return;
+      return $needed_rpms;
     }
     my $package_list = join "\n\t", sort keys %$needed_rpms;
     if (not defined $run_updater and yum_is_available()) {
@@ -664,7 +684,7 @@ and rerun the installer. Thank you.
 EOF
         exit 2;
       }
-      return;
+      return $needed_rpms;
     }
 
     print loc(<<'EOF', $package_list);
