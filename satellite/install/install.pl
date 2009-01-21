@@ -26,10 +26,7 @@ BEGIN {
 
 # Store the command line args for eventual call to spacewalk-setup. These
 # seem to be stripped as soon as we do the validation.
-my $cmdargs = "";
-foreach my $t (@ARGV) {
-    $cmdargs = $cmdargs . " " . $t;
-}
+my @ARGV_ORIG = @ARGV;
 
 # Load some Perl libraries directly from the ISO:
 use lib 'install/lib';
@@ -88,8 +85,7 @@ install_rhn_packages();
 
 # Call spacewalk-setup:
 print loc("* Now running spacewalk-setup.\n");
-my $setupcmd = SPACEWALK_SETUP_SCRIPT . $cmdargs . " --skip-logfile-init";
-system($setupcmd);
+system(SPACEWALK_SETUP_SCRIPT, @ARGV_ORIG, '--skip-logfile-init');
 
 exit;
 
