@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.5.2
+Version:        0.5.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -87,8 +87,8 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.2-1
-- Move dependency on taskomatic and search to spacewalk-java. 
+* Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
+- Restore dependency on taskomatic and search.
 
 * Mon Jan 19 2009 Jan Pazdziora 0.5.1-1
 - rebuilt for 0.5, after repository reorg
