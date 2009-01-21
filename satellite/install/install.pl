@@ -90,8 +90,15 @@ if (defined $opts{'run-updater'}) {
   }
 }
 
-print loc("* Installing required packages.\n");
-install_required_rpms(\%opts, \%answers, $run_updater);
+my %rpm_qa;
+if ($have_yum) {
+  @rpm_qa{ map { chomp ; $_; } `rpm -qa --qf '%{name}\n'` } = ();
+  print loc("* Checking for uninstalled prerequisited.\n");
+  check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
+} else {
+  print loc("* Installing required packages.\n");
+  install_required_rpms(\%opts, \%answers, $run_updater);
+}
 
 print loc("* Applying updates.\n");
 install_updates_packages();
@@ -609,6 +616,77 @@ sub get_required_rpms {
   close FH;
 
   return \%needed_rpms;
+}
+
+sub check_required_rpms {
+  my $opts = shift;
+  my $answers = shift;
+  my $run_updater = shift;
+  my $rpm_qa = shift;
+
+  my $needed_rpms = get_required_rpms();
+  for (keys %$needed_rpms) {
+    if (exists $rpm_qa->{$_}) {
+      delete $needed_rpms->{$_};
+    }
+  }
+
+  if (keys %$needed_rpms) {
+    if (defined $run_updater and $run_updater) {
+      print loc(<<'EOF');
+There are some packages from Red Hat Enterprise Linux that are not part
+of the @base group that Satellite will require to be installed on this
+system. The installer will try resolve the dependencies automatically.
+EOF
+      return;
+    }
+    my $package_list = join "\n\t", sort keys %$needed_rpms;
+    if (not defined $run_updater and yum_is_available()) {
+      print loc(<<'EOF');
+There are some packages from Red Hat Enterprise Linux that are not part
+of the @base group that Satellite will require to be installed on this
+system. The installer will try resolve the dependencies automatically.
+However, you may want to install these prerequisites manually.
+EOF
+
+      my $run_updater_answer;
+      ask(-question => loc('Do you want the installer to resolve dependencies [y/N]'),
+          -answer => \$run_updater_answer,
+          -test => qr/^/,
+         );
+      if (not $run_updater_answer =~ /^\s*y(es)?\s*$/i) {
+        print loc(<<'EOF', $package_list);
+Very well, the installer will not resolve the dependencies. Please install
+
+	%s
+
+and rerun the installer. Thank you.
+EOF
+        exit 2;
+      }
+      return;
+    }
+
+    print loc(<<'EOF', $package_list);
+The following packages from Red Hat Enterprise Linux that are not part
+of the @base group have to be installed on this system for the installer
+and the Satellite to operate correctly:
+
+	%s
+
+EOF
+    if (not(defined $run_updater and not $run_updater) and not yum_is_available()) {
+      print loc(<<'EOF');
+The installer will not try to install the packages as this system appears
+not to be registered with RHN.
+EOF
+    }
+
+    print loc(<<'EOF');
+Please install the packages listed above and rerun the Satellite installer.
+EOF
+      exit 5;
+  }
 }
 
 sub install_required_rpms {
