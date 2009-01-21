@@ -42,8 +42,7 @@ unless ($target and (@options)) {
   die $usage;
 }
 
-my %options = map { my ($k, @v) = split(/=/);
-                    ($k, join('=', @v) || '') } @options;
+my %options = map { split(/=/,$_, 2) } @options;
 
 my $tmpfile = $target . ".bak.${PID}";
 
