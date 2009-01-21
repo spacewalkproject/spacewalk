@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.1
+Version: 0.5.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -222,7 +222,7 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com>
+* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.2-1
 - fixed branding stuff
 
 * Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.1-1
