@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.2
+Version:        0.5.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.3-1
+- fixed branding stuff
+
 * Mon Jan 19 2009 Jan Pazdziora 0.5.2-1
 - fix path in Makefile
 
