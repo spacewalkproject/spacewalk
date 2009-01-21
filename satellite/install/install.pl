@@ -578,13 +578,9 @@ sub answered {
 }
 
 # The file updates/rhelrpms contains list of package names
-# that we want installed before we try to install Satellite rpms.
-# In the past we've distributed these on the ISO in updates/RPMS.
+# that Satellite rpms need.
 
-sub install_required_rpms {
-  my $opts = shift;
-  my $answers = shift;
-
+sub get_required_rpms {
   my $NEEDRPMS_FILE = 'updates/rhelrpms';
   open FH, $NEEDRPMS_FILE
     or die loc("Error reading list of needed rpms from %s: %s", $NEEDRPMS_FILE, $!);
@@ -596,9 +592,18 @@ sub install_required_rpms {
   }
   close FH;
 
-  purge_needed_rpms(\%needed_rpms);
-  if (keys %needed_rpms) {
-    my $package_list = join "\n\t", sort keys %needed_rpms;
+  return \%needed_rpms;
+}
+
+sub install_required_rpms {
+  my $opts = shift;
+  my $answers = shift;
+
+  my $needed_rpms = get_required_rpms();
+
+  purge_needed_rpms($needed_rpms);
+  if (keys %$needed_rpms) {
+    my $package_list = join "\n\t", sort keys %$needed_rpms;
     print loc(<<'EOF', $package_list);
 The following packages from Red Hat Enterprise Linux that are not part
 of the @base group have to be installed on this system for the installer
@@ -627,7 +632,7 @@ EOF
       print loc(<<'EOF');
 Please install the packages listed above and rerun the Satellite installer.
 EOF
-      print_up2date_commands(\%needed_rpms);
+      print_up2date_commands($needed_rpms);
       exit 6;
     }
     if (not(up2date_is_available())) {
@@ -636,7 +641,7 @@ We will not try to install the packages now as this system appears not to be
 registered with RHN. Please install the packages listed above and rerun
 the Satellite installer.
 EOF
-      print_up2date_commands(\%needed_rpms);
+      print_up2date_commands($needed_rpms);
       exit 5;
     }
     if (not defined $run_updater) {
@@ -653,7 +658,7 @@ EOF
 Very well, we won't install these packages now. Please rerun the installer
 once you have installed them. Thank you.
 EOF
-        print_up2date_commands(\%needed_rpms);
+        print_up2date_commands($needed_rpms);
         exit 2;
       }
     }
@@ -668,9 +673,9 @@ Installing packages. The log can be found in
 You can tail -f in another terminal to see the progress.
 EOF
 
-    for my $arch (get_arches_for_needed_rpms(\%needed_rpms)) {
+    for my $arch (get_arches_for_needed_rpms($needed_rpms)) {
       my $ret = 0;
-      my @command = up2date_command_for_arch(\%needed_rpms, $arch);
+      my @command = up2date_command_for_arch($needed_rpms, $arch);
       if (@command) {
         print loc("Running %s\n", "@command");
         $ret = system_debug(@command);
@@ -686,12 +691,12 @@ and fix whatever the problem might be.
 EOF
         exit 3;
       }
-      purge_needed_rpms(\%needed_rpms);
+      purge_needed_rpms($needed_rpms);
     }
 
-    purge_needed_rpms(\%needed_rpms);
-    if (keys %needed_rpms) {
-      my $not_installed = join "\n\t", sort keys %needed_rpms;
+    purge_needed_rpms($needed_rpms);
+    if (keys %$needed_rpms) {
+      my $not_installed = join "\n\t", sort keys %$needed_rpms;
       print loc(<<'EOF', $not_installed, Spacewalk::Setup::INSTALL_LOG_FILE);
 It looks like installation of packages failed. The following are still
 missing:
