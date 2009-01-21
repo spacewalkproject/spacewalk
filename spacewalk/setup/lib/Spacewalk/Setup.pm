@@ -157,7 +157,7 @@ sub load_answer_file {
 
     while (my $line = <FH>) {
       next if substr($line, 0, 1) eq '#';
-      $line =~ /([\w-]*)\s*=\s*(.*)/;
+      $line =~ /([\w\.-]*)\s*=\s*(.*)/;
       my ($key, $value) = ($1, $2);
 
       next unless $key;

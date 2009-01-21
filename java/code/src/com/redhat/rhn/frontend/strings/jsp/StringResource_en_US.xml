@@ -20443,7 +20443,19 @@ given channel.</source>
        
       <trans-unit id="layout.jsp.productname">
             <source>@@PRODUCT_NAME@@</source>
-      </trans-unit>                                          
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.name">
+            <source>@@PRODUCT_NAME@@ project</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.title">
+            <source>Visit http://spacewalk.redhat.com/ for more information</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.website">
+            <source>http://spacewalk.redhat.com/</source>
+      </trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>

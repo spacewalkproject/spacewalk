@@ -45,7 +45,7 @@ Group:   Applications/Internet
 Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
 Requires: spacewalk-certs-tools
-Requires: spacewalk-proxy-package-manager = %{version}
+Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
 Requires: mod_python
@@ -280,6 +280,7 @@ fi
 %changelog
 * Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
 - fix conflicts with spacewalk-proxy-tools
+- management do not need to require specific version of package manager
 
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - 480328 - do not call chkconfig on
