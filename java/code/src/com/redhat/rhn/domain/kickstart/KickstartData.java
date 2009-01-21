@@ -665,23 +665,8 @@ public class KickstartData {
      * @return Returns the customOptions.
      */
     public SortedSet getCustomOptions() {
-        List list = new LinkedList(getCommandSubset("custom"));
-        Collections.sort(list, IdSort.ID_ORDER);
-        return new TreeSet(list);
+        return new TreeSet(getCommandSubset("custom"));
     }
-    
-    /**
-     * Custom sorter on ID
-     */
-    public static class IdSort {
-        static final Comparator<KickstartCommand> ID_ORDER =
-                                     new Comparator<KickstartCommand>() {
-            public int compare(KickstartCommand c1, KickstartCommand c2) {
-                return c2.getId().compareTo(c1.getId());
-            }
-        };
-    }
-
     
     /**
      * remove old custom options and replace with new
