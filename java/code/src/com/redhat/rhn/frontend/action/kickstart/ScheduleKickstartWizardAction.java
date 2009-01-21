@@ -377,6 +377,9 @@ public class ScheduleKickstartWizardAction extends RhnWizardAction {
             WizardStep step) throws Exception {
     
         log.debug("runFourth");
+        if (!validateFirstSelections(form, ctx)) {            
+            return runFirst(mapping, form, ctx, response, step);
+        }
         Long sid = (Long) form.get(RequestContext.SID);
         String cobblerId = form.getString(RequestContext.COBBLER_ID);
         
