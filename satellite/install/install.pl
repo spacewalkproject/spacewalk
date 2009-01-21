@@ -93,7 +93,7 @@ if (defined $opts{'run-updater'}) {
 my (%rpm_qa, $needed_rpms);
 if ($have_yum) {
   @rpm_qa{ map { chomp ; $_; } `rpm -qa --qf '%{name}\n'` } = ();
-  print loc("* Checking for uninstalled prerequisited.\n");
+  print loc("* Checking for uninstalled prerequisites.\n");
   $needed_rpms = check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
   $needed_rpms = {} if not defined $needed_rpms;
 } else {
