@@ -26,13 +26,11 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 
-import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -75,17 +73,10 @@ public class KickstartData {
     private Set preserveFileLists;
     private List<PackageName> packageNames;        
     private Set<KickstartCommand> commands;
-    private Collection partitions;   // rhnKickstartCommand partitions
-    private Set includes;     // rhnKickstartCommand includes
-    private Set raids;        // rhnKickstartCommand raids
-    private Set logvols;      // rhnKickstartCommand logvols
-    private Set volgroups;    // rhnKickstartCommand volgroups
-    
-    private Set repos;        // rhnKickstartCommand repo
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
-    private SortedSet<KickstartCommand> customOptions;
+    
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
     
@@ -108,11 +99,6 @@ public class KickstartData {
         preserveFileLists = new HashSet();
         packageNames = new ArrayList<PackageName>();
         commands = new HashSet<KickstartCommand>();
-        partitions = new HashBag();
-        includes = new TreeSet();
-        raids = new TreeSet();
-        logvols = new TreeSet();
-        volgroups = new TreeSet();
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
         postLog = new Boolean(false);
@@ -576,28 +562,37 @@ public class KickstartData {
         this.commands = c;
     }
     
+    private Set getCommandSubset(String name) {
+        Set retval = new HashSet();
+        if (this.commands != null && this.commands.size() > 0) {
+            for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
+                KickstartCommand cmd = (KickstartCommand) iter.next();
+                logger.debug("getCommandSubset : working with: " + 
+                        cmd.getCommandName().getName());
+                if (cmd.getCommandName().getName().equals(name)) {
+                    logger.debug("getCommandSubset : name equals, returning");
+                    retval.add(cmd);
+                }
+            }
+        }
+        logger.debug("getCommandSubset : returning: " + retval);
+        return Collections.unmodifiableSet(retval);
+    }
+    
     /**
      * Getter for commandPartion
      * @return Returns commandPartions 
      */
-    public Collection getPartitions() {
-        return this.partitions;
+    public Set getPartitions() {
+        return getCommandSubset("partitions");
     }
 
-    /**
-     * Setter for commandPartion
-     * @param p The Command Partition List to set.
-     */
-    public void setPartitions(Collection p) {
-        this.partitions = p;
-    }
-    
     /**
      * Adds a Partition Command object to partitions.
      * @param p partition to add
      */
     public void addPartition(KickstartCommand p) {
-        partitions.add(p);
+        this.commands.add(p);
     }
     
     /**
@@ -605,23 +600,7 @@ public class KickstartData {
      * @return Returns commandIncludes 
      */
     public Set getIncludes() {
-        return this.includes;
-    }
-
-    /**
-     * Setter for commandIncludes
-     * @param i The Command Includes List to set.
-     */
-    public void setIncludes(Set i) {
-        this.includes = i;
-    }
-    
-    /**
-     * Adds a include KickstartCommand object to includes.
-     * @param i Include to add
-     */
-    public void addInclude(KickstartCommand i) {
-        includes.add(i);
+        return getCommandSubset("include");
     }
     
     /**
@@ -629,15 +608,7 @@ public class KickstartData {
      * @return Returns commandVolGroups 
      */
     public Set getVolgroups() {
-        return this.volgroups;
-    }
-    
-    /**
-     * Setter for commandvolgroups
-     * @param v The Command VolGroup List to set.
-     */
-    public void setVolgroups(Set v) {
-        this.volgroups = v;
+        return getCommandSubset("volgroups");
     }
 
     /**
@@ -645,7 +616,7 @@ public class KickstartData {
      * @param v Include to add
      */
     public void addVolGroup(KickstartCommand v) {
-        volgroups.add(v);
+        this.commands.add(v);
     }
      
     /**
@@ -653,15 +624,7 @@ public class KickstartData {
      * @return Returns commandLogVols 
      */
     public Set getLogvols() {
-        return this.logvols;
-    }
-       
-    /**
-     * Setter for commandLogVols
-     * @param l The Command Log Vol List to set.
-     */
-    public void setLogvols(Set l) {
-        this.logvols = l;
+        return getCommandSubset("logvols");
     }
     
     /**
@@ -669,7 +632,7 @@ public class KickstartData {
      * @param l logvol to add
      */
     public void addLogVol(KickstartCommand l) {
-        logvols.add(l);
+        this.commands.add(l);
     }
     
     /**
@@ -677,23 +640,97 @@ public class KickstartData {
      * @return Returns Kickstartcommand raids 
      */
     public Set getRaids() {
-        return this.raids;
+        return getCommandSubset("raids");
     }
  
-    /**
-     * Setter for commandRaids
-     * @param r The Command Raids List to set.
-     */
-    public void setRaids(Set r) {
-        this.raids = r;
-    }
-        
     /**
      * Adds a raid KickstartCommand object to raids.
      * @param r raid to add
      */
     public void addRaid(KickstartCommand r) {
-        raids.add(r);
+        this.commands.add(r);
+    }
+    
+    
+    /**
+     * @return Returns the repos.
+     */
+    public Set getRepos() {
+        return getCommandSubset("raids");
+    }
+
+    
+    /**
+     * @return Returns the customOptions.
+     */
+    public SortedSet getCustomOptions() {
+        return new TreeSet(getCommandSubset("custom"));
+    }
+    
+    /**
+     * remove old custom options and replace with new
+     * @param customIn to replace old with.
+     */
+    public void setCustomOptions(Set<KickstartCommand> customIn) {
+        replaceSet(this.getCustomOptions(), customIn);
+    }
+    
+    /**
+     * remove old partitions and replace with new
+     * @param partitionsIn to replace old with.
+     */
+    public void setPartitions(Set<KickstartCommand> partitionsIn) {
+        replaceSet(this.getPartitions(), partitionsIn);
+    }
+
+    
+    /**
+     * remove old options and replace with new
+     * @param optionsIn to replace old with.
+     */
+    public void setOptions(Set<KickstartCommand> optionsIn) {
+        replaceSet(this.getOptions(), optionsIn);
+    }
+
+    /**
+     * remove old includes and replace with new
+     * @param includesIn to replace old with.
+     */
+    public void setIncludes(Set<KickstartCommand> includesIn) {
+        replaceSet(this.getIncludes(), includesIn);
+    }
+
+    /**
+     * remove old raids and replace with new
+     * @param raidsIn to replace old with.
+     */
+    public void setRaids(Set<KickstartCommand> raidsIn) {
+        replaceSet(this.getRaids(), raidsIn);
+    }
+
+    /**
+     * remove logvols and replace
+     * @param logvolsIn to replace old with.
+     */
+    public void setLogvols(Set<KickstartCommand> logvolsIn) {
+        replaceSet(this.getLogvols(), logvolsIn);
+    }
+
+    /**
+     * remove old options and replace with new
+     * @param volgroupsIn to replace old with.
+     */
+    public void setVolgroups(Set<KickstartCommand> volgroupsIn) {
+        replaceSet(this.getVolgroups(), volgroupsIn);
+    }
+
+    private void replaceSet(Set<KickstartCommand> oldSet,
+            Set<KickstartCommand> newSet) {
+        logger.debug("replaceSet co.pre: " + this.getCustomOptions());
+        this.commands.removeAll(oldSet);
+        logger.debug("replaceSet co.post: " + this.getCustomOptions());
+        this.commands.addAll(newSet);
+        logger.debug("replaceSet co.done: " + this.getCustomOptions());
     }
     
     /**
@@ -1101,6 +1138,7 @@ public class KickstartData {
                 cloned.addCommand(clonedCmd);
             }
         }
+        
         // Gotta remember to create a new HashSet with
         // the other objects.  Otherwise hibernate will
         // complain that you are using the same collection
@@ -1137,6 +1175,18 @@ public class KickstartData {
         }
 
         cloned.setStaticDevice(this.getStaticDevice());
+    }
+    
+    // Helper method to copy KickstartCommands
+    private static void copyKickstartCommands(Set commands, KickstartData cloned) {
+        if (commands != null) {
+            Iterator i = commands.iterator();
+            while (i.hasNext()) {
+                KickstartCommand cmd = (KickstartCommand) i.next();
+                KickstartCommand clonedCmd = cmd.deepCopy(cloned);
+                cloned.addCommand(clonedCmd);
+            }
+        }
     }
     
     /**
@@ -1196,38 +1246,6 @@ public class KickstartData {
     public String getKickstartPackageName() {
         return Config.get().getKickstartPackageName();
 
-    }
-    
-    /**
-     * @return Returns the repos.
-     */
-    public Set getRepos() {
-        return repos;
-    }
-
-    
-    /**
-     * @param reposIn The repos to set.
-     */
-    public void setRepos(Set reposIn) {
-        this.repos = reposIn;
-    }
-
-    
-    /**
-     * @return Returns the customOptions.
-     */
-    public SortedSet getCustomOptions() {
-        
-        return customOptions;
-    }
-
-    
-    /**
-     * @param customOptionsIn The customOptions to set.
-     */
-    public void setCustomOptions(SortedSet customOptionsIn) {
-        this.customOptions = customOptionsIn;
     }
 
     

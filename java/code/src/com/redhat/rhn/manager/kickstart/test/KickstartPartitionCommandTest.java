@@ -21,6 +21,8 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 
+import java.util.TreeSet;
+
 /**
  * KickstartPartitionCommandTest - test for KickstartDetailsCommand
  * @version $Rev$
@@ -30,7 +32,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
    
     public void testKickstartPartitionCommand() throws Exception {
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());      
-        k.getPartitions().clear();
+        k.setPartitions(new TreeSet());
         assertEquals(0, k.getPartitions().size());
         KickstartFactory.saveKickstartData(k);
         
@@ -90,7 +92,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
 
     public void testLVMSwapPartitions() throws Exception {
         KickstartData k = KickstartDataTest.createKickstartWithOptions(user.getOrg());      
-        k.getPartitions().clear();
+        k.setPartitions(new TreeSet());
         KickstartFactory.saveKickstartData(k);
         
         KickstartPartitionCommand cmd = new KickstartPartitionCommand(k.getId(), user);
@@ -106,6 +108,7 @@ public class KickstartPartitionCommandTest extends BaseTestCaseWithUser {
         k = (KickstartData) reload(k);
         assertTrue(cmd.populatePartitions().
                 indexOf("partition swap.02 --size=8888 --ondisk=sda") >= 0);
+        assertTrue(k.getPartitions().size() > 0);
             
     }
 
