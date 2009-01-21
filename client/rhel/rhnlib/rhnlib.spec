@@ -3,8 +3,8 @@
 Summary: Python libraries for the RHN project
 Name: rhnlib
 Source0: %{name}-%{version}.tar.gz
-Version: 2.5.5
-Release: 5%{?dist}
+Version: 2.5.6
+Release: 1%{?dist}
 
 Group: Development/Libraries
 License: GPLv2
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/rhnlib*.egg-info
 
 %changelog
-* Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+* Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
 - Remove usage of version and sources files.
 
 * Fri Jun 20 2008 Devan Goodwin <dgoodwin@redhat.com> - 2.2.5-5
