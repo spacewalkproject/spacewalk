@@ -74,8 +74,24 @@ upgrade_remove_obsoleted_packages(\%opts);
 
 my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
 
+my $run_updater;
+if (defined $opts{'run-updater'}) {
+  if ($opts{'run-updater'} eq ''
+    or $opts{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
+    $run_updater = 1; 
+  } else {
+    $run_updater = 0; 
+  }
+} elsif (defined $answers{'run-updater'}) {
+  if ($answers{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
+    $run_updater = 1; 
+  } else {
+    $run_updater = 0; 
+  }
+}
+
 print loc("* Installing required packages.\n");
-install_required_rpms(\%opts, \%answers);
+install_required_rpms(\%opts, \%answers, $run_updater);
 
 print loc("* Applying updates.\n");
 install_updates_packages();
@@ -598,6 +614,7 @@ sub get_required_rpms {
 sub install_required_rpms {
   my $opts = shift;
   my $answers = shift;
+  my $run_updater = shift;
 
   my $needed_rpms = get_required_rpms();
 
@@ -612,21 +629,6 @@ and the Satellite to operate correctly:
 	%s
 
 EOF
-    my $run_updater;
-    if (defined $opts->{'run-updater'}) {
-      if ($opts->{'run-updater'} eq ''
-          or $opts->{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
-        $run_updater = 1; 
-      } else {
-        $run_updater = 0; 
-      }
-    } elsif (defined $answers->{'run-updater'}) {
-      if ($answers->{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
-        $run_updater = 1; 
-      } else {
-        $run_updater = 0; 
-      }
-    }
 
     if (defined $run_updater and not($run_updater)) {
       print loc(<<'EOF');
