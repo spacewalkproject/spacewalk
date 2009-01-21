@@ -70,7 +70,7 @@ print loc("* RHN Registration.\n");
 rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
-upgrade_remove_obsoleted_packages(\%opts);
+remove_obsoleted_packages(\%opts);
 
 my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
 
@@ -521,7 +521,7 @@ sub is_embedded_db {
   return ( -d 'EmbeddedDB' ? 1 : 0 );
 }
 
-sub upgrade_remove_obsoleted_packages {
+sub remove_obsoleted_packages {
   my $opts = shift;
   if ($opts->{'upgrade'}) {
     print "* Purging conflicting packages.\n";
@@ -529,6 +529,16 @@ sub upgrade_remove_obsoleted_packages {
                 'perl-libapreq', 'bouncycastle-jdk1.4',
                 'xml-commons-apis', 'quartz-oracle', 'jaf', 'jta');
     for my $pkg (@pkgs) {
+      if (system_debug('rpm', '-q', $pkg) == 0) {
+        system_debug('rpm', '-ev', '--nodeps', $pkg);
+      }
+    }
+  }
+  if (glob("Satellite/mod_perl-*.rpm")) {
+    # On RHEL 4, we ship our mod_perl but not mod_perl-devel. If mod_perl is
+    # already installed, we will want to upgrade it but existing mod_perl-devel
+    # would prevent that upgrade.
+    for my $pkg ( 'mod_perl-devel' ) {
       if (system_debug('rpm', '-q', $pkg) == 0) {
         system_debug('rpm', '-ev', '--nodeps', $pkg);
       }
