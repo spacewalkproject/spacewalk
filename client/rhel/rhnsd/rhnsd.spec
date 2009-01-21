@@ -4,9 +4,6 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhnsd
-#Source1: version
-#Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-#Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 Version: 4.5.8
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
