@@ -72,7 +72,7 @@ public class KickstartAdvancedOptionsAction extends RhnAction {
         KickstartHelper helper = new KickstartHelper(request);
         KickstartOptionsCommand cmd = 
             new KickstartOptionsCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
-                                        ctx.getCurrentUser(), helper);
+                                        ctx.getCurrentUser());
          
         List displayList = new LinkedList();
         

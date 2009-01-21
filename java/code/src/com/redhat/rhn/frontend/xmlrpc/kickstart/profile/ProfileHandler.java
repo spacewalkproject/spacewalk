@@ -61,7 +61,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
@@ -458,8 +457,7 @@ public class ProfileHandler extends BaseHandler {
           }
         
         Long ksid = ksdata.getId();
-        KickstartHelper helper = new KickstartHelper(null);
-        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
+        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user);
         
         //check if all the required options are present
         List<KickstartCommandName> requiredOptions = KickstartFactory.
@@ -574,8 +572,7 @@ public class ProfileHandler extends BaseHandler {
                "No Kickstart Profile found with label: " + ksLabel);
        }
        Long ksid = ksdata.getId();
-       KickstartHelper helper = new KickstartHelper(null);
-       KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
+       KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user);
        SortedSet<KickstartCommand> customSet = new TreeSet<KickstartCommand>();
        if (options != null) {
            for (int i = 0; i < options.size(); i++) {
