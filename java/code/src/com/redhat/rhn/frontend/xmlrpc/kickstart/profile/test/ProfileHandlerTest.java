@@ -541,7 +541,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         kc.setModified(new Date());                        
         kc.setArguments("test value");                        
         
-        command1.getKickstartData().getOptions().add(kc);
+        command1.getKickstartData().getCommands().add(kc);
         command1.store();
         
         KickstartFactory.saveKickstartData(ks1);
