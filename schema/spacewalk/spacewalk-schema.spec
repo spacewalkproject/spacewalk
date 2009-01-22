@@ -26,9 +26,8 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-SCHEMA_VER=$(echo %{version} | sed 's/%{?dist}$//')
 make -f Makefile.schema \
-  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=$SCHEMA_VER RELEASE=%{release} \
+  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=%{version} RELEASE=%{release} \
   all
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 
