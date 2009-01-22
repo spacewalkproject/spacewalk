@@ -458,6 +458,12 @@ SELECT * FROM time_series order by entry_time
     </query>
 </mode>
 
+<mode name="get_test_orgs">
+    <query params="">
+SELECT id from web_customer where UPPER(name) like 'TESTORG%'
+    </query>
+</mode>
+
 <mode name="select_in">
 	<query params="">
 SELECT name FROM web_customer WHERE id IN (%s)
