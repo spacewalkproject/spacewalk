@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.2
+Version: 0.5.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -50,8 +50,6 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
-Requires: spacewalk-taskomatic
-Requires: spacewalk-search
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 0:1.4
 BuildRequires: ant
@@ -222,11 +220,11 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
+- Remove dependency on spacewalk-taskomatic and spacewalk-search.
+
 * Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.2-1
 - fixed branding stuff
-
-* Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.1-1
-- Add java dependency on spacewalk-taskomatic and spacewalk-search.
 
 * Tue Jan 20 2009 Mike McCune <mmccune@gmail.com> 0.4.17-1
 - 480636 - simplifying the commands vs options into one real collection 

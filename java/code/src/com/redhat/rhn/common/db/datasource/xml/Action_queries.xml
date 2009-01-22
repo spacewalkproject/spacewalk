@@ -1,31 +1,5 @@
 <datasource_modes>
 
-<mode name="events_in_set">
-  <query params="set_label, user_id, sid">
-SELECT SA.action_id AS ID,
-       AType.name || ' scheduled by ' || NVL(U.login, '(none)') AS SUMMARY,
-       TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS SCHEDULED_FOR,
-       AType.label AS history_type,
-       AType.name AS history_type_name
-  FROM rhnActionType AType,
-       rhnActionStatus AStat,
-       rhnUser U,
-       rhnAction A,
-       rhnServerAction SA,
-       rhnSet ST
- WHERE ST.user_id = :user_id
-   AND ST.label = :set_label
-   AND SA.server_id = :sid
-   AND SA.action_id = ST.element
-   AND SA.action_id = A.id
-   AND AType.id = A.action_type
-   AND AStat.id = SA.status
-   AND A.scheduler = U.id (+)
-   AND AStat.id = 0
-  </query>
-</mode>
-
-
 <mode name="system_events_history" class="com.redhat.rhn.frontend.dto.HistoryEvent">
   <query params="sid">
 SELECT EVENT_ID as ID,
@@ -71,56 +45,6 @@ SELECT EVENT_ID as ID,
            AND AStat.id IN (1, 2, 3)
        ) X
 ORDER BY COMPLETED DESC, PICKED_UP DESC, CREATED DESC, EVENT_ID DESC
-  </query>
-</mode>
-
-<mode name="system_events_pending">
-  <query params="sid">
-SELECT SA.action_id AS ID,
-               AType.name || ' scheduled by ' || NVL(U.login, '(none)') AS SUMMARY,
-               TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS SCHEDULED_FOR,
-               AType.label AS history_type,
-               AType.name AS history_type_name,
-               A.prerequisite AS prereq_aid
-          FROM rhnActionType AType,
-               rhnActionStatus AStat,
-               rhnUser U,
-               rhnAction A,
-               rhnServerAction SA
-         WHERE SA.server_id = :sid
-           AND SA.action_id = A.id
-           AND AType.id = A.action_type
-           AND AStat.id = SA.status
-           AND U.id(+) = A.scheduler
-           AND AStat.id = 0
-ORDER BY SCHEDULED_FOR DESC, ID DESC
-  </query>
-</mode>
-
-<mode name="supported_system_history">
-  <query params="support_sid">
-SELECT EVENT_ID, TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED, SUMMARY
-  FROM (SELECT SH.id EVENT_ID,
-               SH.summary SUMMARY,
-               SH.created
-          FROM rhnServerHistory SH
-         WHERE SH.server_id = :support_sid
-         UNION
-        SELECT SA.action_id EVENT_ID,
-               AType.name || ' scheduled by ' || NVL(U.login, '(none)') || ' (' || AStat.name || ')' SUMMARY,
-               SA.created
-          FROM rhnActionType AType,
-               rhnActionStatus AStat,
-               rhnUser U,
-               rhnAction A,
-               rhnServerAction SA
-         WHERE SA.server_id = :support_sid
-           AND SA.action_id = A.id
-           AND ATYPE.id = A.action_type
-           AND AStat.id = SA.status
-           AND U.id(+) = A.scheduler
-       )
-ORDER BY CREATED DESC, EVENT_ID DESC
   </query>
 </mode>
 
@@ -205,29 +129,6 @@ ORDER BY EARLIEST DESC
   
 </mode>
 
-
-<mode name="pending_action_list-BACK"
-      class="com.redhat.rhn.frontend.dto.ScheduledAction">
-  <query params="user_id, org_id">
-SELECT  DISTINCT UAO.id AS ID,
-        UAO.earliest_action AS EARLIEST,
-        A.prerequisite AS PREREQUISITE,
-        UAO.type_name,
-        (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
-        UAO.scheduler,
-        WC.login AS SCHEDULER_NAME
-  FROM  rhnUserActionOverview UAO, rhnAction A, web_contact WC
- WHERE  UAO.org_id = :org_id
-   AND  UAO.user_id = :user_id
-   AND  UAO.action_status_id IN (0,1)
-   AND  UAO.archived = 0
-   AND  UAO.id = A.id
-   AND  WC.id = UAO.scheduler
-ORDER BY EARLIEST DESC
-  </query>
-
-  <elaborator name="action_overview_elab" />
-</mode>
 
 <mode name="pending_actions_in_set"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">

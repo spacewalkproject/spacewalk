@@ -26,18 +26,15 @@ BEGIN {
 
 # Store the command line args for eventual call to spacewalk-setup. These
 # seem to be stripped as soon as we do the validation.
-my $cmdargs = "";
-foreach my $t (@ARGV) {
-    $cmdargs = $cmdargs . " " . $t;
-}
+my @ARGV_ORIG = @ARGV;
 
 # Load some Perl libraries directly from the ISO:
 use lib 'install/lib';
 use Params::Validate;
-use Spacewalk::Setup;
+use Spacewalk::Setup qw(loc system_debug system_or_exit);
 
 Params::Validate::validation_options(strip_leading => "-");
-print Spacewalk::Setup::loc("* Starting the Red Hat Network Satellite installer.\n");
+print loc("* Starting the Red Hat Network Satellite installer.\n");
 
 my $DEBUG;
 $DEBUG = 0;
@@ -62,34 +59,76 @@ $answers{hostname} ||= Sys::Hostname::hostname;
 
 my %version_info = get_version_info();
 
-print Spacewalk::Setup::loc("* Performing pre-install checks.\n");
+print loc("* Performing pre-install checks.\n");
 do_precondition_checks(\%opts, \%answers);
 
-print Spacewalk::Setup::loc("* Pre-install checks complete.  Beginning installation.\n");
+print loc("* Pre-install checks complete.  Beginning installation.\n");
 
 remove_php_packages();
 
-print Spacewalk::Setup::loc("* RHN Registration.\n");
+print loc("* RHN Registration.\n");
 rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
-upgrade_remove_obsoleted_packages(\%opts);
+remove_obsoleted_packages(\%opts);
 
 my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
 
-print Spacewalk::Setup::loc("* Installing required packages.\n");
-install_required_rpms(\%opts, \%answers);
+my $run_updater;
+if (defined $opts{'run-updater'}) {
+  if ($opts{'run-updater'} eq ''
+    or $opts{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
+    $run_updater = 1;
+  } else {
+    $run_updater = 0;
+  }
+} elsif (defined $answers{'run-updater'}) {
+  if ($answers{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
+    $run_updater = 1;
+  } else {
+    $run_updater = 0;
+  }
+}
 
-print Spacewalk::Setup::loc("* Applying updates.\n");
+my (%rpm_qa, $needed_rpms);
+if ($have_yum) {
+  @rpm_qa{ map { chomp ; $_; } `rpm -qa --qf '%{name}\n'` } = ();
+  print loc("* Checking for uninstalled prerequisites.\n");
+  $needed_rpms = check_required_rpms(\%opts, \%answers, $run_updater, \%rpm_qa);
+  $needed_rpms = {} if not defined $needed_rpms;
+} else {
+  print loc("* Installing required packages.\n");
+  install_required_rpms(\%opts, \%answers, $run_updater);
+}
+
+print loc("* Applying updates.\n");
 install_updates_packages();
 
-print Spacewalk::Setup::loc("* Installing RHN packages.\n");
+print loc("* Installing RHN packages.\n");
 install_rhn_packages();
 
+if ($have_yum) {
+  my %satellite_rpms = map { m!^.+/(.+)-.+-.+$! and ( $1 => 1 ); }
+    glob("Satellite/*.rpm EmbeddedDB/*.rpm");
+  my %current_rpm_qa =
+    map { ( $_ => 1 ) }
+    grep { not exists $rpm_qa{$_} and not exists $satellite_rpms{$_} }
+    map { chomp ; $_; } `rpm -qa --qf '%{name}\n'`;
+  my @extra_rpms = grep { not exists $needed_rpms->{$_} } sort keys %current_rpm_qa;
+  if (@extra_rpms) {
+    print loc("Warning: more packages were installed by yum than expected:\n");
+    print map "\t$_\n", @extra_rpms;
+  }
+  my @not_installed_rpms = grep { not exists $current_rpm_qa{$_} } sort keys %$needed_rpms;
+  if (@not_installed_rpms) {
+    print loc("Warning: yum did not install the following packages:\n");
+    print map "\t$_\n", @not_installed_rpms;
+  }
+}
+
 # Call spacewalk-setup:
-print Spacewalk::Setup::loc("* Now running spacewalk-setup.\n");
-my $setupcmd = SPACEWALK_SETUP_SCRIPT . $cmdargs . " --skip-logfile-init";
-system($setupcmd);
+print loc("* Now running spacewalk-setup.\n");
+system(SPACEWALK_SETUP_SCRIPT, @ARGV_ORIG, '--skip-logfile-init');
 
 exit;
 
@@ -117,7 +156,7 @@ sub do_precondition_checks {
 
   if (not $opts->{"skip-system-version-test"}
       and not correct_system_version(%version_info)) {
-    print Spacewalk::Setup::loc(<<EOQ);
+    print loc(<<EOQ);
 This version of RHN Satellite runs only on:
    Red Hat Enterprise Linux 4 AS
    Red Hat Enterprise Linux 5 Server
@@ -130,7 +169,7 @@ EOQ
 
   if (not $opts->{"skip-selinux-test"}
       and selinux_enabled(%version_info)) {
-    print Spacewalk::Setup::loc(<<EOH);
+    print loc(<<EOH);
 SELinux must be in Permissive or Disabled mode for your RHN Satellite to install
 and function properly. If you wish to setup RHN Satellite to run in Enforcing
 mode see this Red Hat Knowledge Base article:
@@ -152,47 +191,32 @@ EOH
 
   if (not $opts->{"skip-python-test"}
       and not python_path()) {
-    print Spacewalk::Setup::loc(<<EOH);
+    print loc(<<EOH);
 ERROR: Could not find Python executable in your path or /usr/bin/python.
 EOH
     exit 5;
   }
 
   if ($opts->{"upgrade"}) {
-    my $ret = Spacewalk::Setup::system_debug('rpm', '-q', 'rhns');
+    my $ret = system_debug('rpm', '-q', 'rhns');
 
     if ($ret) {
-      print Spacewalk::Setup::loc(<<EOH);
+      print loc(<<EOH);
 ERROR: Upgrade flag passed, but could not determine if a satellite is installed.
 EOH
     exit 21;
     }
 
-    $ret = Spacewalk::Setup::system_debug('rpm', '-q', 'rhn-upgrade');
+    $ret = system_debug('rpm', '-q', 'rhn-upgrade');
 
     if ($ret) {
-      print Spacewalk::Setup::loc(<<EOH);
+      print loc(<<EOH);
 ERROR: Upgrade flag passed, but could not find the rhn-upgrade package.
 Please download the latest rhn-upgrade package from the Satellite channel on RHN.
 EOH
       exit 23;
     }
-
-    print "FIXME: need to avoid this test here.\n";
-#    setup_db_connection($opts, $answers);
-#    my $dbh = get_dbh($answers);
-#    my $min_org_id = $dbh->selectrow_array(q!
-#      select min(id) from web_customer
-#    !);
-#    $dbh->disconnect();
-#    if (defined $min_org_id and $min_org_id > 1) {
-#      print Spacewalk::Setup::loc(<<EOH, $min_org_id);
-#ERROR: Upgrade flag passed, but there is no organization with id 1 (min is [%s]).
-#Please contact support.
-#EOH
-#      exit 34;
-#    }
-  }  
+  }
 
   return 1;
 }
@@ -219,7 +243,7 @@ sub hostname_is_fqdn {
   my $answers = shift;
 
   if ((my @parts = split/\./, $answers->{hostname}) < 3) {
-    print Spacewalk::Setup::loc(<<EOH, $answers->{hostname}, "--skip-fqdn-test");
+    print loc(<<EOH, $answers->{hostname}, "--skip-fqdn-test");
 %s doesn't have 3 fields (111.222.333). Can't be FQDN.
 Use %s to bypass this error.
 Exiting...
@@ -228,7 +252,7 @@ EOH
   }
 
   if ($answers->{hostname} =~ /localhost/) {
-    print Spacewalk::Setup::loc(<<EOH, $answers->{hostname}, "localhost", "--skip-fqdn-test");
+    print loc(<<EOH, $answers->{hostname}, "localhost", "--skip-fqdn-test");
 Hostname appears to be '%s'.  "%s" of any sort is not a
 FQDN. Or just a poor machine name.
 Use %s to bypass this error.
@@ -238,7 +262,7 @@ EOH
   }
 
   if ($answers->{hostname} =~ /127\.0\.0\.1/) {
-    print Spacewalk::Setup::loc(<<EOH, $answers->{hostname}, "--skip-fqdn-test");
+    print loc(<<EOH, $answers->{hostname}, "--skip-fqdn-test");
 %s is not a FQDN.
 Use %s to bypass this error.
 Exiting...
@@ -265,7 +289,7 @@ sub remove_php_packages {
     for (@packages) {
       chomp;
     }
-    my $ret = Spacewalk::Setup::system_debug('rpm', '-e', @packages);
+    my $ret = system_debug('rpm', '-e', @packages);
 
     if ($ret) {
       die "Could not remove php packages: " . join(', ', @packages) . "\n";
@@ -276,7 +300,7 @@ sub remove_php_packages {
 }
 
 sub system_is_registered {
-  my $ret = Spacewalk::Setup::system_debug('/usr/sbin/rhn_check');
+  my $ret = system_debug('/usr/sbin/rhn_check');
 
   return ($ret ? 0 : 1);
 }
@@ -288,16 +312,16 @@ sub rhn_register {
   my $proxyAccept = '';
 
   if ($opts->{disconnected}) {
-    print Spacewalk::Setup::loc("** Registration: Disconnected mode.  Not registering with RHN.\n");
+    print loc("** Registration: Disconnected mode.  Not registering with RHN.\n");
     return 0;
   }
 
   if (system_is_registered()) {
     if ($opts->{"re-register"}) {
-      print Spacewalk::Setup::loc("** Registration: System is already registered with RHN, but --re-register option used.  Re-registering.\n");
+      print loc("** Registration: System is already registered with RHN, but --re-register option used.  Re-registering.\n");
     }
     else {
-      print Spacewalk::Setup::loc("** Registration: System is already registered with RHN.  Not re-registering.\n");
+      print loc("** Registration: System is already registered with RHN.  Not re-registering.\n");
       return 0;
     }
   }
@@ -415,7 +439,7 @@ sub register_system {
 
   push @args, '--force';
 
-  my $ret = Spacewalk::Setup::system_debug('/usr/sbin/rhnreg_ks', @args);
+  my $ret = system_debug('/usr/sbin/rhnreg_ks', @args);
 
   my %retcodes = (
 		  1 => 'Fatal error registering with RHN.  Check your proxy settings and parent server and try again.  Also ensure that the specified user exists and that the user has an available Satellite software entitlement.',
@@ -426,10 +450,10 @@ sub register_system {
     my $exit_value = $CHILD_ERROR >> 8;
 
     if (exists $retcodes{$exit_value}) {
-      print Spacewalk::Setup::loc("Satellite registration failed: %s\n", $retcodes{$exit_value});
+      print loc("Satellite registration failed: %s\n", $retcodes{$exit_value});
     }
     else {
-      print Spacewalk::Setup::loc("There was a problem registering the satellite.  Exit code: %d\n", $exit_value);
+      print loc("There was a problem registering the satellite.  Exit code: %d\n", $exit_value);
     }
 
     exit 17;
@@ -445,12 +469,12 @@ sub valid_fqdn {
   my @non_empty_parts = grep { $_ } @parts;
 
   unless (scalar @parts >= 3 and scalar @parts == scalar @non_empty_parts) {
-    print Spacewalk::Setup::loc("Invalid hostname: '%s' does not appear to be a valid hostname.\n", $text);
+    print loc("Invalid hostname: '%s' does not appear to be a valid hostname.\n", $text);
     return 0;
   }
 
   if ($text =~ /([^a-zA-z0-9\.-])/) {
-    print Spacewalk::Setup::loc("Invalid hostname: '%s' contains at least one character that is not allowed in a hostname: '$1'\n", $text);
+    print loc("Invalid hostname: '%s' contains at least one character that is not allowed in a hostname: '$1'\n", $text);
     return 0;
   }
 
@@ -466,7 +490,7 @@ sub valid_proxy {
     $hostname = $1; # Check the hostname seperately
   }
   else {
-    print Spacewalk::Setup::loc("'%s' does not appear to be a valid proxy name.\n", $text);
+    print loc("'%s' does not appear to be a valid proxy name.\n", $text);
   }
 
   return valid_fqdn($hostname);
@@ -482,7 +506,7 @@ sub is_embedded_db {
   return ( -d 'EmbeddedDB' ? 1 : 0 );
 }
 
-sub upgrade_remove_obsoleted_packages {
+sub remove_obsoleted_packages {
   my $opts = shift;
   if ($opts->{'upgrade'}) {
     print "* Purging conflicting packages.\n";
@@ -490,8 +514,18 @@ sub upgrade_remove_obsoleted_packages {
                 'perl-libapreq', 'bouncycastle-jdk1.4',
                 'xml-commons-apis', 'quartz-oracle', 'jaf', 'jta');
     for my $pkg (@pkgs) {
-      if (Spacewalk::Setup::system_debug('rpm', '-q', $pkg) == 0) {
-        Spacewalk::Setup::system_debug('rpm', '-ev', '--nodeps', $pkg);
+      if (system_debug('rpm', '-q', $pkg) == 0) {
+        system_debug('rpm', '-ev', '--nodeps', $pkg);
+      }
+    }
+  }
+  if (glob("Satellite/mod_perl-*.rpm")) {
+    # On RHEL 4, we ship our mod_perl but not mod_perl-devel. If mod_perl is
+    # already installed, we will want to upgrade it but existing mod_perl-devel
+    # would prevent that upgrade.
+    for my $pkg ( 'mod_perl-devel' ) {
+      if (system_debug('rpm', '-q', $pkg) == 0) {
+        system_debug('rpm', '-ev', '--nodeps', $pkg);
       }
     }
   }
@@ -532,7 +566,7 @@ sub ask {
       }
     }
 
-    print Spacewalk::Setup::loc("%s%s? ",
+    print loc("%s%s? ",
 	      $params{question},
 	      $default_string);
 
@@ -572,7 +606,7 @@ sub answered {
 	return 1
       }
       else {
-	print Spacewalk::Setup::loc("'%s' is not a valid response\n", $param);
+	print loc("'%s' is not a valid response\n", $param);
 	return 0
       }
     };
@@ -582,16 +616,12 @@ sub answered {
 }
 
 # The file updates/rhelrpms contains list of package names
-# that we want installed before we try to install Satellite rpms.
-# In the past we've distributed these on the ISO in updates/RPMS.
+# that Satellite rpms need.
 
-sub install_required_rpms {
-  my $opts = shift;
-  my $answers = shift;
-
+sub get_required_rpms {
   my $NEEDRPMS_FILE = 'updates/rhelrpms';
   open FH, $NEEDRPMS_FILE
-    or die Spacewalk::Setup::loc("Error reading list of needed rpms from %s: %s", $NEEDRPMS_FILE, $!);
+    or die loc("Error reading list of needed rpms from %s: %s", $NEEDRPMS_FILE, $!);
   my %needed_rpms;
   while (<FH>) {
     next if /^\s*#/;
@@ -600,10 +630,59 @@ sub install_required_rpms {
   }
   close FH;
 
-  purge_needed_rpms(\%needed_rpms);
-  if (keys %needed_rpms) {
-    my $package_list = join "\n\t", sort keys %needed_rpms;
-    print Spacewalk::Setup::loc(<<'EOF', $package_list);
+  return \%needed_rpms;
+}
+
+sub check_required_rpms {
+  my $opts = shift;
+  my $answers = shift;
+  my $run_updater = shift;
+  my $rpm_qa = shift;
+
+  my $needed_rpms = get_required_rpms();
+  for (keys %$needed_rpms) {
+    if (exists $rpm_qa->{$_}) {
+      delete $needed_rpms->{$_};
+    }
+  }
+
+  if (keys %$needed_rpms) {
+    if (defined $run_updater and $run_updater) {
+      print loc(<<'EOF');
+There are some packages from Red Hat Enterprise Linux that are not part
+of the @base group that Satellite will require to be installed on this
+system. The installer will try resolve the dependencies automatically.
+EOF
+      return $needed_rpms;
+    }
+    my $package_list = join "\n\t", sort keys %$needed_rpms;
+    if (not defined $run_updater and yum_is_available()) {
+      print loc(<<'EOF');
+There are some packages from Red Hat Enterprise Linux that are not part
+of the @base group that Satellite will require to be installed on this
+system. The installer will try resolve the dependencies automatically.
+However, you may want to install these prerequisites manually.
+EOF
+
+      my $run_updater_answer;
+      ask(-question => loc('Do you want the installer to resolve dependencies [y/N]'),
+          -answer => \$run_updater_answer,
+          -test => qr/^/,
+         );
+      if (not $run_updater_answer =~ /^\s*y(es)?\s*$/i) {
+        print loc(<<'EOF', $package_list);
+Very well, the installer will not resolve the dependencies. Please install
+
+	%s
+
+and rerun the installer. Thank you.
+EOF
+        exit 2;
+      }
+      return $needed_rpms;
+    }
+
+    print loc(<<'EOF', $package_list);
 The following packages from Red Hat Enterprise Linux that are not part
 of the @base group have to be installed on this system for the installer
 and the Satellite to operate correctly:
@@ -611,78 +690,78 @@ and the Satellite to operate correctly:
 	%s
 
 EOF
-    my $run_updater;
-    if (defined $opts->{'run-updater'}) {
-      if ($opts->{'run-updater'} eq ''
-          or $opts->{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
-        $run_updater = 1; 
-      } else {
-        $run_updater = 0; 
-      }
-    } elsif (defined $answers->{'run-updater'}) {
-      if ($answers->{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
-        $run_updater = 1; 
-      } else {
-        $run_updater = 0; 
-      }
+    if (not(defined $run_updater and not $run_updater) and not yum_is_available()) {
+      print loc(<<'EOF');
+The installer will not try to install the packages as this system appears
+not to be registered with RHN.
+EOF
     }
 
-    if (defined $run_updater and not($run_updater)) {
-      print Spacewalk::Setup::loc(<<'EOF');
+    print loc(<<'EOF');
 Please install the packages listed above and rerun the Satellite installer.
 EOF
-      if ($have_yum) {
-        print_yum_commands(\%needed_rpms);
-      } else {
-        print_up2date_commands(\%needed_rpms);
-      }
+      exit 5;
+  }
+  return;
+}
+
+sub install_required_rpms {
+  my $opts = shift;
+  my $answers = shift;
+  my $run_updater = shift;
+
+  my $needed_rpms = get_required_rpms();
+
+  purge_needed_rpms($needed_rpms);
+  if (keys %$needed_rpms) {
+    my $package_list = join "\n\t", sort keys %$needed_rpms;
+    print loc(<<'EOF', $package_list);
+The following packages from Red Hat Enterprise Linux that are not part
+of the @base group have to be installed on this system for the installer
+and the Satellite to operate correctly:
+
+	%s
+
+EOF
+
+    if (defined $run_updater and not($run_updater)) {
+      print loc(<<'EOF');
+Please install the packages listed above and rerun the Satellite installer.
+EOF
+      print_up2date_commands($needed_rpms);
       exit 6;
     }
-    if (not($have_yum ? yum_is_available() : up2date_is_available())) {
-      print Spacewalk::Setup::loc(<<'EOF');
+    if (not(up2date_is_available())) {
+      print loc(<<'EOF');
 We will not try to install the packages now as this system appears not to be
 registered with RHN. Please install the packages listed above and rerun
 the Satellite installer.
 EOF
-      if ($have_yum) {
-        print_yum_commands(\%needed_rpms);
-      } else {
-        print_up2date_commands(\%needed_rpms);
-      }
+      print_up2date_commands($needed_rpms);
       exit 5;
     }
     if (not defined $run_updater) {
-      if ($have_yum) {
-        print Spacewalk::Setup::loc(<<'EOF');
-We can try to install the needed packages now, by running yum install.
-EOF
-      } else {
-        print Spacewalk::Setup::loc(<<'EOF');
+      print loc(<<'EOF');
 We can try to install the needed packages now, by running up2date -i.
 EOF
-      }
-      ask(-question => Spacewalk::Setup::loc('Do you want to run this command now [y/N]'),
+      ask(-question => loc('Do you want to run this command now [y/N]'),
           -answer => \$run_updater,
           -test => qr/^/,
          );
 
       if (not $run_updater =~ /^\s*y(es)?\s*$/i) {
-        print Spacewalk::Setup::loc(<<'EOF');
+        print loc(<<'EOF');
 Very well, we won't install these packages now. Please rerun the installer
 once you have installed them. Thank you.
 EOF
-        if ($have_yum) {
-          print_yum_commands(\%needed_rpms);
-        } else {
-          print_up2date_commands(\%needed_rpms);
-        }
+        print_up2date_commands($needed_rpms);
         exit 2;
       }
     }
 
     rpm_import_gpg($opts);
 
-    print Spacewalk::Setup::loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
+    print loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
 Installing packages. The log can be found in
 
 	%s
@@ -690,33 +769,15 @@ Installing packages. The log can be found in
 You can tail -f in another terminal to see the progress.
 EOF
 
-    if ($have_yum) {
-      my @command = ( "yum", "-y", "install", sort keys %needed_rpms );
-      print Spacewalk::Setup::loc("Running %s\n", "@command");
-      my $ret = Spacewalk::Setup::system_debug(@command);
-      if ($ret) {
-        print Spacewalk::Setup::loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
-We've tried to run the yum command but it looks like it failed. Please
-review the log file
-
-	%s
-
-and fix whatever the problem might be.
-EOF
-        exit 3;
-      }
-      return;
-    }
-
-    for my $arch (get_arches_for_needed_rpms(\%needed_rpms)) {
+    for my $arch (get_arches_for_needed_rpms($needed_rpms)) {
       my $ret = 0;
-      my @command = up2date_command_for_arch(\%needed_rpms, $arch);
+      my @command = up2date_command_for_arch($needed_rpms, $arch);
       if (@command) {
-        print Spacewalk::Setup::loc("Running %s\n", "@command");
-        $ret = Spacewalk::Setup::system_debug(@command);
+        print loc("Running %s\n", "@command");
+        $ret = system_debug(@command);
       }
       if ($ret) {
-        print Spacewalk::Setup::loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
+        print loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
 We've tried to run the up2date command but it looks like it failed. Please
 review the log file
 
@@ -726,13 +787,13 @@ and fix whatever the problem might be.
 EOF
         exit 3;
       }
-      purge_needed_rpms(\%needed_rpms);
+      purge_needed_rpms($needed_rpms);
     }
 
-    purge_needed_rpms(\%needed_rpms);
-    if (keys %needed_rpms) {
-      my $not_installed = join "\n\t", sort keys %needed_rpms;
-      print Spacewalk::Setup::loc(<<'EOF', $not_installed, Spacewalk::Setup::INSTALL_LOG_FILE);
+    purge_needed_rpms($needed_rpms);
+    if (keys %$needed_rpms) {
+      my $not_installed = join "\n\t", sort keys %$needed_rpms;
+      print loc(<<'EOF', $not_installed, Spacewalk::Setup::INSTALL_LOG_FILE);
 It looks like installation of packages failed. The following are still
 missing:
 
@@ -789,7 +850,7 @@ sub print_up2date_commands {
   my @arches = get_arches_for_needed_rpms($needed_rpms);
   return if not @arches;
 
-  print Spacewalk::Setup::loc(<<EOF);
+  print loc(<<EOF);
 
 The following may be used to install needed packages on RHN-registered system:
 EOF
@@ -837,33 +898,37 @@ sub rpm_import_gpg {
   if ($? and defined $check_up2date_l and $check_up2date_l =~ /(rpm\s+--import.+)/) {
     my $rpm_import = $1;
     if ($opts->{"skip-gpg-key-import"}) {
-      print Spacewalk::Setup::loc("** up2date/rpm: Skipping gpg key import\n");
+      print loc("** up2date/rpm: Skipping gpg key import\n");
       return 0;
     }
-    print Spacewalk::Setup::loc("** Running %s\n", $rpm_import);
+    print loc("** Running %s\n", $rpm_import);
     system_debug_stdout($rpm_import);
   }
   return 1;
 }
 
 sub up2date_is_available {
-  print Spacewalk::Setup::loc("** Checking if up2date is available ...\n");
+  print loc("** Checking if up2date is available ...\n");
   if (grep /^bash-/, `up2date --showall 2>&1`) {
     return 1;
   }
   return;
 }
 
+my $yum_available;
 sub yum_is_available {
-  print Spacewalk::Setup::loc("** Checking if yum is available ...\n");
+  return $yum_available if defined $yum_available;
+  print loc("** Checking if yum is available ...\n");
   if (grep /^No Repositories Available/, `LC_ALL=C yum list base 2>&1`) {
-    return;
+    $yum_available = 0;
+  } else {
+    $yum_available = 1;
   }
-  return 1;
+  return $yum_available;
 }
 
 sub install_updates_packages {
-  Spacewalk::Setup::system_or_exit(['/bin/sh', 'updates/update.sh'],
+  system_or_exit(['/bin/sh', 'updates/update.sh'],
 		 24,
 		 'Could not update system.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
 
@@ -872,11 +937,11 @@ sub install_updates_packages {
 
 sub install_rhn_packages {
   if ($have_yum) {
-    Spacewalk::Setup::system_or_exit(['yum', 'localinstall', '-y', glob("Satellite/*.rpm EmbeddedDB/*.rpm")],
+    system_or_exit(['yum', 'localinstall', '-y', glob("Satellite/*.rpm EmbeddedDB/*.rpm")],
 		 26,
 		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
   } else {
-    Spacewalk::Setup::system_or_exit(['python', '-u', 'install/installPackages.py'],
+    system_or_exit(['python', '-u', 'install/installPackages.py'],
 		 26,
 		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
   }

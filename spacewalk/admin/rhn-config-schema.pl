@@ -42,7 +42,33 @@ if ($help or not ($source and $target and $tablespace_name)) {
 open(SOURCE, "< $source") or die "Could not open $source: $OS_ERROR";
 open(TARGET, "> $target") or die "Could not open $target for writing: $OS_ERROR";
 
-while (my $line = <SOURCE>) {
+my $subdir_name = 'schema-override';
+my $exception_dir;
+($exception_dir = $source) =~ s!/[^/]+$!/$subdir_name!;
+
+my $marker_re = qr/^select '(.+?)' sql_file from dual;$/;
+my $line;
+while ($line = <SOURCE>) {
+  if ($line =~ $marker_re) {
+    my $filename = $1;
+    $filename =~ s!^.+/([^/]+/[^/]+)$!$1!;
+    if (-e "$exception_dir/$filename") {
+      open OVERRIDE, "$exception_dir/$filename" or die "Error reading file [$exception_dir/$filename]: $!\n";
+      print TARGET "select '$subdir_name/$filename' sql_file from dual;\n";
+      while (<OVERRIDE>) {
+        s/\[\[.*\]\]/$tablespace_name/g;
+        s/__.*__/$tablespace_name/g;
+        print TARGET $_;
+      }
+      close OVERRIDE;
+      while ($line = <SOURCE>) {
+        if ($line =~ $marker_re) {
+	  last;
+	}
+      }
+      redo;
+    }
+  }
   $line =~ s/\[\[.*\]\]/$tablespace_name/g;
   $line =~ s/__.*__/$tablespace_name/g;
 

@@ -240,7 +240,7 @@ sub admin_server_group_edit_form {
   else {
 
     my $plural = $subs{member_count} > 1 ? 's' : '';
-    $subs{systems_area} = PXT::HTML->link('/network/systems/groups/system_list.pxt?sgid=' . $sgid,
+    $subs{systems_area} = PXT::HTML->link('/rhn/groups/ListRemoveSystems.do?sgid=' . $sgid,
 					  $subs{member_count} . " system$plural");
     if($subs{member_count} > 1) {
       $subs{systems_area} .= <<EOH;

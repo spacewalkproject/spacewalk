@@ -5,10 +5,11 @@ License: GPLv2
 Source1: ssl-cert-check 
 Source2: rhn-ssl-cert-check 
 Version: 1.4
-Release: 10.10%{?dist}
+Release: 10.12%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl
+Obsoletes: rhn-ssl-cert-check <= %{version}-%{release}
 
 %description 
 Runs a check once a day to see if the ssl certificates installed on this
@@ -38,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.4-10.12
+- 480967 - obsolete rhn-ssl-cert-check
+
 * Tue Sep  2 2008 Milan Zazrivec 1.4-10.10
 - Renamed rhn-ssl-cert-check to spacewalk-ssl-cert-check
 

@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.10
+Version: 0.5.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -30,7 +30,7 @@ Requires: quartz
 Requires: redstone-xmlrpc
 #Requires: picocontainer
 Requires: tanukiwrapper
-Obsoletes: rhn-search <= 0.1
+Obsoletes: rhn-search < 5.3.0
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
 BuildRequires: jakarta-commons-cli
@@ -108,6 +108,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.1-1
+- obsolete rhn-search before 5.3.0 (for satellite's benefit)
+
 * Tue Jan 13 2009 John Matthews <jmatthews@redhat.com> 0.4.10-1
 - Added SystemSearch parameter, running kernel
 

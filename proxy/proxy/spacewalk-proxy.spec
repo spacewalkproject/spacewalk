@@ -4,9 +4,10 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.5.4
+Version: 0.5.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+BuildRequires: python
 BuildArch: noarch
 
 %define rhnroot %{_usr}/share/rhn
@@ -278,7 +279,7 @@ fi
 
 
 %changelog
-* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
+* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
 - fix conflicts with spacewalk-proxy-tools
 - management do not need to require specific version of package manager
 

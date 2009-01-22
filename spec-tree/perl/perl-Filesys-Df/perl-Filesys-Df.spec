@@ -1,6 +1,6 @@
 Name:           perl-Filesys-Df
 Version:        0.92
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Perl extension for filesystem disk space information
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -9,6 +9,7 @@ Source0:        http://www.cpan.org/modules/by-module/Filesys/Filesys-Df-%{versi
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Obsoletes:      perl-Filesys-Statvfs-Df < 0.73
 
 %description
 This module provides a way to obtain filesystem disk space information.
@@ -50,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.92-6
+- obsolete perl-Filesys-Statvfs-Df for satellite's 5.3.0 benefit
+
 * Thu Oct 16 2008 Milan Zazrivec 0.92-4
 - bumped release for minor release tagging
 
