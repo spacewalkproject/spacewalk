@@ -39,7 +39,7 @@ and then deploys configuration files and activates the &RHNPROXY;.
     <varlistentry>
         <term>--answer-file</term>
         <listitem>
-            <para>Indicates the location of an answer file to be use for answering
+            <para>Indicates the location of an answer file to be used for answering
  questions asked during the installation process. See section Answer File for more details.</para>
         </listitem>
     </varlistentry>
@@ -126,7 +126,7 @@ and then deploys configuration files and activates the &RHNPROXY;.
         </listitem>
         <term>MONITORING_PARENT</term>
         <listitem>
-           <para>Name of parent for your scout. Usually the same value as in RHN_PARENT.</para>
+           <para>Name of the parent for your scout. Usually the same value as in RHN_PARENT.</para>
         </listitem>
         <term>MONITORING_PARENT_IP</term>
         <listitem>
@@ -134,7 +134,7 @@ and then deploys configuration files and activates the &RHNPROXY;.
         </listitem>
         <term>SCOUT_SHARED_KEY</term>
         <listitem>
-           <para>Your scout shared key (can be found on parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
+           <para>Your scout shared key (can be found on the parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
         </listitem>
     </varlistentry>
 </variablelist>
