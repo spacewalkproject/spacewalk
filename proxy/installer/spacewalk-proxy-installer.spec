@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com>
+- 469059 - add --answer-file option
+
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - 480328 - enable services after installation
 
