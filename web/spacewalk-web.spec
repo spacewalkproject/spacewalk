@@ -226,6 +226,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com>
+- 468180 - warn that after proxy deactivation user should run rhn_check
+
 * Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - 480894 - add to Channel.pm 5.3 channels
 
