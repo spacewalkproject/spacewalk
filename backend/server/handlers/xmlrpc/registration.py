@@ -35,8 +35,6 @@ from server import rhnUser, rhnServer, rhnSQL, rhnHandler, rhnCapability, \
 from server.rhnSQL import procedure
 from server.action.utils import ChannelPackage
 
-import instnum
-
 
 # verify that a hash has all the keys and those have actual values
 def hash_validate(data, *keylist):
@@ -534,34 +532,6 @@ class Registration(rhnHandler):
         # Return the server certificate file down to the client.
         return system_certificate
 
-    def decode_installation_num(self, inst_num):
-        """
-        Given an installation number, decode it and return a dict with the
-        values read from the number.
-        
-        Faults:
-         * Invalid key (600)
-        """
-
-        log_debug(4,'decoding #: %s' % inst_num)
-        
-        if inst_num in ['debugging-unused', 'debugging-already-used']:
-            (product, limit, options, type, full) = \
-                ('rhel_server', 0, ['Cluster'], 'installeronly', 1)
-        else:
-            raise rhnFault(600)
-        
-##        decoder =  RHEL_EntNumDecoder.enDecoder(inst_num)
-##        (product, limit, options, type, full) = decoder.getValuesExplicit()
-        
-        inst_data = { 'product' : product,
-                      'limit'   : limit,
-                      'options' : options,
-                      'type'    : type,
-                      'full'    : full}
-        
-        return inst_data                      
-
 
     # Registers a new system to an org specified by a username, password, and
     # optionally an org id.
@@ -642,37 +612,6 @@ class Registration(rhnHandler):
         failures = []
         unknowns = []
 
-        if other and \
-           other.has_key('registration_number') and \
-           other['registration_number']:
-
-            virt_uuid = None
-            if other.has_key('virt_uuid'):
-                virt_uuid = other['virt_uuid']
-
-            reg_num = other['registration_number']
-
-            log_debug(4, 'Using an installation # for this registration %s' % \
-                         reg_num)
-
-            try:
-                inst_num = instnum.InstallationNumber(reg_num)
-            # We've said we won't fail if we can't decode the number to do
-            # child channel subscriptions, so just swallow the exception.
-            except instnum.InstallationNumberError, e:
-                log_debug(4, 'Unable to decode the installation # - %s' % e)
-            else:
-                successes, failures, unknowns = \
-                    self._automatic_child_channel_subscription(inst_num,
-                                                           server_id,
-                                                           version,
-                                                           arch,
-                                                           virt_uuid)
-
-                # only do the virt sys ent stuff if this is not a guest...
-                if not virt_uuid:
-                    self._process_virt_entitlements(inst_num, server_id)
-
         # Build our return values.
         attempted_channels = []
         successful_channels = []
@@ -730,113 +669,6 @@ class Registration(rhnHandler):
                  'universal_activation_key' : universal_activation_key
                  }
 
-    def _automatic_child_channel_subscription(self, inst_num, server_id,
-                                              version, 
-                                              arch,
-                                              virt_uuid):
-
-        repositories = inst_num.get_repos()
-
-        log_debug(4, 'Decoded installation # results in the following '
-            'repos: %s' % str(repositories))
-
-
-        # Throw away the 1st item in the list if it's Server or Client as that
-        # is covered by the base channel. I am pretty sure Server/Client is
-        # always the 1st item, but for now, we'll explicitly check.
-        if repositories[0] == 'Server' or repositories[0] == 'Client':
-            repositories = repositories[1:]
-
-        if virt_uuid:
-            # it's a guest, don't subscribe to any virt-related child channels
-            repositories = filter(lambda x: x[:4] != 'Virt', repositories)
-
-        # Subscribe the system to it's child channels.
-        if len(repositories) > 0:
- 
-            log_debug(4, 'Attempting to sub child channels defined in '
-                'inst num:  %s' % str(repositories))
-
-            successes, failures, unknowns  = \
-                      rhnChannel.subscribe_child_channels(server_id,
-                        version, arch, repositories)
-
-            log_debug(4, 'Successful child channel subscriptions: %s' % successes)
-            log_debug(4, 'Failed child channel subscriptions: %s' % failures)
-            return (successes, failures, unknowns)
-        else:
-            # No successes failures or unknowns. we didn't do anything.
-            return ([],[],[])
-
-    def _process_virt_entitlements(self, inst_num, server_id):
-        options = inst_num.get_options_string().split()
-        log_debug(4, 'found the following options: %s' % str(options))
-        if "Virt" in options:
-            virt_entitlement = "virtualization_host"
-            other_entitlement = "virtualization_host_platform"
-        elif "VirtPlatform" in options:
-            virt_entitlement = "virtualization_host_platform"
-            other_entitlement = "virtualization_host"
-        else:
-            return
-
-        log_debug(4, 'System has %s entitlement.' % virt_entitlement)
-        
-        try:
-            rhnChannel.subscribe_to_tools_channel(server_id)
-        except (rhnChannel.NoBaseChannelError, rhnChannel.NoChildChannels, 
-            rhnChannel.InvalidChannel):
-            log_debug(4, 'Unable to subscribe server %s to tools channel' % \
-                      server_id)
-            rhnSQL.rollback()
-            return
-        # If was no tools channel, just return and abort the virt entitlement
-        # attempt, but don't fail the whole registration.
-        except rhnChannel.NoToolsChannel:
-            log_debug(4, 'Unable to subscribe server %s to tools channel' % \
-                      server_id)
-            return                      
-        except rhnFault, fault:
-            if fault.code == 70:
-                log_debug(4, 'Unable to subscribe server %s to tools channel' \
-                          % server_id)
-                rhnSQL.rollback()
-                return
-            else:
-                raise
-
-
-        rhn_v12n_package = ChannelPackage(server_id, "rhn-virtualization-host")
-
-        if not rhn_v12n_package.exists():
-            rhnSQL.rollback()
-            return
-
-        package_ids = [rhn_v12n_package.get_name_id()]
-
-        rhnAction.schedule_server_packages_update(server_id, package_ids)
-
-        # Now do the virt entitlements. If we already have one of the other
-        # type, remove that first.
-        entitlements = rhnServer.server_lib.check_entitlement(server_id).keys()
-        if other_entitlement in entitlements:
-            try:
-                procedure.rhn_entitlements.remove_server_entitlement(server_id,
-                        other_entitlement)
-            except rhnSQL.SQLError, e:
-                log_error("Error removing entitlement: %s" % str(e))
-                rhnSQL.rollback()
-                return
-        if virt_entitlement not in entitlements:
-            try:
-                procedure.rhn_entitlements.entitle_server(server_id,
-                        virt_entitlement)
-            except rhnSQL.SQLError, e:
-                log_error("Error adding entitlement: %s" %str(e))
-                rhnSQL.rollback()
-                return
-
-        rhnSQL.commit()
 
     # Registers a new system to an org specified by an activation key.
     #
