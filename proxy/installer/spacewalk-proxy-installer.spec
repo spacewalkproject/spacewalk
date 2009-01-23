@@ -77,12 +77,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/share/rhn/installer/__init__.py*
 %{_usr}/share/rhn/installer/rhn_proxy_activate.py*
 %{_bindir}/rhn-proxy-activate
-%doc LICENSE
+%doc LICENSE answers.txt
 
 %changelog
 * Fri Jan 23 2009 Miroslav Suchý <msuchy@redhat.com>
 - 469059 - add --non-interactive option
 - add LICENSE to %%doc
+- add example of answer file
 
 * Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 469059 - add --answer-file option
