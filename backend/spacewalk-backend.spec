@@ -550,10 +550,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 * Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
 - removing rhel-instnum dep requires and associated unsed code
 
-* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
-- 480757 - fix filenames generation in repomd for custom channels
-- change Source0 to point to fedorahosted.org
-
 * Thu Jan 15 2009 Pradeep Kilambi 0.4.22-1
 - include migrate-system-profile.8 file in the spec
 
