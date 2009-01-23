@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.2
+Version: 0.5.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -79,7 +79,7 @@ install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT/%{
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/rhnsearchd
 install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search.conf
-install -p-m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
+install -p -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/spacewalk-search.jar
 
 %clean
@@ -108,6 +108,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Fri Jan 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
+- Fix bad install command.
+
 * Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.5.2-1
 - update java-devel BuildRequires to 1.6.0
 - preserve timestamps on install
