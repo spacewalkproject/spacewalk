@@ -1,17 +1,17 @@
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
 Version: 1.4.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 Source0: gzipstream-%{version}.tar.gz
 License: PSF
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
-Prefix: %{_prefix}
-BuildArchitectures: noarch
-Vendor: Todd Warner <taw@redhat.com>
+BuildArch: noarch
+BuildRequires: python-devel
 Url: http://rhn.redhat.com
 
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 %description
 A streaming gzip handler.
@@ -20,23 +20,28 @@ to allow the processing of streaming data.
 
 
 %prep
-%setup -n gzipstream-%{version}
+%setup -q -n gzipstream-%{version}
 
 %build
 %{__python} setup.py build
 
 %install
-%{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+rm -rf $RPM_BUILD_ROOT
+%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f INSTALLED_FILES
+%files
 %defattr(-,root,root)
-%{python_sitelib}/gzipstream.py*
+%{python_sitelib}/*
 
 #$Id: gzipstream.spec,v 1.24 2006-12-07 21:16:31 rnewberr Exp $
 %changelog
+* Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> 1.4.0-17
+- BuildRequires python-devel
+- lots of spec file cleanups
+
 * Fri Aug  1 2008 Jan Pazdziora
 - change .spec not to use the version file
 
