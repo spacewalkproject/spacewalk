@@ -598,6 +598,7 @@ sub oracle_setup_db {
     my $opts = shift;
     my $answers = shift;
 
+    oracle_upgrade_setup_oratab($opts);
     oracle_upgrade_start_db($opts);
 
     print Spacewalk::Setup::loc("* Setting up Oracle environment.\n");
@@ -609,6 +610,19 @@ sub oracle_setup_db {
     oracle_setup_db_connection($opts, $answers);
     oracle_test_db_settings($opts, $answers);
     oracle_populate_db($opts, $answers);
+}
+
+sub oracle_upgrade_setup_oratab {
+    my $opts = shift;
+
+    # 5.3 to 5.3 and beyond upgrades: edit rhnsat entry in /etc/oratab
+    if ($opts->{'upgrade'} and Spacewalk::Setup::is_embedded_db()) {
+        print Spacewalk::Setup::loc("** Database: setting up /etc/oratab\n");
+        if (not -f "/etc/oratab") {
+            die Spacewalk::Setup::loc("File /etc/oratab does not exist.\n");
+        }
+        system('sed -i "s/^rhnsat:\(.\+\):N$/rhnsat:\1:Y/g" /etc/oratab');
+    }
 }
 
 sub oracle_upgrade_start_db {
