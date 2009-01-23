@@ -615,7 +615,7 @@ sub oracle_setup_db {
 sub oracle_upgrade_setup_oratab {
     my $opts = shift;
 
-    # 5.3 to 5.3 and beyond upgrades: edit rhnsat entry in /etc/oratab
+    # 5.2 to 5.3 and beyond upgrades: edit rhnsat entry in /etc/oratab
     if ($opts->{'upgrade'} and Spacewalk::Setup::is_embedded_db()) {
         print Spacewalk::Setup::loc("** Database: setting up /etc/oratab\n");
         if (not -f "/etc/oratab") {
