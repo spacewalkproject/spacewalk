@@ -20,7 +20,9 @@ BuildArch: noarch
 Various utility scripts and data files for Spacewalk installations.
 
 %prep
-%setup
+%setup -q
+
+%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
