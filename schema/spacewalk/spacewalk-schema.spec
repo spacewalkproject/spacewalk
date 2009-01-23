@@ -1,6 +1,6 @@
 Name:           spacewalk-schema
 Group:          Applications/Internet
-Summary:        Oracle SQL schema for Spacewalk server.
+Summary:        Oracle SQL schema for Spacewalk server
 
 Version:        0.5.1
 Release:        1%{?dist}
@@ -11,7 +11,7 @@ Url:            http://fedorahosted.org/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Obsoletes:	rhn-satellite-schema <= 5.1.0
+Obsoletes:      rhn-satellite-schema <= 5.1.0
 
 
 %define rhnroot /etc/sysconfig/rhn/
