@@ -40,12 +40,15 @@ FROM
 	 rhnChannelPackage CP,
 	 rhnServerChannel SC,
          rhnServer S,
-	 rhnErrataPackage PE
+	 rhnErrataPackage PE,
+	 rhnChannelErrata EC
 WHERE
     	 SC.server_id = S.id
   AND  	 SC.channel_id = CP.channel_id
   AND    CP.package_id = P.id
   AND    PE.package_id = P.id (+)
+  AND    PE.errata_id = EC.errata_id (+)
+  AND    EC.channel_id = SC.channel_id (+)
   AND    p.package_arch_id = spac.package_arch_id
   AND    spac.server_arch_id = s.server_arch_id
   AND    SP_EVR.id = SP.evr_id
