@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.1
+Version:        0.5.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
-* Fri Jan 23 2009 Jan Pazdziora 0.5.1-1
+* Fri Jan 23 2009 Jan Pazdziora 0.5.2-1
 - fix for ORA-01440 error occurring when updating populated table (Michael M.)
 - removed s/%{?dist}// substitution with no effect (Milan Z.)
 - spacewalk-schema-upgrade: minor cleanup
