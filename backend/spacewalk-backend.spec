@@ -544,6 +544,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Jan 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- new build
+
 * Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
 - removing rhel-instnum dep requires and associated unsed code
 
