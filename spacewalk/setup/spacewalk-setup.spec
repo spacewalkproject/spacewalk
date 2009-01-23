@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.3
+Version:        0.5.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jan 23 2009 Milan Zazrivec 0.5.4-1
+- re-enable satellite upgrades
+
 * Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.3-1
 - fixed branding stuff
 
