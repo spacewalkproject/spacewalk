@@ -6,7 +6,7 @@ use warnings FATAL => 'all';
 use Spacewalk::Setup ();
 use IPC::Open3 ();
 
-my $SCHEMA_UPGRADE_DIR = '/etc/sysconfig/rhn/schema-upgrade';			### FIXME
+my $SCHEMA_UPGRADE_DIR = '/etc/sysconfig/rhn/schema-upgrade';
 my $SCHEMA_UPGRADE_LOGDIR = '/var/log/spacewalk/schema-upgrade';
 
 my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
