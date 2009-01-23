@@ -389,8 +389,9 @@ public class KickstartLister extends BaseManager {
                                                                 excludes);
         for (Profile profile : cProfiles) {
             Distro distro = profile.getDistro();
-            String orgId = (String) distro.getKsMeta().get("org");
-            if (orgId == null || user.getOrg().getId().toString().equals(orgId)) {
+            Object orgId = distro.getKsMeta().get("org");
+            if (orgId == null || user.getOrg().getId().toString().
+                                        equals(String.valueOf(orgId))) {
                 profiles.add(CobblerProfileDto.create(profile));    
             }
         }
