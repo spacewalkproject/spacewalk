@@ -16,7 +16,7 @@ Url: http://rhn.redhat.com
 %description
 A streaming gzip handler.
 gzipstream.GzipStream extends the functionality of the gzip.GzipFile class
-to allow the processing of streaming data. 
+to allow the processing of streaming data.
 
 
 %prep
