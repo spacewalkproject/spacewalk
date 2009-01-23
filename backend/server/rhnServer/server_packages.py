@@ -331,7 +331,7 @@ def update_errata_cache(server_id):
                 and package_id = :package_id
         """)
         dict = rhnLib.transpose_to_hash(non_null_errata,
-             'errata_id', 'package_id'])
+             ['errata_id', 'package_id'])
         # Add server_id
         dict['server_id'] = [server_id] * len(dict['package_id'])
         h.execute_bulk(dict)
