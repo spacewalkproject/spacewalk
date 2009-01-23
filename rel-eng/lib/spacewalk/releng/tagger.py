@@ -109,10 +109,12 @@ class VersionTagger(object):
         # bump the version, then update the changelog.
         f = open(self.spec_file, 'r')
         buf = StringIO.StringIO()
+        found_match = False
         for line in f.readlines():
             match = self.changelog_regex.match(line)
-            if match:
+            if match and not found_match:
                 buf.write("%s %s\n" % (match.group(), new_version))
+                found_match = True
             else:
                 buf.write(line)
         f.close()
