@@ -626,7 +626,7 @@ public class ErrataHandler extends BaseHandler {
         if ((packagesAdded > 0) && errata.isPublished() && 
             (errata.getChannels() != null)) {
             ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels(), loggedInUser.getOrg());
+                    errata.getChannels());
         }
         
         //Save the errata
@@ -676,7 +676,7 @@ public class ErrataHandler extends BaseHandler {
         if ((packagesRemoved > 0) && errata.isPublished() && 
                 (errata.getChannels() != null)) {
             ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels(), loggedInUser.getOrg());
+                    errata.getChannels());
         }
         
         //Save the errata

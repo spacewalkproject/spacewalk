@@ -96,7 +96,7 @@ public class PublishErrataAction extends RhnListAction {
         //update the errata info
         List chanList = new ArrayList();
         chanList.add(currentChan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList);
         ChannelManager.refreshWithNewestPackages(currentChan, "web.errata_push");
         request.setAttribute("cid", cid);
         

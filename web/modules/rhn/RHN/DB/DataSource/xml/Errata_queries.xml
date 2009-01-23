@@ -276,30 +276,6 @@ ORDER BY E.update_date, E.id
 </mode>
 
 
-<mode name="all_errata_summary">
-  <query params="org_id">
-SELECT  DISTINCT E.id, E.advisory_type, E.synopsis, E.update_date, E.advisory
-  FROM  rhnErrata E, rhnChannelErrata CE, rhnAvailableChannels AC
- WHERE  AC.org_id = :org_id
-   AND  CE.channel_id = AC.channel_id
-   AND  CE.errata_id = E.id
-ORDER BY  E.update_date DESC, E.id
-  </query>
-  <elaborator name="affected_server_count" />
-</mode>
-
-<mode name="relevant_errata_summary">
-  <query params="user_id">
-SELECT DISTINCT E.id ID, E.advisory_type, E.synopsis, E.update_date, E.advisory
-  FROM rhnErrata E, rhnUserServerPerms USP, rhnServerNeededErrataCache SNEC
- WHERE E.id = SNEC.errata_id
-   AND SNEC.server_id = USP.server_id
-   AND USP.user_id = :user_id
-ORDER BY E.update_date DESC
-</query>
-  <elaborator name="affected_server_count" />
-</mode>
-
 <mode name="published_owned_errata">
   <query params="org_id">
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name, E.synopsis,
@@ -397,23 +373,7 @@ ORDER BY E.update_date DESC, E.id
      AND CC.original_id = CE.channel_id
 ORDER BY CE.errata_id, C.name
 </query>
-     
-<query name="affected_server_count" multiple="f" params="org_id, user_id">
-SELECT  E.id ID,
-       (SELECT  COUNT(DISTINCT SNEC.server_id)
-          FROM  rhnServerNeededErrataCache SNEC 
-         WHERE  SNEC.errata_id = E.id
-           AND  SNEC.org_id = :org_id
-           AND  EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = SNEC.server_id AND SFV.label = 'ftr_errata_updates')
-           AND  EXISTS (SELECT  1
-                          FROM  rhnUserServerPerms USP
-                         WHERE  USP.user_id = :user_id
-                           AND  USP.server_id = SNEC.server_id)
-      ) AFFECTED_SERVER_COUNT
-  FROM  rhnErrata E
- WHERE E.id IN (%s)
-</query>
-
+    
 <query name="errata_overview" params="user_id">
 SELECT  E.id, 
         E.advisory,

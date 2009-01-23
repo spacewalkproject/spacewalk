@@ -56,6 +56,7 @@ import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.manager.channel.ChannelEditor;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
@@ -1574,4 +1575,30 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return differentPackages.toArray();
     }
 
+    /**
+     * Regenerate the errata cache for all the systems subscribed to a particular channel
+     * @param sessionKey the session key
+     * @param channelLabel the channel label
+     * @return on on success
+     * 
+     * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package 
+     *      cache for all systems subscribed to the specified channel.  This should 
+     *      be used only if you believe your cache is incorrect for all the systems 
+     *      in a given channel. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "the label of the 
+     *          channel")
+     * @xmlrpc.returntype  #return_int_success()  
+     *          
+     */
+    public int regenerateCache(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+        Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
+        List chanList = new ArrayList<Long>();
+        chanList.add(chan.getId());
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList);
+        return 1;
+    }
+    
 }

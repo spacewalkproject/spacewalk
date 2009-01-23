@@ -365,7 +365,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
             ErrataCacheManager.insertNeededPackageCache(server.getId(),
-                    user.getOrg().getId(), e.getId(), pkg.getId());
+                    e.getId(), pkg.getId());
         }
         
         errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
@@ -689,7 +689,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         UserFactory.save(user);
         OrgFactory.save(org);*/
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                s.getId(), user.getOrg().getId(), e.getId(), p.getId());
+                s.getId(), e.getId(), p.getId());
         assertEquals(1, rows); 
         
         /* CPU query setup */
@@ -1087,7 +1087,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(upgradedPackage);
         
         ErrataCacheManager.insertNeededPackageCache(
-                server.getId(), org.getId(), errata.getId(), installedPackage.getId());
+                server.getId(), errata.getId(), installedPackage.getId());
     }
 
     public void testSsmSystemPackagesToRemove() throws Exception {

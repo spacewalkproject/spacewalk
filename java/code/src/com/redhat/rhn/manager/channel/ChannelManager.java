@@ -1718,7 +1718,7 @@ public class ChannelManager extends BaseManager {
         refreshWithNewestPackages(c, user.getLogin());
         Set cacheUpdate = new HashSet();
         cacheUpdate.add(c);
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(cacheUpdate, user.getOrg());
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(cacheUpdate);
     }
 
     /**

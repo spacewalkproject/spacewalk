@@ -917,7 +917,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         UserFactory.save(admin);
         TestUtils.flushAndEvict(admin);
         ErrataCacheManager.insertNeededErrataCache(
-                s.getId(), admin.getOrg().getId(), e.getId());
+                s.getId(), e.getId());
 
         Object[] array = handler.getRelevantErrata(adminKey,
                 new Integer(s.getId().intValue()));
@@ -1595,8 +1595,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Long sid = new Long(testServer.getId().longValue());
         Package pack = PackageTest.createTestPackage(admin.getOrg());
         
-        ErrataCacheManager.insertNeededPackageCache(sid, regular.getOrg().getId(), 
-                null, pack.getId());
+        ErrataCacheManager.insertNeededPackageCache(sid, null, 
+                pack.getId());
         
         Object [] array =  handler.listOutOfDateSystems(regularKey);
         

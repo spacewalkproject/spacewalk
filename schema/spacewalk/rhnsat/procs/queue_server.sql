@@ -27,18 +27,12 @@ IS
 BEGIN
     IF immediate_in > 0
     THEN
-        DELETE FROM rhnServerNeededPackageCache WHERE server_id = server_id_in;
-        INSERT INTO rhnServerNeededPackageCache
-       	    (SELECT org_id, server_id, errata_id, package_id
+        DELETE FROM rhnServerNeededCache WHERE server_id = server_id_in;
+        INSERT INTO rhnServerNeededCache
+       	    (SELECT server_id, errata_id, package_id
 	       FROM rhnServerNeededPackageView
               WHERE server_id = server_id_in);
 
-	DELETE FROM rhnServerNeededErrataCache snec WHERE server_id = server_id_in;
-	insert into rhnServerNeededErrataCache
-	    (select distinct org_id, server_id, errata_id
-	       from rhnServerNeededPackageCache
-	      where server_id = server_id_in
-	        and errata_id is not null);
     ELSE
           SELECT org_id INTO org_id_tmp FROM rhnServer WHERE id = server_id_in;
 	  

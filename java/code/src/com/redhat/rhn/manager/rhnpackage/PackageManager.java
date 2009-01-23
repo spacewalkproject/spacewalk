@@ -1030,7 +1030,7 @@ public class PackageManager extends BaseManager {
         for (Channel chan : channels) {
             ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
         }
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels, user.getOrg());
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels);
     }
     
     /**

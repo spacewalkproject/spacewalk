@@ -126,6 +126,31 @@ public class UpdateErrataCacheCommand {
     
     
     /**
+     * Updates the needed cache for particular packages within a channel
+     *  This isn't a full regeneration, only the changes are handled
+     * @param cid the channel affected 
+     * @param eid the erratum id
+     */
+    public void updateErrataCacheForErrata(Long cid, Long eid) {
+        log.info("Updating errata cache for servers in channel [" + cid + "] " +
+                "and pacakges [" + eid + "]");
+        
+        List<Long> pids = ErrataCacheManager.listErrataChannelPackages(cid, eid);        
+        try {
+            ErrataCacheManager.updateCacheForChannelPackages(cid, eid, pids);
+        }
+        catch (Exception e) {
+            log.error("Problem updating cache for servers in channel for errata", e);
+        }
+        finally {
+            handleTransaction();
+        }
+        log.info("Finished with servers in channel [" + cid + "] " +
+                "and errata [" + eid + "]" + " with pids [" + pids + "]");        
+    } 
+    
+    
+    /**
      * Updates the errata cache for all the servers in the given channel.
      * @param cid Channel id whose servers need their cache updated.
      */
@@ -151,30 +176,18 @@ public class UpdateErrataCacheCommand {
          * get packages_needing_updates
          * foreach item put entry in pseen hashmap
          * get errata_needing_application
-         * foreach item put entry in eseen hashmap
-         * get new_packages
          * foreach item in get newpackages
-         *    if there is an errata id add to e_rows
          *    if not in pseen
          *       add to padded
          *    else
          *       delete from p_seen
          *       increment p_unchanged
-         * foreach entry in e_rows
-         *    if not in e_seen
-         *       add to eadded
-         *    else
-         *       delete from eseen
          *       
          * if there is anything in pseen
          *    call delete_needed_package_cache
          * if there is something in padded
          *    call insert_needed_package_cache
          * 
-         * if there is something in eseen
-         *    call delete_needed_errata_cache
-         * if there is something in eadded
-         *    call insert_needed_errata_cache
          */
         
         // let's avoid the dreaded nullpointer
@@ -189,27 +202,21 @@ public class UpdateErrataCacheCommand {
         
         DataResult newpkgs = ErrataCacheManager.newPackages(serverId);
         DataResult pkgs = ErrataCacheManager.packagesNeedingUpdates(serverId);
-        DataResult errata = ErrataCacheManager.errataNeedingApplication(serverId);
         
         if (log.isDebugEnabled()) {
             log.debug("newpkgs: " + newpkgs);
             log.debug("Packages: " + pkgs);
-            log.debug("errata: " + errata);
         }
         
         List eRows = new ArrayList();
         List pAdded = new ArrayList();
-        List eAdded = new ArrayList();
+   
         
         Iterator itr = null;
         for (itr = newpkgs.iterator(); itr.hasNext();) {
             ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
             if (log.isDebugEnabled()) {
                 log.debug("newpkgs  - processing ErrataCacheDto: " + ecd.getErrataId());
-            }
-            if (ecd.getErrataId() != null) {
-                log.debug("adding current row.");
-                eRows.add(ecd);
             }
             
             if (!pkgs.contains(ecd)) {
@@ -223,20 +230,6 @@ public class UpdateErrataCacheCommand {
             }
         }
         
-        for (itr = eRows.iterator(); itr.hasNext();) {
-            ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-            if (log.isDebugEnabled()) {
-                log.debug("eRows - processing ErrataCacheDto: " + ecd.getErrataId());
-            }
-            if (!errata.contains(ecd)) {
-                log.debug("eRows - !errata.contains()");
-                eAdded.add(ecd);
-            }
-            else {
-                // remove an errata we've already seen
-                errata.remove(ecd);
-            }
-        }
         
         // delete the needed package cache
         if (!pkgs.isEmpty()) {
@@ -244,8 +237,8 @@ public class UpdateErrataCacheCommand {
                 ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
                 log.debug("Deleting needed package cache.");
                 ErrataCacheManager.deleteNeededPackageCache(
-                        ecd.getServerId(), ecd.getOrgId(),
-                        ecd.getErrataId(), ecd.getPackageId());
+                        ecd.getServerId(), ecd.getErrataId(),
+                        ecd.getPackageId());
             }
         }
         
@@ -255,37 +248,14 @@ public class UpdateErrataCacheCommand {
                 log.debug("reinsert the needed package cache.");
                 ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
                 ErrataCacheManager.insertNeededPackageCache(
-                        ecd.getServerId(), ecd.getOrgId(),
-                        ecd.getErrataId(), ecd.getPackageId());
+                        ecd.getServerId(), ecd.getErrataId(),
+                        ecd.getPackageId());
             }
         }
-        
-        // delete the needed errata cache
-        if (!errata.isEmpty()) {
-            for (itr = errata.iterator(); itr.hasNext();) {
-                log.debug("delete the needed errata cache.");
-                ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-                ErrataCacheManager.deleteNeededErrataCache(
-                        ecd.getServerId(), ecd.getOrgId(), ecd.getErrataId());
-            }
-        }
-        
-        // insert the needed errata cache
-        if (!eAdded.isEmpty()) {
-            for (itr = eAdded.iterator(); itr.hasNext();) {
-                log.debug("insert the needed errata cache.");
-                ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-                ErrataCacheManager.insertNeededErrataCache(
-                        ecd.getServerId(), ecd.getOrgId(), ecd.getErrataId());
-            }
-        }
-        
+                
         Map retval = new HashMap();
         if (pAdded != null && !pAdded.isEmpty()) {
             retval.put("packages", new LinkedList(pAdded));
-        }
-        if (eAdded != null && !eAdded.isEmpty()) {
-            retval.put("errata", new LinkedList(eAdded));
         }
         
         if (log.isDebugEnabled()) {

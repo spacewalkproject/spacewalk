@@ -96,7 +96,7 @@ public class AddPackagesConfirmAction extends RhnSetAction {
         //Update Errata Cache
         if (errata.isPublished()) {
             ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels(), user.getOrg());
+                    errata.getChannels());
         }
         
         //Set the correct action message and return to the success mapping

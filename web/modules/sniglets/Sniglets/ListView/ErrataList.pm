@@ -78,14 +78,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "relevant_to_group",
 			   -datasource => RHN::DataSource::Errata->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "all_errata_summary",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -provider => \&errata_summary_provider);
-
-  Sniglets::ListView::List->add_mode(-mode => "relevant_errata_summary",
-			   -datasource => RHN::DataSource::Errata->new,
-			   -provider => \&errata_summary_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "in_set",
 			   -datasource => RHN::DataSource::Errata->new,
 			   -action_callback => \&default_callback);

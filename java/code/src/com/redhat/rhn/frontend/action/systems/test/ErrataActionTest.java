@@ -43,7 +43,7 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
         Server server = ServerFactoryTest.createTestServer(user, true);      
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
         ErrataCacheManager.insertNeededErrataCache(server.getId(), 
-                user.getOrg().getId(), e.getId());
+                e.getId());
         addRequestParameter(RequestContext.SID, server.getId().toString());
         actionPerform();
         assertTrue(getActualForward().indexOf("errata.jsp") > -1);

@@ -156,7 +156,7 @@ public class ChannelAction extends RhnSetAction {
             }
             log.debug("updateChannels() - channels to update: " + channelsToUpdate);
             ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    channelsToUpdate, user.getOrg());
+                    channelsToUpdate);
         }
        
        strutsDelegate.saveMessages(request, getMessages(errata));

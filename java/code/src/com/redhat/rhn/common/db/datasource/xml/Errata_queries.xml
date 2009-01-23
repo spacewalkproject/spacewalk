@@ -750,25 +750,6 @@ ORDER BY E.update_date DESC, E.id
 ORDER BY CE.errata_id, C.name
 </query>
      
-<query name="affected_server_count" multiple="f" params="org_id, user_id">
-SELECT  E.id ID,
-       (SELECT  COUNT(DISTINCT SNPC.server_id)
-          FROM  rhnServerNeededPackageCache SNPC 
-         WHERE  SNPC.errata_id = E.id
-           AND  SNPC.org_id = :org_id
-           AND  EXISTS (SELECT 1
-                          FROM rhnServerFeaturesView SFV
-                         WHERE SFV.server_id = SNEC.server_id
-                           AND SFV.label = 'ftr_errata_updates')
-           AND  EXISTS (SELECT  1
-                          FROM  rhnUserServerPermsDupes USPD
-                         WHERE  USPD.user_id = :user_id
-                           AND  USPD.server_id = SNPC.server_id)
-      ) AFFECTED_SERVER_COUNT
-  FROM  rhnErrata E
- WHERE E.id IN (%s)
-</query>
-
 <query name="errata_overview" params="user_id">
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis as advisory_synopsis,
     (SELECT  COUNT(DISTINCT S.id)

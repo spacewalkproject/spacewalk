@@ -280,7 +280,7 @@ public class ServerTestUtils {
         TestUtils.saveAndFlush(upgradedPackage);
         
         ErrataCacheManager.insertNeededPackageCache(
-                server.getId(), org.getId(), errata.getId(), installedPackage.getId());
+                server.getId(), errata.getId(), installedPackage.getId());
         
         return installedPackage;
     }

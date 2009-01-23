@@ -35,9 +35,9 @@ public class SystemOverview extends BaseDto implements Serializable  {
 
     private Long id;
     private Long channelId;
-    private Long securityErrata;
-    private Long bugErrata;
-    private Long enhancementErrata;
+    private Long securityErrata = 0L;
+    private Long bugErrata = 0L;
+    private Long enhancementErrata = 0L;
     private Long outdatedPackages;
     private String serverName;
     private Long serverAdmins;

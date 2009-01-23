@@ -14,13 +14,11 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import java.util.Iterator;
-
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.messaging.EventMessage;
 import com.redhat.rhn.common.messaging.MessageAction;
 import com.redhat.rhn.manager.errata.cache.UpdateErrataCacheCommand;
+
+import org.apache.log4j.Logger;
 
 /**
  * UpdateErrataCacheAction
@@ -39,31 +37,43 @@ public class UpdateErrataCacheAction
         if (log.isDebugEnabled()) {
             log.debug("Updating errata cache, with type: " + evt.getUpdateType());
         }
-        Long orgId = evt.getOrgId();
-        if (orgId == null) {
-            log.warn("UpdateErrataCacheEvent was sent with a null org");
-            return;
-        }
+
         
         UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
         
         
         if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_ORG) {
+            Long orgId = evt.getOrgId();
+            if (orgId == null) {
+                log.error("UpdateErrataCacheEvent was sent with a null org");
+                return;
+            }
             if (log.isDebugEnabled()) {
                 log.debug("Updating errata cache for org [" + orgId + "]");
             }
             uecc.updateErrataCache(orgId);
+            if (log.isDebugEnabled()) {
+                log.debug("Finished updating errata cache for org [" +
+                        orgId + "]");
+            }
         }
         else if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_CHANNEL) {
-            
-            Iterator i = evt.getChannelIds().iterator();
-            while (i.hasNext()) {
-                Long cid = (Long) i.next();
+            for (Long cid : evt.getChannelIds()) {
                 if (log.isDebugEnabled()) {
                     log.debug("Updating errata cache for channel: " + cid);
                 }
                 uecc.updateErrataCacheForChannel(cid);
             }
+        }
+        else if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_ERRATA_CHANNEL) {
+            for (Long cid : evt.getChannelIds()) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Updating errata cache for channel: " + cid + 
+                            " and errata:" + evt.getErrataId());
+                }
+                uecc.updateErrataCacheForErrata(cid, evt.getErrataId());
+            }
+            
         }
         else {
             throw new IllegalArgumentException("Unknown update type: " + 
@@ -74,10 +84,7 @@ public class UpdateErrataCacheAction
         // we don't have such a luxury.
         handleTransactions();
         
-        if (log.isDebugEnabled()) {
-            log.debug("Finished updating errata cache for org [" +
-                    orgId + "]");
-        }
+
     }
 
 

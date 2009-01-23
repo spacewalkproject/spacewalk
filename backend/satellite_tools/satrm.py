@@ -278,24 +278,6 @@ def _delete_rpms(packageIds):
     if not packageIds:
         return
 
-    # find the errata in SNPC which only contain refer to this package
-    # and remove them from SNEC
-    h = rhnSQL.prepare("""
-        delete from rhnServerNeededErrataCache
-        where (org_id, errata_id, server_id) in (
-        select  org_id, errata_id, server_id
-        from    rhnServerNeededPackageCache snpc
-        where   package_id = :package_id
-            and not exists (
-                select  1
-                from    rhnServerNeededPackageCache
-                where   org_id = snpc.org_id
-                    and errata_id = snpc.errata_id
-                    and server_id = snpc.server_id
-                    and package_id != :package_id
-            )
-        )
-    """)
     for pid in packageIds:
         h.execute(package_id = pid)
 
@@ -309,7 +291,7 @@ def _delete_rpms(packageIds):
         'rhnPackageObsoletes', 
         'rhnPackageProvides', 
         'rhnPackageRequires', 
-        'rhnServerNeededPackageCache',
+        'rhnServerNeededCache',
     ]
     deleteStatement = "delete from %s where package_id = :package_id"
     for table in references:

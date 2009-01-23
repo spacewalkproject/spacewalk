@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.common.db.datasource;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,5 +32,26 @@ public class WriteMode extends BaseMode {
     public int executeUpdate(Map parameters) {
         return getQuery().executeUpdate(parameters);
     }
+    
+    
+    /**
+     * execute an update with an inClause (%s).
+     *  This handles more than 1000 items in teh in clause 
+     * @param parameters the query parameters
+     * @param inClause the in clause
+     * @return the number of rows updated/inserted/deleted
+     */
+    public int executeUpdate(Map parameters, List inClause) {
+        int subStart = 0;
+        int toReturn = 0;
+        while (subStart < inClause.size()) {
+            int subLength = subStart + 500 >= inClause.size() ? inClause.size() : 500;
+            List subClause = inClause.subList(subStart, subStart + subLength);
+            toReturn += getQuery().executeUpdate(parameters, subClause);
+            subStart += subLength;
+        }       
+        return toReturn;
+    }
+    
 }
 

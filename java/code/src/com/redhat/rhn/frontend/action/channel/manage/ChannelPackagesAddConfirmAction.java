@@ -115,7 +115,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
         chan = (Channel) ChannelFactory.reload(chan);
         List<Long> chanList = new ArrayList<Long>();
         chanList.add(chan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList);
         ChannelManager.refreshWithNewestPackages(chan, "web.channel_package_add");
     }
 

@@ -273,32 +273,28 @@ def update_errata_cache(server_id):
     log_debug(2, "Updating the errata cache", server_id)
     h = rhnSQL.prepare("""
         select 
-            server_id, org_id, errata_id, package_id 
+            server_id,  errata_id, package_id 
         from
-            rhnServerNeededPackageView
+            rhnServerNeededView
         where 
             server_id = :server_id
     """)
 
     # Use a dictionary to store the final state
     new_packages = {}
-    new_errata = {}
     h.execute(server_id=server_id)
     while 1:
         r = h.fetchone_dict()
         if not r:
             break
-        p = (r['org_id'], r['errata_id'], r['package_id'])
-        e = p[:2]
+        p = ( r['errata_id'], r['package_id'])
         new_packages[p] = None
-        if not e[1] is None:
-            new_errata[e] = None
     
     h = rhnSQL.prepare("""
         select 
-            server_id, org_id, errata_id, package_id 
+            server_id, errata_id, package_id 
         from
-            rhnServerNeededPackageCache 
+            rhnServerNeededCache 
         where 
             server_id = :server_id
     """)
@@ -310,8 +306,7 @@ def update_errata_cache(server_id):
         r = h.fetchone_dict()
         if not r:
             break
-        p = (r['org_id'], r['errata_id'], r['package_id'])
-        e = p[:2]
+        p = (r['errata_id'], r['package_id'])
         if new_packages.has_key(p):
             # The entry is already present
             del new_packages[p]
@@ -320,31 +315,6 @@ def update_errata_cache(server_id):
         # Remove this entry
         deleted_packages.append(p)
 
-    # Same story for needed errata
-    h = rhnSQL.prepare("""
-        select 
-            server_id, org_id, errata_id
-        from
-            rhnServerNeededErrataCache 
-        where 
-            server_id = :server_id
-    """)
-
-    # Fetch the current state and do the diff as we go
-    deleted_errata = []
-    h.execute(server_id=server_id)
-    while 1:
-        r = h.fetchone_dict()
-        if not r:
-            break
-        e = (r['org_id'], r['errata_id'])
-        if new_errata.has_key(e):
-            del new_errata[e]
-            continue
-
-        # Remove this entry
-        if e[1] is not None:
-            deleted_errata.append(e)
 
     # Delete unneeded packages
     non_null_errata = filter(lambda x: x[1] is not None, deleted_packages)
@@ -354,15 +324,14 @@ def update_errata_cache(server_id):
 
     if non_null_errata:
         h = rhnSQL.prepare("""
-            delete from rhnServerNeededPackageCache
+            delete from rhnServerNeededCache
             where
                 server_id = :server_id
-                and org_id = :org_id
                 and errata_id = :errata_id
                 and package_id = :package_id
         """)
         dict = rhnLib.transpose_to_hash(non_null_errata,
-            ['org_id', 'errata_id', 'package_id'])
+             'errata_id', 'package_id'])
         # Add server_id
         dict['server_id'] = [server_id] * len(dict['package_id'])
         h.execute_bulk(dict)
@@ -370,14 +339,13 @@ def update_errata_cache(server_id):
 
     if null_errata:
         h = rhnSQL.prepare("""
-            delete from rhnServerNeededPackageCache
+            delete from rhnServerNeededCache
             where
                 server_id = :server_id
-                and org_id = :org_id
                 and package_id = :package_id
         """)
         dict = rhnLib.transpose_to_hash(null_errata,
-            ['org_id', 'errata_id', 'package_id'])
+            [ 'errata_id', 'package_id'])
         # Add server_id
         dict['server_id'] = [server_id] * len(dict['package_id'])
         # We don't need errata_id since it's null
@@ -387,52 +355,21 @@ def update_errata_cache(server_id):
 
     log_debug(4, "Deleted packages", len(deleted_packages))
 
-    # Delete unneeded errata
-    if deleted_errata:
-        h = rhnSQL.prepare("""
-            delete from rhnServerNeededErrataCache
-            where
-                server_id = :server_id
-                and org_id = :org_id
-                and errata_id = :errata_id
-        """)
-        dict = rhnLib.transpose_to_hash(deleted_errata,
-            ['org_id', 'errata_id'])
-        # Add server_id
-        dict['server_id'] = [server_id] * len(dict['errata_id'])
-        h.execute_bulk(dict)
-
-    log_debug(4, "Deleted errata", len(deleted_errata))
 
     if new_packages:
         changed = changed + len(new_packages.keys())
         h = rhnSQL.prepare("""
-            insert into rhnServerNeededPackageCache
-            (server_id, org_id, errata_id, package_id)
-            values (:server_id, :org_id, :errata_id, :package_id)
+            insert into rhnServerNeededCache
+            (server_id, errata_id, package_id)
+            values (:server_id, :errata_id, :package_id)
         """)
         dict = rhnLib.transpose_to_hash(new_packages.keys(), 
-            ['org_id', 'errata_id', 'package_id'])
+            [ 'errata_id', 'package_id'])
         dict['server_id'] = [server_id] * len(new_packages.keys())
         
         h.execute_bulk(dict)
 
         log_debug(4, "Inserted packages", len(new_packages.keys()))
-
-    if new_errata:
-        changed = changed + len(new_errata.keys())
-        h = rhnSQL.prepare("""
-            insert into rhnServerNeededErrataCache
-            (server_id, org_id, errata_id)
-            values (:server_id, :org_id, :errata_id)
-        """)
-        dict = rhnLib.transpose_to_hash(new_errata.keys(), 
-            ['org_id', 'errata_id'])
-        dict['server_id'] = [server_id] * len(new_errata.keys())
-        
-        h.execute_bulk(dict)
-
-        log_debug(4, "Inserted errata", len(new_errata.keys()))
 
     # Return the number of changes
     return changed

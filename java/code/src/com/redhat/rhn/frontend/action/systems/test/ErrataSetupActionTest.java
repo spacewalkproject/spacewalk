@@ -50,7 +50,7 @@ public class ErrataSetupActionTest extends RhnMockStrutsTestCase {
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
             ErrataCacheManager.insertNeededPackageCache(server.getId(),
-                    user.getOrg().getId(), e.getId(), pkg.getId());
+                    e.getId(), pkg.getId());
         }
         
         actionPerform();
@@ -70,7 +70,7 @@ public class ErrataSetupActionTest extends RhnMockStrutsTestCase {
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
             ErrataCacheManager.deleteNeededPackageCache(server.getId(),
-                    user.getOrg().getId(), e.getId(), pkg.getId());
+                    e.getId(), pkg.getId());
         }
         actionPerform();
         assertEquals(Boolean.FALSE.toString(), 

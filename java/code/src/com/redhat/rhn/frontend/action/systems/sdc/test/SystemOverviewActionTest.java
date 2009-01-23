@@ -70,7 +70,7 @@ public class SystemOverviewActionTest extends RhnMockStrutsTestCase {
         OrgFactory.save(org);
         
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                s.getId(), user.getOrg().getId(), e.getId(), p.getId());
+                s.getId(), e.getId(), p.getId());
         assertEquals(1, rows);        
         
         actionPerform();

@@ -269,20 +269,26 @@ public class CachedStatement {
         Integer res = (Integer)execute(query, qMap, parameters, null);
         return res.intValue();
     }
+    
+    int executeUpdate(Map parameters, List inClause) {
+        Integer res = (Integer)execute(parameters, inClause, "", "", null);
+        return res.intValue();
+    }
+    
 
     DataResult execute(Map parameters, Mode mode) {
         return execute(parameters, defaultSort, sortOrder, mode);
     }
     
     DataResult execute(List parameters, Mode mode) {
-        return execute(null, parameters, "", "", mode);
+        return (DataResult) execute(null, parameters, "", "", mode);
     }
     
     DataResult execute(Map parameters, List inClause, Mode mode) {
-        return execute(parameters, inClause, "", "", mode);
+        return (DataResult) execute(parameters, inClause, "", "", mode);
     }
     
-    DataResult execute(Map parameters, List inClause, String sortColumn, 
+    Object execute(Map parameters, List inClause, String sortColumn, 
                        String order, Mode mode) {
         if (query.indexOf("%o") > 0 && !sortOptions.contains(sortColumn)) {
             throw new IllegalArgumentException("Sort Column, " + sortColumn +
@@ -326,12 +332,12 @@ public class CachedStatement {
             finalQuery = finalQuery.replaceAll("%s", buf.toString());
         }
         
-        return (DataResult)execute(finalQuery, qMap, parameters, mode);
+        return execute(finalQuery, qMap, parameters, mode);
     }
 
     DataResult execute(Map parameters, String sortColumn, 
                        String order, Mode mode) {
-        return execute(parameters, null, sortColumn, order, mode);
+        return (DataResult) execute(parameters, null, sortColumn, order, mode);
     }
 
     Collection executeElaborator(List resultList, Mode mode, 

@@ -20,13 +20,15 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.frontend.dto.ErrataPackageFile;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -108,19 +110,7 @@ public class ErrataCacheManager extends HibernateFactory {
         return executeSelectMode(
                 "ErrataCache_queries", "packages_needing_updates", params);
     }
-    
-    /**
-     * Returns the errata needing application for the given server id.
-     * @param sid Server Id
-     * @return the errata needing application for the given server id.
-     */
-    public static DataResult errataNeedingApplication(Long sid) {
-        Map params = new HashMap();
-        params.put("server_id", sid);
-        return executeSelectMode("ErrataCache_queries",
-                "errata_needing_application", params);
-    }
-    
+        
     /**
      * Returns the new packages for the server id.
      * @param sid Server Id.
@@ -136,18 +126,16 @@ public class ErrataCacheManager extends HibernateFactory {
     /**
      * Inserts record into NeededPackage cache table
      * @param sid Server Id
-     * @param orgId Org Id
      * @param errataId Errata Id
      * @param packageId Package Id
      * @return number of rows affected.
      */
-    public static int insertNeededPackageCache(Long sid, Long orgId,
-            Long errataId, Long packageId) {
+    public static int insertNeededPackageCache(Long sid, Long errataId,
+            Long packageId) {
         WriteMode m = ModeFactory.getWriteMode(
                 "ErrataCache_queries", "insert_needed_package_cache");
         Map params = new HashMap();
         params.put("server_id", sid);
-        params.put("org_id", orgId);
         if (errataId == null) {
             params.put("errata_id", "");
         }
@@ -160,19 +148,17 @@ public class ErrataCacheManager extends HibernateFactory {
     /**
      * Deletes record from NeededPackage cache table.
      * @param sid Server Id
-     * @param orgId Org Id
      * @param errataId Errata Id
      * @param packageId Package Id
      * @return number of rows affected.
      */    
-    public static int deleteNeededPackageCache(Long sid, Long orgId,
-            Long errataId, Long packageId) {
+    public static int deleteNeededPackageCache(Long sid, Long errataId,
+            Long packageId) {
         if (errataId != null) {
             WriteMode m = ModeFactory.getWriteMode(
                     "ErrataCache_queries", "delete_needed_package_cache");
             Map params = new HashMap();
             params.put("server_id", sid);
-            params.put("org_id", orgId);
             params.put("errata_id", errataId);
             params.put("package_id", packageId);
             return m.executeUpdate(params); 
@@ -182,7 +168,6 @@ public class ErrataCacheManager extends HibernateFactory {
                     "ErrataCache_queries", "delete_needed_package_cache_null_errata");
             Map params = new HashMap();
             params.put("server_id", sid);
-            params.put("org_id", orgId);
             params.put("package_id", packageId);
             return m.executeUpdate(params); 
         }
@@ -191,32 +176,28 @@ public class ErrataCacheManager extends HibernateFactory {
     /**
      * Delete all records from NeededPackage cache for the server provided.
      * @param sid Server Id
-     * @param orgId Org Id
      * @return number of rows affected.
      */    
-    public static int deleteNeededPackageCache(Long sid, Long orgId) {
+    public static int deleteNeededPackageCache(Long sid) {
         WriteMode m = ModeFactory.getWriteMode(
                 "ErrataCache_queries", 
                 "delete_needed_package_cache_all");
         Map params = new HashMap();
         params.put("server_id", sid);
-        params.put("org_id", orgId);
         return m.executeUpdate(params);  
     }
 
     /**
      * Inserts record into NeededErrata cache table
      * @param sid Server Id
-     * @param oid Org Id
      * @param eid Errata Id
      * @return number of rows affected.
      */
-    public static int insertNeededErrataCache(Long sid, Long oid, Long eid) {
+    public static int insertNeededErrataCache(Long sid, Long eid) {
         WriteMode m = ModeFactory.getWriteMode(
                 "ErrataCache_queries", "insert_needed_errata_cache");
         Map params = new HashMap();
         params.put("server_id", sid);
-        params.put("org_id", oid);
         params.put("errata_id", eid);
         return m.executeUpdate(params); 
     }
@@ -225,17 +206,15 @@ public class ErrataCacheManager extends HibernateFactory {
      * Deletes record from NeededErrata cache table.  If the Errata Id is null, all
      * errata cache for the server will be deleted.
      * @param sid Server Id
-     * @param oid Org Id
      * @param eid Errata Id
      * @return number of rows affected.
      */
-    public static int deleteNeededErrataCache(Long sid, Long oid, Long eid) {
+    public static int deleteNeededErrataCache(Long sid, Long eid) {
         if (eid != null) {
             WriteMode m = ModeFactory.getWriteMode(
                 "ErrataCache_queries", "delete_needed_errata_cache");
             Map params = new HashMap();
             params.put("server_id", sid);
-            params.put("org_id", oid);
             params.put("errata_id", eid);
             return m.executeUpdate(params);
         }
@@ -244,7 +223,6 @@ public class ErrataCacheManager extends HibernateFactory {
                     "ErrataCache_queries", "delete_needed_errata_cache_null_errata");
                 Map params = new HashMap();
                 params.put("server_id", sid);
-                params.put("org_id", oid);
                 return m.executeUpdate(params);
         }
     }
@@ -253,51 +231,100 @@ public class ErrataCacheManager extends HibernateFactory {
      * Delete all records from NeededErrata cache for the server provided.
      * errata cache for the server will be deleted.
      * @param sid Server Id
-     * @param oid Org Id
      * @return number of rows affected.
      */
-    public static int deleteNeededErrataCache(Long sid, Long oid) {
+    public static int deleteNeededErrataCache(Long sid) {
         WriteMode m = ModeFactory.getWriteMode(
                 "ErrataCache_queries", "delete_needed_errata_cache_all");
             Map params = new HashMap();
             params.put("server_id", sid);
-            params.put("org_id", oid);
             return m.executeUpdate(params);
     }
     
     /**
      * Asynchronusly updates the errata caches for the channels passed in.
-     * 
+     *  Deletes the entire cache for All servers in the channel
+     *  VERY INEFFICIENT 
      * @param channelIdsToUpdate - channel IDs (Long) that need their errata caches updated
-     * @param orgIn - org who owns channels 
      */
-    public static void updateErrataCacheForChannelsAsync(List channelIdsToUpdate, 
-            Org orgIn) {
+    public static void updateErrataCacheForChannelsAsync(List channelIdsToUpdate) {
         UpdateErrataCacheEvent uece = 
             new UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_CHANNEL);
-        uece.setChannels(channelIdsToUpdate);
-        uece.setOrgId(orgIn.getId());
-        
+        uece.setChannels(channelIdsToUpdate);        
         MessageQueue.publish(uece);
     }    
+
+    /**
+     * Asynchronusly updates the errata caches for the channels passed in.
+     *  Deletes the entire cache for All servers in the channel
+     *  VERY INEFFICIENT 
+     * @param channelsToUpdate - Channels that need their errata caches updated
+     */
+    public static void updateErrataCacheForChannelsAsync(Set<Channel> channelsToUpdate) {
+        log.debug("updateErrataCacheForChannelsAsync");
+        List<Long> channels = new LinkedList();
+        for (Channel c : channelsToUpdate) {
+            channels.add(c.getId());
+        }
+        updateErrataCacheForChannelsAsync(channels);
+    }
+    
     
     /**
      * Asynchronusly updates the errata caches for the channels passed in.
      * 
-     * @param channelsToUpdate - Channels that need their errata caches updated
-     * @param orgIn - org who owns channels 
+     * @param channelIdsToUpdate - channel IDs (Long) that need their errata caches updated
+     * @param errata the errata to update the cache for
      */
-    public static void updateErrataCacheForChannelsAsync(Set channelsToUpdate, Org orgIn) {
-        log.debug("updateErrataCacheForChannelsAsync");
-        List channels = new LinkedList();
-        Iterator i = channelsToUpdate.iterator();
-        while (i.hasNext()) {
-            Channel c = (Channel) i.next();
-            channels.add(c.getId());
-        }
-        updateErrataCacheForChannelsAsync(channels, orgIn);
-    }
+    public static void updateCacheForChannelErrataAsync(List channelIdsToUpdate, 
+                                                                    Errata errata) {
+        UpdateErrataCacheEvent uece = 
+            new UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_ERRATA_CHANNEL);
+        uece.setChannels(channelIdsToUpdate);
+        uece.setErrataId(errata.getId());
+        MessageQueue.publish(uece);
+    }   
+    
+    
 
+    /**
+     * Insert the new cache entries for a list of packages
+     * @param cid the channel where packages were added to 
+     * @param eid the errata that 'pushed' these packages (can be null
+     * @param pids the list of pids that were pushed.
+     */
+    public static void updateCacheForChannelPackages(Long cid, Long eid, List<Long> pids) {
+
+        int count = 0;
+        Map params = new HashMap();
+        params.put("channel_id", cid);
+        params.put("errata_id", eid);
+        WriteMode m = ModeFactory.getWriteMode(
+                "ErrataCache_queries", "insert_new_cache_entries_by_errata");
+        count = m.executeUpdate(params, pids); 
+        log.debug("updateCacheForChannelErrata : " +
+                "cache entries inserted: " + count);
+      
+    }
+    
+    /**
+     * Delete the errata/package cache for systems belonging to a certain channel 
+     *      that contain certain package ids.  Use if you are removing packages from a 
+     *      channel.
+     * @param cid the channel id
+     * @param pids the package ids
+     */
+    public static void deleteCacheEntriesForChannelPackages(Long cid, List<Long> pids) {
+       int count = 0;
+        WriteMode m = ModeFactory.getWriteMode(
+                "ErrataCache_queries", "delete_outdated_cache_entries_by_packages");
+        Map params = new HashMap();
+        params.put("channel_id", cid);
+        count = m.executeUpdate(params, pids); 
+        log.debug("updateCacheForChannelErrata : " +
+                "cache entries deleted: " + count);
+    }
+    
     /**
      * Clear out and re-generate the entries in rhnServerNeededPackageCache and
      * rhnServerNeededErrataCache tables by channel.  Usefull if the set of 
@@ -310,7 +337,7 @@ public class ErrataCacheManager extends HibernateFactory {
 
 
         WriteMode m = ModeFactory.getWriteMode(
-                "ErrataCache_queries", "delete_package_cache_by_channel");
+                "ErrataCache_queries", "delete_needed_cache_by_channel");
         Map params = new HashMap();
         params.put("channel_id", cid);
         int count = m.executeUpdate(params); 
@@ -319,29 +346,33 @@ public class ErrataCacheManager extends HibernateFactory {
 
         // Insert into rhnServerNeededPackageCache
         m = ModeFactory.getWriteMode(
-                "ErrataCache_queries", "insert_package_cache_by_channel");
+                "ErrataCache_queries", "insert_needed_cache_by_channel");
         params = new HashMap();
         params.put("channel_id", cid);
         count = m.executeUpdate(params); 
         log.debug("updateErrataAndPackageCacheForChannel : " +
                 "package_cache inserted: " + count);
-        
-        m = ModeFactory.getWriteMode(
-                "ErrataCache_queries", "delete_errata_cache_by_channel");
-        params = new HashMap();
-        params.put("channel_id", cid);
-        count = m.executeUpdate(params);
-        log.debug("updateErrataAndPackageCacheForChannel : " +
-                "errata_cache deleted: " + count);
-        
-        
-        // Insert into rhnServerNeededErrataCache
-        m = ModeFactory.getWriteMode(
-                "ErrataCache_queries", "insert_errata_cache_by_channel");
-        params = new HashMap();
-        params.put("channel_id", cid);
-        count = m.executeUpdate(params); 
-        log.debug("updateErrataAndPackageCacheForChannel : " +
-                "errata_cache inserted: " + count);
+
     }
+    
+    /**
+     * List the package ids that were pushed to a channel because
+     *      of an errata
+     * @param cid the channel id
+     * @param eid the errata id
+     * @return List of package ids
+     */
+    public static List<Long> listErrataChannelPackages(Long cid, Long eid) {
+        Map params = new HashMap();
+        params.put("channel_id", cid);
+        params.put("errata_id", eid);
+        DataResult<ErrataPackageFile> dr = executeSelectMode("ErrataCache_queries",
+                "package_associated_to_errata_and_channel", params);
+        List toReturn = new ArrayList<Long>();
+        for (ErrataPackageFile file : dr) {
+            toReturn.add(file.getPackageId());
+        }
+        return toReturn;
+    }
+    
 }
