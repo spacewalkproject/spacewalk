@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.3
+Version: 0.5.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -25,8 +25,8 @@ Group: Applications/Internet
 Requires: bcel
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
-Requires: java >= 0:1.5.0
-Requires: java-devel >= 0:1.5.0
+Requires: java >= 0:1.6.0
+Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-configuration
@@ -54,7 +54,7 @@ Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 0:1.4
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
-BuildRequires: java-devel >= 1.5.0
+BuildRequires: java-devel >= 1.6.0
 BuildRequires: ant-contrib
 BuildRequires: ant-junit
 BuildRequires: ant-nodeps
@@ -123,8 +123,8 @@ Requires: bcel
 Requires: c3p0
 Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
-Requires: java >= 0:1.5.0
-Requires: java-devel >= 0:1.5.0
+Requires: java >= 0:1.6.0
+Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
@@ -220,6 +220,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
+- update java and java-devel Requires and BuildRequires to 1.6.0
+
 * Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
 - Remove dependency on spacewalk-taskomatic and spacewalk-search.
 
