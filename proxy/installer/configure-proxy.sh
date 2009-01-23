@@ -16,21 +16,32 @@ options:
             for an example and documentation.
   -h, --help            
             show this help message and exit
+  --non-interactive
+            For use only with --answer-file. If the --answer-file doesn't
+            provide a required response, default answer is used.
+
 HELP
 	exit
 }
+
+INTERACTIVE=1
 
 while [ $# -ge 1 ]; do
 	case $1 in
             --help | -h)  print_help;;
             --answer-file=*) . `echo $1 | cut -d= -f2`;;
+            --non-interactive) INTERACTIVE=0;;
     esac
     shift
 done
 
 default_or_input () {
 	unset INPUT
-        read INPUT
+	if [ "$INTERACTIVE" = "1" ]; then
+		read INPUT
+	else
+		echo
+	fi
 	if [ "$INPUT" = "" ]; then
 		INPUT="$1"
 	fi
@@ -58,33 +69,33 @@ DIR=/usr/share/doc/proxy/conf-template
 VERSION_DETECTED=${VERSION:-`rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2`}
 HOSTNAME=`hostname`
 
-echo -n "Proxy version to activate [$VERSION_DETECTED]: "
+echo "Proxy version to activate [$VERSION_DETECTED]: "
 VERSION=${VERSION:-`default_or_input $VERSION_DETECTED`}
 
 RHN_PARENT_DETECTED=${RHN_PARENT:-`grep serverURL= /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' |awk -F/ '{print $3}'`}
-echo -n "RHN Parent [$RHN_PARENT_DETECTED]: "
+echo "RHN Parent [$RHN_PARENT_DETECTED]: "
 RHN_PARENT=${RHN_PARENT:-`default_or_input $RHN_PARENT_DETECTED`}
 
-echo -n "Traceback email [$TRACEBACK_EMAIL]: "
+echo "Traceback email [$TRACEBACK_EMAIL]: "
 TRACEBACK_EMAIL=${TRACEBACK_EMAIL:-`default_or_input `}
 
-echo -n "Use SSL [${USE_SSL:-1}]: "
+echo "Use SSL [${USE_SSL:-1}]: "
 USE_SSL=${USE_SSL:-`default_or_input 1`}
 
 CA_CHAIN_DETECTED=${CA_CHAIN:-`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}'`}
-echo -n "CA Chain [$CA_CHAIN_DETECTED]: "
+echo "CA Chain [$CA_CHAIN_DETECTED]: "
 CA_CHAIN=${CA_CHAIN:-`default_or_input $CA_CHAIN_DETECTED`}
 
-echo -n "HTTP Proxy [$HTTP_PROXY]: "
+echo "HTTP Proxy [$HTTP_PROXY]: "
 HTTP_PROXY=${HTTP_PROXY:-`default_or_input `}
 
 if [ "$HTTP_PROXY" != "" ]; then
 
-	echo -n "HTTP username [$HTTP_USERNAME]: "
+	echo "HTTP username [$HTTP_USERNAME]: "
 	HTTP_USERNAME=${HTTP_USERNAME:-`default_or_input `}
 
 	if [ "$HTTP_USERNAME" != "" ]; then
-		echo -n "HTTP password [$HTTP_PASSWORD]: "
+		echo "HTTP password [$HTTP_PASSWORD]: "
         HTTP_PASSWORD=${HTTP_PASSWORD:-`default_or_input `}
 	fi
 fi
@@ -96,25 +107,25 @@ This SSL certificate will allow client systems to connect to this Spacewalk Prox
 securely. Refer to the Spacewalk Proxy Installation Guide for more information.
 SSLCERT
 
-echo -n "Organization: $SSL_ORG"
+echo "Organization: $SSL_ORG"
 SSL_ORG=${SSL_ORG:-`default_or_input `}
 
-echo -n "Organization Unit [${SSL_ORGUNIT:-$HOSTNAME}]: "
+echo "Organization Unit [${SSL_ORGUNIT:-$HOSTNAME}]: "
 SSL_ORGUNIT=${SSL_ORGUNIT:-`default_or_input $HOSTNAME`}
 
-echo -n "Common Name [${SSL_COMMON:-$HOSTNAME}]: "
+echo "Common Name [${SSL_COMMON:-$HOSTNAME}]: "
 SSL_COMMON=${SSL_COMMON:-`default_or_input $HOSTNAME`}
 
-echo -n "City: $SSL_CITY"
+echo "City: $SSL_CITY"
 SSL_CITY=${SSL_CITY:-`default_or_input `}
 
-echo -n "State: $SSL_STATE"
+echo "State: $SSL_STATE"
 SSL_STATE=${SSL_STATE:-`default_or_input `}
 
-echo -n "Country code: $SSL_COUNTRY"
+echo "Country code: $SSL_COUNTRY"
 SSL_COUNTRY=${SSL_COUNTRY:-`default_or_input `}
 
-echo -n "Email [${SSL_EMAIL:-$TRACEBACK_EMAIL}]: "
+echo "Email [${SSL_EMAIL:-$TRACEBACK_EMAIL}]: "
 SSL_EMAIL=${SSL_EMAIL:-`default_or_input $TRACEBACK_EMAIL`}
 
 
@@ -128,7 +139,7 @@ MONITORING=$?
 if [ $MONITORING -ne 0 ]; then
         echo "You do not have monitoring installed. Do you want to install it?"
 
-	echo -n "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'.  [${INSTALL_MONITORING:-Y/n}]:"
+	echo "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'.  [${INSTALL_MONITORING:-Y/n}]:"
 	INSTALL_MONITORING=${INSTALL_MONITORING:-`default_or_input Y | tr y Y`}
 	if [ "$INSTALL_MONITORING" = "Y" ]; then
 	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
@@ -142,15 +153,15 @@ if [ $MONITORING -eq 0 ]; then
 	#here we configure monitoring
 	#and with cluster.ini
 	echo "Configuring monitoring."
-        echo -n "Monitoring parent [${MONITORING_PARENT:-$RHN_PARENT}]:"
+        echo "Monitoring parent [${MONITORING_PARENT:-$RHN_PARENT}]:"
         MONITORING_PARENT=${MONITORING_PARENT:-`default_or_input $RHN_PARENT`}
         RESOLVED_IP=`/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' '`
-        echo -n "Monitoring parent IP [${MONITORING_PARENT_IP:-$RESOLVED_IP}]:"
+        echo "Monitoring parent IP [${MONITORING_PARENT_IP:-$RESOLVED_IP}]:"
         MONITORING_PARENT_IP=${MONITORING_PARENT_IP:-`default_or_input $RESOLVED_IP`}
-        echo -n "Enable monitoring scout [${ENABLE_SCOUT:-y/N}]:"
+        echo "Enable monitoring scout [${ENABLE_SCOUT:-y/N}]:"
         ENABLE_SCOUT=${ENABLE_SCOUT:-`default_or_input N | tr nNyY 0011`}
         echo "Your scout shared key (can be found on parent"
-        echo -n "in /etc/rhn/cluster.ini as key scoutsharedkey): $SCOUT_SHARED_KEY"
+        echo "in /etc/rhn/cluster.ini as key scoutsharedkey): $SCOUT_SHARED_KEY"
         SCOUT_SHARED_KEY=${SCOUT_SHARED_KEY:-`default_or_input `}
 fi
 

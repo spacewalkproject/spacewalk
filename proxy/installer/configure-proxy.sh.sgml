@@ -49,6 +49,13 @@ and then deploys configuration files and activates the &RHNPROXY;.
             <para>Display the help screen with a list of options.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--non-interactive</term>
+        <listitem>
+            <para>For use only with --answer-file. If the --answer-file doesn't
+provide a required response, default answer is used.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
