@@ -8,5 +8,5 @@ then
 fi
 
 warfile="$(dirname $(dirname ${0}))/build/**/*.war"
-scp $warfile root@$1.$suffix:/usr/share/tomcat5/webapps/rhn.war
+scp $warfile $1:/usr/share/tomcat5/webapps/rhn.war
 ssh $1 -t "/etc/init.d/tomcat5 restart"
