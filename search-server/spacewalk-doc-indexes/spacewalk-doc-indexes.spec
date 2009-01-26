@@ -1,7 +1,7 @@
 Name: spacewalk-doc-indexes
 Version: 0.5.0
 Release: 1%{?dist}
-Summary: Lucene indexes of help documentation for spacewalk.
+Summary: Lucene indexes of help documentation for spacewalk
 
 Group: Applications/Internet
 License: GPLv2
