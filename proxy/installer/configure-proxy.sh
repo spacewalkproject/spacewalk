@@ -61,6 +61,8 @@ if [ -f /usr/bin/yum ]; then
 	YUM_OR_UPDATE="yum install"
 fi
 
+SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt /etc/sysconfig/rhn/systemid | cut -d- -f2`
+
 #in following code is used not so common expansion
 #var_a=${var_b:-word}
 #which is like: var_a = $var_b ? word
@@ -239,6 +241,14 @@ cat /etc/httpd/conf.d/ssl.conf.bak \
 	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
 	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
 	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > /etc/httpd/conf.d/ssl.conf
+
+
+CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
+echo "Create and populate configuration channel $CHANNEL_LABEL? [${POPULATE_CONFIG_CHANNEL:-Y/n}]:"
+POPULATE_CONFIG_CHANNEL=${POPULATE_CONFIG_CHANNEL:-`default_or_input Y | tr nNyY NNYY`}
+if [ "$POPULATE_CONFIG_CHANNEL" = "Y" ]; then
+	
+fi
 
 echo "Enabling Spacewalk Proxy."
 if [ $ENABLE_SCOUT -ne 0 ]; then
