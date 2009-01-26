@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 0.4.5
+Version: 0.5.0
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk.
 
@@ -28,10 +28,10 @@ documentation/help searches
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
-cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs
-cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/segments
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en
+install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en/segments
+cp -a data/crawl_www/index/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en
+cp -a data/crawl_www/segments/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes/docs/en/segments
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 26 2009 John Matthews <jmatthews@redhat.com> 0.5.0-1
+- update so compatible with search-server changes for multiple
+  languages
 * Thu Dec 18 2008 John Matthews <jmatthews@redhat.com> 0.4.5-1
 - initial
 
