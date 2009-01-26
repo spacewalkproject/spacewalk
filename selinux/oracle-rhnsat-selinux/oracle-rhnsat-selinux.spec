@@ -1,12 +1,12 @@
 
 %define selinux_variants mls strict targeted 
-%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
+%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define moduletype apps
 %define modulename oracle-rhnsat
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         2%{?dist}
+Release:         4%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -22,10 +22,8 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:         oracle-selinux
 Requires:         oracle-server = 10.2.0.4
-Requires:         oracle-selinux >= 0.1-23.1
-Requires:         oracle-selinux < 0.1-23.2
+Requires:         oracle-nofcontext-selinux
 
 %description
 SELinux policy module supporting Satellite embedded Oracle server.
@@ -83,7 +81,7 @@ for selinuxvariant in %{selinux_variants}
 rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
 
 # Fix up database files
-/sbin/restorecon -R -v /rhnsat || :
+/sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
 
 %postun
 # Clean up after package removal
@@ -98,7 +96,7 @@ if [ $1 -eq 0 ]; then
   rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
 
   # Clean up any remaining file contexts (shouldn't be any really)
-  /sbin/restorecon -R -v /rhnsat || :
+  /sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
 fi
 
 %files
@@ -108,6 +106,12 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 10.2-4
+- Remove missed dependency on oracle-selinux.
+
+* Sat Jan 17 2009 Jan Pazdziora 10.2-3
+- require oracle-nofcontext-selinux, not oracle-selinux
+
 * Wed Nov 19 2008 Jan Pazdziora 10.2-2
 - change build subdir
 - use rpm version for SELinux policy module version as well

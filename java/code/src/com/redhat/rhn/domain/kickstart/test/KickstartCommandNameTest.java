@@ -47,9 +47,9 @@ public class KickstartCommandNameTest extends BaseTestCaseWithUser {
         KickstartData ks = KickstartDataTest.
                 createTestKickstartData(user.getOrg());
         List l2 = KickstartFactory.lookupKickstartCommandNames(ks);
-        //RHEL5 have one command less - "lilocheck"
+        // RHEL5 has two commands less - "lilocheck" and "langsupport"
         assertEquals(l1.size(), ks.isPreRHEL5Kickstart() ? 
-                l2.size() : l2.size() + 1);
+                l2.size() : l2.size() + 2);
                 
     }
  

@@ -621,7 +621,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
             ActionManager.scheduleKickstartGuestAction(command, ksSession.getId());
         assertEquals(kickstartHost, 
                 ka.getKickstartGuestActionDetails().getKickstartHost());
-                              
+        
         assertNotNull(ka);
         TestUtils.saveAndFlush(ka);
         assertNotNull(ka.getId());
@@ -630,6 +630,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         KickstartGuestAction ka2 = (KickstartGuestAction)
             ActionManager.lookupAction(user, ka.getId());
         assertNotNull(ka2);
+        assertNotNull(kad.getCobblerSystemName());
         assertEquals(ka, ka2);
         KickstartGuestActionDetails kad2 =
             (KickstartGuestActionDetails) ka2.getKickstartGuestActionDetails();

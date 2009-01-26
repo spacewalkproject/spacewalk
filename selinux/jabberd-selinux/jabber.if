@@ -1,0 +1,85 @@
+## <summary>Jabber instant messaging server</summary>
+
+########################################
+## <summary>
+##	Connect to jabber over a TCP socket  (Deprecated)
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`jabber_tcp_connect',`
+	refpolicywarn(`$0($*) has been deprecated.')
+')
+
+########################################
+## <summary>
+##	Execute jabber server in the jabber domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	The type of the process performing this action.
+##	</summary>
+## </param>
+#
+#
+interface(`jabber_script_domtrans',`
+	gen_require(`
+		type jabber_script_exec_t;
+	')
+
+	init_script_domtrans_spec($1,jabber_script_exec_t)
+')
+
+########################################
+## <summary>
+##	All of the rules required to administrate 
+##	an jabber environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	The role to be allowed to manage the jabber domain.
+##	</summary>
+## </param>
+## <param name="terminal">
+##	<summary>
+##	The type of the user terminal.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`jabber_admin',`
+	gen_require(`
+		type jabber_t;
+		type jabber_script_exec_t;
+		type jabber_log_t;
+		type jabber_var_lib_t;
+		type jabber_var_run_t;
+	')
+
+	allow $1 jabber_t:process { ptrace signal_perms getattr };
+	read_files_pattern($1, jabber_t, jabber_t)
+	        
+	# Allow jabber_t to restart the apache service
+	jabber_script_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 jabber_script_exec_t system_r;
+	allow $2 system_r;
+
+	logging_list_logs($1)
+        manage_all_pattern($1,jabber_log_t)
+
+	files_list_var_lib($1)
+        manage_all_pattern($1,jabber_var_lib_t)
+
+	files_list_pids($1)
+        manage_all_pattern($1,jabber_var_run_t)
+')
+

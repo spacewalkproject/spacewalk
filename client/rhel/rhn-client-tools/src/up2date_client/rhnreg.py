@@ -79,13 +79,11 @@ def startRhnsd():
         if rc:
             os.system("/sbin/service rhnsd start > /dev/null")
 
-
 def startRhnCheck():
     if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
         os.system("/usr/sbin/rhn_check")
     else:
         print _("Warning: unable to run rhn_check")
-            
 
 # product info structure
 productInfoHash = {
@@ -165,9 +163,7 @@ def _write_secure_file(secure_file, file_contents):
     fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, 0600)
     regNumFile = os.fdopen(fd, 'w')
     try:
-        # bz249425 - Eliminate file writing errors if profilename
-        # contains double byte characters
-        regNumFile.write(repr(file_contents))
+        regNumFile.write(file_contents)
     finally:
         regNumFile.close()
     
@@ -715,23 +711,6 @@ def updatePackages(systemId):
     s = rhnserver.RhnServer()
     s.registration.add_packages(systemId, rpmUtils.getInstalledPackageList())
 
-def checkEmergencyUpdates():
-    """ Check and install emergency updates from the rhn repo
-    """
-    if not cfg["enableEmergUpdates"]:
-        log.log_debug('Emergency updates check not enabled, skipping updates')
-        return 0
-    pre_pkg_list = rpmUtils.getInstalledPackageList()
-    log.log_debug('Checking for Emergency Updates..')
-    ##TODO: This will be replaced by 'yum -y update --repoid=rhn-emerg-updates
-    ## when yum supports it
-    os.system("/usr/bin/yum -y update --disableplugin=rhnplugin \
-               --disablerepo='*' --enablerepo=rhn-emerg-updates")
-    post_pkg_list = rpmUtils.getInstalledPackageList()
-    if pre_pkg_list == post_pkg_list:
-        return 0
-    return 1
-
 class ActivationResult:
     ACTIVATED_NOW = 0
     ALREADY_USED = 1
@@ -947,9 +926,11 @@ def serverSupportsRhelFiveCalls():
 
 def spawnRhnCheckForUI():
     if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
-        fd = os.popen("/usr/sbin/rhn_check")
-        log.log_me("rhn_check execution:: ", fd.read())
-        fd.close()
+        from subprocess import Popen, PIPE
+        p = Popen(["/usr/sbin/rhn_check"], stdin=PIPE, stdout=PIPE, \
+                  stderr=PIPE)
+        map(lambda x:log.log_me(x), p.stdout.readlines() + \
+                  p.stderr.readlines())
     else:
         log.log_me("Warning: unable to run rhn_check")
 

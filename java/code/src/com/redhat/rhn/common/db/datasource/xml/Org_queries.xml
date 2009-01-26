@@ -19,30 +19,6 @@ VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :
   </query>
 </write-mode>
 
-<mode name="org_entitlements">
-  <query params="org_id">
-SELECT label
-  FROM rhnOrgEntitlementType OET, rhnOrgEntitlements OE
- WHERE OE.org_id = :org_id
-   AND OET.id = OE.entitlement_id
-  </query>
-</mode>
-
-<mode name="org_entitlement_labels">
-  <query>
-SELECT label
-  FROM rhnOrgEntitlementType OET
-  </query>
-</mode>
-
-<mode name="org_has_demo_entitlements">
-  <query  params="org_id"><![CDATA[
-SELECT 1 from WEB_CUSTOMER where id =:org_id 
-		and created < (select STOP_DATE from rhnDemoEntitlementStopDate
-					 where id = 1)]]>
-  </query>
-</mode>
-
 <mode name="get_all_orgs" class="com.redhat.rhn.frontend.dto.OrgSystemEntitlementDto">
   <query params="label">
       SELECT id as orgid,name as orgname,:label as entname from web_customer where id != 1 

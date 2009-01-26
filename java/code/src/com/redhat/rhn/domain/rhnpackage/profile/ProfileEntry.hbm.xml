@@ -17,6 +17,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	        <key-many-to-one name="name"
 	                     class="com.redhat.rhn.domain.rhnpackage.PackageName"
 	                     column="name_id" /> 	        
+	        <key-many-to-one name="arch"
+	                     class="com.redhat.rhn.domain.rhnpackage.PackageArch"
+	                     column="package_arch_id" />
 		</composite-id>
     </class>
 </hibernate-mapping>

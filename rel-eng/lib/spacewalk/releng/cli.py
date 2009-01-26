@@ -32,6 +32,7 @@ from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
         check_tag_exists, get_latest_tagged_version
 
+DEFAULT_BUILD_DIR = "/tmp/spacewalk-build"
 BUILD_PROPS_FILENAME = "build.py.props"
 GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
 GLOBALCONFIG_SECTION = "globalconfig"
@@ -74,12 +75,14 @@ def lookup_build_dir():
     Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
     return the current working directory.
     """
+    build_dir = DEFAULT_BUILD_DIR
     file_loc = os.path.expanduser("~/.spacewalk-build-rc")
     try:
         f = open(file_loc)
     except:
         # File doesn't exist but that's ok because it's optional.
-        return os.getcwd()
+        return build_dir
+
     config = {}
     for line in f.readlines():
         if line.strip() == "":
@@ -89,7 +92,6 @@ def lookup_build_dir():
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
 
-    build_dir = os.getcwd()
     if config.has_key('RPMBUILD_BASEDIR'):
         build_dir = config["RPMBUILD_BASEDIR"]
 
@@ -104,24 +106,36 @@ class CLI:
         usage = "usage: %prog [options] arg"
         parser = OptionParser(usage)
         parser.add_option("--tgz", dest="tgz", action="store_true",
-                help="build .tar.gz")
+                help="Build .tar.gz")
         parser.add_option("--srpm", dest="srpm", action="store_true",
-                help="build srpm")
+                help="Build srpm")
         parser.add_option("--rpm", dest="rpm", action="store_true",
-                help="build rpm")
-        parser.add_option("--dist", dest="dist",
-                help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
+                help="Build rpm")
+        parser.add_option("--dist", dest="dist", metavar="DISTTAG",
+                help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
+        parser.add_option("--brew", dest="brew", metavar="BREWTAG",
+                help="Submit srpm for build in a brew tag.")
+        parser.add_option("--koji", dest="koji", metavar="KOJITAG",
+                help="Submit srpm for build in a koji tag.")
+        parser.add_option("--koji-opts", dest="koji_opts", metavar="KOJIOPTIONS",
+                help="%s %s %s" %
+                (
+                    "Options to use with brew/koji command.",
+                    "Tag and package name will be appended automatically.",
+                    "Default is 'build --nowait'.",
+                ))
+
         parser.add_option("--test", dest="test", action="store_true",
-                help="Use current branch HEAD instead of latest package tag.")
+                help="use current branch HEAD instead of latest package tag")
         parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
-                help="Do not clean up temporary build directories/files.")
-        parser.add_option("--tag", dest="tag",
-                help="Build a specific tag instead of the latest version. " +
+                help="do not clean up temporary build directories/files")
+        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
+                help="build a specific tag instead of the latest version " +
                     "(i.e. spacewalk-java-0.4.0-1)")
         parser.add_option("--debug", dest="debug", action="store_true",
-                help="Print debug messages.", default=False)
+                help="print debug messages", default=False)
         parser.add_option("--offline", dest="offline", action="store_true",
-                help="Don't attempt any remote communication. (avoid using this)",
+                help="do not attempt any remote communication (avoid using this please)",
                 default=False)
 
         parser.add_option("--tag-release", dest="tag_release",
@@ -130,10 +144,29 @@ class CLI:
         parser.add_option("--keep-version", dest="keep_version",
                 action="store_true",
                 help="Use spec file version/release to tag package.")
+
+        parser.add_option("--untagged-diffs", dest="untagged_report",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out diffs for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
+
         (options, args) = parser.parse_args()
 
         if len(sys.argv) < 2:
             print parser.error("Must supply an argument. Try -h for help.")
+
+        global_config = self._read_global_config()
+
+        # TODO: Shortcut here, build.py does some things unrelated to
+        # building/tagging packages, check for these options, do what's
+        # requested, and exit rather than start looking up data specific
+        # to building etc. This really should be cleaned up.
+        if options.untagged_report:
+            self._run_untagged_report(global_config)
+            sys.exit(1)
 
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
@@ -143,21 +176,7 @@ class CLI:
             os.environ['DEBUG'] = "true"
 
         build_dir = lookup_build_dir()
-        global_config = self._read_global_config()
         package_name = get_project_name(tag=options.tag)
-        pkg_config = self._read_project_config(package_name, build_dir,
-                options.tag, options.no_cleanup)
-
-        # Now that we have command line options, instantiate builder/tagger:
-        if building:
-            self._run_builder(package_name, options, pkg_config,
-                    global_config, build_dir)
-
-        if tagging:
-            self._run_tagger(options, pkg_config, global_config)
-
-    def _run_builder(self, package_name, options, pkg_config, global_config,
-            build_dir):
 
         build_tag = None
         build_version = None
@@ -165,15 +184,28 @@ class CLI:
         if options.tag:
             build_tag = options.tag
             build_version = build_tag[len(package_name + "-"):]
-        else:
+        elif building:
             build_version = get_latest_tagged_version(package_name)
             if build_version == None:
                 error_out(["Unable to lookup latest package info.",
                         "Perhaps you need to --tag-release first?"])
             build_tag = "%s-%s" % (package_name, build_version)
 
-        if not options.offline:
-            check_tag_exists(build_tag)
+        if not options.test and building:
+            check_tag_exists(build_tag, offline=options.offline)
+
+        pkg_config = self._read_project_config(package_name, build_dir,
+                options.tag, options.no_cleanup)
+
+        # Actually do things:
+        if building:
+            self._run_builder(package_name, build_tag, build_version, options,
+                    pkg_config, global_config, build_dir)
+        elif tagging:
+            self._run_tagger(options, pkg_config, global_config)
+
+    def _run_builder(self, package_name, build_tag, build_version, options,
+            pkg_config, global_config, build_dir):
 
         builder_class = None
         if pkg_config.has_option("buildconfig", "builder"):
@@ -211,6 +243,57 @@ class CLI:
         tagger = tagger_class(global_config=global_config,
                 keep_version=options.keep_version)
         tagger.run(options)
+
+    def _run_untagged_report(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_diff(global_config, md_file, version, project_dir)
+
+    def _print_diff(self, global_config, package_name, version, project_dir):
+        """
+        Print a diff between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git diff --relative %s..%s" % \
+                (last_tag, "HEAD")
+        output = run_command(patch_command)
+
+        # If the diff contains 1 line then there is no diff:
+        linecount = len(output.split("\n"))
+        if linecount == 1:
+            return
+
+        # Otherwise, print out info on the diff for this package:
+        print("#" * len(package_name))
+        print(package_name)
+        print("#" * len(package_name))
+        print("")
+        print patch_command
+        print("")
+        print(output)
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
 
     def _read_global_config(self):
         """
@@ -315,4 +398,10 @@ class CLI:
         if found_builder_options and found_tagger_options:
             error_out("Cannot invoke both build and tag options at the " +
                     "same time.")
+        if options.srpm and options.rpm:
+            error_out("Please choose only one of --srpm and --rpm")
+        if (options.brew or options.koji) and not (options.rpm or options.srpm):
+            error_out("Must specify --srpm or --rpm with --brew/--koji")
+        if options.test and options.tag:
+            error_out("Cannot build test version of specific tag.")
         return (found_builder_options, found_tagger_options)

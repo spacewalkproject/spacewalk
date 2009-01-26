@@ -22,7 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	    <property name="memKb" type="long" column="mem_kb"/>
         <property name="vcpus" type="long" column="vcpus"/>
         <property name="diskGb" type="long" column="disk_gb"/>
-        <property name="cobblerProfile" type="string" column="cobbler_profile"/>
+        <property name="cobblerSystemName" type="string" column="cobbler_system_name"/>
 
 	<many-to-one name="parentAction" column="action_id" 
 		     class="com.redhat.rhn.domain.action.Action" outer-join="true" 

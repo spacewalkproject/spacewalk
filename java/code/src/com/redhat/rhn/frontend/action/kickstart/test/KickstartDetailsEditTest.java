@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.test;
 
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.frontend.action.kickstart.KickstartDetailsEditAction;
 import com.redhat.rhn.frontend.action.kickstart.KickstartFileDownloadAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -45,7 +46,7 @@ public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
         addRequestParameter(KickstartDetailsEditAction.ORG_DEFAULT, 
                 Boolean.TRUE.toString());
         addRequestParameter(KickstartDetailsEditAction.VIRTUALIZATION_TYPE_LABEL, 
-                "none");
+                KickstartVirtualizationType.AUTO);
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
         String[] keys = {"kickstart.details.success"};

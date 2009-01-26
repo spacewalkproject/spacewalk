@@ -1,0 +1,10 @@
+
+/var/log/rhn(/.*)? gen_context(system_u:object_r:spacewalk_log_t,s0)
+
+/var/log/rhn/rhn_proxy_broker\.log gen_context(system_u:object_r:spacewalk_proxy_httpd_log_t,s0)
+/var/log/rhn/rhn_proxy_redirect\.log gen_context(system_u:object_r:spacewalk_proxy_httpd_log_t,s0)
+
+/var/cache/rhn/proxy-auth(/.*)? gen_context(system_u:object_r:spacewalk_proxy_cache_t,s0)
+
+/var/spool/rhn-proxy(/.*)? gen_context(system_u:object_r:spacewalk_proxy_data_t,s0)
+

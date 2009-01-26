@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +46,7 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.dto.HelpDocumentOverview;
 
 /**
@@ -174,6 +176,9 @@ public class DocSearchSetupAction extends RhnAction {
         args.add(sessionId);
         args.add("docs");
         args.add(preprocessSearchString(searchString, mode));
+        // get lang we are searching in
+        Locale l = Context.getCurrentContext().getLocale();
+        args.add(l.toString());
         List results = (List)client.invoke("index.search", args);
 
         if (log.isDebugEnabled()) {

@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import redstone.xmlrpc.XmlRpcFault;
@@ -46,7 +47,7 @@ public class IndexHandler {
     public static final int QUERY_ERROR = 100;
     public static final int INDEX_ERROR = 200;
     public static final int DB_ERROR = 300;
-    public static final String DEFAULT_LANG = "en";
+    public static final String DEFAULT_LANG = new Locale("EN", "US").toString();
     
     /**
      * Constructor
@@ -95,9 +96,9 @@ public class IndexHandler {
             String lang)
             throws XmlRpcFault {
         if (log.isDebugEnabled()) {
-            log.debug("IndexHandler:: searching for: " + query);
+            log.debug("IndexHandler:: searching for: " + query + ", indexName = " +
+                    indexName + ", lang = " + lang);
         }
-        
         try {
             List<Result> hits = indexManager.search(indexName, query, lang);
             if (indexName.compareTo("package") == 0) {

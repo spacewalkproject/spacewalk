@@ -15,24 +15,27 @@
 
 package com.redhat.rhn.frontend.struts;
 
+import java.net.URL;
+
+import java.util.List;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.redhat.rhn.common.validator.Validator;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorService;
+import com.redhat.rhn.common.validator.ValidatorWarning;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
-
-import java.net.URL;
-import java.util.List;
-
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * RhnValidationHelper contains helpful to be used by Struts actions to interact
@@ -61,6 +64,23 @@ public class RhnValidationHelper {
         for (int i = 0; i < errors.length; i++) {
             messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
                     errors[i].getKey(), errors[i].getValues()));
+        }
+        return messages;
+    }
+
+    /**
+     * Converts an array of ValidatorWarnings into a set of ActionMessages.
+     *
+     * @param warnings Array of ValidatorWarnings you want to convert
+     * @return ActionMessages object with set of messages
+     */
+    public static ActionMessages validatorWarningToActionMessages(
+            ValidatorWarning... warnings) {
+        ActionMessages messages = new ActionMessages();
+
+        for (int i = 0; i < warnings.length; i++) {
+            messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    warnings[i].getKey(), warnings[i].getValues()));
         }
         return messages;
     }

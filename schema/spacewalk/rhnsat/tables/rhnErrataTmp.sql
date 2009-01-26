@@ -25,7 +25,7 @@ rhnErrataTmp
 			constraint rhn_erratatmp_id_nn not null
                         constraint rhn_erratatmp_id_pk primary key
                         using index tablespace [[64k_tbs]],
-        advisory        varchar2(32) -- advisory code
+        advisory        varchar2(37) -- advisory code
 			constraint rhn_erratatmp_advisory_nn not null,
         advisory_type   varchar2(32) -- plain text type of advisory
 			constraint rhn_erratatmp_adv_type_nn not null

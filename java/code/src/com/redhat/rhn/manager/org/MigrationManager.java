@@ -81,7 +81,7 @@ public class MigrationManager extends BaseManager {
             event.setServer(server);
             event.setSummary("System migration");
             String details = "From organization: " + fromOrg.getName();
-            details += " to organization: " + toOrg.getName();
+            details += ", To organization: " + toOrg.getName();
             event.setDetails(details);
             server.getHistory().add(event);
 

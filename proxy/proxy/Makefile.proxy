@@ -6,7 +6,13 @@ TOP	= .
 
 SUBDIR  = proxy
 
-CODE_DIRS = broker redirect pm tools
+# check if we can build man pages
+DOCBOOK = $(wildcard /usr/bin/docbook2man)
+SGMLS   = $(wildcard *.sgml)
+MANS    = $(patsubst %.sgml,%.8,$(SGMLS))
+MANDIR  ?= /usr/share/man
+
+CODE_DIRS = broker redirect pm
 CONF_DIRS = httpd-conf rhn-conf logrotate
 PACKAGES_DIR        = $(PREFIX)/var/up2date/packages
 PACKAGES_LIST_DIR   = $(PREFIX)/var/up2date/list
@@ -16,11 +22,14 @@ FILES	= __init__ apacheHandler apacheServer byterange responseContext \
         rhnProxyAuth rhnShared xxmlrpclib
 TAR_EXCLUDE = install
 
+SERVICE_SCRIPTS = rhn-proxy
+
 # We look for config files in "well known" locations (rhn-conf,
 # httpd-conf, logrotate)
-EXTRA_DIRS = /var/log/rhn /var/cache/rhn
+EXTRA_DIRS = $(MANDIR)/man8 /var/log/rhn /var/cache/rhn /usr/sbin
 
 all :: all-code all-conf
+	echo $(MANS)
 
 %-code : Makefile.proxy
 	@$(foreach d,$(CODE_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
@@ -31,11 +40,27 @@ all :: all-code all-conf
 # now include some Macros
 include $(TOP)/Makefile.defs
 
+# install service scripts
+all :: $(SERVICE_SCRIPTS)
+install :: $(SERVICE_SCRIPTS) $(PREFIX)/$(INITDIR)
+	$(INSTALL_BIN) $(SERVICE_SCRIPTS) $(PREFIX)/usr/sbin
+
+ifneq ($(DOCBOOK),)
+# install man pages
+all     :: $(MANS)
+install :: $(MANS) $(PREFIX)/$(MANDIR)
+	$(INSTALL_DATA) $(MANS) $(PREFIX)/$(MANDIR)/man8
+endif
+
 install :: install-code install-conf install-var
 
 install-var: $(PACKAGES_DIR) $(PACKAGES_LIST_DIR)
+
+%.8 : %.sgml
+	/usr/bin/docbook2man $<
 
 $(PACKAGES_DIR) $(PACKAGES_LIST_DIR):
 	$(INSTALL_DIR) $@
 
 clean :: clean-code clean-conf
+	@rm -fv $(MANS) manpage.*

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW.Big5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"POT-Creation-Date: 2008-11-05 18:11-0500\n"
 "PO-Revision-Date: 2007-01-30 09:38+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../src/up2date_client/capabilities.py:85
+#: ../src/up2date_client/capabilities.py:86
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -28,63 +28,55 @@ msgstr "這個用戶端需要支援 %s 的伺服器，然而目前的伺服器�
 msgid "%s was not found"
 msgstr "找不到 %s"
 
-#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../src/up2date_client/gui.py:203 ../src/up2date_client/gui.py:217
 #: ../data/gui.glade.h:7
 msgid "Registering for software updates"
 msgstr "為軟體更新而註冊"
 
-#: ../src/up2date_client/gui.py:368
+#: ../src/up2date_client/gui.py:408
 msgid "_Finish"
 msgstr "完成（_F）"
 
 #. Finish Window
-#: ../src/up2date_client/gui.py:369
-#: ../src/up2date_client/rhnreg_constants.py:167
+#: ../src/up2date_client/gui.py:409
+#: ../src/up2date_client/rhnreg_constants.py:169
 msgid "Finish setting up software updates"
 msgstr "完成設定軟體升級"
 
-#: ../src/up2date_client/gui.py:371
+#: ../src/up2date_client/gui.py:411
 msgid "_Exit software update setup"
 msgstr "離開軟體更新設定(_E)"
 
-#: ../src/up2date_client/gui.py:372
+#: ../src/up2date_client/gui.py:412
 msgid "software updates setup unsuccessful"
 msgstr "軟體更新設定不成功"
 
-#: ../src/up2date_client/gui.py:382
+#: ../src/up2date_client/gui.py:422
 msgid "You must run rhn_register as root."
 msgstr "您必須是 root 才能執行 rhn_register。"
 
-#: ../src/up2date_client/gui.py:406
+#: ../src/up2date_client/gui.py:446
 #, python-format
 msgid "There was some sort of I/O error: %s"
 msgstr "發生某種 I/O 錯誤：%s"
 
-#: ../src/up2date_client/hardware.py:828
-msgid "Error reading hardware information:"
-msgstr "讀取硬體資訊時發生錯誤"
-
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:880
 msgid "Error reading cpu information:"
 msgstr "讀取處理器資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:843
+#: ../src/up2date_client/hardware.py:887
 msgid "Error reading system memory information:"
 msgstr "讀取系統記憶體資訊時發生錯誤："
 
-#: ../src/up2date_client/hardware.py:851
+#: ../src/up2date_client/hardware.py:895
 msgid "Error reading networking information:"
 msgstr "讀取網路資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:862
-msgid "Error reading DMI information:"
-msgstr "讀取 DMI 資訊時發生錯誤："
-
-#: ../src/up2date_client/hardware.py:869
+#: ../src/up2date_client/hardware.py:916
 msgid "Error reading install method information:"
 msgstr "讀取安裝方法的資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:876
+#: ../src/up2date_client/hardware.py:923
 msgid "Error reading network interface information:"
 msgstr "讀取網路介面資訊時發生問題："
 
@@ -108,7 +100,7 @@ msgstr "「是/否」對話窗："
 msgid "Question dialog:"
 msgstr "問題對話窗："
 
-#: ../src/up2date_client/rhnChannel.py:137
+#: ../src/up2date_client/rhnChannel.py:123
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "在系統與一個頻道產生關聯前，該部系統將不會被更新。"
 
@@ -142,12 +134,13 @@ msgid "An unexpected OS error occurred: %s\n"
 msgstr "發生一個非預期的作業系統錯誤： %s\n"
 
 #: ../src/up2date_client/rhncli.py:74
-msgid "A connection was attemped with a malformed URI.\n"
+#, fuzzy
+msgid "A connection was attempted with a malformed URI.\n"
 msgstr "試圖連上不正確的 URI。\n"
 
 #: ../src/up2date_client/rhncli.py:76
-#, python-format
-msgid "A connection was attemped with a malformed URI: %s.\n"
+#, fuzzy, python-format
+msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr "試圖連上不正確的 URI：%s。\n"
 
 #: ../src/up2date_client/rhncli.py:78
@@ -182,11 +175,11 @@ msgstr "發生認證錯誤：%s\n"
 msgid "You must be root to run %s"
 msgstr "您必須是 root 才能執行 %s"
 
-#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:168
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "無法開啟圖形用戶界面。請試著執行 `up2date --nox`"
 
-#: ../src/up2date_client/rhncli.py:172
+#: ../src/up2date_client/rhncli.py:175
 #, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
@@ -197,11 +190,11 @@ msgstr ""
 "版權所有 (C) 1999-2006 Red Hat, Inc.\n"
 "基於 GPL 的使用條款提供授權。"
 
-#: ../src/up2date_client/rhncli.py:192
+#: ../src/up2date_client/rhncli.py:195
 msgid "An error has occurred:"
 msgstr "發生錯誤:"
 
-#: ../src/up2date_client/rhncli.py:200
+#: ../src/up2date_client/rhncli.py:203
 msgid "See /var/log/up2date for more information"
 msgstr "如需更多資料，請瀏覽 /var/log/up2date"
 
@@ -250,15 +243,13 @@ msgstr ""
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:34
-#: ../data/rh_register.glade.h:168
 msgid ""
 "If you do not have a Red Hat Login, this assistant will allow you to create "
 "one."
 msgstr "如果您沒有 Red Hat 的登入帳號，這可以幫助您建立一組帳號。"
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:38
-#: ../data/rh_register.glade.h:340
+#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:92
 msgid "Why Should I Connect to RHN? ..."
 msgstr "我為什麼要連上 RHN...？"
 
@@ -266,8 +257,7 @@ msgstr "我為什麼要連上 RHN...？"
 msgid "Why connect to Red Hat Network?"
 msgstr "為什麼要連到 Red Hat Network？"
 
-#: ../src/up2date_client/rhnreg_constants.py:40
-#: ../data/rh_register.glade.h:101
+#: ../src/up2date_client/rhnreg_constants.py:40 ../data/rh_register.glade.h:44
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
@@ -297,14 +287,13 @@ msgstr ""
 "收到最新的軟體更新，包括安全更新，讓這台 Red Hat Enterprise Linux 系統保持在"
 "最新、最安全的狀態。"
 
-#: ../src/up2date_client/rhnreg_constants.py:48
-#: ../data/rh_register.glade.h:116
+#: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:46
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr "下載 Red Hat Enterprise Linux 的安裝光碟映像檔，包括最新版本。"
 
-#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:32
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
@@ -312,8 +301,7 @@ msgstr ""
 "與 Red Hat 的技術支援專家或 Red Hat 的合作廠商聯絡，取得任何您可能遇到的問"
 "題。"
 
-#: ../src/up2date_client/rhnreg_constants.py:52
-#: ../data/rh_register.glade.h:294
+#: ../src/up2date_client/rhnreg_constants.py:52 ../data/rh_register.glade.h:82
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
@@ -407,7 +395,7 @@ msgid "I'll register later."
 msgstr "稍後註冊。"
 
 #. Info Window
-#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:12
 msgid "Setting up software updates"
 msgstr "設定軟體更新"
 
@@ -478,66 +466,75 @@ msgstr ""
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:109
+#, fuzzy
+msgid ""
+"Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
+"LoginInfo.do"
+msgstr ""
+"<small>提示：忘記登入帳號與密碼嗎？請從以下網址取得帳號或密碼：\n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+
+#: ../src/up2date_client/rhnreg_constants.py:111
 msgid "*Desired Login:"
 msgstr "* 您想使用的登入帳號："
 
-#: ../src/up2date_client/rhnreg_constants.py:110
+#: ../src/up2date_client/rhnreg_constants.py:112
 msgid "Examples: user@domain.com"
 msgstr "範例：user@domain.com"
 
-#: ../src/up2date_client/rhnreg_constants.py:111
+#: ../src/up2date_client/rhnreg_constants.py:113
 msgid "*Desired Password:"
 msgstr "* 您想使用的密碼："
 
-#: ../src/up2date_client/rhnreg_constants.py:112
+#: ../src/up2date_client/rhnreg_constants.py:114
 msgid "*Confirm Password:"
 msgstr "* 確認密碼："
 
-#: ../src/up2date_client/rhnreg_constants.py:113
+#: ../src/up2date_client/rhnreg_constants.py:115
 msgid "*Email Address:"
 msgstr "*電子郵件地址："
 
-#: ../src/up2date_client/rhnreg_constants.py:114
+#: ../src/up2date_client/rhnreg_constants.py:116
 msgid "Tip: Leave blank if not with a company."
 msgstr "提示：如果您不是公司用戶，請留白。"
 
-#: ../src/up2date_client/rhnreg_constants.py:115
+#: ../src/up2date_client/rhnreg_constants.py:117
 msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
 msgstr "提示：Red Hat 注重您的隱私權。請檢視隱私權政策：http://"
 
-#: ../src/up2date_client/rhnreg_constants.py:119
+#: ../src/up2date_client/rhnreg_constants.py:121
 msgid "Please enter your first name."
 msgstr "請輸入您的名字。"
 
-#: ../src/up2date_client/rhnreg_constants.py:120
+#: ../src/up2date_client/rhnreg_constants.py:122
 msgid "Please enter your last name."
 msgstr "請輸入您的姓氏。"
 
-#: ../src/up2date_client/rhnreg_constants.py:121
+#: ../src/up2date_client/rhnreg_constants.py:123
 msgid "Please enter your email address."
 msgstr "請輸入電子郵件地址。"
 
-#: ../src/up2date_client/rhnreg_constants.py:122
+#: ../src/up2date_client/rhnreg_constants.py:124
 msgid "Please enter a valid email address."
 msgstr "請輸入一組有效的電子郵件地址。"
 
-#: ../src/up2date_client/rhnreg_constants.py:123
+#: ../src/up2date_client/rhnreg_constants.py:125
 msgid "Please enter your country."
 msgstr "請輸入您的國家。"
 
-#: ../src/up2date_client/rhnreg_constants.py:124
+#: ../src/up2date_client/rhnreg_constants.py:126
 msgid "Please enter a longer login."
 msgstr "請輸入更長的登入帳號。"
 
-#: ../src/up2date_client/rhnreg_constants.py:125
+#: ../src/up2date_client/rhnreg_constants.py:127
 msgid "Please enter a longer password."
 msgstr "請輸入更長的密碼。"
 
-#: ../src/up2date_client/rhnreg_constants.py:126
+#: ../src/up2date_client/rhnreg_constants.py:128
 msgid "Please enter a shorter password."
 msgstr "請輸入更短的密碼。"
 
-#: ../src/up2date_client/rhnreg_constants.py:129
+#: ../src/up2date_client/rhnreg_constants.py:131
 msgid ""
 "It appears this system has attempted to register to the Red Hat Network.\n"
 "The system may already be set up for software updates.\n"
@@ -550,32 +547,32 @@ msgstr ""
 "您確定要繼續嗎？"
 
 #. Org selection window.
-#: ../src/up2date_client/rhnreg_constants.py:134
+#: ../src/up2date_client/rhnreg_constants.py:136
 msgid "Select Organization"
 msgstr "選擇組織"
 
-#: ../src/up2date_client/rhnreg_constants.py:135
+#: ../src/up2date_client/rhnreg_constants.py:137
 #, python-format
 msgid ""
 "Your login, %s, is associated with multiple organizations.  You will need to "
 "select an organization to connect this system to."
 msgstr "您的帳號 %s 與多個組織相關連。請選擇您想要向哪個組織註冊這台機器。"
 
-#: ../src/up2date_client/rhnreg_constants.py:138
+#: ../src/up2date_client/rhnreg_constants.py:140
 msgid "Organization:"
 msgstr "組織："
 
-#: ../src/up2date_client/rhnreg_constants.py:139
+#: ../src/up2date_client/rhnreg_constants.py:141
 msgid "You must select an organization."
 msgstr "您必須選擇一個組織。"
 
 #. Subscription window.
-#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#: ../src/up2date_client/rhnreg_constants.py:144 ../data/gui.glade.h:1
 msgid "Access a subscription"
 msgstr "存取訂閱服務"
 
-#: ../src/up2date_client/rhnreg_constants.py:143
-#: ../data/rh_register.glade.h:355
+#: ../src/up2date_client/rhnreg_constants.py:145
+#: ../data/rh_register.glade.h:107
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
@@ -583,7 +580,7 @@ msgstr ""
 "您的系統需要存取訂閱服務。這將能讓您的系統保持在最新、最安全，並受支援的狀"
 "態。"
 
-#: ../src/up2date_client/rhnreg_constants.py:145
+#: ../src/up2date_client/rhnreg_constants.py:147
 msgid ""
 "You have no active subscriptions available in your account.  You will need "
 "to do one of the following to create an active subscription in your account "
@@ -592,8 +589,8 @@ msgstr ""
 "您的帳號中沒有可用中的訂閱服務。在這部系統能連上 Red Hat Network 之前，請進行"
 "以下任一步驟，在您的帳號裡建立可用的訂閱服務。"
 
-#: ../src/up2date_client/rhnreg_constants.py:149
-#: ../data/rh_register.glade.h:198
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:62
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
@@ -601,8 +598,8 @@ msgstr ""
 "登入 http://rhn.redhat.com/ 並取消系統權利，方法是「您專屬的 RHN > 訂閱管理 "
 "> 系統權利」。"
 
-#: ../src/up2date_client/rhnreg_constants.py:151
-#: ../data/rh_register.glade.h:256
+#: ../src/up2date_client/rhnreg_constants.py:153
+#: ../data/rh_register.glade.h:71
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
@@ -610,25 +607,26 @@ msgstr ""
 "請從 http://www.redhat.com/store/ 購買額外的 Red Hat Enterprise Linux 訂閱服"
 "務。"
 
-#: ../src/up2date_client/rhnreg_constants.py:153
+#: ../src/up2date_client/rhnreg_constants.py:155
 msgid "Activate a new subscription with an installation number:"
 msgstr "用安裝號碼啟動新的訂閱服務："
 
-#: ../src/up2date_client/rhnreg_constants.py:154
+#: ../src/up2date_client/rhnreg_constants.py:156
 msgid ""
 "You have already activated this installation number during this registration."
 msgstr "您已經在這次註冊中，啟動了這組安裝號碼。"
 
-#: ../src/up2date_client/rhnreg_constants.py:156
+#: ../src/up2date_client/rhnreg_constants.py:158
 msgid "Installation Number:"
 msgstr "安裝號碼："
 
-#: ../src/up2date_client/rhnreg_constants.py:157
-msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+#: ../src/up2date_client/rhnreg_constants.py:159
+#, fuzzy
+msgid "Example: XXXX-XXXX-XXXX-XXXX"
 msgstr "範例：XXXX-XXXX-XXXX-XXXX-XXXX"
 
 #. Send Window
-#: ../src/up2date_client/rhnreg_constants.py:160
+#: ../src/up2date_client/rhnreg_constants.py:162
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -641,7 +639,7 @@ msgstr ""
 "請按下「下一步」，將這系統設定檔送至 Red Hat Network。請按下「取消」，則系統"
 "不會送出任何資訊。您可以在稍後於命令列中輸入「rhn_register」，執行註冊程式。"
 
-#: ../src/up2date_client/rhnreg_constants.py:168
+#: ../src/up2date_client/rhnreg_constants.py:170
 msgid ""
 "Congratulations, you have successfully completed software updates set up for "
 "this system.\n"
@@ -661,7 +659,7 @@ msgstr ""
 "當套件圖示出現在您桌面的提示區（多半位於右上角）時，這表示您的軟體需要更新。"
 "請按下這圖示，它會引領您套用任何可用的更新："
 
-#: ../src/up2date_client/rhnreg_constants.py:176
+#: ../src/up2date_client/rhnreg_constants.py:178
 msgid ""
 "You may now run 'yum update' from this system's command line to get the "
 "latest software updates from Red Hat Network. You will need to run this "
@@ -678,43 +676,43 @@ msgstr ""
 "鈕中取得。）"
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+#: ../src/up2date_client/rhnreg_constants.py:189 ../data/gui.glade.h:9
 msgid "Review system subscription details"
 msgstr "檢視系統訂閱的詳細資料"
 
-#: ../src/up2date_client/rhnreg_constants.py:188
-#: ../data/rh_register.glade.h:248
+#: ../src/up2date_client/rhnreg_constants.py:190
+#: ../data/rh_register.glade.h:66
 msgid "Please review the subscription details below:"
 msgstr "請檢視以下的訂閱詳細資料："
 
-#: ../src/up2date_client/rhnreg_constants.py:189
+#: ../src/up2date_client/rhnreg_constants.py:191
 msgid "Subscriptions Activated:"
 msgstr "訂閱服務已啟動："
 
-#: ../src/up2date_client/rhnreg_constants.py:190
+#: ../src/up2date_client/rhnreg_constants.py:192
 #, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
 msgstr "安裝號碼 %s 已經在系統第一次連到 Red Hat Network 時啟動。"
 
-#: ../src/up2date_client/rhnreg_constants.py:192
+#: ../src/up2date_client/rhnreg_constants.py:194
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
 msgstr "訂閱服務已經針對以下 Red Hat 產品 / 服務啟動："
 
-#: ../src/up2date_client/rhnreg_constants.py:194
+#: ../src/up2date_client/rhnreg_constants.py:196
 msgid "Software channel subscriptions:"
 msgstr "軟體頻道訂閱："
 
-#: ../src/up2date_client/rhnreg_constants.py:195
+#: ../src/up2date_client/rhnreg_constants.py:197
 msgid ""
 "This system will receive updates from the following Red Hat Network software "
 "channels:"
 msgstr "這台系統將會從以下 Red Hat 軟體頻道取得更新："
 
-#: ../src/up2date_client/rhnreg_constants.py:197
+#: ../src/up2date_client/rhnreg_constants.py:199
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -728,7 +726,7 @@ msgstr ""
 "閱合適的軟體頻道，以取得這項產品的更新。詳情請參閱知識庫第 6227 號文章"
 "（http://kbase.redhat.com/faq/FAQ_58_6227.shtm）。"
 
-#: ../src/up2date_client/rhnreg_constants.py:208
+#: ../src/up2date_client/rhnreg_constants.py:210
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -742,13 +740,13 @@ msgstr ""
 "閱合適的軟體頻道，以取得這項產品的更新。詳情請參閱知識庫第 6227 號文章"
 "（http://kbase.redhat.com/faq/FAQ_58_6227.shtm）。"
 
-#: ../src/up2date_client/rhnreg_constants.py:219
+#: ../src/up2date_client/rhnreg_constants.py:221
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
 msgstr "由於您帳號中可用的訂閱數不足，您無法訂閱以下軟體頻道："
 
-#: ../src/up2date_client/rhnreg_constants.py:223
+#: ../src/up2date_client/rhnreg_constants.py:225
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. There "
@@ -772,11 +770,11 @@ msgstr ""
 "閱數量，您就可以在 RHN 的網頁介面中瀏覽此系統的設定檔，並透過「軟體」>「軟體"
 "頻道」分頁，為這台系統訂閱軟體頻道。"
 
-#: ../src/up2date_client/rhnreg_constants.py:234
+#: ../src/up2date_client/rhnreg_constants.py:236
 msgid "RHN service level:"
 msgstr "RHN 服務等級："
 
-#: ../src/up2date_client/rhnreg_constants.py:235
+#: ../src/up2date_client/rhnreg_constants.py:237
 msgid ""
 "Depending on what RHN modules are associated with a system, you'll enjoy "
 "different benefits of Red Hat Network. The following are the RHN modules "
@@ -785,25 +783,25 @@ msgstr ""
 "根據與這台系統相關的 RHN 模組，您將享受 Red Hat Network 所帶來的不同好處。以"
 "下是與這台系統相關的 RHN 模組："
 
-#: ../src/up2date_client/rhnreg_constants.py:239
+#: ../src/up2date_client/rhnreg_constants.py:241
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
 msgstr "本系統無法與以下 RHN 模組相關連，因為您帳號中的訂閱數量不夠："
 
-#: ../src/up2date_client/rhnreg_constants.py:242
+#: ../src/up2date_client/rhnreg_constants.py:244
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
 msgstr "更新模組：更新每台系統、電子郵件勘誤通知、勘誤資訊"
 
-#: ../src/up2date_client/rhnreg_constants.py:244
+#: ../src/up2date_client/rhnreg_constants.py:246
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling"
 msgstr "管理模組：自動更新、系統分群、系統權限、系統套件設定檔"
 
-#: ../src/up2date_client/rhnreg_constants.py:246
+#: ../src/up2date_client/rhnreg_constants.py:248
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
@@ -811,7 +809,7 @@ msgstr ""
 "Provisioning 模組：空機的 provisioning、現有狀態的 provisioning、回復、設定管"
 "理"
 
-#: ../src/up2date_client/rhnreg_constants.py:248
+#: ../src/up2date_client/rhnreg_constants.py:250
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
@@ -819,20 +817,20 @@ msgstr ""
 "監控模組：事先定義與自訂的系統效能偵測、以電子郵件通知系統效能、系統效能的圖"
 "形"
 
-#: ../src/up2date_client/rhnreg_constants.py:252
+#: ../src/up2date_client/rhnreg_constants.py:254
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:255
+#: ../src/up2date_client/rhnreg_constants.py:257
 msgid ""
 "Virtualization Platform module: software updates for an unlimited number "
 "virtual guests of this system, access to additional software channels for "
 "guests of this system."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:259
+#: ../src/up2date_client/rhnreg_constants.py:261
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
@@ -842,7 +840,7 @@ msgid ""
 "virtual guests of this system to consume additional subscriptions."
 msgstr ""
 
-#: ../src/up2date_client/rhnreg_constants.py:267
+#: ../src/up2date_client/rhnreg_constants.py:269
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
@@ -866,7 +864,7 @@ msgstr ""
 "閱數量，您就可以在 RHN 的網頁介面中瀏覽此系統的設定檔、刪除設定檔、並將這系統"
 "重新連上 Red Hat Network。"
 
-#: ../src/up2date_client/rhnreg_constants.py:279
+#: ../src/up2date_client/rhnreg_constants.py:281
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
@@ -887,7 +885,7 @@ msgstr ""
 "reference/）\n"
 "通用的預設啟動金鑰：%s"
 
-#: ../src/up2date_client/rhnreg_constants.py:289
+#: ../src/up2date_client/rhnreg_constants.py:291
 msgid ""
 "A subscription-activating installation number was found on disk, but we were "
 "not able to activate it (An unknown error occurred.) We used existing active "
@@ -899,44 +897,45 @@ msgstr ""
 "們改用了 RHN 帳號中，現有的啟動訂閱。請與 Red Hat 的客戶服務連繫：http://www."
 "redhat.com/apps/support/"
 
-#: ../src/up2date_client/rhnreg_constants.py:294
+#: ../src/up2date_client/rhnreg_constants.py:296
 msgid "A installation number was found on disk, but we "
 msgstr "在磁碟上找到訂閱 - 啟動安裝號碼，"
 
-#: ../src/up2date_client/rhnreg_constants.py:295
+#: ../src/up2date_client/rhnreg_constants.py:297
 msgid ""
 "were not able to activate it (An unknown error occurred.) We used existing "
 msgstr "但我們無法啟動它（發生未知的錯誤）。"
 
-#: ../src/up2date_client/rhnreg_constants.py:296
+#: ../src/up2date_client/rhnreg_constants.py:298
 msgid ""
 "active subscription slots available in the rhn account instead. You may wish "
 msgstr "我們將改用 RHN 帳號中，現有、可用的啟動訂閱。"
 
-#: ../src/up2date_client/rhnreg_constants.py:297
+#: ../src/up2date_client/rhnreg_constants.py:299
 msgid "to contact Red Hat customer service regarding this issue: "
 msgstr "關於此問題，請連絡 Red Hat 客戶服務部："
 
-#: ../src/up2date_client/rhnreg_constants.py:298
+#: ../src/up2date_client/rhnreg_constants.py:300
 msgid "http://www.redhat.com/apps/support/"
 msgstr "http://www.redhat.com/apps/support/"
 
 #. Error Messages.
-#: ../src/up2date_client/rhnreg_constants.py:301
+#: ../src/up2date_client/rhnreg_constants.py:303
 msgid "Fatal Error"
 msgstr "嚴重錯誤"
 
-#: ../src/up2date_client/rhnreg_constants.py:302
-#: ../src/up2date_client/rhnreg_constants.py:369
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:391
+#: ../src/up2date_client/tui.py:425
 msgid "Error"
 msgstr "錯誤"
 
-#: ../src/up2date_client/rhnreg_constants.py:303
+#: ../src/up2date_client/rhnreg_constants.py:305
 msgid "Warning"
 msgstr "警告"
 
-#: ../src/up2date_client/rhnreg_constants.py:304
-#: ../src/up2date_client/rhnreg_constants.py:311
+#: ../src/up2date_client/rhnreg_constants.py:306
+#: ../src/up2date_client/rhnreg_constants.py:313
 #, python-format
 msgid ""
 "We can't contact the Red Hat Network Server.\n"
@@ -958,12 +957,12 @@ msgstr ""
 "\n"
 "在連上 Red Hat Network 伺服器之前，這系統無法成功地從 Red Hat 取得軟體更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:317
+#: ../src/up2date_client/rhnreg_constants.py:319
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
 msgstr "架構：%s，作業系統版次：%s，作業系統版本：%s"
 
-#: ../src/up2date_client/rhnreg_constants.py:319
+#: ../src/up2date_client/rhnreg_constants.py:321
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
@@ -971,7 +970,7 @@ msgstr ""
 "這伺服器並不支援這軟體更新設定用戶端版本所需的功能。請以更新的伺服器，再試一"
 "次。"
 
-#: ../src/up2date_client/rhnreg_constants.py:323
+#: ../src/up2date_client/rhnreg_constants.py:325
 #, python-format
 msgid ""
 "The installation number you have provided (%s) is invalid.\n"
@@ -983,7 +982,7 @@ msgstr ""
 "\n"
 "請檢查該號碼，再試一次；或「存取訂閱服務」畫面中的其他選項。"
 
-#: ../src/up2date_client/rhnreg_constants.py:328
+#: ../src/up2date_client/rhnreg_constants.py:330
 msgid ""
 "The installation number you provided is valid but was already activated and "
 "the subscriptions have already been used by systems in your organization or "
@@ -997,7 +996,7 @@ msgstr ""
 "\n"
 "請嘗試另一組號碼，或「存取訂閱服務」畫面中的其他選項。"
 
-#: ../src/up2date_client/rhnreg_constants.py:335
+#: ../src/up2date_client/rhnreg_constants.py:337
 msgid ""
 "The installation number you provided does not have subscriptions associated "
 "with it.\n"
@@ -1009,7 +1008,7 @@ msgstr ""
 "\n"
 "請嘗試另一組號碼，或「存取訂閱服務」畫面中的其他選項。"
 
-#: ../src/up2date_client/rhnreg_constants.py:343
+#: ../src/up2date_client/rhnreg_constants.py:345
 #, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
@@ -1029,11 +1028,19 @@ msgstr ""
 "\n"
 "請以不同的認證檔再試一次。"
 
-#: ../src/up2date_client/rhnreg_constants.py:351
+#: ../src/up2date_client/rhnreg_constants.py:353
+msgid ""
+"<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
+"\n"
+" The certificate is expired. Please ensure you have the correct  certificate "
+"and your system time is correct."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:357
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
 msgstr "請驗證 /etc/sysconfig/rhn/up2date 中的 sslCACert 值"
 
-#: ../src/up2date_client/rhnreg_constants.py:354
+#: ../src/up2date_client/rhnreg_constants.py:360
 msgid ""
 "Problem registering system.\n"
 "\n"
@@ -1051,64 +1058,100 @@ msgstr ""
 "啟動金鑰。詳情請參閱知識庫文章第 7924 號，網址為 http://kbase.redhat.com/faq/"
 "FAQ_61_7924.shtm "
 
+#: ../src/up2date_client/rhnreg_constants.py:373
+msgid ""
+"\n"
+" Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:376
+msgid ""
+"Warning:You will not be able to limit this system to minor release that is "
+"older than the recent minor release if you select this option.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:381
+#, python-format
+msgid ""
+"Your system will be subscribed to %s \n"
+"base software channel. You will not be\n"
+"able to move this system to an earlier\n"
+"(you will be able to move to a newer release.)\n"
+"Are you sure you Would like to Continue?"
+msgstr ""
+
 #. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:368
+#: ../src/up2date_client/rhnreg_constants.py:390
+#: ../src/up2date_client/tui.py:425
 msgid "OK"
 msgstr "確定"
 
-#: ../src/up2date_client/rhnreg_constants.py:370
+#: ../src/up2date_client/rhnreg_constants.py:392
 msgid "Next"
 msgstr "下一步"
 
-#: ../src/up2date_client/rhnreg_constants.py:371
+#: ../src/up2date_client/rhnreg_constants.py:393
 msgid "Back"
 msgstr "上一步"
 
-#: ../src/up2date_client/rhnreg_constants.py:372
+#: ../src/up2date_client/rhnreg_constants.py:394
 msgid "Cancel"
 msgstr "取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:373
+#: ../src/up2date_client/rhnreg_constants.py:395
 msgid "No, Cancel"
 msgstr "不，取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:374
+#: ../src/up2date_client/rhnreg_constants.py:396
 msgid "Yes, Continue"
 msgstr "是的，請繼續"
 
-#: ../src/up2date_client/rhnreg_constants.py:375
+#: ../src/up2date_client/rhnreg_constants.py:397
 msgid "Press <space> to deselect the option."
 msgstr "請按下 <space> 取消選取選項。"
 
-#: ../src/up2date_client/rhnregGui.py:112
-#: ../src/up2date_client/rhnregGui.py:152
+#: ../src/up2date_client/rhnregGui.py:113
+#: ../src/up2date_client/rhnregGui.py:153
 msgid "Notice"
 msgstr "注意"
 
-#: ../src/up2date_client/rhnregGui.py:118
-#: ../src/up2date_client/rhnregGui.py:129
+#: ../src/up2date_client/rhnregGui.py:119
+#: ../src/up2date_client/rhnregGui.py:130
 msgid "Automatic Subscription Activation"
 msgstr "自動訂閱啟動"
 
-#: ../src/up2date_client/rhnregGui.py:141
+#: ../src/up2date_client/rhnregGui.py:142
 msgid "Subscription Activation"
 msgstr "訂閱啟動"
 
-#: ../src/up2date_client/rhnregGui.py:302
+#: ../src/up2date_client/rhnregGui.py:278
+#, fuzzy
+msgid "There was an error while applying your choice."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:305
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "您指定了不合規定的通訊協定。請使用 https 或 http。"
 
-#: ../src/up2date_client/rhnregGui.py:331
+#: ../src/up2date_client/rhnregGui.py:329
+#, fuzzy
+msgid ""
+"You will not be able to successfully register this system without contacting "
+"a Red Hat Network server."
+msgstr "不向 Red Hat Network 註冊系統，您將<b>無法</b>享受到這些訂閱權利。"
+
+#: ../src/up2date_client/rhnregGui.py:346
 #, python-format
 msgid "We could not contact Red Hat Network (%s)."
 msgstr "我們無法連上 Red Hat Network（%s）。"
 
-#: ../src/up2date_client/rhnregGui.py:333
-#: ../src/up2date_client/rhnregGui.py:346
+#: ../src/up2date_client/rhnregGui.py:348
+#: ../src/up2date_client/rhnregGui.py:361
 msgid "Make sure the network connection on this system is operational."
 msgstr "請確定這台電腦可以連上網路。"
 
-#: ../src/up2date_client/rhnregGui.py:335
+#: ../src/up2date_client/rhnregGui.py:350
 msgid ""
 "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
 "can enter a Satellite or Proxy location instead."
@@ -1116,48 +1159,57 @@ msgstr ""
 "您打算註冊 Ret Hat Network 衛星伺服器或代理伺服器？如果是的話，您可以輸入衛星"
 "伺服器或代理伺服器的位址。"
 
-#: ../src/up2date_client/rhnregGui.py:341
+#: ../src/up2date_client/rhnregGui.py:356
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr "我們無法連上位於 %s 的衛星伺服器或代理伺服器。"
 
-#: ../src/up2date_client/rhnregGui.py:343
+#: ../src/up2date_client/rhnregGui.py:358
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr "請再檢查位置 - %s 是否正確？如果不正確，請更改後再試一次。"
 
-#: ../src/up2date_client/rhnregGui.py:356
+#: ../src/up2date_client/rhnregGui.py:371
 msgid "There was an error communicating with Red Hat Network."
 msgstr "連接 Red Hat Network 時發生錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:357
+#: ../src/up2date_client/rhnregGui.py:372
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr "伺服器可能處於停機狀態。請稍後再嘗試連線。"
 
-#: ../src/up2date_client/rhnregGui.py:359
+#: ../src/up2date_client/rhnregGui.py:374
 msgid "You may be running a client that is incompatible with the server."
 msgstr "可能您執行的用戶端與伺服器不相容。"
 
-#: ../src/up2date_client/rhnregGui.py:462
+#: ../src/up2date_client/rhnregGui.py:417
+#, fuzzy, python-format
+msgid ""
+"Please enter your account information for the <b>%s</b> Red Hat Network "
+"Satellite:"
+msgstr ""
+"請為您的 %s Red Hat Network 衛星伺服器，輸入登入資訊：\n"
+"\n"
+
+#: ../src/up2date_client/rhnregGui.py:466
 msgid "You must enter a login."
 msgstr "您必須輸入登入帳號。"
 
-#: ../src/up2date_client/rhnregGui.py:468
+#: ../src/up2date_client/rhnregGui.py:472
 msgid "You must enter a password."
 msgstr "您必須輸入密碼。"
 
-#: ../src/up2date_client/rhnregGui.py:507
-#: ../src/up2date_client/rhnregGui.py:1351
+#: ../src/up2date_client/rhnregGui.py:486
+#, fuzzy
+msgid "There was an error while logging in."
+msgstr "登入時發生問題。"
+
+#: ../src/up2date_client/rhnregGui.py:513
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "連接註冊伺服器時發生錯誤。  錯誤訊息是：\n"
-
-#: ../src/up2date_client/rhnregGui.py:512
-msgid "That user account and password is not valid\n"
-msgstr "使用者名稱與密碼無效\n"
 
 #: ../src/up2date_client/rhnregGui.py:525
 #, python-format
@@ -1172,68 +1224,90 @@ msgstr ""
 msgid "There was problem logging in."
 msgstr "登入時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:697
-msgid "You must enter a installation number."
+#: ../src/up2date_client/rhnregGui.py:596
+#, fuzzy
+msgid "There was an error while getting the list of organizations."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:704
+#, fuzzy
+msgid "You must enter an installation number."
 msgstr "您必須輸入一組安裝號碼。"
 
-#: ../src/up2date_client/rhnregGui.py:752
+#: ../src/up2date_client/rhnregGui.py:717
+#, fuzzy
+msgid "There was an error activating your number."
+msgstr "連接 Red Hat Network 時發生錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:759
 msgid "This installation number has already been activated."
 msgstr "這安裝號碼已經啟用。"
 
-#: ../src/up2date_client/rhnregGui.py:813
+#: ../src/up2date_client/rhnregGui.py:908
+#, fuzzy
+msgid "There was an error while assembling information for the profile."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:929
 msgid "Error running hardware profile"
 msgstr "執行硬體資料檔發生錯誤"
 
-#: ../src/up2date_client/rhnregGui.py:839
+#: ../src/up2date_client/rhnregGui.py:955
 msgid "There was an error while populating the profile."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:859
+#: ../src/up2date_client/rhnregGui.py:975
 msgid "You must choose a name for this profile."
 msgstr "您必須為這個資料檔選擇一個名稱。"
 
-#: ../src/up2date_client/rhnregGui.py:885
+#: ../src/up2date_client/rhnregGui.py:990
+#, fuzzy
+msgid "There was an error while creating the profile."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:1001
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "正在傳送您的資料檔資訊到 Red Hat Network。  請稍候。"
 
-#: ../src/up2date_client/rhnregGui.py:902
+#: ../src/up2date_client/rhnregGui.py:1020
 msgid "Registering System"
 msgstr "註冊系統"
 
-#: ../src/up2date_client/rhnregGui.py:916
-#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
-#: ../src/up2date_client/tui.py:1317
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1038
+#: ../src/up2date_client/rhnregGui.py:1042 ../src/up2date_client/tui.py:1133
+#: ../src/up2date_client/tui.py:1136 ../src/up2date_client/tui.py:1139
 msgid "Problem registering system:\n"
 msgstr "註冊系統發生問題：\n"
 
-#: ../src/up2date_client/rhnregGui.py:924
+#: ../src/up2date_client/rhnregGui.py:1045
 #, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr "您提供的安裝號碼 [ %s ] 是無效的安裝號碼。請回到上一個畫面並修正之。"
 
-#: ../src/up2date_client/rhnregGui.py:925
+#: ../src/up2date_client/rhnregGui.py:1046
 msgid "registration_number"
 msgstr "註冊號碼（registration_number）"
 
-#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1145
 msgid "Problem registering system."
 msgstr "註冊系統時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+#: ../src/up2date_client/rhnregGui.py:1066 ../src/up2date_client/tui.py:1150
 msgid "Problem writing out system id to disk."
 msgstr "寫入系統 ID 到磁碟發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:951
+#: ../src/up2date_client/rhnregGui.py:1072
 msgid "There was a problem registering this system."
 msgstr "註冊本系統時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:964
+#: ../src/up2date_client/rhnregGui.py:1085
 msgid "Sending hardware information"
 msgstr "傳送硬體資訊"
 
-#: ../src/up2date_client/rhnregGui.py:969
+#: ../src/up2date_client/rhnregGui.py:1090
 msgid "Problem sending hardware information."
 msgstr "傳送硬體資訊時發生錯誤。"
 
@@ -1246,125 +1320,110 @@ msgstr "傳送硬體資訊時發生錯誤。"
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:995
+#: ../src/up2date_client/rhnregGui.py:1116
 msgid "Sending package information"
 msgstr "傳送套件資訊"
 
-#: ../src/up2date_client/rhnregGui.py:1000
+#: ../src/up2date_client/rhnregGui.py:1121
 msgid "Problem sending package information."
 msgstr "傳送套件訊息時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:1034
-#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
-#: ../src/up2date_client/tui.py:1356
+#: ../src/up2date_client/rhnregGui.py:1155
+#: ../src/up2date_client/rhnregGui.py:1172 ../src/up2date_client/tui.py:1164
+#: ../src/up2date_client/tui.py:1178
 msgid "Problem registering personal information:\n"
 msgstr "註冊個人資訊發生問題：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1039
-#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
-#: ../src/up2date_client/tui.py:1360
+#: ../src/up2date_client/rhnregGui.py:1160
+#: ../src/up2date_client/rhnregGui.py:1177 ../src/up2date_client/tui.py:1170
+#: ../src/up2date_client/tui.py:1182
 msgid "Problem registering personal information"
 msgstr "註冊個人資訊發生問題"
 
-#: ../src/up2date_client/rhnregGui.py:1127
+#: ../src/up2date_client/rhnregGui.py:1222
+#, fuzzy
+msgid "There was an error while installing the certificate."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:1248
 msgid "You must select a certificate."
 msgstr "您必須選擇一個認證。"
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:1170
+#: ../src/up2date_client/rhnregGui.py:1300
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr "發生 SSL 錯誤。這可能是因為您選的檔案不是認證檔。"
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:1180
+#: ../src/up2date_client/rhnregGui.py:1310
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr "安裝新認證時發生錯誤：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1284
-msgid "You must enter a user name."
-msgstr "您必須輸入一個使用者名稱。"
-
-#: ../src/up2date_client/rhnregGui.py:1290
-#: ../src/up2date_client/rhnregGui.py:1296
-msgid "You must enter and verify a password."
-msgstr "您必須輸入並確認一個密碼。"
-
-#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
-#: ../src/up2date_client/tui.py:989
-msgid "The server indicated an error:\n"
-msgstr "伺服器指出有錯誤發生：\n"
-
-#: ../src/up2date_client/rhnregGui.py:1388
-#, python-format
-msgid ""
-"Problem registering login:\n"
-"%s"
-msgstr ""
-"註冊登入帳號時發生問題：\n"
-"%s"
-
-#: ../src/up2date_client/rhnregGui.py:1394
-msgid "Problem registering login."
-msgstr "註冊登入帳號時發生問題。"
-
-#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
-msgid "United States"
-msgstr "美國"
-
-#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
-msgid "Canada"
-msgstr "加拿大"
-
-#: ../src/up2date_client/rhnregGui.py:1423
-#: ../src/up2date_client/rhnregGui.py:1424
-#: ../src/up2date_client/rhnregGui.py:1425
+#: ../src/up2date_client/rhnregGui.py:1362
+#: ../src/up2date_client/rhnregGui.py:1363
+#: ../src/up2date_client/rhnregGui.py:1364
 msgid "unknown"
 msgstr "未知的"
 
-#: ../src/up2date_client/rhnregGui.py:1519
+#: ../src/up2date_client/rhnregGui.py:1452
+#, fuzzy
+msgid "There was an error retrieving the privacy statement."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:1458
 msgid "Unable to access the server. Please check your network settings."
 msgstr "無法存取伺服器。請檢查您的網路設定。"
 
-#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#: ../src/up2date_client/rhnregGui.py:1484
+#, fuzzy
+msgid "There was an error getting the list of hardware."
+msgstr "產生設定檔時發生嚴重錯誤。"
+
+#: ../src/up2date_client/rhnregGui.py:1496 ../src/up2date_client/tui.py:910
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1561
+#: ../src/up2date_client/rhnregGui.py:1500
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../src/up2date_client/rhnregGui.py:1620
+#: ../src/up2date_client/rhnregGui.py:1544
+#, fuzzy
+msgid "There was an error building the list of packages."
+msgstr "安裝這個套件時發生嚴重錯誤：\n"
+
+#: ../src/up2date_client/rhnregGui.py:1559
 msgid "Package"
 msgstr "套件"
 
-#: ../src/up2date_client/rhnregGui.py:1625
+#: ../src/up2date_client/rhnregGui.py:1564
 msgid "Arch"
 msgstr "硬體架構"
 
-#: ../src/up2date_client/rhnregGui.py:1632
+#: ../src/up2date_client/rhnregGui.py:1571
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr "正在建立安裝在您系統的 RPM 套件清單。  請稍候。"
 
-#: ../src/up2date_client/rhnregGui.py:1663
+#: ../src/up2date_client/rhnregGui.py:1602
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
 msgstr ""
 "載入您的設定時發生錯誤。  請確定您有讀取 /etc/sysconfig/rhn 檔案的權限。"
 
-#: ../src/up2date_client/rhnregGui.py:1705
+#: ../src/up2date_client/rhnregGui.py:1644
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
 msgstr "儲存您的設定時發生錯誤。 請確定您有 %s 的擁有權。"
 
-#: ../src/up2date_client/rhnregGui.py:1734
+#: ../src/up2date_client/rhnregGui.py:1673
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1374,8 +1433,13 @@ msgstr ""
 "這錯誤不該發生。如果您願意幫助我們改善這程式，請透過 bugzilla.redhat.com 發送"
 "錯誤報告。請在其中包含相關的 %s，這會很有幫助。謝謝！"
 
-#: ../src/up2date_client/rhnreg.py:63
+#: ../src/up2date_client/rhnreg.py:76
 msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "警告： 無法使用 chkconfig 來啟用 rhnsd"
+
+#: ../src/up2date_client/rhnreg.py:86
+#, fuzzy
+msgid "Warning: unable to run rhn_check"
 msgstr "警告： 無法使用 chkconfig 來啟用 rhnsd"
 
 #: ../src/up2date_client/rpcServer.py:165
@@ -1386,7 +1450,7 @@ msgstr "錯誤：無法找到 RHNS CA 檔"
 msgid "Connection aborted by the user"
 msgstr "連線被使用者中斷"
 
-#: ../src/up2date_client/rpcServer.py:238
+#: ../src/up2date_client/rpcServer.py:242
 msgid "Server has refused connection due to high load"
 msgstr "由於負載太大，伺服器拒絕連線"
 
@@ -1394,65 +1458,64 @@ msgstr "由於負載太大，伺服器拒絕連線"
 msgid "Getting list of packages installed on the system"
 msgstr "取得已安裝在系統的套件清單"
 
-#: ../src/up2date_client/tui.py:139
+#: ../src/up2date_client/tui.py:136
 msgid ""
 "The server you are attempting to register against does not support this "
 "version of the client."
 msgstr "您試圖連上、註冊的伺服器並不支援這用戶端版本。"
 
-#: ../src/up2date_client/tui.py:697
+#: ../src/up2date_client/tui.py:425
+msgid "The server indicated an error:\n"
+msgstr "伺服器指出有錯誤發生：\n"
+
+#: ../src/up2date_client/tui.py:429
+#, fuzzy
+msgid "There was an error communicating with the registration server:\n"
+msgstr "連接註冊伺服器時發生錯誤。  錯誤訊息是：\n"
+
+#: ../src/up2date_client/tui.py:689
 msgid "You must enter an Installation Number that "
 msgstr "您必須輸入一個安裝號碼"
 
-#: ../src/up2date_client/tui.py:698
+#: ../src/up2date_client/tui.py:690
 msgid "activates subscriptions in your account."
 msgstr "以啟動您的帳號。"
 
-#: ../src/up2date_client/tui.py:727
-msgid "Login Information:"
-msgstr "登入資訊："
+#: ../src/up2date_client/tui.py:710
+msgid "Select Operating System Release"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:771
-msgid "Account Information:"
-msgstr "帳號資訊："
+#: ../src/up2date_client/tui.py:714
+msgid "Operating System version:"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:777
-msgid "*First Name:"
-msgstr "*名字："
+#: ../src/up2date_client/tui.py:716
+msgid "Limited Updates Only"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:784
-msgid "*Last Name:"
-msgstr "*姓氏："
+#: ../src/up2date_client/tui.py:728
+msgid " Minor Release: "
+msgstr ""
 
-#: ../src/up2date_client/tui.py:797
-msgid "*Company Name:"
-msgstr "*公司："
+#: ../src/up2date_client/tui.py:746
+msgid "All available updates"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:817
-msgid "Street Address:"
-msgstr "*通訊地址："
+#: ../src/up2date_client/tui.py:799
+msgid "Confirm operating system release selection"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:824
-msgid "City:"
-msgstr "城市："
+#: ../src/up2date_client/tui.py:807
+msgid ""
+"Your system will be subscribed to the base software channel to receives all "
+"available updates."
+msgstr ""
 
-#: ../src/up2date_client/tui.py:831
-msgid "State/Province:"
-msgstr "州/省："
-
-#: ../src/up2date_client/tui.py:838
-msgid "Zip/Post Code:"
-msgstr "郵遞區號："
-
-#: ../src/up2date_client/tui.py:845
-msgid "*Country:"
-msgstr "*國家："
-
-#: ../src/up2date_client/tui.py:1033
+#: ../src/up2date_client/tui.py:851
 msgid "Register a System Profile - Hardware"
 msgstr "註冊系統資料檔 - 硬體"
 
-#: ../src/up2date_client/tui.py:1036
+#: ../src/up2date_client/tui.py:854
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
@@ -1461,133 +1524,133 @@ msgstr ""
 "資料檔名稱是您選擇在 Red Hat Network 的網頁辨識這個系統資料檔的描述性名稱。 "
 "除此之外，您也可以使用個電腦序號或識別號碼。"
 
-#: ../src/up2date_client/tui.py:1042
+#: ../src/up2date_client/tui.py:860
 msgid "Profile name:"
 msgstr "資料檔名稱："
 
-#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+#: ../src/up2date_client/tui.py:869 ../src/up2date_client/tui.py:871
 msgid "Include the following information about hardware and network:"
 msgstr "包含下列關於硬體與網路的資訊："
 
-#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#: ../src/up2date_client/tui.py:882 ../src/up2date_client/tui.py:883
 msgid "Version: "
 msgstr "版本："
 
-#: ../src/up2date_client/tui.py:1071
+#: ../src/up2date_client/tui.py:889
 msgid "CPU model: "
 msgstr "處理器型號："
 
-#: ../src/up2date_client/tui.py:1077
+#: ../src/up2date_client/tui.py:895
 msgid "Hostname: "
 msgstr "主機名稱："
 
-#: ../src/up2date_client/tui.py:1088
+#: ../src/up2date_client/tui.py:906
 msgid "CPU speed: "
 msgstr "處理器速度："
 
-#: ../src/up2date_client/tui.py:1094
+#: ../src/up2date_client/tui.py:912
 msgid "IP Address: "
 msgstr "IP 位址："
 
-#: ../src/up2date_client/tui.py:1100
+#: ../src/up2date_client/tui.py:918
 msgid "Memory: "
 msgstr "記憶體："
 
-#: ../src/up2date_client/tui.py:1104
+#: ../src/up2date_client/tui.py:922
 #, python-format
 msgid "%s megabytes"
 msgstr "%s MB"
 
-#: ../src/up2date_client/tui.py:1109
+#: ../src/up2date_client/tui.py:927
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
 msgstr "包括 PCI 裝置、磁碟大小以及掛載點的額外硬體資訊將會被收錄在資料檔中。"
 
-#: ../src/up2date_client/tui.py:1146
+#: ../src/up2date_client/tui.py:964
 msgid "Register a System Profile - Packages"
 msgstr "註冊系統資料檔 - 套件"
 
-#: ../src/up2date_client/tui.py:1151
+#: ../src/up2date_client/tui.py:969
 msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
 msgstr "RPM 資訊對於決定與此系統相關的更新軟體套件相當重要。"
 
-#: ../src/up2date_client/tui.py:1155
+#: ../src/up2date_client/tui.py:973
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr "包含安裝在系統上的 RPM 套件到我的系統資料檔"
 
-#: ../src/up2date_client/tui.py:1159
+#: ../src/up2date_client/tui.py:977
 msgid "You may deselect individual packages by unchecking them below."
 msgstr "您可以在下面取消勾選它們來取消選取個別的套件。"
 
-#: ../src/up2date_client/tui.py:1168
+#: ../src/up2date_client/tui.py:986
 msgid "Building Package List"
 msgstr "建立套件清單"
 
-#: ../src/up2date_client/tui.py:1231
+#: ../src/up2date_client/tui.py:1049
 msgid "Send Profile Information to Red Hat Network"
 msgstr "傳送資料檔資訊到 Red Hat Network"
 
-#: ../src/up2date_client/tui.py:1276
+#: ../src/up2date_client/tui.py:1094
 msgid "Finish"
 msgstr "完成"
 
-#: ../src/up2date_client/tui.py:1282
+#: ../src/up2date_client/tui.py:1100
 msgid "Sending Profile to Red Hat Network"
 msgstr "傳送資料檔到 Red Hat Network"
 
-#: ../src/up2date_client/tui.py:1294
+#: ../src/up2date_client/tui.py:1112
 msgid "Problem registering login name:\n"
 msgstr "註冊登入帳號時發生問題：\n"
 
-#: ../src/up2date_client/tui.py:1297
+#: ../src/up2date_client/tui.py:1115
 msgid "Problem registering login name."
 msgstr "註冊登入帳號時發生問題。"
 
-#: ../src/up2date_client/tui.py:1370
+#: ../src/up2date_client/tui.py:1192
 msgid "Problem sending hardware profile:\n"
 msgstr "傳送硬體資料檔發生問題：\n"
 
-#: ../src/up2date_client/tui.py:1374
+#: ../src/up2date_client/tui.py:1196
 msgid "Problem sending hardware profile."
 msgstr "傳送硬體資料檔發生問題。"
 
-#: ../src/up2date_client/tui.py:1383
+#: ../src/up2date_client/tui.py:1205
 msgid "Problem sending package list:\n"
 msgstr "傳送套件清單發生問題：\n"
 
-#: ../src/up2date_client/tui.py:1386
+#: ../src/up2date_client/tui.py:1208
 msgid "Problem sending package list."
 msgstr "傳送套件清單發生問題。"
 
-#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+#: ../src/up2date_client/tui.py:1281 ../src/up2date_client/tui.py:1286
 msgid ", quantity:"
 msgstr "，量："
 
-#: ../src/up2date_client/tui.py:1561
+#: ../src/up2date_client/tui.py:1390
 msgid "You specified an invalid protocol."
 msgstr "您指定了不合規定的通訊協定。"
 
-#: ../src/up2date_client/tui.py:1562
+#: ../src/up2date_client/tui.py:1391
 msgid "Only https and http are allowed."
 msgstr "只允許 https 或 http。"
 
-#: ../src/up2date_client/tui.py:1590
+#: ../src/up2date_client/tui.py:1420
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
 
-#: ../src/up2date_client/tui.py:1805
+#: ../src/up2date_client/tui.py:1680
 msgid "You must run the RHN registration program as root."
 msgstr "您必須是 root 才能執行 RHN 註冊程式。"
 
-#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+#: ../src/up2date_client/tui.py:1695 ../data/rh_register.glade.h:84
 msgid "System software updates already set up"
 msgstr "系統軟體更新已經設定"
 
-#: ../src/up2date_client/tui.py:1822
+#: ../src/up2date_client/tui.py:1697
 msgid ""
 "\n"
 "\n"
@@ -1597,7 +1660,7 @@ msgstr ""
 "\n"
 "Red Hat Network 的位置："
 
-#: ../src/up2date_client/tui.py:1824
+#: ../src/up2date_client/tui.py:1699
 msgid ""
 "\n"
 "RHN Login: "
@@ -1605,7 +1668,7 @@ msgstr ""
 "\n"
 "Red Hat 登入："
 
-#: ../src/up2date_client/tui.py:1825
+#: ../src/up2date_client/tui.py:1700
 msgid ""
 "\n"
 "System ID: "
@@ -1613,110 +1676,132 @@ msgstr ""
 "\n"
 "系統 ID："
 
-#: ../src/up2date_client/up2dateErrors.py:29
+#: ../src/up2date_client/up2dateErrors.py:30
 msgid "Disk error.  The message was:\n"
 msgstr "磁碟錯誤。 錯誤訊息：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:37
+#: ../src/up2date_client/up2dateErrors.py:38
 msgid "RPM error.  The message was:\n"
 msgstr "RPM 錯誤。 錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:48
+#: ../src/up2date_client/up2dateErrors.py:49
 msgid "There was a fatal error installing the package:\n"
 msgstr "安裝這個套件時發生嚴重錯誤：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:61
+#: ../src/up2date_client/up2dateErrors.py:62
 msgid "Password error. The message was:\n"
 msgstr "密碼錯誤。 錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:72
+#: ../src/up2date_client/up2dateErrors.py:73
 msgid "RPM package conflict error.  The message was:\n"
 msgstr "發生 RPM 套件衝突錯誤。 錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:84
+#: ../src/up2date_client/up2dateErrors.py:85
 msgid "RPM file conflict error. The message was:\n"
 msgstr "RPM 檔案衝突錯誤，錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:98
+#: ../src/up2date_client/up2dateErrors.py:99
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM 相依性發生錯誤，錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:112
+#: ../src/up2date_client/up2dateErrors.py:113
 msgid "RPM  error. The message was:\n"
 msgstr "RPM 錯誤，錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:125
-#: ../src/up2date_client/up2dateErrors.py:138
+#: ../src/up2date_client/up2dateErrors.py:126
+#: ../src/up2date_client/up2dateErrors.py:139
 msgid "RPM dependency error.  The message was:\n"
 msgstr "RPM 相依性錯誤。 錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:149
+#: ../src/up2date_client/up2dateErrors.py:150
 msgid "Package Skip List error.  The message was:\n"
 msgstr "套件略過清單發生錯誤。 錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:162
+#: ../src/up2date_client/up2dateErrors.py:163
 msgid "File Skip List or config file overwrite error. The message was:\n"
 msgstr "覆寫「檔案略過清單」或設定檔時發生錯誤，錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:172
+#: ../src/up2date_client/up2dateErrors.py:173
 msgid "Error communicating with server. The message was:\n"
 msgstr "連接伺服器時發生錯誤，錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:183
+#: ../src/up2date_client/up2dateErrors.py:184
 msgid "File Not Found: \n"
 msgstr "找不到檔案： \n"
 
-#: ../src/up2date_client/up2dateErrors.py:194
+#: ../src/up2date_client/up2dateErrors.py:195
 msgid "Delay error from server.  The message was:\n"
 msgstr "從伺服器傳來的延遲錯誤。 錯誤訊息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:202
+#: ../src/up2date_client/up2dateErrors.py:203
 #, python-format
 msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
 msgstr "無法移除套件 \"%s\"。它在 RemoveSkipList 中。"
 
-#: ../src/up2date_client/up2dateErrors.py:225
+#: ../src/up2date_client/up2dateErrors.py:226
 msgid "GPG is not installed properly."
 msgstr "GPG 沒有正確安裝。"
 
-#: ../src/up2date_client/up2dateErrors.py:235
+#: ../src/up2date_client/up2dateErrors.py:236
 msgid ""
 "GPG keyring does not include the Red Hat, Inc. public package-signing key"
 msgstr "GPG 金鑰圈並不包含 Red Hat, Inc. 的套件簽章公用金鑰"
 
-#: ../src/up2date_client/up2dateErrors.py:247
+#: ../src/up2date_client/up2dateErrors.py:248
 #, python-format
 msgid ""
 "The package %s failed its gpg signature verification. This means the package "
 "is corrupt."
 msgstr "套件 %s 在作 GPG 簽章驗證時失敗。 這表示這個套件已經毀損。"
 
-#: ../src/up2date_client/up2dateErrors.py:261
+#: ../src/up2date_client/up2dateErrors.py:262
 #, python-format
 msgid "Package %s does not have a GPG signature.\n"
 msgstr "套件 %s 沒有 GPG 簽章。\n"
 
-#: ../src/up2date_client/up2dateErrors.py:274
+#: ../src/up2date_client/up2dateErrors.py:275
 #, python-format
 msgid "Package %s has a untrusted GPG signature.\n"
 msgstr "套件 %s 沒有受信任的 GPG 簽章。\n"
 
-#: ../src/up2date_client/up2dateErrors.py:287
+#: ../src/up2date_client/up2dateErrors.py:288
 #, python-format
 msgid "Package %s has a unknown GPG signature.\n"
 msgstr "套件 %s 的有未知的 GPG 簽章。\n"
 
-#: ../src/up2date_client/up2dateErrors.py:337
+#: ../src/up2date_client/up2dateErrors.py:338
 msgid "Error validating data at server:\n"
 msgstr "伺服器驗證資料時發生錯誤：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:348
+#: ../src/up2date_client/up2dateErrors.py:349
 msgid "The installation number is invalid"
 msgstr "安裝號碼不符"
 
-#: ../src/up2date_client/up2dateErrors.py:355
+#: ../src/up2date_client/up2dateErrors.py:356
 msgid "Error parsing the oemInfo file at field:\n"
 msgstr "解析 oeminfo 檔案中的欄位時發生錯誤：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:538
+msgid ""
+"\n"
+"    Your organization does not have enough Management entitlements to "
+"register this\n"
+"    system to Red Hat Network. Please notify your organization administrator "
+"of this error. \n"
+"    You should be able to register this system after your organization frees "
+"existing \n"
+"    or purchases additional entitlements. Additional entitlements may be "
+"purchased by your\n"
+"    organization administrator by logging into Red Hat Network and visiting\n"
+"    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
+"    \n"
+"    A common cause of this error code is due to having mistakenly setup an\n"
+"    Activation Key which is set as the universal default.  If an activation "
+"key is set\n"
+"    on the account as a universal default, you can disable this key and "
+"retry to avoid\n"
+"    requiring a Management entitlement."
+msgstr ""
 
 #: ../src/firstboot/rhn_activate_gui.py:48
 msgid "Access Subscription"
@@ -1736,7 +1821,7 @@ msgstr "請選擇組織"
 msgid "Choose an organization to use with this username"
 msgstr "請選擇使用這使用者名稱的組織"
 
-#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:42
 msgid "Choose Server"
 msgstr "選擇伺服器"
 
@@ -1841,42 +1926,68 @@ msgid "Specify an activation key"
 msgstr "指定啟動金鑰"
 
 #: ../src/bin/rhnreg_ks.py:59
-msgid "Specify a subscription number to use"
+#, fuzzy
+msgid "Specify a installation number to use"
 msgstr "指定要使用的訂閱號碼"
 
 #: ../src/bin/rhnreg_ks.py:61
+msgid ""
+"Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:63
 msgid "Read contact info from stdin"
 msgstr "從標準輸入讀取聯絡資訊 "
 
-#: ../src/bin/rhnreg_ks.py:63
+#: ../src/bin/rhnreg_ks.py:65
 msgid "Do not probe or upload any hardware info"
 msgstr "不要偵測或上載任何硬體的資訊 "
 
-#: ../src/bin/rhnreg_ks.py:65
+#: ../src/bin/rhnreg_ks.py:67
 msgid "Do not profile or upload any package info"
 msgstr "不要歸檔或上載任何套件資訊 "
 
-#: ../src/bin/rhnreg_ks.py:67
+#: ../src/bin/rhnreg_ks.py:69
 msgid "Do not upload any virtualization info"
 msgstr "不要上載任何虛擬資料"
 
-#: ../src/bin/rhnreg_ks.py:69
+#: ../src/bin/rhnreg_ks.py:71
 msgid "Do not start rhnsd after completion"
 msgstr "完成後不啟動 rhnsd"
 
-#: ../src/bin/rhnreg_ks.py:71
+#: ../src/bin/rhnreg_ks.py:73
 msgid "Register the system even if it is already registered"
 msgstr "註冊系統；即使已經註冊過了"
 
-#: ../src/bin/rhnreg_ks.py:78
+#: ../src/bin/rhnreg_ks.py:75
+msgid "Check RHN repo for emergency updates"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:89
 msgid "A username and password are required to register a system."
 msgstr "註冊系統需要使用者名稱與密碼。"
 
-#: ../src/bin/rhnreg_ks.py:83
+#: ../src/bin/rhnreg_ks.py:94
 msgid "This system is already registered. Use --force to override"
 msgstr "這個系統已經註冊過了。 請使用 --force 來強制註冊"
 
-#: ../src/bin/rhnreg_ks.py:240
+#: ../src/bin/rhnreg_ks.py:124
+#, python-format
+msgid "Invalid character in profilename %s at index %d"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:144
+msgid ""
+"Usage of --use-eus-channel option with --activationkey is not supported. "
+"Please use username and password instead."
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:147
+#, fuzzy
+msgid "The server you are registering against does not support EUS."
+msgstr "您試圖連上、註冊的伺服器並不支援這用戶端版本。"
+
+#: ../src/bin/rhnreg_ks.py:264
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
@@ -1909,6 +2020,10 @@ msgid "Registration information"
 msgstr "註冊資訊"
 
 #: ../data/gui.glade.h:10
+msgid "Select operating system release"
+msgstr ""
+
+#: ../data/gui.glade.h:11
 msgid "Select organization"
 msgstr "請選擇組織"
 
@@ -1917,105 +2032,69 @@ msgid "Progress Dialog"
 msgstr "進度視窗"
 
 #: ../data/rh_register.glade.h:1
-msgid "  Address 2:"
-msgstr "  地址二："
-
-#: ../data/rh_register.glade.h:2
-msgid "  Address:"
-msgstr "  地址："
+#, fuzzy
+msgid ""
+"\n"
+"Are you sure you would like to continue?"
+msgstr "您確定要繼續嗎？"
 
 #: ../data/rh_register.glade.h:3
-msgid "  C_ity:"
-msgstr "* 城市（_i）："
+msgid "       "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
-msgid "  Co_mpany Name:"
-msgstr "  公司名稱（_m）："
-
-#: ../data/rh_register.glade.h:5
-msgid "  _State/Province:"
-msgstr "* 州/省（_S）："
-
-#: ../data/rh_register.glade.h:6
-msgid "  _Zip/Postal code:"
-msgstr "* 郵遞區號（_Z）："
-
-#: ../data/rh_register.glade.h:7
-msgid "* C_onfirm password:  "
-msgstr "* 確認密碼(_o)：  "
-
-#: ../data/rh_register.glade.h:8
-msgid "* Co_untry:"
-msgstr "* 國家（_u）："
-
-#: ../data/rh_register.glade.h:9
-msgid "* Desired _Login:"
-msgstr "* 登入帳號（_L）："
-
-#: ../data/rh_register.glade.h:10
-msgid "* Desired _Password:"
-msgstr "* 密碼(_P)："
-
-#: ../data/rh_register.glade.h:11
-msgid "* Last _Name:"
-msgstr "*姓氏（_N）："
-
-#: ../data/rh_register.glade.h:12
-msgid "* _Email Address: "
-msgstr "* 電子郵件地址(_E)："
-
-#: ../data/rh_register.glade.h:13
-msgid "* _First Name:"
-msgstr "* 名字（_F）："
-
-#: ../data/rh_register.glade.h:14
-msgid "<b>Account Information:</b>"
-msgstr "<b>帳號資訊：</b>"
-
-#: ../data/rh_register.glade.h:15
 msgid "<b>Compliance:</b>"
 msgstr "<b>承諾：</b>"
 
-#: ../data/rh_register.glade.h:16
+#: ../data/rh_register.glade.h:5
 msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr "<b>下載與升級：</b>"
 
-#: ../data/rh_register.glade.h:17
+#: ../data/rh_register.glade.h:6
 msgid "<b>HTTP Proxy</b>"
 msgstr "<b>HTTP 代理伺服器</b>"
 
-#: ../data/rh_register.glade.h:18
-msgid "<b>Login Information:</b>"
-msgstr "<b>登入資訊：</b>"
-
-#: ../data/rh_register.glade.h:19
+#: ../data/rh_register.glade.h:7
 msgid "<b>Login:</b>"
 msgstr "<b>登入：</b>"
 
-#: ../data/rh_register.glade.h:20
+#: ../data/rh_register.glade.h:8
 msgid "<b>Red Hat Network Location:</b>"
 msgstr "<b>Red Hat Network 的位置：</b>"
 
-#: ../data/rh_register.glade.h:21
+#: ../data/rh_register.glade.h:9
 msgid "<b>Security &amp; Updates:</b>"
 msgstr "<b>安全與更新：</b>"
 
-#: ../data/rh_register.glade.h:22
+#: ../data/rh_register.glade.h:10
 msgid "<b>Support:</b>"
 msgstr "<b>支援：</b>"
 
-#: ../data/rh_register.glade.h:23
+#: ../data/rh_register.glade.h:11
 msgid "<b>System ID:</b>"
 msgstr "<b>系統 ID：</b>"
 
-#: ../data/rh_register.glade.h:24
+#: ../data/rh_register.glade.h:12
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
 msgstr ""
 "<b>您系統的網路連線並未啟動。您的系統現在無法設定，以取得軟體更新。</b>"
 
-#: ../data/rh_register.glade.h:25
+#: ../data/rh_register.glade.h:13
+msgid ""
+"<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
+"Hat."
+msgstr ""
+
+#: ../data/rh_register.glade.h:14
+msgid ""
+"<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
+"release that is older than the most recent minor release if you select this "
+"option."
+msgstr ""
+
+#: ../data/rh_register.glade.h:15
 #, fuzzy
 msgid ""
 "<b>You have no active subscriptions available in your account.</b> You will "
@@ -2025,39 +2104,50 @@ msgstr ""
 "您的帳號中沒有可用中的訂閱服務。在這部系統能連上 Red Hat Network 之前，請進行"
 "以下任一步驟，在您的帳號裡建立可用的訂閱服務。"
 
-#: ../data/rh_register.glade.h:26
+#: ../data/rh_register.glade.h:16
+msgid ""
+"<b>_All available updates</b> will be provided to this system.  This system, "
+"if kept updated, will always be equivalent to the latest available minor "
+"release of Red Hat Enterprise Linux 5.  It will be registered to the main "
+"'Red Hat Enterprise Linux 5' software channel."
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+msgid ""
+"<b>_Limited updates</b> will be provided to this system to maintain "
+"compatibility with the following eligible Red Hat Enterprise Linux minor "
+"release software channel:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:18
+msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:19
 msgid "<big><b>Profile Data</b></big>"
 msgstr "<big><b>設定檔資料</b></big>"
 
-#: ../data/rh_register.glade.h:27
+#: ../data/rh_register.glade.h:20
 msgid "<big><b>System Name</b></big>"
 msgstr "<big><b>系統名稱</b></big>"
 
-#: ../data/rh_register.glade.h:28
+#: ../data/rh_register.glade.h:21
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
 msgstr "<small><b>範例：</b> https://satellite.example.com</small>"
 
-#: ../data/rh_register.glade.h:29
+#: ../data/rh_register.glade.h:22
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
 msgstr "<small><b>範例：</b> squid.example.com:3128</small>"
 
-#: ../data/rh_register.glade.h:30
+#: ../data/rh_register.glade.h:23
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>範例</b>：XXXX-XXXX-XXXX-XXXX</small>"
 
-#: ../data/rh_register.glade.h:31
-msgid "<small><b>Examples:</b> user@domain.com</small>"
-msgstr "<small><b>範例：</b>user@domain.com</small>"
-
-#: ../data/rh_register.glade.h:32
-msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-msgstr "<small><b>提示：</b>如果您並非公司用戶，請留白。</small>"
-
-#: ../data/rh_register.glade.h:33
+#: ../data/rh_register.glade.h:24
 msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
 msgstr "<small><b>提示：</b>Red Hat 注重您的隱私權。</small>"
 
-#: ../data/rh_register.glade.h:34
+#: ../data/rh_register.glade.h:25
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
@@ -2065,7 +2155,7 @@ msgstr ""
 "<small>提示：忘記您的使用者名稱或密碼？請聯絡您衛星伺服器的<i>組織管理員</"
 "i>。</small>"
 
-#: ../data/rh_register.glade.h:35
+#: ../data/rh_register.glade.h:26
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
@@ -2073,7 +2163,7 @@ msgstr ""
 "<small>提示：忘記登入帳號與密碼嗎？請從以下網址取得帳號或密碼：\n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#: ../data/rh_register.glade.h:38
+#: ../data/rh_register.glade.h:29
 #, no-c-format
 msgid ""
 "A security certificate compatible with <b>%s</b> was not found on this "
@@ -2088,56 +2178,20 @@ msgstr ""
 "安全性認證使用的是 SSL 技術，可以確保資料（包括您的登入帳號與密碼）在這台系統"
 "與 Red Hat Network 間傳送時，是安全的。"
 
-#: ../data/rh_register.glade.h:42
+#: ../data/rh_register.glade.h:33
 msgid ""
 "Activate a previously purchased subscription you have not yet activated."
 msgstr "啟動您先前購買，但尚未啟動的訂閱服務。"
 
-#: ../data/rh_register.glade.h:43
+#: ../data/rh_register.glade.h:34
 msgid "Advanced Network Configuration"
 msgstr "網路進階設定"
 
-#: ../data/rh_register.glade.h:44
+#: ../data/rh_register.glade.h:35
 msgid "Advanced _Network Configuration ..."
 msgstr "網路進階設定（_N）   "
 
-#: ../data/rh_register.glade.h:45
-msgid "Afghanistan"
-msgstr "阿富汗"
-
-#: ../data/rh_register.glade.h:46
-msgid "Albania"
-msgstr "阿爾巴尼亞"
-
-#: ../data/rh_register.glade.h:47
-msgid "Algeria"
-msgstr "阿爾及利亞"
-
-#: ../data/rh_register.glade.h:48
-msgid "American Samoa"
-msgstr "美屬薩摩亞"
-
-#: ../data/rh_register.glade.h:49
-msgid "Andorra"
-msgstr "安道爾公國"
-
-#: ../data/rh_register.glade.h:50
-msgid "Angola"
-msgstr "安哥拉"
-
-#: ../data/rh_register.glade.h:51
-msgid "Anguilla"
-msgstr "安圭拉"
-
-#: ../data/rh_register.glade.h:52
-msgid "Antarctica"
-msgstr "南極洲"
-
-#: ../data/rh_register.glade.h:53
-msgid "Antigua and Barbuda"
-msgstr "安地卡及巴布達"
-
-#: ../data/rh_register.glade.h:54
+#: ../data/rh_register.glade.h:36
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
@@ -2145,423 +2199,66 @@ msgstr ""
 "您確定不打算連上 Red Hat Network？您將會錯過 Red Hat Enterprise Linux 訂閱服"
 "務的好處："
 
-#: ../data/rh_register.glade.h:55
+#: ../data/rh_register.glade.h:37
 msgid "Are you sure you would like to continue?"
 msgstr "您確定要繼續嗎？"
 
-#: ../data/rh_register.glade.h:56
-msgid "Argentina"
-msgstr "阿根廷"
-
-#: ../data/rh_register.glade.h:57
-msgid "Armenia"
-msgstr "亞美尼亞"
-
-#: ../data/rh_register.glade.h:58
-msgid "Aruba"
-msgstr "荷屬阿魯巴"
-
-#: ../data/rh_register.glade.h:59
-msgid "Australia"
-msgstr "澳洲"
-
-#: ../data/rh_register.glade.h:60
-msgid "Austria"
-msgstr "奧地利"
-
-#: ../data/rh_register.glade.h:61
-msgid "Azerbaijan"
-msgstr "阿塞拜然"
-
-#: ../data/rh_register.glade.h:62
-msgid "Bahamas"
-msgstr "巴哈馬"
-
-#: ../data/rh_register.glade.h:63
-msgid "Bahrain"
-msgstr "巴林"
-
-#: ../data/rh_register.glade.h:64
-msgid "Bangladesh"
-msgstr "孟加拉"
-
-#: ../data/rh_register.glade.h:65
-msgid "Barbados"
-msgstr "巴貝多"
-
-#: ../data/rh_register.glade.h:66
-msgid "Belarus"
-msgstr "白俄羅斯"
-
-#: ../data/rh_register.glade.h:67
-msgid "Belgium"
-msgstr "比利時"
-
-#: ../data/rh_register.glade.h:68
-msgid "Belize"
-msgstr "貝里斯"
-
-#: ../data/rh_register.glade.h:69
-msgid "Benin"
-msgstr "貝南"
-
-#: ../data/rh_register.glade.h:70
-msgid "Bermuda"
-msgstr "百慕達"
-
-#: ../data/rh_register.glade.h:71
-msgid "Bhutan"
-msgstr "不丹"
-
-#: ../data/rh_register.glade.h:72
-msgid "Bolivia"
-msgstr "玻利維亞"
-
-#: ../data/rh_register.glade.h:73
-msgid "Bosnia and Herzegovina"
-msgstr "波士尼亞與赫塞哥維納"
-
-#: ../data/rh_register.glade.h:74
-msgid "Botswana"
-msgstr "博茨瓦納"
-
-#: ../data/rh_register.glade.h:75
-msgid "Bouvet Island"
-msgstr "波維特島"
-
-#: ../data/rh_register.glade.h:76
-msgid "Brazil"
-msgstr "巴西"
-
-#: ../data/rh_register.glade.h:77
-msgid "British Indian Ocean Territory"
-msgstr "英屬印度洋領地"
-
-#: ../data/rh_register.glade.h:78
-msgid "Brunei Darussalam"
-msgstr "汶萊"
-
-#: ../data/rh_register.glade.h:79
-msgid "Bulgaria"
-msgstr "保加利亞"
-
-#: ../data/rh_register.glade.h:80
-msgid "Burkina Faso"
-msgstr "布吉納法索"
-
-#: ../data/rh_register.glade.h:81
-msgid "Burundi"
-msgstr "蒲隆地"
-
-#: ../data/rh_register.glade.h:82
+#: ../data/rh_register.glade.h:38
 msgid "CPU Model:"
 msgstr "處理器型號："
 
-#: ../data/rh_register.glade.h:83
+#: ../data/rh_register.glade.h:39
 msgid "CPU Speed:"
 msgstr "處理器速度："
 
-#: ../data/rh_register.glade.h:84
-msgid "C_reate new login"
-msgstr "建立登入帳號（_r）"
-
-#: ../data/rh_register.glade.h:85
-msgid "Cambodia"
-msgstr "柬埔寨"
-
-#: ../data/rh_register.glade.h:86
-msgid "Cameroon"
-msgstr "喀麥隆"
-
-#: ../data/rh_register.glade.h:88
-msgid "Cape Verde"
-msgstr "維德角"
-
-#: ../data/rh_register.glade.h:89
-msgid "Cayman Islands"
-msgstr "開曼群島"
-
-#: ../data/rh_register.glade.h:90
-msgid "Central African Republic"
-msgstr "中非共和國"
-
-#: ../data/rh_register.glade.h:91
+#: ../data/rh_register.glade.h:40
 msgid "Certificate _Location:"
 msgstr "認證位置（_L）："
 
-#: ../data/rh_register.glade.h:92
-msgid "Chad"
-msgstr "查德"
+#: ../data/rh_register.glade.h:41
+#, fuzzy
+msgid "Choose Channel"
+msgstr "請選擇組織"
 
-#: ../data/rh_register.glade.h:93
-msgid "Chile"
-msgstr "智利"
+#: ../data/rh_register.glade.h:43
+msgid "Confirm operation system release selection"
+msgstr ""
 
-#: ../data/rh_register.glade.h:94
-msgid "China"
-msgstr "中國"
-
-#: ../data/rh_register.glade.h:96
-msgid "Christmas Island"
-msgstr "聖誕島"
-
-#: ../data/rh_register.glade.h:97
-msgid "Cocos (Keeling) Islands"
-msgstr "可可斯群島"
-
-#: ../data/rh_register.glade.h:98
-msgid "Colombia"
-msgstr "哥倫比亞"
-
-#: ../data/rh_register.glade.h:99
-msgid "Comoros"
-msgstr "葛摩"
-
-#: ../data/rh_register.glade.h:100
-msgid "Congo"
-msgstr "剛果"
-
-#: ../data/rh_register.glade.h:102
-msgid "Cook Islands"
-msgstr "庫克群島"
-
-#: ../data/rh_register.glade.h:103
-msgid "Costa Rica"
-msgstr "哥斯大黎加"
-
-#: ../data/rh_register.glade.h:104
-msgid "Cote d'Ivoire"
-msgstr "象牙海岸"
-
-#: ../data/rh_register.glade.h:105
-msgid "Create a _New Login"
-msgstr "建立新的登入帳號(_N)..."
-
-#: ../data/rh_register.glade.h:106
-msgid "Create a new Red Hat Network login"
-msgstr "建立新的 Red Hat Network 登入帳號"
-
-#: ../data/rh_register.glade.h:107
+#: ../data/rh_register.glade.h:45
 msgid "Create profile"
 msgstr "建立設定檔"
 
-#: ../data/rh_register.glade.h:108
-msgid "Croatia"
-msgstr "克羅埃西亞"
-
-#: ../data/rh_register.glade.h:109
-msgid "Cuba"
-msgstr "古巴"
-
-#: ../data/rh_register.glade.h:110
-msgid "Cyprus"
-msgstr "賽普勒斯"
-
-#: ../data/rh_register.glade.h:111
-msgid "Czech Republic"
-msgstr "捷克共和國"
-
-#: ../data/rh_register.glade.h:112
-msgid "Denmark"
-msgstr "丹麥"
-
-#: ../data/rh_register.glade.h:113
-msgid "Djibouti"
-msgstr "吉布地"
-
-#: ../data/rh_register.glade.h:114
-msgid "Dominica"
-msgstr "多米尼克"
-
-#: ../data/rh_register.glade.h:115
-msgid "Dominican Republic"
-msgstr "多明尼加共和國"
-
-#: ../data/rh_register.glade.h:117
+#: ../data/rh_register.glade.h:47
 msgid "ERROR"
 msgstr "錯誤"
 
-#: ../data/rh_register.glade.h:118
-msgid "East Timor"
-msgstr "東帝汶"
-
-#: ../data/rh_register.glade.h:119
-msgid "Ecuador"
-msgstr "厄瓜多"
-
-#: ../data/rh_register.glade.h:120
-msgid "Egypt"
-msgstr "埃及"
-
-#: ../data/rh_register.glade.h:121
-msgid "El Salvador"
-msgstr "薩爾瓦多"
-
-#: ../data/rh_register.glade.h:122
+#: ../data/rh_register.glade.h:48
 msgid "Enter Your Account Information"
 msgstr "請輸入您的帳號資訊"
 
-#: ../data/rh_register.glade.h:123
+#: ../data/rh_register.glade.h:49
 msgid "Enter in the format hostname(:port)"
 msgstr "請以「主機(:連接埠)」的格式輸入。"
 
-#: ../data/rh_register.glade.h:124
-msgid "Equatorial Guinea"
-msgstr "赤道幾內亞"
-
-#: ../data/rh_register.glade.h:125
-msgid "Eritrea"
-msgstr "厄利垂亞"
-
-#: ../data/rh_register.glade.h:126
-msgid "Estonia"
-msgstr "愛沙尼亞"
-
-#: ../data/rh_register.glade.h:127
-msgid "Ethiopia"
-msgstr "衣索比亞"
-
-#: ../data/rh_register.glade.h:128
-msgid "Falkland Islands (Malvinas)"
-msgstr "福克蘭群島（馬爾維納斯）"
-
-#: ../data/rh_register.glade.h:129
-msgid "Faroe Islands"
-msgstr "法羅群島"
-
-#: ../data/rh_register.glade.h:130
-msgid "Fiji"
-msgstr "斐濟"
-
-#: ../data/rh_register.glade.h:131
-msgid ""
-"Fill in the form below to create a new Red Hat login. Required information "
-"is marked with a '*':"
-msgstr "請填寫以下表格，建立新的 Red Hat 登入帳號。必填的資訊會以 * 標示："
-
-#: ../data/rh_register.glade.h:132
-msgid "Finland"
-msgstr "芬蘭"
-
-#: ../data/rh_register.glade.h:133
-msgid "France"
-msgstr "法國"
-
-#: ../data/rh_register.glade.h:134
-msgid "France, Metropolitan"
-msgstr "法屬美特羅波利坦"
-
-#: ../data/rh_register.glade.h:135
-msgid "French Guiana"
-msgstr "法屬圭亞那"
-
-#: ../data/rh_register.glade.h:136
-msgid "French Polynesia"
-msgstr "法屬玻里尼西亞"
-
-#: ../data/rh_register.glade.h:137
-msgid "French Southern Territories"
-msgstr "法國南方領地"
-
-#: ../data/rh_register.glade.h:138
-msgid "Gabon"
-msgstr "加彭"
-
-#: ../data/rh_register.glade.h:139
-msgid "Gambia"
-msgstr "甘比亞"
-
-#: ../data/rh_register.glade.h:140
-msgid "Georgia"
-msgstr "喬治亞州"
-
-#: ../data/rh_register.glade.h:141
-msgid "Germany"
-msgstr "德國"
-
-#: ../data/rh_register.glade.h:142
-msgid "Ghana"
-msgstr "迦納"
-
-#: ../data/rh_register.glade.h:143
-msgid "Gibraltar"
-msgstr "直布羅陀海峽"
-
-#: ../data/rh_register.glade.h:144
-msgid "Greece"
-msgstr "希臘"
-
-#: ../data/rh_register.glade.h:145
-msgid "Greenland"
-msgstr "格陵蘭"
-
-#: ../data/rh_register.glade.h:146
-msgid "Grenada"
-msgstr "格瑞那達"
-
-#: ../data/rh_register.glade.h:147
-msgid "Guadeloupe"
-msgstr "瓜德洛普"
-
-#: ../data/rh_register.glade.h:148
-msgid "Guam"
-msgstr "關島"
-
-#: ../data/rh_register.glade.h:149
-msgid "Guatemala"
-msgstr "瓜地馬拉"
-
-#: ../data/rh_register.glade.h:150
-msgid "Guinea"
-msgstr "幾內亞"
-
-#: ../data/rh_register.glade.h:151
-msgid "Guinea-Bissau"
-msgstr "幾內亞比索共和國"
-
-#: ../data/rh_register.glade.h:152
-msgid "Guyana"
-msgstr "圭亞那"
-
-#: ../data/rh_register.glade.h:153
-msgid "Haiti"
-msgstr "海地"
-
-#: ../data/rh_register.glade.h:154
+#: ../data/rh_register.glade.h:50
 msgid "Hardware Info"
 msgstr "硬體資訊"
 
-#: ../data/rh_register.glade.h:155
+#: ../data/rh_register.glade.h:51
 msgid "Hardware Profile"
 msgstr "硬體資料檔"
 
-#: ../data/rh_register.glade.h:156
-msgid "Heard Island and McDonald Islands"
-msgstr "赫德島和麥當勞群島"
-
-#: ../data/rh_register.glade.h:157
-msgid "Honduras"
-msgstr "宏都拉斯"
-
-#: ../data/rh_register.glade.h:158
-msgid "Hong Kong"
-msgstr "香港"
-
-#: ../data/rh_register.glade.h:159
+#: ../data/rh_register.glade.h:52
 msgid "Hostname:"
 msgstr "主機名稱："
 
-#: ../data/rh_register.glade.h:160
-msgid "Hungary"
-msgstr "匈牙利"
-
-#: ../data/rh_register.glade.h:161
+#: ../data/rh_register.glade.h:53
 msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
 msgstr "我<b>不</b>使用 SSL 認證。我將會連繫系統管理者，稍後再註冊（_b）。"
 
-#: ../data/rh_register.glade.h:162
+#: ../data/rh_register.glade.h:54
 msgid ""
 "I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
 "Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
@@ -2570,15 +2267,15 @@ msgstr ""
 "我可以存取 <b>Red Hat Network 衛星伺服器</b>或 <b>Red Hat 代理伺服器</b>。我"
 "希望從以下的衛星或代理伺服器接收更新："
 
-#: ../data/rh_register.glade.h:163
+#: ../data/rh_register.glade.h:55
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr "我有 <b>_SSL 認證</b>用來連上 Red Hat Network："
 
-#: ../data/rh_register.glade.h:164
+#: ../data/rh_register.glade.h:56
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr "我希望透過 _HTTP 代理伺服器連上 Red Hat Network。"
 
-#: ../data/rh_register.glade.h:165
+#: ../data/rh_register.glade.h:57
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
@@ -2586,361 +2283,53 @@ msgstr ""
 "我希望從 <b>Red Hat Network</b>收到軟體更新。（我無法存取 Red Hat Network 衛"
 "星或代理伺服器。）："
 
-#: ../data/rh_register.glade.h:166
+#: ../data/rh_register.glade.h:58
 msgid "IP Address:"
 msgstr "IP 位址："
 
-#: ../data/rh_register.glade.h:167
-msgid "Iceland"
-msgstr "冰島"
-
-#: ../data/rh_register.glade.h:169
-msgid "India"
-msgstr "印度"
-
-#: ../data/rh_register.glade.h:170
-msgid "Indonesia"
-msgstr "印尼"
-
-#: ../data/rh_register.glade.h:171
+#: ../data/rh_register.glade.h:59
 msgid "Installation _Number:"
 msgstr "安裝號碼(_N)："
 
-#: ../data/rh_register.glade.h:172
-msgid "Iran (Islamic Republic of)"
-msgstr "伊朗伊斯蘭共和國"
-
-#: ../data/rh_register.glade.h:173
-msgid "Iraq"
-msgstr "伊拉克"
-
-#: ../data/rh_register.glade.h:174
-msgid "Ireland"
-msgstr "愛爾蘭"
-
-#: ../data/rh_register.glade.h:175
-msgid "Israel"
-msgstr "以色列"
-
-#: ../data/rh_register.glade.h:176
+#: ../data/rh_register.glade.h:60
 msgid "It appears this system has already been set up for software updates:"
 msgstr "這台系統也許已經設定好，接收軟體更新："
 
-#: ../data/rh_register.glade.h:177
-msgid "Italy"
-msgstr "義大利"
-
-#: ../data/rh_register.glade.h:178
-msgid "Jamaica"
-msgstr "牙買加"
-
-#: ../data/rh_register.glade.h:179
-msgid "Japan"
-msgstr "日本"
-
-#: ../data/rh_register.glade.h:180
-msgid "Jordan"
-msgstr "約旦"
-
-#: ../data/rh_register.glade.h:181
-msgid "Kazakhstan"
-msgstr "哈薩克"
-
-#: ../data/rh_register.glade.h:182
-msgid "Kenya"
-msgstr "肯亞"
-
-#: ../data/rh_register.glade.h:183
-msgid "Kiribati"
-msgstr "吉里巴斯"
-
-#: ../data/rh_register.glade.h:184
-msgid "Korea, Democratic People's Republic of"
-msgstr "朝鮮民主主義人民共和國（北韓）"
-
-#: ../data/rh_register.glade.h:185
-msgid "Korea, Republic of"
-msgstr "大韓民國"
-
-#: ../data/rh_register.glade.h:186
-msgid "Kuwait"
-msgstr "科威特"
-
-#: ../data/rh_register.glade.h:187
-msgid "Kyrgyzstan"
-msgstr "吉爾吉斯"
-
-#: ../data/rh_register.glade.h:188
-msgid "Lao People's Democratic Republic"
-msgstr "寮人民民主共和國"
-
-#: ../data/rh_register.glade.h:189
-msgid "Latin America"
-msgstr "拉丁美洲"
-
-#: ../data/rh_register.glade.h:190
-msgid "Latvia"
-msgstr "拉脫維亞"
-
-#: ../data/rh_register.glade.h:191
-msgid "Lebanon"
-msgstr "黎巴嫩"
-
-#: ../data/rh_register.glade.h:192
-msgid "Lesotho"
-msgstr "賴索托"
-
-#: ../data/rh_register.glade.h:193
-msgid "Liberia"
-msgstr "賴比瑞亞"
-
-#: ../data/rh_register.glade.h:194
-msgid "Libyan Arab Jamahiriya"
-msgstr "利比亞"
-
-#: ../data/rh_register.glade.h:195
-msgid "Liechtenstein"
-msgstr "列支敦士坦"
-
-#: ../data/rh_register.glade.h:196
+#: ../data/rh_register.glade.h:61
 msgid "Link To Subscription"
 msgstr "連接到訂閱服務"
 
-#: ../data/rh_register.glade.h:197
-msgid "Lithuania"
-msgstr "立陶宛"
-
-#: ../data/rh_register.glade.h:199
-msgid "Luxembourg"
-msgstr "盧森堡"
-
-#: ../data/rh_register.glade.h:200
-msgid "Macau"
-msgstr "澳門"
-
-#: ../data/rh_register.glade.h:201
-msgid "Macedonia"
-msgstr "馬其頓"
-
-#: ../data/rh_register.glade.h:202
-msgid "Madagascar"
-msgstr "馬達加斯加"
-
-#: ../data/rh_register.glade.h:203
-msgid "Malawi"
-msgstr "馬拉威"
-
-#: ../data/rh_register.glade.h:204
-msgid "Malaysia"
-msgstr "馬來西亞"
-
-#: ../data/rh_register.glade.h:205
-msgid "Maldives"
-msgstr "馬爾地夫"
-
-#: ../data/rh_register.glade.h:206
-msgid "Mali"
-msgstr "馬利"
-
-#: ../data/rh_register.glade.h:207
-msgid "Malta"
-msgstr "馬爾他"
-
-#: ../data/rh_register.glade.h:208
-msgid "Marshall Islands"
-msgstr "馬紹爾群島"
-
-#: ../data/rh_register.glade.h:209
-msgid "Martinique"
-msgstr "馬提尼克"
-
-#: ../data/rh_register.glade.h:210
-msgid "Mauritania"
-msgstr "茅利塔尼亞"
-
-#: ../data/rh_register.glade.h:211
-msgid "Mauritius"
-msgstr "模里西斯"
-
-#: ../data/rh_register.glade.h:212
-msgid "Mayotte"
-msgstr "馬約特"
-
-#: ../data/rh_register.glade.h:213
+#: ../data/rh_register.glade.h:63
 msgid "Memory:"
 msgstr "記憶體："
 
-#: ../data/rh_register.glade.h:214
-msgid "Mexico"
-msgstr "墨西哥"
-
-#: ../data/rh_register.glade.h:215
-msgid "Micronesia (Federated States of)"
-msgstr "密克羅尼西亞聯邦"
-
-#: ../data/rh_register.glade.h:216
-msgid "Moldova"
-msgstr "摩爾多瓦"
-
-#: ../data/rh_register.glade.h:217
-msgid "Monaco"
-msgstr "摩納哥"
-
-#: ../data/rh_register.glade.h:218
-msgid "Mongolia"
-msgstr "蒙古"
-
-#: ../data/rh_register.glade.h:219
-msgid "Montserrat"
-msgstr "蒙特塞拉特島"
-
-#: ../data/rh_register.glade.h:220
-msgid "Morocco"
-msgstr "摩洛哥"
-
-#: ../data/rh_register.glade.h:221
-msgid "Mozambique"
-msgstr "莫三比克"
-
-#: ../data/rh_register.glade.h:222
-msgid "Myanmar"
-msgstr "緬甸"
-
-#: ../data/rh_register.glade.h:223
-msgid "Namibia"
-msgstr "那米比亞"
-
-#: ../data/rh_register.glade.h:224
-msgid "Nauru"
-msgstr "諾魯"
-
-#: ../data/rh_register.glade.h:225
-msgid "Nepal"
-msgstr "尼泊爾"
-
-#: ../data/rh_register.glade.h:226
-msgid "Netherlands"
-msgstr "荷蘭"
-
-#: ../data/rh_register.glade.h:227
-msgid "Netherlands Antilles"
-msgstr "荷屬安的列斯群島"
-
-#: ../data/rh_register.glade.h:228
-msgid "New Caledonia"
-msgstr "新喀里多尼亞"
-
-#: ../data/rh_register.glade.h:229
-msgid "New Zealand"
-msgstr "紐西蘭"
-
-#: ../data/rh_register.glade.h:230
-msgid "Nicaragua"
-msgstr "尼加拉瓜"
-
-#: ../data/rh_register.glade.h:231
-msgid "Niger"
-msgstr "尼日"
-
-#: ../data/rh_register.glade.h:232
-msgid "Nigeria"
-msgstr "奈及利亞"
-
-#: ../data/rh_register.glade.h:233
-msgid "Niue"
-msgstr "紐鄂島"
-
-#: ../data/rh_register.glade.h:234
-msgid "Norfolk Island"
-msgstr "諾福克島"
-
-#: ../data/rh_register.glade.h:235
-msgid "Northern Mariana Islands"
-msgstr "北馬里安納群島"
-
-#: ../data/rh_register.glade.h:236
-msgid "Norway"
-msgstr "挪威"
-
-#: ../data/rh_register.glade.h:237
-msgid "Oman"
-msgstr "阿曼"
-
-#: ../data/rh_register.glade.h:238
+#: ../data/rh_register.glade.h:64
 msgid "Package Information"
 msgstr "套件資訊"
 
-#: ../data/rh_register.glade.h:239
-msgid "Pakistan"
-msgstr "巴基斯坦"
-
-#: ../data/rh_register.glade.h:240
-msgid "Palau"
-msgstr "帛琉"
-
-#: ../data/rh_register.glade.h:241
-msgid "Panama"
-msgstr "巴拿馬"
-
-#: ../data/rh_register.glade.h:242
-msgid "Papua New Guinea"
-msgstr "巴布亞新幾內亞"
-
-#: ../data/rh_register.glade.h:243
-msgid "Paraguay"
-msgstr "巴拉圭"
-
-#: ../data/rh_register.glade.h:244
-msgid "Peru"
-msgstr "秘魯"
-
-#: ../data/rh_register.glade.h:245
-msgid "Philippines"
-msgstr "菲律賓"
-
-#: ../data/rh_register.glade.h:246
-msgid "Pitcairn"
-msgstr "皮特凱恩島"
-
-#: ../data/rh_register.glade.h:247
+#: ../data/rh_register.glade.h:65
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
 msgstr "請輸入 <b>Red Hat Network</b> 的帳號資訊（http://rhn.redhat.com/）"
 
-#: ../data/rh_register.glade.h:249
-msgid "Poland"
-msgstr "波蘭"
-
-#: ../data/rh_register.glade.h:250
-msgid "Portugal"
-msgstr "葡萄牙"
-
-#: ../data/rh_register.glade.h:251
+#: ../data/rh_register.glade.h:67
 msgid "Privacy Statement"
 msgstr "隱私權聲明"
 
-#: ../data/rh_register.glade.h:252
+#: ../data/rh_register.glade.h:68
 msgid "Provide a Security Certificate"
 msgstr "提供安全性認證"
 
-#: ../data/rh_register.glade.h:253
+#: ../data/rh_register.glade.h:69
 msgid "Proxy P_assword:"
 msgstr "代理伺服器密碼（_a）："
 
-#: ../data/rh_register.glade.h:254
+#: ../data/rh_register.glade.h:70
 msgid "Proxy _Username:"
 msgstr "代理伺服器使用者名稱（_U）："
 
-#: ../data/rh_register.glade.h:255
-msgid "Puerto Rico"
-msgstr "波多黎各"
-
-#: ../data/rh_register.glade.h:257
-msgid "Qatar"
-msgstr "卡達"
-
-#: ../data/rh_register.glade.h:258
+#: ../data/rh_register.glade.h:72
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
@@ -2948,201 +2337,53 @@ msgstr ""
 "收到最新的軟體更新，包括安全更新，<b>更新</b>這台 Red Hat Enterprise Linux 系"
 "統，保持<b>安全</b>。"
 
-#: ../data/rh_register.glade.h:259
+#: ../data/rh_register.glade.h:73
 msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linux 版本："
 
-#: ../data/rh_register.glade.h:260
-msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-msgstr "Red Hat 登入帳號與密碼必須擁有至少五個文數字"
-
-#: ../data/rh_register.glade.h:261
+#: ../data/rh_register.glade.h:74
 msgid "Red Hat Network _Location:"
 msgstr "Red Hat Network 的位置（_L）"
 
-#: ../data/rh_register.glade.h:262
+#: ../data/rh_register.glade.h:75
 msgid "Red Hat Privacy Statement"
 msgstr "Red Hat 的隱私權聲明"
 
-#: ../data/rh_register.glade.h:263
-msgid "Reunion"
-msgstr "留尼旺島"
-
-#: ../data/rh_register.glade.h:264
+#: ../data/rh_register.glade.h:76
 msgid "Review system..."
 msgstr "檢視系統..."
 
-#: ../data/rh_register.glade.h:265
-msgid "Romania"
-msgstr "羅馬尼亞"
-
-#: ../data/rh_register.glade.h:266
-msgid "Russian Federation"
-msgstr "俄羅斯聯邦"
-
-#: ../data/rh_register.glade.h:267
-msgid "Rwanda"
-msgstr "盧旺達"
-
-#: ../data/rh_register.glade.h:268
-msgid "Saint Helena"
-msgstr "聖赫勒拿島"
-
-#: ../data/rh_register.glade.h:269
-msgid "Saint Kitts and Nevis"
-msgstr "聖克里斯多福"
-
-#: ../data/rh_register.glade.h:270
-msgid "Saint Lucia"
-msgstr "聖露西亞"
-
-#: ../data/rh_register.glade.h:271
-msgid "Saint Pierre and Miquelon    "
-msgstr "聖匹島及密啟倫群島"
-
-#: ../data/rh_register.glade.h:272
-msgid "Saint Vincent and the Grenadines"
-msgstr "聖文森及格瑞那丁"
-
-#: ../data/rh_register.glade.h:273
-msgid "Samoa"
-msgstr "薩摩亞"
-
-#: ../data/rh_register.glade.h:274
-msgid "San Marino"
-msgstr "聖馬利諾"
-
-#: ../data/rh_register.glade.h:275
-msgid "Sao Tome and Principe"
-msgstr "聖多美普林西"
-
-#: ../data/rh_register.glade.h:276
-msgid "Saudi Arabia"
-msgstr "沙烏地阿拉伯"
-
-#: ../data/rh_register.glade.h:277
+#: ../data/rh_register.glade.h:77
 msgid "Select A File"
 msgstr "選擇一個檔案"
 
-#: ../data/rh_register.glade.h:278
+#: ../data/rh_register.glade.h:78
 msgid "Send _hardware profile"
 msgstr "發送硬體資料檔（_h）"
 
-#: ../data/rh_register.glade.h:279
+#: ../data/rh_register.glade.h:79
 msgid "Send _package profile"
 msgstr "傳送套件設定檔（_p）"
 
-#: ../data/rh_register.glade.h:280
-msgid "Senegal"
-msgstr "塞內加爾"
-
-#: ../data/rh_register.glade.h:281
-msgid "Seychelles"
-msgstr "塞舌爾"
-
-#: ../data/rh_register.glade.h:282
-msgid "Sierra Leone"
-msgstr "塞拉利昂"
-
-#: ../data/rh_register.glade.h:283
-msgid "Singapore"
-msgstr "新加坡"
-
-#: ../data/rh_register.glade.h:284
-msgid "Slovakia"
-msgstr "斯洛伐克"
-
-#: ../data/rh_register.glade.h:285
-msgid "Slovenia"
-msgstr "斯洛維尼亞"
-
-#: ../data/rh_register.glade.h:286
+#: ../data/rh_register.glade.h:80
 msgid "Software update setup has been completed for this system."
 msgstr "這系統的軟體更新設定已經完成。"
 
-#: ../data/rh_register.glade.h:287
-msgid "Solomon Islands"
-msgstr "所羅門群島"
-
-#: ../data/rh_register.glade.h:288
-msgid "Somalia"
-msgstr "索馬利亞"
-
-#: ../data/rh_register.glade.h:289
-msgid "South Africa"
-msgstr "南非"
-
-#: ../data/rh_register.glade.h:290
-msgid "South Georgia and the South Sandwich Island"
-msgstr "南喬治亞地區及南桑威奇群島"
-
-#: ../data/rh_register.glade.h:291
-msgid "Spain"
-msgstr "西班牙"
-
-#: ../data/rh_register.glade.h:292
-msgid "Sri Lanka"
-msgstr "斯里蘭卡"
-
-#: ../data/rh_register.glade.h:293
+#: ../data/rh_register.glade.h:81
 msgid "Start Window"
 msgstr "開啟視窗"
 
-#: ../data/rh_register.glade.h:295
-msgid "Sudan"
-msgstr "蘇丹"
-
-#: ../data/rh_register.glade.h:296
-msgid "Suriname"
-msgstr "蘇利南"
-
-#: ../data/rh_register.glade.h:297
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "冷岸及央麥恩群島"
-
-#: ../data/rh_register.glade.h:298
-msgid "Swaziland"
-msgstr "史瓦濟蘭"
-
-#: ../data/rh_register.glade.h:299
-msgid "Sweden"
-msgstr "瑞典"
-
-#: ../data/rh_register.glade.h:300
-msgid "Switzerland"
-msgstr "瑞士"
-
-#: ../data/rh_register.glade.h:301
-msgid "Syrian Arab Republic"
-msgstr "敘利亞阿拉伯共和國"
-
-#: ../data/rh_register.glade.h:302
+#: ../data/rh_register.glade.h:83
 msgid "System _Name:"
 msgstr "系統名稱（_N）："
 
-#: ../data/rh_register.glade.h:304
-msgid "Taiwan"
-msgstr "台灣"
-
-#: ../data/rh_register.glade.h:305
-msgid "Tajikistan"
-msgstr "塔吉克"
-
-#: ../data/rh_register.glade.h:306
-msgid "Tanzania, United Republic of"
-msgstr "坦桑尼亞聯合共和國"
-
-#: ../data/rh_register.glade.h:307
-msgid "Thailand"
-msgstr "泰國"
-
-#: ../data/rh_register.glade.h:308
+#: ../data/rh_register.glade.h:85
 msgid ""
 "This assistant will guide you through connecting your system  to Red Hat "
 "Network (RHN) for software updates, such as:"
 msgstr "這能幫助您將系統連上 Red Hat Network (RHN)，以取得軟體更新，例如："
 
-#: ../data/rh_register.glade.h:309
+#: ../data/rh_register.glade.h:86
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -3159,125 +2400,25 @@ msgstr ""
 "要讓您的系統保持在最新、最安全與受支援的狀態，請儘早註冊這台系統。您可以執行"
 "註冊工具，位於<b>應用程式 > 系統工具</b>的<b>軟體更新</b>中。"
 
-#: ../data/rh_register.glade.h:312
-msgid "Togo"
-msgstr "多哥"
-
-#: ../data/rh_register.glade.h:313
-msgid "Tokelau"
-msgstr "托克勞"
-
-#: ../data/rh_register.glade.h:314
-msgid "Tonga"
-msgstr "東加"
-
-#: ../data/rh_register.glade.h:315
-msgid "Trinidad and Tobago"
-msgstr "千里達及托巴哥"
-
-#: ../data/rh_register.glade.h:316
-msgid "Tunisia"
-msgstr "突尼西亞"
-
-#: ../data/rh_register.glade.h:317
-msgid "Turkey"
-msgstr "土耳其"
-
-#: ../data/rh_register.glade.h:318
-msgid "Turkmenistan"
-msgstr "土庫曼"
-
-#: ../data/rh_register.glade.h:319
-msgid "Turks and Caicos Islands"
-msgstr "特克斯和凱科斯群島"
-
-#: ../data/rh_register.glade.h:320
-msgid "Tuvalu"
-msgstr "吐瓦魯"
-
-#: ../data/rh_register.glade.h:321
-msgid "Uganda"
-msgstr "烏干達"
-
-#: ../data/rh_register.glade.h:322
-msgid "Ukraine"
-msgstr "烏克蘭"
-
-#: ../data/rh_register.glade.h:323
-msgid "United Arab Emirates"
-msgstr "阿拉伯聯合大公國"
-
-#: ../data/rh_register.glade.h:324
-msgid "United Kingdom"
-msgstr "英國"
-
-#: ../data/rh_register.glade.h:326
-msgid "United States Minor Outlying Islands"
-msgstr "美國群島"
-
-#: ../data/rh_register.glade.h:327
-msgid "Uruguay"
-msgstr "烏拉圭"
-
-#: ../data/rh_register.glade.h:328
+#: ../data/rh_register.glade.h:89
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "使用 HTTP 代理伺服器來認證（_t）"
 
-#: ../data/rh_register.glade.h:329
-msgid "Uzbekistan"
-msgstr "烏茲別克"
-
-#: ../data/rh_register.glade.h:330
+#: ../data/rh_register.glade.h:90
 msgid "V_iew Package Profile ..."
 msgstr "檢視套件資料檔（_i）..."
 
-#: ../data/rh_register.glade.h:331
-msgid "Vanuatu"
-msgstr "萬那杜"
-
-#: ../data/rh_register.glade.h:332
-msgid "Vatican City State (Holy See)"
-msgstr "梵蒂岡（教廷）"
-
-#: ../data/rh_register.glade.h:333
-msgid "Venezuela"
-msgstr "委內瑞拉"
-
-#: ../data/rh_register.glade.h:334
-msgid "Viet Nam"
-msgstr "越南"
-
-#: ../data/rh_register.glade.h:335
-msgid "Virgin Islands (British)"
-msgstr "英屬維京群島"
-
-#: ../data/rh_register.glade.h:336
-msgid "Virgin Islands (U.S.)"
-msgstr "美屬維京群島"
-
-#: ../data/rh_register.glade.h:337
-msgid "Wallis and Futuna Islands"
-msgstr "瓦里斯及富都拿群島"
-
-#: ../data/rh_register.glade.h:338
-msgid "Western Sahara"
-msgstr "西撒哈拉沙漠"
-
-#: ../data/rh_register.glade.h:339
+#: ../data/rh_register.glade.h:91
 msgid "Why Register"
 msgstr "為什麼要註冊"
 
-#: ../data/rh_register.glade.h:341
+#: ../data/rh_register.glade.h:93
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr "您現在要註冊系統嗎？<b>（強烈建議您註冊。）</b>"
 
-#: ../data/rh_register.glade.h:342
-msgid "Yemen"
-msgstr "葉門"
-
-#: ../data/rh_register.glade.h:343
+#: ../data/rh_register.glade.h:94
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
@@ -3287,13 +2428,13 @@ msgstr ""
 "Hat Network 衛星伺服器</b>或 <b>Red Hat Network 代理伺服器</b>，以收取軟體更"
 "新。"
 
-#: ../data/rh_register.glade.h:344
+#: ../data/rh_register.glade.h:95
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
 msgstr "不向 Red Hat Network 註冊系統，您將<b>無法</b>享受到這些訂閱權利。"
 
-#: ../data/rh_register.glade.h:345
+#: ../data/rh_register.glade.h:96
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -3309,30 +2450,31 @@ msgstr ""
 "以在任何時候執行軟體更新設定工具，方法是點選「應用程式」>「系統工具」的「軟體"
 "更新程式」。"
 
-#: ../data/rh_register.glade.h:348
+#: ../data/rh_register.glade.h:99
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
 msgstr "請將您系統的套件與硬體設定檔寄給我們，這樣我們可以決定要使用哪些更新。"
 
-#: ../data/rh_register.glade.h:349
+#: ../data/rh_register.glade.h:100
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
 msgstr ""
 "您需要選擇這系統的名稱，這樣您就可以在 Red Hat Network 的介面中辨別出來。"
 
-#: ../data/rh_register.glade.h:350
+#: ../data/rh_register.glade.h:101
+#, fuzzy
 msgid ""
-"Your account is associate with multiple <b>organizations</b>. You will need "
+"Your account is associated with multiple <b>organizations</b>. You will need "
 "to select an organization to register this system to."
 msgstr "您的帳號與多個<b>組織</b>相關連。請選擇您想要向哪個組織註冊這台機器。"
 
-#: ../data/rh_register.glade.h:351
+#: ../data/rh_register.glade.h:102
 msgid "Your system is not setup for software updates."
 msgstr "這台系統並未設定好，接收軟體更新。"
 
-#: ../data/rh_register.glade.h:352
+#: ../data/rh_register.glade.h:103
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -3347,98 +2489,941 @@ msgstr ""
 "當套件圖示出現在您桌面的提示區（多半位於右上角）時，這表示您的軟體需要更新。"
 "請按下這圖示，它會引領您套用任何可用的更新："
 
-#: ../data/rh_register.glade.h:356
-msgid "Yugoslavia"
-msgstr "南斯拉夫"
+#: ../data/rh_register.glade.h:106
+msgid ""
+"Your system will be subscribed to the base software channel.  You will not "
+"be able to move this system to an earlier minor release channel if you "
+"continue (you will be able to move to a later release.)"
+msgstr ""
 
-#: ../data/rh_register.glade.h:357
-msgid "Zaire"
-msgstr "薩伊"
-
-#: ../data/rh_register.glade.h:358
-msgid "Zambia"
-msgstr "贊比亞"
-
-#: ../data/rh_register.glade.h:359
-msgid "Zimbabwe"
-msgstr "辛巴威"
-
-#: ../data/rh_register.glade.h:360
+#: ../data/rh_register.glade.h:108
 msgid "_Activate a subscription now..."
 msgstr "現在就啟動訂閱服務(_A)..."
 
-#: ../data/rh_register.glade.h:361
+#: ../data/rh_register.glade.h:109
 msgid "_Close"
 msgstr "關閉（_C）"
 
-#: ../data/rh_register.glade.h:362
+#: ../data/rh_register.glade.h:110
 msgid "_Login:"
 msgstr "登入名稱(_L)："
 
-#: ../data/rh_register.glade.h:363
+#: ../data/rh_register.glade.h:111
+msgid "_Minor release:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:112
 msgid "_No thanks, I'll connect later."
 msgstr "不，謝謝。我以後再連線(_N)。"
 
-#: ../data/rh_register.glade.h:364
+#: ../data/rh_register.glade.h:113
 msgid "_No, Cancel"
 msgstr "不，取消（_N）"
 
-#: ../data/rh_register.glade.h:365
+#: ../data/rh_register.glade.h:114
 msgid "_No, I prefer to register at a later time."
 msgstr "不，我將在稍後註冊（_N）"
 
-#: ../data/rh_register.glade.h:366
+#: ../data/rh_register.glade.h:115
+msgid "_Operating system version:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:116
 msgid "_Organization:"
 msgstr "組織（_O）："
 
-#: ../data/rh_register.glade.h:367
+#: ../data/rh_register.glade.h:117
 msgid "_Password:"
 msgstr "密碼（_P）："
 
-#: ../data/rh_register.glade.h:368
+#: ../data/rh_register.glade.h:118
 msgid "_Proxy Location:"
 msgstr "代理伺服器位置（_P）："
 
-#: ../data/rh_register.glade.h:369
+#: ../data/rh_register.glade.h:119
 msgid "_Take me back to the registration"
 msgstr "帶我回到註冊過程（_T）"
 
-#: ../data/rh_register.glade.h:370
+#: ../data/rh_register.glade.h:120
 msgid "_Take me back to the setup process."
 msgstr "帶我回到設定過程（_T）"
 
-#: ../data/rh_register.glade.h:371
+#: ../data/rh_register.glade.h:121
 msgid "_View Hardware Profile ..."
 msgstr "檢視硬體資料檔（_V）..."
 
-#: ../data/rh_register.glade.h:372
+#: ../data/rh_register.glade.h:122
 msgid "_Why Should I Connect to RHN? ..."
 msgstr "我為什麼要連上 RHN(_W)...？"
 
-#: ../data/rh_register.glade.h:373
+#: ../data/rh_register.glade.h:123
 msgid "_Yes, Continue"
 msgstr "是，繼續（_Y）"
 
-#: ../data/rh_register.glade.h:374
+#: ../data/rh_register.glade.h:124
 msgid "_Yes, I'd like to register now."
 msgstr "是，我現在想要註冊（_Y）。"
 
-#: ../data/rh_register.glade.h:375
+#: ../data/rh_register.glade.h:125
 msgid "label"
 msgstr "標籤"
 
-#: ../data/rh_register.glade.h:376
+#: ../data/rh_register.glade.h:126
 msgid "•"
 msgstr "•"
 
-#: ../data/rh_register.glade.h:377
+#: ../data/rh_register.glade.h:127
 msgid "• A name for your system's Red Hat Network profile"
 msgstr "• 您系統的 Red Hat Network 設定檔名稱"
 
-#: ../data/rh_register.glade.h:378
+#: ../data/rh_register.glade.h:128
 msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr "• 您 Red Hat Network 衛星伺服器的位址（選用）"
 
-#: ../data/rh_register.glade.h:379
+#: ../data/rh_register.glade.h:129
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• 您 Red Hat Network 或 Red Hat Network 衛星伺服器的登入名稱"
+
+#~ msgid "Error reading hardware information:"
+#~ msgstr "讀取硬體資訊時發生錯誤"
+
+#~ msgid "Error reading DMI information:"
+#~ msgstr "讀取 DMI 資訊時發生錯誤："
+
+#~ msgid "That user account and password is not valid\n"
+#~ msgstr "使用者名稱與密碼無效\n"
+
+#~ msgid "You must enter a user name."
+#~ msgstr "您必須輸入一個使用者名稱。"
+
+#~ msgid "You must enter and verify a password."
+#~ msgstr "您必須輸入並確認一個密碼。"
+
+#~ msgid ""
+#~ "Problem registering login:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "註冊登入帳號時發生問題：\n"
+#~ "%s"
+
+#~ msgid "Problem registering login."
+#~ msgstr "註冊登入帳號時發生問題。"
+
+#~ msgid "United States"
+#~ msgstr "美國"
+
+#~ msgid "Canada"
+#~ msgstr "加拿大"
+
+#~ msgid "Login Information:"
+#~ msgstr "登入資訊："
+
+#~ msgid "Account Information:"
+#~ msgstr "帳號資訊："
+
+#~ msgid "*First Name:"
+#~ msgstr "*名字："
+
+#~ msgid "*Last Name:"
+#~ msgstr "*姓氏："
+
+#~ msgid "*Company Name:"
+#~ msgstr "*公司："
+
+#~ msgid "Street Address:"
+#~ msgstr "*通訊地址："
+
+#~ msgid "City:"
+#~ msgstr "城市："
+
+#~ msgid "State/Province:"
+#~ msgstr "州/省："
+
+#~ msgid "Zip/Post Code:"
+#~ msgstr "郵遞區號："
+
+#~ msgid "*Country:"
+#~ msgstr "*國家："
+
+#~ msgid "  Address 2:"
+#~ msgstr "  地址二："
+
+#~ msgid "  Address:"
+#~ msgstr "  地址："
+
+#~ msgid "  C_ity:"
+#~ msgstr "* 城市（_i）："
+
+#~ msgid "  Co_mpany Name:"
+#~ msgstr "  公司名稱（_m）："
+
+#~ msgid "  _State/Province:"
+#~ msgstr "* 州/省（_S）："
+
+#~ msgid "  _Zip/Postal code:"
+#~ msgstr "* 郵遞區號（_Z）："
+
+#~ msgid "* C_onfirm password:  "
+#~ msgstr "* 確認密碼(_o)：  "
+
+#~ msgid "* Co_untry:"
+#~ msgstr "* 國家（_u）："
+
+#~ msgid "* Desired _Login:"
+#~ msgstr "* 登入帳號（_L）："
+
+#~ msgid "* Desired _Password:"
+#~ msgstr "* 密碼(_P)："
+
+#~ msgid "* Last _Name:"
+#~ msgstr "*姓氏（_N）："
+
+#~ msgid "* _Email Address: "
+#~ msgstr "* 電子郵件地址(_E)："
+
+#~ msgid "* _First Name:"
+#~ msgstr "* 名字（_F）："
+
+#~ msgid "<b>Account Information:</b>"
+#~ msgstr "<b>帳號資訊：</b>"
+
+#~ msgid "<b>Login Information:</b>"
+#~ msgstr "<b>登入資訊：</b>"
+
+#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
+#~ msgstr "<small><b>範例：</b>user@domain.com</small>"
+
+#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+#~ msgstr "<small><b>提示：</b>如果您並非公司用戶，請留白。</small>"
+
+#~ msgid "Afghanistan"
+#~ msgstr "阿富汗"
+
+#~ msgid "Albania"
+#~ msgstr "阿爾巴尼亞"
+
+#~ msgid "Algeria"
+#~ msgstr "阿爾及利亞"
+
+#~ msgid "American Samoa"
+#~ msgstr "美屬薩摩亞"
+
+#~ msgid "Andorra"
+#~ msgstr "安道爾公國"
+
+#~ msgid "Angola"
+#~ msgstr "安哥拉"
+
+#~ msgid "Anguilla"
+#~ msgstr "安圭拉"
+
+#~ msgid "Antarctica"
+#~ msgstr "南極洲"
+
+#~ msgid "Antigua and Barbuda"
+#~ msgstr "安地卡及巴布達"
+
+#~ msgid "Argentina"
+#~ msgstr "阿根廷"
+
+#~ msgid "Armenia"
+#~ msgstr "亞美尼亞"
+
+#~ msgid "Aruba"
+#~ msgstr "荷屬阿魯巴"
+
+#~ msgid "Australia"
+#~ msgstr "澳洲"
+
+#~ msgid "Austria"
+#~ msgstr "奧地利"
+
+#~ msgid "Azerbaijan"
+#~ msgstr "阿塞拜然"
+
+#~ msgid "Bahamas"
+#~ msgstr "巴哈馬"
+
+#~ msgid "Bahrain"
+#~ msgstr "巴林"
+
+#~ msgid "Bangladesh"
+#~ msgstr "孟加拉"
+
+#~ msgid "Barbados"
+#~ msgstr "巴貝多"
+
+#~ msgid "Belarus"
+#~ msgstr "白俄羅斯"
+
+#~ msgid "Belgium"
+#~ msgstr "比利時"
+
+#~ msgid "Belize"
+#~ msgstr "貝里斯"
+
+#~ msgid "Benin"
+#~ msgstr "貝南"
+
+#~ msgid "Bermuda"
+#~ msgstr "百慕達"
+
+#~ msgid "Bhutan"
+#~ msgstr "不丹"
+
+#~ msgid "Bolivia"
+#~ msgstr "玻利維亞"
+
+#~ msgid "Bosnia and Herzegovina"
+#~ msgstr "波士尼亞與赫塞哥維納"
+
+#~ msgid "Botswana"
+#~ msgstr "博茨瓦納"
+
+#~ msgid "Bouvet Island"
+#~ msgstr "波維特島"
+
+#~ msgid "Brazil"
+#~ msgstr "巴西"
+
+#~ msgid "British Indian Ocean Territory"
+#~ msgstr "英屬印度洋領地"
+
+#~ msgid "Brunei Darussalam"
+#~ msgstr "汶萊"
+
+#~ msgid "Bulgaria"
+#~ msgstr "保加利亞"
+
+#~ msgid "Burkina Faso"
+#~ msgstr "布吉納法索"
+
+#~ msgid "Burundi"
+#~ msgstr "蒲隆地"
+
+#~ msgid "C_reate new login"
+#~ msgstr "建立登入帳號（_r）"
+
+#~ msgid "Cambodia"
+#~ msgstr "柬埔寨"
+
+#~ msgid "Cameroon"
+#~ msgstr "喀麥隆"
+
+#~ msgid "Cape Verde"
+#~ msgstr "維德角"
+
+#~ msgid "Cayman Islands"
+#~ msgstr "開曼群島"
+
+#~ msgid "Central African Republic"
+#~ msgstr "中非共和國"
+
+#~ msgid "Chad"
+#~ msgstr "查德"
+
+#~ msgid "Chile"
+#~ msgstr "智利"
+
+#~ msgid "China"
+#~ msgstr "中國"
+
+#~ msgid "Christmas Island"
+#~ msgstr "聖誕島"
+
+#~ msgid "Cocos (Keeling) Islands"
+#~ msgstr "可可斯群島"
+
+#~ msgid "Colombia"
+#~ msgstr "哥倫比亞"
+
+#~ msgid "Comoros"
+#~ msgstr "葛摩"
+
+#~ msgid "Congo"
+#~ msgstr "剛果"
+
+#~ msgid "Cook Islands"
+#~ msgstr "庫克群島"
+
+#~ msgid "Costa Rica"
+#~ msgstr "哥斯大黎加"
+
+#~ msgid "Cote d'Ivoire"
+#~ msgstr "象牙海岸"
+
+#~ msgid "Create a _New Login"
+#~ msgstr "建立新的登入帳號(_N)..."
+
+#~ msgid "Create a new Red Hat Network login"
+#~ msgstr "建立新的 Red Hat Network 登入帳號"
+
+#~ msgid "Croatia"
+#~ msgstr "克羅埃西亞"
+
+#~ msgid "Cuba"
+#~ msgstr "古巴"
+
+#~ msgid "Cyprus"
+#~ msgstr "賽普勒斯"
+
+#~ msgid "Czech Republic"
+#~ msgstr "捷克共和國"
+
+#~ msgid "Denmark"
+#~ msgstr "丹麥"
+
+#~ msgid "Djibouti"
+#~ msgstr "吉布地"
+
+#~ msgid "Dominica"
+#~ msgstr "多米尼克"
+
+#~ msgid "Dominican Republic"
+#~ msgstr "多明尼加共和國"
+
+#~ msgid "East Timor"
+#~ msgstr "東帝汶"
+
+#~ msgid "Ecuador"
+#~ msgstr "厄瓜多"
+
+#~ msgid "Egypt"
+#~ msgstr "埃及"
+
+#~ msgid "El Salvador"
+#~ msgstr "薩爾瓦多"
+
+#~ msgid "Equatorial Guinea"
+#~ msgstr "赤道幾內亞"
+
+#~ msgid "Eritrea"
+#~ msgstr "厄利垂亞"
+
+#~ msgid "Estonia"
+#~ msgstr "愛沙尼亞"
+
+#~ msgid "Ethiopia"
+#~ msgstr "衣索比亞"
+
+#~ msgid "Falkland Islands (Malvinas)"
+#~ msgstr "福克蘭群島（馬爾維納斯）"
+
+#~ msgid "Faroe Islands"
+#~ msgstr "法羅群島"
+
+#~ msgid "Fiji"
+#~ msgstr "斐濟"
+
+#~ msgid ""
+#~ "Fill in the form below to create a new Red Hat login. Required "
+#~ "information is marked with a '*':"
+#~ msgstr "請填寫以下表格，建立新的 Red Hat 登入帳號。必填的資訊會以 * 標示："
+
+#~ msgid "Finland"
+#~ msgstr "芬蘭"
+
+#~ msgid "France"
+#~ msgstr "法國"
+
+#~ msgid "France, Metropolitan"
+#~ msgstr "法屬美特羅波利坦"
+
+#~ msgid "French Guiana"
+#~ msgstr "法屬圭亞那"
+
+#~ msgid "French Polynesia"
+#~ msgstr "法屬玻里尼西亞"
+
+#~ msgid "French Southern Territories"
+#~ msgstr "法國南方領地"
+
+#~ msgid "Gabon"
+#~ msgstr "加彭"
+
+#~ msgid "Gambia"
+#~ msgstr "甘比亞"
+
+#~ msgid "Georgia"
+#~ msgstr "喬治亞州"
+
+#~ msgid "Germany"
+#~ msgstr "德國"
+
+#~ msgid "Ghana"
+#~ msgstr "迦納"
+
+#~ msgid "Gibraltar"
+#~ msgstr "直布羅陀海峽"
+
+#~ msgid "Greece"
+#~ msgstr "希臘"
+
+#~ msgid "Greenland"
+#~ msgstr "格陵蘭"
+
+#~ msgid "Grenada"
+#~ msgstr "格瑞那達"
+
+#~ msgid "Guadeloupe"
+#~ msgstr "瓜德洛普"
+
+#~ msgid "Guam"
+#~ msgstr "關島"
+
+#~ msgid "Guatemala"
+#~ msgstr "瓜地馬拉"
+
+#~ msgid "Guinea"
+#~ msgstr "幾內亞"
+
+#~ msgid "Guinea-Bissau"
+#~ msgstr "幾內亞比索共和國"
+
+#~ msgid "Guyana"
+#~ msgstr "圭亞那"
+
+#~ msgid "Haiti"
+#~ msgstr "海地"
+
+#~ msgid "Heard Island and McDonald Islands"
+#~ msgstr "赫德島和麥當勞群島"
+
+#~ msgid "Honduras"
+#~ msgstr "宏都拉斯"
+
+#~ msgid "Hong Kong"
+#~ msgstr "香港"
+
+#~ msgid "Hungary"
+#~ msgstr "匈牙利"
+
+#~ msgid "Iceland"
+#~ msgstr "冰島"
+
+#~ msgid "India"
+#~ msgstr "印度"
+
+#~ msgid "Indonesia"
+#~ msgstr "印尼"
+
+#~ msgid "Iran (Islamic Republic of)"
+#~ msgstr "伊朗伊斯蘭共和國"
+
+#~ msgid "Iraq"
+#~ msgstr "伊拉克"
+
+#~ msgid "Ireland"
+#~ msgstr "愛爾蘭"
+
+#~ msgid "Israel"
+#~ msgstr "以色列"
+
+#~ msgid "Italy"
+#~ msgstr "義大利"
+
+#~ msgid "Jamaica"
+#~ msgstr "牙買加"
+
+#~ msgid "Japan"
+#~ msgstr "日本"
+
+#~ msgid "Jordan"
+#~ msgstr "約旦"
+
+#~ msgid "Kazakhstan"
+#~ msgstr "哈薩克"
+
+#~ msgid "Kenya"
+#~ msgstr "肯亞"
+
+#~ msgid "Kiribati"
+#~ msgstr "吉里巴斯"
+
+#~ msgid "Korea, Democratic People's Republic of"
+#~ msgstr "朝鮮民主主義人民共和國（北韓）"
+
+#~ msgid "Korea, Republic of"
+#~ msgstr "大韓民國"
+
+#~ msgid "Kuwait"
+#~ msgstr "科威特"
+
+#~ msgid "Kyrgyzstan"
+#~ msgstr "吉爾吉斯"
+
+#~ msgid "Lao People's Democratic Republic"
+#~ msgstr "寮人民民主共和國"
+
+#~ msgid "Latin America"
+#~ msgstr "拉丁美洲"
+
+#~ msgid "Latvia"
+#~ msgstr "拉脫維亞"
+
+#~ msgid "Lebanon"
+#~ msgstr "黎巴嫩"
+
+#~ msgid "Lesotho"
+#~ msgstr "賴索托"
+
+#~ msgid "Liberia"
+#~ msgstr "賴比瑞亞"
+
+#~ msgid "Libyan Arab Jamahiriya"
+#~ msgstr "利比亞"
+
+#~ msgid "Liechtenstein"
+#~ msgstr "列支敦士坦"
+
+#~ msgid "Lithuania"
+#~ msgstr "立陶宛"
+
+#~ msgid "Luxembourg"
+#~ msgstr "盧森堡"
+
+#~ msgid "Macau"
+#~ msgstr "澳門"
+
+#~ msgid "Macedonia"
+#~ msgstr "馬其頓"
+
+#~ msgid "Madagascar"
+#~ msgstr "馬達加斯加"
+
+#~ msgid "Malawi"
+#~ msgstr "馬拉威"
+
+#~ msgid "Malaysia"
+#~ msgstr "馬來西亞"
+
+#~ msgid "Maldives"
+#~ msgstr "馬爾地夫"
+
+#~ msgid "Mali"
+#~ msgstr "馬利"
+
+#~ msgid "Malta"
+#~ msgstr "馬爾他"
+
+#~ msgid "Marshall Islands"
+#~ msgstr "馬紹爾群島"
+
+#~ msgid "Martinique"
+#~ msgstr "馬提尼克"
+
+#~ msgid "Mauritania"
+#~ msgstr "茅利塔尼亞"
+
+#~ msgid "Mauritius"
+#~ msgstr "模里西斯"
+
+#~ msgid "Mayotte"
+#~ msgstr "馬約特"
+
+#~ msgid "Mexico"
+#~ msgstr "墨西哥"
+
+#~ msgid "Micronesia (Federated States of)"
+#~ msgstr "密克羅尼西亞聯邦"
+
+#~ msgid "Moldova"
+#~ msgstr "摩爾多瓦"
+
+#~ msgid "Monaco"
+#~ msgstr "摩納哥"
+
+#~ msgid "Mongolia"
+#~ msgstr "蒙古"
+
+#~ msgid "Montserrat"
+#~ msgstr "蒙特塞拉特島"
+
+#~ msgid "Morocco"
+#~ msgstr "摩洛哥"
+
+#~ msgid "Mozambique"
+#~ msgstr "莫三比克"
+
+#~ msgid "Myanmar"
+#~ msgstr "緬甸"
+
+#~ msgid "Namibia"
+#~ msgstr "那米比亞"
+
+#~ msgid "Nauru"
+#~ msgstr "諾魯"
+
+#~ msgid "Nepal"
+#~ msgstr "尼泊爾"
+
+#~ msgid "Netherlands"
+#~ msgstr "荷蘭"
+
+#~ msgid "Netherlands Antilles"
+#~ msgstr "荷屬安的列斯群島"
+
+#~ msgid "New Caledonia"
+#~ msgstr "新喀里多尼亞"
+
+#~ msgid "New Zealand"
+#~ msgstr "紐西蘭"
+
+#~ msgid "Nicaragua"
+#~ msgstr "尼加拉瓜"
+
+#~ msgid "Niger"
+#~ msgstr "尼日"
+
+#~ msgid "Nigeria"
+#~ msgstr "奈及利亞"
+
+#~ msgid "Niue"
+#~ msgstr "紐鄂島"
+
+#~ msgid "Norfolk Island"
+#~ msgstr "諾福克島"
+
+#~ msgid "Northern Mariana Islands"
+#~ msgstr "北馬里安納群島"
+
+#~ msgid "Norway"
+#~ msgstr "挪威"
+
+#~ msgid "Oman"
+#~ msgstr "阿曼"
+
+#~ msgid "Pakistan"
+#~ msgstr "巴基斯坦"
+
+#~ msgid "Palau"
+#~ msgstr "帛琉"
+
+#~ msgid "Panama"
+#~ msgstr "巴拿馬"
+
+#~ msgid "Papua New Guinea"
+#~ msgstr "巴布亞新幾內亞"
+
+#~ msgid "Paraguay"
+#~ msgstr "巴拉圭"
+
+#~ msgid "Peru"
+#~ msgstr "秘魯"
+
+#~ msgid "Philippines"
+#~ msgstr "菲律賓"
+
+#~ msgid "Pitcairn"
+#~ msgstr "皮特凱恩島"
+
+#~ msgid "Poland"
+#~ msgstr "波蘭"
+
+#~ msgid "Portugal"
+#~ msgstr "葡萄牙"
+
+#~ msgid "Puerto Rico"
+#~ msgstr "波多黎各"
+
+#~ msgid "Qatar"
+#~ msgstr "卡達"
+
+#~ msgid ""
+#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+#~ msgstr "Red Hat 登入帳號與密碼必須擁有至少五個文數字"
+
+#~ msgid "Reunion"
+#~ msgstr "留尼旺島"
+
+#~ msgid "Romania"
+#~ msgstr "羅馬尼亞"
+
+#~ msgid "Russian Federation"
+#~ msgstr "俄羅斯聯邦"
+
+#~ msgid "Rwanda"
+#~ msgstr "盧旺達"
+
+#~ msgid "Saint Helena"
+#~ msgstr "聖赫勒拿島"
+
+#~ msgid "Saint Kitts and Nevis"
+#~ msgstr "聖克里斯多福"
+
+#~ msgid "Saint Lucia"
+#~ msgstr "聖露西亞"
+
+#~ msgid "Saint Pierre and Miquelon    "
+#~ msgstr "聖匹島及密啟倫群島"
+
+#~ msgid "Saint Vincent and the Grenadines"
+#~ msgstr "聖文森及格瑞那丁"
+
+#~ msgid "Samoa"
+#~ msgstr "薩摩亞"
+
+#~ msgid "San Marino"
+#~ msgstr "聖馬利諾"
+
+#~ msgid "Sao Tome and Principe"
+#~ msgstr "聖多美普林西"
+
+#~ msgid "Saudi Arabia"
+#~ msgstr "沙烏地阿拉伯"
+
+#~ msgid "Senegal"
+#~ msgstr "塞內加爾"
+
+#~ msgid "Seychelles"
+#~ msgstr "塞舌爾"
+
+#~ msgid "Sierra Leone"
+#~ msgstr "塞拉利昂"
+
+#~ msgid "Singapore"
+#~ msgstr "新加坡"
+
+#~ msgid "Slovakia"
+#~ msgstr "斯洛伐克"
+
+#~ msgid "Slovenia"
+#~ msgstr "斯洛維尼亞"
+
+#~ msgid "Solomon Islands"
+#~ msgstr "所羅門群島"
+
+#~ msgid "Somalia"
+#~ msgstr "索馬利亞"
+
+#~ msgid "South Africa"
+#~ msgstr "南非"
+
+#~ msgid "South Georgia and the South Sandwich Island"
+#~ msgstr "南喬治亞地區及南桑威奇群島"
+
+#~ msgid "Spain"
+#~ msgstr "西班牙"
+
+#~ msgid "Sri Lanka"
+#~ msgstr "斯里蘭卡"
+
+#~ msgid "Sudan"
+#~ msgstr "蘇丹"
+
+#~ msgid "Suriname"
+#~ msgstr "蘇利南"
+
+#~ msgid "Svalbard and Jan Mayen Islands"
+#~ msgstr "冷岸及央麥恩群島"
+
+#~ msgid "Swaziland"
+#~ msgstr "史瓦濟蘭"
+
+#~ msgid "Sweden"
+#~ msgstr "瑞典"
+
+#~ msgid "Switzerland"
+#~ msgstr "瑞士"
+
+#~ msgid "Syrian Arab Republic"
+#~ msgstr "敘利亞阿拉伯共和國"
+
+#~ msgid "Taiwan"
+#~ msgstr "台灣"
+
+#~ msgid "Tajikistan"
+#~ msgstr "塔吉克"
+
+#~ msgid "Tanzania, United Republic of"
+#~ msgstr "坦桑尼亞聯合共和國"
+
+#~ msgid "Thailand"
+#~ msgstr "泰國"
+
+#~ msgid "Togo"
+#~ msgstr "多哥"
+
+#~ msgid "Tokelau"
+#~ msgstr "托克勞"
+
+#~ msgid "Tonga"
+#~ msgstr "東加"
+
+#~ msgid "Trinidad and Tobago"
+#~ msgstr "千里達及托巴哥"
+
+#~ msgid "Tunisia"
+#~ msgstr "突尼西亞"
+
+#~ msgid "Turkey"
+#~ msgstr "土耳其"
+
+#~ msgid "Turkmenistan"
+#~ msgstr "土庫曼"
+
+#~ msgid "Turks and Caicos Islands"
+#~ msgstr "特克斯和凱科斯群島"
+
+#~ msgid "Tuvalu"
+#~ msgstr "吐瓦魯"
+
+#~ msgid "Uganda"
+#~ msgstr "烏干達"
+
+#~ msgid "Ukraine"
+#~ msgstr "烏克蘭"
+
+#~ msgid "United Arab Emirates"
+#~ msgstr "阿拉伯聯合大公國"
+
+#~ msgid "United Kingdom"
+#~ msgstr "英國"
+
+#~ msgid "United States Minor Outlying Islands"
+#~ msgstr "美國群島"
+
+#~ msgid "Uruguay"
+#~ msgstr "烏拉圭"
+
+#~ msgid "Uzbekistan"
+#~ msgstr "烏茲別克"
+
+#~ msgid "Vanuatu"
+#~ msgstr "萬那杜"
+
+#~ msgid "Vatican City State (Holy See)"
+#~ msgstr "梵蒂岡（教廷）"
+
+#~ msgid "Venezuela"
+#~ msgstr "委內瑞拉"
+
+#~ msgid "Viet Nam"
+#~ msgstr "越南"
+
+#~ msgid "Virgin Islands (British)"
+#~ msgstr "英屬維京群島"
+
+#~ msgid "Virgin Islands (U.S.)"
+#~ msgstr "美屬維京群島"
+
+#~ msgid "Wallis and Futuna Islands"
+#~ msgstr "瓦里斯及富都拿群島"
+
+#~ msgid "Western Sahara"
+#~ msgstr "西撒哈拉沙漠"
+
+#~ msgid "Yemen"
+#~ msgstr "葉門"
+
+#~ msgid "Yugoslavia"
+#~ msgstr "南斯拉夫"
+
+#~ msgid "Zaire"
+#~ msgstr "薩伊"
+
+#~ msgid "Zambia"
+#~ msgstr "贊比亞"
+
+#~ msgid "Zimbabwe"
+#~ msgstr "辛巴威"

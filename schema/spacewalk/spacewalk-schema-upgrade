@@ -6,7 +6,7 @@ use warnings FATAL => 'all';
 use Spacewalk::Setup ();
 use IPC::Open3 ();
 
-my $SCHEMA_UPGRADE_DIR = '/etc/sysconfig/rhn/schema-upgrade';			### FIXME
+my $SCHEMA_UPGRADE_DIR = '/etc/sysconfig/rhn/schema-upgrade';
 my $SCHEMA_UPGRADE_LOGDIR = '/var/log/spacewalk/schema-upgrade';
 
 my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
@@ -50,9 +50,10 @@ if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
 my $start_schema = join '-', @{ $schema_versions->[0] };
 (my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
-# my $my_schema_version_out = `rpm -qf --qf '%{name} %{version}-%{release}\n' $0`;			### FIXME
-my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/universe.satellite.sql`;
-# $my_schema_version_out = 'spacewalk-schema 0.2.1 0.el5.sw';		### FIXME
+my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/schema-override 2> /dev/null`;
+if ($?) { # the directory does not exists or is not owned by any rpm
+	$my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/universe.satellite.sql`;
+}
 my ($my_schema_name, $my_schema_version, $my_schema_release) = ($my_schema_version_out =~ /^(\S+)\s(\S+)\s(\S+)$/);
 if (not defined $my_schema_release) {
 	die "Failed to retrieve our schema package name and version.\n";

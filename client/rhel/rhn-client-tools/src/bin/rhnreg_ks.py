@@ -22,7 +22,6 @@
 
 import sys
 import os
-import re
 from rhpl.translate import _
 
 sys.path.append("/usr/share/rhn/")
@@ -71,18 +70,12 @@ class RegisterKsCli(rhncli.RhnCli):
             default=False, help=_("Do not start rhnsd after completion")),
         self.optparser.add_option("--force", action="store_true", default=False,
             help=_("Register the system even if it is already registered")),
-        self.optparser.add_option("--emergency-updates", action="store_true", default=False,
-            help=_("Check RHN repo for emergency updates")),
 
     def main(self):
         if self.options.serverUrl:
             rhnreg.cfg.set("serverURL", self.options.serverUrl)
         if self.options.sslCACert:
             rhnreg.cfg.set("sslCACert", self.options.sslCACert)
-
-        if self.options.emergency_updates:
-            if rhnreg.checkEmergencyUpdates():
-                RegisterKsCli.__restartRhnReg()    
 
         if not (self.options.activationkey or 
                 (self.options.username and self.options.password)):
@@ -116,13 +109,6 @@ class RegisterKsCli(rhncli.RhnCli):
         
         if self.options.profilename:
             profilename = self.options.profilename
-            re_profile = re.compile(
-                "[^ A-Za-z0-9@#%&*-_+{\}\\|;:,<.>/?~]")
-            m = re_profile.search(profilename)
-            if m:
-                pos = tmp.regs[0]
-                print _("Invalid character in profilename %s at index %d") % (profilename, pos[0])
-                sys.exit(-1)
         else:
             profilename = RegisterKsCli.__generateProfileName(hardwareList)
 
@@ -187,7 +173,10 @@ class RegisterKsCli(rhncli.RhnCli):
                 rhnreg.registerProduct(systemId, contactinfo, oemInfo)
 
         # write out the new id
-        rhnreg.writeSystemId(systemId)
+        if isinstance(systemId, unicode):
+            rhnreg.writeSystemId(unicode.encode(systemId, 'utf-8'))
+        else:
+            rhnreg.writeSystemId(systemId)
 
         # assume successful communication with server
         # remember to save the config options
@@ -271,12 +260,6 @@ class RegisterKsCli(rhncli.RhnCli):
     @staticmethod
     def __runRhnCheck():
         os.system("/usr/sbin/rhn_check")
-
-    @staticmethod
-    def __restartRhnReg():
-        args = sys.argv[:]
-        return_code = os.spawnvp(os.P_WAIT, sys.argv[0], args)
-        sys.exit(return_code)
 
 if __name__ == "__main__":
     cli = RegisterKsCli()

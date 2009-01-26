@@ -77,11 +77,11 @@ sub OraHome
 sub Disconnect {
 	my ($class) = @_;
         $class = ref($class) || $class;
-	#DAP - this may (or may not) be causing problems in our DBI
-	# modules. Note the code in DatabaseConnection and the
-	# disconnect between use of class vars vers. class instance vars.
-	#$class->DatabaseConnection->disconnect;
-	NOCpulse::DBRecord->setClassVar('DatabaseConnection', undef);
+	my $dbh = NOCpulse::DBRecord->getClassInstVar('DatabaseConnection');
+	if ($dbh) {
+		$dbh->disconnect;
+		NOCpulse::DBRecord->setClassVar('DatabaseConnection', undef);
+	}
 }
 
 sub DatabaseConnection

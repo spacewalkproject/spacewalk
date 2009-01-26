@@ -34,6 +34,8 @@ insert into rhnKickstartVirtualizationType (id, name, label)
 insert into rhnKickstartVirtualizationType (id, name, label)
     values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv');
 
+commit;
+
 show errors
 
 -- $Log$

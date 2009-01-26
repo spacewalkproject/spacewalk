@@ -28,7 +28,7 @@ rhnPackageCapability
 			constraint rhn_pkg_capability_id_nn not null
 			constraint rhn_pkg_capability_id_pk primary key
 				using index tablespace [[4m_tbs]],
-	name		varchar2(256)
+	name		varchar2(4000)
                         constraint rhn_pkg_capability_name_nn not null,
 	version		varchar2(64), -- I really hate this.
 	created		date default (sysdate)

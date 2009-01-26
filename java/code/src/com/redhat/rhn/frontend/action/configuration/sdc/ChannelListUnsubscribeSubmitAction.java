@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.sdc;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
@@ -23,6 +24,7 @@ import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -119,6 +121,11 @@ public class ChannelListUnsubscribeSubmitAction extends
 
         int numOfChannels = server.getConfigChannels().size();
         server.unsubscribe(cc);
+
+        // bz 444517 - Create a snapshot to capture this change
+        String message = 
+            LocalizationService.getInstance().getMessage("snapshots.configchannel");
+        SystemManager.snapshotServer(server, message);
         
         return Boolean.valueOf(numOfChannels > server.getConfigChannels().size());
     }

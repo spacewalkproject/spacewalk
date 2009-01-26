@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.rhnpackage.profile;
 
+import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 
@@ -37,11 +38,9 @@ public class ProfileEntry implements Serializable {
 
     private PackageEvr evr;
     private PackageName name;
+    private PackageArch arch;
     private Profile profile;
     
-    
-    
-
     /**
      * @return Returns the evr.
      */
@@ -71,18 +70,35 @@ public class ProfileEntry implements Serializable {
     }
     
     /**
+     * @return Returns the arch.
+     */
+    public PackageArch getArch() {
+        return arch;
+    }
+    
+    /**
+     * @param archIn The arch to set.
+     */
+    public void setArch(PackageArch archIn) {
+        this.arch = archIn;
+    }
+    
+    /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
-        HashCodeBuilder builder =  new HashCodeBuilder().append(name.getName())
-                                    .append(evr.getEpoch())
-                                    .append(evr.getRelease())
-                                    .append(evr.getVersion());
-                                    
+        HashCodeBuilder builder =  new HashCodeBuilder();
+        builder.append(name.getName())
+               .append(evr.getEpoch())
+               .append(evr.getRelease())
+               .append(evr.getVersion());
+        
+        if (arch != null) {
+            builder.append(arch.getName());
+        }
 
         return builder.toHashCode();
-                                  
     }
 
     /** 
@@ -92,16 +108,20 @@ public class ProfileEntry implements Serializable {
         
         if (other instanceof ProfileEntry) {
             ProfileEntry otherPack = (ProfileEntry) other;
-            return new EqualsBuilder().append(this.name, otherPack.getName())
-                .append(this.evr, otherPack.getEvr()).isEquals();
+
+            EqualsBuilder builder = new EqualsBuilder();
+            builder.append(this.name, otherPack.getName())
+                   .append(this.evr, otherPack.getEvr());
             
-         
+            if (arch != null) {
+                builder.append(this.arch, otherPack.getArch());
+            }
+            return builder.isEquals();
         }
         else {
             return false;
         }
     }
-
     
     /**
      * @return Returns the profile.
@@ -109,7 +129,6 @@ public class ProfileEntry implements Serializable {
     public Profile getProfile() {
         return profile;
     }
-
     
     /**
      * @param profileIn The profile to set.
@@ -117,7 +136,4 @@ public class ProfileEntry implements Serializable {
     public void setProfile(Profile profileIn) {
         this.profile = profileIn;
     }
-
-    
-    
 }

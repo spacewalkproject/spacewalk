@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.system;
 
 import java.sql.Types;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,36 +25,45 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
+
 import com.redhat.rhn.common.conf.Config;
+
 import com.redhat.rhn.common.db.datasource.CachedStatement;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
+
 import com.redhat.rhn.common.localization.LocalizationService;
+
 import com.redhat.rhn.common.security.PermissionException;
+
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorWarning;
+
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
+
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
+
 import com.redhat.rhn.domain.errata.Errata;
+
 import com.redhat.rhn.domain.org.Org;
+
 import com.redhat.rhn.domain.role.RoleFactory;
+
 import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.ProxyInfo;
 import com.redhat.rhn.domain.server.Server;
@@ -63,25 +73,41 @@ import com.redhat.rhn.domain.server.ServerLock;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceState;
+
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
+
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
+
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NotActivatedSatelliteException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
+
 import com.redhat.rhn.manager.BaseManager;
+
 import com.redhat.rhn.manager.action.ActionManager;
+
 import com.redhat.rhn.manager.channel.ChannelManager;
+
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+
+import org.apache.log4j.Logger;
 
 /**
  * SystemManager
@@ -1380,9 +1406,9 @@ public class SystemManager extends BaseManager {
      * Entitles the given server to the given Entitlement.
      * @param server Server to be entitled.
      * @param ent Level of Entitlement.
-     * @return ValidatorError if we couldn't entitle
+     * @return ValidatorResult of errors and warnings.
      */
-    public static ValidatorError entitleServer(Server server, Entitlement ent) {
+    public static ValidatorResult entitleServer(Server server, Entitlement ent) {
         log.debug("Entitling: " + ent.getLabel());
         
         return entitleServer(server.getOrg(), server.getId(), ent);
@@ -1393,20 +1419,23 @@ public class SystemManager extends BaseManager {
      * @param orgIn Org who wants to entitle the server. 
      * @param sid server id to be entitled.
      * @param ent Level of Entitlement.
-     * @return ValidatorError if we couldn't entitle
+     * @return ValidatorResult of errors and warnings.
      */
-    public static ValidatorError entitleServer(Org orgIn, Long sid, 
+    public static ValidatorResult entitleServer(Org orgIn, Long sid,
                                                 Entitlement ent) {
         Server server = ServerFactory.lookupByIdAndOrg(sid, orgIn);
+        ValidatorResult result = new ValidatorResult();
         
         if (hasEntitlement(sid, ent)) {
             log.debug("server already entitled.");
-            return new ValidatorError("system.entitle.alreadyentitled", 
-                    ent.getHumanReadableLabel());
+            result.addError(new ValidatorError("system.entitle.alreadyentitled",
+                    ent.getHumanReadableLabel()));
+            return result;
         }
         if (ent instanceof VirtualizationEntitlement) {
             if (server.isVirtualGuest()) {
-                return new ValidatorError("system.entitle.guestcantvirt");
+                result.addError(new ValidatorError("system.entitle.guestcantvirt"));
+                return result;
             }
             //we now check if we need to swap the server's entitlement 
             // with the entitlement you are passing in.
@@ -1428,13 +1457,16 @@ public class SystemManager extends BaseManager {
             }
             else {
                 log.debug("setting up system for virt.");
-                ValidatorError error = setupSystemForVirtualization(orgIn, sid);
-                if (error != null) {
-                    log.debug("error trying to setup virt ent: " + error.getKey());
-                    return error;
+                ValidatorResult virtSetupResults = setupSystemForVirtualization(orgIn, sid);
+                result.append(virtSetupResults);
+                if (virtSetupResults.getErrors().size() > 0) {
+                    log.debug("error trying to setup virt ent: " +
+                            virtSetupResults.getMessage());
+                    return result;
                 }
             }
         }
+
         boolean checkCounts = true;
         if (server.isVirtualGuest()) {
             Server host = server.getVirtualInstance().getHostSystem(); 
@@ -1460,8 +1492,9 @@ public class SystemManager extends BaseManager {
             if (availableEntitlements != null && 
                     availableEntitlements.longValue() < 1) {
                 log.debug("Not enough slots.  returning error");
-                return new ValidatorError(NO_SLOT_KEY, 
-                        ent.getHumanReadableLabel());
+                result.addError(new ValidatorError(NO_SLOT_KEY,
+                            ent.getHumanReadableLabel()));
+                return result;
             }        
         }
         
@@ -1474,7 +1507,7 @@ public class SystemManager extends BaseManager {
 
         m.execute(in, new HashMap());
         log.debug("done.  returning null");
-        return null;
+        return result;
     }
     
     
@@ -1483,49 +1516,71 @@ public class SystemManager extends BaseManager {
     // 1) Subscribe system to rhel-i386-server-vt-5 channel
     // 2) Subscribe system to rhn-tools-rhel-i386-server-5
     // 3) Schedule package install of rhn-virtualization-host
-    private static ValidatorError setupSystemForVirtualization(Org orgIn, Long sid) {
+    // Return a map with errors and warnings:
+    //      warnings -> list of ValidationWarnings
+    //      errors -> list of ValidationErrors (usually just one but a list just in case)
+    private static ValidatorResult setupSystemForVirtualization(Org orgIn, Long sid) {
+
         Server server = ServerFactory.lookupById(sid);
         User user = UserFactory.findRandomOrgAdmin(orgIn);
         Channel toolsChannel = ChannelManager.subscribeToChildChannelWithPackageName(
                 user, server, ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME);
+
+        ValidatorResult result = new ValidatorResult();
+        
+        // Check for RHN Tools and VT Channels in Satellite, error out if not found:
+        // Skip these checks in Spacewalk, there are no tools and virt channels here.
+        if (!Config.get().isSpacewalk()) {
+            if (toolsChannel == null) {
+                log.debug("no tools channel found");
+                result.addError(new ValidatorError("system.entitle.notoolschannel"));
+                return result;
+            }
+
+            Channel virtChannel = ChannelManager.subscribeToChildChannelByOSProduct(
+                    user, server, ChannelManager.VT_OS_PRODUCT);
+            log.debug("did we get back a virt channel: " + virtChannel);
+            // Try by package name
+            if (virtChannel == null) {
+                log.debug("Couldnt find a virt channel by OS/Product mappings, " +
+                        "trying package");
+                virtChannel = ChannelManager.subscribeToChildChannelWithPackageName(
+                        user, server, ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
+            }
+
+            // If we couldn't find a virt channel, error out. This must only be done for
+            // RHEL systems.
+            if (virtChannel == null) {
+                log.debug("no virt channel");
+                result.addError(new ValidatorError("system.entitle.novirtchannel"));
+                return result;
+            }
+        }
+        
+        // Look for the rhn-virtualization-host package and display a warning if it
+        // couldn't be found.
         if (toolsChannel == null) {
-            log.debug("no tools channel found");
-            return new ValidatorError("system.entitle.notoolschannel");
+            result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
+                                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
         }
-
-        Channel virtChannel = ChannelManager.subscribeToChildChannelByOSProduct(
-                user, server, ChannelManager.VT_OS_PRODUCT);
-        
-        log.debug("did we get back a virt channel: " + virtChannel);
-
-        // Try by package name
-        if (virtChannel == null) {
-            log.debug("Couldnt find a virt channel by OS/Product mappings, trying package");
-            virtChannel = ChannelManager.subscribeToChildChannelWithPackageName(
-                    user, server, ChannelManager.VIRT_CHANNEL_PACKAGE_NAME);
-        }
-        if (virtChannel == null) {
-            log.debug("no virt channel");
-            return new ValidatorError("system.entitle.novirtchannel");
-        }
-        
-        List result = ChannelManager.listLatestPackagesEqual(toolsChannel.getId(), 
-                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
-        if (result.size() > 0) {
-            Map row = (Map) result.get(0);
-            Long nameId = (Long) row.get("name_id"); 
-            Long evrId = (Long) row.get("evr_id");
-            Long archId = (Long) row.get("package_arch_id");
-            ActionManager.schedulePackageInstall(
-                    user, server, nameId, evrId, archId);
-        } 
         else {
-            return new ValidatorError("system.entitle.novirtpackage", 
-                                ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME, 
-                                toolsChannel.getName());
+            List packageResults = ChannelManager.listLatestPackagesEqual(
+                    toolsChannel.getId(), ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME);
+            if (packageResults.size() > 0) {
+                Map row = (Map) packageResults.get(0);
+                Long nameId = (Long) row.get("name_id");
+                Long evrId = (Long) row.get("evr_id");
+                Long archId = (Long) row.get("package_arch_id");
+                ActionManager.schedulePackageInstall(
+                        user, server, nameId, evrId, archId);
+            }
+            else {
+                result.addWarning(new ValidatorWarning("system.entitle.novirtpackage",
+                                    ChannelManager.RHN_VIRT_HOST_PACKAGE_NAME));
+            }
         }
        
-        return null;
+        return result;
     }
     
     /**

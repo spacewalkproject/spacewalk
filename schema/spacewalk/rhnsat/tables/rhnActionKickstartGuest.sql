@@ -34,7 +34,7 @@ rhnActionKickstartGuest
 	mem_kb			number, 
 	vcpus			number,
 	disk_gb			number,
-        cobbler_profile		varchar2(256),
+        cobbler_system_name		varchar2(256),
         disk_path		varchar2(256),
         virt_bridge		varchar2(256),
         kickstart_host          varchar2(256),

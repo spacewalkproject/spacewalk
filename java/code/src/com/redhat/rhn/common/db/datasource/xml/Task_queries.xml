@@ -301,24 +301,6 @@ select distinct sg.org_id as id
    </query>
 </mode>
 
-<!-- timings: webdev: 19s (2), webqa: 13s (3), prod: 4m 53s (697) -->
-<mode name="summarypop_awol_server_in_orgs3"
-      class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
-   <query params="checkin_threshold">
-select distinct s.org_id as id
-  from rhnServer s, rhnServerInfo si
- where s.id = si.SERVER_ID
-   and  (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
-   and s.org_id in (
-       select sg.org_id
-         from rhnServerGroup sg, rhnServerGroupType sgt
-        where sg.group_type = sgt.id
-          and sg.max_members > 0
-          and sgt.label in ('enterprise_entitled', 'provisioning_entitled')
-       )
-   </query>
-</mode>
-
 <!-- timings: webdev: , webqa: , prod:  -->
 <mode name="summarypop_orgs_recent_actions"
 	class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
@@ -502,15 +484,6 @@ ORDER BY next_action DESC
       WHERE LABEL = :display_name
   </query>
 </write-mode>
-
-<mode name="find_channel_in_task_queue">
-	<query params="cid">
-		SELECT task_data
-  		FROM rhnTaskQueue
- 		WHERE task_data = :cid
- 		AND task_name = 'update_errata_cache_by_channel'
- 	</query>
-</mode>
 
 <write-mode name="update_task_queue">
 	<query params="earliest, cid">

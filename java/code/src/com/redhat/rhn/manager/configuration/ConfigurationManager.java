@@ -569,8 +569,8 @@ public class ConfigurationManager extends BaseManager {
      *          like (configfiles.deploy/configfiles.diff) 
      * @return A list of systems in DTO format.
      */
-    public DataResult listSystemsForConfigAction(User user, PageControl pc,
-                                                        String feature) {
+    public DataResult<ConfigSystemDto> listSystemsForConfigAction(User user,
+            PageControl pc, String feature) {
         SelectMode m = ModeFactory.getMode("config_queries", "config_systems_for_ssm");
         Map params = new HashMap();
         params.put("user_id", user.getId());

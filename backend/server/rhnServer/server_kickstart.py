@@ -643,7 +643,7 @@ def terminate_kickstart_sessions(server_id):
         history.append(("Kickstart session canceled", 
             "A kickstart session for this system was canceled because "
             "the system was re-registered with token <strong>%s</strong>" %
-            tokens_obj.get_name()))
+            tokens_obj.get_names()))
 
     h = rhnSQL.prepare(_query_terminate_pending_kickstart_sessions)
 

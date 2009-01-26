@@ -19,6 +19,7 @@ import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
 import com.redhat.satellite.search.index.ngram.NGramQueryParser;
+import com.redhat.satellite.search.rpc.handlers.IndexHandler;
 
 import org.apache.hadoop.fs.FileSystem;
 
@@ -55,6 +56,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -72,13 +75,12 @@ public class IndexManager {
     private double system_score_threshold;
     private int min_ngram;
     private int max_ngram;
-    private boolean canLookupDocSummary = false;
     private boolean filterDocResults = false;
-    private FetchedSegments docSegments;
     private AnalyzerFactory nutchAnalyzerFactory;
     // Name conflict with our Configuration class and Hadoop's
     private org.apache.hadoop.conf.Configuration nutchConf;
-    
+    private Map<String, String> docLocaleLookUp = new HashMap<String, String>();
+    private Map<String, FetchedSegments> docSegments;
     /**
      * Constructor
      * 
@@ -98,19 +100,11 @@ public class IndexManager {
         system_score_threshold = config.getDouble("search.system_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
+        initDocLocaleLookup();
         filterDocResults = config.getBoolean("search.doc.limit_results");
-        String docSegmentsDir = config.getString("search.doc_segments_dir", null);
-        try {
-            canLookupDocSummary = initDocSummary(docSegmentsDir);
-            log.info("canLookupDocSummary = " + canLookupDocSummary);
-        }
-        catch (Exception e) {
-            log.info("Caught exception: " + e);
-            e.printStackTrace();
-            log.info("Lookup for Documentation search summaries will be disabled");
-            canLookupDocSummary = false;
-        }
+        initDocSummary();
     }
+
 
     /**
      * @return String of the index working directory
@@ -135,8 +129,8 @@ public class IndexManager {
         IndexReader reader = null;
         List<Result> retval = null;
         try {
-            reader = getIndexReader(indexName);
-            searcher = getIndexSearcher(indexName);
+            reader = getIndexReader(indexName, lang);
+            searcher = getIndexSearcher(indexName, lang);
             QueryParser qp = getQueryParser(indexName, lang);
             Query q = qp.parse(query);
             if (log.isDebugEnabled()) {
@@ -158,7 +152,7 @@ public class IndexManager {
                 e.printStackTrace();
                 throw new QueryParseException(e);
             }
-            retval = processHits(indexName, hits, queryTerms, query);
+            retval = processHits(indexName, hits, queryTerms, query, lang);
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -232,7 +226,7 @@ public class IndexManager {
         IndexReader reader = null;
         int numFound = 0;
         try {
-            reader = getIndexReader(indexName);
+            reader = getIndexReader(indexName, lang);
             Term term = new Term(uniqueField, doc.get(uniqueField));
             numFound = reader.docFreq(term);
         }
@@ -277,7 +271,7 @@ public class IndexManager {
         Term t = new Term(uniqueField, objectId);
         IndexReader reader;
         try {
-            reader = getIndexReader(indexName);
+            reader = getIndexReader(indexName, IndexHandler.DEFAULT_LANG);
             try {
                 reader.deleteDocuments(t);
                 reader.flush();
@@ -323,17 +317,31 @@ public class IndexManager {
         return writer;
     }
     
-    private IndexReader getIndexReader(String indexName)
+    private IndexReader getIndexReader(String indexName, String locale)
             throws CorruptIndexException, IOException {
-        String path = indexWorkDir + indexName;
+        String path = "";
+        if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
+            path = indexWorkDir + File.separator +
+                getDocIndexPath(locale);
+        }
+        else {
+            path = indexWorkDir + indexName;
+        }
         File f = new File(path);
         IndexReader retval = IndexReader.open(FSDirectory.getDirectory(f));
         return retval;
     }
 
-    private IndexSearcher getIndexSearcher(String indexName)
+    private IndexSearcher getIndexSearcher(String indexName, String locale)
             throws CorruptIndexException, IOException {
-        String path = indexWorkDir + indexName;
+        String path = "";
+        if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
+            path = indexWorkDir + File.separator +
+                getDocIndexPath(locale);
+        }
+        else {
+            path = indexWorkDir + indexName;
+        }
         IndexSearcher retval = new IndexSearcher(path);
         return retval;
     }
@@ -375,7 +383,7 @@ public class IndexManager {
     }
     
     private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms, 
-            String query)
+            String query, String lang)
         throws IOException {
         List<Result> retval = new ArrayList<Result>();
         for (int x = 0; x < hits.length(); x++) {
@@ -386,7 +394,7 @@ public class IndexManager {
             }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
                 pr = new DocResult(x, hits.score(x), doc);
-                String summary = lookupDocSummary(doc, query);
+                String summary = lookupDocSummary(doc, query, lang);
                 if (summary != null) {
                     ((DocResult)pr).setSummary(summary);
                 }
@@ -510,7 +518,7 @@ public class IndexManager {
         int count = 0;
         IndexReader reader = null;
         try {
-            reader = getIndexReader(indexName);
+            reader = getIndexReader(indexName, IndexHandler.DEFAULT_LANG);
             int numDocs = reader.numDocs();
             for (int i = 0; i < numDocs; i++) {
                 if (!reader.isDeleted(i)) {
@@ -575,8 +583,6 @@ public class IndexManager {
                 log.debug("Explanation.getDescription() = " + ex.getDescription());
                 log.debug("Explanation.getValue() = " + ex.getValue());
                 printExplanationDetails(ex);
-
-
                 String data = ex.toString();
                 String matcher = "(field=";
                 int startLoc = data.indexOf(matcher);
@@ -591,6 +597,15 @@ public class IndexManager {
                 log.debug("Guessing that matched fieldName is " + fieldName);
             }
         }
+    }
+
+    private String getDocIndexPath(String lang) throws IOException {
+        if (docLocaleLookUp.containsKey(lang)) {
+            return BuilderFactory.DOCS_TYPE + File.separator +
+                docLocaleLookUp.get(lang);
+        }
+        log.error("Unable to find docs index dir for language " + lang);
+        throw new IOException("Unable to find docs index dir for language: " + lang);
     }
 
 
@@ -664,53 +679,96 @@ public class IndexManager {
         return analyzer;
     }
 
-    private boolean initDocSummary(String segmentsDir) throws IOException {
+    private boolean initDocSummary() {
         /**
          * NOTE:  NutchConfiguration is expecting "nutch-default.xml" and "nutch-site.xml"
          * to be available in the CLASSPATH
          */
-        nutchConf = NutchConfiguration.create();
-        nutchAnalyzerFactory = new AnalyzerFactory(nutchConf);
-        FileSystem fs = FileSystem.get(nutchConf);
-        docSegments = new FetchedSegments(fs, segmentsDir, nutchConf);
-        if (docSegments == null) {
-            log.info("Unable to create docSegments.");
-            return false;
+        try {
+            nutchConf = NutchConfiguration.create();
+            nutchAnalyzerFactory = new AnalyzerFactory(nutchConf);
+            FileSystem fs = FileSystem.get(nutchConf);
+            docSegments = new HashMap<String, FetchedSegments>();
+            for (String key : docLocaleLookUp.keySet()) {
+                String lang = docLocaleLookUp.get(key);
+                String segmentsDir = indexWorkDir + File.separator +
+                    getDocIndexPath(key) + File.separator + "segments";
+                FetchedSegments segments = new FetchedSegments(fs, segmentsDir, nutchConf);
+                if (segments == null) {
+                    log.info("Unable to create docSegments for language: " + key);
+                    docSegments.put(key, null);
+                }
+                String[] segNames = segments.getSegmentNames();
+                if (segNames == null || segNames.length == 0) {
+                    log.info("Unable to find any segments for language: " + key);
+                    docSegments.put(key, null);
+                }
+                log.info("Adding Documentation segments for language: " + key);
+                docSegments.put(key, segments);
+            }
         }
-        log.info("Looking at: " + segmentsDir);
-        String[] segNames = docSegments.getSegmentNames();
-        if (segNames == null || segNames.length == 0) {
-            log.info("Unable to find any segments");
-            return false;
-        }
-        log.info("These are the segment names available: ");
-        for (String s : docSegments.getSegmentNames()) {
-            log.info("\t" + s);
+        catch (IOException e) {
+            log.info("ignoring exception");
+            e.printStackTrace();
         }
         return true;
     }
 
-    private String lookupDocSummary(Document doc, String queryString) {
-        if (!canLookupDocSummary || (docSegments == null)) {
-            log.info("Skipping lookup of doc summary");
+    private String lookupDocSummary(Document doc, String queryString, String lang) {
+        if (!docSegments.containsKey(lang)) {
+            log.info("Couldn't find segments info for " + lang);
+            return null;
+        }
+        FetchedSegments segments = docSegments.get(lang);
+        if (segments == null) {
+            log.info("Segments info for " + lang + " is null");
             return null;
         }
         try {
-            log.info("Attempting lookupDocSummary for " + doc);
+            log.info("Attempting lookupDocSummary<" + lang + "> for " + doc);
             HitDetails hd = new HitDetails(doc.getField("segment").stringValue(),
                 doc.getField("url").stringValue());
             // NOTE: Name conflict with Nutch's Query versus Lucene Query
             org.apache.nutch.searcher.Query query =
                 org.apache.nutch.searcher.Query.parse(queryString, nutchConf);
-            Summary sum = docSegments.getSummary(hd, query);
-            log.info("Will return summary = " + sum.toString());
+            Summary sum = segments.getSummary(hd, query);
+            log.info("Will return summary<" + lang + "> = " + sum.toString());
             return sum.toString();
         }
         catch (Exception e) {
-            log.info("Failed to lookupDocSummary, caught Exception: " + e);
+            log.info("Failed to lookupDocSummary<" + lang + ">, caught Exception: " + e);
             e.printStackTrace();
         }
         return null;
+    }
+
+    private void initDocLocaleLookup() {
+        docLocaleLookUp.put("bn_IN", "bn");
+        docLocaleLookUp.put("de", "de");
+        docLocaleLookUp.put("en_US", "en");
+        docLocaleLookUp.put("es", "es");
+        docLocaleLookUp.put("fr", "fr");
+        docLocaleLookUp.put("gu", "gu");
+        docLocaleLookUp.put("hi", "hi");
+        docLocaleLookUp.put("it", "it");
+        docLocaleLookUp.put("ja", "ja");
+        docLocaleLookUp.put("ko", "ko");
+        docLocaleLookUp.put("pa", "pa");
+        docLocaleLookUp.put("pt_BR", "pt_br");
+        docLocaleLookUp.put("ru", "ru");
+        docLocaleLookUp.put("ta", "ta");
+        docLocaleLookUp.put("zh_CN", "zh_cn");
+        docLocaleLookUp.put("zh_TW", "zh_tw");
+        // Below exist in docs, but weren't available as a doc option from
+        // satellite webui and they weren't available Locales on my machine
+        // guessing at what they will look at.
+        docLocaleLookUp.put("as", "as");
+        docLocaleLookUp.put("ml", "ml");
+        docLocaleLookUp.put("mr", "mr");
+        docLocaleLookUp.put("or", "or");
+        docLocaleLookUp.put("kn", "kn");
+        docLocaleLookUp.put("si_lk", "si_lk");
+        docLocaleLookUp.put("te", "te");
     }
 
 }

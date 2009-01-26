@@ -17,7 +17,6 @@ package com.redhat.rhn.manager.kickstart.test;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.servlets.RhnHttpServletRequest;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -30,7 +29,6 @@ import com.redhat.rhn.testing.UserTestUtils;
  */
 public class KickstartOptionsCommandTest extends BaseTestCaseWithUser {
 
-    private KickstartHelper helper;
     private RhnHttpServletRequest request;
     private RhnMockHttpServletRequest mockRequest;
     
@@ -42,10 +40,8 @@ public class KickstartOptionsCommandTest extends BaseTestCaseWithUser {
         mockRequest = new RhnMockHttpServletRequest();
         mockRequest.setupGetRemoteAddr("127.0.0.1");
         request = new RhnHttpServletRequest(mockRequest);
-        helper = new KickstartHelper(request);
         
-        KickstartOptionsCommand command = new KickstartOptionsCommand(k.getId(), ksUser, 
-                helper);
+        KickstartOptionsCommand command = new KickstartOptionsCommand(k.getId(), ksUser);
         
         assertNotNull(command);
         assertTrue(command.getDisplayOptions().size() > 0);

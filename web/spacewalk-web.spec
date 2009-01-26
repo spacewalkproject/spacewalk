@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.14
+Version: 0.5.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -226,6 +226,30 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
+- 468180 - warn that after proxy deactivation user should run rhn_check
+
+* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
+- 480894 - add to Channel.pm 5.3 channels
+
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
+- add proxy 5.3 webui installer
+- 480328 - rhn-proxy is not service any more
+
+* Thu Jan 15 2009 Jan Pazdziora 0.4.18-1
+- 479948 - add missing use RHN::Mail
+
+* Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.4.17-1
+- adding editarea as reqquired by Colin.Coe@woodside.com.au's patches coming up.
+- 479738 - update Help to point to the help page
+- 479600 - fixed typo
+
+* Mon Jan 12 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.16-1
+- resolved #479600
+
+* Thu Jan 08 2009 Mike McCune <mmccune@gmail.com> 0.4.15-1
+- spacewalk-httpd removal and latest changes
+
 * Wed Jan  7 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.14-1
 - fixed db-control shrink-segments
 

@@ -18,7 +18,7 @@ prog="rhnmd"
 SU="runuser -s /bin/bash - nocpulse -c"
 KEYGEN="/usr/bin/ssh-keygen"
 SSHD="/usr/sbin/rhnmd-wrap"
-DSA_KEY=/opt/nocpulse/etc/ssh_host_dsa_key
+DSA_KEY=/etc/nocpulse/ssh_host_dsa_key
 PID_FILE=/var/run/rhnmd.pid
 
 do_dsa_keygen() {
@@ -53,7 +53,7 @@ start()
 	do_dsa_keygen
 
 	echo -n $"Starting $prog:"
-	daemon --user nocpulse $SSHD -f /opt/nocpulse/etc/rhnmd_config && success || failure
+	daemon --user nocpulse $SSHD -f /etc/nocpulse/rhnmd_config && success || failure
 	RETVAL=$?
 	[ "$RETVAL" = 0 ] && touch /var/lock/subsys/rhnmd
 	echo

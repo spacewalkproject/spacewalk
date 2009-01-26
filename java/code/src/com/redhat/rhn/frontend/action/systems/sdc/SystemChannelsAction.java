@@ -32,6 +32,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.common.util.DynamicComparator;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
@@ -270,7 +271,11 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         }
         else {
             getStrutsDelegate().saveMessage("sdc.channels.edit.base_channel_updated", 
-                    request); 
+                    request);
+
+            String message = 
+                LocalizationService.getInstance().getMessage("snapshots.basechannel");
+            SystemManager.snapshotServer(s, message);
         }
         SdcHelper.ssmCheck(request, s.getId(), user);
         return getStrutsDelegate().forwardParam(mapping.findForward("update"), 
@@ -311,9 +316,14 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
             getStrutsDelegate().saveMessages(request, 
                     RhnValidationHelper.validatorErrorToActionErrors(error));
         }
-        
-        getStrutsDelegate().saveMessage("sdc.channels.edit.child_channels_updated", 
-                request);
+        else {
+            getStrutsDelegate().saveMessage("sdc.channels.edit.child_channels_updated", 
+                    request);
+
+            String message = 
+                LocalizationService.getInstance().getMessage("snapshots.childchannel");
+            SystemManager.snapshotServer(s, message);
+        }
         
         return getStrutsDelegate().forwardParam(mapping.findForward("update"), 
                 RequestContext.SID, s.getId().toString());

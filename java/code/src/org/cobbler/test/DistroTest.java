@@ -18,6 +18,8 @@ package org.cobbler.test;
 import org.cobbler.Distro;
 import org.cobbler.CobblerConnection;
 
+import java.util.HashMap;
+
 import junit.framework.TestCase;
 
 
@@ -42,7 +44,7 @@ public class DistroTest extends TestCase {
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/vmlinuz";
         String initrd = 
             "/var/satellite/rhn/kickstart/ks-rhel-i386-as-4-u2//images/pxeboot/initrd.img";
-        Distro newDistro = Distro.create(client, name, kernel, initrd);
+        Distro newDistro = Distro.create(client, name, kernel, initrd, new HashMap());
         assertEquals(name, newDistro.getName());
         assertEquals(kernel, newDistro.getKernel());
         assertEquals(initrd, newDistro.getInitrd());

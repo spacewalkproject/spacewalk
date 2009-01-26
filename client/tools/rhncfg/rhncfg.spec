@@ -7,7 +7,7 @@ Summary: Red Hat Network Configuration Client Libraries
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.4.1
+Version: 5.9.1
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -102,6 +102,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 22 2009 Michael Mraka <michael.mraka@redhat.com> 5.9.1-1
+- resolved #428721 - bumped version
+
+* Thu Jan 15 2009 Pradeep Kilambi <pkilambi@redhat.com> - 0.4.2-1
+- BZ#476562 Extended list(elist) option for rhncfg
+
 * Thu Oct 16 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.1-1
 - BZ#428721 - fixes filemode and ownership
 

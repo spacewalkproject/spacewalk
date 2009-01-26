@@ -18,7 +18,6 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 
 import org.apache.log4j.Logger;
@@ -40,35 +39,18 @@ public class KickstartOptionsCommand  extends BaseKickstartCommand {
     
     private List<KickstartCommandName> availableOptions;           
     private List requiredOptions;
-    private KickstartHelper helper;
     
     /**
      * 
      * @param ksid Kickstart Id 
      * @param userIn Logged in User
-     * @param helperIn Kickstart helper.
-     * 
-     * @deprecated the KickstartHelper is not used, use 
-     * {@link #KickstartOptionsCommand(Long, com.redhat.rhn.domain.user.User)} instead
      */
-    public KickstartOptionsCommand(Long ksid, User userIn, KickstartHelper helperIn) {
+    public KickstartOptionsCommand(Long ksid, User userIn) {
         super(ksid, userIn);
         this.availableOptions = KickstartFactory.lookupKickstartCommandNames(this.ksdata);
         this.requiredOptions = KickstartFactory.lookupKickstartRequiredOptions();       
-        this.helper = helperIn;
     }
 
-    /**
-     * Creates a new <code>KickstartOptionsCommand</code>. During this call, the options
-     * will be loaded. 
-     * 
-     * @param ksid   identifies the kickstart profile
-     * @param userIn the user making the call
-     */
-    public KickstartOptionsCommand(Long ksid, User userIn) {
-        this(ksid, userIn, null);
-    }
-    
     /**
      * 
      * @return List of advanced command options

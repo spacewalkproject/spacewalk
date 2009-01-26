@@ -8,7 +8,7 @@
 %define oracle_base /opt/oracle
 
 %define selinux_variants mls strict targeted 
-%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
+%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define modulename oracle
 %define moduletype apps
 %define default_oracle_base /opt/oracle

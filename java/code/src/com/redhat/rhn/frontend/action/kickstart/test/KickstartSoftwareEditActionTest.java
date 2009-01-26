@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.frontend.action.kickstart.KickstartSoftwareEditAction;
+import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -63,6 +64,10 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
     }
     
     public void testSubmitExecute() throws Exception {
+        KickstartWizardHelper wcmd = new KickstartWizardHelper(user);
+        wcmd.createCommand("url", 
+                "--url /rhn/kickstart/ks-f9-x86_64", ksdata);
+
         addRequestParameter(KickstartSoftwareEditAction.SUBMITTED, 
                 Boolean.TRUE.toString());
         addRequestParameter(KickstartSoftwareEditAction.URL, 
@@ -70,6 +75,8 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
         String cid = ksdata.getTree().getChannel().getId().toString();
         assertNotNull(cid);
         addRequestParameter(KickstartSoftwareEditAction.CHANNEL, cid);
+        addRequestParameter(KickstartSoftwareEditAction.TREE, 
+                ksdata.getTree().getId().toString());
 
         Channel child = ChannelTestUtils.createChildChannel(user,
                 ksdata.getTree().getChannel());
@@ -80,7 +87,7 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
         assertTrue(ksdata.getChildChannels() == null || 
                 ksdata.getChildChannels().size() == 0);
         actionPerform();
-        String[] keys = {"kickstart.software.notree"};
+        String[] keys = {"kickstart.software.success"};
         verifyActionMessages(keys);
         ksdata = (KickstartData) TestUtils.reload(ksdata);
         assertTrue(ksdata.getChildChannels().size() > 0);

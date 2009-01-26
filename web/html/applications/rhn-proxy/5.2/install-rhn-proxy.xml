@@ -781,7 +781,8 @@ rpm -q $package >/dev/null &amp;&amp; echo $package; done`
 
     <collect-data description="Proxy deactivation scheduled" no-cancel="1">
       <header>
-A deactivation for ${app.name} ${app.version} on ${system.name} has been scheduled.
+A deactivation for ${app.name} ${app.version} on ${system.name} has been scheduled. Please run
+rhn_check on the proxy server to complete this process.
       </header>
 
       <rhn-form name="Deactivation Complete" label="deactivation_complete">

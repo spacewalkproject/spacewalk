@@ -2,16 +2,17 @@ Name: rhn-custom-info
 Summary: set and list custom values for RHN-enabled machines
 Group: RHN/Client
 License: GPLv2
-Source0: %{name}-%{version}.tar.gz
-Version: 0.2.2
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz2
+Version: 0.4.3
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
+BuildRequires: python
 Requires: python
 Requires: python-optik
 Requires: rhnlib
 
-%if "%dist" == ".el5"
+%if 0%{?rhel} >= 5 || 0%{?fedora} == 1
 Requires: yum-rhn-plugin
 %else
 Requires: up2date
@@ -42,6 +43,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.4.3-1
+- BuildRequires python
+- clean up handling of requires for up2date or yum-rhn-plugin
+
+* Wed Jan 14 2009 Pradeep Kilambi <pkilambi@redhat.com> - 0.4.2-1
+Resolves - #251060
+
 * Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.2-1
 - adding dist tag
 

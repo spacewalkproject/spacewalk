@@ -19,6 +19,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
 import org.cobbler.Distro;
@@ -103,29 +104,34 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     
     
     private void createDistro(KickstartableTree tree, boolean xen) {
-            if (!xen) {
-                log.debug("tree in spacewalk but not in cobbler. " +
-                        "creating non-xenpv distro in cobbler : " + tree.getLabel());
-                
-                Distro distro = Distro.create(
-                        CobblerXMLRPCHelper.getConnection(
-                                   Config.get().getCobblerAutomatedUser()),
-                        tree.getCobblerDistroName(), tree.getKernelPath(), 
-                        tree.getInitrdPath());
-                tree.setCobblerId(distro.getUid());
-                invokeCobblerUpdate();
-            }
-            else if (tree.doesParaVirt() && xen) {
-                log.debug("tree in spacewalk but not in cobbler. " +
-                        "creating xenpv distro in cobbler : " + tree.getLabel());
-                Distro distroXen = Distro.create(
-                        CobblerXMLRPCHelper.getConnection(
-                                Config.get().getCobblerAutomatedUser()),
-                    tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
-                    tree.getInitrdXenPath()); 
-                tree.setCobblerXenId(distroXen.getUid());
-            }
-            tree.setModified(new Date());
+        Map ksmeta = new HashMap();
+        KickstartUrlHelper helper = new KickstartUrlHelper(tree);
+        ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
+                helper.getKickstartMediaPath());
+        
+        if (!xen) {
+            log.debug("tree in spacewalk but not in cobbler. " +
+                    "creating non-xenpv distro in cobbler : " + tree.getLabel());
+            
+            Distro distro = Distro.create(
+                    CobblerXMLRPCHelper.getConnection(
+                               Config.get().getCobblerAutomatedUser()),
+                    tree.getCobblerDistroName(), tree.getKernelPath(), 
+                    tree.getInitrdPath(), ksmeta);
+            tree.setCobblerId(distro.getUid());
+            invokeCobblerUpdate();
+        }
+        else if (tree.doesParaVirt() && xen) {
+            log.debug("tree in spacewalk but not in cobbler. " +
+                    "creating xenpv distro in cobbler : " + tree.getLabel());
+            Distro distroXen = Distro.create(
+                    CobblerXMLRPCHelper.getConnection(
+                            Config.get().getCobblerAutomatedUser()),
+                tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
+                tree.getInitrdXenPath(), ksmeta); 
+            tree.setCobblerXenId(distroXen.getUid());
+        }
+        tree.setModified(new Date());
     }
     
     private void syncDistroToSpacewalk(KickstartableTree tree, Distro distro) {

@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.4.4
+Version: 0.5.4
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -16,6 +16,7 @@ Requires: rhncfg
 Requires: rhncfg-management
 Requires: rhncfg-actions
 Requires: glibc-common
+Requires: chkconfig
 Requires: httpd
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
@@ -76,8 +77,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/share/rhn/installer/__init__.py*
 %{_usr}/share/rhn/installer/rhn_proxy_activate.py*
 %{_bindir}/rhn-proxy-activate
+%doc LICENSE answers.txt
 
 %changelog
+* Fri Jan 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
+- 469059 - add --non-interactive option
+- add LICENSE to %%doc
+- add example of answer file
+
+* Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
+- 469059 - add --answer-file option
+
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
+- 480328 - enable services after installation
+
+* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
+- 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
+
 * Fri Dec 19 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - add man page for configure-proxy.sh and --help option
 

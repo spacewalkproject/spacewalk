@@ -30,6 +30,8 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
+import org.cobbler.XmlRpcException;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -80,7 +82,21 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         try {
             getCobblerCommand().store();
         }
-        catch (RuntimeException e) {
+        catch (XmlRpcException xe) {
+            HibernateFactory.rollbackTransaction();
+            if (xe.getCause().getMessage().contains("kernel not found")) {
+                return new ValidatorError("kickstart.tree.invalidkernel", 
+                        this.tree.getKernelPath());
+            }
+            else if (xe.getCause().getMessage().contains("initrd not found")) {
+                return new ValidatorError("kickstart.tree.invalidinitrd", 
+                        this.tree.getInitrdPath());
+            }
+            else {
+                throw new RuntimeException(xe.getCause());    
+            }            
+        }
+        catch (Exception e) {
             HibernateFactory.rollbackTransaction();
             if (e.getMessage().contains("kernel not found")) {
                 return new ValidatorError("kickstart.tree.invalidkernel", 
@@ -90,6 +106,10 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
                 return new ValidatorError("kickstart.tree.invalidinitrd", 
                         this.tree.getInitrdPath());
             }
+            else {
+                throw new RuntimeException(e);    
+            }
+            
         }
         return null;
     }

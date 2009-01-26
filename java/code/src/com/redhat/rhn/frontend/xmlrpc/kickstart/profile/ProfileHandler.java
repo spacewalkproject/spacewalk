@@ -61,7 +61,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
@@ -458,8 +457,7 @@ public class ProfileHandler extends BaseHandler {
           }
         
         Long ksid = ksdata.getId();
-        KickstartHelper helper = new KickstartHelper(null);
-        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
+        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user);
         
         //check if all the required options are present
         List<KickstartCommandName> requiredOptions = KickstartFactory.
@@ -514,8 +512,7 @@ public class ProfileHandler extends BaseHandler {
                 customSet.add(kc);
             }                
         }
-        cmd.getKickstartData().getOptions().clear();
-        cmd.getKickstartData().getOptions().addAll(customSet);
+        cmd.getKickstartData().setOptions(customSet);
            
         return 1;        
     }
@@ -575,8 +572,7 @@ public class ProfileHandler extends BaseHandler {
                "No Kickstart Profile found with label: " + ksLabel);
        }
        Long ksid = ksdata.getId();
-       KickstartHelper helper = new KickstartHelper(null);
-       KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
+       KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user);
        SortedSet<KickstartCommand> customSet = new TreeSet<KickstartCommand>();
        if (options != null) {
            for (int i = 0; i < options.size(); i++) {
@@ -602,8 +598,7 @@ public class ProfileHandler extends BaseHandler {
                cmd.getKickstartData().setCustomOptions(customSet);
            }
            else {
-               cmd.getKickstartData().getCustomOptions().clear();
-               cmd.getKickstartData().getCustomOptions().addAll(customSet);
+               cmd.getKickstartData().setCustomOptions(customSet);
            }
            cmd.store();
        }

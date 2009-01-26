@@ -1219,6 +1219,31 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals("Package Install", ((ScheduledAction)dr.get(0)).getTypeName());
     }
 
+    public void testSchedulePackageRemove() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true, 
+                ServerConstants.getServerGroupTypeEnterpriseEntitled());
+
+        // add a package to the server
+        Package pkg = PackageManagerTest.addPackageToSystemAndChannel(
+                "test-package-name" + TestUtils.randomString(), server, 
+                ChannelFactoryTest.createTestChannel(admin));
+        server = (Server)TestUtils.reload(server);
+        
+        DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        int preScheduleSize = dr.size();
+        int prePkgsSize = server.getPackages().size();
+        
+        List packageIds = new LinkedList();
+        packageIds.add(pkg.getId().intValue());
+        
+        handler.schedulePackageRemove(adminKey, new Integer(server.getId().intValue()), 
+                packageIds, new Date());
+        
+        dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        assertEquals(1, dr.size() - preScheduleSize);
+        assertEquals("Package Removal", ((ScheduledAction)dr.get(0)).getTypeName());
+    }
+    
     public void testHardwareRefresh() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         
@@ -1458,7 +1483,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ServerFactory.save(s2);
         
         List packagesToSync = new LinkedList();
-        packagesToSync.add(new Integer(p2.getPackageName().getId().intValue()));
+        packagesToSync.add(new Integer(p2.getId().intValue()));
         
         // This call has an embedded transaction in the stored procedure:
         // lookup_transaction_package(:operation, :n, :e, :v, :r, :a)

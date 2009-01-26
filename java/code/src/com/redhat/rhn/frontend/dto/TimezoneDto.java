@@ -18,6 +18,8 @@ import com.redhat.rhn.common.db.datasource.RowCallback;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
@@ -82,5 +84,13 @@ public class TimezoneDto extends BaseDto implements RowCallback {
      * {@inheritDoc}
      */
     public void callback(ResultSet rs) throws SQLException {
+    }
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public List<String> getCallBackColumns() {
+        return new ArrayList<String>();
     }
 }

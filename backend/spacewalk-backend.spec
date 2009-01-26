@@ -7,15 +7,10 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.9
+Version: 0.5.1
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd backend
-# make test-srpm
 URL:       https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
@@ -61,7 +56,6 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: rhel-instnum
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 
@@ -85,9 +79,6 @@ Summary: Handler for /APP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-app < 5.3.0
-# We really don't need specspo installed, it will do bad things when we read
-# rpms
-Conflicts: specspo
 Obsoletes: rhns-app < 5.3.0
 
 %description app
@@ -99,9 +90,6 @@ Summary: Handler for /XP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xp < 5.3.0
-# We really don't need specspo installed, it will do bad things when we read
-# rpms
-Conflicts: specspo
 Obsoletes: rhns-xp < 5.3.0
 
 %description xp
@@ -528,6 +516,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
+%{_mandir}/man8/migrate-system-profile.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
@@ -550,6 +539,47 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- removing rhel-instnum dep requires and associated unsed code
+
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
+- 480757 - fix filenames generation in repomd for custom channels
+- change Source0 to point to fedorahosted.org
+
+* Thu Jan 15 2009 Pradeep Kilambi 0.4.22-1
+- include migrate-system-profile.8 file in the spec
+
+* Thu Jan 15 2009 Milan Zazrivec 0.4.20-1
+- include migrate-system-profile manual page
+
+* Wed Jan 14 2009 Dave Parker <dparker@redhat.com> 0.4.18-1
+- bz461162 added rule to redirect port 80 requests to /rpc/api to /rhn/rpc/api
+
+* Tue Jan 13 2009 Mike McCune <mmccune@gmail.com> 0.4.15-1
+- 461162 - for some reason with our new httpd rework this rewrite rule needs 
+  to be in both config files.  Filed space05 bug: 479911 to address this.
+
+* Tue Jan 13 2009 Michael Mraka <michael.mraka@redhat.com> 0.4.13-1
+- resolved #479826
+- resolved #479825
+
+* Mon Jan 12 2009 Mike McCune <mmccune@gmail.com> 0.4.12-1
+- 461162 - get the virtualization provisioning tracking system to work with a :virt system record.
+- 479640 - remove conflict with specspo; if it causes problems,
+  it should be fixed properly, either in our code or in specspo
+
+* Thu Jan  8 2009 Jan Pazdziora 0.4.10-1
+- more changes for nvrea error handling
+- changed all references of none to auto w.r.t
+  rhnKickstartVirtualizationType
+- 467115 - adding a switch so users can turn off same nvrea different
+  vendor package uploads
+- eliminate satellite-httpd daemon, migrate to 'stock' apache
+- 461162 - adding support to push the cobbler profile name down to koan
+- 461162 - adding some virt options and spiffifying the virt provisioning page
+- 461162 - moving cobbler requirement down to the RPMs that actually use it
+- changes are by multiple authors
+
 * Mon Dec 22 2008 Mike McCune <mmccune@gmail.com>
 - Adding proper cobbler requirement with version
 

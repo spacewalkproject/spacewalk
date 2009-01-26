@@ -50,8 +50,8 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
 
     public static final String MEMORY_ALLOCATION = "memoryAllocation";
     public static final String VIRTUAL_CPUS = "virtualCpus";
-    public static final String VIRTUAL_BRIDGE = "virtualCpus";
-    public static final String VIRTUAL_FILE_PATH = "virtBridge";
+    public static final String VIRTUAL_BRIDGE = "virtBridge";
+    public static final String VIRTUAL_FILE_PATH = "diskPath";
     public static final String LOCAL_STORAGE_MB = "localStorageMegabytes";
     
     
@@ -150,7 +150,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         cmd.setProfileId((Long) form.get("targetProfile"));
         
         
-        cmd.setGuestName(GUEST_NAME);
+        cmd.setGuestName(form.getString(GUEST_NAME));
         
         
         //If the virt options are overridden use them, otherwise use 

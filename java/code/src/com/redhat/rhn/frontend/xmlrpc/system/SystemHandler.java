@@ -38,9 +38,11 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
@@ -2152,6 +2154,67 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
+     * Schedule package removal for a system.
+     * 
+     * @param sessionKey The user's session key
+     * @param sid ID of the server
+     * @param packageIds List of package IDs to remove (as Integers)
+     * @param earliestOccurrence Earliest occurrence of the package install
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedule package removal for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param dateTime.iso8601 earliestOccurrence
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown 
+     * on error
+     */
+    public int schedulePackageRemove(String sessionKey, Integer sid, List packageIds, 
+            Date earliestOccurrence) {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
+                loggedInUser);
+
+        // Would be nice to do this check at the Manager layer but upset many tests,
+        // some of which were not cooperative when being fixed. Placing here for now.
+        if (!SystemManager.hasEntitlement(server.getId(), EntitlementManager.MANAGEMENT)) {
+            throw new MissingEntitlementException(
+                    EntitlementManager.MANAGEMENT.getHumanReadableLabel());
+        }
+
+        // Build a list of maps in the format the ActionManager wants:
+        List packageMaps = new LinkedList();
+        for (Iterator it = packageIds.iterator(); it.hasNext();) {
+            Integer pkgId = (Integer)it.next();
+            Map pkgMap = new HashMap();
+            
+            Package p = PackageManager.lookupByIdAndUser(new Long(pkgId.longValue()), 
+                    loggedInUser);
+            if (p == null) {
+                throw new InvalidPackageException(pkgId.toString());
+            }
+            
+            pkgMap.put("name_id", p.getPackageName().getId());
+            pkgMap.put("evr_id", p.getPackageEvr().getId());
+            pkgMap.put("arch_id", p.getPackageArch().getId());
+            packageMaps.add(pkgMap);
+        }
+        
+        PackageAction action = null;
+        try {
+            action = ActionManager.schedulePackageRemoval(loggedInUser, server,
+                    packageMaps, earliestOccurrence);
+        }
+        catch (MissingEntitlementException e) {
+            throw new com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException();
+        }
+        
+        return action.getId().intValue();
+    }
+
+    /**
      * Lists all of the notes that are associated with a system.
      *   If no notes are found it should return an empty set.  
      * @param sessionKey the session key 
@@ -2614,8 +2677,8 @@ public class SystemHandler extends BaseHandler {
             }
             
             if (SystemManager.canEntitleServer(server, ent)) {
-                ValidatorError error = SystemManager.entitleServer(server, ent);
-                if (error != null) {
+                ValidatorResult vr = SystemManager.entitleServer(server, ent);
+                if (vr.getErrors().size() > 0) {
                     throw new InvalidEntitlementException();
                 }
             }
@@ -2831,6 +2894,7 @@ public class SystemHandler extends BaseHandler {
             Integer i = (Integer)it.next();
             
             Package pkg = PackageManager.lookupByIdAndUser(i.longValue(), loggedInUser);
+
             if (pkg != null) {
                 StringBuilder idCombo = new StringBuilder();
                 idCombo.append(pkg.getPackageName().getId()).append("|");
@@ -2840,7 +2904,7 @@ public class SystemHandler extends BaseHandler {
                 if (pkg.getPackageArch() != null) {
                     idCombo.append(pkg.getPackageArch().getId());
                 }
-                pkgIdCombos.add(idCombo);
+                pkgIdCombos.add(idCombo.toString());
             }
         }
 

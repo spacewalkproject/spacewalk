@@ -56,7 +56,6 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
         // get a new distro saved.
         
         String cDistroName = (String)cDistro.get("name");
-        System.out.println("cDistroName: " + cDistroName);
         String handle = (String) invokeXMLRPC("get_distro_handle",
                                         cDistroName, xmlRpcToken);
         String spacewalkName = makeCobblerName(tree);

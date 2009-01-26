@@ -24,9 +24,12 @@ import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerVirtualSystemCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.log4j.Logger;
@@ -150,6 +153,21 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     protected SelectMode getMode() {
         return ModeFactory.getMode("General_queries", 
                                    "virtual_kickstarts_channels_for_org");
+    }
+
+    
+    @Override
+    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
+            Server serverIn, KickstartData ksdataIn, String mediaPath, String tokenList) {
+        return new CobblerVirtualSystemCommand(userIn, serverIn,
+                ksdataIn, mediaPath, tokenList);
+    }
+    
+    @Override
+    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
+            Server serverIn, String cobblerProfileLabelIn) {
+        return new CobblerVirtualSystemCommand(userIn, 
+                serverIn, cobblerProfileLabelIn);
     }
 
     /**

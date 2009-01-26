@@ -9161,15 +9161,19 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>       
     
-    
+    <trans-unit id="kickstart.variable.jsp.netboot-enabled">
+        <source>Netboot Enabled</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/Variables.do</context>
+        </context-group>
+    </trans-unit>    
     
     <trans-unit id="kickstart.variable.jsp.variabledetails">
         <source>Variables</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart</context>
         </context-group>
-    </trans-unit>       
-    
+    </trans-unit>   
     <trans-unit id="kickstart.jsp.error.invalidvariable">
         <source>You have specified an invalid variable: '{0}'.  Variables should be name value pairs, seperated by a '=' symbol, with each pair being seperated by a new line.  For example: 'ip=192.168.0.1'</source>
         <context-group name="ctx">
@@ -20438,8 +20442,20 @@ given channel.</source>
       </trans-unit>                                          
        
       <trans-unit id="layout.jsp.productname">
-			<source>Spacewalk</source>
-      </trans-unit>                                          
+            <source>@@PRODUCT_NAME@@</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.name">
+            <source>@@PRODUCT_NAME@@ project</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.title">
+            <source>Visit http://spacewalk.redhat.com/ for more information</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.website">
+            <source>http://spacewalk.redhat.com/</source>
+      </trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>

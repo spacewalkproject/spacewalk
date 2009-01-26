@@ -62,7 +62,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
      * @return ValidatorError if there was a problem
      */
     public ValidatorError store() {
-        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user);
+        CobblerConnection con = getCobblerConnection();
         
         KickstartableTree tree = ksData.getTree();
         Distro distro =  getDistroForKickstart();

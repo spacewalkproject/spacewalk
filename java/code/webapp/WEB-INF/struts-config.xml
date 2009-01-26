@@ -659,6 +659,7 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="variables" type="java.lang.String" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
+            <form-property name="netbootEnabled" type="java.lang.Boolean"/>
         </form-bean>           
         
         <form-bean name="kickstartDownloadForm"
@@ -2566,7 +2567,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
         <forward name="success"
-                 path="/systems/Search.do" redirect="true"/>                 
+                 path="/systems/Search.do" redirect="true"/>
+        <forward name="error"
+                   path="/WEB-INF/pages/systems/systemsearch.jsp"/>
     </action>
 
     <!-- ===== SYSTEMS DETAILS ===== -->

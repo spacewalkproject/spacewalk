@@ -280,17 +280,14 @@ def getProxySetting():
     return proxy
 
 
-def initUp2dateConfig(cfg_file = None):
+def initUp2dateConfig(cfg_file = "/etc/sysconfig/rhn/up2date"):
     """This function is the right way to get at the up2date config."""
     global cfg
     try:
         cfg = cfg
     except NameError:
         cfg = None
-
-    if cfg_file == None:
-        cfg_file = "/etc/sysconfig/rhn/up2date" 
-
+        
     if cfg == None:
         cfg = Config(cfg_file)
         cfg["isatty"] = False

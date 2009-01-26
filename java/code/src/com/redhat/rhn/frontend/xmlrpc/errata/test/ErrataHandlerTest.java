@@ -37,11 +37,14 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
 import com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import org.apache.commons.lang.RandomStringUtils;
  
 public class ErrataHandlerTest extends BaseHandlerTestCase {
 
@@ -68,12 +71,29 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         
         try {
             details = handler.getDetails(adminKey, "foo" + TestUtils.randomString());
+            fail("found invalid errata");
         }
         catch (FaultException e) {
             //success
         }
     }
     
+    public void testSetDetailsAdvRelAboveMax() throws Exception {
+        // setup
+        Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        Map<String, Object> details = new HashMap<String, Object>();
+        details.put("advisory_release", new Integer(10000));
+        try {
+            handler.setDetails(adminKey, errata.getAdvisory(), details);
+            fail("invalid advisory of 10000 accepted");
+        }
+        catch (InvalidAdvisoryReleaseException iare) {
+            // we expect this test to fail
+            assertTrue(true);
+        }
+
+    }
+
     public void testSetDetails() throws Exception {
         // setup
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
@@ -118,6 +138,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Errata updatedErrata = ErrataManager.lookupErrata(errata.getId(), user);
 
         assertEquals(errata.getSynopsis(), "synopsis-1");
+        assertEquals(errata.getAdvisory(), "advisory-1-123");
         assertEquals(errata.getAdvisoryName(), "advisory-1");
         assertEquals(errata.getAdvisoryRel(), new Long(123));
         assertEquals(errata.getAdvisoryType(), "Security Advisory");
@@ -370,8 +391,27 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         
         
         String advisoryName = TestUtils.randomString();
-        errataInfo.put("synopsis", TestUtils.randomString());
+        populateErrataInfo(errataInfo);
         errataInfo.put("advisory_name", advisoryName);
+
+        ArrayList packages = new ArrayList();
+        ArrayList bugs = new ArrayList();
+        ArrayList keywords = new ArrayList();
+        ArrayList channels = new ArrayList();
+        channels.add(channel.getLabel());
+
+        Errata errata = handler.create(adminKey, errataInfo,
+                bugs, keywords, packages, true, channels);
+
+        Errata result = ErrataFactory.lookupByAdvisory(advisoryName);
+        assertEquals(errata, result);
+        assertEquals(advisoryName + "-" + errata.getAdvisoryRel().toString(),
+                result.getAdvisory());
+
+    }
+
+    private void populateErrataInfo(Map errataInfo) {
+        errataInfo.put("synopsis", TestUtils.randomString());
         errataInfo.put("advisory_release", new Integer(2));
         errataInfo.put("advisory_type", "Bug Fix Advisory");
         errataInfo.put("product", TestUtils.randomString());
@@ -380,6 +420,17 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         errataInfo.put("solution", TestUtils.randomString());
         errataInfo.put("references", TestUtils.randomString());
         errataInfo.put("notes", TestUtils.randomString());
+    }
+
+    public void testAdvisoryLength() throws Exception {
+        Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+
+        Map errataInfo = new HashMap();
+
+
+        String advisoryName = RandomStringUtils.random(37);
+        populateErrataInfo(errataInfo);
+        errataInfo.put("advisory_name", advisoryName);
                 
         ArrayList packages = new ArrayList();
         ArrayList bugs = new ArrayList();
@@ -387,11 +438,67 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         ArrayList channels = new ArrayList();
         channels.add(channel.getLabel());
         
-        Errata errata = handler.create(adminKey, errataInfo, 
+        try {
+            Errata errata = handler.create(adminKey, errataInfo,
                 bugs, keywords, packages, true, channels);
+            fail("large advisory name was accepted");
+        }
+        catch (Exception e) {
+            // we expect this to fail
+            assertTrue(true);
+        }
+    }
+
+    public void testAdvisoryReleaseAboveMax() throws Exception {
+        Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+
+        Map errataInfo = new HashMap();
+
+
+        String advisoryName = TestUtils.randomString();
+        populateErrataInfo(errataInfo);
+        errataInfo.put("advisory_name", advisoryName);
+        errataInfo.put("advisory_release", new Integer(10000));
+
+        ArrayList packages = new ArrayList();
+        ArrayList bugs = new ArrayList();
+        ArrayList keywords = new ArrayList();
+        ArrayList channels = new ArrayList();
+        channels.add(channel.getLabel());
+
+        try {
+            Errata errata = handler.create(adminKey, errataInfo,
+                bugs, keywords, packages, true, channels);
+            fail("large advisory release was accepted");
+        }
+        catch (InvalidAdvisoryReleaseException iare) {
+            // we expect this to fail
+            assertTrue(true);
+        }
+    }
+
+    public void testAdvisoryReleaseAtMax() throws Exception {
+        Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+
+        Map errataInfo = new HashMap();
+
+
+        String advisoryName = TestUtils.randomString();
+        populateErrataInfo(errataInfo);
+        errataInfo.put("advisory_name", advisoryName);
+        errataInfo.put("advisory_release", new Integer(9999));
+
+        ArrayList packages = new ArrayList();
+        ArrayList bugs = new ArrayList();
+        ArrayList keywords = new ArrayList();
+        ArrayList channels = new ArrayList();
+        channels.add(channel.getLabel());
         
-        assertEquals(errata, ErrataFactory.lookupByAdvisory(advisoryName));
+        Errata errata = handler.create(adminKey, errataInfo,
+            bugs, keywords, packages, true, channels);
         
+        assertEquals(ErrataManager.MAX_ADVISORY_RELEASE,
+                errata.getAdvisoryRel().longValue());
     }
     
     public void testPublish() throws Exception {

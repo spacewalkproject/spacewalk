@@ -95,17 +95,19 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
 
         // Stuff packages into an RhnSet to be used in the query
         String packagesDecl = (String) request.getAttribute("packagesDecl");
-        Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
-
-        RhnSet packageSet = RhnSetManager.createSet(user.getId(),
-            RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
-
-        for (String idCombo : data) {
-            PackageListItem item = PackageListItem.parse(idCombo);
-            packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
+        if (packagesDecl != null) {
+            Set<String> data = SessionSetHelper.lookupAndBind(request, packagesDecl);
+    
+            RhnSet packageSet = RhnSetManager.createSet(user.getId(),
+                RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
+    
+            for (String idCombo : data) {
+                PackageListItem item = PackageListItem.parse(idCombo);
+                packageSet.addElement(item.getIdOne(), item.getIdTwo(), item.getIdThree());
+            }
+    
+            RhnSetManager.store(packageSet);
         }
-
-        RhnSetManager.store(packageSet);
 
         DataResult results = SystemManager.ssmSystemPackagesToRemove(user,
             RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel());

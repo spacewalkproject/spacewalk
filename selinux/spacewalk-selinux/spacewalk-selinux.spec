@@ -1,6 +1,6 @@
 
 %define selinux_variants mls strict targeted
-%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
+%define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
 %define POLICYCOREUTILSVER 1.33.12-1
 
 %define moduletype apps
@@ -8,7 +8,7 @@
 
 Name:           spacewalk-selinux
 Version:        0.4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -112,6 +112,12 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Jan  8 2009 Jan Pazdziora 0.4.1-7
+- httpd does not need execstack nor execmem, with execstack flags
+  cleared on libraries
+- allow mountpoint (/var/satellite) to be a symlink
+- allow mountpoint (/var/satellite) to be NFS mounted
+
 * Thu Dec 11 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-6
 - resolved #471225 - moved rhn-sat-restart-silent to /usr/sbin
 

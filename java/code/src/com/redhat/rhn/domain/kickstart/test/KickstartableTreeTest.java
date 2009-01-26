@@ -26,6 +26,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
+import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -160,6 +161,9 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setInstallType(installtype);
         k.setTreeType(treetype);
         k.setChannel(treeChannel);
+        k.setCobblerId(TestUtils.randomString());
+        TestObjectStore.get().putObject("distro_uid", k.getCobblerId());
+        TestObjectStore.get().putObject("distro_name", k.getLabel());
         
         TestUtils.saveAndFlush(k);
         

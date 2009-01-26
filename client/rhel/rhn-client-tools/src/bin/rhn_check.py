@@ -73,10 +73,11 @@ class CheckCli(rhncli.RhnCli):
 
             return action
         except rpclib.Fault, f:
-            print "Could not retrieve action item from server %s" % self.server
-            print "Error code: %d%s" % (f.faultCode, f.faultString)
             if f.faultCode == -31:
                 raise up2dateErrors.InsuffMgmntEntsError(f.faultString)
+            else:
+                print "Could not retrieve action item from server %s" % self.server
+                print "Error code: %d%s" % (f.faultCode, f.faultString)
             sys.exit(-1)
         # XXX: what if no SSL in socket?
         except socket.sslerror:
