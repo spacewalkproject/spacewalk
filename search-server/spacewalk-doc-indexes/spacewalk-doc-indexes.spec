@@ -13,6 +13,7 @@ License: GPLv2
 URL: https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: nutch
 BuildArch: noarch
 
 %description
