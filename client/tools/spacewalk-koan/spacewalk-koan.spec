@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
-* Mon Jan 26 2009 Dennis Gilmore <dennis@ausil.us> 0.1.6-2
+* Mon Jan 26 2009 Mike McCune <mmccune@gmail.com> 0.1.6-2
 - spec file cleanups
 
 * Tue Jan 13 2009 Mike McCune <mmccune@gmail.com> 0.1.6-1
