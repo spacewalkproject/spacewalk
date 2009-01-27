@@ -58,6 +58,9 @@ rm -fr $RPM_BUILD_ROOT
 %{_mandir}/man8/rhnsd.8*
 
 %changelog
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com>
+- rebuild
+
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 4.5.8-1
 - Remove usage of version and sources files.
  
