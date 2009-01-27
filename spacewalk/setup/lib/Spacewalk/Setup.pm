@@ -516,95 +516,74 @@ EOQ
     return %nls_database_parameters;
 }
 
+
+my $progress_callback_length;
 sub print_progress {
-    my %params = validate(@_, { init_message => 1,
-            log_file_name => 1,
-            log_file_size => 1,
-            err_message => 1,
-            err_code => 1,
-            system_opts => 1,
-        });
+	my %params = validate(@_, { init_message => 1,
+		log_file_name => 1,
+		log_file_size => 1,
+		err_message => 1,
+		err_code => 1,
+		system_opts => 1,
+	});
 
-    local *LOGFILE;
-    open(LOGFILE, ">>", $params{log_file_name}) or do {
-        print "Error writing log file '$params{log_file_name}': $!\n";
-        print STDERR "Error writing log file '$params{log_file_name}': $!\n";
-        exit $params{err_code};
-    };
+	local *LOGFILE;
+	open(LOGFILE, ">>", $params{log_file_name}) or do {
+		print "Error writing log file '$params{log_file_name}': $!\n";
+		print STDERR "Error writing log file '$params{log_file_name}': $!\n";
+		exit $params{err_code};
+	};
 
-    my $pid = fork();
+	local $SIG{'ALRM'};
+	my $orig_stdout = select LOGFILE;
+	$| = 1;
+	select $orig_stdout;
+	print loc($params{init_message});
+	local *PROCESS_OUT;
+	set_progress_callback($params{log_file_size});
+	my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @{$params{system_opts}});
+	while (<PROCESS_OUT>) {
+		print LOGFILE $_;
+		$progress_callback_length += length;
+	}
+	waitpid($pid, 0);
+	my $ret = $?;
+	close LOGFILE;
+	alarm 0;
 
-    # parent process draws hashmarks, child process does the heavy lifting.
-    if ($pid) { # parent
-        my $childpid;
+	if ($ret) {
+		exit $params{err_code};
+	}
 
-        my $hashcounter = 0;
-        print loc($params{init_message});
-
-        do {
-            sleep 1;
-            print_progress_hashmark_if_needed(\$hashcounter,
-                $params{log_file_name},
-                $params{log_file_size});
-            $childpid = waitpid($pid, WNOHANG);
-        } until $childpid > 0;
-
-        my $err = $?;
-        if ($err) {
-            my $exit_value = $? >> 8;
-
-            print loc($params{err_message});
-            exit $exit_value;
-        }
-
-        print "\n";
-    }
-    else { # child
-        my $orig_stdout = select LOGFILE;
-        $| = 1;
-        select $orig_stdout;
-        local *PROCESS_OUT;
-        my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @{$params{system_opts}});
-        while (<PROCESS_OUT>) {
-            print LOGFILE $_;
-        }
-        waitpid($pid, 0);
-        my $ret = $?
-        close LOGFILE;
-
-        if ($ret) {
-            exit $params{err_code};
-        }
-
-        exit 0;
-    }
+	exit 0;
 }
 
-sub print_progress_hashmark_if_needed {
-    my $hashcounter_ref = shift;
-    my $file = shift;
-    my $max_size = shift;
+my $progress_hashes_done;
+sub progress_callback {
+	my $target_length = shift;
+	my $target_hashes = 0;
+	if ($target_length) {
+		$target_hashes = int(60 * $progress_callback_length / $target_length);
+	}
+	if ($target_hashes > $progress_hashes_done) {
+		my $old = select STDOUT;
+		$| = 1;
+		select $old;
+		print STDOUT "#" x ($target_hashes - $progress_hashes_done);
+		$progress_hashes_done = $target_hashes;
+	}
+	alarm 1;
+}
 
-    if (not -r $file) {
-        return;
-    }
-
-    my @stats = stat $file;
-
-    my $current_size = $stats[7];
-    my $target_hashes = int(60 * $current_size / $max_size);
-
-    $| = 1;
-
-    # draw hashmarks until we reach the maximum size.
-    while ($$hashcounter_ref < $target_hashes) {
-        print "#";
-        $$hashcounter_ref++;
-    }
-
-    $| = 0;
-
-    return;
+sub set_progress_callback {
+	if (not -t STDOUT) {
+		return;
+	}
+	$progress_callback_length = 0;
+	$progress_hashes_done = 0;
+	my $target_length = shift;
+	$SIG{'ALRM'} = sub { progress_callback($target_length) };
+	alarm 1;
 }
 
 
