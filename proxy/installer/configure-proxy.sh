@@ -88,6 +88,11 @@ CA_CHAIN_DETECTED=${CA_CHAIN:-`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tai
 echo "CA Chain [$CA_CHAIN_DETECTED]: "
 CA_CHAIN=${CA_CHAIN:-`default_or_input $CA_CHAIN_DETECTED`}
 
+if ! runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
+	echo Error: File $CA_CHAIN is not readable by apache user.
+	exit 1
+fi
+
 echo "HTTP Proxy [$HTTP_PROXY]: "
 HTTP_PROXY=${HTTP_PROXY:-`default_or_input `}
 
