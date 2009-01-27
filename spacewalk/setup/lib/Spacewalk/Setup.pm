@@ -1060,7 +1060,6 @@ sub oracle_populate_db {
     my @opts = ('/usr/bin/rhn-populate-database.pl',
         sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
         "--schema-deploy-file=$sat_schema_deploy",
-        '--log=' . DB_POP_LOG_FILE,
         '--nofork',
     );
 
