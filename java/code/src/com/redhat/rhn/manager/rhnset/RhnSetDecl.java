@@ -351,6 +351,12 @@ public class RhnSetDecl {
     public static final RhnSetDecl MULTIORG_TRUST_LIST = make(
             "multiorg_trust_list", SetCleanup.NOOP);       
 
+    public static final RhnSetDecl SSM_CHANNEL_SUBSCRIBE = make(
+            "ssm_channel_subscribe", SetCleanup.NOOP);
+    
+    public static final RhnSetDecl SSM_CHANNEL_UNSUBSCRIBE = make(
+            "ssm_channel_unsubscribe", SetCleanup.NOOP);
+    
     private SetCleanup cleanup;
     private String label;
 

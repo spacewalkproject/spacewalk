@@ -1527,17 +1527,11 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return boolean true false if subbed or not.
      */
     public boolean isSubscribed(Channel channelIn) {
-        Set childChannels = this.getChildChannels();
+        Set childChannels = this.channels;
         if (childChannels != null) {
-            Iterator i = childChannels.iterator();
-            while (i.hasNext()) {
-                Channel c = (Channel) i.next();
-                if (channelIn.equals(c)) {
-                    return Boolean.TRUE.booleanValue();
-                }
-            }
+            return childChannels.contains(channelIn);
         }
-        return Boolean.FALSE.booleanValue();
+        return false;
     }
     
     /**
