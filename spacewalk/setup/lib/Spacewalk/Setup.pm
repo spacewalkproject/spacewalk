@@ -204,12 +204,20 @@ sub system_debug {
           print STDERR "Error writing log file '$logfile': $!\n";
           return 1;
       };
+      my $orig_stdout = select LOGFILE;
+      $| = 1;
+      select $orig_stdout;
+      local *PROCESS_OUT;
       set_spinning_callback();
-      my $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", @args);
+      my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @args);
+      while (<PROCESS_OUT>) {
+          print LOGFILE $_;
+      }
       waitpid($pid, 0);
+      my $ret = $?;
       close LOGFILE;
       alarm 0;
-      return $?;
+      return $ret;
     }
   }
 }
