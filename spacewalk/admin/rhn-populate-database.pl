@@ -100,6 +100,7 @@ waitpid($pid, 0);
 exit $? >> 8;
 
 sub get_next_backup_filename {
+  my $log_file = shift;
   my ($vol, $dir, $filename) = File::Spec->splitpath($log_file);
   my $index = 0;
   my $backup_file;
