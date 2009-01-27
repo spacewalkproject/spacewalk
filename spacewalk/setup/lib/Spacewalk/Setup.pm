@@ -725,12 +725,6 @@ EOQ
     else {
         print loc("** Database: Embedded database diskspace check SKIPPED!\n");
     }
-    print loc(<<EOQ);
-** Database: Installing the embedded database (not the schema).
-** Database: Shutting down the database first.
-EOQ
-
-    system_debug('/sbin/service oracle stop');
 
     printf loc(<<EOQ, DB_INSTALL_LOG_FILE);
 ** Database: Installing the database:
