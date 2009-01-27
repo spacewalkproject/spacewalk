@@ -951,13 +951,14 @@ def channels_for_org(org_id):
     # stringify for xmlrpc return
     return __stringify(ret)
 
-# list channels a server_id is subscribed to
-# We DO NOT want to cache this one because we depend on getting
-# accurate information and the caching would only introduce more
-# overhead on an otherwise very fast query
 def channels_for_server(server_id):
-    #"""channel info list for all channels accessible by this server.
-    #"""
+    """channel info list for all channels accessible by this server.
+
+    list channels a server_id is subscribed to
+    We DO NOT want to cache this one because we depend on getting
+    accurate information and the caching would only introduce more
+    overhead on an otherwise very fast query
+    """
     log_debug(3, server_id)
     try:
         server_id = int(server_id)
