@@ -3,7 +3,7 @@
 Summary: Python libraries for the RHN project
 Name: rhnlib
 Source0: %{name}-%{version}.tar.gz
-Version: 2.5.6
+Version: 2.5.7
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -77,7 +77,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/rhn/UserDictCase.pyo
 
 %changelog
-* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com>
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.7-1
 - remove .egg-info file from spec - we do not provide it
 
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
