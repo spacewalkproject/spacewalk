@@ -75,9 +75,11 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/rhn/SSL.pyo
 %{python_sitelib}/rhn/transports.pyo
 %{python_sitelib}/rhn/UserDictCase.pyo
-%{python_sitelib}/rhnlib*.egg-info
 
 %changelog
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove .egg-info file from spec - we do not provide it
+
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
 - Remove usage of version and sources files.
 
