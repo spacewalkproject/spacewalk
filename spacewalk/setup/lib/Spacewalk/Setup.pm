@@ -553,10 +553,9 @@ sub print_progress {
 	print "\n";
 
 	if ($ret) {
+		print loc($params{err_message});
 		exit $params{err_code};
 	}
-
-	exit 0;
 }
 
 my $progress_hashes_done;
