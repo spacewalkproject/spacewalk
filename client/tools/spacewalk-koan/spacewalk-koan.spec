@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.6
+Version: 0.1.7
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
-* Mon Jan 26 2009 Mike McCune <mmccune@gmail.com> 0.1.6-2
+* Mon Jan 26 2009 Mike McCune <mmccune@gmail.com> 0.1.7-1
 - spec file cleanups
 
 * Tue Jan 13 2009 Mike McCune <mmccune@gmail.com> 0.1.6-1
