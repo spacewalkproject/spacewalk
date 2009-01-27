@@ -29,8 +29,9 @@ ORACLE_SID=embedded
 export ORAENV_ASK ORACLE_SID
 . oraenv
 
-mkdir -p /rhnsat
-chown oracle:dba /rhnsat
+mkdir -p /rhnsat/data /rhnsat/admin
+chown -R oracle:dba /rhnsat
+restorecon -r /rhnsat
 
 usermod -G oracle,dba,apache oracle
 
