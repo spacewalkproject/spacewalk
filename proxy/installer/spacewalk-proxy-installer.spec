@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
-* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.7-1
 - 469035 - populate configuration channel with new version of configuration files
 - 468924 - die and warn if CA CERT is not readable by apache user
 - 468041 - parse sslCACert correctly
