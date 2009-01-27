@@ -52,7 +52,7 @@ use constant DB_INSTALL_LOG_FILE =>
 use constant DB_POP_LOG_FILE =>
   '/var/log/rhn/populate_db.log';
 
-use constant DB_POP_LOG_SIZE => 180000;
+use constant DB_POP_LOG_SIZE => 195531;
 
 use constant RHN_LOG_DIR =>
   '/var/log/rhn';
@@ -62,7 +62,7 @@ use constant DB_UPGRADE_LOG_FILE =>
 
 use constant DB_UPGRADE_LOG_SIZE => 20000000;
 
-use constant DB_INSTALL_LOG_SIZE => 15000;
+use constant DB_INSTALL_LOG_SIZE => 11416;
 
 
 
