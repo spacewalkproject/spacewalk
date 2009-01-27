@@ -550,6 +550,7 @@ sub print_progress {
 	my $ret = $?;
 	close LOGFILE;
 	alarm 0;
+	print "\n";
 
 	if ($ret) {
 		exit $params{err_code};
