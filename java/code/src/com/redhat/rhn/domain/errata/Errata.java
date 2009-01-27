@@ -341,7 +341,7 @@ public interface Errata {
     /**
      * @return Returns the Set of channels associated with this errata
      */
-    Set getChannels();
+    Set<Channel> getChannels();
     
     /**
      * @param channelsIn The set of channels to set for this errata
