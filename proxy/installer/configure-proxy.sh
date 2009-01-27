@@ -247,7 +247,12 @@ CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
 echo "Create and populate configuration channel $CHANNEL_LABEL? [${POPULATE_CONFIG_CHANNEL:-Y/n}]:"
 POPULATE_CONFIG_CHANNEL=${POPULATE_CONFIG_CHANNEL:-`default_or_input Y | tr nNyY NNYY`}
 if [ "$POPULATE_CONFIG_CHANNEL" = "Y" ]; then
-	
+	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
+	rhncfg-manager update --server-name "$RHN_PARENT" ---channel=rhn_proxy_config_$SYSTEM_ID \
+		/etc/httpd/conf.d/ssl.conf /etc/rhn/rhn.conf /etc/rhn/cluster.ini /etc/squid/squid.conf \
+		/etc/httpd/conf.d/cobbler-proxy.conf /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/rhn_proxy.conf \
+		/etc/httpd/conf.d/proxy_broker.conf /etc/httpd/conf.d/proxy_redirect.conf \
+		/etc/jabberd/c2s.xml /etc/jabberd/sm.xml
 fi
 
 echo "Enabling Spacewalk Proxy."

@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com>
+- 469035 - populate configuration channel with new version of configuration files
+
 * Fri Jan 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
 - 469059 - add --non-interactive option
 - add LICENSE to %%doc
