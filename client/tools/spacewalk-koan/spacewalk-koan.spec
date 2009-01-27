@@ -46,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart
 %{_sbindir}/*
-%{_sysconfdir}/sysconfig/rhn/spacewalkkoan/
+%{_datadir}/rhn/spacewalkkoan/
 %{_datadir}/rhn/actions/
 
 %changelog
