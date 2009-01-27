@@ -24,11 +24,11 @@ Spacewalk::Setup
 
 =head1 VERSION
 
-Version 0.2
+Version 0.5
 
 =cut
 
-our $VERSION = '0.2';
+our $VERSION = '0.5';
 
 use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
