@@ -265,11 +265,20 @@ sub upgrade_stop_services {
 }
 
 my $spinning_callback_count;
+my @spinning_pattern = ('.', '@', '@;', '_@;', ' _@;', '  _@;', '   _@;', '    @;', '   ;@', '  ;@_', ' ;@_', '@_', '@');
+my $spinning_pattern_maxlength = 0;
+for (@spinning_pattern) {
+	if (length > $spinning_pattern_maxlength) {
+		$spinning_pattern_maxlength = length;
+	}
+}
 sub spinning_callback {
-	my $spinning_callback_chars = '.oO0Oo._';
 	my $old = select STDOUT;
 	$| = 1;
-	print STDOUT substr($spinning_callback_chars, ($spinning_callback_count++ % 8), 1), "\r";
+	my $index = ($spinning_callback_count++ % scalar(@spinning_pattern));
+	print STDOUT $spinning_pattern[$index],
+		(' ' x ($spinning_pattern_maxlength - length($spinning_pattern[$index]))),
+		"\r";
 	select $old;
 	alarm 1;
 }
