@@ -226,7 +226,7 @@ sub system_or_exit {
     my $exit_value = $? >> 8;
 
     print Spacewalk::Setup::loc($error . "  Exit value: %d.\n", (@args, $exit_value));
-    print "Please examine /var/log/rhn/rhn-installation.log for more information.\n";
+    print "Please examine @{[ INSTALL_LOG_FILE ]} for more information.\n";
 
     exit $exit_code;
   }
