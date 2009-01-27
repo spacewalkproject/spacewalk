@@ -84,7 +84,7 @@ TRACEBACK_EMAIL=${TRACEBACK_EMAIL:-`default_or_input `}
 echo "Use SSL [${USE_SSL:-1}]: "
 USE_SSL=${USE_SSL:-`default_or_input 1`}
 
-CA_CHAIN_DETECTED=${CA_CHAIN:-`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}'`}
+CA_CHAIN_DETECTED=${CA_CHAIN:-`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' | awk '-F;' '{print $1}'`}
 echo "CA Chain [$CA_CHAIN_DETECTED]: "
 CA_CHAIN=${CA_CHAIN:-`default_or_input $CA_CHAIN_DETECTED`}
 

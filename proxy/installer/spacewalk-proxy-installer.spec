@@ -86,6 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 * Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - 469035 - populate configuration channel with new version of configuration files
 - 468924 - die and warn if CA CERT is not readable by apache user
+- 468041 - parse sslCACert correctly
 
 * Fri Jan 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
 - 469059 - add --non-interactive option
