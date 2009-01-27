@@ -1,5 +1,5 @@
 NAME := python-gzipstream
-SPECFILE := gzipstream.spec
+SPECFILE := python-gzipstream.spec
 
 NO_TAR_GZ = 1
 

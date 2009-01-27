@@ -48,9 +48,9 @@ def computeSignature(*fields):
 # reg exp for splitting package names.
 re_rpmName = re.compile("^(.*)-([^-]*)-([^-]*)$")
 def parseRPMName(pkgName):
-    #""" IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
-    #    OUT: Four strings (in a tuple): name, version, release, epoch.
-    #"""
+    """ IN:  Package string in, n-n-n-v.v.v-r.r_r, format.
+        OUT: Four strings (in a tuple): name, version, release, epoch.
+    """
     reg = re_rpmName.match(pkgName)
     if reg == None:
         return None, None, None, None
@@ -66,18 +66,18 @@ def parseRPMName(pkgName):
 
 # 'n_n-n-v.v.v-r_r.r:e.ARCH.rpm' ---> [n,v,r,e,a]
 def parseRPMFilename(pkgFilename):
-    #'''
-    #IN: Package Name: xxx-yyy-ver.ver.ver-rel.rel_rel:e.ARCH.rpm (string)
-    #Understood rules:
-    #	o Name can have nearly any char, but end in a - (well seperated by).
-    #     Any character; may include - as well.
-    #	o Version cannot have a -, but ends in one.
-    #   o Release should be an actual number, and can't have any -'s.
-    #   o Release can include the Epoch, e.g.: 2:4 (4 is the epoch)
-    #   o Epoch: Can include anything except a - and the : seperator???
-    #     XXX: Is epoch info above correct?
-    #OUT: [n,v,r,e, arch].
-    #'''
+    """
+    IN: Package Name: xxx-yyy-ver.ver.ver-rel.rel_rel:e.ARCH.rpm (string)
+    Understood rules:
+    	o Name can have nearly any char, but end in a - (well seperated by).
+         Any character; may include - as well.
+    	o Version cannot have a -, but ends in one.
+       o Release should be an actual number, and can't have any -'s.
+       o Release can include the Epoch, e.g.: 2:4 (4 is the epoch)
+       o Epoch: Can include anything except a - and the : seperator???
+         XXX: Is epoch info above correct?
+    OUT: [n,v,r,e, arch].
+    """
     if type(pkgFilename) != type(''):
 	raise rhnFault(21, str(pkgFilename)) # Invalid arg.
 
@@ -121,27 +121,29 @@ def normalize_server_arch(arch):
     arch = arch + suffix
     return arch
 
-# An error class to signal when we can not handle an action
 class InvalidAction(Exception):
+    """ An error class to signal when we can not handle an action """
     pass
-# An error class that signals that we encountered an internal error
-# trying to handle an action through no fault of the client
+
 class EmptyAction(Exception):
+    """ An error class that signals that we encountered an internal error
+        trying to handle an action through no fault of the client
+    """
     pass
 
-# An error class for actions that should not get to the client
 class ShadowAction(Exception):
+    """ An error class for actions that should not get to the client """
     pass
 
-# Returns the timestamp in a format the database can unserstand
 def timestamp2dbtime(timestamp):
+    """ Returns the timestamp in a format the database can understand """
     timestamp = int(timestamp)
     return time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(timestamp))
 
-
-# Handy function to transpose an array from row-based to column-based, with
-# named columns
 def transpose_to_hash(arr, column_names):
+    """ Handy function to transpose an array from row-based to column-based,
+        with named columns.
+    """
     result = []
     for c in column_names:
         result.append([])
@@ -168,6 +170,11 @@ def transpose_to_hash(arr, column_names):
 # <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
 def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
         package_type='rpm', md5sum=None):
+    """ Computes a package path, optionally prepending a prefix
+        The path will look like
+        <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
+        <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
+    """
     name = nevra[0]
     release = nevra[3]
 
@@ -208,8 +215,8 @@ def get_package_path_without_package_name(nevra, org_id, prepend="",
         md5sum=md5sum))
 
 
-# Generic caallable object
 class CallableObj:
+    """ Generic callable object """
     def __init__(self, name, func):
         self.func = func
         self.name = name

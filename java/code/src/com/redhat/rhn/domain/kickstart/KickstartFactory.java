@@ -189,9 +189,13 @@ public class KickstartFactory extends HibernateFactory {
             if (cn.getName().equals("selinux") && ksdata.isLegacyKickstart()) {
                 continue;
             }
+            // Don't display these options if this is a pre-RHEL5 kickstart profile:
             else if (cn.getName().equals("lilocheck") && !ksdata.isPreRHEL5Kickstart()) {
                 continue;
             } 
+            else if (cn.getName().equals("langsupport") && !ksdata.isPreRHEL5Kickstart()) {
+                continue;
+            }
             else {
                 retval.add(cn);
             }

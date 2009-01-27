@@ -1,6 +1,6 @@
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
 <!ENTITY RHNPROXY "Spacewalk Proxy Server" >
-<!ENTITY SCRIPTNAME "Spacewalk Procy Configure script" >
+<!ENTITY SCRIPTNAME "Spacewalk Proxy Configure script" >
 <!ENTITY SCRIPTCOMMAND "configure-proxy.sh" >
 
 ]>
@@ -8,7 +8,7 @@
 
 <RefMeta>
 <RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
-<RefMiscInfo>Version 0.4</RefMiscInfo>
+<RefMiscInfo>Version 0.5</RefMiscInfo>
 </RefMeta>
 
 <RefNameDiv>
@@ -37,19 +37,124 @@ and then deploys configuration files and activates the &RHNPROXY;.
 <RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
+        <term>--answer-file</term>
+        <listitem>
+            <para>Indicates the location of an answer file to be used for answering
+ questions asked during the installation process. See section Answer File for more details.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-h, --help</term>
         <listitem>
             <para>Display the help screen with a list of options.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--non-interactive</term>
+        <listitem>
+            <para>For use only with --answer-file. If the --answer-file doesn't
+provide a required response, default answer is used.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
+<RefSect1><Title>Answer File</Title>
+<para>Answer File is interpreted as normal shell script. Following variables can be set there:
+<variablelist>
+    <varlistentry>
+        <term>VERSION</term>
+        <listitem>
+           <para>Version of &RHNPROXY; you want to activate.</para>
+        </listitem>
+        <term>RHN_PARENT</term>
+        <listitem>
+           <para>Your parent Spacewalk server.</para>
+        </listitem>
+        <term>TRACEBACK_EMAIL</term>
+        <listitem>
+           <para>Email to which tracebacks should be sent.</para>
+        </listitem>
+        <term>USE_SSL</term>
+        <listitem>
+           <para>1 if &RHNPROXY; should communicate with parent over SSL. 0 otherwise. Even if disabled, client can still use SSL to connect to &RHNPROXY;</para>
+        </listitem>
+        <term>CA_CHAIN</term>
+        <listitem>
+           <para>The CA cert used to verify the ssl connection to parent.</para>
+        </listitem>
+        <term>HTTP_PROXY</term>
+        <listitem>
+           <para>HTTP proxy in host:port format, e.g. squid.redhat.com:3128</para>
+        </listitem>
+        <term>HTTP_USERNAME</term>
+        <listitem>
+           <para>The username for an authenticated proxy.</para>
+        </listitem>
+        <term>HTTP_PASSWORD</term>
+        <listitem>
+           <para>The password to use for an authenticated proxy.</para>
+        </listitem>
+        <term>SSL_ORG</term>
+        <listitem>
+           <para>Organization name to be used in SSL certificate.</para>
+        </listitem>
+        <term>SSL_ORGUNIT</term>
+        <listitem>
+           <para>Organization unit name to be used in SSL certificate.</para>
+        </listitem>
+        <term>SSL_COMMON</term>
+        <listitem>
+           <para>Common name to be used in SSL certificate.</para>
+        </listitem>
+        <term>SSL_CITY</term>
+        <listitem>
+           <para>City to be used in SSL certificate.</para>
+        </listitem>
+        <term>SSL_STATE</term>
+        <listitem>
+           <para>State to be used in SSL certificate.</para>
+        </listitem>
+        <term>SSL_COUNTRY</term>
+        <listitem>
+           <para>Two letters country code to be used in SSL certificate.</para>
+        </listitem>
+        <term>SSL_EMAIL</term>
+        <listitem>
+           <para>Email to be used in SSL certificate.</para>
+        </listitem>
+        <term>INSTALL_MONITORING</term>
+        <listitem>
+           <para>Y if monitoring should be installed. Any other value means that monitoring will not be installed.</para>
+        </listitem>
+        <term>ENABLE_SCOUT</term>
+        <listitem>
+           <para>1 to enable monitoring scout, 0 otherwise.</para>
+        </listitem>
+        <term>MONITORING_PARENT</term>
+        <listitem>
+           <para>Name of the parent for your scout. Usually the same value as in RHN_PARENT.</para>
+        </listitem>
+        <term>MONITORING_PARENT_IP</term>
+        <listitem>
+           <para>IP address of MONITORING_PARENT</para>
+        </listitem>
+        <term>SCOUT_SHARED_KEY</term>
+        <listitem>
+           <para>Your scout shared key (can be found on the parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
+        </listitem>
+        <term>POPULATE_CONFIG_CHANNEL</term>
+        <listitem>
+           <para>Y if config chanel should be created and configuration files in that channel updated.
+Configuration channel will be named rhn_proxy_config_${SYSTEM_ID}.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
 
 <RefSect1><Title>See Also</Title>
 <simplelist>
-    <member>rhn-proxy-activate(8)</member>
-    <member>rhn-proxy-debug(8)</member>
+    <member>rhn-proxy-activate(8), rhncfg-manager(8)</member>
 </simplelist>
 </RefSect1>
 

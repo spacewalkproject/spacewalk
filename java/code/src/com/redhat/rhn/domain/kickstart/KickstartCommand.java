@@ -14,10 +14,9 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+
+import java.util.Date;
 
 /**
  * KickstartCommandName
@@ -155,8 +154,8 @@ public class KickstartCommand implements Comparable {
      * {@inheritDoc}
      */
     public String toString() {
-            return new ToStringBuilder(this).append("id", id).append("arguments",
-                    arguments).toString();
+            return this.getClass().getName() + " name: " + 
+                this.getCommandName().getName();
      }
 
     /**

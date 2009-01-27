@@ -2,16 +2,12 @@ Name: spacewalk-proxy
 Summary: Spacewalk Proxy Server
 Group:   Applications/Internet
 License: GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd proxy/proxy
-# make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
-Version: 0.4.5
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 0.5.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+BuildRequires: python
 BuildArch: noarch
 
 %define rhnroot %{_usr}/share/rhn
@@ -29,13 +25,18 @@ Requires: squid
 Requires: spacewalk-backend
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
-Requires: %{name}-tools = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
 Requires: jabberd
+Requires: sos
+Requires(preun): initscripts
 Obsoletes: rhns-proxy < 5.3.0
 Obsoletes: rhns-proxy-management < 5.3.0
+BuildRequires: /usr/bin/docbook2man
+Obsoletes: rhns-proxy-tools < 5.3.0
+Obsoletes: spacewalk-proxy-tools < 0.5.3
+Provides: spacewalk-proxy-tools = %{version}
 
 %description management
 Spacewalk Management Proxy components.
@@ -45,7 +46,7 @@ Group:   Applications/Internet
 Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
 Requires: spacewalk-certs-tools
-Requires: spacewalk-proxy-package-manager = %{version}
+Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
 Requires: mod_python
@@ -120,26 +121,6 @@ resources to package update and deployment.
 This package contains the Command rhn_package_manager, which  manages 
 an Spacewalk Proxy Server's custom channel.
 
-%package tools
-Group:   Applications/Internet
-Summary: Miscellaneous tools for the Spacewalk Proxy Server
-Requires: %{name}-broker
-Requires: python-optik
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
-BuildRequires: /usr/bin/docbook2man
-Obsoletes: rhns-proxy-tools < 5.3.0
-
-%description tools
-The Spacewalk Proxy Server allows package proxying/caching
-and local package delivery services for groups of local servers from
-Spacewalk Server. This service adds flexibility and economy of
-resources to package update and deployment.
-
-This package contains miscellaneous tools used in support of an
-Spacewalk Proxy Server.
-
 %prep
 %setup -q
 
@@ -161,7 +142,7 @@ if [ -f %{_sysconfdir}/sysconfig/rhn/systemid ]; then
     chown root.apache %{_sysconfdir}/sysconfig/rhn/systemid
     chmod 0640 %{_sysconfdir}/sysconfig/rhn/systemid
 fi
-/sbin/service httpd graceful > /dev/null 2>&1
+/sbin/service httpd condrestart > /dev/null 2>&1
 
 # In case of an upgrade, get the configured package list directory and clear it
 # out.  Don't worry; it will be rebuilt by the proxy.
@@ -186,49 +167,27 @@ rm -rf $RHN_PKG_DIR/list
 exit 0
 
 %post redirect
-/sbin/service httpd graceful > /dev/null 2>&1
+/sbin/service httpd condrestart > /dev/null 2>&1
 # Make sure the scriptlet returns with success
 exit 0
 
-%post tools
-# The rhns-proxy-tools package is also our "upgrades" package.
+%post management
+# The spacewalk-proxy-management package is also our "upgrades" package.
 # We deploy new conf from configuration channel if needed
 # we deploy new conf only if we install from webui and conf channel exist
 if rhncfg-client verify %{_sysconfdir}/rhn/rhn.conf 2>&1|grep 'Not found'; then
      %{_bindir}/rhncfg-client get %{_sysconfdir}/rhn/rhn.conf
 fi > /dev/null 2>&1
 if rhncfg-client verify %{_sysconfdir}/squid/squid.conf | grep -E '(modified|missing)'; then
-    /sbin/service squid stop
     rhncfg-client get %{_sysconfdir}/squid/squid.conf 
     rm -rf %{_var}/spool/squid/*
     %{_usr}/sbin/squid -z
-    /sbin/service squid start
+    /sbin/service squid condrestart
 fi > /dev/null 2>&1
 if rhncfg-client verify %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf | grep -E '(modified|missing)'; then
-    /sbin/service httpd stop
     %{_usr}/bin/rhncfg-client get %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf
-    /sbin/service httpd start
-else 
-    /sbin/service httpd graceful
+/sbin/service httpd condrestart
 fi > /dev/null 2>&1
-
-# Make sure the services are configured to start
-# Dependent services are handled by the rhn-proxy service, so make
-# sure they do not start on their own, and are instead governed by
-# rhn-proxy, which does start on boot.
-
-/sbin/chkconfig --add rhn-proxy
-if [ "$1" = "1" ] ; then  # first install
-    /sbin/chkconfig --level 345 rhn-proxy on
-fi
-
-SERVICES="squid httpd jabberd MonitoringScout"
-
-for service in $SERVICES; do
-    if [ -e %{_sysconfdir}/init.d/$service ]; then
-        /sbin/chkconfig $service off
-    fi
-done
 
 exit 0
 
@@ -238,14 +197,8 @@ rm -rf %{_var}/cache/rhn/*
 
 %preun
 if [ $1 = 0 ] ; then
-    /sbin/service rhn-proxy stop >/dev/null 2>&1
-    /sbin/chkconfig --del rhn-proxy
+    /sbin/service httpd condrestart >/dev/null 2>&1
 fi
-
-# Empty files list for rhns-proxy-management, we use it only to pull in the 
-# dependency with the other packages
-%files management
-%defattr(-,root,root)
 
 %files broker
 %defattr(-,root,root)
@@ -315,23 +268,31 @@ fi
 %{rhnroot}/PackageManager/__init__.py*
 %{_mandir}/man8/rhn_package_manager.8.gz
 
-%files tools
+%files management
 %defattr(-,root,root)
 # dirs
 %dir %{destdir}
-%dir %{destdir}/tools
-# service
-%attr(755,root,root) %{_sysconfdir}/init.d/rhn-proxy
-# bins
-%attr(755,root,root) %{_bindir}/rhn-proxy-debug
-# libs
-%{destdir}/tools/__init__.py*
+# start/stop script
+%attr(755,root,root) %{_sbindir}/rhn-proxy
 # mans
 %{_mandir}/man8/rhn-proxy.8*
-%{_mandir}/man8/rhn-proxy-debug.8*
 
 
 %changelog
+* Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
+- fix conflicts with spacewalk-proxy-tools
+- management do not need to require specific version of package manager
+
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
+- 480328 - do not call chkconfig on
+- 480326 - do not start services
+- 465947 - remove rhn-proxy-debug
+- 465947 - remove spacewalk-proxy-tools package
+
+* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
+- 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
+- point Source0 to fedorahosted.org
+
 * Wed Jan 14 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
 - own /var/cache/rhn/proxy-auth
 - fix typo in broker/rhnBroker.py

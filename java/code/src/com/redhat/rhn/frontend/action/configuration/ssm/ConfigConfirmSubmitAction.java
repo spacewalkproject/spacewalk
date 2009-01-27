@@ -14,12 +14,14 @@
  */
 package com.redhat.rhn.frontend.action.configuration.ssm;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ConfigSystemDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListDispatchAction;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -116,27 +118,27 @@ public class ConfigConfirmSubmitAction extends RhnListDispatchAction {
         User user = requestContext.getLoggedInUser();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         
-        RhnSet systems = RhnSetDecl.SYSTEMS.get(user);
+        DataResult<ConfigSystemDto> systems = cm.listSystemsForConfigAction(user, null,
+                type.getLabel());
         RhnSet fileNames = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
         int successes = 0;
         
         Date earliest = getEarliestAction(form);
         
         //go through all of the selected systems
-        Iterator sysItty = systems.getElements().iterator();
-        while (sysItty.hasNext()) {
+        for (ConfigSystemDto system : systems) {
             //the current system
-            Long sid = ((RhnSetElement)sysItty.next()).getElement();
+            Long sid = system.getId();
             
             //create the two sets needed for the action
-            Set servers = new HashSet();
+            Set<Long> servers = new HashSet<Long>();
             servers.add(sid);
-            Set revisions = new HashSet();
+            Set<Long> revisions = new HashSet<Long>();
             
             //go through all of the selected file names
-            Iterator nameItty = fileNames.getElements().iterator();
+            Iterator<RhnSetElement> nameItty = fileNames.getElements().iterator();
             while (nameItty.hasNext()) {
-                Long cfnid = ((RhnSetElement)nameItty.next()).getElement();
+                Long cfnid = nameItty.next().getElement();
                 Long crid = cm.getDeployableRevisionForFileName(cfnid, sid);
                 
                 //add to the set if this system has a deployable revision of this

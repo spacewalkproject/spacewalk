@@ -93,9 +93,9 @@ if __name__ == '__main__':
     try:
         h = rhnSQL.prepare("""
                 SELECT PE.evr.as_vre_simple()
-                  FROM rhnPackageEVR PE, rhnVersionInfo RVI
+                  FROM rhnPackageEVR PE, rhnVersionInfo RVI, rhnPackageName PN
                  WHERE RVI.label = 'schema'
-                   AND RVI.name_id = lookup_package_name('rhn-satellite-schema')
+                   AND RVI.name_id = PN.id
                    AND RVI.evr_id = PE.id
                 """)
         h.execute()

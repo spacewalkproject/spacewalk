@@ -75,11 +75,7 @@ def init_hook(conduit):
         rhn_enabled = False
         return
 
-    config_file = None
-    if os.environ.has_key('RHNCONFIG'):
-        if os.path.exists(os.environ['RHNCONFIG']):
-            config_file = os.environ['RHNCONFIG']
-    up2date_cfg = config.initUp2dateConfig(config_file)
+    up2date_cfg = config.initUp2dateConfig()
     try:
         proxy_url = get_proxy_url(up2date_cfg)
         proxy_dict = {}

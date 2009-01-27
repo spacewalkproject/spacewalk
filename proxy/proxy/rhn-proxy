@@ -1,0 +1,82 @@
+#!/bin/sh
+
+SERVICES="squid httpd jabberd MonitoringScout"
+
+. /etc/rc.d/init.d/functions
+
+RETVAL=0
+
+forward_services() {
+    ACTION="$1"
+
+    for service in $SERVICES; do
+	if [ -e /etc/rc.d/init.d/$service ]; then
+	    /sbin/service $service $ACTION
+	    let RETVAL=$RETVAL+$?
+	fi
+	if [ $RETVAL -gt 0 ]; then
+	    RETVAL=1
+	fi
+    done
+}
+
+reverse_services() {
+    ACTION="$1"
+
+    for service in $(echo $SERVICES | tac -s" "); do
+	if [ -e /etc/rc.d/init.d/$service ]; then
+	    /sbin/service $service $ACTION
+            let RETVAL=$RETVAL+$?
+        fi
+        if [ $RETVAL -gt 0 ]; then
+            RETVAL=1
+        fi
+    done
+}
+
+start() {
+        echo "Starting rhn-proxy..."
+	forward_services start
+	echo "Done."
+
+        [ $RETVAL = 0 ] && touch /var/lock/subsys/rhn-proxy
+}
+
+stop() {
+        echo "Shutting down rhn-proxy..."
+	reverse_services stop
+	echo "Done."
+
+        [ $RETVAL = 0 ] && rm -f /var/lock/subsys/rhn-proxy
+}
+
+restart() {
+    stop
+    sleep 2
+    # if service has not been started and stop fail, we do not care
+    RETVAL=0
+    start
+}
+
+case "$1" in
+    start)
+	start
+        ;;
+    stop)
+	stop
+        ;;
+    status)
+	forward_services status
+        ;;
+    restart)
+        restart
+        ;;
+    condrestart)
+        wrd_services condrestart
+	;;
+    *)
+        echo "Usage: rhn-proxy {start|stop|status|restart|condrestart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL

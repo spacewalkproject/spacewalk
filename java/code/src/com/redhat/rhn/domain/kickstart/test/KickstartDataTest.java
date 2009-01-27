@@ -494,7 +494,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         option.setKickstartData(k);
         option.setCreated(created);
         option.setModified(modified);
-        k.addOption(option);
+        k.addCommand(option);
         
         KickstartCommand root = new KickstartCommand();
         root.setCommandName(rootName);
@@ -502,7 +502,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         root.setKickstartData(k);
         root.setCreated(created);
         root.setModified(modified);
-        k.addOption(root);
+        k.addCommand(root);
         
         return k;
     }

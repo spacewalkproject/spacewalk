@@ -7,15 +7,10 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.22
+Version: 0.5.1
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd backend
-# make test-srpm
 URL:       https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
@@ -61,7 +56,6 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Requires: rhel-instnum
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
 
@@ -545,6 +539,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- removing rhel-instnum dep requires and associated unsed code
+
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
+- 480757 - fix filenames generation in repomd for custom channels
+- change Source0 to point to fedorahosted.org
+
 * Thu Jan 15 2009 Pradeep Kilambi 0.4.22-1
 - include migrate-system-profile.8 file in the spec
 

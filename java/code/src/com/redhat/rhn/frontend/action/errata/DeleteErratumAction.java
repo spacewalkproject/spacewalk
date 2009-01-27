@@ -88,8 +88,8 @@ public class DeleteErratumAction extends LookupDispatchAction {
         Errata errata = requestContext.lookupErratum();
         
         //remove the packages in the channels associated with the errata
-        Set<com.redhat.rhn.domain.rhnpackage.Package> errataPacks = 
-            errata.getPackages();
+        Set<Package> errataPacks = errata.getPackages();
+
         Set<Channel> errataChans = errata.getChannels();
         for (Channel chan : errataChans) {
             for (Package pack : errataPacks) {
@@ -98,7 +98,7 @@ public class DeleteErratumAction extends LookupDispatchAction {
                 }
             }
         }
-        
+
         ErrataManager.deleteErratum(requestContext.getLoggedInUser(), errata.getId());
         
         ActionMessages msgs = new ActionMessages();

@@ -320,6 +320,18 @@ class SqlPackageMapper:
         self._fill_package_other(package)
         return package
 
+    def _get_package_filename(self, pkg): 
+        if pkg[17]: 
+            path = pkg[17] 
+            return os.path.basename(path) 
+        else: 
+            name = pkg[0] 
+            version = pkg[1] 
+            release = pkg[2] 
+            arch = pkg[4] 
+
+            return "%s-%s-%s.%s.rpm" % (name, version, release, arch) 
+
     def _fill_package_details(self, package):
         """ Load the packages basic details (summary, description, etc). """
         self.details_sql.execute(package_id = package.id)
@@ -346,7 +358,7 @@ class SqlPackageMapper:
         package.package_group = pkg[14]
         package.build_host = pkg[15]
         package.copyright = string_to_unicode(pkg[16])
-        package.filename = pkg[17].split('/')[-1]
+        package.filename = self._get_package_filename(pkg)
         package.source_rpm = pkg[18]
 
     def _fill_package_prco(self, package):

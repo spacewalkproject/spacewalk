@@ -384,7 +384,7 @@ class InfoWindow:
             grid.setField(self.passwordEntry, 1, 1, anchorLeft = 1)
 
             toplevel.add(grid, 0, 3)
- 
+            
             label = snack.TextboxReflowed(size[0]-10, HOSTED_LOGIN_TIP)
             toplevel.add(label, 0, 4, anchorLeft=1)
 
@@ -1123,8 +1123,12 @@ class FinishWindow:
                                              tui.profileName, 
                                              other = self.tui.other)
             reg_info = reg_info.rawDict
-
-            systemId = reg_info['system_id']
+            
+            if isinstance(reg_info['system_id'], unicode):
+                systemId = unicode.encode(reg_info['system_id'], 'utf-8')
+            else:
+                systemId = reg_info['system_id']
+                
         except up2dateErrors.CommunicationError, e:
             FatalErrorWindow(self.screen, 
                              _("Problem registering system:\n") + e.errmsg)

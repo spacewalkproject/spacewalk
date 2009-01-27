@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"POT-Creation-Date: 2008-11-05 18:11-0500\n"
 "PO-Revision-Date: 2007-02-01 11:42+1000\n"
 "Last-Translator: Xi HUANG <xhuang@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../src/up2date_client/capabilities.py:85
+#: ../src/up2date_client/capabilities.py:86
 #, python-format
 msgid ""
 "This client requires the server to support %s, which the current server does "
@@ -30,63 +30,55 @@ msgstr "该客户要求服务器支持 %s，但是当前的服务器不支持"
 msgid "%s was not found"
 msgstr "没有找到 %s "
 
-#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../src/up2date_client/gui.py:203 ../src/up2date_client/gui.py:217
 #: ../data/gui.glade.h:7
 msgid "Registering for software updates"
 msgstr "软件更新注册"
 
-#: ../src/up2date_client/gui.py:368
+#: ../src/up2date_client/gui.py:408
 msgid "_Finish"
 msgstr "(_F)结束"
 
 #. Finish Window
-#: ../src/up2date_client/gui.py:369
-#: ../src/up2date_client/rhnreg_constants.py:167
+#: ../src/up2date_client/gui.py:409
+#: ../src/up2date_client/rhnreg_constants.py:169
 msgid "Finish setting up software updates"
 msgstr "完成软件更新的设置"
 
-#: ../src/up2date_client/gui.py:371
+#: ../src/up2date_client/gui.py:411
 msgid "_Exit software update setup"
 msgstr "退出软件更新设置(_E)"
 
-#: ../src/up2date_client/gui.py:372
+#: ../src/up2date_client/gui.py:412
 msgid "software updates setup unsuccessful"
 msgstr "软件更新设置不成功"
 
-#: ../src/up2date_client/gui.py:382
+#: ../src/up2date_client/gui.py:422
 msgid "You must run rhn_register as root."
 msgstr "您必须以根用户的身份运行 rhn_register。"
 
-#: ../src/up2date_client/gui.py:406
+#: ../src/up2date_client/gui.py:446
 #, python-format
 msgid "There was some sort of I/O error: %s"
 msgstr "出现了某种 I/O 错误：%s"
 
-#: ../src/up2date_client/hardware.py:828
-msgid "Error reading hardware information:"
-msgstr "读取硬件信息时出错："
-
-#: ../src/up2date_client/hardware.py:836
+#: ../src/up2date_client/hardware.py:880
 msgid "Error reading cpu information:"
 msgstr "读取 cpu 信息时出错："
 
-#: ../src/up2date_client/hardware.py:843
+#: ../src/up2date_client/hardware.py:887
 msgid "Error reading system memory information:"
 msgstr "读取系统内存信息时出错："
 
-#: ../src/up2date_client/hardware.py:851
+#: ../src/up2date_client/hardware.py:895
 msgid "Error reading networking information:"
 msgstr "读取联网信息时出错："
 
-#: ../src/up2date_client/hardware.py:862
-msgid "Error reading DMI information:"
-msgstr "读取 DMI 信息时出错："
-
-#: ../src/up2date_client/hardware.py:869
+#: ../src/up2date_client/hardware.py:916
 msgid "Error reading install method information:"
 msgstr "读取安装方法信息时出错："
 
-#: ../src/up2date_client/hardware.py:876
+#: ../src/up2date_client/hardware.py:923
 msgid "Error reading network interface information:"
 msgstr "读取网络接口信息时出错："
 
@@ -110,7 +102,7 @@ msgstr "是/否对话框："
 msgid "Question dialog:"
 msgstr "问题对话框："
 
-#: ../src/up2date_client/rhnChannel.py:137
+#: ../src/up2date_client/rhnChannel.py:123
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "该系统在和某频道关联前可能不会被更新。"
 
@@ -144,12 +136,13 @@ msgid "An unexpected OS error occurred: %s\n"
 msgstr "发生了一个意外的操作系统错误：%s\n"
 
 #: ../src/up2date_client/rhncli.py:74
-msgid "A connection was attemped with a malformed URI.\n"
+#, fuzzy
+msgid "A connection was attempted with a malformed URI.\n"
 msgstr "格式不正确的 URI。\n"
 
 #: ../src/up2date_client/rhncli.py:76
-#, python-format
-msgid "A connection was attemped with a malformed URI: %s.\n"
+#, fuzzy, python-format
+msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr "使用了一个格式不正确的 URI: %s。\n"
 
 #: ../src/up2date_client/rhncli.py:78
@@ -183,11 +176,11 @@ msgstr "出现了某种验证错误：%s\n"
 msgid "You must be root to run %s"
 msgstr "您必须是根用户才能运行 %s"
 
-#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:168
 msgid "Unable to open gui. Try `up2date --nox`"
 msgstr "无法打开 gui，请尝试“up2date --nox”"
 
-#: ../src/up2date_client/rhncli.py:172
+#: ../src/up2date_client/rhncli.py:175
 #, python-format
 msgid ""
 "%%prog (Red Hat Network Client Tools) %s\n"
@@ -198,11 +191,11 @@ msgstr ""
 "Copyright (C) 1999-2006 Red Hat, Inc.\n"
 "Licensed under the terms of the GPL."
 
-#: ../src/up2date_client/rhncli.py:192
+#: ../src/up2date_client/rhncli.py:195
 msgid "An error has occurred:"
 msgstr "发生了一个错误："
 
-#: ../src/up2date_client/rhncli.py:200
+#: ../src/up2date_client/rhncli.py:203
 msgid "See /var/log/up2date for more information"
 msgstr "查看 /var/log/up2date 来获得详悉信息"
 
@@ -251,15 +244,13 @@ msgstr ""
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:34
-#: ../data/rh_register.glade.h:168
 msgid ""
 "If you do not have a Red Hat Login, this assistant will allow you to create "
 "one."
 msgstr "如果您还没有红帽登录帐号，它将帮助您建立一个。"
 
 #. Why Register Window
-#: ../src/up2date_client/rhnreg_constants.py:38
-#: ../data/rh_register.glade.h:340
+#: ../src/up2date_client/rhnreg_constants.py:38 ../data/rh_register.glade.h:92
 msgid "Why Should I Connect to RHN? ..."
 msgstr "我为什么需要连接到 RHN？"
 
@@ -267,8 +258,7 @@ msgstr "我为什么需要连接到 RHN？"
 msgid "Why connect to Red Hat Network?"
 msgstr "为什么需要连接到红帽网络？"
 
-#: ../src/up2date_client/rhnreg_constants.py:40
-#: ../data/rh_register.glade.h:101
+#: ../src/up2date_client/rhnreg_constants.py:40 ../data/rh_register.glade.h:44
 msgid ""
 "Connecting your system to Red Hat Network allows you to take full advantage "
 "of the benefits of a paid subscription, including:"
@@ -298,25 +288,24 @@ msgstr ""
 "接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统更新并处于安全状"
 "态。"
 
-#: ../src/up2date_client/rhnreg_constants.py:48
-#: ../data/rh_register.glade.h:116
+#: ../src/up2date_client/rhnreg_constants.py:48 ../data/rh_register.glade.h:46
 msgid ""
 "Download installation images for Red Hat Enterprise Linux releases, "
 "including new releases."
 msgstr "下载红帽企业 Linxu 发行的安装映像，包括新的发行。"
 
-#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:32
 msgid ""
 "Access to the technical support experts at Red Hat or Red Hat's partners for "
 "help with any issues you might encounter with this system."
 msgstr "联系红帽或红帽合作伙伴的技术支持专家来帮助您解决这个系统所遇到的问题。"
 
-#: ../src/up2date_client/rhnreg_constants.py:52
-#: ../data/rh_register.glade.h:294
+#: ../src/up2date_client/rhnreg_constants.py:52 ../data/rh_register.glade.h:82
 msgid ""
 "Stay in compliance with your subscription agreement and manage subscriptions "
 "for systems connected to your account at http://rhn.redhat.com/."
-msgstr "遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
+msgstr ""
+"遵循您的订阅协议并管理连接到您在 http://rhn.redhat.com 上的帐号的系统订阅。"
 
 #: ../src/up2date_client/rhnreg_constants.py:56
 msgid ""
@@ -400,7 +389,7 @@ msgid "I'll register later."
 msgstr "我在以后注册。"
 
 #. Info Window
-#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:12
 msgid "Setting up software updates"
 msgstr "设置软件更新"
 
@@ -444,7 +433,8 @@ msgid "Please enter and verify a password."
 msgstr "请输入并校验一个口令。"
 
 #: ../src/up2date_client/rhnreg_constants.py:99
-msgid "The two passwords you entered don't match.  Please re-type your passwords."
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
 msgstr "您输入的两个口令不匹配。请重新输入您的口令。"
 
 #. Product Window
@@ -470,66 +460,75 @@ msgstr ""
 "\n"
 
 #: ../src/up2date_client/rhnreg_constants.py:109
+#, fuzzy
+msgid ""
+"Tip: Forgot your login or password? Visit: https://rhn.redhat.com/rhn/sales/"
+"LoginInfo.do"
+msgstr ""
+"<small>忘记了您的登录或口令？访问 \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+
+#: ../src/up2date_client/rhnreg_constants.py:111
 msgid "*Desired Login:"
 msgstr "*登录："
 
-#: ../src/up2date_client/rhnreg_constants.py:110
+#: ../src/up2date_client/rhnreg_constants.py:112
 msgid "Examples: user@domain.com"
 msgstr "例如：user@domain.com"
 
-#: ../src/up2date_client/rhnreg_constants.py:111
+#: ../src/up2date_client/rhnreg_constants.py:113
 msgid "*Desired Password:"
 msgstr "* 口令："
 
-#: ../src/up2date_client/rhnreg_constants.py:112
+#: ../src/up2date_client/rhnreg_constants.py:114
 msgid "*Confirm Password:"
 msgstr "* 确认口令："
 
-#: ../src/up2date_client/rhnreg_constants.py:113
+#: ../src/up2date_client/rhnreg_constants.py:115
 msgid "*Email Address:"
 msgstr "*电子邮件地址："
 
-#: ../src/up2date_client/rhnreg_constants.py:114
+#: ../src/up2date_client/rhnreg_constants.py:116
 msgid "Tip: Leave blank if not with a company."
 msgstr "如果您是个人用户，把它留为空。"
 
-#: ../src/up2date_client/rhnreg_constants.py:115
+#: ../src/up2date_client/rhnreg_constants.py:117
 msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
 msgstr "红帽尊重您的隐私权。在这里查看红帽的隐私条款：http://"
 
-#: ../src/up2date_client/rhnreg_constants.py:119
+#: ../src/up2date_client/rhnreg_constants.py:121
 msgid "Please enter your first name."
 msgstr "您必须输入姓名。"
 
-#: ../src/up2date_client/rhnreg_constants.py:120
+#: ../src/up2date_client/rhnreg_constants.py:122
 msgid "Please enter your last name."
 msgstr "请输入您的姓。"
 
-#: ../src/up2date_client/rhnreg_constants.py:121
+#: ../src/up2date_client/rhnreg_constants.py:123
 msgid "Please enter your email address."
 msgstr "请输入您的电子邮件地址。"
 
-#: ../src/up2date_client/rhnreg_constants.py:122
+#: ../src/up2date_client/rhnreg_constants.py:124
 msgid "Please enter a valid email address."
 msgstr "请输入一个有效的电子邮件地址。"
 
-#: ../src/up2date_client/rhnreg_constants.py:123
+#: ../src/up2date_client/rhnreg_constants.py:125
 msgid "Please enter your country."
 msgstr "请输入您所在的国家。"
 
-#: ../src/up2date_client/rhnreg_constants.py:124
+#: ../src/up2date_client/rhnreg_constants.py:126
 msgid "Please enter a longer login."
 msgstr "请输入一个较长的登录。"
 
-#: ../src/up2date_client/rhnreg_constants.py:125
+#: ../src/up2date_client/rhnreg_constants.py:127
 msgid "Please enter a longer password."
 msgstr "请输入一个较长的口令。"
 
-#: ../src/up2date_client/rhnreg_constants.py:126
+#: ../src/up2date_client/rhnreg_constants.py:128
 msgid "Please enter a shorter password."
 msgstr "请输入一个较短的口令。"
 
-#: ../src/up2date_client/rhnreg_constants.py:129
+#: ../src/up2date_client/rhnreg_constants.py:131
 msgid ""
 "It appears this system has attempted to register to the Red Hat Network.\n"
 "The system may already be set up for software updates.\n"
@@ -542,38 +541,38 @@ msgstr ""
 "您确定要继续吗？"
 
 #. Org selection window.
-#: ../src/up2date_client/rhnreg_constants.py:134
+#: ../src/up2date_client/rhnreg_constants.py:136
 msgid "Select Organization"
 msgstr "选择机构"
 
-#: ../src/up2date_client/rhnreg_constants.py:135
+#: ../src/up2date_client/rhnreg_constants.py:137
 #, python-format
 msgid ""
 "Your login, %s, is associated with multiple organizations.  You will need to "
 "select an organization to connect this system to."
 msgstr "您的登录 %s 与多个机构相连。您需要选择一个机构来与这个系统相连。"
 
-#: ../src/up2date_client/rhnreg_constants.py:138
+#: ../src/up2date_client/rhnreg_constants.py:140
 msgid "Organization:"
 msgstr "机构："
 
-#: ../src/up2date_client/rhnreg_constants.py:139
+#: ../src/up2date_client/rhnreg_constants.py:141
 msgid "You must select an organization."
 msgstr "您必须选择一个机构。"
 
 #. Subscription window.
-#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#: ../src/up2date_client/rhnreg_constants.py:144 ../data/gui.glade.h:1
 msgid "Access a subscription"
 msgstr "访问一个订阅"
 
-#: ../src/up2date_client/rhnreg_constants.py:143
-#: ../data/rh_register.glade.h:355
+#: ../src/up2date_client/rhnreg_constants.py:145
+#: ../data/rh_register.glade.h:107
 msgid ""
 "Your system will need to access a subscription. This will allow you to keep "
 "your system updated, secure, and supported."
 msgstr "您的系统需要访问一个订阅。这将使您的系统保持更新、安全并被支持。"
 
-#: ../src/up2date_client/rhnreg_constants.py:145
+#: ../src/up2date_client/rhnreg_constants.py:147
 msgid ""
 "You have no active subscriptions available in your account.  You will need "
 "to do one of the following to create an active subscription in your account "
@@ -582,8 +581,8 @@ msgstr ""
 "您还没有激活您帐号内的订阅。您在把这个系统连接到红帽网络前需要使用以下的方法"
 "之一在您帐号内创建一个激活的订阅："
 
-#: ../src/up2date_client/rhnreg_constants.py:149
-#: ../data/rh_register.glade.h:198
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:62
 msgid ""
 "Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
 "RHN > Subscription Management > System Entitlements."
@@ -591,31 +590,34 @@ msgstr ""
 "登录到 http://rhn.redhat.com/ 并取消一个非活跃的系统（通过 RHN > 订阅管理 > "
 "系统权利）。"
 
-#: ../src/up2date_client/rhnreg_constants.py:151
-#: ../data/rh_register.glade.h:256
+#: ../src/up2date_client/rhnreg_constants.py:153
+#: ../data/rh_register.glade.h:71
 msgid ""
 "Purchase an additional Red Hat Enterprise Linux subscription at http://www."
 "redhat.com/store/."
-msgstr "购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
+msgstr ""
+"购买一个额外的红帽企业 Linux 订阅（通过 http://www.redhat.com/store/）。"
 
-#: ../src/up2date_client/rhnreg_constants.py:153
+#: ../src/up2date_client/rhnreg_constants.py:155
 msgid "Activate a new subscription with an installation number:"
 msgstr "使用一个安装码来激活一个新订阅："
 
-#: ../src/up2date_client/rhnreg_constants.py:154
-msgid "You have already activated this installation number during this registration."
+#: ../src/up2date_client/rhnreg_constants.py:156
+msgid ""
+"You have already activated this installation number during this registration."
 msgstr "您在注册时已经激活了这个安装号。"
 
-#: ../src/up2date_client/rhnreg_constants.py:156
+#: ../src/up2date_client/rhnreg_constants.py:158
 msgid "Installation Number:"
 msgstr "安装号："
 
-#: ../src/up2date_client/rhnreg_constants.py:157
-msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+#: ../src/up2date_client/rhnreg_constants.py:159
+#, fuzzy
+msgid "Example: XXXX-XXXX-XXXX-XXXX"
 msgstr "例如：XXXX-XXXX-XXXX-XXXX-XXXX"
 
 #. Send Window
-#: ../src/up2date_client/rhnreg_constants.py:160
+#: ../src/up2date_client/rhnreg_constants.py:162
 msgid ""
 "We are finished collecting information for the System Profile.\n"
 "\n"
@@ -628,7 +630,7 @@ msgstr ""
 "点 \"下一步\" 来把这个系统配置档案发送到红帽网络。点 \"取消\" 则不会有任何信"
 "息被发送。您可以以后通过在命令行中输入 `rhn_register` 来运行注册程序。"
 
-#: ../src/up2date_client/rhnreg_constants.py:168
+#: ../src/up2date_client/rhnreg_constants.py:170
 msgid ""
 "Congratulations, you have successfully completed software updates set up for "
 "this system.\n"
@@ -648,7 +650,7 @@ msgstr ""
 "当有新的软件更新时，一个软件包图标会出现在您的桌面的通知区域上。点这个图标将"
 "可以应用有效的更新。"
 
-#: ../src/up2date_client/rhnreg_constants.py:176
+#: ../src/up2date_client/rhnreg_constants.py:178
 msgid ""
 "You may now run 'yum update' from this system's command line to get the "
 "latest software updates from Red Hat Network. You will need to run this "
@@ -665,43 +667,43 @@ msgstr ""
 "档。）"
 
 #. Review Window
-#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+#: ../src/up2date_client/rhnreg_constants.py:189 ../data/gui.glade.h:9
 msgid "Review system subscription details"
 msgstr "查看系统订阅详情"
 
-#: ../src/up2date_client/rhnreg_constants.py:188
-#: ../data/rh_register.glade.h:248
+#: ../src/up2date_client/rhnreg_constants.py:190
+#: ../data/rh_register.glade.h:66
 msgid "Please review the subscription details below:"
 msgstr "请在以下查看订阅详情："
 
-#: ../src/up2date_client/rhnreg_constants.py:189
+#: ../src/up2date_client/rhnreg_constants.py:191
 msgid "Subscriptions Activated:"
 msgstr "激活的订阅："
 
-#: ../src/up2date_client/rhnreg_constants.py:190
+#: ../src/up2date_client/rhnreg_constants.py:192
 #, python-format
 msgid ""
 "The installation number %s was activated during this system's initial "
 "connection to Red Hat Network."
 msgstr "安装号 %s 在这个系统与红帽网络初始连接时已经被激活。"
 
-#: ../src/up2date_client/rhnreg_constants.py:192
+#: ../src/up2date_client/rhnreg_constants.py:194
 msgid ""
 "Subscriptions have been activated for the following Red Hat products/"
 "services:"
 msgstr "以下红帽产品或服务的订阅已经被激活："
 
-#: ../src/up2date_client/rhnreg_constants.py:194
+#: ../src/up2date_client/rhnreg_constants.py:196
 msgid "Software channel subscriptions:"
 msgstr "软件频道订阅："
 
-#: ../src/up2date_client/rhnreg_constants.py:195
+#: ../src/up2date_client/rhnreg_constants.py:197
 msgid ""
 "This system will receive updates from the following Red Hat Network software "
 "channels:"
 msgstr "这个系统将从以下红帽网络软件频道中接收更新："
 
-#: ../src/up2date_client/rhnreg_constants.py:197
+#: ../src/up2date_client/rhnreg_constants.py:199
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -715,7 +717,7 @@ msgstr ""
 "面，并把这个系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 "
 "Kbase 的第6227号信息。(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
 
-#: ../src/up2date_client/rhnreg_constants.py:208
+#: ../src/up2date_client/rhnreg_constants.py:210
 msgid ""
 "Warning: If an installed product on this system is not listed above, you "
 "will not receive updates or support for that product. If you would like to "
@@ -729,13 +731,13 @@ msgstr ""
 "系统订阅到可以提供那些产品的更新的软件频道。更多详情，请参阅 Kbase 的第6227号"
 "信息。(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
 
-#: ../src/up2date_client/rhnreg_constants.py:219
+#: ../src/up2date_client/rhnreg_constants.py:221
 msgid ""
 "You were unable to be subscribed to the following software channels because "
 "there were insufficient subscriptions available in your account:"
 msgstr "您的帐号中没有足够的有效订阅，您将无法订阅到以下的软件频道："
 
-#: ../src/up2date_client/rhnreg_constants.py:223
+#: ../src/up2date_client/rhnreg_constants.py:225
 msgid ""
 "This system was unable to subscribe to any software channels. Your system "
 "will not receive any software updates to keep it secure and supported. There "
@@ -758,11 +760,11 @@ msgstr ""
 "效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的配置档案，并通过 软件 > "
 "软件频道 标签页来把这个系统订阅到软件频道。"
 
-#: ../src/up2date_client/rhnreg_constants.py:234
+#: ../src/up2date_client/rhnreg_constants.py:236
 msgid "RHN service level:"
 msgstr "RHN 服务级别："
 
-#: ../src/up2date_client/rhnreg_constants.py:235
+#: ../src/up2date_client/rhnreg_constants.py:237
 msgid ""
 "Depending on what RHN modules are associated with a system, you'll enjoy "
 "different benefits of Red Hat Network. The following are the RHN modules "
@@ -771,31 +773,32 @@ msgstr ""
 "根据与这个系统所关联的 RHN 模块的不同，您可以获得红帽网络所带来的不同的益处。"
 "以下模块与这个系统相关联："
 
-#: ../src/up2date_client/rhnreg_constants.py:239
+#: ../src/up2date_client/rhnreg_constants.py:241
 msgid ""
 "This system was unable to be associated with the following RHN module(s) "
 "because there were insufficient subscriptions available in your account:"
 msgstr "您的帐号中没有足够的订阅，这个系统无法和以下的 RHN 模块相关联："
 
-#: ../src/up2date_client/rhnreg_constants.py:242
+#: ../src/up2date_client/rhnreg_constants.py:244
 msgid ""
 "Update module: per-system updates, email errata notifications, errata "
 "information"
 msgstr "更新模块：每个系统的更新，电子邮件勘误通知，勘误信息"
 
-#: ../src/up2date_client/rhnreg_constants.py:244
+#: ../src/up2date_client/rhnreg_constants.py:246
 msgid ""
 "Management module: automatic updates, systems grouping, systems permissions, "
 "system package profiling"
 msgstr "管理模块：自动更新、系统组群、系统访问权限、软件包配置档案"
 
-#: ../src/up2date_client/rhnreg_constants.py:246
+#: ../src/up2date_client/rhnreg_constants.py:248
 msgid ""
 "Provisioning module: bare-metal provisioning, existing state provisioning, "
 "rollbacks, configuration management"
-msgstr "Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
+msgstr ""
+"Provision 模块：全新系统 provision、已存在状态 provision、系统恢复、配置管理"
 
-#: ../src/up2date_client/rhnreg_constants.py:248
+#: ../src/up2date_client/rhnreg_constants.py:250
 msgid ""
 "Monitoring module: pre-defined and custom system performance probes, system "
 "performance email notifications, graphs of system performance"
@@ -803,20 +806,22 @@ msgstr ""
 "监测模块：预定义的和自定义的系统性能探测、系统性能电子邮件通知，系统性能的显"
 "示图"
 
-#: ../src/up2date_client/rhnreg_constants.py:252
+#: ../src/up2date_client/rhnreg_constants.py:254
 msgid ""
 "Virtualization module: software updates for a limited number of virtual "
 "guests on this system."
 msgstr "虚拟化模块：对本系统上一定数量的虚拟客户机的软件进行更新。"
 
-#: ../src/up2date_client/rhnreg_constants.py:255
+#: ../src/up2date_client/rhnreg_constants.py:257
 msgid ""
 "Virtualization Platform module: software updates for an unlimited number "
 "virtual guests of this system, access to additional software channels for "
 "guests of this system."
-msgstr "虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软件通道的访问。"
+msgstr ""
+"虚拟化平台模块：对本系统上的不限制数量的客户机的软件进行更新，以及对其他软件"
+"通道的访问。"
 
-#: ../src/up2date_client/rhnreg_constants.py:259
+#: ../src/up2date_client/rhnreg_constants.py:261
 msgid ""
 "<b>Warning:</b> Any guest systems you create on this system and register to "
 "RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
@@ -824,9 +829,13 @@ msgid ""
 "virtualization platform system entitlement available and (2) apply that "
 "system entitlement to this system in RHN's web interface if you do not want "
 "virtual guests of this system to consume additional subscriptions."
-msgstr "<b>警告：</b>在本系统上创建并向 RHN 注册的任何客户机系统都将占用主机之外的红帽企业 Linux 的订阅。如果你不想客户机系统占用额外的订阅，你将需要：（1）获取一个虚拟化或者虚拟化平台的系统权利（system entitlement），（2）在 RHN 网站上应用这个系统权利。"
+msgstr ""
+"<b>警告：</b>在本系统上创建并向 RHN 注册的任何客户机系统都将占用主机之外的红"
+"帽企业 Linux 的订阅。如果你不想客户机系统占用额外的订阅，你将需要：（1）获取"
+"一个虚拟化或者虚拟化平台的系统权利（system entitlement），（2）在 RHN 网站上"
+"应用这个系统权利。"
 
-#: ../src/up2date_client/rhnreg_constants.py:267
+#: ../src/up2date_client/rhnreg_constants.py:269
 msgid ""
 "This system was unable to be associated with any RHN service level modules. "
 "This system will not receive any software updates to keep it secure and "
@@ -849,7 +858,7 @@ msgstr ""
 "效的激活订阅，您可以通过 RHN 网站界面来查看这个系统的配置档案，并通过 软件 > "
 "软件频道 标签页来把这个系统订阅到软件频道。"
 
-#: ../src/up2date_client/rhnreg_constants.py:279
+#: ../src/up2date_client/rhnreg_constants.py:281
 #, python-format
 msgid ""
 "Universal default activation key detected\n"
@@ -869,7 +878,7 @@ msgstr ""
 "南》的第6.4.6节 (http://rhn.redhat.com/rhn/help/reference/)\n"
 "通用的默认激活码：%s"
 
-#: ../src/up2date_client/rhnreg_constants.py:289
+#: ../src/up2date_client/rhnreg_constants.py:291
 msgid ""
 "A subscription-activating installation number was found on disk, but we were "
 "not able to activate it (An unknown error occurred.) We used existing active "
@@ -881,42 +890,45 @@ msgstr ""
 "误。）我们将使用 rhn 帐号中的有效的激活订阅来代替它。您可以使用以下网址联系红"
 "帽的客户服务部门来解决这个问题：http://www.redhat.com/apps/support/"
 
-#: ../src/up2date_client/rhnreg_constants.py:294
+#: ../src/up2date_client/rhnreg_constants.py:296
 msgid "A installation number was found on disk, but we "
 msgstr "在磁盘中发现了一个订阅激活安装码，但是我们"
 
-#: ../src/up2date_client/rhnreg_constants.py:295
-msgid "were not able to activate it (An unknown error occurred.) We used existing "
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
 msgstr "无法激活它（存在一个未知的错误。）使用在"
 
-#: ../src/up2date_client/rhnreg_constants.py:296
-msgid "active subscription slots available in the rhn account instead. You may wish "
+#: ../src/up2date_client/rhnreg_constants.py:298
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
 msgstr "rhn 帐号中有效的激活订阅。您也可以联系"
 
-#: ../src/up2date_client/rhnreg_constants.py:297
+#: ../src/up2date_client/rhnreg_constants.py:299
 msgid "to contact Red Hat customer service regarding this issue: "
 msgstr "红帽客户服务部门来解决这个问题："
 
-#: ../src/up2date_client/rhnreg_constants.py:298
+#: ../src/up2date_client/rhnreg_constants.py:300
 msgid "http://www.redhat.com/apps/support/"
 msgstr "http://www.redhat.com/apps/support/"
 
 #. Error Messages.
-#: ../src/up2date_client/rhnreg_constants.py:301
+#: ../src/up2date_client/rhnreg_constants.py:303
 msgid "Fatal Error"
 msgstr "致命错误"
 
-#: ../src/up2date_client/rhnreg_constants.py:302
-#: ../src/up2date_client/rhnreg_constants.py:369
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:391
+#: ../src/up2date_client/tui.py:425
 msgid "Error"
 msgstr "错误"
 
-#: ../src/up2date_client/rhnreg_constants.py:303
+#: ../src/up2date_client/rhnreg_constants.py:305
 msgid "Warning"
 msgstr "警告"
 
-#: ../src/up2date_client/rhnreg_constants.py:304
-#: ../src/up2date_client/rhnreg_constants.py:311
+#: ../src/up2date_client/rhnreg_constants.py:306
+#: ../src/up2date_client/rhnreg_constants.py:313
 #, python-format
 msgid ""
 "We can't contact the Red Hat Network Server.\n"
@@ -938,12 +950,12 @@ msgstr ""
 "\n"
 "在没有连接到红帽网络服务器的情况下，这个系统将无法从红帽接收软件更新"
 
-#: ../src/up2date_client/rhnreg_constants.py:317
+#: ../src/up2date_client/rhnreg_constants.py:319
 #, python-format
 msgid "Architecture: %s, OS Release: %s, OS Version: %s"
 msgstr "体系结构：%s，OS 发行版本：%s, OS 版本：%s"
 
-#: ../src/up2date_client/rhnreg_constants.py:319
+#: ../src/up2date_client/rhnreg_constants.py:321
 msgid ""
 "This server doesn't support functionality needed by this version of the "
 "software update setup client. Please try again with a newer server."
@@ -951,7 +963,7 @@ msgstr ""
 "这个服务器不支持客户端系统所设置的软件更新所需要的功能。请尝试使用一个较新的"
 "服务器。"
 
-#: ../src/up2date_client/rhnreg_constants.py:323
+#: ../src/up2date_client/rhnreg_constants.py:325
 #, python-format
 msgid ""
 "The installation number you have provided (%s) is invalid.\n"
@@ -963,7 +975,7 @@ msgstr ""
 "\n"
 "请检查这个安装号后再试，或使用 '访问一个订阅' 屏幕所列出的另一个选项。"
 
-#: ../src/up2date_client/rhnreg_constants.py:328
+#: ../src/up2date_client/rhnreg_constants.py:330
 msgid ""
 "The installation number you provided is valid but was already activated and "
 "the subscriptions have already been used by systems in your organization or "
@@ -977,7 +989,7 @@ msgstr ""
 "\n"
 "请使用一个不同的安装号，或使用 '访问一个订阅' 屏幕所列出的另一个选项。"
 
-#: ../src/up2date_client/rhnreg_constants.py:335
+#: ../src/up2date_client/rhnreg_constants.py:337
 msgid ""
 "The installation number you provided does not have subscriptions associated "
 "with it.\n"
@@ -989,7 +1001,7 @@ msgstr ""
 "\n"
 "请使用一个不同的安装号，或使用 '访问一个订阅' 屏幕所列出的另一个选项。"
 
-#: ../src/up2date_client/rhnreg_constants.py:343
+#: ../src/up2date_client/rhnreg_constants.py:345
 #, python-format
 msgid ""
 "<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
@@ -1008,11 +1020,19 @@ msgstr ""
 "\n"
 "请尝试使用一个不同的证书文件。"
 
-#: ../src/up2date_client/rhnreg_constants.py:351
+#: ../src/up2date_client/rhnreg_constants.py:353
+msgid ""
+"<b><span size=\"12000\">Incompatible Certificate File</span></b>\n"
+"\n"
+" The certificate is expired. Please ensure you have the correct  certificate "
+"and your system time is correct."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:357
 msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
 msgstr "请验证 /etc/sysconfig/rhn/up2date 中的 sslCACert 值"
 
-#: ../src/up2date_client/rhnreg_constants.py:354
+#: ../src/up2date_client/rhnreg_constants.py:360
 msgid ""
 "Problem registering system.\n"
 "\n"
@@ -1030,64 +1050,100 @@ msgstr ""
 "用这个通用的默认激活码。更多信息，请参阅红帽 Knowledgebase 的第7924号信息"
 "（http://kbase.redhat.com/faq/FAQ_61_7924.shtm）"
 
+#: ../src/up2date_client/rhnreg_constants.py:373
+msgid ""
+"\n"
+" Tip: Minor releases with a '*' are currently supported by Red Hat.\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:376
+msgid ""
+"Warning:You will not be able to limit this system to minor release that is "
+"older than the recent minor release if you select this option.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:381
+#, python-format
+msgid ""
+"Your system will be subscribed to %s \n"
+"base software channel. You will not be\n"
+"able to move this system to an earlier\n"
+"(you will be able to move to a newer release.)\n"
+"Are you sure you Would like to Continue?"
+msgstr ""
+
 #. Navigation
-#: ../src/up2date_client/rhnreg_constants.py:368
+#: ../src/up2date_client/rhnreg_constants.py:390
+#: ../src/up2date_client/tui.py:425
 msgid "OK"
 msgstr "确定"
 
-#: ../src/up2date_client/rhnreg_constants.py:370
+#: ../src/up2date_client/rhnreg_constants.py:392
 msgid "Next"
 msgstr "下一步"
 
-#: ../src/up2date_client/rhnreg_constants.py:371
+#: ../src/up2date_client/rhnreg_constants.py:393
 msgid "Back"
 msgstr "上一步"
 
-#: ../src/up2date_client/rhnreg_constants.py:372
+#: ../src/up2date_client/rhnreg_constants.py:394
 msgid "Cancel"
 msgstr "取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:373
+#: ../src/up2date_client/rhnreg_constants.py:395
 msgid "No, Cancel"
 msgstr "不，取消"
 
-#: ../src/up2date_client/rhnreg_constants.py:374
+#: ../src/up2date_client/rhnreg_constants.py:396
 msgid "Yes, Continue"
 msgstr "是，继续"
 
-#: ../src/up2date_client/rhnreg_constants.py:375
+#: ../src/up2date_client/rhnreg_constants.py:397
 msgid "Press <space> to deselect the option."
 msgstr "按 <space> 来取消选择这个选项。"
 
-#: ../src/up2date_client/rhnregGui.py:112
-#: ../src/up2date_client/rhnregGui.py:152
+#: ../src/up2date_client/rhnregGui.py:113
+#: ../src/up2date_client/rhnregGui.py:153
 msgid "Notice"
 msgstr "注意"
 
-#: ../src/up2date_client/rhnregGui.py:118
-#: ../src/up2date_client/rhnregGui.py:129
+#: ../src/up2date_client/rhnregGui.py:119
+#: ../src/up2date_client/rhnregGui.py:130
 msgid "Automatic Subscription Activation"
 msgstr "自动订阅激活"
 
-#: ../src/up2date_client/rhnregGui.py:141
+#: ../src/up2date_client/rhnregGui.py:142
 msgid "Subscription Activation"
 msgstr "订阅激活"
 
-#: ../src/up2date_client/rhnregGui.py:302
+#: ../src/up2date_client/rhnregGui.py:278
+#, fuzzy
+msgid "There was an error while applying your choice."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:305
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "您指定了一个无效的协议。只允许使用 https 和 http。"
 
-#: ../src/up2date_client/rhnregGui.py:331
+#: ../src/up2date_client/rhnregGui.py:329
+#, fuzzy
+msgid ""
+"You will not be able to successfully register this system without contacting "
+"a Red Hat Network server."
+msgstr "没有在红帽网络上注册系统，您将 <b>无法</b> 获得这些订阅所提供的益处。"
+
+#: ../src/up2date_client/rhnregGui.py:346
 #, python-format
 msgid "We could not contact Red Hat Network (%s)."
 msgstr "我们无法连接到红帽网络 (%s)。"
 
-#: ../src/up2date_client/rhnregGui.py:333
-#: ../src/up2date_client/rhnregGui.py:346
+#: ../src/up2date_client/rhnregGui.py:348
+#: ../src/up2date_client/rhnregGui.py:361
 msgid "Make sure the network connection on this system is operational."
 msgstr "确认这个系统的网络连接可以正常工作。"
 
-#: ../src/up2date_client/rhnregGui.py:335
+#: ../src/up2date_client/rhnregGui.py:350
 msgid ""
 "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
 "can enter a Satellite or Proxy location instead."
@@ -1095,48 +1151,57 @@ msgstr ""
 "您是要注册到一个红帽网络 Satellite 或代理服务器吗？如果是，您需要输入一个 "
 "Satellite 或代理服务器的地址。"
 
-#: ../src/up2date_client/rhnregGui.py:341
+#: ../src/up2date_client/rhnregGui.py:356
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr "我们无法连接到 Satellite 或代理服务器（'%s.'）。"
 
-#: ../src/up2date_client/rhnregGui.py:343
+#: ../src/up2date_client/rhnregGui.py:358
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr "请检查位置 - '%s' 正确吗？如果不正确，您可以修改它后再重新尝试。"
 
-#: ../src/up2date_client/rhnregGui.py:356
+#: ../src/up2date_client/rhnregGui.py:371
 msgid "There was an error communicating with Red Hat Network."
 msgstr "在与红帽网络连接时出现错误。"
 
-#: ../src/up2date_client/rhnregGui.py:357
+#: ../src/up2date_client/rhnregGui.py:372
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr "服务器可能无法使用。您可以稍后再试图与它连接。"
 
-#: ../src/up2date_client/rhnregGui.py:359
+#: ../src/up2date_client/rhnregGui.py:374
 msgid "You may be running a client that is incompatible with the server."
 msgstr "您可能正在运行一个与服务器不兼容的客户端系统。"
 
-#: ../src/up2date_client/rhnregGui.py:462
+#: ../src/up2date_client/rhnregGui.py:417
+#, fuzzy, python-format
+msgid ""
+"Please enter your account information for the <b>%s</b> Red Hat Network "
+"Satellite:"
+msgstr ""
+"请输入您的 %s 红帽网络 Satellite 的登录信息：\n"
+"\n"
+
+#: ../src/up2date_client/rhnregGui.py:466
 msgid "You must enter a login."
 msgstr "您必须输入一个登录。"
 
-#: ../src/up2date_client/rhnregGui.py:468
+#: ../src/up2date_client/rhnregGui.py:472
 msgid "You must enter a password."
 msgstr "您必须输入一个口令。"
 
-#: ../src/up2date_client/rhnregGui.py:507
-#: ../src/up2date_client/rhnregGui.py:1351
+#: ../src/up2date_client/rhnregGui.py:486
+#, fuzzy
+msgid "There was an error while logging in."
+msgstr "登录时出现问题。"
+
+#: ../src/up2date_client/rhnregGui.py:513
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "在与注册服务器联络时出现了一个致命错误。  错误消息是：\n"
-
-#: ../src/up2date_client/rhnregGui.py:512
-msgid "That user account and password is not valid\n"
-msgstr "用户帐号和口令无效\n"
 
 #: ../src/up2date_client/rhnregGui.py:525
 #, python-format
@@ -1151,68 +1216,90 @@ msgstr ""
 msgid "There was problem logging in."
 msgstr "登录时出现问题。"
 
-#: ../src/up2date_client/rhnregGui.py:697
-msgid "You must enter a installation number."
+#: ../src/up2date_client/rhnregGui.py:596
+#, fuzzy
+msgid "There was an error while getting the list of organizations."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:704
+#, fuzzy
+msgid "You must enter an installation number."
 msgstr "您必须输入一个安装号。"
 
-#: ../src/up2date_client/rhnregGui.py:752
+#: ../src/up2date_client/rhnregGui.py:717
+#, fuzzy
+msgid "There was an error activating your number."
+msgstr "在与红帽网络连接时出现错误。"
+
+#: ../src/up2date_client/rhnregGui.py:759
 msgid "This installation number has already been activated."
 msgstr "这个安装码已经被激活。"
 
-#: ../src/up2date_client/rhnregGui.py:813
+#: ../src/up2date_client/rhnregGui.py:908
+#, fuzzy
+msgid "There was an error while assembling information for the profile."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:929
 msgid "Error running hardware profile"
 msgstr "运行硬件档案时出错"
 
-#: ../src/up2date_client/rhnregGui.py:839
+#: ../src/up2date_client/rhnregGui.py:955
 msgid "There was an error while populating the profile."
 msgstr "在产生配置档案时出现了一个错误。"
 
-#: ../src/up2date_client/rhnregGui.py:859
+#: ../src/up2date_client/rhnregGui.py:975
 msgid "You must choose a name for this profile."
 msgstr "您必须为这个档案选择一个名称。"
 
-#: ../src/up2date_client/rhnregGui.py:885
+#: ../src/up2date_client/rhnregGui.py:990
+#, fuzzy
+msgid "There was an error while creating the profile."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:1001
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "正在向 Red Hat 网络发送您的档案信息。请稍候。"
 
-#: ../src/up2date_client/rhnregGui.py:902
+#: ../src/up2date_client/rhnregGui.py:1020
 msgid "Registering System"
 msgstr "注册系统"
 
-#: ../src/up2date_client/rhnregGui.py:916
-#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
-#: ../src/up2date_client/tui.py:1317
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1038
+#: ../src/up2date_client/rhnregGui.py:1042 ../src/up2date_client/tui.py:1133
+#: ../src/up2date_client/tui.py:1136 ../src/up2date_client/tui.py:1139
 msgid "Problem registering system:\n"
 msgstr "注册系统时出现问题：\n"
 
-#: ../src/up2date_client/rhnregGui.py:924
+#: ../src/up2date_client/rhnregGui.py:1045
 #, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr "所提供的安装号 [ %s ] 不是一个有效的安装号码。请返回到前一页并改正它。"
 
-#: ../src/up2date_client/rhnregGui.py:925
+#: ../src/up2date_client/rhnregGui.py:1046
 msgid "registration_number"
 msgstr "注册码(_n)"
 
-#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1145
 msgid "Problem registering system."
 msgstr "注册系统时出现问题。"
 
-#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+#: ../src/up2date_client/rhnregGui.py:1066 ../src/up2date_client/tui.py:1150
 msgid "Problem writing out system id to disk."
 msgstr "在把系统 ID 写到磁盘时出现问题。"
 
-#: ../src/up2date_client/rhnregGui.py:951
+#: ../src/up2date_client/rhnregGui.py:1072
 msgid "There was a problem registering this system."
 msgstr "注册系统时出现问题。"
 
-#: ../src/up2date_client/rhnregGui.py:964
+#: ../src/up2date_client/rhnregGui.py:1085
 msgid "Sending hardware information"
 msgstr "发送硬件信息"
 
-#: ../src/up2date_client/rhnregGui.py:969
+#: ../src/up2date_client/rhnregGui.py:1090
 msgid "Problem sending hardware information."
 msgstr "发送硬件信息时出错。"
 
@@ -1225,111 +1312,96 @@ msgstr "发送硬件信息时出错。"
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:995
+#: ../src/up2date_client/rhnregGui.py:1116
 msgid "Sending package information"
 msgstr "发送软件包信息"
 
-#: ../src/up2date_client/rhnregGui.py:1000
+#: ../src/up2date_client/rhnregGui.py:1121
 msgid "Problem sending package information."
 msgstr "发送软件包信息时出现问题。"
 
-#: ../src/up2date_client/rhnregGui.py:1034
-#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
-#: ../src/up2date_client/tui.py:1356
+#: ../src/up2date_client/rhnregGui.py:1155
+#: ../src/up2date_client/rhnregGui.py:1172 ../src/up2date_client/tui.py:1164
+#: ../src/up2date_client/tui.py:1178
 msgid "Problem registering personal information:\n"
 msgstr "注册个人信息时出现问题：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1039
-#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
-#: ../src/up2date_client/tui.py:1360
+#: ../src/up2date_client/rhnregGui.py:1160
+#: ../src/up2date_client/rhnregGui.py:1177 ../src/up2date_client/tui.py:1170
+#: ../src/up2date_client/tui.py:1182
 msgid "Problem registering personal information"
 msgstr "注册个人信息时出现问题"
 
-#: ../src/up2date_client/rhnregGui.py:1127
+#: ../src/up2date_client/rhnregGui.py:1222
+#, fuzzy
+msgid "There was an error while installing the certificate."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:1248
 msgid "You must select a certificate."
 msgstr "您必须选择一个证书。"
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:1170
+#: ../src/up2date_client/rhnregGui.py:1300
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr "一个 SSL 错误。这可能是因为您所选择的文件不是一个证书文件。"
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:1180
+#: ../src/up2date_client/rhnregGui.py:1310
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr "在安装新证书时出现错误：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1284
-msgid "You must enter a user name."
-msgstr "您必须输入用户名。"
-
-#: ../src/up2date_client/rhnregGui.py:1290
-#: ../src/up2date_client/rhnregGui.py:1296
-msgid "You must enter and verify a password."
-msgstr "您必须输入并校验一个口令。"
-
-#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
-#: ../src/up2date_client/tui.py:989
-msgid "The server indicated an error:\n"
-msgstr "服务器标明一个错误：\n"
-
-#: ../src/up2date_client/rhnregGui.py:1388
-#, python-format
-msgid ""
-"Problem registering login:\n"
-"%s"
-msgstr ""
-"注册登录时出现问题：\n"
-"%s"
-
-#: ../src/up2date_client/rhnregGui.py:1394
-msgid "Problem registering login."
-msgstr "注册登录时出现问题。"
-
-#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
-msgid "United States"
-msgstr "美国"
-
-#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
-msgid "Canada"
-msgstr "加拿大"
-
-#: ../src/up2date_client/rhnregGui.py:1423
-#: ../src/up2date_client/rhnregGui.py:1424
-#: ../src/up2date_client/rhnregGui.py:1425
+#: ../src/up2date_client/rhnregGui.py:1362
+#: ../src/up2date_client/rhnregGui.py:1363
+#: ../src/up2date_client/rhnregGui.py:1364
 msgid "unknown"
 msgstr "未知"
 
-#: ../src/up2date_client/rhnregGui.py:1519
+#: ../src/up2date_client/rhnregGui.py:1452
+#, fuzzy
+msgid "There was an error retrieving the privacy statement."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:1458
 msgid "Unable to access the server. Please check your network settings."
 msgstr "无法访问这个服务器。请检查您的网络配置。"
 
-#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#: ../src/up2date_client/rhnregGui.py:1484
+#, fuzzy
+msgid "There was an error getting the list of hardware."
+msgstr "在产生配置档案时出现了一个错误。"
+
+#: ../src/up2date_client/rhnregGui.py:1496 ../src/up2date_client/tui.py:910
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1561
+#: ../src/up2date_client/rhnregGui.py:1500
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../src/up2date_client/rhnregGui.py:1620
+#: ../src/up2date_client/rhnregGui.py:1544
+#, fuzzy
+msgid "There was an error building the list of packages."
+msgstr "在安装软件包时出现了一个致命错误：\n"
+
+#: ../src/up2date_client/rhnregGui.py:1559
 msgid "Package"
 msgstr "软件包"
 
-#: ../src/up2date_client/rhnregGui.py:1625
+#: ../src/up2date_client/rhnregGui.py:1564
 msgid "Arch"
 msgstr "体系"
 
-#: ../src/up2date_client/rhnregGui.py:1632
+#: ../src/up2date_client/rhnregGui.py:1571
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr "正在建立一个在您的系统上安装了的 RPM 软件包列表。  请稍候。"
 
-#: ../src/up2date_client/rhnregGui.py:1663
+#: ../src/up2date_client/rhnregGui.py:1602
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
@@ -1337,7 +1409,7 @@ msgstr ""
 "在载入您的配置时出现错误。  请确定\n"
 "您有对 /etc/sysconfig/rhn 的读取权限。"
 
-#: ../src/up2date_client/rhnregGui.py:1705
+#: ../src/up2date_client/rhnregGui.py:1644
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
@@ -1346,7 +1418,7 @@ msgstr ""
 "在保存您的配置时出现错误。请确定\n"
 "您拥有 %s。"
 
-#: ../src/up2date_client/rhnregGui.py:1734
+#: ../src/up2date_client/rhnregGui.py:1673
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1356,8 +1428,13 @@ msgstr ""
 "这个错误不应该发生。如果您希望帮助我们改进这个程序，请在 bugzilla.redhat.com "
 "上提交一个错误报告。请包括'%s' 的相关部分。谢谢！"
 
-#: ../src/up2date_client/rhnreg.py:63
+#: ../src/up2date_client/rhnreg.py:76
 msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "警告：无法使用 chkconfig 来启用 rhnsd"
+
+#: ../src/up2date_client/rhnreg.py:86
+#, fuzzy
+msgid "Warning: unable to run rhn_check"
 msgstr "警告：无法使用 chkconfig 来启用 rhnsd"
 
 #: ../src/up2date_client/rpcServer.py:165
@@ -1368,7 +1445,7 @@ msgstr "错误：找不到 RHNS CA 文件"
 msgid "Connection aborted by the user"
 msgstr "连接被用户中止"
 
-#: ../src/up2date_client/rpcServer.py:238
+#: ../src/up2date_client/rpcServer.py:242
 msgid "Server has refused connection due to high load"
 msgstr "由于高度载量，服务器被拒绝连接"
 
@@ -1376,65 +1453,64 @@ msgstr "由于高度载量，服务器被拒绝连接"
 msgid "Getting list of packages installed on the system"
 msgstr "正在获取安装在您的系统上的软件包列表"
 
-#: ../src/up2date_client/tui.py:139
+#: ../src/up2date_client/tui.py:136
 msgid ""
 "The server you are attempting to register against does not support this "
 "version of the client."
 msgstr "您要注册的服务器不支持这个版本的客户端。"
 
-#: ../src/up2date_client/tui.py:697
+#: ../src/up2date_client/tui.py:425
+msgid "The server indicated an error:\n"
+msgstr "服务器标明一个错误：\n"
+
+#: ../src/up2date_client/tui.py:429
+#, fuzzy
+msgid "There was an error communicating with the registration server:\n"
+msgstr "在与注册服务器联络时出现了一个致命错误。  错误消息是：\n"
+
+#: ../src/up2date_client/tui.py:689
 msgid "You must enter an Installation Number that "
 msgstr "您必须输入注册号码"
 
-#: ../src/up2date_client/tui.py:698
+#: ../src/up2date_client/tui.py:690
 msgid "activates subscriptions in your account."
 msgstr "来在您的帐号中激活订阅。"
 
-#: ../src/up2date_client/tui.py:727
-msgid "Login Information:"
-msgstr "登录信息："
+#: ../src/up2date_client/tui.py:710
+msgid "Select Operating System Release"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:771
-msgid "Account Information:"
-msgstr "帐号信息："
+#: ../src/up2date_client/tui.py:714
+msgid "Operating System version:"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:777
-msgid "*First Name:"
-msgstr "*名字："
+#: ../src/up2date_client/tui.py:716
+msgid "Limited Updates Only"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:784
-msgid "*Last Name:"
-msgstr "*姓："
+#: ../src/up2date_client/tui.py:728
+msgid " Minor Release: "
+msgstr ""
 
-#: ../src/up2date_client/tui.py:797
-msgid "*Company Name:"
-msgstr "*公司名："
+#: ../src/up2date_client/tui.py:746
+msgid "All available updates"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:817
-msgid "Street Address:"
-msgstr "街道地址："
+#: ../src/up2date_client/tui.py:799
+msgid "Confirm operating system release selection"
+msgstr ""
 
-#: ../src/up2date_client/tui.py:824
-msgid "City:"
-msgstr "城市："
+#: ../src/up2date_client/tui.py:807
+msgid ""
+"Your system will be subscribed to the base software channel to receives all "
+"available updates."
+msgstr ""
 
-#: ../src/up2date_client/tui.py:831
-msgid "State/Province:"
-msgstr "州/省："
-
-#: ../src/up2date_client/tui.py:838
-msgid "Zip/Post Code:"
-msgstr "邮政编码："
-
-#: ../src/up2date_client/tui.py:845
-msgid "*Country:"
-msgstr "*国家："
-
-#: ../src/up2date_client/tui.py:1033
+#: ../src/up2date_client/tui.py:851
 msgid "Register a System Profile - Hardware"
 msgstr "注册系统配置档案 - 硬件"
 
-#: ../src/up2date_client/tui.py:1036
+#: ../src/up2date_client/tui.py:854
 msgid ""
 "A Profile Name is a descriptive name that you choose to identify this System "
 "Profile on the Red Hat Network web pages. Optionally, include a computer "
@@ -1443,132 +1519,133 @@ msgstr ""
 "档案名是您选择用来在 Red Hat 网络网页上识别该系统档案的描述性名称。另外，您也"
 "可以包括一个计算机序列或识别号码。"
 
-#: ../src/up2date_client/tui.py:1042
+#: ../src/up2date_client/tui.py:860
 msgid "Profile name:"
 msgstr "档案名称："
 
-#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+#: ../src/up2date_client/tui.py:869 ../src/up2date_client/tui.py:871
 msgid "Include the following information about hardware and network:"
 msgstr "包括下列关于硬件和网络的信息："
 
-#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#: ../src/up2date_client/tui.py:882 ../src/up2date_client/tui.py:883
 msgid "Version: "
 msgstr "版本："
 
-#: ../src/up2date_client/tui.py:1071
+#: ../src/up2date_client/tui.py:889
 msgid "CPU model: "
 msgstr "CPU 型号："
 
-#: ../src/up2date_client/tui.py:1077
+#: ../src/up2date_client/tui.py:895
 msgid "Hostname: "
 msgstr "主机名："
 
-#: ../src/up2date_client/tui.py:1088
+#: ../src/up2date_client/tui.py:906
 msgid "CPU speed: "
 msgstr "CPU 速度："
 
-#: ../src/up2date_client/tui.py:1094
+#: ../src/up2date_client/tui.py:912
 msgid "IP Address: "
 msgstr "IP 地址："
 
-#: ../src/up2date_client/tui.py:1100
+#: ../src/up2date_client/tui.py:918
 msgid "Memory: "
 msgstr "内存："
 
-#: ../src/up2date_client/tui.py:1104
+#: ../src/up2date_client/tui.py:922
 #, python-format
 msgid "%s megabytes"
 msgstr "%s MB"
 
-#: ../src/up2date_client/tui.py:1109
+#: ../src/up2date_client/tui.py:927
 msgid ""
 "Additional hardware information including PCI devices, disk sizes and mount "
 "points will be included in the profile."
 msgstr "该档案中还会包括其它硬件信息，包括 PCI 设备、磁盘大小和挂载点。"
 
-#: ../src/up2date_client/tui.py:1146
+#: ../src/up2date_client/tui.py:964
 msgid "Register a System Profile - Packages"
 msgstr "注册系统配置档案 - 软件包"
 
-#: ../src/up2date_client/tui.py:1151
+#: ../src/up2date_client/tui.py:969
 msgid ""
 "RPM information is important to determine what updated software packages are "
 "relevant to this system."
 msgstr "RPM 信息对于决定哪些更新的软件包和您的系统有关来说至关重要。"
 
-#: ../src/up2date_client/tui.py:1155
+#: ../src/up2date_client/tui.py:973
 msgid "Include RPM packages installed on this system in my System Profile"
 msgstr "把在该系统上安装的 RPM 软件包包括在我的系统档案中"
 
-#: ../src/up2date_client/tui.py:1159
+#: ../src/up2date_client/tui.py:977
 msgid "You may deselect individual packages by unchecking them below."
 msgstr "您可以通过取消下面复选箱内的符号来取消选择相应的单个软件包。"
 
-#: ../src/up2date_client/tui.py:1168
+#: ../src/up2date_client/tui.py:986
 msgid "Building Package List"
 msgstr "建立软件包列表"
 
-#: ../src/up2date_client/tui.py:1231
+#: ../src/up2date_client/tui.py:1049
 msgid "Send Profile Information to Red Hat Network"
 msgstr "把档案信息发送给 Red Hat 网络"
 
-#: ../src/up2date_client/tui.py:1276
+#: ../src/up2date_client/tui.py:1094
 msgid "Finish"
 msgstr "结束"
 
-#: ../src/up2date_client/tui.py:1282
+#: ../src/up2date_client/tui.py:1100
 msgid "Sending Profile to Red Hat Network"
 msgstr "把档案信息发送给 Red Hat 网络"
 
-#: ../src/up2date_client/tui.py:1294
+#: ../src/up2date_client/tui.py:1112
 msgid "Problem registering login name:\n"
 msgstr "注册登录名时出现问题：\n"
 
-#: ../src/up2date_client/tui.py:1297
+#: ../src/up2date_client/tui.py:1115
 msgid "Problem registering login name."
 msgstr "注册登录名时出现问题。"
 
-#: ../src/up2date_client/tui.py:1370
+#: ../src/up2date_client/tui.py:1192
 msgid "Problem sending hardware profile:\n"
 msgstr "在发送硬件档案时出现问题：\n"
 
-#: ../src/up2date_client/tui.py:1374
+#: ../src/up2date_client/tui.py:1196
 msgid "Problem sending hardware profile."
 msgstr "发送硬件档案时出现问题。"
 
-#: ../src/up2date_client/tui.py:1383
+#: ../src/up2date_client/tui.py:1205
 msgid "Problem sending package list:\n"
 msgstr "发送软件包列表时出现问题：\n"
 
-#: ../src/up2date_client/tui.py:1386
+#: ../src/up2date_client/tui.py:1208
 msgid "Problem sending package list."
 msgstr "发送软件包列表时出现问题。"
 
-#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+#: ../src/up2date_client/tui.py:1281 ../src/up2date_client/tui.py:1286
 msgid ", quantity:"
 msgstr "数量："
 
-#: ../src/up2date_client/tui.py:1561
+#: ../src/up2date_client/tui.py:1390
 msgid "You specified an invalid protocol."
 msgstr "您指定了一个无效的协议。"
 
-#: ../src/up2date_client/tui.py:1562
+#: ../src/up2date_client/tui.py:1391
 msgid "Only https and http are allowed."
 msgstr "只允许使用 https 和 http。"
 
-#: ../src/up2date_client/tui.py:1590
-msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+#: ../src/up2date_client/tui.py:1420
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> 在元素间切换  |  <Space> 选择  |  <F12> 下一屏幕"
 
-#: ../src/up2date_client/tui.py:1805
+#: ../src/up2date_client/tui.py:1680
 msgid "You must run the RHN registration program as root."
 msgstr "您必须作为根用户才能运行 RHN 注册程序。"
 
-#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+#: ../src/up2date_client/tui.py:1695 ../data/rh_register.glade.h:84
 msgid "System software updates already set up"
 msgstr "系统软件更新已被设置"
 
-#: ../src/up2date_client/tui.py:1822
+#: ../src/up2date_client/tui.py:1697
 msgid ""
 "\n"
 "\n"
@@ -1578,7 +1655,7 @@ msgstr ""
 "\n"
 "红帽网络位置："
 
-#: ../src/up2date_client/tui.py:1824
+#: ../src/up2date_client/tui.py:1699
 msgid ""
 "\n"
 "RHN Login: "
@@ -1586,7 +1663,7 @@ msgstr ""
 "\n"
 "红帽登录："
 
-#: ../src/up2date_client/tui.py:1825
+#: ../src/up2date_client/tui.py:1700
 msgid ""
 "\n"
 "System ID: "
@@ -1594,109 +1671,132 @@ msgstr ""
 "\n"
 "系统 ID： "
 
-#: ../src/up2date_client/up2dateErrors.py:29
+#: ../src/up2date_client/up2dateErrors.py:30
 msgid "Disk error.  The message was:\n"
 msgstr "磁盘错误。 错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:37
+#: ../src/up2date_client/up2dateErrors.py:38
 msgid "RPM error.  The message was:\n"
 msgstr "RPM 错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:48
+#: ../src/up2date_client/up2dateErrors.py:49
 msgid "There was a fatal error installing the package:\n"
 msgstr "在安装软件包时出现了一个致命错误：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:61
+#: ../src/up2date_client/up2dateErrors.py:62
 msgid "Password error. The message was:\n"
 msgstr "口令错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:72
+#: ../src/up2date_client/up2dateErrors.py:73
 msgid "RPM package conflict error.  The message was:\n"
 msgstr "RPM 软件包冲突错误。 错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:84
+#: ../src/up2date_client/up2dateErrors.py:85
 msgid "RPM file conflict error. The message was:\n"
 msgstr "RPM 文件冲突错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:98
+#: ../src/up2date_client/up2dateErrors.py:99
 msgid "RPM dependency error. The message was:\n"
 msgstr "RPM 依赖关系错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:112
+#: ../src/up2date_client/up2dateErrors.py:113
 msgid "RPM  error. The message was:\n"
 msgstr "RPM 错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:125
-#: ../src/up2date_client/up2dateErrors.py:138
+#: ../src/up2date_client/up2dateErrors.py:126
+#: ../src/up2date_client/up2dateErrors.py:139
 msgid "RPM dependency error.  The message was:\n"
 msgstr "RPM 依赖关系错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:149
+#: ../src/up2date_client/up2dateErrors.py:150
 msgid "Package Skip List error.  The message was:\n"
 msgstr "软件包跳过列表错误。  错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:162
+#: ../src/up2date_client/up2dateErrors.py:163
 msgid "File Skip List or config file overwrite error. The message was:\n"
 msgstr "跳过文件列表或配置文件覆写错误。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:172
+#: ../src/up2date_client/up2dateErrors.py:173
 msgid "Error communicating with server. The message was:\n"
 msgstr "在与服务器联络时出错。错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:183
+#: ../src/up2date_client/up2dateErrors.py:184
 msgid "File Not Found: \n"
 msgstr "没有找到文件：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:194
+#: ../src/up2date_client/up2dateErrors.py:195
 msgid "Delay error from server.  The message was:\n"
 msgstr "来自服务器的延迟错误。  错误消息是：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:202
+#: ../src/up2date_client/up2dateErrors.py:203
 #, python-format
 msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
 msgstr "无法删除软件包“%s”，它在 RemoveSkipList 列表中"
 
-#: ../src/up2date_client/up2dateErrors.py:225
+#: ../src/up2date_client/up2dateErrors.py:226
 msgid "GPG is not installed properly."
 msgstr "GPG 没有被正确安装。"
 
-#: ../src/up2date_client/up2dateErrors.py:235
-msgid "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+#: ../src/up2date_client/up2dateErrors.py:236
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
 msgstr "GPG 钥匙圈不包括 Red Hat, Inc. 软件包签名公钥"
 
-#: ../src/up2date_client/up2dateErrors.py:247
+#: ../src/up2date_client/up2dateErrors.py:248
 #, python-format
 msgid ""
 "The package %s failed its gpg signature verification. This means the package "
 "is corrupt."
 msgstr "软件包 %s 的 GPG 签名校验失败。这意味着该软件包被损坏。"
 
-#: ../src/up2date_client/up2dateErrors.py:261
+#: ../src/up2date_client/up2dateErrors.py:262
 #, python-format
 msgid "Package %s does not have a GPG signature.\n"
 msgstr "软件包 %s 没有 GPG 签名。\n"
 
-#: ../src/up2date_client/up2dateErrors.py:274
+#: ../src/up2date_client/up2dateErrors.py:275
 #, python-format
 msgid "Package %s has a untrusted GPG signature.\n"
 msgstr "软件包 %s 上有不被信任的 GPG 签名。\n"
 
-#: ../src/up2date_client/up2dateErrors.py:287
+#: ../src/up2date_client/up2dateErrors.py:288
 #, python-format
 msgid "Package %s has a unknown GPG signature.\n"
 msgstr "软件包 %s 上有未知的 GPG 签名。\n"
 
-#: ../src/up2date_client/up2dateErrors.py:337
+#: ../src/up2date_client/up2dateErrors.py:338
 msgid "Error validating data at server:\n"
 msgstr "在服务器上校验数据时出错：\n"
 
-#: ../src/up2date_client/up2dateErrors.py:348
+#: ../src/up2date_client/up2dateErrors.py:349
 msgid "The installation number is invalid"
 msgstr "安装号无效"
 
-#: ../src/up2date_client/up2dateErrors.py:355
+#: ../src/up2date_client/up2dateErrors.py:356
 msgid "Error parsing the oemInfo file at field:\n"
 msgstr "解析 oemInfo 文件时出错的字段：\n"
+
+#: ../src/up2date_client/up2dateErrors.py:538
+msgid ""
+"\n"
+"    Your organization does not have enough Management entitlements to "
+"register this\n"
+"    system to Red Hat Network. Please notify your organization administrator "
+"of this error. \n"
+"    You should be able to register this system after your organization frees "
+"existing \n"
+"    or purchases additional entitlements. Additional entitlements may be "
+"purchased by your\n"
+"    organization administrator by logging into Red Hat Network and visiting\n"
+"    the 'Subscription Management' page in the 'Your RHN' section of RHN.\n"
+"    \n"
+"    A common cause of this error code is due to having mistakenly setup an\n"
+"    Activation Key which is set as the universal default.  If an activation "
+"key is set\n"
+"    on the account as a universal default, you can disable this key and "
+"retry to avoid\n"
+"    requiring a Management entitlement."
+msgstr ""
 
 #: ../src/firstboot/rhn_activate_gui.py:48
 msgid "Access Subscription"
@@ -1716,7 +1816,7 @@ msgstr "选择机构"
 msgid "Choose an organization to use with this username"
 msgstr "选择一个机构来使用这个用户名"
 
-#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:42
 msgid "Choose Server"
 msgstr "选择服务器"
 
@@ -1746,7 +1846,8 @@ msgid "There was a communication error with the server: %s"
 msgstr "在与服务器联络时出现错误：%s"
 
 #: ../src/firstboot/rhn_login_gui.py:103
-msgid "Would you like to try changing the network configuration and trying again?"
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
 msgstr "你是否希望更改网络设置,然后重试一次?"
 
 #: ../src/firstboot/rhn_provide_certificate_gui.py:38
@@ -1820,42 +1921,68 @@ msgid "Specify an activation key"
 msgstr "指定一个激活码"
 
 #: ../src/bin/rhnreg_ks.py:59
-msgid "Specify a subscription number to use"
+#, fuzzy
+msgid "Specify a installation number to use"
 msgstr "指定一个要使用的订阅号"
 
 #: ../src/bin/rhnreg_ks.py:61
+msgid ""
+"Subscribe this system to the EUS channel tied to the system's redhat-release"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:63
 msgid "Read contact info from stdin"
 msgstr "从标准输入中读取联系信息"
 
-#: ../src/bin/rhnreg_ks.py:63
+#: ../src/bin/rhnreg_ks.py:65
 msgid "Do not probe or upload any hardware info"
 msgstr "不要探测或上传任何硬件信息"
 
-#: ../src/bin/rhnreg_ks.py:65
+#: ../src/bin/rhnreg_ks.py:67
 msgid "Do not profile or upload any package info"
 msgstr "不要建档或上传任何软件包信息"
 
-#: ../src/bin/rhnreg_ks.py:67
+#: ../src/bin/rhnreg_ks.py:69
 msgid "Do not upload any virtualization info"
 msgstr "不要上传任何虚拟化信息"
 
-#: ../src/bin/rhnreg_ks.py:69
+#: ../src/bin/rhnreg_ks.py:71
 msgid "Do not start rhnsd after completion"
 msgstr "在完成后不要启动 rhnsd"
 
-#: ../src/bin/rhnreg_ks.py:71
+#: ../src/bin/rhnreg_ks.py:73
 msgid "Register the system even if it is already registered"
 msgstr "注册系统，即便它已经注册了"
 
-#: ../src/bin/rhnreg_ks.py:78
+#: ../src/bin/rhnreg_ks.py:75
+msgid "Check RHN repo for emergency updates"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:89
 msgid "A username and password are required to register a system."
 msgstr "注册系统时需要一个用户名和口令。"
 
-#: ../src/bin/rhnreg_ks.py:83
+#: ../src/bin/rhnreg_ks.py:94
 msgid "This system is already registered. Use --force to override"
 msgstr "该系统已经注册了。使用 --force 来超越"
 
-#: ../src/bin/rhnreg_ks.py:240
+#: ../src/bin/rhnreg_ks.py:124
+#, python-format
+msgid "Invalid character in profilename %s at index %d"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:144
+msgid ""
+"Usage of --use-eus-channel option with --activationkey is not supported. "
+"Please use username and password instead."
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:147
+#, fuzzy
+msgid "The server you are registering against does not support EUS."
+msgstr "您要注册的服务器不支持这个版本的客户端。"
+
+#: ../src/bin/rhnreg_ks.py:264
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
@@ -1886,6 +2013,10 @@ msgid "Registration information"
 msgstr "登录信息"
 
 #: ../data/gui.glade.h:10
+msgid "Select operating system release"
+msgstr ""
+
+#: ../data/gui.glade.h:11
 msgid "Select organization"
 msgstr "选择组织"
 
@@ -1894,151 +2025,127 @@ msgid "Progress Dialog"
 msgstr "进度对话框"
 
 #: ../data/rh_register.glade.h:1
-msgid "  Address 2:"
-msgstr "  地址行 2："
-
-#: ../data/rh_register.glade.h:2
-msgid "  Address:"
-msgstr "地址："
+#, fuzzy
+msgid ""
+"\n"
+"Are you sure you would like to continue?"
+msgstr "您确定要继续吗？"
 
 #: ../data/rh_register.glade.h:3
-msgid "  C_ity:"
-msgstr "(_i)城市："
+msgid "       "
+msgstr ""
 
 #: ../data/rh_register.glade.h:4
-msgid "  Co_mpany Name:"
-msgstr "(_m)公司名："
-
-#: ../data/rh_register.glade.h:5
-msgid "  _State/Province:"
-msgstr "(_S)州/省："
-
-#: ../data/rh_register.glade.h:6
-msgid "  _Zip/Postal code:"
-msgstr "(_Z)邮政编码："
-
-#: ../data/rh_register.glade.h:7
-msgid "* C_onfirm password:  "
-msgstr "* 确认口令 (_o)：  "
-
-#: ../data/rh_register.glade.h:8
-msgid "* Co_untry:"
-msgstr "* (_u)国家："
-
-#: ../data/rh_register.glade.h:9
-msgid "* Desired _Login:"
-msgstr "* (_L)登录："
-
-#: ../data/rh_register.glade.h:10
-msgid "* Desired _Password:"
-msgstr "* 口令 (_P):"
-
-#: ../data/rh_register.glade.h:11
-msgid "* Last _Name:"
-msgstr "*(_N)姓："
-
-#: ../data/rh_register.glade.h:12
-msgid "* _Email Address: "
-msgstr "* 电子邮件地址 (_E)： "
-
-#: ../data/rh_register.glade.h:13
-msgid "* _First Name:"
-msgstr "*(_F)名："
-
-#: ../data/rh_register.glade.h:14
-msgid "<b>Account Information:</b>"
-msgstr "<b>帐号信息：</b>"
-
-#: ../data/rh_register.glade.h:15
 msgid "<b>Compliance:</b>"
 msgstr "<b>遵循：</b>"
 
-#: ../data/rh_register.glade.h:16
+#: ../data/rh_register.glade.h:5
 msgid "<b>Downloads &amp; Upgrades:</b>"
 msgstr "<b>下载并升级：</b>"
 
-#: ../data/rh_register.glade.h:17
+#: ../data/rh_register.glade.h:6
 msgid "<b>HTTP Proxy</b>"
 msgstr "<b>HTTP 代理服务器</b>"
 
-#: ../data/rh_register.glade.h:18
-msgid "<b>Login Information:</b>"
-msgstr "<b>登录信息：</b>"
-
-#: ../data/rh_register.glade.h:19
+#: ../data/rh_register.glade.h:7
 msgid "<b>Login:</b>"
 msgstr "<b>登录：</b>"
 
-#: ../data/rh_register.glade.h:20
+#: ../data/rh_register.glade.h:8
 msgid "<b>Red Hat Network Location:</b>"
 msgstr "<b>红帽网络位置：</b>"
 
-#: ../data/rh_register.glade.h:21
+#: ../data/rh_register.glade.h:9
 msgid "<b>Security &amp; Updates:</b>"
 msgstr "<b>安全和更新：</b>"
 
-#: ../data/rh_register.glade.h:22
+#: ../data/rh_register.glade.h:10
 msgid "<b>Support:</b>"
 msgstr "<b>支持：</b>"
 
-#: ../data/rh_register.glade.h:23
+#: ../data/rh_register.glade.h:11
 msgid "<b>System ID:</b>"
 msgstr "<b>系统 ID：</b>"
 
-#: ../data/rh_register.glade.h:24
+#: ../data/rh_register.glade.h:12
 msgid ""
 "<b>The network connection on your system is not active. Your system cannot "
 "be set up for software updates at this time.</b>"
 msgstr "<b>您系统的网络连接没有正常工作。您的系统无法设置软件更新。</b>"
 
-#: ../data/rh_register.glade.h:25
+#: ../data/rh_register.glade.h:13
+msgid ""
+"<b>Tip:</b> Minor releases with a '*' are currently fully supported by Red "
+"Hat."
+msgstr ""
+
+#: ../data/rh_register.glade.h:14
+msgid ""
+"<b>Warning:</b> You will <b>not</b> be able to limit this system to a minor "
+"release that is older than the most recent minor release if you select this "
+"option."
+msgstr ""
+
+#: ../data/rh_register.glade.h:15
 msgid ""
 "<b>You have no active subscriptions available in your account.</b> You will "
 "need to do one of the following to create an active subscription in your "
 "account before this system can be registered:"
 msgstr ""
-"<b>您还没有激活您帐号内的订阅。</b>您将需要注册这个系统前，使用以下的方法"
-"之一在您帐号内创建一个激活的订阅："
+"<b>您还没有激活您帐号内的订阅。</b>您将需要注册这个系统前，使用以下的方法之一"
+"在您帐号内创建一个激活的订阅："
 
-#: ../data/rh_register.glade.h:26
+#: ../data/rh_register.glade.h:16
+msgid ""
+"<b>_All available updates</b> will be provided to this system.  This system, "
+"if kept updated, will always be equivalent to the latest available minor "
+"release of Red Hat Enterprise Linux 5.  It will be registered to the main "
+"'Red Hat Enterprise Linux 5' software channel."
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+msgid ""
+"<b>_Limited updates</b> will be provided to this system to maintain "
+"compatibility with the following eligible Red Hat Enterprise Linux minor "
+"release software channel:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:18
+msgid "<big><b>Moving to earlier releases won't be possible</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:19
 msgid "<big><b>Profile Data</b></big>"
 msgstr "<big><b>配置档案数据</b></big>"
 
-#: ../data/rh_register.glade.h:27
+#: ../data/rh_register.glade.h:20
 msgid "<big><b>System Name</b></big>"
 msgstr "<big><b>系统名</b></big>"
 
-#: ../data/rh_register.glade.h:28
+#: ../data/rh_register.glade.h:21
 msgid "<small><b>Example:</b> https://satellite.example.com</small>"
 msgstr "<small><b>例如：</b> https://satellite.example.com</small>"
 
-#: ../data/rh_register.glade.h:29
+#: ../data/rh_register.glade.h:22
 msgid "<small><b>Example:</b> squid.example.com:3128</small>"
 msgstr "<small><b>例如：</b> squid.example.com:3128</small>"
 
-#: ../data/rh_register.glade.h:30
+#: ../data/rh_register.glade.h:23
 msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
 msgstr "<small><b>例如：</b> XXXX-XXXX-XXXX-XXXX</small>"
 
-#: ../data/rh_register.glade.h:31
-msgid "<small><b>Examples:</b> user@domain.com</small>"
-msgstr "<small><b>例如：</b> user@domain.com</small>"
-
-#: ../data/rh_register.glade.h:32
-msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
-msgstr "<small><b>信息：</b> 如果是一个个人用户，请把它留为空。</small>"
-
-#: ../data/rh_register.glade.h:33
+#: ../data/rh_register.glade.h:24
 msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
 msgstr "<small><b>信息：</b> 红帽尊重您的隐私权。</small>"
 
-#: ../data/rh_register.glade.h:34
+#: ../data/rh_register.glade.h:25
 msgid ""
 "<small>Tip: Forgot your login or password? Contact your Satellite's "
 "<i>Organization Administrator</i>.</small>"
-msgstr "<small>忘记了您的用户名或口令？联系您的 Satellite <i>机构管理员</i>。</small>"
+msgstr ""
+"<small>忘记了您的用户名或口令？联系您的 Satellite <i>机构管理员</i>。</small>"
 
-#: ../data/rh_register.glade.h:35
+#: ../data/rh_register.glade.h:26
 msgid ""
 "<small>Tip: Forgot your login or password? Look it up at \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
@@ -2046,7 +2153,7 @@ msgstr ""
 "<small>忘记了您的登录或口令？访问 \n"
 "https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
 
-#: ../data/rh_register.glade.h:38
+#: ../data/rh_register.glade.h:29
 #, no-c-format
 msgid ""
 "A security certificate compatible with <b>%s</b> was not found on this "
@@ -2061,55 +2168,20 @@ msgstr ""
 "安全证书使用 SSL 技术，它可以保护这个系统和红帽网络间通信的数据（包括您的登录"
 "和口令）的安全。"
 
-#: ../data/rh_register.glade.h:42
-msgid "Activate a previously purchased subscription you have not yet activated."
+#: ../data/rh_register.glade.h:33
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
 msgstr "激活一个您以前购买的、但还没有激活的订阅。"
 
-#: ../data/rh_register.glade.h:43
+#: ../data/rh_register.glade.h:34
 msgid "Advanced Network Configuration"
 msgstr "高级网络配置"
 
-#: ../data/rh_register.glade.h:44
+#: ../data/rh_register.glade.h:35
 msgid "Advanced _Network Configuration ..."
 msgstr "(_N)高级网络配置 ..."
 
-#: ../data/rh_register.glade.h:45
-msgid "Afghanistan"
-msgstr "阿富汗"
-
-#: ../data/rh_register.glade.h:46
-msgid "Albania"
-msgstr "阿尔巴尼亚"
-
-#: ../data/rh_register.glade.h:47
-msgid "Algeria"
-msgstr "阿尔及利亚"
-
-#: ../data/rh_register.glade.h:48
-msgid "American Samoa"
-msgstr "美属萨摩尔"
-
-#: ../data/rh_register.glade.h:49
-msgid "Andorra"
-msgstr "安道尔"
-
-#: ../data/rh_register.glade.h:50
-msgid "Angola"
-msgstr "安格拉"
-
-#: ../data/rh_register.glade.h:51
-msgid "Anguilla"
-msgstr "安圭拉"
-
-#: ../data/rh_register.glade.h:52
-msgid "Antarctica"
-msgstr "南极洲"
-
-#: ../data/rh_register.glade.h:53
-msgid "Antigua and Barbuda"
-msgstr "安提瓜和巴布达"
-
-#: ../data/rh_register.glade.h:54
+#: ../data/rh_register.glade.h:36
 msgid ""
 "Are you sure you don't want to connect your system to Red Hat Network? "
 "You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
@@ -2117,423 +2189,66 @@ msgstr ""
 "您确认不希望把您的系统连接到红帽网络吗？您将无法获得红帽企业 Linux 订阅所提供"
 "的益处："
 
-#: ../data/rh_register.glade.h:55
+#: ../data/rh_register.glade.h:37
 msgid "Are you sure you would like to continue?"
 msgstr "您确定要继续吗？"
 
-#: ../data/rh_register.glade.h:56
-msgid "Argentina"
-msgstr "阿根廷"
-
-#: ../data/rh_register.glade.h:57
-msgid "Armenia"
-msgstr "亚美尼亚"
-
-#: ../data/rh_register.glade.h:58
-msgid "Aruba"
-msgstr "阿鲁巴"
-
-#: ../data/rh_register.glade.h:59
-msgid "Australia"
-msgstr "澳大利亚"
-
-#: ../data/rh_register.glade.h:60
-msgid "Austria"
-msgstr "奥地利"
-
-#: ../data/rh_register.glade.h:61
-msgid "Azerbaijan"
-msgstr "阿塞拜疆"
-
-#: ../data/rh_register.glade.h:62
-msgid "Bahamas"
-msgstr "巴哈马"
-
-#: ../data/rh_register.glade.h:63
-msgid "Bahrain"
-msgstr "巴林"
-
-#: ../data/rh_register.glade.h:64
-msgid "Bangladesh"
-msgstr "孟加拉国"
-
-#: ../data/rh_register.glade.h:65
-msgid "Barbados"
-msgstr "巴巴多斯"
-
-#: ../data/rh_register.glade.h:66
-msgid "Belarus"
-msgstr "白俄罗斯"
-
-#: ../data/rh_register.glade.h:67
-msgid "Belgium"
-msgstr "比利时"
-
-#: ../data/rh_register.glade.h:68
-msgid "Belize"
-msgstr "伯利兹"
-
-#: ../data/rh_register.glade.h:69
-msgid "Benin"
-msgstr "贝宁"
-
-#: ../data/rh_register.glade.h:70
-msgid "Bermuda"
-msgstr "百慕大"
-
-#: ../data/rh_register.glade.h:71
-msgid "Bhutan"
-msgstr "不丹"
-
-#: ../data/rh_register.glade.h:72
-msgid "Bolivia"
-msgstr "玻利维亚"
-
-#: ../data/rh_register.glade.h:73
-msgid "Bosnia and Herzegovina"
-msgstr "波斯尼亚和黑塞哥维那"
-
-#: ../data/rh_register.glade.h:74
-msgid "Botswana"
-msgstr "博茨瓦那"
-
-#: ../data/rh_register.glade.h:75
-msgid "Bouvet Island"
-msgstr "布维岛"
-
-#: ../data/rh_register.glade.h:76
-msgid "Brazil"
-msgstr "巴西"
-
-#: ../data/rh_register.glade.h:77
-msgid "British Indian Ocean Territory"
-msgstr "英联邦的印度洋领域"
-
-#: ../data/rh_register.glade.h:78
-msgid "Brunei Darussalam"
-msgstr "文莱"
-
-#: ../data/rh_register.glade.h:79
-msgid "Bulgaria"
-msgstr "保加利亚"
-
-#: ../data/rh_register.glade.h:80
-msgid "Burkina Faso"
-msgstr "布其纳法索"
-
-#: ../data/rh_register.glade.h:81
-msgid "Burundi"
-msgstr "布隆迪"
-
-#: ../data/rh_register.glade.h:82
+#: ../data/rh_register.glade.h:38
 msgid "CPU Model:"
 msgstr "CPU 型号："
 
-#: ../data/rh_register.glade.h:83
+#: ../data/rh_register.glade.h:39
 msgid "CPU Speed:"
 msgstr "CPU 速度："
 
-#: ../data/rh_register.glade.h:84
-msgid "C_reate new login"
-msgstr "(_r)建立新登录"
-
-#: ../data/rh_register.glade.h:85
-msgid "Cambodia"
-msgstr "柬埔寨"
-
-#: ../data/rh_register.glade.h:86
-msgid "Cameroon"
-msgstr "喀麦隆"
-
-#: ../data/rh_register.glade.h:88
-msgid "Cape Verde"
-msgstr "佛得角"
-
-#: ../data/rh_register.glade.h:89
-msgid "Cayman Islands"
-msgstr "开曼群岛"
-
-#: ../data/rh_register.glade.h:90
-msgid "Central African Republic"
-msgstr "中非共和国"
-
-#: ../data/rh_register.glade.h:91
+#: ../data/rh_register.glade.h:40
 msgid "Certificate _Location:"
 msgstr "(_L)证书位置："
 
-#: ../data/rh_register.glade.h:92
-msgid "Chad"
-msgstr "乍得"
+#: ../data/rh_register.glade.h:41
+#, fuzzy
+msgid "Choose Channel"
+msgstr "选择机构"
 
-#: ../data/rh_register.glade.h:93
-msgid "Chile"
-msgstr "智利"
+#: ../data/rh_register.glade.h:43
+msgid "Confirm operation system release selection"
+msgstr ""
 
-#: ../data/rh_register.glade.h:94
-msgid "China"
-msgstr "中国"
-
-#: ../data/rh_register.glade.h:96
-msgid "Christmas Island"
-msgstr "圣诞岛"
-
-#: ../data/rh_register.glade.h:97
-msgid "Cocos (Keeling) Islands"
-msgstr "可可岛"
-
-#: ../data/rh_register.glade.h:98
-msgid "Colombia"
-msgstr "哥伦比亚"
-
-#: ../data/rh_register.glade.h:99
-msgid "Comoros"
-msgstr "科摩罗"
-
-#: ../data/rh_register.glade.h:100
-msgid "Congo"
-msgstr "刚果"
-
-#: ../data/rh_register.glade.h:102
-msgid "Cook Islands"
-msgstr "库克群岛"
-
-#: ../data/rh_register.glade.h:103
-msgid "Costa Rica"
-msgstr "哥斯达黎加"
-
-#: ../data/rh_register.glade.h:104
-msgid "Cote d'Ivoire"
-msgstr "科特迪瓦"
-
-#: ../data/rh_register.glade.h:105
-msgid "Create a _New Login"
-msgstr "创建一个新登录(_N)"
-
-#: ../data/rh_register.glade.h:106
-msgid "Create a new Red Hat Network login"
-msgstr "建立一个新的红帽网络登录"
-
-#: ../data/rh_register.glade.h:107
+#: ../data/rh_register.glade.h:45
 msgid "Create profile"
 msgstr "创建配置文件"
 
-#: ../data/rh_register.glade.h:108
-msgid "Croatia"
-msgstr "克罗地亚"
-
-#: ../data/rh_register.glade.h:109
-msgid "Cuba"
-msgstr "古巴"
-
-#: ../data/rh_register.glade.h:110
-msgid "Cyprus"
-msgstr "塞浦路斯"
-
-#: ../data/rh_register.glade.h:111
-msgid "Czech Republic"
-msgstr "捷克共和国"
-
-#: ../data/rh_register.glade.h:112
-msgid "Denmark"
-msgstr "丹麦"
-
-#: ../data/rh_register.glade.h:113
-msgid "Djibouti"
-msgstr "吉布提"
-
-#: ../data/rh_register.glade.h:114
-msgid "Dominica"
-msgstr "多米尼加"
-
-#: ../data/rh_register.glade.h:115
-msgid "Dominican Republic"
-msgstr "多米尼加共和国"
-
-#: ../data/rh_register.glade.h:117
+#: ../data/rh_register.glade.h:47
 msgid "ERROR"
 msgstr "ERROR"
 
-#: ../data/rh_register.glade.h:118
-msgid "East Timor"
-msgstr "东帝汶"
-
-#: ../data/rh_register.glade.h:119
-msgid "Ecuador"
-msgstr "厄瓜多尔"
-
-#: ../data/rh_register.glade.h:120
-msgid "Egypt"
-msgstr "埃及"
-
-#: ../data/rh_register.glade.h:121
-msgid "El Salvador"
-msgstr "萨尔瓦多"
-
-#: ../data/rh_register.glade.h:122
+#: ../data/rh_register.glade.h:48
 msgid "Enter Your Account Information"
 msgstr "输入您的帐号信息"
 
-#: ../data/rh_register.glade.h:123
+#: ../data/rh_register.glade.h:49
 msgid "Enter in the format hostname(:port)"
 msgstr "输入格式化的主机名(:端口)"
 
-#: ../data/rh_register.glade.h:124
-msgid "Equatorial Guinea"
-msgstr "赤道几内亚"
-
-#: ../data/rh_register.glade.h:125
-msgid "Eritrea"
-msgstr "厄立特里亚"
-
-#: ../data/rh_register.glade.h:126
-msgid "Estonia"
-msgstr "爱沙尼亚"
-
-#: ../data/rh_register.glade.h:127
-msgid "Ethiopia"
-msgstr "埃塞俄比亚"
-
-#: ../data/rh_register.glade.h:128
-msgid "Falkland Islands (Malvinas)"
-msgstr "福克兰群岛"
-
-#: ../data/rh_register.glade.h:129
-msgid "Faroe Islands"
-msgstr "法罗群岛"
-
-#: ../data/rh_register.glade.h:130
-msgid "Fiji"
-msgstr "斐济"
-
-#: ../data/rh_register.glade.h:131
-msgid ""
-"Fill in the form below to create a new Red Hat login. Required information "
-"is marked with a '*':"
-msgstr "填写以下表格来创建一个新的红帽网络登录。必需的信息以 '*' 标记："
-
-#: ../data/rh_register.glade.h:132
-msgid "Finland"
-msgstr "芬兰"
-
-#: ../data/rh_register.glade.h:133
-msgid "France"
-msgstr "法国"
-
-#: ../data/rh_register.glade.h:134
-msgid "France, Metropolitan"
-msgstr "法国，本土"
-
-#: ../data/rh_register.glade.h:135
-msgid "French Guiana"
-msgstr "法属圭亚那"
-
-#: ../data/rh_register.glade.h:136
-msgid "French Polynesia"
-msgstr "法属玻里尼西亚"
-
-#: ../data/rh_register.glade.h:137
-msgid "French Southern Territories"
-msgstr "法属南部领土"
-
-#: ../data/rh_register.glade.h:138
-msgid "Gabon"
-msgstr "加蓬"
-
-#: ../data/rh_register.glade.h:139
-msgid "Gambia"
-msgstr "甘比亚"
-
-#: ../data/rh_register.glade.h:140
-msgid "Georgia"
-msgstr "乔治亚州"
-
-#: ../data/rh_register.glade.h:141
-msgid "Germany"
-msgstr "德国"
-
-#: ../data/rh_register.glade.h:142
-msgid "Ghana"
-msgstr "加纳"
-
-#: ../data/rh_register.glade.h:143
-msgid "Gibraltar"
-msgstr "直布罗陀"
-
-#: ../data/rh_register.glade.h:144
-msgid "Greece"
-msgstr "希腊"
-
-#: ../data/rh_register.glade.h:145
-msgid "Greenland"
-msgstr "格陵兰"
-
-#: ../data/rh_register.glade.h:146
-msgid "Grenada"
-msgstr "格林纳达"
-
-#: ../data/rh_register.glade.h:147
-msgid "Guadeloupe"
-msgstr "瓜德罗普"
-
-#: ../data/rh_register.glade.h:148
-msgid "Guam"
-msgstr "关岛"
-
-#: ../data/rh_register.glade.h:149
-msgid "Guatemala"
-msgstr "瓜地马拉"
-
-#: ../data/rh_register.glade.h:150
-msgid "Guinea"
-msgstr "几内亚"
-
-#: ../data/rh_register.glade.h:151
-msgid "Guinea-Bissau"
-msgstr "几内亚比绍"
-
-#: ../data/rh_register.glade.h:152
-msgid "Guyana"
-msgstr "圭亚那"
-
-#: ../data/rh_register.glade.h:153
-msgid "Haiti"
-msgstr "海地"
-
-#: ../data/rh_register.glade.h:154
+#: ../data/rh_register.glade.h:50
 msgid "Hardware Info"
 msgstr "硬件信息"
 
-#: ../data/rh_register.glade.h:155
+#: ../data/rh_register.glade.h:51
 msgid "Hardware Profile"
 msgstr "硬件档案"
 
-#: ../data/rh_register.glade.h:156
-msgid "Heard Island and McDonald Islands"
-msgstr "赫德与麦克唐纳群岛"
-
-#: ../data/rh_register.glade.h:157
-msgid "Honduras"
-msgstr "洪都拉斯"
-
-#: ../data/rh_register.glade.h:158
-msgid "Hong Kong"
-msgstr "中国香港"
-
-#: ../data/rh_register.glade.h:159
+#: ../data/rh_register.glade.h:52
 msgid "Hostname:"
 msgstr "主机名："
 
-#: ../data/rh_register.glade.h:160
-msgid "Hungary"
-msgstr "匈牙利"
-
-#: ../data/rh_register.glade.h:161
+#: ../data/rh_register.glade.h:53
 msgid ""
 "I <b>_don't</b> have an SSL certificate. I will contact my system "
 "administrator for assistance and will register at a later time."
 msgstr "我 <b>(_d)没有</b> SSL 证书。我会联系我的系统管理员，并在以后注册。"
 
-#: ../data/rh_register.glade.h:162
+#: ../data/rh_register.glade.h:54
 msgid ""
 "I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
 "Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
@@ -2542,15 +2257,15 @@ msgstr ""
 "我使用<b>红帽网络 Satellite</b> 或<b>红帽代理服务器</b>。我希望从以下 "
 "Satellite 或代理服务器接收软件更新："
 
-#: ../data/rh_register.glade.h:163
+#: ../data/rh_register.glade.h:55
 msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
 msgstr "我有一个 <b>(_S)SSL 证书</b> 用来与红帽网络通讯："
 
-#: ../data/rh_register.glade.h:164
+#: ../data/rh_register.glade.h:56
 msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
 msgstr "我将通过(_H)HTTP 代理服务器来与红帽网络连接。"
 
-#: ../data/rh_register.glade.h:165
+#: ../data/rh_register.glade.h:57
 msgid ""
 "I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
 "access to a Red Hat Network Satellite or Proxy.)"
@@ -2558,361 +2273,53 @@ msgstr ""
 "我希望从<b>红帽网络</b> 接收软件更新。（我没有使用红帽网络 Satellite 或代理服"
 "务器。）"
 
-#: ../data/rh_register.glade.h:166
+#: ../data/rh_register.glade.h:58
 msgid "IP Address:"
 msgstr "IP 地址："
 
-#: ../data/rh_register.glade.h:167
-msgid "Iceland"
-msgstr "冰岛"
-
-#: ../data/rh_register.glade.h:169
-msgid "India"
-msgstr "印度"
-
-#: ../data/rh_register.glade.h:170
-msgid "Indonesia"
-msgstr "印度尼西亚"
-
-#: ../data/rh_register.glade.h:171
+#: ../data/rh_register.glade.h:59
 msgid "Installation _Number:"
 msgstr "安装号(_N)："
 
-#: ../data/rh_register.glade.h:172
-msgid "Iran (Islamic Republic of)"
-msgstr "伊朗 (伊斯兰共和国)"
-
-#: ../data/rh_register.glade.h:173
-msgid "Iraq"
-msgstr "伊拉克"
-
-#: ../data/rh_register.glade.h:174
-msgid "Ireland"
-msgstr "爱尔兰"
-
-#: ../data/rh_register.glade.h:175
-msgid "Israel"
-msgstr "以色列"
-
-#: ../data/rh_register.glade.h:176
+#: ../data/rh_register.glade.h:60
 msgid "It appears this system has already been set up for software updates:"
 msgstr "这个系统已经设置了软件更新："
 
-#: ../data/rh_register.glade.h:177
-msgid "Italy"
-msgstr "意大利"
-
-#: ../data/rh_register.glade.h:178
-msgid "Jamaica"
-msgstr "牙买加"
-
-#: ../data/rh_register.glade.h:179
-msgid "Japan"
-msgstr "日本"
-
-#: ../data/rh_register.glade.h:180
-msgid "Jordan"
-msgstr "约旦"
-
-#: ../data/rh_register.glade.h:181
-msgid "Kazakhstan"
-msgstr "哈萨克斯坦"
-
-#: ../data/rh_register.glade.h:182
-msgid "Kenya"
-msgstr "肯尼亚"
-
-#: ../data/rh_register.glade.h:183
-msgid "Kiribati"
-msgstr "基里巴斯"
-
-#: ../data/rh_register.glade.h:184
-msgid "Korea, Democratic People's Republic of"
-msgstr "朝鲜人民民主共和国"
-
-#: ../data/rh_register.glade.h:185
-msgid "Korea, Republic of"
-msgstr "朝鲜共和国"
-
-#: ../data/rh_register.glade.h:186
-msgid "Kuwait"
-msgstr "科威特"
-
-#: ../data/rh_register.glade.h:187
-msgid "Kyrgyzstan"
-msgstr "吉尔吉斯斯坦"
-
-#: ../data/rh_register.glade.h:188
-msgid "Lao People's Democratic Republic"
-msgstr "老挝人民民主共和国"
-
-#: ../data/rh_register.glade.h:189
-msgid "Latin America"
-msgstr "拉丁美洲"
-
-#: ../data/rh_register.glade.h:190
-msgid "Latvia"
-msgstr "拉托维亚"
-
-#: ../data/rh_register.glade.h:191
-msgid "Lebanon"
-msgstr "黎巴嫩"
-
-#: ../data/rh_register.glade.h:192
-msgid "Lesotho"
-msgstr "莱索脱"
-
-#: ../data/rh_register.glade.h:193
-msgid "Liberia"
-msgstr "利比里亚"
-
-#: ../data/rh_register.glade.h:194
-msgid "Libyan Arab Jamahiriya"
-msgstr "阿拉伯利比亚民众国"
-
-#: ../data/rh_register.glade.h:195
-msgid "Liechtenstein"
-msgstr "列支敦士登"
-
-#: ../data/rh_register.glade.h:196
+#: ../data/rh_register.glade.h:61
 msgid "Link To Subscription"
 msgstr "链接到订阅"
 
-#: ../data/rh_register.glade.h:197
-msgid "Lithuania"
-msgstr "立陶宛"
-
-#: ../data/rh_register.glade.h:199
-msgid "Luxembourg"
-msgstr "卢森堡"
-
-#: ../data/rh_register.glade.h:200
-msgid "Macau"
-msgstr "中国澳门"
-
-#: ../data/rh_register.glade.h:201
-msgid "Macedonia"
-msgstr "马塞多尼亚"
-
-#: ../data/rh_register.glade.h:202
-msgid "Madagascar"
-msgstr "马达加斯加"
-
-#: ../data/rh_register.glade.h:203
-msgid "Malawi"
-msgstr "马拉威"
-
-#: ../data/rh_register.glade.h:204
-msgid "Malaysia"
-msgstr "马来西亚"
-
-#: ../data/rh_register.glade.h:205
-msgid "Maldives"
-msgstr "马尔代夫"
-
-#: ../data/rh_register.glade.h:206
-msgid "Mali"
-msgstr "马里"
-
-#: ../data/rh_register.glade.h:207
-msgid "Malta"
-msgstr "马耳他"
-
-#: ../data/rh_register.glade.h:208
-msgid "Marshall Islands"
-msgstr "马绍尔群岛"
-
-#: ../data/rh_register.glade.h:209
-msgid "Martinique"
-msgstr "马提尼克"
-
-#: ../data/rh_register.glade.h:210
-msgid "Mauritania"
-msgstr "毛里塔尼亚"
-
-#: ../data/rh_register.glade.h:211
-msgid "Mauritius"
-msgstr "毛里求斯"
-
-#: ../data/rh_register.glade.h:212
-msgid "Mayotte"
-msgstr "马约特岛"
-
-#: ../data/rh_register.glade.h:213
+#: ../data/rh_register.glade.h:63
 msgid "Memory:"
 msgstr "内存："
 
-#: ../data/rh_register.glade.h:214
-msgid "Mexico"
-msgstr "墨西哥"
-
-#: ../data/rh_register.glade.h:215
-msgid "Micronesia (Federated States of)"
-msgstr "密克罗尼西亚联邦"
-
-#: ../data/rh_register.glade.h:216
-msgid "Moldova"
-msgstr "摩尔多瓦"
-
-#: ../data/rh_register.glade.h:217
-msgid "Monaco"
-msgstr "摩纳哥"
-
-#: ../data/rh_register.glade.h:218
-msgid "Mongolia"
-msgstr "蒙古"
-
-#: ../data/rh_register.glade.h:219
-msgid "Montserrat"
-msgstr "蒙特塞拉特岛"
-
-#: ../data/rh_register.glade.h:220
-msgid "Morocco"
-msgstr "摩洛哥"
-
-#: ../data/rh_register.glade.h:221
-msgid "Mozambique"
-msgstr "莫桑比克"
-
-#: ../data/rh_register.glade.h:222
-msgid "Myanmar"
-msgstr "缅甸"
-
-#: ../data/rh_register.glade.h:223
-msgid "Namibia"
-msgstr "纳米比亚"
-
-#: ../data/rh_register.glade.h:224
-msgid "Nauru"
-msgstr "瑙鲁"
-
-#: ../data/rh_register.glade.h:225
-msgid "Nepal"
-msgstr "尼泊尔"
-
-#: ../data/rh_register.glade.h:226
-msgid "Netherlands"
-msgstr "荷兰"
-
-#: ../data/rh_register.glade.h:227
-msgid "Netherlands Antilles"
-msgstr "荷属安的列斯"
-
-#: ../data/rh_register.glade.h:228
-msgid "New Caledonia"
-msgstr "新喀里多尼亚"
-
-#: ../data/rh_register.glade.h:229
-msgid "New Zealand"
-msgstr "新西兰"
-
-#: ../data/rh_register.glade.h:230
-msgid "Nicaragua"
-msgstr "尼加拉瓜"
-
-#: ../data/rh_register.glade.h:231
-msgid "Niger"
-msgstr "尼日尔"
-
-#: ../data/rh_register.glade.h:232
-msgid "Nigeria"
-msgstr "尼日利亚"
-
-#: ../data/rh_register.glade.h:233
-msgid "Niue"
-msgstr "纽埃"
-
-#: ../data/rh_register.glade.h:234
-msgid "Norfolk Island"
-msgstr "诺福克群岛"
-
-#: ../data/rh_register.glade.h:235
-msgid "Northern Mariana Islands"
-msgstr "北马里亚纳群岛"
-
-#: ../data/rh_register.glade.h:236
-msgid "Norway"
-msgstr "挪威"
-
-#: ../data/rh_register.glade.h:237
-msgid "Oman"
-msgstr "阿曼"
-
-#: ../data/rh_register.glade.h:238
+#: ../data/rh_register.glade.h:64
 msgid "Package Information"
 msgstr "软件包信息"
 
-#: ../data/rh_register.glade.h:239
-msgid "Pakistan"
-msgstr "巴基斯坦"
-
-#: ../data/rh_register.glade.h:240
-msgid "Palau"
-msgstr "帕劳"
-
-#: ../data/rh_register.glade.h:241
-msgid "Panama"
-msgstr "巴拿马"
-
-#: ../data/rh_register.glade.h:242
-msgid "Papua New Guinea"
-msgstr "巴布亚新几内亚"
-
-#: ../data/rh_register.glade.h:243
-msgid "Paraguay"
-msgstr "巴拉圭"
-
-#: ../data/rh_register.glade.h:244
-msgid "Peru"
-msgstr "秘鲁"
-
-#: ../data/rh_register.glade.h:245
-msgid "Philippines"
-msgstr "菲律宾"
-
-#: ../data/rh_register.glade.h:246
-msgid "Pitcairn"
-msgstr "皮特开恩群岛"
-
-#: ../data/rh_register.glade.h:247
+#: ../data/rh_register.glade.h:65
 msgid ""
 "Please enter your account information for <b>Red Hat Network</b> (http://rhn."
 "redhat.com/)"
 msgstr "请输入您的 <b>红帽网络</b> (http://rhn.redhat.com) 帐号信息"
 
-#: ../data/rh_register.glade.h:249
-msgid "Poland"
-msgstr "波兰"
-
-#: ../data/rh_register.glade.h:250
-msgid "Portugal"
-msgstr "葡萄牙"
-
-#: ../data/rh_register.glade.h:251
+#: ../data/rh_register.glade.h:67
 msgid "Privacy Statement"
 msgstr "隐私声明"
 
-#: ../data/rh_register.glade.h:252
+#: ../data/rh_register.glade.h:68
 msgid "Provide a Security Certificate"
 msgstr "提供一个安全证书"
 
-#: ../data/rh_register.glade.h:253
+#: ../data/rh_register.glade.h:69
 msgid "Proxy P_assword:"
 msgstr "代理服务器口令(_a)："
 
-#: ../data/rh_register.glade.h:254
+#: ../data/rh_register.glade.h:70
 msgid "Proxy _Username:"
 msgstr "代理服务器用户名(_U)："
 
-#: ../data/rh_register.glade.h:255
-msgid "Puerto Rico"
-msgstr "波多黎各"
-
-#: ../data/rh_register.glade.h:257
-msgid "Qatar"
-msgstr "卡塔尔"
-
-#: ../data/rh_register.glade.h:258
+#: ../data/rh_register.glade.h:72
 msgid ""
 "Receive the latest software updates, including security updates, keeping "
 "this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
@@ -2920,201 +2327,53 @@ msgstr ""
 "接收最新的软件更新，包括安全更新，保持这个红帽企业 Linux 系统 <b>更新</b> 并 "
 "<b>处于安全状态</b>。"
 
-#: ../data/rh_register.glade.h:259
+#: ../data/rh_register.glade.h:73
 msgid "Red Hat Linux Version:"
 msgstr "Red Hat Linux 版本："
 
-#: ../data/rh_register.glade.h:260
-msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
-msgstr "Red Hat 登录名和密码必须至少5个字母或数字"
-
-#: ../data/rh_register.glade.h:261
+#: ../data/rh_register.glade.h:74
 msgid "Red Hat Network _Location:"
 msgstr "红帽网络位置(_L)："
 
-#: ../data/rh_register.glade.h:262
+#: ../data/rh_register.glade.h:75
 msgid "Red Hat Privacy Statement"
 msgstr "红帽隐私声明"
 
-#: ../data/rh_register.glade.h:263
-msgid "Reunion"
-msgstr "留尼汪岛"
-
-#: ../data/rh_register.glade.h:264
+#: ../data/rh_register.glade.h:76
 msgid "Review system..."
 msgstr "回顾系统..."
 
-#: ../data/rh_register.glade.h:265
-msgid "Romania"
-msgstr "罗马尼亚"
-
-#: ../data/rh_register.glade.h:266
-msgid "Russian Federation"
-msgstr "俄罗斯联邦"
-
-#: ../data/rh_register.glade.h:267
-msgid "Rwanda"
-msgstr "卢旺达"
-
-#: ../data/rh_register.glade.h:268
-msgid "Saint Helena"
-msgstr "圣赫勒那"
-
-#: ../data/rh_register.glade.h:269
-msgid "Saint Kitts and Nevis"
-msgstr "圣基茨和尼维斯联邦"
-
-#: ../data/rh_register.glade.h:270
-msgid "Saint Lucia"
-msgstr "圣卢西亚"
-
-#: ../data/rh_register.glade.h:271
-msgid "Saint Pierre and Miquelon    "
-msgstr "圣皮埃尔和密克隆"
-
-#: ../data/rh_register.glade.h:272
-msgid "Saint Vincent and the Grenadines"
-msgstr "圣文森特和格林纳丁斯"
-
-#: ../data/rh_register.glade.h:273
-msgid "Samoa"
-msgstr "萨摩亚"
-
-#: ../data/rh_register.glade.h:274
-msgid "San Marino"
-msgstr "圣马利诺"
-
-#: ../data/rh_register.glade.h:275
-msgid "Sao Tome and Principe"
-msgstr "圣多美与普林西比"
-
-#: ../data/rh_register.glade.h:276
-msgid "Saudi Arabia"
-msgstr "沙特阿拉伯"
-
-#: ../data/rh_register.glade.h:277
+#: ../data/rh_register.glade.h:77
 msgid "Select A File"
 msgstr "选择一个文件"
 
-#: ../data/rh_register.glade.h:278
+#: ../data/rh_register.glade.h:78
 msgid "Send _hardware profile"
 msgstr "发送(_h)硬件配置档案"
 
-#: ../data/rh_register.glade.h:279
+#: ../data/rh_register.glade.h:79
 msgid "Send _package profile"
 msgstr "发送软件包配置档案(_p)"
 
-#: ../data/rh_register.glade.h:280
-msgid "Senegal"
-msgstr "塞内加尔"
-
-#: ../data/rh_register.glade.h:281
-msgid "Seychelles"
-msgstr "塞舌尔"
-
-#: ../data/rh_register.glade.h:282
-msgid "Sierra Leone"
-msgstr "塞拉利昂"
-
-#: ../data/rh_register.glade.h:283
-msgid "Singapore"
-msgstr "新加坡"
-
-#: ../data/rh_register.glade.h:284
-msgid "Slovakia"
-msgstr "斯洛伐克"
-
-#: ../data/rh_register.glade.h:285
-msgid "Slovenia"
-msgstr "斯洛文尼亚"
-
-#: ../data/rh_register.glade.h:286
+#: ../data/rh_register.glade.h:80
 msgid "Software update setup has been completed for this system."
 msgstr "这个系统的软件更新设置已经完成。"
 
-#: ../data/rh_register.glade.h:287
-msgid "Solomon Islands"
-msgstr "所罗门群岛"
-
-#: ../data/rh_register.glade.h:288
-msgid "Somalia"
-msgstr "索马里"
-
-#: ../data/rh_register.glade.h:289
-msgid "South Africa"
-msgstr "南非"
-
-#: ../data/rh_register.glade.h:290
-msgid "South Georgia and the South Sandwich Island"
-msgstr "南乔治亚岛和南桑德韦奇岛"
-
-#: ../data/rh_register.glade.h:291
-msgid "Spain"
-msgstr "西班牙"
-
-#: ../data/rh_register.glade.h:292
-msgid "Sri Lanka"
-msgstr "斯里兰卡"
-
-#: ../data/rh_register.glade.h:293
+#: ../data/rh_register.glade.h:81
 msgid "Start Window"
 msgstr "开始窗体"
 
-#: ../data/rh_register.glade.h:295
-msgid "Sudan"
-msgstr "苏丹"
-
-#: ../data/rh_register.glade.h:296
-msgid "Suriname"
-msgstr "苏里南"
-
-#: ../data/rh_register.glade.h:297
-msgid "Svalbard and Jan Mayen Islands"
-msgstr "斯马尔巴特和扬马延岛"
-
-#: ../data/rh_register.glade.h:298
-msgid "Swaziland"
-msgstr "斯威士兰"
-
-#: ../data/rh_register.glade.h:299
-msgid "Sweden"
-msgstr "瑞典"
-
-#: ../data/rh_register.glade.h:300
-msgid "Switzerland"
-msgstr "瑞士"
-
-#: ../data/rh_register.glade.h:301
-msgid "Syrian Arab Republic"
-msgstr "叙利亚阿拉伯共和国"
-
-#: ../data/rh_register.glade.h:302
+#: ../data/rh_register.glade.h:83
 msgid "System _Name:"
 msgstr "系统名(_N)："
 
-#: ../data/rh_register.glade.h:304
-msgid "Taiwan"
-msgstr "台湾"
-
-#: ../data/rh_register.glade.h:305
-msgid "Tajikistan"
-msgstr "塔吉克斯坦"
-
-#: ../data/rh_register.glade.h:306
-msgid "Tanzania, United Republic of"
-msgstr "坦赞尼亚联合共和国"
-
-#: ../data/rh_register.glade.h:307
-msgid "Thailand"
-msgstr "泰国"
-
-#: ../data/rh_register.glade.h:308
+#: ../data/rh_register.glade.h:85
 msgid ""
 "This assistant will guide you through connecting your system  to Red Hat "
 "Network (RHN) for software updates, such as:"
 msgstr "这个帮助程序将帮助您注册您的系统来进行软件更新，如："
 
-#: ../data/rh_register.glade.h:309
+#: ../data/rh_register.glade.h:86
 msgid ""
 "This system will <b>not</b> be able to successfully receive software "
 "updates, including security updates, from Red Hat without connecting to a "
@@ -3131,125 +2390,25 @@ msgstr ""
 "要保持您的系统更新、安全并被支持，请尽快支持您的系统。您可以通过运行 <b>应用"
 "程序 > 系统工具</b> 菜单中的 <b>Software Updater</b> 来获得这个支持工具。"
 
-#: ../data/rh_register.glade.h:312
-msgid "Togo"
-msgstr "多哥"
-
-#: ../data/rh_register.glade.h:313
-msgid "Tokelau"
-msgstr "托克劳"
-
-#: ../data/rh_register.glade.h:314
-msgid "Tonga"
-msgstr "汤加"
-
-#: ../data/rh_register.glade.h:315
-msgid "Trinidad and Tobago"
-msgstr "特立尼达和多巴哥"
-
-#: ../data/rh_register.glade.h:316
-msgid "Tunisia"
-msgstr "突尼斯"
-
-#: ../data/rh_register.glade.h:317
-msgid "Turkey"
-msgstr "土耳其"
-
-#: ../data/rh_register.glade.h:318
-msgid "Turkmenistan"
-msgstr "土库曼斯坦"
-
-#: ../data/rh_register.glade.h:319
-msgid "Turks and Caicos Islands"
-msgstr "特克斯群岛与凯科斯群岛"
-
-#: ../data/rh_register.glade.h:320
-msgid "Tuvalu"
-msgstr "图瓦卢"
-
-#: ../data/rh_register.glade.h:321
-msgid "Uganda"
-msgstr "乌干达"
-
-#: ../data/rh_register.glade.h:322
-msgid "Ukraine"
-msgstr "乌克兰"
-
-#: ../data/rh_register.glade.h:323
-msgid "United Arab Emirates"
-msgstr "阿拉伯联合酋长国"
-
-#: ../data/rh_register.glade.h:324
-msgid "United Kingdom"
-msgstr "英国"
-
-#: ../data/rh_register.glade.h:326
-msgid "United States Minor Outlying Islands"
-msgstr "美属群岛"
-
-#: ../data/rh_register.glade.h:327
-msgid "Uruguay"
-msgstr "乌拉圭"
-
-#: ../data/rh_register.glade.h:328
+#: ../data/rh_register.glade.h:89
 msgid "Use Au_thentication with HTTP Proxy:"
 msgstr "使用 HTTP 代理服务器进行验证(_t)"
 
-#: ../data/rh_register.glade.h:329
-msgid "Uzbekistan"
-msgstr "乌兹别克斯坦"
-
-#: ../data/rh_register.glade.h:330
+#: ../data/rh_register.glade.h:90
 msgid "V_iew Package Profile ..."
 msgstr "查看软件包配置档案(_i)"
 
-#: ../data/rh_register.glade.h:331
-msgid "Vanuatu"
-msgstr "瓦努阿图"
-
-#: ../data/rh_register.glade.h:332
-msgid "Vatican City State (Holy See)"
-msgstr "梵蒂冈"
-
-#: ../data/rh_register.glade.h:333
-msgid "Venezuela"
-msgstr "委内瑞拉"
-
-#: ../data/rh_register.glade.h:334
-msgid "Viet Nam"
-msgstr "越南"
-
-#: ../data/rh_register.glade.h:335
-msgid "Virgin Islands (British)"
-msgstr "维尔京群岛 (英属)"
-
-#: ../data/rh_register.glade.h:336
-msgid "Virgin Islands (U.S.)"
-msgstr "维尔京群岛 (美属)"
-
-#: ../data/rh_register.glade.h:337
-msgid "Wallis and Futuna Islands"
-msgstr "瓦里斯和富土那群岛"
-
-#: ../data/rh_register.glade.h:338
-msgid "Western Sahara"
-msgstr "西部撒哈拉"
-
-#: ../data/rh_register.glade.h:339
+#: ../data/rh_register.glade.h:91
 msgid "Why Register"
 msgstr "为什么注册"
 
-#: ../data/rh_register.glade.h:341
+#: ../data/rh_register.glade.h:93
 msgid ""
 "Would you like to register your system at this time? <b>(Strongly "
 "recommended.)</b>"
 msgstr "您想现在注册您的系统吗？<b>(强烈推荐。)</b>"
 
-#: ../data/rh_register.glade.h:342
-msgid "Yemen"
-msgstr "也门"
-
-#: ../data/rh_register.glade.h:343
+#: ../data/rh_register.glade.h:94
 msgid ""
 "You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
 "com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
@@ -3258,13 +2417,13 @@ msgstr ""
 "您可以把您的系统连接到<b>红帽网络</b> (https://rhn.redhat.com/) 或<b>红帽网"
 "络 Satellite</b> 或<b>红帽网络代理服务器</b> 来接收软件更新。"
 
-#: ../data/rh_register.glade.h:344
+#: ../data/rh_register.glade.h:95
 msgid ""
 "You will <b>not</b> be able to take advantage of these subscriptions "
 "privileges without connecting your system to Red Hat Network."
 msgstr "没有在红帽网络上注册系统，您将 <b>无法</b> 获得这些订阅所提供的益处。"
 
-#: ../data/rh_register.glade.h:345
+#: ../data/rh_register.glade.h:96
 msgid ""
 "You won't be able to receive software updates, including security updates, "
 "for this system.\n"
@@ -3279,29 +2438,31 @@ msgstr ""
 "要使您的系统更新、安全并被支持，请尽早把这个系统连接到 RHN。您可以通过 应用程"
 "序 > 系统工具菜单运行软件更新来使用软件更新设置工具。"
 
-#: ../data/rh_register.glade.h:348
+#: ../data/rh_register.glade.h:99
 msgid ""
 "You'll need to send us a profile of what packages and hardware are installed "
 "on your system so we can determine what updates are available."
-msgstr "您需要发送给我们一个系统配置档案，从而使我们可以决定哪些更新适用您的系统。"
+msgstr ""
+"您需要发送给我们一个系统配置档案，从而使我们可以决定哪些更新适用您的系统。"
 
-#: ../data/rh_register.glade.h:349
+#: ../data/rh_register.glade.h:100
 msgid ""
 "You'll want to choose a name for this system so you'll be able to identify "
 "it in the Red Hat Network interface."
 msgstr "您需要为这个系统选择一个系统名。"
 
-#: ../data/rh_register.glade.h:350
+#: ../data/rh_register.glade.h:101
+#, fuzzy
 msgid ""
-"Your account is associate with multiple <b>organizations</b>. You will need "
+"Your account is associated with multiple <b>organizations</b>. You will need "
 "to select an organization to register this system to."
 msgstr "您的帐号与多个 <b>机构</b> 相连。您需要选择一个机构来注册这个系统。"
 
-#: ../data/rh_register.glade.h:351
+#: ../data/rh_register.glade.h:102
 msgid "Your system is not setup for software updates."
 msgstr "这个系统没有设置软件更新。"
 
-#: ../data/rh_register.glade.h:352
+#: ../data/rh_register.glade.h:103
 msgid ""
 "Your system is now ready to receive the software updates that will keep it "
 "secure and supported.\n"
@@ -3316,99 +2477,941 @@ msgstr ""
 "当有新的软件更新时，一个软件包图标会出现在您的桌面的通知区域上。点这个图标将"
 "可以应用有效的更新："
 
-#: ../data/rh_register.glade.h:356
-msgid "Yugoslavia"
-msgstr "南斯拉夫"
+#: ../data/rh_register.glade.h:106
+msgid ""
+"Your system will be subscribed to the base software channel.  You will not "
+"be able to move this system to an earlier minor release channel if you "
+"continue (you will be able to move to a later release.)"
+msgstr ""
 
-#: ../data/rh_register.glade.h:357
-msgid "Zaire"
-msgstr "扎伊尔"
-
-#: ../data/rh_register.glade.h:358
-msgid "Zambia"
-msgstr "赞比亚"
-
-#: ../data/rh_register.glade.h:359
-msgid "Zimbabwe"
-msgstr "津巴布韦"
-
-#: ../data/rh_register.glade.h:360
+#: ../data/rh_register.glade.h:108
 msgid "_Activate a subscription now..."
 msgstr "现在激活一个订阅...(_A)"
 
-#: ../data/rh_register.glade.h:361
+#: ../data/rh_register.glade.h:109
 msgid "_Close"
 msgstr "(_C)关闭"
 
-#: ../data/rh_register.glade.h:362
+#: ../data/rh_register.glade.h:110
 msgid "_Login:"
 msgstr "(_L)登录："
 
-#: ../data/rh_register.glade.h:363
+#: ../data/rh_register.glade.h:111
+msgid "_Minor release:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:112
 msgid "_No thanks, I'll connect later."
 msgstr "(_N)不，我将在以后注册。"
 
-#: ../data/rh_register.glade.h:364
+#: ../data/rh_register.glade.h:113
 msgid "_No, Cancel"
 msgstr "(_N)不，取消"
 
-#: ../data/rh_register.glade.h:365
+#: ../data/rh_register.glade.h:114
 msgid "_No, I prefer to register at a later time."
 msgstr "(_N)不，我将在以后注册。"
 
-#: ../data/rh_register.glade.h:366
+#: ../data/rh_register.glade.h:115
+msgid "_Operating system version:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:116
 msgid "_Organization:"
 msgstr "(_O)机构："
 
-#: ../data/rh_register.glade.h:367
+#: ../data/rh_register.glade.h:117
 msgid "_Password:"
 msgstr "(_P)口令："
 
-#: ../data/rh_register.glade.h:368
+#: ../data/rh_register.glade.h:118
 msgid "_Proxy Location:"
 msgstr "(_P)代理服务器位置："
 
-#: ../data/rh_register.glade.h:369
+#: ../data/rh_register.glade.h:119
 msgid "_Take me back to the registration"
 msgstr "(_T)返回到注册过程"
 
-#: ../data/rh_register.glade.h:370
+#: ../data/rh_register.glade.h:120
 msgid "_Take me back to the setup process."
 msgstr "(_T)返回到设置过程。"
 
-#: ../data/rh_register.glade.h:371
+#: ../data/rh_register.glade.h:121
 msgid "_View Hardware Profile ..."
 msgstr "(_V)查看硬件配置档案 ..."
 
-#: ../data/rh_register.glade.h:372
+#: ../data/rh_register.glade.h:122
 msgid "_Why Should I Connect to RHN? ..."
 msgstr "我为什么需要连接到 RHN？..."
 
-#: ../data/rh_register.glade.h:373
+#: ../data/rh_register.glade.h:123
 msgid "_Yes, Continue"
 msgstr "(_Y)是，继续"
 
-#: ../data/rh_register.glade.h:374
+#: ../data/rh_register.glade.h:124
 msgid "_Yes, I'd like to register now."
 msgstr "(_Y)是，我现在注册。"
 
-#: ../data/rh_register.glade.h:375
+#: ../data/rh_register.glade.h:125
 msgid "label"
 msgstr "标签"
 
-#: ../data/rh_register.glade.h:376
+#: ../data/rh_register.glade.h:126
 msgid "•"
 msgstr "•"
 
-#: ../data/rh_register.glade.h:377
+#: ../data/rh_register.glade.h:127
 msgid "• A name for your system's Red Hat Network profile"
 msgstr "您系统的红帽网络配置档案名"
 
-#: ../data/rh_register.glade.h:378
+#: ../data/rh_register.glade.h:128
 msgid "• The address to your Red Hat Network Satellite (optional)"
 msgstr "您的红帽网络 Satellite 的位置（可选）"
 
-#: ../data/rh_register.glade.h:379
+#: ../data/rh_register.glade.h:129
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• 您的红帽网络或红帽网络 Satellite 登录"
 
+#~ msgid "Error reading hardware information:"
+#~ msgstr "读取硬件信息时出错："
+
+#~ msgid "Error reading DMI information:"
+#~ msgstr "读取 DMI 信息时出错："
+
+#~ msgid "That user account and password is not valid\n"
+#~ msgstr "用户帐号和口令无效\n"
+
+#~ msgid "You must enter a user name."
+#~ msgstr "您必须输入用户名。"
+
+#~ msgid "You must enter and verify a password."
+#~ msgstr "您必须输入并校验一个口令。"
+
+#~ msgid ""
+#~ "Problem registering login:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "注册登录时出现问题：\n"
+#~ "%s"
+
+#~ msgid "Problem registering login."
+#~ msgstr "注册登录时出现问题。"
+
+#~ msgid "United States"
+#~ msgstr "美国"
+
+#~ msgid "Canada"
+#~ msgstr "加拿大"
+
+#~ msgid "Login Information:"
+#~ msgstr "登录信息："
+
+#~ msgid "Account Information:"
+#~ msgstr "帐号信息："
+
+#~ msgid "*First Name:"
+#~ msgstr "*名字："
+
+#~ msgid "*Last Name:"
+#~ msgstr "*姓："
+
+#~ msgid "*Company Name:"
+#~ msgstr "*公司名："
+
+#~ msgid "Street Address:"
+#~ msgstr "街道地址："
+
+#~ msgid "City:"
+#~ msgstr "城市："
+
+#~ msgid "State/Province:"
+#~ msgstr "州/省："
+
+#~ msgid "Zip/Post Code:"
+#~ msgstr "邮政编码："
+
+#~ msgid "*Country:"
+#~ msgstr "*国家："
+
+#~ msgid "  Address 2:"
+#~ msgstr "  地址行 2："
+
+#~ msgid "  Address:"
+#~ msgstr "地址："
+
+#~ msgid "  C_ity:"
+#~ msgstr "(_i)城市："
+
+#~ msgid "  Co_mpany Name:"
+#~ msgstr "(_m)公司名："
+
+#~ msgid "  _State/Province:"
+#~ msgstr "(_S)州/省："
+
+#~ msgid "  _Zip/Postal code:"
+#~ msgstr "(_Z)邮政编码："
+
+#~ msgid "* C_onfirm password:  "
+#~ msgstr "* 确认口令 (_o)：  "
+
+#~ msgid "* Co_untry:"
+#~ msgstr "* (_u)国家："
+
+#~ msgid "* Desired _Login:"
+#~ msgstr "* (_L)登录："
+
+#~ msgid "* Desired _Password:"
+#~ msgstr "* 口令 (_P):"
+
+#~ msgid "* Last _Name:"
+#~ msgstr "*(_N)姓："
+
+#~ msgid "* _Email Address: "
+#~ msgstr "* 电子邮件地址 (_E)： "
+
+#~ msgid "* _First Name:"
+#~ msgstr "*(_F)名："
+
+#~ msgid "<b>Account Information:</b>"
+#~ msgstr "<b>帐号信息：</b>"
+
+#~ msgid "<b>Login Information:</b>"
+#~ msgstr "<b>登录信息：</b>"
+
+#~ msgid "<small><b>Examples:</b> user@domain.com</small>"
+#~ msgstr "<small><b>例如：</b> user@domain.com</small>"
+
+#~ msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+#~ msgstr "<small><b>信息：</b> 如果是一个个人用户，请把它留为空。</small>"
+
+#~ msgid "Afghanistan"
+#~ msgstr "阿富汗"
+
+#~ msgid "Albania"
+#~ msgstr "阿尔巴尼亚"
+
+#~ msgid "Algeria"
+#~ msgstr "阿尔及利亚"
+
+#~ msgid "American Samoa"
+#~ msgstr "美属萨摩尔"
+
+#~ msgid "Andorra"
+#~ msgstr "安道尔"
+
+#~ msgid "Angola"
+#~ msgstr "安格拉"
+
+#~ msgid "Anguilla"
+#~ msgstr "安圭拉"
+
+#~ msgid "Antarctica"
+#~ msgstr "南极洲"
+
+#~ msgid "Antigua and Barbuda"
+#~ msgstr "安提瓜和巴布达"
+
+#~ msgid "Argentina"
+#~ msgstr "阿根廷"
+
+#~ msgid "Armenia"
+#~ msgstr "亚美尼亚"
+
+#~ msgid "Aruba"
+#~ msgstr "阿鲁巴"
+
+#~ msgid "Australia"
+#~ msgstr "澳大利亚"
+
+#~ msgid "Austria"
+#~ msgstr "奥地利"
+
+#~ msgid "Azerbaijan"
+#~ msgstr "阿塞拜疆"
+
+#~ msgid "Bahamas"
+#~ msgstr "巴哈马"
+
+#~ msgid "Bahrain"
+#~ msgstr "巴林"
+
+#~ msgid "Bangladesh"
+#~ msgstr "孟加拉国"
+
+#~ msgid "Barbados"
+#~ msgstr "巴巴多斯"
+
+#~ msgid "Belarus"
+#~ msgstr "白俄罗斯"
+
+#~ msgid "Belgium"
+#~ msgstr "比利时"
+
+#~ msgid "Belize"
+#~ msgstr "伯利兹"
+
+#~ msgid "Benin"
+#~ msgstr "贝宁"
+
+#~ msgid "Bermuda"
+#~ msgstr "百慕大"
+
+#~ msgid "Bhutan"
+#~ msgstr "不丹"
+
+#~ msgid "Bolivia"
+#~ msgstr "玻利维亚"
+
+#~ msgid "Bosnia and Herzegovina"
+#~ msgstr "波斯尼亚和黑塞哥维那"
+
+#~ msgid "Botswana"
+#~ msgstr "博茨瓦那"
+
+#~ msgid "Bouvet Island"
+#~ msgstr "布维岛"
+
+#~ msgid "Brazil"
+#~ msgstr "巴西"
+
+#~ msgid "British Indian Ocean Territory"
+#~ msgstr "英联邦的印度洋领域"
+
+#~ msgid "Brunei Darussalam"
+#~ msgstr "文莱"
+
+#~ msgid "Bulgaria"
+#~ msgstr "保加利亚"
+
+#~ msgid "Burkina Faso"
+#~ msgstr "布其纳法索"
+
+#~ msgid "Burundi"
+#~ msgstr "布隆迪"
+
+#~ msgid "C_reate new login"
+#~ msgstr "(_r)建立新登录"
+
+#~ msgid "Cambodia"
+#~ msgstr "柬埔寨"
+
+#~ msgid "Cameroon"
+#~ msgstr "喀麦隆"
+
+#~ msgid "Cape Verde"
+#~ msgstr "佛得角"
+
+#~ msgid "Cayman Islands"
+#~ msgstr "开曼群岛"
+
+#~ msgid "Central African Republic"
+#~ msgstr "中非共和国"
+
+#~ msgid "Chad"
+#~ msgstr "乍得"
+
+#~ msgid "Chile"
+#~ msgstr "智利"
+
+#~ msgid "China"
+#~ msgstr "中国"
+
+#~ msgid "Christmas Island"
+#~ msgstr "圣诞岛"
+
+#~ msgid "Cocos (Keeling) Islands"
+#~ msgstr "可可岛"
+
+#~ msgid "Colombia"
+#~ msgstr "哥伦比亚"
+
+#~ msgid "Comoros"
+#~ msgstr "科摩罗"
+
+#~ msgid "Congo"
+#~ msgstr "刚果"
+
+#~ msgid "Cook Islands"
+#~ msgstr "库克群岛"
+
+#~ msgid "Costa Rica"
+#~ msgstr "哥斯达黎加"
+
+#~ msgid "Cote d'Ivoire"
+#~ msgstr "科特迪瓦"
+
+#~ msgid "Create a _New Login"
+#~ msgstr "创建一个新登录(_N)"
+
+#~ msgid "Create a new Red Hat Network login"
+#~ msgstr "建立一个新的红帽网络登录"
+
+#~ msgid "Croatia"
+#~ msgstr "克罗地亚"
+
+#~ msgid "Cuba"
+#~ msgstr "古巴"
+
+#~ msgid "Cyprus"
+#~ msgstr "塞浦路斯"
+
+#~ msgid "Czech Republic"
+#~ msgstr "捷克共和国"
+
+#~ msgid "Denmark"
+#~ msgstr "丹麦"
+
+#~ msgid "Djibouti"
+#~ msgstr "吉布提"
+
+#~ msgid "Dominica"
+#~ msgstr "多米尼加"
+
+#~ msgid "Dominican Republic"
+#~ msgstr "多米尼加共和国"
+
+#~ msgid "East Timor"
+#~ msgstr "东帝汶"
+
+#~ msgid "Ecuador"
+#~ msgstr "厄瓜多尔"
+
+#~ msgid "Egypt"
+#~ msgstr "埃及"
+
+#~ msgid "El Salvador"
+#~ msgstr "萨尔瓦多"
+
+#~ msgid "Equatorial Guinea"
+#~ msgstr "赤道几内亚"
+
+#~ msgid "Eritrea"
+#~ msgstr "厄立特里亚"
+
+#~ msgid "Estonia"
+#~ msgstr "爱沙尼亚"
+
+#~ msgid "Ethiopia"
+#~ msgstr "埃塞俄比亚"
+
+#~ msgid "Falkland Islands (Malvinas)"
+#~ msgstr "福克兰群岛"
+
+#~ msgid "Faroe Islands"
+#~ msgstr "法罗群岛"
+
+#~ msgid "Fiji"
+#~ msgstr "斐济"
+
+#~ msgid ""
+#~ "Fill in the form below to create a new Red Hat login. Required "
+#~ "information is marked with a '*':"
+#~ msgstr "填写以下表格来创建一个新的红帽网络登录。必需的信息以 '*' 标记："
+
+#~ msgid "Finland"
+#~ msgstr "芬兰"
+
+#~ msgid "France"
+#~ msgstr "法国"
+
+#~ msgid "France, Metropolitan"
+#~ msgstr "法国，本土"
+
+#~ msgid "French Guiana"
+#~ msgstr "法属圭亚那"
+
+#~ msgid "French Polynesia"
+#~ msgstr "法属玻里尼西亚"
+
+#~ msgid "French Southern Territories"
+#~ msgstr "法属南部领土"
+
+#~ msgid "Gabon"
+#~ msgstr "加蓬"
+
+#~ msgid "Gambia"
+#~ msgstr "甘比亚"
+
+#~ msgid "Georgia"
+#~ msgstr "乔治亚州"
+
+#~ msgid "Germany"
+#~ msgstr "德国"
+
+#~ msgid "Ghana"
+#~ msgstr "加纳"
+
+#~ msgid "Gibraltar"
+#~ msgstr "直布罗陀"
+
+#~ msgid "Greece"
+#~ msgstr "希腊"
+
+#~ msgid "Greenland"
+#~ msgstr "格陵兰"
+
+#~ msgid "Grenada"
+#~ msgstr "格林纳达"
+
+#~ msgid "Guadeloupe"
+#~ msgstr "瓜德罗普"
+
+#~ msgid "Guam"
+#~ msgstr "关岛"
+
+#~ msgid "Guatemala"
+#~ msgstr "瓜地马拉"
+
+#~ msgid "Guinea"
+#~ msgstr "几内亚"
+
+#~ msgid "Guinea-Bissau"
+#~ msgstr "几内亚比绍"
+
+#~ msgid "Guyana"
+#~ msgstr "圭亚那"
+
+#~ msgid "Haiti"
+#~ msgstr "海地"
+
+#~ msgid "Heard Island and McDonald Islands"
+#~ msgstr "赫德与麦克唐纳群岛"
+
+#~ msgid "Honduras"
+#~ msgstr "洪都拉斯"
+
+#~ msgid "Hong Kong"
+#~ msgstr "中国香港"
+
+#~ msgid "Hungary"
+#~ msgstr "匈牙利"
+
+#~ msgid "Iceland"
+#~ msgstr "冰岛"
+
+#~ msgid "India"
+#~ msgstr "印度"
+
+#~ msgid "Indonesia"
+#~ msgstr "印度尼西亚"
+
+#~ msgid "Iran (Islamic Republic of)"
+#~ msgstr "伊朗 (伊斯兰共和国)"
+
+#~ msgid "Iraq"
+#~ msgstr "伊拉克"
+
+#~ msgid "Ireland"
+#~ msgstr "爱尔兰"
+
+#~ msgid "Israel"
+#~ msgstr "以色列"
+
+#~ msgid "Italy"
+#~ msgstr "意大利"
+
+#~ msgid "Jamaica"
+#~ msgstr "牙买加"
+
+#~ msgid "Japan"
+#~ msgstr "日本"
+
+#~ msgid "Jordan"
+#~ msgstr "约旦"
+
+#~ msgid "Kazakhstan"
+#~ msgstr "哈萨克斯坦"
+
+#~ msgid "Kenya"
+#~ msgstr "肯尼亚"
+
+#~ msgid "Kiribati"
+#~ msgstr "基里巴斯"
+
+#~ msgid "Korea, Democratic People's Republic of"
+#~ msgstr "朝鲜人民民主共和国"
+
+#~ msgid "Korea, Republic of"
+#~ msgstr "朝鲜共和国"
+
+#~ msgid "Kuwait"
+#~ msgstr "科威特"
+
+#~ msgid "Kyrgyzstan"
+#~ msgstr "吉尔吉斯斯坦"
+
+#~ msgid "Lao People's Democratic Republic"
+#~ msgstr "老挝人民民主共和国"
+
+#~ msgid "Latin America"
+#~ msgstr "拉丁美洲"
+
+#~ msgid "Latvia"
+#~ msgstr "拉托维亚"
+
+#~ msgid "Lebanon"
+#~ msgstr "黎巴嫩"
+
+#~ msgid "Lesotho"
+#~ msgstr "莱索脱"
+
+#~ msgid "Liberia"
+#~ msgstr "利比里亚"
+
+#~ msgid "Libyan Arab Jamahiriya"
+#~ msgstr "阿拉伯利比亚民众国"
+
+#~ msgid "Liechtenstein"
+#~ msgstr "列支敦士登"
+
+#~ msgid "Lithuania"
+#~ msgstr "立陶宛"
+
+#~ msgid "Luxembourg"
+#~ msgstr "卢森堡"
+
+#~ msgid "Macau"
+#~ msgstr "中国澳门"
+
+#~ msgid "Macedonia"
+#~ msgstr "马塞多尼亚"
+
+#~ msgid "Madagascar"
+#~ msgstr "马达加斯加"
+
+#~ msgid "Malawi"
+#~ msgstr "马拉威"
+
+#~ msgid "Malaysia"
+#~ msgstr "马来西亚"
+
+#~ msgid "Maldives"
+#~ msgstr "马尔代夫"
+
+#~ msgid "Mali"
+#~ msgstr "马里"
+
+#~ msgid "Malta"
+#~ msgstr "马耳他"
+
+#~ msgid "Marshall Islands"
+#~ msgstr "马绍尔群岛"
+
+#~ msgid "Martinique"
+#~ msgstr "马提尼克"
+
+#~ msgid "Mauritania"
+#~ msgstr "毛里塔尼亚"
+
+#~ msgid "Mauritius"
+#~ msgstr "毛里求斯"
+
+#~ msgid "Mayotte"
+#~ msgstr "马约特岛"
+
+#~ msgid "Mexico"
+#~ msgstr "墨西哥"
+
+#~ msgid "Micronesia (Federated States of)"
+#~ msgstr "密克罗尼西亚联邦"
+
+#~ msgid "Moldova"
+#~ msgstr "摩尔多瓦"
+
+#~ msgid "Monaco"
+#~ msgstr "摩纳哥"
+
+#~ msgid "Mongolia"
+#~ msgstr "蒙古"
+
+#~ msgid "Montserrat"
+#~ msgstr "蒙特塞拉特岛"
+
+#~ msgid "Morocco"
+#~ msgstr "摩洛哥"
+
+#~ msgid "Mozambique"
+#~ msgstr "莫桑比克"
+
+#~ msgid "Myanmar"
+#~ msgstr "缅甸"
+
+#~ msgid "Namibia"
+#~ msgstr "纳米比亚"
+
+#~ msgid "Nauru"
+#~ msgstr "瑙鲁"
+
+#~ msgid "Nepal"
+#~ msgstr "尼泊尔"
+
+#~ msgid "Netherlands"
+#~ msgstr "荷兰"
+
+#~ msgid "Netherlands Antilles"
+#~ msgstr "荷属安的列斯"
+
+#~ msgid "New Caledonia"
+#~ msgstr "新喀里多尼亚"
+
+#~ msgid "New Zealand"
+#~ msgstr "新西兰"
+
+#~ msgid "Nicaragua"
+#~ msgstr "尼加拉瓜"
+
+#~ msgid "Niger"
+#~ msgstr "尼日尔"
+
+#~ msgid "Nigeria"
+#~ msgstr "尼日利亚"
+
+#~ msgid "Niue"
+#~ msgstr "纽埃"
+
+#~ msgid "Norfolk Island"
+#~ msgstr "诺福克群岛"
+
+#~ msgid "Northern Mariana Islands"
+#~ msgstr "北马里亚纳群岛"
+
+#~ msgid "Norway"
+#~ msgstr "挪威"
+
+#~ msgid "Oman"
+#~ msgstr "阿曼"
+
+#~ msgid "Pakistan"
+#~ msgstr "巴基斯坦"
+
+#~ msgid "Palau"
+#~ msgstr "帕劳"
+
+#~ msgid "Panama"
+#~ msgstr "巴拿马"
+
+#~ msgid "Papua New Guinea"
+#~ msgstr "巴布亚新几内亚"
+
+#~ msgid "Paraguay"
+#~ msgstr "巴拉圭"
+
+#~ msgid "Peru"
+#~ msgstr "秘鲁"
+
+#~ msgid "Philippines"
+#~ msgstr "菲律宾"
+
+#~ msgid "Pitcairn"
+#~ msgstr "皮特开恩群岛"
+
+#~ msgid "Poland"
+#~ msgstr "波兰"
+
+#~ msgid "Portugal"
+#~ msgstr "葡萄牙"
+
+#~ msgid "Puerto Rico"
+#~ msgstr "波多黎各"
+
+#~ msgid "Qatar"
+#~ msgstr "卡塔尔"
+
+#~ msgid ""
+#~ "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+#~ msgstr "Red Hat 登录名和密码必须至少5个字母或数字"
+
+#~ msgid "Reunion"
+#~ msgstr "留尼汪岛"
+
+#~ msgid "Romania"
+#~ msgstr "罗马尼亚"
+
+#~ msgid "Russian Federation"
+#~ msgstr "俄罗斯联邦"
+
+#~ msgid "Rwanda"
+#~ msgstr "卢旺达"
+
+#~ msgid "Saint Helena"
+#~ msgstr "圣赫勒那"
+
+#~ msgid "Saint Kitts and Nevis"
+#~ msgstr "圣基茨和尼维斯联邦"
+
+#~ msgid "Saint Lucia"
+#~ msgstr "圣卢西亚"
+
+#~ msgid "Saint Pierre and Miquelon    "
+#~ msgstr "圣皮埃尔和密克隆"
+
+#~ msgid "Saint Vincent and the Grenadines"
+#~ msgstr "圣文森特和格林纳丁斯"
+
+#~ msgid "Samoa"
+#~ msgstr "萨摩亚"
+
+#~ msgid "San Marino"
+#~ msgstr "圣马利诺"
+
+#~ msgid "Sao Tome and Principe"
+#~ msgstr "圣多美与普林西比"
+
+#~ msgid "Saudi Arabia"
+#~ msgstr "沙特阿拉伯"
+
+#~ msgid "Senegal"
+#~ msgstr "塞内加尔"
+
+#~ msgid "Seychelles"
+#~ msgstr "塞舌尔"
+
+#~ msgid "Sierra Leone"
+#~ msgstr "塞拉利昂"
+
+#~ msgid "Singapore"
+#~ msgstr "新加坡"
+
+#~ msgid "Slovakia"
+#~ msgstr "斯洛伐克"
+
+#~ msgid "Slovenia"
+#~ msgstr "斯洛文尼亚"
+
+#~ msgid "Solomon Islands"
+#~ msgstr "所罗门群岛"
+
+#~ msgid "Somalia"
+#~ msgstr "索马里"
+
+#~ msgid "South Africa"
+#~ msgstr "南非"
+
+#~ msgid "South Georgia and the South Sandwich Island"
+#~ msgstr "南乔治亚岛和南桑德韦奇岛"
+
+#~ msgid "Spain"
+#~ msgstr "西班牙"
+
+#~ msgid "Sri Lanka"
+#~ msgstr "斯里兰卡"
+
+#~ msgid "Sudan"
+#~ msgstr "苏丹"
+
+#~ msgid "Suriname"
+#~ msgstr "苏里南"
+
+#~ msgid "Svalbard and Jan Mayen Islands"
+#~ msgstr "斯马尔巴特和扬马延岛"
+
+#~ msgid "Swaziland"
+#~ msgstr "斯威士兰"
+
+#~ msgid "Sweden"
+#~ msgstr "瑞典"
+
+#~ msgid "Switzerland"
+#~ msgstr "瑞士"
+
+#~ msgid "Syrian Arab Republic"
+#~ msgstr "叙利亚阿拉伯共和国"
+
+#~ msgid "Taiwan"
+#~ msgstr "台湾"
+
+#~ msgid "Tajikistan"
+#~ msgstr "塔吉克斯坦"
+
+#~ msgid "Tanzania, United Republic of"
+#~ msgstr "坦赞尼亚联合共和国"
+
+#~ msgid "Thailand"
+#~ msgstr "泰国"
+
+#~ msgid "Togo"
+#~ msgstr "多哥"
+
+#~ msgid "Tokelau"
+#~ msgstr "托克劳"
+
+#~ msgid "Tonga"
+#~ msgstr "汤加"
+
+#~ msgid "Trinidad and Tobago"
+#~ msgstr "特立尼达和多巴哥"
+
+#~ msgid "Tunisia"
+#~ msgstr "突尼斯"
+
+#~ msgid "Turkey"
+#~ msgstr "土耳其"
+
+#~ msgid "Turkmenistan"
+#~ msgstr "土库曼斯坦"
+
+#~ msgid "Turks and Caicos Islands"
+#~ msgstr "特克斯群岛与凯科斯群岛"
+
+#~ msgid "Tuvalu"
+#~ msgstr "图瓦卢"
+
+#~ msgid "Uganda"
+#~ msgstr "乌干达"
+
+#~ msgid "Ukraine"
+#~ msgstr "乌克兰"
+
+#~ msgid "United Arab Emirates"
+#~ msgstr "阿拉伯联合酋长国"
+
+#~ msgid "United Kingdom"
+#~ msgstr "英国"
+
+#~ msgid "United States Minor Outlying Islands"
+#~ msgstr "美属群岛"
+
+#~ msgid "Uruguay"
+#~ msgstr "乌拉圭"
+
+#~ msgid "Uzbekistan"
+#~ msgstr "乌兹别克斯坦"
+
+#~ msgid "Vanuatu"
+#~ msgstr "瓦努阿图"
+
+#~ msgid "Vatican City State (Holy See)"
+#~ msgstr "梵蒂冈"
+
+#~ msgid "Venezuela"
+#~ msgstr "委内瑞拉"
+
+#~ msgid "Viet Nam"
+#~ msgstr "越南"
+
+#~ msgid "Virgin Islands (British)"
+#~ msgstr "维尔京群岛 (英属)"
+
+#~ msgid "Virgin Islands (U.S.)"
+#~ msgstr "维尔京群岛 (美属)"
+
+#~ msgid "Wallis and Futuna Islands"
+#~ msgstr "瓦里斯和富土那群岛"
+
+#~ msgid "Western Sahara"
+#~ msgstr "西部撒哈拉"
+
+#~ msgid "Yemen"
+#~ msgstr "也门"
+
+#~ msgid "Yugoslavia"
+#~ msgstr "南斯拉夫"
+
+#~ msgid "Zaire"
+#~ msgstr "扎伊尔"
+
+#~ msgid "Zambia"
+#~ msgstr "赞比亚"
+
+#~ msgid "Zimbabwe"
+#~ msgstr "津巴布韦"

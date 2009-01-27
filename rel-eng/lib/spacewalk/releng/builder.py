@@ -191,7 +191,7 @@ class Builder(object):
         output = run_command(cmd)
         print output
         files_written = self._find_wrote_in_rpmbuild_output(output)
-        if len(files_written) != 2:
+        if len(files_written) < 2:
             error_out("Error parsing rpmbuild output")
         self.srpm_location = files_written[0]
 
@@ -448,8 +448,8 @@ class SatelliteBuilder(NoTgzBuilder):
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
             self.patch_filename))
-        lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
-            self.patch_filename))
+        lines.insert(patch_apply_index, "%%patch%s -p1 -b .%s\n" % (patch_number,
+            self.patch_filename[0:-len(".patch")]))
         f.close()
 
         # Now write out the modified lines to the spec file copy:

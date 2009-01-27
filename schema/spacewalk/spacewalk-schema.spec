@@ -1,8 +1,8 @@
 Name:           spacewalk-schema
 Group:          Applications/Internet
-Summary:        Oracle SQL schema for Spacewalk server.
+Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.4.17
+Version:        0.5.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -11,7 +11,7 @@ Url:            http://fedorahosted.org/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Obsoletes:	rhn-satellite-schema <= 5.1.0
+Obsoletes:      rhn-satellite-schema <= 5.1.0
 
 
 %define rhnroot /etc/sysconfig/rhn/
@@ -26,9 +26,8 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-SCHEMA_VER=$(echo %{version} | sed 's/%{?dist}$//')
 make -f Makefile.schema \
-  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=$SCHEMA_VER RELEASE=%{release} \
+  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=%{version} RELEASE=%{release} \
   all
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 
@@ -53,6 +52,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Jan 23 2009 Jan Pazdziora 0.5.2-1
+- fix for ORA-01440 error occurring when updating populated table (Michael M.)
+- removed s/%{?dist}// substitution with no effect (Milan Z.)
+- spacewalk-schema-upgrade: minor cleanup
+- spacewalk-schema-upgrade: add support for schema overrides
+
 * Wed Jan 14 2009 Mike McCune <mmccune@gmail.com> 0.4.17-1
 - 461162 - correcting to match upgrade scripts
 

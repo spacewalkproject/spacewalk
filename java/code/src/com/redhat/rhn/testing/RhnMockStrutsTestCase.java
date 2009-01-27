@@ -16,6 +16,7 @@ package com.redhat.rhn.testing;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.session.WebSession;
@@ -32,6 +33,7 @@ import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 import org.apache.struts.action.DynaActionForm;
 import org.cobbler.CobblerConnection;
 import org.cobbler.test.MockConnection;
+import org.hibernate.HibernateException;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -216,4 +218,17 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
     protected void assertException() {
         assertTrue(getActualForward().indexOf("/errors") > 0);
     }
+    
+    /**
+     * PLEASE Refrain from using this unless you really have to.
+     * 
+     * Try clearSession() instead
+     * @throws HibernateException
+     */
+    protected void commitAndCloseSession() throws HibernateException {
+        HibernateFactory.commitTransaction();
+        HibernateFactory.closeSession();
+    }
+    
+
 }

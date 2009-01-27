@@ -44,8 +44,6 @@ install:: all $(DIRS)
 
 	$(INSTALL_DATA) up2date.logrotate $(LOGROTATE_DIR)/up2date
 
-	[ -f $(YUM_REPO_DIR)/rhn-emerg-updates.repo ] && true || \
-                $(INSTALL_DATA) rhn-emerg-updates.repo $(YUM_REPO_DIR)/rhn-emerg-updates.repo
 clean::
 	@rm -fv *~ .*~
 	@find . -name .\#\* -exec rm -fv {} \;

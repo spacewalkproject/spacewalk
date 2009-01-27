@@ -62,7 +62,10 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
                 helper.getKickstartMediaPath());
-
+        if (!tree.isRhnTree()) {
+            ksmeta.put("org", tree.getOrgId().toString());
+        }
+        
         Distro distro = Distro.create(CobblerXMLRPCHelper.getConnection(user), 
                 tree.getCobblerDistroName(), tree.getKernelPath(), 
                 tree.getInitrdPath(), ksmeta);

@@ -4,13 +4,13 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhn-client-tools
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.4.20
+Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires: rhnlib >= 2.1
+Requires: yum-rhn-plugin >= 0.5.3-30
 Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
 Requires: rpm-python 
@@ -98,7 +98,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/sysconfig/rhn/up2date
 %config(noreplace) /etc/logrotate.d/up2date
 %config(noreplace) /etc/rpm/macros.up2date
-%config(noreplace) /etc/yum.repos.d/rhn-emerg-updates.repo
 
 # dirs
 %dir /usr/share/rhn
@@ -194,6 +193,27 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
+* Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.20-1
+- Remove usage of version and sources files.
+
+* Fri Dec  5 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-17
+- Resolves: #473429 #473425
+
+* Tue Nov 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-15
+- Resolves: #249425 #405671
+
+* Wed Nov 12 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-10
+- Resolves: #471245
+
+* Tue Nov 11 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-9
+- Resolves: #249425 #470496 #231902 #470481
+
+* Wed Nov  5 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-8
+- Resolves: #429334 #249425 #231902
+
+* Mon Oct 27 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-6
+- Resolves: #467887
+
 * Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-5
 - Resolves: #467705 #467870 #468039
 

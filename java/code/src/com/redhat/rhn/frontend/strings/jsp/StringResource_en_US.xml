@@ -20442,8 +20442,20 @@ given channel.</source>
       </trans-unit>                                          
        
       <trans-unit id="layout.jsp.productname">
-			<source>Spacewalk</source>
-      </trans-unit>                                          
+            <source>@@PRODUCT_NAME@@</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.name">
+            <source>@@PRODUCT_NAME@@ project</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.title">
+            <source>Visit http://spacewalk.redhat.com/ for more information</source>
+      </trans-unit>
+
+      <trans-unit id="layout.jsp.vendor.website">
+            <source>http://spacewalk.redhat.com/</source>
+      </trans-unit>
 
       <trans-unit id="channel.edit.jsp.name">
         <source>Channel Name</source>
@@ -20625,7 +20637,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.private">
         <source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
-        be accessed by &lt;a href="{0}"&gt;trusted organizations&lt;/a&gt;.</source>
+        be accessed by any organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>

@@ -32,6 +32,24 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
     
     public static final byte[] DATA = "echo \"hello world\"".getBytes();
         
+    /*
+    public void testRevision() throws Exception {
+        KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
+        KickstartScript script = KickstartScriptTest.createPost(ksdata);
+        script.setRevision(new Long(1));
+        System.out.println("\n\n\n\n\nSSSSSSSSSSSS\n\n\n\n");
+        ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
+        System.out.println("\n\n\n\n\nZZZZZZZZZZZZ\n\n\n\n");
+        script = ksdata.getScripts().iterator().next();
+        assertNotNull(script.getRevision());
+        assertNotNull(script.getId());
+        KickstartScript lookedUp = (KickstartScript)  HibernateFactory.getSession()
+            .getNamedQuery("KickstartScript.findLatestScriptRevisionByID")
+            .setLong("id", script.getId())
+            .uniqueResult();
+        assertNotNull(lookedUp);
+    }*/
+    
     public void testScript() throws Exception {
         KickstartData ksdata = KickstartDataTest.createKickstartWithOptions(user.getOrg());
         KickstartFactory.saveKickstartData(ksdata);
@@ -39,6 +57,7 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         assertNotNull(ksdata.getScripts());
         assertEquals(5, ksdata.getScripts().size());
         KickstartScript ks2 = (KickstartScript) ksdata.getScripts().iterator().next();
+        
         assertNotNull(ks2.getDataContents());
         
         // Test delete
@@ -88,6 +107,8 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         }
         assertTrue(found);
     }
+    
+    
     
     public static KickstartScript createPreInterpreter(KickstartData k) {
         KickstartScript ks = new KickstartScript();

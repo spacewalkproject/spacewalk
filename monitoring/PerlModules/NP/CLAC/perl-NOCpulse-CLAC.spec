@@ -1,10 +1,11 @@
 Name:         perl-NOCpulse-CLAC
-Version:      1.9.6
+Version:      1.9.7
 Release:      1%{?dist}
 Summary:      NOCpulse Command Line Application framework for Perl
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+BuildRequires: perl(ExtUtils::MakeMaker)
 BuildArch:    noarch
 Group:        Development/Libraries
 License:      GPLv2
@@ -44,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 22 2009 Dennis Gilmore <dgilmore@redhat.com> 1.9.7-1
+- BuildRequires perl(ExtUtils::MakeMaker)
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.6-1
 - 467441 - fix namespace
 
