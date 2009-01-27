@@ -706,7 +706,7 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    '/bin/bash ' . SHARED_DIR . '/upgrage-db.sh 1>> ' .  DB_UPGRADE_LOG_FILE . ' 2>&1']);
+                                    SHARED_DIR . '/upgrage-db.sh' ]);
 
         return 0;
     }
@@ -757,7 +757,7 @@ EOQ
 		-log_file_size => DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ "/bin/bash " . SHARED_DIR . "/oracle/install-db.sh 1>> " . DB_INSTALL_LOG_FILE . " 2>&1" ]);
+		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh" ]);
 
     print loc("** Database: Installation complete.\n");
 
