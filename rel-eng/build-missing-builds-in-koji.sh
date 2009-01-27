@@ -13,6 +13,7 @@ rel-eng/koji-missing-builds.py $TAG | \
 	xargs -I replacestring awk '{print $2}' rel-eng/packages/replacestring | \
         while read package ; do
           (
+            echo Building $package
             cd $package && make srpm DIST='.el5' | \
             awk '/Wrote:/ {print $2}' | \
             xargs -I packagepath koji -c ~/.koji/spacewalk-config build $TAG packagepath
