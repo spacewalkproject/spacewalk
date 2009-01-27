@@ -525,6 +525,13 @@ sub print_progress {
             system_opts => 1,
         });
 
+    local *LOGFILE;
+    open(LOGFILE, ">>", $params{log_file_name}) or do {
+        print "Error writing log file '$params{log_file_name}': $!\n";
+        print STDERR "Error writing log file '$params{log_file_name}': $!\n";
+        exit $params{err_code};
+    };
+
     my $pid = fork();
 
     # parent process draws hashmarks, child process does the heavy lifting.
@@ -553,7 +560,17 @@ sub print_progress {
         print "\n";
     }
     else { # child
-        my $ret = system(@{$params{system_opts}});
+        my $orig_stdout = select LOGFILE;
+        $| = 1;
+        select $orig_stdout;
+        local *PROCESS_OUT;
+        my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @{$params{system_opts}});
+        while (<PROCESS_OUT>) {
+            print LOGFILE $_;
+        }
+        waitpid($pid, 0);
+        my $ret = $?
+        close LOGFILE;
 
         if ($ret) {
             exit $params{err_code};
