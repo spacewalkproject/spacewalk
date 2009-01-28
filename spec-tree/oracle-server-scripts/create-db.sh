@@ -243,7 +243,7 @@ control_files           = ($DataDB/control_01.ctl,
 		           $DataDB/control_03.ctl)
 background_dump_dest   	=  $AdminDB/bdump
 core_dump_dest	       	=  $AdminDB/cdump
-audit_file_dest		=  $AdminDB/logs
+audit_file_dest		=  $AdminDB/adump
 user_dump_dest	       	=  $AdminDB/udump
 log_archive_dest      	=  $AdminDB/archive
 log_archive_format	=  arch_%t_%s_%r.arc
