@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.4
+Version: 0.5.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -220,7 +220,7 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Wed Jan 28 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Jan 28 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
 - 468052 - throw exception if proxy do not has provisioning entitlement
 - 481671 - improved the performance of a query
 - 469984 - speeding up the bulk channel subscription changes
