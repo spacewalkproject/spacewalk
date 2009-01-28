@@ -18,7 +18,9 @@ Source1: init-params.ora
 Source2: create-db.sh
 Source3: start-db.sh
 Source4: stop-db.sh
-Source5: create-user.sh Source6: explain.sql Source7: users.sql
+Source5: create-user.sh
+Source6: explain.sql
+Source7: users.sql
 Source8: sessions.sql
 Source9: default-createdb.tmpl
 Source10: embedded-createdb.tmpl
