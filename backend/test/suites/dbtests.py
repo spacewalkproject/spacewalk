@@ -183,10 +183,10 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             self.assertEquals(TEST_NAMES[i], rows[i]['name'])
             i = i + 1
 
-    def test_procedure(self):
-        sp = rhnSQL.Function("return_int", rhnSQL.types.NUMBER())
-        ret = sp(5)
-        self.assertEquals(5, ret)
+#    def test_procedure(self):
+#        sp = rhnSQL.Procedure("return_int")
+#        ret = sp(5)
+#        self.assertEquals(5, ret)
 
 
 
@@ -196,15 +196,14 @@ class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
     """
 
     SIMPLE_PROCEDURE = """
-        CREATE OR REPLACE FUNCTION 
-            return_int(returnme INTEGER) 
-        RETURNS INTEGER AS
-        $$
-        BEGIN
-            RETURN returnme;
-        END
-        $$
-        LANGUAGE 'plpgsql'
+CREATE OR REPLACE FUNCTION return_int(returnme INTEGER) RETURNS int AS $$
+DECLARE
+    myInt int;
+BEGIN
+    myInt := returnme;
+    RETURN myInt;
+END
+$$ LANGUAGE 'plpgsql';
     """
 
     def setUp(self):

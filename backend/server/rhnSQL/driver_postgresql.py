@@ -131,21 +131,8 @@ class Procedure(sql_base.Procedure):
 
 
 
-class Function(Procedure):
-    def __init__(self, name, proc, ret_type):
-        Procedure.__init__(self, name, proc)
-        self.ret_type = ret_type
-
-    def _call_proc(self, args):
-        return self._call_proc_ret(args, self.ret_type)
-
-
-
-    
-
 class Database(sql_base.Database):
     """ Class for PostgreSQL database operations. """
-    _procedure_class = Procedure
 
     def __init__(self, host=None, port=None, username=None,
         password=None, database=None):
@@ -213,11 +200,7 @@ class Database(sql_base.Database):
     def procedure(self, name):
         c = self.dbh.cursor()
         # Pass the cursor in so we can close it after execute()
-        return self._procedure_class(name, c)
-
-    def _function(self, name, ret_type):
-        c = self.dbh.cursor()
-        return Function(name, c, ret_type)
+        return Procedure(name, c)
 
 
 

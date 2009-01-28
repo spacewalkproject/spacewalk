@@ -329,6 +329,7 @@ class Procedure:
         if ret_type:
             return self.proc.callfunc(self.name, ret_type, args)
         else:
+            print "self.proc = " + (str(self.proc))
             return self.proc.callproc(self.name, args)
 
     def _munge_args(self, args):
