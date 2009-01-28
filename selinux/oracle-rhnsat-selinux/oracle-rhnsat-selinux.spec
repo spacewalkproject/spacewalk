@@ -81,7 +81,7 @@ for selinuxvariant in %{selinux_variants}
 rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
 
 # Fix up database files
-/sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
+/sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 
 %postun
 # Clean up after package removal
@@ -96,7 +96,7 @@ if [ $1 -eq 0 ]; then
   rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
 
   # Clean up any remaining file contexts (shouldn't be any really)
-  /sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
+  /sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 fi
 
 %files
