@@ -1,12 +1,12 @@
 Name:         perl-NOCpulse-Object
-Version:      1.26.7
+Version:      1.26.8
 Release:      1%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug)
+BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug) perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.26.8-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.7-1
 - 467441 - fix namespace
 
