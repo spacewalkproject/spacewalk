@@ -220,6 +220,15 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Jan 28 2009 Miroslav Suchý <msuchy@redhat.com>
+- 468052 - throw exception if proxy do not has provisioning entitlement
+- 481671 - improved the performance of a query
+- 469984 - speeding up the bulk channel subscription changes
+- 481778 - fix NPE when deleting an unpublished errata
+- 480003 - minor grammar change for private channel access
+- 428419 - always use the cobbler server when showing URLs for kickstarts
+- added ks-setup.py script to add a profile, channel, distro and activation key ..
+
 * Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
 - update java and java-devel Requires and BuildRequires to 1.6.0
 
