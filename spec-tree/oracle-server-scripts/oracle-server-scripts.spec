@@ -18,9 +18,7 @@ Source1: init-params.ora
 Source2: create-db.sh
 Source3: start-db.sh
 Source4: stop-db.sh
-Source5: create-user.sh
-Source6: explain.sql
-Source7: users.sql
+Source5: create-user.sh Source6: explain.sql Source7: users.sql
 Source8: sessions.sql
 Source9: default-createdb.tmpl
 Source10: embedded-createdb.tmpl
@@ -98,6 +96,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Wed Jan 28 2009 Jan Pazdziora
+- split create-db.sh to create-db-dirs.sh and create-db.sh
+
 * Wed Nov 26 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-22
 - resolved #472807 - 32bit to 64bit upgrade fix
 
