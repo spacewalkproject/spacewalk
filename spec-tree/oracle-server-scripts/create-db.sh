@@ -172,9 +172,7 @@ function CheckListener() {
 function GetDBFiles() {
     db=$1
     if [ -z "$db" ] ; then return ; fi
-    for d in $AdminDB $DataDB; do
-        if [ -d $d ] ; then echo $d ; fi
-    done
+    find $AdminDB $DataDB \! -type d -print
     find $Oracle/config/$OracleVersionShort -name "*$db.ora" -o -iname lk$db 2>/dev/null
 }
 
