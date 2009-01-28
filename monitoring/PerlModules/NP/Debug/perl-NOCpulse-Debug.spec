@@ -1,12 +1,12 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.8
+Version:      1.23.9
 Release:      1%{?dist}
 Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     nocpulse-common
-BuildRequires: nocpulse-common perl(Error) perl(Class::MethodMaker)
+BuildRequires: nocpulse-common perl(Error) perl(Class::MethodMaker) perl(ExtUtils::MakeMaker)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):     perl(Class::MethodMaker)
 Group:        Development/Libraries
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Jan 27 2009 Dennis Gilmore <dennis@ausil.us> 1.23.9-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Fri Oct 17 2008 Milan Zazrivec 1.23.8-1
 - fixed build-time issues
 
