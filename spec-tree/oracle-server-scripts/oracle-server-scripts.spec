@@ -26,6 +26,7 @@ Source9: default-createdb.tmpl
 Source10: embedded-createdb.tmpl
 Source11: rhnora.m4
 Source12: embedded-upgradedb.tmpl
+Source13: create-db-dirs.sh
 License: Proprietary
 Group:   Oracle Server
 BuildArch: noarch
