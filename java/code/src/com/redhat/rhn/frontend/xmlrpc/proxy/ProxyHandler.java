@@ -58,12 +58,12 @@ public class ProxyHandler extends BaseHandler {
         throws MethodInvalidParamException {
 
         StringReader rdr = new StringReader(clientcert);
-        Server srvr = null;
+        Server server = null;
         
         ClientCertificate cert;
         try {
             cert = ClientCertificateDigester.buildCertificate(rdr);
-            srvr = SystemManager.lookupByCert(cert);
+            server = SystemManager.lookupByCert(cert);
         }
         catch (IOException ioe) {
             log.error("IOException - Trying to access a system with an " +
@@ -80,7 +80,7 @@ public class ProxyHandler extends BaseHandler {
                     "system with an invalid certificate", e);
             throw new MethodInvalidParamException();
         }
-        return (srvr.isProxy() ? 1 : 0);
+        return (server.isProxy() ? 1 : 0);
     }
     
     /**
@@ -101,20 +101,20 @@ public class ProxyHandler extends BaseHandler {
         StringReader rdr = new StringReader(clientcert);
         try {
             ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            Server srvr;
+            Server server;
             try {
-                srvr = SystemManager.lookupByCert(cert);
+                server = SystemManager.lookupByCert(cert);
             }
             catch (InvalidCertificateException e) {
                 log.error("Trying to access a system with an invalid certificate", e);
                 throw new MethodInvalidParamException();
             }
 
-            if (!srvr.isProxy()) {
+            if (!server.isProxy()) {
                 throw new ProxyNotActivatedException();
             }
             
-            SystemManager.deactivateProxy(srvr);
+            SystemManager.deactivateProxy(server);
             return 1;
         }
         catch (IOException e) {
@@ -153,19 +153,19 @@ public class ProxyHandler extends BaseHandler {
         StringReader rdr = new StringReader(clientcert);
         try {
             ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            Server srvr = SystemManager.lookupByCert(cert);
+            Server server = SystemManager.lookupByCert(cert);
             
-            if (srvr.isProxy()) {
+            if (server.isProxy()) {
                 throw new ProxyAlreadyRegisteredException();
             }
             
             // if the server does nto have enterprise_entitled entitlement, add it
             //
             
-            if (!srvr.hasEntitlement(EntitlementManager.MANAGEMENT)) {
-                SystemManager.entitleServer(srvr, EntitlementManager.MANAGEMENT);
+            if (!server.hasEntitlement(EntitlementManager.MANAGEMENT)) {
+                SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
             }
-            SystemManager.activateProxy(srvr, version);
+            SystemManager.activateProxy(server, version);
             return 1;
         }
         catch (InvalidCertificateException e) {
