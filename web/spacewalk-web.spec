@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.3
+Version: 0.5.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,7 +318,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
 - use %%files correctly
 - make sure perl modules get installed in %%{perl_vendorlib}
 - add provides for Obsoletes
