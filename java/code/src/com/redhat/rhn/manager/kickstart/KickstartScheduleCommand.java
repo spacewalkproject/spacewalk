@@ -577,12 +577,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
             String tokenList = 
                 KickstartFormatter.generateActivationKeyString(
-                        ksdata, this.kickstartSession);
+                        ksdata, kickstartSession);
             
             CobblerSystemCreateCommand cmd = 
-                new CobblerSystemCreateCommand(this.user, this.getServer(),
-                        this.ksdata, uhelper.
-                        getKickstartMediaPath(this.kickstartSession),
+                getCobblerSystemCreateCommand(user, server,
+                        ksdata, uhelper.
+                        getKickstartMediaPath(kickstartSession),
                         tokenList);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
@@ -591,18 +591,37 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
         else {
             CobblerSystemCreateCommand cmd = 
-                new CobblerSystemCreateCommand(this.user, 
-                        this.getServer(), cobblerProfileLabel);
+                new CobblerSystemCreateCommand(user, 
+                        server, cobblerProfileLabel);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
             }            
         }
-        
+
         log.debug("** Done scheduling kickstart session");
         return null;
     }
 
+    /**
+     * This method is extracted out so we can override them in the subclass
+     */
+    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
+            Server serverIn, KickstartData ksdataIn, String mediaPath, String tokenList) {
+        return new CobblerSystemCreateCommand(userIn, serverIn,
+                ksdataIn, mediaPath, tokenList);
+    }
+    
+    /**
+     * This method is extracted out so we can override them in the subclass
+     */
+    protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
+            Server serverIn, String cobblerProfileLabelIn) {
+        return new CobblerSystemCreateCommand(userIn, 
+                serverIn, cobblerProfileLabelIn);
+    }
+
+    
     /**
      * 
      */

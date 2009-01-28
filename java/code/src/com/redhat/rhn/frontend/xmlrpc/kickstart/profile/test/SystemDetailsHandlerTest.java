@@ -15,32 +15,31 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
-import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
-
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
-import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
+import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
-import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
-import com.redhat.rhn.testing.TestUtils;
+import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -51,7 +50,17 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     
     private SystemDetailsHandler handler = new SystemDetailsHandler();
     private FilePreservationListHandler fpHandler = new FilePreservationListHandler();
-     
+    private User userNotOrgOne;
+    private String userKey;
+
+    public void setUp() throws Exception {
+        super.setUp();
+        userNotOrgOne = UserTestUtils.findNewUser();
+        userKey = XmlRpcTestUtils.getSessionKey(userNotOrgOne);
+        userNotOrgOne.addRole(RoleFactory.ORG_ADMIN);
+    }
+
+
     public void testSELinux() throws Exception {
         KickstartData profile = createProfile();
         handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.DISABLED.getValue());
@@ -161,46 +170,37 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertTrue(profile.isUsingUtc());
     }
 
+    private KickstartData createProfile(User user, String key) throws Exception {
+        return KickstartDataTest.createKickstartWithChannel(user.getOrg());
+    }
+    
     private KickstartData createProfile() throws Exception {
-        KickstartHandler kh = new KickstartHandler();
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
-        KickstartableTree testTree = KickstartableTreeTest.
-            createTestKickstartableTree(baseChan);
-
-        String profileLabel = "new-ks-profile" + TestUtils.randomString();
-        kh.createProfile(adminKey, profileLabel, "none", 
-                testTree.getLabel(), "localhost", "rootpw");
-        
-        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                profileLabel, admin.getOrg().getId());
-        assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http")); 
-        return newKsProfile;
+        return createProfile(admin, adminKey);
     }
     
     public void testListKeys() throws Exception {
         // Setup
         
         //   Create key to add
-        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        CryptoKey key = CryptoTest.createTestKey(userNotOrgOne.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
         
         //   Create profile to add the key to
-        KickstartData profile = createProfile();
+        KickstartData profile = createProfile(userNotOrgOne, userKey);
         
         //   Add the key to the profile
         KickstartCryptoKeyCommand command =
-            new KickstartCryptoKeyCommand(profile.getId(), regular);
+            new KickstartCryptoKeyCommand(profile.getId(), userNotOrgOne);
         List keyList = new ArrayList();
         keyList.add(key.getDescription());
-        command.addKeysByDescriptionAndOrg(keyList, regular.getOrg());
+        command.addKeysByDescriptionAndOrg(keyList, userNotOrgOne.getOrg());
         command.store();
         
         // Test
-        Set associatedKeys = handler.listKeys(regularKey, profile.getLabel());
-        
+        Set associatedKeys = handler.listKeys(userKey, profile.getLabel());
+        System.out.println("Keys: " + associatedKeys);
         // Verify
         assertNotNull(associatedKeys);
         assertEquals(associatedKeys.size(), 1);
@@ -211,10 +211,10 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     
     public void testListKeysNoKeys() throws Exception {
         // Setup
-        KickstartData profile = createProfile();
+        KickstartData profile = createProfile(userNotOrgOne, userKey);
         
         // Test
-        Set associatedKeys = handler.listKeys(regularKey, profile.getLabel());
+        Set associatedKeys = handler.listKeys(userKey, profile.getLabel());
 
         // Verify
         assertNotNull(associatedKeys);
@@ -225,25 +225,25 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         // Setup
 
         //   Create key to add
-        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        CryptoKey key = CryptoTest.createTestKey(userNotOrgOne.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
         
         //   Create profile to add the key to
-        KickstartData profile = createProfile();
+        KickstartData profile = createProfile(userNotOrgOne, userKey);
 
         // Test
         List descriptions = new ArrayList();
         descriptions.add(key.getDescription());
-        int result = handler.addKeys(regularKey, profile.getLabel(), descriptions);
+        int result = handler.addKeys(userKey, profile.getLabel(), descriptions);
         
         // Verify
         assertEquals(result, 1);
         
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
-                regular.getOrg().getId());
+                userNotOrgOne.getOrg().getId());
 
         Set foundKeys = data.getCryptoKeys();
         
@@ -259,32 +259,32 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         // Setup
 
         //   Create key to add
-        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        CryptoKey key = CryptoTest.createTestKey(userNotOrgOne.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
         
         //   Create profile to add the key to
-        KickstartData profile = createProfile();
+        KickstartData profile = createProfile(userNotOrgOne, userKey);
 
         List descriptions = new ArrayList();
         descriptions.add(key.getDescription());
-        int result = handler.addKeys(regularKey, profile.getLabel(), descriptions);
+        int result = handler.addKeys(userKey, profile.getLabel(), descriptions);
         
         KickstartData data =
             KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
-                regular.getOrg().getId());
+                userNotOrgOne.getOrg().getId());
         assertNotNull(data);
         assertEquals(1, data.getCryptoKeys().size());
         
         // Test
-        result = handler.removeKeys(regularKey, profile.getLabel(), descriptions);
+        result = handler.removeKeys(userKey, profile.getLabel(), descriptions);
         
         // Verify
         assertEquals(1, result);
         
         data = KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
-                regular.getOrg().getId());
+                userNotOrgOne.getOrg().getId());
 
         Set foundKeys = data.getCryptoKeys();
         assertNotNull(foundKeys);

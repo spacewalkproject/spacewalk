@@ -407,7 +407,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.addPackageName(pn2);
         TestUtils.saveAndFlush(k);
         k.setCobblerId(k.getId().toString());
-        TestObjectStore.get().putObject("uid", k.getId().toString());
+        TestObjectStore.get().putObject("profile_uid", k.getId().toString());
         TestObjectStore.get().putObject("profile_name", k.getLabel());
         
         SortedSet<KickstartCommand> optionsSet = new TreeSet<KickstartCommand>();
@@ -494,7 +494,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         option.setKickstartData(k);
         option.setCreated(created);
         option.setModified(modified);
-        k.addOption(option);
+        k.addCommand(option);
         
         KickstartCommand root = new KickstartCommand();
         root.setCommandName(rootName);
@@ -502,7 +502,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         root.setKickstartData(k);
         root.setCreated(created);
         root.setModified(modified);
-        k.addOption(root);
+        k.addCommand(root);
         
         return k;
     }

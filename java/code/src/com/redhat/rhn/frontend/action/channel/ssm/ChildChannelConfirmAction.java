@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -34,9 +35,10 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChildChannelConfirmAction extends RhnAction {
     
+    private final Log log = LogFactory.getLog(this.getClass());
+    
     /**
      * {@inheritDoc}
      */
@@ -57,7 +61,9 @@ public class ChildChannelConfirmAction extends RhnAction {
             ActionForm form,
             HttpServletRequest request,
             HttpServletResponse response) {
-        
+
+        long start;
+
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         DynaActionForm daForm = (DynaActionForm)form;
@@ -65,100 +71,59 @@ public class ChildChannelConfirmAction extends RhnAction {
         
         // First, find the channels the user chose to operate on, as stored
         // in an RhnSet by ChildChannelAction
-        List<Channel> subList = new ArrayList();
-        List<Channel> unsubList = new ArrayList();
+        List<Channel> subList = new ArrayList<Channel>();
+        List<Channel> unsubList = new ArrayList<Channel>();
+        
+        start = System.currentTimeMillis();
+        log.debug("Starting findChannels");
         findChannelsFromSet(user, subList, unsubList);
+        log.debug("Time for findChannels call: " + (System.currentTimeMillis() - start));
         
         // Next, get the Servers that are in the SSM currently
-        List<Server> servers = lookupSSMServers(user);
+        start = System.currentTimeMillis();
+        log.debug("Starting lookupSSMServers");
+        List<Server> servers = ServerFactory.listSystemsInSsm(user);
+        log.debug("Time for lookupSSMServers call: " +
+            (System.currentTimeMillis() - start));
         
         // Then, get the lists of allowed subscriptions and un-subscriptions, 
         // for each server
-        Map<Server, List<Channel>> subs = getSubs(user, servers, subList);
-        Map<Server, List<Channel>> unsubs = getUnsubs(user, servers, unsubList);
+        start = System.currentTimeMillis();
+        log.debug("Starting getSubs");
+        Map<Server, List<Channel>> subs =
+            ChannelManager.linkChannelsToSubscribeForServers(user, servers, subList);
+        log.debug("Time for getSubs call: " + (System.currentTimeMillis() - start));
+        
+        start = System.currentTimeMillis();
+        log.debug("Starting getUnsubs");
+        Map<Server, List<Channel>> unsubs =
+            ChannelManager.linkChannelsToUnsubscribeForServers(servers, unsubList);
+        log.debug("Time for getUnsubs call: " + (System.currentTimeMillis() - start));
         
         // Now, build the object that the page knows how to render
-        List<ChannelActionDAO> changes = buildActionlist(subs, unsubs);
+        start = System.currentTimeMillis();
+        log.debug("Starting buildActionList");
+        List<ChannelActionDAO> changes = ChannelManager.buildActionlist(subs, unsubs);
+        log.debug("Time for buildActionList call: " + (System.currentTimeMillis() - start));
 
+        request.setAttribute("channelchanges", changes);
+        
         // If we're submitted - Do It
         if (isSubmitted(daForm)) {
+            start = System.currentTimeMillis();
+            log.debug("Starting doChangeSubscriptions");
             doChangeSubscriptions(user, changes, request);
-
-            request.setAttribute("channelchanges", changes);
+            log.debug("Time for doChangeSubscriptions call: " + 
+                (System.currentTimeMillis() - start));
+            
             return mapping.findForward("success");
         }
         // Otherside - display the proposed changes and wait for confirmation
         else {
-            request.setAttribute("channelchanges", changes);
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
     }
 
-    // Build the DAO list that the page can render
-    protected List<ChannelActionDAO> buildActionlist(Map<Server, 
-            List<Channel>> subs, Map<Server, List<Channel>> unsubs) {
-        List<ChannelActionDAO> changes = new ArrayList();
-        for (Server s : subs.keySet()) {
-            // Skip servers that have no matches
-            if (subs.get(s).isEmpty() && unsubs.get(s).isEmpty()) {
-                continue;
-            }
-            ChannelActionDAO cad = new ChannelActionDAO();
-            cad.setServer(s);
-            cad.setSubsAllowed(subs.get(s));
-            cad.setUnsubsAllowed(unsubs.get(s));
-            changes.add(cad);
-        }
-        return changes;
-    }
-    
-    // Get the Servers that comprise the current SSM selection/set
-    protected List<Server> lookupSSMServers(User u) {
-        RhnSet ssm = RhnSetDecl.SYSTEMS.lookup(u);
-        List<Server> srvs = new ArrayList<Server>();
-        if (ssm == null) {
-            return srvs;
-        }
-        for (Object elt : ssm.getElements()) {
-            RhnSetElement rse = (RhnSetElement)elt;
-            Long sid = rse.getElement();
-            srvs.add(SystemManager.lookupByIdAndUser(sid, u));
-        }
-        return srvs;
-    }
-    
-    // Create Map<System,List<Channel>> allowed-subs
-    // Foreach system in SSM for this user:
-    //   Foreach chan-id in subscribe-list:
-    //     If chan-accessible-to-system:
-    //       Channel chanel = getChannel(id)
-    //       allowed-subs.get(system).add(channel)
-    protected Map<Server, List<Channel>> getSubs(
-            User u,
-            List<Server> ssm, 
-            List<Channel> subChannels) {
-        Map<Server, List<Channel>> subMap = new HashMap();
-        for (Server s : ssm) {
-            List<Channel> allowedChans = new ArrayList();
-            subMap.put(s, allowedChans);
-            for (Channel chan : subChannels) {
-                // Check to see if we're allowed to sub to this channel
-                // Note that there are TOO DAMN MANY CHECKS one has to do -
-                // everything after "!isSubscribed()" needs to be in one
-                // place.
-                if (!s.isSubscribed(chan) &&
-                    ChannelManager.verifyChannelSubscribe(u, chan.getId()) &&
-                    SystemManager.verifyArchCompatibility(s, chan) &&
-                    chan.isSubscribable(u.getOrg(), s) &&
-                    chan.getParentChannel().equals(s.getBaseChannel()) &&
-                    SystemManager.canServerSubscribeToChannel(u.getOrg(), s, chan)) {
-                    allowedChans.add(chan);
-                }
-            }
-        }
-        return subMap;
-    }
-    
     // Actually change the subscriptions for the servers
     protected void doChangeSubscriptions(User u, List<ChannelActionDAO> changes, 
             HttpServletRequest req) {
@@ -222,23 +187,6 @@ public class ChildChannelConfirmAction extends RhnAction {
     //     If system-subscribed-to-channel:
     //       Channel chanel = getChannel(id)
     //       allowed-unsubs.get(system).add(channel)
-    protected Map<Server, List<Channel>> getUnsubs(
-            User u,
-            List<Server> ssm, 
-            List<Channel> unsubChannels) {
-        Map<Server, List<Channel>> unsubMap = new HashMap();
-        for (Server s : ssm) {
-            List<Channel> allowedChans = new ArrayList();
-            unsubMap.put(s, allowedChans);
-            for (Channel chan : unsubChannels) {
-                if (s.isSubscribed(chan)) {
-                    allowedChans.add(chan);
-                }
-            }
-        }
-        return unsubMap;
-    }
-
     // Extract the list of subscribe and unsubscribed channels from the RhNSet that 
     // was saved from the child-list page
     protected void findChannelsFromSet(User u, List<Channel> subs, List<Channel> unsubs) {

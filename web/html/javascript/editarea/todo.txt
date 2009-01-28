@@ -1,0 +1,85 @@
+FOR AUTOCOMPLETION:
+- work with tab editing (each one having it's context)
+- allow $ in prefix
+- allow to call user function for autocompletion
+- correctly display the box with window limits
+- enable "live" detection for new syntax keyword in the file
+- display a long description of the keyword (arround the box)
+
+DONE:
+- beeing able to prefix those word by key words (sort of namespace)
+- hide it on click
+- enable it for ctrl+space in the middle of a word
+
+/***** To do Needed *****/
+
+- change_callback is called one time at the beginning event if the text has not changed
+- check later init call with safari 3
+- improve callback documentation.
+
+/***** To do Optionnal*****/
+
+- possibility to switch on/off line numbers (allow to get more space)
+- remove the bottom scrollbar is there is no neeed to get one. (adjust the width to the real content width). 
+- amelioration of the scroll_to_view function for when there is several lines selected (center a little more the selected text)
+- darken background of the selection when syntax highlight is on (not easy to see actually under firefox)
+- improve opera 9 compatibility (very hard, need help for workaround) cf "Browser remarks".
+- optimize scroll_to_view for Opera?
+- add word wrap option (nearly impossible, there is too much lacks of support from browsers, have spend more than 6 hours on this)
+- possibility to add larger font sizes as options?
+
+/*** Bugs ***/
+
+- when pressing "reset highlight" in IE the textarea scroll to the top (don't know how to fix this...)
+- when pressing "shift+page down"  and then "shift+page up" the top of the selection move where as it should be to the bottom of the selection to move (to fix it: must know in which direction the selection grow in "get_selection_infos")
+- Editor doesnt load when running on ASP.NET when using codebehind declaration at top of page (don't really know what to do because I don't know ASP nor .NET)
+
+
+/*** Problems ***/
+
+
+/*** Highlight bugs ***/
+
+/*** Highlight problems ***/
+- only one language at the same time (no html and php in the same textarea. This should be possible, but there would have no optimization and be very very slow)
+
+
+/*** Global remarks ***/
+- editarea must be always visible, to hide it use the hide() function
+
+
+/*** Compatibility ***/
+Supported browsers:
+Firefox 1.5 & 2
+IE 6 & 7
+Opera 9
+
+Safari 3.1
+
+No more supported:
+Netscape 8 with rendering mode IE
+Mozilla 1.7 (buggy)
+
+
+/*** Browser remarks/bugs ***/
+
+OPERA:
+- opera bug or spec problem: find how to get the textarea content width
+- opera bug: pressing the " key is equals to pressing the scrolldown key (with french keyboard at least)
+- currently disabled: scrollDown/Up function (due to the " key error)
+- opera is very very slow with syntax highlight (regexp)
+- opera doesn't render tabulation of the same width in a textarea as in a <pre> tag... => doesn't allow to use non monospace font
+- opera doesn't manage correctly the width 100% for the iframe and allow to scroll with position absolute
+
+IE:
+- IE is far slower than firefox in highlight mode due to opacity filter
+- It's seems impossible to get the selection range when wrap mode is "soft" (and it's still very diffcult when wrap mode is on)
+- The syntax highlight mode is broken when text length is too long (~100000, 150000 chars) don't know why...
+
+FIREFOX:
+- the scrollHeight value for the textarea never decresease when lines are deleted (don't remember anything about this)
+
+
+NETSCAPE:
+- can't manage lineHeight for textarea in firefox mode
+- setting highlight mode on crash the navigator with no warning in firefox mode

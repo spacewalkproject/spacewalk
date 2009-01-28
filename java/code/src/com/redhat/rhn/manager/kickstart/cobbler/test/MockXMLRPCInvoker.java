@@ -129,7 +129,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                     distro.put("ksmeta", ksmeta);
                 }
                 
-                distro.put("uid", TestObjectStore.get().getObject("uid"));
+                distro.put("uid", TestObjectStore.get().getObject("distro_uid"));
                 retval.add(distro);
                 return retval;
             }
@@ -185,7 +185,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 Map profile = new HashMap();
                 log.debug("mockobjects222: " + TestObjectStore.get().getObjects());
                 profile.put("name", TestObjectStore.get().getObject("profile_name"));
-                profile.put("uid", TestObjectStore.get().getObject("uid"));
+                profile.put("uid", TestObjectStore.get().getObject("profile_uid"));
                 retval.add(profile);
                 return retval;
             }
@@ -196,7 +196,8 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 return retval;
             }
             else {
-                retval.put("name", TestUtils.randomString());
+                retval.put("name", TestObjectStore.get().getObject("profile_name"));
+                retval.put("uid", TestObjectStore.get().getObject("profile_uid"));
                 return retval;
             }
         }

@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
@@ -62,7 +63,8 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);    
               
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel, "none", 
+        ksHandler.createProfile(adminKey, profileLabel, 
+                KickstartVirtualizationType.AUTO, 
                 testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -84,7 +86,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);    
               
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel, "none", 
+        ksHandler.createProfile(adminKey, profileLabel, KickstartVirtualizationType.AUTO, 
              testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -539,7 +541,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         kc.setModified(new Date());                        
         kc.setArguments("test value");                        
         
-        command1.getKickstartData().getOptions().add(kc);
+        command1.getKickstartData().getCommands().add(kc);
         command1.store();
         
         KickstartFactory.saveKickstartData(ks1);
@@ -607,7 +609,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile" + TestUtils.randomString();
-        kh.createProfile(adminKey, profileLabel, "none",
+        kh.createProfile(adminKey, profileLabel,  KickstartVirtualizationType.AUTO,
                 testTree.getLabel(), "localhost", "rootpw");
 
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(

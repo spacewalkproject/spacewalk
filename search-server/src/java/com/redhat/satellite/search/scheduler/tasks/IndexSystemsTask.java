@@ -28,9 +28,6 @@ import java.util.Map;
 // 1) Index new systems, i.e. system id is greater than last recorded system id indexed.
 // 2) Update the existing index of systems which have been modified
 // 3) Remove systems which have been deleted from the system.
-// TODO:
-//  **  Handle removal of systems
-
 
 /**
  * IndexSystemsTask
@@ -50,6 +47,7 @@ public class IndexSystemsTask extends GenericIndexTask {
         attrs.put("name", srvr.getName());
         attrs.put("description", srvr.getDescription());
         attrs.put("info", srvr.getInfo());
+        attrs.put("runningKernel", srvr.getRunningKernel());
         attrs.put("machine", srvr.getMachine());
         attrs.put("rack", srvr.getRack());
         attrs.put("room", srvr.getRoom());

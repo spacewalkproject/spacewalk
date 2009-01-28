@@ -23,4 +23,15 @@ java/rhnwebapp
 java/velocity.log*
 search-server/.classpath
 search-server/.project
+*~
+.project
+.pydevproject
+web/html/css
+web/html/img
+web/html/pub
+web/html/templates
+java/*.jar
+java/*.txt
+java/*.out
+web/html/bootstrap/
 

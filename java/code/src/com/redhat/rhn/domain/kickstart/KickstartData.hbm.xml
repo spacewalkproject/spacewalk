@@ -41,13 +41,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
           <many-to-many column="package_name_id" class="com.redhat.rhn.domain.rhnpackage.PackageName" />
         </list>
 
-        <set name="commands" outer-join="false" cascade="all-delete-orphan" 
-            inverse="true" >
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandSort"/>
-        </set>
-        
         <set name="cryptoKeys" table="rhnCryptoKeyKickstart" lazy="true">
             <key column="ksdata_id"/>
             <many-to-many column="crypto_key_id" class="com.redhat.rhn.domain.kickstart.crypto.CryptoKey" />
@@ -69,51 +62,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartIpRange" />
         </set>
         
-        <set name="options" outer-join="false" cascade="all-delete-orphan"
+        <set name="commands" outer-join="false" cascade="all-delete-orphan" 
             inverse="true" >
             <key column="kickstart_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandOptions"/>
+            <loader query-ref="commandSort"/>
         </set>
         
-
-        
-        <bag  name="partitions" inverse="true" table="rhnKickstartCommand"
-             cascade="all-delete-orphan" outer-join="false" >
-             <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandPartitions"/>
-        </bag>
-        
-        
-        <set name="raids" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="natural">
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandRaids"/>
-        </set>
-        
-        <set name="logvols" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="natural">
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandLogVols"/>
-        </set>
-        
-        <set name="volgroups" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="natural">
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandVolGroups"/>
-        </set>
-        
-        <set name="includes" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="natural">
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandIncludes"/>
-        </set>
-                                             
         <set name="scripts" outer-join="false" cascade="all-delete-orphan" 
             inverse="true" >
             <key column="kickstart_id"/>
@@ -130,19 +85,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.kickstart.KickstartDefaults"
             cascade="save-update"/>     
             
-        <set name="repos" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="natural">
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="commandRepos"/>
-        </set>  
-               
-        <set name="customOptions" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="com.redhat.rhn.domain.kickstart.KickstartCommandComparator">
-            <key column="kickstart_id"/>
-            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
-            <loader query-ref="customOptions"/>
-        </set>                 
         <subclass name="com.redhat.rhn.domain.kickstart.KickstartRawData"
             discriminator-value="raw">
         </subclass>               
@@ -169,59 +111,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="KickstartData.cobblerIds">
         <![CDATA[select t.cobblerId from com.redhat.rhn.domain.kickstart.KickstartData as t]]>
     </query>    
-    <sql-query name="commandPartitions">
-            <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.partitions"/>
-                SELECT {partcol.*}
-                FROM rhnKickstartCommand partcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND partcol.ks_command_name_id = cname.id
-                AND cname.name = 'partitions'
-    </sql-query>
-    
-    <sql-query name="commandOptions">
-            <load-collection alias="optcol" role="com.redhat.rhn.domain.kickstart.KickstartData.options"/>
-                SELECT {optcol.*}
-                FROM rhnKickstartCommand optcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND optcol.ks_command_name_id = cname.id
-                AND cname.name NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom')
-    </sql-query>    
-    
-    <sql-query name="commandRaids">
-            <load-collection alias="raidcol" role="com.redhat.rhn.domain.kickstart.KickstartData.raids"/>
-                SELECT {raidcol.*}
-                FROM rhnKickstartCommand raidcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND raidcol.ks_command_name_id = cname.id
-                AND cname.name = 'raids'
-    </sql-query>
-    
-    <sql-query name="commandLogVols">
-            <load-collection alias="logvolcol" role="com.redhat.rhn.domain.kickstart.KickstartData.logvols"/>
-                SELECT {logvolcol.*}
-                FROM rhnKickstartCommand logvolcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND logvolcol.ks_command_name_id = cname.id
-                AND cname.name = 'logvols'
-    </sql-query>
-    
-    <sql-query name="commandVolGroups">
-            <load-collection alias="volgroupscol" role="com.redhat.rhn.domain.kickstart.KickstartData.volgroups"/>
-                SELECT {volgroupscol.*}
-                FROM rhnKickstartCommand volgroupscol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND volgroupscol.ks_command_name_id = cname.id
-                AND cname.name = 'volgroups'
-    </sql-query>
-    
-    <sql-query name="commandIncludes">
-            <load-collection alias="includecol" role="com.redhat.rhn.domain.kickstart.KickstartData.includes"/>
-                SELECT {includecol.*}
-                FROM rhnKickstartCommand includecol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND includecol.ks_command_name_id = cname.id
-                AND cname.name = 'include'
-    </sql-query>
     
     <sql-query name="commandSort">
             <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>
@@ -231,25 +120,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 AND sortcol.ks_command_name_id = cname.id
                 ORDER BY cname.sort_order
     </sql-query>
-    
-    <sql-query name="commandRepos">
-            <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.repos"/>
-                SELECT {partcol.*}
-                FROM rhnKickstartCommand partcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND partcol.ks_command_name_id = cname.id
-                AND cname.name = 'repo'
-    </sql-query>
-
-    <sql-query name="customOptions">
-            <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.customOptions"/>
-                SELECT {partcol.*}
-                FROM rhnKickstartCommand partcol, rhnKickstartCommandName cname 
-                WHERE KICKSTART_ID = :id
-                AND partcol.ks_command_name_id = cname.id
-                AND cname.name = 'custom'
-                order by partcol.id
-    </sql-query>    
     
     <!--
         select {k.*} 

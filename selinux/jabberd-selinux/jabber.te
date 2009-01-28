@@ -1,0 +1,107 @@
+
+policy_module(jabber,@@VERSION@@)
+
+########################################
+#
+# Declarations
+#
+
+type jabberd_t;
+type jabberd_exec_t;
+init_daemon_domain(jabberd_t,jabberd_exec_t)
+
+type jabberd_log_t;
+logging_log_file(jabberd_log_t)
+
+type jabberd_var_lib_t;
+files_type(jabberd_var_lib_t)
+
+type jabberd_var_run_t;
+files_pid_file(jabberd_var_run_t)
+
+type jabber_script_exec_t;
+init_script_type(jabber_script_exec_t)
+
+########################################
+#
+# Local policy
+#
+
+allow jabberd_t self:capability dac_override;
+dontaudit jabberd_t self:capability sys_tty_config;
+allow jabberd_t self:process signal_perms;
+allow jabberd_t self:fifo_file { read write getattr };
+allow jabberd_t self:tcp_socket create_stream_socket_perms;
+allow jabberd_t self:udp_socket create_socket_perms;
+
+manage_files_pattern(jabberd_t,jabberd_var_lib_t,jabberd_var_lib_t)
+files_var_lib_filetrans(jabberd_t,jabberd_var_lib_t,file)
+
+manage_files_pattern(jabberd_t,jabberd_log_t,jabberd_log_t)
+logging_log_filetrans(jabberd_t,jabberd_log_t,{ file dir })
+
+manage_files_pattern(jabberd_t,jabberd_var_run_t,jabberd_var_run_t)
+files_pid_filetrans(jabberd_t,jabberd_var_run_t,file)
+
+kernel_read_kernel_sysctls(jabberd_t)
+kernel_list_proc(jabberd_t)
+kernel_read_proc_symlinks(jabberd_t)
+
+corenet_all_recvfrom_unlabeled(jabberd_t)
+corenet_all_recvfrom_netlabel(jabberd_t)
+corenet_tcp_sendrecv_generic_if(jabberd_t)
+corenet_udp_sendrecv_generic_if(jabberd_t)
+corenet_tcp_sendrecv_all_nodes(jabberd_t)
+corenet_udp_sendrecv_all_nodes(jabberd_t)
+corenet_tcp_sendrecv_all_ports(jabberd_t)
+corenet_udp_sendrecv_all_ports(jabberd_t)
+corenet_tcp_bind_all_nodes(jabberd_t)
+corenet_tcp_bind_jabber_client_port(jabberd_t)
+corenet_tcp_bind_jabber_interserver_port(jabberd_t)
+corenet_sendrecv_jabber_client_server_packets(jabberd_t)
+corenet_sendrecv_jabber_interserver_server_packets(jabberd_t)
+
+dev_read_sysfs(jabberd_t)
+# For SSL
+dev_read_rand(jabberd_t)
+
+domain_use_interactive_fds(jabberd_t)
+
+files_read_etc_files(jabberd_t)
+files_read_etc_runtime_files(jabberd_t)
+
+fs_getattr_all_fs(jabberd_t)
+fs_search_auto_mountpoints(jabberd_t)
+
+libs_use_ld_so(jabberd_t)
+libs_use_shared_libs(jabberd_t)
+
+logging_send_syslog_msg(jabberd_t)
+
+miscfiles_read_localization(jabberd_t)
+
+sysnet_read_config(jabberd_t)
+
+userdom_dontaudit_use_unpriv_user_fds(jabberd_t)
+userdom_dontaudit_search_sysadm_home_dirs(jabberd_t)
+
+optional_policy(`
+	nis_use_ypbind(jabberd_t)
+')
+
+optional_policy(`
+	seutil_sigchld_newrole(jabberd_t)
+')
+
+optional_policy(`
+	udev_read_db(jabberd_t)
+')
+
+kernel_read_system_state(jabberd_t)
+corecmd_search_bin(jabberd_t)
+corecmd_exec_bin(jabberd_t)
+dev_read_urand(jabberd_t)
+allow jabberd_t self:fifo_file ioctl;
+corenet_tcp_connect_jabber_interserver_port(jabberd_t)
+corenet_non_ipsec_sendrecv(jabberd_t)
+allow jabberd_t tmp_t:dir getattr;

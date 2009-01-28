@@ -37,12 +37,8 @@ from server_certificate import Certificate, gen_secret
 from server_wrapper import ServerWrapper
 from satellite_cert import SatelliteCert
 
-
-
-###################
-# Main Server class
-###################
 class Server(ServerWrapper):
+    """ Main Server class """
     def __init__(self, user, arch = None, org_id = None):
         ServerWrapper.__init__(self)
         self.user = user
@@ -713,9 +709,9 @@ class Server(ServerWrapper):
         return 1
 
     def checkSatEntitlement(self):
-        #"""Check serverId against DB to see if it maps to an entitled
-        #   RHN Satellite Server.
-        #"""
+        """Check serverId against DB to see if it maps to an entitled
+           RHN Satellite Server.
+        """
         h = rhnSQL.prepare("""
             select cert
             from rhnsatelliteinfo si
@@ -744,24 +740,26 @@ class Server(ServerWrapper):
 
         return 1
 
-    # convenient wrappers for these things until we clean the code up
     def checkin(self, commit = 1, check_for_abuse = 1):
+        """ convenient wrapper for these thing until we clean the code up """
         if not self.server.has_key("id"):
             return 0 # meaningless if rhnFault not raised
         return server_lib.checkin(self.server["id"], commit,
                        check_for_abuse=check_for_abuse)
     def throttle(self):
+        """ convenient wrapper for these thing until we clean the code up """
         if not self.server.has_key("id"):
             return 1 # meaningless if rhnFault not raised
         return server_lib.throttle(self.server)
 
     def set_qos(self):
+        """ convenient wrapper for these thing until we clean the code up """
         if not self.server.has_key("id"):
             return 1 # meaningless if rhnFault not raised
         return server_lib.set_qos(self.server["id"])
 
     def join_groups(self):
-        # For a new server, join server groups
+        """ For a new server, join server groups """
 
         # Sanity check - we should always have a user
         if not self.user:
@@ -845,8 +843,8 @@ class Server(ServerWrapper):
                 action_id=action_id, status=3, result_code=-100,
                 result_message="Action canceled: system kickstarted or reregistered") #4/6/05 wregglej, added the "or reregistered" part.
 
-    # Returns true is the server is locked (for actions that are blocked)
     def server_locked(self):
+        """ Returns true is the server is locked (for actions that are blocked) """
         server_id = self.getid()
         h = rhnSQL.prepare("""
             select 1
@@ -860,13 +858,13 @@ class Server(ServerWrapper):
         return 0
 
     def register_push_client(self):
-        # insert or update rhnPushClient for this server_id
+        """ insert or update rhnPushClient for this server_id """
         server_id = self.getid()
         ret = server_lib.update_push_client_registration(server_id)
         return ret
 
     def register_push_client_jid(self, jid):
-        # update the JID in the corresponing entry from rhnPushClient
+        """ update the JID in the corresponing entry from rhnPushClient """
         server_id = self.getid()
         ret = server_lib.update_push_client_jid(server_id, jid)
         return ret

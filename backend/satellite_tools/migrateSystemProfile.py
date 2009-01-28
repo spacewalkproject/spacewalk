@@ -98,7 +98,10 @@ def main():
         sys.exit(1)
 
     for server_id, from_org_id, to_org_id in migrate_data:
-        server_id = map(lambda a:int(a), server_id)
+        if type(server_id) == type([]):
+            server_id = map(lambda a:int(a), server_id)
+        else:
+            server_id = [int(server_id)]
         try:
             migrate_system(sessionKey, int(from_org_id), int(to_org_id),\
                            server_id)

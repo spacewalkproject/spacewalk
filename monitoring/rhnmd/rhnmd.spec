@@ -1,11 +1,11 @@
-%define name nocpulse
-%define identity %{_var}/lib/%{name}/.ssh/ssh_host_dsa_key
+%define np_name nocpulse
+%define identity %{_var}/lib/%{np_name}/.ssh/ssh_host_dsa_key
 
 Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.1.2
+Version:   5.1.4
 Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Daemons
@@ -26,9 +26,9 @@ gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
 
 %pre
 if [ $1 -eq 1 ] ; then
-  getent group %{name} >/dev/null || groupadd -r %{name}
-  getent passwd %{name} >/dev/null || \
-  useradd -r -g %{name} -G apache -d %{_var}/lib/%{name} -s /sbin/tcsh -c "NOCpulse user" %{name}
+  getent group %{np_name} >/dev/null || groupadd -r %{np_name}
+  getent passwd %{np_name} >/dev/null || \
+  useradd -r -g %{np_name} -d %{_var}/lib/%{np_name} -c "RHNMD daemon" %{np_name}
 fi
 
 %post
@@ -36,7 +36,7 @@ fi
 
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{name}
+    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
 fi
 
 %install
@@ -45,14 +45,14 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
 mkdir -p $RPM_BUILD_ROOT%{_usr}/lib
 mkdir -p $RPM_BUILD_ROOT%{_initrddir}
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{name}/.ssh
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
 ln -sf sshd $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd
 install -m 0755 rhnmd-init $RPM_BUILD_ROOT%{_initrddir}/rhnmd
-install -m 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/rhnmd_config
-install -m 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{name}/.ssh/authorized_keys
+install -m 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{np_name}/rhnmd_config
+install -m 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{np_name}/.ssh/authorized_keys
 install -m 0755 rhnmd-wrap $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd-wrap
 install -m 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
 install -m 0755 librhnmdwrap.so $RPM_BUILD_ROOT%{_libdir}/librhnmdwrap.so
@@ -63,14 +63,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %{_sysconfdir}/pam.d/rhnmd
-%dir %{_var}/lib/%{name}
-%attr(750,nocpulse,nocpulse) %{_var}/lib/%{name}
-%attr(700,nocpulse,nocpulse) %{_var}/lib/%{name}/.ssh
-%config(noreplace) %{_var}/lib/%{name}/.ssh/authorized_keys
+%dir %{_var}/lib/%{np_name}
+%attr(750,nocpulse,nocpulse) %{_var}/lib/%{np_name}
+%attr(700,nocpulse,nocpulse) %{_var}/lib/%{np_name}/.ssh
+%config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
-%dir %{_sysconfdir}/%{name}
-%{_sysconfdir}/%{name}/*
+%dir %attr(710,nocpulse,nocpulse) %{_sysconfdir}/%{np_name}
+%{_sysconfdir}/%{np_name}/*
 %{_initrddir}/rhnmd
 
 %preun
@@ -82,6 +82,10 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Jan 13 2009 Milan Zazrivec 5.1.4-1
+- bz #479830 - %post error when installing rhnmd-5.1.2-1 on RHEL-5
+- package should create nocpulse user instead of rhnmd
+
 * Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 5.1.2-1
 - fix spec so it can actually be build
 

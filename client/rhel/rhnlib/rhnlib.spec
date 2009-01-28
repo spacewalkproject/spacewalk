@@ -1,18 +1,14 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
-Name: rhnlib
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 Summary: Python libraries for the RHN project
+Name: rhnlib
+Source0: %{name}-%{version}.tar.gz
+Version: 2.5.8
+Release: 1%{?dist}
 
 Group: Development/Libraries
 License: GPLv2
 Url: http://rhn.redhat.com
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-%define main_source_dir  %(echo %{main_source} | sed 's/\.tar\.gz$//')
-Source0: %{main_source}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -26,7 +22,7 @@ Red Hat Network (http://rhn.redhat.com) software.
 
 
 %prep
-%setup -q -n %{main_source_dir}
+%setup -q
 if [ ! -e setup.py ]; then
     sed -e 's/@VERSION@/%{version}/' -e 's/@NAME@/%{name}/' setup.py.in > setup.py
 fi
@@ -53,35 +49,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc ChangeLog COPYING README TODO
 
-%dir %{python_sitelib}/rhn
-%{python_sitelib}/rhn/__init__.py
-%{python_sitelib}/rhn/__init__.pyc
-%{python_sitelib}/rhn/connections.py
-%{python_sitelib}/rhn/connections.pyc
-%{python_sitelib}/rhn/nonblocking.py
-%{python_sitelib}/rhn/nonblocking.pyc
-%{python_sitelib}/rhn/rpclib.py
-%{python_sitelib}/rhn/rpclib.pyc
-%{python_sitelib}/rhn/SmartIO.py
-%{python_sitelib}/rhn/SmartIO.pyc
-%{python_sitelib}/rhn/SSL.py
-%{python_sitelib}/rhn/SSL.pyc
-%{python_sitelib}/rhn/transports.py
-%{python_sitelib}/rhn/transports.pyc
-%{python_sitelib}/rhn/UserDictCase.py
-%{python_sitelib}/rhn/UserDictCase.pyc
-
-%{python_sitelib}/rhn/__init__.pyo
-%{python_sitelib}/rhn/connections.pyo
-%{python_sitelib}/rhn/nonblocking.pyo
-%{python_sitelib}/rhn/rpclib.pyo
-%{python_sitelib}/rhn/SmartIO.pyo
-%{python_sitelib}/rhn/SSL.pyo
-%{python_sitelib}/rhn/transports.pyo
-%{python_sitelib}/rhn/UserDictCase.pyo
-%{python_sitelib}/rhnlib*.egg-info
+%{python_sitelib}/*
 
 %changelog
+* Tue Jan 27 2009 Dennis Gilmore <dennis@ausil.us> 2.5.8-1
+- clean up files section 
+
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.7-1
+- remove .egg-info file from spec - we do not provide it
+
+* Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
+- Remove usage of version and sources files.
+
 * Fri Jun 20 2008 Devan Goodwin <dgoodwin@redhat.com> - 2.2.5-5
 - Updating for Fedora 9.
 

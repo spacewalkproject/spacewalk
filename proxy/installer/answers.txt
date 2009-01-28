@@ -1,0 +1,18 @@
+# example of answer file for configure-proxy.sh
+# for full list of possible option see
+# man configure-proxy.sh
+
+VERSION=0.5
+RHN_PARENT=your.spacewalk.org
+TRACEBACK_EMAIL=your@email.com
+USE_SSL=1
+SSL_ORG="Red Hat"
+SSL_ORGUNIT="Spacewalk"
+SSL_CITY=Raleigh
+SSL_STATE=NC
+SSL_COUNTRY=US
+INSTALL_MONITORING=N
+ENABLE_SCOUT=N
+CA_CHAIN=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+POPULATE_CONFIG_CHANNEL=Y
+

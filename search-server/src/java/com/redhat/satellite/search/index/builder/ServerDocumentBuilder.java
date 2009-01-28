@@ -43,7 +43,8 @@ public class ServerDocumentBuilder implements DocumentBuilder {
             String value = metadata.get(name);
 
             if (name.equals("name") || name.equals("cpuModel") ||
-                    name.equals("hostname") || name.equals("ipaddr")) {
+                    name.equals("hostname") || name.equals("ipaddr") ||
+                    (name.equals("runningKernel"))) {
                 store = Field.Store.YES;
             }
             else if (name.equals("checkin") || name.equals("registered") ||

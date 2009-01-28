@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.errata.AbstractErrata;
 import com.redhat.rhn.domain.errata.Keyword;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -77,9 +78,9 @@ public class UnpublishedErrata extends AbstractErrata {
     /**
      * {@inheritDoc}
      */
-    public Set getChannels() {
-        //if this gets called on an unpublished errata, just return null
-        return null;
+    public Set<Channel> getChannels() {
+        //if this gets called on an unpublished errata, just return an empty set:
+        return new HashSet<Channel>();
     }
     
     /**

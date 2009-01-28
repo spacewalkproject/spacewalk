@@ -243,7 +243,7 @@ class ChooseServerPage:
     def chooseServerPagePrepare(self):
         # Prepopulate the server to use from the config
         up2dateConfig = config.initUp2dateConfig()
-        self.server = up2dateConfig['serverURL'][0]
+        self.server = up2dateConfig['serverURL']
 
         if type(self.server) == type([]):
             self.server = self.server[0]
@@ -293,8 +293,6 @@ class ChooseServerPage:
         if self.hostedButton.get_active():
             up2dateConfig.set('serverURL', 
                               'https://xmlrpc.rhn.redhat.com/XMLRPC')
-            up2dateConfig.set('sslCACert',
-                                '/usr/share/rhn/RHNS-CA-CERT')
             serverType = 'hosted'
         else:
             customServer = self.chooseServerXml.get_widget(
@@ -309,26 +307,23 @@ class ChooseServerPage:
             # If they changed the value, write it back to the config file.
             if customServer != self.server:
                 up2dateConfig.set('serverURL', customServer)
-                up2dateConfig.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
+            serverType = 'satellite'    
+            
+        try:
+            rhnreg.privacyText()
+        except:
+            if(serverType) == "satellite":
+                up2dateConfig.set('sslCACert',
+                                  '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
             else:
-                try:
-                    rhnreg.privacyText()
-                except:
-                    serverType = rhnreg.getServerType(customServer)
-                    if(serverType) == "satellite":
-                        up2dateConfig.set('sslCACert',
-                                          '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
-                    else:
-                        up2dateConfig.set('sslCACert',
-                                          '/usr/share/rhn/RHNS-CA-CERT')
+                up2dateConfig.set('sslCACert',
+                                  '/usr/share/rhn/RHNS-CA-CERT')
                 
-                
-            serverType = rhnreg.getServerType(customServer)
         # TODO Only save the config if they changed the setting
         up2dateConfig.save()
         
         NEED_SERVER_MESSAGE = _("You will not be able to successfully register "
-            "this system without contacting a Red Hat Network server.")
+                                "this system without contacting a Red Hat Network server.")
 
         # Try to contact the server to see if we have a good cert
         try:
@@ -341,7 +336,10 @@ class ChooseServerPage:
         except up2dateErrors.CommunicationError:
             setArrowCursor()
             log.log_exception(*sys.exc_info())
-            protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(up2dateConfig['serverURL'][0])
+            if isinstance(up2dateConfig['serverURL'], list):
+                protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(up2dateConfig['serverURL'][0])
+            else:
+                protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(up2dateConfig['serverURL'])
             dialog = messageWindow.BulletedOkDialog()
             if serverType == 'hosted':
                 dialog.add_text(_("We could not contact Red Hat Network (%s).")
@@ -412,7 +410,10 @@ class LoginPage:
         forgotInfoSatellite = self.loginXml.get_widget('forgotInfoSatellite')
         tipIconHosted = self.loginXml.get_widget('tipIconHosted')
         tipIconSatellite = self.loginXml.get_widget('tipIconSatellite')
-        server = up2dateConfig['serverURL'][0]
+        if isinstance(up2dateConfig['serverURL'], list):
+            server = up2dateConfig['serverURL'][0]
+        else:
+            server = up2dateConfig['serverURL']
         if serverType == 'satellite':
             protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(server)
             satelliteText = _("Please enter your account information for the <b>%s</b> Red Hat Network Satellite:") % host
@@ -1281,7 +1282,7 @@ class ProvideCertificatePage:
             try:
                 rhnreg.privacyText()
             except up2dateErrors.SSLCertificateVerifyFailedError:
-                server_url = up2dateConfig['serverURL'][0]
+                server_url = up2dateConfig['serverURL']
                 #TODO: we could point the user to grab the cert from /pub if its sat
 
                 #bz439383 - Handle error message for expired certificate

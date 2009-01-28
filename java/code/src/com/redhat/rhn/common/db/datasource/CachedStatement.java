@@ -678,15 +678,23 @@ public class CachedStatement {
     private void addToObject(List columns, ResultSet rs, Object obj, boolean elaborator) 
         throws SQLException {
 
+        List columnSkip;
         if (elaborator && obj instanceof RowCallback) {
             RowCallback cb = (RowCallback)obj;
             cb.callback(rs);
-            return;            
+            columnSkip = cb.getCallBackColumns();
+        }
+        else {
+            columnSkip = new ArrayList<String>();
         }
         
         Iterator i = columns.iterator();
         while (i.hasNext()) {
             String columnName = (String)i.next();
+            if (columnSkip.contains(columnName.toLowerCase())) {
+                continue;
+            }
+            
             String setName = StringUtil.beanify("set " + columnName.toLowerCase());
             String getName = StringUtil.beanify("get " + columnName.toLowerCase());
 

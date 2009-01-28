@@ -88,6 +88,10 @@ public class KickstartAdvancedOptionsActionTest extends RhnMockStrutsTestCase {
 
         String[] keys = {"kickstart.options.success"};        
         verifyActionMessages(keys);
+
+        // Verify we can submit twice
+        actionPerform();
+        verifyActionMessages(keys);
     }
     
     /*

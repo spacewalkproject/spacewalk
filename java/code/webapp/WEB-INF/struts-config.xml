@@ -2567,7 +2567,9 @@
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
         <forward name="success"
-                 path="/systems/Search.do" redirect="true"/>                 
+                 path="/systems/Search.do" redirect="true"/>
+        <forward name="error"
+                   path="/WEB-INF/pages/systems/systemsearch.jsp"/>
     </action>
 
     <!-- ===== SYSTEMS DETAILS ===== -->

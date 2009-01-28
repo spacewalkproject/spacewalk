@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.4.4
+Version: 0.5.8
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -16,7 +16,9 @@ Requires: rhncfg
 Requires: rhncfg-management
 Requires: rhncfg-actions
 Requires: glibc-common
+Requires: chkconfig
 Requires: httpd
+Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
 
@@ -55,6 +57,7 @@ install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
 install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
+install -m 644 get_system_id.xslt $RPM_BUILD_ROOT%{_usr}/share/rhn/
 install -m 644 __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
 install -m 644 rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
@@ -75,9 +78,30 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_usr}/share/rhn/installer
 %{_usr}/share/rhn/installer/__init__.py*
 %{_usr}/share/rhn/installer/rhn_proxy_activate.py*
+%{_usr}/share/rhn/get_system_id.xslt
 %{_bindir}/rhn-proxy-activate
+%doc LICENSE answers.txt
 
 %changelog
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.8-1
+- 469035 - populate configuration channel with new version of configuration files
+- 468924 - die and warn if CA CERT is not readable by apache user
+- 468041 - parse sslCACert correctly
+
+* Fri Jan 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
+- 469059 - add --non-interactive option
+- add LICENSE to %%doc
+- add example of answer file
+
+* Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
+- 469059 - add --answer-file option
+
+* Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
+- 480328 - enable services after installation
+
+* Mon Jan 19 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1
+- 480341 - /etc/init.d/rhn-proxy should be in /etc/rc.d/init.d/rhn-proxy
+
 * Fri Dec 19 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - add man page for configure-proxy.sh and --help option
 

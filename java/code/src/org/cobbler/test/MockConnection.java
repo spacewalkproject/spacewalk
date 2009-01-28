@@ -68,11 +68,16 @@ public class MockConnection extends CobblerConnection {
         // we'll add more useful constructs in the future..
         // System.out.println("called: " + name + " args: " + args);
         Object retval = null;
-        
-        if ("get_distros".equals(name) || "get_profiles".equals(name)) {
+        if (name.equals("get_distros") || name.equals("get_profiles")) {
             Map row = new HashMap();
-            row.put("name", TestObjectStore.get().getObject("distro_name"));
-            row.put("uid", TestObjectStore.get().getObject("uid"));
+            if (name.equals("get_profiles")) {
+                row.put("name", TestObjectStore.get().getObject("profile_name"));
+                row.put("uid", TestObjectStore.get().getObject("profile_uid"));
+            }
+            else {
+                row.put("name", TestObjectStore.get().getObject("distro_name"));
+                row.put("uid", TestObjectStore.get().getObject("distro_uid"));
+            }
             row.put("virt_bridge", "xenb0");
             row.put("virt_cpus", Integer.valueOf(1));
             row.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
@@ -85,10 +90,19 @@ public class MockConnection extends CobblerConnection {
             retval = new LinkedList();
             ((LinkedList) retval).add(row);
         }
-        else if ("get_distro".equals(name) || "get_profile".equals(name)) {
+        else if (name.equals("modify_profile") && args[0].equals("name")) {
+            TestObjectStore.get().putObject("profile_name", args[1]);
+        }
+        else if ("get_profile".equals(name)) {
             retval = new HashMap();
             ((Map) retval).put("name", TestUtils.randomString());
-            ((Map) retval).put("uid", TestObjectStore.get().getObject("uid"));
+            ((Map) retval).put("uid", TestObjectStore.get().getObject("profile_uid"));
+            ((Map) retval).put("ks_meta", new HashMap());
+        }
+        else if ("get_distro".equals(name)) {
+            retval = new HashMap();
+            ((Map) retval).put("name", TestObjectStore.get().getObject("distro_name"));
+            ((Map) retval).put("uid", TestObjectStore.get().getObject("distro_uid"));
             ((Map) retval).put("ks_meta", new HashMap());
         }
         else if ("remove_distro".equals(name)) {

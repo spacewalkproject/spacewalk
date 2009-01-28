@@ -24,6 +24,8 @@ from spacewalk.releng.common import run_command, find_git_root, \
         get_project_name, get_relative_project_dir, get_build_commit, \
         get_git_head_commit, create_tgz
 
+DEFAULT_KOJI_OPTS = "build --nowait"
+
 class Builder(object):
     """
     Parent builder class.
@@ -82,6 +84,9 @@ class Builder(object):
         self.spec_file_name = None
         self.spec_file = None
 
+        # Set to path to srpm once we build one.
+        self.srpm_location = None
+
     def run(self, options):
         """
         Perform the actions requested of the builder.
@@ -90,8 +95,6 @@ class Builder(object):
         be performed. (i.e. only release tagging, etc)
         """
 
-        self._validate_options(options)
-
         if options.tgz:
             self._tgz()
         if options.srpm:
@@ -99,13 +102,17 @@ class Builder(object):
         if options.rpm:
             self._rpm()
 
+        # Submit builds to brew/koji if requested:
+        koji_opts = DEFAULT_KOJI_OPTS
+        if options.koji_opts:
+            koji_opts = options.koji_opts
+        if options.brew:
+            self._submit_build("brew", koji_opts, options.brew)
+        if options.koji:
+            self._submit_build("koji", koji_opts, options.koji)
+
         if not options.no_cleanup:
             self._cleanup()
-
-    def _validate_options(self, options):
-        """ Check for option combinations that make no sense. """
-        if options.test and options.tag:
-            raise Exception("Cannot build test version of specific tag.")
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
@@ -165,6 +172,7 @@ class Builder(object):
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
         print(output)
+        self.srpm_location = self._find_wrote_in_rpmbuild_output(output)[0]
 
     def _rpm(self):
         """ Build an RPM. """
@@ -182,6 +190,32 @@ class Builder(object):
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
         print output
+        files_written = self._find_wrote_in_rpmbuild_output(output)
+        if len(files_written) < 2:
+            error_out("Error parsing rpmbuild output")
+        self.srpm_location = files_written[0]
+
+    def _submit_build(self, executable, koji_opts, tag):
+        """ Submit srpm to brew/koji. """
+        cmd = "%s %s %s %s" % (executable, koji_opts, tag, self.srpm_location)
+        print("\nSubmitting build with: %s" % cmd)
+        output = run_command(cmd)
+        print(output)
+
+    def _find_wrote_in_rpmbuild_output(self, output):
+        """
+        Parse the output from rpmbuild looking for lines beginning with
+        "Wrote:". Return a list of file names for each path found.
+        """
+        paths = []
+        look_for = "Wrote: "
+        for line in output.split("\n"):
+            if line.startswith(look_for):
+                paths.append(line[len(look_for):])
+                debug("Found wrote line: %s" % paths[-1])
+        if (len(paths) == 0):
+            error_out("Unable to locate 'Wrote: ' lines in rpmbuild output")
+        return paths
 
     def _cleanup(self):
         """
@@ -414,8 +448,8 @@ class SatelliteBuilder(NoTgzBuilder):
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
             self.patch_filename))
-        lines.insert(patch_apply_index, "%%patch%s -p1 -b %s\n" % (patch_number, 
-            self.patch_filename))
+        lines.insert(patch_apply_index, "%%patch%s -p1 -b .%s\n" % (patch_number,
+            self.patch_filename[0:-len(".patch")]))
         f.close()
 
         # Now write out the modified lines to the spec file copy:

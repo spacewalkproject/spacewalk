@@ -37,7 +37,7 @@ public class KickstartGuestActionDetails extends ActionChild {
     private Long kickstartId;
     private String virtBridge;
     private String diskPath;
-    private String cobblerProfile;
+    private String cobblerSystemName;
     
     
     /**
@@ -219,18 +219,18 @@ public class KickstartGuestActionDetails extends ActionChild {
 
     
     /**
-     * @return Returns the cobblerProfile.
+     * @return the cobblerSystemName
      */
-    public String getCobblerProfile() {
-        return cobblerProfile;
+    public String getCobblerSystemName() {
+        return cobblerSystemName;
     }
 
     
     /**
-     * @param cobblerProfileIn The cobblerProfile to set.
+     * @param cobblerSystemNameIn the cobblerSystemName to set
      */
-    public void setCobblerProfile(String cobblerProfileIn) {
-        this.cobblerProfile = cobblerProfileIn;
+    public void setCobblerSystemName(String cobblerSystemNameIn) {
+        this.cobblerSystemName = cobblerSystemNameIn;
     }
 
 }

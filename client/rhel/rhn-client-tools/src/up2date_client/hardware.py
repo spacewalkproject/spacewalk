@@ -773,9 +773,9 @@ def read_dmi():
 
     # Try to obtain DMI info if architecture is i386, x86_64 or ia64
     uname = string.lower(os.uname()[4])
-    if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64") and not (uname == "ia64"):
+    if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64"):
         return dmidict
-    
+
     # System Information 
     vendor = get_device_property(computer, "system.hardware.vendor")
     if vendor:

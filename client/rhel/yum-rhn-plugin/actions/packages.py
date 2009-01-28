@@ -210,6 +210,8 @@ class YumAction(yum.YumBase):
                     'version' : pkgtup[1],
                     'release' : pkgtup[2],
                     }
+            if len(pkgtup) > 4:
+                pkgkeys['arch'] = pkgtup[4]
             if action == 'u':
                 self.update(**pkgkeys)
             elif action == 'i':

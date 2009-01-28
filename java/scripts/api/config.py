@@ -2,14 +2,21 @@
 
 import xmlrpclib
 import unittest
+import sys
 ##### Configuration #####
-
+try:
+    from sat_config import *
+except ImportError, e:
+    print """ Create a file called sat_config.py
+        anywhere in your python path with the following values
 # Satellite to test against:
-SATELLITE_HOST = "<satFQDN>"
-SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
+SATELLITE_HOST = "<SATFQDN>" #no protocol prepending just fqdn
+                             #Example "spacewalk.foo.com"
 SATELLITE_LOGIN = "<uname>"
-SATELLITE_PASSWORD = "<passwd>"
+SATELLITE_PASSWORD = "<passwd>" """
+    sys.exit(0)
 
+SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
 # ID of a base channel on the satellite you're testing against:
 BASE_CHANNEL_ID = 101
 CHILD_CHANNEL_ID = 103

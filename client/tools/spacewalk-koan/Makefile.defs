@@ -45,6 +45,7 @@ DIRS		+= $(addprefix $(PREFIX), \
 all :: $(INSTALL_FILES) $(VIRT_INSTALL_FILES)
 
 install :: all $(DIRS) $(INSTALL_FILES) 
+	@mkdir -p $(PREFIX)$(ROOT)
 	@$(foreach f,$(INSTALL_FILES) $(VIRT_INSTALL_FILES), \
 		$(INSTALL_DATA) $(f) $(PREFIX)$(INSTALL_DEST)/$(f) ; )
 

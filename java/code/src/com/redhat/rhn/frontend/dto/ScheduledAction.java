@@ -19,7 +19,9 @@ import com.redhat.rhn.common.localization.LocalizationService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Simple DTO for transfering data from the DB to the UI through datasource.
@@ -193,6 +195,7 @@ public class ScheduledAction extends BaseDto implements RowCallback {
      */
     public void callback(ResultSet rs) throws SQLException {
         if (rs != null) {
+                        
             String status = getString(rs, "ACTION_STATUS");
             long count = rs.getLong("TALLY");
             tally += count;
@@ -207,9 +210,22 @@ public class ScheduledAction extends BaseDto implements RowCallback {
             }
             else if (FAILED.equals(status)) {
                 failed += count;
-            }
+            }            
         }
     }
+    
+
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public List<String> getCallBackColumns() {
+        List<String> list = new ArrayList<String>();
+        list.add("ACTION_STATUS".toLowerCase());
+        list.add("TALLY".toLowerCase());
+        return list;
+    }
+    
     
     /**
      * Simple utility method to handle a null value coming
@@ -295,4 +311,5 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     public boolean isSelectable() {
         return prerequisite == null;
     }
+
 }

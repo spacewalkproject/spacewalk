@@ -26,7 +26,7 @@ ALTER TABLE rhnActionKickstartGuest
  ADD virt_bridge varchar2(256);
 
 ALTER TABLE rhnActionKickstartGuest
- ADD cobbler_profile varchar2(256);
+ ADD cobbler_system_name varchar2(256);
 
 show errors
 

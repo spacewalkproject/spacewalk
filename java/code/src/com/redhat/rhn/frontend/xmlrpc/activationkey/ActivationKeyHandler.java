@@ -16,16 +16,21 @@ package com.redhat.rhn.frontend.xmlrpc.activationkey;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.NonUniqueObjectException;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
@@ -38,12 +43,14 @@ import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidServerGroupException;
 import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
+import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
@@ -60,6 +67,11 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
  * available from the web interface.
  */
 public class ActivationKeyHandler extends BaseHandler {
+
+    private static Logger log = Logger.getLogger(ActivationKeyHandler.class);
+
+    private static final String VALIDATION_XSD =
+        "/com/redhat/rhn/frontend/action/token/validation/activationKeyForm.xsd";
 
     /**
      * Creates a new activation key.
@@ -128,6 +140,29 @@ public class ActivationKeyHandler extends BaseHandler {
         }
         catch (LookupException e) {
             throw new InvalidChannelException(e);
+        }
+
+        // Validate the input parameters.  We will use the RhnValidationHelper
+        // for this which is also used to validate input if user entered it from the UI.
+        Map<String, String> values = new HashMap<String, String>();
+        values.put("description", description);
+        values.put("key", key);
+        if (usageLimit != null && usageLimit >= 0) {
+            values.put("usageLimit", usageLimit.toString());
+        }
+
+        ValidatorResult result = RhnValidationHelper.validate(this.getClass(),
+                values, new LinkedList<String>(values.keySet()), VALIDATION_XSD);
+
+        if (!result.isEmpty()) {
+            log.error("Validation errors:");
+            for (ValidatorError error : result.getErrors()) {
+                log.error("   " + error.getMessage());
+            }
+            // Multiple errors could return here, but we'll have to just throw an
+            // exception for the first one and return that to the user.
+            ValidatorError e = result.getErrors().get(0);
+            throw new ValidationException(e.getMessage());
         }
 
         try {

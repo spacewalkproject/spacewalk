@@ -14,26 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.errata;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.jdom.JDOMException;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -53,6 +33,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.CVE;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateErrataException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
@@ -64,6 +45,26 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jdom.JDOMException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ErrataHandler - provides methods to access errata information.
@@ -280,7 +281,11 @@ public class ErrataHandler extends BaseHandler {
             errata.setAdvisoryName((String)details.get("advisory_name"));
         }
         if (details.containsKey("advisory_release")) {
-            errata.setAdvisoryRel(new Long((Integer)details.get("advisory_release")));
+            Long rel = new Long((Integer)details.get("advisory_release"));
+            if (rel.longValue() > ErrataManager.MAX_ADVISORY_RELEASE) {
+                throw new InvalidAdvisoryReleaseException(rel.longValue());
+            }
+            errata.setAdvisoryRel(rel);
         }
         if (details.containsKey("advisory_type")) {
             errata.setAdvisoryType((String)details.get("advisory_type"));
@@ -333,6 +338,10 @@ public class ErrataHandler extends BaseHandler {
             }
         }
         
+        // ALWAYS change the advisory to match, as we do in the UI.
+        errata.setAdvisory(errata.getAdvisoryName() + "-" +
+                errata.getAdvisoryRel().toString());
+
         //Save the errata
         ErrataManager.storeErrata(errata);
         
@@ -853,6 +862,9 @@ public class ErrataHandler extends BaseHandler {
         String advisoryName = (String) getRequiredAttribute(errataInfo, "advisory_name");
         Integer advisoryRelease = (Integer) getRequiredAttribute(errataInfo, 
                 "advisory_release");
+        if (advisoryRelease.longValue() > ErrataManager.MAX_ADVISORY_RELEASE) {
+            throw new InvalidAdvisoryReleaseException(advisoryRelease.longValue());
+        }
         String advisoryType = (String) getRequiredAttribute(errataInfo, "advisory_type");
         String product = (String) getRequiredAttribute(errataInfo, "product");
         String topic = (String) getRequiredAttribute(errataInfo, "topic");
@@ -871,7 +883,7 @@ public class ErrataHandler extends BaseHandler {
         
         //all required
         newErrata.setSynopsis(synopsis);
-        newErrata.setAdvisory(advisoryName + advisoryRelease.toString());
+        newErrata.setAdvisory(advisoryName + "-" + advisoryRelease.toString());
         newErrata.setAdvisoryName(advisoryName);
         newErrata.setAdvisoryRel(new Long(advisoryRelease.longValue()));
         

@@ -38,6 +38,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
@@ -2676,8 +2677,8 @@ public class SystemHandler extends BaseHandler {
             }
             
             if (SystemManager.canEntitleServer(server, ent)) {
-                ValidatorError error = SystemManager.entitleServer(server, ent);
-                if (error != null) {
+                ValidatorResult vr = SystemManager.entitleServer(server, ent);
+                if (vr.getErrors().size() > 0) {
                     throw new InvalidEntitlementException();
                 }
             }
@@ -2893,6 +2894,7 @@ public class SystemHandler extends BaseHandler {
             Integer i = (Integer)it.next();
             
             Package pkg = PackageManager.lookupByIdAndUser(i.longValue(), loggedInUser);
+
             if (pkg != null) {
                 StringBuilder idCombo = new StringBuilder();
                 idCombo.append(pkg.getPackageName().getId()).append("|");
@@ -2902,7 +2904,7 @@ public class SystemHandler extends BaseHandler {
                 if (pkg.getPackageArch() != null) {
                     idCombo.append(pkg.getPackageArch().getId());
                 }
-                pkgIdCombos.add(idCombo);
+                pkgIdCombos.add(idCombo.toString());
             }
         }
 

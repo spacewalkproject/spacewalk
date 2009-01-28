@@ -117,33 +117,24 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         Map systemMp = getSystemMap();
         if (systemMp != null && !systemMp.isEmpty()) {
             handle = (String) invokeXMLRPC("get_system_handle",
-                    this.server.getName(), xmlRpcToken);
+                    this.getCobblerSystemRecordName(), xmlRpcToken);
         }
         else {
             handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
         }
         
         log.debug("handle: " + handle);
-        invokeXMLRPC("modify_system", handle, "name", server.getName(),
+        invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
                                  xmlRpcToken);
         
         if (this.server.getNetworkInterfaces() == null ||
                 this.server.getNetworkInterfaces().isEmpty()) {
             return new ValidatorError("kickstart.no.network.error");
         }
-        Iterator i = this.server.getNetworkInterfaces().iterator();
-        Map inet = new HashMap();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
-            inet.put("macaddress-" + n.getName(), n.getHwaddr());
-        }
-        log.debug("Networks: " + inet);
-        
-        Object[] args = new Object[]{handle, "modify-interface", 
-                inet, xmlRpcToken};
-        invokeXMLRPC("modify_system", Arrays.asList(args));
 
-        args = new String[]{handle, "profile", 
+        processNetworkInterfaces(handle, xmlRpcToken, server);
+        
+        Object[] args = new String[]{handle, "profile", 
                 name, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
@@ -157,8 +148,6 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         }
 
         invokeXMLRPC("modify_system", Arrays.asList(args));
-
-        
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
@@ -179,6 +168,32 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     }
 
     /**
+     * Get the cobbler system record name for this system.
+     * @return String name of cobbler system record. 
+     */
+    public String getCobblerSystemRecordName() {
+        return this.server.getName() + ":" + 
+            this.server.getOrg().getId();
+    }
+    
+    protected void processNetworkInterfaces(String handleIn, 
+            String xmlRpcTokenIn,
+            Server serverIn) {
+        Iterator i = serverIn.getNetworkInterfaces().iterator();
+        Map inet = new HashMap();
+        while (i.hasNext()) {
+            NetworkInterface n = (NetworkInterface) i.next();
+            inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        }
+        log.debug("Networks: " + inet);
+        
+        Object[] args = new Object[]{handleIn, "modify-interface", 
+                inet, xmlRpcTokenIn};
+        invokeXMLRPC("modify_system", Arrays.asList(args));
+
+    }
+
+    /**
      * @return the system
      */
     public Server getServer() {
@@ -191,7 +206,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public Map getSystemMap() {
         List < String > args = new ArrayList();
-        args.add(this.server.getName());
+        args.add(getCobblerSystemRecordName());
         args.add(xmlRpcToken);
         Map retval = (Map) invokeXMLRPC("get_system", args);
         return retval;

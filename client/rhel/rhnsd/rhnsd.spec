@@ -4,9 +4,8 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhnsd
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 4.5.9
+Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: gettext
@@ -59,6 +58,12 @@ rm -fr $RPM_BUILD_ROOT
 %{_mandir}/man8/rhnsd.8*
 
 %changelog
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 4.5.9-1
+- rebuild
+
+* Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 4.5.8-1
+- Remove usage of version and sources files.
+ 
 * Mon Dec 11 2006 James Bowes <jbowes@redhat.com> - 4.5.7-1
 - Updated translations.
 - Related: #216837
