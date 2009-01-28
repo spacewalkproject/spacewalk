@@ -42,7 +42,7 @@ all install distclean:: $(if $(wildcard Makefile.PL),$(PERLMAKE))
 	$(if $(wildcard Makefile.PL), $(MAKE) -f $(PERLMAKE) $@)
 
 Makefile.perl: Makefile.PL
-	$(PERL) $< $(PERLARGS)
+	$(PERL) $< $(PERLARGS) INSTALLDIRS=vendor
 
 clean:: distclean
 	@rm -fv $(PERLMAKE)
