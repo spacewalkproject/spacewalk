@@ -94,4 +94,4 @@ echo "Creating: Database storage directory"
 install -d -m 755 --verbose $DataDB
 
 chown -R oracle:oracle $AdminDB $DataDB
-restorecon -ri $AdminDB $DataDB
+restorecon -rvvi $AdminDB $DataDB
