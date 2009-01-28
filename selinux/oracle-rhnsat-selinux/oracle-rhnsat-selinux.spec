@@ -78,7 +78,7 @@ for selinuxvariant in %{selinux_variants}
   done
 
 # Fix up oracle-server-arch files
-rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
+rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
 
 # Fix up database files
 /sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
@@ -93,7 +93,7 @@ if [ $1 -eq 0 ]; then
     done
 
   # Clean up oracle-server-arch files
-  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
 
   # Clean up any remaining file contexts (shouldn't be any really)
   /sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
