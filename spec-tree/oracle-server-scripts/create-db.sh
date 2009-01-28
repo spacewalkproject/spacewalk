@@ -111,19 +111,18 @@ echo
 [ "$AdminDB" = "" ] && AdminDB=$Oracle/admin/$OracleVersionShort/$DB_NAME
 
 
-# mkdir -p returns 1 if the dir exists, whether it made it or not.
-# convenient.
-mkdir -p $DataDB &> /dev/null || {
-    echo "Unable to create data directory $DataDB.  Please create and ensure"
-    echo "it can be read and written to by oracle:dba."
+# Check that DataDB and AdminDB dirs were already created
+if [ ! -d "$DataDB" ] ; then
+    echo "Data file directory [$DataDB] does not exist."
+    echo "Please run create-db-dirs.sh to create it."
     exit 1
-}
+fi
+if [ ! -d "$AdminDB" ] ; then
+    echo "Admin file directory [$AdminDB] does not exist."
+    echo "Please run create-db-dirs.sh to create it."
+    exit 1
+fi
 
-mkdir -p $AdminDB &> /dev/null || {
-    echo "Unable to create admin directory $AdminDB.  Please create and ensure"
-    echo "it can be read and written to by oracle:dba."
-    exit 1
-}
 
 function CheckSetup() {
     echo -n "Checking your setup... "
@@ -234,31 +233,6 @@ function CheckForDB() {
     echo
 }
 
-function CreateDBTree() {
-    # Create the admin tree
-    echo "Creating: log dumping directories for various subsystems..."
-    install -d -m 755 --verbose $AdminDB/adump
-    install -d -m 755 --verbose $AdminDB/bdump
-    install -d -m 755 --verbose $AdminDB/cdump
-    install -d -m 755 --verbose $AdminDB/udump
-    install -d -m 755 --verbose $AdminDB/ldump
-    echo
-
-    echo "Creating: administrative and management directories"
-    install -d -m 755 --verbose $AdminDB/archive
-    install -d -m 755 --verbose $AdminDB/backup
-    install -d -m 755 --verbose $AdminDB/logs
-    install -d -m 755 --verbose $AdminDB/import
-    install -d -m 755 --verbose $AdminDB/export
-    install -d -m 755 --verbose $AdminDB/perf
-    install -d -m 755 --verbose $AdminDB/tmp
-    echo
-
-    echo "Creating: Database storage directory"
-    install -d -m 755 --verbose $DataDB
-    echo
-}
-
 function CreateDBConfig {
     db=$1
     if [ -z "$db" ] ; then return ; fi
@@ -331,7 +305,6 @@ CheckForDB $DB_NAME
 
 echo "Checks passed, starting database $DB_NAME creation"
 
-CreateDBTree
 CreateDBConfig $DB_NAME
 
 CreateDatabase $TEMPLATE $DB_NAME
