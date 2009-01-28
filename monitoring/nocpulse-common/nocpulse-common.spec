@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.1
+Version:      2.1.2
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -10,6 +10,7 @@ Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(pre):  httpd, /usr/sbin/useradd
 Requires(post): /sbin/runuser, openssh
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # merging this two packages together
 # not backward compatible => no Provides:
 Obsoletes:     NPusers <= 1.17.50-1
@@ -91,6 +92,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 2.1.2-1
+- fix Requires so we need the perl version we built against
+
 * Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 2.1.1-1
 - 474551 - obsolete nslogs and ConfigPusher-General
 - bump up version for 0.4 branch
