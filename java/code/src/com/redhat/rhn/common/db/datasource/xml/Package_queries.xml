@@ -1125,11 +1125,13 @@ SELECT 1
  WHERE p.id = :pid
    AND (   P.org_id = :org_id
         OR EXISTS (SELECT 1
-                     FROM rhnChannelPackage CP,
-                          rhnAvailableChannels AC
-                    WHERE AC.org_id = :org_id
-                      AND AC.channel_id = CP.channel_id
-                      AND CP.package_id = :pid)
+                     FROM rhnOrgChannelTreeView CT inner join rhnChannelPackage CP on CT.id = CP.channel_id
+                    WHERE CT.org_id = :org_id
+                      AND CP.package_id = P.id)
+        OR EXISTS (SELECT 1
+                     FROM rhnSharedChannelTreeView CT inner join rhnChannelPackage CP on CT.id = CP.channel_id
+                    WHERE CT.org_id = :org_id
+                      AND CP.package_id = P.id)
        )
   </query>
 </mode>
