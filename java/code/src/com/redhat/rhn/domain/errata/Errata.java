@@ -286,7 +286,7 @@ public interface Errata {
     /**
      * @return Returns the files.
      */
-    Set getFiles();
+    Set<ErrataFile> getFiles();
     
     /**
      * @param f The files to set.

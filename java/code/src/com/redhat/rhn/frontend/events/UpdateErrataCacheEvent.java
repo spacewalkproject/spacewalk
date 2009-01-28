@@ -17,9 +17,9 @@ package com.redhat.rhn.frontend.events;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 
-import java.util.List;
-
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 /**
  * UpdateErrataCacheEvent - publish even to update the errata cache for an Org
@@ -36,7 +36,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
     private int type = TYPE_ORG;
     public static final int TYPE_ORG = 1;
     public static final int TYPE_CHANNEL = 2;
-    public static final int TYPE_ERRATA_CHANNEL = 3;
+    public static final int TYPE_CHANNEL_ERRATA = 3;
     
     private Transaction txn;
      
@@ -97,7 +97,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
      * for.
      * @param channelIdsIn to add to the list to process.
      */
-    public void setChannels(List<Long> channelIdsIn) {
+    public void setChannels(List<Long> channelIdsIn) {             
         this.channelIds = channelIdsIn;
     }
 

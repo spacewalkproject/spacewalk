@@ -22,7 +22,9 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
@@ -32,6 +34,7 @@ import com.redhat.rhn.domain.errata.impl.PublishedErrataFile;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
@@ -39,6 +42,7 @@ import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
@@ -1031,7 +1035,48 @@ public class ErrataManager extends BaseManager {
        return listErrataIdsIssuedBetween(sdf.format(start), sdf.format(end));
    }
 
+   /**
+    * remove an erratum for a channel and updates the errata cache accordingly
+    * @param errata the errata to remove
+    * @param chan the channel to remove the erratum from
+    * @param user the user doing the removing 
+    */
+   public static void removeErratumFromChannel(Errata errata, Channel chan, User user) {
 
+       if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+           throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+       }
+       
+       //Remove the errata from the channel
+       chan.getErratas().remove(errata);
+       List<Long> eList = new ArrayList<Long>();
+       eList.add(errata.getId());
+       //First delete the cache entries
+       ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), eList);
+       //Then we need to see if the errata is in any other channels within the channel tree.
+       
+       List<Channel> cList = new ArrayList<Channel>();
+       if (chan.isBaseChannel()) {
+           cList.addAll(ChannelFactory.listAllChildrenForChannel(chan));
+       }
+       else {
+           //add parent
+           Channel parent = chan.getParentChannel();
+           cList.add(parent); //add parent
+           //add sibbling and self
+           cList.addAll(ChannelFactory.listAllChildrenForChannel(parent)); 
+           cList.remove(chan); //remove self
+           
+       }
+       for (Channel tmpChan : cList) {
+           if (tmpChan.getErratas().contains(errata)) {
+               List<Long> tmpCidList = new ArrayList<Long>();
+               tmpCidList.add(tmpChan.getId());
+               ErrataCacheManager.insertCacheForChannelErrataAsync(tmpCidList, errata);
+           }
+       }
+       
+   }
 
     
 }

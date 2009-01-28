@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,12 +29,16 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
+import com.redhat.rhn.frontend.dto.ErrataPackageFile;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -87,18 +93,47 @@ public class RemovePackagesAction extends RhnSetAction {
                 //removed from the errata.
                 packagesRemoved++;
             }
+            for (ErrataFile ef : errata.getFiles()) {
+                if (ef instanceof ErrataPackageFile) {
+                    ErrataPackageFile efp = (ErrataPackageFile) ef;
+                    if (efp.getPackageId().equals(pkg.getId())) {
+                        ErrataFactory.removeFile(ef);
+                    }
+                }
+            }
+            
         }
         //Save the errata
         ErrataManager.storeErrata(errata);
         
+        
+        //Update Errata Cache
+        //First we remove all errata cache entries
+        if (errata.isPublished()) {
+            List<Long> eList = new ArrayList<Long>();
+            eList.add(errata.getId());
+            for (Channel chan : errata.getChannels()) {
+                ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), eList);
+            }
+        }
+        
+        //Now since we didn't actually remove the packages, we need to 
+        //      re-insert entries for the packages that are still in teh channel
+        //      in case they aren't there
+        List<Long> cList = new ArrayList<Long>();
+        for (Channel chan : errata.getChannels()) {
+            cList.add(chan.getId());
+        }
+        List<Long> pList = new ArrayList<Long>();
+        pList.addAll(RhnSetDecl.PACKAGES_TO_REMOVE.get(user).getElementValues());
+        ErrataCacheManager.insertCacheForChannelPackagesAsync(cList, pList);
+        
+        
+        
         //Clean up
         RhnSetDecl.PACKAGES_TO_REMOVE.clear(user);
         
-        //Update Errata Cache
-        if (errata.isPublished()) {
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels());
-        }
+
         
         //Set the correct action message and return to the success mapping
         ActionMessages msgs = getMessages(packagesRemoved, errata.getAdvisory());

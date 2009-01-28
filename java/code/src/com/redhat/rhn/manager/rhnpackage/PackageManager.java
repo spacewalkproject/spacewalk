@@ -48,6 +48,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -1027,10 +1028,13 @@ public class PackageManager extends BaseManager {
             }
             PackageFactory.deletePackage(pack);
         }
+        
+        List<Long> pList = new ArrayList<Long>();
+        pList.addAll(ids);
         for (Channel chan : channels) {
             ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
+            ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), pList);
         }
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels);
     }
     
     /**

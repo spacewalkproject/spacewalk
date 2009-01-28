@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,9 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -95,8 +99,11 @@ public class AddPackagesConfirmAction extends RhnSetAction {
 
         //Update Errata Cache
         if (errata.isPublished()) {
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels());
+            List<Long> list = new ArrayList<Long>();
+            for (Channel chan : errata.getChannels()) {
+                list.add(chan.getId());
+            }
+            ErrataCacheManager.insertCacheForChannelErrataAsync(list, errata);
         }
         
         //Set the correct action message and return to the success mapping

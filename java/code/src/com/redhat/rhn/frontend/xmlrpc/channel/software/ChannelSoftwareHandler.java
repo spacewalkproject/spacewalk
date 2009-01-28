@@ -1579,7 +1579,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * Regenerate the errata cache for all the systems subscribed to a particular channel
      * @param sessionKey the session key
      * @param channelLabel the channel label
-     * @return on on success
+     * @return on on success!
      * 
      * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package 
      *      cache for all systems subscribed to the specified channel.  This should 
@@ -1591,13 +1591,13 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype  #return_int_success()  
      *          
      */
-    public int regenerateCache(String sessionKey, String channelLabel) {
+    public int regenerateNeededCache(String sessionKey, String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
         Channel chan = lookupChannelByLabel(loggedInUser, channelLabel);
         List chanList = new ArrayList<Long>();
         chanList.add(chan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList);
+        ErrataCacheManager.updateCacheForChannelsAsync(chanList);
         return 1;
     }
     

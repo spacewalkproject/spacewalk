@@ -89,14 +89,16 @@ public class PublishErrataAction extends RhnListAction {
             }
         }
  
+        List<Long> pids = new ArrayList<Long>();
         for (Package pack : PackageFactory.lookupPackagesFromSet(user)) {
             currentChan.addPackage(pack); 
+            pids.add(pack.getId());
         }
         
         //update the errata info
         List chanList = new ArrayList();
         chanList.add(currentChan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList);
+        ErrataCacheManager.insertCacheForChannelPackagesAsync(chanList, pids);
         ChannelManager.refreshWithNewestPackages(currentChan, "web.errata_push");
         request.setAttribute("cid", cid);
         

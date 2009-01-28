@@ -14,24 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
@@ -43,8 +25,26 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
-import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ChannelAction
@@ -123,8 +123,8 @@ public class ChannelAction extends RhnSetAction {
         }
         
         // Save off original channel ids so we can update caches
-        Set originalChannels = new HashSet(errata.getChannels());
-        
+        Set<Channel> originalChannels = new HashSet<Channel>(errata.getChannels());
+        Set newChannels = getChannelIdsFromRhnSet(set);
         //Otherwise, add each channel to errata
         //The easiest way to do this is to clear the errata's channels and add back the 
         //channels that are in the user's current set
@@ -132,31 +132,33 @@ public class ChannelAction extends RhnSetAction {
         //add the channels from the set back to the errata
 
         errata = ErrataManager.addChannelsToErrata(errata, 
-                getChannelIdsFromRhnSet(set), user);
+                newChannels, user);
 
         //Update Errata Cache
         if (errata.isPublished()) {
             log.debug("updateChannels - isPublished");
             // Compute list of old and NEW channels so we can 
             // refresh both of their caches.
-            List channelsToUpdate = new LinkedList();
-            Iterator i = originalChannels.iterator();
-            while (i.hasNext()) {
-                Channel c = (Channel) i.next();
-                log.debug("updateChannels.Adding1: " + c.getId());
-                channelsToUpdate.add(c.getId());
-            }
-            i = errata.getChannels().iterator();
-            while (i.hasNext()) {
-                Channel c = (Channel) i.next();
-                if (!channelsToUpdate.contains(c.getId())) {
-                    log.debug("updateChannels.Adding2: " + c.getId());
-                    channelsToUpdate.add(c.getId());
+            List<Channel> channelsToRemove = new LinkedList<Channel>();
+            
+            for (Channel c : originalChannels) {
+                if (!newChannels.contains(c.getId())) {
+                    //We are removing the errata from the channel
+                    log.debug("updateChannels.Adding1: " + c.getId());
+                    channelsToRemove.add(c);                    
                 }
             }
-            log.debug("updateChannels() - channels to update: " + channelsToUpdate);
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    channelsToUpdate);
+            log.debug("updateChannels() - channels to remove errata: " + channelsToRemove);
+            
+            //If the errata was removed from any channels lets remove it.
+            List<Long> eList = new ArrayList<Long>();
+            eList.add(errata.getId());
+            for (Channel toRemove : channelsToRemove) {
+                ErrataManager.removeErratumFromChannel(errata, toRemove, user);
+            }
+            
+            
+            
         }
        
        strutsDelegate.saveMessages(request, getMessages(errata));
@@ -274,4 +276,8 @@ public class ChannelAction extends RhnSetAction {
         }
         return msgs;
     }    
+    
+    
+    
+    
 }

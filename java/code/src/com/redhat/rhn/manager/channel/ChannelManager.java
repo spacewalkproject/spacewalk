@@ -21,7 +21,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -64,7 +63,6 @@ import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -1703,22 +1701,6 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, lc, m);
 
         return dr;
-    }
-
-    /**
-     * Save the Channel and update the rhnChannelNewestPackageCache
-     * 
-     * @param c to save
-     * @param user doing the saving.
-     */
-    public static void saveAndUpdateErrataAndPackageCache(Channel c, User user) {
-        ChannelFactory.save(c);
-        c = (Channel) HibernateFactory.reload(c);
-        
-        refreshWithNewestPackages(c, user.getLogin());
-        Set cacheUpdate = new HashSet();
-        cacheUpdate.add(c);
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(cacheUpdate);
     }
 
     /**

@@ -65,15 +65,20 @@ public class UpdateErrataCacheAction
                 uecc.updateErrataCacheForChannel(cid);
             }
         }
-        else if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_ERRATA_CHANNEL) {
+        else if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_CHANNEL_ERRATA) {
             for (Long cid : evt.getChannelIds()) {
                 if (log.isDebugEnabled()) {
                     log.debug("Updating errata cache for channel: " + cid + 
                             " and errata:" + evt.getErrataId());
                 }
-                uecc.updateErrataCacheForErrata(cid, evt.getErrataId());
+                if (evt.getPackageIds() == null || evt.getPackageIds().size() == 0) {
+                    uecc.updateErrataCacheForErrata(cid, evt.getErrataId());    
+                }
+                else {
+                    uecc.updateErrataCacheForErrata(cid, evt.getErrataId(), 
+                            evt.getPackageIds());  
+                }
             }
-            
         }
         else {
             throw new IllegalArgumentException("Unknown update type: " + 

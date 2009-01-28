@@ -132,12 +132,22 @@ public class UpdateErrataCacheCommand {
      * @param eid the erratum id
      */
     public void updateErrataCacheForErrata(Long cid, Long eid) {
+        List<Long> pids = ErrataCacheManager.listErrataChannelPackages(cid, eid);  
+        updateErrataCacheForErrata(cid, eid, pids);
+    } 
+    
+    /**
+     * Updates the needed cache for particular packages within a channel
+     *  This isn't a full regeneration, only the changes are handled
+     * @param cid the channel affected 
+     * @param eid the erratum id
+     * @param pids the List of package ids that will be considered
+     */
+    public void updateErrataCacheForErrata(Long cid, Long eid, List<Long> pids) {
         log.info("Updating errata cache for servers in channel [" + cid + "] " +
                 "and pacakges [" + eid + "]");
-        
-        List<Long> pids = ErrataCacheManager.listErrataChannelPackages(cid, eid);        
         try {
-            ErrataCacheManager.updateCacheForChannelPackages(cid, eid, pids);
+            ErrataCacheManager.insertCacheForChannelPackages(cid, eid, pids);
         }
         catch (Exception e) {
             log.error("Problem updating cache for servers in channel for errata", e);
@@ -146,8 +156,8 @@ public class UpdateErrataCacheCommand {
             handleTransaction();
         }
         log.info("Finished with servers in channel [" + cid + "] " +
-                "and errata [" + eid + "]" + " with pids [" + pids + "]");        
-    } 
+                "and errata [" + eid + "]" + " with pids [" + pids + "]"); 
+    }
     
     
     /**

@@ -625,7 +625,7 @@ public class ErrataHandler extends BaseHandler {
         //Update Errata Cache
         if ((packagesAdded > 0) && errata.isPublished() && 
             (errata.getChannels() != null)) {
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
+            ErrataCacheManager.updateCacheForChannelsAsync(
                     errata.getChannels());
         }
         
@@ -675,7 +675,7 @@ public class ErrataHandler extends BaseHandler {
         //Update Errata Cache
         if ((packagesRemoved > 0) && errata.isPublished() && 
                 (errata.getChannels() != null)) {
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
+            ErrataCacheManager.updateCacheForChannelsAsync(
                     errata.getChannels());
         }
         
