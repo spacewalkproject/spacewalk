@@ -46,14 +46,42 @@ my $subdir_name = 'schema-override';
 my $exception_dir;
 ($exception_dir = $source) =~ s!/[^/]+$!/$subdir_name!;
 
+my %exception_files;
+my @exception_queue = ( '' );
+while (@exception_queue) {
+	my $d = shift @exception_queue;
+	if ($d ne '') {
+		$d .= '/';
+	}
+	my $full_path = "$exception_dir/$d";
+	if (-d $full_path) {
+		if (opendir DIR, $full_path) {
+			for (readdir DIR) {
+				next if /^\.\.?$/;
+				if (-d "$full_path$_") {
+					push @exception_queue, "$d$_";
+				} else {
+					$exception_files{"$d$_"} = 1;
+				}
+			}
+			closedir DIR;
+		}
+	} else {
+		die "Expected dir at [$exception_dir$d]\n";
+	}
+}
+
 my $marker_re = qr/^select '(.+?)' sql_file from dual;$/;
 my $line;
+
+my %exception_seen;
 while ($line = <SOURCE>) {
 	if ($line =~ $marker_re) {
 		my $filename = $1;
 		$filename =~ s!^.+/([^/]+/[^/]+)$!$1!;
-		if (-e "$exception_dir/$filename") {
+		if (exists $exception_files{$filename}) {
 			open OVERRIDE, "$exception_dir/$filename" or die "Error reading file [$exception_dir/$filename]: $!\n";
+			$exception_seen{$filename}++;
 			print TARGET "select '$subdir_name/$filename' sql_file from dual;\n";
 			while (<OVERRIDE>) {
 				s/\[\[.*\]\]/$tablespace_name/g;
@@ -78,4 +106,14 @@ while ($line = <SOURCE>) {
 close(SOURCE);
 close(TARGET);
 
+for (sort keys %exception_seen) {
+	if ($exception_seen{$_} > 1) {
+		warn "Schema source [$source] loaded override [$_] more than once.\n";
+	}
+}
+for (sort keys %exception_files) {
+	if (not exists $exception_seen{$_}) {
+		warn "Schema source [$source] did not use override [$_].\n";
+	}
+}
 exit 0;
