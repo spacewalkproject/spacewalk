@@ -4,7 +4,8 @@
 #
 
 # store database files in /rhnsat
-/rhnsat(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
+/rhnsat(/.*)?          gen_context(system_u:object_r:oracle_dir_t,s0)
+/rhnsat/data/rhnsat(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 
 # store database specific files under /rhnsat/admin/$ORACLE_SID hierarchy
 # treat dump files and audits as log files
