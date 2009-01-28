@@ -294,12 +294,12 @@ Oratab=/etc/oratab
 
 CheckSetup
 CheckSpace $TEMPLATE
-CheckListener
 if [ "$FORCE" = "yes" ] ; then
     $TOPDIR/stop-db.sh $DB_NAME
     RemoveDB $DB_NAME
 fi
 CheckForDB $DB_NAME
+CheckListener
 
 echo "Checks passed, starting database $DB_NAME creation"
 
