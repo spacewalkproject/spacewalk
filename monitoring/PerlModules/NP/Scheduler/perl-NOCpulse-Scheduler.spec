@@ -1,16 +1,16 @@
 Name:         perl-NOCpulse-Scheduler
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.58.9
+Version:      1.58.10
 Release:      1%{?dist}
 Summary:      NOCpulse Event Scheduler
 URL:          https://fedorahosted.org/spacewalk
-Requires:     nocpulse-common
-Requires:	  ProgAGoGo
+Requires:     nocpulse-common, ProgAGoGo
+Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+BuildRequires: perl(ExtUtils::MakeMaker)
 BuildArch:    noarch
 Group:        Development/Libraries 
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,
@@ -52,6 +52,9 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.58.10-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 1.58.9-1
 - add missing semicolon to kernel.pl
 
