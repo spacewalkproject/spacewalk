@@ -1,3 +1,3 @@
-PostgreSQL schema is currently being generated using ora2pg run against a live
-Satellite database. Lot of room for improvement as well as missing pieces here,
-this is only an intermittent stage.
+Load postgresql schema using main.sql, run from the postgresql directory:
+
+    psql -f main.sql -d spacewalk

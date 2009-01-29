@@ -1,0 +1,7 @@
+START TRANSACTION;
+
+\i tables/DELETEME.sql
+
+\i procs/DELETEME-PROC.sql
+
+COMMIT;
