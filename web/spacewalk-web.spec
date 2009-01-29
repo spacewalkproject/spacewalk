@@ -156,7 +156,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-base
 %defattr(-,root,root)
-%{_bindir}/db-control
 %dir %{perl_vendorlib}/RHN
 %dir %{perl_vendorlib}/PXT
 %{perl_vendorlib}/RHN.pm
@@ -284,6 +283,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-dobby
 %defattr(-,root,root)
+%{_bindir}/db-control
 %{perl_vendorlib}/Dobby.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
