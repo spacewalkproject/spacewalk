@@ -242,7 +242,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/UserActions.pm
 %{perl_vendorlib}/RHN/UserGroup.pm
 %{perl_vendorlib}/RHN/Utils.pm
-%{_mandir}/man1/db-control.1.gz
 %{_mandir}/man3/RHN::Command.3pm.gz
 %{_mandir}/man3/RHN::CommandParameter.3pm.gz
 %{_mandir}/man3/RHN::ContactGroup.3pm.gz
@@ -283,7 +282,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-dobby
 %defattr(644,root,root,755)
-%{_bindir}/db-control
+%attr(755,root,root) %{_bindir}/db-control
+%{_mandir}/man1/db-control.1.gz
 %{perl_vendorlib}/Dobby.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
