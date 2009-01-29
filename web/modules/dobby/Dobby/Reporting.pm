@@ -74,9 +74,11 @@ sub segadv_recomendations {
   my $dbh = $dobby->connect;
 
   my $query = <<EOQ;
-SELECT *
-  FROM TABLE(DBMS_SPACE.ASA_RECOMMENDATIONS())
-ORDER BY segment_type desc, reclaimable_space desc
+SELECT tbs.segment_space_management, rec.*
+  FROM TABLE(DBMS_SPACE.ASA_RECOMMENDATIONS()) rec,
+       dba_tablespaces tbs
+ WHERE rec.tablespace_name = tbs.tablespace_name
+ ORDER BY segment_space_management asc, segment_type desc, reclaimable_space desc
 EOQ
   my $sth = $dbh->prepare($query);
   $sth->execute;
