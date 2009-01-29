@@ -85,8 +85,8 @@ for selinuxvariant in %{selinux_variants}
 
 /usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 || :
 
-rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
-/sbin/restorecon -rvvi /var/run/jabberd
+rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+/sbin/restorecon -ri /var/run/jabberd || :
 
 %postun
 # Clean up after package removal
@@ -100,8 +100,8 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t jabber_interserver_port_t -p tcp 5347 || :
 fi
 
-rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
-/sbin/restorecon -rvvi /var/run/jabberd
+rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+/sbin/restorecon -ri /var/run/jabberd || :
 
 %files
 %defattr(-,root,root,0755)
