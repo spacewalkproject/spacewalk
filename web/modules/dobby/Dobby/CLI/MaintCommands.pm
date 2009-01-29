@@ -152,13 +152,13 @@ sub shrink_segments {
         );
 
   for my $rec (Dobby::Reporting->segadv_recomendations($d)) {
-    if (not $printed{$rec->{segment_space_management}}) {
-        print $msg{$rec->{segment_space_management}};
-        $printed{$rec->{segment_space_management}}++;
+    if (not $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}) {
+        print $msg{$rec->{SEGMENT_SPACE_MANAGEMENT}};
+        $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}++;
     }
     printf "%-32s %7s reclaimable\n", $rec->{SEGMENT_NAME},
            Dobby::CLI::MiscCommands->size_scale($rec->{RECLAIMABLE_SPACE});
-    if ($rec->{segment_space_management} eq 'AUTO') {
+    if ($rec->{SEGMENT_SPACE_MANAGEMENT} eq 'AUTO') {
         $d->shrink_segment($rec);
     }
   }
