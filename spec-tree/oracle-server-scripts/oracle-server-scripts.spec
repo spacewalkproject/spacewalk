@@ -26,7 +26,6 @@ Source9: default-createdb.tmpl
 Source10: embedded-createdb.tmpl
 Source11: rhnora.m4
 Source12: embedded-upgradedb.tmpl
-Source13: create-db-dirs.sh
 License: Proprietary
 Group:   Oracle Server
 BuildArch: noarch
@@ -49,7 +48,7 @@ mkdir -p $RPM_BUILD_ROOT
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
 for f in %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
 	 %{SOURCE4} %{SOURCE5} %{SOURCE9} %{SOURCE10} %{SOURCE11} \
-	 %{SOURCE12} %{SOURCE13}; do
+	 %{SOURCE12}; do
     install -m 755 $f $RPM_BUILD_ROOT%{oracle_admin}
 done
 
@@ -98,9 +97,6 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Wed Jan 28 2009 Jan Pazdziora
-- split create-db.sh to create-db-dirs.sh and create-db.sh
-
 * Wed Nov 26 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-22
 - resolved #472807 - 32bit to 64bit upgrade fix
 
