@@ -28,12 +28,11 @@ rhnUserGroupType
 			constraint rhn_userGroupType_label_nn not null,
 	name		varchar(64)
 			constraint rhn_userGroupType_name_nn not null,
-	created		date default(CURRENT_TIMESTAMP)
+	created		timestamp default(CURRENT_TIMESTAMP)
 			constraint rhn_userGroupType_created_nn not null,
-	modified	date default(CURRENT_TIMESTAMP)
+	modified	timestamp default(CURRENT_TIMESTAMP)
 			constraint rhn_userGroupType_modified_nn not null
 )
---	enable row movement
   ;
 
 create sequence rhn_usergroup_type_seq;

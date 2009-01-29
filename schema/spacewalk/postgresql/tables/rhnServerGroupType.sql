@@ -28,9 +28,9 @@ rhnServerGroupType
                         constraint rhn_servergrouptype_label_nn not null,
         name            varchar(64)
                         constraint rhn_servergrouptype_name_nn not null,
-        created         date default(CURRENT_TIMESTAMP)
+        created         timestamp default(CURRENT_TIMESTAMP)
                         constraint rhn_servergrouptype_created_nn not null,
-        modified        date default(CURRENT_TIMESTAMP)
+        modified        timestamp default(CURRENT_TIMESTAMP)
                         constraint rhn_servergrouptype_mod_nn not null,
         permanent       char default('Y')
                         constraint rhn_servergrouptype_perm_ck 
@@ -41,7 +41,6 @@ rhnServerGroupType
                            check (is_base in ('Y','N'))
                         constraint rhn_servergrouptype_isbase_nn not null
 )
---	enable row movement
   ;
 
 create sequence rhn_servergroup_type_seq;

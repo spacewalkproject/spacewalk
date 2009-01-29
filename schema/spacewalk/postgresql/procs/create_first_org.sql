@@ -20,8 +20,6 @@
 -- This creates an org with ID of 1, and errors if there already is one
 --
 
-
-
 create or replace function
 create_first_org
 (
@@ -71,7 +69,7 @@ begin
 		id, name,
 		description,
 		max_members, group_type, org_id
-	) VALues (
+	) values (
 		group_val, 'Organization Applicants',
 		'Organization Applicants for Org ' || name_in || ' (1)',
 		NULL, ug_type, 1
@@ -149,14 +147,13 @@ begin
 		NULL, ug_type, 1
 	);
 
-
 	-- if they need more than 16GB, they'll call us and we'll whip
 	-- out a "can be null" patch, which we should do for next
 	-- version anyway.  (I thought we did that for this version?)
 	insert into rhnOrgQuota(
 		org_id, total
 	) values (
-		1, 1024*1024*1024*16
+		1, 16::numeric * 1024*1024*1024
 	);
 	
 	

@@ -39,12 +39,11 @@ rhnServerGroup
                         constraint rhn_servergroup_oid_fk
                                 references web_customer(id)
 				on delete cascade,
-        created         date default(CURRENT_TIMESTAMP)
+        created         timestamp default(CURRENT_TIMESTAMP)
                         constraint rhn_servergroup_created_nn not null,
-        modified        date default(CURRENT_TIMESTAMP)
+        modified        timestamp default(CURRENT_TIMESTAMP)
                         constraint rhn_servergroup_modified_nn not null
 )
---	enable row movement
   ;
 
 create sequence rhn_server_group_id_seq;

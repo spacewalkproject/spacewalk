@@ -39,13 +39,12 @@ web_customer
 			constraint web_customer_type_list
 				check (customer_type in ('B', 'P')),
         credit_application_completed varchar(1),
-	created		date default(CURRENT_TIMESTAMP)
+	created		timestamp default(CURRENT_TIMESTAMP)
 			constraint web_customer_created_nn not null,
-	modified	date default(CURRENT_TIMESTAMP)
+	modified	timestamp default(CURRENT_TIMESTAMP)
 			constraint web_customer_modified_nn not null
 )
 -- tablespace [[web_tablespace_2]]
---	enable row movement
 	;
 
 create sequence web_customer_id_seq start with 2;
@@ -54,7 +53,6 @@ create unique index web_customer_name_uq_idx
     on web_customer(name)
 --    tablespace [[web_tablespace_2]]
   ;
-
 
 --
 -- Revision 1.11  2002/05/09 03:13:24  gafton

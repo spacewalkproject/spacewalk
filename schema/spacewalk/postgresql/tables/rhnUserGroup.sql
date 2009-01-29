@@ -40,12 +40,11 @@ rhnUserGroup
                         constraint rhn_user_group_org_fk
                                 references web_customer(id)
 				on delete cascade,
-        created         date default(CURRENT_TIMESTAMP)
+        created         timestamp default(CURRENT_TIMESTAMP)
                         constraint rhn_usergroup_type_created_nn not null,
-        modified        date default(CURRENT_TIMESTAMP)
+        modified        timestamp default(CURRENT_TIMESTAMP)
                         constraint rhn_usergroup_type_modified_nn not null
 )
---	enable row movement
   ;
 
 --
