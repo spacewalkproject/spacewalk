@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.12
+Version:      1.23.13
 Release:      1%{?dist}
 Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
@@ -57,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.12-1
+* Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.13-1
 - own %%{perl_vendorlib}/NOCpulse
 - silent rpmlint by $RPM_BUILD_ROOT prefix to %%install
 - move logging.ini from Makefile.PL to spec
