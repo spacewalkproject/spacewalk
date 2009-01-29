@@ -46,10 +46,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com>
+- own %%{perl_vendorlib}/NOCpulse
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.23.10-1
 - fix up spec so we can build
 
