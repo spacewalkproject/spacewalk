@@ -89,7 +89,7 @@ HOSTNAME=`hostname`
 
 default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
 
-default_or_input "RHN Parent" RHN_PARENT $(grep serverURL= /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' |awk -F/ '{print $3}')
+default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' /etc/sysconfig/rhn/up2date)
 
 default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
