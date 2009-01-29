@@ -151,8 +151,24 @@ WHERE
   AND    SP.name_id = P.name_id
   AND    SP.evr_id != P.evr_id
   AND    SP_EVR.evr < P_EVR.evr
-  AND    SP_EVR.evr = (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND SP2.name_id = SP.name_id)
+  AND    SP_EVR.evr = (SELECT MAX(PE.evr) FROM rhnServerPackage SP2, rhnPackageEvr PE WHERE PE.id = SP2.evr_id AND SP2.server_id = SP.server_id AND SP2.name_id = SP.name_id);
 
 
+
+CREATE OR REPLACE VIEW rhnServerErrataTypeView
+(
+        server_id,
+        errata_id,
+        errata_type
+)
+AS
+SELECT
+        SNEC.server_id,
+        SNEC.errata_id,
+        E.advisory_type
+FROM    rhnErrata E,
+        rhnServerNeededErrataCache SNEC
+WHERE   E.id = SNEC.errata_id
+GROUP BY SNEC.server_id, SNEC.errata_id, E.advisory_type;
 
 /

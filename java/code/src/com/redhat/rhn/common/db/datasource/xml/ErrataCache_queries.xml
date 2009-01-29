@@ -241,7 +241,7 @@ DELETE FROM rhnServerNeededCache SNC,
 <write-mode name="delete_needed_cache_for_channel_errata">
   <query params="channel_id">
 DELETE FROM rhnServerNeededCache SNC,
-		rhnServerChannel SC,
+		rhnServerChannel SC
       WHERE SC.channel_id = :channel_id
       	AND SC.server_id = SNC.server_id
       	AND SNC.errata_id in (%s)
