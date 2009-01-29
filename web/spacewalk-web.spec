@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.5
+Version: 0.5.6
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,7 +318,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
+* Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - 482926 - fix proxy webui installer
 
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
