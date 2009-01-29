@@ -279,7 +279,7 @@ fi
 
 
 %changelog
-* Thu Jan 28 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com>
 - 482831 - support redirect to Akamai
 
 * Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
