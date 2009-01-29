@@ -333,6 +333,7 @@ echo "Checks passed, starting database $DB_NAME creation"
 
 CreateDBTree
 CreateDBConfig $DB_NAME
+/sbin/restorecon -rvi $DataDB $AdminDB
 
 CreateDatabase $TEMPLATE $DB_NAME
 
