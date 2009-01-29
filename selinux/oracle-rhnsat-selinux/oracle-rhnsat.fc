@@ -45,6 +45,9 @@
 /opt/apps/oracle/web/product/(.*[0-9]/)?log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 /opt/apps/oracle/web/product/(.*/)?network/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 
+# allow sqlplus to read init.ora; we have to use the log type
+/rhnsat/admin/rhnsat/init\.ora          gen_context(user_u:object_r:oracle_common_file_t,s0)
+
 # otherwise this would be unlabeled
 /var/tmp/.oracle(/.*)?          gen_context(user_u:object_r:oracle_tmp_t,s0)
 
