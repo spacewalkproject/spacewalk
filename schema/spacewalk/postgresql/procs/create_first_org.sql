@@ -164,7 +164,7 @@ begin
 	-- rhnUserServerPerms
         insert into rhnServerGroup 
 		( id, name, description, max_members, group_type, org_id )
-		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name, 
+		select nextval('rhn_server_group_id_seq'), sgt.name, sgt.name, 
 			0, sgt.id, 1
 		from rhnServerGroupType sgt
 		where sgt.label = 'sw_mgr_entitled';
