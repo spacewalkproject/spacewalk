@@ -4,7 +4,7 @@
 
   <name>Satellite Proxy</name>
   <label>rhn_proxy</label>
-  <version>5.2</version>
+  <version>5.3</version>
 
   <prerequisites>
     <org-channel-family>rhn-proxy</org-channel-family>
