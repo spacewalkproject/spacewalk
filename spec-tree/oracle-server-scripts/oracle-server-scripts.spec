@@ -97,6 +97,11 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Thu Jan 29 2009 Jan Pazdziora
+- run restorecon on /rhnsat/(admin|data)/rhnsat
+- put audit logs to adump, resolves selinux error (Michael M.)
+- move listener check down
+
 * Wed Nov 26 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-22
 - resolved #472807 - 32bit to 64bit upgrade fix
 
