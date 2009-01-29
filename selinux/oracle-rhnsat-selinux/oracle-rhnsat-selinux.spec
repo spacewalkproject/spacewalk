@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         5%{?dist}
+Release:         6%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -106,6 +106,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Jan 29 2009 Jan Pazdziora 10.2-6
+- Require oracle-server 10.2.0.3 only, for s390x
+
 * Thu Jan 29 2009 Jan Pazdziora 10.2-5
 - modify policy module to silence numerous AVC denials
 - make restorecon in scriptlets less verbose
