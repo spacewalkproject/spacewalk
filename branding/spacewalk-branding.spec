@@ -11,6 +11,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 Requires:   spacewalk-html
+BuildRequires: java-devel >= 1.5.0
 
 
 %description
