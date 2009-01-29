@@ -19521,24 +19521,6 @@ Below is a list of channels in your organization.
           <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
         </context-group>
       </trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.subscribe">
-        <source>Subscribe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.unsubscribe">
-        <source>Unsubscribe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochg">
-        <source>No Change</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.alter">
         <source>Alter Subscriptions</source>
         <context-group name="ctx">
