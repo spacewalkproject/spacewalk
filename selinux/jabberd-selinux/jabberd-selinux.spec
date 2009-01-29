@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -110,6 +110,10 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Jan 29 2009 Jan Pazdziora 1.4.0-3
+- silence restorecon in scriptlets, and ignore any errors
+- avoid .src.rpm-packing-tim error when selinux-policy-devel is not installed
+
 * Mon Jan 12 2009 Jan Pazdziora 1.4.0-2
 - changes to allow /etc/init.d/jabberd start on RHEL 5.2 to run
   without any AVC denials
