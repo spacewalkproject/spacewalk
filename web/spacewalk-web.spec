@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com>
+- 482926 - fix proxy webui installer
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
 - use %%files correctly
 - make sure perl modules get installed in %%{perl_vendorlib}
