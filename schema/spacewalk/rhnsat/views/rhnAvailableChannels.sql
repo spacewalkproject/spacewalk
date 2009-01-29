@@ -20,57 +20,61 @@
 create or replace view
 rhnAvailableChannels
 (
-    	org_id,
-	channel_id,
-	channel_depth,
-	channel_name,
-	channel_arch_id,
-	padded_name,
-	current_members,
-	available_members,
-        last_modified,
-        channel_label,
-	parent_or_self_label,
-	parent_or_self_id 
+    org_id,
+    channel_id,
+    channel_depth,
+    channel_name,
+    channel_arch_id,
+    padded_name,
+    current_members,
+    available_members,
+    last_modified,
+    channel_label,
+    parent_or_self_label,
+    parent_or_self_id 
 )
 as
-select
-     ct.org_id,
-     ct.id, 
-     CT.depth, 
-     CT.name, 
-     CT.channel_arch_id, 
-     CT.padded_name,
-     (SELECT COUNT(1) 
-        FROM rhnServer S 
-       WHERE S.org_id = ct.org_id 
-         AND EXISTS (SELECT 1 FROM rhnServerChannel WHERE channel_id = ct.id AND server_id = S.id)),
-     rhn_channel.available_chan_subscriptions(ct.id, ct.org_id),
-     CT.last_modified,
-     CT.label,
-     CT.parent_or_self_label,
-     CT.parent_or_self_id
-from
-     rhnOrgChannelTreeView CT
+SELECT
+    CT.org_id,
+    CT.id, 
+    CT.depth, 
+    CT.name, 
+    CT.channel_arch_id, 
+    CT.padded_name,
+    (SELECT COUNT(1)
+     FROM rhnServer S 
+     INNER JOIN rhnServerChannel SC
+       ON SC.server_id = S.id
+     WHERE SC.channel_id = CT.id AND
+           S.org_id = CT.org_id),
+    rhn_channel.available_chan_subscriptions(CT.id, CT.org_id),
+    CT.last_modified,
+    CT.label,
+    CT.parent_or_self_label,
+    CT.parent_or_self_id
+FROM
+    rhnOrgChannelTreeView CT
 UNION
-select
-     ct.org_id,
-     ct.id,
-     CT.depth,
-     CT.name,
-     CT.channel_arch_id,
-     CT.padded_name,
-     (SELECT COUNT(1) 
-        FROM rhnServer S 
-       WHERE S.org_id = ct.org_id 
-         AND EXISTS (SELECT 1 FROM rhnServerChannel WHERE channel_id = ct.id AND server_id = S.id)),
-     NULL,
-     CT.last_modified,
-     CT.label,
-     CT.parent_or_self_label,
-     CT.parent_or_self_id
-from
-     rhnSharedChannelTreeView CT
+SELECT
+    CT.org_id,
+    CT.id,
+    CT.depth,
+    CT.name,
+    CT.channel_arch_id,
+    CT.padded_name,
+    (SELECT COUNT(1)
+     FROM rhnServer S 
+     INNER JOIN rhnServerChannel SC
+       ON SC.server_id = S.id
+     WHERE SC.channel_id = CT.id AND
+           S.org_id = CT.org_id),
+    NULL,
+    CT.last_modified,
+    CT.label,
+    CT.parent_or_self_label,
+    CT.parent_or_self_id
+FROM
+    rhnSharedChannelTreeView CT
 /
 
 --
