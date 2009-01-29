@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.5.1
+Version:    0.5.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -70,7 +70,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Wed Jan 21 2009 Mike McCune <mmccune@gmail.com>
+* Wed Jan 28 2009 Mike McCune <mmccune@gmail.com> 0.5.2-1
 - split out branding jar into its own subpackage.
 
 * Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.1-1
