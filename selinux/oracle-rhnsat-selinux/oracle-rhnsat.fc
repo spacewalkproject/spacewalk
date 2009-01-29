@@ -10,6 +10,7 @@
 # store database specific files under /rhnsat/admin/$ORACLE_SID hierarchy
 # treat dump files and audits as log files
 /rhnsat/admin/(.*/)?(a|b|c|u)dump(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+/rhnsat/admin/rhnsat/logs(/.*)?          gen_context(user_u:object_r:oracle_common_log_t,s0)
 
 /opt/apps/oracle/web/product/(.*/)?audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 

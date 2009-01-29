@@ -10,6 +10,8 @@ require {
 # Type for common, read-only directories
 type oracle_dir_t;
 files_type(oracle_dir_t);
+type oracle_common_log_t;
+files_type(oracle_common_log_t);
 
 # Allow db-control to feed sqlplus with input on stdin and read stdout
 allow oracle_db_t initrc_t:fifo_file { read write ioctl };
@@ -20,3 +22,10 @@ allow oracle_db_t oracle_db_log_t:lnk_file { read };
 # Allow database and sqlplus to walk these directories
 allow oracle_db_t oracle_dir_t:dir search_dir_perms;
 allow oracle_sqlplus_t oracle_dir_t:dir search_dir_perms;
+
+# Allow both sqlplus and db to log to these directories
+create_files_pattern(oracle_db_t, oracle_common_log_t, oracle_common_log_t)
+append_files_pattern(oracle_db_t, oracle_common_log_t, oracle_common_log_t)
+create_files_pattern(oracle_sqlplus_t, oracle_common_log_t, oracle_common_log_t)
+append_files_pattern(oracle_sqlplus_t, oracle_common_log_t, oracle_common_log_t)
+
