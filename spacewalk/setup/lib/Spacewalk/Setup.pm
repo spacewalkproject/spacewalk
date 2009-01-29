@@ -1066,6 +1066,8 @@ sub oracle_populate_db {
         '--nofork',
     );
 
+    local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
+    system('/sbin/restorecon', DB_POP_LOG_FILE);
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => DB_POP_LOG_FILE,
         -log_file_size => DB_POP_LOG_SIZE,
