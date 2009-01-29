@@ -2447,7 +2447,7 @@ public class ChannelManager extends BaseManager {
         long start, duration;
         
         RhnSet subscribeSet = RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.get(user);
-        RhnSet unsubscribeSet = RhnSetDecl.SSM_CHANNEL_SUBSCRIBE.get(user);
+        RhnSet unsubscribeSet = RhnSetDecl.SSM_CHANNEL_UNSUBSCRIBE.get(user);
 
         for (ChannelActionDAO action : actions) {
             Server server = action.getServer();
@@ -2468,66 +2468,67 @@ public class ChannelManager extends BaseManager {
             }
         }
 
-        start = System.currentTimeMillis();
-        RhnSetManager.store(subscribeSet);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to store subscription set: " + duration);
-        
-        start = System.currentTimeMillis();
-        RhnSetManager.store(unsubscribeSet);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to store unsubscription set: " + duration);
-
         Map<String, Object> params = new HashMap<String, Object>();
         
         // New Subscriptions
-        start = System.currentTimeMillis();
-        WriteMode doSubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
-            "subscribe_server_channels_in_set");
-        doSubscriptionsMode.executeUpdate(params);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to create all subscriptions: " + duration);
-        
-        start = System.currentTimeMillis();
-        WriteMode logSubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
-            "log_subscribe_server_channels_in_set");
-        logSubscriptionsMode.executeUpdate(params);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to log all subscriptions: " + duration);
+        if (subscribeSet.size() > 0) {
+            start = System.currentTimeMillis();
+            RhnSetManager.store(subscribeSet);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to store subscription set: " + duration);
+            
+            start = System.currentTimeMillis();
+            WriteMode doSubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
+                "subscribe_server_channels_in_set");
+            doSubscriptionsMode.executeUpdate(params);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to create all subscriptions: " + duration);
+            
+            start = System.currentTimeMillis();
+            WriteMode logSubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
+                "log_subscribe_server_channels_in_set");
+            logSubscriptionsMode.executeUpdate(params);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to log all subscriptions: " + duration);
+
+            start = System.currentTimeMillis();
+            params.put("set_label", "ssm_channel_subscribe");
+            WriteMode subscribeFlagMode = ModeFactory.getWriteMode("Channel_queries", 
+                "flag_server_channels_changed_in_set");
+            subscribeFlagMode.executeUpdate(params);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to flag for all subscriptions: " + duration);
+        }
         
         // Unsubscribe
-        start = System.currentTimeMillis();
-        WriteMode doUnsubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
-            "unsubscribe_server_channels_in_set");
-        doUnsubscriptionsMode.executeUpdate(params);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to do all unsubscriptions: " + duration);
-        
-        start = System.currentTimeMillis();
-        WriteMode logUnsubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
-            "log_unsubscribe_server_channels_in_set");
-        logUnsubscriptionsMode.executeUpdate(params);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to log all unsubscriptions: " + duration);
-        
-        // For each server that had actions (i.e. were added to the subscribe and
-        // unsubscribe RhnSets above), update the timestamp for when channels
-        // changed.
-        start = System.currentTimeMillis();
-        params.put("set_label", "ssm_channel_subscribe");
-        WriteMode subscribeFlagMode = ModeFactory.getWriteMode("Channel_queries", 
-            "flag_server_channels_changed_in_set");
-        subscribeFlagMode.executeUpdate(params);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to flag for all subscriptions: " + duration);
-        
-        start = System.currentTimeMillis();
-        params.put("set_label", "ssm_channel_unsubscribe");
-        WriteMode unsubscribeFlagMode = ModeFactory.getWriteMode("Channel_queries", 
-            "flag_server_channels_changed_in_set");
-        unsubscribeFlagMode.executeUpdate(params);
-        duration = System.currentTimeMillis() - start;
-        log.debug("Time to flag for all unsubscriptions: " + duration);
+        if (unsubscribeSet.size() > 0) {
+            start = System.currentTimeMillis();
+            RhnSetManager.store(unsubscribeSet);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to store unsubscription set: " + duration);
+    
+            start = System.currentTimeMillis();
+            WriteMode doUnsubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
+                "unsubscribe_server_channels_in_set");
+            doUnsubscriptionsMode.executeUpdate(params);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to do all unsubscriptions: " + duration);
+            
+            start = System.currentTimeMillis();
+            WriteMode logUnsubscriptionsMode = ModeFactory.getWriteMode("Channel_queries", 
+                "log_unsubscribe_server_channels_in_set");
+            logUnsubscriptionsMode.executeUpdate(params);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to log all unsubscriptions: " + duration);
+
+            start = System.currentTimeMillis();
+            params.put("set_label", "ssm_channel_unsubscribe");
+            WriteMode unsubscribeFlagMode = ModeFactory.getWriteMode("Channel_queries", 
+                "flag_server_channels_changed_in_set");
+            unsubscribeFlagMode.executeUpdate(params);
+            duration = System.currentTimeMillis() - start;
+            log.debug("Time to flag for all unsubscriptions: " + duration);
+        }
         
         // Clean up the sets
         subscribeSet.clear();

@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -85,8 +85,8 @@ for selinuxvariant in %{selinux_variants}
 
 /usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 || :
 
-rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
-/sbin/restorecon -rvvi /var/run/jabberd
+rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+/sbin/restorecon -ri /var/run/jabberd || :
 
 %postun
 # Clean up after package removal
@@ -100,8 +100,8 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t jabber_interserver_port_t -p tcp 5347 || :
 fi
 
-rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
-/sbin/restorecon -rvvi /var/run/jabberd
+rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+/sbin/restorecon -ri /var/run/jabberd || :
 
 %files
 %defattr(-,root,root,0755)
@@ -110,6 +110,10 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Jan 29 2009 Jan Pazdziora 1.4.0-3
+- silence restorecon in scriptlets, and ignore any errors
+- avoid .src.rpm-packing-time error when selinux-policy-devel is not installed
+
 * Mon Jan 12 2009 Jan Pazdziora 1.4.0-2
 - changes to allow /etc/init.d/jabberd start on RHEL 5.2 to run
   without any AVC denials

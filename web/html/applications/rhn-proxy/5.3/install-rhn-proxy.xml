@@ -4,7 +4,7 @@
 
   <name>Satellite Proxy</name>
   <label>rhn_proxy</label>
-  <version>5.2</version>
+  <version>5.3</version>
 
   <prerequisites>
     <org-channel-family>rhn-proxy</org-channel-family>
@@ -604,7 +604,8 @@ for service in jabberd squid httpd MonitoringScout; do
       /sbin/chkconfig --level 345 $service on
   fi
 done
-  </script>
+        </script>
+     </run-script>
 
       <run-script acl="session_data_false(enable_monitoring)">
         <action-name>Enable RHN Proxy services</action-name>
@@ -619,7 +620,6 @@ done
   </script>
 
       </run-script>
-    </schedule-actions>
 
       <run-script>
         <action-name>Restart RHN Proxy</action-name>

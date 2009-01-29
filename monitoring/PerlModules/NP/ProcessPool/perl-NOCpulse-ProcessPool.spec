@@ -1,12 +1,12 @@
 Name:         perl-NOCpulse-ProcessPool
-Version: 	  0.10.2
+Version: 	  0.10.3
 Release: 	  1%{?dist}
 Summary:      Perl implementation of a process pool
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version)) 
-BuildRequires: perl(FreezeThaw)
+BuildRequires: perl(FreezeThaw) perl(ExtUtils::MakeMaker)
 BuildRequires: perl(NOCpulse::Debuggable)
 Group:        Development/Libraries
 License:      GPLv2
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.10.3-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 0.10.2-1
 - edit spec to comply with Fedora Guidelines
 

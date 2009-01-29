@@ -36,16 +36,37 @@ while [ $# -ge 1 ]; do
 done
 
 default_or_input () {
-	unset INPUT
-	if [ "$INTERACTIVE" = "1" ]; then
+	local MSG="$1"
+	local VARIABLE="$2"
+	local DEFAULT="$3"
+
+	local INPUT
+        local CURRENT_VALUE=$(eval "echo \$$VARIABLE")
+        #in following code is used not so common expansion
+        #var_a=${var_b:-word}
+        #which is like: var_a = $var_b ? word
+	DEFAULT=${CURRENT_VALUE:-$DEFAULT}
+	echo -n "$MSG [$DEFAULT]: "
+	if [ "$INTERACTIVE" = "1" -a  -z "$CURRENT_VALUE" ]; then
 		read INPUT
 	else
 		echo
 	fi
-	if [ "$INPUT" = "" ]; then
-		INPUT="$1"
+	if [ -z "$INPUT" ]; then
+		INPUT="$DEFAULT"
 	fi
-	echo -n $INPUT 
+	eval "$VARIABLE='$INPUT'"
+}
+
+yes_no() {
+        case "$1" in
+                Y|y|Y/n|n/Y)
+                        echo 1
+                        ;;
+                *)
+                        echo 0
+                        ;;
+        esac
 }
 
 config_error () {
@@ -63,47 +84,33 @@ fi
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt /etc/sysconfig/rhn/systemid | cut -d- -f2`
 
-#in following code is used not so common expansion
-#var_a=${var_b:-word}
-#which is like: var_a = $var_b ? word
-
 DIR=/usr/share/doc/proxy/conf-template
-VERSION_DETECTED=${VERSION:-`rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2`}
 HOSTNAME=`hostname`
 
-echo "Proxy version to activate [$VERSION_DETECTED]: "
-VERSION=${VERSION:-`default_or_input $VERSION_DETECTED`}
+default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
 
-RHN_PARENT_DETECTED=${RHN_PARENT:-`grep serverURL= /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' |awk -F/ '{print $3}'`}
-echo "RHN Parent [$RHN_PARENT_DETECTED]: "
-RHN_PARENT=${RHN_PARENT:-`default_or_input $RHN_PARENT_DETECTED`}
+default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' /etc/sysconfig/rhn/up2date)
 
-echo "Traceback email [$TRACEBACK_EMAIL]: "
-TRACEBACK_EMAIL=${TRACEBACK_EMAIL:-`default_or_input `}
+default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
-echo "Use SSL [${USE_SSL:-1}]: "
-USE_SSL=${USE_SSL:-`default_or_input 1`}
+default_or_input "Use SSL" USE_SSL 'Y/n'
+USE_SSL=$(yes_no $USE_SSL)
 
-CA_CHAIN_DETECTED=${CA_CHAIN:-`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' | awk '-F;' '{print $1}'`}
-echo "CA Chain [$CA_CHAIN_DETECTED]: "
-CA_CHAIN=${CA_CHAIN:-`default_or_input $CA_CHAIN_DETECTED`}
+default_or_input "CA Chain" CA_CHAIN $(awk -F= '/sslCACert=/ {a=$2} END { print a}' /etc/sysconfig/rhn/up2date)
 
 if ! runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by apache user.
 	exit 1
 fi
 
-echo "HTTP Proxy [$HTTP_PROXY]: "
-HTTP_PROXY=${HTTP_PROXY:-`default_or_input `}
+default_or_input "HTTP Proxy" HTTP_PROXY ''
 
 if [ "$HTTP_PROXY" != "" ]; then
 
-	echo "HTTP username [$HTTP_USERNAME]: "
-	HTTP_USERNAME=${HTTP_USERNAME:-`default_or_input `}
+	default_or_input "HTTP username" HTTP_USERNAME ''
 
 	if [ "$HTTP_USERNAME" != "" ]; then
-		echo "HTTP password [$HTTP_PASSWORD]: "
-        HTTP_PASSWORD=${HTTP_PASSWORD:-`default_or_input `}
+		default_or_input "HTTP password" HTTP_PASSWORD ''
 	fi
 fi
 
@@ -114,26 +121,19 @@ This SSL certificate will allow client systems to connect to this Spacewalk Prox
 securely. Refer to the Spacewalk Proxy Installation Guide for more information.
 SSLCERT
 
-echo "Organization: $SSL_ORG"
-SSL_ORG=${SSL_ORG:-`default_or_input `}
+default_or_input "Organization" SSL_ORG ''
 
-echo "Organization Unit [${SSL_ORGUNIT:-$HOSTNAME}]: "
-SSL_ORGUNIT=${SSL_ORGUNIT:-`default_or_input $HOSTNAME`}
+default_or_input "Organization Unit" SSL_ORGUNIT "$HOSTNAME"
 
-echo "Common Name [${SSL_COMMON:-$HOSTNAME}]: "
-SSL_COMMON=${SSL_COMMON:-`default_or_input $HOSTNAME`}
+default_or_input "Common Name" SSL_COMMON "$HOSTNAME"
 
-echo "City: $SSL_CITY"
-SSL_CITY=${SSL_CITY:-`default_or_input `}
+default_or_input "City" SSL_CITY ''
 
-echo "State: $SSL_STATE"
-SSL_STATE=${SSL_STATE:-`default_or_input `}
+default_or_input "State" SSL_STATE ''
 
-echo "Country code: $SSL_COUNTRY"
-SSL_COUNTRY=${SSL_COUNTRY:-`default_or_input `}
+default_or_input "Country code" SSL_COUNTRY ''
 
-echo "Email [${SSL_EMAIL:-$TRACEBACK_EMAIL}]: "
-SSL_EMAIL=${SSL_EMAIL:-`default_or_input $TRACEBACK_EMAIL`}
+default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 
 
 /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
@@ -146,9 +146,9 @@ MONITORING=$?
 if [ $MONITORING -ne 0 ]; then
         echo "You do not have monitoring installed. Do you want to install it?"
 
-	echo "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'.  [${INSTALL_MONITORING:-Y/n}]:"
-	INSTALL_MONITORING=${INSTALL_MONITORING:-`default_or_input Y | tr y Y`}
-	if [ "$INSTALL_MONITORING" = "Y" ]; then
+        default_or_input "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
+        INSTALL_MONITORING=$(yes_no $INSTALL_MONITORING)
+	if [ "$INSTALL_MONITORING" = "1" ]; then
 	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
 	        MONITORING=$?
 	fi
@@ -160,23 +160,20 @@ if [ $MONITORING -eq 0 ]; then
 	#here we configure monitoring
 	#and with cluster.ini
 	echo "Configuring monitoring."
-        echo "Monitoring parent [${MONITORING_PARENT:-$RHN_PARENT}]:"
-        MONITORING_PARENT=${MONITORING_PARENT:-`default_or_input $RHN_PARENT`}
+        default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
         RESOLVED_IP=`/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' '`
-        echo "Monitoring parent IP [${MONITORING_PARENT_IP:-$RESOLVED_IP}]:"
-        MONITORING_PARENT_IP=${MONITORING_PARENT_IP:-`default_or_input $RESOLVED_IP`}
-        echo "Enable monitoring scout [${ENABLE_SCOUT:-y/N}]:"
-        ENABLE_SCOUT=${ENABLE_SCOUT:-`default_or_input N | tr nNyY 0011`}
-        echo "Your scout shared key (can be found on parent"
-        echo "in /etc/rhn/cluster.ini as key scoutsharedkey): $SCOUT_SHARED_KEY"
-        SCOUT_SHARED_KEY=${SCOUT_SHARED_KEY:-`default_or_input `}
+        default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
+        default_or_input "Enable monitoring scout" ENABLE_SCOUT "y/N"
+        ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
+        MSG=$(echo -n "Your scout shared key (can be found on parent\nin /etc/rhn/cluster.ini as key scoutsharedkey)")
+        default_or_input "$MSG" SCOUT_SHARED_KEY ''
 fi
 
 # size of squid disk cache will be 60% of free space on /var/spool/squid
 # df -P give free space in kB
 # * 60 / 100 is 60% of that space
 # / 1024 is to get value in MB
-SQUID_SIZE=$(( `df -P /var/spool/squid |tail -n1 | awk '{print $4 }'` * 60 / 100 / 1024 ))
+SQUID_SIZE=$(( `df -P /var/spool/squid | awk '{a=$4} END {print a}'` * 60 / 100 / 1024 ))
 
 cat $DIR/c2s.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/c2s.xml
 cat $DIR/sm.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/sm.xml
@@ -249,8 +246,7 @@ cat /etc/httpd/conf.d/ssl.conf.bak \
 
 
 CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
-echo "Create and populate configuration channel $CHANNEL_LABEL? [${POPULATE_CONFIG_CHANNEL:-Y/n}]:"
-POPULATE_CONFIG_CHANNEL=${POPULATE_CONFIG_CHANNEL:-`default_or_input Y | tr nNyY NNYY`}
+default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POPULATE_CONFIG_CHANNEL 'Y/n'
 if [ "$POPULATE_CONFIG_CHANNEL" = "Y" ]; then
 	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
 	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \

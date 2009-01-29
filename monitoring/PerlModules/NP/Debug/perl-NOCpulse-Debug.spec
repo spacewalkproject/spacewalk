@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.10
+Version:      1.23.13
 Release:      1%{?dist}
 Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
@@ -25,12 +25,16 @@ on various output streams.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor DESTDIR=$RPM_BUILD_ROOT
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make pure_install
+
+mkdir -p %{buildroot}%{_sysconfdir}/nocpulse
+install -m644 logging.ini %{buildroot}%{_sysconfdir}/nocpulse/logging.ini
+
+make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
@@ -46,10 +50,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%dir %{_sysconfdir}/nocpulse
+%config(noreplace) %{_sysconfdir}/nocpulse/logging.ini
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.13-1
+- own %%{perl_vendorlib}/NOCpulse
+- silent rpmlint by $RPM_BUILD_ROOT prefix to %%install
+- move logging.ini from Makefile.PL to spec
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.23.10-1
 - fix up spec so we can build
 

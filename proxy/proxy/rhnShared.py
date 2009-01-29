@@ -169,8 +169,8 @@ class SharedHandler:
     def _parse_url(self, url):
         # Returns scheme, host, port, path
         scheme, netloc, path, params, query, frag = rhnLib.parseUrl(url)
-        host, port = urllib.splitport(netloc)
-        if not port:
+        host, port = urllib.splitnport(netloc)
+        if (port <= 0):
             port = None
         return scheme, host, port, path
 

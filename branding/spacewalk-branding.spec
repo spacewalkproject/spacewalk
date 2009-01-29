@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.5.1
+Version:    0.5.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -11,29 +11,42 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
 Requires:   spacewalk-html
+BuildRequires: java-devel >= 1.5.0
 
 
 %description
 Spacewalk specific branding, CSS, and images.
 
+%package jar
+Group:      Applications/Internet
+Summary: Jar file containing l10n strings for Java
+
+%description jar
+This package contains the branding-java.jar file used to contain product specific strings.
 
 %prep
 %setup -q
 
-
 %build
 
+javac java/code/src/com/redhat/rhn/branding/strings/StringPackage.java
+rm -f java/code/src/com/redhat/rhn/branding/strings/StringPackage.java
+jar -cf java-branding.jar -C java/code/src com
 
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}/%{_var}/www/html
 install -d -m 755 %{buildroot}/%{_var}/www/html/nav
 install -d -m 755 %{buildroot}%{_datadir}/spacewalk
+install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
+install -d -m 755 %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/
 cp -R css %{buildroot}/%{_var}/www/html/
 cp -R img %{buildroot}/%{_var}/www/html/
 cp -R templates %{buildroot}/%{_var}/www/html/
 cp -R styles %{buildroot}/%{_var}/www/html/nav/
 cp -R setup  %{buildroot}%{_datadir}/spacewalk/
+cp -R java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
+ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 
 %clean
 rm -rf %{buildroot}
@@ -52,7 +65,15 @@ rm -rf %{buildroot}
 /%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
 
+%files jar
+%{_datadir}/rhn/lib/java-branding.jar
+%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
+
+
 %changelog
+* Wed Jan 28 2009 Mike McCune <mmccune@gmail.com> 0.5.3-1
+- split out branding jar into its own subpackage.
+
 * Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.1-1
 - modified branding according to jsp layout changes
 
