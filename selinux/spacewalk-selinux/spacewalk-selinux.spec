@@ -28,8 +28,8 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
 Requires:       spacewalk-backend
@@ -89,6 +89,8 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
+/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
+
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
@@ -101,6 +103,7 @@ if [ $1 -eq 0 ]; then
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
+  /usr/sbin/semanage port -d -t cobbler_port_t -p tcp 25152 || :
 fi
 
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
