@@ -22,7 +22,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:         oracle-server = 10.2.0.4
+Requires:         oracle-server >= 10.2.0.3
 Requires:         oracle-nofcontext-selinux
 
 %description
