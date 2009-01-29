@@ -96,7 +96,7 @@ default_or_input "Traceback email" TRACEBACK_EMAIL ''
 default_or_input "Use SSL" USE_SSL 'Y/n'
 USE_SSL=$(yes_no $USE_SSL)
 
-default_or_input "CA Chain" CA_CHAIN $(grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}')
+default_or_input "CA Chain" CA_CHAIN $(awk -F= '/sslCACert=/ {a=$2} END { print a}' /etc/sysconfig/rhn/up2date)
 
 if ! runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by apache user.
