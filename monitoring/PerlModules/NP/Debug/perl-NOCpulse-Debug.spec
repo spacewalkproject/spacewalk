@@ -25,12 +25,12 @@ on various output streams.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor DESTDIR=$RPM_BUILD_ROOT
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make pure_install
+make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
@@ -53,6 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.11-1
 - own %%{perl_vendorlib}/NOCpulse
+- silent rpmlint by $RPM_BUILD_ROOT prefix to %%install
 
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.23.10-1
 - fix up spec so we can build
