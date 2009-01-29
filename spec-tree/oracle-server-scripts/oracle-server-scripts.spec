@@ -97,7 +97,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Thu Jan 29 2009 Jan Pazdziora
+* Thu Jan 29 2009 Jan Pazdziora 10.2.0-23
 - run restorecon on /rhnsat/(admin|data)/rhnsat
 - put audit logs to adump, resolves selinux error (Michael M.)
 - move listener check down
