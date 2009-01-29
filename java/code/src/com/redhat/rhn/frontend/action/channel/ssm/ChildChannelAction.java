@@ -148,6 +148,9 @@ public class ChildChannelAction extends RhnAction {
             if ("subscribe".equals(aValue)) {
                 subList.add(aName);
             }
+            else if ("unsubscribe".equals(aValue)) {
+                unsubList.add(aName);
+            }
         }
 
         storeChannelChanges(user, subList, unsubList);
