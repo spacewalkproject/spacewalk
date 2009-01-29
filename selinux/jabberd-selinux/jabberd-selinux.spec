@@ -112,7 +112,7 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %changelog
 * Thu Jan 29 2009 Jan Pazdziora 1.4.0-3
 - silence restorecon in scriptlets, and ignore any errors
-- avoid .src.rpm-packing-tim error when selinux-policy-devel is not installed
+- avoid .src.rpm-packing-time error when selinux-policy-devel is not installed
 
 * Mon Jan 12 2009 Jan Pazdziora 1.4.0-2
 - changes to allow /etc/init.d/jabberd start on RHEL 5.2 to run
