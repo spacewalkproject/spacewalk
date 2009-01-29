@@ -19426,8 +19426,20 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 
       <!-- SSM channel-subs -->
 	<group>
-	  <trans-unit id="ssmchildsubs.jsp.subscribed">
-        <source>Subscribed</source>
+	  <trans-unit id="ssmchildsubs.jsp.subscribe">
+        <source>Subscribe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+        </context-group>
+      </trans-unit>
+	  <trans-unit id="ssmchildsubs.jsp.unsubscribe">
+        <source>Unsubscribe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+        </context-group>
+      </trans-unit>
+	  <trans-unit id="ssmchildsubs.jsp.donothing">
+        <source>Do Nothing</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
         </context-group>
