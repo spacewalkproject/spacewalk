@@ -13,7 +13,6 @@ WriteMakefile(
                             'Log/Logger.pm'     => '$(INST_LIBDIR)/Log/Logger.pm',
                             'Log/LogManager.pm' => '$(INST_LIBDIR)/Log/LogManager.pm',
                             'Log/test/TestLogger.pm' => '$(INST_LIBDIR)/Log/test/TestLogger.pm',
-                            'logging.ini'     => '$(DESTDIR)/etc/nocpulse/logging.ini',
                            },    
     ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM => 'Debug.pm', # retrieve abstract from module

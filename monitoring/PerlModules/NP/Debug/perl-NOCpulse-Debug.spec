@@ -30,6 +30,10 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+mkdir -p %{buildroot}%{_sysconfdir}/nocpulse
+install -m644 logging.ini %{buildroot}%{_sysconfdir}/nocpulse/logging.ini
+
 make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
@@ -46,6 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%dir %{_sysconfdir}/nocpulse
+%config(noreplace) %{_sysconfdir}/nocpulse/logging.ini
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
@@ -54,6 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.12-1
 - own %%{perl_vendorlib}/NOCpulse
 - silent rpmlint by $RPM_BUILD_ROOT prefix to %%install
+- move logging.ini from Makefile.PL to spec
 
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.23.10-1
 - fix up spec so we can build
