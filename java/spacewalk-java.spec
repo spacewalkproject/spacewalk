@@ -50,7 +50,6 @@ Requires: sitemesh
 Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
-Requires: spacewalk-branding-jar
 Requires: jpackage-utils >= 0:1.5
 Requires: cobbler >= 0:1.4
 BuildRequires: ant
@@ -143,7 +142,6 @@ Requires: xerces-j2
 Requires: tanukiwrapper
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
-Requires: spacewalk-branding-jar
 Requires: concurrent
 Requires: quartz
 Requires: cobbler >= 0:1.4

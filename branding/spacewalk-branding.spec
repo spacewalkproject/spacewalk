@@ -10,19 +10,10 @@ Source0:    %{name}-%{version}.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
-Requires:   spacewalk-html
 BuildRequires: java-devel >= 1.5.0
-
 
 %description
 Spacewalk specific branding, CSS, and images.
-
-%package jar
-Group:      Applications/Internet
-Summary: Jar file containing l10n strings for Java
-
-%description jar
-This package contains the branding-java.jar file used to contain product specific strings.
 
 %prep
 %setup -q
@@ -64,8 +55,6 @@ rm -rf %{buildroot}
 %dir /%{_var}/www/html/nav/styles
 /%{_var}/www/html/nav/styles/*
 %{_datadir}/spacewalk/
-
-%files jar
 %{_datadir}/rhn/lib/java-branding.jar
 %{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 
