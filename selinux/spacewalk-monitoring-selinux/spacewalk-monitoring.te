@@ -2,6 +2,7 @@ policy_module(spacewalk-monitoring,@@VERSION@@)
 
 require {
 	type initrc_t;
+	type java_t;
 }
 
 type spacewalk_monitoring_t;
@@ -10,4 +11,5 @@ type spacewalk_monitoring_exec_t;
 files_type(spacewalk_monitoring_exec_t);
 
 domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
+domain_auto_trans(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 
