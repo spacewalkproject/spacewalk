@@ -16,3 +16,4 @@ domtrans_pattern(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 
 files_search_etc(spacewalk_monitoring_t)
 libs_use_shared_libs(spacewalk_monitoring_t)
+libs_use_ld_so(spacewalk_monitoring_t)
