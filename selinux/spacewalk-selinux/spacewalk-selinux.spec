@@ -8,7 +8,7 @@
 
 Name:           spacewalk-selinux
 Version:        0.4.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -115,6 +115,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Fri Jan 30 2009 Jan Pazdziora 0.4.1-9
+- change type of populate_db.log
+- add definition of cobbler port 25152, allow httpd to connect
+
 * Thu Jan 29 2009 Jan Pazdziora 0.4.1-8
 - make install_db.log of type spacewalk_install_log_t
 - avoid .src.rpm-packing-time error when selinux-policy-devel is not installed
