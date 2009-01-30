@@ -16,7 +16,7 @@ domain_entry_file(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
 domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 domtrans_pattern(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 
-files_search_etc(spacewalk_monitoring_t)
+files_read_etc_files(spacewalk_monitoring_t)
 libs_use_shared_libs(spacewalk_monitoring_t)
 libs_use_ld_so(spacewalk_monitoring_t)
 miscfiles_read_localization(spacewalk_monitoring_t)
