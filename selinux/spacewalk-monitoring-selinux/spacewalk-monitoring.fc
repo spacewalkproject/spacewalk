@@ -1,4 +1,5 @@
 
 /etc/rc\.d/np\.d/step gen_context(system_u:object_r:spacewalk_monitoring_exec_t,s0)
 /etc/rc\.d/np\.d/sysvStep gen_context(system_u:object_r:spacewalk_monitoring_exec_t,s0)
+/etc/rc\.d/np\.d/.*\.pm gen_context(system_u:object_r:lib_t,s0)
 

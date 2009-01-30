@@ -88,7 +88,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -rv /etc/rc.d/np.d/step /etc/rc.d/np.d/sysvStep
+/sbin/restorecon -rv /etc/rc.d/np.d
 
 %postun
 # Clean up after package removal
@@ -100,7 +100,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvi /etc/rc.d/np.d/step /etc/rc.d/np.d/sysvStep
+/sbin/restorecon -rvi /etc/rc.d/np.d
 
 %files
 %defattr(-,root,root,0755)
