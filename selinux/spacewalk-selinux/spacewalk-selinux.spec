@@ -7,8 +7,8 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.4.1
-Release:        9%{?dist}
+Version:        0.5.1
+Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -115,6 +115,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Fri Jan 30 2009 Jan Pazdziora 0.5.1-1
+- bump version to 0.5.*
+
 * Fri Jan 30 2009 Jan Pazdziora 0.4.1-9
 - change type of populate_db.log
 - add definition of cobbler port 25152, allow httpd to connect
