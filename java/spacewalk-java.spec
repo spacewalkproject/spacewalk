@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -220,6 +220,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Jan 30 2009 Mike McCune <mmccune@gmail.com> 0.5.7-1
+- removing requirement for spacewalk-branding-jar
+
 * Fri Jan 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - 483058 - subscribe to proxy channel if requested
 - 482923 - splitting out the java branding jar file into its own subpackage
