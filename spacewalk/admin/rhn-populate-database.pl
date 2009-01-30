@@ -113,8 +113,8 @@ my $dsn = '';
 system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
 if ($postgresql) {
     print "*** Installing PostgreSQL schema.\n";
-    my $psql_cmd = "PGPASSWORD=" . $password . " psql -U " . $user . " -h " . 
-        $host . " " . $database . " < " . $schema_deploy_file;
+    chdir("/usr/share/spacewalk/schema/postgresql/");
+    my $psql_cmd = "PGPASSWORD=$password psql -U $user -h $host -d $database -v ON_ERROR_STOP= -f $schema_deploy_file";
     $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $psql_cmd);
 }
 else {

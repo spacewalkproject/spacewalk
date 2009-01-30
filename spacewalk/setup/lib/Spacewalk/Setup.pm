@@ -32,10 +32,13 @@ our $VERSION = '0.2';
 
 use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
-use constant SHARED_DIR => "/usr/share/spacewalk/setup";
+use constant SHARED_DIR => "/usr/share/spacewalk";
+
+use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile(SHARED_DIR, 
+    'schema', 'postgresql', 'main.sql');
 
 use constant DEFAULT_ANSWER_FILE_GLOB =>
-  SHARED_DIR . '/defaults.d/*.conf';
+  SHARED_DIR . '/setup/defaults.d/*.conf';
 
 use constant DEFAULT_RHN_CONF_LOCATION =>
   '/etc/rhn/rhn.conf';
@@ -710,18 +713,18 @@ sub postgresql_populate_db {
     #    }
     #}
 
-    my $sat_schema_deploy = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 
-        'postgresql.universe.satellite.sql');
+    my $sat_schema_deploy = POSTGRESQL_SCHEMA_FILE;
+    my $logfile = DB_POP_LOG_FILE;
 
     my @opts = ('/usr/bin/rhn-populate-database.pl',
         sprintf('--user=%s', @{$answers}{'db-user'}),
         sprintf('--password=%s', @{$answers}{'db-password'}),
         sprintf('--database=%s', @{$answers}{'db-sid'}),
         sprintf('--host=%s', @{$answers}{'db-host'}),
-        "--schema-deploy-file=$sat_schema_deploy",
-        '--log=' . Spacewalk::Setup::DB_POP_LOG_FILE,
-        '--nofork',
-        '--postgresql',
+        sprintf("--schema-deploy-file=$sat_schema_deploy"),
+        sprintf("--log=$logfile"),
+        sprintf('--nofork'),
+        sprintf('--postgresql'),
     );
 
     print_progress(-init_message => "*** Progress: #",
@@ -827,7 +830,7 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    '/bin/bash ' . Spacewalk::Setup::SHARED_DIR . '/upgrage-db.sh 1>> ' .  Spacewalk::Setup::DB_UPGRADE_LOG_FILE . ' 2>&1']);
+                                    '/bin/bash ' . Spacewalk::Setup::SHARED_DIR . '/setup/upgrage-db.sh 1>> ' .  Spacewalk::Setup::DB_UPGRADE_LOG_FILE . ' 2>&1']);
 
         return 0;
     }
@@ -839,7 +842,7 @@ EOQ
     }
 
     if (-d "/rhnsat/data") {
-        my $shared_dir = Spacewalk::Setup::SHARED_DIR;
+        my $shared_dir = Spacewalk::Setup::SHARED_DIR . "/setup";
         print Spacewalk::Setup::loc(<<EOQ);
 The embedded database appears to be already installed. Either rerun
 this script with the --skip-db-install option, or use the
@@ -852,7 +855,7 @@ EOQ
 
     if (not $opts->{"skip-db-diskspace-check"}) {
         Spacewalk::Setup::system_or_exit(['python', Spacewalk::Setup::SHARED_DIR .
-            '/embedded_diskspace_check.py'], 14,
+            '/setup/embedded_diskspace_check.py'], 14,
             'There is not enough space available for the embedded database.');
     }
     else {
@@ -876,7 +879,7 @@ EOQ
 		-log_file_size => Spacewalk::Setup::DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ "/bin/bash " . Spacewalk::Setup::SHARED_DIR . "/oracle/install-db.sh 1>> " . Spacewalk::Setup::DB_INSTALL_LOG_FILE . " 2>&1" ]);
+		-system_opts => [ "/bin/bash " . Spacewalk::Setup::SHARED_DIR . "/setup/oracle/install-db.sh 1>> " . Spacewalk::Setup::DB_INSTALL_LOG_FILE . " 2>&1" ]);
 
     print Spacewalk::Setup::loc("** Database: Installation complete.\n");
 

@@ -226,7 +226,7 @@ sub setup_sudoers {
   #If sudoers isn't there, put it there.
   if (not -e '/etc/sudoers') {
     Spacewalk::Setup::system_debug('cp ' . Spacewalk::Setup::SHARED_DIR .
-        '/sudoers.base /etc/sudoers');
+        '/setup/sudoers.base /etc/sudoers');
     chmod(0440, '/etc/sudoers');
   }
 
@@ -234,7 +234,7 @@ sub setup_sudoers {
 
   if ($ret) {
     system('cat ' . Spacewalk::Setup::SHARED_DIR .
-        '/sudoers.rhn >> /etc/sudoers');
+        '/setup/sudoers.rhn >> /etc/sudoers');
   }
 
   # sudo: do not require a real tty for tomcat and apache
