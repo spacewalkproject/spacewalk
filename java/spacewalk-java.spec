@@ -222,6 +222,12 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Jan 30 2009 Miroslav Suchý <msuchy@redhat.com>
+- 483058 - subscribe to proxy channel if requested
+- 482923 - splitting out the java branding jar file into its own subpackage
+- 459085 - Added (and defaulted) option for Do Nothing
+- 469984 - Restructuring to avoid DB hits entirely if there are no channels selected to either subscribe or unsubscribe.
+
 * Wed Jan 28 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
 - 468052 - throw exception if proxy do not has provisioning entitlement
 - 481671 - improved the performance of a query

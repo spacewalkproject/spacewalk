@@ -1363,10 +1363,12 @@ public class SystemManager extends BaseManager {
         info.setServer(server);
         info.setVersion(null, version, "1");
         server.setProxyInfo(info);
-        Channel proxyChannel = ChannelManager.getProxyChannelByVersion(version,
-                server);
-        if (proxyChannel != null) {
-            subscribeServerToChannel(null, server, proxyChannel);    
+        if (Config.get().getBoolean(Config.WEB_SUBSCRIBE_PROXY_CHANNEL)) {
+            Channel proxyChannel = ChannelManager.getProxyChannelByVersion(
+                    version, server);
+            if (proxyChannel != null) {
+                subscribeServerToChannel(null, server, proxyChannel);    
+            }
         }
         
     }

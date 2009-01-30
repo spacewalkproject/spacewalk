@@ -143,6 +143,8 @@ public class Config {
     public static final String PRODUCT_NAME = "web.product_name";
     
     public static final String COBBLER_AUTOMATED_USER = "web.taskomatic_cobbler_user";
+
+    public static final String WEB_SUBSCRIBE_PROXY_CHANNEL = "web.subscribe_proxy_channel";
     
 
     /**

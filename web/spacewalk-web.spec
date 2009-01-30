@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Jan 30 2009 Miroslav Suchý <msuchy@redhat.com>
+- 483058 - subscribe to proxy channel if requested
+
 * Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - 482926 - fix proxy webui installer
 
