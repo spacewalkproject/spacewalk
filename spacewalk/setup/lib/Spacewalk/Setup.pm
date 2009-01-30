@@ -683,11 +683,8 @@ sub postgresql_populate_db {
     #oracle_populate_tablespace_name($tablespace_name);
 
     if ($opts->{"clear-db"}) {
-        print Spacewalk::Setup::loc("** Database: --clear-db not supported for PostgreSQL.\n");
-        print Spacewalk::Setup::loc("** Database: Please see documentation on dropdb/createdb commands.\n");
-        exit 1;
-        #print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
-        #Spacewalk::Setup::clear_db($answers);
+        print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
+        postgresql_clear_db($answers);
     }
 
     if (postgresql_test_db_schema($answers)) {
@@ -700,12 +697,9 @@ sub postgresql_populate_db {
         );
 
         if ($answers->{"clear-db"} =~ /Y/i) {
-            print Spacewalk::Setup::loc("** Database: --clear-db not supported for PostgreSQL.\n");
-            print Spacewalk::Setup::loc("** Database: Please see documentation on dropdb/createdb commands.\n");
-            exit 1;
-    #        print Spacewalk::Setup::loc("** Database: Clearing database.\n");
-    #        Spacewalk::Setup::clear_db($answers);
-    #        print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
+            print Spacewalk::Setup::loc("** Database: Clearing database.\n");
+            postgresql_clear_db($answers);
+            print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
         }
         else {
             print Spacewalk::Setup::loc("**Database: The database already has schema.  Skipping database population.");
@@ -751,6 +745,32 @@ sub postgresql_test_db_schema {
     $dbh->disconnect();
     return $row ? 1 : 0;
 }
+
+# Clear the PostgreSQL schema by deleting the 'public' schema with cascade, 
+# then re-creating it.
+sub postgresql_clear_db {
+    my $answers = shift;
+    my $dbh = get_dbh($answers);
+
+    # Silence "NOTICE:" lines:
+    open STDERR, "| grep -v '^NOTICE:  '"
+        or die "Cannot pipe STDERR to grep\n";
+
+    my $sth = $dbh->prepare("DROP SCHEMA public CASCADE");
+    $sth->execute;
+
+    close STDERR;
+
+    $sth = $dbh->prepare("CREATE SCHEMA public");
+    $sth->execute;
+    $sth->finish;
+
+    $sth = $dbh->commit();
+
+    $dbh->disconnect();
+    return 1;
+}
+
 
 
 ########################
