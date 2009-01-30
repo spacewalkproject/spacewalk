@@ -690,28 +690,28 @@ sub postgresql_populate_db {
         #Spacewalk::Setup::clear_db($answers);
     }
 
-    #if (oracle_test_db_schema($answers)) {
-    #    ask(
-    #        -noninteractive => $opts->{"non-interactive"},
-    #        -question => "The Database has schema.  Would you like to clear the database",
-    #        -test => qr/(Y|N)/i,
-    #        -answer => \$answers->{'clear-db'},
-    #        -default => 'Y',
-    #    );
+    if (postgresql_test_db_schema($answers)) {
+        ask(
+            -noninteractive => $opts->{"non-interactive"},
+            -question => "The Database has schema.  Would you like to clear the database",
+            -test => qr/(Y|N)/i,
+            -answer => \$answers->{'clear-db'},
+            -default => 'Y',
+        );
 
-    #    if ($answers->{"clear-db"} =~ /Y/i) {
+        if ($answers->{"clear-db"} =~ /Y/i) {
+            print Spacewalk::Setup::loc("** Database: --clear-db not supported for PostgreSQL.\n");
+            print Spacewalk::Setup::loc("** Database: Please see documentation on dropdb/createdb commands.\n");
+            exit 1;
     #        print Spacewalk::Setup::loc("** Database: Clearing database.\n");
-
     #        Spacewalk::Setup::clear_db($answers);
-
     #        print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
-    #    }
-    #    else {
-    #        print Spacewalk::Setup::loc("**Database: The database already has schema.  Skipping database population.");
-
-    #        return 1;
-    #    }
-    #}
+        }
+        else {
+            print Spacewalk::Setup::loc("**Database: The database already has schema.  Skipping database population.");
+            return 1;
+        }
+    }
 
     my $sat_schema_deploy = POSTGRESQL_SCHEMA_FILE;
     my $logfile = DB_POP_LOG_FILE;
@@ -735,6 +735,21 @@ sub postgresql_populate_db {
         -system_opts => [@opts]);
 
     return 1;
+}
+
+# Check if the database appears to already have schema loaded:
+sub postgresql_test_db_schema {
+    my $answers = shift;
+    my $dbh = get_dbh($answers);
+
+    # Assumption, if web_customer table exists then schema exists:
+    my $sth = $dbh->prepare("SELECT tablename from pg_tables where schemaname='public' and tablename='web_customer'");
+
+    $sth->execute;
+    my ($row) = $sth->fetchrow;
+    $sth->finish;
+    $dbh->disconnect();
+    return $row ? 1 : 0;
 }
 
 
