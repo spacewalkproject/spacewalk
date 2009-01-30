@@ -12,5 +12,5 @@ files_type(spacewalk_monitoring_exec_t);
 
 domain_entry_file(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
 domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
-domain_auto_trans(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
+domtrans_pattern(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 
