@@ -11,6 +11,8 @@ type spacewalk_monitoring_exec_t;
 files_type(spacewalk_monitoring_exec_t);
 type spacewalk_monitoring_log_t;
 logging_log_file(spacewalk_monitoring_log_t);
+type spacewalk_monitoring_var_run_t;
+files_pid_file(spacewalk_monitoring_var_run_t);
 
 domain_entry_file(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
 domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
@@ -25,3 +27,6 @@ dev_read_urand(spacewalk_monitoring_t)
 logging_log_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_log_t, file)
 create_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log_t)
 append_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log_t)
+
+files_pid_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_var_run_t, file)
+manage_files_pattern(spacewalk_monitoring_t, var_run_t, spacewalk_monitoring_var_run_t)
