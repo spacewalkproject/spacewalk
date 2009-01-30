@@ -15,8 +15,10 @@
 package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,18 +110,24 @@ public class NewChannelHelper {
         ChannelFactory.save(cloned);
         cloned = (ClonedChannel)ChannelFactory.reload(cloned);
         
-        cloned.setGloballySubscribable(true, cloned.getOrg());
+        cloned.setGloballySubscribable(true, cloned.getOrg());                
         
         if (originalState) {
             List originalPacks = ChannelFactory.findOriginalPackages(toClone, 
-                    user.getOrg());
-            cloned.getPackages().addAll(originalPacks);
+                    user.getOrg()); 
+            Long clonedChannelId = cloned.getId();
+            for (Iterator it = originalPacks.iterator(); it.hasNext();) {     
+                Long pid = (Long) it.next();
+                if (UserManager.verifyPackageAccess(user.getOrg(), pid)) {
+                   ChannelFactory.addChannelPackage(clonedChannelId, pid); 
+                }
+            }            
         }
         else {
             cloned.getPackages().addAll(toClone.getPackages());
             cloned.getErratas().addAll(toClone.getErratas());
         }
-           
+                   
         //adopt the channel into the org's channelfamily
         ChannelFamilyFactory.lookupByOrg(user.getOrg()).getChannels().add(cloned);
         cloned.setChannelFamily(ChannelFamilyFactory.lookupByOrg(user.getOrg()));

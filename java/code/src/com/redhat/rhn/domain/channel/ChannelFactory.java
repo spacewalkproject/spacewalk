@@ -14,6 +14,20 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Restrictions;
+
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -23,24 +37,8 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Restrictions;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelFactory
@@ -340,6 +338,20 @@ public class ChannelFactory extends HibernateFactory {
     }
     
     /**
+     * 
+     * @param cid Channel package is being added to
+     * @param pid Package id from rhnPackage
+     */
+    public static void addChannelPackage(Long cid, Long pid) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        "add_channel_package");
+        Map params = new HashMap();        
+        params.put("cid", cid);
+        params.put("pid", pid);
+        m.executeUpdate(params);        
+    }
+    
+    /**
      * Returns available entitlements for the org and the given channel.
      * @param org Org (used <b>only</b> when channel's org is NULL)
      * @param c Channel
@@ -535,12 +547,7 @@ public class ChannelFactory extends HibernateFactory {
             params.put("org_id", org.getId());
             List idList = singleton.listObjectsByNamedQuery(
                     "Channel.lookupOriginalPackages", params);
-            List returnList = new ArrayList();
-            for (Iterator it = idList.iterator(); it.hasNext();) {
-                returnList.add(PackageFactory.lookupByIdAndOrg(
-                        ((Long) it.next()).longValue(), org));
-            }
-            return returnList;
+            return idList;
     }
     
     /**
