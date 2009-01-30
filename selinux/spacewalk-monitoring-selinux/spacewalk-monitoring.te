@@ -19,6 +19,9 @@ domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 domtrans_pattern(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 
 files_read_etc_files(spacewalk_monitoring_t)
+allow spacewalk_monitoring_t etc_t:dir { write add_name };
+allow spacewalk_monitoring_t etc_t:lnk_file create;
+
 libs_use_shared_libs(spacewalk_monitoring_t)
 libs_use_ld_so(spacewalk_monitoring_t)
 miscfiles_read_localization(spacewalk_monitoring_t)
