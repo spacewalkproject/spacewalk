@@ -22,9 +22,9 @@ import com.redhat.rhn.FaultException;
 
 /**
  * Proxy need provisioning entitlements.
- * <p>
-
  *
+ * @author msuchy
+ * @version $Rev$
  * 
  */
 public class ProxyNeedProvisioningException extends FaultException  {
