@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.5
+Version:        0.5.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Jan 30 2009 Jan Pazdziora 0.5.6-1
+- run restorecon on populate_db.log
+
 * Thu Jan 29 2009 Jan Pazdziora 0.5.5-1
 - numerous changes to support clean embedded database installation
 - avoid fully qualifying objects with Spacewalk::Setup::
