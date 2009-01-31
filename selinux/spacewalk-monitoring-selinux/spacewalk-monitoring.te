@@ -72,3 +72,5 @@ kernel_read_system_state(spacewalk_monitoring_t)
 
 files_getattr_var_lib_dirs(spacewalk_monitoring_t)
 files_search_var_lib(spacewalk_monitoring_t)
+
+sysnet_domtrans_ifconfig(spacewalk_monitoring_t)
