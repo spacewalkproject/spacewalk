@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ChannelProduct;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.channel.test.ChannelFamilyFactoryTest;
 import com.redhat.rhn.domain.common.ProvisionState;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
@@ -844,6 +845,11 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         
         ChannelFamily proxyFam = ChannelFamilyFactory.lookupByLabel(
                 ChannelFamilyFactory.PROXY_CHANNEL_FAMILY_LABEL, owner.getOrg());
+        if (proxyFam == null) {
+            proxyFam = ChannelFamilyFactoryTest.createTestChannelFamily(owner);
+            proxyFam.setLabel(ChannelFamilyFactory.PROXY_CHANNEL_FAMILY_LABEL);
+            ChannelFamilyFactory.save(proxyFam);
+        }
         chanFamilies.add(proxyFam);
         
         ChannelProduct product = new ChannelProduct();
