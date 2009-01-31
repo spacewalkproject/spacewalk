@@ -3,6 +3,7 @@ policy_module(spacewalk-monitoring,@@VERSION@@)
 require {
 	type initrc_t;
 	type java_t;
+	type devpts_t;
 }
 
 type spacewalk_monitoring_t;
@@ -33,3 +34,5 @@ append_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log
 
 files_pid_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_var_run_t, file)
 manage_files_pattern(spacewalk_monitoring_t, var_run_t, spacewalk_monitoring_var_run_t)
+
+allow spacewalk_monitoring_t devpts_t:chr_file { read write ioctl getattr };
