@@ -8,3 +8,5 @@
 /var/log/SysVStep\.log gen_context(system_u:object_r:spacewalk_monitoring_log_t,s0)
 
 /var/run/SysVStep\..* gen_context(system_u:object_r:spacewalk_monitoring_var_run_t,s0)
+
+/etc/notification(/.*)? gen_context(system_u:object_r:spacewalk_monitoring_conf_t,s0)

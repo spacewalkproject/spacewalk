@@ -34,6 +34,7 @@ Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       spacewalk-selinux
 Requires:       SatConfig-general
+Requires:       NPalert
 
 %description
 SELinux policy module supporting Spacewalk monitoring.
@@ -88,7 +89,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -rv /etc/rc.d/np.d
+/sbin/restorecon -rv /etc/rc.d/np.d /etc/notification
 
 %postun
 # Clean up after package removal
@@ -100,7 +101,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvi /etc/rc.d/np.d
+/sbin/restorecon -rvi /etc/rc.d/np.d /etc/notification
 
 %files
 %defattr(-,root,root,0755)
