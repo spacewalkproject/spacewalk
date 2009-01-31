@@ -14,18 +14,6 @@
  */
 package com.redhat.rhn.domain.server;
 
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.InvalidCertificateException;
 import com.redhat.rhn.common.db.datasource.CallableMode;
@@ -40,6 +28,18 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.ChannelSubscriptionException;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ServerFactory - the singleton class used to fetch and store
@@ -258,6 +258,18 @@ public class ServerFactory extends HibernateFactory {
         
         singleton.removeObject(keyIn);
     }
+    
+    /**
+     * Remove proxy info object associated to the server.
+     * @param server the server to deProxify
+     */
+    public static void deproxify(Server server) {
+        if (server.getProxyInfo() != null) {
+            ProxyInfo info = server.getProxyInfo();
+            singleton.removeObject(info);
+            server.setProxyInfo(null);
+        }
+    }    
 
     /**
      * Deletes a server

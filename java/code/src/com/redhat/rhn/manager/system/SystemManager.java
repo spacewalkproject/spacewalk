@@ -1287,7 +1287,7 @@ public class SystemManager extends BaseManager {
 
         // freakin hibernate can't do a simple bulk delete statement unless
         // it uses HQL!
-        server.setProxyInfo(null);
+        ServerFactory.deproxify(server);
         executeWriteMode("Monitoring_queries",
                 "delete_probe_states_from_server", params);
         executeWriteMode("Monitoring_queries",

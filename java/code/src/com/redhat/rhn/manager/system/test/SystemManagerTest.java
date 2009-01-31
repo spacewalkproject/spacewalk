@@ -892,6 +892,17 @@ public class SystemManagerTest extends RhnBaseTestCase {
         }
     }
     
+    public void testDeactivateProxy() throws Exception {
+        User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
+        user.addRole(RoleFactory.ORG_ADMIN);
+        Server server = ServerFactoryTest.createTestProxyServer(user, true);
+        assertTrue(server.isProxy());
+        SystemManager.deactivateProxy(server);
+        ServerFactory.save(server);
+        server = (Server) reload(server);
+        assertFalse(server.isProxy());
+    }
+    
     public void testCanServerSubscribeToChannel() throws Exception {
         Server server = ServerTestUtils.createTestSystem();
         Channel childChannel = ChannelTestUtils.createChildChannel(server.getCreator(), 
