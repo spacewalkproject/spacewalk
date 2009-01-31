@@ -76,6 +76,6 @@ files_search_var_lib(spacewalk_monitoring_t)
 sysnet_domtrans_ifconfig(spacewalk_monitoring_t)
 hostname_domtrans(spacewalk_monitoring_t)
 
-allow spacewalk_monitoring_t self:capability { setgid setuid kill };
+allow spacewalk_monitoring_t self:capability { setgid setuid kill dac_override chown };
 
 allow spacewalk_monitoring_t self:process { signull signal };
