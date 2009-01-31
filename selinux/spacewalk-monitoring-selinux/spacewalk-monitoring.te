@@ -44,6 +44,7 @@ files_pid_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_var_run_t, file
 manage_files_pattern(spacewalk_monitoring_t, var_run_t, spacewalk_monitoring_var_run_t)
 
 allow spacewalk_monitoring_t devpts_t:chr_file { read write ioctl getattr };
+allow spacewalk_monitoring_t devpts_t:dir search;
 
 corecmd_search_sbin(spacewalk_monitoring_t)
 corecmd_search_bin(spacewalk_monitoring_t)
