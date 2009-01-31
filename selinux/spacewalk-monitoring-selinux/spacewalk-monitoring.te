@@ -4,6 +4,7 @@ require {
 	type initrc_t;
 	type java_t;
 	type devpts_t;
+	type sbin_t;
 }
 
 type spacewalk_monitoring_t;
@@ -39,3 +40,4 @@ allow spacewalk_monitoring_t devpts_t:chr_file { read write ioctl getattr };
 
 corecmd_search_sbin(spacewalk_monitoring_t)
 corecmd_search_bin(spacewalk_monitoring_t)
+allow spacewalk_monitoring_t sbin_t:lnk_file read;
