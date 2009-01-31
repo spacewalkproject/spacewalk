@@ -51,3 +51,5 @@ allow spacewalk_monitoring_t spacewalk_monitoring_lock_t:file manage_file_perms;
 files_lock_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_lock_t, file)
 
 allow spacewalk_monitoring_t nscd_var_run_t:dir search;
+sysnet_dns_name_resolve(spacewalk_monitoring_t)
+corenet_udp_bind_generic_node(spacewalk_monitoring_t)
