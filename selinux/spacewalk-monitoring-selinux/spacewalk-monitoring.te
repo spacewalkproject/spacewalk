@@ -16,6 +16,8 @@ type spacewalk_monitoring_log_t;
 logging_log_file(spacewalk_monitoring_log_t);
 type spacewalk_monitoring_var_run_t;
 files_pid_file(spacewalk_monitoring_var_run_t);
+type spacewalk_monitoring_lock_t;
+files_lock_file(spacewalk_monitoring_lock_t);
 
 domain_entry_file(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
 domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
@@ -43,3 +45,6 @@ corecmd_search_sbin(spacewalk_monitoring_t)
 corecmd_search_bin(spacewalk_monitoring_t)
 allow spacewalk_monitoring_t sbin_t:lnk_file read;
 allow spacewalk_monitoring_t initrc_exec_t:file getattr;
+
+allow spacewalk_monitoring_t spacewalk_monitoring_lock_t:file manage_file_perms;
+files_lock_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_lock_t, file)
