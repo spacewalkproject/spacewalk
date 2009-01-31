@@ -22,6 +22,8 @@ type spacewalk_monitoring_lock_t;
 files_lock_file(spacewalk_monitoring_lock_t);
 type spacewalk_monitoring_conf_t;
 files_type(spacewalk_monitoring_conf_t);
+type spacewalk_monitoring_var_lib_t;
+files_type(spacewalk_monitoring_var_lib_t);
 
 domain_entry_file(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
 domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
@@ -70,8 +72,8 @@ corecmd_exec_bin(spacewalk_monitoring_t)
 
 kernel_read_system_state(spacewalk_monitoring_t)
 
-files_getattr_var_lib_dirs(spacewalk_monitoring_t)
 files_search_var_lib(spacewalk_monitoring_t)
+manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
 
 sysnet_domtrans_ifconfig(spacewalk_monitoring_t)
 hostname_domtrans(spacewalk_monitoring_t)
