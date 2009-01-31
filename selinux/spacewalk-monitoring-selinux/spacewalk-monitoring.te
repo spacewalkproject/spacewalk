@@ -66,5 +66,6 @@ manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacew
 allow spacewalk_monitoring_t self:fifo_file rw_file_perms;
 
 corecmd_exec_shell(spacewalk_monitoring_t)
+corecmd_exec_bin(spacewalk_monitoring_t)
 
 kernel_read_system_state(spacewalk_monitoring_t)
