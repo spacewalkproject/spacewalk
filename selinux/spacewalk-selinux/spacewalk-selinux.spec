@@ -94,6 +94,7 @@ for selinuxvariant in %{selinux_variants}
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
+/usr/sbin/setsebool -P httpd_can_network_connect 1
 
 %postun
 # Clean up after package removal
