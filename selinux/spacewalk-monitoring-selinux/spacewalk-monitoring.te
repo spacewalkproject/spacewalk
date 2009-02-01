@@ -94,3 +94,5 @@ manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spa
 manage_sock_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
 
 allow spacewalk_monitoring_t self:unix_stream_socket connectto;
+
+corecmd_exec_ls(spacewalk_monitoring_t)
