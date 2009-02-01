@@ -90,6 +90,7 @@ for selinuxvariant in %{selinux_variants}
   done
 
 /sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification
+/sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
 
 %postun
 # Clean up after package removal
@@ -102,6 +103,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 /sbin/restorecon -rvi /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification
+/sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
 
 %files
 %defattr(-,root,root,0755)
