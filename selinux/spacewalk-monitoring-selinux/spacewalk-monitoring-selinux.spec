@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.5.1
+Version:        0.5.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -110,6 +110,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Sun Feb  1 2009 Jan Pazdziora 0.5.2-1
+- enabled monitoring services start and stop without SELinux errors
+  except for read of /etc/shadow
+
 * Sat Jan 31 2009 Jan Pazdziora 0.5.1-1
 - disabled monitoring services start and stop without SELinux errors
 - monitoring can be enabled on the WebUI without SELinux errors
