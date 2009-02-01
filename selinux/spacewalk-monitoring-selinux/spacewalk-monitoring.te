@@ -10,6 +10,7 @@ require {
 	type oracle_port_t;
 	type smtp_port_t;
 	type httpd_sys_content_t;
+	type usr_t;
 }
 
 type spacewalk_monitoring_t;
@@ -102,3 +103,4 @@ corecmd_exec_ls(spacewalk_monitoring_t)
 allow spacewalk_monitoring_t smtp_port_t:tcp_socket name_connect;
 
 allow spacewalk_monitoring_t httpd_sys_content_t:dir search;
+allow spacewalk_monitoring_t usr_t:lnk_file read;
