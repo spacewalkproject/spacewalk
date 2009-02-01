@@ -87,7 +87,7 @@ hostname_domtrans(spacewalk_monitoring_t)
 
 allow spacewalk_monitoring_t self:capability { setgid setuid kill dac_override chown };
 
-allow spacewalk_monitoring_t self:process { signull signal };
+allow spacewalk_monitoring_t self:process { signull signal sigkill };
 
 files_search_tmp(spacewalk_monitoring_t)
 files_tmp_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, { file dir sock_file })
