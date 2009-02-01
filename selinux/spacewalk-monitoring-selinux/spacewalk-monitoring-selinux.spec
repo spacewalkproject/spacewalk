@@ -89,7 +89,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse
+/sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification
 
 %postun
 # Clean up after package removal
@@ -101,7 +101,7 @@ if [ $1 -eq 0 ]; then
     done
 fi
 
-/sbin/restorecon -rvi /etc/rc.d/np.d /etc/notification /var/lib/nocpulse
+/sbin/restorecon -rvi /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification
 
 %files
 %defattr(-,root,root,0755)
