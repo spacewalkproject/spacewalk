@@ -586,7 +586,8 @@ def populate_channel_family_permissions(cert):
 
     for cf in cert.channel_families:
         if not current_cfs.has_key(cf.name):
-            syncLib.log(-1, "   WARNING:  ignoring unavailable channel family %s" % cf.name)
+            # Ignoring unavailable channel family at this point,
+            # we'll create it at sync time.
             continue
 
         quant = cf.quantity
