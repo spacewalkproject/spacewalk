@@ -12,6 +12,7 @@ require {
 	type httpd_sys_content_t;
 	type usr_t;
 	type http_port_t;
+	type httpd_t;
 }
 
 type spacewalk_monitoring_t;
@@ -107,3 +108,5 @@ allow spacewalk_monitoring_t httpd_sys_content_t:dir search;
 allow spacewalk_monitoring_t usr_t:lnk_file read;
 
 allow spacewalk_monitoring_t http_port_t:tcp_socket name_connect;
+
+read_files_pattern(httpd_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
