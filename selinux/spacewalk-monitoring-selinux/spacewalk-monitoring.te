@@ -9,6 +9,7 @@ require {
 	type nscd_var_run_t;
 	type oracle_port_t;
 	type smtp_port_t;
+	type httpd_sys_content_t;
 }
 
 type spacewalk_monitoring_t;
@@ -99,3 +100,5 @@ allow spacewalk_monitoring_t self:unix_stream_socket connectto;
 corecmd_exec_ls(spacewalk_monitoring_t)
 
 allow spacewalk_monitoring_t smtp_port_t:tcp_socket name_connect;
+
+allow spacewalk_monitoring_t httpd_sys_content_t:dir search;
