@@ -66,6 +66,8 @@ allow spacewalk_monitoring_t oracle_port_t:tcp_socket name_connect;
 
 files_etc_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, file)
 manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
 
 allow spacewalk_monitoring_t self:fifo_file rw_file_perms;
 
