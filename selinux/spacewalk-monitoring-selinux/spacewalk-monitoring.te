@@ -87,7 +87,8 @@ allow spacewalk_monitoring_t self:capability { setgid setuid kill dac_override c
 allow spacewalk_monitoring_t self:process { signull signal };
 
 files_search_tmp(spacewalk_monitoring_t)
-files_tmp_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, { file dir })
+files_tmp_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, { file dir sock_file })
 manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
 manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
 manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
+manage_sock_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
