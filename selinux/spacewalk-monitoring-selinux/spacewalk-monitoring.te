@@ -83,6 +83,7 @@ kernel_read_system_state(spacewalk_monitoring_t)
 
 files_search_var_lib(spacewalk_monitoring_t)
 manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
 
 sysnet_domtrans_ifconfig(spacewalk_monitoring_t)
 hostname_domtrans(spacewalk_monitoring_t)
