@@ -73,7 +73,7 @@ fi
 %post
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
+    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
 fi
 
 %files
