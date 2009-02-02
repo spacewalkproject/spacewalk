@@ -935,7 +935,6 @@ public class PackageManager extends BaseManager {
         WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
                 "insert_channel_packages_in_set");
         writeMode.executeUpdate(params);
-        set.clear();
         RhnSetManager.store(set);
     }    
 

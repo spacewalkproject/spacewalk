@@ -119,6 +119,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
         packList.addAll(set.getElementValues());
         ErrataCacheManager.insertCacheForChannelPackagesAsync(chanList, packList);
         ChannelManager.refreshWithNewestPackages(chan, "web.channel_package_add");
+        set.clear();
     }
 
 }
