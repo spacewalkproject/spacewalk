@@ -38,7 +38,8 @@ web_customer
 	customer_type	char(1) default ('P') not null
 			constraint web_customer_type_list
 				check (customer_type in ('B', 'P')),
-        credit_application_completed char(1),
+	/*TODO: Should this be a CAHR(1) with CHECK(col in('y','n')), or better still a boolean?*/
+        credit_application_completed varchar(1),
 	created		timestamp default(CURRENT_TIMESTAMP) not null,
 	modified	timestamp default(CURRENT_TIMESTAMP) not null
 )

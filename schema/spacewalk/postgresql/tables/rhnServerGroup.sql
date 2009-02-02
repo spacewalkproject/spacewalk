@@ -23,10 +23,7 @@ rhnServerGroup
                         constraint rhn_servergroup_id_pk primary key
 --                                using index tablespace [[4m_tbs]]
 			,
-        name            varchar(64) not null
-			constraint rhn_servergroup_name_uk unique
---				using index tablespace [[4m_tbs]]
-			,
+        name            varchar(64) not null,
         description     varchar(1024) not null,
         max_members     numeric,
 	current_members numeric default 0 not null,
@@ -43,4 +40,8 @@ rhnServerGroup
   ;
 
 create sequence rhn_server_group_id_seq;
+
+create unique index rhn_servergroup_oid_name_uq
+       on rhnServerGroup(org_id, name)
+--     tablespace [[4m_tbs]]
 
