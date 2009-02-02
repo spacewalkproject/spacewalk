@@ -22,12 +22,10 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.frontend.dto.ErrataPackageFile;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -292,6 +290,9 @@ public class ErrataCacheManager extends HibernateFactory {
      */
     public static void insertCacheForChannelPackagesAsync(
             List<Long> channelIdsToUpdate, List<Long> packageIds) {
+        if (packageIds.isEmpty()) {
+            return;
+        }
         UpdateErrataCacheEvent uece = new UpdateErrataCacheEvent(
                 UpdateErrataCacheEvent.TYPE_CHANNEL_ERRATA);
         uece.setChannels(channelIdsToUpdate);
@@ -308,14 +309,23 @@ public class ErrataCacheManager extends HibernateFactory {
      */
     public static void insertCacheForChannelPackages(Long cid, Long eid,
             List<Long> pids) {
-
+        if (pids.isEmpty()) {
+            return;
+        }
         int count = 0;
         Map params = new HashMap();
         params.put("channel_id", cid);
-        params.put("errata_id", eid);
-        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
-                "insert_new_cache_entries_by_errata");
-        count = m.executeUpdate(params, pids);
+        if (eid != null) {
+            params.put("errata_id", eid);
+            WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
+                    "insert_new_cache_entries_by_errata");
+            count = m.executeUpdate(params, pids);
+        }
+        else {
+            WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
+            "insert_new_cache_entries_by_packages");
+            count = m.executeUpdate(params, pids);
+        }
         log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " + count);
 
     }
@@ -329,6 +339,9 @@ public class ErrataCacheManager extends HibernateFactory {
      */
     public static void deleteCacheEntriesForChannelErrata(Long cid,
             List<Long> eids) {
+        if (eids.isEmpty()) {
+            return;
+        }
         int count = 0;
         WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
                 "delete_needed_cache_for_channel_errata");
@@ -337,6 +350,26 @@ public class ErrataCacheManager extends HibernateFactory {
         count = m.executeUpdate(params, eids);
         log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
     }
+    
+    /**
+     * Delete errata cache entries for systems belonging to a certain channel
+     * @param eid the errata to remove
+     * @param pids the packages to remove
+     */
+    public static void deleteCacheEntriesForErrataPackages(Long eid,
+            List<Long> pids) {
+        if (pids.isEmpty()) {
+            return;
+        }
+        int count = 0;
+        WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
+                "delete_needed_cache_for_errata_packages");
+        Map params = new HashMap();
+        params.put("errata_id", eid);
+        count = m.executeUpdate(params, pids);
+        log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
+    }
+    
 
     /**
      * Clear out and re-generate the entries in rhnServerNeededPackageCache and
@@ -365,26 +398,6 @@ public class ErrataCacheManager extends HibernateFactory {
         log.debug("updateErrataAndPackageCacheForChannel : " + "package_cache inserted: " + 
                 count);
 
-    }
-
-    /**
-     * List the package ids that were pushed to a channel because of an errata
-     * @param cid the channel id
-     * @param eid the errata id
-     * @return List of package ids
-     */
-    public static List<Long> listErrataChannelPackages(Long cid, Long eid) {
-        Map params = new HashMap();
-        params.put("channel_id", cid);
-        params.put("errata_id", eid);
-        DataResult<ErrataPackageFile> dr = executeSelectMode(
-                "ErrataCache_queries",
-                "package_associated_to_errata_and_channel", params);
-        List toReturn = new ArrayList<Long>();
-        for (ErrataPackageFile file : dr) {
-            toReturn.add(file.getPackageId());
-        }
-        return toReturn;
     }
 
     /**

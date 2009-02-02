@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.action.errata.ErrataAction;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -132,7 +133,7 @@ public class UpdateErrataCacheCommand {
      * @param eid the erratum id
      */
     public void updateErrataCacheForErrata(Long cid, Long eid) {
-        List<Long> pids = ErrataCacheManager.listErrataChannelPackages(cid, eid);  
+        List<Long> pids = ErrataFactory.listErrataChannelPackages(cid, eid);  
         updateErrataCacheForErrata(cid, eid, pids);
     } 
     

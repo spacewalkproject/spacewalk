@@ -110,11 +110,9 @@ public class RemovePackagesAction extends RhnSetAction {
         //Update Errata Cache
         //First we remove all errata cache entries
         if (errata.isPublished()) {
-            List<Long> eList = new ArrayList<Long>();
-            eList.add(errata.getId());
-            for (Channel chan : errata.getChannels()) {
-                ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), eList);
-            }
+            List pList = new ArrayList();
+            pList.addAll(packageIdsToRemove.getElementValues());
+            ErrataCacheManager.deleteCacheEntriesForErrataPackages(errata.getId(), pList);
         }
         
         //Now since we didn't actually remove the packages, we need to 

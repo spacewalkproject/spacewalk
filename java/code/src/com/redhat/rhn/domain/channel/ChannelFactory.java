@@ -687,6 +687,17 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findAllBaseChannels", params);
     }
+    
+    /**
+     * List all accessible base channels for the entire satellite
+     * @return list of base channels
+     */
+    public static List<Channel> listAllBaseChannels() {
+        Map params = new HashMap();
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findAllBaseChannelsOnSatellite", params);
+    }
+    
 
     /**
      * List all child channels of the given parent regardless of the user

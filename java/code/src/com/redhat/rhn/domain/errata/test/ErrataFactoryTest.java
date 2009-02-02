@@ -26,6 +26,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.ClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
@@ -373,6 +374,31 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         assertEquals(1, list.size());
         clone = (ClonedErrata) list.get(0);
         assertTrue(clone.getOriginal().equals(published));
+    }
+    
+    public void listErrataChannelPackages() {
+        try {
+            Channel chan = ChannelTestUtils.createBaseChannel(user);
+            Errata e = ErrataFactoryTest.createTestErrata(user.getId());
+            Package p = PackageTest.createTestPackage();
+            chan.getErratas().add(e);
+            chan.getPackages().add(p);
+            e.getPackages().add(p);
+            ChannelFactory.save(chan);
+            
+            chan = (Channel) TestUtils.saveAndReload(chan);
+            e = (Errata) TestUtils.saveAndReload(e);
+            p = (Package) TestUtils.saveAndReload(p);
+            
+            
+            List<Long> list = ErrataFactory.listErrataChannelPackages(chan.getId(), 
+                    e.getId());
+            assertContains(list, p.getId());            
+            
+        }
+        catch (Exception e) {
+            assertTrue(false);
+        }        
     }
     
 }

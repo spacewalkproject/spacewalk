@@ -69,6 +69,7 @@ import org.apache.log4j.Logger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -1598,6 +1599,31 @@ public class ChannelSoftwareHandler extends BaseHandler {
         List chanList = new ArrayList<Long>();
         chanList.add(chan.getId());
         ErrataCacheManager.updateCacheForChannelsAsync(chanList);
+        return 1;
+    }
+    
+    /**
+     * Regenerate the errata cache for all the systems subscribed to the satellite
+     * @param sessionKey the session key
+     * @return on on success!
+     * 
+     * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package 
+     *      cache for all systems subscribed.  You must be a Satellite Admin to 
+     *      perform this action. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype  #return_int_success()  
+     *          
+     */
+    public int regeneratedNeededCache(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        if (loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
+            Set set = new HashSet();
+            set.addAll(ChannelFactory.listAllBaseChannels());
+            ErrataCacheManager.updateCacheForChannelsAsync(set);
+        }
+        else {
+            throw new PermissionException(RoleFactory.SAT_ADMIN);
+        }
         return 1;
     }
     

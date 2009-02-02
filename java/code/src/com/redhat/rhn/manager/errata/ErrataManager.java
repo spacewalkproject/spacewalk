@@ -1047,6 +1047,15 @@ public class ErrataManager extends BaseManager {
            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
        }
        
+       //Since we don't remove the packages, we need to insert those entries
+       //       in case they aren't already there.
+       // So we are inserting   (systemID, packageId) entries, because we're 
+       //      going to delete the (systemId, packageId, errataId) entries
+       List<Long> pids = ErrataFactory.listErrataChannelPackages(
+               chan.getId(), errata.getId());
+       ErrataCacheManager.insertCacheForChannelPackages(chan.getId(), null, pids);
+       
+       
        //Remove the errata from the channel
        chan.getErratas().remove(errata);
        List<Long> eList = new ArrayList<Long>();

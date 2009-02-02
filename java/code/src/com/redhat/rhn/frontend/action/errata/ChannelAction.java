@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
@@ -124,7 +125,7 @@ public class ChannelAction extends RhnSetAction {
         
         // Save off original channel ids so we can update caches
         Set<Channel> originalChannels = new HashSet<Channel>(errata.getChannels());
-        Set newChannels = getChannelIdsFromRhnSet(set);
+        Set<Long> newChannels = getChannelIdsFromRhnSet(set);
         //Otherwise, add each channel to errata
         //The easiest way to do this is to clear the errata's channels and add back the 
         //channels that are in the user's current set
@@ -135,17 +136,25 @@ public class ChannelAction extends RhnSetAction {
                 newChannels, user);
 
         //Update Errata Cache
-        if (errata.isPublished()) {
+        if (errata.isPublished()) {          
+            
             log.debug("updateChannels - isPublished");
             // Compute list of old and NEW channels so we can 
             // refresh both of their caches.
             List<Channel> channelsToRemove = new LinkedList<Channel>();
-            
+            List<Long> channelsToAdd = new LinkedList<Long>();
             for (Channel c : originalChannels) {
                 if (!newChannels.contains(c.getId())) {
                     //We are removing the errata from the channel
                     log.debug("updateChannels.Adding1: " + c.getId());
                     channelsToRemove.add(c);                    
+                }
+            }
+            
+            for (Long cid : newChannels) {
+                Channel newChan = ChannelFactory.lookupById(cid);
+                if (!originalChannels.contains(newChan)) {
+                    channelsToAdd.add(newChan.getId());
                 }
             }
             log.debug("updateChannels() - channels to remove errata: " + channelsToRemove);

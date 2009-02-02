@@ -15,15 +15,13 @@ select snpc.server_id, snpc.errata_id, snpc.package_id
  <mode name="package_associated_to_errata_and_channel"
     class="com.redhat.rhn.frontend.dto.ErrataPackageFile">
     <query params="channel_id, errata_id">
-select EFP.package_id
-	from rhnErrataFilePackage EFP inner join 
-		 rhnErrataFileChannel EFC on  EFP.errata_file_id = EFC.errata_file_id inner join
-		 rhnErrataFile EF on EF.id = EFP.errata_file_id
-	where EF.errata_id = :errata_id 
-	  AND EFC.channel_id = :channel_id	
+    select EP.package_id
+    from rhnErrataPackage EP inner join
+    		rhnChannelPackage CP on EP.package_id = CP.package_id
+   	where CP.channel_id = :channel_id 
+   		and EP.errata_id = :errata_id
     </query>
-  </mode>
-  
+  </mode>  
 
 <mode name="new_packages"
     class="com.redhat.rhn.frontend.dto.ErrataCacheDto">
@@ -192,6 +190,43 @@ WHERE
   </query>
 </write-mode>
 
+
+<write-mode name="insert_new_cache_entries_by_packages">
+  <!-- -->
+  <query params="channel_id">
+  INSERT INTO rhnServerNeededCache (server_id, errata_id, package_id)
+	  ( SELECT /*+ RULE */ DISTINCT
+	     S.id as server_id,
+	     NULL as errata_id,
+	     P.id as package_id
+		FROM
+		     rhnPackage P,
+		     rhnServerPackageArchCompat SPAC,
+		     rhnPackageEVR P_EVR,
+		     rhnPackageEVR SP_EVR,
+		     rhnServerPackage SP,
+		     rhnServerChannel SC,
+		     rhnServer S
+  
+		WHERE
+		         SC.channel_id = :channel_id
+		  AND    SC.server_id = S.id
+	      AND    p.id in (%s)	  
+		  AND    p.package_arch_id = spac.package_arch_id
+		  AND    spac.server_arch_id = s.server_arch_id
+		  AND    SP_EVR.id = SP.evr_id
+		  AND    P_EVR.id = P.evr_id
+		  AND    SP.server_id = S.id
+		  AND    SP.name_id = P.name_id
+		  AND    SP.evr_id != P.evr_id
+		  AND    SP_EVR.evr &lt;  P_EVR.evr
+		  AND    SP_EVR.evr = (SELECT MAX(PE.evr) FROM
+		  		  rhnServerPackage SP2, rhnPackageEvr PE WHERE PE.id = SP2.evr_id
+		  		  AND SP2.server_id = SP.server_id AND SP2.name_id = SP.name_id))
+  </query>
+</write-mode>
+
+
 <write-mode name="insert_new_cache_entries_by_errata">
   <!-- -->
   <query params="channel_id, errata_id">
@@ -230,21 +265,36 @@ WHERE
 
 <write-mode name="delete_needed_cache_for_channel_packages">
   <query params="channel_id">
-DELETE FROM rhnServerNeededCache SNC,
-		rhnServerChannel SC,
-      WHERE SC.channel_id = :channel_id
-      	AND SC.server_id = SNC.server_id
-      	AND SNC.package_id in (%s)
+DELETE FROM rhnServerNeededCache SNC 
+		where (SNC.server_id, SNC.package_id) in
+			(select SNC.server_id, SNC.package_Id 
+				from rhnServerChannel SC
+		      WHERE SC.channel_id = :channel_id
+		      	AND SC.server_id = SNC.server_id
+		      	AND SNC.package_id in (%s))
   </query>
 </write-mode>
 
 <write-mode name="delete_needed_cache_for_channel_errata">
   <query params="channel_id">
-DELETE FROM rhnServerNeededCache SNC,
-		rhnServerChannel SC
+DELETE FROM rhnServerNeededCache SNC 
+		where (SNC.server_id, SNC.errata_id) in
+			( select SNC.server_id, SNC.errata_id 
+			from rhnServerChannel SC
       WHERE SC.channel_id = :channel_id
       	AND SC.server_id = SNC.server_id
-      	AND SNC.errata_id in (%s)
+      	AND SNC.errata_id in (%s))
+  </query>
+</write-mode>
+
+<write-mode name="delete_needed_cache_for_errata_packages">
+  <query params="errata_id">
+   DELETE FROM rhnServerNeededCache SNC 
+		where ( SNC.errata_id, SNC.package_id) in
+			( select SNC.server_id, SNC.package_id 
+			from rhnServerChannel SC
+      	where SNC.package_id in (%s)
+      	AND SNC.errata_id =  :errata_id)
   </query>
 </write-mode>
 

@@ -349,8 +349,9 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         DataResult dr = ErrataCacheManager.allServerIdsForOrg(org);
         assertFalse(dr.isEmpty());
         assertTrue(dr.size() >= 1);
-        
-        
     }
+    
+    
+    
     
 }
