@@ -3,6 +3,7 @@ use GogoSysVStep;
 @ISA=qw(GogoSysVStep);
 use PhysCluster;
 use NOCpulse::Config;
+use Sys::Hostname ();
 
 sub startActions
 {
@@ -22,8 +23,7 @@ sub startActions
 	#	print FILE "serverip=".$ip->get_addr."\n";
 	#	last;
         #}
-	my $hostname = `/bin/hostname`;
-	chomp($hostname);
+	my $hostname = Sys::Hostname::hostname;
 	print FILE "serverip=$hostname";
 	close(FILE);
 	#$self->addStopAction("unlink('$confFile')");
