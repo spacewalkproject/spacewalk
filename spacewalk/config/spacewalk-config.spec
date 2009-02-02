@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.1
+Version: 0.5.2
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -99,6 +99,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Mon Feb  2 2009 Jan Pazdziora 0.5.2-1
+- 482838 - remove satellite-httpd removal from uninstall scripts
+
 * Mon Jan 19 2009 Jan Pazdziora 0.5.1-1
 - rebuilt for 0.5, after repository reorg
 
