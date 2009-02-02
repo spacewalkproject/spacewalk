@@ -53,6 +53,7 @@ install -m644 nocpulse.logrotate \
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
 install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/NOCpulse.ini
+install -m644 forward $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/.forward
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
@@ -79,6 +80,7 @@ fi
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
 %config(missingok,noreplace) %{_var}/lib/%{package_name}/NOCpulse.ini
+%{_var}/lib/%{package_name}/.forward
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
@@ -92,6 +94,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com>
+- 435415 - redirect nocops emails to root
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 2.1.2-1
 - fix Requires so we need the perl version we built against
 
