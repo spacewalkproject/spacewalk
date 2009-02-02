@@ -118,6 +118,7 @@
         <form-bean name="orgDetailsForm" 
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="orgName" type="java.lang.String"/>
+            <form-property name="id" type="java.lang.String"/>
             <form-property name="users" type="java.lang.String"/>
             <form-property name="systems" type="java.lang.String"/>
             <form-property name="groups" type="java.lang.String"/>

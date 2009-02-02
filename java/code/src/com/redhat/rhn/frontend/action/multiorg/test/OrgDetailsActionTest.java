@@ -31,8 +31,9 @@ public class OrgDetailsActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("oid", user.getOrg().getId().toString());
         setRequestPathInfo("/admin/multiorg/OrgDetails");
         actionPerform();
-        DynaActionForm form = (DynaActionForm) getActionForm();
+        DynaActionForm form = (DynaActionForm) getActionForm();        
         assertNotNull(form.get("orgName"));
+        assertNotNull(form.get("id"));
         assertNotNull(form.get("users"));
         assertNotNull(form.get("systems"));
         assertNotNull(form.get("actkeys"));
