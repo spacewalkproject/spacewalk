@@ -19,13 +19,14 @@
 create table
 web_customer
 (
-	id		numeric
-			constraint web_customer_id_nn not null
+	id		numeric not null
 			constraint web_customer_id_pk primary key
 --				using index tablespace [[web_index_tablespace_2]]
 				,
-	name		varchar(128)
-			constraint web_customer_name_nn not null,
+	name		varchar(128) not null
+			constraint web_customer_name_uq_idx unique
+--				using index tablespace [[web_tablespace_2]]
+			,
 	oracle_customer_id numeric
 			constraint web_customer_ocid_unq unique
 --				using index tablespace [[web_index_tablespace_2]]
@@ -34,33 +35,15 @@ web_customer
 			constraint web_customer_ocn_unq unique
 --				using index tablespace [[web_index_tablespace_2]]
 				,
-	customer_type	char(1) default ('P')
-			constraint web_customer_type_nn not null
+	customer_type	char(1) default ('P') not null
 			constraint web_customer_type_list
 				check (customer_type in ('B', 'P')),
-        credit_application_completed varchar(1),
-	created		timestamp default(CURRENT_TIMESTAMP)
-			constraint web_customer_created_nn not null,
-	modified	timestamp default(CURRENT_TIMESTAMP)
-			constraint web_customer_modified_nn not null
+        credit_application_completed char(1),
+	created		timestamp default(CURRENT_TIMESTAMP) not null,
+	modified	timestamp default(CURRENT_TIMESTAMP) not null
 )
 -- tablespace [[web_tablespace_2]]
 	;
 
 create sequence web_customer_id_seq start with 2;
 
-create unique index web_customer_name_uq_idx
-    on web_customer(name)
---    tablespace [[web_tablespace_2]]
-  ;
-
---
--- Revision 1.11  2002/05/09 03:13:24  gafton
--- Fix storage clauses to have saner defaults for people at large...
---
--- Revision 1.10  2002/05/08 19:05:22  pjones
--- more consolidation
---
--- Revision 1.9  2002/05/08 18:26:41  pjones
--- more unification
---
