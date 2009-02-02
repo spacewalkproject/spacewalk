@@ -13,6 +13,7 @@ require {
 	type usr_t;
 	type http_port_t;
 	type httpd_t;
+	type httpd_sys_script_t;
 }
 
 type spacewalk_monitoring_t;
@@ -111,3 +112,5 @@ allow spacewalk_monitoring_t usr_t:lnk_file read;
 allow spacewalk_monitoring_t http_port_t:tcp_socket name_connect;
 
 read_files_pattern(httpd_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+
+allow httpd_sys_script_t spacewalk_monitoring_conf_t:file { read ioctl getattr };
