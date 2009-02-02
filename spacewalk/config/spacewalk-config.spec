@@ -80,26 +80,13 @@ rm -rf $RPM_BUILD_ROOT
 %{prepdir}
 
 %pre
-# This section should be taken one time only as we obsolete
-# satellite-httpd.  This can be removed after 0.4
-# has been released
+# This section is needed here because previous versions of spacewalk-config
+# (and rhn-satellite-config) "owned" the satellite-httpd service. We need
+# to keep this section here indefinitely, because Satellite 5.2 could
+# be upgraded directly to our version of Spacewalk.
 if [ -f /etc/init.d/satellite-httpd ] ; then
     /sbin/service satellite-httpd stop >/dev/null 2>&1
     /sbin/chkconfig --del satellite-httpd
-    perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
-fi
-
-
-%preun
-# This section can be removed after 0.4 has been released
-if [ $1 = 0 ] ; then
-    /sbin/service satellite-httpd stop >/dev/null 2>&1
-    /sbin/chkconfig --del satellite-httpd
-fi
-
-%postun
-# This section can be removed after 0.4 has been released
-if [ "x$1" == "x0" ] ; then
     perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
