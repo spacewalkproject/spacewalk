@@ -219,8 +219,8 @@ class Cursor(sql_base.Cursor):
 class Procedure(sql_base.Procedure):
     OracleError = cx_Oracle.DatabaseError
 
-    def __init__(self, name, proc):
-        sql_base.Procedure.__init__(self, name, proc)
+    def __init__(self, name, cursor):
+        sql_base.Procedure.__init__(self, name, cursor)
         self._type_mapping = ORACLE_TYPE_MAPPING
 
     def __call__(self, *args):

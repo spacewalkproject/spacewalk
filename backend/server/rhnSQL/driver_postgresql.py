@@ -104,30 +104,48 @@ def create_replacer_function(index_data):
     return param_replacer
 
 class Procedure(sql_base.Procedure):
+    """
+    PostgreSQL functions are somewhat different than stored procedures in
+    other databases. As a result the python-pgsql does not even implement
+    the Python DBI API callproc method.
 
-    def __init__(self, name, proc):
-        sql_base.Procedure.__init__(self, name, proc)
+    To workaround this and keep rhnSQL database independent, we'll translate
+    any incoming requests to call a procedure into a PostgreSQL query.
+    """
+
+    def __init__(self, name, cursor):
+        sql_base.Procedure.__init__(self, name, cursor)
         self._type_mapping = POSTGRESQL_TYPE_MAPPING
 
     def __call__(self, *args):
-        """
-        Wrap the __call__ method from the parent class to catch Oracle specific
-        actions and convert them to something generic.
-        """
-        retval = None
 
-        # TODO: Replicate Oracle driver's error handling?
-        #try:
-        retval = sql_base.Procedure.__call__(self, *args)
-        #except cx_Oracle.DatabaseError, e:
-        #    if not hasattr(e, "args"):
-        #        raise sql_base.SQLError(self.name, args)
-        #    elif 20000 <= e[0] <= 20999: # error codes we know we raise as schema errors
-        #        raise apply(sql_base.SQLSchemaError, tuple(e.args))
-        #    raise apply(sql_base.SQLError, tuple(e.args))
-        #except cx_Oracle.NotSupportedError, error:
-        #    raise apply(sql_base.SQLError, error.args)
-        return retval
+        # Buildup a string for the positional arguments to the procedure:
+        positional_args = ""
+        i = 1
+        for arg in args:
+            if len(positional_args) == 0:
+                positional_args = "$1"
+            else:
+                positional_args = positional_args + ", $%i" % i
+            i += 1
+        query = "SELECT %s(%s)" % (self.name, positional_args)
+
+        # Ugh, unicode strings coming in here, PostgreSQL doesn't like
+        # getting them as such:
+        new_args = []
+        for arg in args:
+            if type(arg) == type(u""):
+                new_args.append(str(arg))
+            else:
+                new_args.append(arg)
+
+        print("Executing PostgreSQL procedure with query:", query,
+                  "and args", new_args)
+
+        # TODO: pgsql.Cursor returned here, what to do with it?
+        results = self.cursor.execute(query, *new_args)
+
+        return None
 
 
 

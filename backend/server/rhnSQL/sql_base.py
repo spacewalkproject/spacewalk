@@ -294,9 +294,9 @@ class Cursor:
 
 # A class to handle calls to the SQL functions and procedures
 class Procedure:
-    def __init__(self, name, proc):
+    def __init__(self, name, cursor):
         self.name = name
-        self.proc = proc
+        self.cursor = cursor
 
         # Subclasses override with their own type mapping to convert types
         # specific to the database backend into those defined in sql_types.
@@ -309,9 +309,9 @@ class Procedure:
         return retval
 
     def __del__(self):
-        if self.proc:
-            self.proc.close()
-            self.proc = None
+        if self.cursor:
+            self.cursor.close()
+            self.cursor = None
 
     def _call_proc(self, args):
         return self._call_proc_ret(args, ret_type=None)
@@ -327,10 +327,9 @@ class Procedure:
                     raise Exception("Unknown type", ret_type)
 
         if ret_type:
-            return self.proc.callfunc(self.name, ret_type, args)
+            return self.cursor.callfunc(self.name, ret_type, args)
         else:
-            print "self.proc = " + (str(self.proc))
-            return self.proc.callproc(self.name, args)
+            return self.cursor.callproc(self.name, args)
 
     def _munge_args(self, args):
         """
