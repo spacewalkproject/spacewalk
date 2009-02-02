@@ -20,24 +20,21 @@ create table
 rhnServerGroupType
 (
         id              numeric
-                        constraint rhn_servergrouptype_id_pk primary key
+                        constraint rhn_servergrouptype_id_pk primary key,
 --                                using index tablespace [[64k_tbs]]
-			,
         label           varchar(32) not null
-			constraint rhn_servergrouptype_label_uk unique
+			constraint rhn_servergrouptype_label_uk unique,
 --				using index tablespace [[64k_tbs]]
-			,
         name            varchar(64) not null,
         created         timestamp default(CURRENT_TIMESTAMP) not null,
         modified        timestamp default(CURRENT_TIMESTAMP) not null,
         permanent       char default('Y') not null,
                         constraint rhn_servergrouptype_perm_ck 
-                           check (permanent in ('Y','N'))
+                           check (permanent in ('Y','N')),
         is_base         char default('Y') not null
                         constraint rhn_servergrouptype_isbase_ck
                            check (is_base in ('Y','N'))
-)
-  ;
+);
 
 create sequence rhn_servergroup_type_seq;
 

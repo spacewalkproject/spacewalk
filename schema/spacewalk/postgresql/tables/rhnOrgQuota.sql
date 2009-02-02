@@ -28,7 +28,6 @@ rhnOrgQuota
 	bonus		numeric default(0) not null,
 	used		numeric default(0) not null,
 	created		timestamp default(CURRENT_TIMESTAMP) not null,
-	modified	timestamp default(CURRENT_TIMESTAMP) not null,
-)
-  ;
+	modified	timestamp default(CURRENT_TIMESTAMP) not null
+);
 
