@@ -62,7 +62,9 @@ public class ChildChannelConfirmAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        long start;
+        long start, overallStart;
+        
+        overallStart = System.currentTimeMillis();
 
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
@@ -74,54 +76,41 @@ public class ChildChannelConfirmAction extends RhnAction {
         List<Channel> subList = new ArrayList<Channel>();
         List<Channel> unsubList = new ArrayList<Channel>();
         
-        start = System.currentTimeMillis();
-        log.debug("Starting findChannels");
         findChannelsFromSet(user, subList, unsubList);
-        log.debug("Time for findChannels call: " + (System.currentTimeMillis() - start));
         
         // Next, get the Servers that are in the SSM currently
-        start = System.currentTimeMillis();
-        log.debug("Starting lookupSSMServers");
         List<Server> servers = ServerFactory.listSystemsInSsm(user);
-        log.debug("Time for lookupSSMServers call: " +
-            (System.currentTimeMillis() - start));
         
         // Then, get the lists of allowed subscriptions and un-subscriptions, 
         // for each server
-        start = System.currentTimeMillis();
-        log.debug("Starting getSubs");
         Map<Server, List<Channel>> subs =
             ChannelManager.linkChannelsToSubscribeForServers(user, servers, subList);
-        log.debug("Time for getSubs call: " + (System.currentTimeMillis() - start));
         
-        start = System.currentTimeMillis();
-        log.debug("Starting getUnsubs");
         Map<Server, List<Channel>> unsubs =
             ChannelManager.linkChannelsToUnsubscribeForServers(servers, unsubList);
-        log.debug("Time for getUnsubs call: " + (System.currentTimeMillis() - start));
         
         // Now, build the object that the page knows how to render
-        start = System.currentTimeMillis();
-        log.debug("Starting buildActionList");
         List<ChannelActionDAO> changes = ChannelManager.buildActionlist(subs, unsubs);
-        log.debug("Time for buildActionList call: " + (System.currentTimeMillis() - start));
 
         request.setAttribute("channelchanges", changes);
         
-        // If we're submitted - Do It
+        ActionForward result;
         if (isSubmitted(daForm)) {
             start = System.currentTimeMillis();
             log.debug("Starting doChangeSubscriptions");
-            doChangeSubscriptions(user, changes, request);
+            ChannelManager.performChannelActions(user, changes);
             log.debug("Time for doChangeSubscriptions call: " + 
                 (System.currentTimeMillis() - start));
             
-            return mapping.findForward("success");
+            result = mapping.findForward("success");
         }
-        // Otherside - display the proposed changes and wait for confirmation
         else {
-            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+            result = mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
+
+        log.debug("Overall time to run: " + (System.currentTimeMillis() - overallStart));
+        
+        return result;
     }
 
     // Actually change the subscriptions for the servers
