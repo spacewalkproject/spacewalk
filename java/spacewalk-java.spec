@@ -220,6 +220,10 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com>
+- 480126 - deactivate proxy different way
+- 477532 - fixed issue where channels would dissappear after hiding the children
+
 * Fri Jan 30 2009 Mike McCune <mmccune@gmail.com> 0.5.7-1
 - removing requirement for spacewalk-branding-jar
 
