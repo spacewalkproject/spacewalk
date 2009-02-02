@@ -30,7 +30,7 @@ from common import log_debug, log_error
 from common import UserDictCase
 from const import POSTGRESQL
 
-NAMED_PARAM_REGEX = re.compile(":\w+")
+NAMED_PARAM_REGEX = re.compile("(\W)(:\w+)")
 
 POSTGRESQL_TYPE_MAPPING = [
     (sql_types.NUMBER, pgsql.INTEGER),
@@ -57,7 +57,6 @@ def convert_named_query_params(query):
     log_debug(3, "Converting query for PostgreSQL: %s" % query)
     pattern = NAMED_PARAM_REGEX
 
-    
     # List with index counter and the running param to index hash:
     index_data = [1, {}]
     f = create_replacer_function(index_data)
@@ -89,7 +88,7 @@ def create_replacer_function(index_data):
         representing the next argument number to be used. (increments $1 to $2, 
         etc) The second is a hash of parameter name to it's new index number.
         """
-        matched_param = match.group()[1:]
+        matched_param = match.group(2)[1:]
 
         counter = index_data[0] # don't increment this var directly
         param_index = index_data[1]
@@ -100,8 +99,10 @@ def create_replacer_function(index_data):
             param_index[matched_param] = []
         param_index[matched_param].append(counter)
         index_data[0] = index_data[0] + 1
-        return "$%s" % counter
+        return "%s$%s" % (match.group(1), counter)
     return param_replacer
+
+
 
 class Procedure(sql_base.Procedure):
     """
