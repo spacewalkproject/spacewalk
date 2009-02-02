@@ -255,7 +255,7 @@ class Cursor(sql_base.Cursor):
             # TODO: Constructor for this exception expects a first arg of db,
             # and yet the Oracle driver passes it an errno? Suspect it's not
             # even used.
-            raise rhnSQL.SQLStatementPrepareError(0, e.message, self.sql)
+            raise rhnSQL.SQLStatementPrepareError(0, str(e), self.sql)
         #except Exception, e:
         #    log_error("PostgreSQL exception", e)
         #    raise e
