@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.7
+Version: 0.5.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 # This src.rpm is cannonical upstream
@@ -220,7 +220,7 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com>
+* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.8-1
 - 480126 - deactivate proxy different way
 - 477532 - fixed issue where channels would dissappear after hiding the children
 
