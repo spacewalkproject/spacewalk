@@ -36,20 +36,20 @@ create table rhnServerNeededCache
 	enable row movement
 	nologging;
 
-create index rhn_snpc_pid_idx
-	on rhnServerNeededPackageCache(package_id)
+create index rhn_snc_pid_idx
+	on rhnServerNeededCache(package_id)
 	parallel
 	tablespace [[128m_tbs]]
 	nologging;
 
-create index rhn_snpc_sid_idx
-	on rhnServerNeededPackageCache(server_id)
+create index rhn_snc_sid_idx
+	on rhnServerNeededCache(server_id)
 	parallel
 	tablespace [[128m_tbs]]
 	nologging;
 
-create index rhn_snpc_eid_idx
-	on rhnServerNeededPackageCache(errata_id)
+create index rhn_snc_eid_idx
+	on rhnServerNeededCache(errata_id)
 	parallel
 	tablespace [[128m_tbs]]
 	nologging;
