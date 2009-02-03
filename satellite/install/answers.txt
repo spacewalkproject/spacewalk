@@ -124,6 +124,15 @@ satellite-cert-file =
 # ssl-ca-cert-expiration = 
 # ssl-server-cert-expiration = 
 
+## Apache conf.d/ssl.conf virtual host definition reconfiguration
+#
+# A value of "Y" or "y" here will cause the installer to make a numbered
+# backup of the system's existing httpd/conf.d/ssl.conf file and replace
+# the original with one that's set up properly to work with Spacewalk.
+# The recommended answer is Y
+#
+# ssl-config-sslvhost =
+
 # *** For troubleshooting/testing only. ***
 #
 # rhn-parent =
