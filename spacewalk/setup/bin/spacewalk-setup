@@ -1064,7 +1064,7 @@ sub final_db_config {
   my $options = shift;
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
 SELECT TS.value
   FROM rhnTemplateString TS
@@ -1200,7 +1200,7 @@ sub setup_monitoring {
 sub update_monitoring_environment {
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   # BZ 226915 we cannot use db_name from %answers - it contains instance name
   # we want real db name
   my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
@@ -1229,7 +1229,7 @@ sub update_monitoring_config {
   my $answers = shift;
   my $mon_config = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = ?,
@@ -1298,7 +1298,7 @@ sub random_password {
 sub clear_db {
   my $answers = shift;
 
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::get_dbh($answers);
 
   print Spacewalk::Setup::loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
 
