@@ -57,10 +57,10 @@ DELETE FROM rhnServerNeededCache
 </write-mode>
 
 <write-mode name="insert_needed_errata_cache">
-  <query params="server_id, errata_id">
+  <query params="server_id, errata_id, package_id">
 INSERT INTO rhnServerNeededCache
-            (server_id, errata_id)
-     VALUES (:server_id, :errata_id)
+            (server_id, errata_id, package_id)
+     VALUES (:server_id, :errata_id, :package_id)
   </query>
 </write-mode>
 

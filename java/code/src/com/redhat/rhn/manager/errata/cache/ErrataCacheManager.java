@@ -190,12 +190,13 @@ public class ErrataCacheManager extends HibernateFactory {
      * @param eid Errata Id
      * @return number of rows affected.
      */
-    public static int insertNeededErrataCache(Long sid, Long eid) {
+    public static int insertNeededErrataCache(Long sid, Long eid, Long pid) {
         WriteMode m = ModeFactory.getWriteMode("ErrataCache_queries",
                 "insert_needed_errata_cache");
         Map params = new HashMap();
         params.put("server_id", sid);
         params.put("errata_id", eid);
+        params.put("package_id", pid);
         return m.executeUpdate(params);
     }
 

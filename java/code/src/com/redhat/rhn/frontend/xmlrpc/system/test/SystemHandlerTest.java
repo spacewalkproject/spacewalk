@@ -916,8 +916,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         UserFactory.save(admin);
         TestUtils.flushAndEvict(admin);
+        Package p = (Package) e.getPackages().iterator().next();
         ErrataCacheManager.insertNeededErrataCache(
-                s.getId(), e.getId());
+                s.getId(), e.getId(), p.getId());
 
         Object[] array = handler.getRelevantErrata(adminKey,
                 new Integer(s.getId().intValue()));

@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.SystemOverview;
@@ -48,8 +49,9 @@ public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
         //Associate the system and the errata
         UserFactory.save(user);
         OrgFactory.save(user.getOrg());
+        Package p = (Package) e.getPackages().iterator().next();
         int rows = ErrataCacheManager.insertNeededErrataCache(
-                server.getId(), e.getId());
+                server.getId(), e.getId(), p.getId());
         assertEquals(1, rows);
         
         //Add the system to the set

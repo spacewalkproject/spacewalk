@@ -29,6 +29,7 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.domain.rhnpackage.Package;
 
 /**
  * ErrataActionTest
@@ -42,8 +43,9 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.DISPATCH, Boolean.toString(true));
         Server server = ServerFactoryTest.createTestServer(user, true);      
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        Package p = (Package) e.getPackages().iterator().next();
         ErrataCacheManager.insertNeededErrataCache(server.getId(), 
-                e.getId());
+                e.getId(), p.getId());
         addRequestParameter(RequestContext.SID, server.getId().toString());
         actionPerform();
         assertTrue(getActualForward().indexOf("errata.jsp") > -1);
