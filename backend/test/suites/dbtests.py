@@ -183,6 +183,11 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             self.assertEquals(TEST_NAMES[i], rows[i]['name'])
             i = i + 1
 
+    def test_unicode_string_argument(self):
+        query = rhnSQL.prepare("SELECT * FROM %s WHERE name=:name" % 
+            self.temp_table)
+        query.execute(name=u'blah')
+
 #    def test_procedure(self):
 #        sp = rhnSQL.Procedure("return_int")
 #        ret = sp(5)

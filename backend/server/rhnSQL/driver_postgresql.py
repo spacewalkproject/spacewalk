@@ -233,6 +233,11 @@ class Cursor(sql_base.Cursor):
         return cursor
 
     def _execute_wrapper(self, function, *p, **kw):
+        # PostgreSQL really doesn't like getting unicode strings:
+        for key, value in kw.items():
+            if type(value) == type(u""):
+                kw[key] = str(value)
+
         params =  ','.join(["%s: %s" % (str(key), str(value)) for key, value \
                 in kw.items()])
         log_debug(5, "Executing SQL: \"%s\" with bind params: {%s}"
