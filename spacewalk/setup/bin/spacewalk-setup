@@ -919,7 +919,6 @@ sub populate_initial_configs {
         my %nls_database_paramaters = Spacewalk::Setup::get_nls_database_parameters($answers);
         $charset = $nls_database_paramaters{NLS_CHARACTERSET};
     }
-    print "Charset = " . $charset . "\n";
 
     my %config_opts =
     (
