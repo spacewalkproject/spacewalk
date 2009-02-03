@@ -56,24 +56,33 @@
    </query>
 </mode>
    
+<!-- Returns the next value in the operation sequence. --> 
+<mode name="get_seq_nextval">
+   <query>
+      SELECT rhn_ss_op_seq.nextval
+        FROM dual
+   </query>
+</mode>
+   
 <!-- Adds a new SSM operation to be tracked, default the created, modified, and progress
      to starting values.
      
      The values for status should be taken from the enumeration SsmOperationStatus.
      -->
 <write-mode name="create_operation">
-   <query params="user_id, description, status">
+   <query params="op_id, user_id, description, status">
       INSERT
         INTO rhnSsmOperation
              (id, user_id, description, status, started, modified, progress)
-       VALUES
-             (rhn_ss_op_seq.nextval,
-              :user_id,
-              :description,
-              :status,
-              sysdate,
-              sysdate,
-              0)
+      VALUES (
+             :op_id,
+             :user_id,
+             :description,
+             :status,
+             sysdate,
+             sysdate,
+             0
+             )
    </query>
 </write-mode>
    
@@ -92,5 +101,31 @@
          AND user_id = :user_id
    </query>
 </write-mode>
+   
+<!-- Creates a mapping between an operation (rhnSsmOperation) and the servers on which
+     the operation is performed (rhnServer). This query will take the server IDs from
+     an RhnSet.
+     -->
+<write-mode name="map_servers_to_operation">
+   <query params="op_id, set_label">
+      INSERT
+        INTO rhnSsmOperationServer
+             (operation_id, server_id)
+             (
+             SELECT :op_id, element
+               FROM rhnSet
+              WHERE label = :set_label
+             )
+   </query>
+</write-mode>
+   
+<!-- Returns a list of all servers involved in the operation identified by the given ID. -->
+<mode name="find_server_ids_for_operation_id">
+   <query params="op_id">
+      SELECT server_id
+        FROM rhnSsmOperationServer
+       WHERE operation_id = :op_id
+   </query>
+</mode>
    
 </datasource_modes>
