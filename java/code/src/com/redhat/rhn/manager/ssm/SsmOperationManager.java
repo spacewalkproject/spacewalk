@@ -53,7 +53,7 @@ public class SsmOperationManager extends BaseManager {
             throw new IllegalArgumentException("user cannot be null");
         }
 
-        SelectMode m = ModeFactory.getMode("ssm_queries", "find_all_operations");
+        SelectMode m = ModeFactory.getMode("ssm_operation_queries", "find_all_operations");
 
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("user_id", user.getId());
@@ -73,7 +73,8 @@ public class SsmOperationManager extends BaseManager {
             throw new IllegalArgumentException("user cannot be null");
         }
 
-        SelectMode m = ModeFactory.getMode("ssm_queries", "find_operations_with_status");
+        SelectMode m =
+            ModeFactory.getMode("ssm_operation_queries", "find_operations_with_status");
 
         Map<String, Object> params = new HashMap<String, Object>(2);
         params.put("user_id", user.getId());
@@ -97,8 +98,8 @@ public class SsmOperationManager extends BaseManager {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
-        
-        SelectMode m = ModeFactory.getMode("ssm_queries", "find_operation_by_id");
+
+        SelectMode m = ModeFactory.getMode("ssm_operation_queries", "find_operation_by_id");
 
         Map<String, Object> params = new HashMap<String, Object>(2);
         params.put("user_id", user.getId());
@@ -111,13 +112,29 @@ public class SsmOperationManager extends BaseManager {
     /**
      * Creates a new operation, defaulting the status to "in progress" and the progress
      * of the operation to 0.
+     * <p/>
+     * For efficiency, this call assumes the following:
+     * <ul>
+     * <li>The set of servers that are taking place in the operation are already in the
+     * database as an RhnSet (the name of set is passed into this call).</li>
+     * <li>The server ID is stored in the first element (i.e. "element" in the set table).
+     * </ul>
+     * <p/>
+     * This should be a safe assumption since, at very least, if all servers are taking
+     * place in the operation they are already in the SSM RhnSet. If only a subset
+     * is needed, a nested select can be used to drop them into a new set, preventing
+     * the need to have another insert per server for this call.
      *
      * @param user        user under which to associate the operation; cannot be
      *                    <code>null</code>
      * @param description high level description of what the operation is doing;
      *                    cannot be <code>null</code>
+     * @param rhnSetLabel references a RhnSet with the server IDs to associate with the
+     *                    new operation
+     * @return the id of the created operation
      */
-    public static void createOperation(User user, String description) {
+    public static long createOperation(User user, String description,
+                                       String rhnSetLabel) {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
@@ -125,21 +142,46 @@ public class SsmOperationManager extends BaseManager {
         if (description == null) {
             throw new IllegalArgumentException("description cannot be null");
         }
-        
-        WriteMode m = ModeFactory.getWriteMode("ssm_queries", "create_operation");
 
-        Map<String, Object> params = new HashMap<String, Object>(3);
+        SelectMode selectMode;
+        WriteMode writeMode;
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        // Select the operation ID manually from the sequence so we can add the mappings
+        // from the operation to the servers
+        selectMode = ModeFactory.getMode("ssm_operation_queries", "get_seq_nextval");
+        DataResult nextValResult = selectMode.execute(params);
+        Map<String, Object> nextValMap = (Map<String, Object>) nextValResult.get(0);
+        long operationId = (Long) nextValMap.get("nextval");
+
+        // Add the operation data
+        writeMode = ModeFactory.getWriteMode("ssm_operation_queries", "create_operation");
+
+        params.clear();
+        params.put("op_id", operationId);
         params.put("user_id", user.getId());
         params.put("description", description);
         params.put("status", SsmOperationStatus.IN_PROGRESS.getText());
 
-        m.executeUpdate(params);
+        writeMode.executeUpdate(params);
+
+        // Add the server/operation mappings
+        writeMode =
+            ModeFactory.getWriteMode("ssm_operation_queries", "map_servers_to_operation");
+
+        params.clear();
+        params.put("op_id", operationId);
+        params.put("set_label", rhnSetLabel);
+
+        writeMode.executeUpdate(params);
+
+        return operationId;
     }
 
     /**
      * Indicates the operation has completed, updating its status and progress completed
      * values to indicate this.
-     * 
+     *
      * @param user        verifies that the user isn't trying to load someone else's
      *                    operation; cannot be <code>null</code>
      * @param operationId database ID of the operation to update
@@ -148,8 +190,9 @@ public class SsmOperationManager extends BaseManager {
         if (user == null) {
             throw new IllegalArgumentException("user cannot be null");
         }
-        
-        WriteMode m = ModeFactory.getWriteMode("ssm_queries", "update_status_and_progress");
+
+        WriteMode m =
+            ModeFactory.getWriteMode("ssm_operation_queries", "update_status_and_progress");
 
         Map<String, Object> params = new HashMap<String, Object>(3);
         params.put("user_id", user.getId());
@@ -158,6 +201,25 @@ public class SsmOperationManager extends BaseManager {
         params.put("progress", 100);
 
         m.executeUpdate(params);
+    }
+
+    /**
+     * Returns a list of servers that took part in the given SSM operation.
+     *
+     * @param operationId operation for which to return the server IDs
+     * @return list of maps, one per server ID, where each map contains a single
+     *         entry (key: server_id) containing the server ID
+     */
+    public static DataResult findServerIdsForOperation(long operationId) {
+        SelectMode m = ModeFactory.getMode("ssm_operation_queries",
+            "find_server_ids_for_operation_id");
+
+        Map<String, Object> params = new HashMap<String, Object>(1);
+        params.put("op_id", operationId);
+
+        // list of maps of server_id -> <id>
+        DataResult result = m.execute(params);
+        return result;
     }
 }
 

@@ -17,8 +17,14 @@ package com.redhat.rhn.manager.ssm.test;
 import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.manager.ssm.SsmOperationManager;
 import com.redhat.rhn.manager.ssm.SsmOperationStatus;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
@@ -29,14 +35,16 @@ import com.redhat.rhn.testing.UserTestUtils;
 public class SsmOperationManagerTest extends RhnBaseTestCase {
 
     private User ssmUser;
+    private String setLabel;
 
     protected void setUp() throws Exception {
         ssmUser = UserTestUtils.findNewUser("ssmuser", "ssmorg");
+        setLabel = populateRhnSet();
     }
 
-    public void testCreateAndAllOperations() {
+    public void testCreateAndAllOperations() throws Exception {
         // Test
-        SsmOperationManager.createOperation(ssmUser, "Test operation");
+        SsmOperationManager.createOperation(ssmUser, "Test operation", setLabel);
 
         DataResult result = SsmOperationManager.allOperations(ssmUser);
 
@@ -45,19 +53,13 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertEquals(1, result.size());
     }
 
-    public void testCreateCompleteAndInProgressOperations() {
+    public void testCreateCompleteAndInProgressOperations() throws Exception {
         // Test
-        SsmOperationManager.createOperation(ssmUser, "Test operation 1");
-        SsmOperationManager.createOperation(ssmUser, "Test operation 2");
+        long completeMeId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation 1", setLabel);
+        SsmOperationManager.createOperation(ssmUser, "Test operation 2", setLabel);
 
-        DataResult result = SsmOperationManager.allOperations(ssmUser);
-        assertNotNull(result);
-        assertEquals(2, result.size());
-
-        Map<String, Object> operationData = (Map<String, Object>) result.get(0);
-        long operationId = (Long) operationData.get("id");
-
-        SsmOperationManager.completeOperation(ssmUser, operationId);
+        SsmOperationManager.completeOperation(ssmUser, completeMeId);
 
         // Verify
 
@@ -72,22 +74,18 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         for (int ii = 0; ii < all.size(); ii++) {
             Map<String, Object> operation = (Map<String, Object>) all.get(ii);
 
-            if (operation.get("status").equals(SsmOperationStatus.COMPLETED.getText())) {
+            if (operation.get("id").equals(completeMeId)) {
+                assertEquals(SsmOperationStatus.COMPLETED.getText(),
+                    operation.get("status"));
                 assertEquals(100L, operation.get("progress"));
             }
         }
     }
 
-    public void testCreateAndFindOperation() {
+    public void testCreateAndFindOperation() throws Exception {
         // Test
-        SsmOperationManager.createOperation(ssmUser, "Test operation 1");
-        
-        DataResult result = SsmOperationManager.allOperations(ssmUser);
-        assertNotNull(result);
-        assertEquals(1, result.size());
-
-        Map<String, Object> operationData = (Map<String, Object>) result.get(0);
-        long operationId = (Long) operationData.get("id");
+        long operationId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation 1", setLabel);
         
         DataResult operation = SsmOperationManager.findOperationById(ssmUser, operationId);
         
@@ -95,7 +93,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertNotNull(operation);
         assertEquals(1, operation.size());
         
-        operationData = (Map<String, Object>) operation.get(0);
+        Map<String, Object> operationData = (Map<String, Object>) operation.get(0);
         
         assertEquals("Test operation 1", operationData.get("description"));
         assertEquals(0L, operationData.get("progress"));
@@ -111,5 +109,39 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         // Verify
         assertNotNull(result);
         assertEquals(0, result.size());
+    }
+
+    public void testFindServerIdsForOperation() throws Exception {
+        // Setup
+        long operationId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation", setLabel);
+        
+        // Test
+        DataResult result = SsmOperationManager.findServerIdsForOperation(operationId);
+
+        // Verify
+        assertNotNull(result);
+        assertEquals(2, result.size());
+    }
+    
+    /**
+     * Populates an RhnSet with server IDs.
+     * 
+     * @return label referencing the set that was populated
+     * @throws Exception if there is an error creating a server
+     */
+    private String populateRhnSet() throws Exception {
+        RhnSetDecl setDecl =
+            RhnSetDecl.findOrCreate("SsmOperationManagerTestSet", SetCleanup.NOOP);
+        RhnSet set = setDecl.create(ssmUser);
+        
+        for (int ii = 0; ii < 2; ii++) {
+            Server testServer = ServerFactoryTest.createTestServer(ssmUser, true);
+            set.addElement(testServer.getId());
+        }
+
+        RhnSetManager.store(set);
+        
+        return set.getLabel();
     }
 }
