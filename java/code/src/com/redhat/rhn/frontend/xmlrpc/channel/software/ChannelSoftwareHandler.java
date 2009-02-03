@@ -661,7 +661,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.doc Change a systems subscribed channels to the list of channels passed in.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #array_single("string", "channeLabel - labels of the channels to 
+     * @xmlrpc.param #array_single("string", "channelLabel - labels of the channels to 
      *              subscribe the system to.")
      * @xmlrpc.returntype int - 1 on success, 0 otherwise
      */
