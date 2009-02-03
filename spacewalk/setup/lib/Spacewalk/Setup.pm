@@ -1187,14 +1187,24 @@ sub oracle_populate_db {
     }
 
     my $sat_schema_deploy =
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+        File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+    my $logfile = DB_POP_LOG_FILE;
 
+#    my @opts = ('/usr/bin/rhn-populate-database.pl',
+#        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+#        "--schema-deploy-file=$sat_schema_deploy",
+#        '--nofork',
+#    );
     my @opts = ('/usr/bin/rhn-populate-database.pl',
-        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
-        "--schema-deploy-file=$sat_schema_deploy",
-        '--log=' . Spacewalk::Setup::DB_POP_LOG_FILE,
-        '--nofork',
+        sprintf('--user=%s', @{$answers}{'db-user'}),
+        sprintf('--password=%s', @{$answers}{'db-password'}),
+        sprintf('--database=%s', @{$answers}{'db-sid'}),
+        sprintf('--host=%s', @{$answers}{'db-host'}),
+        sprintf("--schema-deploy-file=$sat_schema_deploy"),
+        sprintf("--log=$logfile"),
+        sprintf('--nofork'),
     );
+
 
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => Spacewalk::Setup::DB_POP_LOG_FILE,

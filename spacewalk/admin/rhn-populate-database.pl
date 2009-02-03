@@ -108,7 +108,6 @@ if ($clear_db) {
 local *LOGFILE;
 open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
 
-my $dsn = '';
 
 system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
 if ($postgresql) {
@@ -119,7 +118,7 @@ if ($postgresql) {
 }
 else {
     print "*** Installing Oracle schema.\n";
-    $dsn = sprintf('--dsn=%s/%s@%s', $user, $password, $database);
+    my $dsn = sprintf('%s/%s@%s', $user, $password, $database);
     $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
 }
 
