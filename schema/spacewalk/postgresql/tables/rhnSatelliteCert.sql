@@ -21,6 +21,8 @@ rhnSatelliteCert
 (
 	label			varchar(64) not null,
 	version			numeric,
+    constraint      rhn_satcert_label_version_uq unique (label, version),
+--	tablespace [[64k_tbs]]
 	cert			bytea not null,
 	-- issued and expires are derived from the "cert" data, but we
 	-- need them to search for certs that have expired.
@@ -29,8 +31,3 @@ rhnSatelliteCert
 	created			timestamp default(CURRENT_TIMESTAMP) not null,
 	modified		timestamp default(CURRENT_TIMESTAMP) not null
 );
-
-create unique index rhn_satcert_label_version_uq on
-	rhnSatelliteCert(label, version);
---	tablespace [[64k_tbs]]
-
