@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Feb  3 2009 Miroslav Suchy <msuchy@redhat.com>
+- 455934 - write timestamps to logs by default
+
 * Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.13-1
 - own %%{perl_vendorlib}/NOCpulse
 - silent rpmlint by $RPM_BUILD_ROOT prefix to %%install
