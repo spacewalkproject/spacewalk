@@ -135,8 +135,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * Example Date:  '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param_desc("string", "startDate", "In format 'YYYY-MM-DD HH24:MI:SS'")
-     * @xmlrpc.param #param_desc("string", "endDate", "In format 'YYYY-MM-DD HH24:MI:SS'")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.param #param("dateTime.iso8601", "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
@@ -195,11 +195,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @throws NoSuchChannelException thrown if no channel is found.
      * 
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
-     * whose last modified date is greater than given date
+     * whose last modified date is greater than given date.
      * Example Date:  '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("string", "startDate", "In format 'YYYY-MM-DD HH24:MI:SS'")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
@@ -230,7 +230,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * found.
      *
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
-     * between the given dates
+     * between the given dates. Example Date: '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param("dateTime.iso8601", "startDate")
@@ -294,7 +294,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @throws NoSuchChannelException thrown if no channel is found.
      *
      * @xmlrpc.doc Lists all packages in the channel, regardless of version whose last
-     * modified date is greater than given date.
+     * modified date is greater than given date. Example Date: '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param("dateTime.iso8601", "startDate")
