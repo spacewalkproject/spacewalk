@@ -28,25 +28,25 @@ rhnServerNeededView
 AS
 SELECT   distinct  S.org_id,
          S.id,
-	 PE.errata_id,
-	 P.id,
-	 P.name_id
+         PE.errata_id,
+         P.id,
+         P.name_id
 FROM
-	 rhnPackage P,
-	 rhnServerPackageArchCompat SPAC,
-	 rhnPackageEVR P_EVR,
-	 rhnPackageEVR SP_EVR,
-	 rhnServerPackage SP,
-	 rhnChannelPackage CP,
-	 rhnServerChannel SC,
+         rhnPackage P,
+         rhnServerPackageArchCompat SPAC,
+         rhnPackageEVR P_EVR,
+         rhnPackageEVR SP_EVR,
+         rhnServerPackage SP,
+         rhnChannelPackage CP,
+         rhnServerChannel SC,
          rhnServer S,
-	 rhnErrataPackage PE,
-	 rhnChannelErrata EC
+         rhnErrataPackage PE,
+         rhnChannelErrata EC
 WHERE
-    	 SC.server_id = S.id
-  AND  	 SC.channel_id = CP.channel_id
+         SC.server_id = S.id
+  AND    SC.channel_id = CP.channel_id
   AND    CP.package_id = P.id
-  AND    PE.package_id = P.id (+)
+  AND    P.id = PE.package_id (+)
   AND    PE.errata_id = EC.errata_id (+)
   AND    EC.channel_id = SC.channel_id (+)
   AND    p.package_arch_id = spac.package_arch_id

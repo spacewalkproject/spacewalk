@@ -222,8 +222,7 @@ rhnServerInfo		:: rhnServer
 rhnServerUuid		:: rhnServer
 rhnServerInstallInfo	:: rhnServer
 rhnServerLocation	:: rhnServer
-rhnServerNeededErrataCache :: web_customer rhnServer rhnErrata
-rhnServerNeededPackageCache :: web_customer rhnServer rhnErrata rhnPackage
+rhnServerNeededCache :: web_customer rhnServer rhnErrata
 rhnServerNetwork	:: rhnServer
 rhnServerNotes		:: rhnServer web_contact
 rhnServerPackage	:: rhnServer rhnPackageArch rhnPackageName rhnPackageEVR
