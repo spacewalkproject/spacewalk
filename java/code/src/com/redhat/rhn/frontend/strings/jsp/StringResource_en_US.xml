@@ -20649,7 +20649,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.selectedusers">
-        <source>Only &lt;a href="{0}"&gt;selected users within your organization&lt;/a&gt; may subscribe to this channel. (see the &lt;a href="{1}"&gt;"Subscribers" tab&lt;/a&gt; above.)</source>
+        <source>Only selected users within your organization may subscribe to this channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>

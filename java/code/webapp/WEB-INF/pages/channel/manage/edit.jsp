@@ -163,7 +163,8 @@
             <td><bean:message key="channel.edit.jsp.allusers"/></td>
             </tr><tr>
             <td><html:radio property="per_user_subscriptions" value="selected" /></td>
-            <td><bean:message key="channel.edit.jsp.selectedusers" arg0="/network/software/channels/manage/subscribers.pxt?cid=${param.cid}" arg1="/network/software/channels/manage/subscribers.pxt?cid=${param.cid}" /></td>
+            <rhn-require 
+            <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
             </tr>
             </table>
          </td>

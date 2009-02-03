@@ -260,6 +260,7 @@ rhnSolarisPatch :: rhnPackage rhnSolarisPatchType
 rhnSolarisPatchPackages :: rhnPackage rhnPackageNEVRA 
 rhnSolarisPatchedPackages :: rhnPackage rhnPackageNEVRA rhnServer 
 rhnSolarisPatchSetMembers :: rhnPackage rhnSolarisPatchSet
+rhnSsmOperationServer :: rhnSsmOperation
 rhnSurveyQuestionResponse :: rhnSurveyQuestion
 rhnSurveyQuestion	:: rhnSurvey
 

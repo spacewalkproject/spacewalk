@@ -3924,6 +3924,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="AX">
+        <source>Aland Islands</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="AZ">
         <source>Azerbaijan</source>
         <context-group name="ctx">
@@ -4073,6 +4080,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="CC">
         <source>Cocos (Keeling) Islands</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="CD">
+        <source>CONGO, The Democratic Republic of the</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -4338,14 +4352,14 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
       <trans-unit id="GB">
-        <source>(GMT+0100) United Kingdom</source>
+        <source>United Kingdom</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
       </trans-unit>
 
       <trans-unit id="GB-Eire">
-        <source>(GMT+0100) Ireland</source>
+        <source>Ireland</source>
       </trans-unit>      
 
       <trans-unit id="GD">
@@ -4364,6 +4378,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="GF">
         <source>French Guiana</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="GG">
+        <source>Guernsey</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -4523,6 +4544,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="IM">
+        <source>Isle of Man</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="IN">
         <source>India</source>
         <context-group name="ctx">
@@ -4560,6 +4588,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="IT">
         <source>Italy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="JE">
+        <source>Jersey</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -4756,6 +4791,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="MD">
         <source>Moldova</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="ME">
+        <source>Montenegro</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -5048,6 +5090,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="PS">
+        <source>Palestinian Territory, Occupied</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="PT">
         <source>Portugal</source>
         <context-group name="ctx">
@@ -5078,6 +5127,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="RE">
         <source>Reunion (French)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="RS">
+        <source>Serbia</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -5281,6 +5337,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="TK">
         <source>Tokelau</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="TL">
+        <source>Timor-Leste</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -7914,6 +7977,9 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
      <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+     </trans-unit>
+     <trans-unit id="message.channelsubscribers">
+        <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
      </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
