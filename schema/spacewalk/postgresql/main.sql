@@ -12,8 +12,10 @@ set client_min_messages = error;
 \i tables/rhnUserGroupType.sql
 \i tables/rhnUserGroupType_data.sql
 \i tables/rhnUserGroup.sql
+\i tables/rhnSatelliteCert.sql
 
 \i triggers/rhnOrgQuota.sql
+\i triggers/rhnSatelliteCert.sql
 
 \i procs/create_first_org.sql
 
