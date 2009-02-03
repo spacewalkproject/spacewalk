@@ -188,6 +188,7 @@ public class ErrataCacheManager extends HibernateFactory {
      * Inserts record into NeededErrata cache table
      * @param sid Server Id
      * @param eid Errata Id
+     * @param pid Package Id
      * @return number of rows affected.
      */
     public static int insertNeededErrataCache(Long sid, Long eid, Long pid) {
