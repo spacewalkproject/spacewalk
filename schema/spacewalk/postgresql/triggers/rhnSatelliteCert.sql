@@ -15,18 +15,18 @@
 --
 --
 
-CREATE OR REPLACE FUNCTION rhn_satcert_mod_trig_fun() RETURNS TRIGGER AS
+create or replace function rhn_satcert_mod_trig_fun() returns trigger as
 $$
 begin
     new.modified := CURRENT_TIMESTAMP;
 end;
 $$ language plpgsql;
 
-CREATE TRIGGER
+create trigger
 rhn_satcert_mod_trig
-BEFORE insert or update ON rhnSatelliteCert
+before insert or update on rhnSatelliteCert
 for each row
-EXECUTE PROCEDURE rhn_satcert_mod_trig_fun();
+execute procedure rhn_satcert_mod_trig_fun();
 
 
 
