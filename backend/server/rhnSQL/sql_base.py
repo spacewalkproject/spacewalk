@@ -265,31 +265,6 @@ class Cursor:
             return 1
         return 0
 
-    def _munge_arg(self, val):
-        for sqltype, dbtype in self._type_mapping:
-            if isinstance(val, sqltype):
-                var = self._real_cursor.var(dbtype, val.size)
-                var.setvalue(0, val.get_value())
-                return var
-
-        # TODO: Find out why somebody flagged this with XXX?
-        # XXX
-        return val.get_value()
-
-    def _unmunge_args(self, kw_dict, modified_params):
-        for k, v in modified_params:
-            v.set_value(kw_dict[k].getvalue())
-
-    def _munge_args(self, kw_dict):
-        modified = []
-        for k, v in kw_dict.items():
-            if not isinstance(v, sql_types.DatabaseDataType):
-                continue
-            vv = self._munge_arg(v)
-            modified.append((k, v))
-            kw_dict[k] = vv
-        return modified
-
 
 
 # A class to handle calls to the SQL functions and procedures
@@ -303,54 +278,10 @@ class Procedure:
         # Mapped as a list of (sql_type.class, db.class) tuples.  self._type_mapping = []
         self._type_mapping = []
         
-    def __call__(self, *args):
-        log_debug(2, self.name, args)
-        retval = self._call_proc(args)
-        return retval
-
     def __del__(self):
         if self.cursor:
             self.cursor.close()
             self.cursor = None
-
-    def _call_proc(self, args):
-        return self._call_proc_ret(args, ret_type=None)
-
-    def _call_proc_ret(self, args, ret_type=None):
-        args = map(adjust_type, self._munge_args(args))
-        if ret_type:
-            for sqltype, db_type in self._type_mapping:
-                if isinstance(ret_type, sqltype):
-                    ret_type = db_type
-                    break
-                else:
-                    raise Exception("Unknown type", ret_type)
-
-        if ret_type:
-            return self.cursor.callfunc(self.name, ret_type, args)
-        else:
-            return self.cursor.callproc(self.name, args)
-
-    def _munge_args(self, args):
-        """
-        Converts database specific argument types to those defined in sql_base.
-        """
-        new_args = []
-        for arg in args:
-            if not isinstance(arg, sql_types.DatabaseDataType):
-                new_args.append(arg)
-                continue
-            new_args.append(self._munge_arg(arg))
-        return new_args
-
-    def _munge_arg(self, val):
-        for sqltype, db_specific_type in self._type_mapping:
-            var = self.proc.var(db_specific_type, val.size)
-            var.setvalue(0, val.get_value())
-            return var
-
-        # XXX
-        return val.get_value()
 
 
 

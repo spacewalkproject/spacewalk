@@ -119,6 +119,7 @@ class Procedure(sql_base.Procedure):
         self._type_mapping = POSTGRESQL_TYPE_MAPPING
 
     def __call__(self, *args):
+        log_debug(2, self.name, args)
 
         # Buildup a string for the positional arguments to the procedure:
         positional_args = ""
@@ -248,7 +249,6 @@ class Cursor(sql_base.Cursor):
         if self.sql is None:
             raise rhnException("Cannot execute empty cursor")
 
-        modified_params = self._munge_args(kw)
         try:
             retval = apply(function, p, kw)
         except pgsql.ProgrammingError, e:
@@ -256,32 +256,6 @@ class Cursor(sql_base.Cursor):
             # and yet the Oracle driver passes it an errno? Suspect it's not
             # even used.
             raise rhnSQL.SQLStatementPrepareError(0, str(e), self.sql)
-        #except Exception, e:
-        #    log_error("PostgreSQL exception", e)
-        #    raise e
-            #ret = self._get_oracle_error_info(e)
-            #if isinstance(ret, StringType):
-            #    raise sql_base.SQLError(self.sql, p, kw, ret)
-            #(errno, errmsg) = ret[:2]
-            #if 900 <= errno <= 999:
-            #    # Per Oracle's documentation, SQL parsing error
-            #    args = (errno, errmsg, self.sql)
-            #    raise apply(sql_base.SQLStatementPrepareError, args)
-            #if errno == 1475: # statement needs to be reparsed; force a prepare again
-            #    if self.reparsed: # useless, tried that already. give up
-            #        log_error("Reparsing cursor did not fix it", self.sql)
-            #        args = ("Reparsing tried and still got this",) + tuple(ret)
-            #        raise apply(sql_base.SQLError, args)
-            #    self._real_cursor = self.dbh.prepare(self.sql)
-            #    self.reparsed = 1
-            #    apply(self._execute_wrapper, (function, ) + p, kw)
-            #elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
-            #    raise apply(sql_base.SQLSchemaError, ret)
-            #raise apply(sql_base.SQLError, ret)
-        #else:
-        #    self.reparsed = 0 # reset the reparsed counter
-        # Munge back the values
-        self._unmunge_args(kw, modified_params)
         return retval
 
     def _execute_(self, args, kwargs):
@@ -346,6 +320,4 @@ class Cursor(sql_base.Cursor):
         self.description = self._real_cursor.description
         rowcount = self._real_cursor.rowcount
         return rowcount
-
-
 
