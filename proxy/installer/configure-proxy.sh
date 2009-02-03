@@ -247,7 +247,8 @@ cat /etc/httpd/conf.d/ssl.conf.bak \
 
 CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
 default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POPULATE_CONFIG_CHANNEL 'Y/n'
-if [ "$POPULATE_CONFIG_CHANNEL" = "Y" ]; then
+POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
+if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
 	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \
 		/etc/httpd/conf.d/ssl.conf /etc/rhn/rhn.conf /etc/rhn/cluster.ini /etc/squid/squid.conf \
