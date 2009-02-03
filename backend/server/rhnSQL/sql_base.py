@@ -116,7 +116,6 @@ class Cursor:
     def __init__(self, dbh=None, sql=None, force=None):
         self.sql = sql
         self.dbh = dbh
-        self._type_mapping = []
 
         self.reparsed = 0
         self._real_cursor = None
@@ -267,17 +266,19 @@ class Cursor:
 
 
 
-# A class to handle calls to the SQL functions and procedures
 class Procedure:
+    """ 
+    Class for calling out to stored procedures.
+
+    Written to behave very much like a Python function in that these
+    Procedure objects are "callable".
+
+    See database specific implementations for more details.
+    """
     def __init__(self, name, cursor):
         self.name = name
         self.cursor = cursor
 
-        # Subclasses override with their own type mapping to convert types
-        # specific to the database backend into those defined in sql_types.
-        # Mapped as a list of (sql_type.class, db.class) tuples.  self._type_mapping = []
-        self._type_mapping = []
-        
     def __del__(self):
         if self.cursor:
             self.cursor.close()

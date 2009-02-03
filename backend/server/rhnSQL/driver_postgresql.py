@@ -32,13 +32,6 @@ from const import POSTGRESQL
 
 NAMED_PARAM_REGEX = re.compile("(\W)(:\w+)")
 
-POSTGRESQL_TYPE_MAPPING = [
-    (sql_types.NUMBER, pgsql.INTEGER),
-    (sql_types.STRING, pgsql.STRING),
-    (sql_types.BINARY, pgsql.BINARY),
-    (sql_types.LONG_BINARY, pgsql.LONG), # TODO: LONG_BINARY?
-]
-
 def convert_named_query_params(query):
     """ 
     Convert a query with named parameters (i.e. :id, :name, etc) into one
@@ -116,7 +109,6 @@ class Procedure(sql_base.Procedure):
 
     def __init__(self, name, cursor):
         sql_base.Procedure.__init__(self, name, cursor)
-        self._type_mapping = POSTGRESQL_TYPE_MAPPING
 
     def __call__(self, *args):
         log_debug(2, self.name, args)
@@ -230,7 +222,6 @@ class Cursor(sql_base.Cursor):
     def __init__(self, dbh=None, sql=None, force=None):
 
         sql_base.Cursor.__init__(self, dbh, sql, force)
-        self._type_mapping = POSTGRESQL_TYPE_MAPPING
 
         # Accept Oracle style named query params, but convert for python-pgsql
         # under the hood:
