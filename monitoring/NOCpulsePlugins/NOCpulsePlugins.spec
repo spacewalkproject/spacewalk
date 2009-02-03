@@ -50,7 +50,7 @@ done
 %defattr(-,root,root,-)
 %dir %{_sysconfdir}/nocpulse
 %dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse
-%attr(777,nocpulse,nocpulse) %dir %{_var}/lib/nocpulse/ProbeState
+%attr(-,nocpulse,nocpulse) %dir %{_var}/lib/nocpulse/ProbeState
 %dir %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse/libexec
 %attr(-, nocpulse,nocpulse) %{_var}/lib/nocpulse/*
 %{_sysconfdir}/nocpulse/*
@@ -60,6 +60,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Feb  3 2009 Miroslav Suchý <msuchy@redhat.com>
+- fix permission of /var/lib/nocpulse/ProbeState
+
 * Thu Dec  4 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.3-1
 - fix permission of /var/lib/nocpulse
 
