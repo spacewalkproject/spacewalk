@@ -1,0 +1,96 @@
+<datasource_modes>
+
+<!-- Loads all SSM operation details associated with the user regardless of status. In
+     addition, this query will return the number of servers involved in each operation. -->
+<mode name="find_all_operations">
+  <query params="user_id">
+     SELECT op.id,
+            op.description,
+            op.status,
+            op.started,
+            op.modified,
+            op.progress,
+            (SELECT COUNT(server_id)
+               FROM rhnSsmOperationServer ops
+              WHERE ops.operation_id = op.id) as server_count
+       FROM rhnSsmOperation op
+      WHERE op.user_id = :user_id
+  </query>
+</mode>
+   
+<!-- Loads SSM operation details associated with the user for operations that match the
+     given status. In addition, this query will return the number of servers involved in
+     each operation.
+     
+     The values for status should be taken from the enumeration SsmOperationStatus.
+     -->
+<mode name="find_operations_with_status">
+   <query params="user_id, status">
+      SELECT op.id,
+             op.description,
+             op.status,
+             op.started,
+             op.modified,
+             op.progress,
+             (SELECT COUNT(server_id)
+                FROM rhnSsmOperationServer ops
+               WHERE ops.operation_id = op.id) as server_count
+        FROM rhnSsmOperation op
+       WHERE op.status = :status
+         AND op.user_id = :user_id
+   </query>
+</mode>
+   
+<!-- Loads the SSM operation details identified by the given user and operation ID. -->
+<mode name="find_operation_by_id">
+   <query params="user_id, op_id">
+      SELECT op.id,
+             op.description,
+             op.status,
+             op.started,
+             op.modified,
+             op.progress
+        FROM rhnSsmOperation op
+       WHERE op.id = :op_id
+         AND op.user_id = :user_id
+   </query>
+</mode>
+   
+<!-- Adds a new SSM operation to be tracked, default the created, modified, and progress
+     to starting values.
+     
+     The values for status should be taken from the enumeration SsmOperationStatus.
+     -->
+<write-mode name="create_operation">
+   <query params="user_id, description, status">
+      INSERT
+        INTO rhnSsmOperation
+             (id, user_id, description, status, started, modified, progress)
+       VALUES
+             (rhn_ss_op_seq.nextval,
+              :user_id,
+              :description,
+              :status,
+              sysdate,
+              sysdate,
+              0)
+   </query>
+</write-mode>
+   
+<!-- Updates the status and progress completed of the given operation.
+
+     The values for status should be taken from the enumeration SsmOperationStatus.
+     The value of progress should be between 0 and 100 (i.e. a percent complete)
+     -->
+<write-mode name="update_status_and_progress">
+   <query params="user_id, op_id, status, progress">
+      UPDATE rhnSsmOperation
+         SET status = :status,
+             modified = sysdate,
+             progress = :progress      
+       WHERE id = :op_id
+         AND user_id = :user_id
+   </query>
+</write-mode>
+   
+</datasource_modes>
