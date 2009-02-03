@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.errata.ChannelAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -113,6 +114,7 @@ public class ChannelActionTest extends RhnBaseTestCase {
         RequestContext requestContext = new RequestContext(request);
         
         User user = requestContext.getLoggedInUser();
+        user.addRole(RoleFactory.CHANNEL_ADMIN);
 
         //create the errata
         Errata errata = ErrataFactoryTest.
