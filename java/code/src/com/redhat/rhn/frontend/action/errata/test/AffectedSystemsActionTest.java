@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.errata.test;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -106,7 +107,8 @@ public class AffectedSystemsActionTest extends MockObjectTestCase {
         
         for (int i = 0; i < 4; i++) {
             Server server = ServerFactoryTest.createTestServer(user, true);
-            ErrataFactoryTest.updateNeedsErrataCache(user.getOrg().getId(),
+            ErrataFactoryTest.updateNeedsErrataCache(
+                    ((Package)errata.getPackages().iterator().next()).getId(),
                     server.getId(), errata.getId());
         }
         

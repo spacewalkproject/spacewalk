@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.errata.test;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -42,7 +43,8 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
         for (int i = 0; i < 5; i++) {
             Server s = ServerFactoryTest.createTestServer(user, true);
             updateMe.addElement(s.getId());
-            ErrataFactoryTest.updateNeedsErrataCache(user.getOrg().getId(), 
+            ErrataFactoryTest.updateNeedsErrataCache(
+                    ((Package)e.getPackages().iterator().next()).getId(), 
                     s.getId(), e.getId());
             UserFactory.save(user);
         }

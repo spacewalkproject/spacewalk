@@ -30,7 +30,7 @@ BEGIN
         DELETE FROM rhnServerNeededCache WHERE server_id = server_id_in;
         INSERT INTO rhnServerNeededCache
        	    (SELECT server_id, errata_id, package_id
-	       FROM rhnServerNeededPackageView
+	       FROM rhnServerNeededView
               WHERE server_id = server_id_in);
 
     ELSE

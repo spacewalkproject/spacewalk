@@ -350,13 +350,13 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
        
     }
     
-    public static void updateNeedsErrataCache(Long orgId, Long serverId, 
+    public static void updateNeedsErrataCache(Long packageId, Long serverId, 
             Long errataId) {
         WriteMode m = 
             ModeFactory.
-                getWriteMode("test_queries", "insert_into_rhnServerNeededErrataCache");
+                getWriteMode("test_queries", "insert_into_rhnServerNeededPackageCache");
         Map params = new HashMap();
-        params.put("org_id", orgId);
+        params.put("package_id", packageId);
         params.put("server_id", serverId);
         params.put("errata_id", errataId);
         m.executeUpdate(params);
