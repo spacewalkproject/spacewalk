@@ -4352,14 +4352,14 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
       <trans-unit id="GB">
-        <source>(GMT+0100) United Kingdom</source>
+        <source>United Kingdom</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
       </trans-unit>
 
       <trans-unit id="GB-Eire">
-        <source>(GMT+0100) Ireland</source>
+        <source>Ireland</source>
       </trans-unit>      
 
       <trans-unit id="GD">
