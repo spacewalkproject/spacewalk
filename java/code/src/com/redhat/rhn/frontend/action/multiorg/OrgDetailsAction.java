@@ -80,6 +80,7 @@ public class OrgDetailsAction extends RhnAction {
 
         daForm.set("submitted", Boolean.TRUE);
         daForm.set("orgName", dto.getName());
+        daForm.set("id", dto.getId().toString());
         daForm.set("users", dto.getUsers().toString());            
         daForm.set("systems", dto.getSystems().toString());
         daForm.set("actkeys", dto.getActivationKeys().toString());
