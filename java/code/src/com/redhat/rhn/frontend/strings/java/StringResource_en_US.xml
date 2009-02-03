@@ -7915,6 +7915,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
      </trans-unit>
+     <trans-unit id="message.channelsubscribers">
+        <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
      </trans-unit>      

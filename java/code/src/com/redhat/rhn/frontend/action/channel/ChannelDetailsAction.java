@@ -60,6 +60,15 @@ public class ChannelDetailsAction extends RhnAction {
             String global = (String)form.get("global");
             chan.setGloballySubscribable((global != null) &&
                     ("all".equals(global)), user.getOrg());
+            
+            createSuccessMessage(request, "message.channelupdated",
+                    chan.getName());
+            
+            //did they enable per user subscriptions?                       
+            if (!global.equals("all")) {
+                addMessage(request, "message.channelsubscribers");
+            }
+            
             // this is evil but necessary
             chan = (Channel) ChannelFactory.reload(chan);
             params.put("cid", cid);

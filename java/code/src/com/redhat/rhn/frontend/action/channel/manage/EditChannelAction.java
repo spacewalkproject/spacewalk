@@ -98,7 +98,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                     "protected".equals(sharing))) {
                 // forward to confirm page
                 request.setAttribute("org", ctx.getLoggedInUser().getOrg());
-                formToAttributes(request, form);
+                formToAttributes(request, form);                
                 Map urlParams = new HashMap();
                 urlParams.put(RequestContext.CID, 
                             ctx.getRequiredParam(RequestContext.CID));
@@ -112,8 +112,15 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
             
             edit(form, errors, ctx);
+                         
             createSuccessMessage(request, "message.channelupdated",
                     form.getString("name"));
+            
+            //did they enable per user subscriptions?
+            String sub = (String)form.get("per_user_subscriptions");            
+            if (!sub.equals("all")) {
+                addMessage(request, "message.channelsubscribers");
+            }
         }
         // handler for private confirmation page
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
