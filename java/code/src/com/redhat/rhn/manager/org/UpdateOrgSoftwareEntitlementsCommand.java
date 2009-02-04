@@ -108,7 +108,9 @@ public class UpdateOrgSoftwareEntitlementsCommand {
                 
         if (avail < this.newTotal) {
             return new ValidatorError("org.entitlements.software.toomany",
-                    this.channelFamily.getName(), avail);
+                    this.org.getName(),
+                    this.channelFamily.getName(), 
+                    avail);
         }
         
         // Proposed cannot be lower than current members

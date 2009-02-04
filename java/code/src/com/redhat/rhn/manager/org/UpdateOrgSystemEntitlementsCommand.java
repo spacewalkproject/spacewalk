@@ -81,7 +81,8 @@ public class UpdateOrgSystemEntitlementsCommand {
         
         if (orgCur > this.newTotal && !Config.get().forceUnentitlement()) { 
             retval = false;
-        }        
+        }  
+        
         return retval;
     }
     
@@ -108,6 +109,7 @@ public class UpdateOrgSystemEntitlementsCommand {
         
         if (upper < this.newTotal) {
             return new ValidatorError("org.entitlements.system.toomany",
+                    this.org.getName(),
                     LocalizationService.getInstance().getMessage(entitlement.getLabel()), 
                     upper);
         }
