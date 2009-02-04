@@ -8,6 +8,7 @@ DB_PASSWORD=
 FORCE=no
 TOPDIR=$(dirname $0)
 TEMPLATE=$TOPDIR/default-createdb.tmpl
+RUNRESTORECON=no
 
 if [ "$(whoami)" != "oracle" ] ; then
 	echo "ERROR: You need to be running this script as oracle"
@@ -26,6 +27,7 @@ Usage() {
 	echo "    --datadir  DIR      use specified directory for data files"
 	echo "    --admindir DIR      use specified directory for admin files"
 	echo "    --template TEMPLATE create db using specified template"
+	echo "    --run-restorecon    run restorecon on datadir and admindir"
 	echo "    --help              this usage screen"
 }
 
@@ -63,6 +65,10 @@ while [ -n "$1" ] ; do
 	--admindir )
 	        shift
                 AdminDB=$1
+                ;;
+	--run-restorecon )
+	        shift
+                RUNRESTORECON=yes
                 ;;
 	-h | --help )
 		Usage
@@ -333,7 +339,9 @@ echo "Checks passed, starting database $DB_NAME creation"
 
 CreateDBTree
 CreateDBConfig $DB_NAME
-/sbin/restorecon -Rvi $DataDB $AdminDB
+if [ "$RUNRESTORECON" = "yes" ] ; then
+    /sbin/restorecon -Rvi $DataDB $AdminDB
+fi
 
 CreateDatabase $TEMPLATE $DB_NAME
 
