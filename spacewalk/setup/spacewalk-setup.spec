@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.6
+Version:        0.5.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Feb  4 2009 Jan Pazdziora 0.5.7-1
+- only run restorecon and setsebool on RHEL 5+ and with SELinux enabled
+- run create-db.sh with --run-restorecon on RHEL 5+ and with SELinux enabled
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python" (Miroslav S.)
+
 * Fri Jan 30 2009 Jan Pazdziora 0.5.6-1
 - run restorecon on populate_db.log
 
