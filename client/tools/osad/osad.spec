@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.2
+Version: 5.9.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -205,7 +205,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
-* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
+* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.3-1
 - 468060 - correctly return status of daemon
 - fix some macros
 - edit descriptions
