@@ -33,6 +33,9 @@ install -d -m 755 %{buildroot}%{_datadir}/rhn/lib/
 install -d -m 755 %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/
 cp -R css %{buildroot}/%{_var}/www/html/
 cp -R img %{buildroot}/%{_var}/www/html/
+# Appplication expects two favicon's for some reason, copy it so there's just
+# one in source:
+cp img/favicon.ico %{buildroot}/%{_var}/www/html/
 cp -R templates %{buildroot}/%{_var}/www/html/
 cp -R styles %{buildroot}/%{_var}/www/html/nav/
 cp -R setup  %{buildroot}%{_datadir}/spacewalk/
@@ -49,6 +52,7 @@ rm -rf %{buildroot}
 /%{_var}/www/html/css/*
 %dir /%{_var}/www/html/img
 /%{_var}/www/html/img/*
+/%{_var}/www/html/favicon.ico
 %dir /%{_var}/www/html/templates
 /%{_var}/www/html/templates/*
 /%{_var}/www/html/templates/.htaccess
