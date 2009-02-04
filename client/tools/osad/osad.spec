@@ -5,12 +5,13 @@
 
 Name: osad
 Summary: OSAD agent
-Group: RHN/Server
+Group:   System Environment/Daemons
 License: GPLv2
-Source0: %{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 5.9.2
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python
 Requires: rhnlib >= 1.8-3
@@ -33,7 +34,7 @@ OSAD agent
 
 %package -n osa-dispatcher
 Summary: OSA dispatcher
-Group: RHN/Server
+Group:    System Environment/Daemons
 Requires: spacewalk-backend-server
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
@@ -44,7 +45,7 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description -n osa-dispatcher
-OSA dispatcher
+OSA dispatcher 
 
 %package -n osa-dispatcher-selinux
 %define selinux_variants mls strict targeted
@@ -75,7 +76,7 @@ SELinux policy module supporting osa-dispatcher.
 %build
 make -f Makefile.osad all
 
-perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
+%{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
@@ -173,7 +174,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %{client_caps_dir}/*
-%attr(755,root,root) %{_sysconfdir}/init.d/osad
+%attr(755,root,root) %{_initrddir}/osad
 
 %files -n osa-dispatcher
 %defattr(-,root,root)
@@ -186,7 +187,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/rhn_log.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
-%attr(755,root,root) %{_sysconfdir}/init.d/osa-dispatcher
+%attr(755,root,root) %{_initrddir}/osa-dispatcher
 
 %files -n osa-dispatcher-selinux
 %defattr(-,root,root,0755)
@@ -200,6 +201,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %changelog
 * Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
 - 468060 - correctly return status of daemon
+- fix some macros
 
 * Wed Jan 14 2009 Jan Pazdziora 5.9.2-1
 - separate package osa-dispatcher-selinux merged in as a subpackage
