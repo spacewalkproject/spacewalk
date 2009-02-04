@@ -36,7 +36,7 @@ fi
 
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
+    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
 fi
 
 %install

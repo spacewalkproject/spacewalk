@@ -98,7 +98,7 @@ USE_SSL=$(yes_no $USE_SSL)
 
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' /etc/sysconfig/rhn/up2date)
 
-if ! runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
+if ! /sbin/runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by apache user.
 	exit 1
 fi

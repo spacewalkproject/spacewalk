@@ -41,7 +41,7 @@ usermod -G oracle,dba,apache oracle
 ORACLE_ADMIN_DIR=/opt/apps/oracle/admin/10.2.0
 export ORACLE_ADMIN_DIR
 
-runuser - oracle -c "$ORACLE_ADMIN_DIR/create-db.sh --db rhnsat --user rhnsat --password rhnsat --datadir /rhnsat/data/rhnsat --admindir /rhnsat/admin/rhnsat --template $ORACLE_ADMIN_DIR/embedded-createdb.tmpl $RUNRESTORECON"
+/sbin/runuser - oracle -c "$ORACLE_ADMIN_DIR/create-db.sh --db rhnsat --user rhnsat --password rhnsat --datadir /rhnsat/data/rhnsat --admindir /rhnsat/admin/rhnsat --template $ORACLE_ADMIN_DIR/embedded-createdb.tmpl $RUNRESTORECON"
 
 LISTFILE=$ORACLE_HOME/network/admin/listener.ora
 
