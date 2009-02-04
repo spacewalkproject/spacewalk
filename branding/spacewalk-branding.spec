@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.5.4
+Version:    0.5.5
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -64,6 +64,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Feb 04 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.5-1
+- Add /var/www/html/favicon.ico.
+
 * Fri Jan 30 2009 Mike McCune <mmccune@gmail.com> 0.5.4-1
 - going back to just spacewalk-branding but removing requires: spacewalk-html
 
