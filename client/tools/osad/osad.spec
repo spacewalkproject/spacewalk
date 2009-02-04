@@ -30,7 +30,11 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description 
-OSAD agent
+OSAD agent recieve commands over jabber protocol from Spacewalk Server and 
+commands are instantly executed.
+
+This package effectively replace rhn_check command which check in Spacewalk
+Server only in some period.
 
 %package -n osa-dispatcher
 Summary: OSA dispatcher
@@ -45,7 +49,9 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description -n osa-dispatcher
-OSA dispatcher 
+OSA dispatcher get message from Spacewalk server that some command is need
+to execute on client. The message is transported via jabber protocol to OSAD
+agent.
 
 %package -n osa-dispatcher-selinux
 %define selinux_variants mls strict targeted
@@ -202,6 +208,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 * Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
 - 468060 - correctly return status of daemon
 - fix some macros
+- edit descriptions
 
 * Wed Jan 14 2009 Jan Pazdziora 5.9.2-1
 - separate package osa-dispatcher-selinux merged in as a subpackage
