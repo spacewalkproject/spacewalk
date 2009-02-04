@@ -28,6 +28,8 @@ use File::Copy;
 use IPC::Open3;
 use Symbol qw(gensym);
 
+use Spacewalk::Setup ();
+
 my $usage = "usage: $0 --dsn=<dsn> --schema-deploy-file=<filename>"
   . " [ --log=<logfile> ] [ --clear-db ] [ --nofork ] [ --help ]\n";
 
@@ -93,9 +95,11 @@ if ($clear_db) {
 }
 
 if (defined $log_file) {
-  local *LOGFILE;
-  open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
-  system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
+  if (Spacewalk::Setup::have_selinux()) {
+    local *LOGFILE;
+    open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
+    system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
+  }
   $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
 } else {
   $pid = open3(gensym, ">&STDOUT", ">&STDERR", 'sqlplus', $dsn, "\@$schema_deploy_file");
