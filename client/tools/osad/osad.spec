@@ -182,6 +182,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 %{client_caps_dir}/*
 %attr(755,root,root) %{_initrddir}/osad
+%doc LICENSE
 
 %files -n osa-dispatcher
 %defattr(-,root,root)
@@ -195,6 +196,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
+%doc LICENSE
 
 %files -n osa-dispatcher-selinux
 %defattr(-,root,root,0755)
@@ -203,6 +205,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %doc osa-dispatcher-selinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%doc LICENSE
 
 # $Id$
 %changelog
@@ -210,6 +213,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 - 468060 - correctly return status of daemon
 - fix some macros
 - edit descriptions
+- add LICENSE
 
 * Wed Jan 14 2009 Jan Pazdziora 5.9.2-1
 - separate package osa-dispatcher-selinux merged in as a subpackage
