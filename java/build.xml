@@ -266,10 +266,15 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   <target name="testdebug">
 	<property name="debug"
               value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
-    <antcall target="test" />
+    <antcall target="dotest" />
+  </target>
+
+  <target name="test">
+        <property name="debug" value=""/>
+        <antcall target="dotest"/>
   </target>
 	  		
-  <target name="test"
+  <target name="dotest"
       description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
       depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
 
