@@ -65,6 +65,7 @@ Summary: SELinux policy module supporting osa-dispatcher
 Group: System Environment/Base
 BuildRequires: checkpolicy, selinux-policy-devel, hardlink
 BuildRequires: policycoreutils >= %{POLICYCOREUTILSVER}
+Requires: spacewalk-selinux
 
 %if "%{selinux_policyver}" != ""
 Requires: selinux-policy >= %{selinux_policyver}
