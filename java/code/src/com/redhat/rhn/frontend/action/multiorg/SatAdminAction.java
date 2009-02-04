@@ -76,9 +76,13 @@ public class SatAdminAction extends RhnAction {
         // check role and toggle
         if (u.hasRole(RoleFactory.SAT_ADMIN)) {
             u.removeRole(RoleFactory.SAT_ADMIN);
+            createErrorMessage(request, "user.satadmin.remove", 
+                    u.getLogin());
         }
         else {
             u.addRole(RoleFactory.SAT_ADMIN);
+            createErrorMessage(request, "user.satadmin.add", 
+                    u.getLogin());
         }
         
         return retval;
