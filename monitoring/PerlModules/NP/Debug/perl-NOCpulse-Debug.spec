@@ -54,10 +54,12 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
 * Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
 - remove ownership of /etc/nocpulse
+- add LICENSE
 
 * Tue Feb  3 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.14-1
 - 455934 - write timestamps to logs by default
