@@ -20,7 +20,7 @@ type jabberd_var_run_t;
 files_pid_file(jabberd_var_run_t)
 
 type jabber_script_exec_t;
-init_script_type(jabber_script_exec_t)
+init_script_file(jabber_script_exec_t)
 
 ########################################
 #
