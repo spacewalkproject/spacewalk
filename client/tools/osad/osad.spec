@@ -198,6 +198,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
+- 468060 - correctly return status of daemon
+
 * Wed Jan 14 2009 Jan Pazdziora 5.9.2-1
 - separate package osa-dispatcher-selinux merged in as a subpackage
 
