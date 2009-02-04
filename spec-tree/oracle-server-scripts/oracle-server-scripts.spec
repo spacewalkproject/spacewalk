@@ -97,7 +97,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Wed Feb  4 2009 Jan Pazdziora
+* Wed Feb  4 2009 Jan Pazdziora 10.2.0-24
 - 477812 - only run restorecon in create-db.sh if install-db.sh tells us so
 - 477812 - use -R (Jesus R.)
 
