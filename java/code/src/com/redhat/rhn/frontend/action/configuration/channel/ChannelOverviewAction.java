@@ -45,7 +45,7 @@ public class ChannelOverviewAction extends RhnAction {
     public static final String CHANNEL_SUMMARY = "summary";
     /** Are we editing? */
     public static final String CHANNEL_EDITING = "editing";
-    private ConfigChannelCreationHelper helper = new ConfigChannelCreationHelper();
+    
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -58,7 +58,8 @@ public class ChannelOverviewAction extends RhnAction {
         RequestContext  context = new RequestContext(request);
         User user = context.getLoggedInUser();
         ConfigurationManager manager = ConfigurationManager.getInstance();
-        ConfigChannel cc = findChannel(daForm, request);
+        ConfigChannelCreationHelper helper = new ConfigChannelCreationHelper();
+        ConfigChannel cc = findChannel(daForm, request, helper);
         
         // If submitting, validate
         if (isSubmitted(daForm)) {
@@ -159,7 +160,8 @@ public class ChannelOverviewAction extends RhnAction {
      * @return existing channel, or a new (empty) channel on submit, or null if 
      * we're asking the user for new-channel info for the first time
      */
-    protected ConfigChannel findChannel(DynaActionForm form, HttpServletRequest request) {
+    protected ConfigChannel findChannel(DynaActionForm form, HttpServletRequest request, 
+                                                      ConfigChannelCreationHelper helper) {
         RequestContext ctx = new RequestContext(request);
         User u = ctx.getLoggedInUser();
         

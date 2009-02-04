@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelPackagesAction extends RhnAction {
 
-    private String listName = "packageList";
+    private final String LIST_NAME = "packageList";
 
 
     /** {@inheritDoc} */
@@ -79,22 +79,22 @@ public class ChannelPackagesAction extends RhnAction {
 
         RhnSet set =  RhnSetDecl.PACKAGES_TO_REMOVE.get(user);
         String alphaBarPressed = request.getParameter(
-                AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(listName)));
+                AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(LIST_NAME)));
         if (!requestContext.isSubmitted() && alphaBarPressed == null) {
             set.clear();
             RhnSetManager.store(set);
         }
-        else if (ListTagHelper.getListAction(listName, request) != null) {
-            helper.execute(set, listName, result);
+        else if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
+            helper.execute(set, LIST_NAME, result);
         }
 
         if (!set.isEmpty()) {
             helper.syncSelections(set, result);
-            ListTagHelper.setSelectedAmount(listName, set.size(), request);
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
 
-        ListTagHelper.bindSetDeclTo(listName,  RhnSetDecl.PACKAGES_TO_REMOVE, request);
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        ListTagHelper.bindSetDeclTo(LIST_NAME,  RhnSetDecl.PACKAGES_TO_REMOVE, request);
+        TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
 
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());

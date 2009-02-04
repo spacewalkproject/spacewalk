@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
     
-    private Long cfid;
+  
     
 
     /** {@inheritDoc} */
@@ -48,7 +48,7 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         
         RequestContext requestContext = new RequestContext(request);
         
-        cfid = requestContext.getRequiredParam("cfid");
+        Long cfid = requestContext.getRequiredParam("cfid");
         
         User user = requestContext.getLoggedInUser();
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
@@ -67,6 +67,7 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
     @Override
     protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
         User user = requestContext.getCurrentUser();
+        Long cfid = requestContext.getRequiredParam("cfid");
         return ChannelManager.channelFamilyTree(user, cfid, lc);
     }
 

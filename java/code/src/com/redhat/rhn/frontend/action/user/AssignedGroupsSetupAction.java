@@ -56,7 +56,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AssignedGroupsSetupAction extends RhnListAction {
 
-    private String LIST_NAME = "groupList";
+    private final String LIST_NAME = "groupList";
     
     
     /** {@inheritDoc} */

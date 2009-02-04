@@ -51,7 +51,7 @@ import com.redhat.rhn.manager.user.UserManager;
  */
 public class PatchSetListAction extends RhnListAction {
     
-    private String LIST_NAME = "patchsetlist";
+    private final String LIST_NAME = "patchsetlist";
     
     /**
      * 

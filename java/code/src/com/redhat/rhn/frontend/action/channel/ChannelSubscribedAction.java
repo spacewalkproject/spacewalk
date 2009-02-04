@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelSubscribedAction extends RhnAction {
 
-    private String listName = "systemList";
+    private final String LIST_NAME = "systemList";
 
 
     /** {@inheritDoc} */
@@ -66,20 +66,20 @@ public class ChannelSubscribedAction extends RhnAction {
 
         RhnSet set =  RhnSetDecl.SYSTEMS.get(user);
         String alphaBarPressed = request.getParameter(
-                AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(listName)));
+                AlphaBarHelper.makeAlphaKey(TagHelper.generateUniqueName(LIST_NAME)));
 
         
-        if (ListTagHelper.getListAction(listName, request) != null) {
-            helper.execute(set, listName, result);
+        if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
+            helper.execute(set, LIST_NAME, result);
         }
 
         if (!set.isEmpty()) {
             helper.syncSelections(set, result);
-            ListTagHelper.setSelectedAmount(listName, set.size(), request);
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
 
-        ListTagHelper.bindSetDeclTo(listName,  RhnSetDecl.SYSTEMS, request);
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        ListTagHelper.bindSetDeclTo(LIST_NAME,  RhnSetDecl.SYSTEMS, request);
+        TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
 
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());

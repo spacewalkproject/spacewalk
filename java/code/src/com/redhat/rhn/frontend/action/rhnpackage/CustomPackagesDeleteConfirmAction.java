@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CustomPackagesDeleteConfirmAction extends RhnAction {
 
-    private String listName = "packageList";
+    private final String LIST_NAME = "packageList";
 
 
     /** {@inheritDoc} */
@@ -66,7 +66,7 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
 
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);
 

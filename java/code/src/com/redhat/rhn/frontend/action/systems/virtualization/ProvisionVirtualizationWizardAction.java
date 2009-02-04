@@ -58,11 +58,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String GUEST_NAME = "guestName";
     public static final int MIN_NAME_SIZE = 4;
     public static final int MAX_CPU = 32;
-    
-    private Profile cobblerProfile;
-    
-    private LocalizationService ls = LocalizationService.getInstance();
-    
+            
     /**
      * {@inheritDoc}
      */
@@ -159,35 +155,36 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
             cmd.setMemoryAllocation(new Long(form.getString(MEMORY_ALLOCATION)));
         }
         else {
-            cmd.setMemoryAllocation(new Long(this.getCobblerProfile().getVirtRam()));
+            cmd.setMemoryAllocation(new Long(this.getCobblerProfile(ctx).getVirtRam()));
         }
         
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_CPUS))) {
             cmd.setVirtualCpus(new Long(form.getString(VIRTUAL_CPUS)));
         }        
         else {
-            cmd.setVirtualCpus(new Long(this.getCobblerProfile().getVirtCpus()));
+            cmd.setVirtualCpus(new Long(this.getCobblerProfile(ctx).getVirtCpus()));
         }
         
         if (!StringUtils.isEmpty(form.getString(LOCAL_STORAGE_MB))) {
             cmd.setLocalStorageSize(new Long(form.getString(LOCAL_STORAGE_MB)));
         } 
         else {
-            cmd.setLocalStorageSize(new Long(this.getCobblerProfile().getVirtFileSize()));
+            cmd.setLocalStorageSize(new Long(
+                    this.getCobblerProfile(ctx).getVirtFileSize()));
         }
         
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_BRIDGE))) {
             cmd.setVirtBridge(form.getString(VIRTUAL_BRIDGE));
         }
         else {
-            cmd.setVirtBridge(this.getCobblerProfile().getVirtBridge());
+            cmd.setVirtBridge(this.getCobblerProfile(ctx).getVirtBridge());
         }
         
         if (!StringUtils.isEmpty(form.getString(VIRTUAL_FILE_PATH))) {
             cmd.setFilePath(form.getString(VIRTUAL_FILE_PATH));
         }
         else {
-            cmd.setFilePath(this.getCobblerProfile().getVirtPath());
+            cmd.setFilePath(this.getCobblerProfile(ctx).getVirtPath());
         }
                 
         storeProxyInfo(form, ctx, cmd);
@@ -271,10 +268,11 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     
     /**
      * Get the cobbler profile
+     * @param context the request context
      * @return the cobbler profile
      */
-    public Profile getCobblerProfile() {
-        return cobblerProfile;
+    public Profile getCobblerProfile(RequestContext context) {
+        return (Profile) context.getRequest().getAttribute("profile");
     }
     
     @Override
@@ -285,8 +283,9 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         ProvisionVirtualInstanceCommand cmd;
         KickstartData data = KickstartFactory.
                 lookupKickstartDataByCobblerIdAndOrg(user.getOrg(), cobblerId);
-        cobblerProfile = org.cobbler.Profile.lookupById(
+        Profile cobblerProfile = org.cobbler.Profile.lookupById(
                 CobblerXMLRPCHelper.getConnection(user), cobblerId);        
+        ctx.getRequest().setAttribute("profile", cobblerProfile);
         
         if (data != null) {
             cmd = 

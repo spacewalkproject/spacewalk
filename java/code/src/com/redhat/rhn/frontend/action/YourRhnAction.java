@@ -52,13 +52,13 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 public class YourRhnAction extends RhnAction {
 
     public static final String ANY_LISTS_SELECTED = "anyListsSelected";
-    
-    private Map renderers = new HashMap();
-    
+        
     /**
      * No-arg constructor
      */
     public YourRhnAction() {
+        Map renderers = new HashMap();
+        
         List tasks = Arrays.asList(Pane.ALL_PANES);
         for (Iterator iter = tasks.iterator(); iter.hasNext();) {
             String key = (String) iter.next();

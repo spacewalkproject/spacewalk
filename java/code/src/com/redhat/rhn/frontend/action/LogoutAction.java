@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action;
 
-import com.redhat.rhn.frontend.security.AuthenticationService;
 import com.redhat.rhn.frontend.security.AuthenticationServiceFactory;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
@@ -31,21 +30,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LogoutAction extends RhnAction {
     
-    private AuthenticationService authenticationService;
-    
     /**
      * Initializes this action.
      */
     public LogoutAction() {
-        AuthenticationServiceFactory factory = AuthenticationServiceFactory.getInstance();
-        authenticationService = factory.getAuthenticationService();
     }
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         
-        authenticationService.invalidate(request, response);
+        AuthenticationServiceFactory.getInstance().getAuthenticationService().invalidate(
+                request, response);
         return mapping.findForward("success");
     }
 }

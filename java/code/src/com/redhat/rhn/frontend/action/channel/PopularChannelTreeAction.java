@@ -38,13 +38,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class PopularChannelTreeAction extends BaseChannelTreeAction {
 
-    private Long count;
-    private Long defaultCount = 10L;
-    
+    private final Long DEFAULT_COUNT = 10L;
     private final Long[] preSetCounts = {1L, 10L, 50L, 100L, 250L, 500L, 1000L};
     
-    private String SERVER_COUNT = "server_count";
-    private String COUNTS = "counts";
+    private final String SERVER_COUNT = "server_count";
+    private final String COUNTS = "counts";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -56,8 +54,9 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
 
         User user = requestContext.getLoggedInUser();
         String countStr = request.getParameter(SERVER_COUNT);
+        Long count;
         if (countStr == null) {
-            count = defaultCount;
+            count = DEFAULT_COUNT;
             /**
             Long sysPercent = new Long(UserManager.visibleSystemsAsDto(user).size()/10);
             
@@ -82,7 +81,7 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
             preSetList.add(countMap);
         }
         
-        
+        request.setAttribute("count", count); //passing to get dataresult
         request.setAttribute(COUNTS, preSetList);
         request.setAttribute(SERVER_COUNT, count);
         return super.execute(mapping, formIn, request, response);
@@ -94,7 +93,8 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
     /** {@inheritDoc} */
     protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
         User user = requestContext.getCurrentUser();
-        DataResult dr = ChannelManager.popularChannelTree(user, count, lc);
+        DataResult dr = ChannelManager.popularChannelTree(user, 
+                (Long) requestContext.getRequest().getAttribute("count"), lc);
         return  dr;
     }
 }

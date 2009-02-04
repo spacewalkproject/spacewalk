@@ -53,7 +53,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelAction extends RhnSetAction {
     
-    private StrutsDelegate strutsDelegate = getStrutsDelegate();
+
     private static Logger log = Logger.getLogger(ChannelAction.class);
 
 
@@ -72,6 +72,7 @@ public class ChannelAction extends RhnSetAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         log.debug("Publish");
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
  
         RequestContext requestContext = new RequestContext(request);
         //Get the logged in user
@@ -169,7 +170,7 @@ public class ChannelAction extends RhnSetAction {
             
             
         }
-       
+       StrutsDelegate strutsDelegate = getStrutsDelegate();
        strutsDelegate.saveMessages(request, getMessages(errata));
         
         //Store a success message and forward to default mapping

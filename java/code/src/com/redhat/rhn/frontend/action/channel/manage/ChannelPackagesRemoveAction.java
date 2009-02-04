@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelPackagesRemoveAction extends RhnAction {
 
-    private String listName = "packageList";
+    private final String LIST_ACTION = "packageList";
 
 
     /** {@inheritDoc} */
@@ -80,7 +80,7 @@ public class ChannelPackagesRemoveAction extends RhnAction {
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
         
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        TagHelper.bindElaboratorTo(LIST_ACTION, result.getElaborator(), request);
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());

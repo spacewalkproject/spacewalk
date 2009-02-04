@@ -35,14 +35,12 @@ import javax.servlet.http.HttpServletResponse;
 public class VirtualizationEntitlementsAction extends MappingDispatchAction {
 
     public static final String PAGELIST = "pageList";
-    
-    private VirtualizationEntitlementsManager entitlementsMgr;
-    
+       
     /**
      * Initializes the action
      */
     public VirtualizationEntitlementsAction() {
-        entitlementsMgr = new VirtEntitlementsManagerImpl();
+        
     }
 
 
@@ -58,7 +56,8 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
      */
     public ActionForward listGuestLimited(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+        VirtualizationEntitlementsManager entitlementsMgr = 
+            new VirtEntitlementsManagerImpl();
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
@@ -79,7 +78,8 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
      */
     public ActionForward listGuestUnlimited(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response) {
-        
+        VirtualizationEntitlementsManager entitlementsMgr = 
+            new VirtEntitlementsManagerImpl();
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();        
@@ -101,6 +101,8 @@ public class VirtualizationEntitlementsAction extends MappingDispatchAction {
      */
     public ActionForward listPhysicalHosts(ActionMapping mapping,
             ActionForm form, HttpServletRequest request, HttpServletResponse response) {
+        VirtualizationEntitlementsManager entitlementsMgr = 
+            new VirtEntitlementsManagerImpl();
         request.setAttribute("parentUrl", request.getRequestURI());
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
