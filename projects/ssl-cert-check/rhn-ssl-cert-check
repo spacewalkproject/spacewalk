@@ -55,10 +55,10 @@ get_ssl_cert_file() {
 
 get_rhn_component() {
     # Identify the RHN component
-    if rpm -q rhns-proxy-broker >& /dev/null; then
+    if rpm -q spacewalk-proxy-management >& /dev/null; then
         echo "proxy.broker"
         return
-    elif  rpm -q rhns-satellite-tools >& /dev/null; then
+    elif  rpm -q spacewalk-java >& /dev/null; then
         echo "server.satellite"
         return
     fi
