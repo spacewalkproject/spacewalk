@@ -4,5 +4,5 @@ Load postgresql schema using main.sql, run from the postgresql directory:
 
 And to cleanup the database, use a combination of drop + create, like so:
 
-    dropdb spacewalk && createdb spacewalk && createlang plpgsql spacewalk
+    dropdb spacewalk ; createdb spacewalk && createlang plpgsql spacewalk
 

@@ -1,8 +1,8 @@
-CREATE TABLE dual ( dummy char );
+create table dual ( dummy char );
 
-INSERT INTO dual values ( 'X' );
+insert into dual values ( 'X' );
 
-CREATE OR REPLACE RULE insert_dual AS ON INSERT TO dual DO INSTEAD NOTHING;
-CREATE OR REPLACE RULE update_dual AS ON UPDATE TO dual DO INSTEAD NOTHING;
-CREATE OR REPLACE RULE delete_dual AS ON DELETE TO dual DO INSTEAD NOTHING;
+create or replace rule deny_insert_dual as on insert to dual do instead nothing;
+create or replace rule deny_update_dual as on update to dual do instead nothing;
+create or replace rule deny_delete_dual as on delete to dual do instead nothing;
 

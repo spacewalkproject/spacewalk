@@ -35,13 +35,12 @@ rhnServerGroup
                                 references web_customer(id)
 				on delete cascade,
         created         timestamp default(CURRENT_TIMESTAMP) not null,
-        modified        timestamp default(CURRENT_TIMESTAMP) not null
+        modified        timestamp default(CURRENT_TIMESTAMP) not null,
+
+	constraint rhn_servergroup_oid_name_uq unique ( org_id, name )
+--		using index tablespace [[4m_tbs]]
 )
   ;
 
 create sequence rhn_server_group_id_seq;
-
-create unique index rhn_servergroup_oid_name_uq
-       on rhnServerGroup(org_id, name)
---     tablespace [[4m_tbs]]
 

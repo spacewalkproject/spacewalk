@@ -28,9 +28,11 @@ rhnServerGroupType
         name            varchar(64) not null,
         created         timestamp default(CURRENT_TIMESTAMP) not null,
         modified        timestamp default(CURRENT_TIMESTAMP) not null,
+	/*TODO: Should this be a boolean?*/
         permanent       char default('Y') not null,
                         constraint rhn_servergrouptype_perm_ck 
                            check (permanent in ('Y','N')),
+	/*TODO: Should this be a boolean?*/
         is_base         char default('Y') not null
                         constraint rhn_servergrouptype_isbase_ck
                            check (is_base in ('Y','N'))
