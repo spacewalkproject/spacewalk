@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.2%{?obtag}%{?dist}%{?repo}
+Release:         23.3%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -189,6 +189,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 %changelog
+* Wed Feb  4 2009 Jan Pazdziora 0.1-23.3
+- address build problem on Fedoras (manage_sock_file_perms)
+- address src.rpm create problem
+
 * Thu Dec 18 2008 Jan Pazdziora 0.1-23.2
 - added oracle-nofcontext-selinux subpackage
 
