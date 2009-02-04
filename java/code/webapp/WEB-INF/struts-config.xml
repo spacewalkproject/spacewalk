@@ -6388,9 +6388,22 @@
     <action path="/help/index"
         forward="/WEB-INF/pages/help/helpindex.jsp"/>
 
+    <!-- SSM Operations Log -->
+    <action path="/ssm/ViewLog"
+            type="com.redhat.rhn.frontend.action.ssm.ViewLogAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log.jsp"/>
+    </action>
+     
+    <action path="/ssm/ViewAllLog"
+            type="com.redhat.rhn.frontend.action.ssm.ViewAllLogAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log.jsp"/>
+    </action>
+     
     <!-- SSM Package tab home page -->
-     <action path="/ssm/Packages"
-             forward="/WEB-INF/pages/ssm/packages.jsp" />
+    <action path="/ssm/Packages"
+            forward="/WEB-INF/pages/ssm/packages.jsp" />
 
     <!-- SSM Package Install Pages -->
     <action path="/ssm/PackageInstall"

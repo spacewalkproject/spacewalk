@@ -100,6 +100,11 @@
           </rhn-tab>
         </rhn-tab>
 
+   <rhn-tab name="Operations" url="/rhn/ssm/ViewLog.do">
+      <rhn-tab name="In Progress" url="/rhn/ssm/ViewLog.do"/>
+      <rhn-tab name="All" url="/rhn/ssm/ViewAllLog.do"/>
+   </rhn-tab>
+
 	<rhn-tab name="Misc">
 		<rhn-tab-url>/network/systems/ssm/misc/index.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/hw_prof_update_conf.pxt</rhn-tab-url>

@@ -115,6 +115,11 @@
           </rhn-tab>
         </rhn-tab>
 
+   <rhn-tab name="ssm.nav.operations" url="/rhn/ssm/ViewLog.do">
+      <rhn-tab name="ssm.nav.operations.inprogress" url="/rhn/ssm/ViewLog.do"/>
+      <rhn-tab name="ssm.nav.operations.all" url="/rhn/ssm/ViewAllLog.do"/>
+   </rhn-tab>
+   
 	<rhn-tab name="Misc">
 		<rhn-tab-url>/network/systems/ssm/misc/index.pxt</rhn-tab-url>
 		<rhn-tab-url>/network/systems/ssm/misc/hw_prof_update_conf.pxt</rhn-tab-url>
