@@ -50,13 +50,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%dir %{_sysconfdir}/nocpulse
 %config(noreplace) %{_sysconfdir}/nocpulse/logging.ini
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
 
 %changelog
+* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
+- remove ownership of /etc/nocpulse
+
 * Tue Feb  3 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.14-1
 - 455934 - write timestamps to logs by default
 
