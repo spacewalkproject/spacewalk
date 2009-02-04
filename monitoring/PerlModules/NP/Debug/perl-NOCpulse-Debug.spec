@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.14
+Version:      1.23.15
 Release:      1%{?dist}
 Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
@@ -57,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com>
+* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.15-1
 - remove ownership of /etc/nocpulse
 - add LICENSE
 
