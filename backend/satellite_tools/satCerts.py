@@ -312,15 +312,14 @@ _query_update_dates = rhnSQL.Statement("""
 
 _query_latest_version = rhnSQL.Statement("""
     SELECT COALESCE(version, 0) as version, version as orig_version, cert,
-           TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
-           TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') as expires
-      FROM rhnSatelliteCert
-     WHERE label = :label
-     ORDER BY 
-         CASE WHEN version IS NULL
-            THEN -1 
-            ELSE version
-         END
+        TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
+        TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') as expires
+    FROM rhnSatelliteCert
+    WHERE label = :label
+    ORDER BY CASE WHEN version IS NULL
+        THEN 0 
+        ELSE version
+    END, version
     DESC
 """)
 def retrieve_db_cert(label='rhn-satellite-cert'):
