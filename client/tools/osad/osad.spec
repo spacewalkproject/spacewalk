@@ -30,7 +30,7 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description 
-OSAD agent recieve commands over jabber protocol from Spacewalk Server and 
+OSAD agent receive commands over jabber protocol from Spacewalk Server and 
 commands are instantly executed.
 
 This package effectively replace rhn_check command which check in Spacewalk
