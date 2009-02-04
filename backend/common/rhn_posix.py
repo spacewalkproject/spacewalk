@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # This module provides the constants that used to be part of the
 # now-deprecated posixfile module

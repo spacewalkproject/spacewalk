@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 from sys import argv, exit
 import os, stat
 
-testclass="""#!/usr/bin/env python
+testclass="""#!/usr/bin/python
 import unittest
 from config import *
 

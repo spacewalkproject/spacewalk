@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # Scan the given source files for RHN Help URLs and check to see if they're
 # valid on the given satellite.
 

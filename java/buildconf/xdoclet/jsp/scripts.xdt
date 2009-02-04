@@ -40,7 +40,7 @@ Below is an example of the user.listAdministeredSystemGroups call being used.  O
 <p />
 
 <code>
-#!/usr/bin/env python<br />
+#!/usr/bin/python<br />
 import xmlrpclib<br />
 <br />
 SATELLITE_URL = "http://satellite.example.com/rpc/api"<br />
