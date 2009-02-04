@@ -165,7 +165,7 @@ This package contains the Java version of taskomatic.
 rm -rf $RPM_BUILD_ROOT
 ant -Dprefix=$RPM_BUILD_ROOT install
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
+install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
@@ -178,9 +178,9 @@ install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rh
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_taskomatic.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
-install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
-install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_prefix}/share/rhn/lib
-install -m 644 build/classes/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes/log4j.properties
+install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_initrddir}
+install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datadir}/rhn/lib
+install -m 644 build/classes/log4j.properties $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
 
@@ -205,7 +205,7 @@ fi
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 
 %files -n spacewalk-taskomatic
-%attr(755, root, root) %{_sysconfdir}/init.d/taskomatic
+%attr(755, root, root) %{_initrddir}/taskomatic
 %attr(755, root, root) %{_bindir}/taskomaticd
 
 %files config
@@ -216,8 +216,8 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
 
 %files lib
-%attr(644, root, root) %{_usr}/share/rhn/classes/log4j.properties
-%attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
+%attr(644, root, root) %{_datadir}/rhn/classes/log4j.properties
+%attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
 * Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.8-1
