@@ -301,8 +301,10 @@ sub init_log_files {
   }
 
   log_rotate(INSTALL_LOG_FILE);
-  local *X; open X, '> ' . INSTALL_LOG_FILE and close X;
-  system('/sbin/restorecon', INSTALL_LOG_FILE);
+  if (have_selinux()) {
+    local *X; open X, '> ' . INSTALL_LOG_FILE and close X;
+    system('/sbin/restorecon', INSTALL_LOG_FILE);
+  }
   log_rotate(DB_INSTALL_LOG_FILE);
   log_rotate(DB_POP_LOG_FILE);
 
@@ -732,8 +734,10 @@ EOQ
 ** Database:   %s
 EOQ
 
-    local *X; open X, '> ' . DB_INSTALL_LOG_FILE and close X;
-    system('/sbin/restorecon', DB_INSTALL_LOG_FILE);
+    if (have_selinux()) {
+      local *X; open X, '> ' . DB_INSTALL_LOG_FILE and close X;
+      system('/sbin/restorecon', DB_INSTALL_LOG_FILE);
+    }
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => DB_INSTALL_LOG_FILE,
 		-log_file_size => DB_INSTALL_LOG_SIZE,
@@ -1066,8 +1070,10 @@ sub oracle_populate_db {
         '--nofork',
     );
 
-    local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
-    system('/sbin/restorecon', DB_POP_LOG_FILE);
+    if (have_selinux()) {
+      local *X; open X, '> ' . DB_POP_LOG_FILE and close X;
+      system('/sbin/restorecon', DB_POP_LOG_FILE);
+    }
     print_progress(-init_message => "*** Progress: #",
         -log_file_name => DB_POP_LOG_FILE,
         -log_file_size => DB_POP_LOG_SIZE,
@@ -1171,6 +1177,18 @@ EOQ
   return $ts;
 }
 
+# Function to check that we have SELinux, in the sense that we are on
+# system with modular SELinux (> RHEL 4), and the module spacewalk is loaded.
+my $have_selinux;
+sub have_selinux {
+	return $have_selinux if defined $have_selinux;
+	if (system(q!/usr/sbin/selinuxenabled && /usr/sbin/semodule -l 2> /dev/null | grep '^spacewalk\b' 2>&1 > /dev/null!)) {
+		$have_selinux = 0;
+	} else {
+		$have_selinux = 1;
+	}
+	return $have_selinux;
+}
 
 
 

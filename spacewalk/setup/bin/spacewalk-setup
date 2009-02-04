@@ -1026,11 +1026,15 @@ sub mkdir_mount_points {
         and $type =~ /^.+?:.+?:(.+?)(:|\s)/
         and $1 eq 'nfs_t') {
         if (not $seen_nfs) {
-          system('/usr/sbin/setsebool', '-P', 'spacewalk_nfs_mountpoint', 1);
+          if (Spacewalk::Setup::have_selinux()) {
+            system('/usr/sbin/setsebool', '-P', 'spacewalk_nfs_mountpoint', 1);
+          }
 	  $seen_nfs = 1;
         }
       } else {
-        system('/sbin/restorecon', '-rvv', $path);
+        if (Spacewalk::Setup::have_selinux()) {
+          system('/sbin/restorecon', '-rvv', $path);
+        }
       }
     }
   }
