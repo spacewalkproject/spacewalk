@@ -262,10 +262,15 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	<target name="set-cc-config-dir">
 	  	<property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
 	</target>	
+
+  <target name="setdebug" if="testdebug">
+	<property name="debug"
+      value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
+  </target>
 	  		
   <target name="test"
       description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-      depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
+      depends="setdebug,set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
 
     <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
@@ -626,14 +631,16 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <property name="testcaseorsubsystem" value="true" />
     <run-junit include="**/test/${testcase}.class" banner="${testcase}"
         testbuilddir="${build.dir}/classes"
-        classpathid="tests.runpath" reportdir="${testresults.dir}"/>
+        classpathid="tests.runpath" reportdir="${testresults.dir}"
+        debug="${debug}"/>
   </target>
 
   <target name="invoke-tests-subsystem" if="testsubsystem">
     <property name="testcaseorsubsystem" value="true" />
     <run-junit include="**/${testsubsystem}/**/test/*Test.class" banner="all tests in ${testsubsystem} subsystem"
         testbuilddir="${build.dir}/classes"
-        classpathid="tests.runpath" reportdir="${testresults.dir}"/>
+        classpathid="tests.runpath" reportdir="${testresults.dir}"
+        debug="${debug}" />
   </target>
 
   <target name="invoke-tests-all" unless="testcaseorsubsystem">
