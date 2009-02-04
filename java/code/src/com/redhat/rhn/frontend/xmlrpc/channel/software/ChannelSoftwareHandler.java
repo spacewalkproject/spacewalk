@@ -657,6 +657,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *   - channel doesn't exist
      *   - user can't subscribe server to channel
      *   - a base channel is not specified
+     *   - multiple base channels are specified
      *
      * @xmlrpc.doc Change a systems subscribed channels to the list of channels passed in.
      * @xmlrpc.param #session_key()
@@ -672,10 +673,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
         List<Channel> channels = new ArrayList<Channel>();
         log.debug("setSystemChannels()");
-        boolean foundBaseChannel = false;
 
         // Verify that each channel label we were passed corresponds to a valid channel 
         // and store in a list.
+        Channel baseChannel = null;
         log.debug("Incoming channels:");
         for (Iterator itr = channelLabels.iterator(); itr.hasNext();) {
             String label = (String) itr.next();
@@ -690,14 +691,18 @@ public class ChannelSoftwareHandler extends BaseHandler {
                 throw new InvalidChannelException();
             }
             
-            if (!foundBaseChannel && channel.isBaseChannel()) {
-                foundBaseChannel = true;
-                
+            if (baseChannel == null && channel.isBaseChannel()) {
+
+                baseChannel = channel;
+
                 // need to make sure the base channel is the first
                 // item in the list because subscribeToServer can't subscribe
                 // to a child channel unless the server is subscribed to a base
                 // channel.  
                 channels.add(0, channel);
+            }
+            else if (baseChannel != null && channel.isBaseChannel()) {
+                throw new MultipleBaseChannelException(baseChannel.getLabel(), label);
             }
             else {
                 channels.add(channel);
@@ -706,7 +711,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         
         // if we can't find a base channel in the list, we need to leave
         // the system alone and punt.
-        if (!foundBaseChannel) {
+        if (baseChannel == null) {
             throw new InvalidChannelException("No base channel specified");
         }
 
