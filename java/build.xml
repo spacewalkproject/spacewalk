@@ -370,6 +370,21 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
 </target>
 
+<target name="enforce" description="Check actions" depends="init">
+        <path id="javadocpath">
+            <path refid="buildjars" />
+            <pathelement location="build/classes" />
+         </path>
+
+        <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private">
+              <fileset dir="code" >
+                <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
+             </fileset>
+            <excludepackage name="**/*" />
+        </javadoc>
+
+</target>
+
 
   <target name="javadoc" description="Generate the java-doc" depends="init">
     <javadoc destdir="${report.dir}/javadoc" author="true" version="true"
