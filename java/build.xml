@@ -263,14 +263,15 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	  	<property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
 	</target>	
 
-  <target name="setdebug" if="testdebug">
+  <target name="testdebug">
 	<property name="debug"
-      value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
+              value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
+    <antcall target="test" />
   </target>
 	  		
   <target name="test"
       description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-      depends="setdebug,set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
+      depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
 
     <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
