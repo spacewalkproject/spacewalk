@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -110,6 +110,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Feb  4 2009 Jan Pazdziora 1.4.0-4
+- use init_script_file to allow build on Fedoras
+
 * Thu Jan 29 2009 Jan Pazdziora 1.4.0-3
 - silence restorecon in scriptlets, and ignore any errors
 - avoid .src.rpm-packing-time error when selinux-policy-devel is not installed
