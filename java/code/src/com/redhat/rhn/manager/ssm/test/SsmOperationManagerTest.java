@@ -111,17 +111,21 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertEquals(0, result.size());
     }
 
-    public void testFindServerIdsForOperation() throws Exception {
+    public void testFindServerDataForOperation() throws Exception {
         // Setup
         long operationId =
             SsmOperationManager.createOperation(ssmUser, "Test operation", setLabel);
         
         // Test
-        DataResult result = SsmOperationManager.findServerIdsForOperation(operationId);
+        DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
 
         // Verify
         assertNotNull(result);
         assertEquals(2, result.size());
+        
+        Map serverData = (Map) result.get(0);
+        assertNotNull(serverData.get("id"));
+        assertNotNull(serverData.get("name"));
     }
     
     /**

@@ -120,11 +120,13 @@
 </write-mode>
    
 <!-- Returns a list of all servers involved in the operation identified by the given ID. -->
-<mode name="find_server_ids_for_operation_id">
+<mode name="find_server_data_for_operation_id">
    <query params="op_id">
-      SELECT server_id
-        FROM rhnSsmOperationServer
-       WHERE operation_id = :op_id
+      SELECT s.id, s.name
+        FROM rhnSsmOperationServer sos,
+             rhnServer s
+       WHERE sos.operation_id = :op_id
+         AND s.id = sos.server_id
    </query>
 </mode>
    

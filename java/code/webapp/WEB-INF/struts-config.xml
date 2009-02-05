@@ -6401,6 +6401,12 @@
                 path="/WEB-INF/pages/ssm/view-log.jsp"/>
     </action>
      
+    <action path="/ssm/ViewLogDetails"
+            type="com.redhat.rhn.frontend.action.ssm.ViewLogDetailsAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log-details.jsp"/>       
+    </action>
+     
     <!-- SSM Package tab home page -->
     <action path="/ssm/Packages"
             forward="/WEB-INF/pages/ssm/packages.jsp" />

@@ -15579,11 +15579,12 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
      </group>
 
-    <!-- ssm/view-log.jsp -->
+    <!-- ssm/view-log.jsp, ssm/view-log-details.jsp -->
     <group>
        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/ssm/ViewLog.do</context>
           <context context-type="sourcefile">/rhn/ssm/ViewAllLog.do</context>
+          <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
        </context-group>
        <trans-unit id="ssm.operations.viewlog.header">
           <source>Operations Log</source>
@@ -15594,14 +15595,23 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.operations.viewlog.status">
           <source>Status</source>
        </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.started">
+          <source>Started</source>
+       </trans-unit>
        <trans-unit id="ssm.operations.viewlog.modified">
           <source>Last Modified</source>
        </trans-unit>
        <trans-unit id="ssm.operations.viewlog.progress">
           <source>Percent Complete</source>
        </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.servers">
+          <source>Servers</source>
+       </trans-unit>
        <trans-unit id="ssm.operations.viewlog.empty">
           <source>No operations have been performed against the SSM</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.emptyservers">
+          <source>No servers associated with this operation</source>
        </trans-unit>
        <trans-unit id="ssm.operations.inprogress.summary">
           <source>The following operations are currently taking place. Click on an operation's description to see more details.</source>

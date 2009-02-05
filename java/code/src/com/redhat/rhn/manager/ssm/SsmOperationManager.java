@@ -210,9 +210,9 @@ public class SsmOperationManager extends BaseManager {
      * @return list of maps, one per server ID, where each map contains a single
      *         entry (key: server_id) containing the server ID
      */
-    public static DataResult findServerIdsForOperation(long operationId) {
+    public static DataResult findServerDataForOperation(long operationId) {
         SelectMode m = ModeFactory.getMode("ssm_operation_queries",
-            "find_server_ids_for_operation_id");
+            "find_server_data_for_operation_id");
 
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("op_id", operationId);
