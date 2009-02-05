@@ -966,7 +966,7 @@ sub populate_initial_configs {
     $rhnopt{'server.satellite.rhn_parent'} = $answers->{'rhn-parent'} || 'satellite.rhn.redhat.com';
   }
   for my $key (qw/product_name web.version enable_nvrea force_package_upload
-          web.l10n_resourcebundles/) {
+          web.l10n_resourcebundles web.default_mail_from/) {
     if (defined($answers->{$key})) {
       $rhnopt{$key} = $answers->{$key};
     }
