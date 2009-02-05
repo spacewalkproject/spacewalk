@@ -35,7 +35,12 @@
         </rl:column>
 
         <rl:column headerkey="ssm.operations.viewlog.status" bound="false">
-            <c:out value="${current.status}"/>
+            <c:if test="${current.status eq 'In Progress'}">
+                <bean:message key="ssm.operations.viewlog.inprogress"/>
+            </c:if>
+            <c:if test="${current.status eq 'Completed'}">
+                <bean:message key="ssm.operations.viewlog.completed"/>
+            </c:if>
         </rl:column>
 
         <rl:column headerkey="ssm.operations.viewlog.modified" bound="false">

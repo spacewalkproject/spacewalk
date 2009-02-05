@@ -22,7 +22,14 @@
     </tr>
     <tr>
         <td><b><bean:message key="ssm.operations.viewlog.status"/></b></td>
-        <td><c:out value="${operationData.status}"/></td>
+        <td>
+            <c:if test="${operationData.status eq 'In Progress'}">
+                <bean:message key="ssm.operations.viewlog.inprogress"/>
+            </c:if>
+            <c:if test="${operationData.status eq 'Completed'}">
+                <bean:message key="ssm.operations.viewlog.completed"/>
+            </c:if>
+        </td>
     </tr>
     <tr>
         <td><b><bean:message key="ssm.operations.viewlog.progress"/></b></td>
@@ -47,9 +54,10 @@
              emptykey="ssm.operations.viewlog.emptyservers">
 
         <rl:decorator name="PageSizeDecorator"/>
-        
+
         <rl:column headerkey="ssm.operations.viewlog.servers" bound="false">
-            <a href="/network/systems/details/history/history.pxt?sid=${current.id}"><c:out value="${current.name}"/></a>
+            <a href="/network/systems/details/history/history.pxt?sid=${current.id}"><c:out
+                    value="${current.name}"/></a>
         </rl:column>
 
     </rl:list>
