@@ -35,6 +35,7 @@ import java.util.List;
  */
 public class DownloadManager extends BaseManager {
 
+    public static final String DOWNLOAD_TYPE_KICKSTART = "kickstart";
     public static final String DOWNLOAD_TYPE_PACKAGE = "package";
     public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
     public static final String DOWNLOAD_TYPE_ISO = "iso";
