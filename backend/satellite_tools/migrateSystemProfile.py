@@ -134,7 +134,7 @@ def migrate_system(key, oldOrgId, newOrgId, server_ids):
     """
     Call to migrate given system to new org
     """
-    if DEBUG: print "Migrating system %s to Org %s" % (server_ids, newOrgId)
+    if DEBUG: print "Migrating systemIds %s to Org %s" % (server_ids, newOrgId)
     try:
         client.org.migrateSystems(key, oldOrgId, newOrgId, server_ids)
     except xmlrpclib.Fault, e:
