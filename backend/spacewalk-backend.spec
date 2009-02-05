@@ -539,6 +539,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb  5 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- fixing satsync warning.
+
 * Wed Jan 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.2-1
 - removing rhel-instnum dep requires and associated unsed code
 
