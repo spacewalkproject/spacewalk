@@ -2624,6 +2624,53 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
+     * Set server lock status.
+     * 
+     * @param sessionKey User's session key.
+     * @param serverId ID of server to lookup details for.
+     * @param lockStatus to set. True to lock the system, False to unlock the system.
+     * @return 1 on success, exception thrown otherwise.
+     * 
+     * @xmlrpc.doc Set server lock status.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("boolean", "lockStatus", "true to lock the system, 
+     * false to unlock the system.")
+     *     
+     *  @xmlrpc.returntype #return_int_success()
+     */
+    public Integer setLockStatus(String sessionKey, Integer serverId, boolean lockStatus) {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()), 
+                    loggedInUser);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        LocalizationService ls = LocalizationService.getInstance();
+
+        if (lockStatus) {
+            // lock the server, if it isn't already locked.
+            if (server.getLock() == null) {
+                SystemManager.lockServer(loggedInUser, server, ls.getMessage
+                                         ("sdc.details.overview.lock.reason"));
+            }
+        }
+        else {
+            // unlock the server, if it isn't already locked.
+            if (server.getLock() != null) {
+                SystemManager.unlockServer(loggedInUser, server);
+            }
+        }
+        
+        return 1;
+    }
+
+    /**
      * Add addon entitlements to a server. Entitlements a server already has are simply 
      * ignored.
      * 

@@ -1336,6 +1336,29 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(rack, server.getLocation().getRack());
     }
     
+    public void testSetLockStatus() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        //server unlocked by default
+        assertNull(server.getLock());
+        
+        //lock the server
+        handler.setLockStatus(adminKey, new Integer(server.getId().intValue()),
+                true);
+        
+        TestUtils.saveAndFlush(server);
+        server = (Server)reload(server);
+        assertNotNull(server.getLock());
+        
+        //unlock the server
+        handler.setLockStatus(adminKey, new Integer(server.getId().intValue()),
+                false);
+        
+        TestUtils.saveAndFlush(server);
+        server = (Server)reload(server);
+        assertNull(server.getLock()); 
+    }
+    
     public void testSetDetailsUnentitleServer() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         SystemManager.removeAllServerEntitlements(server.getId());

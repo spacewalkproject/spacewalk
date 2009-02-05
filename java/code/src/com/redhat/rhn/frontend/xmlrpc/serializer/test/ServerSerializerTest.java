@@ -52,7 +52,7 @@ public class ServerSerializerTest extends BaseHandlerTestCase {
         assertTrue(finalOutput.indexOf("building") >= 0);
         assertTrue(finalOutput.indexOf("room") >= 0);
         assertTrue(finalOutput.indexOf("rack") >= 0);
-
+        assertTrue(finalOutput.indexOf("lock_status") >= 0);
     }
     
 }
