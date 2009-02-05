@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.8
+Version: 0.5.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,28 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 05 2009 Mike McCune <mmccune@gmail.com> 0.5.9-1
+- 481767 - be more forgiving of busted kickstart distros during a sync and also report errors in an email.
+- 442601 - api - adding access to server lock/unlock
+- Restructured to an inversion of control pattern to make it more clear that the mode/summary key are not meant to be attributes.
+- 443718 - fixing a view mistage and having a query just use the view
+- 483603 - Added details page for listing servers involved in a particular SSM operation
+- update the header to 2009 and fix the very annoying whitespace after the *.
+- fixing Action classes that have non-final member variables
+- 251767 - api - channel.software.setSystemChannels - throw better exception when user passes multiple base channels as input
+- 467063 - Added page decorator to allow variable amount of items to be shown
+- 437872 added multiorg messaging suggestion for entitlement warnings
+- 483603 - First pass at display of async SSM operations in the UI
+- 437563 adding success message for sat admin toggles
+- 479541, 483867 - replaced runuser with /sbin/runuser
+- 483603 - Renamed query file; added ability to retrieve servers associated with an operation
+- 481200 - api - fix minor issues in apidoc for activationkey apis
+- 483689 - api doc updates for channel.software listAllPackages and listAllPackagesByDate apis
+- 483806 updating more iso country codes
+- 482929 fixing messaging with global channel subscriptions per user
+- 480016 adding ID to org details page for information (assist with migration scripts)
+- 443718 - improving errata cache calcs when pushing a single errata
+
 * Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.8-1
 - 480126 - deactivate proxy different way
 - 477532 - fixed issue where channels would dissappear after hiding the children
