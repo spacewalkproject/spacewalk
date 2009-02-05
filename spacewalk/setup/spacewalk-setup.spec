@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.7
+Version:        0.5.8
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Feb 05 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.8-1
+- Add support for overlay of default_mail_from setting in rhn.conf.
+
 * Wed Feb  4 2009 Jan Pazdziora 0.5.7-1
 - only run restorecon and setsebool on RHEL 5+ and with SELinux enabled
 - run create-db.sh with --run-restorecon on RHEL 5+ and with SELinux enabled
