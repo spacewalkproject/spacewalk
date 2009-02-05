@@ -207,7 +207,6 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                             "kickstart.cobbler.profile.invalidvirt"); 
                 }
                 
-                
                 if (form.get(DEFAULT_DOWNLOAD_PARAM) == null) {
                     form.set(DEFAULT_DOWNLOAD_PARAM, Boolean.TRUE);
                 }

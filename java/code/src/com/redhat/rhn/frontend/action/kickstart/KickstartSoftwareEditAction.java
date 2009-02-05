@@ -207,7 +207,6 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             return new ValidatorError("kickstart.cobbler.profile.invalidtreeforvirt");
         }
         
-        
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         ValidatorError ve = cmd.updateKickstartableTree(
                 (Long) form.get(CHANNEL), cmdIn.getUser().getOrg().getId(), 

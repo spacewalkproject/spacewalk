@@ -7997,11 +7997,10 @@ Follow this url to see the full list of inactive systems:
      </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
-     </trans-unit>      
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
         <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a differnt distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
      </trans-unit>
-       
      <trans-unit id="snapshots.childchannel">
         <source>Child Channels Updated</source>
      </trans-unit>
@@ -8014,7 +8013,26 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="snapshots.configchannel">
         <source>Configuration Channels Updated</source>
      </trans-unit>
-       
+     <trans-unit id="kickstart.cobbler.distro.syncfail">
+        <source>
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems kickstart distributions failed to sync from 
+Spacewalk to Cobbler:
+
+{0}
+
+Please check:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+for more detailed errors.  If you don't resolve the errors the kickstart
+tree will not be usable for kickstarting.
+        </source>
+     </trans-unit>
     </body>
   </file>
 </xliff>

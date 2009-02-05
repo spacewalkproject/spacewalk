@@ -24,6 +24,7 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
@@ -31,7 +32,9 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides convenience methods for creating a kickstart profile.
@@ -147,8 +150,35 @@ public class KickstartWizardHelper {
      * @return list of KickstartableTree instances
      */
     public List getTrees(Long channelId) {
-        return KickstartFactory.lookupKickstartableTrees(channelId, 
-            currentUser.getOrg());
+        List trees = KickstartFactory.lookupKickstartableTrees(channelId, 
+                currentUser.getOrg());
+        // Now we filter out an 
+        List retval = new LinkedList();
+        CobblerDistroCommand cmd = new CobblerDistroCommand(currentUser);
+        
+        List<Map> distros = cmd.getCobblerDistros();
+        for (int i = 0; i < trees.size(); i++) {
+            KickstartableTree tree = (KickstartableTree) trees.get(i);
+            boolean hasCobblerDistro = false;
+            for (Map row : distros) {
+                log.debug("getDistroMap.ROW: " + row);
+                String uid = (String) row.get("uid");
+                if (uid.equals(tree.getCobblerId())) {
+                    log.debug("tree [" + tree.getLabel() + 
+                            "] has a cobbler distro.  Display it.");
+                    hasCobblerDistro = true;
+                }
+            }
+            if (hasCobblerDistro) {
+                retval.add(tree);
+            }
+            else {
+                log.error("This Kickstart tree " +
+                        "does not have an associated " +
+                        "cobbler distro: " + tree.getLabel());
+            }
+        }
+        return retval;  
     }    
 
     /**

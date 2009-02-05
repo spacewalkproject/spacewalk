@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
@@ -30,7 +31,7 @@ import java.util.Map;
  * CobblerProfileComand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
-public abstract class CobblerDistroCommand extends CobblerCommand {
+public class CobblerDistroCommand extends CobblerCommand {
     
     private static Logger log = Logger.getLogger(CobblerDistroCommand.class);
     
@@ -92,6 +93,13 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
         log.debug("kernel path: " + tree.getInitrdPath());
         invokeXMLRPC("modify_distro", handle, "initrd",
                             tree.getInitrdPath(), xmlRpcToken);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public ValidatorError store() {
+        throw new UnsupportedOperationException();
     }
 
 }

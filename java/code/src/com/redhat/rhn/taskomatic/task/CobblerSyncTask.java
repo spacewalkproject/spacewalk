@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
@@ -86,7 +87,10 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         else {
             log.debug("Syncing distros and profiles.");
             CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
-            distSync.store();
+            ValidatorError ve = distSync.store();
+            if (ve != null) {
+                TaskHelper.sendErrorEmail(log, ve.getMessage());
+            }
             
             CobblerProfileSyncCommand profSync = new CobblerProfileSyncCommand();
             profSync.store();

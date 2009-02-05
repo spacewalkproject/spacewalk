@@ -194,9 +194,7 @@ public abstract class CobblerCommand {
                     CobblerCommand.makeCobblerName(tree));
         }
         
-        List<String> args = new ArrayList();
-        args.add(xmlRpcToken);
-        List<Map> distros = (List) invokeXMLRPC("get_distros", args);
+        List<Map> distros = getCobblerDistros();
         for (Map row : distros) {
             log.debug("getDistroMap.ROW: " + row);
             String uid = (String) row.get("uid");
@@ -205,6 +203,17 @@ public abstract class CobblerCommand {
             }
         }
         return new HashMap();
+    }
+    
+    /**
+     * Get the list of cobbler distro objects.
+     * @return List of cobbler distros
+     */
+    public List<Map> getCobblerDistros() {
+        List<String> args = new ArrayList();
+        args.add(xmlRpcToken);
+        List<Map> distros = (List) invokeXMLRPC("get_distros", args);
+        return distros;
     }
     
     /**
