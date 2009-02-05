@@ -49,7 +49,7 @@ public class SsmOperationDataPopulatorTest extends RhnBaseTestCase {
         // disabled so JUnit doesn't complain
     }
 
-    public void __testPopulateDataSet1() throws Exception {
+    public void aTestPopulateDataSet1() throws Exception {
         // The following control the data that are created in this call
         String userLoginName = "admin";
         int numInProgressOperations = 3;
