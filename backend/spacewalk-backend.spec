@@ -539,7 +539,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Feb  5 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+* Thu Feb 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 
 - fixing satsync warning.
 
 * Wed Jan 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.2-1
