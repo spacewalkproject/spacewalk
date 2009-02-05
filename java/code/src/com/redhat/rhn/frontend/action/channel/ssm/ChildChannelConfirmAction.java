@@ -25,15 +25,10 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -97,9 +92,9 @@ public class ChildChannelConfirmAction extends RhnAction {
         ActionForward result;
         if (isSubmitted(daForm)) {
             start = System.currentTimeMillis();
-            log.debug("Starting doChangeSubscriptions");
+            log.debug("Starting performChannelActions");
             ChannelManager.performChannelActions(user, changes);
-            log.debug("Time for doChangeSubscriptions call: " + 
+            log.debug("Time for performChannelActions call: " + 
                 (System.currentTimeMillis() - start));
             
             result = mapping.findForward("success");
@@ -113,61 +108,7 @@ public class ChildChannelConfirmAction extends RhnAction {
         return result;
     }
 
-    // Actually change the subscriptions for the servers
-    protected void doChangeSubscriptions(User u, List<ChannelActionDAO> changes, 
-            HttpServletRequest req) {
-        ActionErrors errs = new ActionErrors();
-        ActionMessages msgs = new ActionMessages();
-        
-        int numSubs = 0;
-        int numUnsubs = 0;
-        for (ChannelActionDAO cad : changes) {
-            for (Channel chan : cad.getSubsAllowed()) {
-                try {
-                    SystemManager.subscribeServerToChannel(u, cad.getServer(), chan);
-                    numSubs++;
-                }
-                catch (Exception e) {
-                    errs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "ssmchildsubs.jsp.failedSubscribe", chan.getName()));
-                }
-            }
-            for (Channel chan : cad.getUnsubsAllowed()) {
-                try {
-                    SystemManager.unsubscribeServerFromChannel(u, cad.getServer(), chan);
-                    numUnsubs++;
-                }
-                catch (Exception e) {
-                    errs.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-                            "ssmchildsubs.jsp.failedUnsubscribe", chan.getName()));
-                }
-            }
-        }
-        
-        // TODO - message should differentiate between '1' and 'not 1'
-        if (numSubs > 0) { 
-            addGlobalMessage(msgs, "ssmchildsubs.jsp.successfulSubs", "" + numSubs);
-        }
-        if (numUnsubs > 0) {
-            addGlobalMessage(msgs, "ssmchildsubs.jsp.successfulUnsubs", "" + numUnsubs);
-        }
-        
-        if (!msgs.isEmpty()) {
-            saveMessages(req, msgs);
-        }
-
-        if (!errs.isEmpty()) {
-            addErrors(req, errs);
-            saveMessages(req, errs);
-        }
-        
-        
-        RhnSet cset = RhnSetDecl.SSM_CHANNEL_LIST.get(u);
-        cset.clear();
-        RhnSetManager.store(cset);
-    }
-    
-    // 
+    //
     // Build the list of channels we're going to unsubscribe systems from - per system,
     // we only unsubscribe if the system currently IS subscribed...
     //
