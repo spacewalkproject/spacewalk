@@ -120,41 +120,13 @@ WHERE EC.server_id in
 
 <write-mode name="insert_needed_cache_by_channel">
   <query params="channel_id">
-INSERT INTO rhnServerNeededCache (server_id, errata_id, package_id)
-(SELECT /*+ RULE */ DISTINCT 
-     S.id as server_id,
-     ep.errata_id as errata_id,
-     P.id as package_id
-FROM
-     rhnPackage P,
-     rhnServerPackageArchCompat SPAC,
-     rhnPackageEVR P_EVR,
-     rhnPackageEVR SP_EVR,
-     rhnServerPackage SP,
-     rhnChannelPackage CP,
-     rhnServerChannel SC,
-     rhnServer S,
-     rhnChannelErrata CE,
-     rhnErrataPackage EP
-WHERE
-         SC.server_id = S.id
-  AND    EP.package_id = P.id	    (+)
-  AND    CE.errata_id = EP.errata_id (+)
-  AND    SC.channel_id = CE.channel_id (+)
-  AND    SC.channel_id = CP.channel_id
-  AND    CP.package_id = P.id
-  AND    p.package_arch_id = spac.package_arch_id
-  AND    spac.server_arch_id = s.server_arch_id
-  AND    SP_EVR.id = SP.evr_id
-  AND    P_EVR.id = P.evr_id
-  AND    SP.server_id = S.id
-  AND    SP.name_id = P.name_id
-  AND    SP.evr_id != P.evr_id
-  AND    SP_EVR.evr &lt; P_EVR.evr
-  AND    SP_EVR.evr = (SELECT MAX(PE.evr) FROM 
-  rhnServerPackage SP2, rhnPackageEvr PE WHERE PE.id = SP2.evr_id 
-    AND SP2.server_id = SP.server_id AND SP2.name_id = SP.name_id)
-  AND sc.channel_id = :channel_id)
+INSERT INTO rhnServerNeededCache
+        (server_id, package_id, errata_id)
+            (SELECT DISTINCT  SNV.server_id, SNV.package_id, SNV.errata_id
+                FROM rhnServerNeededView SNV,
+                     rhnServerChannel SC
+                WHERE SNV.server_id = SC.server_id
+                  AND SC.channel_id = :channel_id);
   </query>
 </write-mode>
 
