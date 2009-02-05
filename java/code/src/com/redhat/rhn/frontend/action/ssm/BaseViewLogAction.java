@@ -42,15 +42,20 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
     private static final String DATA_SET = "pageList";
 
     /**
-     * Indicates which log entries to display.
+     * Allows the subclass to control the data being returned by the
+     * {@link #getResult(RequestContext)} call.
+     *
+     * @return cannot be <code>null</code>
      */
-    private Mode mode = Mode.IN_PROGRESS;
+    protected abstract Mode getMode();
 
     /**
-     * String resource key passed to the rendering page to allow a custom description
-     * message as to what subset of data is being displayed.
+     * Allows the subclass to introduce a message key specific to the data it provides.
+     *
+     * @return cannot be <code>null</code>; this value should be a key in the
+     *         StringResources bundles.
      */
-    private String summaryKey;
+    protected abstract String getSummaryKey();
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
@@ -63,7 +68,7 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
         helper.setDataSetName(DATA_SET);
         helper.execute();
 
-        request.setAttribute("summaryKey", summaryKey);
+        request.setAttribute("summaryKey", getSummaryKey());
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
@@ -74,7 +79,7 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
 
         DataResult result;
 
-        if (mode == Mode.ALL) {
+        if (getMode() == Mode.ALL) {
             result = SsmOperationManager.allOperations(user);
         }
         else {
@@ -82,14 +87,6 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
         }
 
         return result;
-    }
-
-    protected void setMode(Mode modeIn) {
-        this.mode = modeIn;
-    }
-
-    protected void setSummaryKey(String keyIn) {
-        this.summaryKey = keyIn;
     }
 
     /**

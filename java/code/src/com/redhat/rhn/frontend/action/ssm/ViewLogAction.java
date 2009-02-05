@@ -23,13 +23,14 @@ package com.redhat.rhn.frontend.action.ssm;
  */
 public class ViewLogAction extends BaseViewLogAction {
 
-    /**
-     * Takes care of populating the super class with the necessary details for displaying
-     * in progress operations.
-     */
-    public ViewLogAction() {
-        super.setMode(Mode.IN_PROGRESS);
-        super.setSummaryKey("ssm.operations.inprogress.summary");
+    /** {@inheritDoc} */
+    protected Mode getMode() {
+        return Mode.IN_PROGRESS;
+    }
+
+    /** {@inheritDoc} */
+    protected String getSummaryKey() {
+        return "ssm.operations.inprogress.summary";
     }
 
 }

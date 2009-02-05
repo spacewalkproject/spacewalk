@@ -23,13 +23,13 @@ package com.redhat.rhn.frontend.action.ssm;
  */
 public class ViewAllLogAction extends BaseViewLogAction {
 
-    /**
-     * Takes care of populating the super class with the necessary details for displaying
-     * all operations.
-     */
-    public ViewAllLogAction() {
-        super.setMode(Mode.ALL);
-        super.setSummaryKey("ssm.operations.all.summary");
+    /** {@inheritDoc} */
+    protected Mode getMode() {
+        return Mode.ALL;
     }
-    
+
+    /** {@inheritDoc} */
+    protected String getSummaryKey() {
+        return "ssm.operations.all.summary";
+    }
 }
