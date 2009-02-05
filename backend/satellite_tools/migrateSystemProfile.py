@@ -112,6 +112,8 @@ def main():
                            server_id)
         except:
             raise
+    
+    if DEBUG: print "Migration Completed successfully"
     logout(sessionKey)
 
 def login(username, password):
