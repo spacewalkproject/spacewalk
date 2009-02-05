@@ -25,6 +25,7 @@ from optparse import OptionParser, Option
 
 
 client = None
+DEBUG = 0
 
 options_table = [
     Option("-v", "--verbose",       action="count", 
@@ -49,7 +50,7 @@ _csv_fields = [ 'systemId', 'from-org-id', 'to-org-id' ]
 
 
 def main():
-    global options_table, client
+    global options_table, client, DEBUG
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
@@ -58,8 +59,13 @@ def main():
         SATELLITE_HOST = options.satellite
     else:
         SATELLITE_HOST = os.uname()[1]
-    
+
+    if options.verbose:
+        DEBUG = 1
+
     SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
+    if DEBUG:
+        print "Connecting to %s" % SATELLITE_URL
 
     client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
 
@@ -84,7 +90,6 @@ def main():
             return
         else:
             from_org_id = options.from_org_id or None
-
 
         migrate_data = [[options.systemId, from_org_id, to_org_id]]
     
@@ -126,7 +131,8 @@ def logout(session_key):
 def migrate_system(key, oldOrgId, newOrgId, server_ids):
     """
     Call to migrate given system to new org
-    """ 
+    """
+    if DEBUG: print "Migrating system %s to Org %s" % (server_ids, newOrgId)
     try:
         client.org.migrateSystems(key, oldOrgId, newOrgId, server_ids)
     except xmlrpclib.Fault, e:
