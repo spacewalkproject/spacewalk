@@ -2,43 +2,70 @@ package Oracle::TNSping;
 
 use strict;
 
-use Error ':try';
+use Error qw(:try);
+use Net::Ping;
 
 sub run {
     my %args = @_;
 
     my $result  = $args{result};
     my %params  = %{$args{params}};
-    my $host = $params{ip};
-    my $port = $params{port};
-    my $ora_home = $params{ORACLE_HOME};
 
-    my $tns = "'(ADDRESS=(PROTOCOL=TCP)(HOST=$host)(PORT=$port))'";
-
-    my $command = $args{data_source_factory}->unix_command(%params);
-    #need to turn off die_on_failure default setting from unix_command data source to let TNS connect errors pass through
-    $command->die_on_failure(0);
-    $command->execute("ORACLE_HOME=$ora_home $ora_home/bin/tnsping $tns");
-	
-    if ($command->command_status != 0) {
-	if ($command->errors) {
-	    throw NOCpulse::Probe::InternalError("Cannot run TNSping: ".$command->errors);
-	} else {
-	    my $error = $command->results =~ /TNS-(\d+):(.*)/;
-	    my $err_no = $1;
-	    my $err_txt = $2;
-	    $result->item_critical("TNS-$err_no", $err_txt);
-	}	
-    } else {
-	if ($command->results =~ /OK\s\((\d+)/ ) {
+    my $p = Net::Ping->new("tcp", $params{'timeout'});
+    $p->hires(1);
+    if (my ($return_code, $time, $resolved_ip) = $p->ping($params{'ip'})) {
+        if ($return_code) {
 	    $result->context("TNS Listener");
-	    #adjust time from msec to sec
-	    my $time = ($1 / 1000);
-	    $result->metric_value('latency', $time, '%.3f');
-	} else {
-	    $result->item_unknown("Cannot find latency value in TNSping output:". $command->results);
-	}
+            $result->metric_value('latency', $time, '%.3f'); 
+        } else {
+	    $result->item_critical("Host is unreachable ", $resolved_ip);
+        }
+    } else {
+	$result->item_unknown("Hostname cannot be found or there is a problem with the IP number ", $params{'ip'});
     }
 }
+
+=head1 NAME
+
+Oracle::TNSping - TNS ping probe
+
+=head1 DESCRIPTION
+
+This module implement NOCpulse probe, which try to ping Oracle database.
+
+=head1 METHODS
+
+=head2 run()
+
+Run the probe. Accept hash and this fields are mandatory:
+
+=over 4
+
+=item result  - NOCpulse::Probe::Result object, where we pass the result of probe.
+
+=item timeout - The timeout must be greater than zero.
+
+=item ip - hostname to connect to
+
+=item port - On which port is Oracle listener.
+
+=back
+
+=head1 SEE ALSO
+
+L<NOCpulse::Probe::Result>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2008 Red Hat, Inc.,
+Miroslav Suchy <msuchy@redhat.com>
+
+Permission is granted to copy, distribute and/or modify this 
+document under the terms of the GNU Free Documentation 
+License, Version 1.2 or any later version published by the 
+Free Software Foundation; with no Invariant Sections, with 
+no Front-Cover Texts, and with no Back-Cover Texts.
+
+=cut
 
 1;
