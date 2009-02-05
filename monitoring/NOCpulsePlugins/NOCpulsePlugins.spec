@@ -60,6 +60,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb  5 2009 Miroslav Suchý <msuchy@redhat.com>
+- 474279 - rewrite TNSping probe
+
 * Tue Feb  3 2009 Miroslav Suchý <msuchy@redhat.com> 2.208.4-1
 - fix permission of /var/lib/nocpulse/ProbeState
 
