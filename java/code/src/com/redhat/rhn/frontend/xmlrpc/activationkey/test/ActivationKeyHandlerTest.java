@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.TokenPackage;
+import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
@@ -739,6 +740,15 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         List<ActivationKey> keys = keyHandler.listActivationKeys(adminKey);
 
         assertTrue(keys.size() >= 5);
+    }
+    
+    public void testListActivatedSystems() throws Exception {
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
+        int numServersActivated = key.getToken().getActivatedServers().size();
+
+        Object[] servers = keyHandler.listActivatedSystems(adminKey, key.getKey());
+        
+        assertEquals(numServersActivated, servers.length);
     }
     
     public void testConfigChannels() throws Exception {

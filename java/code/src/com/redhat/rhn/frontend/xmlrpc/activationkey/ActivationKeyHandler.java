@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -783,6 +784,47 @@ public class ActivationKeyHandler extends BaseHandler {
         }
         
         return result;
+    }
+
+    /**
+     * Return a list of systems activated with the activation key provided.
+     * @param sessionKey The current user's session key
+     * @param key The activation key
+     * @return List of map representations of systems.
+     *
+     * @xmlrpc.doc List the systems activated with the key provided.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "key")
+     * @xmlrpc.returntype 
+     *   #array() 
+     *       #prop_desc("int", "id", "System id")
+     *       #prop("string", "hostname")
+     *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server 
+     *              successfully checked in")
+     *   #array_end()     
+     */
+    public Object[] listActivatedSystems(String sessionKey, String key) {
+        User user = getLoggedInUser(sessionKey);
+        ActivationKey activationKey = lookupKey(key, user);
+
+        List<Server> servers =  new LinkedList<Server>(
+                activationKey.getToken().getActivatedServers());
+        
+        List<Object> returnList = new ArrayList<Object>();
+
+        // For this API, we don't need to pass back to the user all of the
+        // information that is defined for a "Server" as would be returned
+        // by the ServerSerializer; therefore, we'll just pull a few key
+        // pieces of information.
+        for (Server server : servers) {
+            Map<String, Object> system = new HashMap<String, Object>();
+            
+            system.put("id", server.getId());
+            system.put("hostname", server.getHostname());
+            system.put("last_checkin", server.getLastCheckin());
+            returnList.add(system);
+        }
+        return returnList.toArray();
     }
     
     private ActivationKey lookupKey(String key, User user) {
