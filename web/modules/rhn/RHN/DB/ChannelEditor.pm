@@ -214,6 +214,16 @@ sub delete_channel {
 
   die "Attempt to delete RHN channel '$cid'" unless $channel->org_id;
 
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::delete_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  $sth->execute_h(label => $channel->label);
+
   $dbh->call_procedure('delete_channel', $cid);
 
   $dbh->commit;
@@ -250,6 +260,17 @@ EOQ
   $sth = $dbh->prepare($query);
 
   $sth->execute($set->label, $set->uid);
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::replace_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $cid); 
+  $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $cid);
 
@@ -292,6 +313,17 @@ EOQ
     $sth->execute_h(cid => $cid, pid => $pid);
   }
 
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::add_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $cid); 
+  $sth->execute_h(label => $channel->label);
+
   $dbh->call_procedure('rhn_channel.update_channel', $cid);
 
   $dbh->commit;
@@ -319,6 +351,17 @@ EOQ
   foreach my $pid (@pids) {
     $sth->execute_h(pid => $pid, cid => $cid);
   }
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::remove_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $cid); 
+  $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $cid);
 
@@ -349,6 +392,17 @@ INSERT INTO rhnChannelPackage
 EOQ
 
   $sth->execute_h(to_cid => $to_cid, from_cid => $from_cid);
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::clone_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $to_cid); 
+  $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $to_cid);
 
@@ -384,6 +438,17 @@ INSERT INTO rhnChannelPackage
 EOQ
 
   $sth->execute_h(to_cid => $to_cid, from_cid => $from_cid);
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::clone_original_channel_packages', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $to_cid); 
+  $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $to_cid);
 
@@ -695,6 +760,17 @@ EOQ
 
   }
 
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::remove_errata_from_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $attr{cid}); 
+  $sth->execute_h(label => $channel->label);
+
   $dbh->call_procedure('rhn_channel.update_channel', $attr{cid});
 
   $dbh->commit;
@@ -752,6 +828,17 @@ EOQ
   }
 
   $sth->finish;
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::add_errata_to_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $attr{cid}); 
+  $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $attr{cid});
 
@@ -817,6 +904,17 @@ EOQ
   }
 
   $sth->finish;
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::add_cloned_errata_to_channel', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  my $channel = RHN::Channel->lookup(-id => $attr{to_cid}); 
+  $sth->execute_h(label => $channel->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $attr{to_cid});
 

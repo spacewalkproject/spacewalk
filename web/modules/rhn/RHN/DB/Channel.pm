@@ -1566,6 +1566,16 @@ EOQ
 
   $sth->execute_h(%attr, cid => $self->id);
 
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::remove_packages_in_set', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  $sth->execute_h(label => $self->label);
+
   $dbh->call_procedure('rhn_channel.update_channel', $self->id);
 
   $dbh->commit;
@@ -1591,6 +1601,16 @@ INSERT
 EOQ
 
   $sth->execute_h(%attr, cid => $self->id);
+
+  $sth = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::add_packages_in_set', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  $sth->execute_h(label => $self->label);
 
   $dbh->call_procedure('rhn_channel.update_channel', $self->id);
 
