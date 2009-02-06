@@ -38,6 +38,7 @@ for my $file (@files) {
 	if (@changes) {
 		print "$name-$version..HEAD:\n";
 		print @changes;
+        print "------------------------------------------\n";
 	}
 }
 
