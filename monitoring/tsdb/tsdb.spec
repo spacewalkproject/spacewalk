@@ -5,7 +5,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.17
+Version:      1.27.18
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -79,6 +79,11 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.27.18-1
+- rebuild
+- 479541, 483867 - replaced runuser with /sbin/runuser
+- change Source0 to point to fedorahosted.org
+
 * Tue Nov 25 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.27.17-1
 - 465546: work around for empty queuefile.positions
 
