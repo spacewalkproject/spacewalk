@@ -4,8 +4,8 @@ Group: RHN/Client
 License: GPLv2
 Source1: ssl-cert-check 
 Source2: rhn-ssl-cert-check 
-Version: 1.4
-Release: 10.12%{?dist}
+Version: 1.5
+Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl
@@ -39,6 +39,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.5-1
+- 483867 - names of packages that help us distinguish Proxy from Spacewalk (Satellite) have changed.
+- 483867 - Spacewalk and Satellite no longer use /etc/rhn/satellite-httpd/conf/ssl.conf.
+
 * Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.4-10.12
 - 480967 - obsolete rhn-ssl-cert-check
 
