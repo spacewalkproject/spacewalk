@@ -432,7 +432,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.doc Get the keywords associated with an erratum matching the
      * given advisory name. 
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param param("string", "advisoryName")
+     * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.returntype #array_single("string", "Keyword associated with erratum.")
 
      */
