@@ -66,8 +66,6 @@ while (@exception_queue) {
 			}
 			closedir DIR;
 		}
-	} else {
-		die "Expected dir at [$exception_dir$d]\n";
 	}
 }
 
