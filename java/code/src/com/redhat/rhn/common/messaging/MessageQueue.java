@@ -26,6 +26,8 @@ import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 
 import org.apache.log4j.Logger;
 
@@ -246,6 +248,11 @@ public class MessageQueue {
         // Used for asynchronusly restarting the satellite
         RestartSatelliteAction ra = new RestartSatelliteAction();
         MessageQueue.registerAction(ra, RestartSatelliteEvent.class);
+        
+        // Used to allow SSM operations to be run asynchronously
+        SsmChangeChannelSubscriptionsAction sccsa =
+            new SsmChangeChannelSubscriptionsAction();
+        MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
     }
 }
 

@@ -29,7 +29,6 @@ import com.redhat.rhn.manager.BaseManager;
  * Handles the tracking of SSM asynchronous operations, providing functionality for
  * the creation, update, and retrieval of the data.
  *
- * @author Jason Dobies
  * @version $Revision$
  */
 public class SsmOperationManager extends BaseManager {
@@ -130,7 +129,8 @@ public class SsmOperationManager extends BaseManager {
      * @param description high level description of what the operation is doing;
      *                    cannot be <code>null</code>
      * @param rhnSetLabel references a RhnSet with the server IDs to associate with the
-     *                    new operation
+     *                    new operation; if this is <code>null</code> no mappings will
+     *                    be created at this time
      * @return the id of the created operation
      */
     public static long createOperation(User user, String description,
@@ -166,14 +166,9 @@ public class SsmOperationManager extends BaseManager {
         writeMode.executeUpdate(params);
 
         // Add the server/operation mappings
-        writeMode =
-            ModeFactory.getWriteMode("ssm_operation_queries", "map_servers_to_operation");
-
-        params.clear();
-        params.put("op_id", operationId);
-        params.put("set_label", rhnSetLabel);
-
-        writeMode.executeUpdate(params);
+        if (rhnSetLabel != null) {
+            associateServersWithOperation(operationId, rhnSetLabel);
+        }
 
         return operationId;
     }
@@ -220,6 +215,25 @@ public class SsmOperationManager extends BaseManager {
         // list of maps of server_id -> <id>
         DataResult result = m.execute(params);
         return result;
+    }
+
+    /**
+     * Associates an operation with a group of servers against which it was run, where
+     * the servers are found in an RhnSet. The IDs for these servers must be stored in
+     * the "element" field of the RhnSet.
+     * 
+     * @param operationId identifies an existing operation to associate with servers
+     * @param setLabel    identifies the set in which to find server IDs
+     */
+    public static void associateServersWithOperation(long operationId, String setLabel) {
+        WriteMode writeMode =
+            ModeFactory.getWriteMode("ssm_operation_queries", "map_servers_to_operation");
+
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        params.put("op_id", operationId);
+        params.put("set_label", setLabel);
+
+        writeMode.executeUpdate(params);
     }
 }
 

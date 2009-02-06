@@ -29,7 +29,6 @@ import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 /**
- * @author Jason Dobies
  * @version $Revision$
  */
 public class SsmOperationManagerTest extends RhnBaseTestCase {
@@ -126,6 +125,31 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         Map serverData = (Map) result.get(0);
         assertNotNull(serverData.get("id"));
         assertNotNull(serverData.get("name"));
+    }
+    
+    public void testAssociateServersWithOperation() throws Exception {
+        // Setup
+        
+        //   Pass null label so no servers are associated
+        long operationId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation", null);
+        
+        //   Sanity check
+        DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(0, result.size());
+        
+        // Test
+        SsmOperationManager.associateServersWithOperation(operationId, setLabel);
+        
+        // Verify
+        result = SsmOperationManager.findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        
+        Map serverData = (Map) result.get(0);
+        assertNotNull(serverData.get("id"));
+        assertNotNull(serverData.get("name"));        
     }
     
     /**

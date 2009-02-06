@@ -23,9 +23,11 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.ssm.SsmManager;
+import com.redhat.rhn.common.messaging.MessageQueue;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -93,8 +95,10 @@ public class ChildChannelConfirmAction extends RhnAction {
         ActionForward result;
         if (isSubmitted(daForm)) {
 
-            SsmManager.populateSsmChannelServerSets(user, changes); 
-            SsmManager.performChannelActions(user);
+            // Fire the request off asynchronously
+            SsmChangeChannelSubscriptionsEvent event =
+                new SsmChangeChannelSubscriptionsEvent(user, changes);
+            MessageQueue.publish(event);
             
             result = mapping.findForward("success");
         }

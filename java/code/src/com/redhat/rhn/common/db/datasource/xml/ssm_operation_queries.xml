@@ -1,3 +1,8 @@
+<!--
+   Queries in this file are related to the storing, maintaining, and retrieving of
+   log information on asynchronous SSM operations.
+-->
+
 <datasource_modes>
 
 <!-- Loads all SSM operation details associated with the user regardless of status. In
@@ -104,17 +109,24 @@
    
 <!-- Creates a mapping between an operation (rhnSsmOperation) and the servers on which
      the operation is performed (rhnServer). This query will take the server IDs from
-     an RhnSet.
+     an RhnSet and will check to ensure the mapping doesn't already exist.
+     
+     This call assumes the server IDs are stored in the set's "element" field.
      -->
 <write-mode name="map_servers_to_operation">
    <query params="op_id, set_label">
-      INSERT
-        INTO rhnSsmOperationServer
-             (operation_id, server_id)
+      INSERT INTO rhnSsmOperationServer (operation_id, server_id)
              (
-             SELECT :op_id, element
-               FROM rhnSet
+             SELECT :op_id, s.element
+               FROM rhnSet s
               WHERE label = :set_label
+                AND s.element NOT IN
+                    (
+                    SELECT sos.server_id
+                      FROM rhnSsmOperationServer sos
+                     WHERE sos.operation_id = :op_id
+                       AND sos.server_id = s.element
+                    )
              )
    </query>
 </write-mode>
