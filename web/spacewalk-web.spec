@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.8
+Version: 0.5.9
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.9-1
+- 483603 - First pass at display of async SSM operations in the UI
+
 * Wed Feb 04 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.8-1
 - Remove favicon.ico. (moved to branding rpm)
 
