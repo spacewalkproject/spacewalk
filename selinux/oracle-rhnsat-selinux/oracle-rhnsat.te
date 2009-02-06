@@ -6,6 +6,8 @@ require {
 	type oracle_db_log_t;
 	type oracle_sqlplus_t;
 	type initrc_tmp_t;
+	type oracle_tnslsnr_t;
+	type oracle_tnslsnr_log_t;
 };
 
 # Type for common, read-only directories
@@ -31,6 +33,11 @@ create_files_pattern(oracle_db_t, oracle_common_log_t, oracle_common_log_t)
 append_files_pattern(oracle_db_t, oracle_common_log_t, oracle_common_log_t)
 create_files_pattern(oracle_sqlplus_t, oracle_common_log_t, oracle_common_log_t)
 append_files_pattern(oracle_sqlplus_t, oracle_common_log_t, oracle_common_log_t)
+
+# Allow listener to log to oracle_common_log_t, while keeping its own type
+filetrans_pattern(oracle_tnslsnr_t, oracle_common_log_t, oracle_tnslsnr_log_t, { file dir })
+create_files_pattern(oracle_tnslsnr_t, oracle_common_log_t, oracle_tnslsnr_log_t)
+create_dirs_pattern(oracle_tnslsnr_t, oracle_common_log_t, oracle_tnslsnr_log_t)
 
 # Allow both sqlplus and db to read this file
 read_files_pattern(oracle_db_t, oracle_dir_t, oracle_common_file_t)
