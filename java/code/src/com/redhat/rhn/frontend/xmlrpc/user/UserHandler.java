@@ -28,7 +28,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -84,13 +83,12 @@ public class UserHandler extends BaseHandler {
      *     $UserSerializer
      * #array_end()
      */
-    public Object[] listUsers(String sessionKey) throws FaultException {
+    public List listUsers(String sessionKey) throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
-        
         try {
-            DataResult dr = UserManager.usersInOrg(loggedInUser, null, Map.class);
-            return dr.toArray();
+            List users = UserManager.usersInOrg(loggedInUser);
+            return users;
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();
@@ -163,6 +161,8 @@ public class UserHandler extends BaseHandler {
      *     #prop("string", "prefix")
      *     #prop("string", "last_login_date")
      *     #prop("string", "created_date")
+     *     #prop_desc("boolean", "enabled", "true if user is enabled, 
+     *     false if the user is disabled")
      *   #struct_end()
      */
     public Map getDetails(String sessionKey, String login) throws FaultException {
@@ -187,6 +187,14 @@ public class UserHandler extends BaseHandler {
                                   "" : ls.formatDate(target.getCreated());
         ret.put("created_date", created);
         ret.put("org_id", loggedInUser.getOrg().getId());
+        
+        if (target.isDisabled()) {
+            ret.put("enabled", Boolean.FALSE);
+        }
+        else {
+            ret.put("enabled", Boolean.TRUE);
+        }
+
         return ret;
     }
     

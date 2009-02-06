@@ -521,7 +521,26 @@ public class UserManager extends BaseManager {
         returnedUser = UserFactory.lookupByLogin(user, login);
         return returnedUser;
     }
-    
+
+    /**
+     * Retrieve the list of all users in the specified user's org.
+     * @param user The user who's org to search for users.
+     * @return A list of users.
+     */
+    public static List<User> usersInOrg(User user) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            //Throw an exception with a nice error message so the user
+            //knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be an" +
+                    " Org Admin to access the user list");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.userlist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.userlist"));
+            throw pex;
+        }
+        return UserFactory.getInstance().findAllUsers(user.getOrg());
+    }
+
     /**
      * Retrieve the list of all users in the specified user's org. Returns DataResult
      * containing the default objects specified in User_queries.xml
@@ -533,7 +552,7 @@ public class UserManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org");
         return getUsersInOrg(user, pc, m);
     }
-
+    
     /**
      * Retrieve the list of all users in the specified user's org. Returns DataResult
      * containing Map objects.

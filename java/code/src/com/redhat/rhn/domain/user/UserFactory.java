@@ -728,6 +728,26 @@ public  class UserFactory extends HibernateFactory {
     }
 
     /**
+     * Return a list of all User's who are in the given org.
+     * 
+     * @param inOrg Org to find users for.
+     * @return list of users.
+     */
+    public List<User> findAllUsers(Org inOrg) {
+        Session session = null;
+        try {
+            session = HibernateFactory.getSession();
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("org_id", inOrg.getId());
+            return (List<User>)listObjectsByNamedQuery("User.findAllUsersByOrg", params);
+        }
+        catch (HibernateException he) {
+            log.error("Hibernate exception: " + he.toString());
+        }
+        return null;
+    }
+    
+    /**
      * Return a list of all User's who are org admins in the given org.
      * 
      * @param inOrg Org to find administrators for.

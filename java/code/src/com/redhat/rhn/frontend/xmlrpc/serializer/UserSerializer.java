@@ -35,6 +35,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #prop("int", "id")
  *              #prop("string", "login")
  *              #prop_desc("string", "login_uc", "upper case version of the login")
+ *              #prop_desc("boolean", "enabled", "true if user is enabled, 
+ *                         false if the user is disabled")
  *      #struct_end()
  */
 public class UserSerializer implements XmlRpcCustomSerializer {
@@ -55,7 +57,15 @@ public class UserSerializer implements XmlRpcCustomSerializer {
        User user = (User) value; 
        helper.add("id", user.getId());
        helper.add("login", user.getLogin());
-       helper.add("login_uc", user.getLoginUc()); 
+       helper.add("login_uc", user.getLoginUc());
+       
+       if (user.isDisabled()) {
+           helper.add("enabled", Boolean.FALSE);
+       }
+       else {
+           helper.add("enabled", Boolean.TRUE);
+       }
+       
        helper.writeTo(output);
     }
 }

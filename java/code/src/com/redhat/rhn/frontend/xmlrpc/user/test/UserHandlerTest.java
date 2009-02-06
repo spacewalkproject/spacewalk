@@ -47,7 +47,7 @@ public class UserHandlerTest extends BaseHandlerTestCase {
 
     public void testListUsers() throws Exception {
         //admin should be able to call list users, regular should not
-        Object[] result = handler.listUsers(adminKey);
+        List result = handler.listUsers(adminKey);
         assertNotNull(result);
         
         //make sure we get a permission exception if a regular user tries to get the user
