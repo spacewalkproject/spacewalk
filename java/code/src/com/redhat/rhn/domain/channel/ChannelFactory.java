@@ -258,6 +258,22 @@ public class ChannelFactory extends HibernateFactory {
     }
     
     /**
+     * Returns the Channel whose label matches the given label.
+     * This was added to allow taskomatic to lookup channels by label,
+     * and should NOT be used from the webui.
+     * @param label Channel label sought.
+     * @return the Channel whose label matches the given label.
+     */
+    public static Channel lookupByLabel(String label) {
+        Session session = getSession();
+        Criteria c = session.createCriteria(Channel.class);
+        c.add(Restrictions.eq("label", label));
+        return (Channel) c.uniqueResult();
+    }
+    
+    
+    
+    /**
      * Returns true if the given channel is globally subscribable for the
      * given org.
      * @param org Org

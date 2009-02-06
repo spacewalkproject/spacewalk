@@ -97,6 +97,7 @@ public class PackagePushAction extends RhnSetAction {
         //not sure what this is here for, but i'm scrared to remove it
         ErrataManager.refreshErrataFiles(c, errata);
         
+        PackagePushActionHelper.pushPackagesNotAlreadyInChannelIntoChannel(c, eid, user);
         RhnSet targetChannels = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         targetChannels.removeElement(cid);
         RhnSetManager.store(targetChannels);

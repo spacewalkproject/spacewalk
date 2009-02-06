@@ -395,5 +395,10 @@ public interface Errata {
      * Clears out the Channels associated with this errata.
      *
      */
-    void clearChannels();       
+    void clearChannels();
+    
+    void setCves(Set <Cve> cvesIn);
+    
+    Set <Cve> getCves();
+      
 }

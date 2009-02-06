@@ -71,7 +71,42 @@ public class PackageProperty extends BaseDomainHelper {
         this.sense = senseIn;
     }
 
+    /**
+     * @return a human readable representation of the sense
+     */
+    public String getSenseAsString() {
+    	Long sense = this.sense & 0xf;
+    	if (sense == 2) {
+    		return "LT";
+    	} else if (sense == 4) {
+    		return "GT";
+    	} else if (sense == 8) {
+    		return "EQ";
+    	} else if (sense == 10) {
+    		return "LE";
+    	} else { // 12
+    		return "GE";
+    	}
+    }
 
+    public void setSenseFromString(String senseIn) {
+    	Long sense;
+    	
+    	if (senseIn == "LT") {
+    		sense = 2l;
+    	} else if (senseIn == "GT") {
+    		sense = 4l;
+    	} else if (senseIn == "EQ") {
+    		sense = 8l;
+    	} else if (senseIn == "LE") {
+    		sense = 10l;
+    	} else { // "GE"
+    		sense = 12l;
+    	}
+    	
+    	this.sense = sense & 0xf;
+    }
+    
     /**
      *
      * {@inheritDoc}

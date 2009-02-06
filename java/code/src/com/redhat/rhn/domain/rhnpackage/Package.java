@@ -68,6 +68,9 @@ public class Package extends BaseDomainHelper {
     private PackageArch packageArch;
     private Set<PackageKey> packageKeys = new HashSet();
     
+    private Long headerStart = new Long(0L);
+    private Long headerEnd = new Long(0L);
+
     private Set<ChangeLogEntry> changeLog = new HashSet();
     private Set<PackageProvides> provides = new HashSet();
     private Set<PackageRequires> requires = new HashSet();
@@ -703,4 +706,36 @@ public class Package extends BaseDomainHelper {
         this.conflicts = conflictsIn;
     }
     
+	public Long getHeaderStart() {
+		return headerStart;
+	}
+
+	public void setHeaderStart(Long headerStart) {
+		this.headerStart = headerStart;
+	}
+	
+	public Long getHeaderEnd() {
+		return headerEnd;
+	}
+
+	public void setHeaderEnd(Long headerEnd) {
+		this.headerEnd = headerEnd;
+	}
+
+
+
+	public String getProxyFriendlyFilename() {
+		String pkgFile = getFile();
+		if (pkgFile == null) {
+			pkgFile = getPackageName().getName() + "-" + getPackageEvr().getVersion() + "-"
+				+ getPackageEvr().getRelease() + "." + getPackageArch().getArchType().getLabel()
+				+ ".rpm";
+		}
+		return pkgFile;
+	}
+
+    public String getFilename() {
+        return this.getProxyFriendlyFilename();
+    }
+
 }

@@ -136,6 +136,10 @@ public class ChannelEditor {
             }
         }
         
+        // Mark the affected channel to have it smetadata evaluated, where necessary
+        // (RHEL5+, mostly)
+        ChannelManager.queueChannelChange(channel.getLabel(), "java::changePackages", null);
+        
         ChannelFactory.save(channel);
         //call update_channel stored proc
         updateChannel(channel);

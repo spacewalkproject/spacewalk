@@ -791,6 +791,7 @@ public class ChannelManager extends BaseManager {
                         LocalizationService.getInstance().getMessage(
                                 "api.channel.delete.haschild"));              
             }
+            ChannelManager.queueChannelChange(label, "java::deleteChannel", user.getLogin());  
             ChannelFactory.remove(toRemove);            
         }
     }
@@ -2287,6 +2288,21 @@ public class ChannelManager extends BaseManager {
         return ChannelFactory.findChannelArchLabelsSyncdChannels();
     }
     
-    
-    
+    public static void queueChannelChange( String channelLabel, String client, String reason ) {
+        if (client == null) {
+            client = "";
+        }
+        
+        if (reason == null) {
+            reason = "";
+        }
+        
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "request_repo_regen");
+        Map params = new HashMap();
+        params.put("label", channelLabel);
+        params.put("client", client);
+        params.put("reason", reason);
+        m.executeUpdate(params);
+    }
+
 }

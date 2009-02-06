@@ -1396,6 +1396,34 @@ WHERE EP.errata_id = :eid
   </query>        
 </mode>  
   
+
+<mode name="packages_for_auto_pushing_into_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="cid, eid">
+SELECT P.id
+FROM rhnPackage P,
+  rhnErrataPackage EP
+WHERE EP.errata_id = :eid
+  AND EP.package_id = P.id
+  AND P.id NOT IN
+  (SELECT P1.id
+FROM rhnPackage P1,
+     rhnPackageEVR PE1, 
+     rhnChannelNewestPackage CNP, 
+     rhnPackageEVR PE2, 
+     rhnPackageName PN, 
+     rhnErrataPackage EP
+WHERE EP.errata_id = :eid
+  AND P1.id = EP.package_id
+  AND CNP.channel_id = :cid
+  AND P1.name_id = CNP.name_id
+  AND p1.package_arch_id = CNP.package_arch_id
+  AND PE1.id = P1.evr_id
+  AND PE2.id = CNP.evr_id
+  AND PN.id = P1.name_id
+  AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) > 0)
+  </query>
+</mode>
+
 <mode name="server_packages_needing_update">
   <query params="sid, name">
 SELECT P.id, PE.epoch, PE.version, PE.release

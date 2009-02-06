@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -33,6 +35,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 
 /**
  * Channel
@@ -47,6 +50,11 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
 
+    private static List<String> releaseToSkipRepodata =
+        new ArrayList<String>(Arrays.asList(
+           		"2.1AS", "2.1ES", "2.1WS",
+                "3AS", "3ES", "3WS", "3Desktop", 
+                "4AS", "4ES", "4WS", "4Desktop"));
     private String baseDir;
     private ChannelArch channelArch;
     private String description;
@@ -63,6 +71,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Channel parentChannel;
     private ChannelProduct product;
     private ProductName productName;
+    private Comps comps;
     private String summary;
     private Set erratas = new HashSet();
     private Set packages = new HashSet();
@@ -146,6 +155,20 @@ public class Channel extends BaseDomainHelper implements Comparable {
         this.channelArch = c;
     }
     
+    /**
+     * @param comps The Comps to set.
+     */
+    public void setComps(Comps comps) {
+    	this.comps = comps;
+    }
+    
+    /**
+     * @return Returns the Comps.
+     */
+    public Comps getComps() {
+    	return comps;
+    }
+
     /**
      * @return Returns the description.
      */
@@ -677,4 +700,56 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setSupportPolicy(String policy) {
         supportPolicy = policy;
     }
+    
+    /**
+     * Created for taskomatic -- probably shouldn't be called from the webui
+     * @return
+     */
+    public boolean isCustom() {
+        return getOrg() != null;
+    }
+
+	/**
+	 * does this Channel need repodata generated for it
+	 * Criteria:
+	 * 1.  All custom channels need repodata
+	 * 2.  RH channels need it if:
+	 *     They are made by RH
+	 *     The top-most channel in their hierarchy (yes we currently only have 1 level deep, but you know
+	 *     what assumptions make...) has a 'minor' version of 5 or higher 
+	 * Note:  This makes an assumption that taxonomy will work the way that it continues to work, or at
+	 * least that version.compareTo will remain valid and function only on minor version 
+	 * @return
+	 */
+    public boolean isChannelRepodataRequired() {
+        boolean repodataRequired = false;
+        if (this.isCustom()) {
+            repodataRequired = true;
+            log.debug("isChannelRepodataRequired for channel(" + this.id + ") set to true because it is a custom Channel");
+        }
+     
+        //Walk to the top of the tree
+        Channel toConsider = this;
+        while (toConsider.getParentChannel() != null) {
+            toConsider = toConsider.getParentChannel();
+        }
+
+        DistChannelMap channelDist =  ChannelFactory.lookupDistChannelMap(toConsider);
+        if (channelDist != null) {
+            String release = channelDist.getRelease();
+            if (!releaseToSkipRepodata.contains(release)) {
+                repodataRequired = true;
+                log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
+                "set to true because top level parent has a release of " + release);
+            } 
+            else {
+                log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
+                "set to false because we have'nt met the minimum release");
+            }
+        }
+
+        log.debug("isChannelRepodataRequired for channel("+this.id+") = " + repodataRequired);
+        return repodataRequired;
+    }
+
 }

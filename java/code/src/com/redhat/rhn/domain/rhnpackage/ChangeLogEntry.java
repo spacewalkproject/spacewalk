@@ -28,7 +28,6 @@ import java.util.Date;
  */
 public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
 
-
     private Long id;
     private Package rhnPackage;
     private String name;
@@ -116,8 +115,6 @@ public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
                                     .append(time)
                                     .toHashCode();
     }
-
-
     /**
      * @return Returns the id.
      */

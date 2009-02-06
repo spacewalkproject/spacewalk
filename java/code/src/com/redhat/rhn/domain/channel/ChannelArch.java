@@ -177,4 +177,9 @@ public class ChannelArch extends BaseDomainHelper {
                 .append("archType", this.getArchType())
                 .toString();
     }
+    
+    public void setCompatiblePackageArches(Set<PackageArch> arches) {
+    		compatiblePackageArches = arches;
+    }
+
 }
