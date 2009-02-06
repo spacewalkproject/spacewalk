@@ -25,6 +25,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.ssm.SsmManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -57,7 +58,7 @@ public class ChildChannelConfirmAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        long start, overallStart;
+        long overallStart;
         
         overallStart = System.currentTimeMillis();
 
@@ -79,23 +80,21 @@ public class ChildChannelConfirmAction extends RhnAction {
         // Then, get the lists of allowed subscriptions and un-subscriptions, 
         // for each server
         Map<Server, List<Channel>> subs =
-            ChannelManager.linkChannelsToSubscribeForServers(user, servers, subList);
+            SsmManager.linkChannelsToSubscribeForServers(user, servers, subList);
         
         Map<Server, List<Channel>> unsubs =
-            ChannelManager.linkChannelsToUnsubscribeForServers(servers, unsubList);
+            SsmManager.linkChannelsToUnsubscribeForServers(servers, unsubList);
         
         // Now, build the object that the page knows how to render
-        List<ChannelActionDAO> changes = ChannelManager.buildActionlist(subs, unsubs);
+        List<ChannelActionDAO> changes = SsmManager.buildActionlist(subs, unsubs);
 
         request.setAttribute("channelchanges", changes);
         
         ActionForward result;
         if (isSubmitted(daForm)) {
-            start = System.currentTimeMillis();
-            log.debug("Starting performChannelActions");
-            ChannelManager.performChannelActions(user, changes);
-            log.debug("Time for performChannelActions call: " + 
-                (System.currentTimeMillis() - start));
+
+            SsmManager.populateSsmChannelServerSets(user, changes); 
+            SsmManager.performChannelActions(user);
             
             result = mapping.findForward("success");
         }
