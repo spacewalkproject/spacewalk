@@ -14,30 +14,46 @@
  */
 package com.redhat.rhn.frontend.events;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.messaging.EventMessage;
+import com.redhat.rhn.common.messaging.MessageAction;
 
 /**
- * AbstractDatabaseAction
+ * Base action for any action that communicates with the database. This class will
+ * take care of committing the transaction and any cleanup that is necessary.
+ *
  * @version $Rev$
  */
-public class AbstractDatabaseAction {
+public abstract class AbstractDatabaseAction implements MessageAction {
+
     private static Logger log = Logger.getLogger(AbstractDatabaseAction.class);
-    private static final String ROLLBACK_MSG = "Error during transaction. Rolling back";
-    
+    private static final String ROLLBACK_MSG = "Error during transaction. Rolling back.";
+
     /**
-     * Commits the current thread transaction, as well as close
-     * the Hibernate session.
+     * Performs the business logic of the action. This method should be implemented
+     * instead of overriding {@link #execute(EventMessage)}.
+     *
+     * @param msg event being executed; will not be <code>null</code>
      */
+    protected abstract void doExecute(EventMessage msg);
+
+    /** {@inheritDoc} */
+    public void execute(EventMessage msg) {
+        doExecute(msg);
+
+        handleTransactions();
+    }
+
+    /** Commits the current thread transaction, as well as close the Hibernate session. */
     protected void handleTransactions() {
         boolean committed = false;
-        
+
         try {
             HibernateFactory.commitTransaction();
             committed = true;
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("Transaction committed");
             }
@@ -59,7 +75,7 @@ public class AbstractDatabaseAction {
                         log.warn(msg, e);
                     }
                 }
-            } 
+            }
             finally {
                 // cleanup the session
                 HibernateFactory.closeSession();

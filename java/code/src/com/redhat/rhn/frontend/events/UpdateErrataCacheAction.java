@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.events;
 
 import com.redhat.rhn.common.messaging.EventMessage;
-import com.redhat.rhn.common.messaging.MessageAction;
 import com.redhat.rhn.manager.errata.cache.UpdateErrataCacheCommand;
 
 import org.apache.log4j.Logger;
@@ -24,23 +23,18 @@ import org.apache.log4j.Logger;
  * UpdateErrataCacheAction
  * @version $Rev$
  */
-public class UpdateErrataCacheAction 
-        extends AbstractDatabaseAction implements MessageAction {
+public class UpdateErrataCacheAction extends AbstractDatabaseAction {
     
     private static Logger log = Logger.getLogger(UpdateErrataCacheAction.class);
-    
-    /**
-     * {@inheritDoc}
-     */
-    public void execute(EventMessage msgIn) {
-        UpdateErrataCacheEvent evt = (UpdateErrataCacheEvent) msgIn;
+
+    /** {@inheritDoc} */
+    protected void doExecute(EventMessage msg) {
+        UpdateErrataCacheEvent evt = (UpdateErrataCacheEvent) msg;
         if (log.isDebugEnabled()) {
             log.debug("Updating errata cache, with type: " + evt.getUpdateType());
         }
 
-        
         UpdateErrataCacheCommand uecc = new UpdateErrataCacheCommand();
-        
         
         if (evt.getUpdateType() == UpdateErrataCacheEvent.TYPE_ORG) {
             Long orgId = evt.getOrgId();
@@ -85,12 +79,6 @@ public class UpdateErrataCacheAction
                     evt.getUpdateType());
         }
         
-        // normally this is done by the SessionFilter, but in this thread
-        // we don't have such a luxury.
-        handleTransactions();
-        
-
     }
-
 
 }
