@@ -482,8 +482,8 @@ public class OrgHandler extends BaseHandler {
      * Organizations with no allocation will not be present in the list. A value of -1
      * indicates unlimited entitlements.
      * 
-     * @xmlrpc.param sessionKey
-     * @xmlrpc.param label - Software entitlement label.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "label", "Software entitlement label.")
      * @xmlrpc.returntype 
      *   #array()
      *     $OrgSoftwareEntitlementDtoSerializer

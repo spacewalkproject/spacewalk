@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -128,7 +129,9 @@ public class AddCustomErrataAction extends RhnListAction {
         
         //if we submitted, go to confirm page
         if (requestContext.wasDispatched(SUBMITTED)) {
-            Map params = request.getParameterMap();
+            Map params = new HashMap();
+            params.put(CID, request.getParameter(CID));
+            params.put(CHECKED, request.getParameter(CHECKED));            
             return getStrutsDelegate().forwardParams(mapping.findForward("submit"), 
                     params); 
         }
