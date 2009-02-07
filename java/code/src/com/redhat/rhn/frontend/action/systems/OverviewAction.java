@@ -136,7 +136,7 @@ public class OverviewAction extends RhnListAction {
         //SystemGroupListAction currently redirects to a perl page for its
         //two real actions.  To avoid the IllegalStateException we need to
         //refrain from redirecting and forwarding.
-        if (forward == null) {
+        if (forward == null || mapping.findForward("default").equals(forward)) {
             return forward;
         }
 
