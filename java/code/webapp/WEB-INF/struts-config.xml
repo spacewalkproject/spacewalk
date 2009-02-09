@@ -3881,7 +3881,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/childsubconfirm.jsp"/>
         <forward name="success" redirect="true"
-                 path="/channel/ssm/ChildSubscriptions.do"/>
+                 path="/ssm/ViewAllLog.do"/>
     </action>
     
     <action path="/channel/ssm/BaseChannelSubscribe"

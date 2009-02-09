@@ -7,7 +7,19 @@
 <html:xhtml/>
 <html>
 <body>
-<%@ include file="/WEB-INF/pages/common/fragments/ssm/header.jspf" %>
+
+<html:messages id="message" message="true">
+  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
+</html:messages>
+
+<rhn:toolbar base="h1" 
+    img="/img/rhn-icon-system_group.gif"
+	imgAlt="ssm.jsp.imgAlt"
+	helpUrl="/rhn/help/reference/en/s2-sm-ssm.jsp">
+	<bean:message key="ssm.jsp.header" />
+</rhn:toolbar>
+
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/ssm_status.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <html:errors/>
 

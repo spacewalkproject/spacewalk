@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.ssm;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
@@ -61,6 +62,10 @@ public class ViewLogDetailsAction extends RhnListAction implements Listable {
         // List stuff for the server list
         ListHelper helper = new ListHelper(this, request);
         helper.setDataSetName(DATA_SET);
+        
+        Map<String, String> helperParams = new HashMap<String, String>(1);
+        helperParams.put("oid", request.getParameter("oid"));
+        helper.setParamMap(helperParams);
         helper.execute();
         
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);

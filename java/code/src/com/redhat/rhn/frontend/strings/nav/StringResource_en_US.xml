@@ -189,21 +189,21 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       
-      <trans-unit id="ssm.nav.operations">
-         <source>Operations</source>
+      <trans-unit id="ssm.nav.status">
+         <source>Status</source>
          <context-group name="ctx">
             <context context-type="sourcefile">System Set Manager Navigation Menu</context>
          </context-group>
       </trans-unit>
        
-      <trans-unit id="ssm.nav.operations.inprogress">
+      <trans-unit id="ssm.nav.status.inprogress">
          <source>In Progress</source>
          <context-group name="ctx">
             <context context-type="sourcefile">System Set Manager Navigation Menu</context>
          </context-group>
       </trans-unit>
        
-      <trans-unit id="ssm.nav.operations.all">
+      <trans-unit id="ssm.nav.status.all">
          <source>All</source>
          <context-group name="ctx">
             <context context-type="sourcefile">System Set Manager Navigation Menu</context>
