@@ -105,6 +105,8 @@ class CLI:
     def main(self):
         usage = "usage: %prog [options] arg"
         parser = OptionParser(usage)
+
+        # Options for building tar.gz, srpm, and rpm:
         parser.add_option("--tgz", dest="tgz", action="store_true",
                 help="Build .tar.gz")
         parser.add_option("--srpm", dest="srpm", action="store_true",
@@ -113,6 +115,15 @@ class CLI:
                 help="Build rpm")
         parser.add_option("--dist", dest="dist", metavar="DISTTAG",
                 help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
+        parser.add_option("--test", dest="test", action="store_true",
+                help="use current branch HEAD instead of latest package tag")
+        parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
+                help="do not clean up temporary build directories/files")
+        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
+                help="build a specific tag instead of the latest version " +
+                    "(i.e. spacewalk-java-0.4.0-1)")
+
+        # Options for submitting srpms to brew or koji:
         parser.add_option("--brew", dest="brew", metavar="BREWTAG",
                 help="Submit srpm for build in a brew tag.")
         parser.add_option("--koji", dest="koji", metavar="KOJITAG",
@@ -125,19 +136,14 @@ class CLI:
                     "Default is 'build --nowait'.",
                 ))
 
-        parser.add_option("--test", dest="test", action="store_true",
-                help="use current branch HEAD instead of latest package tag")
-        parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
-                help="do not clean up temporary build directories/files")
-        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
-                help="build a specific tag instead of the latest version " +
-                    "(i.e. spacewalk-java-0.4.0-1)")
+        # Options used for many different activities:
         parser.add_option("--debug", dest="debug", action="store_true",
                 help="print debug messages", default=False)
         parser.add_option("--offline", dest="offline", action="store_true",
                 help="do not attempt any remote communication (avoid using this please)",
                 default=False)
 
+        # Options for tagging new package releases:
         parser.add_option("--tag-release", dest="tag_release",
                 action="store_true",
                 help="Tag a new release of the package.")
@@ -145,6 +151,7 @@ class CLI:
                 action="store_true",
                 help="Use spec file version/release to tag package.")
 
+        # Options for other high level tasks:
         parser.add_option("--untagged-diffs", dest="untagged_report",
                 action="store_true",
                 help= "%s %s %s" % (
