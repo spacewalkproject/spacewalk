@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -61,6 +61,9 @@ fi
 %files
 
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 10.2-7
+- add texrel_shlib_t to libsqlplus.so
+
 * Thu Dec 18 2008 Jan Pazdziora 10.2-6
 - 64bit InstantClient uses /usr/lib/oracle/10.2.0.4/client64
 - add Requires of oracle-nofcontext-selinux
