@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         6%{?dist}
+Release:         7%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -106,6 +106,11 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 10.2-7
+- added texrel_shlib_t to libnnz10.so
+- allow listener to append to common logs
+- logs of dbstart and dbshut are not in $ORACLE_HOME/log
+
 * Thu Jan 29 2009 Jan Pazdziora 10.2-6
 - Require oracle-server 10.2.0.3 only, for s390x
 
