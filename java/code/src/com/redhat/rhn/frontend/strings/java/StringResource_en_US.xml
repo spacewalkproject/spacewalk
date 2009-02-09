@@ -7509,7 +7509,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="api.org.migrationtosameorg">
-          <source>User cannot migrate systems where the origination and destination organizations are the same.  Org Id: {0}.</source>
+	      <source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
       </trans-unit>
       
 	  <trans-unit id="api.org.nosuchorg">
@@ -7517,7 +7517,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="api.org.notintrust">
-          <source>Organization {0} is not defined in trust.</source>
+	      <source>Organization {0} is not defined in trust.</source>
+      </trans-unit>
+      
+	  <trans-unit id="api.org.sysnotintrust">
+	      <source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
       </trans-unit>
 
 	  <trans-unit id="api.org.notpermittedbyorg">

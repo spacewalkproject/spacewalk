@@ -17,7 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.server.Server;
 
 /**
  * Organization Not Trusted Exception
@@ -28,22 +28,24 @@ public class MigrationToSameOrgException extends FaultException  {
 
     /**
      * Constructor
-     * @param org involved in the migration
+     * @param server involved in the migration
      */
-    public MigrationToSameOrgException(Org org) {
-        super(1069, "MigrationToSameOrg" , LocalizationService.getInstance().
+    public MigrationToSameOrgException(Server server) {
+        super(2853, "MigrationToSameOrg" , LocalizationService.getInstance().
                 getMessage("api.org.migrationtosameorg", 
-                        new Object [] {org.getId()}));
+                        server.getOrg().getId().toString(),
+                        server.getId().toString()));
     }
 
     /**
      * Constructor
-     * @param org inolved in the migration
+     * @param server inolved in the migration
      * @param cause the cause
      */
-    public MigrationToSameOrgException(Org org, Throwable cause) {
-        super(1069, "MigrationToSameOrg" , LocalizationService.getInstance().
+    public MigrationToSameOrgException(Server server, Throwable cause) {
+        super(2853, "MigrationToSameOrg" , LocalizationService.getInstance().
                 getMessage("api.org.migrationtosameorg", 
-                        new Object [] {org.getId()}), cause);
+                        server.getOrg().getId().toString(),
+                        server.getId().toString()), cause);
     }
 }

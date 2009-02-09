@@ -55,21 +55,21 @@ public class MigrationManager extends BaseManager {
     /**
      * Migrate a set of servers to the organization specified
      * @param user Org admin that is performing the migration
-     * @param fromOrg The origination org
      * @param toOrg The destination org
      * @param servers List of servers to be migrated
      * @return the list of server ids successfully migrated.
      */
-    public static List<Long> migrateServers(User user, Org fromOrg, Org toOrg, 
-            List<Server> servers) {
+    public static List<Long> migrateServers(User user, Org toOrg, List<Server> servers) {
         
         List<Long> serversMigrated = new ArrayList<Long>();
         
         for (Server server : servers) {
         
+            Org fromOrg = server.getOrg();
+            
             MigrationManager.removeOrgRelationships(user, server);
             MigrationManager.updateAdminRelationships(fromOrg, toOrg, server);
-            MigrationManager.moveServerToOrg(fromOrg, toOrg, server);
+            MigrationManager.moveServerToOrg(toOrg, server);
             serversMigrated.add(server.getId());
             OrgFactory.save(toOrg);
             OrgFactory.save(fromOrg);
@@ -185,13 +185,12 @@ public class MigrationManager extends BaseManager {
     }
     
     /**
-     * Move the server from the originating org to the destination org.
+     * Move the server to the destination org.
      *
-     * @param fromOrg originating org where the server currently exists
      * @param toOrg destination org where the server will be migrated to
      * @param server Server to be migrated.
      */
-    public static void moveServerToOrg(Org fromOrg, Org toOrg, Server server) {
+    public static void moveServerToOrg(Org toOrg, Server server) {
         
         // Move the server
         server.setOrg(toOrg);

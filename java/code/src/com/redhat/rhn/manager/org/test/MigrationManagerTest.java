@@ -250,8 +250,7 @@ public class MigrationManagerTest extends RhnBaseTestCase {
         servers.add(server);
         servers.add(server2);
         User origOrgAdmin = origOrgAdmins.iterator().next();
-        MigrationManager.migrateServers(origOrgAdmin, origOrgAdmin.getOrg(), destOrg, 
-                servers);
+        MigrationManager.migrateServers(origOrgAdmin, destOrg, servers);
         
         assertEquals(server.getOrg(), destOrg);
         assertEquals(server2.getOrg(), destOrg);

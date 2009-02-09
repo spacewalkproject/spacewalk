@@ -21,6 +21,7 @@ package com.redhat.rhn.frontend.xmlrpc;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.org.OrgEntitlementType;
 import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.server.Server;
 
 /**
  * permission check failure
@@ -83,6 +84,16 @@ public class PermissionCheckFailureException extends FaultException  {
                                  " entitement to perform this action");
         // begin member variable initialization
     }    
+    
+    /**
+     * Constructor
+     * @param server  Cause for the exception (not permitted for server)
+     */
+    public PermissionCheckFailureException(Server server) {
+        super(-23, "permissionCheckFailure" , "You do not have permissions to " + 
+                "perform this action for system id[" + server.getId() + "]");
+        // begin member variable initialization
+    }
     /////////////////////////
     // Getters/Setters
     /////////////////////////
