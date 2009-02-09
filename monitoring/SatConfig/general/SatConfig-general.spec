@@ -4,7 +4,7 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.3
+Version:      1.216.4
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -67,6 +67,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 1.216.4-1
+- use Sys::Hostname::hostname instead of /bin/hostname
+
 * Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.3-1
 - fix path to generate_config.log, notif-launcher.log,
   notif-escalator.log and notifier.log
