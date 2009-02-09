@@ -70,6 +70,7 @@ import java.util.Set;
  * ErrataHandler - provides methods to access errata information.
  * @version $Rev$
  * @xmlrpc.namespace errata
+ * @xmlrpc.doc Provides methods to access and modify errata.
  */
 public class ErrataHandler extends BaseHandler {
     
