@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.5
+Version: 0.5.6
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 0.5.6-1
+- rhn-config-schema.pl mustn't die if the override directory does not exist
+
 * Wed Feb  4 2009 Jan Pazdziora 0.5.5-1
 - only run restorecon on RHEL 5+ and with SELinux enabled
 
