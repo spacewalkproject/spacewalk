@@ -20,10 +20,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
+import java.util.ArrayList;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.FileList;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -37,6 +39,8 @@ import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
+import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+import com.redhat.rhn.common.validator.ValidatorError;
 
 /**
 * SystemDetailsHandler
@@ -286,6 +290,85 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
+    
+    /**
+     * Set the partitioning scheme for a kickstart profile.
+     * @param sessionKey An active session key.
+     * @param ksLabel A kickstart profile label.
+     * @param scheme The partitioning scheme.
+     * @return 1 on success
+     * @throws FaultException
+     * @xmlrpc.doc Set the partitioning scheme for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart profile to update.")
+     * @xmlrpc.param #param_desc("string[]", "scheme", "The partitioning scheme
+     * is a list of partitioning command strings used to setup the partitions,
+     * volume groups and logical volumes.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setPartitioningScheme(String sessionKey, String ksLabel,
+            List<String> scheme) {
+        User user = getLoggedInUser(sessionKey);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        Long ksid = ksdata.getId();
+        KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
+                user);
+        StringBuilder sb = new StringBuilder();
+        for (String s : scheme) {
+            sb.append(s);
+            sb.append('\n');
+        }
+        ValidatorError err = command.parsePartitions(sb.toString());
+        if (err != null) {
+            throw new FaultException(-4, "PartitioningSchemeInvalid", err
+                    .toString());
+        }
+        command.store();
+        return 1;
+    }
+
+    /**
+     * Get the partitioning scheme for a kickstart profile.
+     * @param sessionKey An active session key
+     * @param ksLabel A kickstart profile label
+     * @return The profile's partitioning scheme. This is a list of commands
+     * used to setup the partitions, logical volumes and volume groups.
+     * @throws FaultException
+     * @xmlrpc.doc Get the partitioning scheme for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
+     * profile.")
+     * @xmlrpc.returntype string[] - A list of partitioning commands used to
+     * setup the partitions, logical volumes and volume groups."
+     */
+    @SuppressWarnings("unchecked")
+    public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        List<String> list = new ArrayList<String>();
+        for (KickstartCommand cmd : (List<KickstartCommand>) ksdata
+                .getPartitions()) {
+            String s = "partition " + cmd.getArguments();
+            list.add(s);
+        }
+        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
+                .getVolgroups()) {
+            String s = "volgroup " + cmd.getArguments();
+            list.add(s);
+        }
+        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata.getLogvols()) {
+            String s = "logvol " + cmd.getArguments();
+            list.add(s);
+        }
+        return list;
+    }
+
+    
+    private KickstartData lookupKsData(String label, Org org) {
+        return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
+    }
+    
     
     private KickstartLocaleCommand getLocaleCommand(String label, User user) {
         XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
