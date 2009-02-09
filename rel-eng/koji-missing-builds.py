@@ -32,14 +32,16 @@ distmap = {'6E':'.el6',
            'f10':'.fc10',
            'f11':'.fc11'}
 
+distsuffix = ''
 tag = args[0]
-
 disttag = distmap[tag.split('-')[1]]
 
 if opts.brew:
     mysession = koji.ClientSession("http://brewhub.devel.redhat.com/brewhub")
+    distsuffix = 'sat'
 else:
     mysession = koji.ClientSession("http://koji.rhndev.redhat.com/kojihub")
+
 
 rpmlist = mysession.getLatestRPMS(tag)
 nvrs = []
@@ -48,7 +50,8 @@ pkglist = []
 gitnames = []
 notingit = []
 for rpm in rpmlist[1]:
-    rpmname = rpm['nvr'].replace(disttag,'')
+    rpmname = rpm['nvr'].rstrip(distsuffix)
+    rpmname = rpmname.rstrip(disttag)
     nvrs.append(rpmname)
     kojinames.append([rpm['name'], rpmname])
 
