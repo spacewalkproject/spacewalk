@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 %define clientdir client
 %endif
 
-%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so
+%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libsqlplus.so
 
 %post
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/bin/sqlplus'
