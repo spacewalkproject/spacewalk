@@ -21,7 +21,6 @@ package com.redhat.rhn.frontend.dto;
 public class HelpDocumentOverview {
     private String url;
     private String title;
-    private String orig;
     private String summary;
     
     /**
@@ -58,22 +57,6 @@ public class HelpDocumentOverview {
     }
     
     /**
-     * Getter for document orig url
-     * @return document orig url
-     */
-    public String getOrig() {
-        return orig;
-    }
-
-    /**
-     * Setter for document orig url
-     * @param origIn the orig url of the document
-     */
-    public void setOrig(String origIn) {
-        this.orig = origIn;
-    }
-    
-    /**
      * Getter for document summary
      * @return document summary
      */
@@ -93,8 +76,8 @@ public class HelpDocumentOverview {
      * @return string representation
      */
     public String toString() {
-        return "Title = " + getTitle() + ", Url = " + getUrl() + ", Orig = " + getOrig() +
-            ", Summary = " + getSummary();
+        return "Title = " + getTitle() + ", Url = " + getUrl() + ", Summary = " +
+            getSummary();
     }
     
 }
