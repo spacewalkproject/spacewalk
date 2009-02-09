@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2008 Red Hat, Inc.
- * All Rights Reserved.
- *
- * This software is the confidential and proprietary information of
- * Red Hat, Inc. ("Confidential Information").  You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with Red Hat.
- */
 package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
