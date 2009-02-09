@@ -50,11 +50,8 @@ pkglist = []
 gitnames = []
 notingit = []
 for rpm in rpmlist[1]:
-    print rpm['nvr']
     rpmname = rpm['nvr'].rstrip(distsuffix)
-    print rpmname
     rpmname = rpmname.replace(disttag, '')
-    print rpmname
     nvrs.append(rpmname)
     kojinames.append([rpm['name'], rpmname])
 
