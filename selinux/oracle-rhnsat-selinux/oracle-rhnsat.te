@@ -34,6 +34,9 @@ append_files_pattern(oracle_db_t, oracle_common_log_t, oracle_common_log_t)
 create_files_pattern(oracle_sqlplus_t, oracle_common_log_t, oracle_common_log_t)
 append_files_pattern(oracle_sqlplus_t, oracle_common_log_t, oracle_common_log_t)
 
+# Allow listener to append to common logs
+append_files_pattern(oracle_tnslsnr_t, oracle_common_log_t, oracle_common_log_t)
+
 # Allow listener to log to oracle_common_log_t, while keeping its own type
 filetrans_pattern(oracle_tnslsnr_t, oracle_common_log_t, oracle_tnslsnr_log_t, { file dir })
 create_files_pattern(oracle_tnslsnr_t, oracle_common_log_t, oracle_tnslsnr_log_t)
