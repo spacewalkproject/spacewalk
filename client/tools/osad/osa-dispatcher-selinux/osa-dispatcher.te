@@ -69,3 +69,5 @@ allow osa_dispatcher_t self:capability { sys_nice chown fowner };
 allow osa_dispatcher_t osa_dispatcher_upstream_notif_server_port_t:tcp_socket name_bind;
 allow osa_dispatcher_t inaddr_any_node_t:tcp_socket node_bind;
 allow osa_dispatcher_t osa_dispatcher_t:tcp_socket listen;
+
+files_list_tmp(osa_dispatcher_t)
