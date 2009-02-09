@@ -14,6 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.ssm;
 
+import java.util.List;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
+
 /**
  * Configures the {@link BaseViewLogAction} and its pages to display in progress operation
  * log entries for the current user.
@@ -24,8 +30,10 @@ package com.redhat.rhn.frontend.action.ssm;
 public class ViewLogAction extends BaseViewLogAction {
 
     /** {@inheritDoc} */
-    protected Mode getMode() {
-        return Mode.IN_PROGRESS;
+    public List getResult(RequestContext context) {
+                User user = context.getLoggedInUser();
+        DataResult result = SsmOperationManager.inProgressOperations(user);
+        return result;
     }
 
     /** {@inheritDoc} */

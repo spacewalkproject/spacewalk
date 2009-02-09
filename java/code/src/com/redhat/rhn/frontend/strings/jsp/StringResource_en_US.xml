@@ -15625,6 +15625,9 @@ any of these revisions.  Are you sure you want to do this?</source>
        <trans-unit id="ssm.operations.all.summary">
           <source>The following lists all operations performed against servers in the SSM. Click on an operation's description to see more details.</source>
        </trans-unit>
+       <trans-unit id="ssm.operations.completed.summary">
+          <source>The following lists all operations that have finished running. Click on an operation's description to see more details.</source>
+       </trans-unit>
     </group>
        
     <!-- ssm/packages.jsp -->

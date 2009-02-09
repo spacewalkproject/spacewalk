@@ -84,6 +84,28 @@ public class SsmOperationManager extends BaseManager {
     }
 
     /**
+     * Returns a list of all operations for the given user that have completed.
+     *
+     * @param user operations returned only for this user; cannot be <code>null</code>
+     * @return list of maps containing the data describing each matching operation
+     */
+    public static DataResult completedOperations(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("user cannot be null");
+        }
+
+        SelectMode m =
+            ModeFactory.getMode("ssm_operation_queries", "find_operations_with_status");
+
+        Map<String, Object> params = new HashMap<String, Object>(2);
+        params.put("user_id", user.getId());
+        params.put("status", SsmOperationStatus.COMPLETED.getText());
+
+        DataResult result = m.execute(params);
+        return result;
+    }
+
+    /**
      * Returns the details of the given operation.
      *
      * @param user        verifies that the user isn't trying to load someone else's

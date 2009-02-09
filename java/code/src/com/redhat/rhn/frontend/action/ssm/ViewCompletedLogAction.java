@@ -16,28 +16,21 @@ package com.redhat.rhn.frontend.action.ssm;
 
 import java.util.List;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.manager.ssm.SsmOperationManager;
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.manager.ssm.SsmOperationManager;
 
-/**
- * Configures the {@link BaseViewLogAction} and its pages to display all operation
- * log entries for the current user.
- * 
- * @author Jason Dobies
- * @version $Revision$
- */
-public class ViewAllLogAction extends BaseViewLogAction {
+/** @version $Revision$ */
+public class ViewCompletedLogAction extends BaseViewLogAction {
 
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
-        DataResult result = SsmOperationManager.allOperations(user);
+        DataResult result = SsmOperationManager.completedOperations(user);
         return result;
     }
 
-    /** {@inheritDoc} */
     protected String getSummaryKey() {
-        return "ssm.operations.all.summary";
+        return "ssm.operations.completed.summary";
     }
 }

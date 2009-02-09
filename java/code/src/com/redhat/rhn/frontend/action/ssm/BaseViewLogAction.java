@@ -42,14 +42,6 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
     private static final String DATA_SET = "pageList";
 
     /**
-     * Allows the subclass to control the data being returned by the
-     * {@link #getResult(RequestContext)} call.
-     *
-     * @return cannot be <code>null</code>
-     */
-    protected abstract Mode getMode();
-
-    /**
      * Allows the subclass to introduce a message key specific to the data it provides.
      *
      * @return cannot be <code>null</code>; this value should be a key in the
@@ -73,27 +65,5 @@ public abstract class BaseViewLogAction extends RhnListAction implements Listabl
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
-    /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
-
-        DataResult result;
-
-        if (getMode() == Mode.ALL) {
-            result = SsmOperationManager.allOperations(user);
-        }
-        else {
-            result = SsmOperationManager.inProgressOperations(user);
-        }
-
-        return result;
-    }
-
-    /**
-     * Dictates which set of operations is displayed by this action.
-     */
-    protected enum Mode {
-        IN_PROGRESS, ALL
-    }
 }
 
