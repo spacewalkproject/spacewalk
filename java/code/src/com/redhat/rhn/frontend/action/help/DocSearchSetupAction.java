@@ -190,18 +190,18 @@ public class DocSearchSetupAction extends RhnAction {
         }
 
         List<HelpDocumentOverview> docs = new ArrayList<HelpDocumentOverview>();
-  
-        for (int x = results.size() - 1; x >= 0; x--) {
+        for (int x = 0; x < results.size(); x++) {
             HelpDocumentOverview doc = new HelpDocumentOverview();
             Map item = (Map) results.get(x);
+            log.debug("SearchServer sent us item [" + item.get("rank") + "], score = " +
+                    item.get("score") + ", summary = " + item.get("summary") +
+                    ", title = " + item.get("title") + ", url = " + item.get("url"));
             doc.setUrl((String)item.get("url"));
             doc.setTitle((String)item.get("title"));
-            doc.setOrig((String)item.get("orig"));
             doc.setSummary((String)item.get("summary"));
             docs.add(doc);
         }
         return docs;
-        
     }
     
     private String preprocessSearchString(String searchstring,

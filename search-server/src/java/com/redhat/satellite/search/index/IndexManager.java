@@ -43,7 +43,6 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
 import org.apache.nutch.analysis.AnalyzerFactory;
-import org.apache.nutch.analysis.NutchAnalyzer;
 import org.apache.nutch.searcher.FetchedSegments;
 import org.apache.nutch.searcher.HitDetails;
 import org.apache.nutch.searcher.Summary;
@@ -328,7 +327,8 @@ public class IndexManager {
         else {
             path = indexWorkDir + indexName;
         }
-        log.info("IndexManager::getIndexReader(" + indexName + ", " + locale + ") path = " + path);
+        log.info("IndexManager::getIndexReader(" + indexName + ", " + locale +
+                ") path = " + path);
         File f = new File(path);
         IndexReader retval = IndexReader.open(FSDirectory.getDirectory(f));
         return retval;
@@ -344,16 +344,17 @@ public class IndexManager {
         else {
             path = indexWorkDir + indexName;
         }
-        log.info("IndexManager::getIndexSearcher(" + indexName + ", " + locale + ") path = " + path);
+        log.info("IndexManager::getIndexSearcher(" + indexName + ", " + locale +
+                ") path = " + path);
         IndexSearcher retval = new IndexSearcher(path);
         return retval;
     }
     
     private QueryParser getQueryParser(String indexName, String lang) {
         if (log.isDebugEnabled()) {
-		log.debug("getQueryParser(" + indexName + ", " + lang + ")");
+            log.debug("getQueryParser(" + indexName + ", " + lang + ")");
         }
-	QueryParser qp;
+        QueryParser qp;
         Analyzer analyzer = getAnalyzer(indexName, lang);
         if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             qp = new QueryParser("content", analyzer);
@@ -367,9 +368,9 @@ public class IndexManager {
     
 
     private Analyzer getAnalyzer(String indexName, String lang) {
-	if (log.isDebugEnabled()) {
-		log.debug("getAnalyzer(" + indexName + ", " + lang + ")");
-	}
+        if (log.isDebugEnabled()) {
+            log.debug("getAnalyzer(" + indexName + ", " + lang + ")");
+        }
         if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             return getDocAnalyzer(lang);
         } 
@@ -623,17 +624,17 @@ public class IndexManager {
          * We want to use the same Analyzer nutch is using when the indexes are
          * generated
          * */
-	Analyzer analyzer = null;
-	try {
-		analyzer = nutchAnalyzerFactory.get(lang);
-	}
-	catch (Exception e) {
-		log.info("Caught exception, nutch is most likely not installed");
-		log.info("Defaulting to generic analyzer for Documentation Search");
-		log.info("Install nutch package to get summary info and better matches.");
-		analyzer = new StandardAnalyzer();
-	}
-	log.info("Language choice is " + lang + ", analyzer chosen is " +
+        Analyzer analyzer = null;
+        try {
+            analyzer = nutchAnalyzerFactory.get(lang);
+        }
+        catch (Exception e) {
+            log.info("Caught exception, nutch is most likely not installed");
+            log.info("Defaulting to generic analyzer for Documentation Search");
+            log.info("Install nutch package to get summary info and better matches.");
+            analyzer = new StandardAnalyzer();
+        }
+        log.info("Language choice is " + lang + ", analyzer chosen is " +
                 analyzer);
         return analyzer;
     }
@@ -727,7 +728,7 @@ public class IndexManager {
         }
         catch (Exception e) {
             log.error("ignoring exception - most likely Nutch isn't present, so" +
-			" doc summaries will be empty");
+            " doc summaries will be empty");
             e.printStackTrace();
         }
         return true;
@@ -735,11 +736,11 @@ public class IndexManager {
 
     private String lookupDocSummary(Document doc, String queryString, String lang) {
         if (docSegments == null) {
-		log.info("docSegments is null, doc summary not possible");
-		log.info("nutch is probably not installed, install nutch to get summary info");
-		return "";
+            log.info("docSegments is null, doc summary not possible");
+            log.info("nutch is probably not installed, install nutch to get summary info");
+            return "";
         }
-	if (!docSegments.containsKey(lang)) {
+        if (!docSegments.containsKey(lang)) {
             log.info("Couldn't find segments info for " + lang);
             log.info("Summary info will be missing for " + lang);
             return "";
@@ -750,9 +751,9 @@ public class IndexManager {
             return "";
         }
         try {
-		if (log.isDebugEnabled()) {
-			log.debug("Attempting lookupDocSummary<" + lang + "> for " + doc);
-		}
+            if (log.isDebugEnabled()) {
+                log.debug("Attempting lookupDocSummary<" + lang + "> for " + doc);
+            }
             HitDetails hd = new HitDetails(doc.getField("segment").stringValue(),
                 doc.getField("url").stringValue());
             // NOTE: Name conflict with Nutch's Query versus Lucene Query
@@ -760,7 +761,7 @@ public class IndexManager {
                 org.apache.nutch.searcher.Query.parse(queryString, nutchConf);
             Summary sum = segments.getSummary(hd, query);
             if (log.isDebugEnabled()) {
-		log.debug("Will return summary<" + lang + "> = " + sum.toString());
+                log.debug("Will return summary<" + lang + "> = " + sum.toString());
             }
             return sum.toString();
         }
