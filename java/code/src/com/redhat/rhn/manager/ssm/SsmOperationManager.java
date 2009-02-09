@@ -131,8 +131,7 @@ public class SsmOperationManager extends BaseManager {
     }
 
     /**
-     * Creates a new operation, defaulting the status to "in progress" and the progress
-     * of the operation to 0.
+     * Creates a new operation, defaulting the status to "in progress".
      * <p/>
      * For efficiency, this call assumes the following:
      * <ul>
@@ -196,8 +195,7 @@ public class SsmOperationManager extends BaseManager {
     }
 
     /**
-     * Indicates the operation has completed, updating its status and progress completed
-     * values to indicate this.
+     * Indicates the operation has completed, updating its status to indicate this.
      *
      * @param user        verifies that the user isn't trying to load someone else's
      *                    operation; cannot be <code>null</code>
@@ -209,13 +207,12 @@ public class SsmOperationManager extends BaseManager {
         }
 
         WriteMode m =
-            ModeFactory.getWriteMode("ssm_operation_queries", "update_status_and_progress");
+            ModeFactory.getWriteMode("ssm_operation_queries", "update_status");
 
         Map<String, Object> params = new HashMap<String, Object>(3);
         params.put("user_id", user.getId());
         params.put("op_id", operationId);
         params.put("status", SsmOperationStatus.COMPLETED.getText());
-        params.put("progress", 100);
 
         m.executeUpdate(params);
     }

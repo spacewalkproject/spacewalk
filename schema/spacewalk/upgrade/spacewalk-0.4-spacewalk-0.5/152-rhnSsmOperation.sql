@@ -16,7 +16,6 @@ rhnSsmOperation
                 constraint rhn_ssmop_st_nn not null,
     started     date
                 constraint rhn_ssmop_strt_nn not null,
-    progress    number default 0,
     modified    date default (sysdate)
                 constraint rhn_ssmop_mod_nn not null
 )

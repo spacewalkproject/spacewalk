@@ -76,7 +76,6 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
             if (operation.get("id").equals(completeMeId)) {
                 assertEquals(SsmOperationStatus.COMPLETED.getText(),
                     operation.get("status"));
-                assertEquals(100L, operation.get("progress"));
             }
         }
     }
@@ -95,7 +94,6 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         Map<String, Object> operationData = (Map<String, Object>) operation.get(0);
         
         assertEquals("Test operation 1", operationData.get("description"));
-        assertEquals(0L, operationData.get("progress"));
         assertEquals(SsmOperationStatus.IN_PROGRESS.getText(), operationData.get("status"));
         assertNotNull(operationData.get("started"));
         assertNotNull(operationData.get("modified"));

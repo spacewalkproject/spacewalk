@@ -14,7 +14,6 @@
             op.status,
             op.started,
             op.modified,
-            op.progress,
             (SELECT COUNT(server_id)
                FROM rhnSsmOperationServer ops
               WHERE ops.operation_id = op.id) as server_count
@@ -36,7 +35,6 @@
              op.status,
              op.started,
              op.modified,
-             op.progress,
              (SELECT COUNT(server_id)
                 FROM rhnSsmOperationServer ops
                WHERE ops.operation_id = op.id) as server_count
@@ -53,8 +51,7 @@
              op.description,
              op.status,
              op.started,
-             op.modified,
-             op.progress
+             op.modified
         FROM rhnSsmOperation op
        WHERE op.id = :op_id
          AND op.user_id = :user_id
@@ -69,8 +66,7 @@
    </query>
 </mode>
    
-<!-- Adds a new SSM operation to be tracked, default the created, modified, and progress
-     to starting values.
+<!-- Adds a new SSM operation to be tracked, defaulting the created and modified values.
      
      The values for status should be taken from the enumeration SsmOperationStatus.
      -->
@@ -78,30 +74,27 @@
    <query params="op_id, user_id, description, status">
       INSERT
         INTO rhnSsmOperation
-             (id, user_id, description, status, started, modified, progress)
+             (id, user_id, description, status, started, modified)
       VALUES (
              :op_id,
              :user_id,
              :description,
              :status,
              sysdate,
-             sysdate,
-             0
+             sysdate
              )
    </query>
 </write-mode>
    
-<!-- Updates the status and progress completed of the given operation.
+<!-- Updates the status of the given operation.
 
      The values for status should be taken from the enumeration SsmOperationStatus.
-     The value of progress should be between 0 and 100 (i.e. a percent complete)
      -->
-<write-mode name="update_status_and_progress">
-   <query params="user_id, op_id, status, progress">
+<write-mode name="update_status">
+   <query params="user_id, op_id, status">
       UPDATE rhnSsmOperation
          SET status = :status,
-             modified = sysdate,
-             progress = :progress      
+             modified = sysdate
        WHERE id = :op_id
          AND user_id = :user_id
    </query>

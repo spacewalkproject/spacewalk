@@ -59,10 +59,6 @@
             <c:out value="${current.modified}"/>
         </rl:column>
 
-        <rl:column headerkey="ssm.operations.viewlog.progress" bound="false">
-            <c:out value="${current.progress}%"/>
-        </rl:column>
-
     </rl:list>
 
 </rl:listset>

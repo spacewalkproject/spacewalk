@@ -44,10 +44,6 @@
         </td>
     </tr>
     <tr>
-        <td><b><bean:message key="ssm.operations.viewlog.progress"/></b></td>
-        <td><c:out value="${operationData.progress}%"/></td>
-    </tr>
-    <tr>
         <td><b><bean:message key="ssm.operations.viewlog.started"/></b></td>
         <td><c:out value="${operationData.started}"/></td>
     </tr>
