@@ -5,7 +5,6 @@ Summary:      Provides api for correctly changing user identity
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
-Requires(pre): perl(Class::MethodMaker)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
@@ -23,7 +22,7 @@ This package provides API for correctly changing user identity.
 %setup -q
  
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
  
 %install
@@ -50,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Feb  9 2009 Miroslav Suchý <msuchy@redhat.com>
+- 466906 - apply comments from package review
+
 * Mon Nov  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.6.8-1
 - add LICENSE file
 - bump up version for new major release
