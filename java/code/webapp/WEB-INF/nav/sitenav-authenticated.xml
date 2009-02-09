@@ -81,6 +81,9 @@
       <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do" >
         <rhn-tab-directory>/systems/provisioning/preservation/</rhn-tab-directory>
       </rhn-tab>
+      <rhn-tab name="Cobbler Snippets" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CobblerSnippetList.do" >
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetEdit.do</rhn-tab-url>
+      </rhn-tab>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Errata" url="/rhn/errata/Overview.do" active-image="tab-errata-selected.gif" inactive-image="tab-errata.gif" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_list">
