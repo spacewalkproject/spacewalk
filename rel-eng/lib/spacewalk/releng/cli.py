@@ -33,6 +33,7 @@ from spacewalk.releng.common import find_git_root, run_command, \
         check_tag_exists, get_latest_tagged_version
 
 DEFAULT_BUILD_DIR = "/tmp/spacewalk-build"
+DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
 BUILD_PROPS_FILENAME = "build.py.props"
 GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
 GLOBALCONFIG_SECTION = "globalconfig"
@@ -159,6 +160,12 @@ class CLI:
                     "their most recent tag and HEAD. Useful for determining",
                     "which packages are in need of a re-tag."
                 ))
+        parser.add_option("--cvs-release", dest="cvs_release",
+                action="store_true", help="%s %s" % (
+                    "Import sources into CVS, tag, and build package using",
+                    "brew/koji. Relies on rel-eng configuration to know which"
+                    "CVS repository and build system to use."
+                ))
 
         (options, args) = parser.parse_args()
 
@@ -166,6 +173,9 @@ class CLI:
             print parser.error("Must supply an argument. Try -h for help.")
 
         global_config = self._read_global_config()
+
+        if options.debug:
+            os.environ['DEBUG'] = "true"
 
         # TODO: Shortcut here, build.py does some things unrelated to
         # building/tagging packages, check for these options, do what's
@@ -175,12 +185,15 @@ class CLI:
             self._run_untagged_report(global_config)
             sys.exit(1)
 
+        # TODO: Another shortcut, clean this up when refactoring to a command
+        # based model:
+        if options.cvs_release:
+            self._run_cvs_release(global_config)
+            sys.exit(1)
+
         # Check for builder options and tagger options, if one or more from both
         # groups are found, error out:
         (building, tagging) = self._validate_options(options)
-
-        if options.debug:
-            os.environ['DEBUG'] = "true"
 
         build_dir = lookup_build_dir()
         package_name = get_project_name(tag=options.tag)
@@ -271,6 +284,35 @@ class CLI:
                 (version, relative_dir) = f.readline().strip().split(" ")
                 project_dir = os.path.join(git_root, relative_dir)
                 self._print_diff(global_config, md_file, version, project_dir)
+
+    def _run_cvs_release(self, global_config):
+        """
+        Import sources into CVS, tag and build in the build system configured
+        for this git repository.
+        """
+        print("Building release from CVS...")
+
+        if not global_config.has_section("cvs"):
+            error_out("No 'cvs' section found in global.build.py.props")
+
+        if not global_config.has_option("cvs", "cvsroot"):
+            error_out(["Cannot build from CVS",
+                "no 'cvsroot' defined in global.build.py.props"])
+
+        if not global_config.has_option("cvs", "branches"):
+            error_out(["Cannot build from CVS",
+                "no branches defined in global.build.py.props"])
+
+        cvs_root = global_config.get("cvs", "cvsroot")
+        debug("cvs_root = %s" % cvs_root)
+        # TODO: if it looks like we need custom CVSROOT's for different users,
+        # allow setting of a property to lookup in ~/.spacewalk-build-rc to
+        # use instead. (if defined)
+        cvs_workdir = DEFAULT_CVS_BUILD_DIR
+        debug("cvs_workdir = %s" % cvs_workdir)
+        commands.getoutput("mkdir -p %s" % cvs_workdir)
+        cvs_branches = global_config.get("cvs", "branches").split(" ")
+        print("cvs_branches = %s" % cvs_branches)
 
     def _print_diff(self, global_config, package_name, version, project_dir):
         """
