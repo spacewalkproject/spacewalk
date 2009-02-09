@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.4
+Version: 5.9.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -209,6 +209,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 5.9.5-1
+- addressed additional AVC denials of osa-dispatcher
+
 * Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.4-1
 - 468060 - correctly return status of daemon
 - fix some macros
