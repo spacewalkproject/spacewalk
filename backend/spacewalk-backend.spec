@@ -539,6 +539,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Feb 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.3-1
+- bz475894:fixing the server code to filter out duplicate deps 
+  when pushing fedora-10+ packages to channels
+
 * Thu Feb 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.3-1
 - fixing satsync warning.
 
