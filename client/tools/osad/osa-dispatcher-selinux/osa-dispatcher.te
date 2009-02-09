@@ -65,7 +65,7 @@ corenet_all_recvfrom_unlabeled(osa_dispatcher_t)
 corenet_all_recvfrom_netlabel(osa_dispatcher_t)
 
 allow osa_dispatcher_t self:process { setpgid setsched getsched };
-allow osa_dispatcher_t self:capability { sys_nice chown fowner };
+allow osa_dispatcher_t self:capability { sys_nice chown fowner sys_tty_config };
 
 allow osa_dispatcher_t osa_dispatcher_upstream_notif_server_port_t:tcp_socket name_bind;
 allow osa_dispatcher_t inaddr_any_node_t:tcp_socket node_bind;
