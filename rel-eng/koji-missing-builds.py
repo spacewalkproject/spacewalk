@@ -51,7 +51,7 @@ gitnames = []
 notingit = []
 for rpm in rpmlist[1]:
     rpmname = rpm['nvr'].rstrip(distsuffix)
-    rpmname = rpmname.rstrip(disttag)
+    rpmname = rpmname.replace(disttag, '')
     nvrs.append(rpmname)
     kojinames.append([rpm['name'], rpmname])
 

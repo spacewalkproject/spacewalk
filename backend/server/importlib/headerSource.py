@@ -190,6 +190,7 @@ class rpmBinaryPackage(Package, rpmPackage):
 
         # Now create the array of objects
         self[tag] = []
+        unique_objs = []
         for i in range(itemcount):
             hash = {}
             for k, v in fix.items():
@@ -203,8 +204,21 @@ class rpmBinaryPackage(Package, rpmPackage):
                     hash[k] = v[i]
             # Create a file 
             obj = Class()
-            obj.populate(hash)
-            self[tag].append(obj)
+            # Fedora 10+ rpms have duplicate deps,
+            # Lets clean em up before db inserts.
+            if tag in ['requires', 'provides', 'obsoletes']:
+                if hash['name'] not in unique_objs:
+                    unique_objs.append(hash['name'])
+                    obj.populate(hash)
+                    self[tag].append(obj)
+                else:
+                    # duplicate dep, ignore
+                    continue
+            else:
+                # conflict could be a file, lets process as usual
+                obj.populate(hash)
+                self[tag].append(obj)
+
 
 class rpmSourcePackage(SourcePackage, rpmPackage):
     tagMap = rpmPackage.tagMap.copy()
