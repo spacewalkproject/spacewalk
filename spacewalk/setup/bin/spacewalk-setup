@@ -981,8 +981,7 @@ sub populate_initial_configs {
   }
 
   generate_satcon_dict();
-  write_config(\%config_opts,
-	       '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+  write_config(\%config_opts, DEFAULT_SATCON_DICT);
 
   satcon_deploy();
 
@@ -1047,8 +1046,7 @@ sub populate_final_configs {
   my $final_config = {satellite_install => 0,
 		     };
 
-  write_config($final_config,
-	       '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+  write_config($final_config, DEFAULT_SATCON_DICT);
 
   satcon_deploy(-tree => '/etc/sysconfig/rhn-satellite-prep/etc/rhn',
 		-dest => '/etc/rhn');
@@ -1188,8 +1186,7 @@ sub setup_monitoring {
   $sc->create_new();
 
   my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
-  write_config({ monitoringDOTscout_shared_key => $scout_shared_key },
-        '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
+  write_config({ monitoringDOTscout_shared_key => $scout_shared_key }, DEFAULT_SATCON_DICT);
   
   return 1;
 }
