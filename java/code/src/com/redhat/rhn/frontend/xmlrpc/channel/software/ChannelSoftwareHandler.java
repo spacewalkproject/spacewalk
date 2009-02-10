@@ -193,6 +193,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @return all packages in the channel, regardless of version whose last
      * modified date is greater than given date.
      * @throws NoSuchChannelException thrown if no channel is found.
+     * @deprecated being replaced by listAllPackages
      * 
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
      * whose last modified date is greater than given date.
@@ -228,6 +229,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * given dates.
      * @throws NoSuchChannelException thrown if there is the channel is not
      * found.
+     * @deprecated being replaced by listAllPackages
      *
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
      * between the given dates. Example Date: '2008-08-20 08:00:00'
@@ -262,6 +264,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @return all packages in the channel, regardless of version between the
      * given dates.
      * @throws NoSuchChannelException thrown if no channel is found.
+     * @deprecated being replaced by listAllPackages
      *
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version
      * @xmlrpc.param #session_key()

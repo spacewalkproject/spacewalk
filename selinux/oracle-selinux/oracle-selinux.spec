@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.3%{?obtag}%{?dist}%{?repo}
+Release:         23.4%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -189,6 +189,13 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 %changelog
+* Tue Feb 10 2009 Jan Pazdziora 0.1-23.4
+- add dontaudit on unconfined_devpts_t
+- replace create_file_perms with manage_fifo_file_perms
+- replace create_file_perms with manage_file_perms
+- replace create_dir_perms with manage_dir_perms
+- these changes are needed to run on Fedora 10
+
 * Wed Feb  4 2009 Jan Pazdziora 0.1-23.3
 - address build problem on Fedoras (manage_sock_file_perms)
 - address src.rpm create problem

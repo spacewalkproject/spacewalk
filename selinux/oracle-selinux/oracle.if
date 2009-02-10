@@ -52,8 +52,8 @@ template(`oracle_common_template',`
 	logging_log_filetrans(oracle_$1_t,oracle_$1_log_t,{ file dir })
 	files_tmp_filetrans(oracle_$1_t, oracle_tmp_t, { file dir sock_file })
 	# Allow access to oracle temporary files
-	allow oracle_$1_t oracle_tmp_t:file { create_file_perms };
-	allow oracle_$1_t oracle_tmp_t:dir { create_dir_perms };
+	allow oracle_$1_t oracle_tmp_t:file { manage_file_perms };
+	allow oracle_$1_t oracle_tmp_t:dir { manage_dir_perms };
 	allow oracle_$1_t oracle_tmp_t:sock_file { manage_sock_file_perms };
 	# Allow access to oracle log files
 	allow oracle_$1_t oracle_$1_log_t:file { manage_file_perms };
@@ -61,7 +61,7 @@ template(`oracle_common_template',`
 	# Allow fd use
 	allow oracle_$1_t self:fd { use };
 	# Allow fifo use
-	allow oracle_$1_t self:fifo_file { create_file_perms };
+	allow oracle_$1_t self:fifo_file { manage_fifo_file_perms };
 ')
 
 ########################################
@@ -144,6 +144,9 @@ template(`oracle_ui_template',`
 ## </param>
 #
 template(`oracle_server_template',`
+	gen_require(`
+		type unconfined_devpts_t;
+	')
 	# get common types and rules
 	oracle_common_template($1)
 	# Allow read and writing to shared memory
@@ -155,6 +158,7 @@ template(`oracle_server_template',`
 	auth_use_nsswitch(oracle_$1_t)
 	# Do not audit server processes trying to access ptys
 	dontaudit oracle_$1_t devpts_t:chr_file { read write };
+	dontaudit oracle_$1_t unconfined_devpts_t:chr_file { read write ioctl };
 ')
 
 
