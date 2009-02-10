@@ -84,6 +84,8 @@ set client_min_messages = error;
 \i triggers/web_contact.sql
 
 \i procs/create_first_org.sql
+\i procs/sequence_nextval.sql
+\i procs/sequence_currval.sql
 
 -- Data population scripts go here
 \i tables/rhnUserGroupType_data.sql
