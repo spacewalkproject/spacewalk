@@ -22,8 +22,6 @@ use warnings;
 use Getopt::Long;
 use English;
 
-$ENV{PATH} = '/bin:/usr/bin';
-
 my $usage = "usage: $0 --target=<target_file> --option=<key,value> "
   . "[ --option=<key,value> ] [ --help ]\n";
 
