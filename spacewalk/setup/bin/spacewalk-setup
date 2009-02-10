@@ -1188,7 +1188,7 @@ sub setup_monitoring {
   $sc->create_new();
 
   my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
-  RHN::SatInstall->write_config({ monitoringDOTscout_shared_key => $scout_shared_key },
+  write_config({ monitoringDOTscout_shared_key => $scout_shared_key },
         '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
   
   return 1;
