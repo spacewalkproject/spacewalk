@@ -57,7 +57,8 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     public void testCreateCompleteAndInProgressOperations() throws Exception {
         // Test
         long completeMeId =
-            SsmOperationManager.createOperation(ssmUser, "Test operation 1", serverSetLabel);
+            SsmOperationManager.createOperation(ssmUser,
+                "Test operation 1", serverSetLabel);
         SsmOperationManager.createOperation(ssmUser, "Test operation 2", serverSetLabel);
 
         SsmOperationManager.completeOperation(ssmUser, completeMeId);
@@ -85,7 +86,8 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     public void testCreateAndFindOperation() throws Exception {
         // Test
         long operationId =
-            SsmOperationManager.createOperation(ssmUser, "Test operation 1", serverSetLabel);
+            SsmOperationManager.createOperation(ssmUser,
+                "Test operation 1", serverSetLabel);
         
         DataResult operation = SsmOperationManager.findOperationById(ssmUser, operationId);
         
