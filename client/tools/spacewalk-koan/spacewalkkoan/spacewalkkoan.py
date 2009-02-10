@@ -58,6 +58,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, preserve_fi
         k.add_reinstall_entry = None
         k.kopts_override      = None
         k.use_kexec           = None
+        k.embed_kickstart     = None
         k.run()
 
     except Exception, e:
