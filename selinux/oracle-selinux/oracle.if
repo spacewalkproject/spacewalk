@@ -61,7 +61,7 @@ template(`oracle_common_template',`
 	# Allow fd use
 	allow oracle_$1_t self:fd { use };
 	# Allow fifo use
-	allow oracle_$1_t self:fifo_file { create_file_perms };
+	allow oracle_$1_t self:fifo_file { manage_fifo_file_perms };
 ')
 
 ########################################
