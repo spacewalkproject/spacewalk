@@ -68,6 +68,7 @@ import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -130,9 +131,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @return all packages in the channel, regardless of version between the
      * given dates.
      * @throws NoSuchChannelException thrown if no channel is found.
+     * 
      * @xmlrpc.doc Lists all packages in the channel, regardless of package version, 
      * between the given dates.  
-     * Example Date:  '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param("dateTime.iso8601", "startDate")
@@ -150,11 +151,44 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel,
-            String startDate, String endDate) throws NoSuchChannelException {
+            Date startDate, Date endDate) throws NoSuchChannelException {
+        
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         List pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
         return pkgs.toArray();
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @return all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackages(String sessionKey, String channelLabel,
+            Date startDate) throws NoSuchChannelException {
+        return listAllPackages(sessionKey, channelLabel, startDate, null);
     }
     
     /**
@@ -181,26 +215,33 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
-        return listAllPackages(sessionKey, channelLabel, null, null);
+
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+        List pkgs = ChannelManager.listAllPackages(channel);
+        return pkgs.toArray();
     }
-    
+  
     /**
-     * Lists all packages in the channel, regardless of version, whose last
-     * modified date is greater than given date.
+     * Lists all packages in the channel, regardless of version, between the
+     * given dates.
      * @param sessionKey WebSession containing User information.
      * @param channelLabel Label of channel whose package are sought.
      * @param startDate last modified begin date (as a string)
-     * @return all packages in the channel, regardless of version whose last
-     * modified date is greater than given date.
+     * @param endDate last modified end date (as a string)
+     * @return all packages in the channel, regardless of version between the
+     * given dates.
      * @throws NoSuchChannelException thrown if no channel is found.
-     * @deprecated being replaced by listAllPackages
+     * @deprecated being replaced by listAllPackages(string sessionKey, 
+     * string channelLabel, dateTime.iso8601 startDate, dateTime.iso8601 endDate)
      * 
-     * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
-     * whose last modified date is greater than given date.
+     * @xmlrpc.doc Lists all packages in the channel, regardless of package version, 
+     * between the given dates.  
      * Example Date:  '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
@@ -213,9 +254,47 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
+    public Object[] listAllPackages(String sessionKey, String channelLabel,
+            String startDate, String endDate) throws NoSuchChannelException {
+
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+        List pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
+        return pkgs.toArray();
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @return all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * @deprecated being replaced by listAllPackages(string sessionKey, 
+     * string channelLabel, dateTime.iso8601 startDate)
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of version whose last
+     * modified date is greater than given date. Example Date: '2008-08-20 08:00:00'
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackages(String sessionKey, String channelLabel,
             String startDate) throws NoSuchChannelException {
-        return listAllPackagesByDate(sessionKey, channelLabel, startDate, null);
+        return listAllPackages(sessionKey, channelLabel, startDate, null);
     }
     
     /**
@@ -229,14 +308,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * given dates.
      * @throws NoSuchChannelException thrown if there is the channel is not
      * found.
-     * @deprecated being replaced by listAllPackages
-     *
+     * @deprecated being replaced by listAllPackages(string sessionKey, 
+     * string channelLabel, dateTime.iso8601 startDate, dateTime.iso8601 endDate)
+     * 
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
      * between the given dates. Example Date: '2008-08-20 08:00:00'
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
-     * @xmlrpc.param #param("dateTime.iso8601", "endDate")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
@@ -251,10 +331,47 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
+        
         User user = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(user, channelLabel);
         List pkgs = ChannelManager.listAllPackagesByDate(channel, startDate, endDate);
         return pkgs.toArray();
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version, whose last
+     * modified date is greater than given date.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @return all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * @deprecated being replaced by listAllPackages(string sessionKey, 
+     * string channelLabel, dateTime.iso8601 startDate)
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
+     * whose last modified date is greater than given date.
+     * Example Date:  '2008-08-20 08:00:00'
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
+            String startDate) throws NoSuchChannelException {
+        
+        return listAllPackagesByDate(sessionKey, channelLabel, startDate, null);
     }
     
     /**
@@ -264,7 +381,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @return all packages in the channel, regardless of version between the
      * given dates.
      * @throws NoSuchChannelException thrown if no channel is found.
-     * @deprecated being replaced by listAllPackages
+     * @deprecated being replaced by listAllPackages(string sessionKey, 
+     * string channelLabel)
      *
      * @xmlrpc.doc Lists all packages in the channel, regardless of the package version
      * @xmlrpc.param #session_key()
@@ -283,41 +401,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public Object[] listAllPackagesByDate(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
+        
         return listAllPackagesByDate(sessionKey, channelLabel, null, null);
     }
     
-    /**
-     * Lists all packages in the channel, regardless of version whose last
-     * modified date is greater than given date.
-     * @param sessionKey WebSession containing User information.
-     * @param channelLabel Label of channel whose package are sought.
-     * @param startDate last modified begin date (as a string)
-     * @return all packages in the channel, regardless of version whose last
-     * modified date is greater than given date.
-     * @throws NoSuchChannelException thrown if no channel is found.
-     *
-     * @xmlrpc.doc Lists all packages in the channel, regardless of version whose last
-     * modified date is greater than given date. Example Date: '2008-08-20 08:00:00'
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
-     * @xmlrpc.returntype
-     *      #array()
-     *          #struct("package")
-     *              #prop("string", "name")
-     *              #prop("string", "version")
-     *              #prop("string", "release")
-     *              #prop("string", "epoch")
-     *              #prop("string", "id")
-     *              #prop("string", "arch_label")
-     *          #struct_end()
-     *      #array_end()
-     */
-    public Object[] listAllPackages(String sessionKey, String channelLabel,
-            String startDate) throws NoSuchChannelException {
-        return listAllPackages(sessionKey, channelLabel, startDate, null);
-    }
-
     /**
      * Return Lists potential software channel arches that can be created
      * @param sessionKey WebSession containing User information.
