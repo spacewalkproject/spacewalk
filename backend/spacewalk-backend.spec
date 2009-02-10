@@ -544,6 +544,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.24-1
+- fixing undefined caps_info variable issue
+
 * Fri Jan 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.24-1
 - new build
 
