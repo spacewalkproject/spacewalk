@@ -116,3 +116,7 @@ read_files_pattern(httpd_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_co
 allow httpd_sys_script_t spacewalk_monitoring_conf_t:file { read ioctl getattr };
 
 auth_dontaudit_read_shadow(spacewalk_monitoring_t)
+
+manage_dirs_pattern(httpd_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+manage_files_pattern(httpd_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+manage_lnk_files_pattern(httpd_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
