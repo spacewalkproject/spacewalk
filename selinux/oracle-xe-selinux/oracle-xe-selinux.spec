@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         8%{?dist}
+Release:         9%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -140,6 +140,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Tue Feb 10 2009 Jan Pazdziora 10.2-9
+- added textrel_shlib_t to libdbcfg10.so
+
 * Mon Feb  9 2009 Jan Pazdziora 10.2-8
 - the /etc/ld.so.conf.d configuration is done in oracle-lib-compat now
 - address src.rpm create problem
