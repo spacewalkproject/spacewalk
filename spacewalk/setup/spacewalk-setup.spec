@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.8
+Version:        0.5.9
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Feb 10 2009 Jan Pazdziora 0.5.9-1
+- spacewalk-setup: use DEFAULT_SATCON_DICT
+- spacewalk-setup: use the local write_config function
+
 * Thu Feb 05 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.8-1
 - Add support for overlay of default_mail_from setting in rhn.conf.
 
