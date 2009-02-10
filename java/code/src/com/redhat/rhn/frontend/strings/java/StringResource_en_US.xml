@@ -7828,7 +7828,7 @@ Follow this url to see the full list of inactive systems:
      </trans-unit> 
       
        <trans-unit id="frontend.actions.channels.manager.add.success">
-          <source>Succesfully added {0} Errata and {1} package(s) to channel {2}.</source>
+          <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      </trans-unit>      
      
        <trans-unit id="frontend.actions.channels.manager.add.clone">

@@ -14,20 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -43,6 +29,20 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 
@@ -89,7 +89,7 @@ public class ConfirmErrataAction extends RhnListAction {
         if (requestContext.wasDispatched("Clone Errata")) {
             Map params = new HashMap();
             params.put("cid", cid);
-            return getStrutsDelegate().forwardParams(mapping.findForward("clone"), params); 
+            return getStrutsDelegate().forwardParams(mapping.findForward("clone"), params);
         }
         
         
@@ -107,7 +107,7 @@ public class ConfirmErrataAction extends RhnListAction {
         
         //Get Errata Summary Counts
         DataResult<ErrataOverview> errataResult = ErrataManager.
-                    lookupErrataListFromSet(user);
+                    lookupErrataListFromSet(user, getSetDecl(currentChan).getLabel());
         int bugCount = 0;
         int enhanceCount = 0;
         int securityCount = 0;
@@ -133,7 +133,9 @@ public class ConfirmErrataAction extends RhnListAction {
         
         //Get Package Info and counts
         DataResult<PackageOverview> packageResult = 
-            ErrataManager.lookupPacksFromErrataSet(packageAssoc, currentChan, user);
+            ErrataManager.lookupPacksFromErrataSet(packageAssoc, currentChan, user, 
+                    getSetDecl(currentChan).getLabel());
+        
         
         
         //if we are not using package association (and thus the queries aren't handling
@@ -147,7 +149,7 @@ public class ConfirmErrataAction extends RhnListAction {
                 currentChan);
         }
         
-        storePackagesInSet(user, validList);
+        storePackagesInSet(user, validList, currentChan);
         
         Map<String, HashMap> archMap = new HashMap();
         for (PackageOverview pack : validList) {
@@ -165,7 +167,7 @@ public class ConfirmErrataAction extends RhnListAction {
         request.setAttribute("totalSize", validList.size());
         
         
-        ListTagHelper.bindSetDeclTo("errata", getSetDecl(), request);
+        ListTagHelper.bindSetDeclTo("errata", getSetDecl(currentChan), request);
         
         
         
@@ -173,8 +175,8 @@ public class ConfirmErrataAction extends RhnListAction {
     }
     
     
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA;
+    protected RhnSetDecl getSetDecl(Channel chan) {
+        return RhnSetDecl.setForChannelErrata(chan);
     }
     
     
@@ -228,14 +230,18 @@ public class ConfirmErrataAction extends RhnListAction {
   
     
     
-    private void storePackagesInSet(User user,  List<PackageOverview> packList) {
+    private void storePackagesInSet(User user,  List<PackageOverview> packList, 
+            Channel chan) {
         
-        RhnSet set =  RhnSetDecl.PACKAGES_TO_ADD.get(user); 
-        set.clear(); 
+        RhnSet set =  RhnSetDecl.setForChannelPackages(chan).get(user); 
+        set.clear();         
+        
         for (PackageOverview pack : packList) {
-            set.addElement(pack.getId().longValue());
+            set.addElement(pack.getId());
         }
-        RhnSetManager.store(set);        
+        RhnSetManager.store(set);
+
+        
     }
 
     
