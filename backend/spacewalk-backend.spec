@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.4.24
+Version: 0.4.25
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -544,7 +544,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.24-1
+* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.25-1
 - fixing undefined caps_info variable issue
 
 * Fri Jan 23 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.24-1
