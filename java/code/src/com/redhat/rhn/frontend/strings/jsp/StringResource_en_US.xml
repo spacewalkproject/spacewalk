@@ -15587,7 +15587,7 @@ any of these revisions.  Are you sure you want to do this?</source>
           <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
        </context-group>
        <trans-unit id="ssm.operations.viewlog.header">
-          <source>Operations Log</source>
+          <source>Tasks Log</source>
        </trans-unit>
        <trans-unit id="ssm.operations.viewlog.description">
           <source>Description</source>
@@ -15614,19 +15614,19 @@ any of these revisions.  Are you sure you want to do this?</source>
           <source>Completed</source>
        </trans-unit>
        <trans-unit id="ssm.operations.viewlog.empty">
-          <source>No operations have been performed against the SSM</source>
+          <source>No tasks match the given criteria</source>
        </trans-unit>
        <trans-unit id="ssm.operations.viewlog.emptyservers">
-          <source>No servers associated with this operation</source>
+          <source>No servers associated with this task</source>
        </trans-unit>
        <trans-unit id="ssm.operations.inprogress.summary">
-          <source>The following operations are currently taking place. Click on an operation's description to see more details.</source>
+          <source>The following tasks are currently taking place. Click on a task's description to see more details.</source>
        </trans-unit>
        <trans-unit id="ssm.operations.all.summary">
-          <source>The following lists all operations performed against servers in the SSM. Click on an operation's description to see more details.</source>
+          <source>The following lists all tasks performed against servers in the SSM. Click on an task's description to see more details.</source>
        </trans-unit>
        <trans-unit id="ssm.operations.completed.summary">
-          <source>The following lists all operations that have finished running. Click on an operation's description to see more details.</source>
+          <source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
        </trans-unit>
     </group>
        
