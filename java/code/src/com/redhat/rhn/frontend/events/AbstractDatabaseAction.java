@@ -52,7 +52,7 @@ public abstract class AbstractDatabaseAction implements MessageAction {
      * Note that this call <em>MUST</em> take place for any database operations done in
      * a message queue action for the transaction to be committed. 
      */
-    protected void commitAndClose(boolean close) {
+    protected void handleTransactions() {
         boolean committed = false;
 
         try {
@@ -83,21 +83,9 @@ public abstract class AbstractDatabaseAction implements MessageAction {
             }
             finally {
                 // cleanup the session
-                if (close) {
                     HibernateFactory.closeSession();
-                }
             }
         }
     }
-    
-    protected void handleTransactions() {
-        commitAndClose(true);
-    }
-    
-    protected void commit() {
-        commitAndClose(false);
-    }
-    
-    
     
 }
