@@ -310,7 +310,7 @@ while (1) {
       &set_userinfo($user);
     }
     $| = 1;
-    $SIG{'PIPE'} = sub {die("Couldn't exec $command: $!") }
+    $SIG{'PIPE'} = sub {die("Couldn't exec $command: $!") };
     local *PROCESS_OUT;
     my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, $command, @options);
     while (<PROCESS_OUT>) {
