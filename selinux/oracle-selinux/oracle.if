@@ -144,6 +144,9 @@ template(`oracle_ui_template',`
 ## </param>
 #
 template(`oracle_server_template',`
+	gen_require(`
+		type unconfined_devpts_t;
+	')
 	# get common types and rules
 	oracle_common_template($1)
 	# Allow read and writing to shared memory
@@ -155,6 +158,7 @@ template(`oracle_server_template',`
 	auth_use_nsswitch(oracle_$1_t)
 	# Do not audit server processes trying to access ptys
 	dontaudit oracle_$1_t devpts_t:chr_file { read write };
+	dontaudit oracle_$1_t unconfined_devpts_t:chr_file { read write ioctl };
 ')
 
 
