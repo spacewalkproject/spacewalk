@@ -21,7 +21,6 @@ use warnings;
 
 use Getopt::Long;
 use English;
-use Data::Dumper;
 
 $ENV{PATH} = '/bin:/usr/bin';
 
