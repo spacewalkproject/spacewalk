@@ -61,6 +61,9 @@ Requires:       spacewalk-monitoring
 
 # SELinux
 Requires:       spacewalk-selinux
+Requires:       jabberd-selinux
+Requires:       osa-dispatcher-selinux
+Requires:       spacewalk-monitoring-selinux
 
 
 %description
