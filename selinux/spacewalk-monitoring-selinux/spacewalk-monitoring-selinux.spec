@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.5.3
+Version:        0.5.4
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -112,6 +112,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Tue Feb 10 2009 Jan Pazdziora 0.5.4-1
+- allow httpd to manage /var/lib/notification
+
 * Mon Feb  9 2009 Jan Pazdziora 0.5.3-1
 - dontaudit attempts to read /etc/shadow
 - allow CGI scripts to read monitoring configuration
