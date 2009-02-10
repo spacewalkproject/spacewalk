@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
 Version:        0.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
 Group:          Applications/Internet
@@ -90,6 +90,10 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Tue Feb 10 2009 Jan Pazdziora 0.5.3-2
+- Require jabberd-selinux, osa-dispatcher-selinux, and
+  spacewalk-monitoring-selinux
+
 * Wed Jan 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
 - Restore dependency on taskomatic and search.
 
