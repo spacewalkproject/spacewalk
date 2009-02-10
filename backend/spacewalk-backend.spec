@@ -539,6 +539,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
+- bz#368711 bz#480063
+
 * Mon Feb 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
 - bz475894:fixing the server code to filter out duplicate deps 
   when pushing fedora-10+ packages to channels
