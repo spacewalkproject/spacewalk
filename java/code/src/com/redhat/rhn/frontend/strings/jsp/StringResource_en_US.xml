@@ -19557,8 +19557,9 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <source>
 Below is a list of channels in your organization.
 &lt;ul&gt;
+&lt;li&gt;To make no changes for a channel, check Do Nothing for that channel.&lt;/li&gt;
 &lt;li&gt;To subscribe selected systems to a channel, check Subscribed for that channel.&lt;/li&gt;
-&lt;li&gt;To unsubscribe selected systems from a channel, uncheck Subscribed for that channel.&lt;/li&gt;
+&lt;li&gt;To unsubscribe selected systems from a channel, check Unsubscribed for that channel.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;strong&gt;Note:&lt;/strong&gt; attempts to assign a system to an incompatible channel will fail.
         </source>
