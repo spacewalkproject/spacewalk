@@ -58,7 +58,7 @@ client.auth.logout(key)<br />
 </code>
 <hr />
 
-For more examples visit the <a href="http://rhn-satellite.108.redhat.com">RHN Satellite community page</a>.
+For more examples visit the <a href="https://fedorahosted.org/spacewalk/">Spacewalk community page</a>.
 
 <p />
 </body><p />
