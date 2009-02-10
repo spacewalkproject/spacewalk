@@ -128,6 +128,10 @@ def _safe_create(fname):
                 # the one we try to create the directory
                 # We double-check the file existance here
                 if not (e.errno == EEXIST and os.path.isdir(dirname)):
+                    # If the exception was thrown on a parent dir
+                    # check the subdirectory to go through next loop.
+                    if os.path.isdir(e.filename):
+                        continue
                     # Pass exception through
                     raise
             except:
