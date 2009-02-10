@@ -52,8 +52,8 @@ template(`oracle_common_template',`
 	logging_log_filetrans(oracle_$1_t,oracle_$1_log_t,{ file dir })
 	files_tmp_filetrans(oracle_$1_t, oracle_tmp_t, { file dir sock_file })
 	# Allow access to oracle temporary files
-	allow oracle_$1_t oracle_tmp_t:file { create_file_perms };
-	allow oracle_$1_t oracle_tmp_t:dir { create_dir_perms };
+	allow oracle_$1_t oracle_tmp_t:file { manage_file_perms };
+	allow oracle_$1_t oracle_tmp_t:dir { manage_dir_perms };
 	allow oracle_$1_t oracle_tmp_t:sock_file { manage_sock_file_perms };
 	# Allow access to oracle log files
 	allow oracle_$1_t oracle_$1_log_t:file { manage_file_perms };
