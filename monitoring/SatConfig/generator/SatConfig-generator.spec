@@ -2,7 +2,7 @@
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.10
+Version:      2.29.11
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 URL:          https://fedorahosted.org/spacewalk
@@ -49,7 +49,7 @@ install -m 644 GenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.11-1
 - remove dead code (apachereg)
 
 * Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.10-1
