@@ -3,7 +3,7 @@
 # taskomatic    This shell script takes care of starting and stopping
 #               the java taskomatic server.
 #
-# chkconfig: -  77 23
+# chkconfig: -  99 23
 # description:  Taskomatic is schedule task execution system.
 #
 ### BEGIN INIT INFO
