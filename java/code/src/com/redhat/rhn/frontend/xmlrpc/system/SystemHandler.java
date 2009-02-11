@@ -1048,7 +1048,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("int", "subscribed", "1 if the given server is subscribed
      *               to this server group, 0 otherwise")
      *          #prop_desc("string", "system_group_name", "Name of the server group")
-     *          #prop_desc("String", "sgid", "server group id (Deprecated)")
+     *          #prop_desc("string", "sgid", "server group id (Deprecated)")
      *      #struct_end()
      */
     public Object[] listGroups(String sessionKey, Integer sid) throws FaultException {
@@ -1220,7 +1220,12 @@ public class SystemHandler extends BaseHandler {
          */
         for (Iterator itr = customDataValues.iterator(); itr.hasNext();) {
             CustomDataValue val = (CustomDataValue) itr.next();
-            returnMap.put(val.getKey().getLabel(), val.getValue());
+            if (val.getValue() != null) {
+                returnMap.put(val.getKey().getLabel(), val.getValue());
+            }
+            else {
+                returnMap.put(val.getKey().getLabel(), new String(""));
+            }
         }
         
         return returnMap;
