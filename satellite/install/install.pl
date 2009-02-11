@@ -992,7 +992,7 @@ Do not test the Red Hat Enterprise Linux version before installing.
 
 =item B<--skip-selinux-test>
 
-Do not check if SELINUX is Permissive or Disabled.  RHN Satellite is not currently supported on selinux 'Enforcing' enabled systems.  See http://kbase.redhat.com/faq/FAQ_49_6086.shtm for more information.
+Do not check if SELinux is enabled. RHN Satellite is supported with Enforcing SELinux with targeted policy on RHEL 5. On RHEL 4, Enforcing is not supported.
 
 =item B<--skip-fqdn-test>
 
