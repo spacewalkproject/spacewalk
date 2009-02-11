@@ -188,7 +188,7 @@ public class PackagesHandler extends BaseHandler {
      *       #prop("string", "type")
      *       #prop("string", "last_modified_date")
      *       #prop("string", "md5sum")
-     *       #prop("string", "size")
+     *       #prop("int", "size")
      *       #prop("string", "linkto")
      *     #struct_end()
      *   #array_end()

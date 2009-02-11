@@ -1,11 +1,10 @@
 %define init_script %{_sysconfdir}/rc.d/init.d/tsdb_local_queue
-%define registry    %{_sysconfdir}/rc.d/np.d/apachereg
 %define lqdir       %{_var}/log/nocpulse/TSDBLocalQueue
 %define bdbdir      %{_var}/lib/nocpulse/tsdb/bdb
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.18
+Version:      1.27.19
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -33,7 +32,6 @@ Time Series Database
 rm -rf $RPM_BUILD_ROOT
 
 # Directories
-install -d $RPM_BUILD_ROOT%registry
 install -d $RPM_BUILD_ROOT/%{perl_vendorlib}/NOCpulse/TSDB/LocalQueue
 mkdir -p $RPM_BUILD_ROOT%bdbdir
 mkdir -p $RPM_BUILD_ROOT%lqdir
@@ -55,9 +53,6 @@ install -m 755 LocalQueue/TSDBLocalQueue.pl $RPM_BUILD_ROOT%npbin/TSDBLocalQueue
 install -m 755 LocalQueue/drainer $RPM_BUILD_ROOT%{_bindir}
 install -m 755 LocalQueue/rebalance_cron $RPM_BUILD_ROOT%{_bindir}
 
-# Apache startup file
-install -m 644 Apache.tsdb $RPM_BUILD_ROOT%registry
-
 # Local queue init script (temporary, will be superseded by sysv stuff)
 install -d $RPM_BUILD_ROOT%{init_script}
 install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
@@ -65,7 +60,6 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 %files
 %defattr(-,root,root,-)
 %{init_script}
-%{registry}/Apache.tsdb
 %{_bindir}/*
 %attr(755,apache,apache) %dir %bdbdir
 %attr(755,apache,apache) %dir %lqdir
@@ -79,6 +73,8 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.19-1
+- remove dead code (apachereg)
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.27.18-1
 - rebuild
 - 479541, 483867 - replaced runuser with /sbin/runuser

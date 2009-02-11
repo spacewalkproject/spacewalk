@@ -1,3 +1,0 @@
-$self->addHandler($self->virtualServer('_default_:443'),'/cgi-bin/eventHandler.cgi','NOCpulse::EventHandler',0);
-$self->addHandler($self->virtualServer('_default_:443'),'/cgi-bin/https_mx.cgi','NOCpulse::HttpsMX',0);
-

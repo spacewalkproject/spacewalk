@@ -162,8 +162,9 @@ public class ProfileHandler extends BaseHandler {
      * 
      * @xmlrpc.doc List the pre and post scripts for a kickstart profile.
      * profile
-     * @xmlprc.param
-     * @xmlrpc.param
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart")
      * @xmlrpc.returntype #array() $KickstartScriptSerializer #array_end()
      */
     public List<KickstartScript> listScripts(String sessionKey, String label) {
@@ -186,7 +187,7 @@ public class ProfileHandler extends BaseHandler {
      * @return the id of the created script
      * 
      * @xmlrpc.doc Add a pre/post script to a kickstart profile.
-     * @xmlprc.param #session_key()
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
      * add the script to.")
      * @xmlrpc.param #param_desc("string", "contents", "The full script to
@@ -231,9 +232,9 @@ public class ProfileHandler extends BaseHandler {
      * 
      * @xmlrpc.doc Remove a script from a kickstart profile.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #prop_desc("string", "ksLabel", "The kickstart from which
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart from which
      * to remove the script from.")
-     * @xmlrpc.param #prop_desc("int", "scriptId", "The id of the script to
+     * @xmlrpc.param #param_desc("int", "scriptId", "The id of the script to
      * remove.")
      * @xmlrpc.returntype #return_int_success()
      * 
@@ -335,14 +336,14 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param 
      *   #array()
      *      #struct("advanced options")
-     *          #prop_desc("string", "name", "Name of the advanced option")
+     *          #prop_desc("string", "name", "Name of the advanced option.
      *              Valid Option names: autostep, interactive, install, upgrade, text, 
      *              network, cdrom, harddrive, nfs, url, lang, langsupport keyboard, 
      *              mouse, device, deviceprobe, zerombr, clearpart, bootloader, 
      *              timezone, auth, rootpw, selinux, reboot, firewall, xconfig, skipx, 
      *              key, ignoredisk, autopart, cmdline, firstboot, graphical, iscsi, 
      *              iscsiname, logging, monitor, multipath, poweroff, halt, service,
-     *              shutdown, user, vnc, zfcp
+     *              shutdown, user, vnc, zfcp")
      *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()  
      *   #array_end()

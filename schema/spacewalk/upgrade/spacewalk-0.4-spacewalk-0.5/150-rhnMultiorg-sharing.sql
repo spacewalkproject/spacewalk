@@ -54,7 +54,7 @@ ALTER TABLE rhnPackageProvides
 ALTER TABLE rhnPackageRequires
   DROP constraint rhn_pkg_requires_package_fk;
 
-ALTER TABLE rhnPackageProvides
+ALTER TABLE rhnPackageRequires
   ADD constraint rhn_pkg_requires_package_fk
     foreign key (package_id)
     references rhnPackage (id)

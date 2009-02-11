@@ -1,6 +1,6 @@
 Name:         scdb
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.15.5
+Version:      1.15.6
 Release:      1%{?dist}
 Summary:      State Change Database
 URL:          https://fedorahosted.org/spacewalk
@@ -32,22 +32,20 @@ mkdir -p  $RPM_BUILD_ROOT/nocpulse/scdb/bdb
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 install -m 644 SCDB.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
-# Add registry entries
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
-install -m 644  Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
 %defattr(-,root,root,-)
 %attr(755,apache,apache) %dir /nocpulse/scdb/bdb
-%{_sysconfdir}/rc.d/np.d/apachereg/Apache.scdb
 %{perl_vendorlib}/NOCpulse/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.15.6-1
+- remove dead code (apachereg)
+
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.5-1
 - NOCpulse::Oracle is renamed to NOCpulse::Database
 

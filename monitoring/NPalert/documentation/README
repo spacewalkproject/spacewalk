@@ -94,8 +94,6 @@ trusted-users
 /etc/rc.d/init.d
 Apache  -- "SysVStep" style init script for starting the Apache daemon.  Stop this daemon to prevent notifications from being enqueued.  New notifications will rejected back to the satellites.  Previously enqueued notifications will continue to be sent as long as Notifier is running.
 
-ApacheNotifAdmin -- "SysVStep" style init script for starting the Apache daemon specifically for the internal-use notification tools.`
-
 Notifier  -- "SysVStep" style init script for starting the notifserver.pl daemon.  Stop this daemon to prevent notifications from being sent.  Notifications will continue to enqueue as long as Apache is running.
 
 /var/www/cgi-bin

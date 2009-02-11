@@ -493,9 +493,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.returntype
-     *      #array()
-     *             $ChannelSerializer
-     *      #array_end()
+     *     $ChannelSerializer
      */
     public Channel getDetails(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
@@ -514,9 +512,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("int", "id", "channel to query")
      * @xmlrpc.returntype
-     *      #array()
-     *             $ChannelSerializer
-     *      #array_end()
+     *     $ChannelSerializer
      */
     public Channel getDetails(String sessionKey, Integer id)
         throws NoSuchChannelException {

@@ -2,7 +2,6 @@
 %define log_dir            %{_var}/log/notification
 %define httpd_prefix       %{_var}/www
 %define notif_user         nocpulse
-%define registry           %{_sysconfdir}/rc.d/np.d/apachereg
 %define log_rotate_prefix  %{_sysconfdir}/logrotate.d/
 
 # Package specific stuff
@@ -10,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.1
+Version:      1.126.3
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -92,10 +91,6 @@ install -p -m 644 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/template
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
 
-# Install apache registration entries
-mkdir -p $RPM_BUILD_ROOT%registry
-install -p -m 644 Apache.NPalert $RPM_BUILD_ROOT%registry
-
 # Install logrotate stuff
 mkdir -p %buildroot%{_sysconfdir}/logrotate.d/
 install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
@@ -104,7 +99,6 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 %defattr(-,root,root,-)
 %{_sysconfdir}/logrotate.d/%{name}
 %{_sysconfdir}/cron.d/notification
-%{registry}/Apache.NPalert
 %{httpd_prefix}
 %dir %attr(-, %notif_user,%notif_user) %install_prefix
 %dir %{perl_vendorlib}/NOCpulse/Notif
@@ -131,6 +125,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.3-1
+- remove dead code (apachereg)
+
 * Fri Jan 16 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.1-1
 - fix path to notif-escalator.log again
 

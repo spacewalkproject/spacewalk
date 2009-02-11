@@ -1,6 +1,6 @@
 Name:         eventReceivers
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.20.9
+Version:      2.20.10
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 URL:          https://fedorahosted.org/spacewalk
@@ -28,24 +28,23 @@ This package contains handler, which receive events from scouts.
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg
 install MonitoringAccessHandler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 install EventHandler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 install HttpsMX.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install ApacheSSL.eventReceivers $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg
-install ApacheSSL.eventReceivers-proxies $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
 %defattr(644,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
-%config %{_sysconfdir}/rc.d/np.d/apachereg/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.10-1
+- remove dead code (apachereg)
+
 * Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.20.9-1
 - spec cleanup for Fedora
 
