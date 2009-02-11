@@ -48,8 +48,10 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -910,22 +912,29 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -5);
 
+        String startDateStr = "2004-08-20 08:00:00";
+        String endDateStr = "3004-08-20 08:00:00";
+        
         Object[] list = handler.listAllPackages(adminKey, chan.getLabel(), 
-                "2004-08-20 08:00:00");
+                startDateStr);
         assertTrue(list.length == 1);
         
-        list = handler.listAllPackages(adminKey, chan.getLabel(), "2004-08-20 08:00:00", 
-                "3004-08-20 08:00:00");
+        list = handler.listAllPackages(adminKey, chan.getLabel(), startDateStr,
+                endDateStr); 
         assertTrue(list.length == 1);
         
         list = handler.listAllPackages(adminKey, chan.getLabel());
         assertTrue(list.length == 1);
         
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date startDate = sdf.parse(startDateStr);
+        Date endDate = sdf.parse(endDateStr);
         
+        list = handler.listAllPackages(adminKey, chan.getLabel(), startDate);
+        assertTrue(list.length == 1);
+        
+        list = handler.listAllPackages(adminKey, chan.getLabel(), startDate,
+                endDate);
+        assertTrue(list.length == 1);
     }
-    
-    
-
-    
-
 }

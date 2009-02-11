@@ -70,7 +70,7 @@ Requires: spacewalk-selinux
 %if "%{selinux_policyver}" != ""
 Requires: selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
+Requires(post): /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires: osa-dispatcher
 

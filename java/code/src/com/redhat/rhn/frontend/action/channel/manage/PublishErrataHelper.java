@@ -14,21 +14,20 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
-import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.Keyword;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.errata.ErrataManager;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 
@@ -67,11 +66,10 @@ public class PublishErrataHelper {
      * @return The cloned (and published) errata
      */
     public static Errata cloneErrataFast(Errata original, Org  org) {
-        
+               
         Errata clone = new PublishedClonedErrata();
         
 
-        clone.setAdvisory(original.getAdvisory());
         clone.setAdvisoryType(original.getAdvisoryType());
         clone.setProduct(original.getProduct());
         clone.setDescription(original.getDescription());
@@ -86,7 +84,7 @@ public class PublishErrataHelper {
         clone.setAdvisoryRel(original.getAdvisoryRel());
         clone.setLocallyModified(original.getLocallyModified());
         clone.setLastModified(original.getLastModified());
-        clone.setOrg(original.getOrg());
+        clone.setOrg(org);
         
 
         clone.setPackages(new HashSet(original.getPackages()));
@@ -97,28 +95,16 @@ public class PublishErrataHelper {
         }
 
         
-
         for (Bug bugIn : (Set<Bug>) original.getBugs()) {
             Bug bClone;
                 bClone = ErrataManager.createNewPublishedBug(bugIn.getId(), 
                                                             bugIn.getSummary());
            clone.addBug(bClone);
         }
-
-
-        for (ErrataFile fileIn : (Set<ErrataFile>) original.getFiles()) {
-            ErrataFile fileClone;
-            Set packages = new HashSet(fileIn.getPackages());
-                fileClone = ErrataManager.createNewPublishedErrataFile(fileIn.getFileType(),
-                                                                   fileIn.getChecksum(),
-                                                                   fileIn.getFileName(),
-                                                                   packages);
-            clone.addFile(fileClone);
-        }
         
         
-        String baseClonedAdvisoryName = "CL" + clone.getAdvisoryName().substring(3);
-        String baseClonedAdvisory = "CL" + clone.getAdvisory().substring(3);
+        String baseClonedAdvisoryName = "CL" + original.getAdvisoryName().substring(3);
+        String baseClonedAdvisory = "CL" + original.getAdvisory().substring(3);
         String clonedAdvisory = baseClonedAdvisory;
         String clonedAdvisoryName = baseClonedAdvisoryName;
         boolean unusedNameFound = false;
@@ -145,8 +131,8 @@ public class PublishErrataHelper {
         clone.setAdvisory(clonedAdvisory);
         ((PublishedClonedErrata) clone).setOriginal(original);
         clone.setOrg(org);
-        
         ErrataFactory.save(clone);
+        
         return clone;
                 
     }

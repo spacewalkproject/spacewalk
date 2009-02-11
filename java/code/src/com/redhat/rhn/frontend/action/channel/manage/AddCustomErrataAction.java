@@ -150,9 +150,9 @@ public class AddCustomErrataAction extends RhnListAction {
         //If we clicked on the channel selection, clear the set
         if (requestContext.wasDispatched(CHANNEL_SUBMIT) ||
                 !requestContext.isSubmitted()) {
-            RhnSet set =  getSetDecl().get(user);
-                set.clear();
-                RhnSetManager.store(set);
+            RhnSet set =  getSetDecl(currentChan).get(user);
+            set.clear();
+            RhnSetManager.store(set);             
         }
         
         
@@ -163,7 +163,7 @@ public class AddCustomErrataAction extends RhnListAction {
 
             
         RhnListSetHelper helper = new RhnListSetHelper(request);        
-        RhnSet set =  getSetDecl().get(user);
+        RhnSet set =  getSetDecl(currentChan).get(user);
         
 
         DataResult dr = getData(request, selectedChannel, currentChan, null, 
@@ -179,7 +179,7 @@ public class AddCustomErrataAction extends RhnListAction {
         }
         
         TagHelper.bindElaboratorTo(LIST_NAME, dr.getElaborator(), request);
-        ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
+        ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(currentChan), request);
         
         
         
@@ -215,8 +215,8 @@ public class AddCustomErrataAction extends RhnListAction {
     
     
     
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA;
+    protected RhnSetDecl getSetDecl(Channel chan) {
+        return RhnSetDecl.setForChannelErrata(chan);
     }
     
     

@@ -187,9 +187,9 @@ public class AddRedHatErrataAction extends RhnListAction {
         if (requestContext.wasDispatched(CHANNEL_SUBMIT) ||
                 requestContext.wasDispatched(VERSION_SUBMIT) ||
                 !requestContext.isSubmitted()) {
-            RhnSet set =  getSetDecl().get(user);
-                set.clear();
-                RhnSetManager.store(set);
+            RhnSet eset =  getSetDecl(currentChan).get(user);
+            eset.clear();
+            RhnSetManager.store(eset);
         }
         
         
@@ -200,7 +200,7 @@ public class AddRedHatErrataAction extends RhnListAction {
 
             
         RhnListSetHelper helper = new RhnListSetHelper(request);        
-        RhnSet set =  getSetDecl().get(user);
+        RhnSet set =  getSetDecl(currentChan).get(user);
         
         
 
@@ -222,7 +222,7 @@ public class AddRedHatErrataAction extends RhnListAction {
         }
         
         TagHelper.bindElaboratorTo("errata", dr.getElaborator(), request);
-        ListTagHelper.bindSetDeclTo("errata", getSetDecl(), request);
+        ListTagHelper.bindSetDeclTo("errata", getSetDecl(currentChan), request);
         
         
         
@@ -288,8 +288,8 @@ public class AddRedHatErrataAction extends RhnListAction {
     }
     
     
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA;
+    protected RhnSetDecl getSetDecl(Channel chan) {
+        return RhnSetDecl.setForChannelErrata(chan);
     }
     
     

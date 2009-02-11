@@ -18,16 +18,18 @@ package com.redhat.rhn.common.messaging;
 import EDU.oswego.cs.dl.util.concurrent.Channel;
 import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 
+import com.redhat.rhn.frontend.events.CloneErrataAction;
+import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.events.NewUserAction;
 import com.redhat.rhn.frontend.events.NewUserEvent;
 import com.redhat.rhn.frontend.events.RestartSatelliteAction;
 import com.redhat.rhn.frontend.events.RestartSatelliteEvent;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
-import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
-import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 
 import org.apache.log4j.Logger;
 
@@ -253,6 +255,11 @@ public class MessageQueue {
         SsmChangeChannelSubscriptionsAction sccsa =
             new SsmChangeChannelSubscriptionsAction();
         MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
+        
+        //Clone Errata into a channel
+        CloneErrataAction cea = new CloneErrataAction();
+        MessageQueue.registerAction(cea, CloneErrataEvent.class);
+        
     }
 }
 

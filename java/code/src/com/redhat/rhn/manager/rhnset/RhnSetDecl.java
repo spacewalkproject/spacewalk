@@ -22,6 +22,9 @@ import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteHelper;
+
+import com.redhat.rhn.domain.channel.Channel;
+
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
@@ -449,6 +452,7 @@ public class RhnSetDecl {
      * one exists, <code>cleanup</code> is ignored. Otherwise, a declaration
      * with the given <code>cleanup</code> and <code>label</code> is
      * created.
+     * @deprecated
      * @param label the label for the set
      * @param cleanup the cleanup to use
      * @return the set declaration
@@ -469,4 +473,24 @@ public class RhnSetDecl {
     public static final RhnSetDecl find(String label) {
         return (RhnSetDecl) DECLS.get(label);
     }
+    
+    /**
+     * get the set for Channel Errata cloning
+     * @param chan the Channel passed in
+     * @return the Set decl
+     */
+    public static RhnSetDecl setForChannelErrata(Channel chan) {
+        return make("errata_clone_list" + chan.getId(), SetCleanup.ILLEGAL_ERRATA);
+    }
+    
+    /**
+     * get the set for Channel package pushing
+     * @param chan the Channel passed in
+     * @return the Set decl
+     */
+    public static RhnSetDecl setForChannelPackages(Channel chan) {
+        return make("package_clone_list" + chan.getId(), SetCleanup.NOOP);
+    }
+    
+            
 }

@@ -267,6 +267,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar type="int" column="package_count"/>
         <![CDATA[select count(*) as package_count from rhnChannelPackage cp where cp.channel_id = :cid]]>
     </sql-query>
+    
+    <sql-query name="Channel.getPackageIdList">
+        <return-scalar type="long" column="package_id"/>
+        <![CDATA[select cp.package_id from rhnChannelPackage cp where cp.channel_id = :cid]]>
+    </sql-query>    
+    
 
     
     <sql-query name="Channel.lookupOriginalPackages">

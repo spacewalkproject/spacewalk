@@ -34,16 +34,18 @@ import com.redhat.rhn.testing.UserTestUtils;
 public class SsmOperationManagerTest extends RhnBaseTestCase {
 
     private User ssmUser;
-    private String setLabel;
+
+    private RhnSet serverSet;
+    private String serverSetLabel;
 
     protected void setUp() throws Exception {
         ssmUser = UserTestUtils.findNewUser("ssmuser", "ssmorg");
-        setLabel = populateRhnSet();
+        serverSetLabel = populateRhnSet();
     }
 
     public void testCreateAndAllOperations() throws Exception {
         // Test
-        SsmOperationManager.createOperation(ssmUser, "Test operation", setLabel);
+        SsmOperationManager.createOperation(ssmUser, "Test operation", serverSetLabel);
 
         DataResult result = SsmOperationManager.allOperations(ssmUser);
 
@@ -55,8 +57,9 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     public void testCreateCompleteAndInProgressOperations() throws Exception {
         // Test
         long completeMeId =
-            SsmOperationManager.createOperation(ssmUser, "Test operation 1", setLabel);
-        SsmOperationManager.createOperation(ssmUser, "Test operation 2", setLabel);
+            SsmOperationManager.createOperation(ssmUser,
+                "Test operation 1", serverSetLabel);
+        SsmOperationManager.createOperation(ssmUser, "Test operation 2", serverSetLabel);
 
         SsmOperationManager.completeOperation(ssmUser, completeMeId);
 
@@ -83,7 +86,8 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     public void testCreateAndFindOperation() throws Exception {
         // Test
         long operationId =
-            SsmOperationManager.createOperation(ssmUser, "Test operation 1", setLabel);
+            SsmOperationManager.createOperation(ssmUser,
+                "Test operation 1", serverSetLabel);
         
         DataResult operation = SsmOperationManager.findOperationById(ssmUser, operationId);
         
@@ -111,7 +115,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     public void testFindServerDataForOperation() throws Exception {
         // Setup
         long operationId =
-            SsmOperationManager.createOperation(ssmUser, "Test operation", setLabel);
+            SsmOperationManager.createOperation(ssmUser, "Test operation", serverSetLabel);
         
         // Test
         DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
@@ -138,7 +142,7 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertEquals(0, result.size());
         
         // Test
-        SsmOperationManager.associateServersWithOperation(operationId, setLabel);
+        SsmOperationManager.associateServersWithOperation(operationId, serverSetLabel);
         
         // Verify
         result = SsmOperationManager.findServerDataForOperation(operationId);
@@ -149,7 +153,100 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
         assertNotNull(serverData.get("id"));
         assertNotNull(serverData.get("name"));        
     }
-    
+
+    /**
+     * This test should ensure that if the associate method is called with two sets
+     * that may both contain one or more of the same server, only one entry is made
+     * for the server.
+     * <p/>
+     * The driving use case behind this is the scenario where a server is subscribed to
+     * one channel and unsubscribed from another in the same SSM batch task.
+     *
+     * @throws Exception if there is an error running the test
+     */
+    public void testAssociateServersWithOperationMultipleSets() throws Exception {
+        // Setup
+
+        //   Pass null label so no servers are associated
+        long operationId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation", null);
+
+        //   Sanity check
+        DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(0, result.size());
+
+        //   Populate second set with one of the servers from the first
+        RhnSetDecl setDecl =
+            RhnSetDecl.findOrCreate("SsmOperationManagerTestSet2", SetCleanup.NOOP);
+        RhnSet secondSet = setDecl.create(ssmUser);
+        secondSet.addElement(serverSet.getElements().iterator().next().getElement());
+        RhnSetManager.store(secondSet);
+        String secondSetLabel = secondSet.getLabel();
+
+        // Test
+        SsmOperationManager.associateServersWithOperation(operationId, serverSetLabel);
+        SsmOperationManager.associateServersWithOperation(operationId, secondSetLabel);
+
+        // Verify
+        result = SsmOperationManager.findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(2, result.size());
+
+        Map serverData = (Map) result.get(0);
+        assertNotNull(serverData.get("id"));
+        assertNotNull(serverData.get("name"));
+    }
+
+    /**
+     * This test should ensure that only one association is created a single set references
+     * the same server more than once (this could occur if the second element in the set
+     * differs).
+     * <p/>
+     * The driving use case behind this is the scenario where a server is subscribed to
+     * two different channels in the same SSM batch task.
+     *
+     * @throws Exception if there is an error running the test
+     */
+    public void testAssociateServersWithOperationDuplicateServer() throws Exception {
+        // Setup
+
+        //   Pass null label so no servers are associated
+        long operationId =
+            SsmOperationManager.createOperation(ssmUser, "Test operation", null);
+
+        //   Sanity check
+        DataResult result = SsmOperationManager.findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(0, result.size());
+
+        //   Populate second set so we don't mangle the common one to all tests
+        Server testServer = ServerFactoryTest.createTestServer(ssmUser, true);
+
+        RhnSetDecl setDecl =
+            RhnSetDecl.findOrCreate("SsmOperationManagerTestSet3", SetCleanup.NOOP);
+        RhnSet secondSet = setDecl.create(ssmUser);
+
+        secondSet.addElement(testServer.getId(), 1L);
+        secondSet.addElement(testServer.getId(), 2L);
+
+        RhnSetManager.store(secondSet);
+        String secondSetLabel = secondSet.getLabel();
+
+        // Test
+        SsmOperationManager.associateServersWithOperation(operationId, secondSetLabel);
+
+        // Verify
+        result = SsmOperationManager.findServerDataForOperation(operationId);
+        assertNotNull(result);
+        assertEquals(1, result.size());
+
+        Map serverData = (Map) result.get(0);
+        assertNotNull(serverData.get("id"));
+        assertNotNull(serverData.get("name"));
+
+    }
+
     /**
      * Populates an RhnSet with server IDs.
      * 
@@ -159,15 +256,15 @@ public class SsmOperationManagerTest extends RhnBaseTestCase {
     private String populateRhnSet() throws Exception {
         RhnSetDecl setDecl =
             RhnSetDecl.findOrCreate("SsmOperationManagerTestSet", SetCleanup.NOOP);
-        RhnSet set = setDecl.create(ssmUser);
+        serverSet = setDecl.create(ssmUser);
         
         for (int ii = 0; ii < 2; ii++) {
             Server testServer = ServerFactoryTest.createTestServer(ssmUser, true);
-            set.addElement(testServer.getId());
+            serverSet.addElement(testServer.getId());
         }
 
-        RhnSetManager.store(set);
+        RhnSetManager.store(serverSet);
         
-        return set.getLabel();
+        return serverSet.getLabel();
     }
 }

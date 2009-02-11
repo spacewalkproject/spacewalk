@@ -19,6 +19,7 @@
               WHERE ops.operation_id = op.id) as server_count
        FROM rhnSsmOperation op
       WHERE op.user_id = :user_id
+   ORDER BY op.modified DESC
   </query>
 </mode>
    
@@ -41,6 +42,7 @@
         FROM rhnSsmOperation op
        WHERE op.status = :status
          AND op.user_id = :user_id
+    ORDER BY op.modified DESC
    </query>
 </mode>
    
@@ -110,7 +112,7 @@
    <query params="op_id, set_label">
       INSERT INTO rhnSsmOperationServer (operation_id, server_id)
              (
-             SELECT :op_id, s.element
+             SELECT DISTINCT :op_id, s.element
                FROM rhnSet s
               WHERE label = :set_label
                 AND s.element NOT IN

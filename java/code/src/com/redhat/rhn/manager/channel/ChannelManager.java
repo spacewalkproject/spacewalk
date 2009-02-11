@@ -67,9 +67,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1160,7 +1162,40 @@ public class ChannelManager extends BaseManager {
      * @return list of packages in channel
      */
     public static List listAllPackages(Channel channel) {
-        return listAllPackages(channel, null, null);
+        String mode = "all_packages_in_channel";
+        Map params = new HashMap();
+        params.put("cid", channel.getId());
+        
+        SelectMode m = ModeFactory.getMode("Package_queries", mode);
+
+        return m.execute(params); 
+    }
+    
+    /**
+     * Returns list of packages in channel
+     * @param channel channel whose packages are sought
+     * @param startDate package start date
+     * @param endDate package end date
+     * @return list of packages in channel
+     */
+    public static List listAllPackages(Channel channel, Date startDate,
+            Date endDate) {
+
+        // convert the start and end dates to a string representation
+        // that can be used in the db query...
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        String startDateStr = null;
+        String endDateStr = null;
+        
+        if (startDate != null) {
+            startDateStr = sdf.format(startDate);
+        }
+        if (endDate != null) {
+            endDateStr = sdf.format(endDate);
+        }
+        
+        return listAllPackages(channel, startDateStr, endDateStr);
     }
     
     /**

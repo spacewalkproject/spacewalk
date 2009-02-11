@@ -156,7 +156,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				rhnErrataCloned E_1_ on e.id = E_1_.id, 
 				rhnSet S 
 			where S.element = e.id 
-				and S.label = 'errata_list'        	
+				and S.label = :set        	
 				and S.user_id = :uid				
          ]]>
         <return alias="e" class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />

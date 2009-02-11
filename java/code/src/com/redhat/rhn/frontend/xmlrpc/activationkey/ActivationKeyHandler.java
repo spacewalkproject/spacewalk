@@ -107,7 +107,8 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.param #param_desc("string", "baseChannelLabel", "Leave empty to accept 
      * default.")
-     * @xmlrpc.param #param_desc("int", "usageLimit", "Leave blank or -1 for unlimited.")
+     * @xmlrpc.param #param_desc("int", "usageLimit", "If unlimited usage is desired,
+     * use the create API that does not include the parameter.")
      * @xmlrpc.param #array()
      *   #item_desc("string", "Add-on entitlement label to associate with the key.")
      *   #options()
@@ -146,7 +147,7 @@ public class ActivationKeyHandler extends BaseHandler {
         Map<String, String> values = new HashMap<String, String>();
         values.put("description", description);
         values.put("key", key);
-        if (usageLimit != null && usageLimit >= 0) {
+        if (usageLimit != null) {
             values.put("usageLimit", usageLimit.toString());
         }
 

@@ -83,8 +83,9 @@ public abstract class AbstractDatabaseAction implements MessageAction {
             }
             finally {
                 // cleanup the session
-                HibernateFactory.closeSession();
+                    HibernateFactory.closeSession();
             }
         }
     }
+    
 }

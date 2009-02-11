@@ -22,6 +22,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -39,6 +40,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -51,6 +53,7 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -941,13 +944,15 @@ public class ErrataManager extends BaseManager {
      *              provided channel
      * @param customChan the custom channel to check for associations with
      * @param user the user doing the query
+     * @param set the set label
      * @return List of packages
      */
     public static DataResult<PackageOverview> lookupPacksFromErrataSet(
-            boolean packageAssoc, Channel customChan, User user) {
+            boolean packageAssoc, Channel customChan, User user, String set) {
         String mode;
         Map params = new HashMap();
         params.put("uid", user.getId());
+        params.put("set", set);
         if (packageAssoc) {
             mode = "find_packages_for_errata_set_with_assoc";
             params.put("custom_cid", customChan.getId());
@@ -965,11 +970,14 @@ public class ErrataManager extends BaseManager {
     /**
      * lookup errata that are in the set "errata_list"
      * @param user the user to search the set for
+     * @param setLabel the set label
      * @return list of Errata Overview Objects
      */
-   public static DataResult<ErrataOverview> lookupErrataListFromSet(User user) {
+   public static DataResult<ErrataOverview> lookupErrataListFromSet(
+                   User user, String setLabel) {
        Map params = new HashMap();
        params.put("user_id", user.getId());
+       params.put("set", setLabel);
        SelectMode m = ModeFactory.getMode(
                "Errata_queries", "errata_list_in_set");
        return m.execute(params);
@@ -1085,6 +1093,21 @@ public class ErrataManager extends BaseManager {
            }
        }
        
+   }
+   
+   
+   /**
+    * Publish errata to a channel asynchronisly (cloning as necessary), 
+    *   does not do any package push
+    * @param chan the channel
+    * @param errataIds list of errata ids
+    * @param user the user doing the push
+    */
+   public static void publishErrataToChannelAsync(Channel chan, 
+           Collection<Long> errataIds, User user) {
+       Logger.getLogger(ErrataManager.class).error("Publishing");
+       CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
+       MessageQueue.publish(eve);
    }
 
     

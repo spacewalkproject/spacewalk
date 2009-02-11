@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.7
+Version: 0.1.8
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Tue Feb 10 2009 Mike McCune <mmccune@gmail.com> 0.1.8-1
+- 484793: Adde a basic setter to get rid of embed_kickstart check on koan
+
 * Mon Jan 26 2009 Mike McCune <mmccune@gmail.com> 0.1.7-1
 - spec file cleanups
 

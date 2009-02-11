@@ -855,15 +855,19 @@ public class ErrataFactory extends HibernateFactory {
     /**
      * Lookup errata that are in the set "errata_list"
      * @param user the user to search the set for
+     * @param set the set to look in
      * @return List of Errata
      */
-    public static List<Errata> lookupErrataInSet(User user) {
+    public static List<Errata> lookupErrataInSet(User user, String set) {
         
         Map params = new HashMap();
         params.put("uid", user.getId());
+        params.put("set", set);
         return  singleton.listObjectsByNamedQuery(
                         "PublishedErrata.lookupFromSet", params);
     }
+        
+    
     
     /**
      * Lookup an errataFile object by it's errata and package

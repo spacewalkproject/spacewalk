@@ -21,6 +21,7 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 
@@ -282,6 +283,21 @@ public class ErrataCacheManager extends HibernateFactory {
         uece.setErrataId(errata.getId());
         MessageQueue.publish(uece);
     }
+
+    /**
+     *updates the errata caches for the channels passed in.
+     * @param channelIdsToUpdate - channel IDs (Long) that need their errata
+     * caches updated
+     * @param errata the errata to update the cache for
+     */
+    public static void insertCacheForChannelErrata(
+            List<Long> channelIdsToUpdate, Errata errata) {
+        for (Long cid : channelIdsToUpdate) {
+            List<Long> pids = ErrataFactory.listErrataChannelPackages(cid, errata.getId());
+            ErrataCacheManager.insertCacheForChannelPackages(cid, errata.getId(), pids);
+        }
+    }
+    
 
     /**
      * Asynchronusly updates the errata caches for the channels passed in.

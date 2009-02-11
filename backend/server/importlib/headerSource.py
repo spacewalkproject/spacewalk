@@ -207,7 +207,7 @@ class rpmBinaryPackage(Package, rpmPackage):
             # Fedora 10+ rpms have duplicate deps,
             # Lets clean em up before db inserts.
             if tag in ['requires', 'provides', 'obsoletes']:
-                if hash['name'] not in unique_objs:
+                if len(hash['name']) and hash['name'] not in unique_objs:
                     unique_objs.append(hash['name'])
                     obj.populate(hash)
                     self[tag].append(obj)
