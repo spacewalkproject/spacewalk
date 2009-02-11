@@ -1,6 +1,5 @@
 %define cgi_bin        %{_var}/www/cgi-bin
 %define cgi_mod_perl   %{_var}/www/cgi-mod-perl
-%define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SNMPAlerts
 Version:      0.5.4
 Release:      1%{?dist}
@@ -32,21 +31,21 @@ rm -rf $RPM_BUILD_ROOT
 
 # CGI bin and mod-perl bin
 mkdir -p $RPM_BUILD_ROOT%cgi_mod_perl
-mkdir -p $RPM_BUILD_ROOT%registry
 install -m 555 fetch_snmp_alerts.cgi $RPM_BUILD_ROOT%cgi_mod_perl
-install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %registry/Apache.SatConfig-SNMPAlerts
 %cgi_mod_perl/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove dead code (apachereg)
+
 * Sat Jan 10 2009 Milan Zazrivec 0.5.4-1
 - move web data to /var/www
 
