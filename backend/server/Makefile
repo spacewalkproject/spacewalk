@@ -19,7 +19,7 @@ FILES		= __init__ \
                   rhnItem \
                   rhnKickstart \
                   rhnPackageUpload rhnRepository rhnSession rhnUser \
-				  rhnVirtualization
+				  rhnVirtualization taskomatic
 SUBDIRS		= rhnSQL rhnServer action \
 			  handlers importlib action_extra_data \
 			  config_common repomd

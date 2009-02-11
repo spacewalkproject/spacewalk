@@ -310,6 +310,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnSession.py*
 %{rhnroot}/server/rhnUser.py*
 %{rhnroot}/server/rhnVirtualization.py*
+%{rhnroot}/server/taskomatic.py*
 %dir %{rhnroot}/server/rhnServer
 %{rhnroot}/server/rhnServer/*
 %dir %{rhnroot}/server/importlib
@@ -539,6 +540,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Feb 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- taskomatic based repomd changes
+
 * Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
 - removing rhel-instnum dep requires and associated unsed code
 
