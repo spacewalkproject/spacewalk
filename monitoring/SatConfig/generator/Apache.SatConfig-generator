@@ -1,2 +1,0 @@
-Apache->getClassVar('apacheConf')->add_directive(PerlModule => 'Apache::DBI');
-$self->addHandler($self->virtualServer('_default_:80'),'/cgi-bin/configdata.cgi','NOCpulse::SatConfig::GenerateConfig',0);
