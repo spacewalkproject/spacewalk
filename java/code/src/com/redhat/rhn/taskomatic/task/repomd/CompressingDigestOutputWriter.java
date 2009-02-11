@@ -10,6 +10,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPOutputStream;
 
 import org.bouncycastle.crypto.digests.MD5Digest;
+import com.redhat.rhn.common.util.StringUtil;
+
 
 public class CompressingDigestOutputWriter extends OutputStream implements Closeable, Flushable {
 	
@@ -17,7 +19,10 @@ public class CompressingDigestOutputWriter extends OutputStream implements Close
 	private DigestOutputStream compressedDigestStream;
 	private OutputStream compressedStream;
 	
-	
+	/**
+	 * 
+	 * @param stream The stream to compress
+	 */
 	public CompressingDigestOutputWriter(OutputStream stream) {
 		try {
 			compressedDigestStream = new DigestOutputStream(stream, MessageDigest.getInstance("SHA1"));
@@ -31,7 +36,7 @@ public class CompressingDigestOutputWriter extends OutputStream implements Close
 			// XXX fatal runtime exception
 		}
 	}
-	
+
 	public void write(int arg0) throws IOException {
 		uncompressedDigestStream.write(arg0);
 	}
@@ -47,13 +52,19 @@ public class CompressingDigestOutputWriter extends OutputStream implements Close
 	public void close() throws IOException {
 		uncompressedDigestStream.close();
 	}
-	
+	/**
+	 * 
+	 * @return Returns the HexString of the Uncompressed digest stream
+	 */
 	public String getUncompressedChecksum() {
-		return HexStringUtils.getHexString(uncompressedDigestStream.getMessageDigest().digest());
+		return StringUtil.getHexString(uncompressedDigestStream.getMessageDigest().digest());
 	}
-
+    /**
+     * 
+     * @return Returns the HexString of the compressed digest stream
+     */
 	public String getCompressedChecksum() {
-		return HexStringUtils.getHexString(compressedDigestStream.getMessageDigest().digest());
+		return StringUtil.getHexString(compressedDigestStream.getMessageDigest().digest());
 	}
 
 }

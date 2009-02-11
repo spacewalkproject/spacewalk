@@ -556,16 +556,12 @@ public class Package extends BaseDomainHelper {
             .toHashCode();
     }
 
-
-    
     /**
      * @return Returns the package keys.
      */
     public Set<PackageKey> getPackageKeys() {
         return packageKeys;
     }
-
-
     
     /**
      * @param keys The keys to set.
@@ -574,16 +570,12 @@ public class Package extends BaseDomainHelper {
         this.packageKeys = keys;
     }
 
-
-
     /**
      * @return Returns the publishedErrata.
      */
     public Set<PublishedErrata> getPublishedErrata() {
         return publishedErrata;
     }
-
-
 
     /**
      * @param publishedErrataIn The publishedErrata to set.
@@ -592,16 +584,12 @@ public class Package extends BaseDomainHelper {
         this.publishedErrata = publishedErrataIn;
     }
 
-
-
     /**
      * @return Returns the unpublishedErrata.
      */
     public Set<UnpublishedErrata> getUnpublishedErrata() {
         return unpublishedErrata;
     }
-
-
 
     /**
      * @param unpublishedErrataIn The unpublishedErrata to set.
@@ -610,16 +598,12 @@ public class Package extends BaseDomainHelper {
         this.unpublishedErrata = unpublishedErrataIn;
     }
 
-
-
     /**
      * @return Returns the channels.
      */
     public Set<Channel> getChannels() {
         return channels;
     }
-
-
 
     /**
      * @param channelsIn The channels to set.
@@ -628,26 +612,19 @@ public class Package extends BaseDomainHelper {
         this.channels = channelsIn;
     }
 
-
-
     /**
      * @return Returns the packageFiles.
      */
     public Set<PackageFile> getPackageFiles() {
         return packageFiles;
     }
-
-
-
+    
     /**
      * @param packageFilesIn The packageFiles to set.
      */
     public void setPackageFiles(Set<PackageFile> packageFilesIn) {
         this.packageFiles = packageFilesIn;
     }
-
-
-
 
     /**
      * @return Returns the requires.
@@ -656,18 +633,12 @@ public class Package extends BaseDomainHelper {
         return requires;
     }
 
-
-
-
     /**
      * @param requiresIn The requires to set.
      */
     public void setRequires(Set<PackageRequires> requiresIn) {
         this.requires = requiresIn;
     }
-
-
-
 
     /**
      * @return Returns the obsoletes.
@@ -676,18 +647,12 @@ public class Package extends BaseDomainHelper {
         return obsoletes;
     }
 
-
-
-
     /**
      * @param obsoletesIn The obsoletes to set.
      */
     public void setObsoletes(Set<PackageObsoletes> obsoletesIn) {
         this.obsoletes = obsoletesIn;
     }
-
-
-
 
     /**
      * @return Returns the conflicts.
@@ -696,9 +661,6 @@ public class Package extends BaseDomainHelper {
         return conflicts;
     }
 
-
-
-
     /**
      * @param conflictsIn The conflicts to set.
      */
@@ -706,25 +668,35 @@ public class Package extends BaseDomainHelper {
         this.conflicts = conflictsIn;
     }
     
+    /**
+     * @return Returns the headerStart.
+     */
 	public Long getHeaderStart() {
 		return headerStart;
 	}
-
+	/**
+     * @param headerStart The headerStart to set.
+     */
 	public void setHeaderStart(Long headerStart) {
 		this.headerStart = headerStart;
 	}
-	
+	/**
+     * @return Returns the headerEnd.
+     */
 	public Long getHeaderEnd() {
 		return headerEnd;
 	}
-
+	/**
+     * @param headerEnd The headerEnd to set.
+     */
 	public void setHeaderEnd(Long headerEnd) {
 		this.headerEnd = headerEnd;
 	}
 
-
-
-	public String getProxyFriendlyFilename() {
+	/**
+     * @return Returns the pkgFile.
+     */
+	public String getFilename() {
 		String pkgFile = getFile();
 		if (pkgFile == null) {
 			pkgFile = getPackageName().getName() + "-" + getPackageEvr().getVersion() + "-"
@@ -733,9 +705,5 @@ public class Package extends BaseDomainHelper {
 		}
 		return pkgFile;
 	}
-
-    public String getFilename() {
-        return this.getProxyFriendlyFilename();
-    }
 
 }

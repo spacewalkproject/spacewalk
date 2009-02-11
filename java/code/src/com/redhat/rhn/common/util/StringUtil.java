@@ -770,6 +770,19 @@ public class StringUtil {
         return originalPath + toAdd;
     }
     
+    /**
+     * 
+     * @param b The byteArray of the compressedDigest stream
+     * @return the hexString equivalent
+     */
+    public static String getHexString(byte[] b) {
+		String result = "";
+		for (int i=0; i < b.length; i++) {
+			result += Integer.toString( ( b[i] & 0xff ) + 0x100, 16).substring( 1 );
+		}
+		return result;
+	}
+    
     
     
 }

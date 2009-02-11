@@ -178,6 +178,9 @@ public class ChannelArch extends BaseDomainHelper {
                 .toString();
     }
     
+    /**
+     * @param arches The compatible package arches to set.
+     */
     public void setCompatiblePackageArches(Set<PackageArch> arches) {
     		compatiblePackageArches = arches;
     }

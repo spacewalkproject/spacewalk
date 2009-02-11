@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
+import com.redhat.rhn.common.util.StringUtil;
 
 public class RepositoryWriter {
 	
@@ -189,7 +190,7 @@ public class RepositoryWriter {
 
         Date timeStamp = new Date(compsFile.lastModified() * 1000);
 
-        return new RepomdIndexData(HexStringUtils.getHexString(
+        return new RepomdIndexData(StringUtil.getHexString(
         		digestStream.getMessageDigest().digest()),
                 null, timeStamp);
     }

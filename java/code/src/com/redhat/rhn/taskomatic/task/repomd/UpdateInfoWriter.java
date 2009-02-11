@@ -125,7 +125,7 @@ public class UpdateInfoWriter extends RepomdWriter {
                 handler.startElement("package", attr);
 
                 handler.addElementWithCharacters("filename", sanitize(pkgId, 
-                                                  pkg.getProxyFriendlyFilename()));
+                                                  pkg.getFilename()));
 
                 attr.clear();
                 attr.addAttribute("type", "md5");

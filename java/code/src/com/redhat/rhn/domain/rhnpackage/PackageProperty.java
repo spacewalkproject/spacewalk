@@ -88,7 +88,9 @@ public class PackageProperty extends BaseDomainHelper {
     		return "GE";
     	}
     }
-
+    /**
+     * @param senseIn The sense to set.
+     */
     public void setSenseFromString(String senseIn) {
     	Long sense;
     	

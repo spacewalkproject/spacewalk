@@ -781,25 +781,6 @@ public class PackageManager extends BaseManager {
     }
 
     /**
-     * Looks at a published errata and a channel and returns a list of PackageOverviews
-     * containing the packages that are not in the channel and should therefore be 
-     * automatically pushed into the channel.
-     * @param cid channel id
-     * @param eid errata id
-     * @return DataResult of PackageOverviews
-     */
-    public static DataResult packagesToAutoPushIntoChannel(Long cid, Long eid) {
-        Map params = new HashMap();
-        params.put("cid", cid);
-        params.put("eid", eid);
-        
-        SelectMode m = ModeFactory.getMode("Package_queries", 
-                                           "packages_for_auto_pushing_into_channel");
-        
-        return m.execute(params);
-    }
-    
-    /**
      * Given a server this method returns the redhat-release package.
      * This package is a marker package and holds information like
      * the rhel release and can be futher queried to get the evr information.   

@@ -25,7 +25,11 @@ public class ChannelRepodataWorker implements QueueWorker {
     private String           channelLabelToProcess;
     
     private List             queueEntries;
-
+    /**
+     * 
+     * @param workItem 
+     * @param parentLogger
+     */
     public ChannelRepodataWorker(Map workItem, Logger parentLogger) {
         logger = parentLogger;
         String prefixPath = Config.get().getString(Config.REPOMD_PATH_PREFIX, "rhn/repodata");
@@ -34,11 +38,15 @@ public class ChannelRepodataWorker implements QueueWorker {
         repoWriter = new RepositoryWriter(prefixPath, mountPoint );
         logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath + "), mountPoint(" + mountPoint + ")" + "for channel_label (" + channelLabelToProcess + ")"); 
     }
-
+    /**
+     * {@inheritDoc}
+     */
     public void setParentQueue(TaskQueue queue) {
         parentQueue = queue;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     public void run() {
         try {
             parentQueue.workerStarting();
@@ -78,21 +86,30 @@ public class ChannelRepodataWorker implements QueueWorker {
             parentQueue.workerDone();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     private void populateQueueEntryDetails() {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
         Map<Object, Object> params = new HashMap<Object,Object>();
         params.put("channel_label", channelLabelToProcess);
         queueEntries = selector.execute(params);
     }
-
+    /**
+     * 
+     * @return Returns 
+     */
     private boolean isChannelLabelAlreadyInProcess() {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
         Map<Object, Object> params = new HashMap<Object,Object>();
         params.put("channel_label", channelLabelToProcess);
         return (selector.execute(params).size() > 0);
     }
-    
+    /**
+     * 
+     * @param entryToCheck
+     * @return
+     */
     private boolean queueContainsBypass(String entryToCheck) {
         boolean shouldForce = false;
         
@@ -104,7 +121,9 @@ public class ChannelRepodataWorker implements QueueWorker {
         }
         return shouldForce;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     private void markInProgress() throws Exception {
         WriteMode inProgressChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_MARK_IN_PROGRESS);
@@ -129,7 +148,9 @@ public class ChannelRepodataWorker implements QueueWorker {
         }
     }
 
-    
+    /**
+     * {@inheritDoc}
+     */
     private void dequeueChannel() throws Exception {
         WriteMode deqChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_DEQUEUE);
