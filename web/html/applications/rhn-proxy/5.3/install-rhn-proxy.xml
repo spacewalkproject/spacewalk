@@ -9,7 +9,7 @@
   <prerequisites>
     <org-channel-family>rhn-proxy</org-channel-family>
     <system-feature>ftr_proxy_capable</system-feature>
-    <package-available>rhns-proxy-management</package-available>
+    <package-available>spacewalk-proxy-management</package-available>
   </prerequisites>
 
   <terms-and-conditions url="http://www.redhat.com/licenses" />
@@ -18,7 +18,7 @@
 
     <requirements>
       <system-entitlement-possible>provisioning_entitled</system-entitlement-possible>
-      <package-available>rhns-proxy-management</package-available>
+      <package-available>spacewalk-proxy-management</package-available>
       <client-capable>script.run</client-capable>
       <client-capable>configfiles.deploy</client-capable>
     </requirements>
