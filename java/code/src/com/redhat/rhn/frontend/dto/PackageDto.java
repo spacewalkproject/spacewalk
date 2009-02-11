@@ -23,21 +23,21 @@ public class PackageDto extends BaseDto {
     private String packageEpoch;
     private String packageArchLabel;
     private String md5sum;
-    private BigDecimal cid;
+    private Long cid;
     private String channelName;
     private String summary;
     private String description;
     private Date buildTime;
-    private BigDecimal packageSize;
-    private BigDecimal payloadSize;
+    private Long packageSize;
+    private Long payloadSize;
     private String path;
     private String copyright;
     private String vendor;
     private String packageGroupName;
     private String buildHost;
     private String sourceRpm;
-    private BigDecimal headerStart;
-    private BigDecimal headerEnd;
+    private Long headerStart;
+    private Long headerEnd;
 
     @Override
     public Long getId() {
@@ -64,13 +64,13 @@ public class PackageDto extends BaseDto {
     /**
      * @return Returns the channel id.
      */
-    public BigDecimal getCid() {
+    public Long getCid() {
         return cid;
     }
     /**
      * @param channelName The channel id to set.
      */
-    public void setCid(BigDecimal cid) {
+    public void setCid(Long cid) {
         this.cid = cid;
     }
     /**
@@ -214,28 +214,28 @@ public class PackageDto extends BaseDto {
      * 
      * @return Returns the package size
      */
-    public BigDecimal getPackageSize() {
+    public Long getPackageSize() {
         return packageSize;
     }
     /**
      * 
      * @param packageSize The packagesize to set.
      */
-    public void setPackageSize(BigDecimal packageSize) {
+    public void setPackageSize(Long packageSize) {
         this.packageSize = packageSize;
     }
     /**
      * 
      * @return Returns the payload size
      */
-    public BigDecimal getPayloadSize() {
+    public Long getPayloadSize() {
         return payloadSize;
     }
     /**
      * 
      * @param payloadSize The payload size to set.
      */
-    public void setPayloadSize(BigDecimal payloadSize) {
+    public void setPayloadSize(Long payloadSize) {
         this.payloadSize = payloadSize;
     }
     /**
@@ -326,28 +326,28 @@ public class PackageDto extends BaseDto {
      * 
      * @return Returns the package HeaderStart
      */
-    public BigDecimal getHeaderStart() {
+    public Long getHeaderStart() {
         return headerStart;
     }
     /**
      * 
      * @param headerStart The package HeaderStart to set.
      */
-    public void setHeaderStart(BigDecimal headerStart) {
+    public void setHeaderStart(Long headerStart) {
         this.headerStart = headerStart;
     }
     /**
      * 
      * @return Returns the package HeaderEnd
      */
-    public BigDecimal getHeaderEnd() {
+    public Long getHeaderEnd() {
         return headerEnd;
     }
     /**
      * 
      * @param headerEnd The package HeaderEnd to set.
      */
-    public void setHeaderEnd(BigDecimal headerEnd) {
+    public void setHeaderEnd(Long headerEnd) {
         this.headerEnd = headerEnd;
     }
 
