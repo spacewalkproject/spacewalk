@@ -1,1 +1,0 @@
-$self->addHandler($self->virtualServer('_default_:80'),'/cgi-bin/fetch_netsaintid.cgi','NOCpulse::SatConfig::Bootstrap',0);

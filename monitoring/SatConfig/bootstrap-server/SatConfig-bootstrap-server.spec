@@ -27,23 +27,23 @@ This package dole out ID's and descriptions to bootstrapping scouts.
 rm -rf $RPM_BUILD_ROOT
 
 # CGI bin
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/SatConfig
 install -m 644 Bootstrap.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/SatConfig
 install -m 644 TranslateKey.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/SatConfig
-install -m 644 Apache.SatConfig-bootstrap-server $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
-%config(noreplace) %{_sysconfdir}/rc.d/np.d/apachereg/Apache.SatConfig-bootstrap-server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove dead code (apachereg)
+
 * Wed Jan  7 2009 Milan Zazrivec 1.13.2-1
 - build for Spacewalk 0.4
 
