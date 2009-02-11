@@ -3,7 +3,6 @@
 %define templatedir    /var/www/templates
 %define bin            %{_bindir}
 %define vardir         /var/lib/nocpulse
-%define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:      0.48.6
@@ -53,10 +52,8 @@ install -m 644 lib/CommandQueue.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Com
 # CGI bin and mod-perl bin
 mkdir -p $RPM_BUILD_ROOT%cgi_bin
 mkdir -p $RPM_BUILD_ROOT%cgi_mod_perl
-mkdir -p $RPM_BUILD_ROOT%registry
 install -m 755 html/cgi-mod-perl/*.cgi $RPM_BUILD_ROOT%cgi_mod_perl
 install -m 755 html/cgi-bin/*.cgi $RPM_BUILD_ROOT%cgi_bin
-install -m 644 html/cgi-bin/registry.fetch_commands $RPM_BUILD_ROOT%registry/Apache.SputLite-server.fetch_commands
 
 # Server HTML templates
 mkdir -p $RPM_BUILD_ROOT%templatedir
@@ -83,7 +80,6 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 %cgi_bin/*
 %cgi_mod_perl/*
 %templatedir/*
-%registry/*
 
 %files client
 %defattr(-,root,root,-)
@@ -97,6 +93,9 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove dead code (apachereg)
+
 * Mon Feb  9 2009 Jan Pazdziora 0.48.6-1
 - look at /proc/.../stat directly, instead of running ps
 
