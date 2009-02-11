@@ -21,7 +21,8 @@ rhnPackageConflicts
         package_id      number
                         constraint rhn_pkg_conflicts_pid_nn not null
                         constraint rhn_pkg_conflicts_package_fk
-                                references rhnPackage(id),
+                                references rhnPackage(id)
+                                on delete cascade,
         capability_id   number
                         constraint rhn_pkg_conflicts_cid_nn not null
                         constraint rhn_pkg_conflicts_cap_fk

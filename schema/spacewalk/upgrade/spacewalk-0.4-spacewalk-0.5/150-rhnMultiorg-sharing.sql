@@ -42,6 +42,15 @@ ALTER TABLE rhnPackageObsoletes
     references rhnPackage (id)
     on delete cascade;
 
+ALTER TABLE rhnPackageConflicts
+  DROP constraint rhn_pkg_conflicts_package_fk;
+
+ALTER TABLE rhnPackageConflicts
+  ADD constraint rhn_pkg_conflicts_package_fk
+    foreign key (package_id)
+    references rhnPackage (id)
+    on delete cascade;
+
 ALTER TABLE rhnPackageProvides
   DROP constraint rhn_pkg_provides_package_fk;
 
