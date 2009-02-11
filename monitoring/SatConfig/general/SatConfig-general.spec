@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.5
+Version:      1.216.6
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -61,7 +61,7 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.5-1
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.6-1
 - remove dependency on perl-Apache-Admin-Config
 - remove dead code (apachereg)
 
