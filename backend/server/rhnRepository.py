@@ -28,7 +28,7 @@ from common import rhnRepository, rhnFlags, rhnCache, redirectException
 from common.rhnLib import rfc822time, timestamp
 
 # local modules imports
- from server import rhnChannel, rhnPackage, taskomatic, rhnSQL
+from server import rhnChannel, rhnPackage, taskomatic, rhnSQL
 from rhnServer import server_lib
 from repomd import repository
 
