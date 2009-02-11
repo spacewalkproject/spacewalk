@@ -28,7 +28,7 @@ from string import strip
 
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
-from spacewalk.releng.cvs import CvsBuilder
+from spacewalk.releng.cvs import CvsReleaser
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
 from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
@@ -192,19 +192,13 @@ class CLI:
             self._run_untagged_report(global_config)
             sys.exit(1)
 
-        # TODO: Another shortcut, clean this up when refactoring to a command
-        # based model:
-        if options.cvs_release:
-            self._run_cvs_release(global_config, package_name)
-            sys.exit(1)
-
         build_tag = None
         build_version = None
         # Determine which package version we should build:
         if options.tag:
             build_tag = options.tag
             build_version = build_tag[len(package_name + "-"):]
-        elif building:
+        elif building or options.cvs_release:
             build_version = get_latest_tagged_version(package_name)
             if build_version == None:
                 error_out(["Unable to lookup latest package info.",
@@ -217,14 +211,18 @@ class CLI:
         pkg_config = self._read_project_config(package_name, build_dir,
                 options.tag, options.no_cleanup)
 
-        # Actually do things:
-        if building:
-            self._run_builder(package_name, build_tag, build_version, options,
-                    pkg_config, global_config, build_dir)
+        if building or options.cvs_release:
+            builder = self._create_builder(package_name, build_tag,
+                    build_version, options, pkg_config, global_config,
+                    build_dir)
+            if building:
+                builder.run(options)
+            elif options.cvs_release:
+                self._run_cvs_release(global_config, builder)
         elif tagging:
             self._run_tagger(options, pkg_config, global_config)
 
-    def _run_builder(self, package_name, build_tag, build_version, options,
+    def _create_builder(self, package_name, build_tag, build_version, options,
             pkg_config, global_config, build_dir):
 
         builder_class = None
@@ -247,8 +245,7 @@ class CLI:
                 dist=options.dist,
                 test=options.test,
                 offline=options.offline)
-
-        builder.run(options)
+        return builder
 
     def _run_tagger(self, options, pkg_config, global_config):
         tagger_class = None
@@ -285,12 +282,12 @@ class CLI:
                 project_dir = os.path.join(git_root, relative_dir)
                 self._print_diff(global_config, md_file, version, project_dir)
 
-    def _run_cvs_release(self, global_config, package_name):
+    def _run_cvs_release(self, global_config, builder):
         """
         Import sources into CVS, tag and build in the build system configured
         for this git repository.
         """
-        cvs_builder = CvsBuilder(global_config, package_name)
+        cvs_builder = CvsReleaser(global_config, builder)
         cvs_builder.run()
 
     def _print_diff(self, global_config, package_name, version, project_dir):

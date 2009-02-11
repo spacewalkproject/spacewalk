@@ -53,7 +53,6 @@ class Builder(object):
 
         self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
-        print("Building package [%s]" % (self.build_tag))
 
         self.git_commit_id = get_build_commit(tag=self.build_tag, 
                 test=self.test)
@@ -95,6 +94,7 @@ class Builder(object):
         NOTE: this method may do nothing if the user requested no build actions
         be performed. (i.e. only release tagging, etc)
         """
+        print("Building package [%s]" % (self.build_tag))
         self.no_cleanup = options.no_cleanup
 
         if options.tgz:
@@ -359,7 +359,11 @@ class SatelliteBuilder(NoTgzBuilder):
         self.patch_filename = None
         self.patch_file = None
 
-    def _setup_sources(self):
+    def tgz(self):
+        """
+        Override parent behavior, we need a tgz from the upstream spacewalk
+        project we're based on.
+        """
         # TODO: Wasteful step here, all we really need is a way to look for a
         # spec file at the point in time this release was tagged.
         NoTgzBuilder._setup_sources(self)
@@ -390,18 +394,20 @@ class SatelliteBuilder(NoTgzBuilder):
         commit = get_build_commit(tag=self.upstream_tag)
         relative_dir = get_relative_project_dir(
                 project_name=self.upstream_name, commit=commit)
+        tgz_fullpath = os.path.join(self.rpmbuild_sourcedir, tgz_filename)
         print("Creating %s from git tag: %s..." % (tgz_filename, commit))
         create_tgz(self.git_root, prefix, commit, relative_dir, 
-                self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
-                    tgz_filename))
+                self.rel_eng_dir, tgz_fullpath)
+        self.ran_tgz = True
 
         # If these are equal then the tag we're building was likely created in 
         # Spacewalk and thus we don't need to do any patching.
         if (self.upstream_tag == self.build_tag and not self.test):
-            return
+            return tgz_fullpath
 
         self._generate_patches()
         self._insert_patches_into_spec_file()
+        return tgz_fullpath
 
     def _generate_patches(self):
         """

@@ -23,11 +23,19 @@ from spacewalk.releng.common import run_command, error_out, debug
 
 DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
 
-class CvsBuilder(object):
+class CvsReleaser(object):
+    """
+    Imports sources into CVS, tags packages, and submits to build system.
 
-    def __init__(self, global_config, package_name):
+    Currently this class is only tested with the brew build system. Fedora
+    CVS may require some small modifications when we're ready to use it as
+    such.
+    """
+
+    def __init__(self, global_config, builder):
         self.global_config = global_config
-        self.package_name = package_name
+        self.builder = builder
+        self.package_name = builder.project_name
 
         if not self.global_config.has_section("cvs"):
             error_out("No 'cvs' section found in global.build.py.props")
@@ -65,6 +73,8 @@ class CvsBuilder(object):
         self._verify_branches_exist()
         self._upload_sources()
 
+        # TODO: cleanup
+
     def _verify_branches_exist(self):
         """ Check that CVS checkout contains the branches we expect. """
         os.chdir(os.path.join(self.cvs_workdir, self.package_name))
@@ -79,8 +89,12 @@ class CvsBuilder(object):
         Upload any tarballs to the CVS lookaside directory. (if necessary)
         Uses the "make upload" target in common.
         """
+        # Create the tarball using our builder class:
+        tarball = self.builder.tgz()
+
         # NOTE: Simulating make new-sources in Fedora CVS here. Once this
         # target is available in dist-cvs, this can be replaced.
         for branch in self.cvs_branches:
             os.chdir(os.path.join(self.cvs_workdir, self.package_name, branch))
-            output = run_command('make upload FILES="%s"')
+            output = run_command('make upload FILES="%s"' % tarball)
+            print output
