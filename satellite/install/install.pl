@@ -167,9 +167,9 @@ EOQ
     exit 2;
   }
 
-  if (not $opts->{"skip-selinux-test"}
-      and selinux_enabled(%version_info)) {
-    print loc(<<EOH);
+  if (not $opts->{"skip-selinux-test"}) {
+    if (selinux_enabled(%version_info)) {
+      print loc(<<EOH);
 SELinux must be in Permissive or Disabled mode for your RHN Satellite to install
 and function properly. If you wish to setup RHN Satellite to run in Enforcing
 mode see this Red Hat Knowledge Base article:
@@ -181,7 +181,8 @@ are certain that you are not in Enforcing mode you can re-run the installer with
 the flag --skip-selinux-test
 
 EOH
-    exit 3;
+      exit 3;
+    }
   }
 
   if (not $opts->{"skip-fqdn-test"}
