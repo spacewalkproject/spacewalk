@@ -23,7 +23,7 @@ rhnSourceRPM
 			constraint rhn_sourceRPM_id_nn not null
 			constraint rhn_sourceRPM_id_pk primary key
 			using index tablespace [[64k_tbs]],
-	name		varchar2(128)
+	name		varchar2(256)
 			constraint rhn_sourcerpm_name_nn not null
 )
 	enable row movement
