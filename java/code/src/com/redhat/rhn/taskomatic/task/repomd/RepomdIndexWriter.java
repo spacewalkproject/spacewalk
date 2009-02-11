@@ -17,7 +17,15 @@ public class RepomdIndexWriter {
 	private RepomdIndexData updateinfo;
 	private RepomdIndexData group;
 	
-	
+	/**
+	 * 
+	 * @param writer
+	 * @param primary
+	 * @param filelists
+	 * @param other
+	 * @param updateinfo
+	 * @param group
+	 */
 	public RepomdIndexWriter(Writer writer, RepomdIndexData primary, RepomdIndexData filelists,
 			RepomdIndexData other, RepomdIndexData updateinfo, RepomdIndexData group) {
 		
@@ -44,7 +52,9 @@ public class RepomdIndexWriter {
 			// XXX fatal error
 		}
 	}
-
+    /**
+     * writes the repomd index
+     */
 	public void writeRepomdIndex() {
 		begin();
 		writeData("primary", primary);
@@ -63,7 +73,11 @@ public class RepomdIndexWriter {
 		
 		end();
 	}
-	
+	/**
+	 * Writes the data to xml
+	 * @param type
+	 * @param data Repomd index data
+	 */
 	private void writeData(String type, RepomdIndexData data) {
 		SimpleAttributesImpl attr = new SimpleAttributesImpl();
 		attr.addAttribute("type", type);
@@ -105,7 +119,9 @@ public class RepomdIndexWriter {
 			throw new RepomdRuntimeException(e);
 		}
 	}
-	
+	/**
+	 * begin the xml creation
+	 */
 	private void begin() {
 		SimpleAttributesImpl attr = new SimpleAttributesImpl();
 		attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/repo");
@@ -116,7 +132,9 @@ public class RepomdIndexWriter {
 			throw new RepomdRuntimeException(e);
 		}
 	}
-
+    /**
+     * End xml creation
+     */
 	private void end() {
 		try {
 			handler.endElement("repomd");

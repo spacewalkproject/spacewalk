@@ -31,12 +31,20 @@ public class RepositoryWriter {
     private Logger log = Logger.getLogger(RepositoryWriter.class);
     private String pathPrefix;
     private String mountPoint;
-
+    /**
+     * Constructor takes in pathprefix and mountpoint
+     * @param pathPrefix prefix to package path
+     * @param mountPoint mount point package resides
+     */
     public RepositoryWriter(String pathPrefix, String mountPoint) {
         this.pathPrefix = pathPrefix;
         this.mountPoint = mountPoint;
     }
-
+    /**
+     * 
+     * @param channel channel info
+     * @return repodata sanity
+     */
     public boolean isChannelRepodataStale(Channel channel)
     {
         File theFile = new File(mountPoint + File.separator + pathPrefix + 
@@ -46,6 +54,10 @@ public class RepositoryWriter {
 	    //is moved into the correct location.
 	    return !fileModifiedDate.equals(channel.getLastModified());
     }
+    /**
+     * 
+     * @param channel channelinfo for repomd file creation
+     */
     public void writeRepomdFiles(Channel channel) {
         log.info("Generating new repository metatada for channel '" + channel.getLabel()
                 + "' " + channel.getPackages().size() + " packages, "
@@ -158,7 +170,11 @@ public class RepositoryWriter {
         		"' finished in " + (int) (new Date().getTime() - start.getTime())/1000 + 
         		" seconds");
     }
-
+    /**
+     * 
+     * @param channel channel indo
+     * @return repomd index for given channel
+     */
     private RepomdIndexData loadCompsFile(Channel channel) {
     	if (channel.getComps() == null) {
             return null;
@@ -195,6 +211,12 @@ public class RepositoryWriter {
                 null, timeStamp);
     }
 
+    /**
+     * Generates update info for given channel
+     * @param channel channel info
+     * @param prefix repodata file prefix
+     * @return repodata index
+     */
     private RepomdIndexData generateUpdateinfo(Channel channel, String prefix) {
 	
         if (channel.getErratas().size() == 0) {
@@ -225,7 +247,12 @@ public class RepositoryWriter {
                 updateinfoFile.getUncompressedChecksum(), channel.getLastModified());
         return updateinfoData;
         }
-
+    /**
+     * Renames the repo cache files
+     * @param prefix path prefix
+     * @param lastModified file last_modified
+     * @param doUpdateinfo
+     */
     private void renameFiles(String prefix, Long lastModified, Boolean doUpdateinfo) {
         File primary = new File(prefix + PRIMARY_FILE);
         File filelists = new File(prefix + FILELISTS_FILE);
@@ -257,7 +284,10 @@ public class RepositoryWriter {
 
     }
 
-	
+	/**
+	 * Deletes repomd files
+	 * @param channelLabelToProcess channel label
+	 */
     public void deleteRepomdFiles(String channelLabelToProcess) {
         log.info("Removing " + channelLabelToProcess);
         String prefix = mountPoint + pathPrefix + File.separator + channelLabelToProcess;

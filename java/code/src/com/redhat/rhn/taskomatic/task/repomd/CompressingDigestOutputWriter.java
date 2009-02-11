@@ -9,7 +9,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPOutputStream;
 
-import org.bouncycastle.crypto.digests.MD5Digest;
 import com.redhat.rhn.common.util.StringUtil;
 
 

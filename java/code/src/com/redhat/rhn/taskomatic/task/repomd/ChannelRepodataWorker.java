@@ -39,13 +39,13 @@ public class ChannelRepodataWorker implements QueueWorker {
         logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath + "), mountPoint(" + mountPoint + ")" + "for channel_label (" + channelLabelToProcess + ")"); 
     }
     /**
-     * {@inheritDoc}
+     * Sets the parent queue 
      */
     public void setParentQueue(TaskQueue queue) {
         parentQueue = queue;
     }
     /**
-     * {@inheritDoc}
+     *  runner method to process the parentQueue
      */
     public void run() {
         try {
@@ -87,7 +87,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         }
     }
     /**
-     * {@inheritDoc}
+     * populates the queue details for repomd event
      */
     private void populateQueueEntryDetails() {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
@@ -97,7 +97,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     }
     /**
      * 
-     * @return Returns 
+     * @return Returns the progress status of the channel
      */
     private boolean isChannelLabelAlreadyInProcess() {
         SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
@@ -108,7 +108,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     /**
      * 
      * @param entryToCheck
-     * @return
+     * @return Returns a boolean to force or not
      */
     private boolean queueContainsBypass(String entryToCheck) {
         boolean shouldForce = false;
@@ -122,7 +122,7 @@ public class ChannelRepodataWorker implements QueueWorker {
         return shouldForce;
     }
     /**
-     * {@inheritDoc}
+     * marks the channel as in progress to avoid conflicts
      */
     private void markInProgress() throws Exception {
         WriteMode inProgressChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
@@ -149,7 +149,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     }
 
     /**
-     * {@inheritDoc}
+     *  dequeue the queued channel for repomd generation
      */
     private void dequeueChannel() throws Exception {
         WriteMode deqChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,

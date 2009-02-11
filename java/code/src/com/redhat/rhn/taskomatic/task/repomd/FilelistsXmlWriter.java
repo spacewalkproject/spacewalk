@@ -12,11 +12,19 @@ import com.redhat.rhn.taskomatic.task.TaskConstants;
 public class FilelistsXmlWriter extends RepomdWriter {
 
     private PackageCapabilityIterator filelistIterator;
-
+    /**
+     * 
+     * @param writer The writer object for filelist xml
+     */
     public FilelistsXmlWriter(Writer writer) {
         super(writer);
     }
-
+    /**
+     * 
+     * @param channel channel info
+     * @return filelistxml for given channel
+     * @throws Exception
+     */
     public String getFilelistsXml(Channel channel) throws Exception{
         begin(channel);
 
@@ -30,7 +38,9 @@ public class FilelistsXmlWriter extends RepomdWriter {
         return "";
 
     }
-
+    /**
+     * end xml metadata generation
+     */
     public void end() {
         try {
             handler.endElement("filelists");
@@ -41,7 +51,10 @@ public class FilelistsXmlWriter extends RepomdWriter {
         }
 
     }
-
+    /**
+     * Start xml metadata generation
+     * @param channel channel info
+     */
     public void begin(Channel channel) {
         filelistIterator = new PackageCapabilityIterator(channel,
                                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_FILES);
@@ -56,7 +69,10 @@ public class FilelistsXmlWriter extends RepomdWriter {
             throw new RepomdRuntimeException(e);
         }
     }
-
+    /**
+     * 
+     * @param pkgDto pkg info to add to xml
+     */
     public void addPackage(PackageDto pkgDto) {
         try {
             addPackageBoilerplate(handler, pkgDto);
@@ -69,6 +85,11 @@ public class FilelistsXmlWriter extends RepomdWriter {
 
     }
 
+    /**
+     * 
+     * @param pkgId package Id info
+     * @throws SAXException
+     */
     private void addPackageFiles(PackageDto pkgDto) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
         while (filelistIterator.hasNextForPackage(pkgId)) {

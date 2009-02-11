@@ -14,11 +14,19 @@ public class OtherXmlWriter extends RepomdWriter {
 
     private PackageCapabilityIterator changeLogIterator;
     private Logger log = Logger.getLogger(OtherXmlWriter.class);
-
+    /**
+     * 
+     * @param writer The writer object for other.xml
+     */
     public OtherXmlWriter(Writer writer) {
         super(writer);
     }
-
+    /**
+     * 
+     * @param channel channel info
+     * @return other.xml for given channel
+     * @throws Exception
+     */
     public String getOtherXml(Channel channel) throws Exception{
         begin(channel);
 
@@ -32,7 +40,9 @@ public class OtherXmlWriter extends RepomdWriter {
         return "";
 
     }
-
+    /**
+     * Start xml metadata generation
+     */
     public void begin(Channel channel) {
                 changeLogIterator = new PackageCapabilityIterator(channel,
                                         TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
@@ -47,7 +57,9 @@ public class OtherXmlWriter extends RepomdWriter {
             throw new RepomdRuntimeException(e);
         }
     }
-
+    /**
+     * end xml metadata generation
+     */
     public void end() {
         try {
             handler.endElement("otherdata");
@@ -57,7 +69,10 @@ public class OtherXmlWriter extends RepomdWriter {
             throw new RepomdRuntimeException(e);
         }
     }
-
+    /**
+     * 
+     * @param pkgDto pkg info to add to xml
+     */
     public void addPackage(PackageDto pkgDto) {
         try {
             addPackageBoilerplate(handler, pkgDto);
@@ -68,7 +83,11 @@ public class OtherXmlWriter extends RepomdWriter {
             throw new RepomdRuntimeException(e);
         }
     }
-
+    /**
+     * 
+     * @param pkgDto pkg changelog info to add to xml
+     * @throws SAXException
+     */
     private void addPackageChangelog(PackageDto pkgDto) throws SAXException {
 
         long pkgId = pkgDto.getId().longValue();

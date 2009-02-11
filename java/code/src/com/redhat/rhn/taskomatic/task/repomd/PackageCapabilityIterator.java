@@ -31,11 +31,16 @@ public class PackageCapabilityIterator {
     private boolean goBack;
     private boolean hasMoreRows;
 
+    /**
+     * 
+     * @param ch
+     * @param queryNameIn
+     */
     public PackageCapabilityIterator(Channel ch, String queryNameIn) {
         queryName = queryNameIn;
-        // The following usage of SelectMode is only to fetch the named query from the .xml file
-        // and to replace the bind parameters.  We will execute the query through raw JDBC since
-        // we don't want to keep few million rows of data in memory.
+        // The following usage of SelectMode is only to fetch the named query from the .xml
+        // file and to replace the bind parameters.  We will execute the query through raw 
+        // JDBC since we don't want to keep few million rows of data in memory.
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME, queryName);
         String query = NamedPreparedStatement.replaceBindParams(mode.getQuery()
         		.getOrigQuery(), new HashMap());
@@ -54,7 +59,12 @@ public class PackageCapabilityIterator {
             log.error("SQLexception", sqle);
         }
     }
-
+    
+    /**
+     * 
+     * @param pkgId package Id
+     * @return  Returns the next pkg in the sequence
+     */
     public boolean hasNextForPackage(long pkgId) {
         if (!next()) {
             return false;
@@ -82,22 +92,45 @@ public class PackageCapabilityIterator {
         return current == pkgId;
     }
 
+    /**
+     * 
+     * @param key
+     * @return key as string
+     */
     public String getString(String key) {
         return (String) row.get(key.toLowerCase());
     }
 
+    /**
+     * 
+     * @param key
+     * @return key as bigDecimal number
+     */
     public BigDecimal getNumber(String key) {
         return (BigDecimal) row.get(key.toLowerCase());
     }
 
+    /**
+     * 
+     * @param key
+     * @return key as date
+     */
     public Date getDate(String key) {
         return (Date) row.get(key.toLowerCase());
     }
 
+    /**
+     * 
+     * @return package Id
+     */
     private long getPkgId() {
         return Long.valueOf(row.get(PACKAGE_ID).toString());
     }
 
+    /**
+     * 
+     * @return next element in the row
+     */
     private boolean next() {
         if (!hasMoreRows) {
             return false;
@@ -125,6 +158,9 @@ public class PackageCapabilityIterator {
         return hasMoreRows;
     }
 
+    /**
+     * stores the elements to the row object
+     */
     private void storeRow() {
         try {
             for (int i=1; i<=rsmd.getColumnCount(); i++) {

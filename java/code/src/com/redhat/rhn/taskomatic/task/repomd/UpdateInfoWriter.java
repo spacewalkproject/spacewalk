@@ -14,11 +14,18 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnpackage.Package;
 
 public class UpdateInfoWriter extends RepomdWriter {
-
+    /**
+     * Constructor takes in writer
+     * @param writer
+     */
     public UpdateInfoWriter(Writer writer) {
         super(writer);
     }
-
+    /**
+     * Get the updateInfo for given channel
+     * @param channel channel info
+     * @return updateInfo
+     */
     public String getUpdateInfo(Channel channel) {
         begin(channel);
 
@@ -38,7 +45,9 @@ public class UpdateInfoWriter extends RepomdWriter {
         return "";
 
     }
-
+    /**
+     * Ends the xml creation
+     */
     public void end() {
     	try {
             handler.endElement("updates");
@@ -48,7 +57,9 @@ public class UpdateInfoWriter extends RepomdWriter {
             throw new RepomdRuntimeException(e);
         }
     }
-
+    /**
+     * Starts xml creation
+     */
     public void begin(Channel channel) {
         try {
             handler.startElement("updates");
@@ -57,7 +68,12 @@ public class UpdateInfoWriter extends RepomdWriter {
             throw new RepomdRuntimeException(e);
         }
     }
-
+    /**
+     * Add erratum to repodata for given channel
+     * @param erratum erratum to be added
+     * @param channel channel info
+     * @throws SAXException
+     */
     private void addErratum(Errata erratum, Channel channel) throws SAXException {
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("from", "security@redhat.com");
@@ -89,7 +105,12 @@ public class UpdateInfoWriter extends RepomdWriter {
 
         handler.endElement("update");
     }
-
+    /**
+     * Adds packages associated to the errata
+     * @param erratum erratum to be added
+     * @param channel channel info
+     * @throws SAXException
+     */
     private void addErratumPkgList(Errata erratum, Channel channel) 
         throws SAXException {
         handler.startElement("pkglist");
@@ -142,7 +163,11 @@ public class UpdateInfoWriter extends RepomdWriter {
         handler.endElement("pkglist");
 
     }
-
+    /**
+     * Adds references info from the errata
+     * @param erratum  erratum to be added
+     * @throws SAXException
+     */
     private void addErratumReferences(Errata erratum) throws SAXException {
         handler.startElement("references");
 
@@ -175,7 +200,11 @@ public class UpdateInfoWriter extends RepomdWriter {
 
         handler.endElement("references");
     }
-
+    /**
+     * Maps the Errata advisory type info
+     * @param advisoryType Errata advisory type
+     * @return advisory as a string
+     */
     private static String mapAdvisoryType(String advisoryType) {
         if (advisoryType.equals("Bug Fix Advisory")) {
             return "bugfix";

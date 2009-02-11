@@ -34,7 +34,10 @@ public abstract class RepomdWriter {
     }
 
     private static Logger log = Logger.getLogger(RepomdWriter.class);
-
+    /**
+     * Constructor takes in a writer
+     * @param writer
+     */
     public RepomdWriter(Writer writer) {
 
         OutputFormat of = new OutputFormat();
@@ -55,7 +58,11 @@ public abstract class RepomdWriter {
             // XXX fatal error
         }
     }
-
+    /**
+     * 
+     * @param channel channel info 
+     * @return
+     */
     protected static Iterator getChannelPackageDtoIterator(Channel channel) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES);
@@ -63,7 +70,12 @@ public abstract class RepomdWriter {
         params.put("channel_id", channel.getId());
         return m.execute(params).iterator();
     }
-
+    /**
+     * 
+     * @param handler content handler
+     * @param pkgDto  package info dto object
+     * @throws SAXException
+     */
     protected static void addPackageBoilerplate(SimpleContentHandler handler,
     		                                    PackageDto pkgDto)
             throws SAXException {
@@ -82,11 +94,19 @@ public abstract class RepomdWriter {
         handler.startElement("version", attr);
         handler.endElement("version");
     }
-
+    /**
+     * 
+     * @param pkg package object
+     * @return package epoch string
+     */
     protected static String getPackageEpoch(Package pkg) {
         return getPackageEpoch(pkg.getPackageEvr().getEpoch());
     }
-
+    /**
+     * 
+     * @param epoch package epoch string
+     * @return modified epoch string
+     */
     protected static String getPackageEpoch(String epoch) {
         if (epoch == null || epoch.length() == 0) {
             epoch = "0";
