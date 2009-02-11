@@ -18,17 +18,19 @@ import com.redhat.rhn.common.security.errata.PublishedOnlyException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.AbstractErrata;
 import com.redhat.rhn.domain.errata.Keyword;
+import com.redhat.rhn.domain.errata.Cve;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Errata - Class representation of the table rhnErrata.
  * @version $Rev: 51306 $
  */
-public class UnpublishedErrata extends PublishedErrata {
+public class UnpublishedErrata extends AbstractErrata {
     
-    
+	private Set <Cve> cves = new HashSet<Cve>();
     /**
      * {@inheritDoc}
      */
@@ -102,5 +104,17 @@ public class UnpublishedErrata extends PublishedErrata {
     public Set getNotificationQueue() {
         //if this gets called on an unpublished errata, just return null
         return null;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public void setCves(Set <Cve> cves) {
+        this.cves = cves;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public Set <Cve> getCves() {
+        return cves;
     }
 }
