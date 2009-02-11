@@ -1,7 +1,7 @@
 %define cgi_bin        %{_var}/www/cgi-bin
 %define cgi_mod_perl   %{_var}/www/cgi-mod-perl
 Name:         SNMPAlerts
-Version:      0.5.4
+Version:      0.5.5
 Release:      1%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 URL:          https://fedorahosted.org/spacewalk
@@ -43,7 +43,7 @@ install -m 555 fetch_snmp_alerts.cgi $RPM_BUILD_ROOT%cgi_mod_perl
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
 - remove dead code (apachereg)
 
 * Sat Jan 10 2009 Milan Zazrivec 0.5.4-1
