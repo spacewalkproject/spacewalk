@@ -67,6 +67,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove dependency on perl-Apache-Admin-Config
+
 * Mon Feb  9 2009 Jan Pazdziora 1.216.4-1
 - use Sys::Hostname::hostname instead of /bin/hostname
 
