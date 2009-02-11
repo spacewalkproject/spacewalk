@@ -32,22 +32,20 @@ mkdir -p  $RPM_BUILD_ROOT/nocpulse/scdb/bdb
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 install -m 644 SCDB.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
-# Add registry entries
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
-install -m 644  Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
-
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
 %defattr(-,root,root,-)
 %attr(755,apache,apache) %dir /nocpulse/scdb/bdb
-%{_sysconfdir}/rc.d/np.d/apachereg/Apache.scdb
 %{perl_vendorlib}/NOCpulse/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove dead code (apachereg)
+
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.5-1
 - NOCpulse::Oracle is renamed to NOCpulse::Database
 

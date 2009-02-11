@@ -1,3 +1,0 @@
-my $handler = $self->addHandler($self->virtualServer('_default_:80'),'/scdb','NOCpulse::SCDB',0);
-$handler->add_directive(PerlSetEnv => 'BDBROOT /nocpulse/scdb/bdb',-ontop);
-#$self->allowLocation($self->virtualServer('_default:7979'),'/db');
