@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.3
+Version:        0.5.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Feb 11 2009 Milan Zazrivec 0.5.4-1
+- fixed multiorg sql upgrade script
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.3-1
 - 443718 - fixing a view mistage and having a query just use the view
 - 443718 - improving errata cache calcs when pushing a single errata
