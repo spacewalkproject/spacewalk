@@ -1173,11 +1173,13 @@ ORDER BY UPPER(S.name)
 SELECT PN.name, 
        PE.version, 
        PE.release, 
-       NVL(PE.epoch, ' ') as epoch
-  FROM rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP
+       NVL(PE.epoch, ' ') as epoch,
+       PA.name as arch
+  FROM rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP, rhnPackageArch PA
  WHERE SP.server_id = :sid
    AND PN.id = SP.name_id
    AND PE.id = SP.evr_id
+   AND PA.id = SP.package_arch_id
 ORDER BY PN.name, PE.evr
   </query>
 </mode>
