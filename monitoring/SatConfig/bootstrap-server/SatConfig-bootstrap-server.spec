@@ -1,5 +1,5 @@
 Name:         SatConfig-bootstrap-server
-Version:      1.13.2
+Version:      1.13.3
 Release:      1%{?dist}
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Summary:      Provides scout info for boostrap
@@ -41,7 +41,7 @@ install -m 644 TranslateKey.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/SatConf
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.13.3-1
 - remove dead code (apachereg)
 
 * Wed Jan  7 2009 Milan Zazrivec 1.13.2-1
