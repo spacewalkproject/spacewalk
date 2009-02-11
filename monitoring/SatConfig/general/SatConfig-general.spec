@@ -1,7 +1,5 @@
 %define sysv_dir       %{_sysconfdir}/rc.d/np.d
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
-%define registry_dir   %sysv_dir/registry
-%define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
 Version:      1.216.4
@@ -31,8 +29,6 @@ rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%sysv_dir
 mkdir -p $RPM_BUILD_ROOT%hb_res_dir
-mkdir -p $RPM_BUILD_ROOT%registry_dir
-mkdir -p $RPM_BUILD_ROOT%apache_registry_dir
 mkdir -p $RPM_BUILD_ROOT%installed_dir
 install -m 644 *.pm $RPM_BUILD_ROOT%sysv_dir
 install -m 755 hbResource $RPM_BUILD_ROOT%sysv_dir
@@ -48,8 +44,6 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 %files
 %defattr(-,root,root,-)
 %dir %sysv_dir
-%dir %registry_dir
-%dir %apache_registry_dir
 %dir %installed_dir
 %sysv_dir/*.pm
 %sysv_dir/hbResource
@@ -69,6 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com>
 - remove dependency on perl-Apache-Admin-Config
+- remove dead code (apachereg)
 
 * Mon Feb  9 2009 Jan Pazdziora 1.216.4-1
 - use Sys::Hostname::hostname instead of /bin/hostname
