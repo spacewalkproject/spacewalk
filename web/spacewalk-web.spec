@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.9
+Version: 0.5.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,19 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
+- code cleanup - enable_notification_cron, disable_notification_cron,
+  monitoring_available are not used any more (Miroslav S.)
+- 483798 - added index.pxt to catch redirect to perl files, and
+  direct to the docs base page (about.pxt) (Jason D.)
+- 482926 - fixed webui proxy activation (Shannon H.)
+- 484481 - 2nd part of errata cloning patch, with modification to pull
+  in all but the first two characters (Justin S.)
+- 484481 - patch to make errata clone names more consistent ((Justin S.)
+- 426472 - replacing grep | awk with awk
+- 483606 - incorporated UI feedback and moved link to status to leftnav,
+  making each status filter its own context tab (Jason D.)
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.9-1
 - 483603 - First pass at display of async SSM operations in the UI
 
