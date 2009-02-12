@@ -159,6 +159,11 @@ class ChannelSoftware(RhnTestCase):
         # clean up from test
         client.channel.software.delete(self.session_key, toChannelLabel)
 
+    def test_list_all_packages(self):
+        results = client.channel.software.list_all_packages(self.session_key, 'centos-5.2-i386')
+        for r in results:
+            print r
+
     def test_merge_errata_by_date(self):
         # merge the errata from the channel created on setup in to a new
         # channel created by this test.

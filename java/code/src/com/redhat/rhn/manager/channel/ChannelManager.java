@@ -52,6 +52,7 @@ import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -1135,7 +1136,7 @@ public class ChannelManager extends BaseManager {
      * @param endDate package end date
      * @return list of packages in channel
      */
-    public static List listAllPackages(Channel channel, String startDate,
+    public static List<PackageDto> listAllPackages(Channel channel, String startDate,
             String endDate) {
         String mode = "all_packages_in_channel";
         Map params = new HashMap();
@@ -1161,7 +1162,7 @@ public class ChannelManager extends BaseManager {
      * @param channel channel whose packages are sought
      * @return list of packages in channel
      */
-    public static List listAllPackages(Channel channel) {
+    public static List<PackageDto> listAllPackages(Channel channel) {
         String mode = "all_packages_in_channel";
         Map params = new HashMap();
         params.put("cid", channel.getId());
@@ -1202,17 +1203,6 @@ public class ChannelManager extends BaseManager {
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
      * @param startDate package start date
-     * @return list of packages in channel
-     */
-    public static List listAllPackagesByDate(Channel channel,
-            String startDate) {
-        return listAllPackagesByDate(channel, startDate, null);
-    }
-    
-    /**
-     * Returns list of packages in channel
-     * @param channel channel whose packages are sought
-     * @param startDate package start date
      * @param endDate package end date
      * @return list of packages in channel
      */
@@ -1239,16 +1229,6 @@ public class ChannelManager extends BaseManager {
         return m.execute(params);
     }
     
-    /**
-     * Returns list of packages in channel
-     * @param channel channel whose packages are sought
-     * @return list of packages in channel
-     */
-    public static List listAllPackagesByDate(Channel channel) {
-        return listAllPackagesByDate(channel, null, null);
-    }
-    
-
     /**
      * Get the id of latest packages equal in the passed in Channel and name
      * 

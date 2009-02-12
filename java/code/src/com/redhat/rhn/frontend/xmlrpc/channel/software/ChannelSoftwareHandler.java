@@ -203,14 +203,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("package")
-     *              #prop("string", "name")
-     *              #prop("string", "version")
-     *              #prop("string", "release")
-     *              #prop("string", "epoch")
-     *              #prop("string", "id")
-     *              #prop("string", "arch_label")
-     *          #struct_end()
+     *              $PackageDtoSerializer
      *      #array_end()
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel)
@@ -244,14 +237,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "endDate")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("package")
-     *              #prop("string", "name")
-     *              #prop("string", "version")
-     *              #prop("string", "release")
-     *              #prop("string", "epoch")
-     *              #prop("string", "id")
-     *              #prop("string", "arch_label")
-     *          #struct_end()
+     *              $PackageDtoSerializer
      *      #array_end()
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel,
@@ -282,14 +268,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "startDate")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("package")
-     *              #prop("string", "name")
-     *              #prop("string", "version")
-     *              #prop("string", "release")
-     *              #prop("string", "epoch")
-     *              #prop("string", "id")
-     *              #prop("string", "arch_label")
-     *          #struct_end()
+     *              $PackageDtoSerializer
      *      #array_end()
      */
     public Object[] listAllPackages(String sessionKey, String channelLabel,

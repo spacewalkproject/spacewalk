@@ -1197,7 +1197,7 @@ SELECT  P.id AS id,
   </elaborator>
 </mode>
 
-<mode name="all_packages_in_channel_after">
+<mode name="all_packages_in_channel_after" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str">
 SELECT 
        P.id AS id,
@@ -1220,7 +1220,7 @@ ORDER BY UPPER(name)
 </mode>
 
 
-<mode name="all_packages_in_channel_between">
+<mode name="all_packages_in_channel_between" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str, end_date_str">
     
 SELECT 
@@ -1244,7 +1244,7 @@ ORDER BY UPPER(name)
   </query>
 </mode>
 
-<mode name="all_packages_in_channel">
+<mode name="all_packages_in_channel" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid">
 SELECT P.id AS id,
        PN.name as name,
