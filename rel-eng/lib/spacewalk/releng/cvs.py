@@ -87,7 +87,7 @@ class CvsReleaser(object):
     def _upload_sources(self):
         """
         Upload any tarballs to the CVS lookaside directory. (if necessary)
-        Uses the "make upload" target in common.
+        Uses the "make new-sources" target in common.
         """
         # Create the tarball using our builder class:
         tarball_file = self.builder.tgz()
@@ -95,44 +95,13 @@ class CvsReleaser(object):
 
         # TODO: Check if source already exists in sources file.
 
-        # NOTE: Simulating make new-sources in Fedora CVS here. Once this
-        # target is available in dist-cvs, this can be replaced.
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command('make upload FILES="%s"' % tarball_file)
+            output = run_command('make new-sources FILES="%s"' % tarball_file)
             debug(output)
-            self._remove_old_sources(os.path.join(branch_dir, "sources"),
-                    tarball_filename)
-            self._remove_old_cvsignores()
+            #self._remove_old_sources(os.path.join(branch_dir, "sources"),
+            #        tarball_filename)
+            #self._remove_old_cvsignores()
 
-    def _remove_old_sources(self, sources_file, new_source_filename):
-        """
-        Remove old entries in cvs sources file.
-
-        make upload does not remove old sources, only adds the new. This will
-        be required until make new-sources is supported from Fedora cvs.
-        """
-        debug("Removing old sources from: %s" % sources_file)
-        f = open(sources_file, 'r')
-        lines = f.readlines()
-        f.close()
-        new_lines = []
-        f = open(sources_file, 'w') # overwriting the file now
-        for line in lines:
-            # NOTE: Looks like two spaces between md5 and filename can be
-            # expected:
-            (md5, filename) = line.split("  ")
-            if filename.strip() == new_source_filename:
-                debug("   keeping:  %s" % line.strip())
-                f.write(line)
-            else:
-                debug("   removing: %s" % line.strip())
-        f.close()
-
-    def _remove_old_cvsignores(self):
-        """
-        Remove old entries in cvs cvsignore file.
-        """
-        pass
