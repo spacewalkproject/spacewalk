@@ -1037,7 +1037,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "target channel.")
      * @xmlrpc.param #array_single("int", "packageId -  id of a package to
-     *                                   add to the channel.")
+     *                                   remove from the channel.")
      * @xmlrpc.returntype  #return_int_success()
      */
     public int removePackages(String sessionKey, String channelLabel, List packageIds) 
