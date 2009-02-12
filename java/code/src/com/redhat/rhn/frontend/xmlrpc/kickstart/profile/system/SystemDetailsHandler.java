@@ -13,7 +13,7 @@
  * in this software or its documentation. 
  */
 
-package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
+package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.system;
 
 import java.util.HashMap;
 import java.util.HashSet;
