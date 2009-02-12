@@ -98,8 +98,6 @@ Notifier  -- "SysVStep" style init script for starting the notifserver.pl daemon
 
 /var/www/cgi-bin
 
-ack.cgi -- NOT IN USE
-
 alertmgr.cgi -- Internal-use tool that allows one to acknowledge and clear alerts, start and stop the system, view system logs.  -- NOT FULLY FUNCTIONAL
 
 redirmgr.cgi -- Internal-use tool that allows one to configure a redirect (advaned notification).
