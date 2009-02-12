@@ -123,7 +123,6 @@ if [ -d /var/log/nocpulse ] ; then
     mkdir -p $DIR/mon-logs
     # try to get all subsystems logs
     cp -fapRd /var/log/notification/*.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /var/tmp/ack_handler.log* $DIR/mon-logs 2> /dev/null
     cp -fapRd /var/log/nocpulse/*.log* $DIR/mon-logs 2> /dev/null
 fi
 

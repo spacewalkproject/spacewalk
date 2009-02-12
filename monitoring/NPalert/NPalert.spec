@@ -91,13 +91,8 @@ install -p -m 644 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/template
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
 
-# Install logrotate stuff
-mkdir -p %buildroot%{_sysconfdir}/logrotate.d/
-install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
-
 %files
 %defattr(-,root,root,-)
-%{_sysconfdir}/logrotate.d/%{name}
 %{_sysconfdir}/cron.d/notification
 %{httpd_prefix}
 %dir %attr(-, %notif_user,%notif_user) %install_prefix

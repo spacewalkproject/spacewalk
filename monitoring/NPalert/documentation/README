@@ -35,7 +35,7 @@ $NOTIFICATION_HOME/queue/request_queue
 
 $NOTIFICATION_HOME/script
 
-ack_enqueuer.pl -- called by sendmail to enqueue acknowledgement emails for processing by notifserver.pl.  Emails are screened for acceptance by send id against $NOTIFICATION_HOME/tmp/send_history.gdbm.   Accepted emails are enqueued in plain text in $NOTIFICATION_HOME/queue/ack_queue.  Log file is /var/tmp/ack_handler.log.
+ack_enqueuer.pl -- called by sendmail to enqueue acknowledgement emails for processing by notifserver.pl.  Emails are screened for acceptance by send id against $NOTIFICATION_HOME/tmp/send_history.gdbm.   Accepted emails are enqueued in plain text in $NOTIFICATION_HOME/queue/ack_queue.  Log file is /var/log/nocpulse/ack_handler.log.
 
 ack-processor -- program that takes enqueued email acknowledgements and processes them using the notif-escalator.  Handles and replies to the original sender of the email.
 
