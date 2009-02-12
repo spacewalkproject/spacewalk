@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+- move logs from /var/tmp to /var/log/nocpulse
+
 * Wed Feb 11 2009 Milan Zazrivec 0.5.4-1
 - fixed multiorg sql upgrade script
 

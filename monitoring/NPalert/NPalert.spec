@@ -120,6 +120,9 @@ install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+- move logs from /var/tmp to /var/log/nocpulse
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.3-1
 - remove dead code (apachereg)
 

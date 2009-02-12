@@ -61,6 +61,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+- move logs from /var/tmp to /var/log/nocpulse
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.6-1
 - remove dependency on perl-Apache-Admin-Config
 - remove dead code (apachereg)

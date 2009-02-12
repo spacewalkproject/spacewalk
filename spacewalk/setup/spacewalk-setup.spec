@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+- 484713, 484720 - fix sudoers
+
 * Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
 - 484675 - /usr/bin/spacewalk-setup: run restorecon silently
 
