@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.9
+Version:        0.5.10
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
+- 484675 - /usr/bin/spacewalk-setup: run restorecon silently
+
 * Tue Feb 10 2009 Jan Pazdziora 0.5.9-1
 - spacewalk-setup: use DEFAULT_SATCON_DICT
 - spacewalk-setup: use the local write_config function

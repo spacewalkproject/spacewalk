@@ -636,12 +636,6 @@ sub get_db_population_errors {
   return @errors;
 }
 
-sub monitoring_available {
-  my $class = shift;
-
-  return $class->is_rpm_installed('NPusers'); # TODO: Find a better RPM to look for
-}
-
 sub generate_server_pem {
   my $class = shift;
   my %params = validate(@_, { ssl_dir => 1,
@@ -725,23 +719,6 @@ sub default_cert_expiration {
   my $diff = $dt2 - $dt;
 
   return $diff->years - 1;
-}
-
-sub enable_notification_cron {
-  my $class = shift;
-
-  my $ret = system('/usr/bin/sudo', 'ln', '-s', '/opt/notification/cron/notification',
-		   '/etc/cron.d/notification');
-
-  return;
-}
-
-sub disable_notification_cron {
-  my $class = shift;
-
-  my $ret = system('/usr/bin/sudo', 'rm', '/etc/cron.d/notification');
-
-  return;
 }
 
 1;

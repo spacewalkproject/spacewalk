@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.10
+Version: 0.5.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,8 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Feb 11 2009 Dave Parker <dparker@redhat.com> 0.5.11-1
+- 484659 remove error messages due to incorrect startup sequences from sysv and from the rhn-satellite tool
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
 - Properly run the status through the message bundle for i18n
 
