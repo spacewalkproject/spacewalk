@@ -53,6 +53,13 @@ OSA dispatcher get message from Spacewalk server that some command is need
 to execute on client. The message is transported via jabber protocol to OSAD
 agent.
 
+%if 0%{?rhel} && 0%{?rhel} <= 4
+%define include_selinux_package 0
+%else
+%define include_selinux_package 1
+%endif
+
+%if %{include_selinux_package}
 %package -n osa-dispatcher-selinux
 %define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
@@ -77,12 +84,15 @@ Requires: osa-dispatcher
 %description -n osa-dispatcher-selinux
 SELinux policy module supporting osa-dispatcher.
 
+%endif
+
 %prep
 %setup -q
 
 %build
 make -f Makefile.osad all
 
+%if %{include_selinux_package}
 %{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
@@ -90,6 +100,7 @@ do
     mv osa-dispatcher-selinux/%{modulename}.pp osa-dispatcher-selinux/%{modulename}.pp.${selinuxvariant}
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -98,6 +109,7 @@ make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
 # Create the auth file
 touch $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 
+%if %{include_selinux_package}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -112,6 +124,7 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -138,6 +151,7 @@ if [ $1 = 0 ]; then
     /sbin/chkconfig --del osa-dispatcher
 fi
 
+%if %{include_selinux_package}
 %post -n osa-dispatcher-selinux
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
@@ -164,6 +178,8 @@ fi
 
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
+
+%endif
 
 %files
 %defattr(-,root,root)
@@ -198,6 +214,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
 %doc LICENSE
 
+%if %{include_selinux_package}
 %files -n osa-dispatcher-selinux
 %defattr(-,root,root,0755)
 %doc osa-dispatcher-selinux/%{modulename}.fc
@@ -206,6 +223,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 %doc LICENSE
+%endif
 
 # $Id$
 %changelog
