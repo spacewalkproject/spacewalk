@@ -1776,7 +1776,10 @@ public class SystemHandler extends BaseHandler {
      * sid cannot be found.
      * 
      * @xmlrpc.doc Returns a list history items associated with the system, ordered
-     *              from oldest to newest.
+     *             from newest to oldest. Note that the details may be empty for
+     *             events that were scheduled against the system (as compared to instant).
+     *             For more information on such events, see the system.listSystemEvents
+     *             operation.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
