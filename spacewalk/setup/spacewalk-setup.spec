@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.10
+Version:        0.5.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,7 +81,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.11-1
 - 484713, 484720 - fix sudoers
 
 * Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
