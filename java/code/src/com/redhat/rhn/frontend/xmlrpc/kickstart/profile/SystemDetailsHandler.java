@@ -347,7 +347,7 @@ public class SystemDetailsHandler extends BaseHandler {
         User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
         List<String> list = new ArrayList<String>();
-        for (KickstartCommand cmd : (List<KickstartCommand>) ksdata
+        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
                 .getPartitions()) {
             String s = "partition " + cmd.getArguments();
             list.add(s);
