@@ -1,6 +1,5 @@
 ## RHN specifics ##
-Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-satellite restart,\
-                         /usr/sbin/rhn-sat-restart-silent,\
+Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-sat-restart-silent,\
                          /usr/bin/rhn-config-tnsnames.pl,\
                          /usr/bin/rhn-config-schema.pl,\
                          /usr/bin/rhn-populate-database.pl,\
@@ -19,8 +18,7 @@ Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-satellite restart,\
                          /etc/rc.d/np.d/step Monitoring install,\
                          /etc/rc.d/np.d/step MonitoringScout install
 
-Cmnd_Alias CONFIG_RHN = /usr/sbin/rhn-satellite restart,\
-                        /sbin/service Monitoring restart,\
+Cmnd_Alias CONFIG_RHN = /sbin/service Monitoring restart,\
                         /sbin/service MonitoringScout restart,\
                         /sbin/service taskomatic restart,\
                         /usr/bin/satcon-deploy-tree.pl,\
