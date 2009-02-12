@@ -712,7 +712,8 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
         IN
         (SELECT S.id, S.org_id
             FROM rhnSharedChannelView S
-          WHERE S.ORG_TRUST_ID = :org_id)
+          WHERE S.ORG_TRUST_ID = :org_id
+            AND S.parent_channel IS NULL)
   </query>
 </mode>
 
