@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.3
+Version:      1.126.4
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -120,7 +120,7 @@ install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.4-1
 - move logs from /var/tmp to /var/log/nocpulse
 
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.3-1
