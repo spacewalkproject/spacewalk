@@ -24,7 +24,7 @@ import handler_base
 
 def deploying_mesg_callback(path):
     print "Deploying %s" % path
-    
+
 class Handler(handler_base.TopdirHandlerBase):
     _usage_options = handler_base.HandlerBase._usage_options + " [ files ... ]"
     def run(self):
@@ -32,14 +32,20 @@ class Handler(handler_base.TopdirHandlerBase):
         dep_trans = DeployTransaction(transaction_root=topdir)
 
         dep_trans.deploy_callback(deploying_mesg_callback)
-        
+
+        # Setup the excludes hash
+        excludes = {}
+        if self.options.exclude is not None:
+            for exclude in enumerate(self.options.exclude):
+                    excludes[exclude[1]] = None
+
         for path in self.get_valid_files():
 
             (directory, filename) = os.path.split(path)
-	    directory = os.path.normpath("%s%s%s" % (topdir, os.sep, directory))
+            directory = os.path.normpath("%s%s%s" % (topdir, os.sep, directory))
 
             try:
-		 finfo = self.repository.get_file_info(path, auto_delete=0, dest_directory=directory)
+                finfo = self.repository.get_file_info(path, auto_delete=0, dest_directory=directory)
             except cfg_exceptions.DirectoryEntryIsFile, e:
                 print "Error: unable to deploy directory %s, as it is already a file on disk" % (e[0], )
                 continue
@@ -50,14 +56,17 @@ class Handler(handler_base.TopdirHandlerBase):
 
             (processed_path, file_info, dirs_created) = finfo
 
-            try:
-                dep_trans.add_preprocessed(path, processed_path, file_info, dirs_created)
-            except cfg_exceptions.UserNotFound, e:
-                print "Error: unable to deploy file %s, information on user '%s' could not be found." % (path,e[0])                
-                continue
-            except cfg_exceptions.GroupNotFound, e:
-                print "Error: unable to deploy file %s, information on group '%s' could not be found." % (path, e[0])
-                continue
+            if excludes.has_key(path):
+                print "Excluding %s" % path
+            else:
+                try:
+                    dep_trans.add_preprocessed(path, processed_path, file_info, dirs_created)
+                except cfg_exceptions.UserNotFound, e:
+                    print "Error: unable to deploy file %s, information on user '%s' could not be found." % (path,e[0])
+                    continue
+                except cfg_exceptions.GroupNotFound, e:
+                    print "Error: unable to deploy file %s, information on group '%s' could not be found." % (path, e[0])
+                    continue
 
         try:
             dep_trans.deploy()
@@ -87,7 +96,7 @@ class Handler(handler_base.TopdirHandlerBase):
             except cfg_exceptions.GroupNotFound, f:
                 pass
             print "Error: unable to deploy file %s, information on group '%s' could not be found." % (e[0], f[0])
- 
+
         except cfg_exceptions.FileEntryIsDirectory, e:
             try:
                 dep_trans.rollback()
@@ -99,7 +108,7 @@ class Handler(handler_base.TopdirHandlerBase):
             #5/5/05 wregglej - 136415 Added exception handling for missing group
             except cfg_exceptions.GroupNotFound, f:
                 pass
-    
+
             print "Error: unable to deploy file %s, as it is already a directory on disk" % (e[0],)
         except cfg_exceptions.DirectoryEntryIsFile, e:
             try:
@@ -123,7 +132,7 @@ class Handler(handler_base.TopdirHandlerBase):
             #5/5/05 wregglej - 136415 Added exception handling for unknown group
             except cfg_exceptions.GroupNotFound, f:
                 pass
-		raise
+                raise
             else:
                 print "Deploy failed, rollback successful"
                 raise
