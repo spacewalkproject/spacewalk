@@ -2,7 +2,7 @@
 %define hb_res_dir     %{_sysconfdir}/ha.d/resource.d
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.216.6
+Version:      1.216.7
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 URL:          https://fedorahosted.org/spacewalk
@@ -61,7 +61,7 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.7-1
 - move logs from /var/tmp to /var/log/nocpulse
 
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.216.6-1
