@@ -636,12 +636,6 @@ sub get_db_population_errors {
   return @errors;
 }
 
-sub monitoring_available {
-  my $class = shift;
-
-  return $class->is_rpm_installed('NPusers'); # TODO: Find a better RPM to look for
-}
-
 sub generate_server_pem {
   my $class = shift;
   my %params = validate(@_, { ssl_dir => 1,
