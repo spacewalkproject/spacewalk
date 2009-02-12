@@ -223,7 +223,7 @@ class Repository(rhnRepository.Repository):
         rhnFlags.set('Content-Type', content_type)
         try:
             rhnFlags.set('Download-Accelerator-Path', file_path)
-            return self._getFile(CFG.MOUNT_POINT + "/" + file_path)
+            return self._getFile(CFG.REPOMD_CACHE_MOUNT_POINT + "/" + file_path)
         except IOError, e:
             # For file not found, queue up a regen, and return 404
             if e.errno == 2 and file_name != "comps.xml":
