@@ -195,7 +195,7 @@ public class ChannelPackagesAddAction extends RhnAction {
                 }
             }
         }
-        for (Channel chanTmp : ChannelFactory.listCustomBaseChannels(user.getOrg())) {
+        for (Channel chanTmp : ChannelFactory.listCustomBaseChannels(user)) {
             if (canAccessChannel(user, chanTmp)) {
                 chanList.add(setSelected(chanTmp, selectedChan));
                 for (Channel chanChild : chanTmp.getAccessibleChildrenFor(user)) {

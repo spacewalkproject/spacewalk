@@ -276,7 +276,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     }
 
     private void setupPossibleChannels(RequestContext context) {
-        Org org = context.getLoggedInUser().getOrg();
+        User user = context.getLoggedInUser();
         List<LabelValueBean> channelWidgets = new LinkedList<LabelValueBean>();
         channelWidgets.add(lvl10n("activation-key.jsp.rh-default",
                             String.valueOf(DEFAUL_CHANNEL_ID)));
@@ -284,7 +284,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
         }
 
-        for (Channel channel : ChannelFactory.listCustomBaseChannels(org)) {
+        for (Channel channel : ChannelFactory.listCustomBaseChannels(user)) {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
         }        
         context.getRequest().setAttribute(POSSIBLE_CHANNELS, channelWidgets.toArray());
