@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.5
+Version: 5.9.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -227,6 +227,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Thu Feb 12 2009 Jan Pazdziora 5.9.6-1
+- do not build osa-dispatcher-selinux on RHEL 4 and earlier.
+- osa-dispatcher-selinux: setsebool is not used, so no need to Require it
+
 * Mon Feb  9 2009 Jan Pazdziora 5.9.5-1
 - addressed additional AVC denials of osa-dispatcher
 
