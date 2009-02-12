@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.io.Writer;
@@ -11,7 +25,11 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
-
+/**
+ * Primary.xml writer class
+ * @version $Rev $
+ *
+ */
 public class PrimaryXmlWriter extends RepomdWriter {
 
     private PackageCapabilityIterator filesIterator;
@@ -31,7 +49,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * 
      * @param channel channel info
      * @return primaryXml for the given channel
-     * @throws Exception
+     * @throws Exception exception
      */
     public String getPrimaryXml(Channel channel) throws Exception {
         begin(channel);
@@ -59,6 +77,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
     }
     /**
      * Start xml metadata generation
+     * @param channel channel data
      */
     public void begin(Channel channel) {
         filesIterator = new PackageCapabilityIterator(channel,
@@ -104,18 +123,23 @@ public class PrimaryXmlWriter extends RepomdWriter {
     /**
      * 
      * @param pkgDto pkg info to add to xml
-     * @throws SAXException
+     * @throws SAXException sax exception
      */
     private void addPackageFormatDetails(PackageDto pkgDto) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
 
         handler.startElement("format");
 
-        handler.addElementWithCharacters("rpm:license", sanitize(pkgId, pkgDto.getCopyright()));
-        handler.addElementWithCharacters("rpm:vendor", sanitize(pkgId, pkgDto.getVendor()));
-        handler.addElementWithCharacters("rpm:group", sanitize(pkgId, pkgDto.getPackageGroupName()));
-        handler.addElementWithCharacters("rpm:buildhost", sanitize(pkgId, pkgDto.getBuildHost()));
-        handler.addElementWithCharacters("rpm:sourcerpm", sanitize(pkgId, pkgDto.getSourceRpm()));
+        handler.addElementWithCharacters("rpm:license", sanitize(pkgId, 
+                pkgDto.getCopyright()));
+        handler.addElementWithCharacters("rpm:vendor", sanitize(pkgId, 
+                pkgDto.getVendor()));
+        handler.addElementWithCharacters("rpm:group", sanitize(pkgId, 
+                pkgDto.getPackageGroupName()));
+        handler.addElementWithCharacters("rpm:buildhost", sanitize(pkgId, 
+                pkgDto.getBuildHost()));
+        handler.addElementWithCharacters("rpm:sourcerpm", sanitize(pkgId, 
+                pkgDto.getSourceRpm()));
 
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("start", pkgDto.getHeaderStart().toString());
@@ -130,18 +154,20 @@ public class PrimaryXmlWriter extends RepomdWriter {
     /**
      * 
      * @param pkgDto pkg info to add to xml
-     * @throws SAXException
+     * @throws SAXException sax exception
      */
     private void addBasicPackageDetails(PackageDto pkgDto) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
 
         handler.addElementWithCharacters("name", sanitize(pkgId, pkgDto.getPackageName()));
-        handler.addElementWithCharacters("arch", sanitize(pkgId, pkgDto.getPackageArchLabel()));
+        handler.addElementWithCharacters("arch", sanitize(pkgId, 
+                pkgDto.getPackageArchLabel()));
 
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("ver", sanitize(pkgId, pkgDto.getPackageVersion()));
         attr.addAttribute("rel", sanitize(pkgId, pkgDto.getPackageRelease()));
-        attr.addAttribute("epoch", sanitize(pkgId, getPackageEpoch(pkgDto.getPackageEpoch())));
+        attr.addAttribute("epoch", sanitize(pkgId, getPackageEpoch(
+                pkgDto.getPackageEpoch())));
         handler.startElement("version", attr);
         handler.endElement("version");
 
@@ -153,14 +179,15 @@ public class PrimaryXmlWriter extends RepomdWriter {
         handler.endElement("checksum");
 
         handler.addElementWithCharacters("summary", sanitize(pkgId, pkgDto.getSummary()));
-        handler.addElementWithCharacters("description", sanitize(pkgId, pkgDto.getDescription()));
+        handler.addElementWithCharacters("description", sanitize(pkgId, 
+                pkgDto.getDescription()));
 
         handler.addEmptyElement("packager");
         handler.addEmptyElement("url");
 
         attr.clear();
-        attr.addAttribute("file", Long.toString(pkgDto.getBuildTime().getTime()/1000));
-        attr.addAttribute("build", Long.toString(pkgDto.getBuildTime().getTime()/1000));
+        attr.addAttribute("file", Long.toString(pkgDto.getBuildTime().getTime() / 1000));
+        attr.addAttribute("build", Long.toString(pkgDto.getBuildTime().getTime() / 1000));
         handler.startElement("time", attr);
         handler.endElement("time");
 
@@ -194,17 +221,20 @@ public class PrimaryXmlWriter extends RepomdWriter {
      * @param pkgCapIter pkg capability info
      * @param pkgId   package Id to set
      * @param dep     dependency info
-     * @throws SAXException
+     * @throws SAXException sax exception
      */
-    private void addPackageDepData(PackageCapabilityIterator pkgCapIter, long pkgId, String dep) throws SAXException {
+    private void addPackageDepData(PackageCapabilityIterator pkgCapIter, 
+            long pkgId, String dep) throws SAXException {
         handler.startElement("rpm:" + dep);
         while (pkgCapIter.hasNextForPackage(pkgId)) {
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("name", sanitize(pkgId, pkgCapIter.getString("name")));
             PackageEvr evrObj = parseEvr(sanitize(pkgId, pkgCapIter.getString("version")));
 
-            if (evrObj.getEpoch() != null || evrObj.getVersion() != null || evrObj.getRelease() != null) {
-                attr.addAttribute("flags", getSenseAsString(pkgCapIter.getNumber("sense").longValue()));
+            if (evrObj.getEpoch() != null || evrObj.getVersion() != null || 
+                    evrObj.getRelease() != null) {
+                attr.addAttribute("flags", getSenseAsString(pkgCapIter.getNumber("sense")
+                    .longValue()));
             }
             
             if (evrObj.getEpoch() != null) {
@@ -263,7 +293,7 @@ public class PrimaryXmlWriter extends RepomdWriter {
     /**
      * 
      * @param pkgId package Id info
-     * @throws SAXException
+     * @throws SAXException sax exception
      */
     private void addEssentialPackageFiles(long pkgId) throws SAXException {
         String regex = ".*bin/.*|^/etc/.*|^/usr/lib.sendmail$";
@@ -284,11 +314,12 @@ public class PrimaryXmlWriter extends RepomdWriter {
         if (parts != null && parts.length > 0) {
             return parts[parts.length - 1];
         }
-        return pkgDto.getPackageName() + "-" + pkgDto.getPackageVersion() + "-"
-                  + pkgDto.getPackageRelease() + "." + pkgDto.getPackageArchLabel() + ".rpm";
+        return pkgDto.getPackageName() + "-" + pkgDto.getPackageVersion() + "-" +
+        pkgDto.getPackageRelease() + "." + pkgDto.getPackageArchLabel() + ".rpm";
     }
 
     /**
+     * @param senseIn package sense
      * @return a human readable representation of the sense
      */
     private String getSenseAsString(long senseIn) {

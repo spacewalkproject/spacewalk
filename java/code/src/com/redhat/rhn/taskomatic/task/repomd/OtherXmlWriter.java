@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.io.Writer;
@@ -9,7 +23,11 @@ import org.xml.sax.SAXException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
-
+/**
+ * 
+ * @version $Rev $ 
+ *
+ */
 public class OtherXmlWriter extends RepomdWriter {
 
     private PackageCapabilityIterator changeLogIterator;
@@ -25,9 +43,9 @@ public class OtherXmlWriter extends RepomdWriter {
      * 
      * @param channel channel info
      * @return other.xml for given channel
-     * @throws Exception
+     * @throws Exception exception
      */
-    public String getOtherXml(Channel channel) throws Exception{
+    public String getOtherXml(Channel channel) throws Exception {
         begin(channel);
 
         Iterator iter = getChannelPackageDtoIterator(channel);
@@ -42,10 +60,11 @@ public class OtherXmlWriter extends RepomdWriter {
     }
     /**
      * Start xml metadata generation
+     * @param channel channel info
      */
     public void begin(Channel channel) {
-                changeLogIterator = new PackageCapabilityIterator(channel,
-                                        TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
+        changeLogIterator = new PackageCapabilityIterator(channel,
+                            TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/other");
         attr.addAttribute("packages", Integer.toString(channel.getPackages().size()));
@@ -86,7 +105,7 @@ public class OtherXmlWriter extends RepomdWriter {
     /**
      * 
      * @param pkgDto pkg changelog info to add to xml
-     * @throws SAXException
+     * @throws SAXException sax exception
      */
     private void addPackageChangelog(PackageDto pkgDto) throws SAXException {
 
@@ -96,7 +115,8 @@ public class OtherXmlWriter extends RepomdWriter {
             String text = changeLogIterator.getString("text");
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("author", sanitize(pkgId, author));
-            attr.addAttribute("date", Long.toString(changeLogIterator.getDate("time").getTime()/1000));
+            attr.addAttribute("date", Long.toString(changeLogIterator
+                    .getDate("time").getTime() / 1000));
             handler.startElement("changelog", attr);
             handler.addCharacters(sanitize(pkgId, text));
             handler.endElement("changelog");

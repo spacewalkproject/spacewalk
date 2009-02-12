@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.io.BufferedWriter;
@@ -19,7 +33,11 @@ import org.apache.log4j.Logger;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.common.util.StringUtil;
-
+/**
+ * 
+ * @version $Rev $
+ *
+ */
 public class RepositoryWriter {
 	
     private static final String PRIMARY_FILE = "primary.xml.gz.new";
@@ -45,27 +63,26 @@ public class RepositoryWriter {
      * @param channel channel info
      * @return repodata sanity
      */
-    public boolean isChannelRepodataStale(Channel channel)
-    {
+    public boolean isChannelRepodataStale(Channel channel) {
         File theFile = new File(mountPoint + File.separator + pathPrefix + 
-        		File.separator + channel.getLabel() + File.separator + "repomd.xml");
-	    Date fileModifiedDate = new Date(theFile.lastModified());
-	    //the file Modified date should be getting set when the file 
-	    //is moved into the correct location.
-	    return !fileModifiedDate.equals(channel.getLastModified());
+                File.separator + channel.getLabel() + File.separator + "repomd.xml");
+        Date fileModifiedDate = new Date(theFile.lastModified());
+        //the file Modified date should be getting set when the file 
+        //is moved into the correct location.
+        return !fileModifiedDate.equals(channel.getLastModified());
     }
     /**
      * 
      * @param channel channelinfo for repomd file creation
      */
     public void writeRepomdFiles(Channel channel) {
-        log.info("Generating new repository metatada for channel '" + channel.getLabel()
-                + "' " + channel.getPackages().size() + " packages, "
-                + channel.getErratas().size() + " updates");
+        log.info("Generating new repository metatada for channel '" + channel.getLabel() + 
+                "' " + channel.getPackages().size() + " packages, " + 
+                channel.getErratas().size() + " updates");
         String prefix = mountPoint + File.separator + pathPrefix + File.separator + 
                         channel.getLabel() + File.separator;
 
-        if (!new File(prefix).mkdirs() &&!new File(prefix).exists()) {
+        if (!new File(prefix).mkdirs() && !new File(prefix).exists()) {
             throw new RepomdRuntimeException("Unable to create directory: " + prefix);
         }
 
@@ -75,23 +92,24 @@ public class RepositoryWriter {
 
         try {
             primaryFile = new CompressingDigestOutputWriter(new FileOutputStream(prefix +
-            		                                                       PRIMARY_FILE));
+                                                                           PRIMARY_FILE));
             filelistsFile = new CompressingDigestOutputWriter(new FileOutputStream(prefix + 
-            		                                                     FILELISTS_FILE));
+                                                                           FILELISTS_FILE));
             otherFile = new CompressingDigestOutputWriter(new FileOutputStream(prefix + 
-            		                                                     OTHER_FILE));
-        } catch (IOException e) {
+                                                                           OTHER_FILE));
+        } 
+        catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
 
         BufferedWriter primaryBufferedWriter = new BufferedWriter(
-        		new OutputStreamWriter(primaryFile));
+                new OutputStreamWriter(primaryFile));
         BufferedWriter filelistsBufferedWriter = new BufferedWriter(
-        		new OutputStreamWriter(filelistsFile));
+                new OutputStreamWriter(filelistsFile));
         BufferedWriter otherBufferedWriter = new BufferedWriter(
-        		new OutputStreamWriter(otherFile));
+                new OutputStreamWriter(otherFile));
 
-  		PrimaryXmlWriter primary = new PrimaryXmlWriter(primaryBufferedWriter);
+  	    PrimaryXmlWriter primary = new PrimaryXmlWriter(primaryBufferedWriter);
         FilelistsXmlWriter filelists = new FilelistsXmlWriter(filelistsBufferedWriter);
         OtherXmlWriter other = new OtherXmlWriter(otherBufferedWriter);
 
@@ -130,13 +148,13 @@ public class RepositoryWriter {
         }
 
         RepomdIndexData primaryData = new RepomdIndexData(
-        		primaryFile.getCompressedChecksum(),
+                primaryFile.getCompressedChecksum(),
                 primaryFile.getUncompressedChecksum(), channel.getLastModified());
         RepomdIndexData filelistsData = new RepomdIndexData(
-        		filelistsFile.getCompressedChecksum(),
+                filelistsFile.getCompressedChecksum(),
                 filelistsFile.getUncompressedChecksum(), channel.getLastModified());
         RepomdIndexData otherData = new RepomdIndexData(
-        		otherFile.getCompressedChecksum(),
+                otherFile.getCompressedChecksum(),
                 otherFile.getUncompressedChecksum(), channel.getLastModified());
 
         log.info("Starting updateinfo generation for '" + channel.getLabel() + '"');
@@ -148,12 +166,13 @@ public class RepositoryWriter {
 
         try {
             indexFile = new FileWriter(prefix + REPOMD_FILE);
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
 
         RepomdIndexWriter index = new RepomdIndexWriter(indexFile, primaryData, 
-        		filelistsData, otherData, updateinfoData, groupsData);
+                filelistsData, otherData, updateinfoData, groupsData);
 
         index.writeRepomdIndex();
 
@@ -167,8 +186,8 @@ public class RepositoryWriter {
         renameFiles(prefix, channel.getLastModified().getTime(), updateinfoData != null);
 
         log.info("Repository metadata generation for '" + channel.getLabel() + 
-        		"' finished in " + (int) (new Date().getTime() - start.getTime())/1000 + 
-        		" seconds");
+                "' finished in " + (int) (new Date().getTime() - start.getTime()) / 1000 + 
+                " seconds");
     }
     /**
      * 
@@ -176,7 +195,7 @@ public class RepositoryWriter {
      * @return repomd index for given channel
      */
     private RepomdIndexData loadCompsFile(Channel channel) {
-    	if (channel.getComps() == null) {
+        if (channel.getComps() == null) {
             return null;
         }
 
@@ -200,14 +219,15 @@ public class RepositoryWriter {
 
         try {
             while (digestStream.read(bytes) != -1);
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             return null;
         }
 
         Date timeStamp = new Date(compsFile.lastModified() * 1000);
 
         return new RepomdIndexData(StringUtil.getHexString(
-        		digestStream.getMessageDigest().digest()),
+                digestStream.getMessageDigest().digest()),
                 null, timeStamp);
     }
 
@@ -216,9 +236,9 @@ public class RepositoryWriter {
      * @param channel channel info
      * @param prefix repodata file prefix
      * @return repodata index
-     */
+    */
     private RepomdIndexData generateUpdateinfo(Channel channel, String prefix) {
-	
+
         if (channel.getErratas().size() == 0) {
             return null;
         }
@@ -226,24 +246,24 @@ public class RepositoryWriter {
         CompressingDigestOutputWriter updateinfoFile;
         try {
             updateinfoFile = new CompressingDigestOutputWriter(new FileOutputStream(
-            		prefix + UPDATEINFO_FILE));
+                    prefix + UPDATEINFO_FILE));
         } 
         catch (FileNotFoundException e) {
             throw new RepomdRuntimeException(e);
         }
         BufferedWriter updateinfoBufferedWriter = new BufferedWriter(
-        		new OutputStreamWriter(updateinfoFile));
+                new OutputStreamWriter(updateinfoFile));
         UpdateInfoWriter updateinfo = new UpdateInfoWriter(updateinfoBufferedWriter);
         updateinfo.getUpdateInfo(channel);
         try {
             updateinfoBufferedWriter.close();
-        } 
+        }
         catch (IOException e) {
             throw new RepomdRuntimeException(e);
         }
 
         RepomdIndexData updateinfoData = new RepomdIndexData(
-        		updateinfoFile.getCompressedChecksum(),
+                updateinfoFile.getCompressedChecksum(),
                 updateinfoFile.getUncompressedChecksum(), channel.getLastModified());
         return updateinfoData;
         }
@@ -284,10 +304,10 @@ public class RepositoryWriter {
 
     }
 
-	/**
-	 * Deletes repomd files
-	 * @param channelLabelToProcess channel label
-	 */
+    /**
+    * Deletes repomd files
+    * @param channelLabelToProcess channel label
+    */
     public void deleteRepomdFiles(String channelLabelToProcess) {
         log.info("Removing " + channelLabelToProcess);
         String prefix = mountPoint + pathPrefix + File.separator + channelLabelToProcess;
@@ -295,21 +315,21 @@ public class RepositoryWriter {
         File filelists = new File(prefix + File.separator +  "filelists.xml.gz");
         File other = new File(prefix + File.separator + "other.xml.gz");
         File repomd = new File(prefix + File.separator + "repomd.xml");
-        File theDirectory = new File (prefix);
+        File theDirectory = new File(prefix);
         
-        if (primary.delete() != true) {
+        if (!primary.delete()) {
         log.info("Couldn't remove " + prefix + PRIMARY_FILE);    
         }
-        if (filelists.delete() != true) {
+        if (!filelists.delete()) {
             log.info("Couldn't remove " + prefix + FILELISTS_FILE);    
         }
-        if (other.delete() != true) {
+        if (!other.delete()) {
             log.info("Couldn't remove " + prefix + OTHER_FILE);    
         }
-        if (repomd.delete() != true) {
+        if (!repomd.delete()) {
             log.info("Couldn't remove " + prefix + REPOMD_FILE);    
         }
-        if (theDirectory.delete() != true) {
+        if (!theDirectory.delete()) {
             log.info("Couldn't remove " + prefix);
         }
     }

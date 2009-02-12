@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.math.BigDecimal;
@@ -17,7 +31,11 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
-
+/**
+ * 
+ * @version $Rev $
+ *
+ */
 public class PackageCapabilityIterator {
 
     private static Logger log = Logger.getLogger(PackageCapabilityIterator.class);
@@ -33,8 +51,8 @@ public class PackageCapabilityIterator {
 
     /**
      * 
-     * @param ch
-     * @param queryNameIn
+     * @param ch channel
+     * @param queryNameIn query name
      */
     public PackageCapabilityIterator(Channel ch, String queryNameIn) {
         queryName = queryNameIn;
@@ -43,7 +61,7 @@ public class PackageCapabilityIterator {
         // JDBC since we don't want to keep few million rows of data in memory.
         SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME, queryName);
         String query = NamedPreparedStatement.replaceBindParams(mode.getQuery()
-        		.getOrigQuery(), new HashMap());
+                .getOrigQuery(), new HashMap());
 
         row = new HashMap();
         goBack = false;
@@ -94,7 +112,7 @@ public class PackageCapabilityIterator {
 
     /**
      * 
-     * @param key
+     * @param key as string
      * @return key as string
      */
     public String getString(String key) {
@@ -103,7 +121,7 @@ public class PackageCapabilityIterator {
 
     /**
      * 
-     * @param key
+     * @param key key as string
      * @return key as bigDecimal number
      */
     public BigDecimal getNumber(String key) {
@@ -112,7 +130,7 @@ public class PackageCapabilityIterator {
 
     /**
      * 
-     * @param key
+     * @param key key as string
      * @return key as date
      */
     public Date getDate(String key) {
@@ -151,9 +169,9 @@ public class PackageCapabilityIterator {
         } 
         else {
             // in case iterator has no rows at all, row.get(PACKAGE_ID) would return null,
-        	// so we can't use getPkgId()
+            // so we can't use getPkgId()
             log.debug("End of resultset for " + queryName + ", " +
-            		"last package seen: " + row.get(PACKAGE_ID));
+                    "last package seen: " + row.get(PACKAGE_ID));
         }
         return hasMoreRows;
     }
@@ -163,7 +181,7 @@ public class PackageCapabilityIterator {
      */
     private void storeRow() {
         try {
-            for (int i=1; i<=rsmd.getColumnCount(); i++) {
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                 Object obj = rs.getObject(i);
                 String column = rsmd.getColumnName(i);
                 row.put(column.toLowerCase(), obj);

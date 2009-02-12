@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.conf.Config;
@@ -16,7 +30,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 
+ * @version $Rev $
+ *
+ */
 public class ChannelRepodataWorker implements QueueWorker {
     
     private RepositoryWriter repoWriter;
@@ -27,19 +45,24 @@ public class ChannelRepodataWorker implements QueueWorker {
     private List             queueEntries;
     /**
      * 
-     * @param workItem 
-     * @param parentLogger
+     * @param workItem  work item map
+     * @param parentLogger repomd logger
      */
     public ChannelRepodataWorker(Map workItem, Logger parentLogger) {
         logger = parentLogger;
-        String prefixPath = Config.get().getString(Config.REPOMD_PATH_PREFIX, "rhn/repodata");
-        String mountPoint = Config.get().getString(Config.MOUNT_POINT, "/pub");
+        String prefixPath = Config.get().getString(Config.REPOMD_PATH_PREFIX, 
+                "rhn/repodata");
+        String mountPoint = Config.get().getString(Config.REPOMD_CACHE_MOUNT_POINT, 
+                "/pub");
         channelLabelToProcess = (String)workItem.get("channel_label");
-        repoWriter = new RepositoryWriter(prefixPath, mountPoint );
-        logger.info("Creating ChannelRepodataWorker with prefixPath(" + prefixPath + "), mountPoint(" + mountPoint + ")" + "for channel_label (" + channelLabelToProcess + ")"); 
+        repoWriter = new RepositoryWriter(prefixPath, mountPoint);
+        logger.info("Creating ChannelRepodataWorker with prefixPath(" +
+                prefixPath + "), mountPoint(" + mountPoint + ")" + 
+                "for channel_label (" + channelLabelToProcess + ")"); 
     }
     /**
      * Sets the parent queue 
+     * @param queue task queue
      */
     public void setParentQueue(TaskQueue queue) {
         parentQueue = queue;
@@ -53,17 +76,22 @@ public class ChannelRepodataWorker implements QueueWorker {
             if (!isChannelLabelAlreadyInProcess()) {
                 markInProgress();
                 populateQueueEntryDetails(); 
-                Channel channelToProcess = ChannelFactory.lookupByLabel(channelLabelToProcess);
+                Channel channelToProcess = ChannelFactory.lookupByLabel(
+                       channelLabelToProcess);
                 //if the channelExists in the db still
                 if (channelToProcess != null) {
                     //see if the channel is stale, or one of the entries has force='Y'
-                    if (queueContainsBypass("force") || repoWriter.isChannelRepodataStale(channelToProcess)) {
-                        if (queueContainsBypass("bypass_filters") || channelToProcess.isChannelRepodataRequired()) {
+                    if (queueContainsBypass("force") || repoWriter
+                            .isChannelRepodataStale(channelToProcess)) {
+                        if (queueContainsBypass("bypass_filters") || channelToProcess
+                            .isChannelRepodataRequired()) {
                             repoWriter.writeRepomdFiles(channelToProcess);   
                         }
                     }
                     else {
-                        logger.debug("Not processing channel(" + channelLabelToProcess + ") because the request isn't forced AND the channel repodata isn't stale");
+                        logger.debug("Not processing channel(" + channelLabelToProcess + 
+                        ") because the request isn't forced AND the channel repodata " +
+                        "isn't stale");
                     }
                 }
                 else {
@@ -75,7 +103,8 @@ public class ChannelRepodataWorker implements QueueWorker {
             } 
             else {
                 HibernateFactory.commitTransaction();
-                logger.debug("NOT processing channel(" + channelLabelToProcess + ") because another thread is already working on run");
+                logger.debug("NOT processing channel(" + channelLabelToProcess + 
+                        ") because another thread is already working on run");
             }
         }
         catch (Exception e) {
@@ -90,9 +119,10 @@ public class ChannelRepodataWorker implements QueueWorker {
      * populates the queue details for repomd event
      */
     private void populateQueueEntryDetails() {
-        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
-        Map<Object, Object> params = new HashMap<Object,Object>();
-        params.put("channel_label", channelLabelToProcess);
+        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, 
+                TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
+        Map<Object, Object> params = new HashMap<Object, Object>();
+        params.put("channel_label" , channelLabelToProcess);
         queueEntries = selector.execute(params);
     }
     /**
@@ -100,8 +130,9 @@ public class ChannelRepodataWorker implements QueueWorker {
      * @return Returns the progress status of the channel
      */
     private boolean isChannelLabelAlreadyInProcess() {
-        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
-        Map<Object, Object> params = new HashMap<Object,Object>();
+        SelectMode selector = ModeFactory.getMode(TaskConstants.MODE_NAME, 
+                TaskConstants.TASK_QUERY_REPOMD_DETAILS_QUERY);
+        Map<Object, Object> params = new HashMap<Object, Object>();
         params.put("channel_label", channelLabelToProcess);
         return (selector.execute(params).size() > 0);
     }
@@ -113,7 +144,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     private boolean queueContainsBypass(String entryToCheck) {
         boolean shouldForce = false;
         
-        for (Object currentEntry: queueEntries) {
+        for (Object currentEntry : queueEntries) {
             String forceFlag = (String)((Map)currentEntry).get(entryToCheck);
             if ("Y".equalsIgnoreCase(forceFlag)) {
                 shouldForce = true;
@@ -127,7 +158,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     private void markInProgress() throws Exception {
         WriteMode inProgressChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_MARK_IN_PROGRESS);
-        Map<String, String> dqeParams = new HashMap<String,String>();
+        Map<String, String> dqeParams = new HashMap<String, String>();
         dqeParams.put("channel_label", channelLabelToProcess);
         try {
             int channelLabels = inProgressChannel.executeUpdate(dqeParams);
@@ -139,7 +170,8 @@ public class ChannelRepodataWorker implements QueueWorker {
             HibernateFactory.commitTransaction();
         }
         catch (Exception e) {
-            logger.error("Error marking in use for channel_label: " + channelLabelToProcess, e);
+            logger.error("Error marking in use for channel_label: " + 
+                   channelLabelToProcess, e);
             HibernateFactory.rollbackTransaction();
             throw e;
         }
@@ -154,7 +186,7 @@ public class ChannelRepodataWorker implements QueueWorker {
     private void dequeueChannel() throws Exception {
         WriteMode deqChannel = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_REPOMD_DEQUEUE);
-        Map<String, String> dqeParams = new HashMap<String,String>();
+        Map<String, String> dqeParams = new HashMap<String, String>();
         dqeParams.put("channel_label", channelLabelToProcess);
         try {
             int eqDeleted = deqChannel.executeUpdate(dqeParams);
@@ -165,7 +197,8 @@ public class ChannelRepodataWorker implements QueueWorker {
             HibernateFactory.commitTransaction();
         }
         catch (Exception e) {
-            logger.error("Error removing Channel from queue for Channel: " + channelLabelToProcess, e);
+            logger.error("Error removing Channel from queue for Channel: " + 
+                    channelLabelToProcess, e);
             HibernateFactory.rollbackTransaction();
             return;
         }

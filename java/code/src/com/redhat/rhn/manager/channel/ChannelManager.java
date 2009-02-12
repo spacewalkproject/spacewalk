@@ -2287,8 +2287,14 @@ public class ChannelManager extends BaseManager {
     public static List<String> getSyncdChannelArches() {
         return ChannelFactory.findChannelArchLabelsSyncdChannels();
     }
-    
-    public static void queueChannelChange( String channelLabel, String client, String reason ) {
+    /**
+     * 
+     * @param channelLabel channel label
+     * @param client client info
+     * @param reason reason for queue
+     */
+    public static void queueChannelChange(String channelLabel, String client, 
+            String reason) {
         if (client == null) {
             client = "";
         }

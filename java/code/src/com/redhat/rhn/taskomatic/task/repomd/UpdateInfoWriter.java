@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.io.Writer;
@@ -12,11 +26,16 @@ import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Cve;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnpackage.Package;
-
+/**
+ * UpdateInfo.xml writer class
+ * 
+ * @version $Rev $
+ *
+ */
 public class UpdateInfoWriter extends RepomdWriter {
     /**
-     * Constructor takes in writer
-     * @param writer
+     * Constructor takes in writer.
+     * @param writer xml writer object
      */
     public UpdateInfoWriter(Writer writer) {
         super(writer);
@@ -49,7 +68,7 @@ public class UpdateInfoWriter extends RepomdWriter {
      * Ends the xml creation
      */
     public void end() {
-    	try {
+        try {
             handler.endElement("updates");
             handler.endDocument();
         } 
@@ -59,6 +78,7 @@ public class UpdateInfoWriter extends RepomdWriter {
     }
     /**
      * Starts xml creation
+     * @param channel channel info
      */
     public void begin(Channel channel) {
         try {
