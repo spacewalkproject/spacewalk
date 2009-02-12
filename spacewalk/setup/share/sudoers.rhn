@@ -17,8 +17,7 @@ Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-satellite restart,\
                          /usr/bin/rhn-bootstrap,\
                          /usr/sbin/rhnreg_ks,\
                          /etc/rc.d/np.d/step Monitoring install,\
-                         /etc/rc.d/np.d/step MonitoringScout install,\
-                         /bin/ln -s /opt/notification/cron/notification /etc/cron.d/notification
+                         /etc/rc.d/np.d/step MonitoringScout install
 
 Cmnd_Alias CONFIG_RHN = /usr/sbin/rhn-satellite restart,\
                         /sbin/service Monitoring restart,\
@@ -30,8 +29,6 @@ Cmnd_Alias CONFIG_RHN = /usr/sbin/rhn-satellite restart,\
                         /etc/rc.d/np.d/step MonitoringScout install,\
                         /etc/rc.d/np.d/step Monitoring uninstall,\
                         /etc/rc.d/np.d/step MonitoringScout uninstall,\
-                        /bin/ln -s /opt/notification/cron/notification /etc/cron.d/notification,\
-                        /bin/rm /etc/cron.d/notification,\
                         /usr/bin/rhn-load-ssl-cert.pl
 
 # The INSTALL_RHN commands are required for RHN Satellite
