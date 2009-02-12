@@ -20298,7 +20298,7 @@ given channel.</source>
          <source>Package Management</source>
        </trans-unit>
       <trans-unit id="channel.jsp.manage.package.message">
-         <source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Delete Packages', below.</source>
+         <source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Confirm Deletion', below.</source>
        </trans-unit>
       <trans-unit id="channel.jsp.manage.package.subtitle">
          <source>Package List</source>
