@@ -149,7 +149,7 @@ public class TrustAction extends FormDispatcher {
         request.setAttribute(DATA_SET, dataSet);
         request.setAttribute(
             ListTagHelper.PARENT_URL, 
-            request.getRequestURI() + "?oid=+" + oid);
+            request.getRequestURI() + "?oid=" + oid);
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, RHNSET, request);
         return mapping.findForward("default");
