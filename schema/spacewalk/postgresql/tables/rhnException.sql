@@ -19,7 +19,7 @@
 create table rhnException
 (
     id	        numeric not null
-		constraint rhn_exc_id_pk primary key
+		constraint rhn_exc_id_pk primary key,
 --		    using index tablespace [[64k_tbs]],
     label       varchar(128) not null
 		constraint rhn_exc_label_uq unique,

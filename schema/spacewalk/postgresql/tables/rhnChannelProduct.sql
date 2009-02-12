@@ -28,12 +28,12 @@ rhnChannelProduct
                         constraint rhn_channelprod_beta_ck
                                 check (beta in ('Y', 'N')),
 	created		timestamp default (current_timestamp) not null,
-	modified	timestamp default (current_timestamp) not null
+	modified	timestamp default (current_timestamp) not null,
 			constraint rhn_channelprod_p_v_b_uq unique (product, version, beta),
 --			using tablespace [[64k_tbs]]
 )
 ;
 
---create sequence rhn_channelprod_id_seq;
+create sequence rhn_channelprod_id_seq;
 
 --

@@ -25,7 +25,7 @@ create table rhnProductName
 )
 ;
 
---create sequence rhn_productname_id_seq start with 101;
+create sequence rhn_productname_id_seq start with 101;
 
 --create or replace trigger product_name_mod_trig
 --before insert or update on rhnProductName

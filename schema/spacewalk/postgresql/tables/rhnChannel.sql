@@ -65,24 +65,23 @@ rhnChannel
 )
 ;
 
---create sequence rhn_channel_id_seq start with 101;
+create sequence rhn_channel_id_seq start with 101;
 
 create index rhn_channel_org_idx
-	on rhnChannel(org_id, id)
+	on rhnChannel(org_id, id);
 --	tablespace [[64k_tbs]]
-	nologging;
+
 create index rhn_channel_url_id_idx
-	on rhnChannel(label, id)
+	on rhnChannel(label, id);
 --	tablespace [[64k_tbs]]
-	nologging;
+
 create index rhn_channel_parent_id_idx
-	on rhnChannel(parent_channel, id)
+	on rhnChannel(parent_channel, id);
 --	tablespace [[64k_tbs]]
-	nologging;
+
 create index rhn_channel_access_idx
-	on rhnChannel(channel_access)
+	on rhnChannel(channel_access);
 --	tablespace [[64k_tbs]]
-	nologging;
 
 --show errors
 

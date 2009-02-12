@@ -24,20 +24,15 @@ create table
     recid       numeric   (12) not null,
     target_type varchar2 (10) not null
         constraint cmdtg_target_type_ck check (target_type in ('cluster','node')),
-    customer_id numeric   (12) not null,
-	constraint rhn_cmdtg_recid_target_type_pk primary key (recid, target_type),
-	constraint rhn_cmdtg_cstmr_customer_id_fk foreign key ( customer_id )
-    references web_customer( id )
+    customer_id numeric   (12) not null
+				constraint rhn_cmdtg_cstmr_customer_id_fk foreign key ( customer_id )
+    				references web_customer( id ),
+	constraint rhn_cmdtg_recid_target_type_pk primary key (recid, target_type)
 )
 ;
 
 comment on table rhn_command_target 
     is 'cmdtg  command target (cluster or node)';
-
-create unique index rhn_cmdtg_recid_pk 
-    on rhn_command_target ( recid, target_type )
---    tablespace [[2m_tbs]]
-  ;
 
 create index rhn_cmdtg_cid_idx
 	on rhn_command_target( customer_id )

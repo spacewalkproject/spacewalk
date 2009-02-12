@@ -20,7 +20,7 @@ create table
 rhnPackageGroup
 (
         id              numeric not null
-                        constraint rhn_package_group_id_pk primary key
+                        constraint rhn_package_group_id_pk primary key,
 --                        using index tablespace [[2m_tbs]],
         name            varchar(100) not null
 			constraint rhn_package_group_name_uq unique,
@@ -30,11 +30,11 @@ rhnPackageGroup
 )
   ;
 
--- create sequence rhn_package_group_id_seq;
+create sequence rhn_package_group_id_seq;
 
 ;
 
-create or replace trigger
+/*create or replace trigger
 rhn_package_group_mod_trig
 before insert or update on rhnPackageGroup
 for each row
@@ -43,7 +43,7 @@ begin
 end;
 /
 show errors
-
+*/
 --
 -- Revision 1.11  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again

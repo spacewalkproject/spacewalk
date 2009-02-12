@@ -23,9 +23,9 @@ create table
 rhn_probe_types
 (
     probe_type          varchar (20) not null
-        constraint rhn_prbtp_probe_type_pk primary key
+        constraint rhn_prbtp_probe_type_pk primary key,
 --            using index tablespace [[64k_tbs]]
-            ,
+            
     type_description    varchar (200) not null
 )
   ;

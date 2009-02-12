@@ -25,7 +25,7 @@ create table rhnServerChannel
 			constraint rhn_sc_cid_fk
 				references rhnChannel(id),
 	created		timestamp default (current_timestamp) not null,
-	modified	timestamp default (current_timestamp) not null
+	modified	timestamp default (current_timestamp) not null,
 			constraint rhn_sc_sid_cid_uq unique (server_id, channel_id)
 --			using tablespace [[8m_tbs]]
 )
@@ -34,7 +34,7 @@ create table rhnServerChannel
 create index rhn_sc_cid_sid_idx
 	on rhnServerChannel(channel_id, server_id)
 --	tablespace [[8m_tbs]]
-	nologging;
+
 
 --
 -- Revision 1.12  2004/02/09 16:38:38  pjones

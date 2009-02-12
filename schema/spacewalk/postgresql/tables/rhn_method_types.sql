@@ -24,9 +24,9 @@ rhn_method_types
 (
     recid                   numeric   (12) not null
         constraint rhn_mthtp_recid_ck check (recid > 0)
-        constraint rhn_mthtp_recid_pk primary key
+        constraint rhn_mthtp_recid_pk primary key,
 --            using index tablespace [[64k_tbs]]
-            ,
+            
     method_type_name        varchar (20),
     notification_format_id  numeric   (12) default 4 not null
 )  

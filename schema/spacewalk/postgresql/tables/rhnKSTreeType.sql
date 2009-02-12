@@ -16,10 +16,10 @@ create table
 rhnKSTreeType
 (
         id              numeric not null
-                        constraint rhn_kstreetype_id_pk primary key
+                        constraint rhn_kstreetype_id_pk primary key,
 --                                using index tablespace [[64k_tbs]],
         label           varchar(32) not null
-			constraint rhn_kstreetype_label_uq unique
+			constraint rhn_kstreetype_label_uq unique,
 --        		using index tablespace [[64k_tbs]]
         name            varchar(64) not null,
         created         timestamp default (current_timestamp) not null,

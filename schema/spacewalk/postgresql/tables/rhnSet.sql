@@ -33,7 +33,7 @@ rhnSet
 )
 ;
 
-alter table rhnSet nologging;
+
 
 --
 -- Revision 1.9  2003/02/18 16:08:49  pjones

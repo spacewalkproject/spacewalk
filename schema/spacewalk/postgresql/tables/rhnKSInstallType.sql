@@ -22,7 +22,7 @@ create table
 rhnKSInstallType
 (
         id              numeric not null
-                        constraint rhn_ksinstalltype_id_pk primary key
+                        constraint rhn_ksinstalltype_id_pk primary key,
 --                                using index tablespace [[64k_tbs]],
         label           varchar(32) not null
 			constraint rhn_ksinstalltype_label_uq unique, 

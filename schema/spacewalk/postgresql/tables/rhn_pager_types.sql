@@ -23,9 +23,9 @@ rhn_pager_types
 (
     recid           numeric   (12) not null
         constraint rhn_pgrtp_recid_ck check (recid > 0)
-        constraint rhn_pgrtp_recid_pk primary key
+        constraint rhn_pgrtp_recid_pk primary key,
 --            using index tablespace [[2m_tbs]]
-            ,
+            
     pager_type_name varchar (50)
 )
   ;
@@ -33,7 +33,7 @@ rhn_pager_types
 comment on table rhn_pager_types 
     is 'pgrtp  pager types';
 
---create sequence rhn_pager_types_recid_seq;
+create sequence rhn_pager_types_recid_seq;
 
 --
 --Revision 1.2  2004/04/13 20:45:55  kja

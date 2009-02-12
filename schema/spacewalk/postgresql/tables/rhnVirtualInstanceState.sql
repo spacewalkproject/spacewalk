@@ -21,7 +21,7 @@ create table
 rhnVirtualInstanceState
 (
 	id			numeric not null
-				constraint rhn_vis_id_pk primary key
+				constraint rhn_vis_id_pk primary key,
 --				using index tablespace [[64k_tbs]],
 	name			varchar(128) not null,
 	label			varchar(128) not null,

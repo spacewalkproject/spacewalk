@@ -20,7 +20,7 @@
 create table rhnConfigFileType
 (
 	id			numeric not null
-				constraint rhn_conffiletype_id_pk primary key
+				constraint rhn_conffiletype_id_pk primary key,
 --					using index tablespace [[2m_tbs]],
    label    varchar(64) not null,
    name     varchar(256) not null,

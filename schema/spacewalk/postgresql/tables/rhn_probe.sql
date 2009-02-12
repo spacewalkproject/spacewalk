@@ -75,7 +75,7 @@ create index rhn_probe_contact_grp_idx
     on rhn_probe ( contact_group_id )
 --    tablespace [[8m_tbs]]
   ;
---create sequence rhn_probes_recid_seq;
+create sequence rhn_probes_recid_seq;
 
 --
 --Revision 1.6  2004/07/13 14:13:23  kja

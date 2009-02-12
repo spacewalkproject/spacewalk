@@ -38,7 +38,7 @@ rhnPrivateChannelFamily
 create index rhn_cfperm_cfid_oid_idx on
 	rhnPrivateChannelFamily( channel_family_id, org_id )
 --	tablespace [[2m_tbs]]
-	nologging;
+
 
 --
 --

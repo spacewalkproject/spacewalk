@@ -19,7 +19,7 @@ create table rhnVisibleObjects(
   constraint rhn_vis_objs_sess_fk
     foreign key (pxt_session_id)
     references PXTSessions(id)
-    on delete cascade
+    on delete cascade,
 constraint rhn_vis_objs_sess_obj_type_idx unique (pxt_session_id, object_id, object_type)
 )
 ;

@@ -23,9 +23,9 @@ create table
 rhn_redirect_types
 (
     name            varchar(20) not null
-        constraint rhn_rdrtp_name_pk primary key
+        constraint rhn_rdrtp_name_pk primary key,
 --            using index tablespace [[64k_tbs]]
-            ,
+            
     description     varchar (255),
     long_name       varchar (80)
 )

@@ -23,7 +23,7 @@ create table
 rhn_redirect_match_types
 (
     name                varchar(255) not null
-        constraint rhn_rdrmt_name_pk primary key
+        constraint rhn_rdrmt_name_pk primary key,
 --            using index tablespace [[64k_tbs]]
 )
 ;

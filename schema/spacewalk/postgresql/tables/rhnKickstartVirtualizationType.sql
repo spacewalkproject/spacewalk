@@ -20,10 +20,10 @@ create table
 rhnKickstartVirtualizationType
 (
 	id			numeric not null
-				constraint rhn_kvt_id_pk primary key
+				constraint rhn_kvt_id_pk primary key,
 --					using index tablespace [[8m_tbs]],
 	name			varchar(128) not null,
-	label			varchar2(128) not null
+	label			varchar(128) not null
 				constraint rhn_kvt_label_unq unique,
 	created			timestamp default (current_timestamp) not null,
 	modified		timestamp default (current_timestamp) not null

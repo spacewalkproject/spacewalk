@@ -24,7 +24,7 @@ rhnVersionInfo
 (
 	label		varchar(64) not null
 			constraint rhn_versioninfo_label_uq unique,
---tablespace [[64k_tbs]]
+--			using index tablespace [[64k_tbs]]
 	name_id		numeric not null
 			constraint rhn_versioninfo_nid_fk
 			references rhnPackageName(id),
@@ -34,7 +34,7 @@ rhnVersionInfo
 	created		timestamp default(current_timestamp) not null,
 	modified	timestamp default(current_timestamp) not null,
 			constraint rhn_versioninfo_nid_eid_uq unique (name_id,evr_id)
---using index tablespace [[64k_tbs]]
+			--using index tablespace [[64k_tbs]]
 )
 ;
 
@@ -42,7 +42,7 @@ create index rhn_vinfo_label_eid_nid_idx
 	on rhnVersionInfo(label, name_id, evr_id)
 --tablespace [[64k_tbs]]
   ;
-
+/*
 create or replace trigger
 rhn_versioninfo_mod_trig
 before insert or update on rhnVersionInfo
@@ -53,7 +53,7 @@ end;
 /
 show errors
 
-
+*/
 -- Revision 1.7  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

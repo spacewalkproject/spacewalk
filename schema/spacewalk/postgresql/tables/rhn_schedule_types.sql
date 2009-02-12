@@ -24,9 +24,9 @@ rhn_schedule_types
 (
     recid           numeric   (12) not null
         constraint rhn_schtp_recid_ck check (recid > 0)
-        constraint rhn_schtp_recid_pk primary key
+        constraint rhn_schtp_recid_pk primary key,
 --            using index tablespace [[64k_tbs]]
-            ,
+            
     description     varchar (40)
 )
 
@@ -35,7 +35,7 @@ rhn_schedule_types
 comment on table rhn_schedule_types 
     is 'schtp  schedule types';
 
---create sequence rhn_schedule_types_recid_seq;
+create sequence rhn_schedule_types_recid_seq;
 
 --
 --Revision 1.2  2004/04/16 21:49:57  kja

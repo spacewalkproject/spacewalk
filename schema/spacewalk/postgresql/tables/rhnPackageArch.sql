@@ -30,7 +30,7 @@ rhnPackageArch
 )
   ;
 
---create sequence rhn_package_arch_id_seq start with 100;
+create sequence rhn_package_arch_id_seq start with 100;
 
 -- these must be in this order.
 create index rhn_parch_id_l_n_idx

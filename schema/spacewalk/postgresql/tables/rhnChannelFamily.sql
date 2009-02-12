@@ -38,7 +38,7 @@ rhnChannelFamily
 )
 ;
 
---create sequence rhn_channel_family_id_seq start with 1000;
+create sequence rhn_channel_family_id_seq start with 1000;
 
 --create or replace trigger
 --rhn_channel_family_mod_trig

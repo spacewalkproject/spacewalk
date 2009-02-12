@@ -21,7 +21,7 @@ create table
 rhnVirtualInstanceInstallLog
 (
     id                 numeric not null
-                       constraint rhn_viil_id_pk primary key
+                       constraint rhn_viil_id_pk primary key,
 --                     using index tablespace [[64k_tbs]],
     log_message        varchar(4000) not null,
     ks_session_id      numeric

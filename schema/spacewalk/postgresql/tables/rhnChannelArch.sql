@@ -34,7 +34,7 @@ rhnChannelArch
 )
 ;
 
---create sequence rhn_channel_arch_id_seq start with 500;
+create sequence rhn_channel_arch_id_seq start with 500;
 
 -- these must be in this order.
 

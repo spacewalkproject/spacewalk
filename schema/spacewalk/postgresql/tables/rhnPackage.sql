@@ -72,7 +72,7 @@ rhnPackage
 )
   ;
 
---create sequence rhn_package_id_seq;
+create sequence rhn_package_id_seq;
 
 create index rhn_package_oid_id_idx
 	on rhnPackage(org_id, id)

@@ -30,7 +30,7 @@ rhnPackageEVR
 )
   ;
 
--- create sequence rhn_pkg_evr_seq;
+ create sequence rhn_pkg_evr_seq;
 
 --
 -- Revision 1.9  2004/06/09 23:01:50  misa
