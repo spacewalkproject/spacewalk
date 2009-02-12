@@ -13,25 +13,29 @@
 -- in this software or its documentation. 
 --
 --
---
+-- $Id: $
 --
 
 create or replace function
-lookup_arch_type(label_in in varchar)
-returns numeric
+lookup_feature_type(label_in in varchar)
+returns numeric 
 as
 $$
 declare
-	arch_type_id numeric;
+	feature_id numeric;
 begin
-	select id into arch_type_id from rhnArchType where label = label_in;
+	select	id
+	into	feature_id
+	from  rhnFeature 	
+	where	label = label_in;
 
 	if not found then
-		perform rhn_exception.raise_exception('arch_type_not_found');
+            perform rhn_exception.raise_exception('invalid_feature');
 	end if;
 
-	return arch_type_id;
+	return feature_id;
 end;
-$$ language plpgsql
+$$
+language plpgsql
 stable;
 

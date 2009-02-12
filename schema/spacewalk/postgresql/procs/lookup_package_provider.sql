@@ -17,21 +17,20 @@
 --
 
 create or replace function
-lookup_arch_type(label_in in varchar)
+lookup_package_provider(name_in in varchar)
 returns numeric
 as
 $$
 declare
-	arch_type_id numeric;
+	package_provider_id numeric;
 begin
-	select id into arch_type_id from rhnArchType where label = label_in;
+	select id into package_provider_id from rhnPackageProvider where name = name_in;
 
 	if not found then
-		perform rhn_exception.raise_exception('arch_type_not_found');
+		perform rhn_exception.raise_exception('package_provider_not_found');
 	end if;
 
-	return arch_type_id;
+	return package_provider_id;
 end;
-$$ language plpgsql
-stable;
+$$ language plpgsql;
 

@@ -13,25 +13,30 @@
 -- in this software or its documentation. 
 --
 --
+-- Revision 1.25  2004/11/01 17:53:03  pjones
+-- bugzilla: 136124 -- Fix the "no data found" when deleting rhn_sat_cluster
 --
+--
+--
+--
+-- This deletes a list of server. 
 --
 
-create or replace function
-lookup_arch_type(label_in in varchar)
-returns numeric
-as
+create or replace
+function delete_server_bulk (
+	user_id_in in numeric
+) as
 $$
 declare
-	arch_type_id numeric;
+	systems cursor for
+		select	s.element id
+		from	rhnSet s
+		where	s.user_id = user_id_in
+			and s.label = 'system_list';
 begin
-	select id into arch_type_id from rhnArchType where label = label_in;
-
-	if not found then
-		perform rhn_exception.raise_exception('arch_type_not_found');
-	end if;
-
-	return arch_type_id;
-end;
-$$ language plpgsql
-stable;
+	for s in systems loop
+                delete_server(s.id);
+	end loop;
+end delete_server_bulk;
+$$ language plpgsql;
 

@@ -55,6 +55,7 @@ set client_min_messages = error;
 -- \i tables/rhnActionVirtVcpu.sql
 \i tables/rhnSatelliteCert.sql
 
+/* triggers go here */
 \i triggers/rhnOrgQuota.sql
 -- \i triggers/rhnActionConfigChannel.sql
 -- \i triggers/rhnActionConfigDateFile.sql
@@ -83,11 +84,22 @@ set client_min_messages = error;
 \i triggers/rhnSatelliteCert.sql
 \i triggers/web_contact.sql
 
+/* functions go here */
 \i procs/create_first_org.sql
 \i procs/sequence_nextval.sql
 \i procs/sequence_currval.sql
+\i procs/lookup_package_key_type.sql
+\i procs/create_pxt_session.sql
+\i procs/truncateCacheQueue.sql
+\i procs/lookup_cf_state.sql
+\i procs/queue_errata.sql
+\i procs/lookup_arch_type.sql
+\i procs/lookup_feature_type.sql
+\i procs/lookup_package_provider.sql
+\i procs/delete_server_bulk.sql
 
--- Data population scripts go here
+
+/* Data population scripts go here */
 \i tables/rhnUserGroupType_data.sql
 -- \i tables/rhnActionStatus_data.sql
 -- \i tables/rhnActionType_data.sql

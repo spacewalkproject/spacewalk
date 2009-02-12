@@ -16,22 +16,10 @@
 --
 --
 
-create or replace function
-lookup_arch_type(label_in in varchar)
-returns numeric
-as
+create or replace function truncateCacheQueue() returns void as
 $$
-declare
-	arch_type_id numeric;
 begin
-	select id into arch_type_id from rhnArchType where label = label_in;
-
-	if not found then
-		perform rhn_exception.raise_exception('arch_type_not_found');
-	end if;
-
-	return arch_type_id;
+  execute 'Truncate Table rhnOrgErrataCacheQueue';
 end;
-$$ language plpgsql
-stable;
+$$ language plpgsql;
 

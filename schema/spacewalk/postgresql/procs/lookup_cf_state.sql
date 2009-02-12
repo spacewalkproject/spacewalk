@@ -17,21 +17,21 @@
 --
 
 create or replace function
-lookup_arch_type(label_in in varchar)
-returns numeric
+lookup_cf_state(
+	label_in in varchar
+) returns numeric 
 as
 $$
 declare
-	arch_type_id numeric;
+	state_id numeric;
 begin
-	select id into arch_type_id from rhnArchType where label = label_in;
+	select	id
+	into	state_id
+	from	rhnConfigFileState
+	where	label = label_in;
 
-	if not found then
-		perform rhn_exception.raise_exception('arch_type_not_found');
-	end if;
-
-	return arch_type_id;
+	return state_id;
 end;
-$$ language plpgsql
+language plpgsql
 stable;
 

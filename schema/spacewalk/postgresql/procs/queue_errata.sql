@@ -16,22 +16,15 @@
 --
 --
 
-create or replace function
-lookup_arch_type(label_in in varchar)
-returns numeric
-as
+CREATE OR REPLACE PROCEDURE
+queue_errata(errata_id_in IN numeric)
+AS
 $$
-declare
-	arch_type_id numeric;
-begin
-	select id into arch_type_id from rhnArchType where label = label_in;
-
-	if not found then
-		perform rhn_exception.raise_exception('arch_type_not_found');
-	end if;
-
-	return arch_type_id;
-end;
-$$ language plpgsql
-stable;
+BEGIN
+	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);
+EXCEPTION
+	WHEN UNIQUE_VIOLATION THEN
+	     UPDATE rhnSNPErrataQueue SET processed = 0 WHERE errata_id = errata_id_in;
+END;
+$$ language plpgsql;
 
