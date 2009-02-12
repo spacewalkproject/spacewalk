@@ -59,6 +59,10 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
         SerializerHelper bean = new SerializerHelper(builtInSerializer);
         Dmi dmi = (Dmi) value;
         
+        if (dmi.getSystem() == null) {
+            return;
+        }
+        
         bean.add("vendor", StringUtils.defaultString(dmi.getVendor()));
         bean.add("system", StringUtils.defaultString(dmi.getSystem()));
         bean.add("product", StringUtils.defaultString(dmi.getProduct()));
