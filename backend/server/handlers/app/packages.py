@@ -24,7 +24,7 @@ import tempfile
 
 from common import RPC_Base, rhnFault, log_debug, log_error, CFG
 
-from server import rhnSQL, rhnPackageUpload, rhnUser, rhnSession, taskomatic
+from server import rhnSQL, rhnPackageUpload, rhnUser, rhnSession
 
 from server.importlib.importLib import Collection, IncompatibleArchError,\
     Channel, IncompletePackage, InvalidChannelError
@@ -402,8 +402,6 @@ class Packages(RPC_Base):
             affected_channels)
 
         schedule_errata_cache_update(affected_channels)
-        taskomatic.add_to_repodata_queue_for_channel_package_subscription(
-                affected_channels, batch, caller)
         rhnSQL.commit()
 
         return 0
