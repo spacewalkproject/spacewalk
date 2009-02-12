@@ -983,4 +983,16 @@ public class KickstartFactory extends HibernateFactory {
     }
     
     
+    /**
+     * Get a list of all trees that have a cobbler id of null
+     * @return list of trees
+     */
+    public static List<KickstartableTree> listUnsyncedKickstartTrees() {
+        String query = "KickstartableTree.getUnsyncedKickstartTrees";
+        Session session = HibernateFactory.getSession();
+        return (List<KickstartableTree>) session.getNamedQuery(query)
+            .setCacheable(true).list();           
+    }
+    
+    
 }

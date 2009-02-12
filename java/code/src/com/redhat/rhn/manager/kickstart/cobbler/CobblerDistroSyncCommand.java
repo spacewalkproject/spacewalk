@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 /**
@@ -40,6 +41,8 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
     
     private Logger log;
+    private static final AtomicLong LAST_UPDATED = new AtomicLong();
+    
     
     /**
      * Constructor to create a 
@@ -60,6 +63,32 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         }
         return toReturn;
     }
+    
+    
+    /**
+     * Sync spacewalk distros that have a null cobblerId
+     *  we do this in store as well, (while doing other syncing 
+     *  tasks, but this is needed occasoinally outside of store.
+     * @return
+     */
+    public ValidatorError syncNullDistros() {
+        List errors = new LinkedList();
+        List<KickstartableTree> unSynced = KickstartFactory.listUnsyncedKickstartTrees();
+        for (KickstartableTree tree : unSynced) {
+            log.debug("syncing null distro " + tree.getLabel());
+            String err = createDistro(tree, false);
+            if (err != null) {
+                errors.add(err);
+            }
+        }
+        StringBuffer messages = new StringBuffer();
+        for (int i = 0; i < errors.size(); i++) {
+            messages.append(errors.get(i));
+            messages.append("\n");
+        }
+        return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
+    }
+    
     
     
     /**

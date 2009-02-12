@@ -832,7 +832,6 @@ ORDER BY  E.update_date DESC
   <query params="errata_id, org_id">
 delete from rhnServerNeededPackageCache
   where server_id in (select id from rhnServer where org_id = :org_id)
-  and org_id = :org_id
   and errata_id = :errata_id
   </query>
 </write-mode>

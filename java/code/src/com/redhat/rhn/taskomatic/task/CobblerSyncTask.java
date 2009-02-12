@@ -76,6 +76,14 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         }
         
         
+        
+        CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
+        ValidatorError ve = distSync.syncNullDistros();
+        if (ve != null) {
+            TaskHelper.sendErrorEmail(log, ve.getMessage());
+        }
+        
+        
         log.debug("mtime: " + mtime.longValue() + ", last modified: " + 
             LAST_UPDATED.get());
         //If we got an mtime from cobbler and that mtime is before our last update
@@ -86,8 +94,8 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         }
         else {
             log.debug("Syncing distros and profiles.");
-            CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
-            ValidatorError ve = distSync.store();
+            
+            ve = distSync.store();
             if (ve != null) {
                 TaskHelper.sendErrorEmail(log, ve.getMessage());
             }
@@ -102,5 +110,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
        
     }
+    
+    
 
 }
