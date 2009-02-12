@@ -80,6 +80,14 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             if (err != null) {
                 errors.add(err);
             }
+                        
+            if (tree.doesParaVirt()) {
+                err = createDistro(tree, true);
+                if (err != null) {
+                    errors.add(err);
+                }
+            }               
+
         }
         StringBuffer messages = new StringBuffer();
         for (int i = 0; i < errors.size(); i++) {
