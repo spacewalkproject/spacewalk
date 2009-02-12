@@ -124,7 +124,7 @@ if [ -d /opt/notification ] ; then
     # try to get all subsystems logs
     cp -fapRd /opt/notification/var/*.log* $DIR/mon-logs 2> /dev/null
     cp -fapRd /var/tmp/ack_handler.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /var/tmp/enqueue.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /var/log/nocpulse/*.log* $DIR/mon-logs 2> /dev/null
 fi
 
 # monitoring scout logs

@@ -105,7 +105,7 @@ alertmgr.cgi -- Internal-use tool that allows one to acknowledge and clear alert
 redirmgr.cgi -- Internal-use tool that allows one to configure a redirect (advaned notification).
 
 /var/www/cgi-mod-perl
-enqueue.cgi -- This script enqueues notification requests from satellites sent via http by the event receiver box.  It does some basic screening and will reject notifications missing complete information.  Enqueued alerts (notifications) are placed in Storable format and put in $NOTIFICATION_HOME/queue/alert_queue.  Log file is /var/tmp/enqueue.log.
+enqueue.cgi -- This script enqueues notification requests from satellites sent via http by the event receiver box.  It does some basic screening and will reject notifications missing complete information.  Enqueued alerts (notifications) are placed in Storable format and put in $NOTIFICATION_HOME/queue/alert_queue.  Log file is /var/log/nocpulse/enqueue.log.
 
 notifserver-test.cgi
 
