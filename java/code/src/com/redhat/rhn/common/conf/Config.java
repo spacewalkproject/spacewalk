@@ -45,7 +45,7 @@ public class Config {
 
     private static Logger logger = Logger.getLogger(Config.class);
 
-    private static final String SPACEWALK = "Spacewalk";
+    public static final String SPACEWALK = "Spacewalk";
 
     //
     // Location of config files

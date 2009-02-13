@@ -64,7 +64,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
               
         String profileLabel = "new-ks-profile";
         ksHandler.createProfile(adminKey, profileLabel, 
-                KickstartVirtualizationType.AUTO, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
                 testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -86,7 +86,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);    
               
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel, KickstartVirtualizationType.AUTO, 
+        ksHandler.createProfile(adminKey, profileLabel, KickstartVirtualizationType.XEN_PARAVIRT, 
              testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -609,7 +609,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile" + TestUtils.randomString();
-        kh.createProfile(adminKey, profileLabel,  KickstartVirtualizationType.AUTO,
+        kh.createProfile(adminKey, profileLabel,  KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(

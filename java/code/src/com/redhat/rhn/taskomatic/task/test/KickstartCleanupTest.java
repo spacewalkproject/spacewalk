@@ -123,7 +123,7 @@ public class KickstartCleanupTest extends RhnBaseTestCase {
         ksession.setOldServer(s);
         ksession.setNewServer(s);
         KickstartVirtualizationType type = KickstartFactory.
-         lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.AUTO);
+         lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.XEN_PARAVIRT);
         ksession.setVirtualizationType(type);
         TestUtils.saveAndFlush(ksession);
         return ksession;

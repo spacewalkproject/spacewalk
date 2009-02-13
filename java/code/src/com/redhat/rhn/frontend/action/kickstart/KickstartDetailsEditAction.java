@@ -166,7 +166,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
        
        //Should we show virt options?
        ctx.getRequest().setAttribute(IS_VIRT, !data.getKickstartDefaults().
-                   getVirtualizationType().equals(KickstartFactory.VIRT_TYPE_AUTO));
+                   getVirtualizationType().equals(KickstartFactory.VIRT_TYPE_PV_HOST));
 
     }
     
@@ -272,7 +272,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         //or if it was there, but we switched to none-type, don't save it either
         String virtType = (String) form.get(VIRTUALIZATION_TYPE_LABEL);
         return virtType != null && !virtType.equals(
-                KickstartFactory.VIRT_TYPE_AUTO.getLabel());
+                KickstartFactory.VIRT_TYPE_PV_HOST.getLabel());
     }
     
     

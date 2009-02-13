@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
@@ -73,7 +74,6 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         
         Profile prof = Profile.create(con, CobblerCommand.makeCobblerName(this.ksData),
                 distro);
-        prof.setVirtType(ksData.getKickstartDefaults().getVirtualizationType().getLabel());
         
         Map<String, String> meta = new HashMap<String, String>();
         meta.put("org", ksData.getOrg().getId().toString());

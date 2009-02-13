@@ -14,11 +14,13 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -66,8 +68,18 @@ public class KickstartWizardHelper {
      * Retrieve a list of the valid virtualization types
      * @return list of VirtualizationTypes
      */
-    public List getVirtualizationTypes() {        
-        return KickstartFactory.lookupVirtualizationTypes();
+    public List getVirtualizationTypes() {   
+        // Filter out KVM if this is Satellite
+        List types = KickstartFactory.lookupVirtualizationTypes();
+        if (!Config.get().isSpacewalk()) {
+            for (int i = 0; i < types.size(); i++) {
+                KickstartVirtualizationType type = (KickstartVirtualizationType) types.get(i);
+                if (type.getLabel().equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
+                    types.remove(i);
+                }
+            }            
+        }
+        return types;
     }
 
     /**

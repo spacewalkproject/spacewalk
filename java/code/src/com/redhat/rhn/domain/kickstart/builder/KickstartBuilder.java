@@ -477,7 +477,7 @@ public class KickstartBuilder {
      */
     private void setupVirtType(String virtType, KickstartData data) {
         if (StringUtils.isBlank(virtType)) {
-            virtType = KickstartVirtualizationType.AUTO;
+            virtType = KickstartVirtualizationType.XEN_PARAVIRT;
         }
         KickstartVirtualizationType ksVirtType = KickstartFactory.
         lookupKickstartVirtualizationTypeByLabel(virtType);

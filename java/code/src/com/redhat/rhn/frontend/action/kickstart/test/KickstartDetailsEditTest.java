@@ -46,7 +46,7 @@ public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
         addRequestParameter(KickstartDetailsEditAction.ORG_DEFAULT, 
                 Boolean.TRUE.toString());
         addRequestParameter(KickstartDetailsEditAction.VIRTUALIZATION_TYPE_LABEL, 
-                KickstartVirtualizationType.AUTO);
+                KickstartVirtualizationType.XEN_PARAVIRT);
         actionPerform();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
         String[] keys = {"kickstart.details.success"};

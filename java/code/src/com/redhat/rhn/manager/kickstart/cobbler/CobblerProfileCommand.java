@@ -101,6 +101,15 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         meta.put("org", this.ksData.getOrg().getId());
         profile.setKsMeta(meta);
         
+        // Check for para_host
+        if (ksData.getKickstartDefaults().getVirtualizationType().
+                getLabel().equals(KickstartVirtualizationType.PARA_HOST)) {
+            profile.setVirtType(KickstartVirtualizationType.XEN_PARAVIRT);
+        }
+        else {
+            profile.setVirtType(ksData.getKickstartDefaults().getVirtualizationType().getLabel());
+        }
+
         profile.save();
     }
     
