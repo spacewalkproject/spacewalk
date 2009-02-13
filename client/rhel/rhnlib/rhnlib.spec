@@ -3,7 +3,7 @@
 Summary: Python libraries for the RHN project
 Name: rhnlib
 Source0: %{name}-%{version}.tar.gz
-Version: 2.5.8
+Version: 2.5.9
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 2.5.9-1
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python"
+
 * Tue Jan 27 2009 Dennis Gilmore <dennis@ausil.us> 2.5.8-1
 - clean up files section 
 
