@@ -41,7 +41,6 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
     
     private Logger log;
-    private static final AtomicLong LAST_UPDATED = new AtomicLong();
     
     
     /**
@@ -69,7 +68,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
      * Sync spacewalk distros that have a null cobblerId
      *  we do this in store as well, (while doing other syncing 
      *  tasks, but this is needed occasoinally outside of store.
-     * @return
+     * @return an error if applicable
      */
     public ValidatorError syncNullDistros() {
         List errors = new LinkedList();
@@ -81,7 +80,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                 errors.add(err);
             }
                         
-            if (tree.doesParaVirt()) {
+            if (tree.doesParaVirt() && tree.getCobblerXenId() == null) {
                 err = createDistro(tree, true);
                 if (err != null) {
                     errors.add(err);
@@ -94,7 +93,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             messages.append(errors.get(i));
             messages.append("\n");
         }
-        return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
+        if (messages.length() == 0) {
+            return null;
+        }
+        else {
+            return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
+        }
     }
     
     
@@ -149,7 +153,12 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             messages.append(errors.get(i));
             messages.append("\n");
         }
-        return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
+        if (messages.length() == 0) {
+            return null;
+        }
+        else {
+            return new ValidatorError("kickstart.cobbler.distro.syncfail", messages);
+        }
     }
     
     
