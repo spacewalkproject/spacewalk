@@ -149,7 +149,8 @@ public class KickstartSessionTest extends BaseTestCaseWithUser {
         ksession.setOldServer(s);
         ksession.setNewServer(s);
         ksession.setVirtualizationType(KickstartFactory.
-                lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.XEN_PARAVIRT));
+                lookupKickstartVirtualizationTypeByLabel(
+                    KickstartVirtualizationType.XEN_PARAVIRT));
         
         if (actionIn != null) {
             ksession.setAction(actionIn);

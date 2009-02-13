@@ -187,7 +187,8 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile";
-        handler.createProfile(adminKey, profileLabel, KickstartVirtualizationType.XEN_PARAVIRT, 
+        handler.createProfile(adminKey, profileLabel, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
                 testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
