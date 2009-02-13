@@ -1093,11 +1093,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array()
      *          #struct("errata")
      *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop_desc("string","issue_date", "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop_desc("string","update_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","issue_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","update_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *              #prop("string","synopsis")
      *              #prop("string","advisory_type")
-     *              #prop_desc("string","last_modified_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","last_modified_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *          #struct_end()
      *      #array_end()
      */
@@ -1124,11 +1127,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array()
      *          #struct("errata")
      *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop_desc("string","issue_date", "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop_desc("string","update_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","issue_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","update_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *              #prop("string","synopsis")
      *              #prop("string","advisory_type")
-     *              #prop_desc("string","last_modified_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","last_modified_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *          #struct_end()
      *      #array_end()
      */
@@ -1157,11 +1163,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array()
      *          #struct("errata")
      *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop_desc("string","issue_date", "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop_desc("string","update_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","issue_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","update_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *              #prop("string","synopsis")
      *              #prop("string","advisory_type")
-     *              #prop_desc("string","last_modified_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","last_modified_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *          #struct_end()
      *      #array_end()
      */
@@ -1197,11 +1206,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array()
      *          #struct("errata")
      *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop_desc("string","issue_date", "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop_desc("string","update_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","issue_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","update_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *              #prop("string","synopsis")
      *              #prop("string","advisory_type")
-     *              #prop_desc("string","last_modified_date", "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","last_modified_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
      *          #struct_end()
      *      #array_end()
      */
