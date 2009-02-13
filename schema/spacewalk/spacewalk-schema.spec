@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.6
+Version:        0.5.7
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Feb 12 2009 Mike McCune <mmccune@gmail.com> 0.5.7-1
+- 484312 - massive cleanup of virt types.  getting rid of useless AUTO type.
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.6-1
 - 484964 - increasing the copyright column size
 
