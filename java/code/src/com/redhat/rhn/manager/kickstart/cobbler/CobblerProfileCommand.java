@@ -107,7 +107,8 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             profile.setVirtType(KickstartVirtualizationType.XEN_PARAVIRT);
         }
         else {
-            profile.setVirtType(ksData.getKickstartDefaults().getVirtualizationType().getLabel());
+            profile.setVirtType(ksData.getKickstartDefaults().
+                    getVirtualizationType().getLabel());
         }
 
         profile.save();

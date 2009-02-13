@@ -73,7 +73,8 @@ public class KickstartWizardHelper {
         List types = KickstartFactory.lookupVirtualizationTypes();
         if (!Config.get().isSpacewalk()) {
             for (int i = 0; i < types.size(); i++) {
-                KickstartVirtualizationType type = (KickstartVirtualizationType) types.get(i);
+                KickstartVirtualizationType type =
+                    (KickstartVirtualizationType) types.get(i);
                 if (type.getLabel().equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
                     types.remove(i);
                 }
