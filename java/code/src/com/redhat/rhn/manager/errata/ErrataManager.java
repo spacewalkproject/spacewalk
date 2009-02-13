@@ -472,8 +472,6 @@ public class ErrataManager extends BaseManager {
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataTmp"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", 
                 "deleteServerErrataPackageCache"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries", 
-                "deleteServerErrataCache"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrata"));
         Map errataParams = new HashMap();
         Map errataOrgParams = new HashMap();

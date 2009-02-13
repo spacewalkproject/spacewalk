@@ -822,15 +822,10 @@ ORDER BY  E.update_date DESC
   </query>
 </write-mode>
 
-<write-mode name="deleteServerErrataCache">
-  <query params="errata_id, org_id">
- delete from rhnServerNeededErrataCache where errata_id = :errata_id and org_id = :org_id
-  </query>
-</write-mode>
 
 <write-mode name="deleteServerErrataPackageCache">
   <query params="errata_id, org_id">
-delete from rhnServerNeededPackageCache
+delete from rhnServerNeededCache
   where server_id in (select id from rhnServer where org_id = :org_id)
   and errata_id = :errata_id
   </query>
