@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.12
+Version: 0.5.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.13-1
+- 484312 - more cleanup for kickstart AUTO virt type removal
+- 484312 - massive cleanup of virt types.  getting rid of useless AUTO type.
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.12-1
 - 484911 - fixed issue where taskomatic won't sync to cobbler newly sat-synced
 - Moving SystemDetailsHandler.java and its junit test out of kickstart.profile
