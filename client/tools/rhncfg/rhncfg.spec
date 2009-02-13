@@ -7,7 +7,7 @@ Summary: Red Hat Network Configuration Client Libraries
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.9.1
+Version: 5.9.2
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.2-1
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python"
+
 * Thu Jan 22 2009 Michael Mraka <michael.mraka@redhat.com> 5.9.1-1
 - resolved #428721 - bumped version
 
