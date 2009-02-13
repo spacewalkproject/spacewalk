@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.11
+Version: 0.5.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,19 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.12-1
+- 484911 - fixed issue where taskomatic won't sync to cobbler newly sat-synced
+- Moving SystemDetailsHandler.java and its junit test out of kickstart.profile
+- 199560 - Fix epoch being returned as ' ' in channel.software.list_all_package
+- 484262 - Updated documentation as per the bz
+- 483815 - minor messaging change for custom channel pkg removal
+- 452956 - Need to check to make sure the DMI actually contains data before at
+- 484435 - needed parent_channel is null when selecting from rhnsharedchannelv
+- 480674 - fixed query in Channel.hbm.xml to know about shared channels. Chang
+- 485122 - api - kickstart.profile.system.getPartitioningScheme was incorrectl
+- 485039 - apidoc - channel.software.removePackages - fix wording on return va
+- remove + which hoses the urls in org trusts page
+
 * Wed Feb 11 2009 Dave Parker <dparker@redhat.com> 0.5.11-1
 - 484659 remove error messages due to incorrect startup sequences from sysv and from the rhn-satellite tool
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
