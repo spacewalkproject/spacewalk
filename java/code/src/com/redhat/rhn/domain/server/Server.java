@@ -750,19 +750,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
             // First pass look for names
             while (i.hasNext()) {
                 NetworkInterface n = (NetworkInterface) i.next();
-                if (n.getName().equals("eth0")) {
+                boolean notEmpty = !n.isDisabled();
+                if (n.getName().equals("eth0") && notEmpty) {
                     log.debug("Found eth0");
                     return n;
                 }
-                if (n.getName().startsWith("eth0")) {
+                if (n.getName().startsWith("eth0") && notEmpty) {
                     log.debug("Found eth0*");
                     return n;
                 }
-                if (n.getName().equals("eth1")) {
+                if (n.getName().equals("eth1") && notEmpty) {
                     log.debug("Found eth1");
                     return n;
                 }
-                if (n.getName().startsWith("eth1")) {
+                if (n.getName().startsWith("eth1") && notEmpty) {
                     log.debug("Found eth1*");
                     return n;
                 }
@@ -785,6 +786,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return null;
     }
+    
     
     // Sometimes java really annoys me
     private Network findPrimaryNetwork() {

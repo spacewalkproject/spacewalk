@@ -174,5 +174,14 @@ public class NetworkInterface extends BaseDomainHelper implements
         return "NetworkInterface - name: " + this.getName() + " ip: " + this.getIpaddr();
     }
     
+    /**
+     * returns true if the NetworkInterface is disabled
+     * @return if it's empty or not
+     */
+    public boolean isDisabled() {
+        return this.getIpaddr() == null || this.getIpaddr().equals("0") ||  
+                this.getIpaddr().equals("");
+    }
+    
     
 }
