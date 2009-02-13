@@ -66,8 +66,24 @@ import com.redhat.rhn.manager.user.UserManager;
  */
 public class UserHandler extends BaseHandler {
 
-    private static final String[] USER_EDITABLE_DETAIL_ATTRS = 
-        {"first_names", "last_name", "email", "prefix", "password"};
+    /**
+     * Contains a mapping of details key as submitted by the call to the
+     * {@link #setDetails(String, String, Map)} to the internal key used in the command
+     * and domain objects. This is a band-aid to make the external API read correctly
+     * (first_name instead of first_names) without having to refactor the entire code
+     * base to use the singular version (for instance, User still uses first_names and
+     * will be a significant change to refactor that). For more information, see
+     * bugzilla 469957. 
+     */
+    private static final Map<Object, String> USER_EDITABLE_DETAILS =
+        new HashMap<Object, String>();
+    static {
+        USER_EDITABLE_DETAILS.put("first_name", "first_names");
+        USER_EDITABLE_DETAILS.put("last_name", "last_name");
+        USER_EDITABLE_DETAILS.put("email", "email");
+        USER_EDITABLE_DETAILS.put("prefix", "prefix");
+        USER_EDITABLE_DETAILS.put("password", "password");
+    }
     
     /**
      * Lists the users in the org.
@@ -215,7 +231,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.param
      *   #struct("user details")
-     *     #prop("string", "first_names")
+     *     #prop("string", "first_name")
      *     #prop("string", "last_name")
      *     #prop("string", "email")
      *     #prop("string", "prefix")
@@ -235,15 +251,18 @@ public class UserHandler extends BaseHandler {
         
         UpdateUserCommand uuc = new UpdateUserCommand(target);
         
-        for (int x = 0; x < UserHandler.USER_EDITABLE_DETAIL_ATTRS.length; x++) {
-            String current = UserHandler.USER_EDITABLE_DETAIL_ATTRS[x];
-            if (details.containsKey(current)) {
-                String newValue = StringUtils.defaultString(
-                        (String) details.get(current));
-                prepareAttributeUpdate(current, uuc, newValue);
+        // Process each entry passed in by the user
+        for (Object userKey : details.keySet()) {
+            
+            // Check to make sure we have an internal key mapping to prevent issues
+            // if the user passes in cruft
+            String internalKey = USER_EDITABLE_DETAILS.get(userKey);
+            if (internalKey != null) {
+                String newValue = StringUtils.defaultString((String) details.get(userKey));
+                prepareAttributeUpdate(internalKey, uuc, newValue);
             }
         }
-        
+
         try {
             uuc.updateUser();
         }
@@ -291,7 +310,7 @@ public class UserHandler extends BaseHandler {
     /**
      * Validates that the select roles is among the ones we support.
      * @param role the role that user wanted to be assigned
-     * @param loggedInUser the logged in user who wants to assign the given role.
+     * @param user the logged in user who wants to assign the given role.
      */
     private void validateRoleInputs(String role, User user) {
         Set <String> assignableRoles = getAssignableRoles(user);

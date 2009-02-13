@@ -126,17 +126,17 @@ public class UserHandlerTest extends BaseHandlerTestCase {
     public void testSetDetails() throws Exception {
 
         Map newDetails = new HashMap();
-        newDetails.put("first_names", "firstnames_edited");
+        newDetails.put("first_name", "firstnames_edited");
 
         //admin editing self
         int result = handler.setDetails(adminKey, admin.getLogin(), newDetails);
         assertEquals(1, result);
-        assertEquals(newDetails.get("first_names"), admin.getFirstNames());
+        assertEquals(newDetails.get("first_name"), admin.getFirstNames());
         
         //admin editing regular
         result = handler.setDetails(adminKey, regular.getLogin(), newDetails);
         assertEquals(1, result);
-        assertEquals(newDetails.get("first_names"), regular.getFirstNames());
+        assertEquals(newDetails.get("first_name"), regular.getFirstNames());
         
         //regular editing admin
         try {
@@ -150,7 +150,7 @@ public class UserHandlerTest extends BaseHandlerTestCase {
         //regular editing self
         result = handler.setDetails(regularKey, regular.getLogin(), newDetails);
         assertEquals(1, result);
-        assertEquals(newDetails.get("first_names"), regular.getFirstNames());
+        assertEquals(newDetails.get("first_name"), regular.getFirstNames());
     }
     
     public void testAddRemoveRole() throws Exception {
