@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: %{name}-%{version}.tar.gz
 Url: http://rhn.redhat.com
 Name: rhn-client-tools
-Version: 0.4.20
+Version: 0.4.21
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -193,6 +193,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.21-1
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python"
+
 * Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.20-1
 - Remove usage of version and sources files.
 
