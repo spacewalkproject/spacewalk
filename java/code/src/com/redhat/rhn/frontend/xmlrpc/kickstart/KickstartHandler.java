@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
 
-import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
@@ -92,47 +91,6 @@ public class KickstartHandler extends BaseHandler {
         return  ChannelFactory
                 .getKickstartableChannels(loggedInUser.getOrg());
         
-    }
-
-    /**
-     * Change kickstart tree (and base channel if required) of an existing
-     * kickstart profile.
-     * @param sessionKey User's session key.
-     * @param kslabel label of the kickstart profile to be changed.
-     * @param kstreeLabel label of the new kickstart tree.
-     * @return 1 if successful, exception otherwise.
-     * 
-     * @xmlrpc.doc Change kickstart tree of an existing kickstart profile.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
-     * profile to be changed.")
-     * @xmlrpc.param #param_desc("string", "kstreeLabel", "Label of new
-     * kickstart tree.")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setKickstartTree(String sessionKey, String kslabel,
-            String kstreeLabel) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        KickstartData ksdata = KickstartFactory
-                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
-                        .getOrg().getId());
-        if (ksdata == null) {
-            throw new FaultException(-3, "kickstartProfileNotFound",
-                    "No Kickstart Profile found with label: " + kslabel);
-        }
-
-        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
-                kstreeLabel, loggedInUser.getOrg());
-        if (tree == null) {
-            throw new NoSuchKickstartTreeException(kstreeLabel);
-        }
-        KickstartEditCommand cmd = new KickstartEditCommand(
-                ksdata.getId(), loggedInUser);
-        cmd.updateKickstartableTree(ksdata.getChannel().getId(),
-                loggedInUser.getOrg().getId(), tree.getId(), null);
-        cmd.store();
-        return 1;
     }
 
     
