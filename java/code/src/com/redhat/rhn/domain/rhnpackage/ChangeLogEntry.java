@@ -33,63 +33,63 @@ public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
     private String name;
     private String text;
     private Date time;
-    
+
     /**
      * @return Returns the name of the author
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name of the author to set
      */
     public void setName(String nameIn) {
         this.name = nameIn;
     }
-    
+
     /**
      * @return Returns the rhnPackage
      */
     public Package getRhnPackage() {
         return rhnPackage;
     }
-    
+
     /**
      * @param rhnPackageIn The package to set
      */
     public void setRhnPackage(Package rhnPackageIn) {
         this.rhnPackage = rhnPackageIn;
     }
-    
+
     /**
      * @return Returns the text of the change log entry
      */
     public String getText() {
         return text;
     }
-    
+
     /**
      * @param textIn the text to set.
      */
     public void setText(String textIn) {
         this.text = textIn;
     }
-    
+
     /**
      * @return Returns the time for the change log entry
      */
     public Date getTime() {
         return time;
     }
-    
+
     /**
      * @param timeIn The time to set
      */
     public void setTime(Date timeIn) {
         this.time = timeIn;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -98,30 +98,25 @@ public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
             return false;
         }
         ChangeLogEntry castOther = (ChangeLogEntry) other;
-        return new EqualsBuilder().append(name, castOther.name)
-                                  .append(rhnPackage, castOther.rhnPackage)
-                                  .append(text, castOther.text)
-                                  .append(time, castOther.time)
-                                  .isEquals();
+        return new EqualsBuilder().append(name, castOther.name).append(rhnPackage,
+                castOther.rhnPackage).append(text, castOther.text).append(time,
+                castOther.time).isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(rhnPackage)
-                                    .append(name)
-                                    .append(text)
-                                    .append(time)
-                                    .toHashCode();
+        return new HashCodeBuilder().append(rhnPackage).append(name).append(text).append(
+                time).toHashCode();
     }
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-
 
     /**
      * @param idIn The id to set.

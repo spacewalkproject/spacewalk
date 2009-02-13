@@ -20,13 +20,14 @@ import java.io.Writer;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.xml.sax.SAXException;
+
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
 public class RepomdIndexWriter {
-	
+
     private SimpleContentHandler handler;
 
     private RepomdIndexData primary;
@@ -37,40 +38,41 @@ public class RepomdIndexWriter {
 
     /**
      * 
-     * @param writer content writer
-     * @param primary primary.xml data
-     * @param filelists filelists.xml data
-     * @param other other.xml data
-     * @param updateinfo updateinfo.xml data
-     * @param group group data
+     * @param writerIn content writer
+     * @param primaryIn primary.xml data
+     * @param filelistsIn filelists.xml data
+     * @param otherIn other.xml data
+     * @param updateinfoIn updateinfo.xml data
+     * @param groupIn group data
      */
-    public RepomdIndexWriter(Writer writer, RepomdIndexData primary, 
-            RepomdIndexData filelists, RepomdIndexData other, 
-            RepomdIndexData updateinfo, RepomdIndexData group) {
+    public RepomdIndexWriter(Writer writerIn, RepomdIndexData primaryIn,
+            RepomdIndexData filelistsIn, RepomdIndexData otherIn,
+            RepomdIndexData updateinfoIn, RepomdIndexData groupIn) {
 
-        this.primary = primary;
-        this.filelists = filelists;
-        this.other = other;
-        this.updateinfo = updateinfo;
-        this.group = group;
+        this.primary = primaryIn;
+        this.filelists = filelistsIn;
+        this.other = otherIn;
+        this.updateinfo = updateinfoIn;
+        this.group = groupIn;
 
         OutputFormat of = new OutputFormat();
 
-        XMLSerializer serializer = new XMLSerializer(writer, of);
+        XMLSerializer serializer = new XMLSerializer(writerIn, of);
 
         try {
             handler = new SimpleContentHandler(serializer.asContentHandler());
-        } 
+        }
         catch (IOException e) {
             // XXX fatal error
         }
         try {
             handler.startDocument();
-        } 
+        }
         catch (SAXException e) {
             // XXX fatal error
         }
     }
+
     /**
      * writes the repomd index
      */
@@ -92,6 +94,7 @@ public class RepomdIndexWriter {
 
         end();
     }
+
     /**
      * Writes the data to xml
      * @param type
@@ -102,7 +105,7 @@ public class RepomdIndexWriter {
         attr.addAttribute("type", type);
 
         String location = type + ".xml.gz";
-        //special case for comps file
+        // special case for comps file
         if (type.equals("group")) {
             location = "comps.xml";
         }
@@ -130,15 +133,16 @@ public class RepomdIndexWriter {
                 handler.endElement("open-checksum");
             }
 
-            handler.addElementWithCharacters("timestamp", Long.toString(data.getTimestamp()
-                                                                       .getTime() / 1000));
+            handler.addElementWithCharacters("timestamp", Long.toString(data
+                    .getTimestamp().getTime() / 1000));
 
             handler.endElement("data");
-        } 
+        }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }
     }
+
     /**
      * begin the xml creation
      */
@@ -147,11 +151,12 @@ public class RepomdIndexWriter {
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/repo");
         try {
             handler.startElement("repomd", attr);
-        } 
+        }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }
     }
+
     /**
      * End xml creation
      */
@@ -159,7 +164,7 @@ public class RepomdIndexWriter {
         try {
             handler.endElement("repomd");
             handler.endDocument();
-        } 
+        }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }

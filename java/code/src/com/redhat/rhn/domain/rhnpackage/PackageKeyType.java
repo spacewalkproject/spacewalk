@@ -24,60 +24,56 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev$
  */
 public class PackageKeyType extends BaseDomainHelper implements Comparable<PackageKeyType> {
-    
+
     private Long id;
     private String label;
-    
 
-    
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
- 
+
     /**
      * @return Returns the name.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setLabel(String n) {
         this.label = n;
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(getLabel())
-            .toHashCode();
+        return new HashCodeBuilder().append(getLabel()).toHashCode();
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public boolean equals(Object keyType) {
-        
+
         if (keyType instanceof PackageKeyType) {
             PackageKeyType type = (PackageKeyType) keyType;
-            return new EqualsBuilder().append(this.label, type.getLabel()) 
-            .append(getId(), type.getId()).isEquals();
+            return new EqualsBuilder().append(this.label, type.getLabel()).append(getId(),
+                    type.getId()).isEquals();
         }
         else {
             return false;
@@ -96,6 +92,5 @@ public class PackageKeyType extends BaseDomainHelper implements Comparable<Packa
         }
         return getLabel().compareTo(o.getLabel());
     }
-
 
 }

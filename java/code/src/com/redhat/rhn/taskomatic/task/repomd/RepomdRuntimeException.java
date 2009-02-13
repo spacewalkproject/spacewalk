@@ -15,18 +15,21 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import com.redhat.rhn.common.RhnRuntimeException;
+
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
 public class RepomdRuntimeException extends RhnRuntimeException {
+
     /**
      * Default constructor
      */
     public RepomdRuntimeException() {
         super();
     }
+
     /**
      * Constructor takes in a msg
      * @param msg exception msg
@@ -34,10 +37,11 @@ public class RepomdRuntimeException extends RhnRuntimeException {
     public RepomdRuntimeException(String msg) {
         super(msg);
     }
+
     /**
      * Constructor takes in a cause
      * @param cause cause
-    */
+     */
     public RepomdRuntimeException(Throwable cause) {
         super(cause);
     }

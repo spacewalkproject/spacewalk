@@ -22,13 +22,9 @@ import java.io.Serializable;
  */
 public class PackageRequires extends PackageProperty implements Serializable {
 
-
-
     /**
      * Comment for <code>serialVersionUID</code>
      */
     private static final long serialVersionUID = -4501835317518752215L;
-
-
 
 }

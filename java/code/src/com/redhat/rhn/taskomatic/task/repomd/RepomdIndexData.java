@@ -15,27 +15,30 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import java.util.Date;
+
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
 public class RepomdIndexData {
+
     private String checksum;
     private String openChecksum;
     private Date timestamp;
 
     /**
      * 
-     * @param checksum checksum info
-     * @param openChecksum open checksum info
-     * @param timestamp timestamp
+     * @param checksumIn checksum info
+     * @param openChecksumIn open checksum info
+     * @param timestampIn timestamp
      */
-    public RepomdIndexData(String checksum, String openChecksum, Date timestamp) {
-        this.checksum = checksum;
-        this.openChecksum = openChecksum;
-        this.timestamp = timestamp;
+    public RepomdIndexData(String checksumIn, String openChecksumIn, Date timestampIn) {
+        this.checksum = checksumIn;
+        this.openChecksum = openChecksumIn;
+        this.timestamp = timestampIn;
     }
+
     /**
      * 
      * @return checksum info
@@ -43,13 +46,15 @@ public class RepomdIndexData {
     public String getChecksum() {
         return checksum;
     }
+
     /**
      * 
-     * @param checksum The checksum to set.
+     * @param checksumIn The checksum to set.
      */
-    public void setChecksum(String checksum) {
-        this.checksum = checksum;
+    public void setChecksum(String checksumIn) {
+        this.checksum = checksumIn;
     }
+
     /**
      * 
      * @return The open checksum
@@ -57,13 +62,15 @@ public class RepomdIndexData {
     public String getOpenChecksum() {
         return openChecksum;
     }
+
     /**
      * 
-     * @param openChecksum The open checksum to set.
+     * @param openChecksumIn The open checksum to set.
      */
-    public void setOpenChecksum(String openChecksum) {
-        this.openChecksum = openChecksum;
+    public void setOpenChecksum(String openChecksumIn) {
+        this.openChecksum = openChecksumIn;
     }
+
     /**
      * 
      * @return Returns timestamp
@@ -71,11 +78,12 @@ public class RepomdIndexData {
     public Date getTimestamp() {
         return timestamp;
     }
+
     /**
      * 
-     * @param timestamp The timestamp to set.
-    */
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+     * @param timestampIn The timestamp to set.
+     */
+    public void setTimestamp(Date timestampIn) {
+        this.timestamp = timestampIn;
     }
 }

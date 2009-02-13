@@ -27,12 +27,12 @@ public class PackageEvr implements Comparable {
 
     private static final RpmVersionComparator VERCMP = new RpmVersionComparator();
     private static final Integer ZERO = new Integer(0);
-    
+
     private Long id;
     private String epoch;
     private String version;
     private String release;
-    
+
     /**
      * Null constructor, needed for hibernate
      */
@@ -42,11 +42,11 @@ public class PackageEvr implements Comparable {
         version = null;
         release = null;
     }
-    
+
     /**
-     * Complete constructor.  Use PackageEvrFactory to create PackageEvrs if you
-     * want to persist them to the Database.
-     * ONLY USE for non-persisting evr objects.
+     * Complete constructor. Use PackageEvrFactory to create PackageEvrs if you
+     * want to persist them to the Database. ONLY USE for non-persisting evr
+     * objects.
      * @param epochIn epoch
      * @param versionIn version
      * @param releaseIn release
@@ -57,63 +57,63 @@ public class PackageEvr implements Comparable {
         version = versionIn;
         release = releaseIn;
     }
-    
+
     /**
      * @return Returns the epoch.
      */
     public String getEpoch() {
         return epoch;
     }
-    
+
     /**
      * @param e The epoch to set.
      */
     public void setEpoch(String e) {
         this.epoch = e;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the release.
      */
     public String getRelease() {
         return release;
     }
-    
+
     /**
      * @param r The release to set.
      */
     public void setRelease(String r) {
         this.release = r;
     }
-    
+
     /**
      * @return Returns the version.
      */
     public String getVersion() {
         return version;
     }
-    
+
     /**
      * @param v The version to set.
      */
     public void setVersion(String v) {
         this.version = v;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -121,25 +121,21 @@ public class PackageEvr implements Comparable {
         if (obj == null || !(obj instanceof PackageEvr)) {
             return false;
         }
-        
+
         PackageEvr evr = (PackageEvr) obj;
-        
-        return new EqualsBuilder().append(this.getId(), evr.getId())
-                                  .append(this.getEpoch(), evr.getEpoch())
-                                  .append(this.getVersion(), evr.getVersion())
-                                  .append(this.getRelease(), evr.getRelease())
-                                  .isEquals();
+
+        return new EqualsBuilder().append(this.getId(), evr.getId()).append(
+                this.getEpoch(), evr.getEpoch())
+                .append(this.getVersion(), evr.getVersion()).append(this.getRelease(),
+                        evr.getRelease()).isEquals();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(this.getId())
-                                    .append(this.getEpoch())
-                                    .append(this.getVersion())
-                                    .append(this.getRelease())
-                                    .toHashCode();
+        return new HashCodeBuilder().append(this.getId()).append(this.getEpoch()).append(
+                this.getVersion()).append(this.getRelease()).toHashCode();
     }
 
     /**
@@ -168,7 +164,7 @@ public class PackageEvr implements Comparable {
         // In the long run, a check might be in order, though
         return VERCMP.compare(getRelease(), other.getRelease());
     }
-    
+
     private Integer epochAsInteger() {
         Integer result = ZERO;
         if (getEpoch() != null) {
@@ -176,14 +172,14 @@ public class PackageEvr implements Comparable {
         }
         return result;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
         String retval = "";
         if (this.getEpoch() != null) {
-            retval = this.getEpoch() + "."; 
+            retval = this.getEpoch() + ".";
         }
         retval = retval + this.getVersion() + "." + this.getRelease();
         return retval;

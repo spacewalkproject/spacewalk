@@ -32,10 +32,11 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
+
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
 public abstract class RepomdWriter {
 
@@ -46,15 +47,16 @@ public abstract class RepomdWriter {
 
     static {
         CONTROL_CHARS = "\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008" +
-        "\u000B\u000C\u000E\u000F\u0010\u0011\u0012\u0013\u0014\u0015" +
-        "\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F";
+                 "\u000B\u000C\u000E\u000F\u0010\u0011\u0012\u0013\u0014\u0015" +
+                 "\u0016\u0017\u0018\u0019\u001A\u001B\u001C\u001D\u001E\u001F";
         CONTROL_CHARS_REPLACEMENT = StringUtils.repeat(" ", CONTROL_CHARS.length());
     }
 
     private static Logger log = Logger.getLogger(RepomdWriter.class);
+
     /**
      * Constructor takes in a writer
-     * @param writer content writer 
+     * @param writer content writer
      */
     public RepomdWriter(Writer writer) {
 
@@ -65,20 +67,21 @@ public abstract class RepomdWriter {
 
         try {
             handler = new SimpleContentHandler(serializer.asContentHandler());
-        } 
+        }
         catch (IOException e) {
             // XXX fatal error
         }
         try {
             handler.startDocument();
-        } 
+        }
         catch (SAXException e) {
             // XXX fatal error
         }
     }
+
     /**
      * 
-     * @param channel channel info 
+     * @param channel channel info
      * @return
      */
     protected static Iterator getChannelPackageDtoIterator(Channel channel) {
@@ -88,15 +91,15 @@ public abstract class RepomdWriter {
         params.put("channel_id", channel.getId());
         return m.execute(params).iterator();
     }
+
     /**
      * 
      * @param handler content handler
-     * @param pkgDto  package info dto object
+     * @param pkgDto package info dto object
      * @throws SAXException
      */
     protected static void addPackageBoilerplate(SimpleContentHandler handler,
-                                                PackageDto pkgDto)
-            throws SAXException {
+            PackageDto pkgDto) throws SAXException {
         long pkgId = pkgDto.getId().longValue();
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("pkgid", sanitize(pkgId, pkgDto.getMd5sum()));
@@ -107,11 +110,12 @@ public abstract class RepomdWriter {
         attr.clear();
         attr.addAttribute("ver", sanitize(pkgId, pkgDto.getPackageVersion()));
         attr.addAttribute("rel", sanitize(pkgId, pkgDto.getPackageRelease()));
-        attr.addAttribute("epoch", sanitize(pkgId, 
+        attr.addAttribute("epoch", sanitize(pkgId,
                 getPackageEpoch(pkgDto.getPackageEpoch())));
         handler.startElement("version", attr);
         handler.endElement("version");
     }
+
     /**
      * 
      * @param pkg package object
@@ -120,6 +124,7 @@ public abstract class RepomdWriter {
     protected static String getPackageEpoch(Package pkg) {
         return getPackageEpoch(pkg.getPackageEvr().getEpoch());
     }
+
     /**
      * 
      * @param epoch package epoch string
@@ -133,29 +138,30 @@ public abstract class RepomdWriter {
     }
 
     /**
-     *  Removes all control characters from passed in String.
-     *  @param pkgId package id
-     *  @param input char input
+     * Removes all control characters from passed in String.
+     * @param pkgId package id
+     * @param input char input
      */
     protected static String sanitize(long pkgId, String input) {
         if (StringUtils.containsNone(input, CONTROL_CHARS)) {
             return input;
         }
         if (log.isDebugEnabled()) {
-            log.debug("Package " + pkgId + 
-                 " metadata contains control chars, cleanup required: " + input);
+            log.debug("Package " + pkgId +
+                    " metadata contains control chars, cleanup required: " + input);
         }
         return StringUtils.replaceChars(input, CONTROL_CHARS, CONTROL_CHARS_REPLACEMENT);
     }
+
     /**
      * 
      * @param channel channel info
      */
     public abstract void begin(Channel channel);
+
     /**
      * writer end call
      */
     public abstract void end();
-
 
 }

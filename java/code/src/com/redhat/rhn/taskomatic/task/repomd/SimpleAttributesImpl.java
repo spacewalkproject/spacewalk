@@ -15,12 +15,14 @@
 package com.redhat.rhn.taskomatic.task.repomd;
 
 import org.xml.sax.helpers.AttributesImpl;
+
 /**
- * Attributes implementation class 
+ * Attributes implementation class
  * @version $Rev $
- *
+ * 
  */
 public class SimpleAttributesImpl extends AttributesImpl {
+
     /**
      * 
      * @param name attribute name

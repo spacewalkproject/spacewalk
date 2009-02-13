@@ -37,42 +37,42 @@ public class ChannelArch extends BaseDomainHelper {
     private ArchType archType;
     private Set compatibleServerArches;
     private Set compatiblePackageArches;
-    
+
     /**
      * @return Returns the archType.
      */
     public ArchType getArchType() {
         return archType;
     }
-    
+
     /**
      * @param a The archType to set.
      */
     public void setArchType(ArchType a) {
         this.archType = a;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
@@ -86,7 +86,7 @@ public class ChannelArch extends BaseDomainHelper {
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
@@ -103,7 +103,7 @@ public class ChannelArch extends BaseDomainHelper {
     public Set getCompatibleServerArches() {
         return compatibleServerArches;
     }
-    
+
     /**
      * Returns the set of package architectures compatible with this channel
      * architecture.
@@ -113,7 +113,7 @@ public class ChannelArch extends BaseDomainHelper {
     public Set getCompatiblePackageArches() {
         return compatiblePackageArches;
     }
-    
+
     /**
      * Returns true if the given server architecture is compatible with this
      * channel architecture. False if the server architecture is null or not
@@ -126,10 +126,10 @@ public class ChannelArch extends BaseDomainHelper {
         if (compats == null) {
             return false;
         }
-        
+
         return compats.contains(arch);
     }
-    
+
     /**
      * Returns true if the given package architecture is compatible with this
      * channel architecture. False if the package architecture is null or not
@@ -142,7 +142,7 @@ public class ChannelArch extends BaseDomainHelper {
         if (compats == null) {
             return false;
         }
-        
+
         return compats.contains(arch);
     }
 
@@ -153,12 +153,11 @@ public class ChannelArch extends BaseDomainHelper {
         if (!(other instanceof ChannelArch)) {
             return false;
         }
-        
+
         ChannelArch castOther = (ChannelArch) other;
         return new EqualsBuilder().append(this.getId(), castOther.getId()).isEquals();
     }
 
-    
     /**
      * {@inheritDoc}
      */
@@ -170,19 +169,16 @@ public class ChannelArch extends BaseDomainHelper {
      * {@inheritDoc}
      */
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", this.getId())
-                .append("label", this.getLabel())
-                .append("name", this.getName())
-                .append("archType", this.getArchType())
-                .toString();
+        return new ToStringBuilder(this).append("id", this.getId()).append("label",
+                this.getLabel()).append("name", this.getName()).append("archType",
+                this.getArchType()).toString();
     }
-    
+
     /**
      * @param arches The compatible package arches to set.
      */
     public void setCompatiblePackageArches(Set<PackageArch> arches) {
-    		compatiblePackageArches = arches;
+        compatiblePackageArches = arches;
     }
 
 }

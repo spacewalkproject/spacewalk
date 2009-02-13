@@ -21,60 +21,60 @@ package com.redhat.rhn.domain.rhnpackage;
 import com.redhat.rhn.common.RhnRuntimeException;
 
 /**
- * An exception encountered when an rhn Package object is not of the expected arch type.
+ * An exception encountered when an rhn Package object is not of the expected
+ * arch type.
  * <p>
-
- *
+ * 
+ * 
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
-public class WrongPackageTypeException extends RhnRuntimeException  {
+public class WrongPackageTypeException extends RhnRuntimeException {
 
     private Long pkgId;
     private String pkgClass;
     private String expectedPkgClass;
 
-    /////////////////////////
+    // ///////////////////////
     // Constructors
-    /////////////////////////
-        /**
+    // ///////////////////////
+    /**
      * Constructor
      * @param packageId package id
      * @param packageClass package class
      * @param expectedClass expected package class
      * @param message exception message
      */
-    public WrongPackageTypeException(Long packageId, String packageClass, 
+    public WrongPackageTypeException(Long packageId, String packageClass,
             String expectedClass, String message) {
         super(message);
         // begin member variable initialization
-        this.pkgId =  packageId;
-        this.pkgClass =  packageClass;
-        this.expectedPkgClass =  expectedClass;
+        this.pkgId = packageId;
+        this.pkgClass = packageClass;
+        this.expectedPkgClass = expectedClass;
     }
 
-        /**
+    /**
      * Constructor
      * @param packageId package id
      * @param packageClass package class
      * @param expectedClass expected package class
      * @param message exception message
-     * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
-     * unknown.)
+     * @param cause the cause (which is saved for later retrieval by the
+     * Throwable.getCause() method). (A null value is permitted, and indicates
+     * that the cause is nonexistent or unknown.)
      */
-    public WrongPackageTypeException(Long packageId, String packageClass, 
-            String expectedClass, String message ,   Throwable cause) {
+    public WrongPackageTypeException(Long packageId, String packageClass,
+            String expectedClass, String message, Throwable cause) {
         super(message, cause);
         // begin member variable initialization
-        this.pkgId =  packageId;
-        this.pkgClass =  packageClass;
-        this.expectedPkgClass =  expectedClass;
+        this.pkgId = packageId;
+        this.pkgClass = packageClass;
+        this.expectedPkgClass = expectedClass;
     }
 
-    /////////////////////////
+    // ///////////////////////
     // Getters/Setters
-    /////////////////////////
+    // ///////////////////////
     /**
      * Returns the value of packageId
      * @return Long packageId

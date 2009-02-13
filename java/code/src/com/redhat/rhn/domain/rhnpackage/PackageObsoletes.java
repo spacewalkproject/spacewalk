@@ -27,5 +27,4 @@ public class PackageObsoletes extends PackageProperty implements Serializable {
      */
     private static final long serialVersionUID = 4810814789420973288L;
 
-
 }

@@ -396,9 +396,15 @@ public interface Errata {
      *
      */
     void clearChannels();
-    
+    /**
+     * Sets cves
+     * @param cvesIn cve input
+     */
     void setCves(Set <Cve> cvesIn);
-    
+    /**
+     * 
+     * @return Returns Cves
+     */
     Set <Cve> getCves();
       
 }

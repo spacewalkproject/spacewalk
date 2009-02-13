@@ -31,14 +31,16 @@ import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
+
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
 public class PackageCapabilityIterator {
 
-    private static Logger log = Logger.getLogger(PackageCapabilityIterator.class);
+    private static Logger log = Logger
+            .getLogger(PackageCapabilityIterator.class);
     private static final String PACKAGE_ID = "package_id";
 
     private String queryName;
@@ -56,32 +58,35 @@ public class PackageCapabilityIterator {
      */
     public PackageCapabilityIterator(Channel ch, String queryNameIn) {
         queryName = queryNameIn;
-        // The following usage of SelectMode is only to fetch the named query from the .xml
-        // file and to replace the bind parameters.  We will execute the query through raw 
+        // The following usage of SelectMode is only to fetch the named query
+        // from the .xml
+        // file and to replace the bind parameters. We will execute the query
+        // through raw
         // JDBC since we don't want to keep few million rows of data in memory.
-        SelectMode mode = ModeFactory.getMode(TaskConstants.MODE_NAME, queryName);
-        String query = NamedPreparedStatement.replaceBindParams(mode.getQuery()
+        SelectMode modeIn = ModeFactory.getMode(TaskConstants.MODE_NAME,
+                queryName);
+        String query = NamedPreparedStatement.replaceBindParams(modeIn.getQuery()
                 .getOrigQuery(), new HashMap());
 
         row = new HashMap();
         goBack = false;
         hasMoreRows = true;
         try {
-            PreparedStatement ps = HibernateFactory.getSession()
-                      .connection().prepareStatement(query);
+            PreparedStatement ps = HibernateFactory.getSession().connection()
+                    .prepareStatement(query);
             ps.setLong(1, ch.getId());
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
-        } 
+        }
         catch (SQLException sqle) {
             log.error("SQLexception", sqle);
         }
     }
-    
+
     /**
      * 
      * @param pkgId package Id
-     * @return  Returns the next pkg in the sequence
+     * @return Returns the next pkg in the sequence
      */
     public boolean hasNextForPackage(long pkgId) {
         if (!next()) {
@@ -94,7 +99,7 @@ public class PackageCapabilityIterator {
         }
         if (current > pkgId) {
             // We've past the package boundary, and have already fetched one row
-            // from the next package.  Please put it back.
+            // from the next package. Please put it back.
             goBack = true;
             return false;
         }
@@ -160,15 +165,16 @@ public class PackageCapabilityIterator {
         hasMoreRows = false;
         try {
             hasMoreRows = rs.next();
-        } 
+        }
         catch (SQLException sqle) {
             log.error("SQLexception", sqle);
         }
         if (hasMoreRows) {
             storeRow();
-        } 
+        }
         else {
-            // in case iterator has no rows at all, row.get(PACKAGE_ID) would return null,
+            // in case iterator has no rows at all, row.get(PACKAGE_ID) would
+            // return null,
             // so we can't use getPkgId()
             log.debug("End of resultset for " + queryName + ", " +
                     "last package seen: " + row.get(PACKAGE_ID));
@@ -186,11 +192,10 @@ public class PackageCapabilityIterator {
                 String column = rsmd.getColumnName(i);
                 row.put(column.toLowerCase(), obj);
             }
-        } 
+        }
         catch (SQLException sqle) {
             log.error("SQLexception", sqle);
         }
     }
 
 }
-

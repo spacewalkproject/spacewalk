@@ -37,10 +37,10 @@ public class Cve {
     }
     /**
      * 
-     * @param name The name to set
+     * @param nameIn The name to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nameIn) {
+        this.name = nameIn;
     }
     /**
      * 

@@ -1,18 +1,25 @@
 /**
- * Copyright (C) 2008 Red Hat, Inc.
- * All Rights Reserved.
+ * Copyright (c) 2008 Red Hat, Inc.
  *
- * This software is the confidential and proprietary information of
- * Red Hat, Inc. ("Confidential Information").  You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with Red Hat.
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
  */
 package com.redhat.rhn.frontend.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
-
+/**
+ * 
+ * @version $Rev $
+ *
+ */
 public class PackageDto extends BaseDto {
 
     private Long id;
@@ -39,65 +46,77 @@ public class PackageDto extends BaseDto {
     private Long headerStart;
     private Long headerEnd;
 
-    @Override
+    /**
+     * @return Returns Id
+     */
     public Long getId() {
         return id;
     }
+
     /**
-     * @param id The id to set.
+     * @param idIn The id to set.
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long idIn) {
+        this.id = idIn;
     }
+
     /**
      * @return Returns the channel Name.
      */
     public String getChannelName() {
         return channelName;
     }
+
     /**
-     * @param channelName The channel name to set.
+     * @param channelNameIn The channel name to set.
      */
-    public void setChannelName(String channelName) {
-        this.channelName = channelName;
+    public void setChannelName(String channelNameIn) {
+        this.channelName = channelNameIn;
     }
+
     /**
      * @return Returns the channel id.
      */
     public Long getCid() {
         return cid;
     }
+
     /**
-     * @param channelName The channel id to set.
+     * @param cidIn The channel id to set.
      */
-    public void setCid(Long cid) {
-        this.cid = cid;
+    public void setCid(Long cidIn) {
+        this.cid = cidIn;
     }
+
     /**
      * @return Returns the package name.
      */
     public String getPackageName() {
         return packageName;
     }
+
     /**
-     * @param packageName The packageName to set.
+     * @param packageNameIn The packageName to set.
      */
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setPackageName(String packageNameIn) {
+        this.packageName = packageNameIn;
     }
+
     /**
      * @return Returns the package version.
      */
     public String getPackageVersion() {
         return packageVersion;
     }
+
     /**
      * 
-     * @param packageVersion
+     * @param packageVersionIn package version
      */
-    public void setPackageVersion(String packageVersion) {
-        this.packageVersion = packageVersion;
+    public void setPackageVersion(String packageVersionIn) {
+        this.packageVersion = packageVersionIn;
     }
+
     /**
      * 
      * @return Returns package Release
@@ -105,13 +124,15 @@ public class PackageDto extends BaseDto {
     public String getPackageRelease() {
         return packageRelease;
     }
+
     /**
      * 
-     * @param packageRelease The package release to set
+     * @param packageReleaseIn The package release to set
      */
-    public void setPackageRelease(String packageRelease) {
-        this.packageRelease = packageRelease;
+    public void setPackageRelease(String packageReleaseIn) {
+        this.packageRelease = packageReleaseIn;
     }
+
     /**
      * 
      * @return Returns package epoch
@@ -119,13 +140,15 @@ public class PackageDto extends BaseDto {
     public String getPackageEpoch() {
         return packageEpoch;
     }
+
     /**
      * 
-     * @param packageEpoch The package epoch to set.
+     * @param packageEpochIn The package epoch to set.
      */
-    public void setPackageEpoch(String packageEpoch) {
-        this.packageEpoch = packageEpoch;
+    public void setPackageEpoch(String packageEpochIn) {
+        this.packageEpoch = packageEpochIn;
     }
+
     /**
      * 
      * @return Returns the md5sum
@@ -133,13 +156,15 @@ public class PackageDto extends BaseDto {
     public String getMd5sum() {
         return md5sum;
     }
+
     /**
      * 
-     * @param md5sum The md5sum to set
+     * @param md5sumIn The md5sum to set
      */
-    public void setMd5sum(String md5sum) {
-        this.md5sum = md5sum;
+    public void setMd5sum(String md5sumIn) {
+        this.md5sum = md5sumIn;
     }
+
     /**
      * 
      * @return Returns Package Nvr
@@ -147,13 +172,15 @@ public class PackageDto extends BaseDto {
     public String getPackageNvr() {
         return packageNvr;
     }
+
     /**
      * 
-     * @param packageNvr The packageNvr to set.
+     * @param packageNvrIn The packageNvr to set.
      */
-    public void setPackageNvr(String packageNvr) {
-        this.packageNvr = packageNvr;
+    public void setPackageNvr(String packageNvrIn) {
+        this.packageNvr = packageNvrIn;
     }
+
     /**
      * 
      * @return The package arch label to set
@@ -161,13 +188,15 @@ public class PackageDto extends BaseDto {
     public String getPackageArchLabel() {
         return packageArchLabel;
     }
+
     /**
      * 
-     * @param packageArchLabel The package Arch label to set
+     * @param packageArchLabelIn The package Arch label to set
      */
-    public void setPackageArchLabel(String packageArchLabel) {
-        this.packageArchLabel = packageArchLabel;
+    public void setPackageArchLabel(String packageArchLabelIn) {
+        this.packageArchLabel = packageArchLabelIn;
     }
+
     /**
      * 
      * @return Returns the summary.
@@ -175,13 +204,15 @@ public class PackageDto extends BaseDto {
     public String getSummary() {
         return summary;
     }
+
     /**
      * 
-     * @param summary The summary to set.
+     * @param summaryIn The summary to set.
      */
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setSummary(String summaryIn) {
+        this.summary = summaryIn;
     }
+
     /**
      * 
      * @return Returns the description
@@ -189,13 +220,15 @@ public class PackageDto extends BaseDto {
     public String getDescription() {
         return description;
     }
+
     /**
      * 
-     * @param description The description to set.
+     * @param descriptionIn The description to set.
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String descriptionIn) {
+        this.description = descriptionIn;
     }
+
     /**
      * 
      * @return Returns the buildtime.
@@ -203,13 +236,15 @@ public class PackageDto extends BaseDto {
     public Date getBuildTime() {
         return buildTime;
     }
+
     /**
      * 
-     * @param buildTime The buildTime to set.
+     * @param buildTimeIn The buildTime to set.
      */
-    public void setBuildTime(Date buildTime) {
-        this.buildTime = buildTime;
+    public void setBuildTime(Date buildTimeIn) {
+        this.buildTime = buildTimeIn;
     }
+
     /**
      * 
      * @return Returns the package size
@@ -217,13 +252,15 @@ public class PackageDto extends BaseDto {
     public Long getPackageSize() {
         return packageSize;
     }
+
     /**
      * 
-     * @param packageSize The packagesize to set.
+     * @param packageSizeIn The packagesize to set.
      */
-    public void setPackageSize(Long packageSize) {
-        this.packageSize = packageSize;
+    public void setPackageSize(Long packageSizeIn) {
+        this.packageSize = packageSizeIn;
     }
+
     /**
      * 
      * @return Returns the payload size
@@ -231,13 +268,15 @@ public class PackageDto extends BaseDto {
     public Long getPayloadSize() {
         return payloadSize;
     }
+
     /**
      * 
-     * @param payloadSize The payload size to set.
+     * @param payloadSizeIn The payload size to set.
      */
-    public void setPayloadSize(Long payloadSize) {
-        this.payloadSize = payloadSize;
+    public void setPayloadSize(Long payloadSizeIn) {
+        this.payloadSize = payloadSizeIn;
     }
+
     /**
      * 
      * @return Returns the path
@@ -245,13 +284,15 @@ public class PackageDto extends BaseDto {
     public String getPath() {
         return path;
     }
+
     /**
      * 
-     * @param path The path to set.
+     * @param pathIn The path to set.
      */
-    public void setPath(String path) {
-        this.path = path;
+    public void setPath(String pathIn) {
+        this.path = pathIn;
     }
+
     /**
      * 
      * @return Returns the copyright
@@ -259,13 +300,15 @@ public class PackageDto extends BaseDto {
     public String getCopyright() {
         return copyright;
     }
+
     /**
      * 
-     * @param copyright The copyright info to set
+     * @param copyrightIn The copyright info to set
      */
-    public void setCopyright(String copyright) {
-        this.copyright = copyright;
+    public void setCopyright(String copyrightIn) {
+        this.copyright = copyrightIn;
     }
+
     /**
      * 
      * @return Returns the vendor
@@ -273,13 +316,15 @@ public class PackageDto extends BaseDto {
     public String getVendor() {
         return vendor;
     }
+
     /**
      * 
-     * @param vendor The vendor to set.
+     * @param vendorIn The vendor to set.
      */
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setVendor(String vendorIn) {
+        this.vendor = vendorIn;
     }
+
     /**
      * 
      * @return Returns the packageGroupName
@@ -287,13 +332,15 @@ public class PackageDto extends BaseDto {
     public String getPackageGroupName() {
         return packageGroupName;
     }
+
     /**
      * 
-     * @param packageGroupName The packageGroupName to set
+     * @param packageGroupNameIn The packageGroupName to set
      */
-    public void setPackageGroupName(String packageGroupName) {
-        this.packageGroupName = packageGroupName;
+    public void setPackageGroupName(String packageGroupNameIn) {
+        this.packageGroupName = packageGroupNameIn;
     }
+
     /**
      * 
      * @return Returns the build host
@@ -301,13 +348,15 @@ public class PackageDto extends BaseDto {
     public String getBuildHost() {
         return buildHost;
     }
+
     /**
      * 
-     * @param buildHost The buildHost to set
+     * @param buildHostIn The buildHost to set
      */
-    public void setBuildHost(String buildHost) {
-        this.buildHost = buildHost;
+    public void setBuildHost(String buildHostIn) {
+        this.buildHost = buildHostIn;
     }
+
     /**
      * 
      * @return Returns the sourceRPM
@@ -315,13 +364,15 @@ public class PackageDto extends BaseDto {
     public String getSourceRpm() {
         return sourceRpm;
     }
+
     /**
      * 
-     * @param sourceRpm The sourceRpm to set.
+     * @param sourceRpmIn The sourceRpm to set.
      */
-    public void setSourceRpm(String sourceRpm) {
-        this.sourceRpm = sourceRpm;
+    public void setSourceRpm(String sourceRpmIn) {
+        this.sourceRpm = sourceRpmIn;
     }
+
     /**
      * 
      * @return Returns the package HeaderStart
@@ -329,13 +380,15 @@ public class PackageDto extends BaseDto {
     public Long getHeaderStart() {
         return headerStart;
     }
+
     /**
      * 
-     * @param headerStart The package HeaderStart to set.
+     * @param headerStartIn The package HeaderStart to set.
      */
-    public void setHeaderStart(Long headerStart) {
-        this.headerStart = headerStart;
+    public void setHeaderStart(Long headerStartIn) {
+        this.headerStart = headerStartIn;
     }
+
     /**
      * 
      * @return Returns the package HeaderEnd
@@ -343,12 +396,13 @@ public class PackageDto extends BaseDto {
     public Long getHeaderEnd() {
         return headerEnd;
     }
+
     /**
      * 
-     * @param headerEnd The package HeaderEnd to set.
+     * @param headerEndIn The package HeaderEnd to set.
      */
-    public void setHeaderEnd(Long headerEnd) {
-        this.headerEnd = headerEnd;
+    public void setHeaderEnd(Long headerEndIn) {
+        this.headerEnd = headerEndIn;
     }
 
 }

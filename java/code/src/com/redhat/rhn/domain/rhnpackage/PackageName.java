@@ -18,7 +18,6 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-
 /**
  * PackageName
  * @version $Rev$
@@ -27,28 +26,28 @@ public class PackageName implements Comparable<PackageName> {
 
     private Long id;
     private String name;
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
@@ -60,10 +59,10 @@ public class PackageName implements Comparable<PackageName> {
      * {@inheritDoc}
      */
     public String toString() {
-            return new ToStringBuilder(this).append("id", getId()).
-                    append("name", getName()).toString();
+        return new ToStringBuilder(this).append("id", getId()).append("name", getName())
+                .toString();
     }
-    
+
     /**
      * 
      * {@inheritDoc}
@@ -71,23 +70,23 @@ public class PackageName implements Comparable<PackageName> {
     public boolean equals(Object other) {
         if (other instanceof PackageName) {
             PackageName otherPack = (PackageName) other;
-            return new EqualsBuilder().append(this.getName(), otherPack.getName())
-                .append(this.getId(), otherPack.getId()).isEquals();
+            return new EqualsBuilder().append(this.getName(), otherPack.getName()).append(
+                    this.getId(), otherPack.getId()).isEquals();
         }
         else {
             return false;
         }
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
         return new HashCodeBuilder().append(this.getName()).append(this.getId())
-            .toHashCode();
+                .toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */

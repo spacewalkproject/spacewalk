@@ -23,17 +23,16 @@ import com.redhat.rhn.common.RhnRuntimeException;
 /**
  * No Base Channel was found for a particular server.
  * <p>
-
- *
+ * 
+ * 
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
-public class MissingPackagesException extends RhnRuntimeException  {
+public class MissingPackagesException extends RhnRuntimeException {
 
-
-    /////////////////////////
+    // ///////////////////////
     // Constructors
-    /////////////////////////
-        /**
+    // ///////////////////////
+    /**
      * Constructor
      * @param message exception message
      */
@@ -42,20 +41,19 @@ public class MissingPackagesException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
-     * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
-     * unknown.)
+     * @param cause the cause (which is saved for later retrieval by the
+     * Throwable.getCause() method). (A null value is permitted, and indicates
+     * that the cause is nonexistent or unknown.)
      */
-    public MissingPackagesException(String message ,   Throwable cause) {
+    public MissingPackagesException(String message, Throwable cause) {
         super(message, cause);
         // begin member variable initialization
     }
 
-    /////////////////////////
+    // ///////////////////////
     // Getters/Setters
-    /////////////////////////
+    // ///////////////////////
 }

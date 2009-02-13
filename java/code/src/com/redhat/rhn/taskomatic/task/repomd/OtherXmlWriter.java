@@ -23,15 +23,17 @@ import org.xml.sax.SAXException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
+
 /**
  * 
- * @version $Rev $ 
- *
+ * @version $Rev $
+ * 
  */
 public class OtherXmlWriter extends RepomdWriter {
 
     private PackageCapabilityIterator changeLogIterator;
     private Logger log = Logger.getLogger(OtherXmlWriter.class);
+
     /**
      * 
      * @param writer The writer object for other.xml
@@ -39,6 +41,7 @@ public class OtherXmlWriter extends RepomdWriter {
     public OtherXmlWriter(Writer writer) {
         super(writer);
     }
+
     /**
      * 
      * @param channel channel info
@@ -58,24 +61,27 @@ public class OtherXmlWriter extends RepomdWriter {
         return "";
 
     }
+
     /**
      * Start xml metadata generation
      * @param channel channel info
      */
     public void begin(Channel channel) {
         changeLogIterator = new PackageCapabilityIterator(channel,
-                            TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
+                TaskConstants.TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG);
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("xmlns", "http://linux.duke.edu/metadata/other");
-        attr.addAttribute("packages", Integer.toString(channel.getPackages().size()));
+        attr.addAttribute("packages", Integer.toString(channel.getPackages()
+                .size()));
 
         try {
             handler.startElement("otherdata", attr);
-        } 
+        }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }
     }
+
     /**
      * end xml metadata generation
      */
@@ -83,11 +89,12 @@ public class OtherXmlWriter extends RepomdWriter {
         try {
             handler.endElement("otherdata");
             handler.endDocument();
-        } 
+        }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }
     }
+
     /**
      * 
      * @param pkgDto pkg info to add to xml
@@ -97,11 +104,12 @@ public class OtherXmlWriter extends RepomdWriter {
             addPackageBoilerplate(handler, pkgDto);
             addPackageChangelog(pkgDto);
             handler.endElement("package");
-        } 
+        }
         catch (SAXException e) {
             throw new RepomdRuntimeException(e);
         }
     }
+
     /**
      * 
      * @param pkgDto pkg changelog info to add to xml
@@ -115,8 +123,8 @@ public class OtherXmlWriter extends RepomdWriter {
             String text = changeLogIterator.getString("text");
             SimpleAttributesImpl attr = new SimpleAttributesImpl();
             attr.addAttribute("author", sanitize(pkgId, author));
-            attr.addAttribute("date", Long.toString(changeLogIterator
-                    .getDate("time").getTime() / 1000));
+            attr.addAttribute("date", Long.toString(changeLogIterator.getDate(
+                    "time").getTime() / 1000));
             handler.startElement("changelog", attr);
             handler.addCharacters(sanitize(pkgId, text));
             handler.endElement("changelog");

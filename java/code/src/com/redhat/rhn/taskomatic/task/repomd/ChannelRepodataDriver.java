@@ -35,12 +35,12 @@ import java.util.Map;
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
 public class ChannelRepodataDriver implements QueueDriver {
-    
-    
+
     private static final Logger LOG = Logger.getLogger(ChannelRepodata.class);
+
     /**
      * default Constructor
      */
@@ -51,8 +51,8 @@ public class ChannelRepodataDriver implements QueueDriver {
         try {
             int eqReset = resetChannelRepodata.executeUpdate(new HashMap());
             if (LOG.isDebugEnabled()) {
-                LOG.debug("Reset " + eqReset + 
-                        " rows from the rhnRepoRegenQueue table in progress by " + 
+                LOG.debug("Reset " + eqReset +
+                        " rows from the rhnRepoRegenQueue table in progress by " +
                         "setting next_action to sysdate");
             }
             HibernateFactory.commitTransaction();
@@ -62,22 +62,24 @@ public class ChannelRepodataDriver implements QueueDriver {
             HibernateFactory.rollbackTransaction();
         }
         finally {
-        HibernateFactory.closeSession();
+            HibernateFactory.closeSession();
         }
     }
+
     /**
      * @return Returns boolean canContinue
      */
     public boolean canContinue() {
         return true;
     }
+
     /**
      * @return Returns candidates
      */
     public List getCandidates() {
         SelectMode select = ModeFactory.getMode(TaskConstants.MODE_NAME,
                 "repomd_driver_query");
-                
+
         Map params = new HashMap();
         List<Object> retval = new LinkedList<Object>();
         try {
@@ -93,18 +95,21 @@ public class ChannelRepodataDriver implements QueueDriver {
             HibernateFactory.closeSession();
         }
     }
+
     /**
      * @return Returns Logger
      */
     public Logger getLogger() {
         return LOG;
     }
+
     /**
      * @return Returns max workers
      */
     public int getMaxWorkers() {
         return Config.get().getInt("taskomatic.channel_repodata_workers", 2);
     }
+
     /**
      * @param workItem work item
      * @return Returns channel repodata worker object

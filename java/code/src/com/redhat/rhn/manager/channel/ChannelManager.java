@@ -791,7 +791,8 @@ public class ChannelManager extends BaseManager {
                         LocalizationService.getInstance().getMessage(
                                 "api.channel.delete.haschild"));              
             }
-            ChannelManager.queueChannelChange(label, "java::deleteChannel", user.getLogin());  
+            ChannelManager.queueChannelChange(label, 
+                    "java::deleteChannel", user.getLogin());  
             ChannelFactory.remove(toRemove);            
         }
     }

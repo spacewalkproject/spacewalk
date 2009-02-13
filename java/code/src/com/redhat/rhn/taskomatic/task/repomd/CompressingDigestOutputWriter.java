@@ -28,10 +28,10 @@ import com.redhat.rhn.common.util.StringUtil;
 /**
  * 
  * @version $Rev $
- *
+ * 
  */
-public class CompressingDigestOutputWriter extends OutputStream 
-        implements Closeable, Flushable {
+public class CompressingDigestOutputWriter extends OutputStream implements
+        Closeable, Flushable {
 
     private DigestOutputStream uncompressedDigestStream;
     private DigestOutputStream compressedDigestStream;
@@ -43,27 +43,29 @@ public class CompressingDigestOutputWriter extends OutputStream
      */
     public CompressingDigestOutputWriter(OutputStream stream) {
         try {
-            compressedDigestStream = new DigestOutputStream(stream, 
+            compressedDigestStream = new DigestOutputStream(stream,
                     MessageDigest.getInstance("SHA1"));
             compressedStream = new GZIPOutputStream(compressedDigestStream);
-            uncompressedDigestStream = new DigestOutputStream(compressedStream, 
+            uncompressedDigestStream = new DigestOutputStream(compressedStream,
                     MessageDigest.getInstance("SHA1"));
-        } 
+        }
         catch (NoSuchAlgorithmException nsae) {
             // XXX fatal runtime exception
-        } 
+        }
         catch (IOException ioe) {
             // XXX fatal runtime exception
         }
     }
+
     /**
-     * write stream 
+     * write stream
      * @param arg0 int arg
      * @throws IOException ioexception
      */
     public void write(int arg0) throws IOException {
         uncompressedDigestStream.write(arg0);
     }
+
     /**
      * write stream with byte
      * @param b byte
@@ -72,6 +74,7 @@ public class CompressingDigestOutputWriter extends OutputStream
     public void write(byte[] b) throws IOException {
         uncompressedDigestStream.write(b);
     }
+
     /**
      * flush stream
      * @throws IOException ioexception
@@ -79,6 +82,7 @@ public class CompressingDigestOutputWriter extends OutputStream
     public void flush() throws IOException {
         uncompressedDigestStream.flush();
     }
+
     /**
      * close stream
      * @throws IOException ioexception
@@ -86,20 +90,23 @@ public class CompressingDigestOutputWriter extends OutputStream
     public void close() throws IOException {
         uncompressedDigestStream.close();
     }
+
     /**
      * 
      * @return Returns the HexString of the Uncompressed digest stream
      */
     public String getUncompressedChecksum() {
-        return StringUtil.getHexString(uncompressedDigestStream.getMessageDigest()
-                .digest());
+        return StringUtil.getHexString(uncompressedDigestStream
+                .getMessageDigest().digest());
     }
+
     /**
      * 
      * @return Returns the HexString of the compressed digest stream
      */
     public String getCompressedChecksum() {
-        return StringUtil.getHexString(compressedDigestStream.getMessageDigest().digest());
+        return StringUtil.getHexString(compressedDigestStream
+                .getMessageDigest().digest());
     }
 
 }
