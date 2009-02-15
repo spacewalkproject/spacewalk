@@ -16614,7 +16614,7 @@ The Distribution Label field should contain only letters, numbers, hyphens, peri
 
 The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-From within the specified tree path, a kernel should be available at "./images/pxeboot/vmlinuz" and an initrd image should be available at "./images/pxeboot/initrd.img".
+The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the kernel and initrd required for kickstarting a system. From within the specified tree path, a kernel should be available at "./images/pxeboot/vmlinuz" and an initrd image should be available at "./images/pxeboot/initrd.img".
 </source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
