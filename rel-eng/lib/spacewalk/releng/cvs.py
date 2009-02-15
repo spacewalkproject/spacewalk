@@ -19,7 +19,8 @@ import os
 import commands
 
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
-from spacewalk.releng.common import run_command, error_out, debug
+from spacewalk.releng.common import run_command, error_out, debug, \
+        find_spec_file
 
 DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
 
@@ -57,6 +58,12 @@ class CvsReleaser(object):
         debug("cvs_workdir = %s" % self.cvs_workdir)
         self.cvs_branches = global_config.get("cvs", "branches").split(" ")
 
+        # TODO: Looking for spec file in current dir only. This will need
+        # to change if we decide to support cvs releases using an arbitrary
+        # --tag parameter.
+        self.spec_file_name = find_spec_file(in_dir=os.getcwd())
+        self.spec_file = os.path.join(os.getcwd(), self.spec_file_name)
+
     def run(self):
         """
         Actually build the package in CVS and submit to build system.
@@ -72,6 +79,7 @@ class CvsReleaser(object):
 
         self._verify_branches_exist()
         self._upload_sources()
+        self._sync_spec()
 
         # TODO: cleanup
 
@@ -104,4 +112,19 @@ class CvsReleaser(object):
             #self._remove_old_sources(os.path.join(branch_dir, "sources"),
             #        tarball_filename)
             #self._remove_old_cvsignores()
+
+    def _sync_spec(self):
+        """
+        Copy spec file and any required patches into CVS branches.
+
+        TODO: Implement patch copying, if it turns out to be required. (not
+        sure if we actually need it yet)
+        """
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            debug("Copying spec file: %s" % self.spec_file_name)
+            debug("  To: %s" % branch_dir)
+            run_command("cp %s %s" % (self.spec_file, branch_dir))
 
