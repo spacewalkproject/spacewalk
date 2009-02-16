@@ -12,7 +12,6 @@ Conflicts: rhnmd
 
 # Monitoring support
 # FIXME: do we need this? isn't it automaticaly req. by perl(foo) pragma?
-Requires:       perl-Apache-Admin-Config
 Requires:       perl-Apache-DBI
 Requires:       perl-Class-MethodMaker
 Requires:       perl-Config-IniFiles
