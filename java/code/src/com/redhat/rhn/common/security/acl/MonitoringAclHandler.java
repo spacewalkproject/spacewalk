@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.common.security.acl;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 
