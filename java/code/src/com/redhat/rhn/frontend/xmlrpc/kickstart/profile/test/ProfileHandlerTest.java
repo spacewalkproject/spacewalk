@@ -57,7 +57,9 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     private ProfileHandler handler = new ProfileHandler();
     private KickstartHandler ksHandler = new KickstartHandler();
     
-    public void testSetKickstartTree() throws Exception {
+    public void testKickstartTree() throws Exception {
+        // test the setKickstartTree and getKickstartTree APIs
+
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);    
@@ -76,11 +78,15 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         createTestKickstartableTree(baseChan);
         int result = handler.setKickstartTree(adminKey, profileLabel, 
                 anotherTestTree.getLabel());
-        
         assertEquals(1, result);
+        
+        String tree = handler.getKickstartTree(adminKey, profileLabel);
+        assertEquals(anotherTestTree.getLabel(), tree);
     }
     
-    public void testSetChildChannels() throws Exception {
+    public void testChildChannels() throws Exception {
+        // test the setChildChannels and getChildChannels APIs
+
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);    
@@ -105,6 +111,20 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         int result = handler.setChildChannels(adminKey, profileLabel, channelsToSubscribe);
         assertEquals(1, result);
+        
+        List<String> channels = handler.getChildChannels(adminKey, profileLabel);
+        assertEquals(channelsToSubscribe.size(), channels.size());
+        boolean foundC1 = false, foundC2 = false;
+        for (String channel : channels) {
+            if (channel.equals(c1.getLabel())) {
+                foundC1 = true;
+            }
+            if (channel.equals(c2.getLabel())) {
+                foundC2 = true;
+            }
+        }
+        assertTrue(foundC1);
+        assertTrue(foundC2);
     }
 
     public void testListScript() throws Exception {

@@ -33,10 +33,10 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.frontend.xmlrpc.test.XmlRpcTestUtils;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
-import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,10 +63,19 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
 
     public void testSELinux() throws Exception {
         KickstartData profile = createProfile();
+ 
+        handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.PERMISSIVE.getValue());
+        String mode = handler.getSELinux(adminKey, profile.getLabel());
+        assertEquals(SELinuxMode.PERMISSIVE.toString(), mode);
+        
+        handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.ENFORCING.getValue());
+        mode = handler.getSELinux(adminKey, profile.getLabel());
+        assertEquals(SELinuxMode.ENFORCING.toString(), mode);
+        
         handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.DISABLED.getValue());
-        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                profile.getLabel(), admin.getOrg().getId());
-        assertEquals(SELinuxMode.DISABLED, newKsProfile.getSELinuxMode());
+        mode = handler.getSELinux(adminKey, profile.getLabel());
+        assertEquals(SELinuxMode.DISABLED.toString(), mode);
+        
         try {
             handler.setSELinux(adminKey, profile.getLabel(), "HOHOHOH!!!");
             fail("No exception thrown on invlaid input for SE linux mode..");
@@ -104,13 +113,24 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         KickstartData profile = createProfile();
         String interfaceName = "eth0";
         handler.setNetworkConnection(adminKey, profile.getLabel(), true, interfaceName);
-        profile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                profile.getLabel(), admin.getOrg().getId());
-        assertEquals(SystemDetailsCommand.DHCP_NETWORK_TYPE + ":" + interfaceName,
-                                                            profile.getStaticDevice());
+        
+        Map<String, Object> connection = new HashMap<String, Object>();
+        connection = handler.getNetworkConnection(adminKey, profile.getLabel());
+        
+        assertTrue(connection.containsKey("interface_name"));
+        assertTrue(connection.containsKey("is_dhcp"));
+        assertEquals(interfaceName, connection.get("interface_name"));
+        // connection type is dhcp
+        assertEquals(new Integer(1), connection.get("is_dhcp"));
+               
         handler.setNetworkConnection(adminKey, profile.getLabel(), false, interfaceName);
-        assertEquals(SystemDetailsCommand.STATIC_NETWORK_TYPE + ":" + interfaceName,
-                                                    profile.getStaticDevice());        
+        connection = handler.getNetworkConnection(adminKey, profile.getLabel());
+        
+        assertTrue(connection.containsKey("interface_name"));
+        assertTrue(connection.containsKey("is_dhcp"));
+        assertEquals(interfaceName, connection.get("interface_name"));
+        // connection type is static
+        assertEquals(new Integer(0), connection.get("is_dhcp"));
     }
     
     public void testGetLocale() throws Exception {

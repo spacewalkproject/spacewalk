@@ -142,6 +142,32 @@ public class SystemDetailsHandler extends BaseHandler {
         command.store();
         return 1;
     }
+
+    /**
+     * Retrieves the SELinux enforcing mode property of a kickstart
+     * profile.
+     * @param sessionKey the session key
+     * @param ksLabel the ks profile label
+     * @return the enforcing mode
+     * 
+     * @xmlrpc.doc Retrieves the SELinux enforcing mode property of a kickstart
+     * profile.
+     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
+     * @xmlrpc.returntype 
+     * #param("string", "enforcingMode")
+     *      #options()
+     *          #item ("enforcing")
+     *          #item ("permissive")
+     *          #item ("disabled")
+     *      #options_end()
+     */
+    public String getSELinux(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+        return command.getKickstartData().getSELinuxMode().getValue();
+    }
     
     /**
      * Sets the SELinux enforcing mode property of a kickstart profile 
@@ -174,6 +200,43 @@ public class SystemDetailsHandler extends BaseHandler {
     }
 
     /**
+     * Retrieves the network connection properties of a kickstart profile.
+     * @param sessionKey the session key
+     * @param ksLabel the ks profile label
+     * @return map containing the network connection properties.
+     * 
+     * @xmlrpc.doc Retrieves the network connection properties of a kickstart profile.
+     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
+     * @xmlrpc.returntype
+     *     #struct("network connection info")
+     *         #prop("int", "is_dhcp")
+     *             #options()
+     *                 #item_desc ("1", "the type of network connection is dhcp")
+     *                 #item_desc ("0", "the type of network connection is static")
+     *             #options_end()
+     *         #prop_desc("string", "interface_name", "name of the network interface- 
+     *             eg: eth0")
+     *     #struct_end()
+     */
+    public Map getNetworkConnection(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("interface_name", command.getNetworkInterface());
+        if (command.getNetworkType().equals(SystemDetailsCommand.DHCP_NETWORK_TYPE)) {
+            map.put("is_dhcp", new Integer(1));
+        }
+        else if (command.getNetworkType().equals(
+            SystemDetailsCommand.STATIC_NETWORK_TYPE)) {
+            map.put("is_dhcp", new Integer(0));
+        }
+        return map;
+    }
+    
+    /**
      * Sets the network device property of a kickstart profile 
      * so that a system created using this profile will be have 
      * the appropriate network device associated to it.
@@ -195,7 +258,7 @@ public class SystemDetailsHandler extends BaseHandler {
      *          #item_desc ("0", 
      *          "to set the network type of the connection type to static device")
      *      #options_end()
-     * @xmlrpc.param #param("string", "interfaceName",
+     * @xmlrpc.param #param_desc("string", "interfaceName",
      *                           "name of the network interface- eg:- eth0")
      * @xmlrpc.returntype #return_int_success()
      */

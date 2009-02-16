@@ -73,6 +73,34 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 public class ProfileHandler extends BaseHandler {
     
     /**
+     * Get the kickstart tree for a kickstart profile.
+     * @param sessionKey User's session key.
+     * @param kslabel label of the kickstart profile to be changed.
+     * @return kickstart tree label
+     * 
+     * @xmlrpc.doc Get the kickstart tree for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.returntype 
+     *     #prop_desc("string", "kstreeLabel", "Label of the kickstart tree.")
+     */
+    public String getKickstartTree(String sessionKey, String kslabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory
+                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
+                        .getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                    "No Kickstart Profile found with label: " + kslabel);
+        }
+
+        KickstartDefaults ksdefault = ksdata.getKickstartDefaults();
+        return ksdefault.getKstree().getLabel();
+    }
+    
+    /**
      * Set the kickstart tree for a kickstart profile.
      * @param sessionKey User's session key.
      * @param kslabel label of the kickstart profile to be changed.
@@ -110,6 +138,38 @@ public class ProfileHandler extends BaseHandler {
         return 1;
     }
 
+    /** 
+     * Get the child channels for a kickstart profile.   
+     * @param sessionKey User's session key. 
+     * @param kslabel label of the kickstart profile to be updated.
+     * @return list of child channels associated with the profile.
+     *
+     * @xmlrpc.doc Get the child channels for a kickstart profile. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile.")     
+     * @xmlrpc.returntype
+     *     #array_single("string", "channelLabel")
+     */    
+    public List<String> getChildChannels(String sessionKey, String kslabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory.
+              lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                "No Kickstart Profile found with label: " + kslabel);
+        }
+
+        List<String> childChannels = new ArrayList<String>();
+        if (ksdata.getChildChannels() != null) {
+            for (Iterator itr = ksdata.getChildChannels().iterator(); itr.hasNext();) {
+                Channel channel = (Channel) itr.next();
+                childChannels.add(channel.getLabel());
+            }
+        }
+        return childChannels;
+    }
     
     /** 
      * Set the child channels for a kickstart profile.   
