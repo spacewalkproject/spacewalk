@@ -195,38 +195,6 @@ public class PackageDto extends BaseDto {
 
     /**
      * 
-     * @return Returns Package Nvr
-     */
-    public String getPackageNvr() {
-        return packageNvr;
-    }
-
-    /**
-     * 
-     * @param packageNvrIn The packageNvr to set.
-     */
-    public void setPackageNvr(String packageNvrIn) {
-        this.packageNvr = packageNvrIn;
-    }
-
-    /**
-     * 
-     * @return The package arch label to set
-     */
-    public String getPackageArchLabel() {
-        return packageArchLabel;
-    }
-
-    /**
-     * 
-     * @param packageArchLabelIn The package Arch label to set
-     */
-    public void setPackageArchLabel(String packageArchLabelIn) {
-        this.packageArchLabel = packageArchLabelIn;
-    }
-
-    /**
-     * 
      * @return Returns the summary.
      */
     public String getSummary() {

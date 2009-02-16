@@ -103,15 +103,15 @@ public abstract class RepomdWriter {
         long pkgId = pkgDto.getId().longValue();
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
         attr.addAttribute("pkgid", sanitize(pkgId, pkgDto.getMd5sum()));
-        attr.addAttribute("name", sanitize(pkgId, pkgDto.getPackageName()));
-        attr.addAttribute("arch", sanitize(pkgId, pkgDto.getPackageArchLabel()));
+        attr.addAttribute("name", sanitize(pkgId, pkgDto.getName()));
+        attr.addAttribute("arch", sanitize(pkgId, pkgDto.getArchLabel()));
         handler.startElement("package", attr);
 
         attr.clear();
-        attr.addAttribute("ver", sanitize(pkgId, pkgDto.getPackageVersion()));
-        attr.addAttribute("rel", sanitize(pkgId, pkgDto.getPackageRelease()));
+        attr.addAttribute("ver", sanitize(pkgId, pkgDto.getVersion()));
+        attr.addAttribute("rel", sanitize(pkgId, pkgDto.getRelease()));
         attr.addAttribute("epoch", sanitize(pkgId,
-                getPackageEpoch(pkgDto.getPackageEpoch())));
+                getPackageEpoch(pkgDto.getEpoch())));
         handler.startElement("version", attr);
         handler.endElement("version");
     }

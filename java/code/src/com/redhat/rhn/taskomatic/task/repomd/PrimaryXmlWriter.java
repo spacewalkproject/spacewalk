@@ -169,15 +169,15 @@ public class PrimaryXmlWriter extends RepomdWriter {
         long pkgId = pkgDto.getId().longValue();
 
         handler.addElementWithCharacters("name", sanitize(pkgId, pkgDto
-                .getPackageName()));
+                .getName()));
         handler.addElementWithCharacters("arch", sanitize(pkgId, pkgDto
-                .getPackageArchLabel()));
+                .getArchLabel()));
 
         SimpleAttributesImpl attr = new SimpleAttributesImpl();
-        attr.addAttribute("ver", sanitize(pkgId, pkgDto.getPackageVersion()));
-        attr.addAttribute("rel", sanitize(pkgId, pkgDto.getPackageRelease()));
+        attr.addAttribute("ver", sanitize(pkgId, pkgDto.getVersion()));
+        attr.addAttribute("rel", sanitize(pkgId, pkgDto.getRelease()));
         attr.addAttribute("epoch", sanitize(pkgId, getPackageEpoch(pkgDto
-                .getPackageEpoch())));
+                .getEpoch())));
         handler.startElement("version", attr);
         handler.endElement("version");
 
@@ -338,9 +338,9 @@ public class PrimaryXmlWriter extends RepomdWriter {
         if (parts != null && parts.length > 0) {
             return parts[parts.length - 1];
         }
-        return pkgDto.getPackageName() + "-" + pkgDto.getPackageVersion() +
-                "-" + pkgDto.getPackageRelease() + "." +
-                pkgDto.getPackageArchLabel() + ".rpm";
+        return pkgDto.getName() + "-" + pkgDto.getVersion() +
+                "-" + pkgDto.getRelease() + "." +
+                pkgDto.getArchLabel() + ".rpm";
     }
 
     /**
