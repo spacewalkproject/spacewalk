@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@gmail.com> 0.5.7-1
+- rhnRepoRegenQueue table for yum repodata regen queue
+
 * Thu Feb 12 2009 Mike McCune <mmccune@gmail.com> 0.5.7-1
 - 484312 - massive cleanup of virt types.  getting rid of useless AUTO type.
 
