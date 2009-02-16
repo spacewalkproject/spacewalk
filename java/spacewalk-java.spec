@@ -215,6 +215,17 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com>
+- 458355 - show Monitoring tabs only if Monitoring Backend or Monitoring Scout is enabled
+- 481766 - Corrected the text on Ks Distribution page to reflect the exact nature of the value to be
+- 483796 - fixed bug where ip address would show up as 0
+- 469957 - Updated getDetails to use first_name instead of first_names
+- 485500 - fixed ISE when deleting errata
+- 469957 - Added translation in XMLRPC API layer to accept first_name instead of "first_names"
+- handler-manifest.xml used by xmlrpc api was pointing to wrong location for a class...:(
+- 466295 - Added date format as description on the property
+- Removing duplicate setKickstartTree API
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.13-1
 - 484312 - more cleanup for kickstart AUTO virt type removal
 - 484312 - massive cleanup of virt types.  getting rid of useless AUTO type.
