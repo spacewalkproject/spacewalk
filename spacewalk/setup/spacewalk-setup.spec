@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.3
+Version:        0.5.11
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,35 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.11-1
+- 484713, 484720 - fix sudoers
+
+* Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
+- 484675 - /usr/bin/spacewalk-setup: run restorecon silently
+
+* Tue Feb 10 2009 Jan Pazdziora 0.5.9-1
+- spacewalk-setup: use DEFAULT_SATCON_DICT
+- spacewalk-setup: use the local write_config function
+
+* Thu Feb 05 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.8-1
+- Add support for overlay of default_mail_from setting in rhn.conf.
+
+* Wed Feb  4 2009 Jan Pazdziora 0.5.7-1
+- only run restorecon and setsebool on RHEL 5+ and with SELinux enabled
+- run create-db.sh with --run-restorecon on RHEL 5+ and with SELinux enabled
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python" (Miroslav S.)
+
+* Fri Jan 30 2009 Jan Pazdziora 0.5.6-1
+- run restorecon on populate_db.log
+
+* Thu Jan 29 2009 Jan Pazdziora 0.5.5-1
+- numerous changes to support clean embedded database installation
+- avoid fully qualifying objects with Spacewalk::Setup::
+- Spacewalk::Setup: avoid using literal for INSTALL_LOG_FILE.
+
+* Fri Jan 23 2009 Milan Zazrivec 0.5.4-1
+- re-enable satellite upgrades
+
 * Wed Jan 21 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.3-1
 - fixed branding stuff
 

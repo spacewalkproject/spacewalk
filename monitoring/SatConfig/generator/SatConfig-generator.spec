@@ -1,9 +1,8 @@
 %define db_dir %{_var}/lib/nocpulse
-%define registry %{_sysconfdir}/rc.d/np.d/apachereg
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.10
+Version:      2.29.11
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 URL:          https://fedorahosted.org/spacewalk
@@ -32,12 +31,10 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p          $RPM_BUILD_ROOT%{install_prefix}
 #mkdir -p          $RPM_BUILD_ROOT%{install_prefix}/test
 mkdir -p          $RPM_BUILD_ROOT%{db_dir}
-mkdir -p          $RPM_BUILD_ROOT%{registry}
 
 install -m 644 ConfigDocument.pm $RPM_BUILD_ROOT%{install_prefix}
 install -m 644 GenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}
 #install -m 644 TestGenerateConfig.pm $RPM_BUILD_ROOT%{install_prefix}/test
-install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -45,15 +42,16 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 %defattr(-,root,root,-)
 %dir %{install_prefix}
 %dir %attr(-,nocpulse,nocpulse) %{db_dir}
-%dir %{registry}
 %{install_prefix}/ConfigDocument.pm
 %{install_prefix}/GenerateConfig.pm
-%{registry}/Apache.SatConfig-generator
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.11-1
+- remove dead code (apachereg)
+
 * Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 2.29.10-1
 - 253506 - fix excessive "my" declaration
 

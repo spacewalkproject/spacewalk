@@ -5,7 +5,7 @@ Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: Applications/System
 License: GPLv2
 Url: http://rhn.redhat.com
-Version: 0.4.1
+Version: 0.4.2
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -52,6 +52,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.2-1
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python"
+- 436332 - return an error code other than 0 if there is a mismatch
+- more changes for nvrea error handling
+- 241127 - Solaris patch-requires fix
+- 241369 - --force and --nullorg are incompatible options
+- bump up version 0.4.1
+- 461701 - don't use cached session if username is provided on commandline
+
 * Wed Sep 24 2008 Milan Zazrivec 0.3.1-1
 - Bumped version for spacewalk 0.3
 

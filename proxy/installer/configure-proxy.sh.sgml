@@ -49,6 +49,13 @@ and then deploys configuration files and activates the &RHNPROXY;.
             <para>Display the help screen with a list of options.</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--non-interactive</term>
+        <listitem>
+            <para>For use only with --answer-file. If the --answer-file doesn't
+provide a required response, default answer is used.</para>
+        </listitem>
+    </varlistentry>
 </variablelist>
 </RefSect1>
 
@@ -136,13 +143,18 @@ and then deploys configuration files and activates the &RHNPROXY;.
         <listitem>
            <para>Your scout shared key (can be found on the parent in /etc/rhn/cluster.ini as key scoutsharedkey).</para>
         </listitem>
+        <term>POPULATE_CONFIG_CHANNEL</term>
+        <listitem>
+           <para>Y if config chanel should be created and configuration files in that channel updated.
+Configuration channel will be named rhn_proxy_config_${SYSTEM_ID}.</para>
+        </listitem>
     </varlistentry>
 </variablelist>
 </RefSect1>
 
 <RefSect1><Title>See Also</Title>
 <simplelist>
-    <member>rhn-proxy-activate(8)</member>
+    <member>rhn-proxy-activate(8), rhncfg-manager(8)</member>
 </simplelist>
 </RefSect1>
 

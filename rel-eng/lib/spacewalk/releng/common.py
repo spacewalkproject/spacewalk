@@ -18,6 +18,8 @@ import os.path
 import sys
 import commands
 
+DEFAULT_BUILD_DIR = "/tmp/spacewalk-build"
+
 def error_out(error_msgs):
     """
     Print the given error message (or list of messages) and exit.

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -35,6 +35,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #prop("int", "id")
  *              #prop("string", "login")
  *              #prop_desc("string", "login_uc", "upper case version of the login")
+ *              #prop_desc("boolean", "enabled", "true if user is enabled, 
+ *                         false if the user is disabled")
  *      #struct_end()
  */
 public class UserSerializer implements XmlRpcCustomSerializer {
@@ -55,7 +57,15 @@ public class UserSerializer implements XmlRpcCustomSerializer {
        User user = (User) value; 
        helper.add("id", user.getId());
        helper.add("login", user.getLogin());
-       helper.add("login_uc", user.getLoginUc()); 
+       helper.add("login_uc", user.getLoginUc());
+       
+       if (user.isDisabled()) {
+           helper.add("enabled", Boolean.FALSE);
+       }
+       else {
+           helper.add("enabled", Boolean.TRUE);
+       }
+       
        helper.writeTo(output);
     }
 }

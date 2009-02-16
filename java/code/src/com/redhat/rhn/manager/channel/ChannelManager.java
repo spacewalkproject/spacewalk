@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -21,7 +21,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -53,6 +52,7 @@ import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
@@ -60,7 +60,6 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyChannelNotFoundException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -69,9 +68,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1137,7 +1138,7 @@ public class ChannelManager extends BaseManager {
      * @param endDate package end date
      * @return list of packages in channel
      */
-    public static List listAllPackages(Channel channel, String startDate,
+    public static List<PackageDto> listAllPackages(Channel channel, String startDate,
             String endDate) {
         String mode = "all_packages_in_channel";
         Map params = new HashMap();
@@ -1163,19 +1164,41 @@ public class ChannelManager extends BaseManager {
      * @param channel channel whose packages are sought
      * @return list of packages in channel
      */
-    public static List listAllPackages(Channel channel) {
-        return listAllPackages(channel, null, null);
+    public static List<PackageDto> listAllPackages(Channel channel) {
+        String mode = "all_packages_in_channel";
+        Map params = new HashMap();
+        params.put("cid", channel.getId());
+        
+        SelectMode m = ModeFactory.getMode("Package_queries", mode);
+
+        return m.execute(params); 
     }
     
     /**
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
      * @param startDate package start date
+     * @param endDate package end date
      * @return list of packages in channel
      */
-    public static List listAllPackagesByDate(Channel channel,
-            String startDate) {
-        return listAllPackagesByDate(channel, startDate, null);
+    public static List listAllPackages(Channel channel, Date startDate,
+            Date endDate) {
+
+        // convert the start and end dates to a string representation
+        // that can be used in the db query...
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        String startDateStr = null;
+        String endDateStr = null;
+        
+        if (startDate != null) {
+            startDateStr = sdf.format(startDate);
+        }
+        if (endDate != null) {
+            endDateStr = sdf.format(endDate);
+        }
+        
+        return listAllPackages(channel, startDateStr, endDateStr);
     }
     
     /**
@@ -1208,16 +1231,6 @@ public class ChannelManager extends BaseManager {
         return m.execute(params);
     }
     
-    /**
-     * Returns list of packages in channel
-     * @param channel channel whose packages are sought
-     * @return list of packages in channel
-     */
-    public static List listAllPackagesByDate(Channel channel) {
-        return listAllPackagesByDate(channel, null, null);
-    }
-    
-
     /**
      * Get the id of latest packages equal in the passed in Channel and name
      * 
@@ -1701,22 +1714,6 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, lc, m);
 
         return dr;
-    }
-
-    /**
-     * Save the Channel and update the rhnChannelNewestPackageCache
-     * 
-     * @param c to save
-     * @param user doing the saving.
-     */
-    public static void saveAndUpdateErrataAndPackageCache(Channel c, User user) {
-        ChannelFactory.save(c);
-        c = (Channel) HibernateFactory.reload(c);
-        
-        refreshWithNewestPackages(c, user.getLogin());
-        Set cacheUpdate = new HashSet();
-        cacheUpdate.add(c);
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(cacheUpdate, user.getOrg());
     }
 
     /**

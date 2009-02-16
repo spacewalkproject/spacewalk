@@ -5,9 +5,10 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.1
+Version: 0.2.2
 Release: 1%{?dist}
-BuildArch : noarch
+BuildArch: noarch
+BuildRequires: python
 URL: http://rhn.redhat.com/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -106,6 +107,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.2.2-1
+- BuildRequires python
+
 * Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 0.2.1-1
 - rev build
 

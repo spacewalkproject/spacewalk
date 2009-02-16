@@ -368,7 +368,9 @@ class UploadClass(uploadLib2.UploadClass):
                         self.warn(1,"Package checksum %s mismatch  -- Forcing Upload"% pkg)
                     else:
                         msg = """Error: Package %s already exists on the server with a different checksum. Skipping upload to prevent overwriting existing package. (You may use rhnpush with the --force option to force this upload if the force_upload option is enabled on your server.)\n"""% pkg
-                        self.die(-1, msg)
+                        if not self.options.tolerant:
+                            self.die(-1, msg)
+                        self.warn(0, msg)
                         continue
             else:
                 #Its an older satellite(< 4.1.0). Just do the push the usual old way,

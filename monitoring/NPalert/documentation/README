@@ -35,7 +35,7 @@ $NOTIFICATION_HOME/queue/request_queue
 
 $NOTIFICATION_HOME/script
 
-ack_enqueuer.pl -- called by sendmail to enqueue acknowledgement emails for processing by notifserver.pl.  Emails are screened for acceptance by send id against $NOTIFICATION_HOME/tmp/send_history.gdbm.   Accepted emails are enqueued in plain text in $NOTIFICATION_HOME/queue/ack_queue.  Log file is /var/tmp/ack_handler.log.
+ack_enqueuer.pl -- called by sendmail to enqueue acknowledgement emails for processing by notifserver.pl.  Emails are screened for acceptance by send id against $NOTIFICATION_HOME/tmp/send_history.gdbm.   Accepted emails are enqueued in plain text in $NOTIFICATION_HOME/queue/ack_queue.  Log file is /var/log/nocpulse/ack_handler.log.
 
 ack-processor -- program that takes enqueued email acknowledgements and processes them using the notif-escalator.  Handles and replies to the original sender of the email.
 
@@ -94,20 +94,16 @@ trusted-users
 /etc/rc.d/init.d
 Apache  -- "SysVStep" style init script for starting the Apache daemon.  Stop this daemon to prevent notifications from being enqueued.  New notifications will rejected back to the satellites.  Previously enqueued notifications will continue to be sent as long as Notifier is running.
 
-ApacheNotifAdmin -- "SysVStep" style init script for starting the Apache daemon specifically for the internal-use notification tools.`
-
 Notifier  -- "SysVStep" style init script for starting the notifserver.pl daemon.  Stop this daemon to prevent notifications from being sent.  Notifications will continue to enqueue as long as Apache is running.
 
 /var/www/cgi-bin
-
-ack.cgi -- NOT IN USE
 
 alertmgr.cgi -- Internal-use tool that allows one to acknowledge and clear alerts, start and stop the system, view system logs.  -- NOT FULLY FUNCTIONAL
 
 redirmgr.cgi -- Internal-use tool that allows one to configure a redirect (advaned notification).
 
 /var/www/cgi-mod-perl
-enqueue.cgi -- This script enqueues notification requests from satellites sent via http by the event receiver box.  It does some basic screening and will reject notifications missing complete information.  Enqueued alerts (notifications) are placed in Storable format and put in $NOTIFICATION_HOME/queue/alert_queue.  Log file is /var/tmp/enqueue.log.
+enqueue.cgi -- This script enqueues notification requests from satellites sent via http by the event receiver box.  It does some basic screening and will reject notifications missing complete information.  Enqueued alerts (notifications) are placed in Storable format and put in $NOTIFICATION_HOME/queue/alert_queue.  Log file is /var/log/nocpulse/enqueue.log.
 
 notifserver-test.cgi
 

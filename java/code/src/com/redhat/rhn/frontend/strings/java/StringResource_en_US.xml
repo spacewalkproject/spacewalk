@@ -1048,6 +1048,20 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/users/CreateUser</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="user.satadmin.remove">
+<source>Removed Satellite Administrator role from {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Users</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="user.satadmin.add">
+<source>Added Satellite Administrator role to {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/Users</context>
+        </context-group>
+      </trans-unit>
       
       <trans-unit id="user.deleteadmin">
 <source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
@@ -3924,6 +3938,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="AX">
+        <source>Aland Islands</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="AZ">
         <source>Azerbaijan</source>
         <context-group name="ctx">
@@ -4073,6 +4094,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="CC">
         <source>Cocos (Keeling) Islands</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="CD">
+        <source>CONGO, The Democratic Republic of the</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -4338,14 +4366,14 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
       <trans-unit id="GB">
-        <source>(GMT+0100) United Kingdom</source>
+        <source>United Kingdom</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
       </trans-unit>
 
       <trans-unit id="GB-Eire">
-        <source>(GMT+0100) Ireland</source>
+        <source>Ireland</source>
       </trans-unit>      
 
       <trans-unit id="GD">
@@ -4364,6 +4392,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="GF">
         <source>French Guiana</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="GG">
+        <source>Guernsey</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -4523,6 +4558,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="IM">
+        <source>Isle of Man</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="IN">
         <source>India</source>
         <context-group name="ctx">
@@ -4560,6 +4602,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="IT">
         <source>Italy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="JE">
+        <source>Jersey</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -4756,6 +4805,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="MD">
         <source>Moldova</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="ME">
+        <source>Montenegro</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -5048,6 +5104,13 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
 
+      <trans-unit id="PS">
+        <source>Palestinian Territory, Occupied</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="PT">
         <source>Portugal</source>
         <context-group name="ctx">
@@ -5078,6 +5141,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="RE">
         <source>Reunion (French)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="RS">
+        <source>Serbia</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -5281,6 +5351,13 @@ user before attempting to deactivate their account.</source>
 
       <trans-unit id="TK">
         <source>Tokelau</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">All country select list pull-downs</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="TL">
+        <source>Timor-Leste</source>
         <context-group name="ctx">
           <context context-type="sourcefile">All country select list pull-downs</context>
         </context-group>
@@ -7432,7 +7509,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="api.org.migrationtosameorg">
-          <source>User cannot migrate systems where the origination and destination organizations are the same.  Org Id: {0}.</source>
+	      <source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
       </trans-unit>
       
 	  <trans-unit id="api.org.nosuchorg">
@@ -7440,7 +7517,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="api.org.notintrust">
-          <source>Organization {0} is not defined in trust.</source>
+	      <source>Organization {0} is not defined in trust.</source>
+      </trans-unit>
+      
+	  <trans-unit id="api.org.sysnotintrust">
+	      <source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
       </trans-unit>
 
 	  <trans-unit id="api.org.notpermittedbyorg">
@@ -7589,7 +7670,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>   
       
       <trans-unit id="org.entitlements.system.toomany">
-          <source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
+          <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
       </trans-unit>
 
       <trans-unit id="org.entitlements.syssoft.success">
@@ -7597,11 +7678,11 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       
       <trans-unit id="org.entitlements.software.toomany">
-          <source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
+          <source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
       </trans-unit>
 
       <trans-unit id="org.entitlements.software.proposedwarning">
-          <source>Warning: Your Proposed entitlement allocation for {0} requires more entitlements than are in use for the {1} Organization. Please adjust your proposed allocation accordingly.</source>
+          <source>Warning: Your Proposed {0} allocation requires less entitlements than are in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
       </trans-unit>
             
       <trans-unit id="securityErrata">
@@ -7747,7 +7828,7 @@ Follow this url to see the full list of inactive systems:
      </trans-unit> 
       
        <trans-unit id="frontend.actions.channels.manager.add.success">
-          <source>Succesfully added {0} Errata and {1} package(s) to channel {2}.</source>
+          <source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
      </trans-unit>      
      
        <trans-unit id="frontend.actions.channels.manager.add.clone">
@@ -7915,13 +7996,15 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="message.channelupdated">
         <source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
      </trans-unit>
+     <trans-unit id="message.channelsubscribers">
+        <source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidvirt">
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
-     </trans-unit>      
+     </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
         <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a differnt distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
      </trans-unit>
-       
      <trans-unit id="snapshots.childchannel">
         <source>Child Channels Updated</source>
      </trans-unit>
@@ -7934,7 +8017,26 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="snapshots.configchannel">
         <source>Configuration Channels Updated</source>
      </trans-unit>
-       
+     <trans-unit id="kickstart.cobbler.distro.syncfail">
+        <source>
+The following is a list of errors gathered while Spacewalk attempts to 
+syncronize kickstart distributions from Spacewalk to Cobbler.  These 
+errors must be corrected for the distributions to be available for 
+kickstarting systems kickstart distributions failed to sync from 
+Spacewalk to Cobbler:
+
+{0}
+
+Please check:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and 
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+for more detailed errors.  If you don't resolve the errors the kickstart
+tree will not be usable for kickstarting.
+        </source>
+     </trans-unit>
     </body>
   </file>
 </xliff>

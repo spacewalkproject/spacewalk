@@ -37,13 +37,12 @@ IS
         org_id_in in number
     )
     is
-
         cursor users is
         select id
         from web_contact
         where org_id = org_id_in;
 
-		cursor servers(org_id_in in number) is
+	cursor servers(org_id_in in number) is
         select	id
         from	rhnServer
         where	org_id = org_id_in;
@@ -52,6 +51,16 @@ IS
         select id
         from rhnConfigChannel
         where org_id = org_id_in;
+
+	cursor custom_channels is
+        select	id
+        from	rhnChannel
+        where	org_id = org_id_in;
+
+	cursor errata is
+        select	id
+        from	rhnErrata
+        where	org_id = org_id_in;
 
     begin
 
@@ -72,6 +81,20 @@ IS
         -- Delete all config channels.
         for c in config_channels loop
             rhn_config.delete_channel(c.id);
+        end loop;
+
+        -- Delete all custom channels.
+        for cc in custom_channels loop
+          delete from rhnServerChannel where channel_id = cc.id;
+          delete from rhnServerProfilePackage where server_profile_id in (
+            select id from rhnServerProfile where base_channel = cc.id
+          );
+          delete from rhnServerProfile where base_channel = cc.id;
+        end loop;
+
+        -- Delete all errata packages 
+        for e in errata loop
+            delete from rhnErrataPackage where errata_id = e.id;
         end loop;
 
         -- Give the org's entitlements back to the main org.

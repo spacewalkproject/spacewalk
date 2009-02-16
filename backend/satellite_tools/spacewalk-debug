@@ -118,22 +118,20 @@ if [ -d /var/log/tomcat5 ]; then
 fi
 
 # general monitoring moc logs
-if [ -d /opt/notification ] ; then
+if [ -d /var/log/nocpulse ] ; then
     echo "    * copying monitoring moc logs"
     mkdir -p $DIR/mon-logs
     # try to get all subsystems logs
-    cp -fapRd /opt/notification/var/*.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /var/tmp/ack_handler.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /var/tmp/enqueue.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /var/log/notification/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /var/log/nocpulse/*.log* $DIR/mon-logs 2> /dev/null
 fi
 
 # monitoring scout logs
-if [ -d /home/nocpulse/var ] ; then
+if [ -d /var/lib/nocpulse/commands ] ; then
     echo "    * copying monitoring scout logs"
     mkdir -p $DIR/mon-logs
     # try to get all subsystems logs
-    cp -fapRd /home/nocpulse/var/*.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /home/nocpulse/var/commands/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /var/lib/nocpulse/commands/*.log* $DIR/mon-logs 2> /dev/null
 fi
 
 # ssl-build

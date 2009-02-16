@@ -7,8 +7,8 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.4.1
-Release:        7%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -28,8 +28,8 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
-Requires(postun): /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/semanage
+Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
 Requires:       spacewalk-backend
@@ -89,9 +89,12 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
+/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
+
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
+/usr/sbin/setsebool -P httpd_can_network_connect 1
 
 %postun
 # Clean up after package removal
@@ -101,6 +104,7 @@ if [ $1 -eq 0 ]; then
       /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
+  /usr/sbin/semanage port -d -t cobbler_port_t -p tcp 25152 || :
 fi
 
 /sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
@@ -112,6 +116,20 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 0.5.2-1
+- spacewalk-selinux: allow satidmap.pl to do network connections
+
+* Fri Jan 30 2009 Jan Pazdziora 0.5.1-1
+- bump version to 0.5.*
+
+* Fri Jan 30 2009 Jan Pazdziora 0.4.1-9
+- change type of populate_db.log
+- add definition of cobbler port 25152, allow httpd to connect
+
+* Thu Jan 29 2009 Jan Pazdziora 0.4.1-8
+- make install_db.log of type spacewalk_install_log_t
+- avoid .src.rpm-packing-time error when selinux-policy-devel is not installed
+
 * Thu Jan  8 2009 Jan Pazdziora 0.4.1-7
 - httpd does not need execstack nor execmem, with execstack flags
   cleared on libraries

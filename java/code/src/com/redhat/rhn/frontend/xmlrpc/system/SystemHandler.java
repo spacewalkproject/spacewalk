@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -859,6 +859,7 @@ public class SystemHandler extends BaseHandler {
      *                 #prop("string", "version")
      *                 #prop("string", "release")
      *                 #prop("string", "epoch")
+     *                 #prop("string", "arch")
      *          #struct_end()
      *      #array_end()
      */
@@ -1048,7 +1049,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop_desc("int", "subscribed", "1 if the given server is subscribed
      *               to this server group, 0 otherwise")
      *          #prop_desc("string", "system_group_name", "Name of the server group")
-     *          #prop_desc("String", "sgid", "server group id (Deprecated)")
+     *          #prop_desc("string", "sgid", "server group id (Deprecated)")
      *      #struct_end()
      */
     public Object[] listGroups(String sessionKey, Integer sid) throws FaultException {
@@ -1220,7 +1221,12 @@ public class SystemHandler extends BaseHandler {
          */
         for (Iterator itr = customDataValues.iterator(); itr.hasNext();) {
             CustomDataValue val = (CustomDataValue) itr.next();
-            returnMap.put(val.getKey().getLabel(), val.getValue());
+            if (val.getValue() != null) {
+                returnMap.put(val.getKey().getLabel(), val.getValue());
+            }
+            else {
+                returnMap.put(val.getKey().getLabel(), new String(""));
+            }
         }
         
         return returnMap;
@@ -1770,7 +1776,10 @@ public class SystemHandler extends BaseHandler {
      * sid cannot be found.
      * 
      * @xmlrpc.doc Returns a list history items associated with the system, ordered
-     *              from oldest to newest.
+     *             from newest to oldest. Note that the details may be empty for
+     *             events that were scheduled against the system (as compared to instant).
+     *             For more information on such events, see the system.listSystemEvents
+     *             operation.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
@@ -2623,6 +2632,53 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Set server lock status.
+     * 
+     * @param sessionKey User's session key.
+     * @param serverId ID of server to lookup details for.
+     * @param lockStatus to set. True to lock the system, False to unlock the system.
+     * @return 1 on success, exception thrown otherwise.
+     * 
+     * @xmlrpc.doc Set server lock status.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("boolean", "lockStatus", "true to lock the system, 
+     * false to unlock the system.")
+     *     
+     *  @xmlrpc.returntype #return_int_success()
+     */
+    public Integer setLockStatus(String sessionKey, Integer serverId, boolean lockStatus) {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = null;
+        try {
+            server = SystemManager.lookupByIdAndUser(new Long(serverId.longValue()), 
+                    loggedInUser);
+        }
+        catch (LookupException e) {
+            throw new NoSuchSystemException();
+        }
+
+        LocalizationService ls = LocalizationService.getInstance();
+
+        if (lockStatus) {
+            // lock the server, if it isn't already locked.
+            if (server.getLock() == null) {
+                SystemManager.lockServer(loggedInUser, server, ls.getMessage
+                                         ("sdc.details.overview.lock.reason"));
+            }
+        }
+        else {
+            // unlock the server, if it isn't already locked.
+            if (server.getLock() != null) {
+                SystemManager.unlockServer(loggedInUser, server);
+            }
+        }
+        
+        return 1;
+    }
+
     /**
      * Add addon entitlements to a server. Entitlements a server already has are simply 
      * ignored.

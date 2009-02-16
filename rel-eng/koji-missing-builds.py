@@ -13,6 +13,8 @@ usage = "usage: %prog [options] <tag to check>"
 parser = OptionParser(usage, version='%prog 0.0.1')
 parser.add_option("-g","--git", action="store_true", default=False,
   help="print list of builds not managed in git")
+parser.add_option("-b","--brew", action="store_true", default=False,
+  help="check builds in brew instread of koji")
 (opts, args) = parser.parse_args()
 
 if len(args) < 1:
@@ -30,12 +32,16 @@ distmap = {'6E':'.el6',
            'f10':'.fc10',
            'f11':'.fc11'}
 
+distsuffix = ''
 tag = args[0]
-
 disttag = distmap[tag.split('-')[1]]
 
+if opts.brew:
+    mysession = koji.ClientSession("http://brewhub.devel.redhat.com/brewhub")
+    distsuffix = 'sat'
+else:
+    mysession = koji.ClientSession("http://koji.rhndev.redhat.com/kojihub")
 
-mysession = koji.ClientSession("http://koji.rhndev.redhat.com/kojihub")
 
 rpmlist = mysession.getLatestRPMS(tag)
 nvrs = []
@@ -44,7 +50,8 @@ pkglist = []
 gitnames = []
 notingit = []
 for rpm in rpmlist[1]:
-    rpmname = rpm['nvr'].replace(disttag,'')
+    rpmname = rpm['nvr'].rstrip(distsuffix)
+    rpmname = rpmname.replace(disttag, '')
     nvrs.append(rpmname)
     kojinames.append([rpm['name'], rpmname])
 

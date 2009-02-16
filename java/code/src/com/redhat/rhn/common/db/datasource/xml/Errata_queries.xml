@@ -299,7 +299,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 </mode>
 
 <mode  name="errata_list_in_set" class="com.redhat.rhn.frontend.dto.ErrataOverview">
-<query params="user_id" >
+<query params="user_id, set" >
   Select DISTINCT E.id , E.advisory_name AS advisory,
                E.update_date AS UPDATE_DATE,
                E.synopsis as ADVISORY_SYNOPSIS,
@@ -308,7 +308,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
   FROM rhnErrata E,
        rhnSet ST
  WHERE ST.user_id = :user_id
-   AND ST.label = 'errata_list'
+   AND ST.label = :set
    AND ST.element = E.id
 </query>
 </mode>
@@ -455,7 +455,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 
 <mode name="find_packages_for_errata_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
-  <query params="uid">
+  <query params="uid, set">
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 	EVR.version
        || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
@@ -469,17 +469,18 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 		rhnPackageArch PA on PA.id = P.package_arch_id inner join
 		rhnPackageName  PN on PN.id = P.name_id inner join
 		rhnPackageEvr  EVR on P.evr_id = EVR.id
-	where S.label = 'errata_list'
+	where S.label = :set
 		and S.user_id = :uid
   </query>
 </mode>
 
 <mode name="find_packages_for_errata_set_with_assoc" class="com.redhat.rhn.frontend.dto.PackageOverview">
-  <query params="custom_cid, uid">
+  <query params="custom_cid, uid, set">
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 		EVR.version
        || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
-         package_nvre
+         package_nvre,
+         P.summary
     from
         rhnSet S inner join
         rhnErrata E on S.element = E.id inner join
@@ -487,10 +488,10 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         rhnPackage P on P.id = EP.package_id inner join
         rhnPackageArch PA on PA.id = P.package_arch_id inner join
         rhnPackageEvr EVR on Evr.id = P.evr_id inner join
-    rhnPackage P2 on P2.name_id = P.name_id inner join
-    rhnChannelPackage CP on CP.package_id = P2.id
-    inner join rhnPackageName PN on  PN.id = P.name_id
-    where S.label = 'errata_list'
+    	rhnPackage P2 on P2.name_id = P.name_id inner join
+    	rhnChannelPackage CP on CP.package_id = P2.id inner join
+     	rhnPackageName PN on  PN.id = P.name_id
+    where S.label = :set
    		 and S.user_id = :uid
          and CP.channel_id = :custom_cid
          and P2.Package_arch_id = P.package_arch_id
@@ -750,25 +751,6 @@ ORDER BY E.update_date DESC, E.id
 ORDER BY CE.errata_id, C.name
 </query>
      
-<query name="affected_server_count" multiple="f" params="org_id, user_id">
-SELECT  E.id ID,
-       (SELECT  COUNT(DISTINCT SNPC.server_id)
-          FROM  rhnServerNeededPackageCache SNPC 
-         WHERE  SNPC.errata_id = E.id
-           AND  SNPC.org_id = :org_id
-           AND  EXISTS (SELECT 1
-                          FROM rhnServerFeaturesView SFV
-                         WHERE SFV.server_id = SNEC.server_id
-                           AND SFV.label = 'ftr_errata_updates')
-           AND  EXISTS (SELECT  1
-                          FROM  rhnUserServerPermsDupes USPD
-                         WHERE  USPD.user_id = :user_id
-                           AND  USPD.server_id = SNPC.server_id)
-      ) AFFECTED_SERVER_COUNT
-  FROM  rhnErrata E
- WHERE E.id IN (%s)
-</query>
-
 <query name="errata_overview" params="user_id">
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis as advisory_synopsis,
     (SELECT  COUNT(DISTINCT S.id)
@@ -840,17 +822,11 @@ ORDER BY  E.update_date DESC
   </query>
 </write-mode>
 
-<write-mode name="deleteServerErrataCache">
-  <query params="errata_id, org_id">
- delete from rhnServerNeededErrataCache where errata_id = :errata_id and org_id = :org_id
-  </query>
-</write-mode>
 
 <write-mode name="deleteServerErrataPackageCache">
   <query params="errata_id, org_id">
-delete from rhnServerNeededPackageCache
+delete from rhnServerNeededCache
   where server_id in (select id from rhnServer where org_id = :org_id)
-  and org_id = :org_id
   and errata_id = :errata_id
   </query>
 </write-mode>

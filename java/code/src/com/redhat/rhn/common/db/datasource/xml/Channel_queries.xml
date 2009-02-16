@@ -10,6 +10,13 @@ DELETE
    </query>
 </write-mode>
 
+<write-mode name="add_channel_package">
+  <query params="pid, cid">
+  INSERT INTO rhnChannelPackage (channel_id, package_id)
+  VALUES (:cid, :pid)  
+  </query>
+</write-mode>
+
 <write-mode name="add_org_channel_setting">
   <query params="org_id, cid, label">
 INSERT
@@ -715,7 +722,8 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
         IN
         (SELECT S.id, S.org_id
             FROM rhnSharedChannelView S
-          WHERE S.ORG_TRUST_ID = :org_id)
+          WHERE S.ORG_TRUST_ID = :org_id
+            AND S.parent_channel IS NULL)
   </query>
 </mode>
 
@@ -874,6 +882,25 @@ ORDER BY UPPER(C.name)
       {call rhn_channel.subscribe_server(:server_id, :channel_id, 1, :user_id)}
   </query>
 </callable-mode>
+   
+<write-mode name="flag_server_channels_changed">
+   <query params="server_id">
+      UPDATE rhnServer SET channels_changed = sysdate WHERE id = :server_id
+   </query>
+</write-mode>
+   
+<write-mode name="log_channel_history">
+   <query params="server_id, channel_id, channel_label, message">
+       INSERT INTO rhnServerHistory (id, server_id, summary, details) (
+                SELECT  rhn_event_id_seq.nextval,
+                        :server_id,
+                        :message,
+                        :channel_label
+                FROM    rhnChannel c
+                WHERE   c.id = :channel_id
+            )
+   </query>
+</write-mode>
 
 <callable-mode name="unsubscribe_server_from_channel">
   <query params="server_id, channel_id">

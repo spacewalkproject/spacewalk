@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.1
+Version: 0.5.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -38,7 +38,7 @@ BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
-BuildRequires: java-devel >= 1.5.0
+BuildRequires: java-devel >= 1.6.0
 BuildRequires: log4j
 BuildRequires: oro
 #BuildRequires: lucene
@@ -71,15 +71,15 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_var}/log/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/nutch
 
-install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib/
+install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib/
 # using install -m does not preserve the symlinks
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
-install -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
-install -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
-install -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
+install -p -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
+install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
+install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/rhnsearchd
-install -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search.conf
-install -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
+install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search.conf
+install -p -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/spacewalk-search.jar
 
 %clean
@@ -108,6 +108,26 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.6-1
+- 484610 - doc search results were reversed, displaying worst results first
+- Cleaned up "tabs" which got added into some files previously.
+- Removed "orig" as a field from DocResults
+
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.5-1
+- 479541, 483867 - replaced runuser with /sbin/runuser
+
+* Mon Jan 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.4-1
+- allow search-server to run in degraded mode if nutch isn't installed
+- fixing rpmlint warning:  summary-ended-with-dot
+- allow multiple language search 
+
+* Fri Jan 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
+- Fix bad install command.
+
+* Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.5.2-1
+- update java-devel BuildRequires to 1.6.0
+- preserve timestamps on install
+
 * Wed Jan 21 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.1-1
 - obsolete rhn-search before 5.3.0 (for satellite's benefit)
 

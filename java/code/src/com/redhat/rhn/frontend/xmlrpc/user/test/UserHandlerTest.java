@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -47,7 +47,7 @@ public class UserHandlerTest extends BaseHandlerTestCase {
 
     public void testListUsers() throws Exception {
         //admin should be able to call list users, regular should not
-        Object[] result = handler.listUsers(adminKey);
+        List result = handler.listUsers(adminKey);
         assertNotNull(result);
         
         //make sure we get a permission exception if a regular user tries to get the user
@@ -90,15 +90,15 @@ public class UserHandlerTest extends BaseHandlerTestCase {
     public void testGetDetails() throws Exception {
         //admin looking up self
         Map result = handler.getDetails(adminKey, admin.getLogin());
-        assertEquals(admin.getFirstNames(), result.get("first_names"));
+        assertEquals(admin.getFirstNames(), result.get("first_name"));
         
         //admin looking up regular
         result = handler.getDetails(adminKey, regular.getLogin());
-        assertEquals(regular.getFirstNames(), result.get("first_names"));
+        assertEquals(regular.getFirstNames(), result.get("first_name"));
         
         //regular looking up self
         result = handler.getDetails(regularKey, regular.getLogin());
-        assertEquals(regular.getFirstNames(), result.get("first_names"));
+        assertEquals(regular.getFirstNames(), result.get("first_name"));
         
         //regular looking up admin
         try {
@@ -126,17 +126,17 @@ public class UserHandlerTest extends BaseHandlerTestCase {
     public void testSetDetails() throws Exception {
 
         Map newDetails = new HashMap();
-        newDetails.put("first_names", "firstnames_edited");
+        newDetails.put("first_name", "firstnames_edited");
 
         //admin editing self
         int result = handler.setDetails(adminKey, admin.getLogin(), newDetails);
         assertEquals(1, result);
-        assertEquals(newDetails.get("first_names"), admin.getFirstNames());
+        assertEquals(newDetails.get("first_name"), admin.getFirstNames());
         
         //admin editing regular
         result = handler.setDetails(adminKey, regular.getLogin(), newDetails);
         assertEquals(1, result);
-        assertEquals(newDetails.get("first_names"), regular.getFirstNames());
+        assertEquals(newDetails.get("first_name"), regular.getFirstNames());
         
         //regular editing admin
         try {
@@ -150,7 +150,7 @@ public class UserHandlerTest extends BaseHandlerTestCase {
         //regular editing self
         result = handler.setDetails(regularKey, regular.getLogin(), newDetails);
         assertEquals(1, result);
-        assertEquals(newDetails.get("first_names"), regular.getFirstNames());
+        assertEquals(newDetails.get("first_name"), regular.getFirstNames());
     }
     
     public void testAddRemoveRole() throws Exception {

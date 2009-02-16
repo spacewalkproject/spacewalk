@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="ssm-status" invisible="1" title-depth="1">
+   <rhn-tab name="ssm.nav.status.inprogress" url="/rhn/ssm/ViewLog.do"/>
+   <rhn-tab name="ssm.nav.status.completed" url="/rhn/ssm/ViewCompletedLog.do"/>
+   <rhn-tab name="ssm.nav.status.all" url="/rhn/ssm/ViewAllLog.do"/>
+</rhn-navi-tree>

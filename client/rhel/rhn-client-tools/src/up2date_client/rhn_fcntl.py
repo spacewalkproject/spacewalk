@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # Copyright (c) 2005, Red Hat Inc.
 #
 # This module makes FCNTL obsolete in the RHN codebase

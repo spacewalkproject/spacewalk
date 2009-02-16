@@ -15,12 +15,12 @@ PATH=/usr/bin:/bin
 export PATH
 
 reportusage() {
-   runuser - oracle -c "db-control report"
+   /sbin/runuser oracle -c "db-control report"
 }
 
 mailitout() {
    #get Satellite email address
-   MAILADDRESS=`grep "traceback_mail" /etc/rhn/rhn.conf | awk '{print $3}'`
+   MAILADDRESS=`awk '/traceback_mail/ {print $3}' /etc/rhn/rhn.conf`
 
    SUBJECT="Warning - high tablespace usage on Satellite oracle DB"
 

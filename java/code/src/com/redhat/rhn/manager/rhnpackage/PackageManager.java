@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -48,6 +48,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -945,7 +946,6 @@ public class PackageManager extends BaseManager {
         WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
                 "insert_channel_packages_in_set");
         writeMode.executeUpdate(params);
-        set.clear();
         RhnSetManager.store(set);
     }    
 
@@ -1038,10 +1038,13 @@ public class PackageManager extends BaseManager {
             }
             PackageFactory.deletePackage(pack);
         }
+        
+        List<Long> pList = new ArrayList<Long>();
+        pList.addAll(ids);
         for (Channel chan : channels) {
             ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
+            ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), pList);
         }
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels, user.getOrg());
     }
     
     /**

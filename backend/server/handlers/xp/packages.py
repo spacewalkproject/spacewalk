@@ -37,8 +37,8 @@ class Packages(RPC_Base):
         self.functions.append('listMissingSourcePackages')
 
 
-    # upload a collection of binary packages
     def uploadPackageInfo(self, login, password, info):
+        """ Upload a collection of binary packages """
         log_debug(5, login, info)
         authobj = auth(login, password)
         # Get the channels
@@ -52,8 +52,8 @@ class Packages(RPC_Base):
             raise rhnFault(506, string.join(e.args), explain=0)
     
     
-    # same stuff, but for source packages
     def uploadSourcePackageInfo(self, login, password, info):
+        """ Upload a collection of source packages """
         log_debug(5, login, info)
         authobj = auth(login, password)
         info['orgId'] = authobj.org_id
@@ -62,15 +62,14 @@ class Packages(RPC_Base):
 
 
     def listChannel(self, channelList, login, password):
-        #"""list packages of a specified channel
-        #"""
+        """ List packages of a specified channel """
         log_debug(4, channelList, login)
         authobj = auth(login, password)
         authobj.authzChannels(channelList)
         return listChannels(channelList)
 
     def listMissingSourcePackages(self, channelList, username, password):
-        #"list source packages for a list of channels"
+        """ List source packages for a list of channels """
         log_debug(5, channelList, username)
         authobj = auth(username, password)
         authobj.authzChannels(channelList)
@@ -114,7 +113,7 @@ class Packages(RPC_Base):
         return missing_packages
 
 def auth(login, password):
-    # Authorize this user
+    """ Authorize this user """
     authobj = UserAuth()
     authobj.auth(login, password)
     # Check if he's authorized to perform administrative tasks

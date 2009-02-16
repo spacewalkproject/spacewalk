@@ -21,7 +21,8 @@ rhnPackageObsoletes
         package_id      number
                         constraint rhn_pkg_obsoletes_pid_nn not null
                         constraint rhn_pkg_obsoletes_package_fk
-                                references rhnPackage(id),
+                                references rhnPackage(id)
+                                on delete cascade,
         capability_id   number
                         constraint rhn_pkg_obsoletes_cid_nn not null
                         constraint rhn_pkg_obsoletes_cap_fk

@@ -1,0 +1,122 @@
+policy_module(spacewalk-monitoring,@@VERSION@@)
+
+require {
+	type initrc_t;
+	type java_t;
+	type devpts_t;
+	type sbin_t;
+	type initrc_exec_t;
+	type nscd_var_run_t;
+	type oracle_port_t;
+	type smtp_port_t;
+	type httpd_sys_content_t;
+	type usr_t;
+	type http_port_t;
+	type httpd_t;
+	type httpd_sys_script_t;
+}
+
+type spacewalk_monitoring_t;
+domain_type(spacewalk_monitoring_t);
+type spacewalk_monitoring_exec_t;
+files_type(spacewalk_monitoring_exec_t);
+type spacewalk_monitoring_log_t;
+logging_log_file(spacewalk_monitoring_log_t);
+type spacewalk_monitoring_var_run_t;
+files_pid_file(spacewalk_monitoring_var_run_t);
+type spacewalk_monitoring_lock_t;
+files_lock_file(spacewalk_monitoring_lock_t);
+type spacewalk_monitoring_conf_t;
+files_type(spacewalk_monitoring_conf_t);
+type spacewalk_monitoring_var_lib_t;
+files_type(spacewalk_monitoring_var_lib_t);
+type spacewalk_monitoring_tmp_t;
+files_tmp_file(spacewalk_monitoring_tmp_t)
+
+domain_entry_file(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
+domain_auto_trans(initrc_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
+domtrans_pattern(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
+
+files_read_etc_files(spacewalk_monitoring_t)
+allow spacewalk_monitoring_t etc_t:dir { write add_name };
+allow spacewalk_monitoring_t etc_t:lnk_file create;
+
+libs_use_shared_libs(spacewalk_monitoring_t)
+libs_use_ld_so(spacewalk_monitoring_t)
+miscfiles_read_localization(spacewalk_monitoring_t)
+dev_read_urand(spacewalk_monitoring_t)
+
+logging_log_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_log_t, file)
+create_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log_t)
+append_files_pattern(spacewalk_monitoring_t, var_log_t, spacewalk_monitoring_log_t)
+
+files_pid_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_var_run_t, file)
+manage_files_pattern(spacewalk_monitoring_t, var_run_t, spacewalk_monitoring_var_run_t)
+
+allow spacewalk_monitoring_t devpts_t:chr_file { read write ioctl getattr };
+allow spacewalk_monitoring_t devpts_t:dir search;
+
+corecmd_search_sbin(spacewalk_monitoring_t)
+corecmd_search_bin(spacewalk_monitoring_t)
+allow spacewalk_monitoring_t sbin_t:lnk_file read;
+allow spacewalk_monitoring_t initrc_exec_t:file getattr;
+
+allow spacewalk_monitoring_t spacewalk_monitoring_lock_t:file manage_file_perms;
+files_lock_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_lock_t, file)
+
+allow spacewalk_monitoring_t nscd_var_run_t:dir search;
+sysnet_dns_name_resolve(spacewalk_monitoring_t)
+corenet_udp_bind_generic_node(spacewalk_monitoring_t)
+
+allow spacewalk_monitoring_t oracle_port_t:tcp_socket name_connect;
+
+files_etc_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, file)
+manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+
+allow spacewalk_monitoring_t self:fifo_file rw_file_perms;
+
+corecmd_exec_shell(spacewalk_monitoring_t)
+corecmd_exec_bin(spacewalk_monitoring_t)
+
+kernel_read_system_state(spacewalk_monitoring_t)
+
+files_search_var_lib(spacewalk_monitoring_t)
+manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+
+sysnet_domtrans_ifconfig(spacewalk_monitoring_t)
+hostname_domtrans(spacewalk_monitoring_t)
+
+allow spacewalk_monitoring_t self:capability { setgid setuid kill dac_override chown };
+
+allow spacewalk_monitoring_t self:process { signull signal sigkill };
+
+files_search_tmp(spacewalk_monitoring_t)
+files_tmp_filetrans(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, { file dir sock_file })
+manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
+manage_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
+manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
+manage_sock_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_tmp_t, spacewalk_monitoring_tmp_t)
+
+allow spacewalk_monitoring_t self:unix_stream_socket connectto;
+
+corecmd_exec_ls(spacewalk_monitoring_t)
+
+allow spacewalk_monitoring_t smtp_port_t:tcp_socket name_connect;
+
+allow spacewalk_monitoring_t httpd_sys_content_t:dir search;
+allow spacewalk_monitoring_t usr_t:lnk_file read;
+
+allow spacewalk_monitoring_t http_port_t:tcp_socket name_connect;
+
+read_files_pattern(httpd_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
+
+allow httpd_sys_script_t spacewalk_monitoring_conf_t:file { read ioctl getattr };
+
+auth_dontaudit_read_shadow(spacewalk_monitoring_t)
+
+manage_dirs_pattern(httpd_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+manage_files_pattern(httpd_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)
+manage_lnk_files_pattern(httpd_t, spacewalk_monitoring_var_lib_t, spacewalk_monitoring_var_lib_t)

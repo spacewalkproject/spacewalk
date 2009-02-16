@@ -67,7 +67,7 @@ rhnPackage
                                 -- possible'' easier
         path            varchar2(1000),
 	header_sig	varchar2(64),
-	copyright	varchar2(64),
+	copyright	varchar2(128),
 	cookie		varchar2(128),
 	last_modified	date default (sysdate)
 			constraint rhn_package_lm_nn not null,

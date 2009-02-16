@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,23 +7,26 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
@@ -31,7 +34,9 @@ import org.apache.log4j.Logger;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides convenience methods for creating a kickstart profile.
@@ -63,8 +68,19 @@ public class KickstartWizardHelper {
      * Retrieve a list of the valid virtualization types
      * @return list of VirtualizationTypes
      */
-    public List getVirtualizationTypes() {        
-        return KickstartFactory.lookupVirtualizationTypes();
+    public List getVirtualizationTypes() {   
+        // Filter out KVM if this is Satellite
+        List types = KickstartFactory.lookupVirtualizationTypes();
+        if (!Config.get().isSpacewalk()) {
+            for (int i = 0; i < types.size(); i++) {
+                KickstartVirtualizationType type =
+                    (KickstartVirtualizationType) types.get(i);
+                if (type.getLabel().equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
+                    types.remove(i);
+                }
+            }            
+        }
+        return types;
     }
 
     /**
@@ -147,8 +163,35 @@ public class KickstartWizardHelper {
      * @return list of KickstartableTree instances
      */
     public List getTrees(Long channelId) {
-        return KickstartFactory.lookupKickstartableTrees(channelId, 
-            currentUser.getOrg());
+        List trees = KickstartFactory.lookupKickstartableTrees(channelId, 
+                currentUser.getOrg());
+        // Now we filter out an 
+        List retval = new LinkedList();
+        CobblerDistroCommand cmd = new CobblerDistroCommand(currentUser);
+        
+        List<Map> distros = cmd.getCobblerDistros();
+        for (int i = 0; i < trees.size(); i++) {
+            KickstartableTree tree = (KickstartableTree) trees.get(i);
+            boolean hasCobblerDistro = false;
+            for (Map row : distros) {
+                log.debug("getDistroMap.ROW: " + row);
+                String uid = (String) row.get("uid");
+                if (uid.equals(tree.getCobblerId())) {
+                    log.debug("tree [" + tree.getLabel() + 
+                            "] has a cobbler distro.  Display it.");
+                    hasCobblerDistro = true;
+                }
+            }
+            if (hasCobblerDistro) {
+                retval.add(tree);
+            }
+            else {
+                log.error("This Kickstart tree " +
+                        "does not have an associated " +
+                        "cobbler distro: " + tree.getLabel());
+            }
+        }
+        return retval;  
     }    
 
     /**

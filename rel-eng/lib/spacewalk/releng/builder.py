@@ -49,10 +49,10 @@ class Builder(object):
         self.test = test
         self.global_config = global_config
         self.offline=offline
+        self.no_cleanup = False
 
         self.rpmbuild_basedir = build_dir
         self.display_version = self._get_display_version()
-        print("Building package [%s]" % (self.build_tag))
 
         self.git_commit_id = get_build_commit(tag=self.build_tag, 
                 test=self.test)
@@ -94,9 +94,11 @@ class Builder(object):
         NOTE: this method may do nothing if the user requested no build actions
         be performed. (i.e. only release tagging, etc)
         """
+        print("Building package [%s]" % (self.build_tag))
+        self.no_cleanup = options.no_cleanup
 
         if options.tgz:
-            self._tgz()
+            self.tgz()
         if options.srpm:
             self._srpm()
         if options.rpm:
@@ -111,11 +113,14 @@ class Builder(object):
         if options.koji:
             self._submit_build("koji", koji_opts, options.koji)
 
-        if not options.no_cleanup:
-            self._cleanup()
+        self.cleanup()
 
-    def _tgz(self):
-        """ Create the .tar.gz required to build this package. """
+    def tgz(self):
+        """
+        Create the .tar.gz required to build this package.
+
+        Returns full path to the created tarball.
+        """
         self._setup_sources()
 
         run_command("cp %s/%s %s/" %  \
@@ -123,7 +128,9 @@ class Builder(object):
                     self.rpmbuild_basedir))
 
         self.ran_tgz = True
-        print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
+        full_path = os.path.join(self.rpmbuild_basedir, self.tgz_filename)
+        print "Wrote: %s" % full_path
+        return full_path
 
     def _setup_sources(self):
         """
@@ -158,7 +165,7 @@ class Builder(object):
         """
         self._create_build_dirs()
         if not self.ran_tgz:
-            self._tgz()
+            self.tgz()
 
         if self.test:
             self._setup_test_specfile()
@@ -178,7 +185,7 @@ class Builder(object):
         """ Build an RPM. """
         self._create_build_dirs()
         if not self.ran_tgz:
-            self._tgz()
+            self.tgz()
 
         if self.test:
             self._setup_test_specfile()
@@ -217,11 +224,12 @@ class Builder(object):
             error_out("Unable to locate 'Wrote: ' lines in rpmbuild output")
         return paths
 
-    def _cleanup(self):
+    def cleanup(self):
         """
         Remove all temporary files and directories.
         """
-        commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
+        if not self.no_cleanup:
+            commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
 
     def _create_build_dirs(self):
         """
@@ -282,12 +290,13 @@ class NoTgzBuilder(Builder):
     Usually these packages have source tarballs checked directly into git.
     i.e. most of the packages in spec-tree.
     """
-    def _tgz(self):
+    def tgz(self):
         """ Override parent behavior, we already have a tgz. """
         # TODO: Does it make sense to allow user to create a tgz for this type
         # of project?
         self._setup_sources()
         self.ran_tgz = True
+        return None # TODO: what to do here!? should be returning full path?
 
     def _get_rpmbuild_dir_options(self):
         """
@@ -350,7 +359,11 @@ class SatelliteBuilder(NoTgzBuilder):
         self.patch_filename = None
         self.patch_file = None
 
-    def _setup_sources(self):
+    def tgz(self):
+        """
+        Override parent behavior, we need a tgz from the upstream spacewalk
+        project we're based on.
+        """
         # TODO: Wasteful step here, all we really need is a way to look for a
         # spec file at the point in time this release was tagged.
         NoTgzBuilder._setup_sources(self)
@@ -381,18 +394,20 @@ class SatelliteBuilder(NoTgzBuilder):
         commit = get_build_commit(tag=self.upstream_tag)
         relative_dir = get_relative_project_dir(
                 project_name=self.upstream_name, commit=commit)
+        tgz_fullpath = os.path.join(self.rpmbuild_sourcedir, tgz_filename)
         print("Creating %s from git tag: %s..." % (tgz_filename, commit))
         create_tgz(self.git_root, prefix, commit, relative_dir, 
-                self.rel_eng_dir, os.path.join(self.rpmbuild_sourcedir, 
-                    tgz_filename))
+                self.rel_eng_dir, tgz_fullpath)
+        self.ran_tgz = True
 
         # If these are equal then the tag we're building was likely created in 
         # Spacewalk and thus we don't need to do any patching.
         if (self.upstream_tag == self.build_tag and not self.test):
-            return
+            return tgz_fullpath
 
         self._generate_patches()
         self._insert_patches_into_spec_file()
+        return tgz_fullpath
 
     def _generate_patches(self):
         """

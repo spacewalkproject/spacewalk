@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -15,8 +15,10 @@
 package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,18 +110,24 @@ public class NewChannelHelper {
         ChannelFactory.save(cloned);
         cloned = (ClonedChannel)ChannelFactory.reload(cloned);
         
-        cloned.setGloballySubscribable(true, cloned.getOrg());
+        cloned.setGloballySubscribable(true, cloned.getOrg());                
         
         if (originalState) {
             List originalPacks = ChannelFactory.findOriginalPackages(toClone, 
-                    user.getOrg());
-            cloned.getPackages().addAll(originalPacks);
+                    user.getOrg()); 
+            Long clonedChannelId = cloned.getId();
+            for (Iterator it = originalPacks.iterator(); it.hasNext();) {     
+                Long pid = (Long) it.next();
+                if (UserManager.verifyPackageAccess(user.getOrg(), pid)) {
+                   ChannelFactory.addChannelPackage(clonedChannelId, pid); 
+                }
+            }            
         }
         else {
             cloned.getPackages().addAll(toClone.getPackages());
             cloned.getErratas().addAll(toClone.getErratas());
         }
-           
+                   
         //adopt the channel into the org's channelfamily
         ChannelFamilyFactory.lookupByOrg(user.getOrg()).getChannels().add(cloned);
         cloned.setChannelFamily(ChannelFamilyFactory.lookupByOrg(user.getOrg()));

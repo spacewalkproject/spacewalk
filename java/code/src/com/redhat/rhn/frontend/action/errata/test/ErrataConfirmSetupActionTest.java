@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.SystemOverview;
@@ -48,8 +49,9 @@ public class ErrataConfirmSetupActionTest extends RhnMockStrutsTestCase {
         //Associate the system and the errata
         UserFactory.save(user);
         OrgFactory.save(user.getOrg());
+        Package p = (Package) e.getPackages().iterator().next();
         int rows = ErrataCacheManager.insertNeededErrataCache(
-                server.getId(), user.getOrg().getId(), e.getId());
+                server.getId(), e.getId(), p.getId());
         assertEquals(1, rows);
         
         //Add the system to the set

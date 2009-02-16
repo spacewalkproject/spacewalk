@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -21,7 +21,6 @@ package com.redhat.rhn.frontend.dto;
 public class HelpDocumentOverview {
     private String url;
     private String title;
-    private String orig;
     private String summary;
     
     /**
@@ -58,22 +57,6 @@ public class HelpDocumentOverview {
     }
     
     /**
-     * Getter for document orig url
-     * @return document orig url
-     */
-    public String getOrig() {
-        return orig;
-    }
-
-    /**
-     * Setter for document orig url
-     * @param origIn the orig url of the document
-     */
-    public void setOrig(String origIn) {
-        this.orig = origIn;
-    }
-    
-    /**
      * Getter for document summary
      * @return document summary
      */
@@ -93,8 +76,8 @@ public class HelpDocumentOverview {
      * @return string representation
      */
     public String toString() {
-        return "Title = " + getTitle() + ", Url = " + getUrl() + ", Orig = " + getOrig() +
-            ", Summary = " + getSummary();
+        return "Title = " + getTitle() + ", Url = " + getUrl() + ", Summary = " +
+            getSummary();
     }
     
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -153,7 +154,9 @@ public class AddRedHatErrataAction extends RhnListAction {
         
         
         if (requestContext.wasDispatched(SUBMITTED)) {
-            Map params = request.getParameterMap();
+            Map params = new HashMap();
+            params.put(CID, request.getParameter(CID));
+            params.put(CHECKED, request.getParameter(CHECKED));
             return getStrutsDelegate().forwardParams(mapping.findForward("submit"), 
                     params); 
         }
@@ -184,9 +187,9 @@ public class AddRedHatErrataAction extends RhnListAction {
         if (requestContext.wasDispatched(CHANNEL_SUBMIT) ||
                 requestContext.wasDispatched(VERSION_SUBMIT) ||
                 !requestContext.isSubmitted()) {
-            RhnSet set =  getSetDecl().get(user);
-                set.clear();
-                RhnSetManager.store(set);
+            RhnSet eset =  getSetDecl(currentChan).get(user);
+            eset.clear();
+            RhnSetManager.store(eset);
         }
         
         
@@ -197,7 +200,7 @@ public class AddRedHatErrataAction extends RhnListAction {
 
             
         RhnListSetHelper helper = new RhnListSetHelper(request);        
-        RhnSet set =  getSetDecl().get(user);
+        RhnSet set =  getSetDecl(currentChan).get(user);
         
         
 
@@ -219,7 +222,7 @@ public class AddRedHatErrataAction extends RhnListAction {
         }
         
         TagHelper.bindElaboratorTo("errata", dr.getElaborator(), request);
-        ListTagHelper.bindSetDeclTo("errata", getSetDecl(), request);
+        ListTagHelper.bindSetDeclTo("errata", getSetDecl(currentChan), request);
         
         
         
@@ -285,8 +288,8 @@ public class AddRedHatErrataAction extends RhnListAction {
     }
     
     
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA;
+    protected RhnSetDecl getSetDecl(Channel chan) {
+        return RhnSetDecl.setForChannelErrata(chan);
     }
     
     

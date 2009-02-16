@@ -37,9 +37,6 @@ Migrate a system between organizations on the RHN Satellite server .
         <arg> --systemId=<replaceable>SYSTEMID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg> --from-org-id=<replaceable>SOURCE_ORG_ID</replaceable></arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
         <arg> --to-org-id=<replaceable>TARGET_ORG_ID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -95,12 +92,6 @@ Migrate a system between organizations on the RHN Satellite server .
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--from-org-id=<replaceable>SOURCE_ORG_ID</replaceable></term>
-        <listitem>
-            <para> Source org id the client system belongs to. </para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
         <term>--to-org-id=<replaceable>TARGET_ORG_ID</replaceable></term>
         <listitem>
             <para> Target org id the client system will be migrated to. </para>
@@ -110,7 +101,7 @@ Migrate a system between organizations on the RHN Satellite server .
         <term>--csv=<replaceable>CSV_FILE</replaceable> </term>
         <listitem>
             <para> CSV file with data to be migrated. Each line should be of the format:
-                     systemId,from-org-id>,to-org-id </para>
+                     systemId,to-org-id </para>
         </listitem>
     </varlistentry>
 </variablelist>

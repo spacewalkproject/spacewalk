@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -1287,7 +1287,7 @@ public class SystemManager extends BaseManager {
 
         // freakin hibernate can't do a simple bulk delete statement unless
         // it uses HQL!
-        server.setProxyInfo(null);
+        ServerFactory.deproxify(server);
         executeWriteMode("Monitoring_queries",
                 "delete_probe_states_from_server", params);
         executeWriteMode("Monitoring_queries",
@@ -1363,10 +1363,12 @@ public class SystemManager extends BaseManager {
         info.setServer(server);
         info.setVersion(null, version, "1");
         server.setProxyInfo(info);
-        Channel proxyChannel = ChannelManager.getProxyChannelByVersion(version,
-                server);
-        if (proxyChannel != null) {
-            subscribeServerToChannel(null, server, proxyChannel);    
+        if (Config.get().getBoolean(Config.WEB_SUBSCRIBE_PROXY_CHANNEL)) {
+            Channel proxyChannel = ChannelManager.getProxyChannelByVersion(
+                    version, server);
+            if (proxyChannel != null) {
+                subscribeServerToChannel(null, server, proxyChannel);    
+            }
         }
         
     }

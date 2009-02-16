@@ -1,13 +1,12 @@
 #!/bin/bash
-suffix="rhndev.redhat.com"
 if [ $# -ne 1 ]
 then
-  echo "Usage: `basename $0` <hostname minus .$suffix>"
-  echo "Example: `basename $0` rlx-2-14"
+  echo "Usage: `basename $0` user@<hostname>"
+  echo "Example: `basename $0` root@devel.foo.com"
   echo "If this is the first time, Do not forget to copy your odbc14.jar under eng/java/lib  to /usr/share/tomcat5/shared/lib on the remote machine"
   exit 65
 fi
 
 warfile="$(dirname $(dirname ${0}))/build/**/*.war"
-scp $warfile root@$1.$suffix:/usr/share/tomcat5/webapps/rhn.war
-ssh root@$1.$suffix -t "/etc/init.d/tomcat5 restart"
+scp $warfile $1:/usr/share/tomcat5/webapps/rhn.war
+ssh $1 -t "/etc/init.d/tomcat5 restart"

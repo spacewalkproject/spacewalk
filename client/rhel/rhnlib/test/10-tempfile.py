@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Test for tempfile creation
 # Use lsof to see how many open files we have

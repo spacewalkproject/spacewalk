@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -365,7 +365,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
             Package pkg = (Package) itr.next();
             ErrataCacheManager.insertNeededPackageCache(server.getId(),
-                    user.getOrg().getId(), e.getId(), pkg.getId());
+                    e.getId(), pkg.getId());
         }
         
         errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
@@ -689,7 +689,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         UserFactory.save(user);
         OrgFactory.save(org);*/
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                s.getId(), user.getOrg().getId(), e.getId(), p.getId());
+                s.getId(), e.getId(), p.getId());
         assertEquals(1, rows); 
         
         /* CPU query setup */
@@ -892,6 +892,17 @@ public class SystemManagerTest extends RhnBaseTestCase {
         }
     }
     
+    public void testDeactivateProxy() throws Exception {
+        User user = UserTestUtils.findNewUser(TestStatics.TESTUSER, TestStatics.TESTORG);
+        user.addRole(RoleFactory.ORG_ADMIN);
+        Server server = ServerFactoryTest.createTestProxyServer(user, true);
+        assertTrue(server.isProxy());
+        SystemManager.deactivateProxy(server);
+        ServerFactory.save(server);
+        server = (Server) reload(server);
+        assertFalse(server.isProxy());
+    }
+    
     public void testCanServerSubscribeToChannel() throws Exception {
         Server server = ServerTestUtils.createTestSystem();
         Channel childChannel = ChannelTestUtils.createChildChannel(server.getCreator(), 
@@ -1076,7 +1087,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(upgradedPackage);
         
         ErrataCacheManager.insertNeededPackageCache(
-                server.getId(), org.getId(), errata.getId(), installedPackage.getId());
+                server.getId(), errata.getId(), installedPackage.getId());
     }
 
     public void testSsmSystemPackagesToRemove() throws Exception {

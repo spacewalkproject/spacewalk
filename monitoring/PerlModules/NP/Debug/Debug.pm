@@ -61,7 +61,7 @@ sub addstream {
     my $linenum    = $paramHash{LINENUM}    || 0;
     my $append     = $paramHash{APPEND}     || 0;
     my $buffering  = $paramHash{BUFFERING}  || 0;
-    my $timestamps = $paramHash{TIMESTAMPS} || 0;
+    my $timestamps = defined($paramHash{TIMESTAMPS}) ? $paramHash{TIMESTAMPS} : 1;
     my $fh         = $paramHash{FILE};
     my $fhRef      = ref $fh;
     my $filename;

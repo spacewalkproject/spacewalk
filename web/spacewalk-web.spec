@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.3
+Version: 0.5.10
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -21,7 +21,9 @@ Group: Applications/Internet
 Requires: webserver
 Requires: spacewalk-branding
 Obsoletes: rhn-help < 5.3.0
+Provides: rhn-help = 5.3.0
 Obsoletes: rhn-html < 5.3.0
+Provides: rhn-html = 5.3.0
 
 
 %description -n spacewalk-html
@@ -36,6 +38,7 @@ Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: webserver
 Obsoletes: rhn-base < 5.3.0
+Provides: rhn-base = 5.3.0
 
 
 %description -n spacewalk-base
@@ -48,15 +51,17 @@ Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
 Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Obsoletes: rhn-base-minimal < 5.3.0
+Provides: rhn-base-minimal = 5.3.0
 
 %description -n spacewalk-base-minimal
-Independant perl modules in the RHN:: namespace.
+Independent perl modules in the RHN:: namespace.
 
 %package -n spacewalk-dobby
-Summary: Dobby, a collection of perl modules and scripts to administer an Oracle database
+Summary: Perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
 Requires: spacewalk-base
 Obsoletes: rhn-dobby < 5.3.0
+Provides: rhn-dobby = 5.3.0
 
 %description -n spacewalk-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
@@ -67,6 +72,8 @@ database.
 Summary: Cypress, a collection of Grail applications for Red Hat Network
 Group: Applications/Internet
 Obsoletes: rhn-cypress < 5.3.0
+Provides: rhn-cypress = 5.3.0
+
 %description -n spacewalk-cypress
 Cypress is a collection of Components for Grail.
 
@@ -75,6 +82,7 @@ Summary: Grail, a component framework for Red Hat Network
 Requires: spacewalk-base
 Group: Applications/Internet
 Obsoletes: rhn-grail < 5.3.0
+Provides: rhn-grail = 5.3.0
 
 %description -n spacewalk-grail
 A component framework for Spacewalk.
@@ -85,6 +93,7 @@ Summary: The PXT library for web page templating
 Group: Applications/Internet
 Requires: spacewalk(spacewalk-base-minimal)
 Obsoletes: rhn-pxt < 5.3.0
+Provides:  rhn-pxt = 5.3.0
 
 %description -n spacewalk-pxt
 This package is the core software of the new Spacewalk site.  It is responsible
@@ -102,7 +111,7 @@ Requires: mod_jk-ap20
 Requires: httpd
 %endif
 Obsoletes: rhn-sniglets < 5.3.0
-
+Provides:  rhn-sniglets = 5.3.0
 
 %description -n spacewalk-sniglets
 This package contains the tag handlers for the PXT templates
@@ -112,6 +121,7 @@ This package contains the tag handlers for the PXT templates
 Group: Applications/Internet  
 Summary: The Moon library for manipulating and charting data
 Obsoletes: rhn-moon < 5.3.0
+Provides:  rhn-moon = 5.3.0
 
 %description -n spacewalk-moon
 Modules for loading, manipulating, and rendering graphed data.
@@ -120,11 +130,11 @@ Modules for loading, manipulating, and rendering graphed data.
 %setup -q
 
 %build
-make -f Makefile.spacewalk-web INSTALLDIRS=site
+make -f Makefile.spacewalk-web PERLARGS="INSTALLDIRS=vendor"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -C modules install DESTDIR=$RPM_BUILD_ROOT
+make -C modules install DESTDIR=$RPM_BUILD_ROOT PERLARGS="INSTALLDIRS=vendor"
 make -C html install PREFIX=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name perllocal.pod -exec rm -f {} \;
@@ -140,92 +150,204 @@ install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
 install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
 install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
-{
-find $RPM_BUILD_ROOT/%{_prefix} -type d -print | \
-        sed "s|^$RPM_BUILD_ROOT|%dir |g"
-find $RPM_BUILD_ROOT/%{_prefix} -type f -print | \
-        sed "s|^$RPM_BUILD_ROOT||g" | \
-        grep -v perllocal.pod | \
-        sed "s|\(.*\)/man/\(.*\)$|\1/man/\2\*|" | \
-        grep -v "\.packlist"
-} > files.list
-if [ ! -s files.list ] ; then
-    echo "ERROR: EMPTY FILE LIST"
-    exit -1
-fi
-
-{
-find $RPM_BUILD_ROOT/%{_var}/www/html -type d -print | \
-        sed "s|^$RPM_BUILD_ROOT|%dir |g"
-find $RPM_BUILD_ROOT/%{_var}/www/html -type f -print | \
-        sed "s|^$RPM_BUILD_ROOT||g"
-} > html.list
-
-# separate out different subpackages
-egrep '/Cypress([/:]|\.3|$)' files.list > cypress.list
-egrep '/Dobby([/:]|\.3|$)' files.list  > dobby.list
-egrep '%{_bindir}/'          files.list >> dobby.list
-egrep 'man1/db-control'    files.list >> dobby.list
-egrep '/Grail([/:]|\.3|$)' files.list > grail.list
-egrep '/PXT([/:]|\.3|$)' files.list > pxt.list
-egrep '/RHN([/:]|\.3|$)' files.list > rhn.list
-egrep '/Sniglets([/:]|\.3|$)' files.list > sniglets.list
-egrep '/Moon([/:]|\.3|$)' files.list > moon.list
-
-# get the list of extra files
-egrep -v '/(Cypress|Dobby|Grail|PXT|RHN|Sniglets|Moon)([/:]|\.3|$)' \
-        files.list > extra.list
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -n spacewalk-base -f rhn.list
-%defattr(-,root,root)
-%dir %{perl_sitelib}/RHN
-%dir %{perl_sitelib}/PXT
-%{perl_sitelib}/RHN.pm
+%files -n spacewalk-base
+%defattr(644,root,root,755)
+%dir %{perl_vendorlib}/RHN
+%dir %{perl_vendorlib}/PXT
+%{perl_vendorlib}/RHN.pm
+%{perl_vendorlib}/RHN/API/
+%{perl_vendorlib}/RHN/Access.pm
+%{perl_vendorlib}/RHN/Access/
+%{perl_vendorlib}/RHN/Action.pm
+%{perl_vendorlib}/RHN/AppInstall/
+%{perl_vendorlib}/RHN/Cache/
+%{perl_vendorlib}/RHN/Catalog.pm
+%{perl_vendorlib}/RHN/Cert.pm
+%{perl_vendorlib}/RHN/Channel.pm
+%{perl_vendorlib}/RHN/ChannelEditor.pm
+%{perl_vendorlib}/RHN/Cleansers.pm
+%{perl_vendorlib}/RHN/Command.pm
+%{perl_vendorlib}/RHN/CommandParameter.pm
+%{perl_vendorlib}/RHN/ConfigChannel.pm
+%{perl_vendorlib}/RHN/ConfigFile.pm
+%{perl_vendorlib}/RHN/ConfigRevision.pm
+%{perl_vendorlib}/RHN/ContactGroup.pm
+%{perl_vendorlib}/RHN/ContactMethod.pm
+%{perl_vendorlib}/RHN/CryptoKey.pm
+%{perl_vendorlib}/RHN/CustomInfoKey.pm
+%{perl_vendorlib}/RHN/DB/
+%{perl_vendorlib}/RHN/Daemon.pm
+%{perl_vendorlib}/RHN/DataSource.pm
+%{perl_vendorlib}/RHN/DataSource/
+%{perl_vendorlib}/RHN/Date.pm
+%{perl_vendorlib}/RHN/EmailAddress.pm
+%{perl_vendorlib}/RHN/Entitlements.pm
+%{perl_vendorlib}/RHN/Errata.pm
+%{perl_vendorlib}/RHN/ErrataEditor.pm
+%{perl_vendorlib}/RHN/ErrataMailer.pm
+%{perl_vendorlib}/RHN/ErrataTmp.pm
+%{perl_vendorlib}/RHN/Feedback.pm
+%{perl_vendorlib}/RHN/FileList.pm
+%{perl_vendorlib}/RHN/Form.pm
+%{perl_vendorlib}/RHN/Form/
+%{perl_vendorlib}/RHN/Grail.pm
+%{perl_vendorlib}/RHN/I18N.pm
+%{perl_vendorlib}/RHN/KSTree.pm
+%{perl_vendorlib}/RHN/Kickstart.pm
+%{perl_vendorlib}/RHN/Kickstart/
+%{perl_vendorlib}/RHN/Mail.pm
+%{perl_vendorlib}/RHN/Manifest.pm
+%{perl_vendorlib}/RHN/Message.pm
+%{perl_vendorlib}/RHN/MonitoringConfigMacro.pm
+%{perl_vendorlib}/RHN/Org.pm
+%{perl_vendorlib}/RHN/Package.pm
+%{perl_vendorlib}/RHN/Package/
+%{perl_vendorlib}/RHN/Postal.pm
+%{perl_vendorlib}/RHN/Probe.pm
+%{perl_vendorlib}/RHN/ProbeParam.pm
+%{perl_vendorlib}/RHN/Product.pm
+%{perl_vendorlib}/RHN/Profile.pm
+%{perl_vendorlib}/RHN/ProxyInstall.pm
+%{perl_vendorlib}/RHN/SCDB.pm
+%{perl_vendorlib}/RHN/SatCluster.pm
+%{perl_vendorlib}/RHN/SatInstall.pm
+%{perl_vendorlib}/RHN/SatNode.pm
+%{perl_vendorlib}/RHN/SatelliteCert.pm
+%{perl_vendorlib}/RHN/Scheduler.pm
+%{perl_vendorlib}/RHN/Search.pm
+%{perl_vendorlib}/RHN/SearchTypes.pm
+%{perl_vendorlib}/RHN/Server.pm
+%{perl_vendorlib}/RHN/ServerActions.pm
+%{perl_vendorlib}/RHN/ServerGroup.pm
+%{perl_vendorlib}/RHN/ServerMessage.pm
+%{perl_vendorlib}/RHN/ServerNotes.pm
+%{perl_vendorlib}/RHN/ServerPackage.pm
+%{perl_vendorlib}/RHN/Session.pm
+%{perl_vendorlib}/RHN/Set.pm
+%{perl_vendorlib}/RHN/SimpleStruct.pm
+%{perl_vendorlib}/RHN/StoredMessage.pm
+%{perl_vendorlib}/RHN/SystemSnapshot.pm
+%{perl_vendorlib}/RHN/TSDB.pm
+%{perl_vendorlib}/RHN/Tag.pm
+%{perl_vendorlib}/RHN/TemplateString.pm
+%{perl_vendorlib}/RHN/TextMessage.pm
+%{perl_vendorlib}/RHN/TinyURL.pm
+%{perl_vendorlib}/RHN/Token.pm
+%{perl_vendorlib}/RHN/TokenGen/
+%{perl_vendorlib}/RHN/User.pm
+%{perl_vendorlib}/RHN/UserActions.pm
+%{perl_vendorlib}/RHN/UserGroup.pm
+%{perl_vendorlib}/RHN/Utils.pm
+%{_mandir}/man3/RHN::Command.3pm.gz
+%{_mandir}/man3/RHN::CommandParameter.3pm.gz
+%{_mandir}/man3/RHN::ContactGroup.3pm.gz
+%{_mandir}/man3/RHN::ContactMethod.3pm.gz
+%{_mandir}/man3/RHN::DB::Command.3pm.gz
+%{_mandir}/man3/RHN::DB::CommandParameter.3pm.gz
+%{_mandir}/man3/RHN::DB::ContactGroup.3pm.gz
+%{_mandir}/man3/RHN::DB::ContactMethod.3pm.gz
+%{_mandir}/man3/RHN::DB::MonitoringConfigMacro.3pm.gz
+%{_mandir}/man3/RHN::DB::Probe.3pm.gz
+%{_mandir}/man3/RHN::DB::ProbeParam.3pm.gz
+%{_mandir}/man3/RHN::DB::SatCluster.3pm.gz
+%{_mandir}/man3/RHN::DB::SatNode.3pm.gz
+%{_mandir}/man3/RHN::DB::ServerGroup.3pm.gz
+%{_mandir}/man3/RHN::MonitoringConfigMacro.3pm.gz
+%{_mandir}/man3/RHN::Probe.3pm.gz
+%{_mandir}/man3/RHN::ProbeParam.3pm.gz
+%{_mandir}/man3/RHN::SCDB.3pm.gz
+%{_mandir}/man3/RHN::SatCluster.3pm.gz
+%{_mandir}/man3/RHN::SatNode.3pm.gz
+%{_mandir}/man3/RHN::Session.3pm.gz
+%{_mandir}/man3/RHN::TSDB.3pm.gz
 
 %files -n spacewalk-base-minimal
-%defattr(-,root,root)
-%dir %{perl_sitelib}/RHN
-%dir %{perl_sitelib}/PXT
-%{perl_sitelib}/RHN/SessionSwap.pm
-%{perl_sitelib}/RHN/Exception.pm
-%{perl_sitelib}/RHN/DB.pm
-%{perl_sitelib}/PXT/Config.pm
+%defattr(644,root,root,755)
+%dir %{perl_vendorlib}/RHN
+%dir %{perl_vendorlib}/PXT
+%{perl_vendorlib}/RHN/SessionSwap.pm
+%{perl_vendorlib}/RHN/Exception.pm
+%{perl_vendorlib}/RHN/DB.pm
+%{perl_vendorlib}/PXT/Config.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 
-%files -n spacewalk-cypress -f cypress.list
-%defattr(-,root,root)
-%{perl_sitelib}/Cypress.pm
+%files -n spacewalk-cypress 
+%defattr(644,root,root,755)
+%{perl_vendorlib}/Cypress.pm
+%{perl_vendorlib}/Cypress/
 
-%files -n spacewalk-dobby -f dobby.list
-%defattr(-,root,root)
-%{perl_sitelib}/Dobby.pm
+%files -n spacewalk-dobby
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/db-control
+%{_mandir}/man1/db-control.1.gz
+%{perl_vendorlib}/Dobby.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
+%{perl_vendorlib}/Dobby/
 
-%files -n spacewalk-grail -f grail.list
-%defattr(-,root,root)
-%{perl_sitelib}/Grail.pm
+%files -n spacewalk-grail
+%defattr(644,root,root,755)
+%{perl_vendorlib}/Grail.pm
+%{perl_vendorlib}/Grail/
 
-%files -n spacewalk-pxt -f pxt.list
-%defattr(-,root,root)
-%{perl_sitelib}/PXT.pm
+%files -n spacewalk-pxt 
+%defattr(644,root,root,755)
+%{perl_vendorlib}/PXT.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
+%{perl_vendorlib}/PXT/
+%{_mandir}/man3/PXT::ApacheHandler.3pm.gz
 
-%files -n spacewalk-sniglets -f sniglets.list
-%defattr(-,root,root)
-%{perl_sitelib}/Sniglets.pm
+%files -n spacewalk-sniglets 
+%defattr(644,root,root,755)
+%{perl_vendorlib}/Sniglets.pm
+%{perl_vendorlib}/Sniglets/
 
-%files -n spacewalk-moon -f moon.list
-%defattr(-,root,root)
+%files -n spacewalk-moon
+%defattr(644,root,root,755)
+%{perl_vendorlib}/Moon/
+%{_mandir}/man3/Moon*
 
-%files -n spacewalk-html -f html.list
-%defattr(-,root,root)
+%files -n spacewalk-html
+%defattr(644,root,root,755)
+%{_var}/www/html/*
+%{_var}/www/html/.htaccess
 
 # $Id$
 %changelog
+* Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
+- code cleanup - enable_notification_cron, disable_notification_cron,
+  monitoring_available are not used any more (Miroslav S.)
+- 483798 - added index.pxt to catch redirect to perl files, and
+  direct to the docs base page (about.pxt) (Jason D.)
+- 482926 - fixed webui proxy activation (Shannon H.)
+- 484481 - 2nd part of errata cloning patch, with modification to pull
+  in all but the first two characters (Justin S.)
+- 484481 - patch to make errata clone names more consistent ((Justin S.)
+- 426472 - replacing grep | awk with awk
+- 483606 - incorporated UI feedback and moved link to status to leftnav,
+  making each status filter its own context tab (Jason D.)
+
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.9-1
+- 483603 - First pass at display of async SSM operations in the UI
+
+* Wed Feb 04 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.8-1
+- Remove favicon.ico. (moved to branding rpm)
+
+* Fri Jan 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.7-1
+- 483058 - subscribe to proxy channel if requested
+
+* Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- 482926 - fix proxy webui installer
+
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
+- use %%files correctly
+- make sure perl modules get installed in %%{perl_vendorlib}
+- add provides for Obsoletes
+
 * Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 468180 - warn that after proxy deactivation user should run rhn_check
 

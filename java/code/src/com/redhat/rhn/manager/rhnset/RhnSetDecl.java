@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -22,6 +22,9 @@ import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteHelper;
+
+import com.redhat.rhn.domain.channel.Channel;
+
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
@@ -351,6 +354,12 @@ public class RhnSetDecl {
     public static final RhnSetDecl MULTIORG_TRUST_LIST = make(
             "multiorg_trust_list", SetCleanup.NOOP);       
 
+    public static final RhnSetDecl SSM_CHANNEL_SUBSCRIBE = make(
+            "ssm_channel_subscribe", SetCleanup.NOOP);
+    
+    public static final RhnSetDecl SSM_CHANNEL_UNSUBSCRIBE = make(
+            "ssm_channel_unsubscribe", SetCleanup.NOOP);
+    
     private SetCleanup cleanup;
     private String label;
 
@@ -443,6 +452,7 @@ public class RhnSetDecl {
      * one exists, <code>cleanup</code> is ignored. Otherwise, a declaration
      * with the given <code>cleanup</code> and <code>label</code> is
      * created.
+     * @deprecated
      * @param label the label for the set
      * @param cleanup the cleanup to use
      * @return the set declaration
@@ -463,4 +473,24 @@ public class RhnSetDecl {
     public static final RhnSetDecl find(String label) {
         return (RhnSetDecl) DECLS.get(label);
     }
+    
+    /**
+     * get the set for Channel Errata cloning
+     * @param chan the Channel passed in
+     * @return the Set decl
+     */
+    public static RhnSetDecl setForChannelErrata(Channel chan) {
+        return make("errata_clone_list" + chan.getId(), SetCleanup.ILLEGAL_ERRATA);
+    }
+    
+    /**
+     * get the set for Channel package pushing
+     * @param chan the Channel passed in
+     * @return the Set decl
+     */
+    public static RhnSetDecl setForChannelPackages(Channel chan) {
+        return make("package_clone_list" + chan.getId(), SetCleanup.NOOP);
+    }
+    
+            
 }

@@ -47,8 +47,8 @@ type oracle_dbfile_t;
 files_config_file(oracle_dbfile_t)
 
 # Allow the oracle process to write to the db files
-allow oracle_db_t oracle_dbfile_t:file { getattr read create_file_perms };
-allow oracle_db_t oracle_dbfile_t:dir { create_dir_perms };
+allow oracle_db_t oracle_dbfile_t:file { manage_file_perms };
+allow oracle_db_t oracle_dbfile_t:dir { manage_dir_perms };
 
 # Automatically transition to the correct domain
 domain_auto_trans(oracle_tnslsnr_t, oracle_db_exec_t, oracle_db_t)

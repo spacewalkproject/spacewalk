@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 from distutils.command.install_scripts import install_scripts
 from distutils.core import setup, Extension
 from distutils.sysconfig import get_python_lib

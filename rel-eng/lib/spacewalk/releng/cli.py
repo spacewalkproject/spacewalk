@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2009 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -28,11 +28,12 @@ from string import strip
 
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
+from spacewalk.releng.cvs import CvsReleaser
+from spacewalk.releng.common import DEFAULT_BUILD_DIR
 from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
         check_tag_exists, get_latest_tagged_version
 
-DEFAULT_BUILD_DIR = "/tmp/spacewalk-build"
 BUILD_PROPS_FILENAME = "build.py.props"
 GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
 GLOBALCONFIG_SECTION = "globalconfig"
@@ -105,6 +106,8 @@ class CLI:
     def main(self):
         usage = "usage: %prog [options] arg"
         parser = OptionParser(usage)
+
+        # Options for building tar.gz, srpm, and rpm:
         parser.add_option("--tgz", dest="tgz", action="store_true",
                 help="Build .tar.gz")
         parser.add_option("--srpm", dest="srpm", action="store_true",
@@ -113,6 +116,15 @@ class CLI:
                 help="Build rpm")
         parser.add_option("--dist", dest="dist", metavar="DISTTAG",
                 help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
+        parser.add_option("--test", dest="test", action="store_true",
+                help="use current branch HEAD instead of latest package tag")
+        parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
+                help="do not clean up temporary build directories/files")
+        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
+                help="build a specific tag instead of the latest version " +
+                    "(i.e. spacewalk-java-0.4.0-1)")
+
+        # Options for submitting srpms to brew or koji:
         parser.add_option("--brew", dest="brew", metavar="BREWTAG",
                 help="Submit srpm for build in a brew tag.")
         parser.add_option("--koji", dest="koji", metavar="KOJITAG",
@@ -125,19 +137,14 @@ class CLI:
                     "Default is 'build --nowait'.",
                 ))
 
-        parser.add_option("--test", dest="test", action="store_true",
-                help="use current branch HEAD instead of latest package tag")
-        parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
-                help="do not clean up temporary build directories/files")
-        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
-                help="build a specific tag instead of the latest version " +
-                    "(i.e. spacewalk-java-0.4.0-1)")
+        # Options used for many different activities:
         parser.add_option("--debug", dest="debug", action="store_true",
                 help="print debug messages", default=False)
         parser.add_option("--offline", dest="offline", action="store_true",
                 help="do not attempt any remote communication (avoid using this please)",
                 default=False)
 
+        # Options for tagging new package releases:
         parser.add_option("--tag-release", dest="tag_release",
                 action="store_true",
                 help="Tag a new release of the package.")
@@ -145,12 +152,19 @@ class CLI:
                 action="store_true",
                 help="Use spec file version/release to tag package.")
 
+        # Options for other high level tasks:
         parser.add_option("--untagged-diffs", dest="untagged_report",
                 action="store_true",
                 help= "%s %s %s" % (
                     "Print out diffs for all packages with changes between",
                     "their most recent tag and HEAD. Useful for determining",
                     "which packages are in need of a re-tag."
+                ))
+        parser.add_option("--cvs-release", dest="cvs_release",
+                action="store_true", help="%s %s" % (
+                    "Import sources into CVS, tag, and build package using",
+                    "brew/koji. Relies on rel-eng configuration to know which"
+                    "CVS repository and build system to use."
                 ))
 
         (options, args) = parser.parse_args()
@@ -160,6 +174,16 @@ class CLI:
 
         global_config = self._read_global_config()
 
+        if options.debug:
+            os.environ['DEBUG'] = "true"
+
+        # Check for builder options and tagger options, if one or more from both
+        # groups are found, error out:
+        (building, tagging) = self._validate_options(options)
+
+        build_dir = lookup_build_dir()
+        package_name = get_project_name(tag=options.tag)
+
         # TODO: Shortcut here, build.py does some things unrelated to
         # building/tagging packages, check for these options, do what's
         # requested, and exit rather than start looking up data specific
@@ -168,23 +192,13 @@ class CLI:
             self._run_untagged_report(global_config)
             sys.exit(1)
 
-        # Check for builder options and tagger options, if one or more from both
-        # groups are found, error out:
-        (building, tagging) = self._validate_options(options)
-
-        if options.debug:
-            os.environ['DEBUG'] = "true"
-
-        build_dir = lookup_build_dir()
-        package_name = get_project_name(tag=options.tag)
-
         build_tag = None
         build_version = None
         # Determine which package version we should build:
         if options.tag:
             build_tag = options.tag
             build_version = build_tag[len(package_name + "-"):]
-        elif building:
+        elif building or options.cvs_release:
             build_version = get_latest_tagged_version(package_name)
             if build_version == None:
                 error_out(["Unable to lookup latest package info.",
@@ -197,14 +211,18 @@ class CLI:
         pkg_config = self._read_project_config(package_name, build_dir,
                 options.tag, options.no_cleanup)
 
-        # Actually do things:
-        if building:
-            self._run_builder(package_name, build_tag, build_version, options,
-                    pkg_config, global_config, build_dir)
+        if building or options.cvs_release:
+            builder = self._create_builder(package_name, build_tag,
+                    build_version, options, pkg_config, global_config,
+                    build_dir)
+            if building:
+                builder.run(options)
+            elif options.cvs_release:
+                self._run_cvs_release(global_config, builder)
         elif tagging:
             self._run_tagger(options, pkg_config, global_config)
 
-    def _run_builder(self, package_name, build_tag, build_version, options,
+    def _create_builder(self, package_name, build_tag, build_version, options,
             pkg_config, global_config, build_dir):
 
         builder_class = None
@@ -227,8 +245,7 @@ class CLI:
                 dist=options.dist,
                 test=options.test,
                 offline=options.offline)
-
-        builder.run(options)
+        return builder
 
     def _run_tagger(self, options, pkg_config, global_config):
         tagger_class = None
@@ -264,6 +281,14 @@ class CLI:
                 (version, relative_dir) = f.readline().strip().split(" ")
                 project_dir = os.path.join(git_root, relative_dir)
                 self._print_diff(global_config, md_file, version, project_dir)
+
+    def _run_cvs_release(self, global_config, builder):
+        """
+        Import sources into CVS, tag and build in the build system configured
+        for this git repository.
+        """
+        cvs_builder = CvsReleaser(global_config, builder)
+        cvs_builder.run()
 
     def _print_diff(self, global_config, package_name, version, project_dir):
         """

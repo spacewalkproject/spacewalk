@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -916,8 +916,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         UserFactory.save(admin);
         TestUtils.flushAndEvict(admin);
+        Package p = (Package) e.getPackages().iterator().next();
         ErrataCacheManager.insertNeededErrataCache(
-                s.getId(), admin.getOrg().getId(), e.getId());
+                s.getId(), e.getId(), p.getId());
 
         Object[] array = handler.getRelevantErrata(adminKey,
                 new Integer(s.getId().intValue()));
@@ -1335,6 +1336,29 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(rack, server.getLocation().getRack());
     }
     
+    public void testSetLockStatus() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        //server unlocked by default
+        assertNull(server.getLock());
+        
+        //lock the server
+        handler.setLockStatus(adminKey, new Integer(server.getId().intValue()),
+                true);
+        
+        TestUtils.saveAndFlush(server);
+        server = (Server)reload(server);
+        assertNotNull(server.getLock());
+        
+        //unlock the server
+        handler.setLockStatus(adminKey, new Integer(server.getId().intValue()),
+                false);
+        
+        TestUtils.saveAndFlush(server);
+        server = (Server)reload(server);
+        assertNull(server.getLock()); 
+    }
+    
     public void testSetDetailsUnentitleServer() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         SystemManager.removeAllServerEntitlements(server.getId());
@@ -1595,8 +1619,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Long sid = new Long(testServer.getId().longValue());
         Package pack = PackageTest.createTestPackage(admin.getOrg());
         
-        ErrataCacheManager.insertNeededPackageCache(sid, regular.getOrg().getId(), 
-                null, pack.getId());
+        ErrataCacheManager.insertNeededPackageCache(sid, null, 
+                pack.getId());
         
         Object [] array =  handler.listOutOfDateSystems(regularKey);
         

@@ -4,12 +4,12 @@
 
   <name>Satellite Proxy</name>
   <label>rhn_proxy</label>
-  <version>5.2</version>
+  <version>5.3</version>
 
   <prerequisites>
     <org-channel-family>rhn-proxy</org-channel-family>
     <system-feature>ftr_proxy_capable</system-feature>
-    <package-available>rhns-proxy-management</package-available>
+    <package-available>spacewalk-proxy-management</package-available>
   </prerequisites>
 
   <terms-and-conditions url="http://www.redhat.com/licenses" />
@@ -18,7 +18,7 @@
 
     <requirements>
       <system-entitlement-possible>provisioning_entitled</system-entitlement-possible>
-      <package-available>rhns-proxy-management</package-available>
+      <package-available>spacewalk-proxy-management</package-available>
       <client-capable>script.run</client-capable>
       <client-capable>configfiles.deploy</client-capable>
     </requirements>
@@ -604,7 +604,8 @@ for service in jabberd squid httpd MonitoringScout; do
       /sbin/chkconfig --level 345 $service on
   fi
 done
-  </script>
+        </script>
+     </run-script>
 
       <run-script acl="session_data_false(enable_monitoring)">
         <action-name>Enable RHN Proxy services</action-name>
@@ -619,7 +620,6 @@ done
   </script>
 
       </run-script>
-    </schedule-actions>
 
       <run-script>
         <action-name>Restart RHN Proxy</action-name>

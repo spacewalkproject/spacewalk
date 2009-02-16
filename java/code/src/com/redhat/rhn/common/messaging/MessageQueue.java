@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -18,10 +18,14 @@ package com.redhat.rhn.common.messaging;
 import EDU.oswego.cs.dl.util.concurrent.Channel;
 import EDU.oswego.cs.dl.util.concurrent.LinkedQueue;
 
+import com.redhat.rhn.frontend.events.CloneErrataAction;
+import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.events.NewUserAction;
 import com.redhat.rhn.frontend.events.NewUserEvent;
 import com.redhat.rhn.frontend.events.RestartSatelliteAction;
 import com.redhat.rhn.frontend.events.RestartSatelliteEvent;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsAction;
+import com.redhat.rhn.frontend.events.SsmChangeChannelSubscriptionsEvent;
 import com.redhat.rhn.frontend.events.TraceBackAction;
 import com.redhat.rhn.frontend.events.TraceBackEvent;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheAction;
@@ -47,7 +51,7 @@ public class MessageQueue {
      */
     private static Logger logger = Logger.getLogger(MessageQueue.class);
 
-    private static Map actions = new HashMap();
+    private static final Map ACTIONS = new HashMap();
     private static Channel messages = new LinkedQueue();
     private static Thread dispatcherThread = null;
     private static MessageDispatcher dispatcher = null;
@@ -72,8 +76,8 @@ public class MessageQueue {
             startMessaging();
         }
         if (msg != null) {
-            synchronized (actions) {
-                List handlers = (List) actions.get(msg.getClass());
+            synchronized (ACTIONS) {
+                List handlers = (List) ACTIONS.get(msg.getClass());
                 if (handlers != null && handlers.size() > 0) {
                     logger.debug("creating ActionExecutor");
                     ActionExecutor executor = new ActionExecutor(handlers, msg);
@@ -99,7 +103,7 @@ public class MessageQueue {
     static Runnable popEventMessage() throws InterruptedException {
         Runnable retval = (Runnable) messages.poll(500);
         if (retval != null) {
-            synchronized (actions) {
+            synchronized (ACTIONS) {
                 messageCount--;
             }
         }
@@ -157,11 +161,11 @@ public class MessageQueue {
             logger.debug("registerAction(MessageAction, Class) - : " + act +
                     " class: " + eventType.getName());
         }
-        synchronized (actions) {
-            List handlers = (List) actions.get(eventType);
+        synchronized (ACTIONS) {
+            List handlers = (List) ACTIONS.get(eventType);
             if (handlers == null) {
                 handlers = new ArrayList();
-                actions.put(eventType, handlers);
+                ACTIONS.put(eventType, handlers);
             }
             handlers.add(act);
         }
@@ -176,8 +180,8 @@ public class MessageQueue {
         if (logger.isDebugEnabled()) {
             logger.debug("deRegisterAction(MessageAction, Class) - start"); 
         }
-        synchronized (actions) {
-            List handlers = (List) actions.get(eventType);
+        synchronized (ACTIONS) {
+            List handlers = (List) ACTIONS.get(eventType);
             handlers.remove(act);
         }
         if (logger.isDebugEnabled()) {
@@ -195,11 +199,11 @@ public class MessageQueue {
             logger.debug("getRegisteredEventNames() - start"); 
         }
         String[] retval = null;
-        synchronized (actions) {
-            if (actions.keySet().size() > 0) {
-                retval = new String[actions.keySet().size()];
+        synchronized (ACTIONS) {
+            if (ACTIONS.keySet().size() > 0) {
+                retval = new String[ACTIONS.keySet().size()];
                 int index = 0;
-                for (Iterator iter = actions.keySet().iterator(); iter.hasNext();) {
+                for (Iterator iter = ACTIONS.keySet().iterator(); iter.hasNext();) {
                     Class klazz = (Class) iter.next();
                     retval[index] = klazz.getName();
                     index++;
@@ -237,6 +241,7 @@ public class MessageQueue {
         MessageQueue.registerAction(tbe, TraceBackEvent.class);
         NewUserAction nua = new NewUserAction();
         MessageQueue.registerAction(nua, NewUserEvent.class);
+
         // this is to update the errata cache without blocking the login
         // for 40 seconds.
         UpdateErrataCacheAction ueca = new UpdateErrataCacheAction();
@@ -245,6 +250,16 @@ public class MessageQueue {
         // Used for asynchronusly restarting the satellite
         RestartSatelliteAction ra = new RestartSatelliteAction();
         MessageQueue.registerAction(ra, RestartSatelliteEvent.class);
+        
+        // Used to allow SSM operations to be run asynchronously
+        SsmChangeChannelSubscriptionsAction sccsa =
+            new SsmChangeChannelSubscriptionsAction();
+        MessageQueue.registerAction(sccsa, SsmChangeChannelSubscriptionsEvent.class);
+        
+        //Clone Errata into a channel
+        CloneErrataAction cea = new CloneErrataAction();
+        MessageQueue.registerAction(cea, CloneErrataEvent.class);
+        
     }
 }
 

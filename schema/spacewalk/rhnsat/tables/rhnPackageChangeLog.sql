@@ -26,7 +26,8 @@ rhnPackageChangelog
 	package_id      number
                         constraint rhn_pkg_changelog_pid_nn not null
                         constraint rhn_pkg_changelog_pid_fk
-				references rhnPackage(id),
+				references rhnPackage(id)
+                                on delete cascade,
         name            varchar2(128)
 			constraint rhn_pkg_changelog_name not null,
         text            varchar2(3000)

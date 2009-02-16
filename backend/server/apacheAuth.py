@@ -24,7 +24,7 @@ from rhnLib import computeSignature
 
 
 def splitProxyAuthToken(token):
-    #""" given a token:hostname, split it into a token-list, hostname """
+    """ given a token:hostname, split it into a token-list, hostname """
 
     token = string.split(token, ':')
     hostname = ''
@@ -38,10 +38,10 @@ def splitProxyAuthToken(token):
 
 
 def _verifyProxyAuthToken(auth_token):
-    #""" verifies the validity of a proxy auth token
-    #
-    #    NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
-    #"""
+    """ verifies the validity of a proxy auth token
+    
+        NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
+    """
 
     log_debug(4, auth_token)
     token, hostname = splitProxyAuthToken(auth_token)
@@ -86,12 +86,12 @@ def _verifyProxyAuthToken(auth_token):
 
 
 def auth_proxy():
-    #""" Authenticates a proxy carrying a clients request. For a valid or
-    #    unsigned request, this function returns 1 (OK), otherwise it raises
-    #    rhnFault
-    #
-    #    NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
-    #"""
+    """ Authenticates a proxy carrying a clients request. For a valid or
+        unsigned request, this function returns 1 (OK), otherwise it raises
+        rhnFault
+    
+        NOTE: X-RHN-Proxy-Auth described in proxy/broker/rhnProxyAuth.py
+    """
 
     log_debug(3)
     headers = rhnFlags.get('outputTransportOptions')
@@ -119,10 +119,10 @@ def auth_proxy():
 
     
 def auth_client():
-    #""" Authenticates a request from a client
-    #    For an unsigned request, this function returns 0 (request should be
-    #    coming from a client).
-    #"""
+    """ Authenticates a request from a client
+        For an unsigned request, this function returns 0 (request should be
+        coming from a client).
+    """
 
     log_debug(3)
     if not rhnFlags.test("AUTH_SESSION_TOKEN"):

@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.11
+Version: 	  1.28.12
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 URL:          https://fedorahosted.org/spacewalk
@@ -7,7 +7,7 @@ Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: perl(NOCpulse::Debug) perl(NOCpulse::Config) perl(NOCpulse::Utils::XML) perl(NOCpulse::Object)
-BuildRequires: perl(DBD::Oracle) perl(DBI)
+BuildRequires: perl(DBD::Oracle) perl(DBI) perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -47,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.28.12-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Tue Jan 13 2009 Miroslav Suchý <msuchy@redhat.com> 1.28.11-1
 - 479161 - explicitly call disconnect
 

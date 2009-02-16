@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -73,10 +73,13 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
     static final String UNMATCHED_CHILD_CHANNELS = "unmatched_child_channels";
     static final String FOUND_UNMATCHED_CHANNELS = "foundUnmatchedChannels";
 
-    private Map<Long, List<Long>> successes = new HashMap<Long, List<Long>>();
-    private Map<Long, List<Long>> failures = new HashMap<Long, List<Long>>();
-    private Map<Long, List<Long>> skipped = new HashMap<Long, List<Long>>();
-
+    /*
+    Map<Long, List<Long>> successes = new HashMap<Long, List<Long>>();
+    Map<Long, List<Long>> failures = new HashMap<Long, List<Long>>();
+    Map<Long, List<Long>> skipped = new HashMap<Long, List<Long>>();
+*/
+    
+    
     protected Map getKeyMethodMap() {
         Map<String, String> map = new HashMap<String, String>();
         map.put("basesub.jsp.confirmSubscriptions", "confirmUpdateBaseChannels");
@@ -129,7 +132,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
      */
     public ActionForward confirmUpdateBaseChannels(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request, HttpServletResponse response) {
-        
+                
         log.debug("confirmUpdateBaseChannels()");
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
@@ -293,6 +296,11 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             HttpServletRequest request, HttpServletResponse response) {
         log.debug("changeChannels()");
         
+        Map<Long, List<Long>> successes = new HashMap<Long, List<Long>>();
+        Map<Long, List<Long>> failures = new HashMap<Long, List<Long>>();
+        Map<Long, List<Long>> skipped = new HashMap<Long, List<Long>>();
+        
+        
         RequestContext rctx = new RequestContext(request);
         User user = rctx.getLoggedInUser();
         request.setAttribute("parentUrl", request.getRequestURI());
@@ -324,9 +332,9 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             }
         }
         
-        alterSubscriptions(user, requestedChanges);
-        addMessages(request, buildMessages(user));
-        addErrors(request, buildErrors(user));
+        alterSubscriptions(user, requestedChanges, successes, failures, skipped);
+        addMessages(request, buildMessages(user, successes, skipped));
+        addErrors(request, buildErrors(user, successes, failures));
         
         // Provide the list of all base channels for all systems in the SSM
         List<SystemsPerChannelDto> ldr = setupList(user, request);
@@ -472,7 +480,9 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         return oldToNewMap;
     }
     
-    protected void alterSubscriptions(User u, Map<Long, List<Long>> chgs) {
+    protected void alterSubscriptions(User u, Map<Long, List<Long>> chgs, 
+            Map<Long, List<Long>> successes, Map<Long, List<Long>> failures, 
+            Map<Long, List<Long>> skipped) {
         
         successes.clear();
         failures.clear();
@@ -486,7 +496,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
             for (Long srvId : chgs.get(toId)) {
                 Server s = SystemManager.lookupByIdAndUser(srvId, u);
                 if (s.isProxy() || s.isSatellite()) {
-                    skip(toId, srvId);
+                    skip(toId, srvId, skipped);
                     continue;
                 }
                 
@@ -499,11 +509,11 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                 }
                 
                 if (c == null) {
-                    skip(toId, srvId);
+                    skip(toId, srvId, skipped);
                     continue;
                 }
                 else if (c.equals(s.getBaseChannel())) {
-                    skip(toId, srvId);
+                    skip(toId, srvId, skipped);
                     continue;
                 }
                 
@@ -512,28 +522,28 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
                             c.getId());
                     // don't care about the return value
                     ubcc.store();
-                    success(toId, srvId);
+                    success(toId, srvId, successes);
                 }
                 catch (Exception e) {
-                    fail(toId, srvId);
+                    fail(toId, srvId, failures);
                 }   
             }
         }
     }
     
-    protected void success(Long toId, Long srvId) {
+    protected void success(Long toId, Long srvId, Map<Long, List<Long>> successes) {
         List<Long> l = successes.get(toId);
         l.add(srvId);
         successes.put(toId, l);
     }
     
-    protected void fail(Long toId, Long srvId) {
+    protected void fail(Long toId, Long srvId, Map<Long, List<Long>> failures) {
         List<Long> l = failures.get(toId);
         l.add(srvId);
         failures.put(toId, l);
     }
     
-    protected void skip(Long toId, Long srvId) {
+    protected void skip(Long toId, Long srvId, Map<Long, List<Long>> skipped) {
         List<Long> l = skipped.get(toId);
         l.add(srvId);
         skipped.put(toId, l);
@@ -543,7 +553,8 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
     //   N servers subscribed to channel X
     //   M servers skipped attempting to subscribe to channel X
     // (yes, this can be a lot of messages...)
-    protected ActionMessages buildMessages(User u) {
+    protected ActionMessages buildMessages(User u, Map<Long, List<Long>> successes, 
+            Map<Long, List<Long>> skipped) {
         
         ActionMessages msgs = new ActionMessages();
         
@@ -588,7 +599,8 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
     
     // Foreach to-channel-id:
     //   N servers failed to subscribe to channel X
-    protected ActionErrors buildErrors(User u) {
+    protected ActionErrors buildErrors(User u, Map<Long, List<Long>> successes, 
+            Map<Long, List<Long>> failures) {
         
         ActionErrors errs = new ActionErrors();
         

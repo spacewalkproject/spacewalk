@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -54,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelPackagesRemoveAction extends RhnAction {
 
-    private String listName = "packageList";
+    private final String LIST_ACTION = "packageList";
 
 
     /** {@inheritDoc} */
@@ -80,7 +80,7 @@ public class ChannelPackagesRemoveAction extends RhnAction {
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
         
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        TagHelper.bindElaboratorTo(LIST_ACTION, result.getElaborator(), request);
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
@@ -114,10 +114,9 @@ public class ChannelPackagesRemoveAction extends RhnAction {
         for (Long id : set.getElementValues()) {
             chan.removePackage(PackageFactory.lookupByIdAndUser(id, user));
         }
-
-        List<Long> chanList = new ArrayList<Long>();
-        chanList.add(chan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
+        List<Long> packList = new ArrayList<Long>();
+        packList.addAll(set.getElementValues());
+        ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), packList);
         ChannelManager.refreshWithNewestPackages(chan, "web.channel_package_remove");
     }
 

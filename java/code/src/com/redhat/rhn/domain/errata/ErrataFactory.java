@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -51,6 +51,7 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.ErrataPackageFile;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
@@ -84,6 +85,26 @@ public class ErrataFactory extends HibernateFactory {
         return log;
     }
     
+    /**
+     * List the package ids that were pushed to a channel because of an errata
+     * @param cid the channel id
+     * @param eid the errata id
+     * @return List of package ids
+     */
+    public static List<Long> listErrataChannelPackages(Long cid, Long eid) {
+        Map params = new HashMap();
+        params.put("channel_id", cid);
+        params.put("errata_id", eid);
+        DataResult<ErrataPackageFile> dr = executeSelectMode(
+                "ErrataCache_queries",
+                "package_associated_to_errata_and_channel", params);
+        List toReturn = new ArrayList<Long>();
+        for (ErrataPackageFile file : dr) {
+            toReturn.add(file.getPackageId());
+        }
+        return toReturn;
+    }
+
     /**
      * Tries to locate errata based on either the errataum's id or the 
      * CVE/CAN identifier string.
@@ -291,7 +312,8 @@ public class ErrataFactory extends HibernateFactory {
         
         List chanList = new ArrayList();
         chanList.add(chan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
+        //ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
+        ErrataCacheManager.insertCacheForChannelErrataAsync(chanList, errata);
         ChannelManager.refreshWithNewestPackages(chan, "web.errata_push");
         return errata;   
         
@@ -833,15 +855,19 @@ public class ErrataFactory extends HibernateFactory {
     /**
      * Lookup errata that are in the set "errata_list"
      * @param user the user to search the set for
+     * @param set the set to look in
      * @return List of Errata
      */
-    public static List<Errata> lookupErrataInSet(User user) {
+    public static List<Errata> lookupErrataInSet(User user, String set) {
         
         Map params = new HashMap();
         params.put("uid", user.getId());
+        params.put("set", set);
         return  singleton.listObjectsByNamedQuery(
                         "PublishedErrata.lookupFromSet", params);
     }
+        
+    
     
     /**
      * Lookup an errataFile object by it's errata and package
@@ -936,6 +962,7 @@ public class ErrataFactory extends HibernateFactory {
         
         return errata;
     }
+    
     
 }
 

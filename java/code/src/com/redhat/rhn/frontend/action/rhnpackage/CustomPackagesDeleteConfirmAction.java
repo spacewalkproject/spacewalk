@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CustomPackagesDeleteConfirmAction extends RhnAction {
 
-    private String listName = "packageList";
+    private final String LIST_NAME = "packageList";
 
 
     /** {@inheritDoc} */
@@ -66,7 +66,7 @@ public class CustomPackagesDeleteConfirmAction extends RhnAction {
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
 
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         request.setAttribute("pageList", result);
 

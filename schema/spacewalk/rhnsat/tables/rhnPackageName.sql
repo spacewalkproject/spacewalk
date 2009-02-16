@@ -23,7 +23,7 @@ rhnPackageName
 			constraint rhn_pn_id_nn not null
                         constraint rhn_pn_id_pk primary key
 			using index tablespace [[2m_tbs]],
-        name            varchar2(128)
+        name            varchar2(256)
 			constraint rhn_pn_name_nn not null
 )
 	enable row movement

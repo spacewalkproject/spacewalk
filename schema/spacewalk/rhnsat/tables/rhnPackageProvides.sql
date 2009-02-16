@@ -22,7 +22,8 @@ rhnPackageProvides
         package_id      number
                         constraint rhn_pkg_provides_pid_nn not null
                         constraint rhn_pkg_provides_package_fk
-                                references rhnPackage(id),
+                                references rhnPackage(id)
+                                on delete cascade,
         capability_id   number
                         constraint rhn_pkg_provides_cid_nn not null
                         constraint rhn_pkg_provides_capability_fk

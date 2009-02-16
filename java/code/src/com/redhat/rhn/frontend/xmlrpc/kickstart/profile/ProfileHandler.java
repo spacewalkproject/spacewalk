@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -31,7 +31,6 @@ import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -53,7 +52,6 @@ import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
-import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -164,8 +162,9 @@ public class ProfileHandler extends BaseHandler {
      * 
      * @xmlrpc.doc List the pre and post scripts for a kickstart profile.
      * profile
-     * @xmlprc.param
-     * @xmlrpc.param
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart")
      * @xmlrpc.returntype #array() $KickstartScriptSerializer #array_end()
      */
     public List<KickstartScript> listScripts(String sessionKey, String label) {
@@ -188,7 +187,7 @@ public class ProfileHandler extends BaseHandler {
      * @return the id of the created script
      * 
      * @xmlrpc.doc Add a pre/post script to a kickstart profile.
-     * @xmlprc.param #session_key()
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
      * add the script to.")
      * @xmlrpc.param #param_desc("string", "contents", "The full script to
@@ -233,9 +232,9 @@ public class ProfileHandler extends BaseHandler {
      * 
      * @xmlrpc.doc Remove a script from a kickstart profile.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #prop_desc("string", "ksLabel", "The kickstart from which
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart from which
      * to remove the script from.")
-     * @xmlrpc.param #prop_desc("int", "scriptId", "The id of the script to
+     * @xmlrpc.param #param_desc("int", "scriptId", "The id of the script to
      * remove.")
      * @xmlrpc.returntype #return_int_success()
      * 
@@ -287,78 +286,6 @@ public class ProfileHandler extends BaseHandler {
         return form.getFileData();
     }
 
-    /**
-     * Set the partitioning scheme for a kickstart profile.
-     * @param sessionKey An active session key.
-     * @param ksLabel A kickstart profile label.
-     * @param scheme The partitioning scheme.
-     * @return 1 on success
-     * @throws FaultException
-     * @xmlrpc.doc Set the partitioning scheme for a kickstart profile.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
-     * kickstart profile to update.")
-     * @xmlrpc.param #param_desc("string[]", "scheme", "The partitioning scheme
-     * is a list of partitioning command strings used to setup the partitions,
-     * volume groups and logical volumes.")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setPartitioningScheme(String sessionKey, String ksLabel,
-            List<String> scheme) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        Long ksid = ksdata.getId();
-        KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
-                user);
-        StringBuilder sb = new StringBuilder();
-        for (String s : scheme) {
-            sb.append(s);
-            sb.append('\n');
-        }
-        ValidatorError err = command.parsePartitions(sb.toString());
-        if (err != null) {
-            throw new FaultException(-4, "PartitioningSchemeInvalid", err
-                    .toString());
-        }
-        command.store();
-        return 1;
-    }
-
-    /**
-     * Get the partitioning scheme for a kickstart profile.
-     * @param sessionKey An active session key
-     * @param ksLabel A kickstart profile label
-     * @return The profile's partitioning scheme. This is a list of commands
-     * used to setup the partitions, logical volumes and volume groups.
-     * @throws FaultException
-     * @xmlrpc.doc Get the partitioning scheme for a kickstart profile.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
-     * profile.")
-     * @xmlrpc.returntype string[] - A list of partitioning commands used to
-     * setup the partitions, logical volumes and volume groups."
-     */
-    @SuppressWarnings("unchecked")
-    public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<String> list = new ArrayList<String>();
-        for (KickstartCommand cmd : (List<KickstartCommand>) ksdata
-                .getPartitions()) {
-            String s = "partition " + cmd.getArguments();
-            list.add(s);
-        }
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
-                .getVolgroups()) {
-            String s = "volgroup " + cmd.getArguments();
-            list.add(s);
-        }
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata.getLogvols()) {
-            String s = "logvol " + cmd.getArguments();
-            list.add(s);
-        }
-        return list;
-    }
 
     /** 
      * Get advanced options for existing kickstart profile.
@@ -409,14 +336,14 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param 
      *   #array()
      *      #struct("advanced options")
-     *          #prop_desc("string", "name", "Name of the advanced option")
+     *          #prop_desc("string", "name", "Name of the advanced option.
      *              Valid Option names: autostep, interactive, install, upgrade, text, 
      *              network, cdrom, harddrive, nfs, url, lang, langsupport keyboard, 
      *              mouse, device, deviceprobe, zerombr, clearpart, bootloader, 
      *              timezone, auth, rootpw, selinux, reboot, firewall, xconfig, skipx, 
      *              key, ignoredisk, autopart, cmdline, firstboot, graphical, iscsi, 
      *              iscsiname, logging, monitor, multipath, poweroff, halt, service,
-     *              shutdown, user, vnc, zfcp
+     *              shutdown, user, vnc, zfcp")
      *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()  
      *   #array_end()

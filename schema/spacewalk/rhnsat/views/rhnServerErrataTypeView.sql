@@ -20,19 +20,17 @@ CREATE OR REPLACE VIEW rhnServerErrataTypeView
 (
     	server_id,
 	errata_id,
-	errata_type,
-	package_count
+	errata_type
 )
 AS
 SELECT
-    	SNPC.server_id,
-	SNPC.errata_id,
-	E.advisory_type,
-	COUNT(SNPC.package_id)
+    	SNEC.server_id,
+	SNEC.errata_id,
+	E.advisory_type
 FROM    rhnErrata E,
-    	rhnServerNeededPackageCache SNPC
-WHERE   E.id = SNPC.errata_id
-GROUP BY SNPC.server_id, SNPC.errata_id, E.advisory_type
+    	rhnServerNeededErrataCache SNEC
+WHERE   E.id = SNEC.errata_id
+GROUP BY SNEC.server_id, SNEC.errata_id, E.advisory_type
 /
 
 --

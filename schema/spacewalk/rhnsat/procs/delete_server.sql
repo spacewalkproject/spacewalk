@@ -181,8 +181,7 @@ begin
 	delete from rhnServerInstallInfo where server_id = server_id_in;
 	delete from rhnServerLocation where server_id = server_id_in;
 	delete from rhnServerLock where server_id = server_id_in;
-	delete from rhnServerNeededPackageCache where server_id = server_id_in;
-	delete from rhnServerNeededErrataCache where server_id = server_id_in;
+	delete from rhnServerNeededCache where server_id = server_id_in;
 	delete from rhnServerNetwork where server_id = server_id_in;
 	delete from rhnServerNotes where server_id = server_id_in;
 	-- I'm not removing the foreign key from rhnServerPackage; that'll

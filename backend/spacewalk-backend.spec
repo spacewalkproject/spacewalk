@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.1
+Version: 0.5.6
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -540,10 +540,20 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Wed Feb 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 
-- taskomatic based repomd changes
+* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.5-1
+- bz#368711 bz#480063
 
-* Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- move logs from /var/tmp to /var/log/nocpulse
+
+* Mon Feb 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
+- bz475894:fixing the server code to filter out duplicate deps 
+  when pushing fedora-10+ packages to channels
+
+* Thu Feb 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.3-1
+- fixing satsync warning.
+
+* Wed Jan 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.2-1
 - removing rhel-instnum dep requires and associated unsed code
 
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1

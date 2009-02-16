@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -117,7 +117,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         
         // insert record into table
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                sid, oid, eid, pid);
+                sid, eid, pid);
         assertEquals(1, rows);
         
         // verify what was inserted
@@ -129,7 +129,6 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
                 sid.toString());
         assertTrue(rs.next());
         assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(oid.longValue(), rs.getLong("org_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
         assertEquals(pid.longValue(), rs.getLong("package_id"));
         
@@ -163,7 +162,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         UserFactory.save(userIn);
         TestUtils.flushAndEvict(userIn);
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                s.getId(), userIn.getOrg().getId(), e.getId(), p.getId());
+                s.getId(), e.getId(), p.getId());
         assertEquals(1, rows);
         return retval;
     }
@@ -182,7 +181,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         
         // insert record into table
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                sid, oid, eid, pid);
+                sid, eid, pid);
         assertEquals(1, rows);
         
         // verify what was inserted
@@ -194,7 +193,6 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
                 sid.toString());
         assertTrue(rs.next());
         assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(oid.longValue(), rs.getLong("org_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
         assertEquals(pid.longValue(), rs.getLong("package_id"));
         
@@ -202,7 +200,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         assertFalse(rs.next());
         
         // now let's delete the above record
-        rows = ErrataCacheManager.deleteNeededPackageCache(sid, oid, eid, pid);
+        rows = ErrataCacheManager.deleteNeededPackageCache(sid, eid, pid);
         assertEquals(1, rows);
         
         rs = stmt.executeQuery(
@@ -221,8 +219,9 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
         
+        Package p = (Package) e.getPackages().iterator().next();
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededErrataCache(sid, oid, eid);
+        int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
         
         assertEquals(1, rows);
         return server;
@@ -235,10 +234,14 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Server server = ServerFactoryTest.createTestServer(user);
         Errata e = ErrataFactoryTest.createTestErrata(oid);
         Long sid = server.getId();
+        
+        e = (Errata) TestUtils.saveAndReload(e);
         Long eid = e.getId();
         
+        Package p = (Package) e.getPackages().iterator().next();
+        
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededErrataCache(sid, oid, eid);
+        int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
         assertEquals(1, rows);
         
         // verify what was inserted
@@ -250,7 +253,6 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
                 sid.toString());
         assertTrue(rs.next());
         assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(oid.longValue(), rs.getLong("org_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
         
         // make sure we don't have more
@@ -266,8 +268,10 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         Long sid = server.getId();
         Long eid = e.getId();
         
+        Package p = (Package) e.getPackages().iterator().next();
+        
         // insert record into table
-        int rows = ErrataCacheManager.insertNeededErrataCache(sid, oid, eid);
+        int rows = ErrataCacheManager.insertNeededErrataCache(sid, eid, p.getId());
         assertEquals(1, rows);
         
         // verify what was inserted
@@ -279,14 +283,13 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
                 sid.toString());
         assertTrue(rs.next());
         assertEquals(sid.longValue(), rs.getLong("server_id"));
-        assertEquals(oid.longValue(), rs.getLong("org_id"));
         assertEquals(eid.longValue(), rs.getLong("errata_id"));
         
         // make sure we don't have more
         assertFalse(rs.next()); 
         
         // now let's delete the above record
-        rows = ErrataCacheManager.deleteNeededErrataCache(sid, oid, eid);
+        rows = ErrataCacheManager.deleteNeededErrataCache(sid, eid);
         assertEquals(1, rows);
         
         rs = stmt.executeQuery(
@@ -309,7 +312,7 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         
         // insert record into table
         int rows = ErrataCacheManager.insertNeededPackageCache(
-                sid, oid, eid, pid);
+                sid, eid, pid);
         assertEquals(1, rows);
         
         DataResult dr = ErrataCacheManager.packagesNeedingUpdates(
@@ -324,7 +327,6 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
             assertEquals(server.getId(), ecd.getServerId());
             assertEquals(pkg.getId(), ecd.getPackageId());
             assertEquals(e.getId(), ecd.getErrataId());
-            assertEquals(org.getId(), ecd.getOrgId());
         }
     }
     
@@ -350,38 +352,9 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         DataResult dr = ErrataCacheManager.allServerIdsForOrg(org);
         assertFalse(dr.isEmpty());
         assertTrue(dr.size() >= 1);
-        
-        
     }
     
-    public void testErrataNeedingApplication() throws Exception {
-        
-        // create a lot of stuff to test this simple insert.
-        Long oid = UserTestUtils.createOrg("testOrg");
-        Org org = OrgFactory.lookupById(oid);
-        User user = UserTestUtils.createUser("testUser", oid);
-        Server server = ServerFactoryTest.createTestServer(user);
-        Errata e = ErrataFactoryTest.createTestErrata(oid);
-        Long sid = server.getId();
-        Long eid = e.getId();
-        
-        // insert record into table
-        int rows = ErrataCacheManager.insertNeededErrataCache(sid, oid, eid);
-        assertEquals(1, rows);
-        
-        DataResult dr = ErrataCacheManager.errataNeedingApplication(
-                server.getId());
-        
-        assertFalse(dr.isEmpty());
-        assertEquals(1, dr.size());
-        
-        for (Iterator itr = dr.iterator(); itr.hasNext();) {
-            ErrataCacheDto ecd = (ErrataCacheDto) itr.next();
-            assertNotNull(ecd);
-            assertEquals(eid, ecd.getErrataId());
-            assertEquals(org.getId(), ecd.getOrgId());
-            assertNotNull(ecd.getPackageId());
-            assertEquals(sid, ecd.getServerId());
-        }
-    }
+    
+    
+    
 }

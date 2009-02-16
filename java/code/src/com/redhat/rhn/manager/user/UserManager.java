@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -521,7 +521,26 @@ public class UserManager extends BaseManager {
         returnedUser = UserFactory.lookupByLogin(user, login);
         return returnedUser;
     }
-    
+
+    /**
+     * Retrieve the list of all users in the specified user's org.
+     * @param user The user who's org to search for users.
+     * @return A list of users.
+     */
+    public static List<User> usersInOrg(User user) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            //Throw an exception with a nice error message so the user
+            //knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be an" +
+                    " Org Admin to access the user list");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.userlist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.userlist"));
+            throw pex;
+        }
+        return UserFactory.getInstance().findAllUsers(user.getOrg());
+    }
+
     /**
      * Retrieve the list of all users in the specified user's org. Returns DataResult
      * containing the default objects specified in User_queries.xml
@@ -533,7 +552,7 @@ public class UserManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("User_queries", "users_in_org");
         return getUsersInOrg(user, pc, m);
     }
-
+    
     /**
      * Retrieve the list of all users in the specified user's org. Returns DataResult
      * containing Map objects.

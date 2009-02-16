@@ -54,6 +54,7 @@ read_files_pattern(osa_dispatcher_t,httpd_sys_content_t,httpd_sys_content_t)
 allow osa_dispatcher_t self:fifo_file rw_fifo_file_perms;
 
 corenet_udp_bind_lo_node(osa_dispatcher_t)
+corenet_udp_bind_generic_node(osa_dispatcher_t)
 
 sysnet_dns_name_resolve(osa_dispatcher_t)
 
@@ -63,8 +64,11 @@ allow osa_dispatcher_t jabber_client_port_t:tcp_socket name_connect;
 corenet_all_recvfrom_unlabeled(osa_dispatcher_t)
 corenet_all_recvfrom_netlabel(osa_dispatcher_t)
 
-allow osa_dispatcher_t self:process setpgid;
+allow osa_dispatcher_t self:process { setpgid setsched getsched };
+allow osa_dispatcher_t self:capability { sys_nice chown fowner sys_tty_config };
 
 allow osa_dispatcher_t osa_dispatcher_upstream_notif_server_port_t:tcp_socket name_bind;
 allow osa_dispatcher_t inaddr_any_node_t:tcp_socket node_bind;
 allow osa_dispatcher_t osa_dispatcher_t:tcp_socket listen;
+
+files_list_tmp(osa_dispatcher_t)

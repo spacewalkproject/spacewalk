@@ -315,17 +315,24 @@ EOQ
 sub find_next_advisory {
   my $adv = shift || '';
   my $adv_name = shift || '';
+  my $suffix = '';
+  my $i = 1;
 
-  substr($adv, 0, 2) = 'CL';
-  substr($adv_name, 0, 2) = 'CL';
+  $adv = 'CL' . substr($adv, 2);
+  $adv_name = 'CL' . substr($adv_name, 2);
 
-  while (advisory_exists($adv)) {
-    substr($adv, 0, 2)++;
+  if (advisory_exists($adv) || advisory_name_exists($adv_name)) {
+    $suffix = sprintf("-%u", $i++);
+    $adv = $adv . $suffix;
+    $adv_name = $adv_name . $suffix;
+
+    while (advisory_exists($adv) || advisory_name_exists($adv_name)) {
+      substr($adv, -1, 1) = $i;
+      substr($adv_name, -1, 1) = $i;
+      $i++;
+    }
   }
 
-  while (advisory_name_exists($adv_name)) {
-    substr($adv_name, 0, 2)++;
-  }
   return ($adv, $adv_name);
 }
 

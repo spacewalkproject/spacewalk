@@ -2,9 +2,13 @@
 
 use strict;
 use Getopt::Long;
+use IPC::Open3;
+use NOCpulse::Debug;
 use NOCpulse::Gritch;
 use NOCpulse::Config;
 use NOCpulse::SetID;
+use Symbol qw(gensym);
+
 # A machine may or may not have the queue system running
 # (satellites are currently the only thing that does)
 #
@@ -305,11 +309,15 @@ while (1) {
     if (defined($user)) {
       &set_userinfo($user);
     }
-    exec($command, @options);
-
-    # Shouldn't get here
-    die("Couldn't exec $command: $!");
-
+    $| = 1;
+    $SIG{'PIPE'} = sub {die("Couldn't exec $command: $!") };
+    local *PROCESS_OUT;
+    my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, $command, @options);
+    while (<PROCESS_OUT>) {
+      print NOCpulse::Debug::Stream->timestamp, " $_";
+    }
+    waitpid($pid, 0);
+    exit;
   }
 
 }

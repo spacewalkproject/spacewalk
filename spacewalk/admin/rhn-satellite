@@ -24,7 +24,7 @@ if [ -f /etc/sysconfig/rhn-satellite ]; then
         . /etc/sysconfig/rhn-satellite
 fi
 
-SERVICES="jabberd $DB_SERVICE osa-dispatcher taskomatic tomcat5 httpd Monitoring MonitoringScout rhn-search cobblerd"
+SERVICES="jabberd $DB_SERVICE osa-dispatcher tomcat5 httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
 
 . /etc/init.d/functions
 

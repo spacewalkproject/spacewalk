@@ -28,12 +28,14 @@ use File::Copy;
 use IPC::Open3;
 use Symbol qw(gensym);
 
+use Spacewalk::Setup ();
+
 my $usage = "usage: $0 --dsn=<dsn> --schema-deploy-file=<filename>"
   . " [ --log=<logfile> ] [ --clear-db ] [ --nofork ] [ --help ]\n";
 
 my $dsn = '';
 my $schema_deploy_file = '';
-my $log_file = '/var/log/rhn/populate_db.log';
+my $log_file;
 my $clear_db = 0;
 my $nofork = 0;
 my $help = '';
@@ -67,7 +69,7 @@ system('/bin/touch', $lockfile);
 
 # Move the old log file out of the way - prefork to avoid race
 # condition
-if (-e $log_file) {
+if (defined $log_file and -e $log_file) {
   my $backup_file = get_next_backup_filename($log_file);
   my $success = File::Copy::move($log_file, $backup_file);
 
@@ -92,14 +94,21 @@ if ($clear_db) {
   RHN::SatInstall->clear_db();
 }
 
-local *LOGFILE;
-open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
-system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
-$pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
+if (defined $log_file) {
+  if (Spacewalk::Setup::have_selinux()) {
+    local *LOGFILE;
+    open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
+    system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
+  }
+  $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
+} else {
+  $pid = open3(gensym, ">&STDOUT", ">&STDERR", 'sqlplus', $dsn, "\@$schema_deploy_file");
+}
 waitpid($pid, 0);
 exit $? >> 8;
 
 sub get_next_backup_filename {
+  my $log_file = shift;
   my ($vol, $dir, $filename) = File::Spec->splitpath($log_file);
   my $index = 0;
   my $backup_file;

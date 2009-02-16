@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -352,7 +352,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartDefaults d = new KickstartDefaults();
         d.setKsdata(data);
         KickstartVirtualizationType type = KickstartFactory.
-            lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.AUTO);
+            lookupKickstartVirtualizationTypeByLabel(
+                    KickstartVirtualizationType.XEN_PARAVIRT);
         d.setVirtualizationType(type);
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         d.setKstree(t);

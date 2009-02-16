@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -105,7 +105,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                 "samplekickstart1.ks"));
                 
         try {
-            handler.importFile(adminKey, "a", KickstartVirtualizationType.AUTO, 
+            handler.importFile(adminKey, "a", KickstartVirtualizationType.XEN_PARAVIRT, 
                     testTree.getLabel(), kickstartFileContents);
             fail();
         }
@@ -119,7 +119,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         String newKsProfileLabel = "test-" + TestUtils.randomString();
         String kickstartFileContents = TestUtils.readAll(TestUtils.findTestData(
                 "samplekickstart1.ks"));
-        handler.importFile(sessionKey, newKsProfileLabel, KickstartVirtualizationType.AUTO, 
+        handler.importFile(sessionKey, newKsProfileLabel, KickstartVirtualizationType.XEN_PARAVIRT, 
                 treeLabel, kickstartFileContents);
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -140,7 +140,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                 "samplekickstart1.ks"));
         try {
             handler.importRawFile(regularKey, newKsProfileLabel,
-                    KickstartVirtualizationType.AUTO, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
                     testTree.getLabel(), kickstartFileContents);
             fail("No permission check failure");
         }
@@ -148,7 +148,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             //cool!
         }
         handler.importRawFile(adminKey, newKsProfileLabel, 
-                KickstartVirtualizationType.AUTO, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
                 testTree.getLabel(), kickstartFileContents);
         
         KickstartRawData newKsProfile = (KickstartRawData)KickstartFactory.
@@ -187,7 +187,8 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile";
-        handler.createProfile(adminKey, profileLabel, KickstartVirtualizationType.AUTO, 
+        handler.createProfile(adminKey, profileLabel, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
                 testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -204,7 +205,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         String profileLabel = "new-ks-profile";
         try {
             handler.createProfileWithCustomUrl(regularKey, profileLabel, 
-                    KickstartVirtualizationType.AUTO, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
                     testTree.getLabel(), "default", "rootpw");
             fail();
         }

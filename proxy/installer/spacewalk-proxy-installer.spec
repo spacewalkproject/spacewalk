@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.5.3
+Version: 0.5.12
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -18,6 +18,7 @@ Requires: rhncfg-actions
 Requires: glibc-common
 Requires: chkconfig
 Requires: httpd
+Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
 
@@ -56,6 +57,7 @@ install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 install -m 755 rhn-proxy-activate $RPM_BUILD_ROOT%{_bindir}
 install -m 644 rhn_proxy_activate.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer
+install -m 644 get_system_id.xslt $RPM_BUILD_ROOT%{_usr}/share/rhn/
 install -m 644 __init__.py $RPM_BUILD_ROOT%{_usr}/share/rhn/installer/
 install -m 644 rhn-proxy-activate.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
 install -m 644 configure-proxy.sh.8.gz $RPM_BUILD_ROOT%{_mandir}/man8/
@@ -76,9 +78,27 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_usr}/share/rhn/installer
 %{_usr}/share/rhn/installer/__init__.py*
 %{_usr}/share/rhn/installer/rhn_proxy_activate.py*
+%{_usr}/share/rhn/get_system_id.xslt
 %{_bindir}/rhn-proxy-activate
+%doc LICENSE answers.txt
 
 %changelog
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.12-1
+- 479541, 483867 - replaced runuser with /sbin/runuser
+
+* Thu Jan 29 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.11-1
+- rewritten configure-proxy.sh
+
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.8-1
+- 469035 - populate configuration channel with new version of configuration files
+- 468924 - die and warn if CA CERT is not readable by apache user
+- 468041 - parse sslCACert correctly
+
+* Fri Jan 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
+- 469059 - add --non-interactive option
+- add LICENSE to %%doc
+- add example of answer file
+
 * Thu Jan 22 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 469059 - add --answer-file option
 

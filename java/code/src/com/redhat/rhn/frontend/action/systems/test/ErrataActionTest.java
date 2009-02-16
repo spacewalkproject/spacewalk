@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -29,6 +29,7 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.domain.rhnpackage.Package;
 
 /**
  * ErrataActionTest
@@ -42,8 +43,9 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(RequestContext.DISPATCH, Boolean.toString(true));
         Server server = ServerFactoryTest.createTestServer(user, true);      
         Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        Package p = (Package) e.getPackages().iterator().next();
         ErrataCacheManager.insertNeededErrataCache(server.getId(), 
-                user.getOrg().getId(), e.getId());
+                e.getId(), p.getId());
         addRequestParameter(RequestContext.SID, server.getId().toString());
         actionPerform();
         assertTrue(getActualForward().indexOf("errata.jsp") > -1);
@@ -71,7 +73,8 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
             e.addChannel(channel);
             ErrataManager.storeErrata(e);
             errata.addElement(e.getId());
-            ErrataFactoryTest.updateNeedsErrataCache(user.getOrg().getId(), 
+            ErrataFactoryTest.updateNeedsErrataCache(
+                    ((Package)e.getPackages().iterator().next()).getId(), 
                     server.getId(), e.getId());
             UserFactory.save(user);
         }

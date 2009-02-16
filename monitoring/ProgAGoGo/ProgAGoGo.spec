@@ -1,5 +1,5 @@
 Name:         ProgAGoGo
-Version:      1.11.3
+Version:      1.11.5
 Release:      1%{?dist}
 Summary:      Program exec''er/respawner
 URL:          https://fedorahosted.org/spacewalk
@@ -33,6 +33,12 @@ install -m 755 gogo.pl $RPM_BUILD_ROOT/%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Feb 10 2009 Jan Pazdziora 1.11.5-1
+- gogo.pl: add a missing semicolon
+
+* Tue Feb  3 2009 Miroslav Suchy <msuchy@redhat.com> 1.11.4-1
+- 455934 - write timestamps to logs by default
+
 * Tue Nov 11 2008 Miroslav Suchý <msuchy@redhat.com> 1.11.3-1
 - call correct module
 

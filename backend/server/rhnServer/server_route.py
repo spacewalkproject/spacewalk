@@ -23,7 +23,7 @@ from common import rhnFlags, log_debug
 from server import rhnSQL, apacheAuth
 
 def store_client_route(server_id):
-    #""" stores the route the client took to get to hosted or the Satellite """
+    """ Stores the route the client took to get to hosted or the Satellite """
 
     log_debug(5, server_id)
 

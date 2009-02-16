@@ -21,9 +21,6 @@ use warnings;
 
 use Getopt::Long;
 use English;
-use Data::Dumper;
-
-$ENV{PATH} = '/bin:/usr/bin';
 
 my $usage = "usage: $0 --target=<target_file> --option=<key,value> "
   . "[ --option=<key,value> ] [ --help ]\n";
@@ -83,7 +80,10 @@ foreach my $opt_name (keys %options) {
 close(TMP);
 close(TARGET);
 
-rename($target, $target . ".orig") or die "Could not rename $target to ${target}.orig: $OS_ERROR";
+if (-e $target . ".orig") {
+    unlink($target . ".orig") or die "Could not remove $target to ${target}.orig prior to new backup: $OS_ERROR";
+}
+link($target, $target . ".orig") or die "Could not rename $target to ${target}.orig: $OS_ERROR";
 rename($tmpfile, $target) or die "Could not rename $tmpfile to $target: $OS_ERROR";;
 
 exit 0;

@@ -1,12 +1,13 @@
 Name:         perl-NOCpulse-PersistentConnection
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.5.3
+Version:      1.5.4
 Release:      1%{?dist}
 Summary:      Persistent HTTP connection over SSL
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:	  nocpulse-common
+Requires:     nocpulse-common
+BuildRequires: perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -43,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.5.4-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
 - require nocpulse-common since we suppose existence of ~nocpulse
 

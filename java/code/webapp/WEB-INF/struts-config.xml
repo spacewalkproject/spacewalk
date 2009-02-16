@@ -118,6 +118,7 @@
         <form-bean name="orgDetailsForm" 
             type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="orgName" type="java.lang.String"/>
+            <form-property name="id" type="java.lang.String"/>
             <form-property name="users" type="java.lang.String"/>
             <form-property name="systems" type="java.lang.String"/>
             <form-property name="groups" type="java.lang.String"/>
@@ -3880,7 +3881,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/childsubconfirm.jsp"/>
         <forward name="success" redirect="true"
-                 path="/channel/ssm/ChildSubscriptions.do"/>
+                 path="/ssm/ViewAllLog.do"/>
     </action>
     
     <action path="/channel/ssm/BaseChannelSubscribe"
@@ -6387,9 +6388,34 @@
     <action path="/help/index"
         forward="/WEB-INF/pages/help/helpindex.jsp"/>
 
+    <!-- SSM Operations Log -->
+    <action path="/ssm/ViewLog"
+            type="com.redhat.rhn.frontend.action.ssm.ViewLogAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log.jsp"/>
+    </action>
+     
+    <action path="/ssm/ViewAllLog"
+            type="com.redhat.rhn.frontend.action.ssm.ViewAllLogAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log.jsp"/>
+    </action>
+     
+    <action path="/ssm/ViewCompletedLog"
+            type="com.redhat.rhn.frontend.action.ssm.ViewCompletedLogAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log.jsp"/>
+    </action>
+     
+    <action path="/ssm/ViewLogDetails"
+            type="com.redhat.rhn.frontend.action.ssm.ViewLogDetailsAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/view-log-details.jsp"/>       
+    </action>
+     
     <!-- SSM Package tab home page -->
-     <action path="/ssm/Packages"
-             forward="/WEB-INF/pages/ssm/packages.jsp" />
+    <action path="/ssm/Packages"
+            forward="/WEB-INF/pages/ssm/packages.jsp" />
 
     <!-- SSM Package Install Pages -->
     <action path="/ssm/PackageInstall"

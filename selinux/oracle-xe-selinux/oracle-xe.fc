@@ -34,6 +34,7 @@
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libocrutl10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libhasgen10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libocci\.so\.10\.1          gen_context(system_u:object_r:texrel_shlib_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libdbcfg10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 # no 11gR1 for now
 # /opt/oracle/product/(.*/)?lib/libsqlplus\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 # /opt/oracle/product/(.*/)?lib/libclntsh\.so\.11.*          gen_context(system_u:object_r:texrel_shlib_t,s0)

@@ -92,7 +92,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     <query name="User.findAllUsers">
         <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl]]>
-    </query>            
+    </query>
+    
+    <query name="User.findAllUsersByOrg">
+        <![CDATA[from com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl as u where org_id = :org_id]]>
+    </query>
+    
     <query name="User.findAllOrgAdmins">
         <![CDATA[
             select u

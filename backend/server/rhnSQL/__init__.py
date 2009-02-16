@@ -92,7 +92,6 @@ def initDB(dsn=None, backend=ORACLE, host="localhost", port=None, username=None,
             (username, temp) = dsn.split("/")
             (password, database) = temp.split("@")
 
-    log_debug(3, dsn)
     # Hide the password
     add_to_seclist(dsn)
     try:

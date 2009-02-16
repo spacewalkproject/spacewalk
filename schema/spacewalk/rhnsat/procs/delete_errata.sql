@@ -21,7 +21,7 @@ delete_errata (
 	errata_id_in in number
 ) is
 begin
-	delete from rhnServerNeededPackageCache where errata_id = errata_id_in;
+	delete from rhnServerNeededCache where errata_id = errata_id_in;
 	delete from rhnPaidErrataTempCache where errata_id = errata_id_in;
 	delete from rhnErrataFile where errata_id = errata_id_in;
 	delete from rhnErrataPackage where errata_id = errata_id_in;

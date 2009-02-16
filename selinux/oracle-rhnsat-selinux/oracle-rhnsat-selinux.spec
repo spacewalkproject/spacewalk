@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         4%{?dist}
+Release:         7%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -22,7 +22,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:         oracle-server = 10.2.0.4
+Requires:         oracle-server >= 10.2.0.3
 Requires:         oracle-nofcontext-selinux
 
 %description
@@ -78,10 +78,10 @@ for selinuxvariant in %{selinux_variants}
   done
 
 # Fix up oracle-server-arch files
-rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
+rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
 
 # Fix up database files
-/sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
+/sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 
 %postun
 # Clean up after package removal
@@ -93,10 +93,10 @@ if [ $1 -eq 0 ]; then
     done
 
   # Clean up oracle-server-arch files
-  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
 
   # Clean up any remaining file contexts (shouldn't be any really)
-  /sbin/restorecon -R -v /rhnsat /var/tmp/.oracle || :
+  /sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
 fi
 
 %files
@@ -106,6 +106,18 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Feb  9 2009 Jan Pazdziora 10.2-7
+- added texrel_shlib_t to libnnz10.so
+- allow listener to append to common logs
+- logs of dbstart and dbshut are not in $ORACLE_HOME/log
+
+* Thu Jan 29 2009 Jan Pazdziora 10.2-6
+- Require oracle-server 10.2.0.3 only, for s390x
+
+* Thu Jan 29 2009 Jan Pazdziora 10.2-5
+- modify policy module to silence numerous AVC denials
+- make restorecon in scriptlets less verbose
+
 * Mon Jan 19 2009 Devan Goodwin <dgoodwin@redhat.com> 10.2-4
 - Remove missed dependency on oracle-selinux.
 

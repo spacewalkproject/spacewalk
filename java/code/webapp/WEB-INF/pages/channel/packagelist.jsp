@@ -35,7 +35,8 @@
                 emptykey="package.jsp.emptylist"
                 alphabarcolumn="nvrea"
                   filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter">
-                
+            
+            <rl:decorator name="PageSizeDecorator"/>
    
                  <rl:column sortable="true" 
                                    bound="false"

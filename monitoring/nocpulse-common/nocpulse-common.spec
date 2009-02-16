@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.1
+Version:      2.1.3
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -10,6 +10,7 @@ Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(pre):  httpd, /usr/sbin/useradd
 Requires(post): /sbin/runuser, openssh
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # merging this two packages together
 # not backward compatible => no Provides:
 Obsoletes:     NPusers <= 1.17.50-1
@@ -52,6 +53,7 @@ install -m644 nocpulse.logrotate \
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
 install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/NOCpulse.ini
+install -m644 forward $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/.forward
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
@@ -71,13 +73,14 @@ fi
 %post
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
+    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
 fi
 
 %files
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
 %config(missingok,noreplace) %{_var}/lib/%{package_name}/NOCpulse.ini
+%{_var}/lib/%{package_name}/.forward
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
@@ -91,6 +94,12 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.3-1
+- 435415 - redirect nocops emails to root
+
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 2.1.2-1
+- fix Requires so we need the perl version we built against
+
 * Wed Dec 10 2008 Miroslav Suchy <msuchy@redhat.com> 2.1.1-1
 - 474551 - obsolete nslogs and ConfigPusher-General
 - bump up version for 0.4 branch

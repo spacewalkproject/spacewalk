@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -28,7 +28,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.redhat.rhn.FaultException;
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -67,8 +66,24 @@ import com.redhat.rhn.manager.user.UserManager;
  */
 public class UserHandler extends BaseHandler {
 
-    private static final String[] USER_EDITABLE_DETAIL_ATTRS = 
-        {"first_names", "last_name", "email", "prefix", "password"};
+    /**
+     * Contains a mapping of details key as submitted by the call to the
+     * {@link #setDetails(String, String, Map)} to the internal key used in the command
+     * and domain objects. This is a band-aid to make the external API read correctly
+     * (first_name instead of first_names) without having to refactor the entire code
+     * base to use the singular version (for instance, User still uses first_names and
+     * will be a significant change to refactor that). For more information, see
+     * bugzilla 469957. 
+     */
+    private static final Map<Object, String> USER_EDITABLE_DETAILS =
+        new HashMap<Object, String>();
+    static {
+        USER_EDITABLE_DETAILS.put("first_name", "first_names");
+        USER_EDITABLE_DETAILS.put("last_name", "last_name");
+        USER_EDITABLE_DETAILS.put("email", "email");
+        USER_EDITABLE_DETAILS.put("prefix", "prefix");
+        USER_EDITABLE_DETAILS.put("password", "password");
+    }
     
     /**
      * Lists the users in the org.
@@ -84,13 +99,12 @@ public class UserHandler extends BaseHandler {
      *     $UserSerializer
      * #array_end()
      */
-    public Object[] listUsers(String sessionKey) throws FaultException {
+    public List listUsers(String sessionKey) throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
-        
         try {
-            DataResult dr = UserManager.usersInOrg(loggedInUser, null, Map.class);
-            return dr.toArray();
+            List users = UserManager.usersInOrg(loggedInUser);
+            return users;
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException();
@@ -156,13 +170,15 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.returntype
      *   #struct("user details")
-     *     #prop("string", "first_names")
+     *     #prop("string", "first_name")
      *     #prop("string", "last_name")
      *     #prop("string", "email")
      *     #prop("int", "org_id")
      *     #prop("string", "prefix")
      *     #prop("string", "last_login_date")
      *     #prop("string", "created_date")
+     *     #prop_desc("boolean", "enabled", "true if user is enabled, 
+     *     false if the user is disabled")
      *   #struct_end()
      */
     public Map getDetails(String sessionKey, String login) throws FaultException {
@@ -172,7 +188,7 @@ public class UserHandler extends BaseHandler {
         LocalizationService ls = LocalizationService.getInstance();
         
         Map ret = new HashMap();
-        ret.put("first_names", StringUtils.defaultString(target.getFirstNames()));
+        ret.put("first_name", StringUtils.defaultString(target.getFirstNames()));
         ret.put("last_name",   StringUtils.defaultString(target.getLastName()));
         ret.put("email",       StringUtils.defaultString(target.getEmail()));
         ret.put("prefix",      StringUtils.defaultString(target.getPrefix()));
@@ -187,6 +203,14 @@ public class UserHandler extends BaseHandler {
                                   "" : ls.formatDate(target.getCreated());
         ret.put("created_date", created);
         ret.put("org_id", loggedInUser.getOrg().getId());
+        
+        if (target.isDisabled()) {
+            ret.put("enabled", Boolean.FALSE);
+        }
+        else {
+            ret.put("enabled", Boolean.TRUE);
+        }
+
         return ret;
     }
     
@@ -207,7 +231,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.param
      *   #struct("user details")
-     *     #prop("string", "first_names")
+     *     #prop("string", "first_name")
      *     #prop("string", "last_name")
      *     #prop("string", "email")
      *     #prop("string", "prefix")
@@ -227,15 +251,18 @@ public class UserHandler extends BaseHandler {
         
         UpdateUserCommand uuc = new UpdateUserCommand(target);
         
-        for (int x = 0; x < UserHandler.USER_EDITABLE_DETAIL_ATTRS.length; x++) {
-            String current = UserHandler.USER_EDITABLE_DETAIL_ATTRS[x];
-            if (details.containsKey(current)) {
-                String newValue = StringUtils.defaultString(
-                        (String) details.get(current));
-                prepareAttributeUpdate(current, uuc, newValue);
+        // Process each entry passed in by the user
+        for (Object userKey : details.keySet()) {
+            
+            // Check to make sure we have an internal key mapping to prevent issues
+            // if the user passes in cruft
+            String internalKey = USER_EDITABLE_DETAILS.get(userKey);
+            if (internalKey != null) {
+                String newValue = StringUtils.defaultString((String) details.get(userKey));
+                prepareAttributeUpdate(internalKey, uuc, newValue);
             }
         }
-        
+
         try {
             uuc.updateUser();
         }
@@ -283,7 +310,7 @@ public class UserHandler extends BaseHandler {
     /**
      * Validates that the select roles is among the ones we support.
      * @param role the role that user wanted to be assigned
-     * @param loggedInUser the logged in user who wants to assign the given role.
+     * @param user the logged in user who wants to assign the given role.
      */
     private void validateRoleInputs(String role, User user) {
         Set <String> assignableRoles = getAssignableRoles(user);

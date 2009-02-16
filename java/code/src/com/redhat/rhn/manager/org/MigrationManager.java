@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -55,21 +55,21 @@ public class MigrationManager extends BaseManager {
     /**
      * Migrate a set of servers to the organization specified
      * @param user Org admin that is performing the migration
-     * @param fromOrg The origination org
      * @param toOrg The destination org
      * @param servers List of servers to be migrated
      * @return the list of server ids successfully migrated.
      */
-    public static List<Long> migrateServers(User user, Org fromOrg, Org toOrg, 
-            List<Server> servers) {
+    public static List<Long> migrateServers(User user, Org toOrg, List<Server> servers) {
         
         List<Long> serversMigrated = new ArrayList<Long>();
         
         for (Server server : servers) {
         
+            Org fromOrg = server.getOrg();
+            
             MigrationManager.removeOrgRelationships(user, server);
             MigrationManager.updateAdminRelationships(fromOrg, toOrg, server);
-            MigrationManager.moveServerToOrg(fromOrg, toOrg, server);
+            MigrationManager.moveServerToOrg(toOrg, server);
             serversMigrated.add(server.getId());
             OrgFactory.save(toOrg);
             OrgFactory.save(fromOrg);
@@ -81,7 +81,7 @@ public class MigrationManager extends BaseManager {
             event.setServer(server);
             event.setSummary("System migration");
             String details = "From organization: " + fromOrg.getName();
-            details += " to organization: " + toOrg.getName();
+            details += ", To organization: " + toOrg.getName();
             event.setDetails(details);
             server.getHistory().add(event);
 
@@ -132,10 +132,8 @@ public class MigrationManager extends BaseManager {
         }
         
         // Remove the errata and package cache
-        ErrataCacheManager.deleteNeededErrataCache(server.getId(), 
-                server.getOrg().getId());
-        ErrataCacheManager.deleteNeededPackageCache(server.getId(), 
-                server.getOrg().getId());
+        ErrataCacheManager.deleteNeededErrataCache(server.getId());
+        ErrataCacheManager.deleteNeededPackageCache(server.getId());
         
         // Remove snapshots
         List<ServerSnapshot> snapshots = ServerFactory.listSnapshotsForServer(
@@ -187,13 +185,12 @@ public class MigrationManager extends BaseManager {
     }
     
     /**
-     * Move the server from the originating org to the destination org.
+     * Move the server to the destination org.
      *
-     * @param fromOrg originating org where the server currently exists
      * @param toOrg destination org where the server will be migrated to
      * @param server Server to be migrated.
      */
-    public static void moveServerToOrg(Org fromOrg, Org toOrg, Server server) {
+    public static void moveServerToOrg(Org toOrg, Server server) {
         
         // Move the server
         server.setOrg(toOrg);

@@ -1,0 +1,210 @@
+#!/usr/bin/python
+#
+# Script to synchronize RHN meta data between Red Hat and a local RHN Satellite.
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+# 
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation. 
+#
+
+# For return codes see bottom of this file
+
+if __name__ != '__main__':
+    raise ImportError, "module cannot be imported"
+
+import sys
+def systemExit(code, msgs=None):
+    "Exit with a code and optional message(s). Saved a few lines of code."
+
+    if msgs:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs, )
+        for msg in msgs:
+            sys.stderr.write(str(msg)+'\n')
+    sys.exit(code)
+
+
+try:
+    import os
+    import socket
+except KeyboardInterrupt:
+    systemExit(0, "\nUser interrupted process.")
+
+
+_LIBPATH = "/usr/share/rhn"
+# add to the path if need be
+if _LIBPATH not in sys.path:
+    sys.path.append(_LIBPATH)
+
+# quick check to see if you are a super-user.
+if os.getuid() != 0:
+    sys.stderr.write('ERROR: must be root to execute\n')
+    sys.exit(8)
+
+
+try:
+    from common import rhnLockfile, CFG, fetchTraceback
+except KeyboardInterrupt:
+    systemExit(0, "\nUser interrupted process.")
+except ImportError:
+    sys.stderr.write("Unable to find RHN code tree.\n"
+                     "Path not correct? '%s'\n" % _LIBPATH)
+    raise
+
+
+### acquire lock/check for other instances of satellite-sync
+#   i.e., lock against multiple instances of satellite-sync
+LOCK = None
+try:
+    LOCK = rhnLockfile.Lockfile('/var/run/satellite-repo-sync.pid')
+except rhnLockfile.LockfileLockedException:
+    systemExit(1, "SYNC ERROR: attempting to run more than one instance of satellite-sync. Exiting.")
+
+try:
+    # NOTE: importing satsync will initialize the logs and CFG
+    from satellite_tools import satsync, syncLib
+except KeyboardInterrupt:
+    systemExit(0, "\nUser interrupted process.")
+except ImportError, e:
+    systemExit(2, "Unable to find synchronization tools.\n"
+                  "Error: %s" % e)
+
+
+def repr_str(e):
+    """ return a repr(e), str(e) string safely
+        Will return something like:
+            '''
+            ...repr(e)...
+            ...str(e)...'''
+    """
+
+    s = ''
+    
+    hasReprYN = hasattr(e, '__repr__')
+    hasStrYN = hasattr(e, '__str__')
+
+    if hasReprYN and hasStrYN and e.__repr__ == e.__str__:
+        s = '\n%s' % repr(e)
+    else:
+        if hasReprYN:
+            s = '\n%s' % repr(e)
+        if hasStrYN:
+            s = s + '\n%s' % str(e)
+    return s
+
+
+def systemExit_exception(code, msgs, e):
+    """ Exit with a code. Message will head exception info.
+        Traceback will be added to email log and written to disk.
+        Email log is sent.
+    """
+
+    header = ''
+    if msgs:
+        if type(msgs) not in [type([]), type(())]:
+            msgs = (msgs, )
+        for msg in msgs:
+            header = header + str(msg) + '\n'
+        header = header + '\n'
+
+    ## write to disk (log file) and email
+    tb = header + fetchTraceback()
+    syncLib.log2disk(-1, tb)
+    # force the whole email thing
+    syncLib.initEMAIL_LOG()
+    syncLib.log2email(-1, tb)
+
+    ## write to stderr, send the email, and exit
+    stderrmsg = header + "(Check logs/email for potentially more detail)\n" + \
+                repr_str(e) + '\n'
+    satsync.sendMail(forceEmail=1)
+    systemExit(code, stderrmsg)
+
+
+def releaseLOCK():
+    global LOCK
+    if LOCK:
+        LOCK.release()
+
+
+def main():
+    # execute
+    try:
+        return satsync.Runner().main()
+    except KeyboardInterrupt:
+        systemExit(0, "\nUser interrupted process.")
+    except SystemExit:
+        satsync.sendMail()
+        raise
+    except socket.error, e:
+        msg = "\nERROR: a general socket occurred:"
+        systemExit_exception(3, msg, e)
+    except socket.sslerror, e:
+        msg = ("""
+ERROR: an SSL error occurred. Recheck your SSL settings. Those settings may
+       include URL's, SSL Certificate settings, firewall rules, etc..
+       Also, check that your system time has not drifted! Time drift is one
+       of the primary reasons for SSL connection failures.""")
+        systemExit_exception(4, msg, e)
+    except syncLib.RhnSyncException, e:
+        msg = "\nSYNC ERROR:"
+        systemExit_exception(5, msg, e)
+    except Exception, e:
+        msg = "\nSYNC ERROR: unhandled exception occurred:"
+        systemExit_exception(6, msg, e)
+
+    releaseLOCK()
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(abs(main() or 0))
+    except KeyboardInterrupt:
+        systemExit(0, "\nUser interrupted process.")
+    except SystemExit, e:
+        releaseLOCK()
+        sys.exit(e.code)
+    except Exception, e:
+        releaseLOCK()
+        systemExit_exception(7, "SYNC ERROR: attempting to display as much information as possible:", e)
+
+
+#Returned codes means:
+#-1 Could not lock file or KeyboardInterrupt or SystemExit
+#0  User interrupted process.
+#1  attempting to run more than one instance of satellite-sync.
+#2  Unable to find synchronization tools.
+#3  a general socket occurred
+#4  an SSL error occurred. Recheck your SSL settings.
+#5  RHN error
+#6  unhandled exception occurred
+#7  unknown sync error
+#8  ERROR: must be root to execute
+#9  rpclib fault during synchronization init
+#10 synchronization init error
+#11 Error parsing XML stream
+#12 Channel do not exist
+#13 SQL error during importing package metadata
+#14 SQL error during linking channel packages
+#15 SQL error during xml processing
+#16 server.mount_point not set in the configuration file
+#17 SQL error during retrieving the channels already imported in the satellite's database
+#18 Wrong db connection string in rhn.conf
+#19 Bad arguments
+#20 Could not connect to db.
+#21 Bad debug level
+#22 Not valid step
+#23 error: --rhn-cert requires --mount-point
+#24 no such file
+#25 no such directory
+
