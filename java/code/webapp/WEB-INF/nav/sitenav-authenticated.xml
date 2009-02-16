@@ -231,7 +231,7 @@
        <rhn-tab name="General" acl="user_role(satellite_admin); is(satellite)">
         <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Monitoring" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Monitoring" acl="user_role(satellite_admin); show_scout()">
         <rhn-tab-url>/rhn/admin/config/MonitoringConfig.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Certificate" acl="user_role(satellite_admin); is(satellite)">

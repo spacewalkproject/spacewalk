@@ -44,6 +44,22 @@ public class MonitoringAclHandler extends BaseHandler implements AclHandler {
         User user = (User) map.get("user");
         return checkMonitoring(user) && user.hasRole(RoleFactory.MONITORING_ADMIN);
     }
+
+    /**
+     * Check to see if Monitoring or Scout is turned on and if the
+     * User is a MONITORING_ADMIN or not and if we should then
+     * display details about monitoring scout
+     * @param ctx Context Map to pass in
+     * @param params Parameters to use to fetch from Context
+     * @return true if access is granted, false otherwise
+     */
+    public boolean aclShowScout(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        User user = (User) map.get("user");
+        return user.hasRole(RoleFactory.MONITORING_ADMIN) && (
+            Config.get().getBoolean("is_is_monitoring_backend") ||
+            Config.get().getBoolean("is_is_monitoring_scout") )
+    }
     
     /**
      * Check to see if Monitoring is turned on and if the 
