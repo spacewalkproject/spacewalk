@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.15
+Version: 0.5.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,7 +215,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.15-1
+* Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.16-1
 - 458355 - show Monitoring tabs only if Monitoring Backend or Monitoring Scout is enabled
 - 481766 - Corrected the text on Ks Distribution page to reflect the exact nature of the value to be
 - 483796 - fixed bug where ip address would show up as 0
