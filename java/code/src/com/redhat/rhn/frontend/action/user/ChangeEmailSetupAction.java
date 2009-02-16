@@ -79,18 +79,6 @@ public class ChangeEmailSetupAction extends RhnAction {
             pageInstructions = ls.getMessage("yourchangeemail.instructions");
             buttonLabel = ls.getMessage("message.Update");
         }
-        else if (email != null && !email.equals("")) {
-            pageInstructions = ls.getMessage("yourchangeemail.verified");
-            buttonLabel = ls.getMessage("message.Update");
-        }
-        else {
-            HtmlTag link = new HtmlTag("a");
-            link.setAttribute("href", "/rhn/tnc/TnCDisplay.do");
-            link.addBody(ls.getMessage("yourchangeemail.TermsAndConditions"));
-
-            pageInstructions = ls.getMessage("yourchangeemail.unverified", link.render());
-            buttonLabel = ls.getMessage("addresses.SendVerification");
-        }
 
         //Set request and form vars for page
         request.setAttribute("pageinstructions", pageInstructions);

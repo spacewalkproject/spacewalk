@@ -102,18 +102,6 @@
       <rhn-tab name="Custom Channels" url="/rhn/software/channels/Custom.do"/>
       <rhn-tab name="Retired Channels" url="/rhn/software/channels/Retired.do"/>
     </rhn-tab>
-    <rhn-tab name="Download Software" acl="not global_config(satellite)" url="/rhn/software/downloads/SupportedISOs.do">
-        <rhn-tab-url>/rhn/software/downloads/Help.do</rhn-tab-url>
-      <rhn-tab name="Supported">
-        <rhn-tab-url>/rhn/software/downloads/SupportedISOs.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="All">
-        <rhn-tab-url>/rhn/software/downloads/AllISOs.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="Retired">
-        <rhn-tab-url>/rhn/software/downloads/RetiredISOs.do</rhn-tab-url>
-      </rhn-tab>
-    </rhn-tab>
     <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do">
       <rhn-tab-directory>/network/software/packages</rhn-tab-directory>
     </rhn-tab>

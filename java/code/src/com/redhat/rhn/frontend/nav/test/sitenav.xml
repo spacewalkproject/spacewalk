@@ -69,10 +69,6 @@
 				acl="is(development_environment)">
 				<rhn-tab-directory>/rpc/api</rhn-tab-directory>
 			</rhn-tab>
-			<rhn-tab name="Mixin Test" url="/help/latest-up2date.pxt" 
-				acl="mixin_test()">
-				<rhn-tab-url>/help/ssl_cert.pxt</rhn-tab-url>
-			</rhn-tab>
             <rhn-tab name="By Directory" url="/rhn/by/directory/index.jsp">
 				<rhn-tab-directory>/rhn/by/directory</rhn-tab-directory>
 			</rhn-tab>

@@ -55,29 +55,5 @@ public class ChangeEmailSetupActionTest extends RhnBaseTestCase {
             assertEquals(ls.getMessage("message.Update"),
                          sah.getRequest().getAttribute("button_label"));
         }
-        else {
-            // We're dealing with the hosted environment which cares about
-            // confirmed/verified email addrs
-            assertEquals(ls.getMessage("yourchangeemail.verified"),
-                         sah.getRequest().getAttribute("pageinstructions"));
-            assertEquals(ls.getMessage("message.Update"),
-                         sah.getRequest().getAttribute("button_label"));
-
-            //Test unverified
-            user.setEmail("");
-            UserManager.storeUser(user);
-
-            result = sah.executeAction();
-            assertEquals("default", result.getName());
-
-            HtmlTag link = new HtmlTag("a");
-            link.setAttribute("href", "/rhn/tnc/TnCDisplay.do");
-            link.addBody(ls.getMessage("yourchangeemail.TermsAndConditions"));
-
-            assertEquals(ls.getMessage("yourchangeemail.unverified", link.render()),
-                         sah.getRequest().getAttribute("pageinstructions"));
-            assertEquals(ls.getMessage("addresses.SendVerification"),
-                         sah.getRequest().getAttribute("button_label"));
-        }
     }
 }

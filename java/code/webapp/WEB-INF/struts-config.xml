@@ -6080,33 +6080,6 @@
 	<!-- ===== END CONFIGURATION ===== -->
 	
 	<!-- ===== START ISO DOWNLOAD ===== -->
-	<action path="/software/downloads/AllISOs"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isotree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-		name="submittedForm"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isotree.jsp"/>
-    </action>
-	<action path="/software/downloads/SupportedISOs"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isotree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-		name="submittedForm"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isotree.jsp"/>
-    </action>
-	<action path="/software/downloads/RetiredISOs"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isotree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-		name="submittedForm"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isotree.jsp"/>
-    </action>
 	<action path="/software/downloads/Help"
         scope="request"
         input="/WEB-INF/pages/software/downloads/isohelp.jsp"

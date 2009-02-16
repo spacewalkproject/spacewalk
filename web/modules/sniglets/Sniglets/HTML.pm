@@ -356,32 +356,4 @@ sub return_link {
   return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
 }
 
-# generate dynamic tabs for FAQ
-sub faq_tabs {
-  my $class = shift;
-
-  my $ds = new RHN::DataSource::General(-mode => 'faq_classes');
-  my $classes = $ds->execute_query;
-
-  my @nodes;
-
-  my $total = 0;
-
-  foreach my $class (@{$classes}) {
-    next unless ($class->{FAQ_COUNT} > 0);
-    $total += $class->{FAQ_COUNT};
-    push @nodes, new Sniglets::Navi::Node(name => $class->{NAME}, url => '/help/faq/' . $class->{LABEL} . '.pxt');
-  }
-
-  if ($total) {
-    unshift @nodes, new Sniglets::Navi::Node(name => 'Top Ten', url => '/help/faq/top_ten.pxt');
-    # make this an alias for /help/faq/
-    $nodes[0]->add_url("/help/faq/");
-
-    push @nodes, new Sniglets::Navi::Node(name => 'All', url => '/help/faq/all_faqs.pxt');
-  }
-
-  return @nodes;
-}
-
 1;
