@@ -71,14 +71,9 @@ public class ChangeEmailSetupAction extends RhnAction {
         /*
          * ** Logic from Sniglests/Users.pm - rhn_email_change_form **
          * If this is a satellite, we don't care about whether or not this addr is verified.
-         * Else, if the address is verified, display the change/update text,
-         * Otherwise, display the terms link and give the user an option to re-send
-         * verification
          */
-        if (Config.get().getBoolean("web.satellite")) {
-            pageInstructions = ls.getMessage("yourchangeemail.instructions");
-            buttonLabel = ls.getMessage("message.Update");
-        }
+        pageInstructions = ls.getMessage("yourchangeemail.instructions");
+        buttonLabel = ls.getMessage("message.Update");
 
         //Set request and form vars for page
         request.setAttribute("pageinstructions", pageInstructions);

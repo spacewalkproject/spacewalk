@@ -49,11 +49,9 @@ public class ChangeEmailSetupActionTest extends RhnBaseTestCase {
 
         //If we are a satellite, then we should expect yourchangeemail.instructions
         //and message.Update
-        if (Config.get().getBoolean("web.satellite")) {
-            assertEquals(ls.getMessage("yourchangeemail.instructions"),
-                         sah.getRequest().getAttribute("pageinstructions"));
-            assertEquals(ls.getMessage("message.Update"),
-                         sah.getRequest().getAttribute("button_label"));
-        }
+        assertEquals(ls.getMessage("yourchangeemail.instructions"),
+                     sah.getRequest().getAttribute("pageinstructions"));
+        assertEquals(ls.getMessage("message.Update"),
+                     sah.getRequest().getAttribute("button_label"));
     }
 }
