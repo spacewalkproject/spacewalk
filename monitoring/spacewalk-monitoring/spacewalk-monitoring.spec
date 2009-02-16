@@ -11,21 +11,6 @@ BuildArch:    noarch
 Conflicts: rhnmd
 
 # Monitoring support
-# FIXME: do we need this? isn't it automaticaly req. by perl(foo) pragma?
-Requires:       perl-Apache-DBI
-Requires:       perl-Class-MethodMaker
-Requires:       perl-Config-IniFiles
-Requires:       perl-Crypt-GeneratePassword
-Requires:       perl-FreezeThaw
-Requires:       perl-HTML-TableExtract
-Requires:       perl-IO-Capture
-Requires:       perl-IO-Socket-SSL
-Requires:       perl-IO-stringy
-Requires:       perl-MailTools
-Requires:       perl-MIME-tools
-Requires:       perl-Net-SNMP
-Requires:       perl-Network-IPv4Addr
-Requires:       perl-XML-Generator
 #we need this package for EL4
 #Requires:       perl-CGI-mp20
 
@@ -118,5 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com>
+- remove perl-Apache-Admin-Config packages
+- remove support packages, which are installed by transitive hulk
+
 * Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
 - Initial build
