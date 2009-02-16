@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- yum repodata regen changes to taskomatic
+ 
 * Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
 - code cleanup - enable_notification_cron, disable_notification_cron,
   monitoring_available are not used any more (Miroslav S.)
