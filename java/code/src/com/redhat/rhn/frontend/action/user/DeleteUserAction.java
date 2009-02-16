@@ -50,7 +50,7 @@ public class DeleteUserAction extends RhnAction {
         
         RequestContext requestContext = new RequestContext(request);
 
-        if (!AclManager.hasAcl("user_role(org_admin);is(satellite)",
+        if (!AclManager.hasAcl("user_role(org_admin)",
                 request, null)) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
