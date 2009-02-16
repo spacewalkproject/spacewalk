@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.10
+Version: 0.5.11
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,7 +318,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.11-1
 - yum repodata regen changes to taskomatic
  
 * Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
