@@ -268,6 +268,17 @@ ORDER BY RT.note, RT.id
   </query>
 </mode>
 
+<mode name="activation_keys_for_server" class="com.redhat.rhn.frontend.dto.ActivationKeyDto">
+  <query params="server_id">
+  SELECT AK.token,
+         AK.reg_token_id AS id
+    FROM rhnServerTokenRegs STR,
+         rhnActivationKey AK
+   WHERE STR.server_id = :server_id
+     AND AK.reg_token_id = STR.token_id
+  </query>
+</mode>
+
 <mode name="valid_timezones_for_kickstart_profile" class="com.redhat.rhn.frontend.dto.TimezoneDto">
   <query params="ksid">
   SELECT KTZ.id,

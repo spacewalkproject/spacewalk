@@ -894,6 +894,21 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * Returns the list of activation keys used when the system was
+     * registered.
+     * @param serverIn the server to query for
+     * @return list of ActivationKeyDto containing the token id and name
+     */
+    public static DataResult getActivationKeys(Server serverIn) {
+
+        SelectMode m = ModeFactory.getMode("General_queries",
+        "activation_keys_for_server");
+        Map params = new HashMap();
+        params.put("server_id", serverIn.getId());
+        return makeDataResult(params, Collections.EMPTY_MAP, null, m);
+    }
+
+    /**
      * Returns list of inactive systems visible to user, sorted by name.
      * @param user Currently logged in user.
      * @param pc PageControl
