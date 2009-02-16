@@ -181,6 +181,8 @@ public abstract class GenericIndexTask implements Job {
             Map params = new HashMap();
             params.put("id", sid);
             params.put("last_modified", lastRun);
+            log.info("GenericIndexTask<" + super.getClass().toString() +
+                    " last processed id = " + sid + ", lastRun was " + lastRun);
             retval = srvrQuery.loadList(params);
         }
         finally {
