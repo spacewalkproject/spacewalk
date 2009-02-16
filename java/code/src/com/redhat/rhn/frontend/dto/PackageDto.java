@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -16,19 +16,20 @@ package com.redhat.rhn.frontend.dto;
 
 import java.util.Date;
 /**
- * 
- * @version $Rev $
+ * PackageDto
+ * @version $Rev$
  *
+ * DTO for a specific set of package data returned from some data source
+ * package queries.
  */
 public class PackageDto extends BaseDto {
 
     private Long id;
-    private String packageName;
-    private String packageNvr;
-    private String packageVersion;
-    private String packageRelease;
-    private String packageEpoch;
-    private String packageArchLabel;
+    private String name;
+    private String version;
+    private String release;
+    private String epoch;
+    private String archLabel;
     private String md5sum;
     private Long cid;
     private String channelName;
@@ -46,18 +47,105 @@ public class PackageDto extends BaseDto {
     private Long headerStart;
     private Long headerEnd;
 
+    // Pre-existing queries returning this as a string.
+    private String lastModified;
+
     /**
-     * @return Returns Id
+     * @return the id
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * @param idIn The id to set.
+     * @param idIn the id to set
      */
     public void setId(Long idIn) {
         this.id = idIn;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param nameIn the name to set
+     */
+    public void setName(String nameIn) {
+        this.name = nameIn;
+    }
+
+    /**
+     * @return the version
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * @param versionIn the version to set
+     */
+    public void setVersion(String versionIn) {
+        this.version = versionIn;
+    }
+
+    /**
+     * @return the release
+     */
+    public String getRelease() {
+        return release;
+    }
+
+    /**
+     * @param releaseIn the release to set
+     */
+    public void setRelease(String releaseIn) {
+        this.release = releaseIn;
+    }
+
+    /**
+     * @return the epoch
+     */
+    public String getEpoch() {
+        return epoch;
+    }
+
+    /**
+     * @param epochIn the epoch to set
+     */
+    public void setEpoch(String epochIn) {
+        this.epoch = epochIn;
+    }
+
+    /**
+     * @return the archLabel
+     */
+    public String getArchLabel() {
+        return archLabel;
+    }
+
+    /**
+     * @param archLabelIn the archLabel to set
+     */
+    public void setArchLabel(String archLabelIn) {
+        this.archLabel = archLabelIn;
+    }
+
+    /**
+     * @return the lastModified
+     */
+    public String getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * @param lastModifiedIn the lastModified to set
+     */
+    public void setLastModified(String lastModifiedIn) {
+        this.lastModified = lastModifiedIn;
     }
 
     /**
@@ -88,66 +176,6 @@ public class PackageDto extends BaseDto {
         this.cid = cidIn;
     }
 
-    /**
-     * @return Returns the package name.
-     */
-    public String getPackageName() {
-        return packageName;
-    }
-
-    /**
-     * @param packageNameIn The packageName to set.
-     */
-    public void setPackageName(String packageNameIn) {
-        this.packageName = packageNameIn;
-    }
-
-    /**
-     * @return Returns the package version.
-     */
-    public String getPackageVersion() {
-        return packageVersion;
-    }
-
-    /**
-     * 
-     * @param packageVersionIn package version
-     */
-    public void setPackageVersion(String packageVersionIn) {
-        this.packageVersion = packageVersionIn;
-    }
-
-    /**
-     * 
-     * @return Returns package Release
-     */
-    public String getPackageRelease() {
-        return packageRelease;
-    }
-
-    /**
-     * 
-     * @param packageReleaseIn The package release to set
-     */
-    public void setPackageRelease(String packageReleaseIn) {
-        this.packageRelease = packageReleaseIn;
-    }
-
-    /**
-     * 
-     * @return Returns package epoch
-     */
-    public String getPackageEpoch() {
-        return packageEpoch;
-    }
-
-    /**
-     * 
-     * @param packageEpochIn The package epoch to set.
-     */
-    public void setPackageEpoch(String packageEpochIn) {
-        this.packageEpoch = packageEpochIn;
-    }
 
     /**
      * 
