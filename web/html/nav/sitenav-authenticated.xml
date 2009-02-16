@@ -15,8 +15,6 @@
     <rhn-tab name="Subscription Management" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" >
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
-      <rhn-tab name="Purchase or Renew" url="/rhn/account/SubscriptionManagement.do" acl="not global_config(satellite); user_role(org_admin)" />
-      <rhn-tab name="Expiration Dates &amp; Purchase History" url="/rhn/account/PurchaseHistory.do" acl="not global_config(satellite); user_role(org_admin)" />
     </rhn-tab>  
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
@@ -88,7 +86,7 @@
       <rhn-tab name="Published" url="/rhn/errata/manage/PublishedErrata.do" acl="user_role(channel_admin)" />
       <rhn-tab name="Unpublished" url="/rhn/errata/manage/UnpublishedErrata.do" acl="user_role(channel_admin)" />
     </rhn-tab>
-    <rhn-tab name="Clone Errata" url="/rhn/errata/manage/CloneErrata.do" acl="user_role(channel_admin); global_config(satellite)">
+    <rhn-tab name="Clone Errata" url="/rhn/errata/manage/CloneErrata.do" acl="user_role(channel_admin)">
       <rhn-tab-directory>/rhn/errata/manage</rhn-tab-directory>
     </rhn-tab>
   </rhn-tab>
@@ -133,7 +131,6 @@
         <rhn-tab-url>/rhn/configuration/system/Summary.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Quota for File Storage" url="/rhn/configuration/Quota.do" acl="user_role(config_admin);not global_config(satellite)" />
   </rhn-tab>
   <rhn-tab name="Schedule" url="/rhn/schedule/PendingActions.do" active-image="tab-schedule-selected.gif" inactive-image="tab-schedule.gif">
     <rhn-tab name="Pending Actions" url="/rhn/schedule/PendingActions.do"/>
@@ -172,8 +169,8 @@
       <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin); global_config(satellite)">
-    <rhn-tab name="Organizations" acl="user_role(satellite_admin); global_config(satellite)" url="/rhn/admin/multiorg/Organizations.do">
+  <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin)">
+    <rhn-tab name="Organizations" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Organizations.do">
         <rhn-tab-url>/rhn/admin/multiorg/OrgDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgUsers.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/DeleteOrg.do</rhn-tab-url>
@@ -181,16 +178,16 @@
         <rhn-tab-url>/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgCreate.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Subscriptions" acl="user_role(satellite_admin); global_config(satellite)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
-      <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin); global_config(satellite)">
+    <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
+      <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlements.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="System Entitlements" acl="user_role(satellite_admin); global_config(satellite)">
+      <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/EntitlementOrgs.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Users" acl="user_role(satellite_admin); global_config(satellite)" url="/rhn/admin/multiorg/Users.do">
+    <rhn-tab name="Users" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Users.do">
     </rhn-tab>
     <rhn-tab acl="user_role(satellite_admin)" url="/rhn/admin/config/GeneralConfig.do">
       <rhn-tab-name><pxt-config var="product_name"/> Configuration</rhn-tab-name>
@@ -200,7 +197,7 @@
       <rhn-tab name="General" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Monitoring" acl="show_monitoring(); global_config(satellite); user_role(satellite_admin)">
+      <rhn-tab name="Monitoring" acl="show_monitoring(); user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/MonitoringConfig.do</rhn-tab-url>
       </rhn-tab>
       <rhn-tab name="Certificate" acl="user_role(satellite_admin)">
@@ -216,7 +213,7 @@
         <rhn-tab-url>/rhn/admin/config/Restart.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="Task Engine Status" url="/internal/satellite/task_engine/index.pxt" acl="user_role(satellite_admin); global_config(satellite)">
+    <rhn-tab name="Task Engine Status" url="/internal/satellite/task_engine/index.pxt" acl="user_role(satellite_admin)">
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Developer's Area" url="/dev/index.pxt" acl="global_config(development_environment)"
@@ -227,13 +224,10 @@
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/help</rhn-tab-directory>
-    <rhn-tab name="Quick Start Guide" url="/rhn/help/quickstart.jsp" acl="not global_config(satellite)"/>
-    <rhn-tab name="FAQ" url="/help/faq/" acl="not global_config(satellite)" dynamic-children="Sniglets::HTML->faq_tabs"/>
-    <rhn-tab name="RHL Migration FAQ" url="/help/rhlmigrationfaq/index.pxt" acl="not global_config(satellite)" />
     <rhn-tab name="Reference Guide" url="https://www.redhat.com/docs/manuals/satellite">
         <rhn-tab-directory>/rhn/help/reference/</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Installation Guide" url="https://www.redhat.com/docs/manuals/satellite" acl="global_config(satellite) or org_channel_family(rhn-satellite)">
+    <rhn-tab name="Installation Guide" url="https://www.redhat.com/docs/manuals/satellite" >
         <rhn-tab-directory>/rhn/help/satellite/</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Proxy Guide" url="https://www.redhat.com/docs/manuals/satellite">
@@ -245,8 +239,6 @@
     <rhn-tab name="Channel Management" url="https://www.redhat.com/docs/manuals/satellite" >
         <rhn-tab-directory>/rhn/help/channel-mgmt/</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Terms &amp; Conditions" url="https://www.redhat.com/licenses/" acl="not global_config(satellite)" />
-    <rhn-tab name="Outage Policy" url="/rhn/help/outage-policy.jsp" acl="not global_config(satellite)" />
     <rhn-tab name="Proxy Release Notes" url="https://www.redhat.com/docs/manuals/satellite" >
         <rhn-tab-directory>/rhn/help/release-notes/proxy/</rhn-tab-directory>
     </rhn-tab>

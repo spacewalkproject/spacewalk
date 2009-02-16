@@ -4,6 +4,6 @@ AuthName "RHN Channel Admin Area"
 PerlModule PXT::ApacheHandler
 PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
-require acl user_role(channel_admin);global_config(satellite)
+require acl user_role(channel_admin)
 
 PerlSetVar errata_context manage

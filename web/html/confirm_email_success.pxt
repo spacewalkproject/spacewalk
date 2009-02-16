@@ -13,9 +13,6 @@
     <ul style="line-height: 200%">
         <li>Begin using the <a href="/index.pxt"><pxt-config var="product_name" /></a>.</li>
       <li>Review <a href="/rhn/account/UserDetails.do">Your Account</a>.</li>
-<rhn-require acl="not global_config(satellite)">
-      <li>Purchase some <a href="/rhn/account/SubscriptionManagement.do">Entitlements</a>.</li>
-</rhn-require>
     </ul>
   </div>
 

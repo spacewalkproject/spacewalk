@@ -4,4 +4,4 @@ AuthName "RHN Internal Pages"
 PerlModule PXT::ApacheHandler
 PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
-require acl user_role(satellite_admin); global_config(satellite)
+require acl user_role(satellite_admin)

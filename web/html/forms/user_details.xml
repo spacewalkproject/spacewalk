@@ -29,7 +29,7 @@ or:
     <filter type="text" />
   </widget>
   <widget type="literal" name="User Type" label="user_type" default="(normal user)" acl="org_entitlement(sw_mgr_enterprise)"/>
-  <widget type="checkbox" name="Use PAM" label="use_pam_authentication" acl="global_config(satellite);global_config(pam_auth_service)" default="1"/>
+  <widget type="checkbox" name="Use PAM" label="use_pam_authentication" acl="global_config(pam_auth_service)" default="1"/>
   <widget type="password" name="Password" label="user_password" size="20" maxlength="32">
     <filter type="password" />
     <require min-length="5" />

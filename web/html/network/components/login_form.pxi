@@ -25,10 +25,6 @@
 [login_form_hidden]
 </div>
 
-<rhn-require acl="not global_config(satellite)">
-<p align="center"><a href="/rhn/newlogin/CreateLogin.do">Create Login</a> :: <a href="/help/forgot_password.pxt">Lost Login/Password?</a></p>
-</rhn-require>
-
 </rhn-login-form>
 </pxt-form>
 

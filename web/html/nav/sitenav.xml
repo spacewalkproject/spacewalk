@@ -6,9 +6,7 @@
   <rhn-tab name="About" url="/help/about.pxt" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >
     <rhn-tab name="About" url="/help/about.pxt" />
     <rhn-tab name="Help Desk" url="/rhn/help/index.do" />
-    <rhn-tab name="FAQ" url="/help/faq/" acl="not global_config(satellite)" dynamic-children="Sniglets::HTML->faq_tabs"/>
-    <rhn-tab name="RHL Migration FAQ" url="/help/rhlmigrationfaq/index.pxt" acl="not global_config(satellite)" />
-    <rhn-tab name="Lookup Login/Password" url="/help/forgot_password.pxt" acl="global_config(satellite)"/>
+    <rhn-tab name="Lookup Login/Password" url="/help/forgot_password.pxt"/>
     <rhn-tab name="Proxy Release Notes" url="https://www.redhat.com/docs/manuals/satellite">
         <rhn-tab-directory>/rhn/help/release-notes/proxy/</rhn-tab-directory>
     </rhn-tab>
@@ -31,8 +29,6 @@
         <rhn-tab-directory>/rhn/help/channel-mgmt/</rhn-tab-directory>
     </rhn-tab>
 
-    <rhn-tab name="Terms &amp; Conditions" url="https://www.redhat.com/licenses/" acl="not global_config(satellite)" />
-    <rhn-tab name="Outage Policy" url="/rhn/help/outage-policy.jsp" acl="not global_config(satellite)" />
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp" />
     <rhn-tab name="Search" url="/rhn/help/Search.do" />
 
