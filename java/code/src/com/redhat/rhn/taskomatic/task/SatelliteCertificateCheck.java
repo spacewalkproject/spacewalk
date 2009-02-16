@@ -70,13 +70,8 @@ public class SatelliteCertificateCheck extends SingleThreadedTask {
         mail.setBody(body);
         mail.setRecipients(TaskHelper.getAdminEmails(org));
         
-        String from = Config.get().getString("web.customer_service_email");
-        
-        if (from == null || "".equals(from)) {
-            log.warn("web.customer_service_email configuration " + 
-                     "entry not set, using dev-null@redhat.com");
-            from = "dev-null@redhat.com";
-        }
+        String from = Config.get().getString("web.customer_service_email",
+                                             "dev-null@redhat.com");
         
         mail.setFrom(from);
         mail.setHeader("X-RHN-Info", "backend_satellite_certificate_check");
