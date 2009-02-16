@@ -569,6 +569,17 @@ def main():
     if not options.sanity_only:
         prepRhnCert(options)
 
+        # local activation
+        try:
+            rhnSQL.initDB(CFG.DEFAULT_DB)
+            if options.verbose:
+                print ("Database connectioned initialized: refer to default_db "
+                       "setting in %s" % CFG.file)
+            activateSatellite_local(options)
+        except RHNCertLocalActivationException, e:
+            writeError(e)
+            return 30
+
         # remote activation
         if not options.disconnected:
             try:
@@ -604,17 +615,6 @@ def main():
             except TimeoutException, e:
                 writeError(e)
                 return 89
-
-        # local activation
-        try:
-            rhnSQL.initDB(CFG.DEFAULT_DB)
-            if options.verbose:
-                print ("Database connectioned initialized: refer to default_db "
-                       "setting in %s" % CFG.file)
-            activateSatellite_local(options)
-        except RHNCertLocalActivationException, e:
-            writeError(e)
-            return 30
 
         # channel family stuff
         if not options.disconnected:
