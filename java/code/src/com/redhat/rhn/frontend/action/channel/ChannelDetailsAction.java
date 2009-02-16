@@ -90,8 +90,8 @@ public class ChannelDetailsAction extends RhnAction {
             form.set("global", "selected");
         }
         
-        if (user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
-            UserManager.verifyChannelAdmin(user, chan)) {
+        if ((chan.getOrg() == null && user.hasRole(RoleFactory.CHANNEL_ADMIN)) || 
+                UserManager.verifyChannelAdmin(user, chan)) {
             request.setAttribute("has_access", true);
         }
         else {
