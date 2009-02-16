@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.11
+Version:        0.5.12
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -81,6 +81,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Feb 16 2009 Dave Parker <dparker@redhat.com> 0.5.12-1
+-  Bug 483102 - Need answer file setting for installer question "Should setup configure apache's default ssl server for you"
+
 * Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.11-1
 - 484713, 484720 - fix sudoers
 
