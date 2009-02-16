@@ -540,11 +540,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.5-1
-- bz#368711 bz#480063
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
+- yum repodata regen support through taskomatic
 
 * Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - move logs from /var/tmp to /var/log/nocpulse
+
+* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.5-1
+- bz#368711 bz#480063
 
 * Mon Feb 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
 - bz475894:fixing the server code to filter out duplicate deps 
