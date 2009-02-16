@@ -79,6 +79,7 @@ public class UserHandler extends BaseHandler {
         new HashMap<Object, String>();
     static {
         USER_EDITABLE_DETAILS.put("first_name", "first_names");
+        USER_EDITABLE_DETAILS.put("first_names", "first_names");
         USER_EDITABLE_DETAILS.put("last_name", "last_name");
         USER_EDITABLE_DETAILS.put("email", "email");
         USER_EDITABLE_DETAILS.put("prefix", "prefix");
@@ -170,6 +171,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.returntype
      *   #struct("user details")
+     *     #prop_desc("string", "first_names", "deprecated, use first_name")
      *     #prop("string", "first_name")
      *     #prop("string", "last_name")
      *     #prop("string", "email")
@@ -188,6 +190,7 @@ public class UserHandler extends BaseHandler {
         LocalizationService ls = LocalizationService.getInstance();
         
         Map ret = new HashMap();
+        ret.put("first_names", StringUtils.defaultString(target.getFirstNames()));
         ret.put("first_name", StringUtils.defaultString(target.getFirstNames()));
         ret.put("last_name",   StringUtils.defaultString(target.getLastName()));
         ret.put("email",       StringUtils.defaultString(target.getEmail()));
@@ -231,6 +234,7 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "login", "User's login name.")
      * @xmlrpc.param
      *   #struct("user details")
+     *     #prop_desc("string", "first_names", "deprecated, use first_name")
      *     #prop("string", "first_name")
      *     #prop("string", "last_name")
      *     #prop("string", "email")

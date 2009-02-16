@@ -68,6 +68,8 @@ import com.redhat.rhn.domain.server.test.GuestBuilder;
 import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.server.test.NetworkTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
@@ -1881,5 +1883,20 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 server.getId().intValue());
         assertTrue(list.size() == 0);
         
+    }
+
+    public void testListActivationKeys() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
+
+        List<String> keys = handler.listActivationKeys(adminKey, server.getId().intValue());
+        assertEquals(0, keys.size());
+
+        key.getToken().getActivatedServers().add(server);
+        TestUtils.saveAndFlush(key);
+
+        keys = handler.listActivationKeys(adminKey, server.getId().intValue());
+        assertEquals(1, keys.size());
     }
 }

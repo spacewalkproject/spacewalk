@@ -81,6 +81,7 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -3451,4 +3452,32 @@ public class SystemHandler extends BaseHandler {
         }      
         return 1;
     }
+
+    /**
+     * List the activation keys the system was registered with.
+     * @param sessionKey session
+     * @param serverId the host system id
+     * @return list of keys
+     *
+     * @xmlrpc.doc List the activation keys the system was registered with.  An empty
+     * list will be returned if an activation key was not used during registration.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype #array_single ("string", "key")
+     */
+    public List<String> listActivationKeys(String sessionKey, Integer serverId) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        DataResult<ActivationKeyDto> result = SystemManager.getActivationKeys(server);
+
+        List<String> returnList = new ArrayList<String>();
+        for (Iterator itr = result.iterator(); itr.hasNext();) {
+            ActivationKeyDto key = (ActivationKeyDto) itr.next();
+
+            returnList.add(key.getToken());
+        }
+        return returnList;
+    }
+
 }

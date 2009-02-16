@@ -126,7 +126,7 @@ INSERT INTO rhnServerNeededCache
                 FROM rhnServerNeededView SNV,
                      rhnServerChannel SC
                 WHERE SNV.server_id = SC.server_id
-                  AND SC.channel_id = :channel_id);
+                  AND SC.channel_id = :channel_id)
   </query>
 </write-mode>
 
