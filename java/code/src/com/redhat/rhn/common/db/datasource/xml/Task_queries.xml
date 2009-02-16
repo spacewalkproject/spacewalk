@@ -511,9 +511,9 @@ ORDER BY next_action DESC
 <mode name="repomdgenerator_channel_packages"
     class="com.redhat.rhn.frontend.dto.PackageDto">
    <query params="channel_id">
-  SELECT /*+ ORDERED */ p.id, pn.name as package_name, pevr.epoch as package_epoch,
-         pevr.version as package_version, pevr.release as package_release,
-         p.summary, p.description, pa.label as package_arch_label,
+  SELECT /*+ ORDERED */ p.id, pn.name as name, pevr.epoch as epoch,
+         pevr.version as version, pevr.release as release,
+         p.summary, p.description, pa.label as arch_label,
          p.md5sum, p.build_time, p.path, p.package_size, p.payload_size,
          p.copyright, p.vendor, p.build_host, p.header_start, p.header_end,
          srpm.name as source_rpm, pg.name as package_group_name
