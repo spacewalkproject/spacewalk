@@ -1396,8 +1396,8 @@ WHERE EP.errata_id = :eid
       AND PN.id = P1.name_id
       AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) != 0)
   </query>        
-</mode>  
-  
+</mode>
+
 <mode name="server_packages_needing_update">
   <query params="sid, name">
 SELECT P.id, PE.epoch, PE.version, PE.release

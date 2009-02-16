@@ -18,6 +18,7 @@ use strict;
 package RHN::DB::ErrataEditor;
 
 use RHN::DB;
+use RHN::Channel;
 use RHN::Errata;
 use RHN::ErrataTmp;
 use RHN::DataSource::Errata;
@@ -258,11 +259,22 @@ EOQ
 
   $sth = $dbh->prepare($query);
 
+  my $rrqh = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web', 'assign_errata_to_channels', 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
   foreach my $cid (@{$channels}) {
     $sth->execute($eid, $cid);
+    my $channel = RHN::Channel->lookup(-id => $cid);
+    $rrqh->execute(label => $channel->label);
   }
 
   $sth->finish;
+  $rrqh->finish;
 
   my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
   $errata->refresh_erratafiles;

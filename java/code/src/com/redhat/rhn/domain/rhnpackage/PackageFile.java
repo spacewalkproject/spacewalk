@@ -33,7 +33,6 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
      */
     private static final long serialVersionUID = 8009150853428038205L;
 
-
     private Package pack;
     private PackageCapability capability;
     private Long device;
@@ -50,15 +49,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
     private Long verifyFlags;
     private String lang;
 
-
-
     /**
      * @return Returns the pack.
      */
     public Package getPack() {
         return pack;
     }
-
 
     /**
      * @param packIn The pack to set.
@@ -67,14 +63,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.pack = packIn;
     }
 
-
     /**
      * @return Returns the capability.
      */
     public PackageCapability getCapability() {
         return capability;
     }
-
 
     /**
      * @param capabilityIn The capability to set.
@@ -83,14 +77,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.capability = capabilityIn;
     }
 
-
     /**
      * @return Returns the device.
      */
     public Long getDevice() {
         return device;
     }
-
 
     /**
      * @param deviceIn The device to set.
@@ -99,14 +91,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.device = deviceIn;
     }
 
-
     /**
      * @return Returns the inode.
      */
     public Long getInode() {
         return inode;
     }
-
 
     /**
      * @param inodeIn The inode to set.
@@ -115,14 +105,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.inode = inodeIn;
     }
 
-
     /**
      * @return Returns the fileMode.
      */
     public Long getFileMode() {
         return fileMode;
     }
-
 
     /**
      * @param fileModeIn The fileMode to set.
@@ -131,14 +119,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.fileMode = fileModeIn;
     }
 
-
     /**
      * @return Returns the username.
      */
     public String getUsername() {
         return username;
     }
-
 
     /**
      * @param usernameIn The username to set.
@@ -147,14 +133,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.username = usernameIn;
     }
 
-
     /**
      * @return Returns the groupname.
      */
     public String getGroupname() {
         return groupname;
     }
-
 
     /**
      * @param groupnameIn The groupname to set.
@@ -163,14 +147,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.groupname = groupnameIn;
     }
 
-
     /**
      * @return Returns the rdev.
      */
     public Long getRdev() {
         return rdev;
     }
-
 
     /**
      * @param rdevIn The rdev to set.
@@ -179,14 +161,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.rdev = rdevIn;
     }
 
-
     /**
      * @return Returns the fileSize.
      */
     public Long getFileSize() {
         return fileSize;
     }
-
 
     /**
      * @param fileSizeIn The fileSize to set.
@@ -195,14 +175,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.fileSize = fileSizeIn;
     }
 
-
     /**
      * @return Returns the mtime.
      */
     public Date getMtime() {
         return mtime;
     }
-
 
     /**
      * @param mtimeIn The mtime to set.
@@ -211,14 +189,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.mtime = mtimeIn;
     }
 
-
     /**
      * @return Returns the md5.
      */
     public String getMd5() {
         return md5;
     }
-
 
     /**
      * @param md5In The md5 to set.
@@ -227,14 +203,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.md5 = md5In;
     }
 
-
     /**
      * @return Returns the linkTo.
      */
     public String getLinkTo() {
         return linkTo;
     }
-
 
     /**
      * @param linkToIn The linkTo to set.
@@ -243,14 +217,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.linkTo = linkToIn;
     }
 
-
     /**
      * @return Returns the flags.
      */
     public Long getFlags() {
         return flags;
     }
-
 
     /**
      * @param flagsIn The flags to set.
@@ -259,14 +231,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.flags = flagsIn;
     }
 
-
     /**
      * @return Returns the verifyFlags.
      */
     public Long getVerifyFlags() {
         return verifyFlags;
     }
-
 
     /**
      * @param verifyFlagsIn The verifyFlags to set.
@@ -275,14 +245,12 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         this.verifyFlags = verifyFlagsIn;
     }
 
-
     /**
      * @return Returns the lang.
      */
     public String getLang() {
         return lang;
     }
-
 
     /**
      * @param langIn The lang to set.
@@ -292,7 +260,7 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
     }
 
     /**
-     *
+     * 
      * {@inheritDoc}
      */
     @Override
@@ -308,7 +276,7 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
     }
 
     /**
-     *
+     * 
      * {@inheritDoc}
      */
     @Override
@@ -318,6 +286,5 @@ public class PackageFile extends BaseDomainHelper implements Serializable {
         hash.append(this.getCapability());
         return hash.toHashCode();
     }
-
 
 }

@@ -310,6 +310,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnSession.py*
 %{rhnroot}/server/rhnUser.py*
 %{rhnroot}/server/rhnVirtualization.py*
+%{rhnroot}/server/taskomatic.py*
 %dir %{rhnroot}/server/rhnServer
 %{rhnroot}/server/rhnServer/*
 %dir %{rhnroot}/server/importlib
@@ -539,11 +540,11 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
-- move logs from /var/tmp to /var/log/nocpulse
-
 * Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.5-1
 - bz#368711 bz#480063
+
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- move logs from /var/tmp to /var/log/nocpulse
 
 * Mon Feb 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
 - bz475894:fixing the server code to filter out duplicate deps 

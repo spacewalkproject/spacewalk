@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
-
-
 /**
  * PackageName
  * @version $Rev$
@@ -26,8 +24,7 @@ public class PackageNevra {
     private PackageName name;
     private PackageEvr evr;
     private PackageArch arch;
-    
-    
+
     /**
      * @return Returns the arch.
      */
@@ -35,7 +32,6 @@ public class PackageNevra {
         return arch;
     }
 
-    
     /**
      * @param archIn The arch to set.
      */
@@ -49,41 +45,40 @@ public class PackageNevra {
     public PackageEvr getEvr() {
         return evr;
     }
-    
+
     /**
      * @param evrIn The evr to set.
      */
     public void setEvr(PackageEvr evrIn) {
         this.evr = evrIn;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param idIn The id to set.
      */
     public void setId(Long idIn) {
         this.id = idIn;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public PackageName getName() {
         return name;
     }
-    
+
     /**
      * @param nameIn The name to set.
      */
     public void setName(PackageName nameIn) {
         this.name = nameIn;
     }
-    
- 
+
 }

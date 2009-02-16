@@ -26,104 +26,101 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Rev$
  */
 public class PackageArch extends BaseDomainHelper implements Comparable<PackageArch> {
-    
+
     private ArchType archType;
     private Long id;
     private String label;
     private String name;
-    
+
     /**
      * @return Returns the archType.
      */
     public ArchType getArchType() {
         return archType;
     }
-    
+
     /**
      * @param a The archType to set.
      */
     public void setArchType(ArchType a) {
         this.archType = a;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
     public void setLabel(String l) {
         this.label = l;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(getName()).append(getLabel())
-            .toHashCode();
+        return new HashCodeBuilder().append(getName()).append(getLabel()).toHashCode();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
-        builder.append("id", this.getId())
-               .append("label", this.getLabel())
-               .append("name", this.getName());
+        builder.append("id", this.getId()).append("label", this.getLabel()).append("name",
+                this.getName());
 
         if (this.getArchType() != null) {
             builder.append("archType", this.getArchType());
         }
         return builder.toString();
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public boolean equals(Object archIn) {
-        
+
         if (archIn instanceof PackageArch) {
             PackageArch arch = (PackageArch) archIn;
-            return new EqualsBuilder().append(this.name, arch.getName()) 
-            .append(getLabel(), arch.getLabel())
-            .append(getId(), arch.getId())
-            .append(getArchType(), arch.getArchType()).isEquals();
+            return new EqualsBuilder().append(this.name, arch.getName()).append(getLabel(),
+                    arch.getLabel()).append(getId(), arch.getId()).append(getArchType(),
+                    arch.getArchType()).isEquals();
         }
         else {
             return false;

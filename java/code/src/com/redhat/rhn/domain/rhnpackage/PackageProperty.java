@@ -71,9 +71,55 @@ public class PackageProperty extends BaseDomainHelper {
         this.sense = senseIn;
     }
 
+    /**
+     * @return a human readable representation of the sense
+     */
+    public String getSenseAsString() {
+        Long senseIn = this.sense & 0xf;
+        if (senseIn == 2) {
+            return "LT";
+        }
+        else if (senseIn == 4) {
+            return "GT";
+        }
+        else if (senseIn == 8) {
+            return "EQ";
+        }
+        else if (senseIn == 10) {
+            return "LE";
+        }
+        else { // 12
+            return "GE";
+        }
+    }
 
     /**
-     *
+     * @param senseIn The sense to set.
+     */
+    public void setSenseFromString(String senseIn) {
+        Long senseVal;
+
+        if (senseIn == "LT") {
+            senseVal = 2L;
+        }
+        else if (senseIn == "GT") {
+            senseVal = 4L;
+        }
+        else if (senseIn == "EQ") {
+            senseVal = 8L;
+        }
+        else if (senseIn == "LE") {
+            senseVal = 10L;
+        }
+        else { // "GE"
+            senseVal = 12L;
+        }
+
+        this.sense = senseVal & 0xf;
+    }
+
+    /**
+     * 
      * {@inheritDoc}
      */
     public int hashCode() {
@@ -85,7 +131,7 @@ public class PackageProperty extends BaseDomainHelper {
     }
 
     /**
-     *
+     * 
      * {@inheritDoc}
      */
     public boolean equals(Object obj) {

@@ -27,5 +27,4 @@ public class PackageConflicts extends PackageProperty implements Serializable {
      */
     private static final long serialVersionUID = -2247292704282022818L;
 
-
 }

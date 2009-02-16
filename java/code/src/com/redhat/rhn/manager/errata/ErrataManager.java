@@ -441,12 +441,28 @@ public class ErrataManager extends BaseManager {
      * @param dr
      */
     private static void deleteErrata(User user, DataResult dr) {
+        
+        // 
+        // Foreach errata, find all the channels its in and mark them
+        // as "metadata may have changed,", and then delete the errata
+        //
         for (Iterator erratas = dr.iterator(); erratas.hasNext();) {
             OwnedErrata oe = (OwnedErrata) erratas.next();
+            DataResult channels = ErrataManager.applicableChannels(
+                    oe.getId().longValue(), user.getOrg().getId(), null);
+            for (Iterator chanItr = channels.iterator(); chanItr.hasNext();) {
+                Map chan = (Map)chanItr.next();
+                String lbl = chan.get("channel_label").toString();
+                ChannelManager.queueChannelChange(lbl, 
+                        "java::deleteErrata", oe.getAdvisory());
+            }
             deleteErratum(user, new Long(oe.getId().longValue()));
-        }        
-        /* We remove only from the set only what the user has actually 
-         * selected for deletion */
+        }   
+        
+        /* 
+         * We remove only from the set only what the user has actually 
+         * selected for deletion 
+         */
         RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
         
         Iterator i = dr.iterator();

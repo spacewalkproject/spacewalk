@@ -22,15 +22,14 @@ import java.util.Set;
  * PatchSet
  * @version $Rev$
  */
-public class PatchSet  extends Package {
+public class PatchSet extends Package {
 
     private Date setDate;
     private Date created;
     private Date modified;
     private Set<Patch> members;
     private Blob readme;
-    
-    
+
     /**
      * @return Returns the readme.
      */
@@ -38,21 +37,20 @@ public class PatchSet  extends Package {
         return readme;
     }
 
-    
     /**
      * @param readmeIn The readme to set.
      */
     public void setReadme(Blob readmeIn) {
         this.readme = readmeIn;
-    }    
-    
+    }
+
     /**
      * @return Returns the setDate.
      */
     public Date getSetDate() {
         return setDate;
     }
-    
+
     /**
      * @param setDateIn The setDate to set.
      */
@@ -66,7 +64,7 @@ public class PatchSet  extends Package {
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param createdIn The created to set.
      */
@@ -80,7 +78,7 @@ public class PatchSet  extends Package {
     public Date getModified() {
         return modified;
     }
-    
+
     /**
      * @param modifiedIn The modified to set.
      */
@@ -88,7 +86,6 @@ public class PatchSet  extends Package {
         modified = modifiedIn;
     }
 
-    
     /**
      * @return Returns the members.
      */
@@ -96,14 +93,13 @@ public class PatchSet  extends Package {
         return members;
     }
 
-    
     /**
      * @param membersIn The members to set.
      */
     public void setMembers(Set<Patch> membersIn) {
         this.members = membersIn;
     }
-    
+
     /**
      * Adds a patch to the patch set
      * @param patch the patch to add

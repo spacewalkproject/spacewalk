@@ -644,6 +644,8 @@ public class PackageManager extends BaseManager {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             throw new PermissionCheckFailureException();
         }
+        DataResult channels = PackageManager.orgPackageChannels(
+                user.getOrg().getId(), pkg.getId());
         if (pkg.getOrg() == null || user.getOrg() != pkg.getOrg()) {
             throw new PermissionCheckFailureException();
         }
@@ -659,6 +661,15 @@ public class PackageManager extends BaseManager {
         String pfn = packageFileName.toString().trim();
         if (pfn.length() > 0) {
             schedulePackageFileForDeletion(pfn);
+        }
+        
+        // For every channel the package is in, mark the channel as "changed" in case its
+        // metadata needs tto be updated (RHEL5+, mostly)
+        for (Iterator itr = channels.iterator(); itr.hasNext();) {
+            Map m = (Map)itr.next();
+            ChannelManager.queueChannelChange(m.get("channel_label").toString(), 
+                    "java::deletePackage", 
+                    pkg.getPackageName().getName());
         }
         session.delete(pkg);
     }
@@ -769,7 +780,7 @@ public class PackageManager extends BaseManager {
         possiblePackages.setTotalSize(possiblePackages.size());
         return processPageControl(possiblePackages, pc, null);
     }
-    
+
     /**
      * Given a server this method returns the redhat-release package.
      * This package is a marker package and holds information like

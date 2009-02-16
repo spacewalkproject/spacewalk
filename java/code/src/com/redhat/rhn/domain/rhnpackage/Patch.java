@@ -35,8 +35,7 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
     private String patchInfo;
     private Set<PatchSet> patchSets;
     private Blob readme;
-    
-     
+
     /**
      * @return Returns the readme.
      */
@@ -44,7 +43,6 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
         return readme;
     }
 
-    
     /**
      * @param readmeIn The readme to set.
      */
@@ -58,77 +56,77 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
     public Date getCreated() {
         return created;
     }
-    
+
     /**
      * @param createdIn The created to set.
      */
     public void setCreated(Date createdIn) {
         this.created = createdIn;
     }
-    
+
     /**
      * @return Returns the modified.
      */
     public Date getModified() {
         return modified;
     }
-    
+
     /**
      * @param modifiedIn The modified to set.
      */
     public void setModified(Date modifiedIn) {
         this.modified = modifiedIn;
     }
-    
+
     /**
      * @return Returns the patchinfo.
      */
     public String getPatchInfo() {
         return patchInfo;
     }
-    
+
     /**
      * @param patchInfoIn The patchinfo to set.
      */
     public void setPatchInfo(String patchInfoIn) {
         this.patchInfo = patchInfoIn;
     }
-    
+
     /**
      * @return Returns the patchType.
      */
     public PatchType getPatchType() {
         return patchType;
     }
-    
+
     /**
      * @param patchTypeIn The patchType to set.
      */
     public void setPatchType(PatchType patchTypeIn) {
         this.patchType = patchTypeIn;
     }
-    
+
     /**
      * @return Returns the solarisRelease.
      */
     public String getSolarisRelease() {
         return solarisRelease;
     }
-    
+
     /**
      * @param solarisReleaseIn The solarisRelease to set.
      */
     public void setSolarisRelease(String solarisReleaseIn) {
         this.solarisRelease = solarisReleaseIn;
     }
-    
+
     /**
      * @return Returns the sunosRelease.
      */
     public String getSunosRelease() {
         return sunosRelease;
     }
-    
+
     /**
      * @param sunosReleaseIn The sunosRelease to set.
      */
@@ -136,7 +134,6 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
         this.sunosRelease = sunosReleaseIn;
     }
 
-    
     /**
      * @return Returns the patchSets.
      */
@@ -144,7 +141,6 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
         return patchSets;
     }
 
-    
     /**
      * @param patchSetsIn The patchSets to set.
      */
@@ -152,7 +148,4 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
         this.patchSets = patchSetsIn;
     }
 
-    
-    
-    
 }

@@ -43,6 +43,16 @@ DELETE
   </query>
 </write-mode>
 
+<write-mode name="request_repo_regen">
+  <query params="label, client, reason">
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, :client, :reason, 'N', 'N', sysdate, sysdate, sysdate)
+  </query>
+</write-mode>
+
 <mode name="org_pkg_channels">
   <query params="org_id, pid">
 SELECT C.label AS label,

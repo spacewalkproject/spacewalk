@@ -152,6 +152,10 @@ public class Config {
      */
     public static final int DEFAULT_CONFIG_REVISION_MAX_SIZE = 131072;
     
+    public static final String REPOMD_PATH_PREFIX = "taskomatic.repomd_path_prefix";
+    
+    public static final String REPOMD_CACHE_MOUNT_POINT = "repomd_cache_mount_point";
+
     /**
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.

@@ -379,10 +379,11 @@ class Packages(RPC_Base):
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
 
+        caller = "server.app.channelPackageSubscription"
+
         backend = OracleBackend()
         backend.init()
-        importer = ChannelPackageSubscription(batch, backend, 
-            caller="server.app.channelPackageSubscription")
+        importer = ChannelPackageSubscription(batch, backend, caller=caller)
         try:
             importer.run()
         except IncompatibleArchError, e:
@@ -394,8 +395,10 @@ class Packages(RPC_Base):
 
         log_debug(3, "Computing errata cache for systems affected by channels",
             affected_channels)
-        
+
         schedule_errata_cache_update(affected_channels)
+        rhnSQL.commit()
+
         return 0
 
     _query_count_channel_servers = rhnSQL.Statement("""
