@@ -394,7 +394,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "advisoryName") 
      * @xmlrpc.returntype 
      *      #struct("Bugzilla info")
-     *          #prop_desc("int", "bugzilla_id", "actual bug number is the key into the
+     *          #prop_desc("string", "bugzilla_id", "actual bug number is the key into the
      *                      struct")
      *          #prop_desc("string", "bug_summary", "summary who's key is the bug id")
      *      #struct_end()
