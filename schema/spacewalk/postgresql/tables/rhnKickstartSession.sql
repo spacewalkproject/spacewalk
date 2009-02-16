@@ -23,7 +23,8 @@ rhnKickstartSession
 (
 	id			numeric not null
 				constraint rhn_ks_session_id_pk primary key
---					using index tablespace [[8m_tbs]],
+--					using index tablespace [[8m_tbs]]
+                               ,
 	kickstart_id		numeric
 				constraint rhn_ks_session_ksid_fk
 					references rhnKSData(id)

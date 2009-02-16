@@ -21,7 +21,7 @@ rhnDownloads
 (
 	id		   numeric
 			   constraint rhn_dl_id_pk primary key,
-	channel_family_id  number
+	channel_family_id  numeric
 			   not null
 			   constraint rhn_dl_cfid_fk
 			   references rhnChannelFamily(id),

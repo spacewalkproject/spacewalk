@@ -22,13 +22,19 @@ create table
 web_customer_notification
 (
 	id			numeric not null
-				constraint web_cust_not_id_pk primary key
-				--	using index tablespace [[64k_tbs]],
+				constraint web_cust_not_id_pk primary key,
+--					using index tablespace [[64k_tbs]],
 	org_id			numeric not null
 				constraint web_cust_not_oid_fk
 					references web_customer(id)
 					on delete cascade,
 	contact_email_address	varchar(150) not null,
-	creation_date		timestamp not null
+	creation_date		date not null
 )
-;
+	 ;
+
+--
+--
+-- Revision 1.3  2003/10/20 15:07:05  pjones
+-- bugzilla: none -- cleanup that has been needed for quite some time
+--

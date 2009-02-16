@@ -34,11 +34,11 @@ rhnProduct
 			constraint rhn_product_cat_fk
 			references rhnProductLine(id)
 			on delete cascade,
-	last_modified	date default (sysdate)
+	last_modified	date default (current_date)
 			not null,
-	created		date default (sysdate)
+	created		date default (current_date)
 			not null,
-	modified	date default (sysdate)
+	modified	date default (current_date)
 			not null
 )
   ;

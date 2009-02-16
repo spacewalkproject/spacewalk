@@ -23,7 +23,8 @@ rhnConfigFileState
 (
 	id		numeric not null
 			constraint rhn_cfstate_id_pk primary key
---				using index tablespace [[2m_tbs]],
+--				using index tablespace [[2m_tbs]]
+                        ,
 	label		varchar(32) not null,
 	name		varchar(256) not null,
 	created		timestamp default (current_timestamp) not null,

@@ -23,7 +23,8 @@ rhnConfigContent
 (
 	id			numeric not null
 				constraint rhn_confcontent_id_pk primary key
---					using index tablespace [[2m_tbs]],
+--					using index tablespace [[2m_tbs]]
+                                ,
 	contents		bytea,
 	file_size		numeric,
 	md5sum			varchar(64) not null,

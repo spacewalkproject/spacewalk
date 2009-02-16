@@ -31,7 +31,7 @@ rhn_server_monitoring_info
 			constraint rhn_host_server_id_fk 
     			references rhnServer ( id ),
 --            using index tablespace [[4m_tbs]]
-            ,
+
     os_id               numeric (12)
 			constraint rhn_host_server_name_fk 
     			references rhn_os ( recid )

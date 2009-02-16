@@ -23,7 +23,8 @@ rhnFileList
 (
 	id		numeric not null
 			constraint rhn_filelist_id_pk primary key
---				using index tablespace [[4m_tbs]],
+--				using index tablespace [[4m_tbs]]
+                         ,
 	label		varchar(128) not null,
 	org_id		numeric not null
 			constraint rhn_filelist_oid_fk

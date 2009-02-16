@@ -29,7 +29,7 @@ rhnPrivateChannelFamily
 	max_members		numeric,
 	current_members		numeric default (0) not null,
 	created			timestamp default (current_timestamp) not null,
-	modified		timestamp default (current_timestamp) not null
+	modified		timestamp default (current_timestamp) not null,
 				constraint rhn_privcf_oid_cfid_uq unique (org_id, channel_family_id)
 --				using tablespace [[2m_tbs]]
 )

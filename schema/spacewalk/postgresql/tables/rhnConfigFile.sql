@@ -16,50 +16,53 @@
 --
 --
 
---create sequence rhn_conffile_id_seq;
+create sequence rhn_conffile_id_seq;
 
-create table rhnConfigFile
-(
-	id			numeric not null
-				constraint rhn_conffile_id_pk primary key
---					using index tablespace [[2m_tbs]],
-	config_channel_id	numeric not null
-				constraint rhn_conffile_ccid_fk
-					references rhnConfigChannel(id),
-	config_file_name_id	numeric not null
-				constraint rhn_conffile_cfnid_fk
-					references rhnConfigFileName(id),
-	latest_config_revision_id numeric
-				-- this has to be nullable, or else you
-				-- can't create them.
-				-- -- this fk is in a seperate file
-				-- constraint rhn_conffile_lcrid_fk
-				--	references rhnConfigRevision(id)
-				,
-	state_id		numeric not null
-				constraint rhn_conffile_sid_fk
-					references rhnConfigFileState(id),
-	created			timestamp default (current_timestamp) not null,
-	modified		timestamp default (current_timestamp) not null,
-				constraint rhn_conffile_ccid_cfnid_uq unique ( config_channel_id, config_file_name_id )
+create table 
+ rhnConfigFile
+ (
+	id			  numeric
+				  constraint rhn_conffile_id_pk primary key
+--				  using index tablespace [[2m_tbs]]
+                                  ,
+	config_channel_id	  numeric
+				  not null
+				  constraint rhn_conffile_ccid_fk
+				  references rhnConfigChannel(id),
+	config_file_name_id	  numeric
+				  not null
+				  constraint rhn_conffile_cfnid_fk
+				  references rhnConfigFileName(id),
+	latest_config_revision_id numeric,
+--				  constraint rhn_conffile_lcrid_fk
+--				  references rhnConfigRevision(id)
+-- 				  on delete set null,
+--(cross reference column has been altered in rhnConfigRevision)
+	state_id		  numeric
+				  not null
+				  constraint rhn_conffile_sid_fk
+				  references rhnConfigFileState(id),
+	created			  date default(current_date)
+				  not null,
+	modified		  date default(current_date)
+				  not null,
+                                  constraint rhn_conffile_ccid_cfnid_uq
+                                  unique ( config_channel_id, config_file_name_id )
 )
---	enable row movement
   ;
 
 create index rhn_conffile_cc_cfn_s_idx
 	on rhnConfigFile( config_channel_id, config_file_name_id, state_id )
---	tablespace [[8m_tbs]]
-  ;
-
-alter table rhnConfigFile add constraint rhn_conffile_ccid_cfnid_uq
-	unique ( config_channel_id, config_file_name_id );
+--     tablespace [[8m_tbs]]
+       ;
 
 create index rhn_cnf_fl_lcrid_idx
 on rhnConfigFile ( latest_config_revision_id )
---        tablespace [[8m_tbs]]
-  ;
+--      tablespace [[8m_tbs]]
+        ;
 
-/*create or replace trigger
+/*
+create or replace trigger
 rhn_conffile_mod_trig
 before insert or update on rhnConfigFile
 for each row
@@ -69,7 +72,6 @@ end;
 /
 show errors
 */
-
 --
 --
 -- Revision 1.12  2004/01/12 15:44:41  pjones

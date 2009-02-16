@@ -25,7 +25,10 @@ rhn_command
         constraint rhn_cmmnd_recid_pk primary key
 --            using index tablespace [[2m_tbs]]
             ,
-    name                varchar (40) not null,
+    name                varchar (40) not null
+			 constraint rhn_cmmnd_name_uq unique, 
+--    			using index tablespace [[2m_tbs]]
+  
     description         varchar (80) not null,
     group_name          varchar (40),       
 -- TODO: Should allowed_in_suite be a boolean?
@@ -39,14 +42,14 @@ rhn_command
     system_requirements varchar (40),
     version_support     varchar (1024),
     help_url            varchar (1024),
-	constraint rhn_cmmnd_name_uq    unique ( recid, command_class ),
+	constraint rhn_cmmnd_name_uq1 unique ( recid, command_class ),
 	constraint rhn_cmmnd_cmdgr_group_name_fk foreign key ( group_name ) references rhn_command_groups( group_name ),
 	constraint rhn_cmmnd_comcl_class_name_fk foreign key ( command_class )
     references rhn_command_class( class_name ),
 constraint rhn_cmmnd_sys_reqs_fk foreign key ( system_requirements ) references rhn_command_requirements( name )    on delete cascade
 
 )
---    enable row movement
+
   ;
 
 comment on table rhn_command 
@@ -60,16 +63,6 @@ comment on column rhn_command.enabled
 
 comment on column rhn_command.for_host_probe 
     is 'Whether this is one of the host-alive checks';
-
-create unique index rhn_cmmnd_name_uq
-    on rhn_command ( name )
-    tablespace [[2m_tbs]]
-  ;
-
-create unique index rhn_cmmnd_recid_comm_cl_uq
-    on rhn_command ( recid, command_class )
---    tablespace [[2m_tbs]]
-  ;
 
 create sequence rhn_commands_recid_seq start with 305;
 

@@ -49,9 +49,6 @@ create sequence rhn_transaction_id_seq;
 create index rhn_trans_id_sid_ts_rtid_idx
 	on rhnTransaction(id,server_id,timestamp, rpm_trans_id)
   ;
-alter table rhnTransaction add constraint rhn_trans_id_pk primary key (id)
-	using index tablespace [[8m_tbs]];
-
 --
 -- Revision 1.6  2004/02/09 16:38:38  pjones
 -- bugzilla: 115049 -- rework delete_server to be driven from the pl/sql instead

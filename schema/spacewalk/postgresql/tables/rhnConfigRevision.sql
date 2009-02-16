@@ -53,6 +53,11 @@ rhnConfigRevision
 --		using index tablespace [[2m_tbs]]
 );
 
+alter table rhnConfigFile add constraint rhn_conffile_lcrid_fk foreign key (latest_config_revision_id)
+                                references rhnConfigRevision(id)
+                                on delete set null;
+
+
 -- lemme know if we need more indices here.  We don't really support any 
 -- interesting form of deleting rhnConfigContents or rhnConfigInfo,
 -- so they don't need an index unless we want to look things up by them.

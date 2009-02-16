@@ -22,7 +22,9 @@ create table
 rhnChannelPermissionRole
 (
 	id		numeric
-			constraint rhn_cperm_role_id_pk primary key,
+			constraint rhn_cperm_role_id_pk primary key
+--                      using index tablespace [[64k_tbs]]
+                        ,
 	label		varchar(32)
 			not null
                         constraint rhn_cperm_role_label_uq unique,
@@ -33,11 +35,6 @@ rhnChannelPermissionRole
 	modified	date default(current_date)
 			not null
 )
-  ;
-
-create index rhn_cperm_role_id_pk
-	on rhnChannelPermissionRole ( id )
---	tablespace [[64k_tbs]]
   ;
 
 create index rhn_cperm_role_label_id_idx

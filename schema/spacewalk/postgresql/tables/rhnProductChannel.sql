@@ -32,7 +32,7 @@ rhnProductChannel
 			not null,
 	modified	date default (current_date)
 			not null,
-                        constraint rhn_pc_cid_pid_idx
+                        constraint rhn_pc_cid_pid_idx1
                          unique ( channel_id, product_id )
 )
   ;

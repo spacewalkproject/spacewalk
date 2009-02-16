@@ -27,8 +27,8 @@ rhn_redirect_criteria
             ,
     redirect_id     numeric   (12) not null
 			constraint rhn_rdrcr_rdrct_redirect_id_fk
-    			references rhn_redirects( recid ),
-    on delete cascade
+    			references rhn_redirects( recid )
+    on delete cascade,
     match_param     varchar (255) not null
 			constraint rhn_rdrcr_rdrmt_match_nm_fk
         		references rhn_redirect_match_types( name ),

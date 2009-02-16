@@ -30,17 +30,16 @@ rhnActivationKey
 	created		timestamp default (current_timestamp) not null,
 	modified	timestamp default (current_timestamp) not null
 )
---	enable row movement
   ;
 
 create index rhn_act_key_kssid_rtid_idx
 on rhnActivationKey (ks_session_id, reg_token_id)
 --        tablespace [[64k_tbs]]
---        nologging;
+        ;
 
 create index rhn_act_key_rtid_idx 
     on rhnActivationKey (reg_token_id)
 --    tablespace [[64k_tbs]]
---    nologging;
+    ;
 
 

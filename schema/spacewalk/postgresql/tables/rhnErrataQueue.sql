@@ -19,7 +19,7 @@
 create table
 rhnErrataQueue
 (
-	errata_id		number not null
+	errata_id		numeric not null
 				constraint rhn_equeue_eid_fk
 					references rhnErrata(id)
 					on delete cascade,

@@ -35,10 +35,6 @@ rhn_os_commands_xref
 comment on table rhn_os_commands_xref 
     is 'oscxr  operating systems - commands cross ref';
 
-create unique index rhn_oscxr_os_id_commands_id_pk 
-    on rhn_os_commands_xref ( os_id, commands_id )
---    tablespace [[2m_tbs]]
-  ;
 
 --
 --Revision 1.4  2004/05/06 17:35:10  kja

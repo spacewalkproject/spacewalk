@@ -35,7 +35,26 @@ rhnUserGroup
                                 references web_customer(id)
 				on delete cascade,
         created         timestamp default(CURRENT_TIMESTAMP) not null,
-        modified        timestamp default(CURRENT_TIMESTAMP) not null
+        modified        timestamp default(CURRENT_TIMESTAMP) not null,
+			constraint rhn_ug_oid_name_uq unique (org_id, name, group_type)
+--        		using index tablespace [[32m_tbs]]
 )
   ;
+
+create index rhn_ug_org_id_name_idx
+        on rhnUserGroup(org_id, id, name)
+--       tablespace [[32m_tbs]]
+;
+
+create index rhn_ug_org_id_type_idx
+        on rhnUserGroup(group_type, id)
+--        tablespace [[8m_tbs]]
+;
+
+create index rhn_ug_org_id_gtype_idx
+        on rhnUserGroup(org_id, group_type, id)
+        parallel 6
+        tablespace [[8m_tbs]]
+;
+
 

@@ -53,7 +53,7 @@ rhnPackage
         vendor          varchar(64) not null,
         payload_format  varchar(32),
 				-- do we care?
-        compat          number(1) default 0
+        compat          numeric(1) default 0
                         constraint rhn_package_compat_check
                                 check (compat in (1,0)),
                                 -- Y/N .  This makes ``dont use compat if 
@@ -77,17 +77,17 @@ create sequence rhn_package_id_seq;
 create index rhn_package_oid_id_idx
 	on rhnPackage(org_id, id)
 --	tablespace [[64k_tbs]]
-	nologging;
+        ;
 
 create index rhn_package_id_nid_paid_idx
 	on rhnPackage(id,name_id, package_arch_id)
 --	tablespace [[2m_tbs]]
-	nologging;
+	;
 	
 create index rhn_package_nid_id_idx
 	on rhnPackage(name_id,id)
 --	tablespace [[2m_tbs]]
-	nologging;
+	;
 
 /*create or replace trigger
 rhn_package_mod_trig

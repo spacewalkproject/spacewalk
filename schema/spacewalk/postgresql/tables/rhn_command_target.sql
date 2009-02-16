@@ -22,10 +22,10 @@ create table
     rhn_command_target
 (
     recid       numeric   (12) not null,
-    target_type varchar2 (10) not null
+    target_type varchar (10) not null
         constraint cmdtg_target_type_ck check (target_type in ('cluster','node')),
     customer_id numeric   (12) not null
-				constraint rhn_cmdtg_cstmr_customer_id_fk foreign key ( customer_id )
+				constraint rhn_cmdtg_cstmr_customer_id_fk
     				references web_customer( id ),
 	constraint rhn_cmdtg_recid_target_type_pk primary key (recid, target_type)
 )

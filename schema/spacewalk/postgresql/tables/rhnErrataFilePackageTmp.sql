@@ -27,8 +27,8 @@ rhnErrataFilePackageTmp
 			constraint rhn_efileptmp_fileid_fk
 				references rhnErrataFileTmp(id)
 				on delete cascade,
-	created		timestamp default (current_timestamp) not null,
-	modified	timstamp default (current_timestamp) not null,
+	created		date default (current_date) not null,
+	modified	date default (current_date) not null,
 	constraint rhn_efileptmp_efid_uq unique ( errata_file_id )
 )
 ;

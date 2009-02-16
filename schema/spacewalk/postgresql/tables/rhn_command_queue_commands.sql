@@ -21,10 +21,10 @@
 create table 
 rhn_command_queue_commands
 (
-    recid               number   (12)
+    recid               numeric   (12)
         constraint rhn_cqcmd_recid_nn not null
         constraint rhn_cqcmd_recid_pk primary key
-            using index tablespace [[2m_tbs]]
+--            using index tablespace [[2m_tbs]]
             ,
     description         varchar (40) not null,
     notes               varchar (2000),
@@ -37,7 +37,6 @@ rhn_command_queue_commands
     last_update_user    varchar (40),
     last_update_date    timestamp
 )
---    enable row movement
   ;
 
 comment on table rhn_command_queue_commands 

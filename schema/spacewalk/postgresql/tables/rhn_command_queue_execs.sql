@@ -42,9 +42,6 @@ rhn_command_queue_execs
 comment on table rhn_command_queue_execs 
     is 'cqexe  command queue execution records';
 
-create unique index rhn_cqexe_inst_id_nsaint_pk 
-    on rhn_command_queue_execs ( instance_id, netsaint_id );
-
 create index rhn_command_queue_netsaint_idx 
     on rhn_command_queue_execs ( netsaint_id )
 --    tablespace [[8m_tbs]]

@@ -41,7 +41,7 @@ rhn_contact_groups
     last_update_date        date not null,
     notification_format_id  numeric(12) default 4 not null
 				constraint rhn_ntfmt_cntgp_id_fk 
-    				references rhn_notification_formats( recid );
+    				references rhn_notification_formats( recid )
 )
   ;
 
@@ -58,7 +58,7 @@ create index rhn_cntgp_customer_id_idx
 --    tablespace [[2m_tbs]]
   ;
 
---create sequence rhn_contact_groups_recid_seq;
+create sequence rhn_contact_groups_recid_seq;
 
 --
 --Revision 1.4  2004/05/28 22:27:32  pjones

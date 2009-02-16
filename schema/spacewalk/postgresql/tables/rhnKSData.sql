@@ -23,7 +23,8 @@ rhnKSData
 (
 	id			numeric not null
 				constraint rhn_ks_id_pk primary key
---					using index tablespace [[8m_tbs]],
+--					using index tablespace [[8m_tbs]]
+                                ,
 	ks_type			varchar(8) not null,
 				constraint rhn_ks_type_ck
 					check (ks_type in ('wizard','raw')),

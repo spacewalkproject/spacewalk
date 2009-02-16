@@ -25,24 +25,20 @@ create table PXTSessions (
         expires         numeric default 0 not null,
         value           varchar(4000) not null
 )
-nologging;
+;
 
-create unique index pxt_sessions_pk
-	on PXTSessions(id)
-	tablespace [[8m_tbs]]
---	nologging;
 
---create sequence pxt_id_seq;
+create sequence pxt_id_seq;
 
 create index PXTSessions_user
 	on PXTSessions(web_user_id) 
 --	tablespace [[4m_tbs]]
-	nologging;
+	;
 
 create index PXTSessions_expires
 	on PXTSessions(expires)
 --	tablespace [[8m_tbs]]
-	nologging;
+	;
 
 --
 -- Revision 1.12  2003/10/13 14:14:52  pjones

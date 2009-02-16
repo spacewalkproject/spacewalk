@@ -23,7 +23,8 @@ rhnConfigInfo
 (
 	id			numeric not null
 				constraint rhn_confinfo_id_pk primary key
---					using index tablespace [[2m_tbs]],
+--					using index tablespace [[2m_tbs]]
+                                ,
 	username		varchar(32) not null,
 	groupname		varchar(32) not null,
 	filemode		numeric not null,

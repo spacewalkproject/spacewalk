@@ -28,26 +28,13 @@ rhn_command_queue_params
     constraint rhn_cqprm_cqins_instance_id_fk foreign key ( instance_id ) references rhn_command_queue_instances( recid )
     on delete cascade
 )
---    enable row movement
+
   ;
 
 comment on table rhn_command_queue_params 
     is 'cqprm   command queue parameter definitions';
 
-create unique index rhn_cqprm_instance_id_ord_pk 
-    on rhn_command_queue_params ( instance_id, ord )
---    tablespace [[4m_tbs]]
-  ;
 
---alter table rhn_command_queue_params 
---    add constraint rhn_cqprm_instance_id_ord_pk 
---    primary key ( instance_id, ord );
-
---alter table rhn_command_queue_params
---    add constraint rhn_cqprm_cqins_instance_id_fk
---    foreign key ( instance_id )
---    references rhn_command_queue_instances( recid )
---    on delete cascade;
 
 --
 --Revision 1.3  2004/04/28 23:10:52  kja

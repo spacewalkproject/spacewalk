@@ -26,7 +26,8 @@ rhnPackageCapability
 (
 	id		numeric not null
 			constraint rhn_pkg_capability_id_pk primary key
---				using index tablespace [[4m_tbs]],
+--				using index tablespace [[4m_tbs]]
+                         ,
 	name		varchar(4000) not null,
 	version		varchar(64), -- I really hate this.
 	created		timestamp default (current_timestamp) not null,

@@ -28,14 +28,14 @@ rhn_schedules
             ,
     schedule_type_id    numeric   (12) not null
 			constraint rhn_sched_schtp_sched_ty_fk
-    			references rhn_schedule_types( recid )
+    			references rhn_schedule_types( recid ),
     description         varchar (40) default 'unknown' not null,
     last_update_user    varchar (40),
     last_update_date    date,
     customer_id         numeric  (12)
 			constraint rhn_sched_cstmr_cust_id_fk 
     			references web_customer( id ),
-			constraint rhn_cust_cust_id_desc_uq unique ( customer_id, description ),
+			constraint rhn_cust_cust_id_desc_uq unique ( customer_id, description )
 --			using tablespace [[2m_tbs]]
 )
   ;

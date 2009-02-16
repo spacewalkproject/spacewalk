@@ -48,9 +48,9 @@ rhnVirtualInstanceEventLog
 	old_host_system_name	varchar(128),
 	new_host_system_name	varchar(128),
 --
-	local_timestamp		current_timestamp not null,
-	created			timestamp default(current_timestamp) not null,
-	modified		timestamp default(current_timestamp) not null
+	local_timestamp		timestamp not null,
+	created			date default(current_timestamp) not null,
+	modified		date default(current_timestamp) not null
 )
 ;
 

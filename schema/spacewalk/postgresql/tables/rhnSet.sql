@@ -24,7 +24,7 @@ rhnSet
 				   references web_contact(id)
 				   on delete cascade,
 	label		varchar(32) not null,
-	element		numberic not null,
+	element		numeric not null,
 	element_two	numeric,
 	element_three	numeric,
 	constraint	rhn_set_user_label_elem_unq

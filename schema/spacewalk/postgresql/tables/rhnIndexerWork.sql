@@ -17,7 +17,7 @@ create table
  (
      object_type    varchar(40) 
                     not null,
-     last_id        number 
+     last_id        numeric 
                     not null,
      last_modified  date default (current_date) 
                     not null

@@ -42,7 +42,7 @@ rhn_sat_cluster
         constraint rhn_satcl_deployed_ck check (deployed in ('0','1')),
     pem_public_key          varchar (2000),
     pem_public_key_hash     varchar (20),
-				constraint rhn_satcl_cmdtg_recid_tar_fk ( recid, target_type )
+				constraint rhn_satcl_cmdtg_recid_tar_fk foreign key ( recid, target_type )
     				references rhn_command_target( recid, target_type )
     				on delete cascade
 )

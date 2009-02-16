@@ -23,7 +23,8 @@ rhnActionPackage
 (
 	id		numeric not null
 			constraint rhn_act_p_id_pk primary key
---				using index tablespace [[8m_tbs]],
+--				using index tablespace [[8m_tbs]]
+                        ,
 	action_id	numeric not null
 			constraint rhn_act_p_act_fk
 				references rhnAction(id) on delete cascade,

@@ -25,7 +25,7 @@ rhn_current_state_summaries
     customer_id                      numeric   (12) not null,
     template_id                      varchar (10) not null,
     state                            varchar (20) not null,
-    state_count                      number   (9),
+    state_count                      numeric  (9),
     last_check                       date,
 					constraint rhn_current_state_summaries_pk primary key ( customer_id, template_id, state )
 )  

@@ -22,7 +22,7 @@ rhnSavedSearchType
 (
 	id		numeric
 			constraint rhn_sstype_id_pk primary key,
-	label		varchar2(8)
+	label		varchar(8)
 			not null
                         constraint rhn_sstype_label_uq unique ,
 	created		date default(current_date)
@@ -44,11 +44,11 @@ create index rhn_sstype_label_id_idx
   ;
 
 insert into rhnSavedSearchType (id, label)
-	values (rhn_sstype_id_seq.nextval, 'system');
+	values (nextval('rhn_sstype_id_seq'), 'system');
 insert into rhnSavedSearchType (id, label)
-	values (rhn_sstype_id_seq.nextval, 'package');
+	values (nextval('rhn_sstype_id_seq'), 'package');
 insert into rhnSavedSearchType (id, label)
-	values (rhn_sstype_id_seq.nextval, 'errata');
+	values (nextval('rhn_sstype_id_seq'), 'errata');
 commit;
 
 --

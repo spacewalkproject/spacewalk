@@ -29,7 +29,7 @@ create table rhnUserInfoPane (
                 on delete cascade,
                 constraint rhnusrinfopane_uid_pid_uq
                 unique( user_id, pane_id )
-                using index tablespace [[4m_tbs]]
+--                using index tablespace [[4m_tbs]]
 )
   ;
 

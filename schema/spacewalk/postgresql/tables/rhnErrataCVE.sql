@@ -36,5 +36,5 @@ create unique index rhn_err_cve_eid_cid_uq
 create index rhn_err_cve_cid_eid_idx
 	on rhnErrataCVE(cve_id, errata_id)
 --	tablespace [[64k_tbs]]
---	nologging
+
 ;

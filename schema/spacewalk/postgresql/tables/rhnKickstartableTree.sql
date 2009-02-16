@@ -21,7 +21,7 @@ create sequence rhn_kstree_id_seq;
 create table
 rhnKickstartableTree
 (
-	id		numeric not null
+	id		numeric 
 			constraint rhn_kstree_id_pk primary key,
         org_id          numeric
                         constraint rhn_kstree_oid_fk
@@ -43,7 +43,7 @@ rhnKickstartableTree
                                 references rhnKSInstallType(id),
 	last_modified	timestamp default (current_timestamp) not null,
 	created		timestamp default (current_timestamp) not null,
-	modified	timestamp default (current_timestamp) not null
+	modified	timestamp default (current_timestamp) not null,
 			constraint rhn_kstree_oid_label_uq unique ( org_id, label )
 --       		using index  tablespace [[8m_tbs]]
 )
@@ -64,11 +64,6 @@ end rhn_kstree_mod_trig;
 /
 show errors
 */
-
-create index rhn_kstree_id_pk
-	on rhnKickstartableTree( id )
---	tablespace [[4m_tbs]]
-  ;
 
 --
 --

@@ -30,7 +30,7 @@ rhn_url_probe_step
                         not null
                         constraint rhn_urlps_urlpb_url_pr_id_fk references rhn_url_probe(probe_id)
                         on delete cascade,
-    step_number         number   (3)
+    step_number         numeric   (3)
                         not null,
     description         varchar(255),
     url                 varchar(2000)
@@ -82,7 +82,7 @@ rhn_url_probe_step
     cookie_maxage       numeric(9),
                         constraint rhn_urlps_url_pr_id_stp_n_uq
                         unique( url_probe_id, step_number )
-                        using tablespace [[2m_tbs]]
+--                        using tiablespace [[2m_tbs]]
 )
   ;
 

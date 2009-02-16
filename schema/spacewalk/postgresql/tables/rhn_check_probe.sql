@@ -22,28 +22,25 @@ create table
 rhn_check_probe
 (
     probe_id        	numeric(12) not null
-        		constraint rhn_chkpb_probe_id_pk primary key
+        		constraint rhn_chkpb_probe_id_pk primary key,
 --            		using index tablespace [[4m_tbs]]
-			constraint rhn_chkpb_recid_probe_typ_fk foreign key
-    			references rhn_probe( recid, probe_type )
-    			on delete cascade,
-            
+		            
     probe_type      	varchar(12) default 'check' not null
         		constraint chkpb_probe_type_ck 
-            		check (probe_type='check')
-			constraint rhn_chkpb_recid_probe_typ_fk foreign key
-    			references rhn_probe( recid, probe_type )
-    			on delete cascade,
+            		check (probe_type='check'),
 
     host_id         	numeric   (12) not null
-		    	constraint rhn_chkpb_host_id_fk foreign key 
+		    	constraint rhn_chkpb_host_id_fk  
     		    	references rhnServer( id ),
     sat_cluster_id  	numeric   (12) not null
-		    	constraint rhn_chkpb_pid_ptype_uq_idx unique (probe_id, probe_type)
-		    	constraint rhn_chkpb_satcl_sat_cl_id_fk foreign key 
+		    	constraint rhn_chkpb_satcl_sat_cl_id_fk  
 		        references rhn_sat_cluster( recid )
-    			on delete cascade
+    			on delete cascade,
 --			using tablespace [[4m_tbs]]
+			constraint rhn_chkpb_pid_ptype_uq_idx unique (probe_id, probe_type),
+			constraint rhn_chkpb_recid_probe_typ_fk foreign key (probe_id, probe_type)           
+                        references rhn_probe( recid, probe_type )
+                        on delete cascade
 )
 ;
 

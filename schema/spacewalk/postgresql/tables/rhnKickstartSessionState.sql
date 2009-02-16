@@ -23,10 +23,12 @@ rhnKickstartSessionState
 (
 	id			numeric not null
 				constraint rhn_ks_session_state_id_pk primary key
---					using index tablespace [[64k_tbs]],
+--					using index tablespace [[64k_tbs]]
+                                ,
 	label			varchar(64) not null
 				constraint rhn_ks_session_state_label_uq unique 
 --        			using index tablespace [[64k_tbs]]
+                                ,
 	name			varchar(128) not null,
 	description		varchar(1024) not null,
 	created			timestamp default (current_timestamp) not null,

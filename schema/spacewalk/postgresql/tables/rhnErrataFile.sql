@@ -22,7 +22,7 @@ create table
 rhnErrataFile
 (
 	id		numeric not null constraint rhn_erratafile_id_pk
-	primary key ( id ),
+	primary key ,
 	errata_id       numeric not null
 			constraint rhn_erratafile_errata_fk
 				references rhnErrata(id)
@@ -32,8 +32,8 @@ rhnErrataFile
 				references rhnErrataFileType(id),
 	md5sum		varchar(64) not null,
 	filename	varchar(1024)not null,
-	created		timestamp default(current_timestamp) not null,
-	modified	timestamp default(current_time) not null,
+	created		date default(current_date) not null,
+	modified	date default(current_date) not null,
 	constraint rhn_erratafile_eid_file_uq unique ( errata_id, filename )
 )
 ;

@@ -22,13 +22,13 @@
 create table 
 rhn_config_group
 (
-    name        varchar(255) not null
-        	constraint rhn_confg_name_pk primary key
---            	using index tablespace [[64k_tbs]]
-            ,
+    name        varchar(255)
+                constraint rhn_confg_name_pk primary key
+--              using index tablespace [[64k_tbs]]
+                ,
     description varchar(255)
 )
-;
+  ;
 
 comment on table rhn_config_group 
     is 'confg  configuration group definition:general,mail,cf_db';

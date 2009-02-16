@@ -21,20 +21,25 @@
 create table 
 rhn_config_macro
 (
-    environment         varchar(255) not null
-			constraint rhn_confm_envir_environment_fk 
-    			references rhn_environment( name ),
-    name                varchar(255) not null,
-    definition          varchar(255), 
+    environment         varchar(255)
+                        not null
+                        constraint rhn_confm_envir_environment_fk
+                        references rhn_environment( name ),
+    name                varchar(255)
+                        not null,
+    definition          varchar(255),
     description         varchar(255),
-    editable            char(1) default 0 not null,
+    editable            char(1) default 0
+                        not null,
     last_update_user    varchar(40),
     last_update_date    date,
---			constraint rhn_confm_environment_name_pk unique (environment, name),
---			using tablespace [[2m_tbs]]
-			constraint rhn_confm_environment_name_pk primary key ( environment, name )
+                        constraint rhn_confm_environment_name_pk 
+                        primary key( environment, name ),
+                        constraint rhn_confm_environment_name_pk
+                        unique( environment, name )
+--                      using index tablespace [[2m_tbs]]
 )
-;
+  ;
 
 comment on table rhn_config_macro 
     is 'confm configuration macro def';

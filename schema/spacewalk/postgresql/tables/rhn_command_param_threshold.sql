@@ -25,25 +25,25 @@ rhn_command_param_threshold
     command_id              numeric   (12) not null,
     param_name              varchar (40) not null,
     param_type              varchar (10)  not null constraint rhn_coptr_param_type_ck check (param_type='threshold'),
-    threshold_type_name     varchar (10) not null,
+    threshold_type_name     varchar (10) not null
+				constraint rhn_coptr_thrtp_thres_type_fk 
+				references rhn_threshold_type( name),
     threshold_metric_id     varchar (40) not null,
     last_update_user        varchar (40),
     last_update_date        timestamp,
     command_class           varchar (255) not null,
-    constraint rhn_coptr_id_p_name_p_type_pk primary key ( command_id, param_name, param_type ),
-    constraint rhn_coptr_cmd_id_cmd_cl_fk foreign key ( command_id, command_class ) references rhn_command( recid, command_class ) on delete cascade,
-    constraint rhn_coptr_m_thr_m_cmd_cl_fk foreign key ( command_class, threshold_metric_id )
-    references rhn_metrics( command_class, metric_id ) on delete cascade,
-    constraint rhn_coptr_thrtp_thres_type_fk foreign key ( threshold_type_name ) references rhn_threshold_type( name )
+    				constraint rhn_coptr_id_p_name_p_type_pk primary key ( command_id, param_name, param_type ),
+    				constraint rhn_coptr_cmd_id_cmd_cl_fk foreign key ( command_id, command_class ) 
+				references rhn_command( recid, command_class ) 
+				on delete cascade,
+    				constraint rhn_coptr_m_thr_m_cmd_cl_fk foreign key ( command_class, threshold_metric_id )
+    				references rhn_metrics ( command_class, metric_id ) 
+				on delete cascade
     
 )
---    enable row movement
-  ;
+;
 
 comment on table rhn_command_param_threshold 
     is 'coptr  a parameter for a particular command';
 
-create unique index rhn_coptr_id_p_name_p_type_pk 
-    on rhn_command_param_threshold ( command_id, param_name, param_type )
---    tablespace [[2m_tbs]]
-  ;
+

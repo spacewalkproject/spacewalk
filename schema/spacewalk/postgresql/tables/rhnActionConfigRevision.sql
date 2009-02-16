@@ -44,7 +44,7 @@ rhnActionConfigRevision
 	created			timestamp default(current_timestamp) not null,
 	modified		timestamp default(current_timestamp) not null,
 
-	constraint rhn_actioncr_aid_sid_crid_uq ( action_id, server_id, config_revision_id )
+	constraint rhn_actioncr_aid_sid_crid_uq  unique( action_id, server_id, config_revision_id )
 --		using index tablespace [[4m_tbs]]
 );
 

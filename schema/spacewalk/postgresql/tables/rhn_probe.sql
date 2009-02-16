@@ -42,7 +42,7 @@ rhn_probe
     notify_recovery                  char     (1),
     notification_interval_minutes    numeric   (16) not null,
     check_interval_minutes           numeric   (16) not null,
-    retry_interval_minutes           number   (16) not null,
+    retry_interval_minutes           numeric   (16) not null,
     max_attempts                     numeric   (16),
     last_update_user                 varchar (40),
     last_update_date                 date,

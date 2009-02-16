@@ -25,7 +25,9 @@ rhn_check_suites
         		constraint rhn_cksut_recid_pk primary key
 --            		using index tablespace [[2m_tbs]]
             ,
-    customer_id         numeric(12) not null,
+    customer_id         numeric(12) not null
+			constraint rhn_cksut_cstmr_customer_id_fk 
+    			references web_customer( id ),
     suite_name          varchar(40) not null,
     description         varchar(255),
     last_update_user    varchar(40) not null,
@@ -38,15 +40,10 @@ comment on table rhn_check_suites
 
 create index rhn_cksut_cid_idx
 	on rhn_check_suites( customer_id )
-	tablespace [[2m_tbs]]
+--	tablespace [[2m_tbs]]
   ;
 
-alter table rhn_check_suites
-    add constraint rhn_cksut_cstmr_customer_id_fk
-    foreign key ( customer_id )
-    references web_customer( id );
-
---create sequence rhn_check_suites_recid_seq;
+create sequence rhn_check_suites_recid_seq;
 
 --
 --Revision 1.7  2004/05/28 22:27:32  pjones

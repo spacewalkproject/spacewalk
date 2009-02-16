@@ -29,9 +29,9 @@ rhnFileDownload
 	token			varchar(48),
 	requestor_ip		varchar(15)
 				not null,
-	start_time		date default(sysdate)
+	start_time		date default(current_date)
 				not null,
-	user_id			number
+	user_id			numeric
 				constraint rhn_filedl_uid_fk
 				references web_contact(id)
 				on delete set null

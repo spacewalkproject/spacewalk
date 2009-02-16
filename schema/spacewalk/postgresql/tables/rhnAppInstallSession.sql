@@ -21,7 +21,7 @@ create sequence rhn_appinst_session_id_seq;
 create table
 rhnAppInstallSession
 (
-	id		numeric not null constraint rhn_appinst_sessiond_id_pk	primary key ( id ),
+	id		numeric not null constraint rhn_appinst_sessiond_id_pk	primary key,
 	instance_id	numeric not null	constraint rhn_appinst_session_iid_fk
 				references rhnAppInstallInstance(id)
 				on delete cascade,
@@ -37,7 +37,6 @@ rhnAppInstallSession
 	created		timestamp default (current_timestamp) not null,
 	modified	timestamp default (current_timestamp) not null
 )
---	enable row movement
   ;
 
 create index rhn_appinst_session_id_iid_idx
@@ -60,5 +59,4 @@ create index rhn_appinst_sessn_sid_iid_idx
 --    tablespace [[4m_tbs]]
   ;
 
---alter table rhnAppInstallSession add constraint rhn_appinst_sessiond_id_pk	primary key ( id );
 

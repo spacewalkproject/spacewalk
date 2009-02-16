@@ -26,7 +26,7 @@ rhnChannelPackage
 			constraint rhn_cp_pid_fk
 				references rhnPackage(id),
 	created		timestamp default (current_timestamp) not null,
-	modified	timestamp default (current_timestamp) not null
+	modified	timestamp default (current_timestamp) not null,
 			constraint rhn_cp_cp_uq unique (channel_id, package_id)
 --			using tablespace [[64k_tbs]]
 )
@@ -35,7 +35,7 @@ rhnChannelPackage
 create index rhn_cp_pc_idx 
        on rhnChannelPackage(package_id, channel_id)
 --       tablespace [[64k_tbs]]
-       nologging;
+       ;
 
 --
 -- Revision 1.16  2003/01/30 16:11:28  pjones

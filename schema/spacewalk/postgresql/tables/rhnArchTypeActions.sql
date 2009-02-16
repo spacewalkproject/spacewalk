@@ -26,10 +26,9 @@ rhnArchTypeActions
 	action_type_id	numeric not null
 			constraint rhn_archtypeacts_actid_fk
 				references rhnActionType(id),
-	created		timestamp defalut(current_timestamp) not null,
-	modified	timestamp defalut(current_timestamp) not null
+	created		date default(current_date) not null,
+	modified	date default(current_date) not null
 )
---	enable row movement
   ;
 
 create unique index rhn_archtypeacts_atid_as_uq

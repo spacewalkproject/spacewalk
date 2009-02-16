@@ -21,8 +21,8 @@ create sequence rhn_appinst_sdata_id_seq;
 create table
 rhnAppInstallSessionData
 (
-	id		number not null constraint rhn_appinst_sdata_id_pk primary key ( id ),
-	session_id	number	not null constraint rhn_appinst_sdata_sid_fk references rhnAppInstallSession(id) 
+	id		numeric not null constraint rhn_appinst_sdata_id_pk primary key ,
+	session_id	numeric	not null constraint rhn_appinst_sdata_sid_fk references rhnAppInstallSession(id) 
 			on delete cascade,
 	key		varchar(64)  not null,
 	value		varchar(2048),
@@ -32,7 +32,6 @@ rhnAppInstallSessionData
 	constraint rhn_appinst_sdata_sid_k_uq unique ( session_id, key )
 )
 --	tablespace [[blob]]
---	enable row movement
   ;
 
 
@@ -41,11 +40,9 @@ create index rhn_appinst_sdata_id_idx
 	on rhnAppInstallSessionData( id )
 --	tablespace [[2m_tbs]]
   ;
---alter table rhnAppInstallSessionData add constraint rhn_appinst_sdata_id_pk primary key ( id );
 
 create index rhn_appinst_sdata_sid_k_id_idx
 	on rhnAppInstallSessionData( session_id, key, id )
 --	tablespace [[8m_tbs]]
   ;
---alter table rhnAppInstallSessionData add constraint rhn_appinst_sdata_sid_k_uq unique ( session_id, key );
 

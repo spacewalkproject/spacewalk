@@ -20,8 +20,9 @@ create table
 rhnChannelProduct
 (
 	id		numeric not null
-			constraint rhn_channelprod_id_pk primary key,
---				using index tablespace [[64k_tbs]],
+			constraint rhn_channelprod_id_pk primary key
+--			using index tablespace [[64k_tbs]]
+                        ,
     	product         varchar(256) not null,
 	version         varchar(64) not null,
 	beta            char(1) default 'N' not null
@@ -29,9 +30,9 @@ rhnChannelProduct
                                 check (beta in ('Y', 'N')),
 	created		timestamp default (current_timestamp) not null,
 	modified	timestamp default (current_timestamp) not null,
-			constraint rhn_channelprod_p_v_b_uq unique (product, version, beta),
---			using tablespace [[64k_tbs]]
-)
+			constraint rhn_channelprod_p_v_b_uq unique (product, version, beta)
+--			using tablespace [[64k_tbs]] 
+ )
 ;
 
 create sequence rhn_channelprod_id_seq;

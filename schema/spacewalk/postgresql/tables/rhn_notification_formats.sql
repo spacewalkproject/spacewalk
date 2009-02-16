@@ -46,7 +46,7 @@ create index rhn_ntfmt_customer_idx
  --   tablespace [[64k_tbs]]
   ;
 
---create sequence rhn_ntfmt_recid_seq;
+create sequence rhn_ntfmt_recid_seq;
 
 --
 --Revision 1.6  2004/05/12 01:21:45  kja
