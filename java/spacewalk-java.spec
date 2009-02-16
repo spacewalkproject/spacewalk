@@ -215,6 +215,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+- yum repodata regen changes to taskomatic
+
 * Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.16-1
 - 458355 - show Monitoring tabs only if Monitoring Backend or Monitoring Scout is enabled
 - 481766 - Corrected the text on Ks Distribution page to reflect the exact nature of the value to be
