@@ -162,7 +162,9 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setTreeType(treetype);
         k.setChannel(treeChannel);
         k.setCobblerId(TestUtils.randomString());
+        k.setCobblerXenId(TestUtils.randomString());
         TestObjectStore.get().putObject("distro_uid", k.getCobblerId());
+        TestObjectStore.get().putObject("distro_xen_uid", k.getCobblerXenId());
         TestObjectStore.get().putObject("distro_name", k.getLabel());
         
         TestUtils.saveAndFlush(k);

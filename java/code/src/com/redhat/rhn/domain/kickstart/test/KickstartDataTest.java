@@ -353,7 +353,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         d.setKsdata(data);
         KickstartVirtualizationType type = KickstartFactory.
             lookupKickstartVirtualizationTypeByLabel(
-                    KickstartVirtualizationType.XEN_PARAVIRT);
+                    KickstartVirtualizationType.KVM_FULLYVIRT);
         d.setVirtualizationType(type);
         KickstartableTree t = KickstartableTreeTest.createTestKickstartableTree(c);
         d.setKstree(t);
