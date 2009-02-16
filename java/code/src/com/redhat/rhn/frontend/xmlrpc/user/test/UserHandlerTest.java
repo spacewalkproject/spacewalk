@@ -91,14 +91,17 @@ public class UserHandlerTest extends BaseHandlerTestCase {
         //admin looking up self
         Map result = handler.getDetails(adminKey, admin.getLogin());
         assertEquals(admin.getFirstNames(), result.get("first_name"));
+        assertEquals(admin.getFirstNames(), result.get("first_names"));
         
         //admin looking up regular
         result = handler.getDetails(adminKey, regular.getLogin());
         assertEquals(regular.getFirstNames(), result.get("first_name"));
+        assertEquals(regular.getFirstNames(), result.get("first_names"));
         
         //regular looking up self
         result = handler.getDetails(regularKey, regular.getLogin());
         assertEquals(regular.getFirstNames(), result.get("first_name"));
+        assertEquals(regular.getFirstNames(), result.get("first_names"));
         
         //regular looking up admin
         try {
