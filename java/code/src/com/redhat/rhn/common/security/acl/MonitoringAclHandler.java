@@ -58,7 +58,7 @@ public class MonitoringAclHandler extends BaseHandler implements AclHandler {
         User user = (User) map.get("user");
         return user.hasRole(RoleFactory.MONITORING_ADMIN) && (
             Config.get().getBoolean("is_is_monitoring_backend") ||
-            Config.get().getBoolean("is_is_monitoring_scout") )
+            Config.get().getBoolean("is_is_monitoring_scout") );
     }
     
     /**
