@@ -21,7 +21,7 @@ import commands
 
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
 from spacewalk.releng.common import run_command, error_out, debug, \
-        find_spec_file
+        find_spec_file, check_tag_exists
 
 DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
 
@@ -71,6 +71,8 @@ class CvsReleaser(object):
         Actually build the package in CVS and submit to build system.
         """
         self.cleanup = not options.no_cleanup
+
+        check_tag_exists(self.builder.build_tag, offline=options.offline)
 
         print("Building release from CVS...")
         commands.getoutput("mkdir -p %s" % self.cvs_workdir)
