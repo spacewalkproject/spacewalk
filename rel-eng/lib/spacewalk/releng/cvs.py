@@ -62,13 +62,6 @@ class CvsReleaser(object):
         self.cvs_package_workdir = os.path.join(self.cvs_workdir,
                 self.package_name)
 
-        # TODO: Looking for spec file in current dir only. This will need
-        # to change if we decide to support cvs releases using an arbitrary
-        # --tag parameter.
-        self.spec_file_name = find_spec_file(in_dir=os.getcwd())
-        self.spec_file = os.path.join(os.getcwd(), self.spec_file_name)
-        debug("Using spec file: %s" % self.spec_file)
-
         # TODO: Refuse to run on an upushed tag.
 
         self.cleanup = True
