@@ -87,26 +87,42 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     
     public void testConfigMgmt() throws Exception {
         KickstartData profile = createProfile();
+        
         handler.enableConfigManagement(adminKey, profile.getLabel());
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(true, newKsProfile.isConfigManageable());
+        
+        boolean configManaged = handler.checkConfigManagement(adminKey, profile.getLabel());
+        assertTrue(configManaged);
+        
         handler.disableConfigManagement(adminKey, profile.getLabel());
         newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());  
         assertEquals(false, newKsProfile.isConfigManageable());
+        
+        configManaged = handler.checkConfigManagement(adminKey, profile.getLabel());
+        assertFalse(configManaged);
     }
     
     public void testRemoteCommands() throws Exception {
         KickstartData profile = createProfile();
+        
         handler.enableRemoteCommands(adminKey, profile.getLabel());
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(true, newKsProfile.isRemoteCommandable());
+        
+        boolean remoteCommands = handler.checkRemoteCommands(adminKey, profile.getLabel());
+        assertTrue(remoteCommands);
+        
         handler.disableRemoteCommands(adminKey, profile.getLabel());
         newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());  
         assertEquals(false, newKsProfile.isRemoteCommandable());
+        
+        remoteCommands = handler.checkRemoteCommands(adminKey, profile.getLabel());
+        assertFalse(remoteCommands);
     }    
     
     public void testNetworkConnection() throws Exception {
