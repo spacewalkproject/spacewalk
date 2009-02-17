@@ -21,11 +21,11 @@
 --data for rhn_widget
 
 insert into rhn_widget(name,description,last_update_user,last_update_date) 
-    values ( 'text','Text','system',sysdate);
+    values ( 'text','Text','system',current_date);
 insert into rhn_widget(name,description,last_update_user,last_update_date) 
-    values ( 'password','Password','system',sysdate);
+    values ( 'password','Password','system',current_date);
 insert into rhn_widget(name,description,last_update_user,last_update_date) 
-    values ( 'checkbox','Checkbox','system',sysdate);
+    values ( 'checkbox','Checkbox','system',current_date);
 commit;
 
 --

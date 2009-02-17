@@ -19,7 +19,7 @@
 --
 
 insert into rhn_pager_types(recid,pager_type_name)
-    values ( rhn_pager_types_recid_seq.nextval,'All pager types');
+    values (nextval('rhn_pager_types_recid_seq'),'All pager types');
 commit;
 
 --

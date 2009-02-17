@@ -22,16 +22,16 @@
 
 insert into rhn_threshold_type(name,description,ordinal,last_update_user,
 last_update_date) 
-    values ( 'warn_min','Minimum',10,'system',sysdate);
+    values ( 'warn_min','Minimum',10,'system',current_date);
 insert into rhn_threshold_type(name,description,ordinal,last_update_user,
 last_update_date) 
-    values ( 'warn_max','Maximum',20,'system',sysdate);
+    values ( 'warn_max','Maximum',20,'system',current_date);
 insert into rhn_threshold_type(name,description,ordinal,last_update_user,
 last_update_date) 
-    values ( 'crit_min','Minimum',0,'system',sysdate);
+    values ( 'crit_min','Minimum',0,'system',current_date);
 insert into rhn_threshold_type(name,description,ordinal,last_update_user,
 last_update_date) 
-    values ( 'crit_max','Maximum',30,'system',sysdate);
+    values ( 'crit_max','Maximum',30,'system',current_date);
 commit;
 
 --

@@ -23,31 +23,31 @@
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'generic','Generic data type','Generic label',NULL,
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'float','Floating-point number',NULL,'npnumber nptype=float',
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'password','Password',NULL,NULL,
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'string','Character string',NULL,NULL,
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'integer','Integer',NULL,'npnumber nptype=int',
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'checkbox','Checkbox',NULL,NULL,
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'probestate','Probe state',NULL,'probestate',
-    NULL,'system',sysdate);
+    NULL,'system',current_date);
 commit;
 
 --
