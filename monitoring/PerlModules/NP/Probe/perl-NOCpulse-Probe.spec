@@ -64,6 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(-,root,root,-)
 %{_bindir}/rhn-runprobe
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
 %doc LICENSE
