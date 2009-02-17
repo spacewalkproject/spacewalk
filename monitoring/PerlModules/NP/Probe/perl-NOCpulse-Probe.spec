@@ -1,4 +1,3 @@
-%define npbin        /opt/home/nocpulse/bin
 Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
 URL:          https://fedorahosted.org/spacewalk
