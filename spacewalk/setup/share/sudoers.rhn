@@ -6,7 +6,7 @@ Cmnd_Alias CONFIG_RHN = /usr/sbin/rhn-sat-restart-silent,\
                         /usr/bin/rhn-load-ssl-cert.pl,\
                         /usr/bin/rhn-ssl-tool,\
                         /etc/rc.d/np.d/step Monitoring install,\
-                        /etc/rc.d/np.d/step MonitoringScout install
+                        /etc/rc.d/np.d/step MonitoringScout install,\
                         /etc/rc.d/np.d/step Monitoring uninstall,\
                         /etc/rc.d/np.d/step MonitoringScout uninstall,\
                         /sbin/service Monitoring restart,\
