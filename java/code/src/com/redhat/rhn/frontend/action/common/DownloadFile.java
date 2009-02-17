@@ -15,7 +15,10 @@
 package com.redhat.rhn.frontend.action.common;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.util.download.ByteArrayStreamInfo;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Patch;
@@ -33,6 +36,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DownloadAction;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -49,14 +53,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DownloadFile extends DownloadAction {
    
+
     private static Logger log = Logger.getLogger(DownloadFile.class);
 
-    /*private String type;
-    private String hash;
-    private long expire;
-    private long userId;
-    private long fileId;
-    private String filename;*/
     private static String PARAMS = "params";
     private static String TYPE = "type";
     private static String HASH = "hash";
@@ -64,20 +63,22 @@ public class DownloadFile extends DownloadAction {
     private static String USERID = "userid";
     private static String FILEID = "fileid";
     private static String FILENAME = "filename";
-    
+    private static String TREE = "tree";
+    private static String PATH = "path";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
             HttpServletRequest request,
-            HttpServletResponse response) {
+            HttpServletResponse response) throws Exception {
         
         String url = request.getParameter("url");
         
         log.debug("url : " + url);
         if (url.startsWith("/ks/dist")) {
             System.out.println("URL is ks dist..");
-            ActionForward error = handleKickstartDownload(request, url, mapping);
+            ActionForward error = handleKickstartDownload(request, response, 
+                    url, mapping);
             if (error != null) { 
                 return error;
             }
@@ -100,11 +101,36 @@ public class DownloadFile extends DownloadAction {
         return null;
     }
     
-    private ActionForward handleKickstartDownload(HttpServletRequest request, String url, 
-            ActionMapping mapping) {
+    private ActionForward handleKickstartDownload(HttpServletRequest request, 
+            HttpServletResponse response, String url, ActionMapping mapping) throws IOException {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
+        
+        // we accept two URL forms, for cases when there is a pre-determined
+        // session available:
+        //             /dist/tree/path/to/file.rpm
+        // /dist/session/HEX/tree/path/to/file.rpm
+
         Map params = new HashMap();
+        System.out.println("URL : " + url);
+        String[] split = StringUtils.split(url, '/');
+        String treeLabel = split[1];
+        String path = split[2];
+        if (treeLabel.equals("session")) {
+            // ($session_id, $tree_label, $path) = split m(/), $path, 3;
+            String sessionId = split[2];
+            treeLabel = split[3];
+            path = split[4];
+            sessionId = SessionSwap.extractData(sessionId)[0];
+        }
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(treeLabel);
+        if (tree == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+        
         params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
+        params.put(TREE, tree);
+        params.put(FILENAME, path);
+        
         request.setAttribute(PARAMS, params);
         return null;
     }
@@ -156,7 +182,10 @@ public class DownloadFile extends DownloadAction {
         String type = (String) params.get(TYPE);
         if (type.equals(DownloadManager.DOWNLOAD_TYPE_KICKSTART)) {
             // find the file in the /var/satellite/redhat repo of packages
-            
+            System.out.println("getStreamInfo :: kickstart type.");
+            Package pack = PackageFactory.lookupByIdAndOrg(null, null);
+            path = Config.get().getString(Config.MOUNT_POINT) + "/" + pack.getPath();
+            return getStreamForBinary(path);
         }
         else {
             Long fileId = (Long) params.get(FILEID);

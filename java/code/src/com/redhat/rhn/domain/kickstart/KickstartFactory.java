@@ -515,6 +515,24 @@ public class KickstartFactory extends HibernateFactory {
     }
 
     /**
+     * Lookup a KickstartableTree by its label.  
+     * 
+     * @param label to lookup
+     * @return KickstartableTree if found.
+     */
+    public static KickstartableTree lookupKickstartTreeByLabel(String label) {
+        Session session = null;
+        KickstartableTree retval = null;
+        session = HibernateFactory.getSession();
+        retval = (KickstartableTree)
+            session.getNamedQuery("KickstartableTree.findByLabel")
+                                      .setString("label", label)
+                                      .uniqueResult();
+        return retval;
+    }
+
+
+    /**
      * Lookup a list of KickstartableTree objects that use the passed in channelId
      * 
      * @param channelId that owns the kickstart trees

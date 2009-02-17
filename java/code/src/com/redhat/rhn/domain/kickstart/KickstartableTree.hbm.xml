@@ -54,6 +54,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
         		where k.label = :label and k.org = :org_id]]>
     </query>
+    
+    <query name="KickstartableTree.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+                where k.label = :label]]>
+    </query>
+    
     <query name="KickstartableTree.findByLabelAndNullOrg">
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
         		where k.label = :label and k.org is null]]>
