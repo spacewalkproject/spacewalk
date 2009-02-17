@@ -2,7 +2,6 @@
 Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-sat-restart-silent,\
                          /usr/bin/rhn-config-satellite.pl,\
                          /usr/bin/rhn-satellite-activate,\
-                         /usr/bin/satellite-sync,\
                          /usr/bin/rhn-ssl-tool,\
                          /usr/bin/rhn-ssl-dbstore,\
                          /usr/bin/rhn-bootstrap,\
