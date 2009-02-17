@@ -64,15 +64,17 @@ my %PARAM_LOOKUP = (
 my @ENV_VARS = qw( HOME LOGNAME SHELL USER USERNAME PATH);
 
 my @BASEPATH = qw(
-  ROOT:/usr/local/sbin
   /usr/local/bin
-  ROOT:/sbin
   /bin
-  ROOT:/usr/sbin
   /usr/bin
   /usr/X11R6/bin
 );
 
+my @ROOTBASEPATH = qw(
+  /usr/local/sbin
+  /sbin
+  /usr/sbin
+);
 
 ##############################################################################
 ############################# High-level methods #############################
@@ -483,11 +485,10 @@ sub path {
 ##########
   my $self = shift;
   my @path;
-  my @candidates = (@BASEPATH);
+  my @candidates = ($self->euid == 0 and $self->ruid == 0)) ?
+    (@ROOTBASEPATH, @BASEPATH) : (@BASEPATH);
 
   foreach my $dir (@candidates) {
-    next if (/^ROOT:/ and $self->euid != 0 and $self->ruid != 0);
-    s/^ROOT://;
     push(@path, $dir) if (-d $dir);
   }
 
