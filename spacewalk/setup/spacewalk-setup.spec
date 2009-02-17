@@ -51,7 +51,10 @@ chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.clear %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.1 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.2 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.3 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
