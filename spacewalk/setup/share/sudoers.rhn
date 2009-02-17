@@ -1,6 +1,5 @@
 ## RHN specifics ##
 Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-sat-restart-silent,\
-                         /usr/bin/rhn-deploy-ca-cert.pl,\
                          /usr/bin/rhn-generate-pem.pl,\
                          /usr/bin/satcon-build-dictionary.pl,\
                          /usr/bin/satcon-deploy-tree.pl,\
