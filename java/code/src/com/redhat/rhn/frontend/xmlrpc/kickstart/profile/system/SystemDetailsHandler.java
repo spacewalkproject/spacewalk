@@ -51,39 +51,47 @@ import com.redhat.rhn.common.validator.ValidatorError;
 public class SystemDetailsHandler extends BaseHandler {
 
     /**
-     * Enables the configuration management flag in a kickstart profile 
+     * Retrieve the configuration management flag for a kickstart profile 
      * so that a system created using this profile will be configuration capable.
      * @param sessionKey the session key
      * @param ksLabel the ks profile label 
-     * @return 1 on success
+     * @return returns true if configuration management is enabled; otherwise, false
      * 
-     * 
-     * @xmlrpc.doc Enables the configuration management flag in a kickstart profile 
-     * so that a system created using this profile will be configuration capable.
+     * @xmlrpc.doc Retrieve the configuration management flag for a kickstart profile.
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if configuration 
+     * management enabled; otherwise, false")
      */
-    public int enableConfigManagement(String sessionKey, String ksLabel) {
-        return setConfigFlag(sessionKey, ksLabel, true);
+    public boolean getConfigManagementCapable(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+        return command.getKickstartData().getKickstartDefaults().getCfgManagementFlag().
+            booleanValue();
     }
-
+    
     /**
-     * Disables the configuration management flag in a kickstart profile 
-     * so that a system created using this profile will be NOT be configuration capable.
+     * Set the configuration management flag in a kickstart profile.  If enabled,
+     * a system created using this profile will be configuration capable; otherwise, it
+     * will not be configuration capable.
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
+     * @param enabled the value to set
      * @return 1 on success
      * 
-     * @xmlrpc.doc Disables the configuration management flag in a kickstart profile 
-     * so that a system created using this profile will be NOT be configuration capable.   
+     * @xmlrpc.doc Set the configuration management flag for a kickstart profile.  If 
+     * enabled, a system created using this profile will be configuration management 
+     * capable.
      * @xmlrpc.param #session_key() 
-     * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
+     * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
+     * @xmlrpc.param #param_desc("boolean", "enabled", "set to true to enable 
+     * configuration management or false to disable configuration management.")
      * @xmlrpc.returntype #return_int_success()
-
      */
-    public int disableConfigManagement(String sessionKey, String ksLabel) {
-        return setConfigFlag(sessionKey, ksLabel, false);
+    public int setConfigManagementCapable(String sessionKey, String ksLabel, 
+        Boolean enabled) {
+        return setConfigFlag(sessionKey, ksLabel, enabled.booleanValue());
     }
     
     private int setConfigFlag(String sessionKey, String ksLabel, boolean flag) {
@@ -96,42 +104,48 @@ public class SystemDetailsHandler extends BaseHandler {
     }
     
     /**
-     * Enables the remote command flag in a kickstart profile 
+     * Retrieve the remote command flag for a kickstart profile 
      * so that a system created using this profile 
      * will be capable of running remote commands
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
-     * @return 1 on success
+     * @return returns true if remote command support is enabled; otherwise, false
      * 
-     * @xmlrpc.doc Enables the remote command flag in a kickstart profile 
-     * so that a system created using this profile
-     *  will be capable of running remote commands
+     * @xmlrpc.doc Retrieve the remote command flag for a kickstart profile.
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #prop_desc("boolean", "enabled", "true if remote 
+     * command support is enabled; otherwise, false")
      */
-    public int enableRemoteCommands(String sessionKey, String ksLabel) {
-        return setRemoteCommandsFlag(sessionKey, ksLabel, true);
+    public boolean getRemoteCommandCapable(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        SystemDetailsCommand command  = getSystemDetailsCommand(ksLabel, user);
+        return command.getKickstartData().getKickstartDefaults().getRemoteCommandFlag().
+            booleanValue();
     }
-
+    
     /**
-     * Disables the remote command flag in a kickstart profile 
-     * so that a system created using this profile
-     * will be capable of running remote commands
+     * Set the remote command flag for a kickstart profile.  If enabled,
+     * a system created using this profile will be capable of running
+     * remote commands. 
      * @param sessionKey the session key
      * @param ksLabel the ks profile label
+     * @param enabled the value to set
      * @return 1 on success
      * 
-     * @xmlrpc.doc Disables the remote command flag in a kickstart profile 
-     * so that a system created using this profile
-     * will be capable of running remote commands
+     * @xmlrpc.doc Set the remote command flag for a kickstart profile.  
+     * If enabled, a system created using this profile will be capable of running
+     * remote commands. 
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param_desc("string", "ksLabel","the kickstart profile label")
+     * @xmlrpc.param #param_desc("boolean", "enabled", "set to true to enable 
+     * remote command support or false to disable remote command support.")
      * @xmlrpc.returntype #return_int_success()
-
      */
-    public int disableRemoteCommands(String sessionKey, String ksLabel) {
-        return setRemoteCommandsFlag(sessionKey, ksLabel, false);
+    public int setRemoteCommandCapable(String sessionKey, String ksLabel, 
+        Boolean enabled) {
+        return setRemoteCommandsFlag(sessionKey, ksLabel, enabled.booleanValue());
     }
     
     private int setRemoteCommandsFlag(String sessionKey, String ksLabel, boolean flag) {
