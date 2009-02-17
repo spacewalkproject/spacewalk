@@ -154,57 +154,6 @@ sub is_embedded_db {
   return $class->is_rpm_installed('oracle-server-admin');
 }
 
-sub populate_database {
-  my $class = shift;
-  my %params = validate(@_, { user => 1,
-			      password => 1,
-			      sid => 1,
-			      clear_db => 0,
-			      nofork => 0,
-			      log_file => 0,
-			    });
-
-  $params{log_file} ||= DEFAULT_DB_POP_LOG_FILE;
-
-  my $tablespace_name = $class->get_default_tablespace_name($params{user});
-  $class->populate_tablespace_name($tablespace_name);
-
-  my $sat_schema_deploy = 
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
-
-  my @extra_opts;
-  if ($params{clear_db}) {
-    push @extra_opts, '--clear-db';
-  }
-
-  if ($params{nofork}) {
-    push @extra_opts, '--nofork';
-  }
-
-  if ($params{log_file}) {
-    push @extra_opts, '--log=' . $params{log_file};
-  }
-
-  my $dsn = sprintf '%s/%s@%s', @{\%params}{qw/user password sid/};
-
-  my @opts = ('/usr/bin/rhn-populate-database.pl',
-		   "--dsn=$dsn", "--schema-deploy-file=$sat_schema_deploy",
-		   @extra_opts);
-
-  my $ret = system('/usr/bin/sudo', @opts);
-
-  if ($ret) {
-    my $exit_value = $? >> 8;
-    if ($exit_value == 100) {
-      throw "(satinstall:db_population_in_progress) Database population is already in progress";
-    }
-
-    throw "(satinstall:db_population_error) Error populating db: $exit_value";
-  }
-
-  return;
-}
-
 sub db_population_in_progress {
   my $class = shift;
 
