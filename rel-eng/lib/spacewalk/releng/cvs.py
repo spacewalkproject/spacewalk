@@ -174,10 +174,22 @@ class CvsReleaser(object):
     def _make_cvs_tag(self):
         """ Create a CVS tag based on what we just committed. """
         os.chdir(self.cvs_package_workdir)
-        # TODO: foreach branch:
-        #output = run_command("make tag")
+        print("Creating CVS tags...")
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            #output = run_command("make tag")
+            #debug(output)
 
     def _make_cvs_build(self):
         """ Build srpm and submit to build system. """
-        pass
+        os.chdir(self.cvs_package_workdir)
+        print("Submitting CVS builds...")
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            #output = run_command("make tag")
+            #debug(output)
 
