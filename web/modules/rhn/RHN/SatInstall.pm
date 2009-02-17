@@ -209,29 +209,6 @@ sub check_valid_ssl_cert_password {
   return $ret;
 }
 
-sub sat_sync {
-  my $class = shift;
-  my %params = validate(@_, { ca_cert_file => 1,
-			      dsn => 1,
-			      step => 1,
-			    });
-
-  my %args = ('--step' => $params{step},
-	      '--db' => $params{dsn},
-	      '--ca-cert' => $params{ca_cert_file},
-	     );
-
-  my $ret = system('/usr/bin/sudo', '/usr/bin/satellite-sync',
-		   %args);
-
-  if ($ret) {
-    throw 'There was a problem running satellite-sync.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return $ret;
-}
-
 my %ca_cert_opts = (
    dir => 1,
    password => 1,
