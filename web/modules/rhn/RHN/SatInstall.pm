@@ -346,28 +346,6 @@ sub generate_server_cert {
   return $ret;
 }
 
-sub deploy_ca_cert {
-  my $class = shift;
-  my %params = validate(@_, { "source-dir" => 1,
-			      "target-dir" => 1 });
-
-  my @opts;
-
-  foreach my $key (keys %params) {
-    push @opts, qq(--$key=$params{$key});
-  }
-
-  my @command = ('/usr/bin/rhn-deploy-ca-cert.pl', @opts);
-
-  my $ret = system('/usr/bin/sudo', @command);
-
-  if ($ret) {
-    die "Could not deploy ca cert.";
-  }
-
-  return;
-}
-
 my $valid_bootstrap_params = {
 			      hostname => 1,
 			      "ssl-cert" => 1,
