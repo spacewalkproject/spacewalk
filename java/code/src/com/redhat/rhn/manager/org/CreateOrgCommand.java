@@ -168,6 +168,8 @@ public class CreateOrgCommand {
                 createCryptoKey.store();
             }
             
+            OrgManager.createChannelFamily(createdOrg);
+            
             return null;
         }
     }
