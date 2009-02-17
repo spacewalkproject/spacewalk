@@ -4,7 +4,6 @@ Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-sat-restart-silent,\
                          /usr/bin/rhn-satellite-activate,\
                          /usr/bin/rhn-ssl-tool,\
                          /usr/bin/rhn-bootstrap,\
-                         /usr/sbin/rhnreg_ks,\
                          /etc/rc.d/np.d/step Monitoring install,\
                          /etc/rc.d/np.d/step MonitoringScout install
 
