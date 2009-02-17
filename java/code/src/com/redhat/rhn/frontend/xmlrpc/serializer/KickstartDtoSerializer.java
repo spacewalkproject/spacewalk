@@ -36,6 +36,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *          #prop("string", "name")
  *          #prop("boolean", "advanced_mode")
  *          #prop("boolean", "org_default")
+ *          #prop("boolean", "active")
  *   #struct_end()
  */
 public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
@@ -54,6 +55,7 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
         helper.add("label", ks.getLabel());
+        helper.add("active", ks.isActive());
         helper.add("tree_label", ks.getTreeLabel());
         helper.add("name", ks.getLabel());
         helper.add("advanced_mode", ks.isAdvancedMode());
