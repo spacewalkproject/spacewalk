@@ -368,26 +368,6 @@ sub deploy_ca_cert {
   return;
 }
 
-sub install_server_cert {
-  my $class = shift;
-  my %params = validate(@_, { dir => 1,
-			      system => 1 });
-
-  my @opts;
-
-  push @opts, '--dir=' . File::Spec->catfile($params{dir}, $params{system});
-
-  my @command = ('/usr/bin/rhn-install-ssl-cert.pl', @opts);
-
-  my $ret = system('/usr/bin/sudo', @command);
-
-  if ($ret) {
-    die "Could not install ssl cert.";
-  }
-
-  return;
-}
-
 my $valid_bootstrap_params = {
 			      hostname => 1,
 			      "ssl-cert" => 1,
