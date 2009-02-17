@@ -66,6 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-runprobe
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
 * Tue Jan 13 2009 Milan Zazrivec 1.183.6-1
