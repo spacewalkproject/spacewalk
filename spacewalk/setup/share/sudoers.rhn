@@ -1,26 +1,17 @@
 ## RHN specifics ##
-Cmnd_Alias INSTALL_RHN = /usr/sbin/rhn-sat-restart-silent,\
-                         /usr/bin/rhn-config-satellite.pl,\
-                         /usr/bin/rhn-satellite-activate,\
-                         /usr/bin/rhn-ssl-tool,\
-                         /usr/bin/rhn-bootstrap,\
-                         /etc/rc.d/np.d/step Monitoring install,\
-                         /etc/rc.d/np.d/step MonitoringScout install
-
-Cmnd_Alias CONFIG_RHN = /sbin/service Monitoring restart,\
-                        /sbin/service MonitoringScout restart,\
-                        /sbin/service taskomatic restart,\
+Cmnd_Alias CONFIG_RHN = /usr/sbin/rhn-sat-restart-silent,\
                         /usr/bin/rhn-config-satellite.pl,\
+                        /usr/bin/rhn-satellite-activate,\
+                        /usr/bin/rhn-bootstrap,\
+                        /usr/bin/rhn-load-ssl-cert.pl,\
+                        /usr/bin/rhn-ssl-tool,\
                         /etc/rc.d/np.d/step Monitoring install,\
-                        /etc/rc.d/np.d/step MonitoringScout install,\
+                        /etc/rc.d/np.d/step MonitoringScout install
                         /etc/rc.d/np.d/step Monitoring uninstall,\
                         /etc/rc.d/np.d/step MonitoringScout uninstall,\
-                        /usr/bin/rhn-load-ssl-cert.pl
-
-# The INSTALL_RHN commands are required for RHN Satellite
-# installation.  They can be disabled post-install.
-apache  ALL=(root)      NOPASSWD: INSTALL_RHN
-tomcat  ALL=(root)      NOPASSWD: INSTALL_RHN
+                        /sbin/service Monitoring restart,\
+                        /sbin/service MonitoringScout restart,\
+                        /sbin/service taskomatic restart
 
 # The CONFIG_RHN commands are required for reconfiguration of a
 # running RHN Satellite.  They should be enabled for proper operation
@@ -29,6 +20,6 @@ apache  ALL=(root)      NOPASSWD: CONFIG_RHN
 tomcat  ALL=(root)      NOPASSWD: CONFIG_RHN
 
 # These two directives allow tomcat and apache to invoke CONFIG_RHN
-# and INSTALL_RHN commands via sudo even without a real tty
+# commands via sudo even without a real tty
 Defaults:tomcat !requiretty
 Defaults:apache !requiretty
