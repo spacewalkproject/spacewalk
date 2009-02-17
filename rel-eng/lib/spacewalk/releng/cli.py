@@ -224,6 +224,10 @@ class CLI:
 
     def _create_builder(self, package_name, build_tag, build_version, options,
             pkg_config, global_config, build_dir):
+        """
+        Create (but don't run) the builder class. Builder object may be
+        used by other objects without actually having run() called.
+        """
 
         builder_class = None
         if pkg_config.has_option("buildconfig", "builder"):

@@ -38,6 +38,7 @@ class CvsReleaser(object):
         self.global_config = global_config
         self.builder = builder
         self.package_name = builder.project_name
+        self.package_version = builder.build_version
 
         if not self.global_config.has_section("cvs"):
             error_out("No 'cvs' section found in global.build.py.props")
@@ -66,6 +67,7 @@ class CvsReleaser(object):
         # --tag parameter.
         self.spec_file_name = find_spec_file(in_dir=os.getcwd())
         self.spec_file = os.path.join(os.getcwd(), self.spec_file_name)
+        debug("Using spec file: %s" % self.spec_file)
 
         # TODO: Refuse to run on an upushed tag.
 
@@ -147,9 +149,9 @@ class CvsReleaser(object):
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            debug("Copying spec file: %s" % self.spec_file_name)
+            debug("Copying spec file: %s" % self.builder.spec_file)
             debug("  To: %s" % branch_dir)
-            run_command("cp %s %s" % (self.spec_file, branch_dir))
+            run_command("cp %s %s" % (self.builder.spec_file, branch_dir))
 
     def _user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """
@@ -164,12 +166,16 @@ class CvsReleaser(object):
         else:
             print("Proceeding with commit.")
             os.chdir(self.cvs_package_workdir)
-            print("NOT YET IMPLEMENTED!!!!!!!!")
-            #output = run_command("cvs commit ")
+            cmd = 'cvs commit -m "Update %s to %s"' % \
+                    (self.package_name, self.package_version)
+            debug("CVS commit command: %s" % cmd)
+            #output = run_command(cmd)
 
     def _make_cvs_tag(self):
         """ Create a CVS tag based on what we just committed. """
-        pass
+        os.chdir(self.cvs_package_workdir)
+        # TODO: foreach branch:
+        #output = run_command("make tag")
 
     def _make_cvs_build(self):
         """ Build srpm and submit to build system. """
