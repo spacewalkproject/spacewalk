@@ -85,46 +85,28 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         }
     }
     
-    public void testConfigMgmtCapable() throws Exception {
-        // test the setConfigManagement and getConfigManagement APIs
-
+    public void testConfigMgmt() throws Exception {
         KickstartData profile = createProfile();
-        handler.setConfigManagementCapable(adminKey, profile.getLabel(), Boolean.TRUE);
+        handler.enableConfigManagement(adminKey, profile.getLabel());
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(true, newKsProfile.isConfigManageable());
-        
-        boolean configManaged = handler.getConfigManagementCapable(adminKey, 
-            profile.getLabel());
-        assertTrue(configManaged);
-        
-        handler.setConfigManagementCapable(adminKey, profile.getLabel(), Boolean.FALSE);
+        handler.disableConfigManagement(adminKey, profile.getLabel());
         newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());  
         assertEquals(false, newKsProfile.isConfigManageable());
-        
-        configManaged = handler.getConfigManagementCapable(adminKey, profile.getLabel());
-        assertFalse(configManaged);
     }
     
-    public void testRemoteCommandCapable() throws Exception {
+    public void testRemoteCommands() throws Exception {
         KickstartData profile = createProfile();
-        
-        handler.setRemoteCommandCapable(adminKey, profile.getLabel(), Boolean.TRUE);
+        handler.enableRemoteCommands(adminKey, profile.getLabel());
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());
         assertEquals(true, newKsProfile.isRemoteCommandable());
-        
-        boolean enabled = handler.getRemoteCommandCapable(adminKey, profile.getLabel());
-        assertTrue(enabled);
-        
-        handler.setRemoteCommandCapable(adminKey, profile.getLabel(), Boolean.FALSE);
+        handler.disableRemoteCommands(adminKey, profile.getLabel());
         newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 profile.getLabel(), admin.getOrg().getId());  
         assertEquals(false, newKsProfile.isRemoteCommandable());
-        
-        enabled = handler.getRemoteCommandCapable(adminKey, profile.getLabel());
-        assertFalse(enabled);
     }    
     
     public void testNetworkConnection() throws Exception {
