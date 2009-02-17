@@ -66,26 +66,6 @@ use constant DB_POP_LOG_SIZE => 154000;
 # Some utility functions to do the configuration steps needed for the
 # satellite install.
 
-sub satcon_deploy {
-  my $class = shift;
-  my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-			      tree => { default => DEFAULT_RHN_SATCON_TREE },
-			      dest => { default => '/etc' },
-			    });
-
-  my @opts = ("--source=" . $params{tree}, "--dest=" . $params{dest},
-	      "--conf=" . $params{conf_file});
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/satcon-deploy-tree.pl", @opts);
-
-  if ($ret) {
-    throw 'There was a problem deploying the satellite configuration.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return;
-}
-
 sub write_config {
   my $class = shift;
   my $options = shift;
