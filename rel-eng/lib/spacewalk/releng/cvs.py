@@ -16,6 +16,7 @@
 """ Module for building packages in brew/koji from cvs. """
 
 import os
+import sys
 import commands
 
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
@@ -68,10 +69,14 @@ class CvsReleaser(object):
 
         # TODO: Refuse to run on an upushed tag.
 
-    def run(self):
+        self.cleanup = True
+
+    def run(self, options):
         """
         Actually build the package in CVS and submit to build system.
         """
+        self.cleanup = not options.no_cleanup
+
         print("Building release from CVS...")
         commands.getoutput("mkdir -p %s" % self.cvs_workdir)
         debug("cvs_branches = %s" % self.cvs_branches)
@@ -87,7 +92,19 @@ class CvsReleaser(object):
 
         self._user_confirm_commit()
 
+        self._make_cvs_tag()
+        self._make_cvs_build()
+
+        self._finish()
+
+    def _finish(self):
+        """ Cleanup if necessary and exit. """
+        debug("Exiting.")
         # TODO: cleanup
+        if self.cleanup:
+            debug("Cleaning up [%s]" % self.cvs_package_workdir)
+            run_command("rm -rf %s" % self.cvs_package_workdir)
+        sys.exit(1)
 
     def _verify_branches_exist(self):
         """ Check that CVS checkout contains the branches we expect. """
@@ -137,14 +154,24 @@ class CvsReleaser(object):
     def _user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """
         print("")
-        print("Preparing to commit in %s" % self.cvs_package_workdir)
+        print("Preparing to commit [%s]" % self.cvs_package_workdir)
         print("Switch terminals and run cvs diff in this directory to " +
-                "verify what will be committed.")
+                "examine the changes.")
         answer = raw_input("Do you wish to proceed with commit? [y/n] ")
         if answer.lower() not in ['y', 'yes', 'ok', 'sure']:
             print("Fine, you're on your own!")
+            self._finish()
         else:
             print("Proceeding with commit.")
             os.chdir(self.cvs_package_workdir)
             print("NOT YET IMPLEMENTED!!!!!!!!")
+            #output = run_command("cvs commit ")
+
+    def _make_cvs_tag(self):
+        """ Create a CVS tag based on what we just committed. """
+        pass
+
+    def _make_cvs_build(self):
+        """ Build srpm and submit to build system. """
+        pass
 

@@ -218,7 +218,7 @@ class CLI:
             if building:
                 builder.run(options)
             elif options.cvs_release:
-                self._run_cvs_release(global_config, builder)
+                self._run_cvs_release(global_config, builder, options)
         elif tagging:
             self._run_tagger(options, pkg_config, global_config)
 
@@ -282,13 +282,13 @@ class CLI:
                 project_dir = os.path.join(git_root, relative_dir)
                 self._print_diff(global_config, md_file, version, project_dir)
 
-    def _run_cvs_release(self, global_config, builder):
+    def _run_cvs_release(self, global_config, builder, options):
         """
         Import sources into CVS, tag and build in the build system configured
         for this git repository.
         """
         cvs_builder = CvsReleaser(global_config, builder)
-        cvs_builder.run()
+        cvs_builder.run(options)
 
     def _print_diff(self, global_config, package_name, version, project_dir):
         """
