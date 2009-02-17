@@ -122,30 +122,6 @@ sub write_config {
   return;
 }
 
-sub write_tnsnames {
-  my $class = shift;
-  my $sid = shift;
-  my $addresses = shift;
-
-  my @options;
-
-  foreach my $line (@{$addresses}) {
-    push @options, join(",", @{$line}{qw/protocol host port/});
-  }
-
-  my @opt_strings = map { "--address=$_" } @options;
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/rhn-config-tnsnames.pl",
-		   "--target=/etc/tnsnames.ora", "--sid=$sid", @opt_strings);
-
-  if ($ret) {
-    throw 'There was a problem updating the tnsnames.ora file.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return;
-}
-
 sub config_up2date {
   my $class = shift;
   my %params = validate(@_, { http_proxy => 0,
