@@ -160,27 +160,6 @@ sub db_population_in_progress {
   return (-e '/var/lock/subsys/rhn-satellite-db-population' ? 1 : 0);
 }
 
-sub populate_tablespace_name {
-  my $class = shift;
-  my $tablespace_name = shift;
-
-  my $sat_schema = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.satellite.sql');
-  my $sat_schema_deploy =
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/rhn-config-schema.pl",
-		   "--source=" . $sat_schema,
-		   "--target=" . $sat_schema_deploy,
-		   "--tablespace-name=${tablespace_name}",
-		  );
-
-  if ($ret) {
-    throw 'There was a problem populating the universe.deploy.sql file.';
-  }
-
-  return;
-}
-
 sub build_proxy_url {
   my ($url, $user, $pass) = @_;
 
