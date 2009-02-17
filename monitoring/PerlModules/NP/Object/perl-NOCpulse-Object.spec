@@ -45,10 +45,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Tue Feb 17 2009 Miroslav Suchý <msuchy@redhat.com> 
+- add LICENSE
+- own NOCpulse dir
+- remove optimize flags
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.26.8-1
 - BR perl(ExtUtils::MakeMaker)
 
