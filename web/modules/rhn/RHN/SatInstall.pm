@@ -437,36 +437,6 @@ sub get_db_population_errors {
   return @errors;
 }
 
-sub store_ssl_cert {
-  my $class = shift;
-  my %params = validate(@_, { ssl_dir => 1,
-			      ca_cert => { default => DEFAULT_CA_CERT_NAME },
-			    });
-
-
-  my $cert_path = File::Spec->catfile($params{ssl_dir}, $params{ca_cert});
-  my @opts = ("--ca-cert=${cert_path}");
-
-  my $ret = system('/usr/bin/sudo', '/usr/bin/rhn-ssl-dbstore', @opts);
-
-  my %retcodes = (
-		  10 => 'CA certificate not found',
-		  11 => 'DB initialization failure',
-		  12 => 'No Organization ID',
-		  13 => 'Could not insert the certificate',
-		 );
-
-  if ($ret) {
-    my $exit_code = $? >> 8;
-
-    throw "(satinstall:ssl_cert_import_failed) $retcodes{$exit_code}" if exists $retcodes{$exit_code};
-
-    throw "There was a problem validating the satellite certificate: $exit_code";
-  }
-
-  return;
-}
-
 sub is_rpm_installed {
   my $class = shift;
   my $rpmname = shift;
