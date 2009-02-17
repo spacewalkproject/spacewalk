@@ -57,12 +57,16 @@ class CvsReleaser(object):
         self.cvs_workdir = DEFAULT_CVS_BUILD_DIR
         debug("cvs_workdir = %s" % self.cvs_workdir)
         self.cvs_branches = global_config.get("cvs", "branches").split(" ")
+        self.cvs_package_workdir = os.path.join(self.cvs_workdir,
+                self.package_name)
 
         # TODO: Looking for spec file in current dir only. This will need
         # to change if we decide to support cvs releases using an arbitrary
         # --tag parameter.
         self.spec_file_name = find_spec_file(in_dir=os.getcwd())
         self.spec_file = os.path.join(os.getcwd(), self.spec_file_name)
+
+        # TODO: Refuse to run on an upushed tag.
 
     def run(self):
         """
@@ -81,11 +85,13 @@ class CvsReleaser(object):
         self._upload_sources()
         self._sync_spec()
 
+        self._user_confirm_commit()
+
         # TODO: cleanup
 
     def _verify_branches_exist(self):
         """ Check that CVS checkout contains the branches we expect. """
-        os.chdir(os.path.join(self.cvs_workdir, self.package_name))
+        os.chdir(self.cvs_package_workdir)
         for branch in self.cvs_branches:
             if not os.path.exists(os.path.join(self.cvs_workdir,
                 self.package_name, branch)):
@@ -127,4 +133,18 @@ class CvsReleaser(object):
             debug("Copying spec file: %s" % self.spec_file_name)
             debug("  To: %s" % branch_dir)
             run_command("cp %s %s" % (self.spec_file, branch_dir))
+
+    def _user_confirm_commit(self):
+        """ Prompt user if they wish to proceed with commit. """
+        print("")
+        print("Preparing to commit in %s" % self.cvs_package_workdir)
+        print("Switch terminals and run cvs diff in this directory to " +
+                "verify what will be committed.")
+        answer = raw_input("Do you wish to proceed with commit? [y/n] ")
+        if answer.lower() not in ['y', 'yes', 'ok', 'sure']:
+            print("Fine, you're on your own!")
+        else:
+            print("Proceeding with commit.")
+            os.chdir(self.cvs_package_workdir)
+            print("NOT YET IMPLEMENTED!!!!!!!!")
 
