@@ -17,6 +17,7 @@
 
 import os
 import sys
+import string
 import commands
 
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
@@ -62,7 +63,7 @@ class CvsReleaser(object):
         self.cvs_package_workdir = os.path.join(self.cvs_workdir,
                 self.package_name)
 
-        # TODO: Refuse to run on an upushed tag.
+        self.sources = []
 
         self.cleanup = True
 
@@ -84,8 +85,19 @@ class CvsReleaser(object):
         run_command("cvs -d %s co %s" % (self.cvs_root, self.package_name))
 
         self._verify_branches_exist()
-        self._upload_sources()
+
+        # Create the tarball using our builder class:
+        tarball_file = self.builder.tgz()
+        # NOTE: assuming just one source for now
+        self.sources.append(tarball_file)
+
         self._sync_spec()
+        self._sync_patches()
+
+        # Important step here, ends up populating several important members
+        # on the builder object so some of the below lines will not work
+        # if moved above this one.
+        self._upload_sources()
 
         self._user_confirm_commit()
 
@@ -117,21 +129,13 @@ class CvsReleaser(object):
         Upload any tarballs to the CVS lookaside directory. (if necessary)
         Uses the "make new-sources" target in common.
         """
-        # Create the tarball using our builder class:
-        tarball_file = self.builder.tgz()
-        tarball_filename = os.path.basename(tarball_file)
-
-        # TODO: Check if source already exists in sources file.
-
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command('make new-sources FILES="%s"' % tarball_file)
+            output = run_command('make new-sources FILES="%s"' %
+                    string.join(self.sources, " "))
             debug(output)
-            #self._remove_old_sources(os.path.join(branch_dir, "sources"),
-            #        tarball_filename)
-            #self._remove_old_cvsignores()
 
     def _sync_spec(self):
         """
@@ -147,6 +151,25 @@ class CvsReleaser(object):
             debug("Copying spec file: %s" % self.builder.spec_file)
             debug("  To: %s" % branch_dir)
             run_command("cp %s %s" % (self.builder.spec_file, branch_dir))
+
+    def _sync_patches(self):
+        """
+        Copy any patches referenced in the spec file to the CVS branches and
+        cvs add them.
+        """
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            output = run_command("cat %s | grep ^Patch" %
+                    self.builder.spec_file)
+            for patch_line in output.split("\n"):
+                patch_filename = patch_line.strip().split(" ")[1]
+                debug("Copying patch to CVS: %s" % patch_filename)
+                full_path = os.path.join(self.builder.rpmbuild_sourcedir,
+                        patch_filename)
+                run_command("cp %s %s" % (full_path, branch_dir))
+                run_command("cvs add %s" %  patch_filename)
 
     def _user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """

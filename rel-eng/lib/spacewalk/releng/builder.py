@@ -415,7 +415,7 @@ class SatelliteBuilder(NoTgzBuilder):
         upstream tag.
         """
         self.patch_filename = "%s-to-%s-%s.patch" % (self.upstream_tag,
-                self.project_name, self.display_version)
+                self.project_name, self.build_version)
         self.patch_file = os.path.join(self.rpmbuild_sourcedir,
                 self.patch_filename)
         os.chdir(os.path.join(self.git_root, self.relative_project_dir))
