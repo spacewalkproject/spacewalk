@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.17
+Version: 0.5.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,7 +215,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.17-1
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.18-1
 - yum repodata regen changes to taskomatic
 
 * Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.16-1
