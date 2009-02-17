@@ -483,7 +483,7 @@ sub path {
 ##########
   my $self = shift;
   my @path;
-  my @candidates = (join('/', $self->env('HOME'), 'bin'), @BASEPATH);
+  my @candidates = (@BASEPATH);
 
   foreach my $dir (@candidates) {
     next if (/^ROOT:/ and $self->euid != 0 and $self->ruid != 0);
