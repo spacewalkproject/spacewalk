@@ -26,6 +26,7 @@ use RHN::SatInstall;
 use File::Spec;
 use File::Copy;
 use IPC::Open3;
+use Spacewalk::Setup;
 use Symbol qw(gensym);
 
 my $usage = "usage: $0 --host=<databaseHost> --user=<username> --password=<password> --database=<databaseName> --schema-deploy-file=<filename>"
@@ -105,7 +106,6 @@ if ($clear_db) {
   RHN::SatInstall->clear_db();
 }
 
-<<<<<<< HEAD:spacewalk/admin/rhn-populate-database.pl
 my $populate_cmd = "";
 if ($postgresql) {
     print "*** Installing PostgreSQL schema.\n";
@@ -123,12 +123,15 @@ if (defined $log_file) {
     local *LOGFILE;
     open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
     system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
+    $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $populate_cmd); 
   }
-  $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $populate_cmd); 
-} else {
+  else {
+    $pid = open3(gensym, ">&STDOUT", ">&STDERR", $populate_cmd);
+  }
+}
+else {
   $pid = open3(gensym, ">&STDOUT", ">&STDERR", $populate_cmd);
 }
-
 
 waitpid($pid, 0);
 exit $? >> 8;

@@ -16,8 +16,6 @@ echo ""
 scp ./spacewalk/setup/lib/Spacewalk/Setup.pm $SWHOST:/usr/lib/perl5/vendor_perl/5.8.8/Spacewalk/Setup.pm
 scp ./spacewalk/setup/bin/spacewalk-setup $SWHOST:/usr/bin/spacewalk-setup
 
-scp ./schema/spacewalk/postgresql/postgresql.universe.satellite.sql $SWHOST:/etc/sysconfig/rhn/postgresql.universe.satellite.sql
-
 ssh $SWHOST mkdir /usr/share/spacewalk/schema/
 scp -r ./schema/spacewalk/postgresql/ $SWHOST:/usr/share/spacewalk/schema/
 
