@@ -11,12 +11,11 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python
 Requires:       python >= 2.3
-Requires:       koan >= 1.2.6
+Requires:       koan >= 1.4.2
 
 Provides: rhn.kickstart.boot_image = 5.3.0
 Provides: rhn-kickstart = 5.3.0
 Obsoletes: rhn-kickstart < 5.3.0
-Requires: koan
 
 # If this is rhel 4 or less we need up2date.
 %if 0%{?rhel} && 0%{?rhel} < 5

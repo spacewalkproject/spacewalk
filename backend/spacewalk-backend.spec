@@ -197,7 +197,7 @@ Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
-Requires: cobbler >= 0:1.4
+Requires: cobbler >= 1.4.2
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
