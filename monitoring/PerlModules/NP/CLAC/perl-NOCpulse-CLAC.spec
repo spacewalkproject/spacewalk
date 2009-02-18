@@ -43,10 +43,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
 * Thu Feb 19 2008 Miroslav Suchý <msuchy@redhat.com>
 - remove opt flags
+- add LICENSE
 
 * Thu Jan 22 2009 Dennis Gilmore <dgilmore@redhat.com> 1.9.7-1
 - BuildRequires perl(ExtUtils::MakeMaker)
