@@ -35,13 +35,14 @@ import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageComparison;
+import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -291,7 +292,8 @@ public class PackageManager extends BaseManager {
      * upgradable packages.
      * @return a list of UpgradablePackageListItems
      */
-    public static DataResult upgradable(Long sid, PageControl pc) {
+    public static DataResult <UpgradablePackageListItem> upgradable(Long sid,
+                                                                PageControl pc) {
         SelectMode m = ModeFactory.getMode("Package_queries", 
                                            "system_upgradable_package_list");
         

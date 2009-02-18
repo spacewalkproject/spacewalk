@@ -40,8 +40,10 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -88,6 +90,26 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
             assertTrue(o instanceof PackageListItem);
         }
     }
+    
+    public void testUpgradable() throws Exception {
+        Map info = ErrataCacheManagerTest.
+            createServerNeededPackageCache(user, ErrataFactory.ERRATA_TYPE_BUG);
+        Server s = (Server) info.get("server");
+        Package p = (Package) info.get("package");
+        p = (Package) TestUtils.saveAndReload(p);
+
+        DataResult<UpgradablePackageListItem> dr = 
+            PackageManager.upgradable(s.getId(), null);
+        assertFalse(dr.isEmpty());
+        boolean containsSamePackage = false;
+        for (UpgradablePackageListItem item : dr) {
+            if (p.getPackageName().getName().equals(item.getName())) {
+                containsSamePackage = true;
+            }
+            assertTrue(item.getIdCombo().split("\\|").length == 3);
+        }
+        assertTrue(containsSamePackage);
+    }    
     
     public void testSystemAvailablePackages() throws Exception {
         // need a system
