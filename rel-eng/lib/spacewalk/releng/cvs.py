@@ -86,10 +86,9 @@ class CvsReleaser(object):
 
         self._verify_branches_exist()
 
-        # Create the tarball using our builder class:
-        tarball_file = self.builder.tgz()
-        # NOTE: assuming just one source for now
-        self.sources.append(tarball_file)
+        # Get the list of all sources from the builder:
+        self.builder.tgz()
+        self.sources = self.builder.sources
 
         self._sync_spec()
         self._sync_patches()
@@ -109,8 +108,8 @@ class CvsReleaser(object):
     def _finish(self):
         """ Cleanup if necessary and exit. """
         debug("Exiting.")
-        # TODO: cleanup
         if self.cleanup:
+            self.builder.cleanup(force=True)
             debug("Cleaning up [%s]" % self.cvs_package_workdir)
             run_command("rm -rf %s" % self.cvs_package_workdir)
         sys.exit(1)
@@ -168,8 +167,13 @@ class CvsReleaser(object):
                 debug("Copying patch to CVS: %s" % patch_filename)
                 full_path = os.path.join(self.builder.rpmbuild_sourcedir,
                         patch_filename)
+                new_full_path = os.path.join(branch_dir, patch_filename)
+                cvs_add = True
+                if os.path.exists(new_full_path):
+                    cvs_add = False
                 run_command("cp %s %s" % (full_path, branch_dir))
-                run_command("cvs add %s" %  patch_filename)
+                if cvs_add:
+                    run_command("cvs add %s" %  patch_filename)
 
     def _user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """

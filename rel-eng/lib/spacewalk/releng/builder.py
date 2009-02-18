@@ -84,6 +84,9 @@ class Builder(object):
         self.spec_file_name = None
         self.spec_file = None
 
+        # List of full path to all sources for this package.
+        self.sources = []
+
         # Set to path to srpm once we build one.
         self.srpm_location = None
 
@@ -130,12 +133,13 @@ class Builder(object):
         self.ran_tgz = True
         full_path = os.path.join(self.rpmbuild_basedir, self.tgz_filename)
         print "Wrote: %s" % full_path
+        self.sources.append(full_path)
         return full_path
 
     def _setup_sources(self):
         """
-        Create a copy of the git source for the project from the commit ID
-        we're building.
+        Create a copy of the git source for the project at the point in time
+        our build tag was created.
 
         Created in the temporary rpmbuild SOURCES directory.
         """
@@ -224,11 +228,11 @@ class Builder(object):
             error_out("Unable to locate 'Wrote: ' lines in rpmbuild output")
         return paths
 
-    def cleanup(self):
+    def cleanup(self, force=False):
         """
         Remove all temporary files and directories.
         """
-        if not self.no_cleanup:
+        if force or not self.no_cleanup:
             commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
 
     def _create_build_dirs(self):
@@ -296,7 +300,15 @@ class NoTgzBuilder(Builder):
         # of project?
         self._setup_sources()
         self.ran_tgz = True
-        return None # TODO: what to do here!? should be returning full path?
+
+        source_suffixes = ('.tar.gz', '.tar', '.zip', '.jar')
+        debug("Scanning for sources.")
+        for filename in os.listdir(self.rpmbuild_gitcopy):
+            for suffix in source_suffixes:
+                if filename.endswith(suffix):
+                    self.sources.append(os.path.join(self.rpmbuild_gitcopy,
+                        filename))
+        debug("  Sources: %s" % self.sources)
 
     def _get_rpmbuild_dir_options(self):
         """
@@ -403,11 +415,11 @@ class SatelliteBuilder(NoTgzBuilder):
         # If these are equal then the tag we're building was likely created in 
         # Spacewalk and thus we don't need to do any patching.
         if (self.upstream_tag == self.build_tag and not self.test):
-            return tgz_fullpath
+            return
 
         self._generate_patches()
         self._insert_patches_into_spec_file()
-        return tgz_fullpath
+        self.sources.append(tgz_fullpath)
 
     def _generate_patches(self):
         """
