@@ -144,6 +144,14 @@ public class Config {
     
     public static final String COBBLER_AUTOMATED_USER = "web.taskomatic_cobbler_user";
 
+    public static final String DOC_REFERENCE_GUIDE = "docs.reference_guide";
+    public static final String DOC_INSTALL_GUIDE = "docs.install_guide";
+    public static final String DOC_PROXY_GUIDE = "docs.proxy_guide";
+    public static final String DOC_CLIENT_CONFIG_GUIDE = "docs.client_config_guide";
+    public static final String DOC_CHANNEL_MGMT_GUIDE = "docs.channel_mgmt_guide";
+    public static final String DOC_RELEASE_NOTES = "docs.release_notes";
+    public static final String DOC_PROXY_RELEASE_NOTES = "docs.proxy_release_notes";
+
     public static final String WEB_SUBSCRIBE_PROXY_CHANNEL = "web.subscribe_proxy_channel";
     
 
