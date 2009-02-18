@@ -14,11 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.user.test;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.user.ChangeEmailSetupAction;
-import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
