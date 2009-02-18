@@ -10,7 +10,7 @@ define oraclever 10.2.0.4
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 4.2.1
-Release: 6%{?dist}
+Release: 5%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: cx_Oracle-instantclient.patch
 License: BSD-style
