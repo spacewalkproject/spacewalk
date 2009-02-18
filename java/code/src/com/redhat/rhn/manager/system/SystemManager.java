@@ -14,8 +14,65 @@
  */
 package com.redhat.rhn.manager.system;
 
-import java.sql.Types;
+import com.redhat.rhn.common.client.ClientCertificate;
+import com.redhat.rhn.common.client.InvalidCertificateException;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.db.datasource.CachedStatement;
+import com.redhat.rhn.common.db.datasource.CallableMode;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.common.validator.ValidatorWarning;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.CPU;
+import com.redhat.rhn.domain.server.Note;
+import com.redhat.rhn.domain.server.ProxyInfo;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.server.ServerGroup;
+import com.redhat.rhn.domain.server.ServerLock;
+import com.redhat.rhn.domain.server.VirtualInstance;
+import com.redhat.rhn.domain.server.VirtualInstanceFactory;
+import com.redhat.rhn.domain.server.VirtualInstanceState;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
+import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
+import com.redhat.rhn.frontend.listview.ListControl;
+import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
+import com.redhat.rhn.frontend.xmlrpc.NotActivatedSatelliteException;
+import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
+import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.action.ActionManager;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.user.UserManager;
 
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,91 +82,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.redhat.rhn.common.client.ClientCertificate;
-import com.redhat.rhn.common.client.InvalidCertificateException;
-
-import com.redhat.rhn.common.conf.Config;
-
-import com.redhat.rhn.common.db.datasource.CachedStatement;
-import com.redhat.rhn.common.db.datasource.CallableMode;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
-
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.LookupException;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-
-import com.redhat.rhn.common.security.PermissionException;
-
-import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.common.validator.ValidatorResult;
-import com.redhat.rhn.common.validator.ValidatorWarning;
-
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFamily;
-
-import com.redhat.rhn.domain.entitlement.Entitlement;
-import com.redhat.rhn.domain.entitlement.VirtualizationEntitlement;
-
-import com.redhat.rhn.domain.errata.Errata;
-
-import com.redhat.rhn.domain.org.Org;
-
-import com.redhat.rhn.domain.role.RoleFactory;
-
-import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.domain.server.ProxyInfo;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerLock;
-import com.redhat.rhn.domain.server.VirtualInstance;
-import com.redhat.rhn.domain.server.VirtualInstanceFactory;
-import com.redhat.rhn.domain.server.VirtualInstanceState;
-import com.redhat.rhn.domain.server.Note;
-
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-
-import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
-import com.redhat.rhn.frontend.dto.ErrataOverview;
-import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
-import com.redhat.rhn.frontend.dto.SystemOverview;
-
-import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
-
-import com.redhat.rhn.frontend.listview.ListControl;
-import com.redhat.rhn.frontend.listview.PageControl;
-
-import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
-import com.redhat.rhn.frontend.xmlrpc.NotActivatedSatelliteException;
-import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
-
-import com.redhat.rhn.manager.BaseManager;
-
-import com.redhat.rhn.manager.action.ActionManager;
-
-import com.redhat.rhn.manager.channel.ChannelManager;
-
-import com.redhat.rhn.manager.entitlement.EntitlementManager;
-
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
 
 /**
  * SystemManager
@@ -1202,8 +1176,7 @@ public class SystemManager extends BaseManager {
      */
     public static void unsubscribeServerFromChannel(User user, Server server, 
                                                     Channel channel, boolean flush) {
-        if (channel != null && 
-            !ChannelManager.verifyChannelSubscribe(user, channel.getId())) {
+        if (!isAvailableToUser(user, server.getId())) {
             //Throw an exception with a nice error message so the user
             //knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();

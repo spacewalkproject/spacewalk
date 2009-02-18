@@ -153,7 +153,7 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         for (Long oldBaseChannelId : changedChannels.keySet()) {
             Channel oldBase = null;
             if (oldBaseChannelId.intValue() != -1) {
-                oldBase = ChannelManager.lookupByIdAndUser(oldBaseChannelId, user);
+                oldBase = ChannelFactory.lookupByIdAndUser(oldBaseChannelId, user);
             }
             Channel newBase = null;
             
@@ -356,7 +356,10 @@ public class BaseSubscribeAction extends RhnLookupDispatchAction {
         List<SystemsPerChannelDto> ldr = new DataList(basesInSet);
 
         for (SystemsPerChannelDto spc : ldr) {
-            Channel c = ChannelManager.lookupByIdAndUser(spc.getId().longValue(), user);
+            //We dont' need to do user auth, here because if the user doesn't have
+            // subscribe access to the subscribed channel we still want to let them
+            //  change the systems base channel
+            Channel c = ChannelFactory.lookupById(spc.getId().longValue());
 
             List<EssentialChannelDto> compatibles = ChannelManager
                     .listCompatibleBaseChannelsForChannel(user, c);
