@@ -10,7 +10,7 @@ rhnRepoRegenQueue
        reason             varchar2(128),
        force              char(1),
        bypass_filters     char(1),
-       next_actionN       date default (sysdate),
+       next_action        date default (sysdate),
        created            date default (sysdate) 
                           constraint rhn_reporegenq_created_nn not null enable,
        modified           date default (sysdate) 
