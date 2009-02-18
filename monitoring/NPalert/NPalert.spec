@@ -120,6 +120,9 @@ install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Feb 18 2009 Miroslav Suchý <msuchy@redhat.com>
+- fix enqueue-log-check
+
 * Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.4-1
 - move logs from /var/tmp to /var/log/nocpulse
 
