@@ -23,7 +23,7 @@ applications.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Feb 19 2008 Miroslav Suchý <msuchy@redhat.com>
+- remove opt flags
+
 * Thu Jan 22 2009 Dennis Gilmore <dgilmore@redhat.com> 1.9.7-1
 - BuildRequires perl(ExtUtils::MakeMaker)
 
