@@ -334,7 +334,7 @@ sub fatal {
 sub path {
   my $self = shift;
   my @path;
-  my @candidates = ($self->euid == 0 and $self->ruid == 0)) ?
+  my @candidates = ($self->euid == 0 and $self->ruid == 0) ?
     (@ROOTBASEPATH, @BASEPATH) : (@BASEPATH);
   foreach my $dir (@candidates) {
     push(@path, $dir) if (-d $dir);
