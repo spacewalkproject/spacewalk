@@ -83,6 +83,12 @@
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--ignore-version-mismatch</term>
+        <listitem>
+            <para>execute regardless of version mismatch of existing and new certificate.<para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-v | --verbose</term>
         <listitem>
             <para>be verbose (accumulable: -vvv means "be *really* verbose").</para>
