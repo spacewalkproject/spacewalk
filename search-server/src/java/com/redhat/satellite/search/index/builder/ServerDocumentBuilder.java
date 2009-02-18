@@ -33,7 +33,7 @@ public class ServerDocumentBuilder implements DocumentBuilder {
     public Document buildDocument(Long objId, Map<String, String> metadata) {
         Document doc = new Document();
         doc.add(new Field("id", objId.toString(), Field.Store.YES,
-                Field.Index.UN_TOKENIZED));
+                Field.Index.TOKENIZED));
 
         for (Iterator<String> iter = metadata.keySet().iterator(); iter.hasNext();) {
             Field.Store store = Field.Store.NO;
