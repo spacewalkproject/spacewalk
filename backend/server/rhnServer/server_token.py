@@ -811,7 +811,7 @@ def fetch_token(token_string):
         if not token_entry:
             # Unable to find the token
             log_error("Invalid token '%s'" % token)
-            raise rhnFault(60, _("Could not find token '%s'") % token)
+            raise rhnFault(60, _("Could not find token '%s'") % token, explain=0)
 
         row = token_entry
 

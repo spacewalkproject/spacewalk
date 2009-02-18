@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 from cobbler.yaml import loadFile
 from Cheetah.Template import Template
 from socket import gethostbyname, gethostname

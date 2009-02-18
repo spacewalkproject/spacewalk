@@ -4,11 +4,13 @@
 #
 
 # store database files in /rhnsat
-/rhnsat(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
+/rhnsat(/.*)?          gen_context(system_u:object_r:oracle_dir_t,s0)
+/rhnsat/data/rhnsat(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 
 # store database specific files under /rhnsat/admin/$ORACLE_SID hierarchy
 # treat dump files and audits as log files
 /rhnsat/admin/(.*/)?(a|b|c|u)dump(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+/rhnsat/admin/rhnsat/logs(/.*)?          gen_context(user_u:object_r:oracle_common_log_t,s0)
 
 /opt/apps/oracle/web/product/(.*/)?audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 
@@ -27,6 +29,8 @@
 # for 10gR2
 /opt/apps/oracle/web/product/(.*/)?lib/libclntsh\.so\.10.*          gen_context(system_u:object_r:texrel_shlib_t,s0)
 /opt/apps/oracle/web/product/(.*/)?lib/libjox10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
+/opt/apps/oracle/web/product/(.*/)?lib/libnnz10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
+/opt/apps/oracle/web/product/(.*/)?lib/libocci\.so\.10\.1          gen_context(system_u:object_r:texrel_shlib_t,s0)
 # no 11gR1 for now
 # /opt/oracle/product/(.*/)?lib/libsqlplus\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 # /opt/oracle/product/(.*/)?lib/libclntsh\.so\.11.*          gen_context(system_u:object_r:texrel_shlib_t,s0)
@@ -42,6 +46,12 @@
 # the listener writes to these locations
 /opt/apps/oracle/web/product/(.*[0-9]/)?log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
 /opt/apps/oracle/web/product/(.*/)?network/log(/.*)?          gen_context(user_u:object_r:oracle_tnslsnr_log_t,s0)
+
+# log directory for listener, startup and shutdown logs
+/opt/apps/oracle/web/product/10.2.0/db_1/log	gen_context(user_u:object_r:oracle_common_log_t,s0)
+
+# allow sqlplus to read init.ora; we have to use the log type
+/rhnsat/admin/rhnsat/init\.ora          gen_context(user_u:object_r:oracle_common_file_t,s0)
 
 # otherwise this would be unlabeled
 /var/tmp/.oracle(/.*)?          gen_context(user_u:object_r:oracle_tmp_t,s0)

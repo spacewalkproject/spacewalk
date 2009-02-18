@@ -1,18 +1,9 @@
-%define rhnroot /usr/share/rhn
-%define rhnconf /etc/sysconfig/rhn
-%define client_caps_dir /etc/sysconfig/rhn/clientCaps.d
-
-Summary: Support package for spacewalk koan interaction.
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd client/tools/spacewalk-koan
-# make srpm
+Summary: Support package for spacewalk koan interaction
 Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
-Source0: %{name}-%{version}.tar.gz
-Version: 0.1.6
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 0.1.8
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -22,12 +13,13 @@ BuildRequires:  python
 Requires:       python >= 2.3
 Requires:       koan >= 1.2.6
 
-Provides: rhn.kickstart.boot_image
-Conflicts: rhn-kickstart
+Provides: rhn.kickstart.boot_image = 5.3.0
+Provides: rhn-kickstart = 5.3.0
+Obsoletes: rhn-kickstart < 5.3.0
 Requires: koan
 
 # If this is rhel 4 or less we need up2date.
-%if 0%{?rhel} && "%rhel" < "5"
+%if 0%{?rhel} && 0%{?rhel} < 5
 Requires: up2date
 %else
 Requires: rhn-check
@@ -43,12 +35,8 @@ Support package for spacewalk koan interaction.
 make -f Makefile.spacewalk-koan all
 
 %install
-# rm -rf $RPM_BUILD_ROOT
-# install -d $RPM_BUILD_ROOT/
-
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{rhnroot}
-make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{_datadir}/rhn/ \
     MANDIR=%{_mandir}
 
 %clean
@@ -56,13 +44,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace)  /etc/sysconfig/rhn/clientCaps.d/kickstart
-/usr/sbin/*
-%{rhnroot}/spacewalkkoan/*
-%{rhnroot}/actions/kickstart.py*
-%{rhnroot}/actions/kickstart_guest.py*
+%config(noreplace)  %{_sysconfdir}/sysconfig/rhn/clientCaps.d/kickstart
+%{_sbindir}/*
+%{_datadir}/rhn/spacewalkkoan/
+%{_datadir}/rhn/actions/
 
 %changelog
+* Tue Feb 10 2009 Mike McCune <mmccune@gmail.com> 0.1.8-1
+- 484793: Adde a basic setter to get rid of embed_kickstart check on koan
+
+* Mon Jan 26 2009 Mike McCune <mmccune@gmail.com> 0.1.7-1
+- spec file cleanups
+
 * Tue Jan 13 2009 Mike McCune <mmccune@gmail.com> 0.1.6-1
 - 461162 - missing var for koan
 

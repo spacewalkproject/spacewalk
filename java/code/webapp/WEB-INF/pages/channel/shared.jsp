@@ -16,7 +16,7 @@ function showFiltered() {
 </script>
 </head>
 
-<body onLoad="onLoadStuff(3); showFiltered();"> 
+<body onLoad="onLoadStuff(4); showFiltered();"> 
 
 <html:messages id="message" message="true">
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>

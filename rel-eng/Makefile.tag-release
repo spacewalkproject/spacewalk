@@ -42,6 +42,8 @@ tag-minor-release : check-no-tar-gz check-today-in-changelog $(BUMP_RELEASE) x-t
 x-tag-release : update-changelog
 	@BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
+		if test x$$(git tag -l $(NAME)-$$BUMPED_VERSION) != x ; then echo "Tag [$(NAME)-$$BUMPED_VERSION] already exists" ; \
+			echo "Please check the working copy, revert the bump change." ; git diff . ; exit 1 ; fi ; \
 		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
 		perl -lane 'next if $$ARGV eq "$(PACKAGES_DIR)$(NAME)"; print $$ARGV if $$F[1] eq "$(GIT_PREFIX)";' $(PACKAGES_DIR)* /dev/null \
 			| while read i ; do git rm $$i || exit 1 ; done ; \

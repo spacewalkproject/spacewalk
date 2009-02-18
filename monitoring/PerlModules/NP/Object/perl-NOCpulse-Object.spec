@@ -1,12 +1,12 @@
 Name:         perl-NOCpulse-Object
-Version:      1.26.7
+Version:      1.26.10
 Release:      1%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug)
+BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug) perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -24,7 +24,7 @@ the ugliness that is OO in Perl, amongst other things.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
@@ -45,10 +45,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Wed Feb 18 2009 Miroslav Suchý <msuchy@redhat.com> 1.26.10-1
+- 485893 - add GPL headers to modules
+
+* Tue Feb 17 2009 Miroslav Suchý <msuchy@redhat.com> 1.26.9-1
+- add LICENSE
+- own NOCpulse dir
+- remove optimize flags
+
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.26.8-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.7-1
 - 467441 - fix namespace
 

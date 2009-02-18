@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.3
+Version: 0.5.8
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -57,6 +57,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Feb 11 2009 Dave Parker <dparker@redhat.com> 0.5.8-1
+- 484659 remove error messages due to incorrect startup sequence in sysv and rhn-satellite utility
+* Tue Feb 10 2009 Jan Pazdziora 0.5.7-1
+- rhn-config-satellite.pl: use hardlink to create original backup
+- rhn-config-satellite.pl: code cleanup
+
+* Mon Feb  9 2009 Jan Pazdziora 0.5.6-1
+- rhn-config-schema.pl mustn't die if the override directory does not exist
+
+* Wed Feb  4 2009 Jan Pazdziora 0.5.5-1
+- only run restorecon on RHEL 5+ and with SELinux enabled
+
+* Thu Jan 29 2009 Jan Pazdziora 0.5.4-1
+- rhn-config-schema.pl: add check that all the overrides were used
+- rhn-config-schema.pl: turn spaces (two) to tabs
+- rhn-populate-database.pl: only write to logfile if --log specified.
+- rhn-populate-database.pl: use parameter log_file in get_next_backup_filename
+- .spec changes, silence rpmlint warnings
+
 * Fri Jan 23 2009 Jan Pazdziora 0.5.3-1
 - add support for schema overrides
 

@@ -12,7 +12,7 @@ License:        GPLv2
 URL:            http://rhn.redhat.com
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        0.4.2
+Version:        0.4.3
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -164,7 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> - 0.4.2-1
+* Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> - 0.4.3-1
 * Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.2-1
 - new build
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -26,15 +26,13 @@ import java.util.Set;
  * PackageArch
  * @version $Rev$
  */
-public class PackageProvider extends BaseDomainHelper 
-                    implements Comparable<PackageProvider> {
-    
+public class PackageProvider extends BaseDomainHelper implements
+        Comparable<PackageProvider> {
+
     private Long id;
     private String name;
     private Set<PackageKey> keys = new HashSet<PackageKey>();
 
-    
-    
     /**
      * @return Returns the keys.
      */
@@ -42,14 +40,13 @@ public class PackageProvider extends BaseDomainHelper
         return keys;
     }
 
-    
     /**
      * @param keysIn The keys to set.
      */
     public void setKeys(Set<PackageKey> keysIn) {
         this.keys = keysIn;
     }
-    
+
     /**
      * Add a package key to this provider
      * @param key the key to add
@@ -57,7 +54,6 @@ public class PackageProvider extends BaseDomainHelper
     public void addKey(PackageKey key) {
         this.getKeys().add(key);
     }
-    
 
     /**
      * @return Returns the id.
@@ -65,48 +61,46 @@ public class PackageProvider extends BaseDomainHelper
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
- 
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(getName())
-            .toHashCode();
+        return new HashCodeBuilder().append(getName()).toHashCode();
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public boolean equals(Object archIn) {
-        
+
         if (archIn instanceof PackageProvider) {
             PackageProvider arch = (PackageProvider) archIn;
-            return new EqualsBuilder().append(this.name, arch.getName()) 
-            .append(getId(), arch.getId()).isEquals();
+            return new EqualsBuilder().append(this.name, arch.getName()).append(getId(),
+                    arch.getId()).isEquals();
         }
         else {
             return false;

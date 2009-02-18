@@ -78,6 +78,7 @@ rhnServerGroupOverview		:: rhnErrata rhnUserManagedServerGroups \
 				   rhnServerGroupMembers rhnServerGroup rhnServerFeaturesView
 rhnServerGroupOVLiteHelper	:: rhnServerNeededPackageCache rhnErrata \
 				   rhnServerGroupMembers
+rhnServerErrataTypeView         :: rhnServerNeededErrataCache
 rhnServerNeededPackageView	:: rhnPackage rhnPackageEVR rhnErrataPackage \
 				   rhnServerPackage rhnServerPackageArchCompat \
 				   rhnChannelPackage rhnServerChannel \

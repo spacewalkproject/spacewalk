@@ -41,6 +41,7 @@ use Date::Parse;
 
 use Scalar::Util;
 
+use PXT::Config;
 use PXT::Utils;
 
 use Params::Validate qw/validate/;
@@ -733,7 +734,17 @@ EOQ
 
   $sth->execute_h(server_id => $self->id, version => $version);
 
-  # spacewalk do not subcribe to proxy channel, so that is all
+  # In spacewalk that is all, for satellite we subscribe the proxy channel
+  if (PXT::Config->get('subscribe_proxy_channel')) {
+    my $proxy_chan_info = $self->proxy_channel_by_version(-version => $version);
+    my $proxy_label = $proxy_chan_info->{CHANNEL_LABEL};
+
+    if (not $proxy_label) {
+      $dbh->rollback;
+      throw '(proxy_no_proxy_child_channel)';
+    }
+    $self->subscribe_to_channel($proxy_label, $dbh);
+  }
 
   unless ($transaction) {
     $dbh->commit;

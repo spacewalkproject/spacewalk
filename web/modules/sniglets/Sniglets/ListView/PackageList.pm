@@ -20,6 +20,7 @@ package Sniglets::ListView::PackageList;
 use Sniglets::ListView::List;
 use RHN::Package;
 use RHN::Channel;
+use RHN::DB;
 use RHN::Action;
 use RHN::Errata;
 use RHN::ErrataTmp;
@@ -1264,6 +1265,21 @@ sub delete_packages_cb {
 
   $set->empty;
   $set->commit;
+  
+  my $dbh = RHN::DB->connect();
+  my $rrqh = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web::delete_packages_cb', NULL, 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
+  foreach my $cid (@channels) {
+    my $channel = RHN::Channel->lookup(-id => $cid);
+	$rrqh->execute_h(label => $channel->label);
+  }
+  
 
   my $channel_count = scalar(@channels);
   $pxt->push_message(site_info => sprintf("<strong>%d</strong> package%s deleted from <strong>%d</strong> channel%s.",

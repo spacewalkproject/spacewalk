@@ -5,12 +5,13 @@
 
 Name: osad
 Summary: OSAD agent
-Group: RHN/Server
+Group:   System Environment/Daemons
 License: GPLv2
-Source0: %{name}-%{version}.tar.gz
-Version: 5.9.2
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 5.9.6
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python
 Requires: rhnlib >= 1.8-3
@@ -29,11 +30,15 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description 
-OSAD agent
+OSAD agent receive commands over jabber protocol from Spacewalk Server and 
+commands are instantly executed.
+
+This package effectively replace rhn_check command which check in Spacewalk
+Server only in some period.
 
 %package -n osa-dispatcher
 Summary: OSA dispatcher
-Group: RHN/Server
+Group:    System Environment/Daemons
 Requires: spacewalk-backend-server
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
@@ -44,8 +49,17 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 
 %description -n osa-dispatcher
-OSA dispatcher
+OSA dispatcher get message from Spacewalk server that some command is need
+to execute on client. The message is transported via jabber protocol to OSAD
+agent.
 
+%if 0%{?rhel} && 0%{?rhel} <= 4
+%define include_selinux_package 0
+%else
+%define include_selinux_package 1
+%endif
+
+%if %{include_selinux_package}
 %package -n osa-dispatcher-selinux
 %define selinux_variants mls strict targeted
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp 2> /dev/null)
@@ -58,16 +72,19 @@ Summary: SELinux policy module supporting osa-dispatcher
 Group: System Environment/Base
 BuildRequires: checkpolicy, selinux-policy-devel, hardlink
 BuildRequires: policycoreutils >= %{POLICYCOREUTILSVER}
+Requires: spacewalk-selinux
 
 %if "%{selinux_policyver}" != ""
 Requires: selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
+Requires(post): /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires: osa-dispatcher
 
 %description -n osa-dispatcher-selinux
 SELinux policy module supporting osa-dispatcher.
+
+%endif
 
 %prep
 %setup -q
@@ -75,13 +92,15 @@ SELinux policy module supporting osa-dispatcher.
 %build
 make -f Makefile.osad all
 
-perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
+%if %{include_selinux_package}
+%{__perl} -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' osa-dispatcher-selinux/%{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile
     mv osa-dispatcher-selinux/%{modulename}.pp osa-dispatcher-selinux/%{modulename}.pp.${selinuxvariant}
     make -C osa-dispatcher-selinux NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -90,6 +109,7 @@ make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
 # Create the auth file
 touch $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 
+%if %{include_selinux_package}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -104,6 +124,7 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -130,6 +151,7 @@ if [ $1 = 0 ]; then
     /sbin/chkconfig --del osa-dispatcher
 fi
 
+%if %{include_selinux_package}
 %post -n osa-dispatcher-selinux
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
@@ -157,6 +179,8 @@ fi
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
 
+%endif
+
 %files
 %defattr(-,root,root)
 %dir %{rhnroot}/osad
@@ -169,11 +193,12 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/osad_config.py*
 %{rhnroot}/osad/rhn_log.py*
 %{rhnroot}/osad/rhnLockfile.py*
-%{rhnroot}/osad/rhn_fcntl.py*
+%attr(755,-,-) %{rhnroot}/osad/rhn_fcntl.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/osad.conf
 %config(noreplace) %attr(600,root,root) %{_sysconfdir}/sysconfig/rhn/osad-auth.conf
-%{client_caps_dir}/*
-%attr(755,root,root) %{_sysconfdir}/init.d/osad
+%config(noreplace) %{client_caps_dir}/*
+%attr(755,root,root) %{_initrddir}/osad
+%doc LICENSE
 
 %files -n osa-dispatcher
 %defattr(-,root,root)
@@ -186,8 +211,10 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{rhnroot}/osad/rhn_log.py*
 %config(noreplace) %{_sysconfdir}/logrotate.d/osa-dispatcher
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
-%attr(755,root,root) %{_sysconfdir}/init.d/osa-dispatcher
+%attr(755,root,root) %{_initrddir}/osa-dispatcher
+%doc LICENSE
 
+%if %{include_selinux_package}
 %files -n osa-dispatcher-selinux
 %defattr(-,root,root,0755)
 %doc osa-dispatcher-selinux/%{modulename}.fc
@@ -195,9 +222,24 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %doc osa-dispatcher-selinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%doc LICENSE
+%endif
 
 # $Id$
 %changelog
+* Thu Feb 12 2009 Jan Pazdziora 5.9.6-1
+- do not build osa-dispatcher-selinux on RHEL 4 and earlier.
+- osa-dispatcher-selinux: setsebool is not used, so no need to Require it
+
+* Mon Feb  9 2009 Jan Pazdziora 5.9.5-1
+- addressed additional AVC denials of osa-dispatcher
+
+* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.4-1
+- 468060 - correctly return status of daemon
+- fix some macros
+- edit descriptions
+- add LICENSE
+
 * Wed Jan 14 2009 Jan Pazdziora 5.9.2-1
 - separate package osa-dispatcher-selinux merged in as a subpackage
 

@@ -63,6 +63,10 @@
     </c:choose>
   </tr>
   <tr>
+    <th><bean:message key="org.id.jsp"/></th>
+    <td><bean:write name="orgDetailsForm" property="id"/></td>    
+  </tr>
+  <tr>
     <th><bean:message key="org.active.users.jsp"/></th>
     <td><a href="/rhn/admin/multiorg/OrgUsers.do?oid=${param.oid}"><bean:write name="orgDetailsForm" property="users"/></a></td>    
   </tr>

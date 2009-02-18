@@ -3,7 +3,7 @@
 Summary: DateTime-TimeZone Perl module
 Name: perl-DateTime-TimeZone
 Version: 0.59
-Release: 6%{?dist}
+Release: 7%{?dist}
 Packager: Mike McCune 
 License: GPL or Artistic
 Group: Development/Libraries
@@ -27,6 +27,9 @@ BuildRequires: perl(Class::Singleton)
 Requires: perl(Class::Singleton)
 BuildRequires: perl(Params::Validate)
 Requires: perl(Params::Validate)
+
+# tests
+BuildRequires: perl(Test::More)
 
 %define __perl_requires %{SOURCE1}
 
@@ -82,6 +85,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changes LICENSE README
 
 %changelog
+* Fri Jan 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.59-7
+- add perl(Test::More) to BR since F10 do not have it in perl
 * Thu Oct 16 2008 Milan Zazrivec 0.59-6
 - bumped release to be above what is in Satellite 5.2.0
 * Thu Aug 28 2008 Mike McCune <mmccune@redhat.com> - 0.59-2

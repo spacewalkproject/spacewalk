@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.2
+Version:        0.5.8
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -54,6 +54,33 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Mon Feb 16 2009 Pradeep Kilambi 0.5.8-1
+- rhnRepoRegenQueue table for yum repodata regen queue
+
+* Thu Feb 12 2009 Mike McCune <mmccune@gmail.com> 0.5.7-1
+- 484312 - massive cleanup of virt types.  getting rid of useless AUTO type.
+
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.6-1
+- 484964 - increasing the copyright column size
+
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
+- move logs from /var/tmp to /var/log/nocpulse
+
+* Wed Feb 11 2009 Milan Zazrivec 0.5.4-1
+- fixed multiorg sql upgrade script
+
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.3-1
+- 443718 - fixing a view mistage and having a query just use the view
+- 443718 - improving errata cache calcs when pushing a single errata
+- 481671 - rewrote inner query to improve performance.
+- 480671 fix for deleting orgs in multiorg env
+- fixing some forgotten indexes
+- a few schema fixes and test case fixes related to the errata-cache update
+- fixing a few test cases
+- renaming upgrade script
+- upgrade support for multiorg sharing logic
+- validate channel is 'protected' when joining to the rhnChannelTrusts table.
+
 * Fri Jan 23 2009 Jan Pazdziora 0.5.2-1
 - fix for ORA-01440 error occurring when updating populated table (Michael M.)
 - removed s/%{?dist}// substitution with no effect (Milan Z.)

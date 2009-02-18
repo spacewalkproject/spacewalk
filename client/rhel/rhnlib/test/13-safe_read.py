@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Test _smart_read over a slow socket
 # Use lsof to see how many open files we have

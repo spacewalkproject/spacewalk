@@ -25,6 +25,7 @@ from optparse import OptionParser, Option
 
 
 client = None
+DEBUG = 0
 
 options_table = [
     Option("-v", "--verbose",       action="count", 
@@ -37,19 +38,17 @@ options_table = [
         help="Satellite server to run migration"),
     Option("--systemId",               action="append", 
         help="client system to migrate"),
-    Option("--from-org-id",          action="store",
-        help="Source Org ID"),
     Option("--to-org-id",          action="store",
         help="Destination Org ID"),
     Option("--csv",                action="store",
         help="CSV File to process"),
 ]
 
-_csv_fields = [ 'systemId', 'from-org-id', 'to-org-id' ]
+_csv_fields = [ 'systemId', 'to-org-id' ]
 
 
 def main():
-    global options_table, client
+    global options_table, client, DEBUG
     parser = OptionParser(option_list=options_table)
 
     (options, args) = parser.parse_args()
@@ -58,8 +57,13 @@ def main():
         SATELLITE_HOST = options.satellite
     else:
         SATELLITE_HOST = os.uname()[1]
-    
+
+    if options.verbose:
+        DEBUG = 1
+
     SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
+    if DEBUG:
+        print "Connecting to %s" % SATELLITE_URL
 
     client = xmlrpclib.Server(SATELLITE_URL, verbose=0)
 
@@ -79,14 +83,7 @@ def main():
         else:
             to_org_id = options.to_org_id or None
 
-        if not options.from_org_id:
-            print "Missing Source org id"
-            return
-        else:
-            from_org_id = options.from_org_id or None
-
-
-        migrate_data = [[options.systemId, from_org_id, to_org_id]]
+        migrate_data = [[options.systemId, to_org_id]]
     
     username, password = getUsernamePassword(options.username, \
                             options.password)
@@ -97,16 +94,18 @@ def main():
         sys.stderr.write("Nothing to migrate. Exiting.. \n")
         sys.exit(1)
 
-    for server_id, from_org_id, to_org_id in migrate_data:
+    for server_id, to_org_id in migrate_data:
         if type(server_id) == type([]):
             server_id = map(lambda a:int(a), server_id)
         else:
             server_id = [int(server_id)]
         try:
-            migrate_system(sessionKey, int(from_org_id), int(to_org_id),\
-                           server_id)
-        except:
+            migrate_system(sessionKey, int(to_org_id), server_id)
+        except Exception, e:
             raise
+            #sys.stderr.write(e.msg)
+    
+    if DEBUG: print "Migration Completed successfully"
     logout(sessionKey)
 
 def login(username, password):
@@ -123,16 +122,17 @@ def logout(session_key):
     client.auth.logout(session_key)
 
 
-def migrate_system(key, oldOrgId, newOrgId, server_ids):
+def migrate_system(key, newOrgId, server_ids):
     """
     Call to migrate given system to new org
-    """ 
+    """
+    if DEBUG: print "Migrating systemIds %s to Org %s" % (server_ids, newOrgId)
     try:
-        client.org.migrateSystems(key, oldOrgId, newOrgId, server_ids)
+        client.org.migrateSystems(key, newOrgId, server_ids)
     except xmlrpclib.Fault, e:
         sys.stderr.write("Error: %s\n" % e.faultString)
         sys.exit(-1)
-        
+
     return
 
 def getUsernamePassword(cmdlineUsername, cmdlinePassword):

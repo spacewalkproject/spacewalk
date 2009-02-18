@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -70,6 +70,7 @@ import java.util.Set;
  * ErrataHandler - provides methods to access errata information.
  * @version $Rev$
  * @xmlrpc.namespace errata
+ * @xmlrpc.doc Provides methods to access and modify errata.
  */
 public class ErrataHandler extends BaseHandler {
     
@@ -393,7 +394,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "advisoryName") 
      * @xmlrpc.returntype 
      *      #struct("Bugzilla info")
-     *          #prop_desc("int", "bugzilla_id", "actual bug number is the key into the
+     *          #prop_desc("string", "bugzilla_id", "actual bug number is the key into the
      *                      struct")
      *          #prop_desc("string", "bug_summary", "summary who's key is the bug id")
      *      #struct_end()
@@ -432,7 +433,7 @@ public class ErrataHandler extends BaseHandler {
      * @xmlrpc.doc Get the keywords associated with an erratum matching the
      * given advisory name. 
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param param("string", "advisoryName")
+     * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.returntype #array_single("string", "Keyword associated with erratum.")
 
      */
@@ -543,8 +544,8 @@ public class ErrataHandler extends BaseHandler {
      *                  #prop("string", "version")
      *                  #prop("string", "release")
      *                  #prop("string", "arch_label")
-     *                  #prop_array("string", "label", "Channel label providing this 
-     *                          package.")
+     *                  #prop_array("providing_channels", "string", "- Channel label 
+     *                              providing this package.")
      *                  #prop("string", "build_host")
      *                  #prop("string", "description")
      *                  #prop("string", "md5sum")
@@ -625,8 +626,8 @@ public class ErrataHandler extends BaseHandler {
         //Update Errata Cache
         if ((packagesAdded > 0) && errata.isPublished() && 
             (errata.getChannels() != null)) {
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels(), loggedInUser.getOrg());
+            ErrataCacheManager.updateCacheForChannelsAsync(
+                    errata.getChannels());
         }
         
         //Save the errata
@@ -675,8 +676,8 @@ public class ErrataHandler extends BaseHandler {
         //Update Errata Cache
         if ((packagesRemoved > 0) && errata.isPublished() && 
                 (errata.getChannels() != null)) {
-            ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    errata.getChannels(), loggedInUser.getOrg());
+            ErrataCacheManager.updateCacheForChannelsAsync(
+                    errata.getChannels());
         }
         
         //Save the errata

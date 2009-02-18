@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -65,6 +65,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "description")    
  *          #prop("string", "hostname")                            
  *          #prop_desc("string", "osa_status", "Either 'unknown', 'offline', or 'online'.")
+ *          #prop_desc("boolean", "lock_status", "True indicates that the system is locked.
+ *           False indicates that the system is unlocked.")
  *  #struct_end()
  */
 public class ServerSerializer implements XmlRpcCustomSerializer {
@@ -156,9 +158,7 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
         helper.add("room", room);
         helper.add("rack", rack);
         
-        
         helper.add("release", server.getRelease());
-        
         
         if (server.getPushClient() != null) {
             helper.add("osa_status", server.getPushClient().getState().getName());
@@ -168,6 +168,11 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
                     "sdc.details.overview.unknown"));
         }
         
+        Boolean locked = Boolean.FALSE;
+        if (server.getLock() != null) {
+            locked = Boolean.TRUE;
+        }
+        helper.add("lock_status", locked);
         
         helper.writeTo(output);
     }

@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.1
+Version: 0.5.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -310,6 +310,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/rhnSession.py*
 %{rhnroot}/server/rhnUser.py*
 %{rhnroot}/server/rhnVirtualization.py*
+%{rhnroot}/server/taskomatic.py*
 %dir %{rhnroot}/server/rhnServer
 %{rhnroot}/server/rhnServer/*
 %dir %{rhnroot}/server/importlib
@@ -539,7 +540,23 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Jan 22 2009 Pradeep Kilambi <pkilambi@redhat.com> 
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.7-1
+- yum repodata regen support through taskomatic
+
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- move logs from /var/tmp to /var/log/nocpulse
+
+* Tue Feb 10 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.5-1
+- bz#368711 bz#480063
+
+* Mon Feb 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
+- bz475894:fixing the server code to filter out duplicate deps 
+  when pushing fedora-10+ packages to channels
+
+* Thu Feb 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.3-1
+- fixing satsync warning.
+
+* Wed Jan 28 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.2-1
 - removing rhel-instnum dep requires and associated unsed code
 
 * Tue Jan 20 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.1-1

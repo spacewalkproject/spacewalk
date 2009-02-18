@@ -66,44 +66,6 @@ use constant DB_POP_LOG_SIZE => 154000;
 # Some utility functions to do the configuration steps needed for the
 # satellite install.
 
-sub generate_satcon_dict {
-  my $class = shift;
-  my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-			      tree => { default => DEFAULT_RHN_SATCON_TREE },
-			    });
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/satcon-build-dictionary.pl",
-		   "--tree=" . $params{tree},
-		   "--target=" . $params{conf_file});
-
-  if ($ret) {
-    throw 'There was a problem building the satcon dictionary.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return;
-}
-
-sub satcon_deploy {
-  my $class = shift;
-  my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-			      tree => { default => DEFAULT_RHN_SATCON_TREE },
-			      dest => { default => '/etc' },
-			    });
-
-  my @opts = ("--source=" . $params{tree}, "--dest=" . $params{dest},
-	      "--conf=" . $params{conf_file});
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/satcon-deploy-tree.pl", @opts);
-
-  if ($ret) {
-    throw 'There was a problem deploying the satellite configuration.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return;
-}
-
 sub write_config {
   my $class = shift;
   my $options = shift;
@@ -116,30 +78,6 @@ sub write_config {
 
   if ($ret) {
     throw 'There was a problem updating your configuration.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return;
-}
-
-sub write_tnsnames {
-  my $class = shift;
-  my $sid = shift;
-  my $addresses = shift;
-
-  my @options;
-
-  foreach my $line (@{$addresses}) {
-    push @options, join(",", @{$line}{qw/protocol host port/});
-  }
-
-  my @opt_strings = map { "--address=$_" } @options;
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/rhn-config-tnsnames.pl",
-		   "--target=/etc/tnsnames.ora", "--sid=$sid", @opt_strings);
-
-  if ($ret) {
-    throw 'There was a problem updating the tnsnames.ora file.  '
       . 'See the webserver error log for details.';
   }
 
@@ -178,82 +116,10 @@ sub is_embedded_db {
   return $class->is_rpm_installed('oracle-server-admin');
 }
 
-sub populate_database {
-  my $class = shift;
-  my %params = validate(@_, { user => 1,
-			      password => 1,
-			      sid => 1,
-			      clear_db => 0,
-			      nofork => 0,
-			      log_file => 0,
-			    });
-
-  $params{log_file} ||= DEFAULT_DB_POP_LOG_FILE;
-
-  my $tablespace_name = $class->get_default_tablespace_name($params{user});
-  $class->populate_tablespace_name($tablespace_name);
-
-  my $sat_schema_deploy = 
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
-
-  my @extra_opts;
-  if ($params{clear_db}) {
-    push @extra_opts, '--clear-db';
-  }
-
-  if ($params{nofork}) {
-    push @extra_opts, '--nofork';
-  }
-
-  if ($params{log_file}) {
-    push @extra_opts, '--log=' . $params{log_file};
-  }
-
-  my $dsn = sprintf '%s/%s@%s', @{\%params}{qw/user password sid/};
-
-  my @opts = ('/usr/bin/rhn-populate-database.pl',
-		   "--dsn=$dsn", "--schema-deploy-file=$sat_schema_deploy",
-		   @extra_opts);
-
-  my $ret = system('/usr/bin/sudo', @opts);
-
-  if ($ret) {
-    my $exit_value = $? >> 8;
-    if ($exit_value == 100) {
-      throw "(satinstall:db_population_in_progress) Database population is already in progress";
-    }
-
-    throw "(satinstall:db_population_error) Error populating db: $exit_value";
-  }
-
-  return;
-}
-
 sub db_population_in_progress {
   my $class = shift;
 
   return (-e '/var/lock/subsys/rhn-satellite-db-population' ? 1 : 0);
-}
-
-sub populate_tablespace_name {
-  my $class = shift;
-  my $tablespace_name = shift;
-
-  my $sat_schema = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.satellite.sql');
-  my $sat_schema_deploy =
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
-
-  my $ret = system("/usr/bin/sudo", "/usr/bin/rhn-config-schema.pl",
-		   "--source=" . $sat_schema,
-		   "--target=" . $sat_schema_deploy,
-		   "--tablespace-name=${tablespace_name}",
-		  );
-
-  if ($ret) {
-    throw 'There was a problem populating the universe.deploy.sql file.';
-  }
-
-  return;
 }
 
 sub build_proxy_url {
@@ -343,29 +209,6 @@ sub check_valid_ssl_cert_password {
   return $ret;
 }
 
-sub sat_sync {
-  my $class = shift;
-  my %params = validate(@_, { ca_cert_file => 1,
-			      dsn => 1,
-			      step => 1,
-			    });
-
-  my %args = ('--step' => $params{step},
-	      '--db' => $params{dsn},
-	      '--ca-cert' => $params{ca_cert_file},
-	     );
-
-  my $ret = system('/usr/bin/sudo', '/usr/bin/satellite-sync',
-		   %args);
-
-  if ($ret) {
-    throw 'There was a problem running satellite-sync.  '
-      . 'See the webserver error log for details.';
-  }
-
-  return $ret;
-}
-
 my %ca_cert_opts = (
    dir => 1,
    password => 1,
@@ -440,48 +283,6 @@ sub generate_server_cert {
   my $ret = system(@command);
 
   return $ret;
-}
-
-sub deploy_ca_cert {
-  my $class = shift;
-  my %params = validate(@_, { "source-dir" => 1,
-			      "target-dir" => 1 });
-
-  my @opts;
-
-  foreach my $key (keys %params) {
-    push @opts, qq(--$key=$params{$key});
-  }
-
-  my @command = ('/usr/bin/rhn-deploy-ca-cert.pl', @opts);
-
-  my $ret = system('/usr/bin/sudo', @command);
-
-  if ($ret) {
-    die "Could not deploy ca cert.";
-  }
-
-  return;
-}
-
-sub install_server_cert {
-  my $class = shift;
-  my %params = validate(@_, { dir => 1,
-			      system => 1 });
-
-  my @opts;
-
-  push @opts, '--dir=' . File::Spec->catfile($params{dir}, $params{system});
-
-  my @command = ('/usr/bin/rhn-install-ssl-cert.pl', @opts);
-
-  my $ret = system('/usr/bin/sudo', @command);
-
-  if ($ret) {
-    die "Could not install ssl cert.";
-  }
-
-  return;
 }
 
 my $valid_bootstrap_params = {
@@ -636,73 +437,6 @@ sub get_db_population_errors {
   return @errors;
 }
 
-sub monitoring_available {
-  my $class = shift;
-
-  return $class->is_rpm_installed('NPusers'); # TODO: Find a better RPM to look for
-}
-
-sub generate_server_pem {
-  my $class = shift;
-  my %params = validate(@_, { ssl_dir => 1,
-			      system => 1,
-			      out_file => 0 });
-
-  my @opts;
-
-  push @opts, '--ssl-dir=' . File::Spec->catfile($params{ssl_dir}, $params{system});
-
-  if ($params{out_file}) {
-    push @opts, '--out-file=' . $params{out_file};
-  }
-  my $opts = join(' ', @opts);
-
-  my $content;
-
-  open(FH, "/usr/bin/sudo /usr/bin/rhn-generate-pem.pl $opts |")
-    or throw "(satinstall:generate_pem_error) Could not generate server.pem file: $OS_ERROR";
-
-  my @content = <FH>;
-
-  close(FH);
-
-  if (not $params{out_file}) {
-    $content = join('', @content);
-  }
-
-  return $content;
-}
-
-sub store_ssl_cert {
-  my $class = shift;
-  my %params = validate(@_, { ssl_dir => 1,
-			      ca_cert => { default => DEFAULT_CA_CERT_NAME },
-			    });
-
-
-  my $cert_path = File::Spec->catfile($params{ssl_dir}, $params{ca_cert});
-  my @opts = ("--ca-cert=${cert_path}");
-
-  my $ret = system('/usr/bin/sudo', '/usr/bin/rhn-ssl-dbstore', @opts);
-
-  my %retcodes = (
-		  10 => 'CA certificate not found',
-		  11 => 'DB initialization failure',
-		  12 => 'No Organization ID',
-		  13 => 'Could not insert the certificate',
-		 );
-
-  if ($ret) {
-    my $exit_code = $? >> 8;
-
-    throw "(satinstall:ssl_cert_import_failed) $retcodes{$exit_code}" if exists $retcodes{$exit_code};
-
-    throw "There was a problem validating the satellite certificate: $exit_code";
-  }
-
-  return;
-}
-
 sub is_rpm_installed {
   my $class = shift;
   my $rpmname = shift;
@@ -725,23 +459,6 @@ sub default_cert_expiration {
   my $diff = $dt2 - $dt;
 
   return $diff->years - 1;
-}
-
-sub enable_notification_cron {
-  my $class = shift;
-
-  my $ret = system('/usr/bin/sudo', 'ln', '-s', '/opt/notification/cron/notification',
-		   '/etc/cron.d/notification');
-
-  return;
-}
-
-sub disable_notification_cron {
-  my $class = shift;
-
-  my $ret = system('/usr/bin/sudo', 'rm', '/etc/cron.d/notification');
-
-  return;
 }
 
 1;

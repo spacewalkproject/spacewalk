@@ -4249,6 +4249,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org.id.jsp">
+<source>Organization ID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="org.actkeys.jsp">
 <source>Activation Keys</source>
         <context-group name="ctx">
@@ -15573,6 +15579,57 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
      </group>
 
+    <!-- ssm/view-log.jsp, ssm/view-log-details.jsp -->
+    <group>
+       <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/ssm/ViewLog.do</context>
+          <context context-type="sourcefile">/rhn/ssm/ViewAllLog.do</context>
+          <context context-type="sourcefile">/rhn/ssm/ViewLogDetails.do</context>
+       </context-group>
+       <trans-unit id="ssm.operations.viewlog.header">
+          <source>Tasks Log</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.description">
+          <source>Description</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.status">
+          <source>Status</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.started">
+          <source>Started</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.modified">
+          <source>Last Modified</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.progress">
+          <source>Percent Complete</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.servers">
+          <source>Servers</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.inprogress">
+          <source>In Progress</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.completed">
+          <source>Completed</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.empty">
+          <source>No tasks match the given criteria</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.viewlog.emptyservers">
+          <source>No servers associated with this task</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.inprogress.summary">
+          <source>The following tasks are currently taking place. Click on a task's description to see more details.</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.all.summary">
+          <source>The following lists all tasks performed against servers in the SSM. Click on an task's description to see more details.</source>
+       </trans-unit>
+       <trans-unit id="ssm.operations.completed.summary">
+          <source>The following lists all tasks that have finished running. Click on an task's description to see more details.</source>
+       </trans-unit>
+    </group>
+       
     <!-- ssm/packages.jsp -->
        <group>
           <context-group name="ctx">
@@ -16557,7 +16614,7 @@ The Distribution Label field should contain only letters, numbers, hyphens, peri
 
 The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-From within the specified tree path, a kernel should be available at "./images/pxeboot/vmlinuz" and an initrd image should be available at "./images/pxeboot/initrd.img".
+&lt;p&gt;The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the kernel and initrd required for kickstarting a system. From within the specified tree path, a kernel should be available at &quot;./images/pxeboot/vmlinuz&quot; and an initrd image should be available at &quot;./images/pxeboot/initrd.img&quot;. For instance, you can create a tree by mounting engarchive and specifying: &quot;/mnt/engarchive/released/RHEL-5-Server/U3/i386/os&quot; if you wanted to create a RHEL 5 tree.&lt;/p&gt;
 </source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
@@ -19426,8 +19483,20 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
 
       <!-- SSM channel-subs -->
 	<group>
-	  <trans-unit id="ssmchildsubs.jsp.subscribed">
-        <source>Subscribed</source>
+	  <trans-unit id="ssmchildsubs.jsp.subscribe">
+        <source>Subscribe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+        </context-group>
+      </trans-unit>
+	  <trans-unit id="ssmchildsubs.jsp.unsubscribe">
+        <source>Unsubscribe</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
+        </context-group>
+      </trans-unit>
+	  <trans-unit id="ssmchildsubs.jsp.donothing">
+        <source>Do Nothing</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
         </context-group>
@@ -19488,8 +19557,9 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
         <source>
 Below is a list of channels in your organization.
 &lt;ul&gt;
+&lt;li&gt;To make no changes for a channel, check Do Nothing for that channel.&lt;/li&gt;
 &lt;li&gt;To subscribe selected systems to a channel, check Subscribed for that channel.&lt;/li&gt;
-&lt;li&gt;To unsubscribe selected systems from a channel, uncheck Subscribed for that channel.&lt;/li&gt;
+&lt;li&gt;To unsubscribe selected systems from a channel, check Unsubscribed for that channel.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;strong&gt;Note:&lt;/strong&gt; attempts to assign a system to an incompatible channel will fail.
         </source>
@@ -19505,24 +19575,6 @@ Below is a list of channels in your organization.
       </trans-unit>
 	  <trans-unit id="ssmchildsubs.jsp.channelname">
         <source>Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.subscribe">
-        <source>Subscribe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.unsubscribe">
-        <source>Unsubscribe</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
-        </context-group>
-      </trans-unit>
-	  <trans-unit id="ssmchildsubs.jsp.nochg">
-        <source>No Change</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channel/ssm/ChildSubscriptions.do</context>
         </context-group>
@@ -20246,7 +20298,7 @@ given channel.</source>
          <source>Package Management</source>
        </trans-unit>
       <trans-unit id="channel.jsp.manage.package.message">
-         <source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Delete Packages', below.</source>
+         <source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Confirm Deletion', below.</source>
        </trans-unit>
       <trans-unit id="channel.jsp.manage.package.subtitle">
          <source>Package List</source>
@@ -20637,7 +20689,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.private">
         <source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
-        be accessed by &lt;a href="{0}"&gt;trusted organizations&lt;/a&gt;.</source>
+        be accessed by any organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -20649,7 +20701,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.selectedusers">
-        <source>Only &lt;a href="{0}"&gt;selected users within your organization&lt;/a&gt; may subscribe to this channel. (see the &lt;a href="{1}"&gt;"Subscribers" tab&lt;/a&gt; above.)</source>
+        <source>Only selected users within your organization may subscribe to this channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>

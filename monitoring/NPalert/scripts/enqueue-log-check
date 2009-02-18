@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/usr/bin/scripts/log-remote-check --expr http --lines 10000 --mins 15 --warn 1000 --crit 2000 /var/tmp/enqueue.log
+/usr/bin/scripts/log-remote-check --expr http --lines 10000 --mins 15 --warn 1000 --crit 2000 /var/log/nocpulse/enqueue.log
 exit $?

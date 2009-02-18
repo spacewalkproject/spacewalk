@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -281,9 +281,8 @@ public class KickstartHelper {
     
     /**
      * Get the kickstart host to use. Will use the host of the proxy if the header is 
-     * present. If not the code then resorts to checking for the web.kickstart_host
-     * property, and finally to using the hostname of the satellite the request
-     * is hitting.
+     * present. If not the code then resorts to getting the cobbler hostname from our
+     * rhn.conf Config.
      * 
      * @return String representing the Kickstart Host
      */
@@ -312,17 +311,8 @@ public class KickstartHelper {
             log.debug("Kickstart host from proxy header: " + firstProxy);
             return firstProxy;
         }
-        if (Config.get().getString(Config.KICKSTART_HOST) != null) {
-            log.debug("Kickstart host from " + Config.KICKSTART_HOST + ": " + 
-                    Config.get().getString(Config.KICKSTART_HOST));
-            return Config.get().getString(Config.KICKSTART_HOST);
-        } 
-        else if (this.request.getServerName() != null) {
-            log.debug("Kickstart host from request: " + this.request.getServerName());
-            return this.request.getServerName();
-        }
         else {
-            return Config.get().getString("base_domain", "xmlrpc.rhn.redhat.com");
+            return Config.get().getCobblerHost();
         }
     }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -45,15 +45,12 @@ public class PackageSource extends BaseDomainHelper {
     private PackageGroup packageGroup;
     private SourceRpm sourceRpm;
 
-
-
     /**
      * @return Returns the sigmd5.
      */
     public String getSigmd5() {
         return sigmd5;
     }
-
 
     /**
      * @param sigmd5In The sigmd5 to set.
@@ -63,8 +60,8 @@ public class PackageSource extends BaseDomainHelper {
     }
 
     /**
-     * Retrieves the file portion of the path. For example, if path=/foo/bar/baz.rpm,
-     * getFile() would return 'baz.rpm'.
+     * Retrieves the file portion of the path. For example, if
+     * path=/foo/bar/baz.rpm, getFile() would return 'baz.rpm'.
      * @return Returns the file portion of the path.
      */
     public String getFile() {
@@ -104,8 +101,6 @@ public class PackageSource extends BaseDomainHelper {
         this.buildTime = b;
     }
 
-
-
     /**
      * @return Returns the cookie.
      */
@@ -119,7 +114,6 @@ public class PackageSource extends BaseDomainHelper {
     public void setCookie(String c) {
         this.cookie = c;
     }
-
 
     /**
      * @return Returns the id.
@@ -177,8 +171,6 @@ public class PackageSource extends BaseDomainHelper {
         this.org = o;
     }
 
-
-
     /**
      * @return Returns the packageGroup.
      */
@@ -192,7 +184,6 @@ public class PackageSource extends BaseDomainHelper {
     public void setPackageGroup(PackageGroup p) {
         this.packageGroup = p;
     }
-
 
     /**
      * @return Returns the packageSize.
@@ -221,7 +212,6 @@ public class PackageSource extends BaseDomainHelper {
     public void setPath(String p) {
         this.path = p;
     }
-
 
     /**
      * @return Returns the payloadSize.
@@ -265,7 +255,6 @@ public class PackageSource extends BaseDomainHelper {
         this.sourceRpm = s;
     }
 
-
     /**
      * @return Returns the vendor.
      */
@@ -279,8 +268,5 @@ public class PackageSource extends BaseDomainHelper {
     public void setVendor(String v) {
         this.vendor = v;
     }
-
-
-
 
 }

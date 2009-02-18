@@ -1125,11 +1125,13 @@ SELECT 1
  WHERE p.id = :pid
    AND (   P.org_id = :org_id
         OR EXISTS (SELECT 1
-                     FROM rhnChannelPackage CP,
-                          rhnAvailableChannels AC
-                    WHERE AC.org_id = :org_id
-                      AND AC.channel_id = CP.channel_id
-                      AND CP.package_id = :pid)
+                     FROM rhnOrgChannelTreeView CT inner join rhnChannelPackage CP on CT.id = CP.channel_id
+                    WHERE CT.org_id = :org_id
+                      AND CP.package_id = P.id)
+        OR EXISTS (SELECT 1
+                     FROM rhnSharedChannelTreeView CT inner join rhnChannelPackage CP on CT.id = CP.channel_id
+                    WHERE CT.org_id = :org_id
+                      AND CP.package_id = P.id)
        )
   </query>
 </mode>
@@ -1195,7 +1197,7 @@ SELECT  P.id AS id,
   </elaborator>
 </mode>
 
-<mode name="all_packages_in_channel_after">
+<mode name="all_packages_in_channel_after" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str">
 SELECT 
        P.id AS id,
@@ -1218,7 +1220,7 @@ ORDER BY UPPER(name)
 </mode>
 
 
-<mode name="all_packages_in_channel_between">
+<mode name="all_packages_in_channel_between" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid, start_date_str, end_date_str">
     
 SELECT 
@@ -1242,7 +1244,7 @@ ORDER BY UPPER(name)
   </query>
 </mode>
 
-<mode name="all_packages_in_channel">
+<mode name="all_packages_in_channel" class="com.redhat.rhn.frontend.dto.PackageDto">
   <query params="cid">
 SELECT P.id AS id,
        PN.name as name,
@@ -1394,8 +1396,8 @@ WHERE EP.errata_id = :eid
       AND PN.id = P1.name_id
       AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) != 0)
   </query>        
-</mode>  
-  
+</mode>
+
 <mode name="server_packages_needing_update">
   <query params="sid, name">
 SELECT P.id, PE.epoch, PE.version, PE.release
@@ -1670,12 +1672,10 @@ SELECT distinct P.id AS ID,
     <elaborator name="package_details" />
 </mode>
 
-
-
 <write-mode name="cleanup_needed_package_cache">
   <query params="pid">
     DELETE from
-    rhnServerNeededPackageCache r
+    rhnServerNeededCache r
     WHERE r.package_id = :pid
   </query>
 </write-mode>

@@ -173,7 +173,10 @@ on this system."),
      """),
 
      # 60-70: token errors
-     60: _("Invalid system registration token"),
+     60: _("""
+     The activation token specified could not be found on the server.
+     Please retry with a valid key.
+     """),
      61: _("Too many systems registered using this registration token"),
      62: _("Token contains invalid, obsoleted or insufficient settings"),
      63: _("Conflicting activation tokens"),

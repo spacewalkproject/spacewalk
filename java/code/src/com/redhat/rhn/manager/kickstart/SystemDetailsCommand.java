@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -89,6 +89,39 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
         }
     }
 
+    /**
+     * Retrieve the network interface (e.g. eth0) based on the value stored in the
+     * kickstart data staticDevice (e.g. dhcp:eth0).
+     * @return the network interface
+     */
+    public String getNetworkInterface() {
+        String device = new String();
+        String staticDevice = ksdata.getStaticDevice();
+        if (staticDevice != null) {
+            int breakpos = staticDevice.indexOf(":");
+            if ((breakpos + 1) < staticDevice.length()) {
+                device = staticDevice.substring(breakpos + 1);
+            }
+        }
+        return device;
+    }
+    
+    /**
+     * Retrieve the network type (dhcp or static) based on the value stored in the
+     * kickstart data staticDevice (e.g. dhcp:eth0).
+     * @return the network type (dhcp or static)
+     */
+    public String getNetworkType() {
+        String networkType = new String();
+        String staticDevice = ksdata.getStaticDevice();
+        if (staticDevice != null) {
+            int breakpos = staticDevice.indexOf(":");
+            networkType = staticDevice.substring(0, breakpos);
+            networkType = networkType.trim().toLowerCase();
+        }
+        return networkType;
+    }
+    
     /**
      * Updates the root password in the network profile.
      * @param rootPw the new password

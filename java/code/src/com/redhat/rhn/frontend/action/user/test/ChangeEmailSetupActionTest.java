@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,18 +7,16 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
 package com.redhat.rhn.frontend.action.user.test;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.user.ChangeEmailSetupAction;
-import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -49,35 +47,9 @@ public class ChangeEmailSetupActionTest extends RhnBaseTestCase {
 
         //If we are a satellite, then we should expect yourchangeemail.instructions
         //and message.Update
-        if (Config.get().getBoolean("web.satellite")) {
-            assertEquals(ls.getMessage("yourchangeemail.instructions"),
-                         sah.getRequest().getAttribute("pageinstructions"));
-            assertEquals(ls.getMessage("message.Update"),
-                         sah.getRequest().getAttribute("button_label"));
-        }
-        else {
-            // We're dealing with the hosted environment which cares about
-            // confirmed/verified email addrs
-            assertEquals(ls.getMessage("yourchangeemail.verified"),
-                         sah.getRequest().getAttribute("pageinstructions"));
-            assertEquals(ls.getMessage("message.Update"),
-                         sah.getRequest().getAttribute("button_label"));
-
-            //Test unverified
-            user.setEmail("");
-            UserManager.storeUser(user);
-
-            result = sah.executeAction();
-            assertEquals("default", result.getName());
-
-            HtmlTag link = new HtmlTag("a");
-            link.setAttribute("href", "/rhn/tnc/TnCDisplay.do");
-            link.addBody(ls.getMessage("yourchangeemail.TermsAndConditions"));
-
-            assertEquals(ls.getMessage("yourchangeemail.unverified", link.render()),
-                         sah.getRequest().getAttribute("pageinstructions"));
-            assertEquals(ls.getMessage("addresses.SendVerification"),
-                         sah.getRequest().getAttribute("button_label"));
-        }
+        assertEquals(ls.getMessage("yourchangeemail.instructions"),
+                     sah.getRequest().getAttribute("pageinstructions"));
+        assertEquals(ls.getMessage("message.Update"),
+                     sah.getRequest().getAttribute("button_label"));
     }
 }

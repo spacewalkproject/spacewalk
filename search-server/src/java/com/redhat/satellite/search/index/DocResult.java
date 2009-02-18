@@ -24,7 +24,6 @@ import org.apache.lucene.document.Document;
  */
 public class DocResult extends Result {
 
-    private String orig = "";
     private String url = "";
     private String title = "";
     private String summary = "";
@@ -43,9 +42,6 @@ public class DocResult extends Result {
      * @param doc lucene document containing data fields
      */
     public DocResult(int rankIn, float scoreIn, Document doc) {
-        if (doc.getField("orig") != null) {
-            setOrig(doc.getField("orig").stringValue());
-        }
         if (doc.getField("url") != null) {
             setUrl(doc.getField("url").stringValue());
             setId(doc.getField("url").stringValue());
@@ -60,20 +56,6 @@ public class DocResult extends Result {
         }
         setRank(rankIn);
         setScore(scoreIn);
-    }
-
-    /**
-     * @return the orig
-     */
-    public String getOrig() {
-        return orig;
-    }
-
-    /**
-     * @param origIn the orig to set
-     */
-    public void setOrig(String origIn) {
-        this.orig = origIn;
     }
 
     /**
@@ -145,8 +127,8 @@ public class DocResult extends Result {
      * @return the string representation of this object
     **/
     public String toString() {
-        return super.toString() + ", Title = " + getTitle() + ", Orig = " + getOrig() +
-            ", Url = " + getUrl() + ", Summary = " + getSummary();
+        return super.toString() + ", Title = " + getTitle()  + ", Url = " + getUrl() +
+            ", Summary = " + getSummary();
     }
 
 }

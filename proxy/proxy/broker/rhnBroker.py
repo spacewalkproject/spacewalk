@@ -36,7 +36,8 @@ import rhnRepository
 import proxy.rhnProxyAuth
 
 
-_PROXY_VERSION = '0.1' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0', '4.2.0', '5.0.0', '5.1.0', '5.2.0', '0.1'
+# the version should not be never decreased, never mind that spacewalk has different versioning
+_PROXY_VERSION = '5.3.0' # HISTORY: '0.9.7', '3.2.0', '3.5.0', '3.6.0', '4.1.0', '4.2.0', '5.0.0', '5.1.0', '5.2.0', '0.1', '5.3.0'
 
 
 class BrokerHandler(SharedHandler):
@@ -141,6 +142,9 @@ class BrokerHandler(SharedHandler):
         self._prepHandler()
 
         _oto = rhnFlags.get('outputTransportOptions')
+
+        # tell parent that we can follow redirects, even if client is not able to
+        _oto['X-RHN-Transport-Capability'] = "follow-redirects=3"
 
         # No reason to put Host: in the header, the connection object will
         # do that for us

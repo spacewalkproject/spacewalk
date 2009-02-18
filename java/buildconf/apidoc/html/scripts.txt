@@ -35,7 +35,7 @@ Below is an example of the user.listAdministeredSystemGroups call being used.  O
 <p />
 
 <code>
-#!/usr/bin/env python<br />
+#!/usr/bin/python<br />
 import xmlrpclib<br />
 <br />
 SATELLITE_URL = "http://satellite.example.com/rpc/api"<br />
@@ -53,7 +53,7 @@ client.auth.logout(key)<br />
 </code>
 <hr />
 
-For more examples visit the <a href="http://rhn-satellite.108.redhat.com">RHN Satellite community page</a>.
+For more examples visit the <a href="https://fedorahosted.org/spacewalk/">Spacewalk community page</a>.
 
 <p />
 </body><p />

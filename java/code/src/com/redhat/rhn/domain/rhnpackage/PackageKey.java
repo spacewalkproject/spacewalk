@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -24,14 +24,12 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @version $Rev$
  */
 public class PackageKey extends BaseDomainHelper implements Comparable<PackageKey> {
-    
+
     private Long id;
     private String key;
     private PackageProvider provider;
     private PackageKeyType type;
 
-    
-    
     /**
      * @return Returns the type.
      */
@@ -39,7 +37,6 @@ public class PackageKey extends BaseDomainHelper implements Comparable<PackageKe
         return type;
     }
 
-    
     /**
      * @param typeIn The type to set.
      */
@@ -53,48 +50,46 @@ public class PackageKey extends BaseDomainHelper implements Comparable<PackageKe
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
- 
+
     /**
      * @return Returns the name.
      */
     public String getKey() {
         return key;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setKey(String n) {
         this.key = n;
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(getKey())
-            .toHashCode();
+        return new HashCodeBuilder().append(getKey()).toHashCode();
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public boolean equals(Object archIn) {
-        
+
         if (archIn instanceof PackageKey) {
             PackageKey arch = (PackageKey) archIn;
-            return new EqualsBuilder().append(this.key, arch.getKey()) 
-            .append(getId(), arch.getId()).isEquals();
+            return new EqualsBuilder().append(this.key, arch.getKey()).append(getId(),
+                    arch.getId()).isEquals();
         }
         else {
             return false;

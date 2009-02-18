@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Cert-related functions
 #   - RHN certificate
@@ -119,10 +119,6 @@ def set_slots_from_cert(cert):
         "cert" is a satellite_cert.SatelliteCert() object
         NOTE: should only be called by storeRhnCert()
     """
-
-    # If we don't have the NPalert RPM installed, we don't support monitoring
-    # and we need to then filter the "monitoring_entitled" entitlement
-    monSupportedYN = not not getInstalledHeader("NPalert")
 
     org_id = get_org_id()
     activate_system_entitlement = rhnSQL.Procedure(

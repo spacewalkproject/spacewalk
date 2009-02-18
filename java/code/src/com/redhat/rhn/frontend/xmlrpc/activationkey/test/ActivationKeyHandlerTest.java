@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.TokenPackage;
+import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MissingEntitlementException;
@@ -739,6 +740,15 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
         List<ActivationKey> keys = keyHandler.listActivationKeys(adminKey);
 
         assertTrue(keys.size() >= 5);
+    }
+    
+    public void testListActivatedSystems() throws Exception {
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
+        int numServersActivated = key.getToken().getActivatedServers().size();
+
+        Object[] servers = keyHandler.listActivatedSystems(adminKey, key.getKey());
+        
+        assertEquals(numServersActivated, servers.length);
     }
     
     public void testConfigChannels() throws Exception {

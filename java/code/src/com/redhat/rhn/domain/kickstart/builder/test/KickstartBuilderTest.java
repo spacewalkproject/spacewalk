@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -278,7 +278,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         KickstartData ksData = builder.createFromParser(parser, "mykslabel", 
-                KickstartVirtualizationType.AUTO, tree, null);
+                KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
         assertEquals(19, ksData.getCommands().size());
         assertEquals(100, ksData.getPackageNames().size());
         assertEquals(1, ksData.getScripts().size());
@@ -293,10 +293,10 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
 
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         builder.createFromParser(parser, "mykslabel", 
-                KickstartVirtualizationType.AUTO, tree, null);
+                KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
         try {
             builder.createFromParser(parser, "mykslabel", 
-                    KickstartVirtualizationType.AUTO, tree, null);
+                    KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
             fail();
         }
         catch (ValidatorException e) {
@@ -324,7 +324,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         KickstartData data = builder.createFromParser(parser, "upgrade-ks", 
-                KickstartVirtualizationType.AUTO, tree, null);
+                KickstartVirtualizationType.XEN_PARAVIRT, tree, null);
         
         assertNotNull(data.getCommand("upgrade"));
         assertNull(data.getCommand("install"));
@@ -335,7 +335,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         KickstartBuilder builder = new KickstartBuilder(user);
         KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
         KickstartData data = builder.createFromParser(parser, "testing-profile",
-                KickstartVirtualizationType.AUTO, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
                 tree, KICKSTART_HOST);
         
         assertNull(data.getCommand("nfs"));

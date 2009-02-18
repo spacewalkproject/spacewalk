@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -39,6 +41,7 @@ import com.redhat.rhn.manager.system.SystemManager;
  * @version $Rev$
  */
 public class Channel extends BaseDomainHelper implements Comparable {
+
     /**
      * Logger for this class
      */
@@ -47,6 +50,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public static final String PROTECTED = "protected";
     public static final String PRIVATE = "private";
 
+    private static List<String> releaseToSkipRepodata = new ArrayList<String>(Arrays
+            .asList("2.1AS", "2.1ES", "2.1WS", "3AS", "3ES", "3WS", "3Desktop", "4AS",
+                    "4ES", "4WS", "4Desktop"));
     private String baseDir;
     private ChannelArch channelArch;
     private String description;
@@ -63,6 +69,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Channel parentChannel;
     private ChannelProduct product;
     private ProductName productName;
+    private Comps comps;
     private String summary;
     private Set erratas = new HashSet();
     private Set packages = new HashSet();
@@ -73,7 +80,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String maintainerEmail;
     private String maintainerPhone;
     private String supportPolicy;
-    
+
     /**
      * @param orgIn what org you want to know if it is globally subscribable in
      * @return Returns whether or not this channel is globally subscribable.
@@ -81,34 +88,33 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public boolean isGloballySubscribable(Org orgIn) {
         return ChannelFactory.isGloballySubscribable(orgIn, this);
     }
-    
+
     /**
      * Sets the globally subscribable attribute for this channel
-     * @param orgIn what org you want to set if it is globally subscribable in 
-     * @param value True if you want the channel to be globally subscribable, false if not.
+     * @param orgIn what org you want to set if it is globally subscribable in
+     * @param value True if you want the channel to be globally subscribable,
+     * false if not.
      */
     public void setGloballySubscribable(boolean value, Org orgIn) {
         ChannelFactory.setGloballySubscribable(orgIn, this, value);
     }
-    
+
     /**
      * Returns true if this Channel is a satellite channel.
      * @return true if this Channel is a satellite channel.
      */
     public boolean isSatellite() {
-        return getChannelFamily()
-               .getLabel()
-               .startsWith(ChannelFamilyFactory
-                       .SATELLITE_CHANNEL_FAMILY_LABEL);
+        return getChannelFamily().getLabel().startsWith(
+                ChannelFamilyFactory.SATELLITE_CHANNEL_FAMILY_LABEL);
     }
-    
+
     /**
      * Returns true if this Channel is a Proxy channel.
      * @return true if this Channel is a Proxy channel.
      */
     public boolean isProxy() {
         ChannelFamily cfam = getChannelFamily();
-        
+
         if (cfam != null) {
             return cfam.getLabel().startsWith(
                     ChannelFamilyFactory.PROXY_CHANNEL_FAMILY_LABEL);
@@ -117,210 +123,224 @@ public class Channel extends BaseDomainHelper implements Comparable {
             return false;
         }
     }
-    
+
     /**
      * @return Returns the baseDir.
      */
     public String getBaseDir() {
         return baseDir;
     }
-    
+
     /**
      * @param b The baseDir to set.
      */
     public void setBaseDir(String b) {
         this.baseDir = b;
     }
-    
+
     /**
      * @return Returns the channelArch.
      */
     public ChannelArch getChannelArch() {
         return channelArch;
     }
-    
+
     /**
      * @param c The channelArch to set.
      */
     public void setChannelArch(ChannelArch c) {
         this.channelArch = c;
     }
-    
+
+    /**
+     * @param compsIn The Comps to set.
+     */
+    public void setComps(Comps compsIn) {
+        this.comps = compsIn;
+    }
+
+    /**
+     * @return Returns the Comps.
+     */
+    public Comps getComps() {
+        return comps;
+    }
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-    
+
     /**
      * @param d The description to set.
      */
     public void setDescription(String d) {
         this.description = d;
     }
-    
+
     /**
      * @return Returns the endOfLife.
      */
     public Date getEndOfLife() {
         return endOfLife;
     }
-    
+
     /**
      * @param e The endOfLife to set.
      */
     public void setEndOfLife(Date e) {
         this.endOfLife = e;
     }
-    
+
     /**
      * @return Returns the gPGKeyFp.
      */
     public String getGPGKeyFp() {
         return GPGKeyFp;
     }
-    
+
     /**
      * @param k The gPGKeyFP to set.
      */
     public void setGPGKeyFp(String k) {
         GPGKeyFp = k;
     }
-    
+
     /**
      * @return Returns the gPGKeyId.
      */
     public String getGPGKeyId() {
         return GPGKeyId;
     }
-    
+
     /**
      * @param k The gPGKeyId to set.
      */
     public void setGPGKeyId(String k) {
         GPGKeyId = k;
     }
-    
+
     /**
      * @return Returns the gPGKeyUrl.
      */
     public String getGPGKeyUrl() {
         return GPGKeyUrl;
     }
-    
+
     /**
      * @param k The gPGKeyUrl to set.
      */
     public void setGPGKeyUrl(String k) {
         GPGKeyUrl = k;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the label.
      */
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * @param l The label to set.
      */
     public void setLabel(String l) {
         this.label = l;
     }
-    
+
     /**
      * @return Returns the lastModified.
      */
     public Date getLastModified() {
         return lastModified;
     }
-    
+
     /**
      * @param l The lastModified to set.
      */
     public void setLastModified(Date l) {
         this.lastModified = l;
     }
-    
+
     /**
      * @return Returns the name.
      */
     public String getName() {
         return name;
     }
-    
+
     /**
      * @param n The name to set.
      */
     public void setName(String n) {
         this.name = n;
     }
-    
+
     /**
      * @return Returns the org.
      */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param o The org to set.
      */
     public void setOrg(Org o) {
         this.org = o;
     }
-    
+
     /**
      * @return Returns the parentChannel.
      */
     public Channel getParentChannel() {
         return parentChannel;
     }
-    
+
     /**
      * @param p The parentChannel to set.
      */
     public void setParentChannel(Channel p) {
         this.parentChannel = p;
     }
-    
+
     /**
      * @return Returns the summary.
      */
     public String getSummary() {
         return summary;
     }
-    
+
     /**
      * @param s The summary to set.
      */
     public void setSummary(String s) {
         this.summary = s;
     }
-    
+
     /**
      * @return Returns the set of erratas for this channel.
      */
     public Set getErratas() {
         return erratas;
     }
-    
+
     /**
      * Sets the erratas set for this channel
      * @param erratasIn The set of erratas
@@ -328,7 +348,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setErratas(Set erratasIn) {
         this.erratas = erratasIn;
     }
-    
+
     /**
      * Adds a single errata to the channel
      * @param errataIn The errata to add
@@ -336,25 +356,25 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void addErrata(Errata errataIn) {
         erratas.add(errataIn);
     }
-    
+
     /**
      * @return Returns the set of packages for this channel.
      */
     public Set getPackages() {
         return packages;
     }
-    
+
     /**
      * @return Returns the size of the package set for this channel.
      */
     public int getPackageCount() {
         // we don;t want to use packages.size()
-        //this could be a lot (we don't want to load all the packages 
-        //in Rhn-server to get a single number) ...
-        //So we are better off using a hibernate query for the count...
+        // this could be a lot (we don't want to load all the packages
+        // in Rhn-server to get a single number) ...
+        // So we are better off using a hibernate query for the count...
         return ChannelFactory.getPackageCount(this);
     }
-    
+
     /**
      * Sets the packages set for this channel
      * @param packagesIn The set of erratas
@@ -362,19 +382,19 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setPackages(Set packagesIn) {
         this.packages = packagesIn;
     }
-    
+
     /**
      * Adds a single package to the channel
      * @param packageIn The package to add
      */
     public void addPackage(Package packageIn) {
         if (!getChannelArch().isCompatible(packageIn.getPackageArch())) {
-            throw new IncompatibleArchException(
-                    packageIn.getPackageArch(), getChannelArch());
+            throw new IncompatibleArchException(packageIn.getPackageArch(),
+                    getChannelArch());
         }
         packages.add(packageIn);
     }
-    
+
     /**
      * Removes a single package from the channel
      * @param packageIn The package to remove
@@ -384,17 +404,17 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
 
     /**
-     * Some methods for hibernate to get and set channel families.
-     * However, there should be only one channel family per channel.
+     * Some methods for hibernate to get and set channel families. However,
+     * there should be only one channel family per channel.
      */
-    
+
     /**
      * @return Returns the set of channelFamiliess for this channel.
      */
     public Set getChannelFamilies() {
         return channelFamilies;
     }
-    
+
     /**
      * Sets the channelFamilies set for this channel
      * @param channelFamiliesIn The set of channelFamilies
@@ -402,11 +422,11 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setChannelFamilies(Set channelFamiliesIn) {
         if (channelFamiliesIn.size() > 1) {
             throw new TooManyChannelFamiliesException(this.getId(),
-                        "A channel can only have one channel family");
+                    "A channel can only have one channel family");
         }
         this.channelFamilies = channelFamiliesIn;
     }
-    
+
     /**
      * 
      * @param trustedOrgsIn set of trusted orgs for this channel
@@ -414,7 +434,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setTrustedOrgs(Set<Org> trustedOrgsIn) {
         this.trustedOrgs = trustedOrgsIn;
     }
-    
+
     /**
      * 
      * @return set of trusted orgs for this channel
@@ -422,7 +442,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public Set<Org> getTrustedOrgs() {
         return this.trustedOrgs;
     }
-    
+
     /**
      * Adds a single channelFamily to the channel
      * @param channelFamilyIn The channelFamily to add
@@ -430,7 +450,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void addChannelFamily(ChannelFamily channelFamilyIn) {
         if (this.getChannelFamilies().size() > 0) {
             throw new TooManyChannelFamiliesException(this.getId(),
-                        "A channel can only have one channel family");
+                    "A channel can only have one channel family");
         }
         channelFamilies.add(channelFamilyIn);
     }
@@ -451,7 +471,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public ChannelFamily getChannelFamily() {
         if (this.getChannelFamilies().size() == 1) {
             Object[] cfams = this.getChannelFamilies().toArray();
-            return (ChannelFamily)cfams[0];
+            return (ChannelFamily) cfams[0];
         }
 
         return null;
@@ -464,7 +484,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public boolean isBaseChannel() {
         return (getParentChannel() == null);
     }
-    
+
     /**
      * Returns true if this channel is a cloned channel.
      * @return whether the channel is cloned or not
@@ -481,7 +501,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
             return false;
         }
         Channel castOther = (Channel) other;
-        
+
         return new EqualsBuilder().append(getId(), castOther.getId()).isEquals();
     }
 
@@ -505,7 +525,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setProduct(ChannelProduct productIn) {
         this.product = productIn;
     }
-    
+
     /**
      * @return Returns the distChannelMaps.
      */
@@ -513,46 +533,44 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return distChannelMaps;
     }
 
-    
     /**
      * @param distChannelMapsIn The distChannelMaps to set.
      */
     public void setDistChannelMaps(Set distChannelMapsIn) {
         this.distChannelMaps = distChannelMapsIn;
     }
-    
+
     /**
-     * Check if this channel is subscribable by the Org passed in.  Checks:
+     * Check if this channel is subscribable by the Org passed in. Checks:
      * 
-     * 1) If channel is a Proxy or Spacewalk channel == false
-     * 2) If channel has 0 (or less) available subscriptions == false.  
+     * 1) If channel is a Proxy or Spacewalk channel == false 2) If channel has
+     * 0 (or less) available subscriptions == false.
      * 
      * @param orgIn to check available subs
      * @param server to check if subscribable
      * @return boolean if subscribable or not
-     */            
+     */
     public boolean isSubscribable(Org orgIn, Server server) {
-        
+
         if (log.isDebugEnabled()) {
-            log.debug("isSubscribable.archComp: " + 
+            log.debug("isSubscribable.archComp: " +
                     SystemManager.verifyArchCompatibility(server, this));
             log.debug("isProxy: " + this.isProxy());
             log.debug("isSatellite: " + this.isSatellite());
         }
-        
+
         return (SystemManager.verifyArchCompatibility(server, this) &&
-                !this.isProxy() && !this.isSatellite());
+                !this.isProxy() && !this
+                .isSatellite());
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public String toString() {
-            return new ToStringBuilder(this).append("id", id)
-                    .append("label", label).toString();
+        return new ToStringBuilder(this).append("id", id).append("label", label).toString();
     }
 
-    
     /**
      * @return the productName
      */
@@ -560,7 +578,6 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return productName;
     }
 
-    
     /**
      * @param productNameIn the productName to set
      */
@@ -575,18 +592,18 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public boolean isValidAccess(String acc) {
         if (acc.equals(Channel.PUBLIC) || acc.equals(Channel.PRIVATE) ||
-            acc.equals(Channel.PROTECTED)) {
+                acc.equals(Channel.PROTECTED)) {
             return true;
         }
         return false;
     }
-    
+
     /**
      *@param acc public, protected, or private
      */
     public void setAccess(String acc) {
         access = acc;
-    }        
+    }
 
     /**
      * @return public, protected, or private
@@ -594,7 +611,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public String getAccess() {
         return access;
     }
-    
+
     /**
      * 
      * @return wheter channel is protected
@@ -602,15 +619,15 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public boolean isProtected() {
         return this.getAccess().equals(Channel.PROTECTED);
     }
-    
+
     /**
      * Returns the child channels associated to a base channel
      * @param user the User needed for accessibility issues
      * @return a list of child channels or empty list if there are none.
      */
     public List<Channel> getAccessibleChildrenFor(User user) {
-        if (isBaseChannel())    {
-            return ChannelFactory.getAccessibleChildChannels(this, user);    
+        if (isBaseChannel()) {
+            return ChannelFactory.getAccessibleChildChannels(this, user);
         }
         return Collections.EMPTY_LIST;
     }
@@ -619,7 +636,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * {@inheritDoc}
      */
     public int compareTo(Object o) {
-        return this.getName().compareTo(((Channel)o).getName());
+        return this.getName().compareTo(((Channel) o).getName());
     }
 
     /**
@@ -677,4 +694,56 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setSupportPolicy(String policy) {
         supportPolicy = policy;
     }
+
+    /**
+     * Created for taskomatic -- probably shouldn't be called from the webui
+     * @return returns if custom channel
+     */
+    public boolean isCustom() {
+        return getOrg() != null;
+    }
+
+    /**
+     * does this Channel need repodata generated for it Criteria: 1. All custom
+     * channels need repodata 2. RH channels need it if: They are made by RH The
+     * top-most channel in their hierarchy (yes we currently only have 1 level
+     * deep, but you know what assumptions make...) has a 'minor' version of 5
+     * or higher Note: This makes an assumption that taxonomy will work the way
+     * that it continues to work, or at least that version.compareTo will remain
+     * valid and function only on minor version
+     * @return Returns a boolena if repodata generation Required
+     */
+    public boolean isChannelRepodataRequired() {
+        boolean repodataRequired = false;
+        if (this.isCustom()) {
+            repodataRequired = true;
+            log.debug("isChannelRepodataRequired for channel(" + this.id +
+                    ") set to true because it is a custom Channel");
+        }
+
+        // Walk to the top of the tree
+        Channel toConsider = this;
+        while (toConsider.getParentChannel() != null) {
+            toConsider = toConsider.getParentChannel();
+        }
+
+        DistChannelMap channelDist = ChannelFactory.lookupDistChannelMap(toConsider);
+        if (channelDist != null) {
+            String release = channelDist.getRelease();
+            if (!releaseToSkipRepodata.contains(release)) {
+                repodataRequired = true;
+                log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
+                        "set to true because top level parent has a release of " + release);
+            }
+            else {
+                log.debug("isChannelRepodataRequired for channel(" + this.id + ") " +
+                        "set to false because we have'nt met the minimum release");
+            }
+        }
+
+        log.debug("isChannelRepodataRequired for channel(" + this.id + ") = " +
+                repodataRequired);
+        return repodataRequired;
+    }
+
 }

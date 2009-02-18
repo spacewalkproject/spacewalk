@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -52,13 +52,13 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 public class YourRhnAction extends RhnAction {
 
     public static final String ANY_LISTS_SELECTED = "anyListsSelected";
-    
-    private Map renderers = new HashMap();
-    
+        
     /**
      * No-arg constructor
      */
     public YourRhnAction() {
+        Map renderers = new HashMap();
+        
         List tasks = Arrays.asList(Pane.ALL_PANES);
         for (Iterator iter = tasks.iterator(); iter.hasNext();) {
             String key = (String) iter.next();

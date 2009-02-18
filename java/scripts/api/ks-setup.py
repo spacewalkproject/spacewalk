@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 from config import *
 from random import choice
 import os.path

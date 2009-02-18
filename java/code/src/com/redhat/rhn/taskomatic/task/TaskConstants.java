@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -22,8 +22,6 @@ package com.redhat.rhn.taskomatic.task;
  */
 
 public class TaskConstants {
-    
-    public static final String MODE_NAME = "Task_queries";
     
     public static final String TASK_QUERY_KSCLEANUP_FIND_CANDIDATES = 
         "kickstartcleanup_find_candidates";
@@ -79,6 +77,23 @@ public class TaskConstants {
     public static final String TASK_QUERY_ERRATA_QUEUE_DEQUEUE_ERRATA = 
         "errataqueue_dequeue_errata";
     
+    public static final String TASK_QUERY_ERRATA_QUEUE_MARK_ERRATA_IN_PROGRESS = 
+        "errataqueue_mark_errata_in_progress";
+    
+    public static final String TASK_QUERY_ERRATA_QUEUE_CLEAR_ERRATA_IN_PROGRESS = 
+        "errataqueue_clear_errata_in_progress";
+    
+    public static final String TASK_QUERY_REPOMD_DEQUEUE = 
+        "repomd_dequeue";
+    
+    public static final String TASK_QUERY_REPOMD_DETAILS_QUERY = "repomd_details_query";
+    
+    public static final String TASK_QUERY_REPOMD_MARK_IN_PROGRESS = 
+        "repomd_mark_in_progress";
+    
+    public static final String TASK_QUERY_REPOMOD_CLEAR_IN_PROGRESS = 
+        "repomd_clear_in_progress";
+    
     public static final String TASK_QUERY_ERRATA_QUEUE_FETCH_DESC = 
         "errataqueue_fetch_errata_description";
     
@@ -131,4 +146,31 @@ public class TaskConstants {
     
     public static final String TASK_QUERY_EMAILENGINE_FIND_USERS =
         "emailengine_find_users";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CHANNELS =
+        "repomdgenerator_all_channels";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CHANNEL_PACKAGES =
+        "repomdgenerator_channel_packages";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_FILES =
+        "repomdgenerator_capability_files";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_PROVIDES =
+        "repomdgenerator_capability_provides";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_REQUIRES =
+        "repomdgenerator_capability_requires";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_CONFLICTS =
+        "repomdgenerator_capability_conflicts";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_CAPABILITY_OBSOLETES =
+        "repomdgenerator_capability_obsoletes";
+
+    public static final String TASK_QUERY_REPOMD_GENERATOR_PACKAGE_CHANGELOG =
+        "repomdgenerator_package_changelog";
+
+    public static final String MODE_NAME = "Task_queries";
+
 }

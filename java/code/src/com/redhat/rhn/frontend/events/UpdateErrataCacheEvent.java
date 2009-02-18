@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -17,9 +17,9 @@ package com.redhat.rhn.frontend.events;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.messaging.EventDatabaseMessage;
 
-import java.util.List;
-
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 /**
  * UpdateErrataCacheEvent - publish even to update the errata cache for an Org
@@ -30,10 +30,14 @@ import org.hibernate.Transaction;
 public class UpdateErrataCacheEvent implements EventDatabaseMessage {
 
     private Long orgId;
-    private List channelIds;
+    private List<Long> channelIds;
+    private List<Long> packageIds;
+    private Long errataId;
     private int type = TYPE_ORG;
     public static final int TYPE_ORG = 1;
     public static final int TYPE_CHANNEL = 2;
+    public static final int TYPE_CHANNEL_ERRATA = 3;
+    
     private Transaction txn;
      
 
@@ -83,7 +87,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
     /**
      * @return Returns the channels.
      */
-    public List getChannelIds() {
+    public List<Long> getChannelIds() {
         return this.channelIds;
     }
 
@@ -93,7 +97,7 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
      * for.
      * @param channelIdsIn to add to the list to process.
      */
-    public void setChannels(List channelIdsIn) {
+    public void setChannels(List<Long> channelIdsIn) {             
         this.channelIds = channelIdsIn;
     }
 
@@ -102,5 +106,37 @@ public class UpdateErrataCacheEvent implements EventDatabaseMessage {
      */
     public Transaction getTransaction() {
         return this.txn;
+    }
+
+    
+    /**
+     * @return Returns the errata_id.
+     */
+    public Long getErrataId() {
+        return errataId;
+    }
+
+    
+    /**
+     * @param errataIdIn The errata_id to set.
+     */
+    public void setErrataId(Long errataIdIn) {
+        this.errataId = errataIdIn;
+    }
+
+    
+    /**
+     * @return Returns the packageIds.
+     */
+    public List<Long> getPackageIds() {
+        return packageIds;
+    }
+
+    
+    /**
+     * @param packageIdsIn The packageIds to set.
+     */
+    public void setPackageIds(List<Long> packageIdsIn) {
+        this.packageIds = packageIdsIn;
     }
 }

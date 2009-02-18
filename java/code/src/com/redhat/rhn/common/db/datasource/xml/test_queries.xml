@@ -240,17 +240,10 @@ SELECT u.created as CREATED
        GROUP BY owner 
 </query>
 
-<write-mode name="insert_into_rhnServerNeededErrataCache">
-  <query params="org_id, server_id, errata_id">
-    INSERT INTO rhnServerNeededErrataCache(ORG_ID, SERVER_ID, ERRATA_ID) 
-        VALUES(:org_id, :server_id, :errata_id)
-  </query>
-</write-mode>
-
 <write-mode name="insert_into_rhnServerNeededPackageCache">
-  <query params="org_id, server_id, package_id">
-    INSERT INTO rhnServerNeededPackageCache(ORG_ID, SERVER_ID, PACKAGE_ID)
-        VALUES(:org_id, :server_id, :package_id)
+  <query params="errata_id, server_id, package_id">
+    INSERT INTO rhnServerNeededCache(ERRATA_ID, SERVER_ID, PACKAGE_ID)
+        VALUES(:errata_id, :server_id, :package_id)
   </query>
 </write-mode>
 

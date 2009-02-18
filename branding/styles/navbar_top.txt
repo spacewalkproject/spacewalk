@@ -45,7 +45,7 @@ align="top" /></form>
   </div>
 
 </div>
-<div id="navWrap">
-<div id="mainNavWrap">
+<div id="navWrap"/>
+<div id="mainNavWrap"/>
 
 </pxt-passthrough>

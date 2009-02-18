@@ -29,7 +29,7 @@
         </a>
       </li>
 
-<rhn-require acl_mixins="RHN::Access::Channel" acl="channel_is_clone();user_role(channel_admin);global_config(satellite)">
+<rhn-require acl_mixins="RHN::Access::Channel" acl="channel_is_clone();user_role(channel_admin)">
       <li>
         <a href="/network/software/channels/manage/errata/clone.pxt?cid={formvar:cid}&amp;pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions">
           Clone Errata

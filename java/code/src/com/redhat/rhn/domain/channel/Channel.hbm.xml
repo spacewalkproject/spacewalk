@@ -125,17 +125,30 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     
-    <query name="Channel.findCustomBaseChannels">
-    	<![CDATA[ 
-    			from com.redhat.rhn.domain.channel.Channel as c where c.org = :org
-    						and parentChannel is null]]>						
-    </query>    
+    <sql-query name="Channel.findCustomBaseChannels">
+    	<![CDATA[SELECT {c.*}
+    		       FROM rhnChannel {c},
+                        rhnUserChannel uc,
+                        rhnChannelCloned c_1_
+                  WHERE c.id = uc.channel_id
+                    AND c.id = c_1_.id (+)
+                    AND uc.user_id = :user_id
+                    AND uc.org_id = :org_id
+    				AND c.parent_channel is null]]>						
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>    
     
     <query name="Channel.findAllBaseChannels">
         <![CDATA[from com.redhat.rhn.domain.channel.Channel as c
                 where (c.org = :org or c.org is null)
                   and parentChannel is null]]>
     </query>
+    
+    <query name="Channel.findAllBaseChannelsOnSatellite">
+        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c
+                  where parentChannel is null]]>
+    </query>    
+    
    <query name="Channel.listAllChildren">
     	<![CDATA[ 
     			from com.redhat.rhn.domain.channel.Channel as c where c.parentChannel = :parent
@@ -261,6 +274,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar type="int" column="package_count"/>
         <![CDATA[select count(*) as package_count from rhnChannelPackage cp where cp.channel_id = :cid]]>
     </sql-query>
+    
+    <sql-query name="Channel.getPackageIdList">
+        <return-scalar type="long" column="package_id"/>
+        <![CDATA[select cp.package_id from rhnChannelPackage cp where cp.channel_id = :cid]]>
+    </sql-query>    
+    
 
     
     <sql-query name="Channel.lookupOriginalPackages">

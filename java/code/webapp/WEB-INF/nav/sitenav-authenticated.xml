@@ -46,6 +46,7 @@
     </rhn-tab>
     <rhn-tab name="System Set Manager" url="/network/systems/ssm/index.pxt" acl="org_entitlement(sw_mgr_enterprise)">
       <rhn-tab-directory>/rhn/systems/ssm</rhn-tab-directory>
+       <rhn-tab name="ssm.nav.status" url="/rhn/ssm/ViewAllLog.do" acl="org_entitlement(sw_mgr_enterprise)"/>
     </rhn-tab>
     <rhn-tab name="Advanced Search" url="/rhn/systems/Search.do" acl="org_entitlement(sw_mgr_enterprise)" />
     <rhn-tab name="Activation Keys" acl="org_entitlement(sw_mgr_enterprise); user_role(activation_key_admin)">
@@ -94,7 +95,7 @@
       <rhn-tab name="Published" url="/rhn/errata/manage/PublishedErrata.do" acl="user_role(channel_admin)" />
       <rhn-tab name="Unpublished" url="/rhn/errata/manage/UnpublishedErrata.do" acl="user_role(channel_admin)" />
     </rhn-tab>
-    <rhn-tab name="Clone Errata" url="/rhn/errata/manage/CloneErrata.do" acl="user_role(channel_admin); is(satellite)">
+    <rhn-tab name="Clone Errata" url="/rhn/errata/manage/CloneErrata.do" acl="user_role(channel_admin)">
       <rhn-tab-directory>/rhn/errata/manage/clone</rhn-tab-directory>
     </rhn-tab> 
   </rhn-tab>
@@ -106,18 +107,6 @@
 	  <rhn-tab name="channel.nav.popular" url="/rhn/software/channels/Popular.do"/>
       <rhn-tab name="channel.nav.custom" url="/rhn/software/channels/Custom.do"/>
       <rhn-tab name="channel.nav.retired" url="/rhn/software/channels/Retired.do"/>
-    </rhn-tab>
-    <rhn-tab name="Download Software" acl="not is(satellite)" url="/rhn/software/downloads/SupportedISOs.do">
-        <rhn-tab-url>/rhn/software/downloads/Help.do</rhn-tab-url>
-      <rhn-tab name="Supported">
-        <rhn-tab-url>/rhn/software/downloads/SupportedISOs.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="All">
-        <rhn-tab-url>/rhn/software/downloads/AllISOs.do</rhn-tab-url>
-      </rhn-tab>
-      <rhn-tab name="Retired">
-        <rhn-tab-url>/rhn/software/downloads/RetiredISOs.do</rhn-tab-url>
-      </rhn-tab>
     </rhn-tab>
     <rhn-tab name="Package Search" url="/rhn/channels/software/Search.do">
        <rhn-tab-directory>/rhn/software/packages</rhn-tab-directory>
@@ -155,7 +144,6 @@
         <rhn-tab-url>/rhn/configuration/system/Summary.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
-    <rhn-tab name="config.nav.quota" url="/rhn/configuration/Quota.do" acl="user_role(org_admin);not is(satellite)" />
   </rhn-tab>
   <rhn-tab name="Schedule" url="/rhn/schedule/PendingActions.do" active-image="tab-schedule-selected.gif" inactive-image="tab-schedule.gif">
     <rhn-tab-directory>/rhn/schedule</rhn-tab-directory>
@@ -195,7 +183,7 @@
       <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin); is(satellite)">
+  <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin)">
     <rhn-tab name="Organizations" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Organizations.do">
         <rhn-tab-url>/rhn/admin/multiorg/OrgDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgUsers.do</rhn-tab-url>
@@ -207,12 +195,12 @@
     
     <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/SoftwareEntitlements.do">
    
-      <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Software Channel Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlements.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlementDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/SoftwareEntitlementSubscriptions.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="System Entitlements" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="System Entitlements" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/multiorg/SystemEntitlements.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/EntitlementOrgs.do</rhn-tab-url>
       </rhn-tab>
@@ -223,31 +211,31 @@
         <rhn-tab-url>/rhn/admin/multiorg/SatRoleConfirm.do</rhn-tab-url>
     </rhn-tab>
 
-    <rhn-tab name="Spacewalk Configuration" acl="user_role(satellite_admin); is(satellite)" url="/rhn/admin/config/GeneralConfig.do">
+    <rhn-tab name="Spacewalk Configuration" acl="user_role(satellite_admin)" url="/rhn/admin/config/GeneralConfig.do">
       <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
       <rhn-tab-url>/internal/satellite/config/restart_required.pxt</rhn-tab-url>
       <rhn-tab-url>/internal/satellite/config/restart_in_progress.pxt</rhn-tab-url>
-       <rhn-tab name="General" acl="user_role(satellite_admin); is(satellite)">
+       <rhn-tab name="General" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/GeneralConfig.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Monitoring" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Monitoring" acl="user_role(satellite_admin); show_scout()">
         <rhn-tab-url>/rhn/admin/config/MonitoringConfig.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Certificate" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Certificate" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/CertificateConfig.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Bootstrap Script" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Bootstrap Script" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/BootstrapConfig.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Organizations" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Organizations" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/Orgs.do</rhn-tab-url>
       </rhn-tab>
-      <rhn-tab name="Restart" acl="user_role(satellite_admin); is(satellite)">
+      <rhn-tab name="Restart" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/Restart.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
 
-    <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin); is(satellite)" url="/internal/satellite/task_engine/index.pxt">
+    <rhn-tab name="Task Engine Status" acl="user_role(satellite_admin)" url="/internal/satellite/task_engine/index.pxt">
     </rhn-tab>
     
   </rhn-tab>
@@ -259,12 +247,10 @@
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
-    <rhn-tab name="FAQ" url="/help/faq/" acl="not is(satellite)" dynamic-children="Sniglets::HTML->faq_tabs"/>
-    <rhn-tab name="RHL Migration FAQ" url="/help/rhlmigrationfaq/index.pxt" acl="not is(satellite)" />
     <rhn-tab name="Reference Guide" url="https://www.redhat.com/docs/manuals/satellite">
       <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Installation Guide" url="https://www.redhat.com/docs/manuals/satellite" acl="is(satellite) or org_channel_family(rhn-satellite)">
+    <rhn-tab name="Installation Guide" url="https://www.redhat.com/docs/manuals/satellite">
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Proxy Guide" url="https://www.redhat.com/docs/manuals/satellite">
@@ -276,8 +262,6 @@
     <rhn-tab name="Channel Management" url="https://www.redhat.com/docs/manuals/satellite">
       <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Terms &amp; Conditions" url="https://www.redhat.com/licenses/" acl="not is(satellite)" />
-    <rhn-tab name="Outage Policy" url="/rhn/help/outage-policy.jsp" acl="not is(satellite)" />
     <rhn-tab name="Proxy Release Notes" url="https://www.redhat.com/docs/manuals/satellite">
       <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
     </rhn-tab>

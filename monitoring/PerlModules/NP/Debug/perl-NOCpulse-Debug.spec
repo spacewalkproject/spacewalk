@@ -1,13 +1,13 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.8
+Version:      1.23.15
 Release:      1%{?dist}
 Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     nocpulse-common
-BuildRequires: nocpulse-common perl(Error) perl(Class::MethodMaker)
-Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+BuildRequires: nocpulse-common perl(Error) perl(Class::MethodMaker) perl(ExtUtils::MakeMaker)
+Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):     perl(Class::MethodMaker)
 Group:        Development/Libraries
 License:      GPLv2
@@ -25,12 +25,16 @@ on various output streams.
 %setup -q
 
 %build
-%{__perl} Makefile.PL PREFIX=%{buildroot}%{_usr} INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make pure_install
+
+mkdir -p %{buildroot}%{_sysconfdir}/nocpulse
+install -m644 logging.ini %{buildroot}%{_sysconfdir}/nocpulse/logging.ini
+
+make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
@@ -46,10 +50,31 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+%config(noreplace) %{_sysconfdir}/nocpulse/logging.ini
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Wed Feb  4 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.15-1
+- remove ownership of /etc/nocpulse
+- add LICENSE
+
+* Tue Feb  3 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.14-1
+- 455934 - write timestamps to logs by default
+
+* Thu Jan 29 2009 Miroslav Suchy <msuchy@redhat.com> 1.23.13-1
+- own %%{perl_vendorlib}/NOCpulse
+- silent rpmlint by $RPM_BUILD_ROOT prefix to %%install
+- move logging.ini from Makefile.PL to spec
+
+* Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.23.10-1
+- fix up spec so we can build
+
+* Tue Jan 27 2009 Dennis Gilmore <dennis@ausil.us> 1.23.9-1
+- BR perl(ExtUtils::MakeMaker)
+
 * Fri Oct 17 2008 Milan Zazrivec 1.23.8-1
 - fixed build-time issues
 

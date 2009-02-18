@@ -5,7 +5,7 @@ Name: cx_Oracle
 Version:        4.2.1
 Release:        5%{?dist}
 Source0: %{name}-%{version}.tar.gz
-Patch0: %{name}-instantclient.patch
+Patch0: cx_Oracle-instantclient.patch
 License: BSD-style
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot

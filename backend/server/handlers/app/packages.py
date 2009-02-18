@@ -126,7 +126,6 @@ class Packages(RPC_Base):
             caller="server.app.uploadSourcePackageInfo")
 
 
-    ###listChannelSource###
     def listChannelSource(self, channelList, username, password):
         log_debug(5, channelList, username)
         authobj = auth(username, password)
@@ -143,10 +142,9 @@ class Packages(RPC_Base):
         return ret 
 
 
-    ###listChannel###
     def listChannel(self, channelList, username, password):
-        #"""list packages of a specified channel
-        #"""
+        """list packages of a specified channel
+        """
         log_debug(5, channelList, username)
         authobj = auth(username, password)
         return self._listChannel(authobj, channelList)
@@ -255,11 +253,9 @@ class Packages(RPC_Base):
         return missing_packages
 
 
-
-    ###uploadPackage###
     def uploadPackage(self, username, password, info):
-        #"""Uploads an RPM package
-        #"""
+        """Uploads an RPM package
+        """
         log_debug(3)
 
         channels = info.get('channels', [])
@@ -279,7 +275,7 @@ class Packages(RPC_Base):
         return self._uploadPackage(channels, org_id, force, info)
 
     def _uploadPackage(self, channels, org_id, force, info):
-        # Write the bits to a temporary file
+        """ Write the bits to a temporary file """
         packageBits = info['package']
 
         package_stream = tempfile.TemporaryFile()
@@ -303,10 +299,9 @@ class Packages(RPC_Base):
         return 0
 
     
-    ###channelPackageSubscription###
     def channelPackageSubscription(self, username, password, info):
-        #"""Uploads an RPM package
-        #"""
+        """Uploads an RPM package
+        """
         log_debug(3)
         authobj = auth(username, password)
         return self._channelPackageSubscription(authobj, info)
@@ -384,10 +379,11 @@ class Packages(RPC_Base):
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
 
+        caller = "server.app.channelPackageSubscription"
+
         backend = OracleBackend()
         backend.init()
-        importer = ChannelPackageSubscription(batch, backend, 
-            caller="server.app.channelPackageSubscription")
+        importer = ChannelPackageSubscription(batch, backend, caller=caller)
         try:
             importer.run()
         except IncompatibleArchError, e:
@@ -399,8 +395,10 @@ class Packages(RPC_Base):
 
         log_debug(3, "Computing errata cache for systems affected by channels",
             affected_channels)
-        
+
         schedule_errata_cache_update(affected_channels)
+        rhnSQL.commit()
+
         return 0
 
     _query_count_channel_servers = rhnSQL.Statement("""
@@ -417,9 +415,9 @@ class Packages(RPC_Base):
         return row['server_count']
 
     def getPackageMD5sum(self, username, password, info):
-        #""" bug#177762 gives md5sum info of available packages.
-        #    also does an existance check on the filesystem.
-        #"""
+        """ bug#177762 gives md5sum info of available packages.
+            also does an existance check on the filesystem.
+        """
         log_debug(3)
         
         pkg_infos = info.get('packages')

@@ -51,6 +51,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many 
                 class="com.redhat.rhn.domain.errata.impl.PublishedBug"/>
         </set>
+        <set name="cves" lazy="true" inverse="true" cascade="all-delete-orphan" table="rhnErrataCve">
+        	<key column="errata_id"/>
+        	<many-to-many column="cve_id" class="com.redhat.rhn.domain.errata.Cve" />
+        </set>
         <set name="files" lazy="true" inverse="true" order-by="id asc" 
             cascade="all">
             <key column="errata_id"/>
@@ -156,7 +160,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				rhnErrataCloned E_1_ on e.id = E_1_.id, 
 				rhnSet S 
 			where S.element = e.id 
-				and S.label = 'errata_list'        	
+				and S.label = :set        	
 				and S.user_id = :uid				
          ]]>
         <return alias="e" class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />

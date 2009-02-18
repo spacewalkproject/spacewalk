@@ -22,7 +22,7 @@
     <rhn-tab name="Add" on-click="Sniglets::Lists->navi_empty_set" node-id="add_channel_errata">
       <rhn-tab-url>/rhn/channels/manage/packages/Add.do</rhn-tab-url>
     </rhn-tab>
-    <rhn-tab name="Clone" acl="channel_is_clone();user_role(channel_admin);global_config(satellite)" on-click="Sniglets::Lists->navi_empty_set" node-id="clone_channel_errata">
+    <rhn-tab name="Clone" acl="channel_is_clone();user_role(channel_admin)" on-click="Sniglets::Lists->navi_empty_set" node-id="clone_channel_errata">
       <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt</rhn-tab-url>
       <rhn-tab-url>/network/software/channels/manage/errata/clone_confirm.pxt</rhn-tab-url>
     </rhn-tab>

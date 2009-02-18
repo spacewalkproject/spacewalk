@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -31,39 +31,39 @@ import java.util.Map;
  * @version $Rev$
  */
 public class PackageEvrFactory {
-    
+
     private static Logger log = Logger.getLogger(PackageEvrFactory.class);
-    
+
     /**
      * Private Constructor
      */
     private PackageEvrFactory() {
     }
-    
+
     /**
      * Commit a PackageEvr via stored proc - lookup_evr
      * @param evrIn PackageEvr to commit to db
      * @return Returns a new/committed PackageEvr object.
-     */ 
+     */
     public static PackageEvr save(PackageEvr evrIn) {
-          
+
         CallableMode m = ModeFactory.getCallableMode("Package_queries", "lookup_evr");
-          
-        Map inParams = new HashMap(); 
+
+        Map inParams = new HashMap();
         inParams.put("epoch", evrIn.getEpoch());
         inParams.put("version", evrIn.getVersion());
         inParams.put("release", evrIn.getRelease());
-        
+
         Map outParams = new HashMap();
         outParams.put("evrId", new Integer(Types.NUMERIC));
-      
+
         Map result = m.execute(inParams, outParams);
-        
+
         Long newEvrId = new Long(result.get("evrId").toString());
-        
+
         return lookupPackageEvrById(newEvrId);
     }
-    
+
     /**
      * Creates a new PackageEvr object
      * @param e PackageEvr Epoch
@@ -76,10 +76,10 @@ public class PackageEvrFactory {
         evr.setEpoch(e);
         evr.setVersion(v);
         evr.setRelease(r);
-        
+
         return PackageEvrFactory.save(evr);
     }
-    
+
     /**
      * Lookup a PackageEvr by its id
      * @param id the id to search for
@@ -89,15 +89,13 @@ public class PackageEvrFactory {
         Session session = null;
         try {
             session = HibernateFactory.getSession();
-            return (PackageEvr) session.getNamedQuery("PackageEvr.findById")
-                                       .setString("id", id.toString())
-                                       .uniqueResult();
+            return (PackageEvr) session.getNamedQuery("PackageEvr.findById").setString(
+                    "id", id.toString()).uniqueResult();
         }
         catch (HibernateException he) {
             log.error("Hibernate exception (PackageEvr): " + he.toString());
         }
         return null;
     }
-
 
 }

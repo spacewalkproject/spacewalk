@@ -117,6 +117,10 @@ Shows the current status of the database, either "running" or "offline".
 
 Stops the RHN Satellite database instance.  This is required to perform B<backup> or B<restore> actions.
 
+=item B<tablesizes>
+
+Show space report for each table.
+
 =item B<verify DIRNAME>
 
 Verifies the contents of the backup kept in DIRNAME.  This command checks the md5sums of each of the files kept in the backup.

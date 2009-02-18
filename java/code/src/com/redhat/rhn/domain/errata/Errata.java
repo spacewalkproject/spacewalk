@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -286,7 +286,7 @@ public interface Errata {
     /**
      * @return Returns the files.
      */
-    Set getFiles();
+    Set<ErrataFile> getFiles();
     
     /**
      * @param f The files to set.
@@ -341,7 +341,7 @@ public interface Errata {
     /**
      * @return Returns the Set of channels associated with this errata
      */
-    Set getChannels();
+    Set<Channel> getChannels();
     
     /**
      * @param channelsIn The set of channels to set for this errata
@@ -395,5 +395,16 @@ public interface Errata {
      * Clears out the Channels associated with this errata.
      *
      */
-    void clearChannels();       
+    void clearChannels();
+    /**
+     * Sets cves
+     * @param cvesIn cve input
+     */
+    void setCves(Set <Cve> cvesIn);
+    /**
+     * 
+     * @return Returns Cves
+     */
+    Set <Cve> getCves();
+      
 }

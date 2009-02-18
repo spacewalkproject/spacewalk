@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -530,8 +530,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         servers.add(new Integer(server.getId().intValue()));
         // Actual migration is tested internally, just make sure the API call doesn't
         // error out:
-        handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(),
-                newOrgAdmin.getOrg().getId().intValue(), servers); 
+        handler.migrateSystems(adminKey, newOrgAdmin.getOrg().getId().intValue(), servers); 
     }
     
     public void testMigrateInvalid() throws Exception {
@@ -549,28 +548,17 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         // attempt migration where user is not a satellite admin and orginating
         // org is not the same as the user's.
         try {
-            handler.migrateSystems(orgAdmin2Key, admin.getOrg().getId().intValue(),
-                    orgAdmin1.getOrg().getId().intValue(), servers);
+            handler.migrateSystems(orgAdmin2Key, orgAdmin1.getOrg().getId().intValue(), 
+                    servers);
             fail();
         }
         catch (PermissionCheckFailureException e) {
             // expected
         }
         
-        // attempt to migrate systems from an org that does not exist
-        try {
-            handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(),
-                    new Integer(-1), servers); 
-            fail();
-        }
-        catch (NoSuchOrgException e) {
-            // expected
-        }
-        
         // attempt to migrate systems to an org that does not exist
         try {
-            handler.migrateSystems(adminKey, new Integer(-1),
-                    admin.getOrg().getId().intValue(), servers); 
+            handler.migrateSystems(adminKey, new Integer(-1), servers); 
             fail();
         }
         catch (NoSuchOrgException e) {
@@ -579,8 +567,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         
         // attempt to migrate systems from/to the same org
         try {
-            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(),
-                    orgAdmin1.getOrg().getId().intValue(), servers);
+            handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(), servers);
             fail();
         }
         catch (MigrationToSameOrgException e) {
@@ -589,8 +576,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         
         // attempt to migrate systems to an org that isn't defined in trust
         try {
-            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(),
-                    orgAdmin2.getOrg().getId().intValue(), servers);
+            handler.migrateSystems(adminKey, orgAdmin2.getOrg().getId().intValue(), 
+                    servers);
             fail();
         }
         catch (OrgNotInTrustException e) {
@@ -601,8 +588,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         List<Integer> invalidServers = new LinkedList<Integer>();
         invalidServers.add(new Integer(-1));
         try {
-            handler.migrateSystems(adminKey, admin.getOrg().getId().intValue(),
-                    orgAdmin1.getOrg().getId().intValue(), invalidServers);
+            handler.migrateSystems(adminKey, orgAdmin1.getOrg().getId().intValue(), 
+                    invalidServers);
             fail();
         }
         catch (NoSuchSystemException e) {

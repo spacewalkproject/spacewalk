@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -26,6 +26,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.ClonedErrata;
 import com.redhat.rhn.domain.errata.Errata;
@@ -349,13 +350,13 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
        
     }
     
-    public static void updateNeedsErrataCache(Long orgId, Long serverId, 
+    public static void updateNeedsErrataCache(Long packageId, Long serverId, 
             Long errataId) {
         WriteMode m = 
             ModeFactory.
-                getWriteMode("test_queries", "insert_into_rhnServerNeededErrataCache");
+                getWriteMode("test_queries", "insert_into_rhnServerNeededPackageCache");
         Map params = new HashMap();
-        params.put("org_id", orgId);
+        params.put("package_id", packageId);
         params.put("server_id", serverId);
         params.put("errata_id", errataId);
         m.executeUpdate(params);
@@ -373,6 +374,31 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         assertEquals(1, list.size());
         clone = (ClonedErrata) list.get(0);
         assertTrue(clone.getOriginal().equals(published));
+    }
+    
+    public void listErrataChannelPackages() {
+        try {
+            Channel chan = ChannelTestUtils.createBaseChannel(user);
+            Errata e = ErrataFactoryTest.createTestErrata(user.getId());
+            Package p = PackageTest.createTestPackage();
+            chan.getErratas().add(e);
+            chan.getPackages().add(p);
+            e.getPackages().add(p);
+            ChannelFactory.save(chan);
+            
+            chan = (Channel) TestUtils.saveAndReload(chan);
+            e = (Errata) TestUtils.saveAndReload(e);
+            p = (Package) TestUtils.saveAndReload(p);
+            
+            
+            List<Long> list = ErrataFactory.listErrataChannelPackages(chan.getId(), 
+                    e.getId());
+            assertContains(list, p.getId());            
+            
+        }
+        catch (Exception e) {
+            assertTrue(false);
+        }        
     }
     
 }

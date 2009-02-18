@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.3
+Version: 0.5.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -108,6 +108,19 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.6-1
+- 484610 - doc search results were reversed, displaying worst results first
+- Cleaned up "tabs" which got added into some files previously.
+- Removed "orig" as a field from DocResults
+
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.5-1
+- 479541, 483867 - replaced runuser with /sbin/runuser
+
+* Mon Jan 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.4-1
+- allow search-server to run in degraded mode if nutch isn't installed
+- fixing rpmlint warning:  summary-ended-with-dot
+- allow multiple language search 
+
 * Fri Jan 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.3-1
 - Fix bad install command.
 

@@ -93,24 +93,24 @@
          <td class="small-form">
             <table>
             <tr>
-            <c:choose>
-            <c:when test="${has_access}">
-                <td><html:radio property="global" value="all" /></td>
-            </c:when>
-            <c:otherwise>
-                <td><html:radio property="global" value="all" disabled="disabled"/></td>
-            </c:otherwise>
-            </c:choose>
+	            <c:choose>
+		            <c:when test="${has_access}">
+		                <td><html:radio property="global" value="all" /></td>
+		            </c:when>
+		            <c:otherwise>
+		                <td><html:radio property="global" value="all" disabled="true"/></td>
+		            </c:otherwise>
+	            </c:choose>
             <td><bean:message key="channel.edit.jsp.allusers"/></td>
             </tr><tr>
-            <c:choose>
-            <c:when test="${has_access}">
-                <td><html:radio property="global" value="selected" /></td>
-            </c:when>
-            <c:otherwise>
-                <td><html:radio property="global" value="selected" disabled="disabled"/></td>
-            </c:otherwise>
-            </c:choose>
+	            <c:choose>
+		            <c:when test="${has_access == true}">
+		                <td><html:radio property="global" value="selected" /></td>
+		            </c:when>
+		            <c:otherwise>
+		                <td><html:radio property="global" value="selected" disabled="true"/></td>
+		            </c:otherwise>  
+	            </c:choose>
             <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
             </tr>
             </table>

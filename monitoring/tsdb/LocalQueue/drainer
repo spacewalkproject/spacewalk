@@ -345,7 +345,7 @@ sub start_drainer {
   } else {
 
     # I am the child
-    exec("runuser - $owner -c '/usr/bin/TSDBLocalQueue.pl --dir=$target --logfile=$target/TSDBLocalQueue.log'");
+    exec("/sbin/runuser - $owner -c '/usr/bin/TSDBLocalQueue.pl --dir=$target --logfile=$target/TSDBLocalQueue.log'");
 
   }
   

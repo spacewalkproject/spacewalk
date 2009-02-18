@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -750,19 +750,20 @@ public class Server extends BaseDomainHelper implements Identifiable {
             // First pass look for names
             while (i.hasNext()) {
                 NetworkInterface n = (NetworkInterface) i.next();
-                if (n.getName().equals("eth0")) {
+                boolean notEmpty = !n.isDisabled();
+                if (n.getName().equals("eth0") && notEmpty) {
                     log.debug("Found eth0");
                     return n;
                 }
-                if (n.getName().startsWith("eth0")) {
+                if (n.getName().startsWith("eth0") && notEmpty) {
                     log.debug("Found eth0*");
                     return n;
                 }
-                if (n.getName().equals("eth1")) {
+                if (n.getName().equals("eth1") && notEmpty) {
                     log.debug("Found eth1");
                     return n;
                 }
-                if (n.getName().startsWith("eth1")) {
+                if (n.getName().startsWith("eth1") && notEmpty) {
                     log.debug("Found eth1*");
                     return n;
                 }
@@ -785,6 +786,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         return null;
     }
+    
     
     // Sometimes java really annoys me
     private Network findPrimaryNetwork() {
@@ -1527,17 +1529,11 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return boolean true false if subbed or not.
      */
     public boolean isSubscribed(Channel channelIn) {
-        Set childChannels = this.getChildChannels();
+        Set childChannels = this.channels;
         if (childChannels != null) {
-            Iterator i = childChannels.iterator();
-            while (i.hasNext()) {
-                Channel c = (Channel) i.next();
-                if (channelIn.equals(c)) {
-                    return Boolean.TRUE.booleanValue();
-                }
-            }
+            return childChannels.contains(channelIn);
         }
-        return Boolean.FALSE.booleanValue();
+        return false;
     }
     
     /**

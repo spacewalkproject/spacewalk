@@ -142,11 +142,25 @@ sub shrink_segments {
   print "Running segment advisor to find out shrinkable segments...\n";
   print "WARNING: this may be a slow process.\n";
   $d->segadv_runtask();
-  print "Shrinking recomended segments...\n";
+  my %msg = (
+        'AUTO'   => "Shrinking recomended segments...\n",
+        'MANUAL' => "Segments in non-shrinkable tablespace...\n",
+        );
+  my %printed = (
+        'AUTO'   => 0,
+        'MANUAL' => 0,
+        );
+
   for my $rec (Dobby::Reporting->segadv_recomendations($d)) {
-    printf "%-32s %7s released\n", $rec->{SEGMENT_NAME},
+    if (not $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}) {
+        print $msg{$rec->{SEGMENT_SPACE_MANAGEMENT}};
+        $printed{$rec->{SEGMENT_SPACE_MANAGEMENT}}++;
+    }
+    printf "%-32s %7s reclaimable\n", $rec->{SEGMENT_NAME},
            Dobby::CLI::MiscCommands->size_scale($rec->{RECLAIMABLE_SPACE});
-    $d->shrink_segment($rec);
+    if ($rec->{SEGMENT_SPACE_MANAGEMENT} eq 'AUTO') {
+        $d->shrink_segment($rec);
+    }
   }
 
   print "done.\n";

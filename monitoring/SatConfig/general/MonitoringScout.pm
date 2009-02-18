@@ -2,7 +2,6 @@ package MonitoringScout;
 use MacroSysVStep;
 @ISA=qw(MacroSysVStep);
 
-#use Apache;
 use InstallSoftwareConfig;
 use NotifEscalator;
 use NotifLauncher;

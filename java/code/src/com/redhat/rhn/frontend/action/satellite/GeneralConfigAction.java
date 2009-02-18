@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -52,24 +52,24 @@ public class GeneralConfigAction extends BaseConfigAction {
     private static Logger logger = Logger.getLogger(GeneralConfigAction.class);
     
     
-    private static String[] stringConfigArray = {"traceback_mail", "server.jabber_server",
-        "server.satellite.http_proxy", "server.satellite.http_proxy_username", 
-        "server.satellite.http_proxy_password",
+    private static final String[] STRING_CONFIG_ARRAY = {"traceback_mail", 
+        "server.jabber_server", "server.satellite.http_proxy",  
+        "server.satellite.http_proxy_username", "server.satellite.http_proxy_password",
         "mount_point"};
     
-    private static String[] booleanConfigArray = {"web.ssl_available",
+    private static final String[] BOOLEAN_CONFIG_ARRAY = {"web.ssl_available",
         "web.enable_solaris_support", Config.DISCONNECTED, "web.is_monitoring_backend"};
     
-    private static List comboList = new LinkedList();
+    private static final List COMBO_LIST = new LinkedList();
     static {
-        comboList.addAll(Arrays.asList(stringConfigArray));
-        comboList.addAll(Arrays.asList(booleanConfigArray));
+        COMBO_LIST.addAll(Arrays.asList(STRING_CONFIG_ARRAY));
+        COMBO_LIST.addAll(Arrays.asList(BOOLEAN_CONFIG_ARRAY));
     }
     
-    private List booleanConfigs = Arrays.asList(booleanConfigArray);
+    private final List BOOLEAN_CONFIGS = Arrays.asList(BOOLEAN_CONFIG_ARRAY);
     
     /** List of Config keys allowed by this Action */
-    public static final List ALLOWED_CONFIGS = comboList;
+    public static final List ALLOWED_CONFIGS = COMBO_LIST;
     
     /*
      * enable_ssl, disconnected, mount_point
@@ -117,7 +117,7 @@ public class GeneralConfigAction extends BaseConfigAction {
                 // struts attempts to 'beanify' the form propert values if you include
                 // dot notation in the names.
                 
-                if (booleanConfigs.contains(configKey)) {
+                if (BOOLEAN_CONFIGS.contains(configKey)) {
                     Boolean value = (Boolean) 
                         form.get(translateFormPropertyName(configKey));
                     csc.updateBoolean(configKey, value);
@@ -143,7 +143,7 @@ public class GeneralConfigAction extends BaseConfigAction {
             while (i.hasNext()) {
                 String configKey = (String) i.next();
                 
-                if (booleanConfigs.contains(configKey)) {
+                if (BOOLEAN_CONFIGS.contains(configKey)) {
                     boolean configValue = Config.get().getBoolean(configKey);
                     form.set(translateFormPropertyName(configKey), 
                             new Boolean(configValue));

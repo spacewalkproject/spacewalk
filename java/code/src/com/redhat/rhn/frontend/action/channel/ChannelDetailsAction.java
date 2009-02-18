@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -60,6 +60,15 @@ public class ChannelDetailsAction extends RhnAction {
             String global = (String)form.get("global");
             chan.setGloballySubscribable((global != null) &&
                     ("all".equals(global)), user.getOrg());
+            
+            createSuccessMessage(request, "message.channelupdated",
+                    chan.getName());
+            
+            //did they enable per user subscriptions?                       
+            if (!global.equals("all")) {
+                addMessage(request, "message.channelsubscribers");
+            }
+            
             // this is evil but necessary
             chan = (Channel) ChannelFactory.reload(chan);
             params.put("cid", cid);
@@ -81,8 +90,8 @@ public class ChannelDetailsAction extends RhnAction {
             form.set("global", "selected");
         }
         
-        if (user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
-            UserManager.verifyChannelAdmin(user, chan)) {
+        if ((chan.getOrg() == null && user.hasRole(RoleFactory.CHANNEL_ADMIN)) || 
+                UserManager.verifyChannelAdmin(user, chan)) {
             request.setAttribute("has_access", true);
         }
         else {

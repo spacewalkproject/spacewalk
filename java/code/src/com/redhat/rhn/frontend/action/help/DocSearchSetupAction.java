@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -190,18 +190,18 @@ public class DocSearchSetupAction extends RhnAction {
         }
 
         List<HelpDocumentOverview> docs = new ArrayList<HelpDocumentOverview>();
-  
-        for (int x = results.size() - 1; x >= 0; x--) {
+        for (int x = 0; x < results.size(); x++) {
             HelpDocumentOverview doc = new HelpDocumentOverview();
             Map item = (Map) results.get(x);
+            log.debug("SearchServer sent us item [" + item.get("rank") + "], score = " +
+                    item.get("score") + ", summary = " + item.get("summary") +
+                    ", title = " + item.get("title") + ", url = " + item.get("url"));
             doc.setUrl((String)item.get("url"));
             doc.setTitle((String)item.get("title"));
-            doc.setOrig((String)item.get("orig"));
             doc.setSummary((String)item.get("summary"));
             docs.add(doc);
         }
         return docs;
-        
     }
     
     private String preprocessSearchString(String searchstring,

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -53,7 +53,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ChannelPackagesAddConfirmAction extends RhnAction {
 
-    private String listName = "packageList";
+    private final String LIST_NAME = "packageList";
 
 
     /** {@inheritDoc} */
@@ -79,7 +79,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
         
-        TagHelper.bindElaboratorTo(listName, result.getElaborator(), request);
+        TagHelper.bindElaboratorTo(LIST_NAME, result.getElaborator(), request);
         request.setAttribute("cid", chan.getId());
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
@@ -114,9 +114,12 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
         PackageManager.addChannelPackagesFromSet(user, chan.getId(), set);
         chan = (Channel) ChannelFactory.reload(chan);
         List<Long> chanList = new ArrayList<Long>();
+        List<Long> packList = new ArrayList<Long>();
         chanList.add(chan.getId());
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
+        packList.addAll(set.getElementValues());
+        ErrataCacheManager.insertCacheForChannelPackagesAsync(chanList, packList);
         ChannelManager.refreshWithNewestPackages(chan, "web.channel_package_add");
+        set.clear();
     }
 
 }

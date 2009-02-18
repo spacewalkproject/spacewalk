@@ -47,6 +47,7 @@
     <attribute name="testbuilddir" />
     <attribute name="classpathid" />
     <attribute name="reportdir" />
+    <attribute name="debug" default="" />
 
     <sequential>
       <echo level="info">
@@ -71,6 +72,7 @@ Running @{banner} ...
         <env key="ORACLE_HOME" value="/opt/oracle" />
         <env key="LD_LIBRARY_PATH" path="/opt/oracle/lib:/usr/lib" />
         <jvmarg value="-ea" />
+        <jvmarg line="@{debug}" />
         <classpath refid="@{classpathid}" />
         <formatter usefile="no"
             classname="com.redhat.rhn.internal.junit.RhnCustomFormatter" />

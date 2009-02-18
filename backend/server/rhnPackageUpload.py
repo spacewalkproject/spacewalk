@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -47,9 +47,10 @@ class BasePackageUpload:
         self.field_data = UserDictCase()
         self.org_id = None
 
-    #This whole function is ugly as hell. The Auth field in the header used to be required, but now
-    #it must have either the Auth field or the Auth-Session field.
     def headerParserHandler(self, req):
+        """ This whole function is ugly as hell. The Auth field in the header used to be required, but now
+            it must have either the Auth field or the Auth-Session field.
+        """
         # Initialize the logging
         log_debug(3, "Method", req.method)
         
@@ -100,6 +101,7 @@ class BasePackageUpload:
 
 
 def source_match(v1, v2):
+    """ returns true if both parameters are true, false otherwise """
     if v1 and v2:
         return 1
     if not v1 and not v2:
@@ -108,6 +110,9 @@ def source_match(v1, v2):
 
 
 def write_temp_file(req, buffer_size):
+    """ Write request to temporary file (write max. buffer_size at once).
+        Returns the file object.
+    """ 
     t = tempfile.TemporaryFile()
     while 1:
         buf = req.read(buffer_size)
@@ -195,8 +200,8 @@ def relative_path_from_nevra_without_package_name(nevra, org_id, md5sum=None):
 
 def push_package(header, payload_stream, md5sum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):
-    #"""Uploads an RPM package
-    #"""
+    """Uploads an RPM package
+    """
 
     # Get the payload size
     log_debug(3, CFG.MOUNT_POINT, relative_path, force, org_id)

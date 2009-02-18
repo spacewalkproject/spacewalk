@@ -24,11 +24,9 @@
 
 <div id="header">
       <a href="<bean:message key="layout.jsp.vendor.website"/>" title="<bean:message key="layout.jsp.vendor.title"/>"><img src="/img/logo_vendor.png" alt="<bean:message key="layout.jsp.vendor.name"/>" id="rhLogo" /></a>
-      <rhn:require acl="is(satellite)">
         <a href="/" title="<bean:message key="layout.jsp.productname"/> homepage">
           <img src="/img/logo_product.png" alt="<bean:message key="layout.jsp.productname"/>" id="rhnLogo" />
         </a>
-      </rhn:require>
       <rhn:require acl="user_authenticated()">
  <div id="searchbar">
     <div id="searchbarinner">

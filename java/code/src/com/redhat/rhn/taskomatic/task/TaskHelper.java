@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -66,11 +66,11 @@ public class TaskHelper {
     }
     
     /**
-     * Sends stacktrace via email
-     * @param logger caller's logger
-     * @param error error being thrown
+     * Send an error email to the Satellite admin
+     * @param logger to log any errors to
+     * @param messageBody to send.
      */
-    public static void sendErrorMail(Logger logger, Throwable error) {
+    public static void sendErrorEmail(Logger logger, String messageBody) {
         Config c = Config.get();
         LocalizationService ls = LocalizationService.getInstance();
         String[] recipients = null;
@@ -93,17 +93,27 @@ public class TaskHelper {
             subject.append("Taskomatic");
         }
         mail.setSubject(subject.toString());
-        StringWriter writer = new StringWriter();
-        PrintWriter pw = new PrintWriter(writer);
-        error.printStackTrace(pw);
-        pw.flush();
-        mail.setBody(writer.toString());
+        mail.setBody(messageBody);
         try {
             sendMail(mail, logger);
         }
         catch (Throwable t) {
             logger.error(t);
         }        
+
+    }
+    
+    /**
+     * Sends stacktrace via email
+     * @param logger caller's logger
+     * @param error error being thrown
+     */
+    public static void sendErrorMail(Logger logger, Throwable error) {
+        StringWriter writer = new StringWriter();
+        PrintWriter pw = new PrintWriter(writer);
+        error.printStackTrace(pw);
+        pw.flush();
+        sendErrorEmail(logger, writer.toString());
     }
 
     /**

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -69,8 +69,8 @@ public class KickstartFactory extends HibernateFactory {
     public static final KickstartSessionState SESSION_STATE_CONFIG_ACCESSED =
         lookupSessionStateByLabel("configuration_accessed");
     
-    public static final KickstartVirtualizationType VIRT_TYPE_AUTO = 
-        lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.AUTO);
+    public static final KickstartVirtualizationType VIRT_TYPE_PV_HOST = 
+        lookupKickstartVirtualizationTypeByLabel(KickstartVirtualizationType.PARA_HOST);
     
     public static final KickstartVirtualizationType VIRT_TYPE_XEN_PV = 
         lookupKickstartVirtualizationTypeByLabel("xenpv");
@@ -980,6 +980,18 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void removeKickstartScript(KickstartScript script) {
         singleton.removeObject(script);
+    }
+    
+    
+    /**
+     * Get a list of all trees that have a cobbler id of null
+     * @return list of trees
+     */
+    public static List<KickstartableTree> listUnsyncedKickstartTrees() {
+        String query = "KickstartableTree.getUnsyncedKickstartTrees";
+        Session session = HibernateFactory.getSession();
+        return (List<KickstartableTree>) session.getNamedQuery(query)
+            .setCacheable(true).list();           
     }
     
     

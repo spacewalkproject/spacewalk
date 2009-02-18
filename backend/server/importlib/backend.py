@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -810,7 +810,7 @@ class Backend:
             channel_ids = h.fetchall_dict() or []
             channel_ids = map(lambda x: x['channel_id'], channel_ids)
             for channel_id in channel_ids:
-                affected_channel_ids[channel_id] = None
+                affected_channel_ids[channel_id] = errata_id
                     
         # Now update the channels
         update_channel = self.dbmodule.Procedure('rhn_channel.update_channel')
@@ -818,6 +818,16 @@ class Backend:
 
         for channel_id in affected_channel_ids.keys():
             update_channel(channel_id, invalidate_ss)
+            h = self.dbmodule.prepare("""
+                select advisory from rhnErrata where id = :errata_id
+            """)
+            h.execute(errata_id=affected_channel_ids[channel_id])
+            advisory = h.fetchone()[0]
+
+            channel = rhnChannel.Channel()
+            channel.load_by_id(channel_id)
+            taskomatic.add_to_repodata_queue(channel.get_label(), "errata",
+                    advisory)
 
     def processKickstartTrees(self, ks_trees):
         childTables = [

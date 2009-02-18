@@ -6,17 +6,5 @@ PerlModule PXT::ApacheAuth
 PerlAuthenHandler PXT::ApacheAuth
 require acl user_can_manage_channels()
 
-<Files sync_prompt.pxt>
-require acl mixin RHN::Access::Channel global_config(satellite)
-</Files>
-
-<Files sync_preview.pxt>
-require acl mixin RHN::Access::Channel global_config(satellite)
-</Files>
-
-<Files sync_confirm.pxt>
-require acl mixin RHN::Access::Channel global_config(satellite)
-</Files>
-
 PerlSetVar channel_context manage
 

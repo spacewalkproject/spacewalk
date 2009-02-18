@@ -182,7 +182,15 @@ while (1) {
 
 sub memcheck {
   my $maxmem = shift;
-  chomp(my $mem = `ps -o vsz="" -p $$`);
+  # chomp(my $mem = `ps -o vsz="" -p $$`);
+  local *PROC;
+  open PROC, "/proc/$$/stat" or do {
+    $debug->dprint(1, "\tError reading [/proc/$$/stat]: $!\n");
+    return;
+  };
+  my $line = <PROC>;
+  close PROC;
+  my $mem = (split /\s/, $line)[22] / 1024;
   if ($mem > $maxmem) {
     $debug->dprint(1, "\tI am bloated ($mem kb) and will now restart myself\n");
     exec @restart;

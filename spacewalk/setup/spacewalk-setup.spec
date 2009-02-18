@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.4
+Version:        0.5.13
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -52,7 +52,10 @@ chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.clear %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.1 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.2 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.3 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
@@ -82,6 +85,52 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Feb 17 2009 Jan Pazdziora 0.5.13-1
+- 472914 - restructure the setup_sudoers function,
+  split sudoers.rhn to three definition files, add sudoers.clear,
+  merge INSTALL_RHN and CONFIG_RHN in sudoers; the INSTALL_RHN section
+  is no longer needed
+- 484718 - remove /usr/sbin/rhnreg_ks from sudoers
+- 484717 - remove /usr/bin/rhn-ssl-dbstore from sudoers
+- 484709 - remove /usr/bin/satellite-sync from sudoers
+- 484705 - remove /usr/bin/satcon-deploy-tree.pl from sudoers
+- 484703 - remove /usr/bin/satcon-build-dictionary.pl from sudoers
+- 484702 - remove /usr/bin/rhn-generate-pem.pl from sudoers
+- 484701 - remove /usr/bin/rhn-deploy-ca-cert.pl from sudoers
+- 484685 - remove /usr/bin/rhn-install-ssl-cert.pl from sudoers
+- 484681 - remove /usr/bin/rhn-config-schema.pl from sudoers
+- 484699 - remove /usr/bin/rhn-populate-database.pl from sudoers
+- 484680 - remove /usr/bin/rhn-config-tnsnames.pl from sudoers
+
+* Mon Feb 16 2009 Dave Parker <dparker@redhat.com> 0.5.12-1
+-  Bug 483102 - Need answer file setting for installer question "Should setup configure apache's default ssl server for you"
+
+* Thu Feb 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.11-1
+- 484713, 484720 - fix sudoers
+
+* Thu Feb 12 2009 Jan Pazdziora 0.5.10-1
+- 484675 - /usr/bin/spacewalk-setup: run restorecon silently
+
+* Tue Feb 10 2009 Jan Pazdziora 0.5.9-1
+- spacewalk-setup: use DEFAULT_SATCON_DICT
+- spacewalk-setup: use the local write_config function
+
+* Thu Feb 05 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.8-1
+- Add support for overlay of default_mail_from setting in rhn.conf.
+
+* Wed Feb  4 2009 Jan Pazdziora 0.5.7-1
+- only run restorecon and setsebool on RHEL 5+ and with SELinux enabled
+- run create-db.sh with --run-restorecon on RHEL 5+ and with SELinux enabled
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python" (Miroslav S.)
+
+* Fri Jan 30 2009 Jan Pazdziora 0.5.6-1
+- run restorecon on populate_db.log
+
+* Thu Jan 29 2009 Jan Pazdziora 0.5.5-1
+- numerous changes to support clean embedded database installation
+- avoid fully qualifying objects with Spacewalk::Setup::
+- Spacewalk::Setup: avoid using literal for INSTALL_LOG_FILE.
+
 * Fri Jan 23 2009 Milan Zazrivec 0.5.4-1
 - re-enable satellite upgrades
 

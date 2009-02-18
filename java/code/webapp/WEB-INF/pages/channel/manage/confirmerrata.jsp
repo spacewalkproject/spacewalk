@@ -80,7 +80,7 @@
 									</tr>
 									<tr>
 										<td colspan="2" class="csv-download">
-											<rl:csv  name="packageList" dataset="packageList" exportColumns="packageName,packageNvre,packageArch,summary" />
+											<rl:csv  name="packageList" dataset="packageList" exportColumns="id,packageName,packageNvre,packageArch,summary" />
 										</td>
 									</tr>	
 

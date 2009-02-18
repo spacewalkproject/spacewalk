@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -15,6 +15,7 @@
 package com.redhat.rhn.taskomatic.task;
 
 import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
@@ -42,6 +43,7 @@ import redstone.xmlrpc.XmlRpcFault;
 public class CobblerSyncTask extends SingleThreadedTestableTask {
     
     private static final AtomicLong LAST_UPDATED = new AtomicLong();
+    private long WARN_COUNT;
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
@@ -54,7 +56,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
      * Default constructor
      */
     public CobblerSyncTask() {
-       
+        WARN_COUNT = 0;
     }
  
     /**
@@ -75,6 +77,15 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         }
         
         
+        
+        CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
+        ValidatorError ve = distSync.syncNullDistros();
+        if (ve != null && WARN_COUNT < 1) {
+            TaskHelper.sendErrorEmail(log, ve.getMessage());
+            WARN_COUNT++;
+        }
+        
+        
         log.debug("mtime: " + mtime.longValue() + ", last modified: " + 
             LAST_UPDATED.get());
         //If we got an mtime from cobbler and that mtime is before our last update
@@ -85,8 +96,11 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         }
         else {
             log.debug("Syncing distros and profiles.");
-            CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
-            distSync.store();
+            
+            ve = distSync.store();
+            if (ve != null) {
+                TaskHelper.sendErrorEmail(log, ve.getMessage());
+            }
             
             CobblerProfileSyncCommand profSync = new CobblerProfileSyncCommand();
             profSync.store();
@@ -98,5 +112,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         LAST_UPDATED.set((new Date()).getTime() / 1000 + 1);
        
     }
+    
+    
 
 }

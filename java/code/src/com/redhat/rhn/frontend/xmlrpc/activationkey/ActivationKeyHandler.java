@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -106,9 +107,9 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "description")
      * @xmlrpc.param #param_desc("string", "baseChannelLabel", "Leave empty to accept 
      * default.")
-     * @xmlrpc.param #param_desc("int", "usageLimit", "Leave blank or -1 for unlimited.")
+     * @xmlrpc.param #param_desc("int", "usageLimit", "If unlimited usage is desired,
+     * use the create API that does not include the parameter.")
      * @xmlrpc.param #array()
-     * #options()
      *   #item_desc("string", "Add-on entitlement label to associate with the key.")
      *   #options()
      *     #item("monitoring_entitled")
@@ -116,7 +117,6 @@ public class ActivationKeyHandler extends BaseHandler {
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #options_end()
      * #array_end()
      * @xmlrpc.param #param("boolean", "universalDefault")
      * @xmlrpc.returntype string - The new activation key.
@@ -147,7 +147,7 @@ public class ActivationKeyHandler extends BaseHandler {
         Map<String, String> values = new HashMap<String, String>();
         values.put("description", description);
         values.put("key", key);
-        if (usageLimit != null && usageLimit >= 0) {
+        if (usageLimit != null) {
             values.put("usageLimit", usageLimit.toString());
         }
 
@@ -220,7 +220,6 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "baseChannelLabel", "Leave empty to accept 
      * default.")
      * @xmlrpc.param #array()
-     * #options()
      *   #item_desc("string", "Add-on entitlement label to associate with the key.")
      *   #options()
      *     #item("monitoring_entitled")
@@ -228,7 +227,6 @@ public class ActivationKeyHandler extends BaseHandler {
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #options_end()
      * #array_end()
      * @xmlrpc.param #param("boolean", "universalDefault")
      * @xmlrpc.returntype string - The new activation key.
@@ -374,7 +372,6 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array()
-     * #options()
      *   #item_desc("string", "entitlement label")
      *   #options()
      *     #item("monitoring_entitled")
@@ -382,7 +379,6 @@ public class ActivationKeyHandler extends BaseHandler {
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #options_end()
      * #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
@@ -410,7 +406,6 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.param #array()
-     * #options()
      *   #item_desc("string", "entitlement label")
      *   #options()
      *     #item("monitoring_entitled")
@@ -418,7 +413,6 @@ public class ActivationKeyHandler extends BaseHandler {
      *     #item("virtualization_host")
      *     #item("virtualization_host_platform")
      *   #options_end()
-     * #options_end()
      * #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
@@ -791,6 +785,47 @@ public class ActivationKeyHandler extends BaseHandler {
         }
         
         return result;
+    }
+
+    /**
+     * Return a list of systems activated with the activation key provided.
+     * @param sessionKey The current user's session key
+     * @param key The activation key
+     * @return List of map representations of systems.
+     *
+     * @xmlrpc.doc List the systems activated with the key provided.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "key")
+     * @xmlrpc.returntype 
+     *   #array() 
+     *       #prop_desc("int", "id", "System id")
+     *       #prop("string", "hostname")
+     *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server 
+     *              successfully checked in")
+     *   #array_end()     
+     */
+    public Object[] listActivatedSystems(String sessionKey, String key) {
+        User user = getLoggedInUser(sessionKey);
+        ActivationKey activationKey = lookupKey(key, user);
+
+        List<Server> servers =  new LinkedList<Server>(
+                activationKey.getToken().getActivatedServers());
+        
+        List<Object> returnList = new ArrayList<Object>();
+
+        // For this API, we don't need to pass back to the user all of the
+        // information that is defined for a "Server" as would be returned
+        // by the ServerSerializer; therefore, we'll just pull a few key
+        // pieces of information.
+        for (Server server : servers) {
+            Map<String, Object> system = new HashMap<String, Object>();
+            
+            system.put("id", server.getId());
+            system.put("hostname", server.getHostname());
+            system.put("last_checkin", server.getLastCheckin());
+            returnList.add(system);
+        }
+        return returnList.toArray();
     }
     
     private ActivationKey lookupKey(String key, User user) {

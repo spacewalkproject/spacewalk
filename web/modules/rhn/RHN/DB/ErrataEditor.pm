@@ -18,6 +18,7 @@ use strict;
 package RHN::DB::ErrataEditor;
 
 use RHN::DB;
+use RHN::Channel;
 use RHN::Errata;
 use RHN::ErrataTmp;
 use RHN::DataSource::Errata;
@@ -258,11 +259,22 @@ EOQ
 
   $sth = $dbh->prepare($query);
 
+  my $rrqh = $dbh->prepare(<<EOQ);
+INSERT 
+  INTO rhnRepoRegenQueue
+        (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
+VALUES (rhn_repo_regen_queue_id_seq.nextval,
+        :label, 'perl-web', 'assign_errata_to_channels', 'N', 'N', sysdate, sysdate, sysdate)
+EOQ
+
   foreach my $cid (@{$channels}) {
     $sth->execute($eid, $cid);
+    my $channel = RHN::Channel->lookup(-id => $cid);
+    $rrqh->execute(label => $channel->label);
   }
 
   $sth->finish;
+  $rrqh->finish;
 
   my $errata = RHN::ErrataTmp->lookup_managed_errata(-id => $eid);
   $errata->refresh_erratafiles;
@@ -303,17 +315,24 @@ EOQ
 sub find_next_advisory {
   my $adv = shift || '';
   my $adv_name = shift || '';
+  my $suffix = '';
+  my $i = 1;
 
-  substr($adv, 0, 2) = 'CL';
-  substr($adv_name, 0, 2) = 'CL';
+  $adv = 'CL' . substr($adv, 2);
+  $adv_name = 'CL' . substr($adv_name, 2);
 
-  while (advisory_exists($adv)) {
-    substr($adv, 0, 2)++;
+  if (advisory_exists($adv) || advisory_name_exists($adv_name)) {
+    $suffix = sprintf("-%u", $i++);
+    $adv = $adv . $suffix;
+    $adv_name = $adv_name . $suffix;
+
+    while (advisory_exists($adv) || advisory_name_exists($adv_name)) {
+      substr($adv, -1, 1) = $i;
+      substr($adv_name, -1, 1) = $i;
+      $i++;
+    }
   }
 
-  while (advisory_name_exists($adv_name)) {
-    substr($adv_name, 0, 2)++;
-  }
   return ($adv, $adv_name);
 }
 

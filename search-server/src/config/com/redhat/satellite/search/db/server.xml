@@ -56,6 +56,12 @@
                 LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
                 LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id
             WHERE s.modified >= #last_modified#
+                or rsn.modified >= #last_modified#
+                or si.checkin >= #last_modified#
+                or rr.modified >= #last_modified#
+                or sl.modified >= #last_modified#
+                or dmi.modified >= #last_modified#
+                or cpu.modified >= #last_modified#
                 or s.id > #id#
             ORDER by s.id ASC
     </select>

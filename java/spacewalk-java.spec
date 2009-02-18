@@ -8,14 +8,9 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.4
+Version: 0.5.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd java
-# make test-srpm
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -165,7 +160,7 @@ This package contains the Java version of taskomatic.
 rm -rf $RPM_BUILD_ROOT
 ant -Dprefix=$RPM_BUILD_ROOT install
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
+install -d -m 755 $RPM_BUILD_ROOT/%{_initrddir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
@@ -178,9 +173,9 @@ install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rh
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_taskomatic.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
-install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
-install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_prefix}/share/rhn/lib
-install -m 644 build/classes/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes/log4j.properties
+install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_initrddir}
+install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datadir}/rhn/lib
+install -m 644 build/classes/log4j.properties $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
 
@@ -205,7 +200,7 @@ fi
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 
 %files -n spacewalk-taskomatic
-%attr(755, root, root) %{_sysconfdir}/init.d/taskomatic
+%attr(755, root, root) %{_initrddir}/taskomatic
 %attr(755, root, root) %{_bindir}/taskomaticd
 
 %files config
@@ -216,10 +211,90 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
 
 %files lib
-%attr(644, root, root) %{_usr}/share/rhn/classes/log4j.properties
-%attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
+%attr(644, root, root) %{_datadir}/rhn/classes/log4j.properties
+%attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.18-1
+- yum repodata regen changes to taskomatic
+
+* Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.16-1
+- 458355 - show Monitoring tabs only if Monitoring Backend or Monitoring Scout is enabled
+- 481766 - Corrected the text on Ks Distribution page to reflect the exact nature of the value to be
+- 483796 - fixed bug where ip address would show up as 0
+- 469957 - Updated getDetails to use first_name instead of first_names
+- 485500 - fixed ISE when deleting errata
+- 469957 - Added translation in XMLRPC API layer to accept first_name instead of "first_names"
+- handler-manifest.xml used by xmlrpc api was pointing to wrong location for a class...:(
+- 466295 - Added date format as description on the property
+- Removing duplicate setKickstartTree API
+
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.13-1
+- 484312 - more cleanup for kickstart AUTO virt type removal
+- 484312 - massive cleanup of virt types.  getting rid of useless AUTO type.
+
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.12-1
+- 484911 - fixed issue where taskomatic won't sync to cobbler newly sat-synced
+- Moving SystemDetailsHandler.java and its junit test out of kickstart.profile
+- 199560 - Fix epoch being returned as ' ' in channel.software.list_all_package
+- 484262 - Updated documentation as per the bz
+- 483815 - minor messaging change for custom channel pkg removal
+- 452956 - Need to check to make sure the DMI actually contains data before at
+- 484435 - needed parent_channel is null when selecting from rhnsharedchannelv
+- 480674 - fixed query in Channel.hbm.xml to know about shared channels. Chang
+- 485122 - api - kickstart.profile.system.getPartitioningScheme was incorrectl
+- 485039 - apidoc - channel.software.removePackages - fix wording on return va
+- remove + which hoses the urls in org trusts page
+
+* Wed Feb 11 2009 Dave Parker <dparker@redhat.com> 0.5.11-1
+- 484659 remove error messages due to incorrect startup sequences from sysv and from the rhn-satellite tool
+* Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
+- Properly run the status through the message bundle for i18n
+
+* Thu Feb 05 2009 Mike McCune <mmccune@gmail.com> 0.5.9-1
+- 481767 - be more forgiving of busted kickstart distros during a sync and also report errors in an email.
+- 442601 - api - adding access to server lock/unlock
+- Restructured to an inversion of control pattern to make it more clear that the mode/summary key are not meant to be attributes.
+- 443718 - fixing a view mistage and having a query just use the view
+- 483603 - Added details page for listing servers involved in a particular SSM operation
+- update the header to 2009 and fix the very annoying whitespace after the *.
+- fixing Action classes that have non-final member variables
+- 251767 - api - channel.software.setSystemChannels - throw better exception when user passes multiple base channels as input
+- 467063 - Added page decorator to allow variable amount of items to be shown
+- 437872 - added multiorg messaging suggestion for entitlement warnings
+- 483603 - First pass at display of async SSM operations in the UI
+- 437563 - adding success message for sat admin toggles
+- 479541, 483867 - replaced runuser with /sbin/runuser
+- 483603 - Renamed query file; added ability to retrieve servers associated with an operation
+- 481200 - api - fix minor issues in apidoc for activationkey apis
+- 483689 - api doc updates for channel.software listAllPackages and listAllPackagesByDate apis
+- 483806 - updating more iso country codes
+- 482929 - fixing messaging with global channel subscriptions per user
+- 480016 - adding ID to org details page for information (assist with migration scripts)
+- 443718 - improving errata cache calcs when pushing a single errata
+
+* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.8-1
+- 480126 - deactivate proxy different way
+- 477532 - fixed issue where channels would dissappear after hiding the children
+
+* Fri Jan 30 2009 Mike McCune <mmccune@gmail.com> 0.5.7-1
+- removing requirement for spacewalk-branding-jar
+
+* Fri Jan 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- 483058 - subscribe to proxy channel if requested
+- 482923 - splitting out the java branding jar file into its own subpackage
+- 459085 - Added (and defaulted) option for Do Nothing
+- 469984 - Restructuring to avoid DB hits entirely if there are no channels selected to either subscribe or unsubscribe.
+
+* Wed Jan 28 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
+- 468052 - throw exception if proxy do not has provisioning entitlement
+- 481671 - improved the performance of a query
+- 469984 - speeding up the bulk channel subscription changes
+- 481778 - fix NPE when deleting an unpublished errata
+- 480003 - minor grammar change for private channel access
+- 428419 - always use the cobbler server when showing URLs for kickstarts
+- added ks-setup.py script to add a profile, channel, distro and activation key ..
+
 * Thu Jan 22 2009 Dennis Gilmore <dennis@ausil.us> 0.5.4-1
 - update java and java-devel Requires and BuildRequires to 1.6.0
 

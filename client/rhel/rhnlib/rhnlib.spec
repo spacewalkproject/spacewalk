@@ -3,7 +3,7 @@
 Summary: Python libraries for the RHN project
 Name: rhnlib
 Source0: %{name}-%{version}.tar.gz
-Version: 2.5.6
+Version: 2.5.9
 Release: 1%{?dist}
 
 Group: Development/Libraries
@@ -49,35 +49,18 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc ChangeLog COPYING README TODO
 
-%dir %{python_sitelib}/rhn
-%{python_sitelib}/rhn/__init__.py
-%{python_sitelib}/rhn/__init__.pyc
-%{python_sitelib}/rhn/connections.py
-%{python_sitelib}/rhn/connections.pyc
-%{python_sitelib}/rhn/nonblocking.py
-%{python_sitelib}/rhn/nonblocking.pyc
-%{python_sitelib}/rhn/rpclib.py
-%{python_sitelib}/rhn/rpclib.pyc
-%{python_sitelib}/rhn/SmartIO.py
-%{python_sitelib}/rhn/SmartIO.pyc
-%{python_sitelib}/rhn/SSL.py
-%{python_sitelib}/rhn/SSL.pyc
-%{python_sitelib}/rhn/transports.py
-%{python_sitelib}/rhn/transports.pyc
-%{python_sitelib}/rhn/UserDictCase.py
-%{python_sitelib}/rhn/UserDictCase.pyc
-
-%{python_sitelib}/rhn/__init__.pyo
-%{python_sitelib}/rhn/connections.pyo
-%{python_sitelib}/rhn/nonblocking.pyo
-%{python_sitelib}/rhn/rpclib.pyo
-%{python_sitelib}/rhn/SmartIO.pyo
-%{python_sitelib}/rhn/SSL.pyo
-%{python_sitelib}/rhn/transports.pyo
-%{python_sitelib}/rhn/UserDictCase.pyo
-%{python_sitelib}/rhnlib*.egg-info
+%{python_sitelib}/*
 
 %changelog
+* Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 2.5.9-1
+- replace "!#/usr/bin/env python" with "!#/usr/bin/python"
+
+* Tue Jan 27 2009 Dennis Gilmore <dennis@ausil.us> 2.5.8-1
+- clean up files section 
+
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 2.5.7-1
+- remove .egg-info file from spec - we do not provide it
+
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
 - Remove usage of version and sources files.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import os.path, os
 from sys import argv, exit
 base_template="""<?xml version="1.0" encoding="UTF-8"?>

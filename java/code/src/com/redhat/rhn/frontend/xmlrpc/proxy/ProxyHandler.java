@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
 import com.redhat.rhn.frontend.xmlrpc.MethodInvalidParamException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyAlreadyRegisteredException;
+import com.redhat.rhn.frontend.xmlrpc.ProxyNeedProvisioningException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyNotActivatedException;
 import com.redhat.rhn.frontend.xmlrpc.ProxySystemIsSatelliteException;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -58,12 +59,12 @@ public class ProxyHandler extends BaseHandler {
         throws MethodInvalidParamException {
 
         StringReader rdr = new StringReader(clientcert);
-        Server srvr = null;
+        Server server = null;
         
         ClientCertificate cert;
         try {
             cert = ClientCertificateDigester.buildCertificate(rdr);
-            srvr = SystemManager.lookupByCert(cert);
+            server = SystemManager.lookupByCert(cert);
         }
         catch (IOException ioe) {
             log.error("IOException - Trying to access a system with an " +
@@ -80,7 +81,7 @@ public class ProxyHandler extends BaseHandler {
                     "system with an invalid certificate", e);
             throw new MethodInvalidParamException();
         }
-        return (srvr.isProxy() ? 1 : 0);
+        return (server.isProxy() ? 1 : 0);
     }
     
     /**
@@ -101,20 +102,20 @@ public class ProxyHandler extends BaseHandler {
         StringReader rdr = new StringReader(clientcert);
         try {
             ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            Server srvr;
+            Server server;
             try {
-                srvr = SystemManager.lookupByCert(cert);
+                server = SystemManager.lookupByCert(cert);
             }
             catch (InvalidCertificateException e) {
                 log.error("Trying to access a system with an invalid certificate", e);
                 throw new MethodInvalidParamException();
             }
 
-            if (!srvr.isProxy()) {
+            if (!server.isProxy()) {
                 throw new ProxyNotActivatedException();
             }
             
-            SystemManager.deactivateProxy(srvr);
+            SystemManager.deactivateProxy(server);
             return 1;
         }
         catch (IOException e) {
@@ -138,6 +139,8 @@ public class ProxyHandler extends BaseHandler {
      * @throws ProxySystemIsSatelliteException thrown if client certificate is
      * for a satellite
      * @throws InvalidProxyVersionException thrown if version is not supported.
+     * @throws ProxyNeedProvisioningException thrown if system do not have 
+     * provisioning entitlement.
      * 
      * @xmlrpc.doc Activates the proxy identified by the given client
      * certificate i.e. systemid file.
@@ -153,19 +156,23 @@ public class ProxyHandler extends BaseHandler {
         StringReader rdr = new StringReader(clientcert);
         try {
             ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            Server srvr = SystemManager.lookupByCert(cert);
+            Server server = SystemManager.lookupByCert(cert);
             
-            if (srvr.isProxy()) {
+            if (server.isProxy()) {
                 throw new ProxyAlreadyRegisteredException();
             }
             
+            if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+                throw new ProxyNeedProvisioningException();
+            }
+
             // if the server does nto have enterprise_entitled entitlement, add it
             //
             
-            if (!srvr.hasEntitlement(EntitlementManager.MANAGEMENT)) {
-                SystemManager.entitleServer(srvr, EntitlementManager.MANAGEMENT);
+            if (!server.hasEntitlement(EntitlementManager.MANAGEMENT)) {
+                SystemManager.entitleServer(server, EntitlementManager.MANAGEMENT);
             }
-            SystemManager.activateProxy(srvr, version);
+            SystemManager.activateProxy(server, version);
             return 1;
         }
         catch (InvalidCertificateException e) {

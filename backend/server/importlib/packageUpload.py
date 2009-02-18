@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -19,7 +19,7 @@
 
 from common import rhnFault, rhn_rpm, log_debug
 
-from server import rhnChannel
+from server import rhnChannel, taskomatic, rhnSQL
 from server.importlib.headerSource import createPackage
 from server.importlib.importLib import Collection
 from server.importlib.packageImport import packageImporter
@@ -70,8 +70,11 @@ def uploadPackages(info, source=0, force=0, caller=None):
     if not source:
         # makes sense only for binary packages
         schedule_errata_cache_update(importer.affected_channels)
+        taskomatic.add_to_repodata_queue_for_channel_package_subscription(
+                importer.affected_channels, batch, caller)
+        rhnSQL.commit()
 
-    return _formatStatus(uploaded), _formatStatus(newpkgs) 
+    return _formatStatus(uploaded), _formatStatus(newpkgs)
 
 def __processPackage(package, org_id, channels, source):
     log_debug(4, org_id, channels, source)

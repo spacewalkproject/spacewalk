@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,15 +7,13 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
 package com.redhat.rhn.domain.rhnpackage.test;
 
-import com.redhat.rhn.common.db.datasource.ModeFactory;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -33,10 +31,8 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 
@@ -62,22 +58,7 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
         // Org that owns that Action.  Ignore for 
         // Sat mode since there is only one Org.
     }
-    
-    /**
-     * Add a row to the rhnServerNeedsPackageCache table
-     */
-    public static void updateNeedsPackageCache(Long orgId, Long serverId, 
-            Long packageId) {
-        WriteMode m = 
-            ModeFactory.
-                getWriteMode("test_queries", "insert_into_rhnServerNeededPackageCache");
-        Map params = new HashMap();
-        params.put("org_id", orgId);
-        params.put("server_id", serverId);
-        params.put("package_id", packageId);
-        m.executeUpdate(params);
-    }
-    
+        
     public void testLookupPackageArchByLabel() {
         assertNull(PackageFactory.lookupPackageArchByLabel("biteme-arch"));
         assertNotNull(PackageFactory.lookupPackageArchByLabel("i386"));

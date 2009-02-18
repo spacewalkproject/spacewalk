@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -23,17 +23,16 @@ import com.redhat.rhn.common.RhnRuntimeException;
 /**
  * No Base Channel was found for a particular server.
  * <p>
-
- *
+ * 
+ * 
  * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
  */
-public class MissingPackagesException extends RhnRuntimeException  {
+public class MissingPackagesException extends RhnRuntimeException {
 
-
-    /////////////////////////
+    // ///////////////////////
     // Constructors
-    /////////////////////////
-        /**
+    // ///////////////////////
+    /**
      * Constructor
      * @param message exception message
      */
@@ -42,20 +41,19 @@ public class MissingPackagesException extends RhnRuntimeException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param message exception message
-     * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
-     * unknown.)
+     * @param cause the cause (which is saved for later retrieval by the
+     * Throwable.getCause() method). (A null value is permitted, and indicates
+     * that the cause is nonexistent or unknown.)
      */
-    public MissingPackagesException(String message ,   Throwable cause) {
+    public MissingPackagesException(String message, Throwable cause) {
         super(message, cause);
         // begin member variable initialization
     }
 
-    /////////////////////////
+    // ///////////////////////
     // Getters/Setters
-    /////////////////////////
+    // ///////////////////////
 }

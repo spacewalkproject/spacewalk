@@ -10,8 +10,4 @@ require acl user_can_manage_channels()
 require acl mixin RHN::Access::Channel user_role(channel_admin)
 </Files>
 
-<Files clone.pxt>
-require acl mixin RHN::Access::Channel global_config(satellite)
-</Files>
-
 PerlSetVar channel_context manage

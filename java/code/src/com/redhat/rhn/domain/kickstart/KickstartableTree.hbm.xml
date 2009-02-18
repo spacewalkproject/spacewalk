@@ -99,4 +99,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         		where k.id = :tree_id and (k.org = :org_id or k.org is null)]]>
     </query>
     
+    <query name="KickstartableTree.getUnsyncedKickstartTrees">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartableTree as k 
+        		where k.cobblerId is null]]>
+    </query>
+    
 </hibernate-mapping>

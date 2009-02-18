@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.5.5
+Version: 0.5.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -279,6 +279,9 @@ fi
 
 
 %changelog
+* Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
+- 482831 - support redirect to Akamai
+
 * Wed Jan 21 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.5-1
 - fix conflicts with spacewalk-proxy-tools
 - management do not need to require specific version of package manager

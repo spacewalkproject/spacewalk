@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -57,14 +57,16 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     private ProfileHandler handler = new ProfileHandler();
     private KickstartHandler ksHandler = new KickstartHandler();
     
-    public void testSetKickstartTree() throws Exception {
+    public void testKickstartTree() throws Exception {
+        // test the setKickstartTree and getKickstartTree APIs
+
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);    
               
         String profileLabel = "new-ks-profile";
         ksHandler.createProfile(adminKey, profileLabel, 
-                KickstartVirtualizationType.AUTO, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
                 testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
@@ -76,18 +78,23 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         createTestKickstartableTree(baseChan);
         int result = handler.setKickstartTree(adminKey, profileLabel, 
                 anotherTestTree.getLabel());
-        
         assertEquals(1, result);
+        
+        String tree = handler.getKickstartTree(adminKey, profileLabel);
+        assertEquals(anotherTestTree.getLabel(), tree);
     }
     
-    public void testSetChildChannels() throws Exception {
+    public void testChildChannels() throws Exception {
+        // test the setChildChannels and getChildChannels APIs
+
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);    
               
         String profileLabel = "new-ks-profile";
-        ksHandler.createProfile(adminKey, profileLabel, KickstartVirtualizationType.AUTO, 
-             testTree.getLabel(), "localhost", "rootpw");
+        ksHandler.createProfile(adminKey, profileLabel, 
+                KickstartVirtualizationType.XEN_PARAVIRT, 
+                testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
              profileLabel, admin.getOrg().getId());
@@ -104,6 +111,20 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         
         int result = handler.setChildChannels(adminKey, profileLabel, channelsToSubscribe);
         assertEquals(1, result);
+        
+        List<String> channels = handler.getChildChannels(adminKey, profileLabel);
+        assertEquals(channelsToSubscribe.size(), channels.size());
+        boolean foundC1 = false, foundC2 = false;
+        for (String channel : channels) {
+            if (channel.equals(c1.getLabel())) {
+                foundC1 = true;
+            }
+            if (channel.equals(c2.getLabel())) {
+                foundC2 = true;
+            }
+        }
+        assertTrue(foundC1);
+        assertTrue(foundC2);
     }
 
     public void testListScript() throws Exception {
@@ -609,7 +630,7 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
             createTestKickstartableTree(baseChan);
 
         String profileLabel = "new-ks-profile" + TestUtils.randomString();
-        kh.createProfile(adminKey, profileLabel,  KickstartVirtualizationType.AUTO,
+        kh.createProfile(adminKey, profileLabel,  KickstartVirtualizationType.XEN_PARAVIRT,
                 testTree.getLabel(), "localhost", "rootpw");
 
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(

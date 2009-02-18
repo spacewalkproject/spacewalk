@@ -19,8 +19,6 @@ use strict;
 use vars qw($VERSION);
 $VERSION = 1.2;
 
-
-# Modules
 use English;
 use Class::MethodMaker 
   new_with_init => 'new',
@@ -41,7 +39,6 @@ use Class::MethodMaker
     env
   )],
   ;
-
 
 # Global variables
 
@@ -64,112 +61,72 @@ my %PARAM_LOOKUP = (
 my @ENV_VARS = qw( HOME LOGNAME SHELL USER USERNAME PATH);
 
 my @BASEPATH = qw(
-  ROOT:/usr/local/sbin
   /usr/local/bin
-  ROOT:/sbin
   /bin
-  ROOT:/usr/sbin
   /usr/bin
   /usr/X11R6/bin
 );
 
+my @ROOTBASEPATH = qw(
+  /usr/local/sbin
+  /sbin
+  /usr/sbin
+);
 
-##############################################################################
 ############################# High-level methods #############################
-##############################################################################
 
-
-
-##########
 sub init {
-##########
   my($self, %args) = @_;
-
   # Initialize defaults
   if (defined($args{'user'})) {
-
     # If the 'user' argument is supplied, fetch the ID and env 
     # params from the named user's /etc/passwd and /etc/group
     # entries.
-
     $self->set_from_user($args{'user'});
     delete($args{'user'});
-
   } else {
-
     # If no 'user' argument is supplied, set default ID and
     # env parameters from the current environment
     $self->set_from_current();
-
   }
-
   # name2num converts any non-numeric IDs to numerics (doesn't 
   # apply to 'user' or 'env' args)
   $self->hash_init($self->name2num(%args));
-
 }
 
-
-########
 sub su {
-########
   my $self = shift;
   my %args = @_;
-
   # Save the current identity for reversion
   $self->orig_id(NOCpulse::SetID->new()) unless ($args{'permanent'});
-
   # Set IDs
   $self->set_group_ids(%args);
   $self->set_user_ids(%args);
   $self->set_env(%args);
-
-
 }
 
-
-############
 sub revert {
-############
   my $self = shift;
-
   unless ($self->orig_id()) {
     return &fatal("Reversion impossible for permanent ID change");
   }
-
   $self->orig_id->set_user_ids('permanent' => 1);
   $self->orig_id->set_group_ids('permanent' => 1);
   $self->orig_id->set_env();
 }
 
-
-
-
-
-
-
-##############################################################################
 ############################# Low-level methods ##############################
-##############################################################################
 
-
-
-###################
 sub set_from_user {
-###################
   my $self     = shift;
   my $username = shift;
-
   my ($pw_name,$pw_passwd,$pw_uid,$pw_gid,$dir,$shell) = 
                                      (getpwnam($username))[0,1,2,3,7,8];
-
   # Set the UIDS and GIDS
   $self->ruid($pw_uid);
   $self->euid($pw_uid);
   $self->rgid($pw_gid);
   $self->egid($pw_gid);
-
-
   # Set up the supplemental groups
   my(@groups, $gr_nam, $gr_gid, $gr_members);
   endgrent();
@@ -179,11 +136,8 @@ sub set_from_user {
     }
   }
   endgrent();
-
   $self->groups_clear;
   $self->groups_push(@groups);
-
-
   # Set up the environment
   $self->env({
     HOME     => $dir,
@@ -192,65 +146,44 @@ sub set_from_user {
     USER     => $pw_name,
     USERNAME => $pw_name,
   });
-
   # Set up the path (after HOME var has been set above)
   $self->env({PATH => $self->path()});
 
 }
 
-
-######################
 sub set_from_current {
-######################
   my $self     = shift;
   my $username = shift;
-
   # Set the UIDs and GIDs
   $self->ruid($REAL_USER_ID);
   $self->euid($EFFECTIVE_USER_ID);
   $self->rgid($REAL_GROUP_ID + 0);       # force numeric context
   $self->egid($EFFECTIVE_GROUP_ID + 0);  # force numeric context
-
-
   # Set up the supplemental groups
   my @groups = split(/\s+/, $REAL_GROUP_ID);
   shift(@groups);
   $self->groups_clear();
   $self->groups_push(reverse @groups);
-
-
   # Set up the environment
   my %env;
   foreach my $var (@ENV_VARS) {
     $env{$var} = $ENV{$var};
   }
   $self->env(\%env);
-
 }
 
-
-
-#############
 sub set_env {
-#############
   my $self = shift;
-
   # Now transfer to %ENV
   my $env = $self->env();
-
   foreach my $var (keys %$env) {
     $ENV{$var} = $env->{$var};
   }
-
 }
 
-
-###################
 sub set_group_ids {
-###################
   my $self = shift;
   my %args = @_;
-
   if ($args{'permanent'}) {
     # Set GIDs in PERMANENT order -- effective, then real.
     $self->set_effective_group_id(@_);
@@ -260,19 +193,14 @@ sub set_group_ids {
     $self->set_real_group_id(@_);
     $self->set_effective_group_id(@_);
   }
-
 }
 
-############################
 sub set_effective_group_id {
-############################
   my $self = shift;
   my %args = shift;
-
   # Set the effective group ID and supplemental groups, using
   # existing settings to fill in the gaps.  Save effective GID 0
   # unless we're doing a permanent change.
-
   my $egid = defined($self->egid) ? $self->egid : $EFFECTIVE_GROUP_ID + 0;
 
   my @groups;
@@ -283,84 +211,57 @@ sub set_effective_group_id {
     # There are no supplemental groups
     push(@groups, $egid);
   }
-
   my $str = join(' ', $egid, @groups);
   $EFFECTIVE_GROUP_ID = $str;
-
   # Verify that it worked
   my $want = join(' ', sort {$a <=> $b} split(/\s+/, $str));
   my $am   = join(' ', sort {$a <=> $b} split(/\s+/, $EFFECTIVE_GROUP_ID));
 
   return &fatal("Couldn't set effective/supplemental group IDs: $!")
     unless ($want eq $am);
-
 }
 
-#######################
 sub set_real_group_id {
-#######################
   my $self = shift;
-
   # There are no real gotchas here, except that $REAL_GROUP_ID
   # and $EFFECTIVE_GROUP_ID are a space-separated list of IDs 
   # in non-numeric scalar context.
-
   if (defined($self->rgid)) {
-
     # Set the real group ID
     $REAL_GROUP_ID = $self->rgid;
-
     # Verify that it worked
     return &fatal("Couldn't set real group ID: $!")
       unless ($REAL_GROUP_ID + 0 == $self->rgid);
-
   }
-
 }
 
-
-
-
-##################
 sub set_user_ids {
-##################
   my $self = shift;
   my %args = @_;
-
   # If both RUID and EUID are non-zero, 
   #  - setting EUID *then* RUID is a permanent change (only
   #    allowed if EUID == RUID)
   #  - setting RUID then EUID is temporary (EUID does not have
   #    to equal RUID)
-
   # In either case, an exec sets the saved SUID to the EUID
-
   # If you spawn a shell (directly or indirectly via 'system' et al)
   # and EUID != RUID, the shell will helpfully reset EUID to RUID
   # for you.  So don't do that.
-
   if ($args{'permanent'}) {
-
     # Set UIDs in PERMANENT order -- EUID then RUID.  This permanently
     # relinquishes saved permissions.
-
     $EFFECTIVE_USER_ID = $self->euid if (defined($self->euid));
     if ($EFFECTIVE_USER_ID != $self->euid) {
       return &fatal("Failed to set effective user ID: $!");
     }
-
     $REAL_USER_ID = $self->ruid if (defined($self->ruid));
     if ($REAL_USER_ID != $self->ruid) {
       return &fatal("Failed to set real user ID: $!");
     }
-
-
   } else {
-
     # Set UIDs in TEMPORARY order -- RUID then EUID.  This change
     # is reversible in the current process and children (but 
     # becomes PERMANENT on exec()).
-
     $REAL_USER_ID = $self->ruid if (defined($self->ruid));
     if ($REAL_USER_ID != $self->ruid) {
       return &fatal("Failed to set real user ID: $!");
@@ -370,137 +271,78 @@ sub set_user_ids {
     if ($EFFECTIVE_USER_ID != $self->euid) {
       return &fatal("Failed to set effective user ID: $!");
     }
-
   }
-
 }
 
-
-
-
-
-
-##############################################################################
 ############################## Utility routines ##############################
-##############################################################################
 
-
-##############
 sub name2num {
-##############
   my $self = shift;
   my %in   = @_;
   my %out;
-
   # Convert usernames and group names into numeric IDs.
   foreach my $param (keys %in) {
-
     my $class = $PARAM_CLASS{$param};
     unless ($class) {
       # We don't handle this one.
       $out{$param} = $in{$param};
       next;
     }
-
-
     # We handle both scalar and arrayref parameters; flaten 
     # them out for now.
     my @args;
     my @out;
     my $array = 0;
-
     if (ref($in{$param})) {
-
       @args = @{$in{$param}};
       $array = 1;
-
     } else {
-
       @args = ($in{$param});
-
     }
-
-
     # Do the lookups
     foreach my $subject (@args) {
-
       if ($subject =~ /^\d+$/) {
-
         # We were passed a numeric ID field.
         push(@out, $subject);
-
       } else {
-
         my $resolved;
-
         # We were passed a username instead of an ID.  Convert to
         # numeric user ID.
         $resolved = &{$PARAM_LOOKUP{$class}}($subject);
-
         if (defined($resolved)) {
-
           push(@out, $resolved);
-
         } else {
-
           return &fatal("Couldn't find $class ID for $subject: $!");
-
         }
-
       }
-
     }
-
     if ($array) {
-
       $out{$param} = \@out;
-
     } else {
-
       $out{$param} = $out[0];
-
     }
-
   }
-
   return \%out;
-
 }
 
-
-###########
 sub fatal {
-###########
-
   my($line)              = (caller(0))[2];
   my($pkg, $fname, $sub) = (caller(1))[0,1,3];
   die "ERROR: @_ \n\tat $sub line $line\n";
-
 }
 
-##########
 sub path {
-##########
   my $self = shift;
   my @path;
-  my @candidates = (join('/', $self->env('HOME'), 'bin'), @BASEPATH);
-
+  my @candidates = ($self->euid == 0 and $self->ruid == 0) ?
+    (@ROOTBASEPATH, @BASEPATH) : (@BASEPATH);
   foreach my $dir (@candidates) {
-    next if (/^ROOT:/ and $self->euid != 0 and $self->ruid != 0);
-    s/^ROOT://;
     push(@path, $dir) if (-d $dir);
   }
-
   return join(":", @path);
 }
 
-
-
-
 1;
-
-
-
 
 __END__
 # Below is stub documentation for your module. You better edit it!

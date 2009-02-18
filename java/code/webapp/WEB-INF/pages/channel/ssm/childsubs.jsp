@@ -43,19 +43,13 @@
                 <table width="100%"> 
                     <tr> 
                         <td>&nbsp;</td> 
-                        <td width="50%"> 
+                        <td width="35%"> 
                             <a href="/rhn/channels/ChannelDetail.do?cid=${child.id}">${child.name}</a> 
                         </td> 
-                        <td> 
-                            <c:choose> 
-                                <c:when test="${child.systemCount > 0}"> 
-                                    <input type="checkbox" name="${child.id}" value="subscribe" align="center" checked/> 
-                                </c:when> 
-                                <c:otherwise> 
-                                    <input type="checkbox" name="${child.id}" value="subscribe" align="center"/> 
-                                </c:otherwise> 
-                            </c:choose> 
-                            <bean:message key="ssmchildsubs.jsp.subscribed"/> 
+                        <td nowrap> 
+                            <input type="radio" name="${child.id}" value="subscribe" align="center"/> <bean:message key="ssmchildsubs.jsp.subscribe"/> 
+                            <input type="radio" name="${child.id}" value="unsubscribe" align="center"/> <bean:message key="ssmchildsubs.jsp.unsubscribe"/> 
+                            <input type="radio" name="${child.id}" value="ignore" align="center" checked/> <bean:message key="ssmchildsubs.jsp.donothing"/> 
                         </td> 
                         <td> 
                             <c:choose> 

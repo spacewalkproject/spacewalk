@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
 
-import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
@@ -23,7 +22,6 @@ import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
@@ -38,22 +36,19 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
-import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
-import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * KickstartHandler
@@ -98,96 +93,6 @@ public class KickstartHandler extends BaseHandler {
         
     }
 
-    /**
-     * Change kickstart tree (and base channel if required) of an existing
-     * kickstart profile.
-     * @param sessionKey User's session key.
-     * @param kslabel label of the kickstart profile to be changed.
-     * @param kstreeLabel label of the new kickstart tree.
-     * @return 1 if successful, exception otherwise.
-     * 
-     * @xmlrpc.doc Change kickstart tree of an existing kickstart profile.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
-     * profile to be changed.")
-     * @xmlrpc.param #param_desc("string", "kstreeLabel", "Label of new
-     * kickstart tree.")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setKickstartTree(String sessionKey, String kslabel,
-            String kstreeLabel) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        KickstartData ksdata = KickstartFactory
-                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
-                        .getOrg().getId());
-        if (ksdata == null) {
-            throw new FaultException(-3, "kickstartProfileNotFound",
-                    "No Kickstart Profile found with label: " + kslabel);
-        }
-
-        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
-                kstreeLabel, loggedInUser.getOrg());
-        if (tree == null) {
-            throw new NoSuchKickstartTreeException(kstreeLabel);
-        }
-        KickstartEditCommand cmd = new KickstartEditCommand(
-                ksdata.getId(), loggedInUser);
-        cmd.updateKickstartableTree(ksdata.getChannel().getId(),
-                loggedInUser.getOrg().getId(), tree.getId(), null);
-        cmd.store();
-        return 1;
-    }
-
-    
-    /** 
-     * Set child channels for an existing kickstart profile.   
-     * @param sessionKey User's session key. 
-     * @param kslabel label of the kickstart profile to be updated.
-     * @param channelLabels labels of the child channels to be set in the 
-     * kickstart profile. 
-     * @return 1 if successful, exception otherwise.
-     *
-     * @xmlrpc.doc Update child channels for an existing kickstart profile. 
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
-     * profile to be changed.")     
-     * @xmlrpc.param #param_desc("string[]", "channelLabels", 
-     * "List of labels of child channels")
-     * @xmlrpc.returntype #return_int_success()
-     */    
-    public int setChildChannels(String sessionKey, String kslabel, 
-            List<String> channelLabels) {
-
-        User loggedInUser = getLoggedInUser(sessionKey);
-        KickstartData ksdata = KickstartFactory.
-              lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.getOrg().getId());
-        if (ksdata == null) {
-            throw new FaultException(-3, "kickstartProfileNotFound",
-                "No Kickstart Profile found with label: " + kslabel);
-        }
-               
-        Long ksid = ksdata.getId();
-        KickstartEditCommand ksEditCmd = new KickstartEditCommand(ksid, loggedInUser);
-        List<String> channelIds = new ArrayList<String>(); 
-        
-        for (int i = 0; i < channelIds.size(); i++) {
-            Channel channel = ChannelManager.lookupByLabelAndUser(channelLabels.get(i), 
-                 loggedInUser);
-            if (channel == null) {
-                throw new InvalidChannelLabelException();
-            }
-            String channelId = channel.getId().toString();
-            channelIds.add(channelId);
-        }
-
-        String[] childChannels = new String [channelIds.size()];
-        childChannels = (String[]) channelIds.toArray(new String[0]);
-        ksEditCmd.updateChildChannels(childChannels);        
-        ksEditCmd.store();
-        return 1;
-    }
-    
     
 
     /**
@@ -552,78 +457,6 @@ public class KickstartHandler extends BaseHandler {
         return KickstartManager.renderKickstart(ksData);
     }
 
-    /**
-     * Set a kickstart profile's partitioning scheme.
-     * @param sessionKey An active session key.
-     * @param ksLabel A kickstart profile label.
-     * @param scheme The partitioning scheme.
-     * @return 1 on success
-     * @throws FaultException
-     * @xmlrpc.doc Set a kickstart profile's partitioning scheme.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
-     * kickstart profile to update.")
-     * @xmlrpc.param #param_desc("string[]", "scheme", "The partitioning scheme
-     * is a list of partitioning command strings used to setup the partitions,
-     * volume groups and logical volumes.")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setPartitioningScheme(String sessionKey, String ksLabel,
-            List<String> scheme) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        Long ksid = ksdata.getId();
-        KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
-                user);
-        StringBuilder sb = new StringBuilder();
-        for (String s : scheme) {
-            sb.append(s);
-            sb.append('\n');
-        }
-        ValidatorError err = command.parsePartitions(sb.toString());
-        if (err != null) {
-            throw new FaultException(-4, "PartitioningSchemeInvalid", err
-                    .toString());
-        }
-        command.store();
-        return 1;
-    }
-
-    /**
-     * Get a kickstart profile's partitioning scheme.
-     * @param sessionKey An active session key
-     * @param ksLabel A kickstart profile label
-     * @return The profile's partitioning scheme. This is a list of commands
-     * used to setup the partitions, logical volumes and volume groups.
-     * @throws FaultException
-     * @xmlrpc.doc Get a kickstart profile's partitioning scheme.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
-     * profile.")
-     * @xmlrpc.returntype string[] - A list of partitioning commands used to
-     * setup the partitions, logical volumes and volume groups."
-     */
-    @SuppressWarnings("unchecked")
-    public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<String> list = new ArrayList<String>();
-        for (KickstartCommand cmd : (List<KickstartCommand>) ksdata
-                .getPartitions()) {
-            String s = "partition " + cmd.getArguments();
-            list.add(s);
-        }
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
-                .getVolgroups()) {
-            String s = "volgroup " + cmd.getArguments();
-            list.add(s);
-        }
-        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata.getLogvols()) {
-            String s = "logvol " + cmd.getArguments();
-            list.add(s);
-        }
-        return list;
-    }
     
     /**
      * Lists all ip ranges for an org

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -23,6 +23,7 @@ import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -453,6 +454,21 @@ public class OrgManager extends BaseManager {
             dtos.add(new OrgEntitlementDto(ent, org));
         }
         return dtos;
+    }
+    
+    
+    /**
+     * Creates a channel family for a channel.  Should only be used upon org creation
+     * @param org the org to create a channel family for.
+     */
+    public static void createChannelFamily(Org org) {
+        WriteMode m = ModeFactory.getWriteMode("Org_queries", "create_chan_family");
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        params.put("label", "private-channel-family-" + org.getId());
+        params.put("name", "Private Channel Family " + org.getId());
+        params.put("url", "Org Creation");
+        m.executeUpdate(params);        
     }
 
 }

@@ -262,8 +262,19 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	<target name="set-cc-config-dir">
 	  	<property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
 	</target>	
+
+  <target name="testdebug">
+	<property name="debug"
+              value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
+    <antcall target="dotest" />
+  </target>
+
+  <target name="test">
+        <property name="debug" value=""/>
+        <antcall target="dotest"/>
+  </target>
 	  		
-  <target name="test"
+  <target name="dotest"
       description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
       depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
 
@@ -318,6 +329,13 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </delete>
   </target>
 
+ <target name="apidoc-singlepage" description="Generate the api for jsps" depends="init">
+        <property name="doclet.class" value="SinglePageDoclet" />
+        <property name="template.dir" value="singlepage" />
+         <antcall target="apidoc" />
+</target>
+
+
  <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
 	<property name="doclet.class" value="JSPDoclet" />	
 	<property name="template.dir" value="jsp" />
@@ -356,6 +374,21 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	     </fileset>
 	    <excludepackage name="**/*" />
 	</javadoc>
+
+</target>
+
+<target name="enforce" description="Check actions" depends="init">
+        <path id="javadocpath">
+            <path refid="buildjars" />
+            <pathelement location="build/classes" />
+         </path>
+
+        <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private">
+              <fileset dir="code" >
+                <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
+             </fileset>
+            <excludepackage name="**/*" />
+        </javadoc>
 
 </target>
 
@@ -626,14 +659,16 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <property name="testcaseorsubsystem" value="true" />
     <run-junit include="**/test/${testcase}.class" banner="${testcase}"
         testbuilddir="${build.dir}/classes"
-        classpathid="tests.runpath" reportdir="${testresults.dir}"/>
+        classpathid="tests.runpath" reportdir="${testresults.dir}"
+        debug="${debug}"/>
   </target>
 
   <target name="invoke-tests-subsystem" if="testsubsystem">
     <property name="testcaseorsubsystem" value="true" />
     <run-junit include="**/${testsubsystem}/**/test/*Test.class" banner="all tests in ${testsubsystem} subsystem"
         testbuilddir="${build.dir}/classes"
-        classpathid="tests.runpath" reportdir="${testresults.dir}"/>
+        classpathid="tests.runpath" reportdir="${testresults.dir}"
+        debug="${debug}" />
   </target>
 
   <target name="invoke-tests-all" unless="testcaseorsubsystem">

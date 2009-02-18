@@ -15,8 +15,10 @@
 #
 
 # system module imports
+import cStringIO
 import os
 import stat
+import types
 
 from rhn import rpclib
 
@@ -26,7 +28,7 @@ from common import rhnRepository, rhnFlags, rhnCache, redirectException
 from common.rhnLib import rfc822time, timestamp
 
 # local modules imports
-import rhnChannel, rhnPackage
+from server import rhnChannel, rhnPackage, taskomatic, rhnSQL
 from rhnServer import server_lib
 from repomd import repository
 
@@ -169,8 +171,7 @@ class Repository(rhnRepository.Repository):
         rhnFlags.set("compress_response", 1)
         return packages
 
-
-    def repodata(self, file_name):
+    def _repodata_python(self, file_name):
         log_debug(3, 'repodata', file_name)
         c_info = rhnChannel.channel_info(self.channelName)
         repo = repository.get_repository(c_info)
@@ -192,12 +193,64 @@ class Repository(rhnRepository.Repository):
         elif file_name == "comps.xml":
             content_type = "text/xml"
             output = repo.get_comps_file()
-      
+        else:
+            log_debug(2, "Unknown repomd file requested: %s" % file_name)
+            raise rhnFault(6)
+
         output = rpclib.File(output, name=file_name)
 
         rhnFlags.set('Content-Type', content_type)
 
         return output
+
+    def _repodata_taskomatic(self, file_name):
+        log_debug(3, 'repodata', file_name)
+
+        content_type = "application/x-gzip"
+
+        if file_name in ["repomd.xml", "comps.xml"]:
+            content_type = "text/xml"
+        elif file_name not in ["primary.xml.gz", "other.xml.gz",
+                "filelists.xml.gz", "updateinfo.xml.gz"]:
+            log_debug(2, "Unknown repomd file requested: %s" % file_name)
+            raise rhnFault(6)
+
+        # XXX this won't be repconned or CDNd
+        if file_name == "comps.xml":
+            return self._repodata_python(file_name)
+
+        file_path = "%s/%s/%s" % (CFG.REPOMD_PATH_PREFIX, self.channelName, file_name)
+        rhnFlags.set('Content-Type', content_type)
+        try:
+            rhnFlags.set('Download-Accelerator-Path', file_path)
+            return self._getFile(CFG.REPOMD_CACHE_MOUNT_POINT + "/" + file_path)
+        except IOError, e:
+            # For file not found, queue up a regen, and return 404
+            if e.errno == 2 and file_name != "comps.xml":
+                taskomatic.add_to_repodata_queue(self.channelName,
+                        "repodata request", file_name, bypass_filters=True)
+                rhnSQL.commit()
+                # This returns 404 to the client
+                raise rhnFault(6)
+            raise e
+
+    def repodata(self, file_name):
+        # By default we're using taskomatic's repomd. But if the config
+        # value is present and set to anything other than 1, we'll use the
+        # old python code
+        use_taskomatic = True
+        try:
+            use_taskomatic = (CFG.USE_TASKOMATIC_REPOMD == 1)
+        except AttributeError:
+            pass
+
+        log_debug(4, "Using taskomatic for repomd generation: %s" \
+                % use_taskomatic)
+
+        if use_taskomatic:
+            return self._repodata_taskomatic(file_name)
+        else:
+            return self._repodata_python(file_name)
 
     # Helper functions
     # These functions are not private, they should be defined as 'protected',

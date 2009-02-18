@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,7 +7,7 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
@@ -59,7 +59,7 @@ public class Package extends BaseDomainHelper {
     private Set<UnpublishedErrata> unpublishedErrata = new HashSet<UnpublishedErrata>();
     private Set<Channel> channels = new HashSet<Channel>();
     private Set<PackageFile> packageFiles = new HashSet<PackageFile>();
-    
+
     private Org org;
     private PackageName packageName;
     private PackageEvr packageEvr;
@@ -67,22 +67,22 @@ public class Package extends BaseDomainHelper {
     private SourceRpm sourceRpm;
     private PackageArch packageArch;
     private Set<PackageKey> packageKeys = new HashSet();
-    
+
+    private Long headerStart = new Long(0L);
+    private Long headerEnd = new Long(0L);
+
     private Set<ChangeLogEntry> changeLog = new HashSet();
     private Set<PackageProvides> provides = new HashSet();
     private Set<PackageRequires> requires = new HashSet();
     private Set<PackageObsoletes> obsoletes = new HashSet();
     private Set<PackageConflicts> conflicts = new HashSet();
-    
-    
+
     /**
      * @return Returns the provides.
      */
     public Set<PackageProvides> getProvides() {
         return provides;
     }
-
-
 
     /**
      * @param providesIn The provides to set.
@@ -91,7 +91,6 @@ public class Package extends BaseDomainHelper {
         this.provides = providesIn;
     }
 
-
     /**
      * @return Returns the changeLog
      */
@@ -99,14 +98,13 @@ public class Package extends BaseDomainHelper {
         return changeLog;
     }
 
-    
     /**
      * @param changeLogIn The ChangeLog to set
      */
     public void setChangeLog(Set<ChangeLogEntry> changeLogIn) {
         this.changeLog = changeLogIn;
     }
-    
+
     /**
      * @param entry The ChangeLogEntry to add
      */
@@ -116,8 +114,8 @@ public class Package extends BaseDomainHelper {
     }
 
     /**
-     * Retrieves the file portion of the path. For example, if path=/foo/bar/baz.rpm, 
-     * getFile() would return 'baz.rpm'.
+     * Retrieves the file portion of the path. For example, if
+     * path=/foo/bar/baz.rpm, getFile() would return 'baz.rpm'.
      * @return Returns the file portion of the path.
      */
     public String getFile() {
@@ -125,13 +123,13 @@ public class Package extends BaseDomainHelper {
         if (parts != null && parts.length > 0) {
             return parts[parts.length - 1];
         }
-        
+
         return null;
     }
-    
+
     /**
-     * Retrieves the file portion of the path. For example, if path=/foo/bar/baz.rpm, 
-     * getFile() would return 'baz.rpm'.
+     * Retrieves the file portion of the path. For example, if
+     * path=/foo/bar/baz.rpm, getFile() would return 'baz.rpm'.
      * @return Returns the file portion of the path.
      */
     public String getSourceFile() {
@@ -139,222 +137,220 @@ public class Package extends BaseDomainHelper {
         if (parts != null && parts.length > 0) {
             return parts[parts.length - 1];
         }
-        
+
         return null;
-    }    
-    
-    
+    }
+
     /**
      * @return Returns the buildHost.
      */
     public String getBuildHost() {
         return buildHost;
     }
-    
+
     /**
      * @param b The buildHost to set.
      */
     public void setBuildHost(String b) {
         this.buildHost = b;
     }
-    
+
     /**
      * @return Returns the buildTime.
      */
     public Date getBuildTime() {
         return buildTime;
     }
-    
+
     /**
      * @param b The buildTime to set.
      */
     public void setBuildTime(Date b) {
         this.buildTime = b;
     }
-    
+
     /**
      * @return Returns the compat.
      */
     public Long getCompat() {
         return compat;
     }
-    
+
     /**
      * @param c The compat to set.
      */
     public void setCompat(Long c) {
         this.compat = c;
     }
-    
+
     /**
      * @return Returns the cookie.
      */
     public String getCookie() {
         return cookie;
     }
-    
+
     /**
      * @param c The cookie to set.
      */
     public void setCookie(String c) {
         this.cookie = c;
     }
-    
+
     /**
      * @return Returns the copyright.
      */
     public String getCopyright() {
         return copyright;
     }
-    
+
     /**
      * @param c The copyright to set.
      */
     public void setCopyright(String c) {
         this.copyright = c;
     }
-    
+
     /**
      * @return Returns the description.
      */
     public String getDescription() {
         return description;
     }
-        
-    
+
     /**
      * @param d The description to set.
      */
     public void setDescription(String d) {
         this.description = d;
     }
-    
+
     /**
      * @return Returns the headerSignature.
      */
     public String getHeaderSignature() {
         return headerSignature;
     }
-    
+
     /**
      * @param h The headerSig to set.
      */
     public void setHeaderSignature(String h) {
         this.headerSignature = h;
     }
-    
+
     /**
      * @return Returns the id.
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * @param i The id to set.
      */
     public void setId(Long i) {
         this.id = i;
     }
-    
+
     /**
      * @return Returns the lastModified.
      */
     public Date getLastModified() {
         return lastModified;
     }
-    
+
     /**
      * @param l The lastModified to set.
      */
     public void setLastModified(Date l) {
         this.lastModified = l;
     }
-    
+
     /**
      * @return Returns the md5sum.
      */
     public String getMd5sum() {
         return md5sum;
     }
-    
+
     /**
      * @param m The md5sum to set.
      */
     public void setMd5sum(String m) {
         this.md5sum = m;
     }
-    
+
     /**
      * @return Returns the org.
      */
     public Org getOrg() {
         return org;
     }
-    
+
     /**
      * @param o The org to set.
      */
     public void setOrg(Org o) {
         this.org = o;
     }
-    
+
     /**
      * @return Returns the packageArch.
      */
     public PackageArch getPackageArch() {
         return packageArch;
     }
-    
+
     /**
      * @param p The packageArch to set.
      */
     public void setPackageArch(PackageArch p) {
         this.packageArch = p;
     }
-    
+
     /**
      * @return Returns the packageEvr.
      */
     public PackageEvr getPackageEvr() {
         return packageEvr;
     }
-    
+
     /**
      * @param p The packageEvr to set.
      */
     public void setPackageEvr(PackageEvr p) {
         this.packageEvr = p;
     }
-    
+
     /**
      * @return Returns the packageGroup.
      */
     public PackageGroup getPackageGroup() {
         return packageGroup;
     }
-    
+
     /**
      * @param p The packageGroup to set.
      */
     public void setPackageGroup(PackageGroup p) {
         this.packageGroup = p;
     }
-    
+
     /**
      * @return Returns the packageName.
      */
     public PackageName getPackageName() {
         return packageName;
     }
-    
+
     /**
      * @param p The packageName to set.
      */
     public void setPackageName(PackageName p) {
         this.packageName = p;
     }
-    
+
     /**
      * @return Returns the packageSize.
      */
@@ -369,49 +365,49 @@ public class Package extends BaseDomainHelper {
     public String getPackageSizeString() {
         return StringUtil.displayFileSize(this.getPackageSize());
     }
-    
+
     /**
      * @param p The packageSize to set.
      */
     public void setPackageSize(Long p) {
         this.packageSize = p;
     }
-    
+
     /**
      * @return Returns the path.
      */
     public String getPath() {
         return path;
     }
-    
+
     /**
      * @param p The path to set.
      */
     public void setPath(String p) {
         this.path = p;
     }
-    
+
     /**
      * @return Returns the payloadFormat.
      */
     public String getPayloadFormat() {
         return payloadFormat;
     }
-    
+
     /**
      * @param p The payloadFormat to set.
      */
     public void setPayloadFormat(String p) {
         this.payloadFormat = p;
     }
-    
+
     /**
      * @return Returns the payloadSize.
      */
     public Long getPayloadSize() {
         return payloadSize;
     }
-    
+
     /**
      * Get a display friendly version of the payload size
      * @return the size
@@ -419,77 +415,77 @@ public class Package extends BaseDomainHelper {
     public String getPayloadSizeString() {
         return StringUtil.displayFileSize(this.getPayloadSize());
     }
-    
+
     /**
      * @param p The payloadSize to set.
      */
     public void setPayloadSize(Long p) {
         this.payloadSize = p;
     }
-    
+
     /**
      * @return Returns the rpmVersion.
      */
     public String getRpmVersion() {
         return rpmVersion;
     }
-    
+
     /**
      * @param r The rpmVersion to set.
      */
     public void setRpmVersion(String r) {
         this.rpmVersion = r;
     }
-    
+
     /**
      * @return Returns the sourcePath.
      */
     public String getSourcePath() {
         return sourcePath;
     }
-    
+
     /**
      * @param s The sourcePath to set.
      */
     public void setSourcePath(String s) {
         this.sourcePath = s;
     }
-    
+
     /**
      * @return Returns the sourceRpm.
      */
     public SourceRpm getSourceRpm() {
         return sourceRpm;
     }
-    
+
     /**
      * @param s The sourceRpm to set.
      */
     public void setSourceRpm(SourceRpm s) {
         this.sourceRpm = s;
     }
-    
+
     /**
      * @return Returns the summary.
      */
     public String getSummary() {
         return summary;
     }
-    
+
     /**
      * @param s The summary to set.
      */
     public void setSummary(String s) {
         this.summary = s;
     }
-    
+
     /**
      * @return Returns the vendor.
      */
     public String getVendor() {
         return vendor;
     }
-    
+
     /**
      * @param v The vendor to set.
      */
@@ -501,10 +497,10 @@ public class Package extends BaseDomainHelper {
      * {@inheritDoc}
      */
     public String toString() {
-            return new ToStringBuilder(this).append("id", getId()).append("packageName",
-                    getPackageName()).toString();
+        return new ToStringBuilder(this).append("id", getId()).append("packageName",
+                getPackageName()).toString();
     }
-    
+
     /**
      * Util to output package name + evr: krb5-devel-1.3.4-47
      * @return String name and evr
@@ -512,18 +508,16 @@ public class Package extends BaseDomainHelper {
     public String getNameEvr() {
         return this.getPackageName().getName() + "-" + this.getPackageEvr().toString();
     }
-    
+
     /**
      * Util to output package name + evr: krb5-devel-1.3.4-47.i386
      * @return String name and evra
      */
     public String getNameEvra() {
-        return this.getPackageName().getName() + "-" + this.getPackageEvr().toString() + 
-            "." + this.getPackageArch().getLabel();
+        return this.getPackageName().getName() + "-" + this.getPackageEvr().toString() +
+                "." + this.getPackageArch().getLabel();
     }
-    
-    
-    
+
     /**
      * 
      * {@inheritDoc}
@@ -531,30 +525,25 @@ public class Package extends BaseDomainHelper {
     public boolean equals(Object other) {
         if (other instanceof Package) {
             Package otherPack = (Package) other;
-            return new EqualsBuilder()
-                .append(this.getPackageName(), otherPack.getPackageName())
-                .append(this.getPackageArch(), otherPack.getPackageArch())
-                .append(this.getPackageEvr(), this.getPackageEvr())
-                .isEquals();
+            return new EqualsBuilder().append(this.getPackageName(),
+                    otherPack.getPackageName()).append(this.getPackageArch(),
+                    otherPack.getPackageArch()).append(this.getPackageEvr(),
+                    this.getPackageEvr()).isEquals();
         }
         else {
             return false;
         }
     }
-    
+
     /**
      * 
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(this.getPackageName())
-            .append(this.getPackageArch())
-            .append(this.getPackageEvr())
-            .toHashCode();
+        return new HashCodeBuilder().append(this.getPackageName()).append(
+                this.getPackageArch()).append(this.getPackageEvr()).toHashCode();
     }
 
-
-    
     /**
      * @return Returns the package keys.
      */
@@ -562,16 +551,12 @@ public class Package extends BaseDomainHelper {
         return packageKeys;
     }
 
-
-    
     /**
      * @param keys The keys to set.
      */
     public void setPackageKeys(Set<PackageKey> keys) {
         this.packageKeys = keys;
     }
-
-
 
     /**
      * @return Returns the publishedErrata.
@@ -580,16 +565,12 @@ public class Package extends BaseDomainHelper {
         return publishedErrata;
     }
 
-
-
     /**
      * @param publishedErrataIn The publishedErrata to set.
      */
     public void setPublishedErrata(Set<PublishedErrata> publishedErrataIn) {
         this.publishedErrata = publishedErrataIn;
     }
-
-
 
     /**
      * @return Returns the unpublishedErrata.
@@ -598,16 +579,12 @@ public class Package extends BaseDomainHelper {
         return unpublishedErrata;
     }
 
-
-
     /**
      * @param unpublishedErrataIn The unpublishedErrata to set.
      */
     public void setUnpublishedErrata(Set<UnpublishedErrata> unpublishedErrataIn) {
         this.unpublishedErrata = unpublishedErrataIn;
     }
-
-
 
     /**
      * @return Returns the channels.
@@ -616,16 +593,12 @@ public class Package extends BaseDomainHelper {
         return channels;
     }
 
-
-
     /**
      * @param channelsIn The channels to set.
      */
     public void setChannels(Set<Channel> channelsIn) {
         this.channels = channelsIn;
     }
-
-
 
     /**
      * @return Returns the packageFiles.
@@ -634,17 +607,12 @@ public class Package extends BaseDomainHelper {
         return packageFiles;
     }
 
-
-
     /**
      * @param packageFilesIn The packageFiles to set.
      */
     public void setPackageFiles(Set<PackageFile> packageFilesIn) {
         this.packageFiles = packageFilesIn;
     }
-
-
-
 
     /**
      * @return Returns the requires.
@@ -653,18 +621,12 @@ public class Package extends BaseDomainHelper {
         return requires;
     }
 
-
-
-
     /**
      * @param requiresIn The requires to set.
      */
     public void setRequires(Set<PackageRequires> requiresIn) {
         this.requires = requiresIn;
     }
-
-
-
 
     /**
      * @return Returns the obsoletes.
@@ -673,18 +635,12 @@ public class Package extends BaseDomainHelper {
         return obsoletes;
     }
 
-
-
-
     /**
      * @param obsoletesIn The obsoletes to set.
      */
     public void setObsoletes(Set<PackageObsoletes> obsoletesIn) {
         this.obsoletes = obsoletesIn;
     }
-
-
-
 
     /**
      * @return Returns the conflicts.
@@ -693,14 +649,52 @@ public class Package extends BaseDomainHelper {
         return conflicts;
     }
 
-
-
-
     /**
      * @param conflictsIn The conflicts to set.
      */
     public void setConflicts(Set<PackageConflicts> conflictsIn) {
         this.conflicts = conflictsIn;
     }
-    
+
+    /**
+     * @return Returns the headerStart.
+     */
+    public Long getHeaderStart() {
+        return headerStart;
+    }
+
+    /**
+     * @param headerStartIn The headerStart to set.
+     */
+    public void setHeaderStart(Long headerStartIn) {
+        this.headerStart = headerStartIn;
+    }
+
+    /**
+     * @return Returns the headerEnd.
+     */
+    public Long getHeaderEnd() {
+        return headerEnd;
+    }
+
+    /**
+     * @param headerEndIn The headerEnd to set.
+     */
+    public void setHeaderEnd(Long headerEndIn) {
+        this.headerEnd = headerEndIn;
+    }
+
+    /**
+     * @return Returns the pkgFile.
+     */
+    public String getFilename() {
+        String pkgFile = getFile();
+        if (pkgFile == null) {
+            pkgFile = getPackageName().getName() + "-" + getPackageEvr().getVersion() +
+                    "-" + getPackageEvr().getRelease() + "." +
+                    getPackageArch().getArchType().getLabel() + ".rpm";
+        }
+        return pkgFile;
+    }
+
 }

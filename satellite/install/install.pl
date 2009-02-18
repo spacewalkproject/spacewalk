@@ -167,21 +167,30 @@ EOQ
     exit 2;
   }
 
-  if (not $opts->{"skip-selinux-test"}
-      and selinux_enabled(%version_info)) {
-    print loc(<<EOH);
-SELinux must be in Permissive or Disabled mode for your RHN Satellite to install
-and function properly. If you wish to setup RHN Satellite to run in Enforcing
-mode see this Red Hat Knowledge Base article:
-
-http://kbase.redhat.com/faq/FAQ_49_6086.shtm
-
-for more information.  Run /usr/sbin/getenforce to your current mode.  If you
-are certain that you are not in Enforcing mode you can re-run the installer with
-the flag --skip-selinux-test
-
+  if (not $opts->{"skip-selinux-test"}) {
+    if (have_semodule()) {	# we have modular SELinux policy (RHEL 5)
+      if (getenforce() eq 'Disabled') {		# we should use it
+        print loc(<<EOH);
+SELinux should be in Permissive or Enforcing mode for your RHN Satellite
+to install and function properly.  Run /usr/sbin/getenforce to see your
+current mode.  If you are certain that you are not in Disabled mode or
+you want to install in Disabled anyway, re-run the installer with the
+flag --skip-selinux-test.  Please see the documentation for steps needed
+to enable SELinux post install.
 EOH
-    exit 3;
+        exit 3;
+      }
+    } else {		# we are on pre-modular SELinux sysatem (RHEL 4)
+      if (getenforce() eq 'Enforcing') {	# should not try run SELinux Enforcing
+        print loc(<<EOH);
+SELinux must be in Disabled or Permissive mode for your RHN Satellite to
+install and function properly.  Run /usr/sbin/getenforce to see your current
+mode.  If you are certain that you are not in Enforcing mode you can re-run
+the installer with the flag --skip-selinux-test.
+EOH
+        exit 3;
+      }
+    }
   }
 
   if (not $opts->{"skip-fqdn-test"}
@@ -227,16 +236,17 @@ sub correct_system_version {
   return 1 if grep { $version_info{version} eq $_ } qw/4AS 5Server/;
 }
 
-sub selinux_enabled {
-  my %version_info = @_;
+sub have_semodule {
+	if (system('/usr/sbin/semodule -l > /dev/null 2>&1')) {
+		return 0;
+	}
+	return 1;
+}
 
-  if ($version_info{version} eq '3AS') {
-    return 0;
-  }
-
-  my $selinux_enabled = `/usr/sbin/getenforce`;
-  chomp($selinux_enabled);
-  return ($selinux_enabled eq "Permissive" || $selinux_enabled eq "Disabled") ? 0 : 1;
+sub getenforce {
+	my $getenforce = `/usr/sbin/getenforce`;
+	chomp $getenforce;
+	return $getenforce;
 }
 
 sub hostname_is_fqdn {
@@ -992,7 +1002,7 @@ Do not test the Red Hat Enterprise Linux version before installing.
 
 =item B<--skip-selinux-test>
 
-Do not check if SELINUX is Permissive or Disabled.  RHN Satellite is not currently supported on selinux 'Enforcing' enabled systems.  See http://kbase.redhat.com/faq/FAQ_49_6086.shtm for more information.
+Do not check if SELinux is enabled. RHN Satellite is supported with Enforcing SELinux with targeted policy on RHEL 5. On RHEL 4, Enforcing is not supported.
 
 =item B<--skip-fqdn-test>
 

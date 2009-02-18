@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,12 +7,26 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
 package com.redhat.rhn.domain.channel;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Restrictions;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -23,24 +37,8 @@ import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.CriteriaSpecification;
-import org.hibernate.criterion.Restrictions;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelFactory
@@ -258,6 +256,22 @@ public class ChannelFactory extends HibernateFactory {
     }
     
     /**
+     * Returns the Channel whose label matches the given label.
+     * This was added to allow taskomatic to lookup channels by label,
+     * and should NOT be used from the webui.
+     * @param label Channel label sought.
+     * @return the Channel whose label matches the given label.
+     */
+    public static Channel lookupByLabel(String label) {
+        Session session = getSession();
+        Criteria c = session.createCriteria(Channel.class);
+        c.add(Restrictions.eq("label", label));
+        return (Channel) c.uniqueResult();
+    }
+    
+    
+    
+    /**
      * Returns true if the given channel is globally subscribable for the
      * given org.
      * @param org Org
@@ -337,6 +351,20 @@ public class ChannelFactory extends HibernateFactory {
         params.put("cid", channel.getId());
         params.put("label", label);
         m.executeUpdate(params);
+    }
+    
+    /**
+     * 
+     * @param cid Channel package is being added to
+     * @param pid Package id from rhnPackage
+     */
+    public static void addChannelPackage(Long cid, Long pid) {
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", 
+        "add_channel_package");
+        Map params = new HashMap();        
+        params.put("cid", cid);
+        params.put("pid", pid);
+        m.executeUpdate(params);        
     }
     
     /**
@@ -460,12 +488,13 @@ public class ChannelFactory extends HibernateFactory {
     
     /**
      * Get a list of base channels that have an org associated
-     * @param   org the org 
+     * @param user the logged in user 
      * @return List of Channels
      */
-    public static List<Channel> listCustomBaseChannels(Org org) {
+    public static List<Channel> listCustomBaseChannels(User user) {
         Map params = new HashMap();
-        params.put("org", org);
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
         return singleton.listObjectsByNamedQuery(
                 "Channel.findCustomBaseChannels", params);
     }
@@ -509,6 +538,21 @@ public class ChannelFactory extends HibernateFactory {
         params.put("cid", cid);
         return singleton.listObjectsByNamedQuery("Channel.getServerIds", params);
     }
+    
+    
+    /**
+     * Get package ids for a channel
+     * @param cid the channel id
+     * @return List of package ids
+     */
+    public static List getPackageIds(Long cid) {
+        if (cid == null) {
+            return Collections.EMPTY_LIST;
+        }
+        Map params = new HashMap();
+        params.put("cid", cid);
+        return singleton.listObjectsByNamedQuery("Channel.getPackageIdList", params);
+    }
        
     /**
      * Looksup the number of Packages in a channel 
@@ -535,12 +579,7 @@ public class ChannelFactory extends HibernateFactory {
             params.put("org_id", org.getId());
             List idList = singleton.listObjectsByNamedQuery(
                     "Channel.lookupOriginalPackages", params);
-            List returnList = new ArrayList();
-            for (Iterator it = idList.iterator(); it.hasNext();) {
-                returnList.add(PackageFactory.lookupByIdAndOrg(
-                        ((Long) it.next()).longValue(), org));
-            }
-            return returnList;
+            return idList;
     }
     
     /**
@@ -680,6 +719,17 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findAllBaseChannels", params);
     }
+    
+    /**
+     * List all accessible base channels for the entire satellite
+     * @return list of base channels
+     */
+    public static List<Channel> listAllBaseChannels() {
+        Map params = new HashMap();
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findAllBaseChannelsOnSatellite", params);
+    }
+    
 
     /**
      * List all child channels of the given parent regardless of the user
