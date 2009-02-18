@@ -699,7 +699,7 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/upgrade-db.sh' ]);
+                                    SHARED_DIR . '/oracle' .  '/upgrade-db.sh' ]);
 
         return 0;
     }
