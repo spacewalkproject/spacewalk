@@ -69,7 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
-%dir %attr(710,nocpulse,nocpulse) %{_sysconfdir}/%{np_name}
+%dir %attr(755,nocpulse,nocpulse) %{_sysconfdir}/%{np_name}
 %{_sysconfdir}/%{np_name}/*
 %{_initrddir}/rhnmd
 %doc LICENSE
