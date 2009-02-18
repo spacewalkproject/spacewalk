@@ -11,6 +11,7 @@ Release:	2%{?dist}
 URL:		http://heirloom.sourceforge.net/pkgtools.html
 Source0:	%{name}-%{heriloom_pkgtools_version}.tar.bz2
 Patch1:		getpass.c.patch
+Patch2:		scriptvfy.l.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -26,6 +27,7 @@ OpenSolaris.
 %prep
 %setup -q -n %{name}-%{heriloom_pkgtools_version}
 %patch1 -p1
+%patch2 -p1
 
 %build
 make -f makefile SHELL=/bin/bash CC=gcc BINDIR=%{_bindir} SBINDIR=%{_sbindir}
@@ -90,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sat Dec 27 2008 Jan Pazdziora
 - add patch getpass.c.patch, removing stropts.h #include
+- define a couple of needed things, like yytchar, in scriptvfy.l
 
 * Fri Dec 12 2008 Jan Pazdziora
 - initial rpm release
