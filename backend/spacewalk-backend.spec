@@ -23,6 +23,7 @@ Requires(pre): httpd
 # against installations on other releases using conflicts...
 Obsoletes: rhns-common < 5.3.0
 Obsoletes: rhns < 5.3.0
+Provides: rhns = %{version}-%{release}
 
 %description 
 Generic program files needed by the Spacewalk server machines.
@@ -34,6 +35,7 @@ Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
 Requires: python(:DBAPI:oracle)
 Obsoletes: rhns-sql < 5.3.0
+Provides: rhns-sql = %{version}-%{release}
 
 %description sql
 This package contains the basic code that provides SQL connectivity for the Spacewalk
@@ -45,6 +47,7 @@ Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: mod_python
 Obsoletes: rhns-server < 5.3.0
+Provides: rhns-server = %{version}-%{release}
 
 %description server
 This package contains the basic code that provides server/backend
@@ -58,6 +61,8 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xmlrpc < 5.3.0
 Obsoletes: rhns-xmlrpc < 5.3.0
+Provides: rhns-server-xmlrpc = %{version}-%{release}
+Provides: rhns-xmlrpc = %{version}-%{release}
 
 %description xmlrpc
 These are the files required for running the /XMLRPC handler, which
@@ -69,6 +74,7 @@ Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-applet < 5.3.0
+Provides: rhns-applet = %{version}-%{release}
 
 %description applet
 These are the files required for running the /APPLET handler, which
@@ -80,6 +86,8 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-app < 5.3.0
 Obsoletes: rhns-app < 5.3.0
+Provides: rhns-server-app = %{version}-%{release}
+Provides: rhns-app = %{version}-%{release}
 
 %description app
 These are the files required for running the /APP handler.
@@ -91,6 +99,8 @@ Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xp < 5.3.0
 Obsoletes: rhns-xp < 5.3.0
+Provides: rhns-server-xp = %{version}-%{release}
+Provides: rhns-xp = %{version}-%{release}
 
 %description xp
 These are the files required for running the /XP handler.
@@ -101,6 +111,7 @@ Summary: Handler for /SAT
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-sat < 5.3.0
+Provides: rhns-sat = %{version}-%{release}
 
 %description iss
 %{name} contains the basic code that provides server/backend
@@ -130,6 +141,7 @@ Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-config-files-common < 5.3.0
+Provides: rhns-config-files-common = %{version}-%{release}
 
 %description config-files-common
 Common files required by the Configuration Management project
@@ -139,6 +151,7 @@ Summary: Handler for /CONFIG-MANAGEMENT
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files < 5.3.0
+Provides: rhns-config-files = %{version}-%{release}
 
 %description config-files
 This package contains the server-side code for configuration management.
@@ -148,6 +161,7 @@ Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files-tool < 5.3.0
+Provides: rhns-config-files-tool = %{version}-%{release}
 
 %description config-files-tool
 This package contains the server-side code for configuration management tool.
@@ -157,6 +171,7 @@ Summary: Server-side listener for rhn-pkgupload
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-upload-server < 5.3.0
+Provides: rhns-upload-server = %{version}-%{release}
 
 %description upload-server
 Server-side listener for rhn-pkgupload
@@ -166,6 +181,7 @@ Summary: Listener for rhnpush (non-XMLRPC version)
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-package-push-server < 5.3.0
+Provides: rhns-package-push-server = %{version}-%{release}
 
 %description package-push-server
 Listener for rhnpush (non-XMLRPC version)
@@ -184,6 +200,7 @@ Requires: %{name}-xml-export-libs
 Requires: cobbler >= 0:1.4
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
+Provides: rhns-satellite-tools = %{version}-%{release}
 
 %description tools
 Various utilities for the Red Hat Network Satellite Server.
@@ -196,6 +213,7 @@ Requires: %{name}-server = %{version}-%{release}
 Requires: python-iconv
 %endif
 Obsoletes: rhns-xml-export-libs < 5.3.0
+Provides: rhns-xml-export-libs = %{version}-%{release}
 
 %description xml-export-libs
 Libraries required by various exporting tools
