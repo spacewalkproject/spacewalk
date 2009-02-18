@@ -207,8 +207,7 @@ def get_git_repo_url():
 def get_latest_tagged_version(package_name):
     """
     Return the latest git tag for this package in the current branch.
-    Uses the info in rel-eng/packages/package-name and error out if the
-    file does not exist.
+    Uses the info in rel-eng/packages/package-name.
 
     Returns None if file does not exist.
     """
@@ -220,6 +219,9 @@ def get_latest_tagged_version(package_name):
         return None
 
     output = run_command("awk '{ print $1 ; exit }' %s" % file_path)
+    if output == None or output.strip() == "":
+        error_out("Error looking up latest tagged version in: %s" % file_path)
+
     return output
 
 

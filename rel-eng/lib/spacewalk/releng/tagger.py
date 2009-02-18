@@ -213,7 +213,7 @@ class VersionTagger(object):
         run_command('git tag -m "%s" %s' % (tag_msg, new_tag))
 
     def _check_tag_does_not_exist(self, new_tag):
-        status = commands.getstatus('git tag | grep %s' % new_tag)
+        status = commands.getstatusoutput('git tag | grep %s' % new_tag)[0]
         if status == 0:
             raise Exception("Tag %s already exists!" % new_tag)
 
@@ -258,7 +258,8 @@ class VersionTagger(object):
 
     def _get_spec_version_and_release(self):
         """ Get the package version from the spec file. """
-        return get_spec_version_and_release(self.full_project_dir, self.spec_file_name)
+        return get_spec_version_and_release(self.full_project_dir,
+                self.spec_file_name)
 
     def _get_new_tag(self, new_version):
         """ Returns the actual tag we'll be creating. """
