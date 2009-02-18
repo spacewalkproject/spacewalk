@@ -6335,9 +6335,11 @@
                  path="/help/Search.do" redirect="true"/>
     </action>
     
-            
     <action path="/help/index"
-        forward="/WEB-INF/pages/help/helpindex.jsp"/>
+        scope="request"
+        type="com.redhat.rhn.frontend.action.help.HelpAction">
+        <forward name="default" path="/WEB-INF/pages/help/helpindex.jsp"/>
+    </action>
 
     <!-- SSM Operations Log -->
     <action path="/ssm/ViewLog"

@@ -1,9 +1,16 @@
 %{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 
+# different arches have differnet oracle versions
+%ifarch s390 s390x
+define oraclever 10.2.0.2
+%else
+define oraclever 10.2.0.4
+%endif
+
 Summary: Python interface to Oracle
 Name: cx_Oracle
-Version:        4.2.1
-Release:        5%{?dist}
+Version: 4.2.1
+Release: 5%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: cx_Oracle-instantclient.patch
 License: BSD-style
@@ -26,9 +33,9 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 %build
 #kinda ugly but we need ORACLE_HOME to be set 
 %if "%{_lib}" == "lib64"
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
+export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client64/
 %else
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
+export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client/
 %endif
 env CFLAGS="$RPM_OPT_FLAGS" FORCE_RPATH=1 %{__python} setup.py build
 
@@ -36,9 +43,9 @@ env CFLAGS="$RPM_OPT_FLAGS" FORCE_RPATH=1 %{__python} setup.py build
 rm -rf $RPM_BUILD_ROOT
 #kinda ugly but we need ORACLE_HOME to be set 
 %if "%{_lib}" == "lib64"
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
+export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client64/
 %else
-export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
+export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client/
 %endif
 %{__python} setup.py install --root=$RPM_BUILD_ROOT 
 
@@ -51,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/*
 
 %changelog
+* Wed Feb 18 2009 Dennis Gilmore <dennis@ausil.us> 
+- define oraclever since different arches have different versions of oracle
+
 * Fri Oct 24 2008 Milan Zazrivec 4.2.1-5
 - bumping release to be above the one in spacewalk 0.2
 

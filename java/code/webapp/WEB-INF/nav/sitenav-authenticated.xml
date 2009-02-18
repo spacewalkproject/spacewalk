@@ -247,25 +247,25 @@
   </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
-    <rhn-tab name="Reference Guide" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Reference Guide" url="/rhn/help/dispatcher/reference_guide">
       <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Installation Guide" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Installation Guide" url="/rhn/help/dispatcher/install_guide">
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Proxy Guide" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Proxy Guide" url="/rhn/help/dispatcher/proxy_guide">
       <rhn-tab-directory>/rhn/help/proxy</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Client Configuration" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Client Configuration" url="/rhn/help/dispatcher/client_config_guide">
       <rhn-tab-directory>/rhn/help/client-config</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Channel Management" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Channel Management" url="/rhn/help/dispatcher/channel_mgmt_guide">
       <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Proxy Release Notes" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Proxy Release Notes" url="/rhn/help/dispatcher/proxy_release_notes">
       <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Release Notes" url="https://www.redhat.com/docs/manuals/satellite">
+    <rhn-tab name="Release Notes" url="/rhn/help/dispatcher/release_notes">
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Unix Release Notes" url="/help/release-notes/unix/index.pxt" acl="org_entitlement(rhn_nonlinux)">
