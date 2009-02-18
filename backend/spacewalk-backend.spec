@@ -540,6 +540,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Feb 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.7-1
+- Resolves: bz#446289 - create the private channel family at 
+  org creation time
+
 * Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.7-1
 - yum repodata regen support through taskomatic
 
