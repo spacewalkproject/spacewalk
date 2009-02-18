@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.8
+Version: 0.5.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -558,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.9-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
+
 * Wed Feb 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.8-1
 - Resolves: bz#446289 - create the private channel family at 
   org creation time
