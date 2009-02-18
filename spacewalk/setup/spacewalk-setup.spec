@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.12
+Version:        0.5.13
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -51,7 +51,10 @@ chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.clear %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.1 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.2 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/sudoers.3 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
@@ -81,6 +84,23 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Feb 17 2009 Jan Pazdziora 0.5.13-1
+- 472914 - restructure the setup_sudoers function,
+  split sudoers.rhn to three definition files, add sudoers.clear,
+  merge INSTALL_RHN and CONFIG_RHN in sudoers; the INSTALL_RHN section
+  is no longer needed
+- 484718 - remove /usr/sbin/rhnreg_ks from sudoers
+- 484717 - remove /usr/bin/rhn-ssl-dbstore from sudoers
+- 484709 - remove /usr/bin/satellite-sync from sudoers
+- 484705 - remove /usr/bin/satcon-deploy-tree.pl from sudoers
+- 484703 - remove /usr/bin/satcon-build-dictionary.pl from sudoers
+- 484702 - remove /usr/bin/rhn-generate-pem.pl from sudoers
+- 484701 - remove /usr/bin/rhn-deploy-ca-cert.pl from sudoers
+- 484685 - remove /usr/bin/rhn-install-ssl-cert.pl from sudoers
+- 484681 - remove /usr/bin/rhn-config-schema.pl from sudoers
+- 484699 - remove /usr/bin/rhn-populate-database.pl from sudoers
+- 484680 - remove /usr/bin/rhn-config-tnsnames.pl from sudoers
+
 * Mon Feb 16 2009 Dave Parker <dparker@redhat.com> 0.5.12-1
 -  Bug 483102 - Need answer file setting for installer question "Should setup configure apache's default ssl server for you"
 

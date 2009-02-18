@@ -34,25 +34,6 @@
 	</grail-canvas>
 </rhn-browser-css-compliance>
 
-<rhn-require acl="user_authenticated(); not global_config(satellite); user_role(org_admin)">
-	<grail-canvas mode="buy_now">
-          <div class="buy-now">
-            <a href="/rhn/account/SubscriptionManagement.do"><img src="/img/buy_now_rhn.png" alt="Buy Now: add systems, renew service, manage and provision"/></a>
-          </div>
-          <div class="buy-now">
-            <a href="/rhn/software/downloads/SupportedISOs.do"><img src="/img/software_downloads_rhn.gif" alt="Software dowloads"/></a>
-          </div>
-	</grail-canvas>
-</rhn-require>
-
-<rhn-require acl="not user_authenticated(); not global_config(satellite)">
-	<grail-canvas mode="buy_now">
-          <div class="buy-now">
-            <a href="/rhn/account/SubscriptionManagement.do"><img src="/img/buy_now_rhn.png" alt="Buy Now: add systems, renew service, manage and provision" /></a>
-          </div>
-	</grail-canvas>
-</rhn-require>
-
 	</td>
         <td class="page-content" width="100%">
 <pxt-include-late file="/network/components/message_queues/site.pxi" />

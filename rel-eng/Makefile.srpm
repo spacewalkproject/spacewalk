@@ -145,7 +145,7 @@ setup-source-dir-2 :
 
 rpmbuild_x-build-srpm_params = --nodeps -bs
 rpmbuild_x-build-rpm_params = --nodeps --clean -ba
-x-build-srpm x-build-rpm : x-setup-specfile x-pull-in-tar-gz
+x-build-srpm x-build-rpm : x-setup-specfile x-pull-in-tar-gz x-download-source0
 	@mkdir -p $(X_RPMBUILD_DIR)/BUILD
 	$(RPMBUILD) $(X_RPMBUILD_DIR_OPTS) $(DIST_OPTS) $(rpmbuild_$@_params) $(SPECFILE)
 	@rm -rf $(X_RPMBUILD_DIR)/BUILD
@@ -176,6 +176,12 @@ x-pull-in-tar-gz :
 		done ; \
 		fi
 
+x-download-source0 :
+	if test -n "$(DOWNLOAD_SOURCES)" ; then \
+		for i in $(DOWNLOAD_SOURCES) ; do \
+			wget $$i ; \
+		done ; \
+		fi
 
 upload-tgz : tgz
 	@scp $(RPMBUILD_DIR)$(NAME_TAR_GZ) fedorahosted.org:spacewalk

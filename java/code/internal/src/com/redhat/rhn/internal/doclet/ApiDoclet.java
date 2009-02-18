@@ -147,7 +147,10 @@ public class ApiDoclet {
         }
         else if (docType.equals("list")) {
             writer = new ListWriter();
-        }        
+        }
+        else if (docType.equals("singlepage")) {
+            writer = new SinglePageWriter();
+        }                
         else {
             writer = new JSPWriter();
         }

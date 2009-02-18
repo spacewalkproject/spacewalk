@@ -1,4 +1,3 @@
-%define npbin        /opt/home/nocpulse/bin
 Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
 URL:          https://fedorahosted.org/spacewalk
@@ -65,8 +64,10 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(-,root,root,-)
 %{_bindir}/rhn-runprobe
+%dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
 * Tue Jan 13 2009 Milan Zazrivec 1.183.6-1

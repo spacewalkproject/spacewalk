@@ -48,7 +48,7 @@
   <column name="Difference" label="comparison"/>
   <empty_list_message>No Differences.</empty_list_message>
 
-  <action name="Merge Differences" url="/network/software/channels/manage/packages/compare/sync_prompt.pxt" acl="global_config(satellite)"/>
+  <action name="Merge Differences" url="/network/software/channels/manage/packages/compare/sync_prompt.pxt" />
 </rhn-listview>
 </viewed_channel_name>
 

@@ -14,11 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
@@ -71,26 +69,9 @@ public class ChangeEmailSetupAction extends RhnAction {
         /*
          * ** Logic from Sniglests/Users.pm - rhn_email_change_form **
          * If this is a satellite, we don't care about whether or not this addr is verified.
-         * Else, if the address is verified, display the change/update text,
-         * Otherwise, display the terms link and give the user an option to re-send
-         * verification
          */
-        if (Config.get().getBoolean("web.satellite")) {
-            pageInstructions = ls.getMessage("yourchangeemail.instructions");
-            buttonLabel = ls.getMessage("message.Update");
-        }
-        else if (email != null && !email.equals("")) {
-            pageInstructions = ls.getMessage("yourchangeemail.verified");
-            buttonLabel = ls.getMessage("message.Update");
-        }
-        else {
-            HtmlTag link = new HtmlTag("a");
-            link.setAttribute("href", "/rhn/tnc/TnCDisplay.do");
-            link.addBody(ls.getMessage("yourchangeemail.TermsAndConditions"));
-
-            pageInstructions = ls.getMessage("yourchangeemail.unverified", link.render());
-            buttonLabel = ls.getMessage("addresses.SendVerification");
-        }
+        pageInstructions = ls.getMessage("yourchangeemail.instructions");
+        buttonLabel = ls.getMessage("message.Update");
 
         //Set request and form vars for page
         request.setAttribute("pageinstructions", pageInstructions);

@@ -191,6 +191,7 @@ rhnRegTokenConfigChannels:: rhnRegToken rhnConfigChannel
 rhnRegTokenEntitlement :: rhnRegToken rhnServerGroupType
 rhnRegTokenGroups	:: rhnRegToken rhnServerGroup
 rhnRegTokenPackages	:: rhnRegToken rhnPackageName
+rhnRepoRegenQueue	:: rhnSatelliteCert rhnSatelliteChannelFamily rhnSatelliteInfo
 rhnRevision		:: rhnConfigFile rhnConfigContent rhnConfigInfo
 
 rhnSatelliteInfo	:: rhnServer

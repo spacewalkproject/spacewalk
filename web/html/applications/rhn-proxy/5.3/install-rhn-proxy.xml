@@ -98,7 +98,7 @@
         <package>rhns-proxy-common</package>
         <package>rhns-proxy-broker</package>
         <package>rhns-proxy-docs</package>
-        <package>rhns-proxy-management</package>
+        <package>spacewalk-proxy-management</package>
         <package>rhns-proxy-monitoring</package>
         <package>rhns-proxy-package-manager</package>
         <package>rhns-proxy-redirect</package>
@@ -219,7 +219,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="rhns-proxy-broker" default="${session.have_package_rhns_proxy_broker}" acl="session_data_true(have_package_rhns_proxy_broker)" />
                 <widget type="literal" label="rhns-proxy-common" default="${session.have_package_rhns_proxy_common}" acl="session_data_true(have_package_rhns_proxy_common)" />
 		<widget type="literal" label="rhns-proxy-docs" default="${session.have_package_rhns_proxy_docs}" acl="session_data_true(have_package_rhns_proxy_docs)" />
-                <widget type="literal" label="rhns-proxy-management" default="${session.have_package_rhns_proxy_management}" acl="session_data_true(have_package_rhns_proxy_management)" />
+                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_spacewalk_proxy_management}" acl="session_data_true(have_package_spacewalk_proxy_management)" />
                 <widget type="literal" label="rhns-proxy-monitoring" default="${session.have_package_rhns_proxy_monitoring}" acl="session_data_true(have_package_rhns_proxy_monitoring)" />
                 <widget type="literal" label="rhns-proxy-package-manager" default="${session.have_package_rhns_proxy_package_manager}" acl="session_data_true(have_package_rhns_proxy_package_manager)" />
                 <widget type="literal" label="rhns-proxy-redirect" default="${session.have_package_rhns_proxy_redirect}" acl="session_data_true(have_package_rhns_proxy_redirect)" />
@@ -547,13 +547,13 @@ rpm -q $package >/dev/null &amp;&amp; echo $package; done`
       </run-script>
 
       <install-packages acl="not session_data_true(have_package_any_of_proxy)">
-        <rpm>rhns-proxy-management</rpm>
+        <rpm>spacewalk-proxy-management</rpm>
         <rpm acl="session_data_true(enable_monitoring)">rhns-proxy-monitoring</rpm>
       </install-packages>
 
       <install-packages acl="session_data_true(have_package_any_of_proxy)">
 	<force>1</force>
-        <rpm>rhns-proxy-management</rpm>
+        <rpm>spacewalk-proxy-management</rpm>
         <rpm acl="session_data_true(enable_monitoring)">rhns-proxy-monitoring</rpm>
       </install-packages>
 
@@ -808,7 +808,7 @@ proxy will need to be reconfigured to use a different Satellite server.
         <action-name>Remove proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd libapreq2 MessageQueue mm mod_perl NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-libapreq2 perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-base-minimal rhn-ssl-cert-check rhns rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-common rhns-proxy-docs rhns-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl httpd mod_python mod_ssl mod_ssl httpd-suexec; do
+rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd libapreq2 MessageQueue mm mod_perl NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-libapreq2 perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-base-minimal rhn-ssl-cert-check rhns rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-common rhns-proxy-docs spacewalk-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl httpd mod_python mod_ssl mod_ssl httpd-suexec; do
 rpm -q $package >/dev/null &amp;&amp; echo $package; done`
         </script>
       </run-script>

@@ -7,12 +7,7 @@
     <a href="https://www.redhat.com/legal/privacy_statement.html"><bean:message key="footer.jsp.privacyStatement"/></a> 
     : <a href="http://www.redhat.com/legal/legal_statement.html"><bean:message key="footer.jsp.legalStatement"/></a> 
     : <a href="http://www.redhat.com/">redhat.com</a>
-    <rhn:require acl="not is(satellite)">
-      <div style="color: black"><bean:message key="footer.jsp.release" arg0="/rhn/help/release-notes/hosted/index.jsp" arg1="${rhn:getConfig('web.version')}" /></div>
-    </rhn:require>
-    <rhn:require acl="is(satellite)">
       <div style="color: black"><bean:message key="footer.jsp.release" arg0="/rhn/help/release-notes/satellite/index.jsp" arg1="${rhn:getConfig('web.version')}" /></div>
-    </rhn:require>
     <p><%@ include file="/WEB-INF/pages/common/fragments/bugzilla.jspf" %></p>
     
     

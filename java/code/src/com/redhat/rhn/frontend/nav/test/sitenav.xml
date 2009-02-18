@@ -31,10 +31,6 @@
 		</rhn-tab>
 		<rhn-tab name="Help" url="/rhn/help/index.do">
 			<rhn-tab name="Reference Guide" url="/help/basic/" />
-			<rhn-tab name="Contact Spacewalk" url="/help/contact.pxt" 
-				acl="not is(satellite)" />
-			<rhn-tab name="Terms &amp; Conditions" url="/rhn/tnc/TnCDisplay.do" 
-				acl="not is(satellite)" />
 			<rhn-tab name="Release Notes" url="/help/release-notes/index.pxt">
 				<rhn-tab name="3.3.0" 
 					url="/help/release-notes/rhn-release-notes-3.3.0.html"/>
@@ -59,7 +55,7 @@
 			</rhn-tab>
 			<rhn-tab name="Spacewalk Release Notes" 
 				url="/help/sat-release-notes/index.pxt" 
-				acl="is(satellite)" >
+				>
 				<rhn-tab name="3.2.0" 
 					url="/help/sat-release-notes/sat-release-notes-3.2.0.html"/>
 				<rhn-tab name="3.0.0" 
@@ -69,17 +65,9 @@
 				<rhn-tab name="2.0.0" 
 					url="/help/sat-release-notes/sat-release-notes-2.0.0.html"/>
 			</rhn-tab>
-			<rhn-tab name="Get Spacewalk Software" url="/help/latest-up2date.pxt" 
-				acl="not is(satellite)">
-				<rhn-tab-url>/help/ssl_cert.pxt</rhn-tab-url>
-			</rhn-tab>
 			<rhn-tab name="API" url="/rpc/api/" 
 				acl="is(development_environment)">
 				<rhn-tab-directory>/rpc/api</rhn-tab-directory>
-			</rhn-tab>
-			<rhn-tab name="Mixin Test" url="/help/latest-up2date.pxt" 
-				acl="mixin_test()">
-				<rhn-tab-url>/help/ssl_cert.pxt</rhn-tab-url>
 			</rhn-tab>
             <rhn-tab name="By Directory" url="/rhn/by/directory/index.jsp">
 				<rhn-tab-directory>/rhn/by/directory</rhn-tab-directory>

@@ -1,0 +1,5 @@
+^([ \t]*#.*\n)*[ \t]*(Defaults[ \t]*:[ \t]*(apache|tomcat)\b.+![ \t]*requiretty[ \t]*\n)+
+# These two directives allow tomcat and apache to invoke CONFIG_RHN
+# commands via sudo even without a real tty
+Defaults:tomcat !requiretty
+Defaults:apache !requiretty

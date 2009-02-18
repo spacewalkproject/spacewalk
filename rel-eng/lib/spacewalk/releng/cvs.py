@@ -16,11 +16,13 @@
 """ Module for building packages in brew/koji from cvs. """
 
 import os
+import sys
+import string
 import commands
 
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
 from spacewalk.releng.common import run_command, error_out, debug, \
-        find_spec_file
+        find_spec_file, check_tag_exists
 
 DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
 
@@ -37,6 +39,7 @@ class CvsReleaser(object):
         self.global_config = global_config
         self.builder = builder
         self.package_name = builder.project_name
+        self.package_version = builder.build_version
 
         if not self.global_config.has_section("cvs"):
             error_out("No 'cvs' section found in global.build.py.props")
@@ -57,17 +60,21 @@ class CvsReleaser(object):
         self.cvs_workdir = DEFAULT_CVS_BUILD_DIR
         debug("cvs_workdir = %s" % self.cvs_workdir)
         self.cvs_branches = global_config.get("cvs", "branches").split(" ")
+        self.cvs_package_workdir = os.path.join(self.cvs_workdir,
+                self.package_name)
 
-        # TODO: Looking for spec file in current dir only. This will need
-        # to change if we decide to support cvs releases using an arbitrary
-        # --tag parameter.
-        self.spec_file_name = find_spec_file(in_dir=os.getcwd())
-        self.spec_file = os.path.join(os.getcwd(), self.spec_file_name)
+        self.sources = []
 
-    def run(self):
+        self.cleanup = True
+
+    def run(self, options):
         """
         Actually build the package in CVS and submit to build system.
         """
+        self.cleanup = not options.no_cleanup
+
+        check_tag_exists(self.builder.build_tag, offline=options.offline)
+
         print("Building release from CVS...")
         commands.getoutput("mkdir -p %s" % self.cvs_workdir)
         debug("cvs_branches = %s" % self.cvs_branches)
@@ -78,14 +85,39 @@ class CvsReleaser(object):
         run_command("cvs -d %s co %s" % (self.cvs_root, self.package_name))
 
         self._verify_branches_exist()
-        self._upload_sources()
-        self._sync_spec()
 
+        # Create the tarball using our builder class:
+        tarball_file = self.builder.tgz()
+        # NOTE: assuming just one source for now
+        self.sources.append(tarball_file)
+
+        self._sync_spec()
+        self._sync_patches()
+
+        # Important step here, ends up populating several important members
+        # on the builder object so some of the below lines will not work
+        # if moved above this one.
+        self._upload_sources()
+
+        self._user_confirm_commit()
+
+        self._make_cvs_tag()
+        self._make_cvs_build()
+
+        self._finish()
+
+    def _finish(self):
+        """ Cleanup if necessary and exit. """
+        debug("Exiting.")
         # TODO: cleanup
+        if self.cleanup:
+            debug("Cleaning up [%s]" % self.cvs_package_workdir)
+            run_command("rm -rf %s" % self.cvs_package_workdir)
+        sys.exit(1)
 
     def _verify_branches_exist(self):
         """ Check that CVS checkout contains the branches we expect. """
-        os.chdir(os.path.join(self.cvs_workdir, self.package_name))
+        os.chdir(self.cvs_package_workdir)
         for branch in self.cvs_branches:
             if not os.path.exists(os.path.join(self.cvs_workdir,
                 self.package_name, branch)):
@@ -97,21 +129,13 @@ class CvsReleaser(object):
         Upload any tarballs to the CVS lookaside directory. (if necessary)
         Uses the "make new-sources" target in common.
         """
-        # Create the tarball using our builder class:
-        tarball_file = self.builder.tgz()
-        tarball_filename = os.path.basename(tarball_file)
-
-        # TODO: Check if source already exists in sources file.
-
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command('make new-sources FILES="%s"' % tarball_file)
+            output = run_command('make new-sources FILES="%s"' %
+                    string.join(self.sources, " "))
             debug(output)
-            #self._remove_old_sources(os.path.join(branch_dir, "sources"),
-            #        tarball_filename)
-            #self._remove_old_cvsignores()
 
     def _sync_spec(self):
         """
@@ -124,7 +148,66 @@ class CvsReleaser(object):
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            debug("Copying spec file: %s" % self.spec_file_name)
+            debug("Copying spec file: %s" % self.builder.spec_file)
             debug("  To: %s" % branch_dir)
-            run_command("cp %s %s" % (self.spec_file, branch_dir))
+            run_command("cp %s %s" % (self.builder.spec_file, branch_dir))
+
+    def _sync_patches(self):
+        """
+        Copy any patches referenced in the spec file to the CVS branches and
+        cvs add them.
+        """
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            output = run_command("cat %s | grep ^Patch" %
+                    self.builder.spec_file)
+            for patch_line in output.split("\n"):
+                patch_filename = patch_line.strip().split(" ")[1]
+                debug("Copying patch to CVS: %s" % patch_filename)
+                full_path = os.path.join(self.builder.rpmbuild_sourcedir,
+                        patch_filename)
+                run_command("cp %s %s" % (full_path, branch_dir))
+                run_command("cvs add %s" %  patch_filename)
+
+    def _user_confirm_commit(self):
+        """ Prompt user if they wish to proceed with commit. """
+        print("")
+        print("Preparing to commit [%s]" % self.cvs_package_workdir)
+        print("Switch terminals and run cvs diff in this directory to " +
+                "examine the changes.")
+        answer = raw_input("Do you wish to proceed with commit? [y/n] ")
+        if answer.lower() not in ['y', 'yes', 'ok', 'sure']:
+            print("Fine, you're on your own!")
+            self._finish()
+        else:
+            print("Proceeding with commit.")
+            os.chdir(self.cvs_package_workdir)
+            cmd = 'cvs commit -m "Update %s to %s"' % \
+                    (self.package_name, self.package_version)
+            debug("CVS commit command: %s" % cmd)
+            #output = run_command(cmd)
+
+    def _make_cvs_tag(self):
+        """ Create a CVS tag based on what we just committed. """
+        os.chdir(self.cvs_package_workdir)
+        print("Creating CVS tags...")
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            #output = run_command("make tag")
+            #debug(output)
+
+    def _make_cvs_build(self):
+        """ Build srpm and submit to build system. """
+        os.chdir(self.cvs_package_workdir)
+        print("Submitting CVS builds...")
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.package_name,
+                    branch)
+            os.chdir(branch_dir)
+            #output = run_command("make tag")
+            #debug(output)
 

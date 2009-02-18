@@ -61,3 +61,9 @@ we are not the upstream, specify
 
 in the Makefile. In that case, you need to have that upstream's .tar.gz in
 the repository already.
+
+If you want some sources to be downloaded from external URIs, specify
+
+	DOWNLOAD_SOURCES = http://www.example.com/path/source-1.2.3.tar.gz
+
+in the Makefile, and the URL will be fetched via wget upon make (test-)srpm.

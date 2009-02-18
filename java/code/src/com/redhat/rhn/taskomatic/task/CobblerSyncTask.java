@@ -43,6 +43,7 @@ import redstone.xmlrpc.XmlRpcFault;
 public class CobblerSyncTask extends SingleThreadedTestableTask {
     
     private static final AtomicLong LAST_UPDATED = new AtomicLong();
+    private long WARN_COUNT;
     
     /**
      * Used to log stats in the RHNDAEMONSTATE table
@@ -55,7 +56,7 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
      * Default constructor
      */
     public CobblerSyncTask() {
-       
+        WARN_COUNT = 0;
     }
  
     /**
@@ -79,8 +80,9 @@ public class CobblerSyncTask extends SingleThreadedTestableTask {
         
         CobblerDistroSyncCommand distSync = new CobblerDistroSyncCommand();
         ValidatorError ve = distSync.syncNullDistros();
-        if (ve != null) {
+        if (ve != null && WARN_COUNT < 1) {
             TaskHelper.sendErrorEmail(log, ve.getMessage());
+            WARN_COUNT++;
         }
         
         

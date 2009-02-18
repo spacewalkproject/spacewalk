@@ -1005,8 +1005,6 @@
             input="/WEB-INF/pages/common/relogin.jsp"
             type="com.redhat.rhn.frontend.action.LoginSetupAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
-                        value="is(satellite) or not is(sso_auth)"/>
           <forward name="default" path="/WEB-INF/pages/common/relogin.jsp" />
           <forward name="needuser" path="/newlogin/CreateFirstUser.do" redirect="true"/>
           <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
@@ -1027,8 +1025,6 @@
             input="/WEB-INF/pages/common/login.jsp"
             type="com.redhat.rhn.frontend.action.LoginSetupAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
-                        value="is(satellite) or not is(sso_auth)"/>
           <forward name="default" path="/WEB-INF/pages/common/login.jsp" />
           <forward name="needuser" path="/newlogin/CreateFirstUser.do" redirect="true"/>
           <forward name="loggedin" path="/YourRhn.do" redirect="true"/>
@@ -1069,7 +1065,7 @@
         type="com.redhat.rhn.frontend.action.user.CreateUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls"
-                    value="is(satellite); need_first_user()"/>
+                    value="need_first_user()"/>
       <forward name="default" path="/WEB-INF/pages/user/create/createsatellite.jsp" />
     </action>
 
@@ -1159,14 +1155,6 @@
       <forward name="success" path="/account/UserDetails.do" 
                redirect="true" />
       <forward name="failure" path="/account/UserDetails.do" />
-    </action>
- 
-<!-- =============================================== Sales Pages --> 
-    <action path="/account/SubscriptionManagement"
-        forward="/WEB-INF/pages/sales/subscription_management.jsp"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
-               value="not is(satellite); user_role(org_admin)"/>
     </action>
  
 <!-- ===============================================  User Preferences -->
@@ -1475,7 +1463,7 @@
         type="com.redhat.rhn.frontend.action.user.DeleteUserSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <set-property property="acls" 
-                    value="is(satellite); org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <forward name="default" path="/WEB-INF/pages/admin/users/deleteuser.jsp"/>
     </action>
     
@@ -1485,7 +1473,7 @@
          type="com.redhat.rhn.frontend.action.user.DeleteUserAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
        <set-property property="acls" 
-                    value="is(satellite); org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
+                    value="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
        <forward name="success" path="/users/ActiveList.do" redirect="true"/>
        <forward name="failure" path="/users/UserDetails.do" redirect="false"/>
      </action>
@@ -1882,7 +1870,7 @@
         input="/WEB-INF/pages/errata/cloneerrata.jsp"
         type="com.redhat.rhn.frontend.action.errata.CloneErrataSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/errata/cloneerrata.jsp" />
         <forward name="error"
@@ -1896,7 +1884,7 @@
         parameter="dispatch"
         type="com.redhat.rhn.frontend.action.errata.CloneErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
                  path="/errata/manage/CloneErrata.do" redirect="true"/>
         <forward name="error"
@@ -1910,7 +1898,7 @@
             input="/WEB-INF/pages/admin/errata/cloneconfirm.jsp"
             type="com.redhat.rhn.frontend.action.errata.CloneConfirmSetupAction"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-            <set-property property="acls" value="user_role(channel_admin); is(satellite)"/>
+            <set-property property="acls" value="user_role(channel_admin)"/>
             <forward name="default"
                      path="/WEB-INF/pages/admin/errata/cloneconfirm.jsp"/>
     </action>
@@ -1920,7 +1908,7 @@
          input="/WEB-INF/pages/admin/errata/cloneconfirm.jsp"
          type="com.redhat.rhn.frontend.action.errata.CloneConfirmAction"
          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" value="user_role(channel_admin); is(satellite)"/>
+         <set-property property="acls" value="user_role(channel_admin)"/>
          <forward name="default"
                   path="/errata/manage/UnpublishedErrata.do" redirect="true"/>
      </action>
@@ -3406,7 +3394,7 @@
         input="/WEB-INF/pages/admin/config/monitoring.jsp"
         type="com.redhat.rhn.frontend.action.satellite.MonitoringConfigAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <set-property property="mixins" value="com.redhat.rhn.common.security.acl.MonitoringAclHandler" />
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/monitoring.jsp"/>
@@ -4216,7 +4204,7 @@
         input="/WEB-INF/pages/admin/config/general.jsp"
         type="com.redhat.rhn.frontend.action.satellite.GeneralConfigAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/general.jsp"/>
         <forward name="failure"
@@ -4230,7 +4218,7 @@
         input="/WEB-INF/pages/admin/config/certificate.jsp"
         type="com.redhat.rhn.frontend.action.satellite.CertificateConfigAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/certificate.jsp"/>
     </action>
@@ -4241,7 +4229,7 @@
         input="/WEB-INF/pages/admin/config/bootstrap.jsp"
         type="com.redhat.rhn.frontend.action.satellite.BootstrapConfigAction"        
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/bootstrap.jsp"/>
     </action>
@@ -4252,7 +4240,7 @@
         input="/WEB-INF/pages/admin/config/restart.jsp"
         type="com.redhat.rhn.frontend.action.satellite.RestartAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(satellite_admin); is(satellite)"/>
+        <set-property property="acls" value="user_role(satellite_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/config/restart.jsp"/>
     </action>
@@ -5467,16 +5455,6 @@
                  path="/WEB-INF/pages/configuration/overview/managedsystems.jsp"/>
     </action>
     
-    <action path="/configuration/Quota"
-        scope="request"
-        input="/WEB-INF/pages/configuration/overview/quota.jsp"
-        type="com.redhat.rhn.frontend.action.configuration.overview.QuotaAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(rhn_provisioning);user_role(org_admin);not is(satellite);"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/configuration/overview/quota.jsp"/>
-    </action>
-    
     <action path="/configuration/system/TargetSystems"
         scope="request"
         name="targetSystemsForm"
@@ -6102,33 +6080,6 @@
 	<!-- ===== END CONFIGURATION ===== -->
 	
 	<!-- ===== START ISO DOWNLOAD ===== -->
-	<action path="/software/downloads/AllISOs"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isotree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-		name="submittedForm"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isotree.jsp"/>
-    </action>
-	<action path="/software/downloads/SupportedISOs"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isotree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-		name="submittedForm"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isotree.jsp"/>
-    </action>
-	<action path="/software/downloads/RetiredISOs"
-        scope="request"
-        input="/WEB-INF/pages/software/downloads/isotree.jsp"
-        type="com.redhat.rhn.frontend.action.channel.ISOTreeAction"
-		name="submittedForm"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
-		parameter="dispatch">
-        <forward name="default" path="/WEB-INF/pages/software/downloads/isotree.jsp"/>
-    </action>
 	<action path="/software/downloads/Help"
         scope="request"
         input="/WEB-INF/pages/software/downloads/isohelp.jsp"

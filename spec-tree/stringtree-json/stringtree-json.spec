@@ -7,7 +7,7 @@ License: LGPL
 Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
 Source0: %{base_package}-%{version}-src.zip
-Patch0: %{base_package}-%{version}-build-xml.patch
+Patch0: stringtree-2.0.9-build-xml.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: jpackage-utils >= 0:1.5
 BuildRequires: ant

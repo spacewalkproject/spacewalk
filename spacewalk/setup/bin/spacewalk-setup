@@ -221,44 +221,68 @@ sub setup_admin_email {
 
 
 sub setup_sudoers {
-  my $opts = shift;
-  my $answers = shift;
+	my $opts = shift;
+	my $answers = shift;
 
-  #If sudoers isn't there, put it there.
-  if (not -e '/etc/sudoers') {
-    Spacewalk::Setup::system_debug('cp ' . Spacewalk::Setup::SHARED_DIR .
-        '/sudoers.base /etc/sudoers');
-    chmod(0440, '/etc/sudoers');
-  }
+	my ($sudoers_content_orig, $sudoers_content);
+	my $sudoers_path = '/etc/sudoers';
 
-  my $ret = Spacewalk::Setup::system_debug('grep INSTALL_RHN /etc/sudoers');
+	local *FILE;
+	if (-e $sudoers_path) {
+		# If /etc/sudoers exists, let's modify that
+		open FILE, $sudoers_path or die "Error reading [$sudoers_path]: $!\n";
+	} else {
+		# otherwise start with our own file
+		my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/sudoers.base';
+		open FILE, $init_sudoers_path
+			or die "Error reading [$init_sudoers_path]: $!\n";
+		$sudoers_content_orig = '';
+	}
+	{
+	local $/ = undef;
+	$sudoers_content = <FILE>;
+	$sudoers_content_orig = $sudoers_content if not defined $sudoers_content_orig;
+	}
+	close FILE;
 
-  if ($ret) {
-    system('cat ' . Spacewalk::Setup::SHARED_DIR .
-        '/sudoers.rhn >> /etc/sudoers');
-  }
+	# The sudoers.clear file has regular expressions for clearing
+	# old configuration
+	if (open FILE, Spacewalk::Setup::SHARED_DIR . '/sudoers.clear') {
+		while (defined(my $regexp = <FILE>)) {
+			chomp $regexp;
+			$sudoers_content =~ s!$regexp!!igm;
+		}
+		close FILE;
+	}
 
-  # sudo: do not require a real tty for tomcat and apache
-  $ret = Spacewalk::Setup::system_debug('grep -Eq ^Defaults:tomcat[[:space:]\\t]+\\!requiretty /etc/sudoers');
-  if ($ret) {
-    system("echo 'Defaults:tomcat !requiretty' >> /etc/sudoers");
-  }
+	# The sudoers.1, ... files have parts of configuration that we
+	# need to add to sudoers. The first line of each file helps us
+	# detect that the part is already present, and potentially
+	# modify it to the latest versions we need.
+	for my $file (glob Spacewalk::Setup::SHARED_DIR . '/sudoers.[0-9]') {
+		open FILE, $file or die "Error reading [$file]: $!\n";
+		my $regexp = <FILE>;
+		chomp $regexp;
 
-  $ret = Spacewalk::Setup::system_debug('grep -Eq ^Defaults:apache[[:space:]\\t]+\\!requiretty /etc/sudoers');
-  if ($ret) {
-    system("echo 'Defaults:apache !requiretty' >> /etc/sudoers");
-  }
+		my $content;
+		{
+		local $/ = undef;
+		$content = <FILE>;
+		}
+		close FILE;
 
-  #BZ 230780
-  #This is temporary workaround for user who have only partial
-  #content of sudoers.rhn
-  $ret = Spacewalk::Setup::system_debug("grep 'tomcat.*CONFIG_RHN' /etc/sudoers");
-  if ($ret) {
-    system(" echo 'tomcat  ALL=(root)      NOPASSWD: CONFIG_RHN' >>/etc/sudoers");
-    system(" echo 'tomcat  ALL=(root)      NOPASSWD: CONFIG_RHN' >>/etc/sudoers");
-  }
+		$sudoers_content =~ s!$regexp!$content!igm
+			or $sudoers_content .= "\n" . $content;
+	}
 
-  return;
+	if ($sudoers_content ne $sudoers_content_orig) {
+		open FILE, "> $sudoers_path" or die "Error writing [$sudoers_path]: $!\n";
+		chmod 0440, $sudoers_path;
+		print FILE $sudoers_content;
+		close FILE;
+	}
+
+	return;
 }
 
 sub passwords_match {

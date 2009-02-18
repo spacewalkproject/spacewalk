@@ -14,18 +14,9 @@
   upload a file that is larger than the maximum allowed size.
 </p>
 
-<rhn-require acl="not global_config(satellite)">
-  <p>
-    If you feel that you've reached this page in error, please 
-    <a href="/help/contact.pxt">contact us</a>.
-  </p>
-</rhn-require>
-
-<rhn-require acl="global_config(satellite)">
   <p>
     Please report this error to your local administrator.
   </p>
-</rhn-require>
 
   </grail-canvas-template>
 </pxt-passthrough>
