@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.13
+Version:        0.5.14
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.14-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
+
 * Tue Feb 17 2009 Jan Pazdziora 0.5.13-1
 - 472914 - restructure the setup_sudoers function,
   split sudoers.rhn to three definition files, add sudoers.clear,
