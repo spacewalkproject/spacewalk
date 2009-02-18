@@ -72,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %attr(710,nocpulse,nocpulse) %{_sysconfdir}/%{np_name}
 %{_sysconfdir}/%{np_name}/*
 %{_initrddir}/rhnmd
+%doc LICENSE
 
 %preun
 if [ $1 = 0 ]; then
