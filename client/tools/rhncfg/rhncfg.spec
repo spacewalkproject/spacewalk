@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 18 2009 Pradeep Kilambi <pkilambi@redhat.com> - 
+- Applying patch for exclude files for rhncfg get call
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.2-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 
