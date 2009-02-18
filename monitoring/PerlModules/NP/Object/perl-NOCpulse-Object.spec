@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Object
-Version:      1.26.9
+Version:      1.26.10
 Release:      1%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
 URL:          https://fedorahosted.org/spacewalk
@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Wed Feb 18 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Feb 18 2009 Miroslav Suchý <msuchy@redhat.com> 1.26.10-1
 - 485893 - add GPL headers to modules
 
 * Tue Feb 17 2009 Miroslav Suchý <msuchy@redhat.com> 1.26.9-1
