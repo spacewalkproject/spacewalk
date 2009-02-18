@@ -7,7 +7,7 @@ URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:   5.1.5
 Release:   1%{?dist}
-License:   GPL
+License:   GPLv2
 Group:     System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
