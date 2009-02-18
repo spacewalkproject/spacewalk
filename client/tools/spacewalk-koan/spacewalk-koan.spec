@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.8
+Version: 0.1.9
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.1.9-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
+
 * Tue Feb 10 2009 Mike McCune <mmccune@gmail.com> 0.1.8-1
 - 484793: Adde a basic setter to get rid of embed_kickstart check on koan
 
