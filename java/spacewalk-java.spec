@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.18
+Version: 0.5.19
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.19-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
+
 * Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.18-1
 - yum repodata regen changes to taskomatic
 
