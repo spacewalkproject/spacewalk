@@ -77,14 +77,6 @@ class ChannelImport(Import):
             # Link back the channel to families
             channel_family_id = self.families[family['label']]
 
-            if family['label'].startswith('private-channel-family') \
-                and channel_family_id is None:
-                self.backend.updateChannelFamilyInfo(channel_family_id, \
-                             channel['org_id'])
-                #try creating a private channel family for the org
-                self.backend.lookupOrgFamily(family, channel['org_id'])
-                channel_family_id = self.families[family['label']]
-
             if channel_family_id is None:
                 # Still cant get the id, Unknown channel family
                 raise InvalidChannelFamilyError(family['label'])

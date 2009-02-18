@@ -249,6 +249,9 @@ sub upgrade_stop_services {
     if (-e "/usr/sbin/rhn-satellite") {
       system_or_exit(['/usr/sbin/rhn-satellite', 'stop'], 16,
                       'Could not stop the rhn-satellite service.');
+    } elsif (-e "/etc/init.d/rhn-satellite") {
+      system_or_exit(['/etc/init.d/rhn-satellite', 'stop'], 16,
+                      'Could not stop the rhn-satellite service.')
     } else {
       # shutdown pre 3.6 services proerly
       system_or_exit(['/sbin/service', 'httpd', 'stop'], 25,
@@ -696,7 +699,7 @@ EOQ
                    -err_message => "Could not upgrade database.\n",
                    -err_code => 15,
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
-                                    SHARED_DIR . '/upgrage-db.sh' ]);
+                                    SHARED_DIR . '/oracle' .  '/upgrade-db.sh' ]);
 
         return 0;
     }

@@ -73,6 +73,7 @@ import com.redhat.rhn.domain.server.ServerLock;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.server.VirtualInstanceState;
+import com.redhat.rhn.domain.server.Note;
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -108,6 +109,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 /**
  * SystemManager
@@ -2337,5 +2339,43 @@ public class SystemManager extends BaseManager {
         
         DataResult result = makeDataResult(params, params, null, m);
         return result;
+    }
+
+    /**
+     * Deletes the indicates note, assuming the user has the proper permissions to the
+     * server.
+     * 
+     * @param user     user making the request
+     * @param serverId identifies server the note resides on
+     * @param noteId   identifies the note being deleted   
+     */
+    public static void deleteNote(User user, Long serverId, Long noteId) {
+        Server server = lookupByIdAndUser(serverId, user);
+        
+        Session session = HibernateFactory.getSession();
+        Note doomed = (Note) session.get(Note.class, noteId);
+        
+        boolean deletedOnServer = server.getNotes().remove(doomed);
+        if (deletedOnServer) {
+            session.delete(doomed);
+        }
+    }
+
+    /**
+     * Deletes all notes on the given server, assuming the user has the proper permissions
+     * to the server. 
+     * 
+     * @param user     user making the request
+     * @param serverId identifies the server on which to delete its notes
+     */
+    public static void deleteNotes(User user, Long serverId) {
+        Server server = lookupByIdAndUser(serverId, user);
+        
+        Session session = HibernateFactory.getSession();
+        for (Object doomed : server.getNotes()) {
+            session.delete(doomed);
+        }
+
+        server.getNotes().clear();
     }
 }

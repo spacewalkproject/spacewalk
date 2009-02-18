@@ -1302,6 +1302,72 @@ public class SystemHandler extends BaseHandler {
         
         return 1;
     }
+
+    /**
+     * Deletes the given note from the server.
+     * 
+     * @param sessionKey identifies the logged in user
+     * @param sid        identifies the server on which the note resides
+     * @param nid        identifies the note to delete         
+     * @return 1 if successful, exception otherwise
+     * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server
+     * corresponding to sid cannot be found.
+     * 
+     * @xmlrpc.doc Deletes the given note from the server.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("int", "noteId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteNote(String sessionKey, Integer sid, Integer nid) {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (sid == null) {
+            throw new IllegalArgumentException("sid cannot be null");
+        }
+
+        if (nid == null) {
+            throw new IllegalArgumentException("nid cannot be null");
+        }
+                
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        SystemManager.deleteNote(loggedInUser, sid.longValue(), nid.longValue());
+
+        return 1;
+    }
+    
+    /**
+     * Deletes all notes from the server.
+     * 
+     * @param sessionKey identifies the logged in user
+     * @param sid        identifies the server on which the note resides
+     * @return 1 if successful, exception otherwise
+     * @throws NoSuchSystemException A NoSuchSystemException is thrown if the server
+     * corresponding to sid cannot be found.
+     * 
+     * @xmlrpc.doc Deletes all notes from the server.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteNotes(String sessionKey, Integer sid) {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (sid == null) {
+            throw new IllegalArgumentException("sid cannot be null");
+        }
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        SystemManager.deleteNotes(loggedInUser, sid.longValue());
+        
+        return 1;
+    }
     
     /**
      * List Events for a given server.

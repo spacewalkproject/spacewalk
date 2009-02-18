@@ -56,6 +56,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
+import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.CustomDataValueTest;
 import com.redhat.rhn.domain.server.test.DeviceTest;
@@ -1158,7 +1159,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
             RhnSetDecl.SSM_REMOVE_PACKAGES_LIST.getLabel(), SetCleanup.NOOP);
         assert packagesSet != null;
 
-        // Test
         assertNotNull(packagesSet);
         
         // Test
@@ -1193,5 +1193,55 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 fail("Found ID that wasn't expected: " + map.get("id"));
             }
         }
+    }
+
+    public void testDeleteNote() throws Exception {
+        // Setup
+        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        Server server = ServerTestUtils.createTestSystem(admin);
+        int sizeBefore = server.getNotes().size();
+        server.addNote(admin, "Test Subject", "Test Body");
+        ServerFactory.save(server);
+        TestUtils.flushAndEvict(server);
+
+        server = ServerFactory.lookupById(server.getId());
+        int sizeAfter = server.getNotes().size();
+        assertTrue(sizeAfter == (sizeBefore + 1));
+
+        Note deleteMe = (Note) server.getNotes().iterator().next();
+
+        // Test
+        SystemManager.deleteNote(admin, server.getId(), deleteMe.getId());
+
+        // Verify
+        server = ServerFactory.lookupById(server.getId());
+        int sizeAfterDelete = server.getNotes().size();
+        assertEquals(sizeBefore, sizeAfterDelete);
+    }
+    
+    public void testDeleteNotes() throws Exception {
+        // Setup
+        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        Server server = ServerTestUtils.createTestSystem(admin);
+        int sizeBefore = server.getNotes().size();
+        server.addNote(admin, "Test Subject 1", "Test Body");
+        server.addNote(admin, "Test Subject 2", "Test Body");
+        server.addNote(admin, "Test Subject 3", "Test Body");
+        server.addNote(admin, "Test Subject 4", "Test Body");
+        ServerFactory.save(server);
+        TestUtils.flushAndEvict(server);
+
+        server = ServerFactory.lookupById(server.getId());
+        int sizeAfter = server.getNotes().size();
+        assertTrue(sizeAfter == (sizeBefore + 4));
+
+        // Test
+        SystemManager.deleteNotes(admin, server.getId());
+
+        // Verify
+        server = ServerFactory.lookupById(server.getId());
+        int sizeAfterDelete = server.getNotes().size();
+        assertEquals(0, sizeAfterDelete);
+        
     }
 }

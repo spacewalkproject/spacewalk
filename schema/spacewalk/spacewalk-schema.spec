@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.8
+Version:        0.5.9
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Feb 18 2009 Pradeep Kilambi 0.5.9-1
+- minor typo and dep fixes for rhnRepoRegenQueue table 
+
 * Mon Feb 16 2009 Pradeep Kilambi 0.5.8-1
 - rhnRepoRegenQueue table for yum repodata regen queue
 
