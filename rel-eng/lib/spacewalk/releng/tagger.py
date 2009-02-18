@@ -161,6 +161,8 @@ class VersionTagger(object):
             run_command(cmd)
 
         new_version = self._get_spec_version_and_release()
+        if new_version.strip() == "":
+            error_out("Error getting bumped package version.")
         print "Tagging new version of %s: %s -> %s" % (self.project_name,
             old_version, new_version)
         return new_version
@@ -213,7 +215,7 @@ class VersionTagger(object):
         run_command('git tag -m "%s" %s' % (tag_msg, new_tag))
 
     def _check_tag_does_not_exist(self, new_tag):
-        status = commands.getstatusoutput('git tag | grep %s' % new_tag)[0]
+        status, output = commands.getstatusoutput('git tag | grep %s' % new_tag)
         if status == 0:
             raise Exception("Tag %s already exists!" % new_tag)
 
@@ -258,7 +260,7 @@ class VersionTagger(object):
 
     def _get_spec_version_and_release(self):
         """ Get the package version from the spec file. """
-        return get_spec_version_and_release(self.full_project_dir,
+        return get_spec_version_and_release(self.full_project_dir, 
                 self.spec_file_name)
 
     def _get_new_tag(self, new_version):
