@@ -224,7 +224,7 @@ sub setup_sudoers {
 	my $opts = shift;
 	my $answers = shift;
 
-	my $sudoers_content;
+	my ($sudoers_content_orig, $sudoers_content);
 	my $sudoers_path = '/etc/sudoers';
 
 	local *FILE;
@@ -236,10 +236,12 @@ sub setup_sudoers {
 		my $init_sudoers_path = Spacewalk::Setup::SHARED_DIR . '/sudoers.base';
 		open FILE, $init_sudoers_path
 			or die "Error reading [$init_sudoers_path]: $!\n";
+		$sudoers_content_orig = '';
 	}
 	{
 	local $/ = undef;
 	$sudoers_content = <FILE>;
+	$sudoers_content_orig = $sudoers_content if not defined $sudoers_content_orig;
 	}
 	close FILE;
 
@@ -273,10 +275,12 @@ sub setup_sudoers {
 			or $sudoers_content .= "\n" . $content;
 	}
 
-	open FILE, "> $sudoers_path" or die "Error writing [$sudoers_path]: $!\n";
-	chmod 0440, $sudoers_path;
-	print FILE $sudoers_content;
-	close FILE;
+	if ($sudoers_content ne $sudoers_content_orig) {
+		open FILE, "> $sudoers_path" or die "Error writing [$sudoers_path]: $!\n";
+		chmod 0440, $sudoers_path;
+		print FILE $sudoers_content;
+		close FILE;
+	}
 
 	return;
 }
