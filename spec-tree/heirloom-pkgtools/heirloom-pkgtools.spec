@@ -13,6 +13,7 @@ Source0:	%{name}-%{heriloom_pkgtools_version}.tar.bz2
 Patch1:		getpass.c.patch
 Patch2:		scriptvfy.l.patch
 Patch3:		binpath.patch
+Patch4:		sbinpath.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -30,6 +31,7 @@ OpenSolaris.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 make -f makefile SHELL=/bin/bash CC=gcc BINDIR=%{_bindir} SBINDIR=%{_sbindir}
@@ -96,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 - add patch getpass.c.patch, removing stropts.h #include
 - define a couple of needed things, like yytchar, in scriptvfy.l
 - changing the use of BINDIR to /bin for system commands
+- changing the use /sbin to /bin for multiple system commands
 
 * Fri Dec 12 2008 Jan Pazdziora
 - initial rpm release
