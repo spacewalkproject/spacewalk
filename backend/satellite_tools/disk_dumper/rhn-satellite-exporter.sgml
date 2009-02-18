@@ -33,6 +33,15 @@ A tool that exports satellite content into a directory in an XML format. That co
         <arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--hard-links</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--start-date=<replaceable>START_DATE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--end-date=<replaceable>END_DATE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-p</arg>
         <arg>--print-configuration</arg>
     </cmdsynopsis>
@@ -62,6 +71,9 @@ A tool that exports satellite content into a directory in an XML format. That co
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--db</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--help</arg>
     </cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
@@ -97,6 +109,12 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--hard-links</term>
+        <listitem>
+        <para>Hard link exported packages and kickstarts to original files.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-c<replaceable>CHANNEL_LABEL</replaceable>, 
             --channel=<replaceable>CHANNEL_LABEL</replaceable></term>
         <listitem>
@@ -104,6 +122,27 @@ A tool that exports satellite content into a directory in an XML format. That co
             only.
             NOTE: the channel's *label* is NOT the same as the channel's
             *name*.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+		<term>--start-date=<replaceable>START_DATE</replaceable></term>
+        <listitem>
+            <para>The start date limit that the last modified dates are
+                  compared against. Must be in the format 'YYYYMMDDHH24MISS'.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+		<term>--end-date=<replaceable>END_DATE</replaceable></term>
+        <listitem>
+            <para>The end date limit that the last modified dates are
+                  compared against. Must be in the format 'YYYYMMDDHH24MISS'.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+		<term>--make-isos=<replaceable>MAKE_ISOS</replaceable></term>
+        <listitem>
+            <para>Create channel dump isos directory called satellite-isos.
+                  Usage: --make-isos=cd or dvd.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -182,6 +221,12 @@ A tool that exports satellite content into a directory in an XML format. That co
         <term>--db</term>
         <listitem>
             <para>Extract information from this database. The value must be an Oracle connection string that is configured in your tnsnames.ora file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--help</term>
+        <listitem>
+            <para>Show help message and exit.</para>
         </listitem>
     </varlistentry>
 </variablelist>
