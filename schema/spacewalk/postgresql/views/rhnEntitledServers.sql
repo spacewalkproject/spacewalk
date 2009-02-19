@@ -14,15 +14,32 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
+--
+
+create or replace view
+rhnEntitledServers
+as
 select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+    S.id,
+    S.org_id,
+    S.digital_server_id,
+    S.server_arch_id,
+    S.os,
+    S.release,
+    S.name,
+    S.description,
+    S.info,
+    S.secret
+from
+    rhnServerGroup SG,
+    rhnServerGroupType SGT,
+    rhnServerGroupMembers SGM,
+    rhnServer S
+where
+    S.id = SGM.server_id
+and SG.id = SGM.server_group_id
+and SGT.label IN ('sw_mgr_entitled', 'enterprise_entitled', 'provisioning_entitled')
+and SG.group_type = SGT.id
+and SG.org_id = S.org_id
+;
 

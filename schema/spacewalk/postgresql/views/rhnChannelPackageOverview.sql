@@ -14,15 +14,26 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+--
+
+create or replace view
+rhnChannelPackageOverview
+(
+    	channel_id,
+	name_id,
+	evr
 )
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+as
+select  cp.channel_id,
+	p.name_id,
+	max(p_evr.evr)
+from
+	rhnPackageEVR p_evr,
+	rhnPackage p,
+	rhnChannelPackage cp
+where
+    	cp.package_id = p.id
+    and p.evr_id = p_evr.id
+group by cp.channel_id, p.name_id
+;
 

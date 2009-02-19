@@ -12,17 +12,38 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
+-- 
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+
+create or replace view
+rhnWebContactEnabled
+as
+select
+   wcon.id,
+   wcon.org_id,
+   wcon.login,
+   wcon.login_uc,
+   wcon.password,
+   wcon.old_password,
+   wcon.oracle_contact_id,
+   wcon.created,
+   wcon.modified,
+   wcon.ignore_flag
+from
+   web_contact wcon
+except
+select
+   wcd.id,
+   wcd.org_id,
+   wcd.login,
+   wcd.login_uc,
+   wcd.password,
+   wcd.old_password,
+   wcd.oracle_contact_id,
+   wcd.created,
+   wcd.modified,
+   wcd.ignore_flag
+from
+   rhnWebContactDisabled wcd;
 

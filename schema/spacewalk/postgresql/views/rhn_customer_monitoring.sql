@@ -14,15 +14,20 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+--
+
+create or replace view rhn_customer_monitoring as
+select	org.id			as recid,
+	org.name		as description,
+	1			as schedule_id,	--24 x 7
+	0			as def_ack_wait,
+	1			as def_strategy,	--Broadcast, No Ack
+	'GMT'			as preferred_time_zone,
+	0			as auto_update	--Windows only
+from
+	web_customer org
+--where	1=1
+--	and some logic here to check for entitlements?
+;
 

@@ -14,15 +14,27 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+
+create or replace view rhnUserChannelFamilyPerms as
+	select	pcf.channel_family_id,
+		u.org_id as org_id,
+		u.id as user_id,
+		to_number(null, null) as max_members,
+		0 as current_members,
+		pcf.created,
+		pcf.modified
+	from	rhnPublicChannelFamily pcf,
+		web_contact u
+	union
+	select	pcf.channel_family_id,
+		u.org_id,
+		u.id as user_id,
+		pcf.max_members,
+		pcf.current_members,
+		pcf.created,
+		pcf.modified
+	from	rhnPrivateChannelFamily pcf,
+		web_contact u
+	where	u.org_id = pcf.org_id;
 

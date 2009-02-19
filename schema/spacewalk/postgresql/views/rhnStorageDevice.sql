@@ -14,15 +14,22 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+create or replace view 
+rhnStorageDevice
+(id, server_Id, class, bus, detached, device, driver, 
+description, physical, logical, pcitype)
+as select 
+	d.id,
+	d.server_Id,
+	d.class,
+	d.bus,
+	d.detached,
+	d.device,
+	d.driver,
+	d.description,
+	d.prop1,
+	d.prop2,
+	d.pcitype
+from rhnDevice d
+where d.class in ('HD', 'FLOPPY');
 

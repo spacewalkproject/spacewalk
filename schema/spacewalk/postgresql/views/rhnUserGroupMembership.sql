@@ -14,15 +14,17 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+-- View for all groups in an org, and if a user is in them
+
+CREATE OR REPLACE VIEW rhnUserGroupMembership (
+         ORG_ID, USER_ID, GROUP_ID, GROUP_NAME, GROUP_TYPE
 )
 AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+SELECT   UG.org_id, UGM.user_id, UG.id, UG.name, UGT.label
+  FROM   rhnUserGroupType UGT, 
+    	 rhnUserGroup UG
+	    left outer join
+	 rhnUserGroupMembers UGM on(UG.id = UGM.user_group_id)
+ WHERE   UG.group_type = UGT.id
+;
 

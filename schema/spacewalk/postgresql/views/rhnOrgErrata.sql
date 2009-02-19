@@ -14,15 +14,24 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+-- a view to list all errata valid for an org.
+-- in other words, errata from pub channels and their channels
+create or replace view
+rhnOrgErrata
+(
+    	org_id,
+	errata_id,
+	channel_id
 )
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+as
+select
+    ac.org_id,
+    ce.errata_id,
+    ac.channel_id
+from
+    rhnChannelErrata ce,
+    rhnAvailableChannels ac
+where
+    ce.channel_id = ac.channel_id
+;
 

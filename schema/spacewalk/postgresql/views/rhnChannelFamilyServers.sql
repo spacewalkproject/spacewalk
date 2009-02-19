@@ -14,15 +14,20 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+
+create or replace view rhnChannelFamilyServers as
+	select	rs.org_id			as customer_id,
+		rcfm.channel_family_id		as channel_family_id,
+		rsc.server_id			as server_id,
+		rsc.created			as created,
+		rsc.modified			as modified
+	from	rhnChannelFamilyMembers		as rcfm,
+		rhnChannelFamily		as rcf,
+		rhnServerChannel		as rsc,
+		rhnServer			as rs
+	where
+		rcfm.channel_id = rsc.channel_id
+		and rcfm.channel_family_id = rcf.id
+		and rsc.server_id = rs.id;
 

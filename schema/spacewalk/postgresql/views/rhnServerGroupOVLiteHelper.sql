@@ -14,15 +14,17 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+-- this is a helper for rhnServerGroupOverviewLite and it's Vis brother.
+
+create or replace view
+rhnServerGroupOVLiteHelper as
+select	sgm.server_group_id						as server_group_id,
+		e.advisory_type							as advisory_type
+from	rhnErrata								e,
+		rhnServerNeededPackageCache				snpc,
+		rhnServerGroupMembers					sgm
+where   sgm.server_id = snpc.server_id
+	and snpc.errata_id = e.id
+;
 

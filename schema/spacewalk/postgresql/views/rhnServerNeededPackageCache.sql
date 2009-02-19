@@ -14,15 +14,18 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+create or replace view
+rhnServerNeededPackageCache
+(
+    server_id, 
+    package_id,
+    errata_id
 )
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+as
+select
+	server_id, 
+	package_id,
+	max(errata_id) as errata_id
+	from rhnServerNeededCache
+	group by server_id, package_id; 
 
