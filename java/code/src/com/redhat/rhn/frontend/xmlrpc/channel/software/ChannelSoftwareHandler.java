@@ -87,7 +87,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ChannelSoftwareHandler.class);
     
     /**
-     * Lists the packages with the largest version (including release and epoch)
+     * Lists the packages with the latest version (including release and epoch)
      * for the unique package names
      * @param sessionKey WebSession containing User information.
      * @param channelLabel Label of channel whose package are sought.
@@ -95,7 +95,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * and epoch) for the unique package names
      * @throws NoSuchChannelException thrown if no channel is found.
      * 
-     * @xmlrpc.doc Lists the packages with the largest version (including release and 
+     * @xmlrpc.doc Lists the packages with the latest version (including release and
      * epoch) for the given channel
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")

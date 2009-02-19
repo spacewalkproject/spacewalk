@@ -95,6 +95,8 @@ def create_first_org(owner):
         pword = str(long(os.getpid())**3)
         # do it!
         p(owner, pword)
+        # Now create the first private channel family
+        create_first_private_chan_family()
     return get_org_id()
 
 _query_get_slot_types = rhnSQL.Statement("""
@@ -534,6 +536,22 @@ def _test_storeRhnCert(rhnCert):
 def _test_store_rhnCryptoKey(caCert):
     description = 'RHN-ORG-TRUSTED-SSL-CERT'
     store_rhnCryptoKey(description, caCert)
+
+def create_first_private_chan_family():
+       """
+       Check to see if org has a channelfamily associated with it.
+       If not, Create one.
+       """
+       _query_create_chfam = """
+          INSERT INTO  rhnChannelFamily
+                 (id, name, label, org_id, product_url)
+          VALUES (rhn_channel_family_id_seq.nextval, :name, :label, :org, :url)
+
+       """
+       h = rhnSQL.prepare(_query_create_chfam)
+       h.execute(name="Private Channel Family 1", \
+                 label="private-channel-family-1", \
+                 org=1, url="First Org Created")
 
 
 if __name__ == '__main__':

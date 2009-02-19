@@ -35,7 +35,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="channelsChanged" column="channels_changed" type="date"/>
         <property name="cobblerId" column="cobbler_id"  type="string" length="64" />
                 
-        <set name="notes" cascade="all" lazy="true" inverse="true">
+        <set name="notes" cascade="all-delete-orphan" lazy="true" inverse="true">
             <key column="server_id"/>
             <one-to-many class="com.redhat.rhn.domain.server.Note"/>
         </set>

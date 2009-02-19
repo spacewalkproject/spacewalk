@@ -258,33 +258,6 @@ class Backend:
                 hash[k] = row
             # Else, it's an unsupported channel
 
-    def lookupOrgFamily(self, family, org):
-       """
-       Check to see if org has a channelfamily associated with it.
-       If not, Create one.
-       """
-       _query_org_family = """
-             SELECT  CF.id
-               FROM  rhnChannelFamily CF
-              WHERE  CF.label = :label
-       """
-
-       h = self.dbmodule.prepare(_query_org_family)
-       h.execute(label =family['label'])
-       row = h.fetchone_dict()
-       if row:
-          return
-       # No channel family found, we need to create one
-       _query_create_chfam = """
-          INSERT INTO  rhnChannelFamily
-                 (id, name, label, org_id, product_url)
-          VALUES (rhn_channel_family_id_seq.nextval, :name, :label, :org, :url)
-
-       """
-       h = self.dbmodule.prepare(_query_create_chfam)
-       h.execute(name=family['name'], label=family['label'], \
-                  org=org, url=family['product_url'])
-
     def updateChannelFamilyInfo(self, familyid, orgid):
         _query_org_priv_family = """
              SELECT  1

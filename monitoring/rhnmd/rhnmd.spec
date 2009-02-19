@@ -7,7 +7,7 @@ URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version:   5.1.5
 Release:   1%{?dist}
-License:   GPL
+License:   GPLv2
 Group:     System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
@@ -69,9 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
-%dir %attr(710,nocpulse,nocpulse) %{_sysconfdir}/%{np_name}
+%dir %{_sysconfdir}/%{np_name}
 %{_sysconfdir}/%{np_name}/*
 %{_initrddir}/rhnmd
+%doc LICENSE
 
 %preun
 if [ $1 = 0 ]; then

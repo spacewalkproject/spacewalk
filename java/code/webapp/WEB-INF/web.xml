@@ -219,6 +219,12 @@
   	<load-on-startup>1</load-on-startup>
   </servlet>
 
+  <servlet>
+	<servlet-name>HelpDocServlet</servlet-name>
+	<display-name>Help Documentation Servlet</display-name>
+	<servlet-class>com.redhat.rhn.frontend.servlets.HelpDocServlet</servlet-class>
+  </servlet>
+
   <!-- add precompiled jsp servlets -->
 
   <!--
@@ -261,6 +267,11 @@
   	<url-pattern>/Redirect/*</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+	<servlet-name>HelpDocServlet</servlet-name>
+	<url-pattern>/help/dispatcher/*</url-pattern>
+  </servlet-mapping>
+
   <mime-mapping>
       <extension>xsd</extension>
       <mime-type>text/xml</mime-type>

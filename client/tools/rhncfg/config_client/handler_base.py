@@ -50,7 +50,7 @@ class HandlerBase(handler_base.HandlerBase):
             files.append(file)
         files.sort()
         return files
-                
+
     # Main function to be run
     def run(self):
         log_debug(2)
@@ -75,6 +75,10 @@ class TopdirHandlerBase(HandlerBase):
         HandlerBase._option_class(
             '--topdir',     action="store",
             help="Make all file operations relative to this directory.",
+        ),
+        HandlerBase._option_class(
+            '--exclude',    action="append",
+            help="Excludes a file from being deployed with 'get'. May be used multiple times.",
         ),
     ]
 

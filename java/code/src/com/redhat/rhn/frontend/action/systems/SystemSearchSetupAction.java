@@ -306,18 +306,11 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
 
         HttpServletRequest request = context.getRequest();
         ActionMapping mapping = (ActionMapping) request.getAttribute(MAPPING);
-        /** DynaActionForm daForm = (DynaActionForm) request.getAttribute(FORM);
-        String searchString = daForm.getString(SEARCH_STRING);
-        String viewMode = daForm.getString(VIEW_MODE);
-        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
-        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS); **/
-        
         String searchString = context.getParam(SEARCH_STRING, false);
         String viewMode = context.getParam(VIEW_MODE, false);
         String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
         Boolean invertResults = StringUtils.defaultString(
                 context.getParam(INVERT_RESULTS, false)).equals("on");
-        
         
         if (invertResults == null) {
             invertResults = Boolean.FALSE;

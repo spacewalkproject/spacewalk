@@ -37,9 +37,7 @@
           </rhn:require>
       <option value="packages"><bean:message key="header.jsp.packages"/></option>
       <option value="errata"><bean:message key="header.jsp.errata"/></option>
-      <%--  NotReadyForSpacewalk 0.2, will go into 0.4  
       <option value="docs"><bean:message key="header.jsp.documentation"/></option> 
-      --%>
       </select><input type="text" name="search_string" maxlength="40" size="20" />
       <input type="hidden" name="submitted" value="true"/>
       <input type="submit" class="button" name="image-1" value="Search" align="top" /></form>

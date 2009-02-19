@@ -642,7 +642,6 @@ public class IndexManager {
     private Analyzer getServerAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
-        analyzer.addAnalyzer("id", new KeywordAnalyzer());
         analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
         analyzer.addAnalyzer("ram", new KeywordAnalyzer());

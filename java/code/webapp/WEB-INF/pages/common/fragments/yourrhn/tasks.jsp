@@ -16,7 +16,8 @@
 									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <bean:message key="yourrhn.jsp.task.searchfor" /> 
 	<a href="/rhn/channels/software/Search.do">
     	<bean:message key="header.jsp.packages" /></a> <strong>|</strong> <a href="/rhn/systems/Search.do"><bean:message key="header.jsp.systems" /></a>
-    	<strong>|</strong> <a href="/rhn/help/Search.do"><bean:message key="header.jsp.documentation" />
+    	<strong>|</strong> <a href="/rhn/help/Search.do"><bean:message key="header.jsp.documentation" /></a>
+    	<strong>|</strong> <a href="/rhn/errata/Search.do"><bean:message key="header.jsp.errata" /></a>
     </a></td></tr>
 </rhn:require>
 

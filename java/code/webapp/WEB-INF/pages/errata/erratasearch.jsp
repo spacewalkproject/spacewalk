@@ -133,7 +133,7 @@
   </html:form>
 
   <c:set var="pageList" value="${requestScope.pageList}" />
-  <rl:listset name="searchSet">
+  <rl:listset name="searchSet" legend="errata">
     <rl:list name="searchResults" dataset="pageList"
              emptykey="erratasearch.jsp.noerrata" width="100%">
 

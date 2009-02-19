@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-CLAC
-Version:      1.9.7
+Version:      1.9.8
 Release:      1%{?dist}
 Summary:      NOCpulse Command Line Application framework for Perl
 URL:          https://fedorahosted.org/spacewalk
@@ -23,7 +23,7 @@ applications.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
@@ -43,8 +43,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 1.9.8-1
+- remove opt flags
+- add LICENSE
+- add GPL header to modules
+
 * Thu Jan 22 2009 Dennis Gilmore <dgilmore@redhat.com> 1.9.7-1
 - BuildRequires perl(ExtUtils::MakeMaker)
 

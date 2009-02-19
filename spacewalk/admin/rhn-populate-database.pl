@@ -119,9 +119,9 @@ else {
 }
 
 if (defined $log_file) {
+  local *LOGFILE;
+  open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
   if (Spacewalk::Setup::have_selinux()) {
-    local *LOGFILE;
-    open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
     system('/sbin/restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
     $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", $populate_cmd); 
   }

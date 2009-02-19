@@ -121,7 +121,7 @@ public class SearchAction extends RhnAction {
             }
             else if (searchType.equals("docs")) {
                 HashMap attributes = new HashMap();
-                attributes.put("view_mode", "simple_docs_search");
+                attributes.put("view_mode", "search_content_title");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
                 performRedirect("/help/Search.do", 
                                 request.getContextPath(),

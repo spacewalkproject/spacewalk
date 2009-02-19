@@ -12,76 +12,69 @@
 
     <h1><img src="/img/rhn-icon-help-h1.gif" alt="help" /><bean:message key="help.jsp.helpdesk"/></h1>
 
-
     <ul id="help-url-list">
 
-      <li>
-        <a style="font-size:12pt" href="https://www.redhat.com/docs/manuals/satellite">
-          <bean:message key="help.jsp.refguide"/>
-	</a>
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/reference_guide>
+                <bean:message key="help.jsp.refguide"/>
+            </a>
+            <strong><bean:message key="help.jsp.translation"/></strong>
+            <br />
+            <bean:message key="help.jsp.detailed"/>
+        </li>
 
-        <strong><bean:message key="help.jsp.translation"/></strong>
-        <br />
-        <bean:message key="help.jsp.detailed"/>
-      </li>
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/install_guide>
+                <bean:message key="help.jsp.install.title"/>
+            </a>
+            <strong><bean:message key="help.jsp.translation"/></strong>
+            <br />
+            <bean:message key="help.jsp.install"/>
+        </li>
 
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/proxy_guide>
+                <bean:message key="help.jsp.proxy.title"/>
+            </a>
+            <br />
+            <bean:message key="help.jsp.proxy"/>
+        </li>
 
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/client_config_guide>
+                <bean:message key="help.jsp.clients.title"/>
+            </a>
+            <strong><bean:message key="help.jsp.translation"/></strong>
+            <br />
+            <bean:message key="help.jsp.clients"/>
+        </li>
 
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/channel_mgmt_guide>
+                <bean:message key="help.jsp.channel.title"/>
+            </a>
+            <strong><bean:message key="help.jsp.translation"/></strong>
+            <br />
+            <bean:message key="help.jsp.channel"/>
+        </li>
 
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/release_notes>
+                <bean:message key="help.jsp.release.title"/>
+            </a>
+            <strong><bean:message key="help.jsp.translation"/></strong>
+            <br />
+        </li>
 
-      <li>
-        <a href="https://www.redhat.com/docs/manuals/satellite" style="font-size:12pt;"> <bean:message key="help.jsp.install.title"/></a> <strong>(Translations available)</strong>
-
-        <br />
-         <bean:message key="help.jsp.install"/>
-      </li>
-
-      <li>
-        <a href="https://www.redhat.com/docs/manuals/satellite" style="font-size:12pt;"><bean:message key="help.jsp.proxy.title"/></a> 
-        <br />
-                 <bean:message key="help.jsp.proxy"/>
-      </li>
-
-      <li>
-
-        <a href="https://www.redhat.com/docs/manuals/satellite" style="font-size:12pt;"><bean:message key="help.jsp.clients.title"/>  </a> 
-        <strong><bean:message key="help.jsp.translation"/></strong>
-        <br />
-                  <bean:message key="help.jsp.clients"/>       
-      </li>
-
-      <li>
-        <a href="https://www.redhat.com/docs/manuals/satellite" style="font-size:12pt;"><bean:message key="help.jsp.channel.title"/></a>
-        <strong><bean:message key="help.jsp.translation"/></strong>
-
-        <br />
-        <bean:message key="help.jsp.channel"/>     
-      </li>
-
-
-
-      <li>
-        <a href="https://www.redhat.com/docs/manuals/satellite" style="font-size:12pt;"><bean:message key="help.jsp.release.title"/> </a>
-        <strong><bean:message key="help.jsp.translation"/></strong><br />
-   
-      </li>
-
-      <li>
-        <a href="https://www.redhat.com/docs/manuals/satellite" style="font-size:12pt;"><bean:message key="help.jsp.proxyrelease.title"/></a>
-        <strong><bean:message key="help.jsp.translation"/></strong><br />
-    
-      </li>
-
-
+        <li>
+            <a style="font-size:12pt" href=/rhn/help/dispatcher/proxy_release_notes>
+                <bean:message key="help.jsp.proxyrelease.title"/>
+            </a>
+            <strong><bean:message key="help.jsp.translation"/></strong>
+            <br />
+        </li>
 
     </ul>
-
-  
-
-	</td>
-      </tr>
-    </table>
-
 
 </body>
 </html>

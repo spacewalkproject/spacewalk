@@ -64,6 +64,7 @@ import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
+import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.test.GuestBuilder;
 import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.domain.server.test.NetworkTest;
@@ -559,6 +560,45 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, result);
         assertTrue(sizeAfter > sizeBefore);
         assertEquals(1, sizeAfter - sizeBefore);
+    }
+    
+    public void testDeleteNote() throws Exception {
+        // Setup
+        Server server = ServerFactoryTest.createTestServer(admin);
+        int sizeBefore = server.getNotes().size();
+        int result = handler.addNote(adminKey, server.getId().intValue(),
+            "TestNote", "TestNote body");
+        int sizeAfter = server.getNotes().size();
+        assertEquals(1, result);
+        assertTrue(sizeAfter > sizeBefore);
+        
+        // Test
+        Note deleteMe = (Note) server.getNotes().iterator().next();
+        result = handler.deleteNote(adminKey, server.getId().intValue(),
+            deleteMe.getId().intValue());
+        
+        // Verify
+        assertEquals(1, result);
+    }
+    
+    public void testDeleteAllNotes() throws Exception {
+        // Setup
+        Server server = ServerFactoryTest.createTestServer(admin);
+        int sizeBefore = server.getNotes().size();
+        int result = handler.addNote(adminKey, server.getId().intValue(),
+            "TestNote", "TestNote body");
+        int sizeAfter = server.getNotes().size();
+        assertEquals(1, result);
+        assertTrue(sizeAfter > sizeBefore);
+        
+        // Test
+        result = handler.deleteNotes(adminKey, server.getId().intValue());
+        
+        // Verify
+        assertEquals(1, result);
+
+        server = ServerFactory.lookupById(server.getId());
+        assertEquals(0, server.getNotes().size());
     }
     
     public void testListAllEvents() throws Exception {

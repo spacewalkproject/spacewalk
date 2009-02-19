@@ -11,7 +11,7 @@
 * * * * * nocpulse  /usr/bin/notif show send `grep ^Send /tmp/send.log | tail -1 | perl -pe '/(\d+)/; $_="$1\n"'` >> /tmp/send.log
 
 # Manipulate the sends
-* * * * * nocpulse  /usr/bin/scripts/notif ack send `date +%M%S` >> /tmp/ack.log
+* * * * * nocpulse  /usr/bin/notif ack send `date +%M%S` >> /tmp/ack.log
 * * * * * nocpulse  /usr/bin/notif clear send `grep ^Send /tmp/send.log | tail -3 | head -1 | perl -pe '/(\d+)/; $_="$1\n"'` >> /tmp/ack.log
 * * * * * nocpulse  /usr/bin/notif nak send `grep ^Send /tmp/send.log | tail -5 | head -1 | perl -pe '/(\d+)/; $_="$1\n"'` >> /tmp/ack.log
 * * * * * nocpulse  /usr/bin/notif ack send `grep ^Send /tmp/send.log | tail -1 | perl -pe '/(\d+)/; $_="$1\n"'` >> /tmp/ack.log

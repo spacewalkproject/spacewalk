@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.8
+Version: 0.1.9
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -11,12 +11,11 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python
 Requires:       python >= 2.3
-Requires:       koan >= 1.2.6
+Requires:       koan >= 1.4.2
 
 Provides: rhn.kickstart.boot_image = 5.3.0
 Provides: rhn-kickstart = 5.3.0
 Obsoletes: rhn-kickstart < 5.3.0
-Requires: koan
 
 # If this is rhel 4 or less we need up2date.
 %if 0%{?rhel} && 0%{?rhel} < 5
@@ -50,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.1.9-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
+
 * Tue Feb 10 2009 Mike McCune <mmccune@gmail.com> 0.1.8-1
 - 484793: Adde a basic setter to get rid of embed_kickstart check on koan
 

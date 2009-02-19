@@ -1486,7 +1486,7 @@ public class ChannelManager extends BaseManager {
         
         Channel c = null;
         if (guessedId != null) {
-            c = ChannelManager.lookupByIdAndUser(guessedId, usr);
+            c = ChannelFactory.lookupByIdAndUser(guessedId, usr);
         }
         return c;
     }
@@ -1886,7 +1886,7 @@ public class ChannelManager extends BaseManager {
         
         // Find all of the obvious matches
         for (EssentialChannelDto ecd : channels) {
-            Channel c = ChannelManager.lookupByIdAndUser(ecd.getId().longValue(), u);
+            Channel c = ChannelFactory.lookupByIdAndUser(ecd.getId().longValue(), u);
             log.debug("   " + c.getName());
             if (c != null && 
                 (c.getOrg() != null || 

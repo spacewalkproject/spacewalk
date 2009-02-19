@@ -7,7 +7,7 @@ Summary: Red Hat Network Configuration Client Libraries
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 5.9.2
+Version: 5.9.3
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Feb 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.3-1
+- Applying patch for exclude files for rhncfg get call
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.2-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 
