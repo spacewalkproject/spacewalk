@@ -15,6 +15,8 @@ set client_min_messages = warning;
 \i tables/rhnUserGroupType.sql
 \i tables/rhnUserGroup.sql
 \i tables/web_contact.sql
+\i tables/web_user_prefix.sql
+\i tables/web_user_personal_info.sql
 \i tables/rhnChannelFamily.sql 
 \i tables/rhnPublicChannelFamily.sql 
 \i tables/rhnPrivateChannelFamily.sql 
