@@ -80,7 +80,7 @@ fi
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
 %config(missingok,noreplace) %{_var}/lib/%{package_name}/NOCpulse.ini
-%attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}/.forward
+%config(missingok,noreplace) %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}/.forward
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
