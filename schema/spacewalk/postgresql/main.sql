@@ -28,6 +28,7 @@ set client_min_messages = warning;
 \i triggers/web_contact.sql
 
 /* functions go here */
+\i procs/empty_blob.sql
 \i procs/create_first_org.sql
 \i procs/sequence_nextval.sql
 \i procs/sequence_currval.sql
