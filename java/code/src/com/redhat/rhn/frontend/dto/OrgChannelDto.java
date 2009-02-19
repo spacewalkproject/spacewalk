@@ -23,7 +23,6 @@ package com.redhat.rhn.frontend.dto;
 public class OrgChannelDto extends BaseDto {
 
     private Long id;
-    private boolean selected;
     private String name;
     private Integer systems;
 
@@ -74,29 +73,5 @@ public class OrgChannelDto extends BaseDto {
     public void setId(Long argId) {
         this.id = argId;
     }
-
-    /**
-     * Is the key disabled?
-     * @return Returns true if disabled, false if enabled.
-     */
-    public boolean isSelected() {
-        return this.selected;
-    }
-    
-    /**
-     * Disable (or enable) the key
-     * @param value 1 if the key is disabled
-     */
-    public void setSelected(Integer value) {
-        if (value == null || (!value.equals(new Integer(1)))) {
-            this.selected = false;
-        }
-        else {
-            this.selected = true;
-        }
-
-        return;
-    }
-
 
 }

@@ -75,6 +75,15 @@ public class Translator extends Translations {
     public static boolean int2Boolean(Integer i) {
         return (i == null) ? false : i.equals(new Integer(1)); 
     }
+
+    /**
+     * Convert an Long object to a boolean
+     * @param i Long to check. 1 = true, anything else = false
+     * @return Returns the boolean representation of i
+     */
+    public static boolean long2Boolean(Long i) {
+        return (i == null) ? false : i == 1; 
+    }
     
     /** Convert from Integer to User 
      * @param l The Long to convert
