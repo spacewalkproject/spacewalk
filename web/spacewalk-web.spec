@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.11
+Version: 0.5.12
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,24 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 19 2009 Jan Pazdziora 0.5.12-1
+- 479742 - changes to make doc links from Help and About pages configurable (Brad B.)
+- 486057 - reworked proxy install xml file for 530 support (Shannon H.)
+- 485878 - missing options in db-control.1 (Milan Z.)
+- 485985 - remove references to obsolete package rhns-proxy-management (Shannon H.)
+- 484717 - remove dead function store_ssl_cert from RHN::SatInstall
+- 484709 - remove dead function sat_sync from RHN::SatInstall
+- 484705 - remove dead function satcon_deploy from RHN::SatInstall
+- 484703 - remove dead function generate_satcon_dict from RHN::SatInstall
+- 484702 - remove dead function generate_server_pem from RHN::SatInstall
+- 484701 - remove dead function deploy_ca_cert from RHN::SatInstall
+- 484685 - remove dead function install_server_cert from RHN::SatInstall
+- 484681 - remove dead function populate_tablespace_name from RHN::SatInstall
+- 484699 - remove dead function populate_database from RHN::SatInstall
+- 484680 - remove dead function write_tnsnames from RHN::SatInstall
+- code cleanup: remove acl="global_config(satellite)" (Miroslav S.)
+- code cleanup - remove unreachable pages (old hosted content) (Miroslav S.)
+
 * Mon Feb 16 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.11-1
 - yum repodata regen changes to taskomatic
  
