@@ -17,10 +17,10 @@
 --
 
 create or replace function
-create_pxt_session_autonomous(web_user_id in numeric, expires in numeric, value in varchar)
+create_pxt_session_autonomous(p_web_user_id in numeric, p_expires in numeric, p_value in varchar)
 returns numeric as $$
 declare
-	id numeric;
+	l_id numeric;
 begin
 	select
 		sequence_nextval( 'pxt_id_seq' ) into id
@@ -28,7 +28,7 @@ begin
 		dual;
 
 	insert into PXTSessions (id, value, expires, web_user_id)
-	values (id, value, expires, web_user_id);
+	values (l_id, p_value, p_expires, p_web_user_id);
 
 	return id;
 end;

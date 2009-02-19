@@ -16,16 +16,21 @@
 --
 --
 
-CREATE OR REPLACE function
-queue_errata(errata_id_in IN numeric)
-returns void
-AS
-$$
-BEGIN
-	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);
-EXCEPTION
-	WHEN UNIQUE_VIOLATION THEN
-	     UPDATE rhnSNPErrataQueue SET processed = 0 WHERE errata_id = errata_id_in;
-END;
-$$ language plpgsql;
+create or replace view rhnOrgChannelFamilyPermissions as
+	select	pcf.channel_family_id,
+		u.org_id as org_id,
+		to_number(null, null) as max_members,
+		0 as current_members,
+		pcf.created,
+		pcf.modified
+	from	rhnPublicChannelFamily pcf,
+		web_contact u
+	union
+	select	channel_family_id,
+		org_id,
+		max_members,
+		current_members,
+		created,
+		modified
+	from	rhnPrivateChannelFamily;
 

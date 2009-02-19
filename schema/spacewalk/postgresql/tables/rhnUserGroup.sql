@@ -53,8 +53,7 @@ create index rhn_ug_org_id_type_idx
 
 create index rhn_ug_org_id_gtype_idx
         on rhnUserGroup(org_id, group_type, id)
-        parallel 6
-        tablespace [[8m_tbs]]
+--        tablespace [[8m_tbs]]
 ;
 
 

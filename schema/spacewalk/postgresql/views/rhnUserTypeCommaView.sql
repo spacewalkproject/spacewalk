@@ -14,18 +14,22 @@
 --
 --
 --
---
-
-CREATE OR REPLACE function
-queue_errata(errata_id_in IN numeric)
-returns void
-AS
-$$
-BEGIN
-	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);
-EXCEPTION
-	WHEN UNIQUE_VIOLATION THEN
-	     UPDATE rhnSNPErrataQueue SET processed = 0 WHERE errata_id = errata_id_in;
-END;
-$$ language plpgsql;
+create or replace view rhnUserTypeCommaView (
+       user_id, ids, labels, names
+)
+as
+select
+    C.id,
+    array_to_string( array(select utb.type_id
+                           from rhnUserTypeBase utb
+                           where utb.user_id = C.id), ', ' ),
+    array_to_string( array(select utb.type_label
+                           from rhnUserTypeBase utb
+                           where utb.user_id = C.id), ', ' ),
+    array_to_string( array(select utb.type_name
+                           from rhnUserTypeBase utb
+                           where utb.user_id = C.id), ', ' )
+from	   
+    web_contact as C
+;
 

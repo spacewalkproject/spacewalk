@@ -14,18 +14,20 @@
 --
 --
 --
---
-
-CREATE OR REPLACE function
-queue_errata(errata_id_in IN numeric)
-returns void
+create or replace view rhnUserTypeBase (
+       user_id, type_id, type_label, type_name
+)
 AS
-$$
-BEGIN
-	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);
-EXCEPTION
-	WHEN UNIQUE_VIOLATION THEN
-	     UPDATE rhnSNPErrataQueue SET processed = 0 WHERE errata_id = errata_id_in;
-END;
-$$ language plpgsql;
+select distinct
+    ugm.user_id, ugt.id, ugt.label, ugt.name
+from   
+    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
+where   
+    ugm.user_group_id = ug.id
+and ugt.id = ug.group_type;
 
+
+--
+-- Revision 1.3  2001/06/27 02:05:25  gafton
+-- add Log too
+--

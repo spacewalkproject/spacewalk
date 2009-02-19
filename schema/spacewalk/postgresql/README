@@ -6,3 +6,5 @@ And to cleanup the database, use a combination of drop + create, like so:
 
     dropdb spacewalk ; createdb spacewalk && createlang plpgsql spacewalk
 
+Note: In future, the above cleanup process will be changed to drop just the schema.
+

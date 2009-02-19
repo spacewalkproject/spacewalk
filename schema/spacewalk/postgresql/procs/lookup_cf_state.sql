@@ -32,6 +32,7 @@ begin
 
 	return state_id;
 end;
+$$
 language plpgsql
 stable;
 

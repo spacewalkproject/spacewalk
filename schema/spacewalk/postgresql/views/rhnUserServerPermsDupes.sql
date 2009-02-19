@@ -16,16 +16,20 @@
 --
 --
 
-CREATE OR REPLACE function
-queue_errata(errata_id_in IN numeric)
-returns void
-AS
-$$
-BEGIN
-	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);
-EXCEPTION
-	WHEN UNIQUE_VIOLATION THEN
-	     UPDATE rhnSNPErrataQueue SET processed = 0 WHERE errata_id = errata_id_in;
-END;
-$$ language plpgsql;
+create or replace view rhnUserServerPermsDupes as
+select	usg.user_id,
+	sgm.server_id
+from	rhnServerGroupMembers sgm,
+	rhnUserServerGroupPerms usg
+where	usg.server_group_id = sgm.server_group_id
+union all
+select	ugm.user_id, s.id
+from	rhnServer s,
+	rhnUserGroup ug,
+	rhnUserGroupMembers ugm,
+	rhnUserGroupType ugt
+where	ugt.label = 'org_admin'
+	and ugm.user_group_id = ug.id
+	and ug.group_type = ugt.id
+	and ug.org_id = s.org_id;
 

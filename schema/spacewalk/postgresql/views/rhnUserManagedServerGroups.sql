@@ -12,20 +12,25 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
+-- Overview of users in an org
 --
 --
 
-CREATE OR REPLACE function
-queue_errata(errata_id_in IN numeric)
-returns void
-AS
-$$
-BEGIN
-	INSERT INTO rhnSNPErrataQueue (errata_id) VALUES (errata_id_in);
-EXCEPTION
-	WHEN UNIQUE_VIOLATION THEN
-	     UPDATE rhnSNPErrataQueue SET processed = 0 WHERE errata_id = errata_id_in;
-END;
-$$ language plpgsql;
+create or replace view
+rhnUserManagedServerGroups (
+    user_id, server_group_id
+)
+as
+select user_id, server_group_id from rhnUserServerGroupPerms
+union
+select wc.id, sg.id
+  from rhnServerGroup sg,
+       rhnUserGroup ug,
+       rhnUserGroupMembers ugm,
+       web_contact wc
+ where wc.org_id = sg.org_id
+   and wc.id = ugm.user_id
+   and ugm.user_group_id = ug.id
+   and ug.group_type = (select id from rhnUserGroupType where label = 'org_admin')
+;
 

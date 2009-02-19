@@ -25,18 +25,18 @@
 create or replace
 function delete_server_bulk (
 	user_id_in in numeric
-) as
+)
+returns void as
 $$
 declare
-	systems cursor for
-		select	s.element id
-		from	rhnSet s
-		where	s.user_id = user_id_in
-			and s.label = 'system_list';
+	rec record;
 begin
-	for s in systems loop
-                delete_server(s.id);
+	for rec in select s.element as id
+			from	rhnSet s
+			where	s.user_id = user_id_in
+			and s.label = 'system_list'loop
+		perform delete_server(rec.id);
 	end loop;
-end delete_server_bulk;
+end;
 $$ language plpgsql;
 
