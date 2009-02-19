@@ -44,3 +44,6 @@ for each row
 begin
     :new.modified := sysdate;
 end;
+\
+show errors
+
