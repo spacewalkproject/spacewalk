@@ -168,7 +168,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         
         ksdata.setLogvols(logvolSet);
         ksdata.setVolgroups(volGroupSet);
-        ksdata.setPartitions(new TreeSet(partitionSet));
+        ksdata.setPartitions(partitionSet);
         ksdata.setIncludes(includeSet);
         ksdata.setRaids(raidSet);
         return null;

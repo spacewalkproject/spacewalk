@@ -31,6 +31,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -72,7 +73,7 @@ public class KickstartData {
     private Set defaultRegTokens;
     private Set preserveFileLists;
     private List<PackageName> packageNames;        
-    private Set<KickstartCommand> commands;
+    private Collection<KickstartCommand> commands;
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
@@ -493,7 +494,7 @@ public class KickstartData {
      * Getter for commands
      * @return Returns commands 
      */
-    public Set<KickstartCommand> getCommands() {
+    public Collection<KickstartCommand> getCommands() {
         return this.commands;
     }
     
@@ -558,7 +559,7 @@ public class KickstartData {
      * Setter for commands
      * @param c The Command List to set.
      */
-    public void setCommands(Set<KickstartCommand> c) {
+    public void setCommands(Collection<KickstartCommand> c) {
         this.commands = c;
     }
     
@@ -671,7 +672,7 @@ public class KickstartData {
      * remove old custom options and replace with new
      * @param customIn to replace old with.
      */
-    public void setCustomOptions(Set<KickstartCommand> customIn) {
+    public void setCustomOptions(Collection<KickstartCommand> customIn) {
         replaceSet(this.getCustomOptions(), customIn);
     }
     
@@ -679,7 +680,7 @@ public class KickstartData {
      * remove old partitions and replace with new
      * @param partitionsIn to replace old with.
      */
-    public void setPartitions(Set<KickstartCommand> partitionsIn) {
+    public void setPartitions(Collection<KickstartCommand> partitionsIn) {
         replaceSet(this.getPartitions(), partitionsIn);
     }
 
@@ -688,7 +689,7 @@ public class KickstartData {
      * remove old options and replace with new
      * @param optionsIn to replace old with.
      */
-    public void setOptions(Set<KickstartCommand> optionsIn) {
+    public void setOptions(Collection<KickstartCommand> optionsIn) {
         replaceSet(this.getOptions(), optionsIn);
     }
 
@@ -696,7 +697,7 @@ public class KickstartData {
      * remove old includes and replace with new
      * @param includesIn to replace old with.
      */
-    public void setIncludes(Set<KickstartCommand> includesIn) {
+    public void setIncludes(Collection<KickstartCommand> includesIn) {
         replaceSet(this.getIncludes(), includesIn);
     }
 
@@ -704,7 +705,7 @@ public class KickstartData {
      * remove old raids and replace with new
      * @param raidsIn to replace old with.
      */
-    public void setRaids(Set<KickstartCommand> raidsIn) {
+    public void setRaids(Collection<KickstartCommand> raidsIn) {
         replaceSet(this.getRaids(), raidsIn);
     }
 
@@ -712,7 +713,7 @@ public class KickstartData {
      * remove logvols and replace
      * @param logvolsIn to replace old with.
      */
-    public void setLogvols(Set<KickstartCommand> logvolsIn) {
+    public void setLogvols(Collection<KickstartCommand> logvolsIn) {
         replaceSet(this.getLogvols(), logvolsIn);
     }
 
@@ -720,12 +721,12 @@ public class KickstartData {
      * remove old options and replace with new
      * @param volgroupsIn to replace old with.
      */
-    public void setVolgroups(Set<KickstartCommand> volgroupsIn) {
+    public void setVolgroups(Collection<KickstartCommand> volgroupsIn) {
         replaceSet(this.getVolgroups(), volgroupsIn);
     }
 
-    private void replaceSet(Set<KickstartCommand> oldSet,
-            Set<KickstartCommand> newSet) {
+    private void replaceSet(Collection<KickstartCommand> oldSet,
+            Collection<KickstartCommand> newSet) {
         logger.debug("replaceSet co.pre: " + this.getCustomOptions());
         this.commands.removeAll(oldSet);
         logger.debug("replaceSet co.post: " + this.getCustomOptions());

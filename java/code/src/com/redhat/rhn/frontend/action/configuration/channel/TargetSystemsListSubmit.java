@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.configuration.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
@@ -25,6 +26,7 @@ import com.redhat.rhn.frontend.action.configuration.ConfigActionHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -96,6 +98,7 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
         //now some of the sets may be invalid, so delete them.
         RequestContext requestContext = new RequestContext(request);
         ConfigActionHelper.clearRhnSets(requestContext.getLoggedInUser());
+        
         return getStrutsDelegate().forwardParams(mapping.findForward("success"), params);
     }
     
@@ -117,6 +120,12 @@ public class TargetSystemsListSubmit extends BaseSetOperateOnSelectedItemsAction
         Server s = ServerFactory.lookupById(elementIn.getElement());
         s.subscribe(cc);
         ServerFactory.save(s);
+        
+        // bz 444517 - Create a snapshot to capture this change
+        String message =
+            LocalizationService.getInstance().getMessage("snapshots.configchannel");
+        SystemManager.snapshotServer(s, message);
+        
         return Boolean.TRUE;
     }
 }
