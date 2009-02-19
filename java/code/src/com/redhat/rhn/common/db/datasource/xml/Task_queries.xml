@@ -635,6 +635,15 @@ ORDER BY next_action DESC
   </query>
 </write-mode>
 
+<mode name="find_channel_in_task_queue">
+	<query params="cid">
+		SELECT task_data
+		FROM rhnTaskQueue
+		WHERE task_data = :cid
+		AND task_name = 'update_errata_cache_by_channel'
+	</query>
+</mode>
+
 <write-mode name="update_task_queue">
 	<query params="earliest, cid">
 		UPDATE rhnTaskQueue
