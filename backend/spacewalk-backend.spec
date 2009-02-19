@@ -558,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.9-1
+- 480903 - fix for fcntl locking to use flock when IOError's
+
 * Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.9-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
 
