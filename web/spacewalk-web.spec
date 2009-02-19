@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 19 2009 Miroslav Suchy <msuchy@redhat.com>
+- fix proxy webui installer 
+
 * Thu Feb 19 2009 Jan Pazdziora 0.5.12-1
 - 479742 - changes to make doc links from Help and About pages configurable (Brad B.)
 - 486057 - reworked proxy install xml file for 530 support (Shannon H.)
