@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.4
+Version:      2.1.5
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -94,7 +94,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.4-1
+* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.5-1
 - 435415 - redirect nocops emails to root
 
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 2.1.2-1
