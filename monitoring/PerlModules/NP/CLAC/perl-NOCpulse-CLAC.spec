@@ -46,9 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Thu Feb 19 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com>
 - remove opt flags
 - add LICENSE
+- add GPL header to modules
 
 * Thu Jan 22 2009 Dennis Gilmore <dgilmore@redhat.com> 1.9.7-1
 - BuildRequires perl(ExtUtils::MakeMaker)
