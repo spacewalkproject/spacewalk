@@ -636,7 +636,7 @@ done
         </script>
      </run-script>
 
-      <run-script acl="session_data_false(enable_monitoring)">
+      <run-script acl="not session_data_true(enable_monitoring)">
         <action-name>Enable RHN Proxy services</action-name>
         <script>
 #!/bin/sh
