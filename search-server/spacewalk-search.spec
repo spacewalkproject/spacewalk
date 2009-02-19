@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -108,6 +108,10 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.7-1
+- 486182 -  SystemSearch "id" is now tokenized, allows flexible 'ngram' s
+- 485820 -  System Search: Isn't reindexing when system data is modified 
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.6-1
 - 484610 - doc search results were reversed, displaying worst results first
 - Cleaned up "tabs" which got added into some files previously.
