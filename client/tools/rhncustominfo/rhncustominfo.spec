@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> - 0.4.2-1
+- 485459 - constructed url should now point to right handler
+
 * Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
 - fix typo in Source0
 
