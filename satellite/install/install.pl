@@ -207,7 +207,7 @@ EOH
   }
 
   if ($opts->{"upgrade"}) {
-    my $ret = system_debug('rpm', '-q', 'rhns');
+    my $ret = system_debug('rpm', '-q', 'rhns') && system_debug('rpm', '-q', 'spacewalk-schema');
 
     if ($ret) {
       print loc(<<EOH);
