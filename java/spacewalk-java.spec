@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.19
+Version: 0.5.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,20 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.20-1
+- 484768 - Basically fixed a query and DTO and a Translator to correctly 
+- 486174 - Was using the incorrect key in the filterattr attribute on the
+- kickstart session status where ks is syncing to a profile has an correc
+- 456315 - refixing this bug, changing kickstart commands to be a Collect
+- Changed the hard coded 500 value to BATCH size :)
+- 444517 - Added snapshot hook to configuration channel subscription via 
+- 485047 - adding back the Task_queries find_channel_in_task_queue query
+- 437547, 485313 - Added exception message for when index files are missi
+- Adding 'Errata' search to Tasks under YourRhn.do
+- 483607 -  Adding documentation as an option to the search bar
+- 219844 -  Add 'legend' for Errata Search
+- Cleanup, removed commented out code
+
 * Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.19-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
 
