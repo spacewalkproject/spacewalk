@@ -219,7 +219,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="rhns-proxy-broker" default="${session.have_package_rhns_proxy_broker}" acl="session_data_true(have_package_rhns_proxy_broker)" />
                 <widget type="literal" label="rhns-proxy-common" default="${session.have_package_rhns_proxy_common}" acl="session_data_true(have_package_rhns_proxy_common)" />
 		<widget type="literal" label="rhns-proxy-docs" default="${session.have_package_rhns_proxy_docs}" acl="session_data_true(have_package_rhns_proxy_docs)" />
-                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_rhns_proxy_management}" acl="session_data_true(have_package_rhns_proxy_management)" />
+                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_spacewalk_proxy_management}" acl="session_data_true(have_package_spacewalk_proxy_management)" />
                 <widget type="literal" label="rhns-proxy-monitoring" default="${session.have_package_rhns_proxy_monitoring}" acl="session_data_true(have_package_rhns_proxy_monitoring)" />
                 <widget type="literal" label="rhns-proxy-package-manager" default="${session.have_package_rhns_proxy_package_manager}" acl="session_data_true(have_package_rhns_proxy_package_manager)" />
                 <widget type="literal" label="rhns-proxy-redirect" default="${session.have_package_rhns_proxy_redirect}" acl="session_data_true(have_package_rhns_proxy_redirect)" />
@@ -594,10 +594,40 @@ chmod 640 /etc/sysconfig/rhn/systemid
 	</script>
       </run-script>
 
-      <restart-services>
-        <action-name>Start ${app.name}</action-name>
-        <service>rhn-proxy</service>
-      </restart-services>
+      <run-script acl="session_data_true(enable_monitoring)">
+        <action-name>Enable RHN Proxy services</action-name>
+        <script>
+#!/bin/sh
+for service in jabberd squid httpd MonitoringScout; do
+  /sbin/chkconfig --add $service 
+  if [ "$1" = "1" ] ; then  # first install
+      /sbin/chkconfig --level 345 $service on
+  fi
+done
+        </script>
+     </run-script>
+
+      <run-script acl="session_data_false(enable_monitoring)">
+        <action-name>Enable RHN Proxy services</action-name>
+        <script>
+#!/bin/sh
+for service in jabberd squid httpd; do
+  /sbin/chkconfig --add $service
+  if [ "$1" = "1" ] ; then  # first install
+      /sbin/chkconfig --level 345 $service on
+  fi
+done
+  </script>
+
+      </run-script>
+
+      <run-script>
+        <action-name>Restart RHN Proxy</action-name>
+        <script>
+#!/bin/sh
+/usr/sbin/rhn-proxy restart
+  </script>
+      </run-script>
     </schedule-actions>
 
     <redirect save-session="1">/network/systems/details/proxy/install_progress.pxt?sid=${system.id}&amp;version=${app.version}</redirect>
@@ -715,10 +745,13 @@ here, and configure the up2date client separately.
         <configfile>/etc/rhn/rhn.conf</configfile>
       </deploy-configs> 
 
-      <restart-services>
-        <action-name>Start ${app.name}</action-name>
-        <service>rhn-proxy</service>
-      </restart-services>
+      <run-script>
+        <action-name>Restart RHN Proxy</action-name>
+        <script>
+#!/bin/sh
+/usr/sbin/rhn-proxy restart
+  </script>
+      </run-script>
 
     </schedule-actions>
 
@@ -763,10 +796,13 @@ proxy will need to be reconfigured to use a different Satellite server.
 
     <schedule-actions description="Deactivate ${app.name}">
 
-      <stop-services>
+      <run-script>
         <action-name>Stop ${app.name} Services</action-name>
-        <service>rhn-proxy</service>
-      </stop-services>
+        <script>
+#!/bin/sh
+/usr/sbin/rhn-proxy stop
+  </script>
+      </run-script>
 
       <run-script acl="session_data_true(remove_packages)">
         <action-name>Remove proxy packages</action-name>
