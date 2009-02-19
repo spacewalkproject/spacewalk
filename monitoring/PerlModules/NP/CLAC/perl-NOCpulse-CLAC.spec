@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-CLAC
-Version:      1.9.7
+Version:      1.9.8
 Release:      1%{?dist}
 Summary:      NOCpulse Command Line Application framework for Perl
 URL:          https://fedorahosted.org/spacewalk
@@ -46,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 1.9.8-1
 - remove opt flags
 - add LICENSE
 - add GPL header to modules
