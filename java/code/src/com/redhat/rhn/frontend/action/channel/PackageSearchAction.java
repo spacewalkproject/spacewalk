@@ -98,13 +98,26 @@ public class PackageSearchAction extends RhnAction {
                     new ActionMessage("packages.search.connection_error"));
         }
         catch (XmlRpcFault e) {
+            log.info("Caught Exception :" + e);
+            log.info("ErrorCode = " + e.getErrorCode());
+            e.printStackTrace();
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.could_not_parse_query",
+                                          searchString));
             }
-            
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_parse_query",
+            else if (e.getErrorCode() == 200) {
+                log.error("Index files appear to be missing: ", e);
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.index_files_missing",
+                                          searchString));
+            }
+            else {
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.could_not_execute_query",
                                       searchString));
+            }
         }
         catch (MalformedURLException e) {
             log.error("Could not connect to server.", e);

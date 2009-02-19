@@ -97,20 +97,26 @@ public class ErrataSearchAction extends RhnAction {
                     new ActionMessage("packages.search.connection_error"));
         }
         catch (XmlRpcFault e) {
-            ActionMessage errorMsg = null;
+            log.info("Caught Exception :" + e);
+            log.info("ErrorCode = " + e.getErrorCode());
+            e.printStackTrace();
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
-                errorMsg = new ActionMessage("packages.search.could_not_parse_query",
-                        searchString);
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.could_not_parse_query",
+                                          searchString));
+            }
+            else if (e.getErrorCode() == 200) {
+                log.error("Index files appear to be missing: ", e);
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.index_files_missing",
+                                          searchString));
             }
             else {
-                errorMsg = new ActionMessage("errata.search.could_not_execute_query",
-                        searchString);
-                log.warn("XmlRpcFault error code: " + e.getErrorCode() + " caught: " +
-                        e.getMessage());
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.could_not_execute_query",
+                                      searchString));
             }
-            e.printStackTrace();
-            errors.add(ActionMessages.GLOBAL_MESSAGE, errorMsg);
         }
         catch (MalformedURLException e) {
             log.error("Could not connect to server.", e);
