@@ -194,7 +194,7 @@ def munge_server_url(u2d_server_url):
     m = search('(?P<prot_and_host>http[s]?://.*?/)XMLRPC', u2d_server_url)
 
     if m:
-        return m.group('prot_and_host') + 'WEBRPC/api'
+        return m.group('prot_and_host') + 'rpc/api'
 
 def main():
 

@@ -34,7 +34,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 /**
  * KickstartPrePostCommand - for editing the pre and post steps
@@ -168,7 +167,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
         
         ksdata.setLogvols(logvolSet);
         ksdata.setVolgroups(volGroupSet);
-        ksdata.setPartitions(new TreeSet(partitionSet));
+        ksdata.setPartitions(partitionSet);
         ksdata.setIncludes(includeSet);
         ksdata.setRaids(raidSet);
         return null;

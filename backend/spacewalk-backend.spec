@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.9
+Version: 0.5.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -558,8 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.9-1
+* Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.11-1
 - 480903 - fix for fcntl locking to use flock when IOError's
+- 461672 - fixing satsync --no-rpms to only skip rpms
 
 * Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.9-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.2

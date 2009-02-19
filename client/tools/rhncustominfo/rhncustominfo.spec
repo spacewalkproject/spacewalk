@@ -3,7 +3,7 @@ Summary: set and list custom values for RHN-enabled machines
 Group: RHN/Client
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.4.4
+Version: 0.4.5
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.5-1
+- 485459 - constructed url should now point to right handler
+
 * Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
 - fix typo in Source0
 
