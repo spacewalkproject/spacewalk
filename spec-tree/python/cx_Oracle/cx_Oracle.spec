@@ -2,9 +2,9 @@
 
 # different arches have differnet oracle versions
 %ifarch s390 s390x
-define oraclever 10.2.0.2
+%define oraclever 10.2.0.2
 %else
-define oraclever 10.2.0.4
+%define oraclever 10.2.0.4
 %endif
 
 Summary: Python interface to Oracle
