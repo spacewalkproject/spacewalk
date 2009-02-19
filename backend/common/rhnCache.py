@@ -55,8 +55,14 @@ def _fname(name):
 # Lock it, using default mode rhn_fcntl.F_WRLCK.
 def _lock(fd, lock = WRLOCK):
     fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, lock)
+
 def _unlock(fd):
-    fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, UNLOCK)
+    try:
+        fcntl.fcntl(fd, rhn_fcntl.F_SETLKW, UNLOCK)
+    except IOError:
+        # If LOCK is not relinquished try flock, 
+        # its usually more forgiving.
+        fcntl.flock(fd, fcntl.LOCK_UN)
 
 ### The following functions expose this module as a dictionary
 

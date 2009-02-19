@@ -2,15 +2,15 @@
 
 # different arches have differnet oracle versions
 %ifarch s390 s390x
-define oraclever 10.2.0.2
+%define oraclever 10.2.0.2
 %else
-define oraclever 10.2.0.4
+%define oraclever 10.2.0.4
 %endif
 
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 4.2.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: cx_Oracle-instantclient.patch
 License: BSD-style
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/*
 
 %changelog
-* Wed Feb 18 2009 Dennis Gilmore <dennis@ausil.us> 
+* Wed Feb 18 2009 Dennis Gilmore <dennis@ausil.us> 4.2.1-6
 - define oraclever since different arches have different versions of oracle
 
 * Fri Oct 24 2008 Milan Zazrivec 4.2.1-5

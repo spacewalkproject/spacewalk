@@ -2576,6 +2576,25 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       
+      <trans-unit id="packages.search.index_files_missing">
+<source>Index files missing from search-server .</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Search</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+          <context context-type="sourcefile">/rhn/help/Search</context>
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="packages.search.could_not_execute_query">
+<source>Could not execute query '{0}'.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Search</context>
+          <context context-type="sourcefile">/rhn/systems/Search</context>
+          <context context-type="sourcefile">/rhn/help/Search</context>
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="packages.search.tooshort">
 <source>Search strings must be longer than two characters.</source>
         <context-group name="ctx">

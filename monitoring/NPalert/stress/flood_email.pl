@@ -49,7 +49,7 @@ while (!$bailout) {
  print "$cmd\n";
  my $full_text = <<EOX;
 From: test <nobody\@nocpulse.com>
-To: <rogerthatdev01\@redhat.com>
+To: <rogerthatdev01\@localhost>
 Subject: $cmd
 
 This is a test message from $0

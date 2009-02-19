@@ -3,7 +3,7 @@
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
 Version: 1.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: gzipstream-%{version}.tar.gz
 License: PSF
 Group: Development/Libraries
@@ -16,7 +16,7 @@ Url: http://rhn.redhat.com
 %description
 A streaming gzip handler.
 gzipstream.GzipStream extends the functionality of the gzip.GzipFile class
-to allow the processing of streaming data. 
+to allow the processing of streaming data.
 
 
 %prep
@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #$Id: gzipstream.spec,v 1.24 2006-12-07 21:16:31 rnewberr Exp $
 %changelog
-* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 1.4.0-2
+* Tue Jan 27 2009 Miroslav Suchý <msuchy@redhat.com> 1.4.0-3
 - rename gzipstream.spec to python-gzipstream.spec
 
 * Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> 1.4.0-17

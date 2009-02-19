@@ -336,10 +336,21 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             e.printStackTrace();
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
+                errs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.could_not_parse_query",
+                                          searchString));
             }
-            errs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_parse_query",
+            else if (e.getErrorCode() == 200) {
+                log.error("Index files appear to be missing: ", e);
+                errs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.index_files_missing",
+                                          searchString));
+            }
+            else {
+                errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.could_not_execute_query",
                                       searchString));
+            }
         }
         catch (XmlRpcException e) {
             log.info("Caught Exception :" + e);

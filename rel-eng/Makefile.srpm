@@ -177,7 +177,7 @@ x-pull-in-tar-gz :
 		fi
 
 x-download-source0 :
-	if test -n "$(DOWNLOAD_SOURCES)" ; then \
+	@if test -n "$(DOWNLOAD_SOURCES)" ; then \
 		for i in $(DOWNLOAD_SOURCES) ; do \
 			wget $$i ; \
 		done ; \
