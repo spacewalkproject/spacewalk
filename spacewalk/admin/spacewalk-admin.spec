@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.8
+Version: 0.5.9
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Thu Feb 19 2009 Jan Pazdziora 0.5.9-1
+- rhn-populate-database.pl: fix the LOGFILE logic
+
 * Wed Feb 11 2009 Dave Parker <dparker@redhat.com> 0.5.8-1
 - 484659 remove error messages due to incorrect startup sequence in sysv and rhn-satellite utility
 * Tue Feb 10 2009 Jan Pazdziora 0.5.7-1
