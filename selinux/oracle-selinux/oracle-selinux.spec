@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.4%{?obtag}%{?dist}%{?repo}
+Release:         23.5%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -189,6 +189,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 %changelog
+* Thu Feb 19 2009 Jan Pazdziora 0.1-23.5
+- make the unconfined_devpts_t part optional
+
 * Tue Feb 10 2009 Jan Pazdziora 0.1-23.4
 - add dontaudit on unconfined_devpts_t
 - replace create_file_perms with manage_fifo_file_perms
