@@ -2258,9 +2258,6 @@ def processCommandline():
 
     if actionDict['no-rpms']:
         actionDict['rpms'] = 0
-        actionDict['short'] = 0
-        actionDict['download-packages'] = 0
-        actionDict['packages'] = 0
         
 
     #if actionDict['no-srpms']:
