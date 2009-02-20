@@ -332,6 +332,7 @@ set client_min_messages = warning;
 \i tables/rhnServerGroupMembers.sql
 \i tables/rhnServerGroupNotes.sql
 \i tables/rhnUserGroup.sql
+\i tables/rhnUserGroup_sequences.sql
 \i tables/rhnSnapshotServerGroup.sql
 \i tables/rhnServerGroupTypeFeature.sql
 \i tables/rhnServerHistory.sql
