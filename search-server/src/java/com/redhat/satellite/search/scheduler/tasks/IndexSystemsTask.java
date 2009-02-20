@@ -44,6 +44,7 @@ public class IndexSystemsTask extends GenericIndexTask {
 
         Map<String, String> attrs = new HashMap<String, String>();
         attrs.put("id", new Long(srvr.getId()).toString());
+        attrs.put("system_id", new Long(srvr.getId()).toString());
         attrs.put("name", srvr.getName());
         attrs.put("description", srvr.getDescription());
         attrs.put("info", srvr.getInfo());
