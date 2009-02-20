@@ -272,19 +272,13 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
         # bitch to fix because the channel family's name column is *based* on 
         # the certificate owner
 
-        # insert and prep the blob
         h = rhnSQL.prepare(_query_insert_cert)
         h.execute(label=label, version=version, expires=expires, issued=issued)
 
-        # update the blob
-        h_update = rhnSQL.prepare(_query_cert_for_update)
-        h_update.execute(label=label, version=version,
-                         issued=issued, expires=expires)
-        row = h_update.fetchone_dict()
-
-        # We should have a row, if we don't let the exception pass
-        cert_blob = row['cert']
-        cert_blob.write(cert)
+        # Oracle aparently needs a separate query to update the cert blob:
+        h.update_blob("rhnSatelliteCert", "cert", 
+            "WHERE label = :label AND version = :version", cert, label=label,
+            version=version)
 
     # always reset the slots
     set_slots_from_cert(sc)
@@ -350,14 +344,6 @@ _query_update_rhnchannelfamily = rhnSQL.Statement("""
     UPDATE rhnchannelfamily
     SET name = :owner
     WHERE org_id = 1
-""")
-
-_query_cert_for_update = rhnSQL.Statement("""
-    SELECT cert 
-      FROM rhnSatelliteCert
-     WHERE label = :label
-           AND version = :version
-       FOR update of cert
 """)
 
 #
