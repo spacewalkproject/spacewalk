@@ -16,6 +16,7 @@
 
 import os
 import re
+import sys
 import commands
 import StringIO
 
@@ -156,8 +157,13 @@ class VersionTagger(object):
             bump_type = "bump-version"
             if release:
                 bump_type = "bump-release"
-            cmd = "perl %s/bump-version.pl %s --specfile %s" % \
-                    (self.rel_eng_dir, bump_type, self.spec_file)
+            # Use the bump-version.pl in the same tree as the build.py
+            # we're running. Need to get build.py installable on the system.
+            bv_dir = os.path.abspath(os.path.join(os.path.dirname(
+                sys.argv[0]), "../bump-version.pl"))
+            print bv_dir
+            cmd = "perl %s %s --specfile %s" % \
+                    (bv_dir, bump_type, self.spec_file)
             run_command(cmd)
 
         new_version = self._get_spec_version_and_release()
