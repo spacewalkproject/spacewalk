@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2008 Red Hat, Inc.
+-- Copyright (c) 2009 Red Hat, Inc.
 --
 -- This software is licensed to you under the GNU General Public License,
 -- version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -14,15 +14,16 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+
+create or replace function
+empty_blob()
+returns bytea
+as
+$$
+begin
+	return '';
+end;
+$$ language plpgsql
+stable;
 

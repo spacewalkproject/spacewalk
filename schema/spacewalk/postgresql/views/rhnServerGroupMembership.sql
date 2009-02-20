@@ -14,15 +14,18 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+
+
+CREATE OR REPLACE VIEW rhnServerGroupMembership (
+         ORG_ID, SERVER_ID, GROUP_ID, GROUP_NAME, GROUP_TYPE, CURRENT_MEMBERS, MAX_MEMBERS
 )
 AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+SELECT   SG.org_id, SGM.server_id, SG.id, SG.name, SGT.label, SG.current_members, SG.max_members
+  FROM
+	 rhnServerGroupMembers SGM
+             right join
+    	 rhnServerGroup SG on (SG.id = SGM.server_group_id)
+             left join
+         rhnServerGroupType SGT on (SG.group_type = SGT.id)
+;
 

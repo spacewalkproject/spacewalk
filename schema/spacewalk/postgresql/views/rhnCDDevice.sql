@@ -14,15 +14,24 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+create or replace view 
+rhnCDDevice
+(id, server_Id, class, bus, detached, device, driver, 
+description, dev_host, dev_id, dev_channel, dev_lun, pcitype)
+as select 
+	d.id,
+	d.server_Id,
+	d.class,
+	d.bus,
+	d.detached,
+	d.device,
+	d.driver,
+	d.description,
+	d.prop1,
+	d.prop2,
+	d.prop3,
+	d.prop4,
+	d.pcitype
+from rhndevice d
+where d.class = 'CDROM';
 

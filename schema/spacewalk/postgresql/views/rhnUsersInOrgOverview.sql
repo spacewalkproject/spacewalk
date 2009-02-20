@@ -33,7 +33,7 @@ select
 			from	rhnVisibleServerGroup sg
 			where	sg.id = umsg.server_group_id))
 							as server_group_count,
-	(	select	nvl(utcv.names, '(normal user)')
+	(	select	coalesce(utcv.names, '(normal user)')
 		from	rhnUserTypeCommaView utcv
 		where	utcv.user_id = u.id)
 							as role_names

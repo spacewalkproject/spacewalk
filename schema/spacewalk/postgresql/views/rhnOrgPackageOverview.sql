@@ -14,15 +14,26 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+
+create or replace view
+rhnOrgPackageOverview
+as
+select
+    p.org_id as org_id,
+    cpac.channel_arch_id,
+    p.id as package_id,
+    rhn_package.canonical_name(p_name.name, p_evr.evr, pa.name) as package_nvrea
+from
+    rhnPackageName p_name,
+    rhnPackageEVR p_evr,
+    rhnPackageArch pa,
+    rhnChannelPackageArchCompat cpac,
+    rhnPackage p
+where
+        p_name.id = p.name_id
+    and p_evr.id = p.evr_id
+    and cpac.package_arch_id = p.package_arch_id
+    and p.package_arch_id = pa.id
+order by package_nvrea, p.created
+;
 

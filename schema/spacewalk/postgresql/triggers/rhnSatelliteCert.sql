@@ -19,6 +19,7 @@ create or replace function rhn_satcert_mod_trig_fun() returns trigger as
 $$
 begin
     new.modified := CURRENT_TIMESTAMP;
+    return new;
 end;
 $$ language plpgsql;
 

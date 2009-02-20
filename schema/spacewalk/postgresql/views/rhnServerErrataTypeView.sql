@@ -14,15 +14,24 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+--
+
+CREATE OR REPLACE VIEW rhnServerErrataTypeView
+(
+    	server_id,
+	errata_id,
+	errata_type,
+	package_count
 )
 AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+SELECT
+    	SNPC.server_id,
+	SNPC.errata_id,
+	E.advisory_type,
+	COUNT(SNPC.package_id)
+FROM    rhnErrata E,
+    	rhnServerNeededPackageCache SNPC
+WHERE   E.id = SNPC.errata_id
+GROUP BY SNPC.server_id, SNPC.errata_id, E.advisory_type
+;
 

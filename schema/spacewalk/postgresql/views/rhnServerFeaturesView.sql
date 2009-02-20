@@ -14,15 +14,27 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
+--
+
+create or replace view
+rhnServerFeaturesView
+(
+   server_id,
+   label
 )
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+as
+select
+   distinct
+   sgm.server_id,
+   f.label
+from
+   rhnFeature f,
+   rhnServerGroupTypeFeature sgtf,
+   rhnServerGroupMembers sgm,
+   rhnServerGroup sg
+where
+   sg.id = sgm.server_group_id
+   and sgtf.feature_id = f.id
+   and sg.group_type = sgtf.server_group_type_id
+;
 

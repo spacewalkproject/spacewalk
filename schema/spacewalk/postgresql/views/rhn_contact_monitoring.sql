@@ -14,15 +14,24 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+--
+
+create or replace view rhn_contact_monitoring as
+select	u.id			as recid,
+	u.org_id		as customer_id,
+	wupi.last_name		as contact_last_name,
+	wupi.first_names	as contact_first_name,
+	rhn_user.find_mailable_address(u.id)
+				as email_address,
+	u.login			as username,
+	u.password		as password,
+	1			as schedule_id,
+	'GMT'			as preferred_time_zone
+from 
+	web_user_personal_info wupi,
+	web_contact u
+where	u.id = wupi.web_user_id
+	--  and some logic here to check org id for entitlements?
+;
 

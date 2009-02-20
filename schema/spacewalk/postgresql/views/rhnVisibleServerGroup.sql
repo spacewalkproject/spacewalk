@@ -14,15 +14,9 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
+CREATE OR REPLACE VIEW
+rhnVisibleServerGroup
 AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
-
+  SELECT *
+    FROM rhnServerGroup SG
+   WHERE SG.group_type IS NULL;

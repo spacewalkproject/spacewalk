@@ -14,15 +14,30 @@
 --
 --
 --
-create or replace view rhnUserTypeBase (
-       user_id, type_id, type_label, type_name
-)
-AS
-select distinct
-    ugm.user_id, ugt.id, ugt.label, ugt.name
-from   
-    rhnUserGroupMembers ugm, rhnUserGroupType ugt, rhnUserGroup ug
-where   
-    ugm.user_group_id = ug.id
-and ugt.id = ug.group_type;
+--
+--
+
+create or replace view rhn_host_monitoring
+(
+	recid,
+	ip,
+	name,
+	description,
+	customer_id,
+	os_id,
+	asset_id,
+	last_update_user,
+	last_update_date
+) as
+select  s.id            as recid,
+	rhn_server.get_ip_address(s.id)	as ip,
+        s.name          as name,
+        s.description   as description,
+        s.org_id        as customer_id,
+        '4'             as os_id,
+        null            as asset_id,
+        null            as last_update_user,
+        null            as last_update_date
+from	rhnServer	s
+;
 
