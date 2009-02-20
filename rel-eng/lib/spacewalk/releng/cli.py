@@ -184,13 +184,6 @@ class CLI:
         if options.debug:
             os.environ['DEBUG'] = "true"
 
-        # Check for builder options and tagger options, if one or more from both
-        # groups are found, error out:
-        (building, tagging) = self._validate_options(options)
-
-        build_dir = lookup_build_dir()
-        package_name = get_project_name(tag=options.tag)
-
         # TODO: Shortcut here, build.py does some things unrelated to
         # building/tagging packages, check for these options, do what's
         # requested, and exit rather than start looking up data specific
@@ -202,6 +195,14 @@ class CLI:
         if options.untagged_commits:
             self._run_untagged_commits(global_config)
             sys.exit(1)
+
+        # Check for builder options and tagger options, if one or more from both
+        # groups are found, error out:
+        (building, tagging) = self._validate_options(options)
+
+        build_dir = lookup_build_dir()
+        package_name = get_project_name(tag=options.tag)
+
 
         build_tag = None
         build_version = None
