@@ -1,28 +1,25 @@
-%define rhnroot /usr/share/rhn
+%define rhnroot %{_datadir}/rhn
 
-Name: rhnpush
-Summary: Common programs needed to be installed on the RHN servers/proxies.
-Group: Applications/System
-License: GPLv2
-Url: http://rhn.redhat.com
-Version: 0.4.2
-Release: 1%{?dist}
-Source0: %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArch: noarch
-Requires: python, rpm-python
-BuildRequires: /usr/bin/msgfmt
-BuildRequires: /usr/bin/docbook2man
+Name:          rhnpush
+Summary:       Common programs needed to be installed on the RHN servers/proxies.
+Group:         Applications/System
+License:       GPLv2
+URL:           http://fedorahosted.org/spacewalk
+Version:       0.4.2
+Release:       1%{?dist}
+Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:     noarch
+Requires:      rpm-python
+BuildRequires: %{_bindir}/msgfmt, %{_bindir}/docbook2man
 
 Summary: Package uploader for the Red Hat Network Satellite Server
 
-
 %description
 rhnpush uploads package headers to the Red Hat Network servers into
-various channels and allows for several other channel management
-operations relevant to controlling what packages are available from
-which channel.
-
+specified channels and allows for several other channel management
+operations relevant to controlling what packages are available per
+channel.
 
 %prep
 %setup -q
@@ -44,14 +41,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %dir %{rhnroot}/rhnpush
 %{rhnroot}/rhnpush/*
-%attr(755,root,root) /usr/bin/rhnpush
-%attr(755,root,root) /usr/bin/rpm2mpm
-%attr(755,root,root) /usr/bin/solaris2mpm
-%config(noreplace) %attr(644,root,root) /etc/sysconfig/rhn/rhnpushrc
+%attr(755,root,root) %{_bindir}/rhnpush
+%attr(755,root,root) %{_bindir}/rpm2mpm
+%attr(755,root,root) %{_bindir}/solaris2mpm
+%config(noreplace) %attr(644,root,root) %{_sysconfdir}/sysconfig/rhn/rhnpushrc
 %{_mandir}/man8/rhnpush.8*
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Fri Feb 20 2009 Michael Stahnke <stahnma@fedoraproject.org>
+- Package cleanup for Fedora Inclusion
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.2-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 - 436332 - return an error code other than 0 if there is a mismatch
