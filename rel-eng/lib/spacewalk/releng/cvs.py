@@ -128,6 +128,10 @@ class CvsReleaser(object):
         Upload any tarballs to the CVS lookaside directory. (if necessary)
         Uses the "make new-sources" target in common.
         """
+        if len(self.sources) == 0:
+            debug("No sources need to be uploaded.")
+            return
+
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
@@ -160,8 +164,11 @@ class CvsReleaser(object):
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command("cat %s | grep ^Patch" %
+            (status, output) = commands.getstatusoutput("cat %s | grep ^Patch" %
                     self.builder.spec_file)
+            if status > 0:
+                # Grep failed, no patches found.
+                return
             for patch_line in output.split("\n"):
                 patch_filename = patch_line.strip().split(" ")[1]
                 debug("Copying patch to CVS: %s" % patch_filename)
