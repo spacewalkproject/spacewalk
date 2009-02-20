@@ -32,7 +32,15 @@ public class ServerDocumentBuilder implements DocumentBuilder {
      */
     public Document buildDocument(Long objId, Map<String, String> metadata) {
         Document doc = new Document();
+        // Keep 'id' UN_TOKENIZED, this is needed to determine 'uniqueness'
+        // if you tokenize this it will break deleting documents, we'll
+        // no longer have unique documents per id.
+
         doc.add(new Field("id", objId.toString(), Field.Store.YES,
+                Field.Index.UN_TOKENIZED));
+        // This is the tokenized form of 'id' so we can do searches on it and
+        // use ngram flexibility
+        doc.add(new Field("system_id", objId.toString(), Field.Store.YES,
                 Field.Index.TOKENIZED));
 
         for (Iterator<String> iter = metadata.keySet().iterator(); iter.hasNext();) {

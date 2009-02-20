@@ -16,14 +16,13 @@
 
 import os
 import re
+import sys
 import commands
 import StringIO
 
 from time import strftime
 
-from spacewalk.releng.common import find_spec_file, run_command, \
-        debug, get_spec_version_and_release, error_out, find_git_root, \
-        get_project_name, get_latest_tagged_version
+from spacewalk.releng.common import * 
 
 class VersionTagger(object):
     """
@@ -156,8 +155,10 @@ class VersionTagger(object):
             bump_type = "bump-version"
             if release:
                 bump_type = "bump-release"
-            cmd = "perl %s/bump-version.pl %s --specfile %s" % \
-                    (self.rel_eng_dir, bump_type, self.spec_file)
+
+            script_path = os.path.join(get_script_dir(), "bump-version.pl")
+            cmd = "perl %s %s --specfile %s" % \
+                    (script_path, bump_type, self.spec_file)
             run_command(cmd)
 
         new_version = self._get_spec_version_and_release()

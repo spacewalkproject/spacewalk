@@ -62,12 +62,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartIpRange" />
         </set>
         
-        <set name="commands" outer-join="false" cascade="all-delete-orphan" 
-            inverse="true" >
+        <bag  name="commands" inverse="true" table="rhnKickstartCommand"
+             cascade="all-delete-orphan" outer-join="false" >
             <key column="kickstart_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
             <loader query-ref="commandSort"/>
-        </set>
+        </bag>
         
         <set name="scripts" outer-join="false" cascade="all-delete-orphan" 
             inverse="true" >

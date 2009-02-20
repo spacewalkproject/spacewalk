@@ -16357,7 +16357,7 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
     </trans-unit>
 
     <trans-unit id="kickstart.session_status.jsp.status_profile">
-        <source>Sync system to &lt;a href=&quot;/network/profiles/details.pxt?prid={0}&quot;&gt;package profile&lt;/a&gt;</source>
+        <source>Sync system to &lt;a href=&quot;/rhn/profiles/Details.do?prid={0}&quot;&gt;package profile&lt;/a&gt;</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>

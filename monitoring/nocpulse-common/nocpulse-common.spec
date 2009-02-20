@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.3
+Version:      2.1.5
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -80,7 +80,7 @@ fi
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
 %config(missingok,noreplace) %{_var}/lib/%{package_name}/NOCpulse.ini
-%{_var}/lib/%{package_name}/.forward
+%config(missingok,noreplace) %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}/.forward
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
@@ -94,7 +94,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Feb  2 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.3-1
+* Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.5-1
 - 435415 - redirect nocops emails to root
 
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 2.1.2-1

@@ -98,7 +98,7 @@
         <package>rhns-proxy-common</package>
         <package>rhns-proxy-broker</package>
         <package>rhns-proxy-docs</package>
-        <package>spacewalk-proxy-management</package>
+        <package>rhns-proxy-management</package>
         <package>rhns-proxy-monitoring</package>
         <package>rhns-proxy-package-manager</package>
         <package>rhns-proxy-redirect</package>
@@ -124,6 +124,22 @@
         <package>Time-System</package>
         <package>tsdb</package>
         <package>tsdb_accessor_perl</package>
+        <package>spacewalk-proxy-html</package>
+        <package>spacewalk-ssl-cert-check</package>
+        <package>spacewalk-proxy-common</package>
+        <package>spacewalk-proxy-installer</package>
+        <package>spacewalk-proxy-docs</package>
+        <package>spacewalk-proxy-monitoring</package>
+        <package>spacewalk-backend</package>
+        <package>spacewalk-proxy-package-manager</package>
+        <package>spacewalk-certs-tools</package>
+        <package>spacewalk-proxy-broker</package>
+        <package>spacewalk-proxy-management</package>
+        <package>spacewalk-base-minimal</package>
+        <package>spacewalk-proxy-redirect</package>
+        <package>nocpulse-common</package>
+        <package>nocpulse-db-perl</package>
+        <package>jabberd-selinux</package>
         <alias>proxy</alias>
       </method-call>
     </activity>
@@ -219,7 +235,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="rhns-proxy-broker" default="${session.have_package_rhns_proxy_broker}" acl="session_data_true(have_package_rhns_proxy_broker)" />
                 <widget type="literal" label="rhns-proxy-common" default="${session.have_package_rhns_proxy_common}" acl="session_data_true(have_package_rhns_proxy_common)" />
 		<widget type="literal" label="rhns-proxy-docs" default="${session.have_package_rhns_proxy_docs}" acl="session_data_true(have_package_rhns_proxy_docs)" />
-                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_rhns_proxy_management}" acl="session_data_true(have_package_rhns_proxy_management)" />
+                <widget type="literal" label="rhns-proxy-management" default="${session.have_package_rhns_proxy_management}" acl="session_data_true(have_package_rhns_proxy_management)" />
                 <widget type="literal" label="rhns-proxy-monitoring" default="${session.have_package_rhns_proxy_monitoring}" acl="session_data_true(have_package_rhns_proxy_monitoring)" />
                 <widget type="literal" label="rhns-proxy-package-manager" default="${session.have_package_rhns_proxy_package_manager}" acl="session_data_true(have_package_rhns_proxy_package_manager)" />
                 <widget type="literal" label="rhns-proxy-redirect" default="${session.have_package_rhns_proxy_redirect}" acl="session_data_true(have_package_rhns_proxy_redirect)" />
@@ -245,6 +261,21 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="Time-System" default="${session.have_package_Time_System}" acl="session_data_true(have_package_Time_System)" />
                 <widget type="literal" label="tsdb" default="${session.have_package_tsdb}" acl="session_data_true(have_package_tsdb)" />
                 <widget type="literal" label="tsdb_accessor_perl" default="${session.have_package_tsdb_accessor_perl}" acl="session_data_true(have_package_tsdb_accessor_perl)" />
+                <widget type="literal" label="spacewalk-proxy-html" default="${session.have_package_spacewalk_proxy_html}" acl="session_data_true(have_package_spacewalk_proxy_html)" />
+                <widget type="literal" label="spacewalk-ssl-cert-check" default="${session.have_package_spacewalk_ssl_cert_check}" acl="session_data_true(have_package_spacewalk_ssl_cert_check)" />
+                <widget type="literal" label="spacewalk-proxy-common" default="${session.have_package_spacewalk_proxy_common}" acl="session_data_true(have_package_spacewalk_proxy_common)" />
+                <widget type="literal" label="spacewalk-proxy-docs" default="${session.have_package_spacewalk_proxy_docs}" acl="session_data_true(have_package_spacewalk_proxy_docs)" />
+                <widget type="literal" label="spacewalk-proxy-monitoring" default="${session.have_package_spacewalk_proxy_monitoring}" acl="session_data_true(have_package_spacewalk_proxy_monitoring)" />
+                <widget type="literal" label="spacewalk-backend" default="${session.have_package_spacewalk_backend}" acl="session_data_true(have_package_spacewalk_backend)" />
+                <widget type="literal" label="spacewalk-proxy-package-manager" default="${session.have_package_spacewalk_proxy_package_manager}" acl="session_data_true(have_package_spacewalk_proxy_package_manager)" />
+                <widget type="literal" label="spacewalk-certs-tools" default="${session.have_package_spacewalk_certs_tools}" acl="session_data_true(have_package_spacewalk_certs_tools)" />
+                <widget type="literal" label="spacewalk-proxy-broker" default="${session.have_package_spacewalk_proxy_broker}" acl="session_data_true(have_package_spacewalk_proxy_broker)" />
+                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_spacewalk_proxy_management}" acl="session_data_true(have_package_spacewalk_proxy_management)" />
+                <widget type="literal" label="spacewalk-base-minimal" default="${session.have_package_spacewalk_base_minimal}" acl="session_data_true(have_package_spacewalk_base_minimal)" />
+                <widget type="literal" label="spacewalk-proxy-redirect" default="${session.have_package_spacewalk_proxy_redirect}" acl="session_data_true(have_package_spacewalk_proxy_redirect)" />
+                <widget type="literal" label="nocpulse-common" default="${session.have_package_nocpulse_common}" acl="session_data_true(have_package_nocpulse_common)" />
+                <widget type="literal" label="nocpulse-db-perl" default="${session.have_package_nocpulse_db_perl}" acl="session_data_true(have_package_nocpulse_db_perl)" />
+                <widget type="literal" label="jabberd-selinux" default="${session.have_package_jabberd_selinux}" acl="session_data_true(have_package_jabberd_selinux)" />
 	</rhn-form>
     </collect-data>
 
@@ -548,13 +579,13 @@ rpm -q $package >/dev/null &amp;&amp; echo $package; done`
 
       <install-packages acl="not session_data_true(have_package_any_of_proxy)">
         <rpm>spacewalk-proxy-management</rpm>
-        <rpm acl="session_data_true(enable_monitoring)">rhns-proxy-monitoring</rpm>
+        <rpm acl="session_data_true(enable_monitoring)">spacewalk-proxy-monitoring</rpm>
       </install-packages>
 
       <install-packages acl="session_data_true(have_package_any_of_proxy)">
 	<force>1</force>
         <rpm>spacewalk-proxy-management</rpm>
-        <rpm acl="session_data_true(enable_monitoring)">rhns-proxy-monitoring</rpm>
+        <rpm acl="session_data_true(enable_monitoring)">spacewalk-proxy-monitoring</rpm>
       </install-packages>
 
 
@@ -594,17 +625,47 @@ chmod 640 /etc/sysconfig/rhn/systemid
 	</script>
       </run-script>
 
-      <restart-services>
+      <run-script acl="session_data_true(enable_monitoring)">
+        <action-name>Enable ${app.name} services</action-name>
+        <script>
+#!/bin/sh
+for service in jabberd squid httpd MonitoringScout; do
+  /sbin/chkconfig --add $service 
+  if [ "$1" = "1" ] ; then  # first install
+      /sbin/chkconfig --level 345 $service on
+  fi
+done
+        </script>
+     </run-script>
+
+      <run-script acl="not session_data_true(enable_monitoring)">
+        <action-name>Enable ${app.name} services</action-name>
+        <script>
+#!/bin/sh
+for service in jabberd squid httpd; do
+  /sbin/chkconfig --add $service
+  if [ "$1" = "1" ] ; then  # first install
+      /sbin/chkconfig --level 345 $service on
+  fi
+done
+  </script>
+
+      </run-script>
+
+      <run-script>
         <action-name>Start ${app.name}</action-name>
-        <service>rhn-proxy</service>
-      </restart-services>
+        <script>
+#!/bin/sh
+/usr/sbin/rhn-proxy restart
+  </script>
+      </run-script>
     </schedule-actions>
 
     <redirect save-session="1">/network/systems/details/proxy/install_progress.pxt?sid=${system.id}&amp;version=${app.version}</redirect>
 
   </install>
 
-  <install-progress acl="action_pending_named(Start Satellite Proxy) or last_action_attempt_failed(Start Satellite Proxy)">
+  <install-progress acl="action_pending_named(Start ${app.name}) or last_action_attempt_failed(Start ${app.name})">
 
     <action-status description="Install progress">
       <header>
@@ -715,10 +776,13 @@ here, and configure the up2date client separately.
         <configfile>/etc/rhn/rhn.conf</configfile>
       </deploy-configs> 
 
-      <restart-services>
-        <action-name>Start ${app.name}</action-name>
-        <service>rhn-proxy</service>
-      </restart-services>
+      <run-script>
+        <action-name>Restart ${app.name}</action-name>
+        <script>
+#!/bin/sh
+/usr/sbin/rhn-proxy restart
+  </script>
+      </run-script>
 
     </schedule-actions>
 
@@ -763,16 +827,19 @@ proxy will need to be reconfigured to use a different Satellite server.
 
     <schedule-actions description="Deactivate ${app.name}">
 
-      <stop-services>
+      <run-script>
         <action-name>Stop ${app.name} Services</action-name>
-        <service>rhn-proxy</service>
-      </stop-services>
+        <script>
+#!/bin/sh
+/usr/sbin/rhn-proxy stop
+  </script>
+      </run-script>
 
       <run-script acl="session_data_true(remove_packages)">
         <action-name>Remove proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd libapreq2 MessageQueue mm mod_perl NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-libapreq2 perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-base-minimal rhn-ssl-cert-check rhns rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-common rhns-proxy-docs spacewalk-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl httpd mod_python mod_ssl mod_ssl httpd-suexec; do
+rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd libapreq2 MessageQueue mm mod_perl NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-libapreq2 perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-base-minimal rhn-ssl-cert-check rhns rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-common rhns-proxy-docs rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl httpd mod_python mod_ssl mod_ssl httpd-suexec spacewalk-proxy-html spacewalk-ssl-cert-check spacewalk-proxy-common spacewalk-proxy-installer spacewalk-proxy-docs spacewalk-proxy-monitoring spacewalk-backend spacewalk-proxy-package-manager spacewalk-certs-tools spacewalk-proxy-broker spacewalk-proxy-management spacewalk-base-minimal spacewalk-proxy-redirect nocpulse-common nocpulse-db-perl jabberd-selinux; do
 rpm -q $package >/dev/null &amp;&amp; echo $package; done`
         </script>
       </run-script>

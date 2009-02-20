@@ -61,10 +61,10 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Session;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -661,7 +661,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertNotNull(cloned);
     }
     
-    private void verifySet(Set cloned, Set orig, Class clazz) {
+    private void verifySet(Collection cloned, Collection orig, Class clazz) {
         assertTrue("orig doesnt have any: " + clazz.getName(), orig.size() > 0);
         assertTrue("cloned doesnt have any: " + clazz.getName(), cloned.size() > 0);
         assertEquals(cloned.size(), orig.size());

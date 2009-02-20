@@ -45,8 +45,8 @@ public class WriteMode extends BaseMode {
         int subStart = 0;
         int toReturn = 0;
         while (subStart < inClause.size()) {
-            int subLength = subStart + 500 >= inClause.size() ? 
-                    inClause.size() - subStart  : 500;
+            int subLength = subStart + CachedStatement.BATCH_SIZE >= inClause.size() ? 
+                    inClause.size() - subStart  : CachedStatement.BATCH_SIZE;
             List subClause = inClause.subList(subStart, subStart + subLength);
             toReturn += getQuery().executeUpdate(parameters, subClause);
             subStart += subLength + 1;

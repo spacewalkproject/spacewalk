@@ -170,14 +170,25 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             List results = (List)request.getAttribute(getDataSetName());
             if ((results != null) && (results.size() == 1)) {
                 SystemSearchResult s =  (SystemSearchResult) results.get(0);
-                try {
-                    response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
-                            s.getId().toString());
-                    return null;
-                }
-                catch (IOException ioe) {
-                    throw new RuntimeException(
-                            "Exception while trying to redirect: " + ioe);
+                Double score = s.getScore();
+                if (score != null) {
+                    /** Adding a rule so we only redirect to a specific system id
+                     * when we are pretty sure the search result is what the user
+                     * expects.  We are using the lucene score for this result to
+                     * gauge this.
+                     */
+                    if (score > 0.95) {
+                        try {
+                            response.sendRedirect(
+                                    "/rhn/systems/details/Overview.do?sid=" +
+                                        s.getId().toString());
+                            return null;
+                        }
+                        catch (IOException ioe) {
+                            throw new RuntimeException(
+                                    "Exception while trying to redirect: " + ioe);
+                        }
+                    }
                 }
             }
             return getStrutsDelegate().forwardParams(
@@ -190,7 +201,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
          *   GET parameters
          */
         else if (isSubmitted(daForm)) {
-            String searchString = daForm.getString(SEARCH_STRING);
+            String searchString = daForm.getString(SEARCH_STRING).trim();
             String viewMode = daForm.getString(VIEW_MODE);
             String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
             Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
@@ -336,10 +347,21 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             e.printStackTrace();
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
+                errs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.could_not_parse_query",
+                                          searchString));
             }
-            errs.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_parse_query",
+            else if (e.getErrorCode() == 200) {
+                log.error("Index files appear to be missing: ", e);
+                errs.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("packages.search.index_files_missing",
+                                          searchString));
+            }
+            else {
+                errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.could_not_execute_query",
                                       searchString));
+            }
         }
         catch (XmlRpcException e) {
             log.info("Caught Exception :" + e);

@@ -53,6 +53,8 @@ public class SystemSearchResult extends SystemOverview {
     private Long ram;
     private String packageName;
     private HardwareDeviceDto hw;
+    private Integer rank;
+    private Double score;
     
     private static Logger log = Logger.getLogger(SystemSearchResult.class);
     /**
@@ -466,5 +468,33 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setHw(HardwareDeviceDto hwIn) {
         this.hw = hwIn;
+    }
+
+    /**
+     * @return the rank
+     */
+    public Integer getRank() {
+        return rank;
+    }
+
+    /**
+     * @param rankIn the rank to set
+     */
+    public void setRank(Integer rankIn) {
+        this.rank = rankIn;
+    }
+
+    /**
+     * @return the score
+     */
+    public Double getScore() {
+        return score;
+    }
+
+    /**
+     * @param scoreIn the score to set
+     */
+    public void setScore(Double scoreIn) {
+        this.score = scoreIn;
     }
 }

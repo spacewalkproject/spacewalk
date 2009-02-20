@@ -3,5 +3,5 @@ SPECFILE := python-gzipstream.spec
 
 NO_TAR_GZ = 1
 
-include ../rel-eng/Makefile
+include ../../../rel-eng/Makefile
 

@@ -339,6 +339,21 @@ class NoTgzBuilder(Builder):
 
 
 
+class DummyBuilder(NoTgzBuilder):
+    """ 
+    Dummy Builder
+
+    Does nothing if requested to build a tar.gz, but will error
+    out if requested to make an srpm or rpm.
+    """
+    def _srpm(self):
+        error_out("Cannot build source rpm for this project.")
+
+    def _rpm(self):
+        error_out("Cannot build rpm for this project.")
+
+
+
 class SatelliteBuilder(NoTgzBuilder):
     """
     Builder for packages that are based off some upstream version in Spacewalk

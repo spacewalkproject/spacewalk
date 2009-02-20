@@ -57,7 +57,7 @@ public class CachedStatement {
      */
     private static Logger log = Logger
             .getLogger(CachedStatement.class);
-    private static final int BATCH_SIZE = 500;
+    static final int BATCH_SIZE = 500;
     private String alias;
     private String name;
     /** the original query, before the named bind parameters were removed. */
