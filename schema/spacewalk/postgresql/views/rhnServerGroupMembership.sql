@@ -22,7 +22,7 @@ CREATE OR REPLACE VIEW rhnServerGroupMembership (
 AS
 SELECT   SG.org_id, SGM.server_id, SG.id, SG.name, SGT.label, SG.current_members, SG.max_members
   FROM
-	 rhnServerGroupMembers SGM,
+	 rhnServerGroupMembers SGM
              right join
     	 rhnServerGroup SG on (SG.id = SGM.server_group_id)
              left join

@@ -57,5 +57,5 @@ select * from (
 	from	rhnChannel		pc,
 		rhnChannel		c
 	where	c.parent_channel = pc.id
-) order by parent_or_self_label, parent_or_self_id;
+) AS S order by parent_or_self_label, parent_or_self_id;
 

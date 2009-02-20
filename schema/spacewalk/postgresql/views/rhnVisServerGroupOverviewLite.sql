@@ -19,7 +19,7 @@
 
 create or replace view
 rhnVisServerGroupOverviewLite as
-select	sg.org_id					org_id,
+select	sg.org_id					as org_id,
 		case when exists (
 			select	1
 			from	rhnServerGroupOVLiteHelper
@@ -58,7 +58,7 @@ select	sg.org_id					org_id,
 			where	sgm.server_group_id = sg.id
 		)							as server_count,
 		0							as note_count,
-		curret_timestamp					as modified,
+		current_timestamp					as modified,
 		max_members					as max_members
 from	rhnVisibleServerGroup		sg
 ;

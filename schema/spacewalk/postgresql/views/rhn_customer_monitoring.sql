@@ -23,7 +23,7 @@ select	org.id			as recid,
 	1			as schedule_id,	--24 x 7
 	0			as def_ack_wait,
 	1			as def_strategy,	--Broadcast, No Ack
-	'GMT'			as preferred_time_zone,
+	'GMT'::varchar		as preferred_time_zone,
 	0			as auto_update	--Windows only
 from
 	web_customer org

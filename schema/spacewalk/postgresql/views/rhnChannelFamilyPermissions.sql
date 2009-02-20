@@ -20,7 +20,7 @@ create or replace view rhnChannelFamilyPermissions as
 	select	channel_family_id,
 		to_number(null, null) as org_id,
 		to_number(null, null) as max_members,
-		0 current_members,
+		0 as current_members,
 		created,
 		modified
 	from	rhnPublicChannelFamily

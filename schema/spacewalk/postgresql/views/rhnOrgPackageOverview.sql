@@ -20,7 +20,7 @@ rhnOrgPackageOverview
 as
 select
     p.org_id as org_id,
-    cpac.as channel_arch_id,
+    cpac.channel_arch_id,
     p.id as package_id,
     rhn_package.canonical_name(p_name.name, p_evr.evr, pa.name) as package_nvrea
 from

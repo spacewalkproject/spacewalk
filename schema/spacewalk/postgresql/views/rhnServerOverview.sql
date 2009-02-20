@@ -78,7 +78,7 @@ select
              snpc.server_id = S.id
 	 and p.id = snpc.package_id
 	 ),    
-    ( select sysdate - checkin from rhnServerInfo where server_id = S.id ),
+    ( select current_timestamp - checkin from rhnServerInfo where server_id = S.id ),
     ( select TO_CHAR(checkin, 'YYYY-MM-DD HH24:MI:SS') from rhnServerInfo where server_id = S.id ),
     ( select count(1) 
         from rhnServerAction

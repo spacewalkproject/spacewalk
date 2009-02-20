@@ -24,14 +24,14 @@ select
    w.login, 
    w.login_uc,
    wpi.email,  
-   w.id user_id,
-   s.id server_id,  
+   w.id as user_id,
+   s.id as server_id,
    -- use sg here so we can start with org and work to errata from there
-   w.org_id org_id, 
-   s.name server_name,  
-   sa.name server_arch,  
-   s.release server_release,  
-   ce.errata_id errata_id,
+   w.org_id as org_id,
+   s.name as server_name,
+   sa.name as server_arch,
+   s.release as server_release,
+   ce.errata_id as errata_id,
    e.advisory
 from
    rhnServer s,

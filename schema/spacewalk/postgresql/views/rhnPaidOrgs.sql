@@ -36,9 +36,9 @@ where	sg.group_type = lookup_sg_type('sw_mgr_entitled')
     and not exists (
         select 1
         from
-            rhnDemoOrgs do
+            rhnDemoOrgs d
         where
-            do.org_id = sg.org_id
+            d.org_id = sg.org_id
             and sg.max_members = 1
     )
 union all

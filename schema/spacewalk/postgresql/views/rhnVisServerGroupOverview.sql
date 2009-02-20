@@ -43,6 +43,6 @@ AS
 	 SG.id, SG.name, 
 	 (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = SG.id),
 	 (SELECT COUNT(*) FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = SG.id), 
-	 0, curent_timestamp, MAX_MEMBERS
+	 0, current_timestamp, MAX_MEMBERS
     FROM rhnVisibleServerGroup SG;
 

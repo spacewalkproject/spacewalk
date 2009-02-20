@@ -34,5 +34,5 @@ select distinct org_id, channel_id
                rhnChannelFamilyMembers cfm,
                rhnPublicChannelFamily pubcf
        where   pubcf.channel_family_id = cfm.channel_family_id
-);
+) S;
 
