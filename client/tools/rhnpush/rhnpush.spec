@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       0.4.3
+Version:       0.4.4
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
-* Fri Feb 20 2009 Miroslav Suchy <msuchy@redhat.com>
+* Fri Feb 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - change builrequires from file dep. to package dep.
 
 * Fri Feb 20 2009 Michael Stahnke <stahnma@fedoraproject.org> 0.4.3-1
