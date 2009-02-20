@@ -243,7 +243,8 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (ID.equals(mode)) {
-            query = "id:(" + terms + ")";
+            // 'system_id' is the tokenized form of ID in the search server
+            query = "system_id:(" + terms + ")";
             index = SERVER_INDEX;
         }
         else if (CUSTOM_INFO.equals(mode)) {
@@ -573,6 +574,12 @@ public class SystemSearchHelper {
                 // to return back the value of what matched
                 sr.setMatchingField("hw." + field);
             }
+            if (details.containsKey("rank")) {
+                sr.setRank((Integer)details.get("rank"));
+            }
+            if (details.containsKey("score")) {
+                sr.setScore((Double)details.get("score"));
+            }
         }
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
@@ -692,8 +699,10 @@ public class SystemSearchHelper {
          * @return comparison info based on lucene score
          */
         public int compare(Object o1, Object o2) {
-            Long serverId1 = ((SystemOverview)o1).getId();
-            Long serverId2 = ((SystemOverview)o2).getId();
+            SystemOverview sys1 = (SystemOverview)o1;
+            SystemOverview sys2 = (SystemOverview)o2;
+            Long serverId1 = sys1.getId();
+            Long serverId2 = sys2.getId();
             if (results == null) {
                 return 0;
             }
@@ -710,7 +719,25 @@ public class SystemSearchHelper {
             /*
              * Note:  We want a list which goes from highest score to lowest score,
              * so we are reversing the order of comparison.
+
+             2/19/09 Adding to this for bz# 483177
+             Customer request that we also order by systemid, they request that
+             when the same hostname has been registered many times and shows up in
+             search, we sort by sysid with the highest systemid at the bottom.
              */
+            if (Math.abs(score1 - score2) < .001) {
+                // Lucene might give slight score differences to entries which are
+                // practically identical except for maybe registration time, etc.
+                // therefore putting a fudgefactor so we can treat systems in this
+                // range as having the same score.
+                if ((sys1.getName() != null) && (sys2.getName() != null)) {
+                    if (sys1.getName().compareTo(sys2.getName()) == 0) {
+                        // We want highest id to be on the bottom
+                        return sys1.getId().compareTo(sys2.getId());
+                    }
+                }
+            }
+            // We want highest score on the top
             return score2.compareTo(score1);
      }
    }
