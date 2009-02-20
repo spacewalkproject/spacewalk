@@ -558,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Feb 20 2009 Miroslav Suchy <msuchy@redhat.com>
+- fixing run time error of satsync
+
 * Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.11-1
 - 480903 - fix for fcntl locking to use flock when IOError's
 - 461672 - fixing satsync --no-rpms to only skip rpms
