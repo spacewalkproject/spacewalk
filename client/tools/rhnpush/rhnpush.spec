@@ -11,7 +11,7 @@ Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
 Requires:      rpm-python
-BuildRequires: %{_bindir}/msgfmt, %{_bindir}/docbook2man
+BuildRequires: docbook-utils, gettext
 
 Summary: Package uploader for the Red Hat Network Satellite Server
 
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Fri Feb 20 2009 Miroslav Suchy <msuchy@redhat.com>
+- change builrequires from file dep. to package dep.
+
 * Fri Feb 20 2009 Michael Stahnke <stahnma@fedoraproject.org> 0.4.3-1
 - Package cleanup for Fedora Inclusion
 
