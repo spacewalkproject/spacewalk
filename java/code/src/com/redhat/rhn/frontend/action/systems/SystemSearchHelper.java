@@ -462,6 +462,11 @@ public class SystemSearchHelper {
             if (matchingField.length() == 0) {
                 matchingField = (String)result.get("name");
             }
+            else if ("system_id".compareTo(matchingField) == 0) {
+                //system_id was used to allow tokenized searches on id
+                //we want to treat it as if 'id' was used for all lookups
+                matchingField = "id";
+            }
             serverItem.put("matchingField", matchingField);
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for system id: " + result.get("id") +
@@ -584,6 +589,9 @@ public class SystemSearchHelper {
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
+        SearchResultNameComparator nameComparator =
+            new SearchResultNameComparator(serverIds);
+        Collections.sort(serverList, nameComparator);
         SearchResultScoreComparator scoreComparator =
             new SearchResultScoreComparator(serverIds);
         Collections.sort(serverList, scoreComparator);
@@ -678,6 +686,57 @@ public class SystemSearchHelper {
               new java.text.SimpleDateFormat(dateFormat);
         return sdf.format(d);
     }
+
+    /**
+     * Purpose is to group results with same exact score by 'name'
+     * This handles edge cases of a system registered multiple times
+     */
+    public static class SearchResultNameComparator implements Comparator {
+        protected Map results;
+        protected SearchResultNameComparator() {
+        }
+        /**
+         * @param resultsIn map of server related info to use for comparisons
+         */
+        public SearchResultNameComparator(Map resultsIn) {
+            this.results = resultsIn;
+        }
+        /**
+         * @param o1 systemOverview11
+         * @param o2 systemOverview2
+         * @return comparison info based on profile name
+         */
+        public int compare(Object o1, Object o2) {
+            SystemOverview sys1 = (SystemOverview)o1;
+            SystemOverview sys2 = (SystemOverview)o2;
+            Long serverId1 = sys1.getId();
+            Long serverId2 = sys2.getId();
+            if (results == null) {
+                return 0;
+            }
+            Map sMap1 = (Map)results.get(serverId1);
+            Map sMap2 = (Map)results.get(serverId2);
+            if ((sMap1 == null) || (sMap2 == null)) {
+                return 0;
+            }
+            if ((!sMap1.containsKey("score")) || (!sMap2.containsKey("score"))) {
+                return 0;
+            }
+            Double score1 = (Double)sMap1.get("score");
+            Double score2 = (Double)sMap2.get("score");
+            if (Math.abs(score1 - score2) < .001) {
+                // Lucene might give slight score differences to entries which are
+                // practically identical except for maybe registration time, etc.
+                // therefore putting a fudgefactor so we can treat systems in this
+                // range as having the same score.
+                if ((sys1.getName() != null) && (sys2.getName() != null)) {
+                    return sys1.getName().compareTo(sys2.getName());
+                }
+            }
+            // We want highest score on the top
+            return score2.compareTo(score1);
+     }
+    }
     /**
      * Will compare two SystemOverview objects based on their score from a lucene search
      * Creates a list ordered from highest score to lowest
@@ -723,7 +782,7 @@ public class SystemSearchHelper {
              2/19/09 Adding to this for bz# 483177
              Customer request that we also order by systemid, they request that
              when the same hostname has been registered many times and shows up in
-             search, we sort by sysid with the highest systemid at the bottom.
+             search, we sort by sysid with the highest systemid at the top.
              */
             if (Math.abs(score1 - score2) < .001) {
                 // Lucene might give slight score differences to entries which are
@@ -732,8 +791,8 @@ public class SystemSearchHelper {
                 // range as having the same score.
                 if ((sys1.getName() != null) && (sys2.getName() != null)) {
                     if (sys1.getName().compareTo(sys2.getName()) == 0) {
-                        // We want highest id to be on the bottom
-                        return sys1.getId().compareTo(sys2.getId());
+                        // We want highest id to be on top
+                        return sys2.getId().compareTo(sys1.getId());
                     }
                 }
             }
