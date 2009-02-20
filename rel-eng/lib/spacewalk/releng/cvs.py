@@ -191,7 +191,7 @@ class CvsReleaser(object):
             cmd = 'cvs commit -m "Update %s to %s"' % \
                     (self.package_name, self.package_version)
             debug("CVS commit command: %s" % cmd)
-            #output = run_command(cmd)
+            output = run_command(cmd)
 
     def _make_cvs_tag(self):
         """ Create a CVS tag based on what we just committed. """
@@ -201,8 +201,8 @@ class CvsReleaser(object):
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            #output = run_command("make tag")
-            #debug(output)
+            output = run_command("make tag")
+            print(output)
 
     def _make_cvs_build(self):
         """ Build srpm and submit to build system. """
@@ -212,6 +212,6 @@ class CvsReleaser(object):
             branch_dir = os.path.join(self.cvs_workdir, self.package_name,
                     branch)
             os.chdir(branch_dir)
-            #output = run_command("make tag")
-            #debug(output)
+            output = run_command("make build")
+            print(output)
 
