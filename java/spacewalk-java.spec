@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.20
+Version: 0.5.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -215,6 +215,12 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
+- 486502 - Changed order when list a group of systemIds so top result is highest.
+- Fixing problem which broke unique documents in the lucene index.
+- 486502 - Sort similar results by systemId with highest ID on the bottom
+- SystemSearch change redirect behavior if only 1 result is found.
+
 * Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.20-1
 - 484768 - Basically fixed a query and DTO and a Translator to correctly 
 - 486174 - Was using the incorrect key in the filterattr attribute on the
