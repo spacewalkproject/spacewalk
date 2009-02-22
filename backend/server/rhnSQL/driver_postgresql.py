@@ -133,9 +133,6 @@ class Procedure(sql_base.Procedure):
             else:
                 new_args.append(arg)
 
-        print("Executing PostgreSQL procedure with query:", query,
-                  "and args", new_args)
-
         # TODO: pgsql.Cursor returned here, what to do with it?
         results = self.cursor.execute(query, *new_args)
 
@@ -317,3 +314,15 @@ class Cursor(sql_base.Cursor):
         rowcount = self._real_cursor.rowcount
         return rowcount
 
+    def update_blob(self, table_name, column_name, where_clause, data, 
+            **kwargs):
+        """ 
+        PostgreSQL uses bytea columns instead of blobs. Nothing special
+        needs to be done to insert text into one.
+        """
+        # NOTE: Injecting a :column_name parameter here
+        sql = "UPDATE %s SET %s = :%s %s" % (table_name, column_name,
+            column_name, where_clause)
+        c = rhnSQL.prepare(sql)
+        kwargs[column_name] = data
+        apply(c.execute, (), kwargs)

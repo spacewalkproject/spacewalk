@@ -155,6 +155,14 @@ class Cursor:
         self.sql = sql
         self._real_cursor = self._prepare(force=force)
 
+    def update_blob(self, table_name, column_name, where_clause, 
+            data, **kwargs):
+        """
+        Abstraction for the update of a blob column which can vary wildly
+        between different database implementations.
+        """
+        raise NotImplementedError
+
     def execute(self, *p, **kw):
         """ Execute a single query. """
         return apply(self._execute_wrapper, (self._execute, ) + p, kw)

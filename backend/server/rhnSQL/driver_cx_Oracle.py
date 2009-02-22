@@ -29,6 +29,7 @@ import string
 import os
 import types
 
+from server import rhnSQL
 from common import rhnException, log_debug, log_error, rhnConfig
 from common import UserDictCase
 from sql_base import adjust_type
@@ -239,6 +240,16 @@ class Cursor(sql_base.Cursor):
             modified.append((k, v))
             kw_dict[k] = vv
         return modified
+
+    def update_blob(self, table_name, column_name, where_clause, data, 
+            **kwargs):
+        sql = "SELECT %s FROM %s %s FOR update of %s" % \
+            (column_name, table_name, where_clause, column_name)
+        c= rhnSQL.prepare(sql)
+        apply(c.execute, (), kwargs)
+        row = c.fetchone_dict()
+        blob = row[column_name]
+        blob.write(data)
 
 
 
