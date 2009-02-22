@@ -284,11 +284,11 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
 
     # always reset the slots
     set_slots_from_cert(sc)
-    # If we don't have the NPalert RPM installed, we don't support monitoring
-    # and we don't need to push configs
-    monSupportedYN = not not getInstalledHeader("NPalert")
-    if monSupportedYN:
-        # If we do support it, then let's push configs to be safe
+
+    # Assume that if NPalert is installed, monitoring is supported so we should
+    # push configs:
+    npalert_header = getInstalledHeader("NPalert")
+    if npalert_header is not None:
         org_id = get_org_id()
         push_monitoring_configs(org_id)
 

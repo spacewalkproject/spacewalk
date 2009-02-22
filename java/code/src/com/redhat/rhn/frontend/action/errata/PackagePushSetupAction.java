@@ -27,6 +27,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -77,12 +78,15 @@ public class PackagePushSetupAction extends RhnListAction {
         
         Iterator i = set.iterator();
         
+        RhnSet packageSet = RhnSetDecl.PACKAGES_TO_PUSH.get(user);
+        packageSet.clear();
+        RhnSetManager.store(packageSet);
+
         /* Here we loop through the set of channels the user just selected
          * and prompt them if they would like to push the packages in
          * the errata that are newer than the version of the channel into
          * the channel */
         while (i.hasNext()) {
-            RhnSet packageSet = RhnSetDecl.PACKAGES_TO_PUSH.get(user);
             
             if (set.isEmpty()) {
                 mapping.findForward("finished");

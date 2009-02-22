@@ -160,6 +160,13 @@ class CLI:
                     "their most recent tag and HEAD. Useful for determining",
                     "which packages are in need of a re-tag."
                 ))
+        parser.add_option("--untagged-commits", dest="untagged_commits",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out the list for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
         parser.add_option("--cvs-release", dest="cvs_release",
                 action="store_true", help="%s %s" % (
                     "Import sources into CVS, tag, and build package using",
@@ -177,13 +184,6 @@ class CLI:
         if options.debug:
             os.environ['DEBUG'] = "true"
 
-        # Check for builder options and tagger options, if one or more from both
-        # groups are found, error out:
-        (building, tagging) = self._validate_options(options)
-
-        build_dir = lookup_build_dir()
-        package_name = get_project_name(tag=options.tag)
-
         # TODO: Shortcut here, build.py does some things unrelated to
         # building/tagging packages, check for these options, do what's
         # requested, and exit rather than start looking up data specific
@@ -191,6 +191,18 @@ class CLI:
         if options.untagged_report:
             self._run_untagged_report(global_config)
             sys.exit(1)
+
+        if options.untagged_commits:
+            self._run_untagged_commits(global_config)
+            sys.exit(1)
+
+        # Check for builder options and tagger options, if one or more from both
+        # groups are found, error out:
+        (building, tagging) = self._validate_options(options)
+
+        build_dir = lookup_build_dir()
+        package_name = get_project_name(tag=options.tag)
+
 
         build_tag = None
         build_version = None
@@ -265,6 +277,27 @@ class CLI:
                 keep_version=options.keep_version)
         tagger.run(options)
 
+    def _run_untagged_commits(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_log(global_config, md_file, version, project_dir)
+
     def _run_untagged_report(self, global_config):
         """
         Display a report of all packages with differences between HEAD and
@@ -293,6 +326,21 @@ class CLI:
         """
         cvs_builder = CvsReleaser(global_config, builder)
         cvs_builder.run(options)
+
+    def _print_log(self, global_config, package_name, version, project_dir):
+        """
+        Print the log between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
+                (last_tag, "HEAD", ".")
+        output = run_command(patch_command)
+        if (output):
+            print("-" * (len(last_tag) + 8))
+            print("%s..%s:" % (last_tag, "HEAD"))
+            print(output)
 
     def _print_diff(self, global_config, package_name, version, project_dir):
         """

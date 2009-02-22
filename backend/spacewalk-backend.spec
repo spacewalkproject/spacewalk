@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.11
+Version: 0.5.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -558,6 +558,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sat Feb 21 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.13-1
+- Fix rpm-python hdr installation error on Fedora 10.
+
+* Fri Feb 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.12-1
+- fixing run time error of satsync
+
 * Thu Feb 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.11-1
 - 480903 - fix for fcntl locking to use flock when IOError's
 - 461672 - fixing satsync --no-rpms to only skip rpms
