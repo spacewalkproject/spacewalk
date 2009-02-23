@@ -5,7 +5,7 @@
 
 
 Name:           rhn-virtualization 
-Summary:        RHN action support for virualization
+Summary:        RHN/Spacewalk action support for virualization
 
 Group:          System Environment/Base
 License:        GPLv2
@@ -19,11 +19,11 @@ BuildArch:      noarch
 BuildRequires:  python
 
 %description
-rhn-virtualization provides various RHN actions for manipulation virtual
+rhn-virtualization provides various RHN/Spacewalk actions for manipulation virtual
 machine guest images.
 
 %package common
-Summary: Files needed by both rhn-virtualization-host and -guest.
+Summary: Files needed by both rhn-virtualization-host and -guest
 Group: System Environment/Base
 Requires: rhn-client-tools
 Requires: chkconfig
@@ -33,24 +33,24 @@ This package contains files that are needed by the rhn-virtualization-host
 and rhn-virtualization-guest packages.
 
 %package host
-Summary: RHN Virtualization support specific to the Host system.
+Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
 Requires: libvirt-python
 Requires: rhn-virtualization-common
 Conflicts: rhn-virtualization-guest
 
 %description host
-This package contains code for RHN's Virtualization support that is 
+This package contains code for RHN's and Spacewalk's Virtualization support that is 
 specific to the Host system (a.k.a. Dom0).
 
 %package guest
-Summary: RHN Virtualization support specific to Guest systems.
+Summary: RHN/Spacewalk Virtualization support specific to Guest systems
 Group: System Environment/Base
 Requires: rhn-virtualization-common
 Conflicts: rhn-virtualization-host
 
 %description guest
-This package contains code for RHN's Virtualization support that is
+This package contains code for RHN's and Spacewalk's Virtualization support that is
 specific to Guest systems (a.k.a. DomUs).
 
 
