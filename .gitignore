@@ -27,6 +27,8 @@ search-server/.project
 search-server/build
 search-server/lib
 search-server/dist
+search-server/rhn-search.pid
+search-server/rhn_search_daemon.log
 *~
 .project
 .pydevproject
