@@ -17,8 +17,8 @@ BuildArch:      noarch
 BuildRequires:  python
 
 %description
-rhn-virtualization provides various RHN/Spacewalk actions for manipulation virtual
-machine guest images.
+rhn-virtualization provides various RHN/Spacewalk actions for manipulation 
+virtual machine guest images.
 
 %package common
 Summary: Files needed by both rhn-virtualization-host and -guest
@@ -38,8 +38,8 @@ Requires: rhn-virtualization-common
 Conflicts: rhn-virtualization-guest
 
 %description host
-This package contains code for RHN's and Spacewalk's Virtualization support that is 
-specific to the Host system (a.k.a. Dom0).
+This package contains code for RHN's and Spacewalk's Virtualization support 
+that is specific to the Host system (a.k.a. Dom0).
 
 %package guest
 Summary: RHN/Spacewalk Virtualization support specific to Guest systems
@@ -48,8 +48,8 @@ Requires: rhn-virtualization-common
 Conflicts: rhn-virtualization-host
 
 %description guest
-This package contains code for RHN's and Spacewalk's Virtualization support that is
-specific to Guest systems (a.k.a. DomUs).
+This package contains code for RHN's and Spacewalk's Virtualization support 
+that is specific to Guest systems (a.k.a. DomUs).
 
 
 %prep
