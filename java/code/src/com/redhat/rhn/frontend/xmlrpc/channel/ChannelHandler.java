@@ -50,11 +50,11 @@ public class ChannelHandler extends BaseHandler {
      * @xmlrpc.returntype 
      *  #array()
      *      #struct("channel")
-     *          #prop("string", "channel_label")
-     *          #prop("string", "channel_name")
-     *          #prop("string", "channel_parent_label")
-     *          #prop("string", "channel_end_of_life")
-     *          #prop("string", "channel_arch")
+     *          #prop("string", "label")
+     *          #prop("string", "name")
+     *          #prop("string", "parent_label")
+     *          #prop("string", "end_of_life")
+     *          #prop("string", "arch")
      *      #struct_end()
      *  #array_end()
      */
@@ -78,20 +78,20 @@ public class ChannelHandler extends BaseHandler {
             // Deprecated stupid code
             // this is some really stupid code, but oh well, c'est la vie
             Map newItem = new HashMap();
-            newItem.put("channel_label", item.get("channel_label"));
+            newItem.put("label", item.get("channel_label"));
             String selfLabel = (String) item.get("parent_or_self_label");
             if (selfLabel.equals(item.get("channel_label"))) {
-                newItem.put("channel_parent_label", "");
+                newItem.put("parent_label", "");
             }
             else {
-                newItem.put("channel_parent_label",
+                newItem.put("parent_label",
                         item.get("parent_or_self_label"));
             }
-            newItem.put("channel_name", item.get("name"));
-            newItem.put("channel_end_of_life",
+            newItem.put("name", item.get("name"));
+            newItem.put("end_of_life",
                     StringUtils.defaultString(
                             (String)item.get("end_of_life")));
-            newItem.put("channel_arch", item.get("channel_arch"));
+            newItem.put("arch", item.get("channel_arch"));
                         
             
             returnList.add(newItem);
