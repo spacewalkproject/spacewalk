@@ -7,7 +7,7 @@ Summary:        RHN/Spacewalk action support for virualization
 
 Group:          System Environment/Base
 License:        GPLv2
-URL:            http://rhn.redhat.com
+URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
 Version:        0.5.0
