@@ -2,13 +2,13 @@
 
 Summary: Python libraries for the RHN project
 Name: rhnlib
-Source0: %{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 2.5.9
 Release: 1%{?dist}
 
 Group: Development/Libraries
 License: GPLv2
-Url: http://rhn.redhat.com
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Mon Feb 23 2009 Miroslav Suchy <msuchy@redhat.com>
+- point Source0 to Fedorahosted.org
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 2.5.9-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 
