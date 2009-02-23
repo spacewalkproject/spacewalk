@@ -50,8 +50,11 @@
          <table class="details">
            <tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
              <td>
-               <input type="text" name="search_string" value="${search_string}" maxlength="36" />
-               <input type="image" src="/img/button-search.gif" name="Search!" />
+               <html:text property="search_string" name="search_string"
+                     value="${search_string}" maxlength="36" />
+               <html:submit>
+                 <bean:message key="button.search" />
+               </html:submit>
                <br />
                 <span class="small-text">
                     <strong>Examples: </strong> <bean:message key="erratasearch.jsp.search.tip" />

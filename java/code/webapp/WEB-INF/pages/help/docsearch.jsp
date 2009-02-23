@@ -34,8 +34,10 @@
          <table class="details">
            <tr><th><bean:message key="docsearch.jsp.searchfor"/></th>
              <td>
-               <input type="text" name="search_string" value="${search_string}" />
-               <input type="image" src="/img/button-search.gif" name="Search!" />
+               <html:text property="search_string" name="search_string" value="${search_string}" />
+               <html:submit>
+                 <bean:message key="button.search" />
+               </html:submit>
              </td>
            </tr>
            <tr><th><bean:message key="docsearch.jsp.whatsearch"/></th>

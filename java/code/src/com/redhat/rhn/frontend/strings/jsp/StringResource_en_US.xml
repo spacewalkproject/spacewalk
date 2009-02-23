@@ -20769,6 +20769,12 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="button.search">
+        <source>Search</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
+        </context-group>
+      </trans-unit>
   </body>
   </file>
 </xliff>
