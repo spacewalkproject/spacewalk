@@ -129,7 +129,6 @@ public class EditChannelAction extends RhnAction implements Listable {
         else if (ctx.hasParam("grant")) {
             grant(form, errors, ctx);
         }
-        System.out.println("ERRORS with CHANNEL EDIT: " + errors.isEmpty());
         if (!errors.isEmpty()) {
             request.setAttribute("channel_label", (String) form.get("label"));
             request.setAttribute("channel_name", (String) form.get("name"));
