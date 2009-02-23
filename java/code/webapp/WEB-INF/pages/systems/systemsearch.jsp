@@ -162,6 +162,10 @@
                         ${current.entitlementLevel}
             </rl:column>
         </rl:list>
+        <rl:csv dataset="pageList"
+                name="searchResults"
+                exportColumns="id,serverName,dmiBiosVendor,dmiBiosVersion,dmiBiosRelease,description,entitlementLevel"/>
+
     </rl:listset>
     </c:if>
 </body>

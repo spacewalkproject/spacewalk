@@ -76,6 +76,8 @@
     <input type="hidden" name="submitted" value="true" />
   </html:form> 
 
+  <c:if test="${search_string != null && search_string != ''}">
+
   <hr />
   <c:set var="pageList" value="${requestScope.pageList}" />
   <!-- collapse the params into a string -->
@@ -106,6 +108,9 @@
 
       </rl:column>
     </rl:list>
+    <rl:csv dataset="pageList"
+            name="searchResults"
+            exportColumns="packageName,summary"/>
 
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
@@ -115,8 +120,9 @@
     <c:forEach items="${requestScope.channel_arch}" var="item">
     <input type="hidden" name="channel_arch" value="${item}" />
     </c:forEach>
-    
 
   </rl:listset>
+
+  </c:if>
 </body>
 </html>

@@ -135,6 +135,9 @@
    <input type="hidden" name="submitted" value="true" />
   </html:form>
 
+  <c:if test="${search_string != null && search_string != ''}">
+  <hr />
+
   <c:set var="pageList" value="${requestScope.pageList}" />
   <rl:listset name="searchSet" legend="errata">
     <rl:list name="searchResults" dataset="pageList"
@@ -233,6 +236,10 @@
       </rl:column>
 
     </rl:list>
+    <rl:csv dataset="pageList"
+            name="searchResults"
+            exportColumns="advisoryType,advisoryName,advisorySynopsis,issueDate"/>
+
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
     <input type="hidden" name="search_string" value="${search_string}" />
@@ -254,11 +261,9 @@
     <input type="hidden" name="end_minute" value="<%= request.getParameter("end_minute") %>" />
     <input type="hidden" name="end_am_pm" value="<%= request.getParameter("end_am_pm") %>" />
 
-
   </rl:listset>
 
-
-
+  </c:if>
 
 </body>
 </html>

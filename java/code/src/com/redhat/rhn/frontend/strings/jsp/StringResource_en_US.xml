@@ -17262,6 +17262,9 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <trans-unit id="exportcolumn.message">
             <source>Message</source>
         </trans-unit> 
+        <trans-unit id="exportcolumn.issueDate">
+            <source>Issue Date</source>
+        </trans-unit>
      </group>
     
     <trans-unit id="virtualization.provision.first.jsp.no.profiles">
