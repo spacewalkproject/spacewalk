@@ -17,7 +17,7 @@
 			<html:submit>
 				<c:choose>
 					<c:when test='${channel != null}'>
-						<bean:message key="channelOverview.jsp.submitEdit" />
+						<bean:message key="channel.edit.jsp.editchannel" />
 					</c:when>
 					<c:otherwise>
 						<bean:message key="channelOverview.jsp.submitCreate" />
