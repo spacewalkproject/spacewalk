@@ -1,8 +1,6 @@
-%define rhn_dir /usr/share/rhn
-%define rhn_conf_dir /etc/sysconfig/rhn
-%define cron_dir /etc/cron.d
-%define init_dir /etc/rc.d/init.d
-
+%define rhn_dir %{_datadir}/rhn
+%define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
+%define cron_dir %{_sysconfdir}/cron.d
 
 Name:           rhn-virtualization 
 Summary:        RHN/Spacewalk action support for virualization
@@ -115,7 +113,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
-%{init_dir}/rhn-virtualization-host
+%{_initrddir}/rhn-virtualization-host
 %config(noreplace) %attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
 %{rhn_dir}/virtualization/domain_config.py
 %{rhn_dir}/virtualization/domain_config.pyc
@@ -157,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files guest
 %defattr(-,root,root,-)
-%{init_dir}/rhn-virtualization-guest
+%{_initrddir}/rhn-virtualization-guest
 %{rhn_dir}/virtualization/report_uuid.py
 %{rhn_dir}/virtualization/report_uuid.pyc
 %{rhn_dir}/virtualization/report_uuid.pyo
