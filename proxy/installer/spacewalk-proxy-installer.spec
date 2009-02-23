@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Feb 23 2009 Miroslav Suchý <msuchy@redhat.com>
+- 486125 - populate answers file with all options
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.12-1
 - 479541, 483867 - replaced runuser with /sbin/runuser
 
