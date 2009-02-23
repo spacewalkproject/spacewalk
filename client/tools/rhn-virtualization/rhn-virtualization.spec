@@ -116,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
 %{init_dir}/rhn-virtualization-host
-%attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
+%config(noreplace) %attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
 %{rhn_dir}/virtualization/domain_config.py
 %{rhn_dir}/virtualization/domain_config.pyc
 %{rhn_dir}/virtualization/domain_control.py
@@ -166,6 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Feb 23 2009 Miroslav Suchy <msuchy@redhat.com>
 - add LICENSE file
+- remove rpmlint warnings
 
 * Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> - 0.4.3-1
 * Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.2-1
