@@ -339,18 +339,17 @@ class NoTgzBuilder(Builder):
 
 
 
-class DummyBuilder(NoTgzBuilder):
+class CvsBuilder(NoTgzBuilder):
     """ 
-    Dummy Builder
+    CVS Builder
 
-    Does nothing if requested to build a tar.gz, but will error
-    out if requested to make an srpm or rpm.
+    Builder for packages whose sources are managed in dist-cvs/Fedora CVS.
     """
     def _srpm(self):
-        error_out("Cannot build source rpm for this project.")
+        error_out("Cannot build source rpm for this project yet.")
 
     def _rpm(self):
-        error_out("Cannot build rpm for this project.")
+        error_out("Cannot build rpm for this project yet.")
 
 
 
