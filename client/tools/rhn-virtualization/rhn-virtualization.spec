@@ -12,7 +12,7 @@ License:        GPLv2
 URL:            http://rhn.redhat.com
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        0.4.3
+Version:        0.5.0
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -109,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhn_dir}/virtualization/util.py
 %{rhn_dir}/virtualization/util.pyc
 %{rhn_dir}/virtualization/util.pyo
-
+%doc LICENSE
 
 %files host
 %defattr(-,root,root,-)
@@ -153,7 +153,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhn_dir}/virtualization/state.pyo
 %{rhn_dir}/virtualization/support.pyo
 %{rhn_dir}/actions/virt.pyo
-
+%doc LICENSE
 
 %files guest
 %defattr(-,root,root,-)
@@ -161,9 +161,12 @@ rm -rf $RPM_BUILD_ROOT
 %{rhn_dir}/virtualization/report_uuid.py
 %{rhn_dir}/virtualization/report_uuid.pyc
 %{rhn_dir}/virtualization/report_uuid.pyo
-
+%doc LICENSE
 
 %changelog
+* Mon Feb 23 2009 Miroslav Suchy <msuchy@redhat.com>
+- add LICENSE file
+
 * Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> - 0.4.3-1
 * Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.2-1
 - new build
