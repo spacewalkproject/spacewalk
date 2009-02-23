@@ -129,7 +129,7 @@ public class AdvancedModeDetailsAction extends RhnAction {
             }
             
                         
-            KickstartDetailsEditAction.proccessCobblerFormValues(ks, form, 
+            KickstartDetailsEditAction.processCobblerFormValues(ks, form, 
                     context.getLoggedInUser());
             
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
