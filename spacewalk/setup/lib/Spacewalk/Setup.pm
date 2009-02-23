@@ -701,6 +701,9 @@ EOQ
                    -system_opts => ['/sbin/runuser', 'oracle', '-c',
                                     SHARED_DIR . '/oracle' .  '/upgrade-db.sh' ]);
 
+        system_or_exit(['service', 'oracle', 'restart'], 41,
+                       'Could not restart oracle service');
+
         return 0;
     }
 
