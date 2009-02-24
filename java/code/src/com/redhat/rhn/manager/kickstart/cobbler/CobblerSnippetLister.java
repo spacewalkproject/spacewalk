@@ -65,7 +65,7 @@ public class CobblerSnippetLister extends BaseManager {
             }
         }
         else {
-            if (!path.isHidden()) {
+            if (!path.isHidden() && path.exists()) {
                 snippy.setName(path.toString().substring(26));
                 snippy.setContents(null);
                 snippetFiles.add(snippy);
