@@ -156,6 +156,12 @@ df -h > $DIR/diskinfo
 echo "    * timestamping"
 echo "Spacewalk debug created on $(date)" > $DIR/timestamp
 
+# 209620 - satellite-debug creates world readable output
+find $DIR -name "*PRIVATE*" -exec rm -f '{}' ';'
+find $DIR -name "server.key" -exec rm -f '{}' ';'
+find $DIR -name "server.pem" -exec rm -f '{}' ';'
+find $DIR -name "rhn-org-httpd-ssl*" -exec rm -f '{}' ';'
+
 echo "    * creating tarball (may take some time): $TARBALL"
 cd $BASE_DIR/spacewalk-debug-$$
 tar -cjf $TARBALL -C $(echo ${DIR#\/} | sed -e 's/^\/$BASE_DIR\/[^\/]*\///g')
