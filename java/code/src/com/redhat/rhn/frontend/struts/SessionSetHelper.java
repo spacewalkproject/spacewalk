@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author paji
  * @version $Rev$
  */
-public class SessionSetHelper extends AbstractSetHelper {
+public class SessionSetHelper extends BaseSetHelper {
 
     /**
      * Constructor
