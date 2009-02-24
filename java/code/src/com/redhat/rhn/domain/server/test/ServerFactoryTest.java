@@ -871,7 +871,8 @@ public class ServerFactoryTest extends RhnBaseTestCase {
     
     
     public void testUnsubscribeFromAllChannels() throws Exception {
-        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        User admin = UserTestUtils.findNewUser("testUser", "testOrg", true);
+        
         ChannelFactoryTest.createBaseChannel(admin);
         Server serverIn = ServerFactoryTest.createTestServer(admin);
         
