@@ -16,7 +16,7 @@ Patch0: cx_Oracle-instantclient.patch
 License: BSD-style
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
-Obsoletes: DCOracle
+Obsoletes: DCOracle <= 1.3.2
 Provides: python(:DBAPI:oracle) = 2.0
 BuildRequires: python-devel
 BuildRequires: oracle-instantclient-devel
