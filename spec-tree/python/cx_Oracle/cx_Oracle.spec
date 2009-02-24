@@ -10,7 +10,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version: 4.2.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: cx_Oracle-instantclient.patch
 License: BSD-style
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/*
 
 %changelog
+* Tue Feb 24 2009 Michael Mraka <michael.mraka@redhat.com> 4.2.1-7
+- changed build flags
+
 * Wed Feb 18 2009 Dennis Gilmore <dennis@ausil.us> 4.2.1-6
 - define oraclever since different arches have different versions of oracle
 
