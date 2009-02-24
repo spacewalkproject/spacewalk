@@ -30,23 +30,20 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 %setup -q
 %patch0 -p1 -b .instantclient
 
-%build
-#kinda ugly but we need ORACLE_HOME to be set 
+#kinda ugly but we need ORACLE_HOME to be set
 %if "%{_lib}" == "lib64"
-export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client64/
+%define oracle_home /usr/lib/oracle/%{oraclever}/client64/
 %else
-export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client/
+%define oracle_home /usr/lib/oracle/%{oraclever}/client/
 %endif
+
+%build
+export ORACLE_HOME=%{oracle_home}
 env CFLAGS="$RPM_OPT_FLAGS" FORCE_RPATH=1 %{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-#kinda ugly but we need ORACLE_HOME to be set 
-%if "%{_lib}" == "lib64"
-export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client64/
-%else
-export ORACLE_HOME=/usr/lib/oracle/%{oraclever}/client/
-%endif
+export ORACLE_HOME=%{oracle_home}
 %{__python} setup.py install --root=$RPM_BUILD_ROOT 
 
 %clean
