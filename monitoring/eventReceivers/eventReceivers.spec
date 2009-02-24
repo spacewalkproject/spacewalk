@@ -29,9 +29,7 @@ This package contains handler, which receive events from scouts.
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install MonitoringAccessHandler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install EventHandler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install HttpsMX.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
+install -m644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
