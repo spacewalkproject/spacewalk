@@ -425,12 +425,9 @@ public class RhnSetDecl {
      * @param suffix suffix to make this set declaration unique
      * @return the newly created set declaration.
      */
-    public RhnSetDecl createCustom(Object ...suffix) {
-        HashCodeBuilder builder = new HashCodeBuilder();
-        for (Object o : suffix) {
-            builder.append(o);
-        }
-        return make(label + builder.toHashCode(), cleanup);
+    public RhnSetDecl createCustom(Object... suffix) {
+        String customName = generateCustomSetName(this, suffix);
+        return make(customName, cleanup);
     }
 
     /**
@@ -491,6 +488,21 @@ public class RhnSetDecl {
     public static RhnSetDecl setForChannelPackages(Channel chan) {
         return make("package_clone_list" + chan.getId(), SetCleanup.NOOP);
     }
-    
-            
+
+    /**
+     * Generates a new set name based on an existing set and one or more variables.
+     *
+     * @param base   the generation will use the label from this set
+     * @param suffix used as entropy in the custom name
+     * @return name suitable for an RhnSet that is a derivative of the base set
+     */
+    public static String generateCustomSetName(RhnSetDecl base, Object... suffix) {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        for (Object o : suffix) {
+            builder.append(o);
+        }
+
+        String customName = base.getLabel() + builder.toHashCode();
+        return customName;
+    }
 }
