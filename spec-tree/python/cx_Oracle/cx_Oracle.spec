@@ -32,9 +32,9 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 #kinda ugly but we need ORACLE_HOME to be set
 %if "%{_lib}" == "lib64"
-%define oracle_home /usr/lib/oracle/%{oraclever}/client64/
+%define oracle_home /usr/lib/oracle/%{oraclever}/client64
 %else
-%define oracle_home /usr/lib/oracle/%{oraclever}/client/
+%define oracle_home /usr/lib/oracle/%{oraclever}/client
 %endif
 
 %build
