@@ -397,8 +397,13 @@ public class Server extends GenericRecord {
      * @param cpuBogoMIPSIn the cpuBogoMIPS to set
      */
     public void setCpuBogoMIPS(String cpuBogoMIPSIn) {
-        Float f = Float.parseFloat(cpuBogoMIPSIn);
-        this.cpuBogoMIPS = NumberTools.longToString(f.longValue());
+        if (cpuBogoMIPSIn != null) {
+            Float f = Float.parseFloat(cpuBogoMIPSIn);
+            this.cpuBogoMIPS = NumberTools.longToString(f.longValue());
+        }
+        else {
+            this.cpuBogoMIPS = null;
+        }
     }
 
     /**
@@ -440,7 +445,12 @@ public class Server extends GenericRecord {
      * @param cpuMhzIn the cpuMhz to set
      */
     public void setCpuMhz(String cpuMhzIn) {
-        this.cpuMhz = NumberTools.longToString(Long.parseLong(cpuMhzIn));
+        if (cpuMhzIn != null) {
+            this.cpuMhz = NumberTools.longToString(Long.parseLong(cpuMhzIn));
+        }
+        else {
+            this.cpuMhz = null;
+        }
     }
 
     /**
@@ -524,7 +534,13 @@ public class Server extends GenericRecord {
      * @param cpuNumberOfCpusIn the cpuNumberOfCpus to set
      */
     public void setCpuNumberOfCpus(String cpuNumberOfCpusIn) {
-        this.cpuNumberOfCpus = NumberTools.longToString(Long.parseLong(cpuNumberOfCpusIn));
+        if (cpuNumberOfCpusIn != null) {
+            this.cpuNumberOfCpus = 
+                NumberTools.longToString(Long.parseLong(cpuNumberOfCpusIn));
+        }
+        else {
+            this.cpuNumberOfCpus = null;
+        }
     }
 
     /**
@@ -594,8 +610,13 @@ public class Server extends GenericRecord {
      * @param checkinIn the checkin to set
      */
     public void setCheckin(Date checkinIn) {
-        this.checkin = DateTools.dateToString(checkinIn,
+        if (checkinIn != null) {
+            this.checkin = DateTools.dateToString(checkinIn,
                 DateTools.Resolution.DAY);
+        }
+        else {
+            this.checkin = null;
+        }
     }
 
     /**
@@ -609,8 +630,13 @@ public class Server extends GenericRecord {
      * @param registeredIn the registered to set
      */
     public void setRegistered(Date registeredIn) {
-        this.registered = DateTools.dateToString(registeredIn,
+        if (registeredIn != null) {
+            this.registered = DateTools.dateToString(registeredIn,
                 DateTools.Resolution.DAY);
+        }
+        else {
+            this.registered = null;
+        }
     }
 
     /**
@@ -624,7 +650,12 @@ public class Server extends GenericRecord {
      * @param ramIn the ram to set
      */
     public void setRam(String ramIn) {
-        this.ram = NumberTools.longToString(Long.parseLong(ramIn));
+        if (ramIn != null) {
+            this.ram = NumberTools.longToString(Long.parseLong(ramIn));
+        }
+        else {
+            this.ram = null;
+        }
     }
 
     /**
@@ -638,7 +669,12 @@ public class Server extends GenericRecord {
      * @param swapIn the swap to set
      */
     public void setSwap(String swapIn) {
-        this.swap = NumberTools.longToString(Long.parseLong(swapIn));
+        if (swapIn != null) {
+            this.swap = NumberTools.longToString(Long.parseLong(swapIn));
+        }
+        else {
+            this.swap = null;
+        }
     }
 
     /**
@@ -652,6 +688,11 @@ public class Server extends GenericRecord {
      * @param runningKernelIn the runningKernel to set
      */
     public void setRunningKernel(String runningKernelIn) {
-        this.runningKernel = runningKernelIn;
+        if (runningKernelIn != null) {
+            this.runningKernel = runningKernelIn;
+        }
+        else {
+            this.runningKernel = null;
+        }
     }
 }
