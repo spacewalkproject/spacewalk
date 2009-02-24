@@ -1,6 +1,6 @@
 Name:         eventReceivers
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.20.10
+Version:      2.20.11
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 URL:          https://fedorahosted.org/spacewalk
@@ -42,7 +42,7 @@ install -m644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com>
+* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.11-1
 - add LICENSE
 - add Requires smtpdaemon
 
