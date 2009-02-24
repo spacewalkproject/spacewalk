@@ -6,7 +6,7 @@
 # safety rule in case we're included before any other universes are defined
 UNIVERSE?= no-universe
 
-all :: $(UNIVERSE)
+all :: $(UNIVERSE) 
 all :: $(if $(filter-out satellite, $(SCHEMA)), $(UNIVERSE)-synonyms)
 
 # eliminate empty lines and comments from sql file

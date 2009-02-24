@@ -1,0 +1,10 @@
+Load postgresql schema using main.sql, run from the postgresql directory:
+
+    psql -d spacewalk -f main.sql -v ON_ERROR_STOP= 
+
+And to cleanup the database, use a combination of drop + create, like so:
+
+    dropdb spacewalk ; createdb spacewalk && createlang plpgsql spacewalk
+
+Note: In future, the above cleanup process will be changed to drop just the schema.
+
