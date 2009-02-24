@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Red Hat, Inc.
+ * Copyright (c) 2009 Red Hat, Inc.
  *
  * This software is licensed to you under the GNU General Public License,
  * version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -7,19 +7,19 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
 package com.redhat.rhn.frontend.action.kickstart.cobbler;
 
-import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.kickstart.cobbler.BaseCobblerSnippetCommand;
 
@@ -30,16 +30,9 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,11 +47,6 @@ public abstract class BaseCobblerSnippetEditAction extends RhnAction {
     public static final String SNIPPET = "cobblerSnippet";
     public static final String NAME = "name";
     public static final String CONTENTS = "contents";
-    public static final String SNIPDIR = "/var/lib/cobbler/snippets/";
-
-    private CobblerSnippet cobblerSnippet = new CobblerSnippet();
-
-    private static final String NEWLINE = "\n";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -85,68 +73,56 @@ public abstract class BaseCobblerSnippetEditAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
         BaseCobblerSnippetCommand cmd = getCommand(ctx);
 
-        StrutsDelegate strutsDelegate = getStrutsDelegate(); 
-
         String snipName = request.getParameter("name");
         String snipContents = new String();
 
-
-        cobblerSnippet.setName(snipName);
-
         if (snipName != null) {
-            snipContents = getSnippetContentsByName(snipName);
-            cobblerSnippet.setContents(snipContents);
+            cmd.setName(snipName);
+            snipContents = cmd.getContents();
+            cmd.setContents(snipContents);
             request.setAttribute(CONTENTS, snipContents);
         }
 
-        request.setAttribute(SNIPPET, cobblerSnippet);
+        request.setAttribute(SNIPPET, cmd.getCobblerSnippet());
 
         ActionForward retval = mapping.findForward("default");
         if (isSubmitted(form)) {
-            if (request.getRequestURI().contains("CobblerSnippetDelete")) {
-                String snipDeleteReturn = deleteSnippet(snipName);
-                if (snipDeleteReturn != null) {
-                    ActionMessage msg = new ActionMessage(snipDeleteReturn);
-                    messages.add(snipDeleteReturn, msg);
-                }
-            } 
-            else {
-                String dirName = new String(SNIPDIR);
-                String[] result = snipName.split("/");
+            String dirName = new String(BaseCobblerSnippetCommand.SNIPDIR);
+            String[] result = snipName.split("/");
 
-                for (int i = 0; i < (result.length - 1); i++) {
-                    dirName = dirName.concat(result[i]).concat("/");
+            for (int i = 0; i < (result.length - 1); i++) {
+                dirName = dirName.concat(result[i]).concat("/");
                     File dir = new File(dirName);
                     dir.mkdir();
                 }
  
                 // only [a-zA-Z_0-9/] and '-' are valid filename characters
-                Pattern p = Pattern.compile("^[\\w/\\.\\-_]*[\\w\\.\\-_]$");
-                Matcher m = p.matcher(snipName);
+            Pattern p = Pattern.compile("^[\\w/\\.\\-_]*[\\w\\.\\-_]$");
+            Matcher m = p.matcher(snipName);
 
-                if (m.matches()) {
-                    try {
-                        cmd.setName(snipName);
-                        cmd.setContents(form.getString(CONTENTS));
-                    }
-                    catch (Exception e) {
-                        // If we get here then we are editing an existing snippet
-                        // there's probably a better way of handling this
-                    }
-    
-                    String contents = strutsDelegate.getTextAreaValue(form, CONTENTS);
-    
-                    writeSnippet(snipName, contents);
-    
+            if (m.matches()) {
+                cmd.setName(snipName);
+                cmd.setContents(form.getString(CONTENTS));
+                cmd.store();
+
+                ValidatorError ve = cmd.store();
+                if (ve != null) {
+                    ValidatorError[] verr = {ve};
+                    getStrutsDelegate().saveMessages(request,
+                            RhnValidationHelper.validatorErrorToActionErrors(verr));
+                    retval = mapping.findForward("default");
+                } 
+                else {
                     createSuccessMessage(request, getSuccessSnippet(), null);
                     retval = mapping.findForward("success");
                 }
-                else {
-                    ActionMessage msg = new ActionMessage
-                            ("cobbler.snippet.invalidfilename.message");
-                    messages.add("cobbler.snippet.invalidfilename.message", msg);
-                }
-            } 
+                
+            }
+            else {
+                ActionMessage msg = new ActionMessage
+                        ("cobbler.snippet.invalidfilename.message");
+                messages.add("cobbler.snippet.invalidfilename.message", msg);
+            }
         }
         else {
             if (cmd.getCobblerSnippet() != null) {
@@ -178,26 +154,6 @@ public abstract class BaseCobblerSnippetEditAction extends RhnAction {
     }
 
     /**
-     * Write the snippet to disk
-     *
-     * @param name name of the Cobbler Snippet
-     * @param contents content of the Cobbler Snippet
-     */
-    public void writeSnippet(String name, String contents) {
-        try {
-            File f = new File(SNIPDIR + name);
-            FileWriter fstream = new FileWriter(SNIPDIR + name);
-            BufferedWriter out = new BufferedWriter(fstream);
-            out.write(contents);
-            out.close();
-        }
-        catch (Exception e) {
-            System.err.println("Couldn't write snippet: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * Erase the snippet from disk
      *
      * @param name name of the Cobbler Snippet
@@ -212,43 +168,5 @@ public abstract class BaseCobblerSnippetEditAction extends RhnAction {
         return null;
     }
 
-    /**
-     * Read the contents of the snippet
-     *
-     * @param name name of the Cobbler Snippet
-     * @return string contents of the snippet
-     */
-    public String getSnippetContentsByName(String name) {
-        if (name.equals(null)) {
-            return "";
-        }
-        File f = new File(SNIPDIR + name);
-        BufferedInputStream bis = null;
-        DataInputStream dis = null;
-        FileInputStream fis = null;
-
-        String contents = new String();
-
-        try {
-            fis = new FileInputStream(f);
-            bis = new BufferedInputStream(fis);
-            dis = new DataInputStream(bis);
-
-            while (dis.available() != 0) {
-                contents = contents + dis.readLine() + NEWLINE;
-            }
-
-            dis.close();
-            bis.close();
-            fis.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return contents;
-    }
 
 }
