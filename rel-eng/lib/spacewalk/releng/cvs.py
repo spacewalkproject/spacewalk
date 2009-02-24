@@ -59,6 +59,12 @@ class CvsReleaser(object):
         # use instead. (if defined)
         self.cvs_workdir = DEFAULT_CVS_BUILD_DIR
         debug("cvs_workdir = %s" % self.cvs_workdir)
+
+        cvs_co_dir = os.path.join(self.cvs_workdir, self.package_name)
+        if os.path.exists(cvs_co_dir):
+            error_out("CVS checkout already exists, please remove and try again: %s"
+                    % cvs_co_dir)
+
         self.cvs_branches = global_config.get("cvs", "branches").split(" ")
         self.cvs_package_workdir = os.path.join(self.cvs_workdir,
                 self.package_name)
