@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.rhnset;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -42,7 +43,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class RhnSetDecl {
 
-    private static final HashMap DECLS = new HashMap();
+    private static final Map<String, RhnSetDecl> DECLS = new HashMap<String, RhnSetDecl>();
 
     // set of actions by action_id
     public static final RhnSetDecl ACTIONS_COMPLETED = make(
@@ -454,8 +455,8 @@ public class RhnSetDecl {
      * @param cleanup the cleanup to use
      * @return the set declaration
      */
-    public static final RhnSetDecl findOrCreate(String label, SetCleanup cleanup) {
-        RhnSetDecl result = (RhnSetDecl) DECLS.get(label);
+    public static RhnSetDecl findOrCreate(String label, SetCleanup cleanup) {
+        RhnSetDecl result = DECLS.get(label);
         if (result == null) {
             result = new RhnSetDecl(label, cleanup);
         }
@@ -467,8 +468,8 @@ public class RhnSetDecl {
      * @param label the label for the set
      * @return the set declaration or null if none exists
      */
-    public static final RhnSetDecl find(String label) {
-        return (RhnSetDecl) DECLS.get(label);
+    public static RhnSetDecl find(String label) {
+        return DECLS.get(label);
     }
     
     /**
