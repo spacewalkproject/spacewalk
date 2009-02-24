@@ -39,7 +39,7 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %build
 export ORACLE_HOME=%{oracle_home}
-env CFLAGS="$RPM_OPT_FLAGS" FORCE_RPATH=1 %{__python} setup.py build
+%{__python} setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
