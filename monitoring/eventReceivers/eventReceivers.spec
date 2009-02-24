@@ -36,7 +36,7 @@ install HttpsMX.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
 %files
 %defattr(644,root,root,-)
-%{perl_vendorlib}/NOCpulse/*
+%{perl_vendorlib}/*
 %doc LICENSE
 
 %clean
