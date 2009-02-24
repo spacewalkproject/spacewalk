@@ -9,7 +9,8 @@ Group:        Applications/Internet
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-
+# smtpdaemon or mailx. I picked up smtpdaemon
+Requires:     smtpdaemon
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,
@@ -45,6 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com>
 - add LICENSE
+- add Requires smtpdaemon
 
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.10-1
 - remove dead code (apachereg)
