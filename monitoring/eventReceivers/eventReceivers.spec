@@ -37,11 +37,15 @@ install HttpsMX.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 %files
 %defattr(644,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
+%doc LICENSE
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com>
+- add LICENSE
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.10-1
 - remove dead code (apachereg)
 
