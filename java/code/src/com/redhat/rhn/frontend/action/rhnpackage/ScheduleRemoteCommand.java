@@ -254,7 +254,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         else {
             RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
             RhnSet pkgs = decl.get(user);
-            packs = toList(pkgs);
+            packs = toList((RhnSet)pkgs);
         }
         return packs;
     }
