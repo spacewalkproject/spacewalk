@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.rhnset;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,14 +30,14 @@ public class RhnSetImpl implements RhnSet {
     private Set elements;
     private Set synced;
     private SetCleanup cleanup;
-    
+
     /**
      * Default constructor.
      */
     public RhnSetImpl() {
         this(null, null, SetCleanup.NOOP);
     }
-    
+
     /**
      * Constructs an RhnSet with the given user id and label.
      * @param id userid to associate with this RhnSet.
@@ -78,7 +79,7 @@ public class RhnSetImpl implements RhnSet {
     public String getLabel() {
         return label;
     }
-    
+
     /**
      * Adds an element to the set.
      * @param element Element to be added to the set.
@@ -86,7 +87,7 @@ public class RhnSetImpl implements RhnSet {
     public void addElement(RhnSetElement element) {
         elements.add(element);
     }
-    
+
     /**
      * Adds an element to the set.
      * @param elem Element one
@@ -108,7 +109,7 @@ public class RhnSetImpl implements RhnSet {
     public void addElement(Long elem) {
         addElement(elem, null);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -116,10 +117,10 @@ public class RhnSetImpl implements RhnSet {
         if (elem != null && elem.length() > 0) {
             addElement(new RhnSetElement(getUserId(), getLabel(), elem));
         }
-        
-    }    
-    
-    
+
+    }
+
+
     /**
      * Adds an array of elements to the set.
      * @param elems String [] - array of elements to add
@@ -128,7 +129,7 @@ public class RhnSetImpl implements RhnSet {
         if (elems == null) {
             return;
         }
-        
+
         for (int i = 0; i < elems.length; i++) {
             addElement(elems[i]);
         } // for
@@ -158,14 +159,14 @@ public class RhnSetImpl implements RhnSet {
     public void removeElement(RhnSetElement element) {
         elements.remove(element);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void removeElement(Long elem, Long elemTwo) {
         removeElement(new RhnSetElement(getUserId(), getLabel(), elem, elemTwo));
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -179,7 +180,7 @@ public class RhnSetImpl implements RhnSet {
     public void clear() {
         elements = new HashSet();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -205,21 +206,21 @@ public class RhnSetImpl implements RhnSet {
     public boolean contains(RhnSetElement e) {
         return elements.contains(e);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean contains(Long elem, Long elemTwo) {
         return elements.contains(new RhnSetElement(getUserId(), getLabel(), elem, elemTwo));
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public boolean contains(Long elem) {
         return elements.contains(new RhnSetElement(getUserId(), getLabel(), elem, null));
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -233,16 +234,16 @@ public class RhnSetImpl implements RhnSet {
     public boolean isEmpty() {
         return elements.isEmpty();
     }
-    
+
     /**
-     * Save the current state of the set. Calls to {@link #getAdded()} and 
+     * Save the current state of the set. Calls to {@link #getAdded()} and
      * {@link #getRemoved()} will report changes with respect to the state
      * of the set at the last call to this method
      */
     public void sync() {
         synced = new HashSet(elements);
     }
-    
+
     /**
      * Return <code>true</code> if this set has ever been synced
      * @return <code>true</code> if this set has ever been synced
@@ -250,7 +251,7 @@ public class RhnSetImpl implements RhnSet {
     public boolean isSynced() {
         return synced != null;
     }
-    
+
     /**
      * Return a set of all elements that have been added since the last call
      * to {@link #sync()}
@@ -264,7 +265,7 @@ public class RhnSetImpl implements RhnSet {
         result.removeAll(synced);
         return Collections.unmodifiableSet(result);
     }
-    
+
     /**
      * Return a set of all elements that have been removed since the last call
      * to {@link #sync()}
@@ -279,11 +280,139 @@ public class RhnSetImpl implements RhnSet {
         return Collections.unmodifiableSet(result);
     }
 
-    
+
     /**
      * @return Returns the cleanup.
      */
     SetCleanup getCleanup() {
         return cleanup;
+    }
+
+
+    /* The following methods were added to implement Set*/
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean add(Object e) {
+        return false;
+    }
+
+    /**
+     * Add a long to the set in a new element
+     * @param e the element
+     * @return true if added
+     */
+    public boolean add(Long e) {
+        addElement(e);
+        return true;
+    }
+
+    /**
+     * add a new RhnSetElement to the set
+     * @param e the element
+     * @return true if added
+     */
+    public boolean add(RhnSetElement e) {
+        addElement(e);
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean addAll(Collection c) {
+        for (Object o : c) {
+            add(o);
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean contains(Object o) {
+        return elements.contains(o);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean containsAll(Collection c) {
+        return elements.containsAll(c);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Iterator iterator() {
+        return elements.iterator();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean remove(Object o) {
+        return elements.remove(o);
+    }
+
+    /**
+     * Remove a item from the set.  The 2nd element is assumed to be null
+     * @param o the first element of the RhnSetElement to remove
+     * @return true if removed
+     */
+    public boolean remove(Long o) {
+        boolean toRet = false;
+        if (contains(o)) {
+            toRet = true;
+            removeElement(o);
+        }
+        return toRet;
+    }
+
+    /**
+     * Remove an rhnSetElement from the set
+     * @param o the element
+     * @return true if removed
+     */
+    public boolean remove(RhnSetElement o) {
+        boolean toRet = false;
+        if (contains(o)) {
+            toRet = true;
+            removeElement(o);
+        }
+        return toRet;
+    }
+
+
+    /**
+     * removes a collection of RhnSetElemnets from the set
+     * {@inheritDoc}
+     */
+    public boolean removeAll(Collection c) {
+        return elements.removeAll(c);
+    }
+
+    /**
+     * retains a collection of RhnSetElemnets from the set
+     * {@inheritDoc}
+     */
+    public boolean retainAll(Collection c) {
+        return elements.retainAll(c);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object[] toArray() {
+        return elements.toArray();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Object[] toArray(Object[] a) {
+        return elements.toArray(a);
     }
 }

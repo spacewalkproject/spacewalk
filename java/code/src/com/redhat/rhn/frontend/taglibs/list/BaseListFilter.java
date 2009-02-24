@@ -28,7 +28,7 @@ import java.util.Map;
 public abstract class BaseListFilter implements ListFilter {
 
     private Map fieldMap;
-    
+
     /**
      * ${@inheritDoc}
      */
@@ -40,14 +40,21 @@ public abstract class BaseListFilter implements ListFilter {
     /**
      * ${@inheritDoc}
      */
-    public boolean filter(Object object, String field, 
+    public boolean filter(Object object, String field,
             String criteria) {
-        String methodName = (String) fieldMap.get(field);
+
+        //So this is kind of a hack, but without re-writing the whole
+        // filter subsystem this is the only way to be able to use the
+        // ColumnFilter from the action side (AbstractSetHelper) without
+        // doing some really crazy things
+        //String methodName = (String) fieldMap.get(field);
+        String methodName = (String) fieldMap.values().iterator().next();
+
         criteria = criteria.toLowerCase();
         if (methodName != null) {
             String value = ListTagUtil.getBeanValue(object, methodName);
-            return (value != null) && 
-                           value.toLowerCase().indexOf(criteria) >= 0;  
+            return (value != null) &&
+                           value.toLowerCase().indexOf(criteria) >= 0;
         }
         return false;
     }
@@ -58,13 +65,13 @@ public abstract class BaseListFilter implements ListFilter {
     public List getFieldNames() {
         return new LinkedList(fieldMap.keySet());
     }
-    
+
     /**
-     * Bind the display value of UI column(s) that need to be 
-     * filtered to bean property of the object that needs to be 
-     * inspected...  
-     * @param map the map to which the display value is to be 
-     *              bound to the bean property 
+     * Bind the display value of UI column(s) that need to be
+     * filtered to bean property of the object that needs to be
+     * inspected...
+     * @param map the map to which the display value is to be
+     *              bound to the bean property
      * @param userLocale the locale info used for the display value
      */
     public abstract void processMap(Map map, Locale userLocale);

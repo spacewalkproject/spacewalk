@@ -20,7 +20,7 @@ import java.util.Set;
  * RhnSet
  * @version $Rev$
  */
-public interface RhnSet {
+public interface RhnSet extends Set {
     
     /**
      * Setter for user id

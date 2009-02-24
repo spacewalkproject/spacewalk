@@ -43,15 +43,15 @@ import javax.servlet.jsp.tagext.Tag;
 
 /**
  * Provides various utility functions for the ListTag, ColumnTag, and SpanTag
- * 
+ *
  * @version $Rev $
  */
 public class ListTagUtil {
     private ListTagUtil() {
-        
+
     }
-    
-    
+
+
     /**
      * Increments a "persistent" counter. These counters are used by column tags
      * to track and increment values across column render passes.
@@ -70,7 +70,7 @@ public class ListTagUtil {
         ctx.getRequest().setAttribute(name, counter);
         return counter;
     }
-    
+
     /**
      * Clears a "persistent" counter.
      * @param ctx active PageContext
@@ -79,7 +79,7 @@ public class ListTagUtil {
     public static void clearPersistentCounter(PageContext ctx, String name) {
         ctx.removeAttribute(name);
     }
-    
+
     /**
      * Gets the current value of a "persistent" counter
      * @param ctx active PageContext
@@ -94,7 +94,7 @@ public class ListTagUtil {
         }
         return retval;
     }
-         
+
     /**
      * Locates the current ListCommand
      * @param caller tag calling the method
@@ -116,18 +116,18 @@ public class ListTagUtil {
             return null;
         }
     }
-    
+
     /**
      * Stores a ListCommand in the page context and makes it current
      * @param ctx caller's page context
      * @param uniqueName owning list's unique name
      * @param cmd new current command
      */
-    public static void setCurrentCommand(PageContext ctx, String uniqueName, 
+    public static void setCurrentCommand(PageContext ctx, String uniqueName,
             ListCommand cmd) {
         ctx.setAttribute(uniqueName + "_cmd", cmd);
     }
-    
+
     /**
      * Builds URL for the filter form
      * @param request current request
@@ -137,7 +137,7 @@ public class ListTagUtil {
     public static String makeFilterFormUrl(HttpServletRequest request, String listName) {
         return makeNonPagedLink(request, listName);
     }
-    
+
     /**
      * Writes arbitrary text to the client (browser)
      * @param ctx caller's page context
@@ -156,23 +156,23 @@ public class ListTagUtil {
             throw new JspException(e);
         }
     }
-    
+
     /**
-     * Returns a link containing the URL + ALL the parameters of the 
-     * request query string minus the sort links, and the alpha link + 
-     * the additional params passed in the paramsToAdd map. 
-     * 
+     * Returns a link containing the URL + ALL the parameters of the
+     * request query string minus the sort links, and the alpha link +
+     * the additional params passed in the paramsToAdd map.
+     *
      * @param request the Servlet Request
      * @param listName the current list name
      * @param paramsToAdd the params you might want to append to the url
      *                  for example makeSortLink passes in sortByLabel
      *                  while alpha bar passes in params that are specific to it.
-     *  @param paramsToIgnore params to not include that would be normally                 
-     * @return a link containing the URL  + (OtherParams - Sort - Alpha) + paramsToAdd   
+     *  @param paramsToIgnore params to not include that would be normally
+     * @return a link containing the URL  + (OtherParams - Sort - Alpha) + paramsToAdd
      */
-    public static String makeParamsLink(ServletRequest request, 
+    public static String makeParamsLink(ServletRequest request,
                                         String listName,
-                                        Map<String, String> paramsToAdd, 
+                                        Map<String, String> paramsToAdd,
                                         List<String> paramsToIgnore) {
         String url = (String) request.getAttribute(ListTagHelper.PARENT_URL);
         String sortByLabel = makeSortByLabel(listName);
@@ -185,10 +185,10 @@ public class ListTagUtil {
         else if (url.indexOf('?') != url.length() - 1) {
             params.append("&");
         }
-        
+
         for (Enumeration<String> en = request.getParameterNames(); en.hasMoreElements();) {
             String paramName = en.nextElement();
-            if (!sortByLabel.equals(paramName) && !sortByDir.equals(paramName) && 
+            if (!sortByLabel.equals(paramName) && !sortByDir.equals(paramName) &&
                     !alphaKey.equals(paramName) && !paramsToIgnore.contains(paramName)) {
                 if (params.length() > 1) {
                     params.append("&");
@@ -202,14 +202,14 @@ public class ListTagUtil {
                 params.append("&");
             }
             params.append(key).append("=")
-                        .append(paramsToAdd.get(key));            
+                        .append(paramsToAdd.get(key));
         }
-        
+
         return url + params.toString();
     }
-    
+
     /**
-     * Builds sort link 
+     * Builds sort link
      * @param request current request
      * @param listName list's unique name
      * @param attrName attribute to sort on
@@ -217,7 +217,7 @@ public class ListTagUtil {
      *           RequestContext.SORT_DESC for descending
      * @return link
      */
-    public static String makeColumnSortLink(HttpServletRequest request, 
+    public static String makeColumnSortLink(HttpServletRequest request,
             String listName, String attrName, String sortDir) {
         if (sortDir == null) {
             sortDir = RequestContext.SORT_ASC;
@@ -229,10 +229,10 @@ public class ListTagUtil {
             sortDir = RequestContext.SORT_ASC;
         }
         Map<String, String> params = new HashMap<String, String>();
-        
+
         params.put(makeSortByLabel(listName), attrName);
         params.put(makeSortDirLabel(listName), sortDir);
-        
+
         return makeParamsLink(request, listName, params, Collections.EMPTY_LIST);
     }
 
@@ -253,7 +253,7 @@ public class ListTagUtil {
     public static String makeSortByLabel(String listName) {
         return "list_" + listName + "_sortby";
     }
-    
+
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
@@ -261,8 +261,8 @@ public class ListTagUtil {
      */
     public static String makeFilterByLabel(String listName) {
         return "list_" + listName + "_filterby";
-    }    
-    
+    }
+
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
@@ -270,9 +270,18 @@ public class ListTagUtil {
      */
     public static String makeFilterValueByLabel(String listName) {
         return "list_" + listName + "_filterval";
-    }    
-    
-    
+    }
+
+    /**
+     * provides the filter label (what to sort by) url key
+     * @param listName the list name
+     * @return the url key for filter value label
+     */
+    public static String makeFilterAttributeByLabel(String listName) {
+        return "list_" + listName + "_filterattr";
+    }
+
+
 
     /**
      * provides the filter name (the name value for the go button on the filter box)
@@ -281,8 +290,8 @@ public class ListTagUtil {
      */
     public static String makeFilterNameByLabel(String listName) {
         return "list_" + listName + "_filtername";
-    }        
-    
+    }
+
     /**
      * provides the filter label (what to sort by) url key
      * @param listName the list name
@@ -290,8 +299,8 @@ public class ListTagUtil {
      */
     public static String makeOldFilterValueByLabel(String listName) {
         return "list_" + listName + "_oldfilterval";
-    }        
-    
+    }
+
     /**
      * provides the label to set/get the filter class
      * @param listName the list name
@@ -300,7 +309,7 @@ public class ListTagUtil {
     public static String makeFilterClassLabel(String listName) {
         return "list_" + listName + "_filterclass";
     }
-    
+
     /**
      * Returns the name of the Select Action attribute
      * For example the Select All, Unselect All and Update buttons
@@ -322,25 +331,25 @@ public class ListTagUtil {
     }
 
     /**
-     * Returns the name of the attribute that holds the selected check box items 
+     * Returns the name of the attribute that holds the selected check box items
      * @param listName the list name
      * @return the name of selected items
-     */    
+     */
     public static String makeSelectedItemsName(String listName) {
         return "list_" + listName + "_sel";
     }
 
     /**
-     * Returns the name of the attribute that holds the all the row items on the page. 
+     * Returns the name of the attribute that holds the all the row items on the page.
      * @param listName the list name
      * @return the name of attribute holding all the row items in the page
-     */    
+     */
     public static String makePageItemsName(String listName) {
         return "list_" + listName + "_items";
     }
 
     /**
-     * Returns the name of the attribute that holds the current page number. 
+     * Returns the name of the attribute that holds the current page number.
      * @param listName the list name
      * @return the  name of the attribute that holds the current page number.
      */
@@ -362,11 +371,11 @@ public class ListTagUtil {
      * @param request current request
      * @param listName list unique name
      * @return url
-     */    
+     */
     public static String makeLastPageLink(HttpServletRequest request, String listName) {
         return makePageLink(request, listName, "last");
     }
-    
+
     /**
      * Make prev page link
      * @param request current request
@@ -374,24 +383,24 @@ public class ListTagUtil {
      * @param currentPage current page #
      * @return url
      */
-    
-    public static String makePrevPageLink(HttpServletRequest request, String listName, 
+
+    public static String makePrevPageLink(HttpServletRequest request, String listName,
             int currentPage) {
         return makePageLink(request, listName, String.valueOf(currentPage - 1));
     }
-    
+
     /**
      * Make next page link
      * @param request current request
      * @param listName list unique name
      * @param currentPage current page #
      * @return url
-     */    
-    public static String makeNextPageLink(HttpServletRequest request, String listName, 
+     */
+    public static String makeNextPageLink(HttpServletRequest request, String listName,
             int currentPage) {
         return makePageLink(request, listName, String.valueOf(currentPage + 1));
     }
-    
+
     /**
      * Gets the value of a data bean attribute
      * @param bean target
@@ -404,17 +413,17 @@ public class ListTagUtil {
         }
         catch (Exception e) {
             String msg = String.format("Exception encounterd " +
-                            "while accesing attribute = '%s' and bean class='%s'", 
+                            "while accesing attribute = '%s' and bean class='%s'",
                                 attribute, bean.getClass().getName());
             throw new RuntimeException(msg, e);
         }
     }
 
-    
+
     /**
      * Converts a series of string values to their boolean equivalents
      * True values: true, t, yes, y, 1
-     * False values: Everything else 
+     * False values: Everything else
      * @param value value to interpret
      * @return true or valse
      */
@@ -425,7 +434,7 @@ public class ListTagUtil {
             if (!retval &&
                 (value.equalsIgnoreCase("t") ||
                         value.equalsIgnoreCase("true") ||
-                        value.equalsIgnoreCase("yes") || 
+                        value.equalsIgnoreCase("yes") ||
                         value.equalsIgnoreCase("y") ||
                         value.equalsIgnoreCase("1"))) {
                     retval = true;
@@ -433,19 +442,19 @@ public class ListTagUtil {
         }
         return retval;
     }
-    
+
     /**
      * Includes arbitrary _local_ url as content
      * @param ctx caller's page context
      * @param url local url
      * @throws JspException if something goes wrong
-     * 
+     *
      * Note: Local means Urls in the same application
      */
     public static void includeContent(PageContext ctx, String url) throws JspException {
         HttpServletRequest request = (HttpServletRequest) ctx.getRequest();
         HttpServletResponse response = (HttpServletResponse) ctx.getResponse();
-        RequestDispatcher rd = 
+        RequestDispatcher rd =
             request.getSession(true).getServletContext().getRequestDispatcher(url);
         if (rd == null) {
             ListTagUtil.write(ctx, "<!-- " + url + " not found -->");
@@ -492,7 +501,7 @@ public class ListTagUtil {
      * @param links map of string arrays key on link name
      * @throws JspException if something bad happens writing to the page
      */
-    public static void renderPaginationLinks(PageContext pageContext, 
+    public static void renderPaginationLinks(PageContext pageContext,
             String[] linkNames, Map links) throws JspException {
         if (links.size() == 0) {
             return;
@@ -510,7 +519,7 @@ public class ListTagUtil {
                 ListTagUtil.write(pageContext, "\" alt=\"");
                 ListTagUtil.write(pageContext, linkData[3]);
                 ListTagUtil.write(pageContext, "\" />");
-                
+
                 ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
                 ListTagUtil.write(pageContext, linkData[1]);
                 ListTagUtil.write(pageContext, "\" value=\"");
@@ -527,7 +536,7 @@ public class ListTagUtil {
             }
         }
     }
-    
+
     /**
      * Renders the filter UI
      * @param pageContext caller's page context
@@ -546,17 +555,17 @@ public class ListTagUtil {
         String filterBy = request.getParameter(filterByKey);
         String filterValueKey = makeFilterValueByLabel(uniqueName);
         String filterName = makeFilterNameByLabel(uniqueName);
-        String filterValue =  ListTagHelper.getFilterValue(pageContext.getRequest(), 
+        String filterValue =  ListTagHelper.getFilterValue(pageContext.getRequest(),
                 uniqueName);
-        
+
         //We set this so we know next time around what the old filter value was
         ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
         ListTagUtil.write(pageContext, makeOldFilterValueByLabel(uniqueName));
         ListTagUtil.write(pageContext, "\" value=\"");
         ListTagUtil.write(pageContext, filterValue);
         ListTagUtil.write(pageContext, "\" />");
-        
-        
+
+
         ListTagUtil.write(pageContext, "<td");
         ListTagUtil.write(pageContext, " align=\"left\">");
         List fields = filter.getFieldNames();
@@ -565,7 +574,7 @@ public class ListTagUtil {
                     "ListFilter.getFieldNames() returned no field names");
         }
         else if (fields.size() == 1) {
-            String label = ls.getMessage("message.filterby", 
+            String label = ls.getMessage("message.filterby",
                                             fields.get(0).toString());
             ListTagUtil.write(pageContext, label);
             ListTagUtil.write(pageContext, "<input type=\"hidden\" name=\"");
@@ -602,15 +611,15 @@ public class ListTagUtil {
             ListTagUtil.write(pageContext, filterValue);
         }
         ListTagUtil.write(pageContext, "\" />");
-        
+
         ListTagUtil.write(pageContext,
-                "&nbsp;&nbsp;&nbsp;<input type=\"submit\"" +  "name=\""  + 
-                filterName + "\"" +  "value=\"" +               
+                "&nbsp;&nbsp;&nbsp;<input type=\"submit\"" +  "name=\""  +
+                filterName + "\"" +  "value=\"" +
                 ls.getMessage(RequestContext.FILTER_KEY) + "\" />");
-        ListTagUtil.write(pageContext, "</td>");        
+        ListTagUtil.write(pageContext, "</td>");
     }
-    
-    private static String makePageLink(HttpServletRequest request, 
+
+    private static String makePageLink(HttpServletRequest request,
             String listName, String page) {
         String url = makeNonPagedLink(request, listName);
         if (url.indexOf("?") == -1) {
@@ -622,15 +631,15 @@ public class ListTagUtil {
         url += "list_" + listName;
         url += "_page=" + page;
         return url;
-        
+
     }
-    
+
     private static String makeNonPagedLink(HttpServletRequest request, String listName) {
         String url = (String) request.getAttribute("parentUrl");
         String queryString = request.getQueryString();
         if (queryString != null && queryString.length() > 0) {
             url += "?";
-            for (StringTokenizer strtok = new StringTokenizer(queryString, "&"); 
+            for (StringTokenizer strtok = new StringTokenizer(queryString, "&");
                     strtok.hasMoreTokens();) {
                 String token = strtok.nextToken();
                 if (token.indexOf(listName) > -1 && token.indexOf("_page=") > -1) {
@@ -648,7 +657,7 @@ public class ListTagUtil {
         }
         return url;
     }
-    
-    
+
+
 
 }
