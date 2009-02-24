@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.21
+Version: 0.5.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -224,7 +224,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Tue Feb 24 2009 Pradeep Kilambi <pkilambi@redhat.com>
+* Tue Feb 24 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.22-1
 - fixing the repodata task queries to avoid tempspace issues
  
 * Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
