@@ -31,7 +31,6 @@ SCRIPT_DIR = os.path.abspath(os.path.join(os.path.dirname(
 
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
-from spacewalk.releng.cvs import CvsReleaser
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
 from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
@@ -213,7 +212,7 @@ class CLI:
         if options.tag:
             build_tag = options.tag
             build_version = build_tag[len(package_name + "-"):]
-        elif building or options.cvs_release:
+        elif building:
             build_version = get_latest_tagged_version(package_name)
             if build_version == None:
                 error_out(["Unable to lookup latest package info.",
@@ -226,14 +225,12 @@ class CLI:
         pkg_config = self._read_project_config(package_name, build_dir,
                 options.tag, options.no_cleanup)
 
-        if building or options.cvs_release:
+        if building:
             builder = self._create_builder(package_name, build_tag,
                     build_version, options, pkg_config, global_config,
                     build_dir)
             if building:
                 builder.run(options)
-            elif options.cvs_release:
-                self._run_cvs_release(global_config, builder, options)
         elif tagging:
             self._run_tagger(options, pkg_config, global_config)
 
@@ -321,14 +318,6 @@ class CLI:
                 (version, relative_dir) = f.readline().strip().split(" ")
                 project_dir = os.path.join(git_root, relative_dir)
                 self._print_diff(global_config, md_file, version, project_dir)
-
-    def _run_cvs_release(self, global_config, builder, options):
-        """
-        Import sources into CVS, tag and build in the build system configured
-        for this git repository.
-        """
-        cvs_builder = CvsReleaser(global_config, builder)
-        cvs_builder.run(options)
 
     def _print_log(self, global_config, package_name, version, project_dir):
         """
@@ -473,7 +462,8 @@ class CLI:
         return config
 
     def _validate_options(self, options):
-        found_builder_options = (options.tgz or options.srpm or options.rpm)
+        found_builder_options = (options.tgz or options.srpm or options.rpm or
+                options.cvs_release)
         found_tagger_options = (options.tag_release)
         if found_builder_options and found_tagger_options:
             error_out("Cannot invoke both build and tag options at the " +
