@@ -2138,13 +2138,31 @@
     </action>
      
     <action path="/errata/manage/AddPackages" scope="request"
-        type="com.redhat.rhn.frontend.action.errata.AddPackagesSetupAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/errata/packages/add.jsp"/>
-    </action> 
+            type="com.redhat.rhn.frontend.action.errata.AddPackagesAction">
+       <forward name="default" path="/WEB-INF/pages/errata/packages/add.jsp"/>
+       <forward name="confirm"
+           path="/errata/manage/AddPackagesConfirm.do" redirect="true"/>
+    </action>
 
+    <action path="/errata/manage/AddPackagesConfirm"
+            scope="request"
+            input="/WEB-INF/pages/errata/packages/confirm.jsp"
+            type="com.redhat.rhn.frontend.action.errata.AddPackagesConfirmAction">
+        <forward name="default"
+            path="/WEB-INF/pages/errata/packages/confirm.jsp"/>
+       <forward name="success"
+           path="/errata/manage/AddPackagePackagePush.do" redirect="true"/>
+    </action>
+    
+<!--
+     <action path="/errata/manage/AddPackages" scope="request"
+         type="com.redhat.rhn.frontend.action.errata.AddPackagesSetupAction"
+          className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" value="user_role(channel_admin)"/>
+         <forward name="default"
+             path="/WEB-INF/pages/errata/packages/add.jsp"/>
+     </action>
+     
     <action path="/errata/manage/AddPackagesSubmit" 
             scope="request"
             input="/WEB-INF/pages/errata/packages/add.jsp"
@@ -2179,6 +2197,7 @@
         <forward name="success"
             path="/errata/manage/AddPackagePackagePush.do" redirect="true"/>
     </action>
+-->
     
      <action path="/errata/manage/AddPackagePackagePush"
              scope="request"
