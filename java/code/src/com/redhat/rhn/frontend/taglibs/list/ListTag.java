@@ -559,6 +559,7 @@ public class ListTag extends BodyTagSupport {
                 
                 ListTagUtil.write(pageContext, "<br /><a href=\"");
                 List<String> excludeParams = new ArrayList<String>();
+                excludeParams.add(ListTagUtil.makeSelectActionName(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeFilterByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeFilterValueByLabel(getUniqueName()));
                 excludeParams.add(ListTagUtil.makeOldFilterValueByLabel(getUniqueName()));
