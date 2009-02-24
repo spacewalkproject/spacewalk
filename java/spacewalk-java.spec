@@ -224,6 +224,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Tue Feb 24 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- fixing the repodata task queries to avoid tempspace issues
+ 
 * Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
 - 486502 - Changed order when list a group of systemIds so top result is highest.
 - Fixing problem which broke unique documents in the lucene index.
