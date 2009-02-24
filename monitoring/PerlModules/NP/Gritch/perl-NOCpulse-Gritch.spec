@@ -46,8 +46,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com>
+- add LICENSE
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.27.3-1
 - BR perl(ExtUtils::MakeMaker)
 
