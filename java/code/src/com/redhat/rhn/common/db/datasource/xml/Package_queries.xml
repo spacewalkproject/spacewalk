@@ -622,27 +622,29 @@ SELECT P.id, P.summary, PP.name as provider
   <query params="sid">
 SELECT  distinct pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || pa.id AS ID_COMBO,
-        pa.name as ARCH
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || full_list.arch_id AS ID_COMBO,
+        full_list.arch_name as ARCH
   FROM  (
-         SELECT  p.name_id name_id, max(pe.evr) evr
+         SELECT  p.name_id name_id, max(pe.evr) evr,
+                 pa.name as arch_name, pa.id as arch_id
            FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC
+                 rhnChannelPackage CP, rhnServerChannel SC,
+                 rhnPackageArch PA
           WHERE  sc.server_id = :sid
             AND  sc.channel_id = cp.channel_id
             AND  cp.package_id = p.id
             AND  p.evr_id = pe.id
-       GROUP BY  p.name_id
+            AND  p.package_arch_id = pa.id
+       GROUP BY  p.name_id, pa.name, pa.id
        ) full_list,
-       rhnPackageArch pa,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
  WHERE  full_list.name_id = pn.id
    AND  full_list.name_id NOT IN (SELECT SP.name_id FROM rhnServerPackage SP WHERE SP.server_id = :sid)
-   AND  pa.id = pkg.package_arch_id
 ORDER BY  UPPER(pn.name)
   </query>
 </mode>
+
 
 <mode name="lookup_id_combo_by_name">
 <query params="sid, name">
