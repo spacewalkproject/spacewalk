@@ -20,7 +20,6 @@
 
 insert into rhn_pager_types(recid,pager_type_name)
     values (nextval('rhn_pager_types_recid_seq'),'All pager types');
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

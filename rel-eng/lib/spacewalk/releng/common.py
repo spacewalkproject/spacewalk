@@ -18,6 +18,8 @@ import os.path
 import sys
 import commands
 
+from spacewalk.releng.cli import SCRIPT_DIR
+
 DEFAULT_BUILD_DIR = "/tmp/spacewalk-build"
 
 def error_out(error_msgs):
@@ -183,7 +185,7 @@ def create_tgz(git_root, prefix, commit, relative_dir, rel_eng_dir,
     os.chdir(os.path.abspath(git_root))
     timestamp = get_commit_timestamp(commit)
 
-    timestamp_script = os.path.join(get_script_dir(),
+    timestamp_script = os.path.join(SCRIPT_DIR,
             "tar-fixup-stamp-comment.pl")
     archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s %s %s | gzip -n -c - | tee %s" % \
         (
@@ -225,20 +227,5 @@ def get_latest_tagged_version(package_name):
         error_out("Error looking up latest tagged version in: %s" % file_path)
 
     return output
-
-def get_script_dir():
-    """
-    Returns the directory to look for related rel-eng scripts.
-
-    This is hack to workaround the fact that build.py may be called
-    from a git repo that doesn't actually track a copy of it's source
-    code.
-
-    Once build.py can be installed on a system, or is a self contained
-    solution, this can go away.
-    """
-    script_dir = os.path.abspath(os.path.join(os.path.dirname(
-        sys.argv[0]), "../"))
-    return script_dir
 
 

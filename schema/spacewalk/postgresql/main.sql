@@ -1,9 +1,18 @@
-START TRANSACTION;
+/* we do all our work in a transaction */
+begin transaction;
 
 -- Avoid all the unnecessary NOTICE messages
 set client_min_messages = warning;
 
-/* special table; to be removed once we start using Orafce */
+/* TODO: for security reasons, a non-superuser should be created and used
+create user spacewalk;
+
+\c spacewalk
+
+create schema spacewalk;
+*/
+
+/* special table; TODO: to be removed once we start using Orafce */
 \i tables/dual.sql
 
 /* tables go here */
@@ -427,6 +436,7 @@ set client_min_messages = warning;
 \i tables/rhnUserGroupType_data.sql
 
 /* packages go here */
+\i packages/rhn_user.pkb
 
 /* views go here */
 \i views/rhnOrgChannelFamilyPermissions.sql

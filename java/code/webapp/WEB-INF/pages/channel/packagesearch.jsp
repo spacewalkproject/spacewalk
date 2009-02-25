@@ -34,8 +34,10 @@
          <table class="details">
            <tr><th><bean:message key="packagesearch.jsp.searchfor"/></th>
              <td>
-               <input type="text" name="search_string" value="${search_string}" />
-               <input type="image" src="/img/button-search.gif" name="Search!" />
+               <html:text property="search_string" name="search_string" value="${search_string}" />
+               <html:submit>
+                 <bean:message key="button.search" />
+               </html:submit>
              </td>
            </tr>
            <tr><th><bean:message key="packagesearch.jsp.whatsearch"/></th>
@@ -74,6 +76,8 @@
     <input type="hidden" name="submitted" value="true" />
   </html:form> 
 
+  <c:if test="${search_string != null && search_string != ''}">
+
   <hr />
   <c:set var="pageList" value="${requestScope.pageList}" />
   <!-- collapse the params into a string -->
@@ -86,14 +90,27 @@
              filter="com.redhat.rhn.frontend.action.channel.PackageNameFilter">
       <rl:decorator name="PageSizeDecorator"/>
       <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.name" styleclass="first-column">
-        <a href="/rhn/software/packages/NameOverview.do?package_name=${current.urlEncodedPackageName}${archparams}&search_subscribed_channels=${requestScope.relevant}">${current.packageName}</a>
-      </rl:column>
-      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.summary" styleclass="last-column">
         <rhn:highlight tag="strong" text="${search_string}">
-          ${current.summary}
+        <a href="/rhn/software/packages/NameOverview.do?package_name=${current.urlEncodedPackageName}${archparams}&search_subscribed_channels=${requestScope.relevant}">${current.packageName}</a>
         </rhn:highlight>
       </rl:column>
+      <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.summary" styleclass="last-column">
+        <c:choose>
+          <c:when test="${param.view_mode != 'search_name'}">
+            <rhn:highlight tag="strong" text="${search_string}">
+              ${current.summary}
+            </rhn:highlight>
+          </c:when>
+          <c:otherwise>
+             ${current.summary}
+          </c:otherwise>
+        </c:choose>
+
+      </rl:column>
     </rl:list>
+    <rl:csv dataset="pageList"
+            name="searchResults"
+            exportColumns="packageName,summary"/>
 
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
@@ -103,8 +120,9 @@
     <c:forEach items="${requestScope.channel_arch}" var="item">
     <input type="hidden" name="channel_arch" value="${item}" />
     </c:forEach>
-    
 
   </rl:listset>
+
+  </c:if>
 </body>
 </html>

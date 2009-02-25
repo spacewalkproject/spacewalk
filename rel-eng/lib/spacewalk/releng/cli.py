@@ -26,6 +26,9 @@ import ConfigParser
 from optparse import OptionParser
 from string import strip
 
+SCRIPT_DIR = os.path.abspath(os.path.join(os.path.dirname(
+        os.path.abspath(sys.argv[0])), "../"))
+
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
 from spacewalk.releng.cvs import CvsReleaser

@@ -500,6 +500,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Cobbler Snippets">
+<source>Cobbler Snippets</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Navigation Menu</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Get Spacewalk Software">
 <source>Get @@PRODUCT_NAME@@ Software</source>
         <context-group name="ctx">
@@ -1919,6 +1925,55 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>      
 
+     <trans-unit id="cobblersnippet.update.success">
+        <source>Snippet updated.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/Kickstart/Cobbler/CobblerSnippetCreate</context>
+        </context-group>
+      </trans-unit>
+
+    <trans-unit id="cobblersnippet.create.success">    
+        <source>Cobbler Snippet created successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeyDelete</context>
+        </context-group>
+      </trans-unit>
+
+    <trans-unit id="cobblersnippet.delete.success">    
+        <source>Cobbler Snippet successfully.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/keys/CryptoKeyDelete</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="cobbler.snippet.couldnotdelete.message">
+       <source>An error occurred when attempting to delete this snippet.</source>
+         <context-group name="ctx"> 	 
+           <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
+         </context-group> 	 
+       </trans-unit> 	 
+
+      <trans-unit id="cobbler.snippet.filenameexists.message">
+       <source>The requested Cobbler snippet filename already exists.</source>
+         <context-group name="ctx"> 	 
+           <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
+         </context-group> 	 
+       </trans-unit> 	 
+
+      <trans-unit id="cobbler.snippet.invalidfilename.message">
+       <source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+         <context-group name="ctx"> 	 
+           <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
+         </context-group> 	 
+       </trans-unit> 	 
+
+      <trans-unit id="toolbar.delete.CobblerSnippetDelete">
+<source>delete snippet</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>
+        </context-group>
+      </trans-unit>     
+
       <trans-unit id="kickstart.iprange.url">
         <source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
         <context-group name="ctx">
@@ -2601,7 +2656,12 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/channels/Search</context>
         </context-group>
       </trans-unit>
-            
+     <trans-unit id="packages.search.index_out_of_sync_with_db">
+        <source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="patches.installed.notavailable">
 <source>Not Available</source>
         <context-group name="ctx">

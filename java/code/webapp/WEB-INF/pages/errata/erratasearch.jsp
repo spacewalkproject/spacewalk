@@ -50,8 +50,11 @@
          <table class="details">
            <tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
              <td>
-               <input type="text" name="search_string" value="${search_string}" maxlength="36" />
-               <input type="image" src="/img/button-search.gif" name="Search!" />
+               <html:text property="search_string" name="search_string"
+                     value="${search_string}" maxlength="36" />
+               <html:submit>
+                 <bean:message key="button.search" />
+               </html:submit>
                <br />
                 <span class="small-text">
                     <strong>Examples: </strong> <bean:message key="erratasearch.jsp.search.tip" />
@@ -131,6 +134,9 @@
    </div> <!-- search choices -->
    <input type="hidden" name="submitted" value="true" />
   </html:form>
+
+  <c:if test="${search_string != null && search_string != ''}">
+  <hr />
 
   <c:set var="pageList" value="${requestScope.pageList}" />
   <rl:listset name="searchSet" legend="errata">
@@ -230,6 +236,10 @@
       </rl:column>
 
     </rl:list>
+    <rl:csv dataset="pageList"
+            name="searchResults"
+            exportColumns="advisoryType,advisoryName,advisorySynopsis,issueDate"/>
+
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
     <input type="hidden" name="search_string" value="${search_string}" />
@@ -251,11 +261,9 @@
     <input type="hidden" name="end_minute" value="<%= request.getParameter("end_minute") %>" />
     <input type="hidden" name="end_am_pm" value="<%= request.getParameter("end_am_pm") %>" />
 
-
   </rl:listset>
 
-
-
+  </c:if>
 
 </body>
 </html>

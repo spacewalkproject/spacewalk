@@ -69,8 +69,5 @@ m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
    --define RHNORA_DB_USER=rhnsat \
    | $ORACLE_HOME/bin/sqlplus /nolog
 
-
-service oracle restart
-
 set +x
 

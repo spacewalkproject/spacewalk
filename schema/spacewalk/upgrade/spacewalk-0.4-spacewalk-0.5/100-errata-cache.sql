@@ -25,7 +25,7 @@ alter table
    rhnServerNeededCache;
 
 
-/*create new indexes */
+/* create new indexes */
 create index rhn_snc_pid_idx
         on rhnServerNeededCache(package_id)
         parallel

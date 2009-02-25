@@ -10,11 +10,12 @@
  *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
 package com.redhat.rhn.manager.rhnset;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -42,7 +43,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class RhnSetDecl {
 
-    private static final HashMap DECLS = new HashMap();
+    private static final Map<String, RhnSetDecl> DECLS = new HashMap<String, RhnSetDecl>();
 
     // set of actions by action_id
     public static final RhnSetDecl ACTIONS_COMPLETED = make(
@@ -425,12 +426,9 @@ public class RhnSetDecl {
      * @param suffix suffix to make this set declaration unique
      * @return the newly created set declaration.
      */
-    public RhnSetDecl createCustom(Object ...suffix) {
-        HashCodeBuilder builder = new HashCodeBuilder();
-        for (Object o : suffix) {
-            builder.append(o);
-        }
-        return make(label + builder.toHashCode(), cleanup);
+    public RhnSetDecl createCustom(Object... suffix) {
+        String customName = generateCustomSetName(this, suffix);
+        return make(customName, cleanup);
     }
 
     /**
@@ -457,8 +455,8 @@ public class RhnSetDecl {
      * @param cleanup the cleanup to use
      * @return the set declaration
      */
-    public static final RhnSetDecl findOrCreate(String label, SetCleanup cleanup) {
-        RhnSetDecl result = (RhnSetDecl) DECLS.get(label);
+    public static RhnSetDecl findOrCreate(String label, SetCleanup cleanup) {
+        RhnSetDecl result = DECLS.get(label);
         if (result == null) {
             result = new RhnSetDecl(label, cleanup);
         }
@@ -470,8 +468,8 @@ public class RhnSetDecl {
      * @param label the label for the set
      * @return the set declaration or null if none exists
      */
-    public static final RhnSetDecl find(String label) {
-        return (RhnSetDecl) DECLS.get(label);
+    public static RhnSetDecl find(String label) {
+        return DECLS.get(label);
     }
     
     /**
@@ -491,6 +489,21 @@ public class RhnSetDecl {
     public static RhnSetDecl setForChannelPackages(Channel chan) {
         return make("package_clone_list" + chan.getId(), SetCleanup.NOOP);
     }
-    
-            
+
+    /**
+     * Generates a new set name based on an existing set and one or more variables.
+     *
+     * @param base   the generation will use the label from this set
+     * @param suffix used as entropy in the custom name
+     * @return name suitable for an RhnSet that is a derivative of the base set
+     */
+    public static String generateCustomSetName(RhnSetDecl base, Object... suffix) {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        for (Object o : suffix) {
+            builder.append(o);
+        }
+
+        String customName = base.getLabel() + builder.toHashCode();
+        return customName;
+    }
 }

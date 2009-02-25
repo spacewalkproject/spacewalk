@@ -22,6 +22,7 @@ import StringIO
 
 from time import strftime
 
+from spacewalk.releng.cli import SCRIPT_DIR
 from spacewalk.releng.common import * 
 
 class VersionTagger(object):
@@ -156,7 +157,7 @@ class VersionTagger(object):
             if release:
                 bump_type = "bump-release"
 
-            script_path = os.path.join(get_script_dir(), "bump-version.pl")
+            script_path = os.path.join(SCRIPT_DIR, "bump-version.pl")
             cmd = "perl %s %s --specfile %s" % \
                     (script_path, bump_type, self.spec_file)
             run_command(cmd)

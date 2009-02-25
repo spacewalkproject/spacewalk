@@ -87,6 +87,9 @@ BuildRequires: sitemesh
 Obsoletes: rhn-java < 5.3.0
 Obsoletes: rhn-java-sat < 5.3.0
 Obsoletes: rhn-oracle-jdbc-tomcat5 <= 1.0
+Provides: rhn-java = %{version}-%{release}
+Provides: rhn-java-sat = %{version}-%{release}
+Provides: rhn-oracle-jdbc-tomcat5 = %{version}-%{release}
 
 %description
 This package contains the code for the Java version of the Spacewalk Web Site.
@@ -96,6 +99,8 @@ Summary: Configuration files for RHN Java
 Group: Applications/Internet
 Obsoletes: rhn-java-config < 5.3.0
 Obsoletes: rhn-java-config-sat < 5.3.0
+Provides: rhn-java-config = %{version}-%{release}
+Provides: rhn-java-config-sat = %{version}-%{release}
 
 %description config
 This package contains the configuration files for the Spacewalk Java web
@@ -106,6 +111,8 @@ Summary: Jar files for Spacewalk Java
 Group: Applications/Internet
 Obsoletes: rhn-java-lib < 5.3.0
 Obsoletes: rhn-java-lib-sat < 5.3.0
+Provides: rhn-java-lib = %{version}-%{release}
+Provides: rhn-java-lib-sat = %{version}-%{release}
 
 %description lib
 This package contains the jar files for the Spacewalk Java web application
@@ -142,6 +149,8 @@ Requires: quartz
 Requires: cobbler >= 1.4.2
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
+Provides: taskomatic = %{version}-%{release}
+Provides: taskomatic-sat = %{version}-%{release}
 Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service

@@ -38,7 +38,6 @@ subject_format,body_format,max_subject_length,max_body_length,reply_format)
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
     values ( nextval('rhn_ntfmt_recid_seq'),NULL,'Pager Default (3.6)',NULL,'^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"], notification ^[alert id]',0,200,NULL);
-commit;
 
 --
 --Revision 1.10  2005/02/15 21:40:35  jslagle

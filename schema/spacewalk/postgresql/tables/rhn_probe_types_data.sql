@@ -34,7 +34,6 @@ insert into rhn_probe_types(probe_type,type_description)
     values ( 'check','Check Probe');
 insert into rhn_probe_types(probe_type,type_description) 
     values ( 'suite','Check Suite Probe');
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

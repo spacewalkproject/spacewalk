@@ -29,8 +29,11 @@
 	<table class="details">
 		<tr><th><bean:message key="erratasearch.jsp.searchfor"/></th>
 			<td>
-				<input type="text" name="search_string" value="${search_string}" maxlength="36" />
-				<input type="image" src="/img/button-search.gif" name="Search!" />
+                <html:text property="search_string" name="search_string" 
+                           value="${search_string}" maxlength="36" />
+                <html:submit>
+                   <bean:message key="button.search" />
+                </html:submit>
 			</td>
   		</tr>
   		<tr>
@@ -159,53 +162,11 @@
                         ${current.entitlementLevel}
             </rl:column>
         </rl:list>
+        <rl:csv dataset="pageList"
+                name="searchResults"
+                exportColumns="id,serverName,dmiBiosVendor,dmiBiosVersion,dmiBiosRelease,description,entitlementLevel"/>
+
     </rl:listset>
     </c:if>
-
-  <%--
-	<form method="post" name="rhn_list" action="/rhn/systems/SearchSubmit.do">
-	    <input type="hidden" name="whereToSearch" value="${whereToSearch}" maxlength="36" />
-    	<input type="hidden" name="invert" value="${invert}" maxlength="36" />
-	    <input type="hidden" name="search_string" value="${search_string}" maxlength="36" />
-    	<input type="hidden" name="view_mode" value="${view_mode}" maxlength="36" />
-    	<rhn:list pageList="${requestScope.pageList}" noDataText="systemsearch.jsp.noresults">
-        <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}">
-    	<html:hidden property="submitted" value="true"/>
-        
-            <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-	              <rhn:set value="${current.id}" disabled="${not current.selectable}"  />
-			</rhn:require>
-			
-        	<rhn:column header="systemsearch.jsp.systemname"
-        	            url="/rhn/systems/details/Overview.do?sid=${current.id}">
-        	            ${current.serverName}
-        	</rhn:column>
-        	
-        	<c:choose>
-        		<c:when test="${view_mode == 'systemsearch_simple' ||
-        		               view_mode == 'systemsearch_cpu_mhz_lt' ||
-        		               view_mode == 'systemsearch_cpu_mhz_gt' || 
-        		               view_mode == 'systemsearch_ram_lt' ||
-        		               view_mode == 'systemsearch_ram_gt'}">
-        					  <rhn:column header="${view_mode}_column">
-        					  	${current.matchingField}
-        		              </rhn:column>
-        		</c:when>
-        		<c:otherwise>
-        	      <rhn:column header="${view_mode}">
-        	       <rhn:highlight tag="strong" text="${search_string}">
-        				${current.matchingField}
-        		   </rhn:highlight>
-        		  </rhn:column>
-        		</c:otherwise>
-        	</c:choose>
-        	<rhn:column header="systemsearch.jsp.entitlement">
-        				${current.entitlementLevel}
-        	</rhn:column>
-        </rhn:listdisplay>
-        </rhn:list>	  
-	</form>
-	--%>
 </body>
 </html:html>
-

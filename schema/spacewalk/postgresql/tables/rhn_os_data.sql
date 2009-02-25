@@ -25,7 +25,6 @@ insert into rhn_os(recid,os_name)
 insert into rhn_os(recid,os_name) 
     values ( 14,'Satellite');
 
-commit;
 
 
 --

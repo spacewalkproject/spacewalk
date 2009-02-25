@@ -122,7 +122,6 @@ insert into rhn_metrics(metric_id,storage_unit_id,description,last_update_user,l
 insert into rhn_metrics(metric_id,storage_unit_id,description,last_update_user,last_update_date,label,command_class)     values ( 'syn_rcvd_conn','count','SYN_RCVD Connections','system',current_date,'SYN_RCVD conns','Unix::TCPConnectionsByState');
 insert into rhn_metrics(metric_id,storage_unit_id,description,last_update_user,last_update_date,label,command_class)     values ( 'query_time','millisecs','Query Time','system',current_date,'Query time','Unix::Dig');
 
-commit;
 
 
 --

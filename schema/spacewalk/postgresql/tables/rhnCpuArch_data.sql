@@ -64,7 +64,6 @@ insert into rhnCpuArch (id, label, name) values
 (nextval('rhn_cpu_arch_id_seq'), 'amd64', 'AMD64');
 insert into rhnCpuArch (id, label, name) values
 (nextval('rhn_cpu_arch_id_seq'), 'i86pc', 'i86pc');
-commit;
 
 --
 -- Revision 1.6  2004/05/11 18:29:40  pjones

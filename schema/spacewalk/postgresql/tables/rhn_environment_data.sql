@@ -24,7 +24,6 @@ insert into rhn_environment(name,description)
     values ( 'LICENSE','Licensed Software Model');
 insert into rhn_environment(name,description) 
     values ( 'ALL','All environments');
-commit;
 
 --
 --Revision 1.5  2004/07/15 00:58:05  dfaraldo

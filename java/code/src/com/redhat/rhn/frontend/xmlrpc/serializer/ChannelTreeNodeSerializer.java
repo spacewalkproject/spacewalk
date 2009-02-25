@@ -10,7 +10,7 @@
  *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
@@ -31,9 +31,9 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * 
  * @xmlrpc.doc 
  *   #struct("channel info")
- *     #prop("int", "channel_id")
- *     #prop("string", "channel_label")
- *     #prop("string", "channel_name")
+ *     #prop("int", "id")
+ *     #prop("string", "label")
+ *     #prop("string", "name")
  *     #prop("string", "provider_name")
  *     #prop("int", "packages")
  *     #prop("int", "systems")
@@ -57,9 +57,9 @@ public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
         ChannelTreeNode ctn = (ChannelTreeNode)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-        helper.add("channel_id", ctn.getId());
-        helper.add("channel_label", ctn.getChannelLabel());
-        helper.add("channel_name", ctn.getName());
+        helper.add("id", ctn.getId());
+        helper.add("label", ctn.getChannelLabel());
+        helper.add("name", ctn.getName());
         
         if (ctn.getOrgId() != null) {
             helper.add("provider_name", ctn.getOrgName());

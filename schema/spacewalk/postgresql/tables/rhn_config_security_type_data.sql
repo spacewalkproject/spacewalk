@@ -26,7 +26,6 @@ insert into rhn_config_security_type(name,description)
     values ( 'EXTERNAL','Exportable configuration parameters');
 insert into rhn_config_security_type(name,description) 
     values ( 'ALL','All security levels');
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

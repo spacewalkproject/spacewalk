@@ -1,29 +1,27 @@
-%define rhn_dir /usr/share/rhn
-%define rhn_conf_dir /etc/sysconfig/rhn
-%define cron_dir /etc/cron.d
-%define init_dir /etc/rc.d/init.d
-
+%define rhn_dir %{_datadir}/rhn
+%define rhn_conf_dir %{_sysconfdir}/sysconfig/rhn
+%define cron_dir %{_sysconfdir}/cron.d
 
 Name:           rhn-virtualization 
-Summary:        RHN action support for virualization
+Summary:        RHN/Spacewalk action support for virualization
 
 Group:          System Environment/Base
 License:        GPLv2
-URL:            http://rhn.redhat.com
+URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        0.4.3
+Version:        0.5.0
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python
 
 %description
-rhn-virtualization provides various RHN actions for manipulation virtual
-machine guest images.
+rhn-virtualization provides various RHN/Spacewalk actions for manipulation 
+virtual machine guest images.
 
 %package common
-Summary: Files needed by both rhn-virtualization-host and -guest.
+Summary: Files needed by both rhn-virtualization-host and -guest
 Group: System Environment/Base
 Requires: rhn-client-tools
 Requires: chkconfig
@@ -33,25 +31,25 @@ This package contains files that are needed by the rhn-virtualization-host
 and rhn-virtualization-guest packages.
 
 %package host
-Summary: RHN Virtualization support specific to the Host system.
+Summary: RHN/Spacewalk Virtualization support specific to the Host system
 Group: System Environment/Base
 Requires: libvirt-python
 Requires: rhn-virtualization-common
 Conflicts: rhn-virtualization-guest
 
 %description host
-This package contains code for RHN's Virtualization support that is 
-specific to the Host system (a.k.a. Dom0).
+This package contains code for RHN's and Spacewalk's Virtualization support 
+that is specific to the Host system (a.k.a. Dom0).
 
 %package guest
-Summary: RHN Virtualization support specific to Guest systems.
+Summary: RHN/Spacewalk Virtualization support specific to Guest systems
 Group: System Environment/Base
 Requires: rhn-virtualization-common
 Conflicts: rhn-virtualization-host
 
 %description guest
-This package contains code for RHN's Virtualization support that is
-specific to Guest systems (a.k.a. DomUs).
+This package contains code for RHN's and Spacewalk's Virtualization support 
+that is specific to Guest systems (a.k.a. DomUs).
 
 
 %prep
@@ -109,14 +107,14 @@ rm -rf $RPM_BUILD_ROOT
 %{rhn_dir}/virtualization/util.py
 %{rhn_dir}/virtualization/util.pyc
 %{rhn_dir}/virtualization/util.pyo
-
+%doc LICENSE
 
 %files host
 %defattr(-,root,root,-)
 %dir %{rhn_conf_dir}/virt
 %dir %{rhn_conf_dir}/virt/auto
-%{init_dir}/rhn-virtualization-host
-%attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
+%{_initrddir}/rhn-virtualization-host
+%config(noreplace) %attr(644,root,root) %{cron_dir}/rhn-virtualization.cron
 %{rhn_dir}/virtualization/domain_config.py
 %{rhn_dir}/virtualization/domain_config.pyc
 %{rhn_dir}/virtualization/domain_control.py
@@ -153,17 +151,21 @@ rm -rf $RPM_BUILD_ROOT
 %{rhn_dir}/virtualization/state.pyo
 %{rhn_dir}/virtualization/support.pyo
 %{rhn_dir}/actions/virt.pyo
-
+%doc LICENSE
 
 %files guest
 %defattr(-,root,root,-)
-%{init_dir}/rhn-virtualization-guest
+%{_initrddir}/rhn-virtualization-guest
 %{rhn_dir}/virtualization/report_uuid.py
 %{rhn_dir}/virtualization/report_uuid.pyc
 %{rhn_dir}/virtualization/report_uuid.pyo
-
+%doc LICENSE
 
 %changelog
+* Mon Feb 23 2009 Miroslav Suchy <msuchy@redhat.com>
+- add LICENSE file
+- remove rpmlint warnings
+
 * Fri Jan 23 2009 Dennis Gilmore <dennis@ausil.us> - 0.4.3-1
 * Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.2-1
 - new build

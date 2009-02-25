@@ -48,7 +48,6 @@ insert into rhn_semantic_data_type(name,description,label_name,converter_name,
 help_file,last_update_user,last_update_date) 
     values ( 'probestate','Probe state',NULL,'probestate',
     NULL,'system',current_date);
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

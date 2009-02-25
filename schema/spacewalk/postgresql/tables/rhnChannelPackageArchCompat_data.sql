@@ -262,7 +262,6 @@ values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('n
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'));
 
-commit;
 --
 -- Revision 1.11  2004/02/19 17:40:28  misa
 -- Solaris patches

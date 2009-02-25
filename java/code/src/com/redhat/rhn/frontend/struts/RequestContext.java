@@ -10,7 +10,7 @@
  *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.struts;
 
@@ -92,6 +92,7 @@ public class RequestContext {
     public static final String KICKSTART_SCRIPT_ID = "kssid";
     public static final String CONFIG_FILE_ID = "cfid";
     public static final String SERVER_GROUP_ID = "sgid";
+    public static final String NAME = "name";
     // Request Attributes go here:
     public static final String ACTIVATION_KEY = "activationkey";
     public static final String KICKSTART = "ksdata";

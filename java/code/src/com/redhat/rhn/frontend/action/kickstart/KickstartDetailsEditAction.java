@@ -10,7 +10,7 @@
  *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
@@ -226,7 +226,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             cmd.getKickstartData().setKsCfg(
                     BooleanUtils.toBoolean((Boolean) form.get(KS_CFG)));
             
-            proccessCobblerFormValues(cmd.getKickstartData(), form, ctx.getLoggedInUser());
+            processCobblerFormValues(cmd.getKickstartData(), form, ctx.getLoggedInUser());
             
             String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
             KickstartVirtualizationType ksVirtType = KickstartFactory.
@@ -283,7 +283,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      * @param form the form
      * @param user the user
      */
-    public static void proccessCobblerFormValues(KickstartData ksdata, 
+    public static void processCobblerFormValues(KickstartData ksdata, 
                                             DynaActionForm form, User user) {
         
         

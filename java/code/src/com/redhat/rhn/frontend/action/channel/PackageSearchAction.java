@@ -10,7 +10,7 @@
  *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
 
 package com.redhat.rhn.frontend.action.channel;
@@ -128,6 +128,11 @@ public class PackageSearchAction extends RhnAction {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("packages.search.use_free_form"));
         }
+        catch (PackageSearchActionException pe) {
+            log.error("Exception caught: " +  pe.getMessage());
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage(pe.getMessageKey()));
+        }
 
         // keep all params except submitted, in order for the new list
         // tag pagination to work we need to pass along all the formvars it
@@ -157,7 +162,7 @@ public class PackageSearchAction extends RhnAction {
     }
     
     private void setupForm(HttpServletRequest request, DynaActionForm form)
-        throws MalformedURLException, XmlRpcFault {
+        throws MalformedURLException, XmlRpcFault, PackageSearchActionException {
 
         RequestContext ctx = new RequestContext(request);
         String searchString = form.getString("search_string");
@@ -225,7 +230,7 @@ public class PackageSearchAction extends RhnAction {
     
     private List performSearch(Long sessionId, String searchString,
                                String mode, String[] selectedArches)
-        throws XmlRpcFault, MalformedURLException {
+        throws XmlRpcFault, MalformedURLException, PackageSearchActionException {
 
         log.warn("Performing pkg search");
 
@@ -273,7 +278,6 @@ public class PackageSearchAction extends RhnAction {
         // to a better user experience.
         List<PackageOverview> unsorted = ChannelManager.packageSearch(pids,
                 new ArrayList<String>(Arrays.asList(selectedArches)));
-        
         List<PackageOverview> ordered = new LinkedList<PackageOverview>();
         
         // we need to use the package names to determine the mapping order
@@ -283,7 +287,14 @@ public class PackageSearchAction extends RhnAction {
             if (log.isDebugEnabled()) {
                 log.debug("Processing po: " + po.getPackageName() + " id: " + po.getId());
             }
-            int idx = lookupmap.get(po.getPackageName());
+            Object objIdx = lookupmap.get(po.getPackageName());
+            if (objIdx == null) {
+                String msgKey = "packages.search.index_out_of_sync_with_db";
+                LocalizationService li = LocalizationService.getInstance();
+                String localizedMsg = li.getMessage(msgKey);
+                throw new PackageSearchActionException(localizedMsg, msgKey);
+            }
+            int idx = (Integer)objIdx;
             if (ordered.isEmpty()) {
                 ordered.add(po);
                 continue;

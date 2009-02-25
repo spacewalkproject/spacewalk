@@ -34,8 +34,10 @@
          <table class="details">
            <tr><th><bean:message key="docsearch.jsp.searchfor"/></th>
              <td>
-               <input type="text" name="search_string" value="${search_string}" />
-               <input type="image" src="/img/button-search.gif" name="Search!" />
+               <html:text property="search_string" name="search_string" value="${search_string}" />
+               <html:submit>
+                 <bean:message key="button.search" />
+               </html:submit>
              </td>
            </tr>
            <tr><th><bean:message key="docsearch.jsp.whatsearch"/></th>
@@ -55,6 +57,8 @@
     </div>
     <input type="hidden" name="submitted" value="true" />
   </html:form> 
+
+  <c:if test="${search_string != null && search_string != ''}">
 
   <hr />
   <c:set var="pageList" value="${requestScope.pageList}" />
@@ -77,18 +81,7 @@
          </rhn:highlight>
      </a>
       </rl:column>
-      <%--
-      <rl:column bound="false" sortable="false" headerkey="docsearch.jsp.pagelink" styleclass="last-column">
-	 <a href="${current.url}">
-	     <rhn:highlight tag="strong" text="${search_string}">
-	         ${current.url}
-	     </rhn:highlight>
-	 </a>
-      </rl:column>
-      --%>
-      </rl:list>
-
-
+    </rl:list>
 
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
@@ -97,23 +90,8 @@
     <input type="hidden" name="relevant" value="${relevant}" />
 
   </rl:listset>
-<%-- Exploring alternate view not using list tag
-    <c:forEach varStatus="status" var="entry" items="${requestScope.pageList}">
-        <br/>
-        <a href="${entry.url}">
-            <rhn:highlight tag="strong" text="${requestScope.search_string}">
-                ${entry.title}
-            </rhn:highlight>
-        </a>
-        <br/>
-        <rhn:highlight tag="strong" text="${requestScope.search_string}">
-            ${entry.summary}<br/>
-        </rhn:highlight>
-        <br/>
-        <a href="${entry.url}">${entry.url}</a>
-        <br/>
-    </c:forEach>
- --%>
+
+  </c:if>
 
 </body>
 </html>

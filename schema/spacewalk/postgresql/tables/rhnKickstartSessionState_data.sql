@@ -108,7 +108,6 @@ values (rhn_ks_session_state_id_seq.nextval, 'Failed', 'failed',
         'Kickstart failed.'
        );
 
-commit;
 
 --
 --

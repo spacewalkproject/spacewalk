@@ -8,11 +8,21 @@ TRACEBACK_EMAIL=your@email.com
 USE_SSL=1
 SSL_ORG="Red Hat"
 SSL_ORGUNIT="Spacewalk"
+SSL_COMMON="CommonName"
 SSL_CITY=Raleigh
 SSL_STATE=NC
 SSL_COUNTRY=US
 INSTALL_MONITORING=N
 ENABLE_SCOUT=N
 CA_CHAIN=/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT
+POPULATE_CONFIG_CHANNEL=Y
+HTTP_PROXY=
+HTTP_USERNAME=
+HTTP_PASSWORD=
+# If you want to populate configuration channel 
+# and want to have realy silent installation, then
+# you must run rhncfg-manager to enter your login 
+# adn password first. Otherwise you will be asked for
+# these during proxy activation.
 POPULATE_CONFIG_CHANNEL=Y
 
