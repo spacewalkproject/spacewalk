@@ -40,6 +40,7 @@
           <rl:decorator name="PageSizeDecorator"/>
     
           <rl:column headerkey="errata.edit.packages.add.package" bound="false"
+				styleclass="first-column last-column"
                      sortattr="nvrea" sortable="true" filterattr="nvrea">
               <a href="/rhn/software/packages/Details.do?pid=${current.id}">
                   <c:out value="${current.nvrea}" escapeXml="false"/>

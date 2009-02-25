@@ -62,17 +62,16 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", context.getRequiredParam("eid"));
 
-        String setName = RhnSetDecl.generateCustomSetName(RhnSetDecl.PACKAGES_TO_ADD,
-            params.entrySet().toArray());
-        RhnSetDecl setDecl = RhnSetDecl.find(setName);
+        RhnSetDecl decl = RhnSetDecl.PACKAGES_TO_ADD.createCustom(
+                context.getRequiredParam("eid"));
 
-        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, setDecl);
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
         helper.setDataSetName(DATA_SET);
         helper.setWillClearSet(false);
         helper.execute();
 
         if (helper.isDispatched()) {
-            ActionForward forward = addPackagesToErrata(actionMapping, request, setDecl);
+            ActionForward forward = addPackagesToErrata(actionMapping, request, decl);
             return forward;
         }
 
@@ -89,8 +88,8 @@ public class AddPackagesConfirmAction extends RhnAction implements Listable {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", context.getRequiredParam("eid"));
 
-        String setName = RhnSetDecl.generateCustomSetName(RhnSetDecl.PACKAGES_TO_ADD,
-            params.entrySet().toArray());
+        String setName = RhnSetDecl.PACKAGES_TO_ADD.createCustom(
+                context.getRequiredParam("eid")).getLabel();
 
         DataResult dr = PackageManager.packageIdsInSet(user, setName);
 

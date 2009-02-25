@@ -8,6 +8,15 @@
 <html>
 <head>
     <meta name="page-decorator" content="none" />
+    <!-- disables the enter key from submitting the form -->
+    <script type="text/javascript" language="JavaScript">
+		function key(e) {
+		var pkey = e ? e.which : window.event.keyCode;
+		return pkey != 13;
+		}
+		document.onkeypress = key;
+		if (document.layers) document.captureEvents(Event.KEYPRESS);
+    </script>
 </head>
 <body>
 
@@ -27,9 +36,10 @@
   
   <p><bean:message key="errata.edit.packages.add.instructions"/></p>
 
-<form method="GET" name="rhn_list" action="/rhn/errata/manage/AddPackages.do">
+    <rl:listset name="groupSet">
 
-    <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
+
+
     
   <p>
       <bean:message key="errata.edit.packages.add.viewlabel"/>
@@ -41,14 +51,12 @@
               </option>
           </c:forEach>
       </select>
-      <html:submit property="dispatch">
+      <html:submit property="view_click">
           <bean:message key="errata.edit.packages.add.viewsubmit"/>
       </html:submit>
   </p>
-    
-</form>  
   
-    <rl:listset name="groupSet">
+
 
         <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
     

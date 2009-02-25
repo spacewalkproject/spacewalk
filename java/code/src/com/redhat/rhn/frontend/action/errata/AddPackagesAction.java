@@ -30,6 +30,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -41,6 +42,7 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 /** @version $Revision$ */
 public class AddPackagesAction extends RhnAction implements Listable {
@@ -60,9 +62,18 @@ public class AddPackagesAction extends RhnAction implements Listable {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("eid", context.getRequiredParam("eid"));
 
-        ListRhnSetHelper helper =
-            new ListRhnSetHelper(this, request, RhnSetDecl.PACKAGES_TO_ADD, params);
+
+        RhnSetDecl decl = RhnSetDecl.PACKAGES_TO_ADD.createCustom(
+                context.getRequiredParam("eid"));
+
+        if (request.getParameter("view_clicked") != null) {
+            RhnSet set = decl.get(context.getCurrentUser());
+            set.clear();
+            RhnSetManager.store(set);
+        }
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
         helper.setDataSetName(DATA_SET);
+
 
         // If it's a view change, don't throw a message saying there was nothing selected
         if (request.getParameter("view_channel") != null) {
@@ -95,10 +106,10 @@ public class AddPackagesAction extends RhnAction implements Listable {
         // Add the view options for the page to use in the drop down
         request.setAttribute("viewoptions", getViewOptions(user));
 
-        String viewChannel = request.getParameter("view_channel");
+        String viewChannel = getSelectedCid(context);
 
         DataResult result;
-        if (viewChannel == null || viewChannel.equals("any_channel")) {
+        if (viewChannel.equals("any_channel")) {
             // Packages from all channels should be displayed
             result = PackageManager.packagesAvailableToErrata(errata);
         }
@@ -112,6 +123,15 @@ public class AddPackagesAction extends RhnAction implements Listable {
         TagHelper.bindElaboratorTo("groupList", result.getElaborator(), request);
 
         return result;
+    }
+
+
+    private String getSelectedCid(RequestContext context) {
+        String viewChannel = context.getRequest().getParameter("view_channel");
+        if (viewChannel == null) {
+            return "any_channel";
+        }
+        return viewChannel;
     }
 
     /**

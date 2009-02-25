@@ -211,7 +211,8 @@ public class RhnSetImpl implements RhnSet {
      * {@inheritDoc}
      */
     public boolean contains(Long elem, Long elemTwo) {
-        return elements.contains(new RhnSetElement(getUserId(), getLabel(), elem, elemTwo));
+        return elements.contains(new RhnSetElement(getUserId(), getLabel(),
+                elem, elemTwo));
     }
 
     /**
@@ -296,28 +297,18 @@ public class RhnSetImpl implements RhnSet {
      * {@inheritDoc}
      */
     public boolean add(Object e) {
+        if (e instanceof String) {
+            addElement((String)e);
+        }
+        else if (e instanceof Long) {
+            addElement((Long)e);
+        }
+        else if (e instanceof RhnSetElement) {
+            addElement((RhnSetElement)e);
+        }
         return false;
     }
 
-    /**
-     * Add a long to the set in a new element
-     * @param e the element
-     * @return true if added
-     */
-    public boolean add(Long e) {
-        addElement(e);
-        return true;
-    }
-
-    /**
-     * add a new RhnSetElement to the set
-     * @param e the element
-     * @return true if added
-     */
-    public boolean add(RhnSetElement e) {
-        addElement(e);
-        return true;
-    }
 
     /**
      * {@inheritDoc}
@@ -333,6 +324,14 @@ public class RhnSetImpl implements RhnSet {
      * {@inheritDoc}
      */
     public boolean contains(Object o) {
+        if (o instanceof String) {
+            return elements.contains(new RhnSetElement(this.getUserId(),
+                    this.getLabel(), (String) o));
+        }
+        else if (o instanceof Long) {
+            return elements.contains(new RhnSetElement(this.getUserId(),
+                    this.getLabel(), (Long) o, null, null));
+        }
         return elements.contains(o);
     }
 
