@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Feb 25 2009 Miroslav Suchý <msuchy@redhat.com> 
+- 486126 - deactivate proxy if installer fail
+
 * Mon Feb 23 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.13-1
 - 486125 - populate answers file with all options
 

@@ -316,12 +316,17 @@ def activateProxy_api_v3_x(options, apiVersion):
     """ API version 3.*, 4.* - deactivate, then activate
     """
 
+    (errorCode, errorString) = _deactivateProxy_api_v3_x(options, apiVersion)
+    if errorCode == 0:
+        (errorCode, errorString) = _activateProxy_api_v3_x(options, apiVersion)
+    return (errorCode, errorString)
+
+def _deactivateProxy_api_v3_x(options, apiVersion):
+    """ Deactivate this machine as Proxy """
+    
     s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
     systemid = getSystemId()
 
-    # -----------
-    # DEactivate!
-    # -----------
     errorCode, errorString = 0, ''
     try:
         s.proxy.deactivate_proxy(systemid)       # proxy 3.0+ API
@@ -350,10 +355,17 @@ def activateProxy_api_v3_x(options, apiVersion):
         errorCode = 0
         if not options.quiet:
             sys.stdout.write("RHN Proxy successfully deactivated.\n")
+    return (errorCode, errorString)
 
-    # ---------
-    # activate!
-    # ---------
+def _activateProxy_api_v3_x(options, apiVersion):
+    """ Activate this machine as Proxy.
+        Do not check if has been already activated. For such case
+        use activateProxy_api_v3_x method instead.
+    """
+
+    s = getServer(options, DEFAULT_WEBRPC_HANDLER_v3_x)
+    systemid = getSystemId()
+
     errorCode, errorString = 0, ''
     try:
         s.proxy.activate_proxy(systemid, str(options.version))
@@ -418,6 +430,7 @@ def processCommandline():
         Option('--ca-cert',       action='store',      help="alternative SSL certificate to use, default is %s" % repr(ca_cert), default=ca_cert),
         Option('--no-ssl',        action='store_true', help='turn off SSL (not advisable), default is on.'),
         Option('--version',       action='store',      help='which X.Y version of the RHN Proxy are you upgrading to? Default is your current proxy version ('+defaultVersion+')', default=defaultVersion),
+        Option('--deactivate',      action='store_true', help='deactivate proxy, if already activated'),
         Option('--non-interactive', action='store_true', help='non-interactive mode'),
         Option('-q', '--quiet',     action='store_true', help='quiet non-interactive mode.'),
     ]
@@ -516,8 +529,11 @@ def main():
     # snag the apiVersion
     apiVersion = getAPIVersion(options)
 
-    # ACTIVATE!!!!!!!!
-    activateProxy(options, apiVersion)
+    if options.deactivate:
+        _deactivateProxy_api_v3_x(options, apiVersion)
+    else:
+        # ACTIVATE!!!!!!!!
+        activateProxy(options, apiVersion)
 
     return 0
 
