@@ -52,11 +52,13 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
         Profile prof = Profile.lookupById(CobblerXMLRPCHelper.getConnection(user), 
                 ksData.getCobblerId());
       
-        if (!cobName.equals(prof.getName())) {
-            prof.setName(makeCobblerName(ksData));
-            prof.save();
+        if (prof != null) {
+            if (!cobName.equals(prof.getName())) {
+                prof.setName(makeCobblerName(ksData));
+                prof.save();
+            }
+            updateCobblerFields(prof);
         }
-        updateCobblerFields(prof);
 
         return null;
     }
