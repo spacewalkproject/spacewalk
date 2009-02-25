@@ -3668,7 +3668,6 @@ field_order,field_widget_name,field_visible_length,field_maximum_length,
 field_visible,default_value_visible,last_update_user,last_update_date) 
     values ( 282,'admin_server','config','string','BEA Domain Admin Server','0',NULL,NULL,NULL,50,'text',40,80,'1','1','system',sysdate);
 
---commit;
 
 
 --Revision 1.5  2004/06/09 19:11:35  system

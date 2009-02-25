@@ -108,7 +108,6 @@ insert into rhn_time_zone_names(recid,java_id,display_name,gmt_offset_minutes,
 use_daylight_time,last_update_user,last_update_date) 
     values ( 230,'Australia/Sydney','Australia/Sydney',600,'0','system',
     current_date);
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

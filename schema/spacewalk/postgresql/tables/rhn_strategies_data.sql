@@ -54,7 +54,6 @@ insert into rhn_strategies(recid,name,comp_crit,esc_crit,contact_strategy,
 ack_completed) 
     values (rhn_strategies_recid_seq.nextval,'Escalate-NoAck',
     'Sent>0','Failed>0|Incomplete>0','Escalate','No');
-commit;
 
 --
 --Revision 1.6  2004/06/17 20:48:59  kja

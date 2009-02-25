@@ -123,7 +123,6 @@ insert into rhn_os_commands_xref(os_id,commands_id) values ( 4,284);
 insert into rhn_os_commands_xref(os_id,commands_id) values ( 4,288);
 insert into rhn_os_commands_xref(os_id,commands_id) values ( 4,304);
 
-commit;
 
 
 --

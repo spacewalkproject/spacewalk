@@ -485,7 +485,6 @@ insert into rhnServerPackageArchCompat
 (LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), 610);
 
 
-commit;
 
 --
 -- Revision 1.10  2004/02/19 00:13:11  pjones

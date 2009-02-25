@@ -40,7 +40,6 @@ insert into rhn_redirect_match_types(name)
     values ( 'CONTACT_METHOD_ID');
 insert into rhn_redirect_match_types(name) 
     values ( 'CUSTOMER_ID');
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

@@ -40,5 +40,4 @@ insert into rhn_command_groups(group_name,description)
     values ( 'linux','Linux');
 insert into rhn_command_groups(group_name,description) 
     values ( 'tools','General');
---commit;
 

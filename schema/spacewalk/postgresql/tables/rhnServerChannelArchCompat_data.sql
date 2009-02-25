@@ -87,7 +87,6 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
 
-commit;
 
 --
 -- Revision 1.10  2004/02/19 17:40:28  misa

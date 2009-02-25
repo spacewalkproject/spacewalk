@@ -194,7 +194,6 @@ insert into rhn_units(unit_id,quantum_id,unit_label,description,
 to_base_unit_fn,from_base_unit_fn,validate_fn,last_update_user,last_update_date)
     values ('msps','datarate','millisec/sec','Milliseconds per second',
     'x','x','is_number(x) and x >= 0','system',sysdate);
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

@@ -155,4 +155,3 @@ insert into rhn_command_class(class_name)
     values ( 'Oracle::ClientConnectivity');
 insert into rhn_command_class(class_name) 
     values ( 'Unix::ProcessRunning');
---commit;

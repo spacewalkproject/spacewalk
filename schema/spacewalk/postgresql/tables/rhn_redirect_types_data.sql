@@ -28,7 +28,6 @@ insert into rhn_redirect_types(name,description,long_name)
     values ( 'ACK','Automatically acknowlege matching alerts','Automatic Acknowledgement');
 insert into rhn_redirect_types(name,description,long_name) 
     values ( 'REDIR','Specify a destination for matching alerts (overrides default recipient list)','Redirect Standard Notifications');
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

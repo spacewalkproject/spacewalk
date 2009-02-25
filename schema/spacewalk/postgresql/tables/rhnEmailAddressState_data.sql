@@ -28,7 +28,6 @@ insert into rhnEmailAddressState ( id, label )
 insert into rhnEmailAddressState ( id, label )
 	values (nextval('rhn_eastate_id_seq'), 'needs_verifying');
 	
-commit;
 
 --
 -- Revision 1.3  2003/01/22 18:48:37  cturner

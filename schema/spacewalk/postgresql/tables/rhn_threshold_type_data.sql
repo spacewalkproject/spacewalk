@@ -32,7 +32,6 @@ last_update_date)
 insert into rhn_threshold_type(name,description,ordinal,last_update_user,
 last_update_date) 
     values ( 'crit_max','Maximum',30,'system',current_date);
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

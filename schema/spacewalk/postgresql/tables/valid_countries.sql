@@ -759,4 +759,4 @@ insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZM','Sambi
 insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZR','Ehemaliges Zaire');
 insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZW','Simbabwe');
 
-commit;
+

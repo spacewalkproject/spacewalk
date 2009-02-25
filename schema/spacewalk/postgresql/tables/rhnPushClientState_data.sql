@@ -21,7 +21,6 @@ insert into rhnPushClientState (id, label, name)
 insert into rhnPushClientState (id, label, name)
     values (nextval('rhn_pclient_state_id_seq'), 'offline', 'offline');
 
-commit;
 --
 --
 -- Revision 1.1  2004/10/07 20:07:50  misa

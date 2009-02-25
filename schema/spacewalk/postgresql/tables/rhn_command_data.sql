@@ -411,4 +411,3 @@ command_class,enabled,for_host_probe,last_update_user,last_update_date,system_re
     values (
 304,'remote_check_ping','Remote Ping','netservice','1','NetworkService::Ping','1','0','system',sysdate,'npunix',NULL,'/help/userguides/user_guide_v2/Output/NetworkServiceCheck.html#RemotePing');
 
---commit;

@@ -72,7 +72,6 @@ insert into rhn_quanta(quantum_id,basic_unit_id,description,last_update_user,
 last_update_date) 
     values ( 'voltage','volts','Measure of electric potential difference',
     'system',current_date);
-commit;
 
 --
 --Revision 1.4  2004/06/17 20:48:59  kja

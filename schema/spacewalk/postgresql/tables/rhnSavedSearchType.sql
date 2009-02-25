@@ -49,7 +49,6 @@ insert into rhnSavedSearchType (id, label)
 	values (nextval('rhn_sstype_id_seq'), 'package');
 insert into rhnSavedSearchType (id, label)
 	values (nextval('rhn_sstype_id_seq'), 'errata');
-commit;
 
 --
 -- Revision 1.2  2003/01/30 16:11:28  pjones
