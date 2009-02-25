@@ -7,11 +7,11 @@
     </rhn:column>
     
     <rhn:column header="errata.publish.packagepush.currentversion">
-      <c:out value="${current.currentNvre}"/>
+      <c:out value="${current.currentNvrea}"/>
     </rhn:column>
     
     <rhn:column header="errata.publish.packagepush.newversion">
-      <c:out value="${current.newNvre}"/>
+      <c:out value="${current.newNvrea}"/>
     </rhn:column>
     
   </rhn:listdisplay>

@@ -1340,12 +1340,14 @@ ORDER BY last_modified
   <query params="cid, eid">
 SELECT P1.id, 
        PN.name,
-       PE2.evr.as_vre_simple() AS current_nvre,
-       PE1.evr.as_vre_simple() AS new_nvre
+       PE2.evr.as_vre_simple() || '.' || PA2.label AS current_nvrea,
+       PE1.evr.as_vre_simple() || '.' || PA1.label AS new_nvrea
 FROM rhnPackage P1,
-     rhnPackageEVR PE1, 
+     rhnPackageEVR PE1,
+     rhnPackageArch PA1,
      rhnChannelNewestPackage CNP, 
-     rhnPackageEVR PE2, 
+     rhnPackageEVR PE2,
+     rhnPackageArch PA2,
      rhnPackageName PN, 
      rhnErrataPackage EP
 WHERE EP.errata_id = :eid
@@ -1354,7 +1356,9 @@ WHERE EP.errata_id = :eid
   AND P1.name_id = CNP.name_id
   AND p1.package_arch_id = CNP.package_arch_id
   AND PE1.id = P1.evr_id
+  AND PA1.id = P1.package_arch_id
   AND PE2.id = CNP.evr_id
+  AND PA2.id = CNP.package_arch_id
   AND PN.id = P1.name_id
   AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) > 0
   </query>
@@ -1365,18 +1369,20 @@ WHERE EP.errata_id = :eid
   <query params="cid, eid">
 SELECT P.id,
        PN.name,
-       NULL AS current_nvre,
-       PE1.evr.as_vre_simple() AS new_nvre
+       NULL AS current_nvrea,
+       PE1.evr.as_vre_simple() || '.' || PA.label AS new_nvrea
 FROM rhnPackage P,
   rhnErrataPackage EP,
   rhnPackageEVR PE1,
   rhnPackageName PN,
   rhnChannelPackageArchCompat pac,
-  rhnChannel c 
+  rhnChannel c,
+  rhnPackageArch PA
 WHERE EP.errata_id = :eid
   AND EP.package_id = P.id
   AND PE1.id = P.evr_id
   AND PN.id = P.name_id
+  AND PA.id = P.package_arch_id
   AND pac.channel_arch_id = c.channel_arch_id
   AND pac.package_arch_id = p.package_arch_id
   AND C.id = :cid
