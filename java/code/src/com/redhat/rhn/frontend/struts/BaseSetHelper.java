@@ -222,7 +222,6 @@ public class BaseSetHelper {
     public void selectAll(Set set,
                                     String listName,
                                     List dataSet) {
-        set.clear();
         for (Object obj : dataSet) {
             if (obj instanceof Selectable) {
                 Selectable next = (Selectable) obj;
