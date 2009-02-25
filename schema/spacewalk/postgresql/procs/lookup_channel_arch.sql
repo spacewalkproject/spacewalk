@@ -15,20 +15,24 @@
 --
 --
 --
-CREATE OR REPLACE FUNCTION
-LOOKUP_CLIENT_CAPABILITY(name_in IN VARCHAR)
-RETURNS NUMERIC
+REATE OR REPLACE FUNCTION
+LOOKUP_CHANNEL_ARCH(label_in IN VARCHAR)
+RETURNS NUMERIC 
 AS $$
 DECLARE
-        ret_val         NUMERIC;
+        channel_arch_id         NUMERIC;
 BEGIN
-        SELECT retcode into ret_val from dblink('dbname='||current_database(),
-        'select lookup_client_capabality_autonomous('
-        ||coalesce(name_in::varchar,'null')||')') 
-        as f(retcode int);
+        SELECT id
+          INTO channel_arch_id
+          FROM rhnChannelArch
+         WHERE label = label_in;
 
+        RETURN channel_arch_id;
 
-        RETURN ret_val;
-END; $$
-LANGUAGE plpgsql;
+	IF NOT FOUND THEN 
+		perform rhn_exception.raise_exception('channel_arch_not_found');
+	END IF;
 
+	return channel_arch_id;
+END;
+$$ LANGUAGE plpgsql;

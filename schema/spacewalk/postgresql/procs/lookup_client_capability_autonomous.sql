@@ -15,20 +15,30 @@
 --
 --
 --
+
 CREATE OR REPLACE FUNCTION
 LOOKUP_CLIENT_CAPABILITY(name_in IN VARCHAR)
 RETURNS NUMERIC
 AS $$
 DECLARE
-        ret_val         NUMERIC;
+        cap_name_id             NUMERIC;
 BEGIN
-        SELECT retcode into ret_val from dblink('dbname='||current_database(),
-        'select lookup_client_capabality_autonomous('
-        ||coalesce(name_in::varchar,'null')||')') 
-        as f(retcode int);
+        SELECT id
+          INTO cap_name_id
+          FROM rhnClientCapabilityName
+         WHERE name = name_in;
+
+        RETURN cap_name_id;
 
 
-        RETURN ret_val;
-END; $$
-LANGUAGE plpgsql;
+                
+        IF NOT FOUND THEN
+                INSERT INTO rhnClientCapabilityName (id, name) VALUES (nextval('rhn_client_capname_id_seq'), name_in);
+                cap_name_id := currval('rhn_client_capname_id_seq');
+        END IF;
+
+        RETURN cap_name_id;
+END;
+$$ LANGUAGE plpgsql;
+
 

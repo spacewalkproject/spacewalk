@@ -15,20 +15,19 @@
 --
 --
 --
-CREATE OR REPLACE FUNCTION
-LOOKUP_CLIENT_CAPABILITY(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS $$
-DECLARE
-        ret_val         NUMERIC;
-BEGIN
-        SELECT retcode into ret_val from dblink('dbname='||current_database(),
-        'select lookup_client_capabality_autonomous('
-        ||coalesce(name_in::varchar,'null')||')') 
-        as f(retcode int);
+create or replace function
+delete_errata (
+        errata_id_in in numeric
+) returns void as
+$$
+begin
+        delete from rhnServerNeededCache where errata_id = errata_id_in;
+        delete from rhnPaidErrataTempCache where errata_id = errata_id_in;
+        delete from rhnErrataFile where errata_id = errata_id_in;
+        delete from rhnErrataPackage where errata_id = errata_id_in;
+        delete from rhnErrata where id = errata_id_in;
+        delete from rhnErrataTmp where id = errata_id_in;
+end;
 
-
-        RETURN ret_val;
-END; $$
-LANGUAGE plpgsql;
+$$ language plpgsql;
 
