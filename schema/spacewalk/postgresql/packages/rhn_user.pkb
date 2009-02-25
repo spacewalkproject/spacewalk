@@ -16,11 +16,6 @@
 --
 --
 
-create temporary table temp_settings as select * from pg_settings where false;
-
--- take a backup of this setting
-insert into temp_settings select * from pg_settings where name = 'search_path';
-
 create schema rhn_user;
 
 -- setup search_path so that these functions are created in appropriate schema.
@@ -331,8 +326,6 @@ create or replace
 	end;
 $$ language plpgsql;
 
--- restore the backed-up settings
-update pg_settings set setting = (select setting from temp_settings where name = 'search_path') where name = 'search_path';
-
-drop table temp_settings;
+-- restore the original setting
+update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_user')+1) ) where name = 'search_path';
 
