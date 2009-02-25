@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.3
+Version: 0.5.4
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -99,6 +99,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Wed Feb 25 2009 Jan Pazdziora 0.5.4-1
+- load modules/mod_version.so, for Fedora 10
+
 * Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.3-1
 - resolving conflicts
 - adding a config variable to define the repomd cache mount point
