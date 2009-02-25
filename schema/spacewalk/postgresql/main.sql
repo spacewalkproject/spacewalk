@@ -3,7 +3,16 @@ START TRANSACTION;
 -- Avoid all the unnecessary NOTICE messages
 set client_min_messages = warning;
 
-/* special table; to be removed once we start using Orafce */
+/* TODO: for security reasons, a non-superuser should be created and used
+create user spacewalk;
+
+\c spacewalk
+
+create schema spacewalk;
+
+*/
+
+/* special table; TODO: to be removed once we start using Orafce */
 \i tables/dual.sql
 
 /* tables go here */
@@ -427,6 +436,7 @@ set client_min_messages = warning;
 \i tables/rhnUserGroupType_data.sql
 
 /* packages go here */
+\i packages/rhn_user.pkb
 
 /* views go here */
 \i views/rhnOrgChannelFamilyPermissions.sql
@@ -491,5 +501,29 @@ set client_min_messages = warning;
 \i views/rhnVisServerGroupOverview.sql
 \i views/rhnWebContactEnabled.sql
 
-commit;
+/*
+create or replace function alter_spacewalk_user() returns void as $$
+declare
+    command varchar = '';
+    s_path varchar = '';
+begin
+    select 'rhn_user,' || setting -- overlay( setting placing 'rhn_user' from 1 for 5)
+    into s_path
+    from pg_settings
+    where name = 'search_path';
 
+    command = 'alter user ' || (select user) || ' set search_path = ' || s_path;
+
+    raise warning '%', command;
+
+    execute command;
+
+end;
+$$ language plpgsql;
+
+select alter_spacewalk_user();
+
+drop function alter_spacewalk_user();
+*/
+
+commit;
