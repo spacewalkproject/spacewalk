@@ -545,6 +545,14 @@ class CvsBuilder(NoTgzBuilder):
     """
     def _srpm(self):
         """ Build an srpm from CVS. """
+        self._cvs_rpm_common(target="test-srpm")
+
+
+    def _rpm(self):
+        self._cvs_rpm_common(target="i386", all_branches=True)
+
+    def _cvs_rpm_common(self, target, all_branches=False):
+        """ Code common to building both rpms and srpms with CVS tools. """
         self._create_build_dirs()
         if not self.ran_tgz:
             self.tgz()
@@ -565,17 +573,18 @@ class CvsBuilder(NoTgzBuilder):
 
         # Use "make srpm" target to create our source RPM:
         os.chdir(self.cvs_package_workdir)
-        print("Building srpm with CVS make test-srpm...")
-        # Only need one srpm and frankly it shouldn't matter what dist-cvs
-        # branch we run it from, grab the last in the list.
+        print("Building with CVS make %s..." % target)
+
+        # Only running on the last branch, good enough?
         branch = self.cvs_branches[-1]
         branch_dir = os.path.join(self.cvs_workdir, self.project_name,
                 branch)
         os.chdir(branch_dir)
+
         dist = ""
         if self.dist is not None:
             dist= "DIST=%s" % self.dist
-        output = run_command("make %s test-srpm" % dist)
+        output = run_command("make %s %s" % (dist, target))
         debug(output)
         for line in output.split("\n"):
             if line.startswith("Wrote: "):
@@ -583,10 +592,8 @@ class CvsBuilder(NoTgzBuilder):
                 filename = os.path.basename(srpm_path)
                 run_command("mv %s %s" % (srpm_path, self.rpmbuild_basedir))
                 print("Wrote: %s" % os.path.join(self.rpmbuild_basedir, filename))
-        print("Please be sure to run --cvs-release to commit/tag/build this package in CVS.")
-
-    def _rpm(self):
-        error_out("Cannot build rpm for projects build from CVS. (yet)")
+        if not self.test:
+            print("Please be sure to run --cvs-release to commit/tag/build this package in CVS.")
 
 
 
