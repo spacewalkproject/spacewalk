@@ -542,17 +542,7 @@ class CvsBuilder(NoTgzBuilder):
     CVS Builder
 
     Builder for packages whose sources are managed in dist-cvs/Fedora CVS.
-    This builder has some limitations, it does not support the building of
-    arbitrary tags, only the most recent and must be run from a package
-    directory. Archived builds can still be found/built in dist-cvs.
     """
-    def run(self, options):
-        if options.tag:
-            error_out(["Cannot build arbitrary tag for packages built from CVS,",
-                "only the most recent directly from the project directory.",
-                "Please use CVS build system to obtain past versions."])
-        NoTgzBuilder.run(self, options)
-
     def _srpm(self):
         """ Build an srpm from CVS. """
         self._create_build_dirs()
@@ -593,7 +583,7 @@ class CvsBuilder(NoTgzBuilder):
                 filename = os.path.basename(srpm_path)
                 run_command("mv %s %s" % (srpm_path, self.rpmbuild_basedir))
                 print("Wrote: %s" % os.path.join(self.rpmbuild_basedir, filename))
-        print("Please be sure to rhn --cvs-release to commit/tag/build this package in CVS.")
+        print("Please be sure to run --cvs-release to commit/tag/build this package in CVS.")
 
     def _rpm(self):
         error_out("Cannot build rpm for projects build from CVS. (yet)")
