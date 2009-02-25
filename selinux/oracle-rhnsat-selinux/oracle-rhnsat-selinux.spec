@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         8%{?dist}
+Release:         9%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -106,6 +106,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Feb 25 2009 Jan Pazdziora 10.2-9
+- 486737 - allow lsnrctl to also append to oracle_common_log_t
+
 * Thu Feb 19 2009 Jan Pazdziora 10.2-8
 - add texrel_shlib_t to libocci.so.10.1
 
