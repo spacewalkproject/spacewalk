@@ -142,8 +142,8 @@ config_error $? "Proxy activation failed!"
 
 $YUM_OR_UPDATE spacewalk-proxy-management
 # check if package install successfully
-rpm -q spacewalk-proxy-management
-if [ $? ]; then
+rpm -q spacewalk-proxy-management >/dev/null
+if [ ! $? ]; then
 	config_error 2 "Installation of package spacewalk-proxy-management failed."
 fi
 
@@ -161,8 +161,8 @@ if [ $MONITORING -ne 0 ]; then
 else
 	$YUM_OR_UPDATE spacewalk-proxy-monitoring
     # check if package install successfully
-    rpm -q spacewalk-proxy-monitoring
-    if [ $? ]; then
+    rpm -q spacewalk-proxy-monitoring >/dev/null
+    if [ ! $? ]; then
         config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
     fi
 fi
