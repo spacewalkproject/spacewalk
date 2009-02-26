@@ -666,15 +666,17 @@ def terminate_kickstart_sessions(server_id):
 # Fetches the package profile from the kickstart session
 def get_kisckstart_session_package_profile(kickstart_session_id):
     h = rhnSQL.prepare("""
-        select pn.name, pe.version, pe.release, pe.epoch
+        select pn.name, pe.version, pe.release, pe.epoch, pa.arch
           from rhnKickstartSession ks,
                rhnServerProfilePackage spp,
                rhnPackageName pn,
-               rhnPackageEVR pe
+               rhnPackageEVR pe,
+               rhnPackageArch pa
          where ks.id = :kickstart_session_id
            and ks.server_profile_id = spp.server_profile_id
            and spp.name_id = pn.id
            and spp.evr_id = pe.id
+           and spp.package_arch_id = pa.id
     """)
     h.execute(kickstart_session_id=kickstart_session_id)
     return _packages_from_cursor(h)
@@ -682,13 +684,15 @@ def get_kisckstart_session_package_profile(kickstart_session_id):
 def get_server_package_profile(server_id):
     # XXX misa 2005-05-25  May need to look at package arches too
     h = rhnSQL.prepare("""
-        select pn.name, pe.version, pe.release, pe.epoch
+        select pn.name, pe.version, pe.release, pe.epoch, pa.arch
           from rhnServerPackage sp,
                rhnPackageName pn,
-               rhnPackageEVR pe
+               rhnPackageEVR pe,
+               rhnPackageArch pa
          where sp.server_id = :server_id
            and sp.name_id = pn.id
            and sp.evr_id = pe.id
+           and sp.package_arch_id = pa.id
     """)
     h.execute(server_id=server_id)
     return _packages_from_cursor(h)
