@@ -1,3 +1,15 @@
 [globalconfig]
 default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
+
+# to exclude packages from being listed in a missing
+# builds report simply add the package name to the
+# list in the appropriate tag section
+# [kojiorbrewtag]
+# pkgs=space seperated list of packagenames
+# i.e. pkgs=yum-rhn-plugin oracle-selinux
+[satellite-5E-5.3-candidate]
+pkgs=yum-rhn-plugin rhnpush rhnlib rhnsd
+
+[satellite-4E-5.3-candidate]
+pkgs=yum-rhn-plugin rhnpush rhnlib rhnsd oracle-instantclient-selinux jabberd-selinux oracle-rhnsat-selinux oracle-selinux oracle-xe-selinux spacewalk-monitoring-selinux spacewalk-proxy-selinux spacewalk-selinux
