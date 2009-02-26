@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.10
+Version:        0.5.11
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.11-1
+- fix comment to avoid confusion with / symbol
+
 * Thu Feb 19 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.10-1
 - 486254 - Fix broken schema population during spacewalk-setup.
 
