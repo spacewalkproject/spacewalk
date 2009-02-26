@@ -106,165 +106,56 @@ class CLI:
     """ Parent command line interface class. """
 
     def main(self):
-        usage = "usage: %prog [options] arg"
-        parser = OptionParser(usage)
-
-        # Options for building tar.gz, srpm, and rpm:
-        parser.add_option("--tgz", dest="tgz", action="store_true",
-                help="Build .tar.gz")
-        parser.add_option("--srpm", dest="srpm", action="store_true",
-                help="Build srpm")
-        parser.add_option("--rpm", dest="rpm", action="store_true",
-                help="Build rpm")
-        parser.add_option("--dist", dest="dist", metavar="DISTTAG",
-                help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
-        parser.add_option("--test", dest="test", action="store_true",
-                help="use current branch HEAD instead of latest package tag")
-        parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
-                help="do not clean up temporary build directories/files")
-        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
-                help="build a specific tag instead of the latest version " +
-                    "(i.e. spacewalk-java-0.4.0-1)")
-
-        # Options for submitting srpms to brew or koji:
-        parser.add_option("--brew", dest="brew", metavar="BREWTAG",
-                help="Submit srpm for build in a brew tag.")
-        parser.add_option("--koji", dest="koji", metavar="KOJITAG",
-                help="Submit srpm for build in a koji tag.")
-        parser.add_option("--koji-opts", dest="koji_opts", metavar="KOJIOPTIONS",
-                help="%s %s %s" %
-                (
-                    "Options to use with brew/koji command.",
-                    "Tag and package name will be appended automatically.",
-                    "Default is 'build --nowait'.",
-                ))
-
-        # Options used for many different activities:
-        parser.add_option("--debug", dest="debug", action="store_true",
-                help="print debug messages", default=False)
-        parser.add_option("--offline", dest="offline", action="store_true",
-                help="do not attempt any remote communication (avoid using this please)",
-                default=False)
-
-        # Options for tagging new package releases:
-        parser.add_option("--tag-release", dest="tag_release",
-                action="store_true",
-                help="Tag a new release of the package.")
-        parser.add_option("--keep-version", dest="keep_version",
-                action="store_true",
-                help="Use spec file version/release to tag package.")
-
-        # Options for other high level tasks:
-        parser.add_option("--untagged-diffs", dest="untagged_report",
-                action="store_true",
-                help= "%s %s %s" % (
-                    "Print out diffs for all packages with changes between",
-                    "their most recent tag and HEAD. Useful for determining",
-                    "which packages are in need of a re-tag."
-                ))
-        parser.add_option("--untagged-commits", dest="untagged_commits",
-                action="store_true",
-                help= "%s %s %s" % (
-                    "Print out the list for all packages with changes between",
-                    "their most recent tag and HEAD. Useful for determining",
-                    "which packages are in need of a re-tag."
-                ))
-        parser.add_option("--cvs-release", dest="cvs_release",
-                action="store_true", help="%s %s" % (
-                    "Import sources into CVS, tag, and build package using",
-                    "brew/koji. Relies on rel-eng configuration to know which"
-                    "CVS repository and build system to use."
-                ))
-        parser.add_option("--cvs-new-source", dest="cvs_new_sources",
-                action="append",
-                help="New binary sources to upload during --cvs-release." +
-                    " (i.e. make new-sources FILES=)")
-
-        (options, args) = parser.parse_args()
-
-        if len(sys.argv) < 2:
-            print parser.error("Must supply an argument. Try -h for help.")
-
-        global_config = self._read_global_config()
-
-        if options.debug:
-            os.environ['DEBUG'] = "true"
-
-        # TODO: Shortcut here, build.py does some things unrelated to
-        # building/tagging packages, check for these options, do what's
-        # requested, and exit rather than start looking up data specific
-        # to building etc. This really should be cleaned up.
-        if options.untagged_report:
-            self._run_untagged_report(global_config)
+        if len(sys.argv) < 2 or not CLI_MODULES.has_key(sys.argv[1]):
+            self._usage()
             sys.exit(1)
 
-        if options.untagged_commits:
-            self._run_untagged_commits(global_config)
-            sys.exit(1)
+        module_class = CLI_MODULES[sys.argv[1]]
+        module = module_class()
+        module.main()
 
-        # Check for builder options and tagger options, if one or more from both
-        # groups are found, error out:
-        (building, tagging) = self._validate_options(options)
 
-        build_dir = lookup_build_dir()
-        package_name = get_project_name(tag=options.tag)
 
-        build_tag = None
-        build_version = None
-        # Determine which package version we should build:
-        if options.tag:
-            build_tag = options.tag
-            build_version = build_tag[len(package_name + "-"):]
-        elif building:
-            build_version = get_latest_tagged_version(package_name)
-            if build_version == None:
-                error_out(["Unable to lookup latest package info.",
-                        "Perhaps you need to --tag-release first?"])
-            build_tag = "%s-%s" % (package_name, build_version)
 
-        if not options.test and building:
-            check_tag_exists(build_tag, offline=options.offline)
+        ## Options used for many different activities:
+        #parser.add_option("--debug", dest="debug", action="store_true",
+        #        help="print debug messages", default=False)
+        #parser.add_option("--offline", dest="offline", action="store_true",
+        #        help="do not attempt any remote communication (avoid using this please)",
+        #        default=False)
 
-        pkg_config = self._read_project_config(package_name, build_dir,
-                options.tag, options.no_cleanup)
+        ## Options for tagging new package releases:
+        #parser.add_option("--tag-release", dest="tag_release",
+        #        action="store_true",
+        #        help="Tag a new release of the package.")
+        #parser.add_option("--keep-version", dest="keep_version",
+        #        action="store_true",
+        #        help="Use spec file version/release to tag package.")
 
-        if building:
-            builder = self._create_builder(package_name, build_tag,
-                    build_version, options, pkg_config, global_config,
-                    build_dir)
-            if building:
-                builder.run(options)
-        elif tagging:
-            self._run_tagger(options, pkg_config, global_config)
+        ## Options for other high level tasks:
+        #parser.add_option("--untagged-diffs", dest="untagged_report",
+        #        action="store_true",
+        #        help= "%s %s %s" % (
+        #            "Print out diffs for all packages with changes between",
+        #            "their most recent tag and HEAD. Useful for determining",
+        #            "which packages are in need of a re-tag."
+        #        ))
+        #parser.add_option("--untagged-commits", dest="untagged_commits",
+        #        action="store_true",
+        #        help= "%s %s %s" % (
+        #            "Print out the list for all packages with changes between",
+        #            "their most recent tag and HEAD. Useful for determining",
+        #            "which packages are in need of a re-tag."
+        #        ))
+        #parser.add_option("--cvs-new-source", dest="cvs_new_sources",
+        #        action="append",
+        #        help="New binary sources to upload during --cvs-release." +
+        #            " (i.e. make new-sources FILES=)")
 
-    def _create_builder(self, package_name, build_tag, build_version, options,
-            pkg_config, global_config, build_dir):
-        """
-        Create (but don't run) the builder class. Builder object may be
-        used by other objects without actually having run() called.
-        """
-
-        builder_class = None
-        if pkg_config.has_option("buildconfig", "builder"):
-            builder_class = get_class_by_name(pkg_config.get("buildconfig",
-                "builder"))
-        else:
-            builder_class = get_class_by_name(global_config.get(
-                GLOBALCONFIG_SECTION, DEFAULT_BUILDER))
-        debug("Using builder class: %s" % builder_class)
-
-        # Instantiate the builder:
-        builder = builder_class(
-                name=package_name,
-                version=build_version,
-                tag=build_tag,
-                build_dir=build_dir,
-                pkg_config=pkg_config,
-                global_config=global_config,
-                dist=options.dist,
-                test=options.test,
-                offline=options.offline)
-        return builder
+    def _usage(self):
+        print "Try:"
+        for module in CLI_MODULES.keys():
+            print("   %s %s --help" % (os.path.basename(sys.argv[0]), module))
 
     def _run_tagger(self, options, pkg_config, global_config):
         tagger_class = None
@@ -367,6 +258,56 @@ class CLI:
         print("")
         print("")
 
+
+
+class BaseCliModule(object):
+    # Subclasses should define this:
+    module = None
+
+    def __init__(self):
+        self.parser = None
+        self.global_config = None
+        self.options = None
+        self.pkg_config = None
+
+    def _add_common_options(self):
+        """
+        Add options to the command line parser which are relevant to all
+        modules.
+        """
+        # Options used for many different activities:
+        self.parser.add_option("--debug", dest="debug", action="store_true",
+                help="print debug messages", default=False)
+        self.parser.add_option("--offline", dest="offline", action="store_true",
+                help="do not attempt any remote communication (avoid using this please)",
+                default=False)
+
+    def main(self):
+        (self.options, args) = self.parser.parse_args()
+
+        if len(sys.argv) < 2:
+            print parser.error("Must supply an argument. Try -h for help.")
+
+        self.global_config = self._read_global_config()
+
+        if self.options.debug:
+            os.environ['DEBUG'] = "true"
+
+        # TODO: Shortcut here, build.py does some things unrelated to
+        # building/tagging packages, check for these options, do what's
+        # requested, and exit rather than start looking up data specific
+        # to building etc. This really should be cleaned up.
+        #if self.options.untagged_report:
+        #    self._run_untagged_report(self.global_config)
+        #    sys.exit(1)
+
+        #if self.options.untagged_commits:
+        #    self._run_untagged_commits(self.global_config)
+        #    sys.exit(1)
+
+        #if tagging:
+        #    self._run_tagger(self.options, self.pkg_config, self.global_config)
+
     def _read_global_config(self):
         """
         Read global build.py configuration from the rel-eng dir of the git
@@ -465,17 +406,130 @@ class CLI:
 
         return config
 
-    def _validate_options(self, options):
-        found_builder_options = (options.tgz or options.srpm or options.rpm or
-                options.cvs_release)
-        found_tagger_options = (options.tag_release)
-        if found_builder_options and found_tagger_options:
-            error_out("Cannot invoke both build and tag options at the " +
-                    "same time.")
-        if options.srpm and options.rpm:
+
+
+
+
+
+class BuildModule(BaseCliModule):
+    name = "build"
+
+    def __init__(self):
+        usage = "usage: %prog build [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+        self.parser.add_option("--tgz", dest="tgz", action="store_true",
+                help="Build .tar.gz")
+        self.parser.add_option("--srpm", dest="srpm", action="store_true",
+                help="Build srpm")
+        self.parser.add_option("--rpm", dest="rpm", action="store_true",
+                help="Build rpm")
+        self.parser.add_option("--dist", dest="dist", metavar="DISTTAG",
+                help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
+        self.parser.add_option("--test", dest="test", action="store_true",
+                help="use current branch HEAD instead of latest package tag")
+        self.parser.add_option("--no-cleanup", dest="no_cleanup",
+                action="store_true",
+                help="do not clean up temporary build directories/files")
+        self.parser.add_option("--tag", dest="tag", metavar="PKGTAG",
+                help="build a specific tag instead of the latest version " +
+                    "(i.e. spacewalk-java-0.4.0-1)")
+
+        # Options for submitting srpms to brew or koji:
+        # TODO: Remove this, configure instead in global.build.py.props.
+        # packages should never go from spacewalk.git to brew.
+        self.parser.add_option("--brew", dest="brew", metavar="BREWTAG",
+                help="Submit srpm for build in a brew tag.")
+        self.parser.add_option("--koji", dest="koji", metavar="KOJITAG",
+                help="Submit srpm for build in a koji tag.")
+        self.parser.add_option("--koji-opts", dest="koji_opts",
+                metavar="KOJIOPTIONS",
+                help="%s %s %s" %
+                (
+                    "Options to use with brew/koji command.",
+                    "Tag and package name will be appended automatically.",
+                    "Default is 'build --nowait'.",
+                ))
+        self.parser.add_option("--cvs-release", dest="cvs_release",
+                action="store_true", help="%s %s" % (
+                    "Import sources into CVS, tag, and build package using",
+                    "brew/koji. Relies on rel-eng configuration to know which"
+                    "CVS repository and build system to use."
+                ))
+
+    def main(self):
+        BaseCliModule.main(self)
+
+        build_dir = lookup_build_dir()
+        package_name = get_project_name(tag=self.options.tag)
+
+        build_tag = None
+        build_version = None
+        # Determine which package version we should build:
+        if self.options.tag:
+            build_tag = self.options.tag
+            build_version = build_tag[len(package_name + "-"):]
+        else:
+            build_version = get_latest_tagged_version(package_name)
+            if build_version == None:
+                error_out(["Unable to lookup latest package info.",
+                        "Perhaps you need to --tag-release first?"])
+            build_tag = "%s-%s" % (package_name, build_version)
+
+        if not self.options.test:
+            check_tag_exists(build_tag, offline=self.options.offline)
+
+        self.pkg_config = self._read_project_config(package_name, build_dir,
+                self.options.tag, self.options.no_cleanup)
+
+        builder = self._create_builder(package_name, build_tag,
+                build_version, self.options, self.pkg_config,
+                build_dir)
+        builder.run(self.options)
+
+    def _create_builder(self, package_name, build_tag, build_version, options,
+            pkg_config, build_dir):
+        """
+        Create (but don't run) the builder class. Builder object may be
+        used by other objects without actually having run() called.
+        """
+
+        builder_class = None
+        if pkg_config.has_option("buildconfig", "builder"):
+            builder_class = get_class_by_name(pkg_config.get("buildconfig",
+                "builder"))
+        else:
+            builder_class = get_class_by_name(self.global_config.get(
+                GLOBALCONFIG_SECTION, DEFAULT_BUILDER))
+        debug("Using builder class: %s" % builder_class)
+
+        # Instantiate the builder:
+        builder = builder_class(
+                name=package_name,
+                version=build_version,
+                tag=build_tag,
+                build_dir=build_dir,
+                pkg_config=pkg_config,
+                global_config=self.global_config,
+                dist=options.dist,
+                test=options.test,
+                offline=options.offline)
+        return builder
+
+    def _validate_options(self):
+        if self.options.srpm and self.options.rpm:
             error_out("Please choose only one of --srpm and --rpm")
-        if (options.brew or options.koji) and not (options.rpm or options.srpm):
+        if (self.options.brew or self.options.koji) and not  \
+            (self.options.rpm or self.options.srpm):
             error_out("Must specify --srpm or --rpm with --brew/--koji")
-        if options.test and options.tag:
+        if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
-        return (found_builder_options, found_tagger_options)
+
+
+
+CLI_MODULES = {
+    "build": BuildModule,
+}
+
