@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.23
+Version: 0.5.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -225,6 +225,11 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.24-1
+- removing listScripts, addScript, removeScript and downloadKickstart APIs from KickstartHandler
+- 486749 - Add symlinks for jakarta-commons-collections and jta jars.
+- 484942 - "Satellite" is in monitoring schema and have to be translated to product name
+
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.23-1
 - modifying list tag to not clear set during a select all()
 - fixing some issues with converting rhnset to implement set
