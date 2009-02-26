@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
 
 import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
@@ -26,7 +25,6 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
-import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
@@ -36,17 +34,13 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
-import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
-import com.redhat.rhn.manager.kickstart.KickstartManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -327,137 +321,6 @@ public class KickstartHandler extends BaseHandler {
         return result;
     }
 
-    /**
-     * Lists all the scripts associated with a kickstart profile
-     * @param sessionKey key
-     * @param label the kickstart label
-     * @return list of kickstartScript objects
-     * 
-     * @xmlrpc.doc lists the pre and post script associated with a kickstart
-     * profile
-     * @xmlprc.param
-     * @xmlrpc.param
-     * @xmlrpc.returntype #array() $KickstartScriptSerializer #array_end()
-     */
-    public List<KickstartScript> listScripts(String sessionKey, String label) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        checkKickstartPerms(loggedInUser);
-        KickstartData data = lookupKsData(label, loggedInUser.getOrg());
-
-        return new ArrayList<KickstartScript>(data.getScripts());
-
-    }
-
-    /**
-     * Adds a script to a kickstart profile
-     * @param sessionKey key
-     * @param ksLabel the kickstart label
-     * @param contents the contents
-     * @param interpreter the script interpreter to use
-     * @param type "pre" or "post"
-     * @param chroot true if you want it to be chrooted
-     * @return the id of the created script
-     * 
-     * @xmlrpc.doc Adds a pre/post script to the given kickstart profile.
-     * @xmlprc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
-     * add the script to.")
-     * @xmlrpc.param #param_desc("string", "contents", "The full script to
-     * add.")
-     * @xmlrpc.param #param_desc("string", "interpreter", "The path to the
-     * interpreter to use (i.e. /bin/bash). An empty string will use the
-     * kickstart default interpreter.")
-     * @xmlrpc.param #param_desc("string", "type", "The type of script (either
-     * 'pre' or 'post').")
-     * @xmlrpc.param #param_desc("boolean", "chroot", "Whether to run the script
-     * in the chrooted install location (recommended) or not.")
-     * @xmlrpc.returntype int id - the id of the added script
-     * 
-     */
-    public int addScript(String sessionKey, String ksLabel, String contents,
-            String interpreter, String type, boolean chroot) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        checkKickstartPerms(loggedInUser);
-        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
-
-        if (!type.equals("pre") && !type.equals("post")) {
-            throw new InvalidScriptTypeException();
-        }
-
-        KickstartScript script = new KickstartScript();
-        script.setData(contents.getBytes());
-        script.setInterpreter(interpreter.equals("") ? null : interpreter);
-        script.setScriptType(type);
-        script.setChroot(chroot ? "Y" : "N");
-        script.setKsdata(ksData);
-        ksData.addScript(script);
-        HibernateFactory.getSession().save(script);
-        return script.getId().intValue();
-    }
-
-    /**
-     * Removes a kickstart script from the associated kickstart
-     * @param sessionKey key
-     * @param ksLabel the kickstart to remove a script from
-     * @param id the id of the kickstart
-     * @return 1 on success
-     * 
-     * @xmlrpc.doc Removes the specified script from the specified kickstart
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #prop_desc("string", "ksLabel", "The kickstart from which
-     * to remove the script from.")
-     * @xmlrpc.param #prop_desc("int", "scriptId", "The id of the script to
-     * remove.")
-     * @xmlrpc.returntype #return_int_success()
-     * 
-     */
-    public int removeScript(String sessionKey, String ksLabel, Integer id) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        checkKickstartPerms(loggedInUser);
-        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
-
-        KickstartScript script = KickstartFactory.lookupKickstartScript(
-                loggedInUser.getOrg(), id);
-        if (script == null || 
-                !script.getKsdata().getLabel().equals(ksData.getLabel())) {
-            throw new InvalidKickstartScriptException();
-        }
-
-        script.setKsdata(null);
-        ksData.getScripts().remove(script);
-        KickstartFactory.removeKickstartScript(script);
-
-        return 1;
-    }
-
-    /**
-     * returns the fully formatted kickstart file
-     * @param sessionKey key
-     * @param ksLabel the label to download
-     * @param host The host/ip to use when referring to the server itself
-     * @return the kickstart file
-     * 
-     * @xmlrpc.doc Download the full contents of a kickstart file.
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
-     * kickstart to download.")
-     * @xmlrpc.param #param_desc("string", "host", "The host to use when
-     * referring to the satellite itself (Usually this should be the FQDN of the
-     * satellite, but could be the ip address or shortname of it as well.")
-     * @xmlrpc.returntype string - The contents of the kickstart file. Note: if
-     * an activation key is not associated with the kickstart file, registration
-     * will not occur in the satellite generated %post section. If one is
-     * associated, it will be used for registration.
-     * 
-     * 
-     */
-    public String downloadKickstart(String sessionKey, String ksLabel,
-            String host) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
-        return KickstartManager.renderKickstart(ksData);
-    }
-
-    
     /**
      * Lists all ip ranges for an org
      * @param sessionKey An active session key
