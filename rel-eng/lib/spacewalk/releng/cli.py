@@ -73,20 +73,15 @@ def get_class_by_name(name):
     c = getattr(mod, class_name)
     return c
 
-def lookup_build_dir():
-    """
-    Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
-    return the current working directory.
-    """
-    build_dir = DEFAULT_BUILD_DIR
+def read_user_config():
+    config = {}
     file_loc = os.path.expanduser("~/.spacewalk-build-rc")
     try:
         f = open(file_loc)
     except:
         # File doesn't exist but that's ok because it's optional.
-        return build_dir
+        return config
 
-    config = {}
     for line in f.readlines():
         if line.strip() == "":
             continue
@@ -94,9 +89,17 @@ def lookup_build_dir():
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
+    return config
 
-    if config.has_key('RPMBUILD_BASEDIR'):
-        build_dir = config["RPMBUILD_BASEDIR"]
+def lookup_build_dir(user_config):
+    """
+    Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
+    return the current working directory.
+    """
+    build_dir = DEFAULT_BUILD_DIR
+
+    if user_config.has_key('RPMBUILD_BASEDIR'):
+        build_dir = user_config["RPMBUILD_BASEDIR"]
 
     return build_dir
 
@@ -137,6 +140,7 @@ class BaseCliModule(object):
         self.global_config = None
         self.options = None
         self.pkg_config = None
+        self.user_config = read_user_config()
 
     def _add_common_options(self):
         """
@@ -265,6 +269,7 @@ class BaseCliModule(object):
 class BuildModule(BaseCliModule):
 
     def __init__(self):
+        BaseCliModule.__init__(self)
         usage = "usage: %prog build [options]"
         self.parser = OptionParser(usage)
 
@@ -316,7 +321,7 @@ class BuildModule(BaseCliModule):
     def main(self):
         BaseCliModule.main(self)
 
-        build_dir = lookup_build_dir()
+        build_dir = lookup_build_dir(self.user_config)
         package_name = get_project_name(tag=self.options.tag)
 
         build_tag = None
@@ -386,6 +391,7 @@ class BuildModule(BaseCliModule):
 class TagModule(BaseCliModule):
 
     def __init__(self):
+        BaseCliModule.__init__(self)
         usage = "usage: %prog tag [options]"
         self.parser = OptionParser(usage)
 
@@ -403,7 +409,7 @@ class TagModule(BaseCliModule):
     def main(self):
         BaseCliModule.main(self)
 
-        build_dir = lookup_build_dir()
+        build_dir = lookup_build_dir(self.user_config)
         package_name = get_project_name(tag=None)
 
         self.pkg_config = self._read_project_config(package_name, build_dir,
@@ -428,6 +434,7 @@ class ReportModule(BaseCliModule):
     """ CLI Module For Various Reports. """
 
     def __init__(self):
+        BaseCliModule.__init__(self)
         usage = "usage: %prog report [options]"
         self.parser = OptionParser(usage)
 
