@@ -3336,6 +3336,9 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <trans-unit id="Spacewalk">
           <source>@@PRODUCT_NAME@@</source>
         </trans-unit>
+        <trans-unit id="Satellite">
+          <source>@@PRODUCT_NAME@@</source>
+        </trans-unit>
     </group>
 	
 	<group>
