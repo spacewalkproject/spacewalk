@@ -114,118 +114,11 @@ class CLI:
         module = module_class()
         module.main()
 
-        ## Options for other high level tasks:
-        #parser.add_option("--untagged-diffs", dest="untagged_report",
-        #        action="store_true",
-        #        help= "%s %s %s" % (
-        #            "Print out diffs for all packages with changes between",
-        #            "their most recent tag and HEAD. Useful for determining",
-        #            "which packages are in need of a re-tag."
-        #        ))
-        #parser.add_option("--untagged-commits", dest="untagged_commits",
-        #        action="store_true",
-        #        help= "%s %s %s" % (
-        #            "Print out the list for all packages with changes between",
-        #            "their most recent tag and HEAD. Useful for determining",
-        #            "which packages are in need of a re-tag."
-        #        ))
-        #parser.add_option("--cvs-new-source", dest="cvs_new_sources",
-        #        action="append",
-        #        help="New binary sources to upload during --cvs-release." +
-        #            " (i.e. make new-sources FILES=)")
-
     def _usage(self):
         print "Try:"
         for module in CLI_MODULES.keys():
             print("   %s %s --help" % (os.path.basename(sys.argv[0]), module))
 
-
-    def _run_untagged_commits(self, global_config):
-        """
-        Display a report of all packages with differences between HEAD and
-        their most recent tag, as well as a patch for that diff. Used to
-        determine which packages are in need of a rebuild.
-        """
-        print("Scanning for packages that may need a --tag-release...")
-        print("")
-        git_root = find_git_root()
-        rel_eng_dir = os.path.join(git_root, "rel-eng")
-        os.chdir(git_root)
-        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
-        for root, dirs, files in os.walk(package_metadata_dir):
-            for md_file in files:
-                if md_file[0] == '.':
-                    continue
-                f = open(os.path.join(package_metadata_dir, md_file))
-                (version, relative_dir) = f.readline().strip().split(" ")
-                project_dir = os.path.join(git_root, relative_dir)
-                self._print_log(global_config, md_file, version, project_dir)
-
-    def _run_untagged_report(self, global_config):
-        """
-        Display a report of all packages with differences between HEAD and
-        their most recent tag, as well as a patch for that diff. Used to
-        determine which packages are in need of a rebuild.
-        """
-        print("Scanning for packages that may need a --tag-release...")
-        print("")
-        git_root = find_git_root()
-        rel_eng_dir = os.path.join(git_root, "rel-eng")
-        os.chdir(git_root)
-        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
-        for root, dirs, files in os.walk(package_metadata_dir):
-            for md_file in files:
-                if md_file[0] == '.':
-                    continue
-                f = open(os.path.join(package_metadata_dir, md_file))
-                (version, relative_dir) = f.readline().strip().split(" ")
-                project_dir = os.path.join(git_root, relative_dir)
-                self._print_diff(global_config, md_file, version, project_dir)
-
-    def _print_log(self, global_config, package_name, version, project_dir):
-        """
-        Print the log between the most recent package tag and HEAD, if
-        necessary.
-        """
-        last_tag = "%s-%s" % (package_name, version)
-        os.chdir(project_dir)
-        patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
-                (last_tag, "HEAD", ".")
-        output = run_command(patch_command)
-        if (output):
-            print("-" * (len(last_tag) + 8))
-            print("%s..%s:" % (last_tag, "HEAD"))
-            print(output)
-
-    def _print_diff(self, global_config, package_name, version, project_dir):
-        """
-        Print a diff between the most recent package tag and HEAD, if
-        necessary.
-        """
-        last_tag = "%s-%s" % (package_name, version)
-        os.chdir(project_dir)
-        patch_command = "git diff --relative %s..%s" % \
-                (last_tag, "HEAD")
-        output = run_command(patch_command)
-
-        # If the diff contains 1 line then there is no diff:
-        linecount = len(output.split("\n"))
-        if linecount == 1:
-            return
-
-        # Otherwise, print out info on the diff for this package:
-        print("#" * len(package_name))
-        print(package_name)
-        print("#" * len(package_name))
-        print("")
-        print patch_command
-        print("")
-        print(output)
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
 
 
 
@@ -261,18 +154,6 @@ class BaseCliModule(object):
 
         if self.options.debug:
             os.environ['DEBUG'] = "true"
-
-        # TODO: Shortcut here, build.py does some things unrelated to
-        # building/tagging packages, check for these options, do what's
-        # requested, and exit rather than start looking up data specific
-        # to building etc. This really should be cleaned up.
-        #if self.options.untagged_report:
-        #    self._run_untagged_report(self.global_config)
-        #    sys.exit(1)
-
-        #if self.options.untagged_commits:
-        #    self._run_untagged_commits(self.global_config)
-        #    sys.exit(1)
 
     def _read_global_config(self):
         """
@@ -423,6 +304,10 @@ class BuildModule(BaseCliModule):
                     "brew/koji. Relies on rel-eng configuration to know which"
                     "CVS repository and build system to use."
                 ))
+        self.parser.add_option("--cvs-new-source", dest="cvs_new_sources",
+                action="append",
+                help="New binary sources to upload during --cvs-release." +
+                    " (i.e. make new-sources FILES=)")
 
     def main(self):
         BaseCliModule.main(self)
@@ -492,10 +377,12 @@ class BuildModule(BaseCliModule):
         if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
 
+
+
 class TagModule(BaseCliModule):
 
     def __init__(self):
-        usage = "usage: %prog build [options]"
+        usage = "usage: %prog tag [options]"
         self.parser = OptionParser(usage)
 
         self._add_common_options()
@@ -533,8 +420,132 @@ class TagModule(BaseCliModule):
 
 
 
+class ReportModule(BaseCliModule):
+    """ CLI Module For Various Reports. """
+
+    def __init__(self):
+        usage = "usage: %prog report [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+        self.parser.add_option("--untagged-diffs", dest="untagged_report",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out diffs for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
+        self.parser.add_option("--untagged-commits", dest="untagged_commits",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out the list for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
+
+    def main(self):
+        BaseCliModule.main(self)
+
+        if self.options.untagged_report:
+            self._run_untagged_report(self.global_config)
+            sys.exit(1)
+
+        if self.options.untagged_commits:
+            self._run_untagged_commits(self.global_config)
+            sys.exit(1)
+
+    def _run_untagged_commits(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_log(global_config, md_file, version, project_dir)
+
+    def _run_untagged_report(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_diff(global_config, md_file, version, project_dir)
+
+    def _print_log(self, global_config, package_name, version, project_dir):
+        """
+        Print the log between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
+                (last_tag, "HEAD", ".")
+        output = run_command(patch_command)
+        if (output):
+            print("-" * (len(last_tag) + 8))
+            print("%s..%s:" % (last_tag, "HEAD"))
+            print(output)
+
+    def _print_diff(self, global_config, package_name, version, project_dir):
+        """
+        Print a diff between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git diff --relative %s..%s" % \
+                (last_tag, "HEAD")
+        output = run_command(patch_command)
+
+        # If the diff contains 1 line then there is no diff:
+        linecount = len(output.split("\n"))
+        if linecount == 1:
+            return
+
+        # Otherwise, print out info on the diff for this package:
+        print("#" * len(package_name))
+        print(package_name)
+        print("#" * len(package_name))
+        print("")
+        print patch_command
+        print("")
+        print(output)
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+
+
 CLI_MODULES = {
     "build": BuildModule,
     "tag": TagModule,
+    "report": ReportModule,
 }
 
