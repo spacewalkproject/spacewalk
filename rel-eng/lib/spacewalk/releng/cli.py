@@ -175,6 +175,10 @@ class CLI:
                     "brew/koji. Relies on rel-eng configuration to know which"
                     "CVS repository and build system to use."
                 ))
+        parser.add_option("--cvs-new-source", dest="cvs_new_sources",
+                action="append",
+                help="New binary sources to upload during --cvs-release." +
+                    " (i.e. make new-sources FILES=)")
 
         (options, args) = parser.parse_args()
 
@@ -204,7 +208,6 @@ class CLI:
 
         build_dir = lookup_build_dir()
         package_name = get_project_name(tag=options.tag)
-
 
         build_tag = None
         build_version = None
@@ -452,7 +455,8 @@ class CLI:
             debug("Using build properties: %s" % properties_file)
             config.read(properties_file)
         else:
-            debug("Unable to locate build properties for this package.")
+            debug("Unable to locate custom build properties for this package.")
+            debug("   Using global.build.py.props")
 
         # TODO: Not thrilled with this:
         if wrote_temp_file and not no_cleanup:

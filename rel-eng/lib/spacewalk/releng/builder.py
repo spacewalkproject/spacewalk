@@ -17,6 +17,7 @@
 import os
 import re
 import sys
+import string
 import commands
 
 from spacewalk.releng.common import *
@@ -310,6 +311,10 @@ class Builder(object):
             debug("  To: %s" % branch_dir)
             run_command("cp %s %s" % (self.spec_file, branch_dir))
 
+            # Will fail if the file is already tracked in CVS:
+            (status, output) = commands.getstatusoutput("cvs add %s" %
+                    self.spec_file_name)
+
     def _cvs_sync_patches(self):
         """
         Copy any patches referenced in the spec file to the CVS branches and
@@ -348,11 +353,11 @@ class Builder(object):
         print(output)
 
         print("")
-        print("!!! Please review the above diff !!!")
+        print("##### Please review the above diff #####")
         answer = raw_input("Do you wish to proceed with commit? [y/n] ")
         if answer.lower() not in ['y', 'yes', 'ok', 'sure']:
             print("Fine, you're on your own!")
-            self._finish()
+            self.cleanup()
         else:
             print("Proceeding with commit.")
             os.chdir(self.cvs_package_workdir)
@@ -543,6 +548,15 @@ class CvsBuilder(NoTgzBuilder):
 
     Builder for packages whose sources are managed in dist-cvs/Fedora CVS.
     """
+    def run(self, options):
+        """ Override parent to validate any new sources that. """
+        # Convert new sources to full paths right now, before we chdir:
+        if options.cvs_new_sources is not None:
+            for new_source in options.cvs_new_sources:
+                self.sources.append(os.path.abspath(new_source))
+        debug("CvsBuilder sources: %s" % self.sources)
+        NoTgzBuilder.run(self, options)
+
     def _srpm(self):
         """ Build an srpm from CVS. """
         self._cvs_rpm_common(target="test-srpm")
