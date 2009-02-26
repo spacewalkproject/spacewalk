@@ -164,7 +164,7 @@ find $DIR -name "rhn-org-httpd-ssl*" -exec rm -f '{}' ';'
 
 echo "    * creating tarball (may take some time): $TARBALL"
 cd $BASE_DIR/spacewalk-debug-$$
-tar -cjf $TARBALL -C $(echo ${DIR#\/} | sed -e 's/^\/$BASE_DIR\/[^\/]*\///g')
+tar -cjf $TARBALL ${DIR#$BASE_DIR\/spacewalk-debug-$$\/}
 
 echo "    * removing temporary debug tree"
 rm -Rf $(echo $DIR | sed -e 's/\/[^\/]*$//g')
