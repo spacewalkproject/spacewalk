@@ -114,24 +114,6 @@ class CLI:
         module = module_class()
         module.main()
 
-
-
-
-        ## Options used for many different activities:
-        #parser.add_option("--debug", dest="debug", action="store_true",
-        #        help="print debug messages", default=False)
-        #parser.add_option("--offline", dest="offline", action="store_true",
-        #        help="do not attempt any remote communication (avoid using this please)",
-        #        default=False)
-
-        ## Options for tagging new package releases:
-        #parser.add_option("--tag-release", dest="tag_release",
-        #        action="store_true",
-        #        help="Tag a new release of the package.")
-        #parser.add_option("--keep-version", dest="keep_version",
-        #        action="store_true",
-        #        help="Use spec file version/release to tag package.")
-
         ## Options for other high level tasks:
         #parser.add_option("--untagged-diffs", dest="untagged_report",
         #        action="store_true",
@@ -157,19 +139,6 @@ class CLI:
         for module in CLI_MODULES.keys():
             print("   %s %s --help" % (os.path.basename(sys.argv[0]), module))
 
-    def _run_tagger(self, options, pkg_config, global_config):
-        tagger_class = None
-        if pkg_config.has_option("buildconfig", "tagger"):
-            tagger_class = get_class_by_name(pkg_config.get("buildconfig",
-                "tagger"))
-        else:
-            tagger_class = get_class_by_name(global_config.get(
-                GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
-        debug("Using tagger class: %s" % tagger_class)
-
-        tagger = tagger_class(global_config=global_config,
-                keep_version=options.keep_version)
-        tagger.run(options)
 
     def _run_untagged_commits(self, global_config):
         """
@@ -305,9 +274,6 @@ class BaseCliModule(object):
         #    self._run_untagged_commits(self.global_config)
         #    sys.exit(1)
 
-        #if tagging:
-        #    self._run_tagger(self.options, self.pkg_config, self.global_config)
-
     def _read_global_config(self):
         """
         Read global build.py configuration from the rel-eng dir of the git
@@ -412,7 +378,6 @@ class BaseCliModule(object):
 
 
 class BuildModule(BaseCliModule):
-    name = "build"
 
     def __init__(self):
         usage = "usage: %prog build [options]"
@@ -527,9 +492,49 @@ class BuildModule(BaseCliModule):
         if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
 
+class TagModule(BaseCliModule):
+
+    def __init__(self):
+        usage = "usage: %prog build [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+        # Options for tagging new package releases:
+        self.parser.add_option("--tag-release", dest="tag_release",
+                action="store_true",
+                help="Tag a new release of the package.")
+        self.parser.add_option("--keep-version", dest="keep_version",
+                action="store_true",
+                help="Use spec file version/release to tag package.")
+
+
+    def main(self):
+        BaseCliModule.main(self)
+
+        build_dir = lookup_build_dir()
+        package_name = get_project_name(tag=None)
+
+        self.pkg_config = self._read_project_config(package_name, build_dir,
+                None, None)
+
+        tagger_class = None
+        if self.pkg_config.has_option("buildconfig", "tagger"):
+            tagger_class = get_class_by_name(self.pkg_config.get("buildconfig",
+                "tagger"))
+        else:
+            tagger_class = get_class_by_name(self.global_config.get(
+                GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
+        debug("Using tagger class: %s" % tagger_class)
+
+        tagger = tagger_class(global_config=self.global_config,
+                keep_version=self.options.keep_version)
+        tagger.run(self.options)
+
 
 
 CLI_MODULES = {
     "build": BuildModule,
+    "tag": TagModule,
 }
 
