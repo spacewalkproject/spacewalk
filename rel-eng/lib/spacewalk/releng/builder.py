@@ -124,8 +124,8 @@ class Builder(object):
             self._srpm()
         if options.rpm:
             self._rpm()
-        if options.cvs_release:
-            self.cvs_release()
+        if options.release:
+            self.release()
 
         # Submit builds to brew/koji if requested:
         koji_opts = DEFAULT_KOJI_OPTS
@@ -199,7 +199,7 @@ class Builder(object):
             error_out("Error parsing rpmbuild output")
         self.srpm_location = files_written[0]
 
-    def cvs_release(self):
+    def release(self):
         """
         Sync spec file/patches with CVS, create tags, and submit to brew/koji.
         """

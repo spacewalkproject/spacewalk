@@ -302,11 +302,11 @@ class BuildModule(BaseCliModule):
                     "Tag and package name will be appended automatically.",
                     "Default is 'build --nowait'.",
                 ))
-        self.parser.add_option("--cvs-release", dest="cvs_release",
-                action="store_true", help="%s %s" % (
-                    "Import sources into CVS, tag, and build package using",
-                    "brew/koji. Relies on rel-eng configuration to know which"
-                    "CVS repository and build system to use."
+        self.parser.add_option("--release", dest="release",
+                action="store_true", help="%s %s %s" % (
+                    "Release package according to repo configuration.",
+                    "(import into CVS and submit to build system, or create ",
+                    "src.rpm's and submit directly to koji)"
                 ))
         self.parser.add_option("--cvs-new-source", dest="cvs_new_sources",
                 action="append",
