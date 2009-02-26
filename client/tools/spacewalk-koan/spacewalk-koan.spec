@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.9
+Version: 0.1.10
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1.10-1
+- 486638- Updated spec to have it conflict with rhn-kickstart rpm instead of obsoleting it.
+
 * Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.1.9-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
 
