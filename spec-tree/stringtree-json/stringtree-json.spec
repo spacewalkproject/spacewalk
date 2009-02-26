@@ -2,7 +2,7 @@
 Summary: An json string library
 Name: stringtree-json
 Version: 2.0.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL
 Group: Development/Library
 URL: http://stringtree.org/stringtree-json.html
@@ -41,6 +41,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 2.0.9-5
+- Remove some variables in Patch lines of spec files.
+- Define builder and tagger classes in build.py.props.
+- Distribute build.py.props anywhere a Makefile with NO_TAR_GZ exists.
+
 * Fri Nov 28 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.9-4
 - add unzip to buildreq
 
