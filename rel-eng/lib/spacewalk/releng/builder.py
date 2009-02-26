@@ -332,7 +332,7 @@ class Builder(object):
             for patch_line in output.split("\n"):
                 patch_filename = patch_line.strip().split(" ")[1]
                 debug("Copying patch to CVS: %s" % patch_filename)
-                full_path = os.path.join(self.rpmbuild_sourcedir,
+                full_path = os.path.join(self.rpmbuild_gitcopy,
                         patch_filename)
                 new_full_path = os.path.join(branch_dir, patch_filename)
                 cvs_add = True
@@ -340,7 +340,7 @@ class Builder(object):
                     cvs_add = False
                 run_command("cp %s %s" % (full_path, branch_dir))
                 if cvs_add:
-                    run_command("cvs add %s" %  patch_filename)
+                    commands.getstatusoutput("cvs add %s" %  patch_filename)
 
     def _cvs_user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """
@@ -358,6 +358,7 @@ class Builder(object):
         if answer.lower() not in ['y', 'yes', 'ok', 'sure']:
             print("Fine, you're on your own!")
             self.cleanup()
+            sys.exit(1)
         else:
             print("Proceeding with commit.")
             os.chdir(self.cvs_package_workdir)
