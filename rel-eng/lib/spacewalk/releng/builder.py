@@ -190,7 +190,7 @@ class Builder(object):
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
-        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % \
+        cmd = "rpmbuild %s %s --clean -ba %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
         print output
