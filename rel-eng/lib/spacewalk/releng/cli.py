@@ -103,7 +103,12 @@ def lookup_build_dir():
 
 
 class CLI:
-    """ Parent command line interface class. """
+    """
+    Parent command line interface class.
+
+    Simply delegated to sub-modules which group appropriate command line
+    options together.
+    """
 
     def main(self):
         if len(sys.argv) < 2 or not CLI_MODULES.has_key(sys.argv[1]):
@@ -115,16 +120,17 @@ class CLI:
         module.main()
 
     def _usage(self):
-        print "Try:"
-        for module in CLI_MODULES.keys():
-            print("   %s %s --help" % (os.path.basename(sys.argv[0]), module))
-
+        print("Usage: %s MODULENAME --help" %
+                (os.path.basename(sys.argv[0])))
+        print("Supported modules:")
+        print("   tag      - Tag package releases.")
+        print("   build    - Build packages.")
+        print("   report   - Display various reports on the repo.")
 
 
 
 class BaseCliModule(object):
-    # Subclasses should define this:
-    module = None
+    """ Common code used amongst all CLI modules. """
 
     def __init__(self):
         self.parser = None
@@ -141,7 +147,8 @@ class BaseCliModule(object):
         self.parser.add_option("--debug", dest="debug", action="store_true",
                 help="print debug messages", default=False)
         self.parser.add_option("--offline", dest="offline", action="store_true",
-                help="do not attempt any remote communication (avoid using this please)",
+                help="do not attempt any remote communication (avoid using " +
+                    "this please)",
                 default=False)
 
     def main(self):
@@ -252,9 +259,6 @@ class BaseCliModule(object):
             run_command("rm %s" % properties_file)
 
         return config
-
-
-
 
 
 
@@ -541,6 +545,7 @@ class ReportModule(BaseCliModule):
         print("")
         print("")
         print("")
+
 
 
 CLI_MODULES = {
