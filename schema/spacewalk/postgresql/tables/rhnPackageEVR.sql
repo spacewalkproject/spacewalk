@@ -24,7 +24,7 @@ rhnPackageEVR
         epoch           varchar(16),
         version         varchar(512) not null,
         release         varchar(512) not null,
---        evr             evr_t not null,
+        evr             evr_t not null,
 			constraint rhn_pe_v_r_e_uq unique (version, release, epoch)
 --		       using  tablespace [[2m_tbs]]
 )

@@ -12,6 +12,9 @@ create user spacewalk;
 create schema spacewalk;
 */
 
+/* Object EVR_T */
+\i class/evr_t.sql
+
 /* special table; TODO: to be removed once we start using Orafce */
 \i tables/dual.sql
 
