@@ -81,6 +81,9 @@ public class KickstartData {
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
     
+    public static final String WIZARD_DIR = "wizard";
+    public static final String RAW_DIR = "upload";
+
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
     public static final String TYPE_WIZARD = "wizard";
@@ -1341,7 +1344,13 @@ public class KickstartData {
      * @return the cobblerName
      */
     public String getCobblerFileName() {
-        return CobblerCommand.makeCobblerFileName(getLabel(), getOrg());
+        if (isRawData()) {
+            return CobblerCommand.makeCobblerFileName(RAW_DIR + "/" + getLabel(), getOrg());
+        }
+        else {
+            return CobblerCommand.makeCobblerFileName(WIZARD_DIR + "/" + getLabel(),
+                    getOrg());
+        }
     }
     
 

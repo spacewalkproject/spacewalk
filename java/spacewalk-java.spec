@@ -1,5 +1,7 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 %define cobprofdir      %{_localstatedir}/lib/rhn/kickstarts
+%define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
+%define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
@@ -178,6 +180,8 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
+install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
+install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
@@ -206,6 +210,8 @@ fi
 %defattr(644,tomcat,tomcat,775)
 %dir %{appdir}
 %dir %{cobprofdir}
+%dir %{cobprofdirup}
+%dir %{cobprofdirwiz}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 

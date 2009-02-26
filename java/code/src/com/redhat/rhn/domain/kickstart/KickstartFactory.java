@@ -324,7 +324,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param ksdataIn Kickstart Data to be stored in db
      * @param ksession KickstartSession to associate with this save.
      */
-    public static void saveKickstartData(KickstartData ksdataIn, 
+    public static void saveKickstartData1(KickstartData ksdataIn,
             KickstartSession ksession) {
         log.debug("saveKickstartData: " + ksdataIn.getLabel());
         singleton.saveObject(ksdataIn);
@@ -388,7 +388,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param ksdataIn Kickstart Data to be stored in db
      */
     public static void saveKickstartData(KickstartData ksdataIn) {
-        saveKickstartData(ksdataIn, null);
+        saveKickstartData1(ksdataIn, null);
     }
     
     /**

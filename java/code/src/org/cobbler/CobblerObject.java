@@ -273,7 +273,6 @@ public abstract class CobblerObject {
      */
     public void setName(String nameIn) {
         invokeRename(nameIn);
-        client.invokeTokenMethod("update", getHandle(), nameIn);
         modify(NAME, nameIn);
         dataMap.put(NAME, nameIn);
         reload();
