@@ -61,3 +61,26 @@ end;
 /
 show errors
 
+create or replace function evr_t_as_vre( a evr_t )
+  return varchar2
+is
+begin
+        return a.version || '-' || a.release || ':' || a.epoch;
+end;
+
+create or replace function evr_t_as_vre_simple( a evr_t )
+  return VARCHAR2
+is
+    vre_out VARCHAR2(256);
+begin
+    vre_out := a.version || '-' || a.release;
+    
+    if a.epoch is not null
+    then
+        vre_out := vre_out || ':' || a.epoch;
+    end if;
+    
+    return vre_out;
+end;
+
+
