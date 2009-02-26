@@ -35,8 +35,8 @@ class Builder(object):
     """
 
     def __init__(self, name=None, version=None, tag=None, build_dir=None,
-            pkg_config=None, global_config=None, dist=None, test=False,
-            offline=False):
+            pkg_config=None, global_config=None, user_config=None, dist=None,
+            test=False, offline=False):
 
         self.git_root = find_git_root()
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
@@ -47,6 +47,7 @@ class Builder(object):
         self.dist = dist
         self.test = test
         self.global_config = global_config
+        self.user_config = user_config
         self.offline=offline
         self.no_cleanup = False
 
@@ -156,7 +157,7 @@ class Builder(object):
         self.sources.append(full_path)
         return full_path
 
-    def _srpm(self):
+    def _srpm(self, dist=None):
         """
         Build a source RPM.
         """
@@ -171,6 +172,8 @@ class Builder(object):
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
+        elif dist:
+            define_dist = "--define 'dist %s'" % dist
 
         cmd = "rpmbuild %s %s --nodeps -bs %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
@@ -201,13 +204,28 @@ class Builder(object):
 
     def release(self):
         """
+        Release this package via configuration for this git repo and branch.
+
+        Check if CVS support is configured in rel-eng/global.build.py.props
+        and initiate CVS import/tag/build if so.
+
+        Check for configured Koji branches also, if found create srpms and
+        submit to those branches with proper disttag's.
+        """
+        if self._can_build_in_cvs():
+            self._cvs_release()
+
+        if self._can_build_in_koji():
+            self._koji_release()
+
+    def _cvs_release(self):
+        """
         Sync spec file/patches with CVS, create tags, and submit to brew/koji.
         """
-        self._verify_cvs_settings()
 
         self._verify_cvs_module_not_already_checked_out()
 
-        print("Building release from CVS...")
+        print("Building release in CVS...")
         commands.getoutput("mkdir -p %s" % self.cvs_workdir)
         debug("cvs_branches = %s" % self.cvs_branches)
 
@@ -229,6 +247,31 @@ class Builder(object):
 
         self._cvs_make_tag()
         self._cvs_make_build()
+
+    def _koji_release(self):
+        """
+        Lookup autobuild Koji tags from global config, create srpms with
+        appropriate disttags, and submit builds to Koji.
+        """
+        autobuild_tags = self.global_config.get("koji", "autobuild_tags")
+        print("Building release in Koji...")
+        debug("Koji tags: %s" % autobuild_tags)
+        koji_tags = autobuild_tags.strip().split(" ")
+
+        koji_opts = DEFAULT_KOJI_OPTS
+        if self.user_config.has_key('KOJI_OPTIONS'):
+            koji_opts = self.user_config['KOJI_OPTIONS']
+
+        for koji_tag in koji_tags:
+            # Lookup the disttag configured for this Koji tag:
+            disttag = self.global_config.get(koji_tag, "disttag")
+
+            # Getting tricky here, normally Builder's are only used to
+            # create one rpm and then exit. Here we're going to try
+            # to run multiple srpm builds:
+            self._srpm(dist=disttag)
+
+            self._submit_build("koji", koji_opts, koji_tag)
 
     def _setup_sources(self):
         """
@@ -392,20 +435,38 @@ class Builder(object):
             output = run_command("make build")
             print(output)
 
-    def _verify_cvs_settings(self):
+    def _can_build_in_cvs(self):
         """
-        Check that we have required and valid settings to work with CVS.
+        Return True if this repo and branch is configured to build in CVS.
         """
         if not self.global_config.has_section("cvs"):
-            error_out("No 'cvs' section found in global.build.py.props")
+            debug("Cannot build from CVS, no 'cvs' section found in global.build.py.props")
+            return False
 
         if not self.global_config.has_option("cvs", "cvsroot"):
-            error_out(["Cannot build from CVS",
-                "no 'cvsroot' defined in global.build.py.props"])
+            debug("Cannot build from CVS, no 'cvsroot' defined in global.build.py.props")
+            return False
 
         if not self.global_config.has_option("cvs", "branches"):
-            error_out(["Cannot build from CVS",
-                "no branches defined in global.build.py.props"])
+            debug("Cannot build from CVS no branches defined in global.build.py.props")
+            return False
+
+        return True
+
+    def _can_build_in_koji(self):
+        """
+        Return True if this repo and branch are configured to auto build in
+        any Koji tags.
+        """
+        if not self.global_config.has_section("koji"):
+            debug("No 'koji' section found in global.build.py.props")
+            return False
+
+        if not self.global_config.has_option("koji", "autobuild_tags"):
+            debug("Cannot build in Koji, no autobuild_tags defined in global.build.py.props")
+            return False
+
+        return True
 
     def _submit_build(self, executable, koji_opts, tag):
         """ Submit srpm to brew/koji. """
@@ -575,7 +636,9 @@ class CvsBuilder(NoTgzBuilder):
         if not self.ran_tgz:
             self.tgz()
 
-        self._verify_cvs_settings()
+        if not self._can_build_in_cvs():
+            error_out("Repo not properly configured to build in CVS. (--debug for more info)")
+
         self._verify_cvs_module_not_already_checked_out()
         commands.getoutput("mkdir -p %s" % self.cvs_workdir)
         self._cvs_checkout_module()
@@ -611,7 +674,7 @@ class CvsBuilder(NoTgzBuilder):
                 run_command("mv %s %s" % (srpm_path, self.rpmbuild_basedir))
                 print("Wrote: %s" % os.path.join(self.rpmbuild_basedir, filename))
         if not self.test:
-            print("Please be sure to run --cvs-release to commit/tag/build this package in CVS.")
+            print("Please be sure to run --release to commit/tag/build this package in CVS.")
 
 
 
@@ -627,13 +690,13 @@ class SatelliteBuilder(NoTgzBuilder):
     patches applied in satellite git.
     """
     def __init__(self, name=None, version=None, tag=None, build_dir=None,
-            pkg_config=None, global_config=None, dist=None, test=False,
-            offline=False):
+            pkg_config=None, global_config=None, user_config=None, dist=None,
+            test=False, offline=False):
 
         NoTgzBuilder.__init__(self, name=name, version=version, tag=tag,
                 build_dir=build_dir, pkg_config=pkg_config,
-                global_config=global_config, dist=dist, test=test,
-                offline=offline)
+                global_config=global_config, user_config=user_config, dist=dist,
+                test=test, offline=offline)
 
         if not pkg_config or not pkg_config.has_option("buildconfig",
                 "upstream_name"):

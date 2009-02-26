@@ -2,12 +2,18 @@
 default_builder = spacewalk.releng.builder.Builder
 default_tagger = spacewalk.releng.tagger.VersionTagger
 
+[koji]
+autobuild_tags = dist-f10-sw-0.5-candidate dist-5E-sw-0.5-candidate
+
 # to exclude packages from being listed in a missing
 # builds report simply add the package name to the
 # list in the appropriate tag section
 # [kojiorbrewtag]
 # ignore_missing=space seperated list of packagenames
 # i.e. ignore_missing=yum-rhn-plugin oracle-selinux
+
 [dist-f10-sw-0.5-candidate]
+disttag = .fc10
 
 [dist-5E-sw-0.5-candidate]
+disttag = .el5

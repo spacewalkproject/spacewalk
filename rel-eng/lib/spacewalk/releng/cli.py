@@ -372,6 +372,7 @@ class BuildModule(BaseCliModule):
                 build_dir=build_dir,
                 pkg_config=pkg_config,
                 global_config=self.global_config,
+                user_config=self.user_config,
                 dist=options.dist,
                 test=options.test,
                 offline=options.offline)
