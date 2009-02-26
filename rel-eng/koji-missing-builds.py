@@ -18,9 +18,9 @@ parser = OptionParser(usage, version='%prog 0.0.1')
 parser.add_option("-g","--git", action="store_true", default=False,
   help="print list of builds not managed in git")
 parser.add_option("-b","--brew", action="store_true", default=False,
-  help="check builds in brew instread of koji")
+  help="check builds in brew instead of koji")
 parser.add_option("--no-extra", action="store_false", default=True,
-  dest="no_extra", help="check builds in brew instread of koji")
+  dest="no_extra", help="suppress the extra builds listing")
 (opts, args) = parser.parse_args()
 
 if len(args) < 1:
