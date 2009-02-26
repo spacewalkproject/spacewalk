@@ -375,8 +375,11 @@ class Builder(object):
             branch_dir = os.path.join(self.cvs_workdir, self.project_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command("make tag")
+            (status, output) = commands.getstatusoutput("make tag")
             print(output)
+            if status > 1:
+                self.cleanup()
+                sys.exit(1)
 
     def _cvs_make_build(self):
         """ Build srpm and submit to build system. """
