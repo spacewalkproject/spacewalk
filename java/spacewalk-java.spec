@@ -8,7 +8,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.22
+Version: 0.5.23
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -224,6 +224,21 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.23-1
+- modifying list tag to not clear set during a select all()
+- fixing some issues with converting rhnset to implement set
+- Fix to a cobbler rename profile issue...
+- making edit command a bit more relaxed if there is no associated cobbler profile
+- 486606 - Changed query and page to load/display arch for each package selected
+- 487066 - change create link to be lowercase (create new key).
+- 482879 - fixing compile error and syncing whenever we update a ksdata
+- 482879 - make sure we add all the activation keys to the cobbler profile
+- 486982 - fixed ise on software upgrade list
+- 480191 - fix query used by systems->software->packages->install
+- 487174 - fixing issue where clearing the filter, resulted in the page being submitted
+- 241070 - select all on filtered list would select the entire list and not just what was filtered.
+- 483555 - Ported to new list tag to get Select All functionality correct when a filter is active.
+
 * Tue Feb 24 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.22-1
 - fixing the repodata task queries to avoid tempspace issues
  
