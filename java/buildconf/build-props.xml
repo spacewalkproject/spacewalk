@@ -100,10 +100,10 @@
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel c3p0 cglib
-             commons-beanutils commons-cli commons-codec commons-configuration
+             commons-collections commons-beanutils commons-cli commons-codec commons-configuration
              commons-digester commons-discovery commons-el
              commons-fileupload commons-lang commons-logging
-             commons-validator concurrent dom4j hibernate3
+             commons-validator concurrent dom4j hibernate3 jta
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz sitemesh struts taglibs-core
