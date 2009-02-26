@@ -6,10 +6,8 @@ default_tagger = spacewalk.releng.tagger.VersionTagger
 # builds report simply add the package name to the
 # list in the appropriate tag section
 # [kojiorbrewtag]
-# pkgs=space seperated list of packagenames
-# i.e. pkgs=yum-rhn-plugin oracle-selinux
-[satellite-5E-5.3-candidate]
-pkgs=yum-rhn-plugin rhnpush rhnlib rhnsd
+# ignore_missing=space seperated list of packagenames
+# i.e. ignore_missing=yum-rhn-plugin oracle-selinux
+[dist-f10-sw-0.5-candidate]
 
-[satellite-4E-5.3-candidate]
-pkgs=yum-rhn-plugin rhnpush rhnlib rhnsd oracle-instantclient-selinux jabberd-selinux oracle-rhnsat-selinux oracle-selinux oracle-xe-selinux spacewalk-monitoring-selinux spacewalk-proxy-selinux spacewalk-selinux
+[dist-5E-sw-0.5-candidate]
