@@ -133,15 +133,6 @@ class Builder(object):
         elif options.koji_release:
             self._koji_release()
 
-        # Submit builds to brew/koji if requested:
-        koji_opts = DEFAULT_KOJI_OPTS
-        if options.koji_opts:
-            koji_opts = options.koji_opts
-        if options.brew:
-            self._submit_build("brew", koji_opts, options.brew)
-        if options.koji:
-            self._submit_build("koji", koji_opts, options.koji)
-
         self.cleanup()
 
     def tgz(self):
@@ -162,7 +153,8 @@ class Builder(object):
         self.sources.append(full_path)
         return full_path
 
-    def _srpm(self, dist=None):
+    # TODO: reuse_cvs_checkout isn't needed here, should be cleaned up:
+    def _srpm(self, dist=None, reuse_cvs_checkout=False):
         """
         Build a source RPM.
         """

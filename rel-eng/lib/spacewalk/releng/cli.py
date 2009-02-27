@@ -301,21 +301,6 @@ class BuildModule(BaseCliModule):
                 help="build a specific tag instead of the latest version " +
                     "(i.e. spacewalk-java-0.4.0-1)")
 
-        # Options for submitting srpms to brew or koji:
-        # TODO: Remove this, configure instead in global.build.py.props.
-        # packages should never go from spacewalk.git to brew.
-        self.parser.add_option("--brew", dest="brew", metavar="BREWTAG",
-                help="Submit srpm for build in a brew tag.")
-        self.parser.add_option("--koji", dest="koji", metavar="KOJITAG",
-                help="Submit srpm for build in a koji tag.")
-        self.parser.add_option("--koji-opts", dest="koji_opts",
-                metavar="KOJIOPTIONS",
-                help="%s %s %s" %
-                (
-                    "Options to use with brew/koji command.",
-                    "Tag and package name will be appended automatically.",
-                    "Default is 'build --nowait'.",
-                ))
         self.parser.add_option("--release", dest="release",
                 action="store_true", help="%s %s %s" % (
                     "Release package according to repo configuration.",
@@ -396,9 +381,6 @@ class BuildModule(BaseCliModule):
     def _validate_options(self):
         if self.options.srpm and self.options.rpm:
             error_out("Please choose only one of --srpm and --rpm")
-        if (self.options.brew or self.options.koji) and not  \
-            (self.options.rpm or self.options.srpm):
-            error_out("Must specify --srpm or --rpm with --brew/--koji")
         if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
 
