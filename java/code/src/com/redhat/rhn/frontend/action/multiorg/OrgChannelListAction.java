@@ -26,11 +26,14 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.DispatchedAction;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -41,6 +44,7 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.collection.WebSessionSet;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * OrgChannelListAction
@@ -107,17 +111,34 @@ public class OrgChannelListAction extends DispatchedAction {
       boolean retval = false;
       Set<Org> s = c.getTrustedOrgs();
       for (OrgChannelDto item : original) {
-          Org org = OrgFactory.lookupById(item.getId());                    
+          Org org = OrgFactory.lookupById(item.getId());              
           if (!item.isSelected() && selectedSet.contains(org.getId().toString())) {
               s.add(org);
               retval = true;
           } 
           else if (item.isSelected() && !selectedSet.contains(org.getId().toString())) {
               s.remove(org);
+              unsubscribeSystems(org, c);
               retval = true;
           }
       }
       return retval;
+    }
+    
+    /**
+     * 
+     * @param orgIn Org to check systems
+     * @param c Channel to unsusbcribe 
+     */
+    private void unsubscribeSystems(Org orgIn, Channel c) {
+        User u = UserFactory.findRandomOrgAdmin(orgIn);
+        DataResult<Map<String, Object>> myList = 
+            SystemManager.systemsSubscribedToChannel(c, u);
+        for (Map<String, Object> m : myList) {
+            Long sid = (Long)m.get("id");
+            Server s = SystemManager.lookupByIdAndUser(sid, u);
+            SystemManager.unsubscribeServerFromChannel(s, c);
+        }
     }
     
     /**
