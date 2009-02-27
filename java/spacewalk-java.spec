@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.24
+Version: 0.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -231,6 +231,13 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Feb 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.25-1
+- Profile rename has been finally fixed
+- 469921 - system.scheduleSyncPackagesWithSystems generated a NullPointerException
+- fixing mistake in method name
+- 485120 - fixed issue where changing org
+- name or changing profile name breaks kickstarts (including raw).  Also moved kickstart file location
+
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.24-1
 - removing listScripts, addScript, removeScript and downloadKickstart APIs from KickstartHandler
 - 486749 - Add symlinks for jakarta-commons-collections and jta jars.
