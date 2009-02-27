@@ -581,8 +581,10 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
         <exclude name="**/package.html" />
       </fileset>
     </copy>
+    <copy tofile="${build.dir}/classes/log4j.properties" file="${custom.log4j}"
+    		 overwrite="true" failonerror="false" preservelastmodified="true"/>
   </target>
-
+  
   <target name="compile-notests" depends="link-jars,prepare"
           description="compiles the main codebase without testcases" if="installbuild">
     <mkdir dir="${build.dir}/classes" />
