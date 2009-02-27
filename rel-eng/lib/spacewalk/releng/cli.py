@@ -313,10 +313,10 @@ class BuildModule(BaseCliModule):
                     "(import into CVS and submit to build system, or create ",
                     "src.rpm's and submit directly to koji)"
                 ))
-        self.parser.add_option("--cvs-new-source", dest="cvs_new_sources",
+        self.parser.add_option("--upload-new-source", dest="cvs_new_sources",
                 action="append",
-                help="New binary sources to upload during --cvs-release." +
-                    " (i.e. make new-sources FILES=)")
+                help="Upload a new source tarball to CVS lookaside during " \
+                    " --release. (i.e. runs 'make new-sources')")
 
     def main(self):
         BaseCliModule.main(self)
