@@ -558,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Feb 26 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.15-1
+- 430634 - fixing the profile sync code to include arch info
+
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.15-1
 - 430634 - support kickstart profile to compare profiles by arch
 - 487238 - spacewalk-debug not working, doesnt actually write the tar file
