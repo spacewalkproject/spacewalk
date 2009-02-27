@@ -362,7 +362,7 @@ public class KickstartFactory extends HibernateFactory {
         }
         try {
             String path = ksdataIn.getCobblerFileName();
-            if (p != null){ 
+            if (p != null) { 
                 path = p.getKickstart();
             }
             File ksfile = new File(path);
