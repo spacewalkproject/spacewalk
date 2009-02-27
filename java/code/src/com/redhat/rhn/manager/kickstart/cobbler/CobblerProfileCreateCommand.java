@@ -79,6 +79,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         prof.setKsMeta(meta);
         prof.setVirtPath("/var/lib/xen/" + ksData.getLabel());
         prof.setVirtBridge("xenbr0");
+        prof.setKickstart(this.ksData.getCobblerFileName());
         prof.save();
                 
         updateCobblerFields(prof);

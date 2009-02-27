@@ -79,7 +79,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     
     
     protected void updateCobblerFields(Profile profile) {
-        profile.setKickstart(this.ksData.getCobblerFileName());
         profile.setDistro(getDistroForKickstart());
         if (kernelOptions != null) {
             profile.setKernelOptions(kernelOptions);

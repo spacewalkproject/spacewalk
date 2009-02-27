@@ -287,12 +287,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                                             DynaActionForm form, User user) {
         
         
-        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
-        Profile prof = Profile.lookupById(helper.getConnection(user), 
-                ksdata.getCobblerId());
-        if (prof == null) {
-            return;
-        }
+        
         
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
         cmd.setKernelOptions(StringUtil.convertOptionsToMap(
@@ -300,6 +295,13 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         cmd.setPostKernelOptions(StringUtil.convertOptionsToMap(
                 form.getString(POST_KERNEL_OPTIONS), "kickstart.jsp.error.invalidoption"));
         cmd.store();
+
+        CobblerXMLRPCHelper helper = new CobblerXMLRPCHelper();
+        Profile prof = Profile.lookupById(helper.getConnection(user), 
+                ksdata.getCobblerId());
+        if (prof == null) {
+            return;
+        }
         
         if (KickstartDetailsEditAction.saveVirtOptions(ksdata, form)) {
             prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
