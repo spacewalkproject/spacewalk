@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.5.3
-Release:        2%{?dist}
+Version:        0.5.4
+Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
 Group:          Applications/Internet
@@ -92,7 +92,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Fri Feb 27 2009 Miroslav Suchy <msuchy@redhat.com>
+* Fri Feb 27 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.4-1
 - require ISS packages
 
 * Tue Feb 10 2009 Jan Pazdziora 0.5.3-2
