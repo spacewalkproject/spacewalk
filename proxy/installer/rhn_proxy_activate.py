@@ -270,7 +270,7 @@ def resolveHostnamePort(hostnamePort=''):
 
     if hostname:
         try:
-            socket.gethostbyname_ex(hostname)
+            socket.getaddrinfo(hostname, None)
         except:
             errorCode, errorString = _errorHandler()
             sys.stderr.write(errorString + '\n')
