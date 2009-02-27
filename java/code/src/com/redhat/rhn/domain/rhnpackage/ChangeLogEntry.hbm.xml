@@ -5,9 +5,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 <hibernate-mapping>
     <class name="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry" 
         table="rhnPackageChangeLog">
-
-        <id name="id" type="long" column="id"/>
-       
+        <composite-id unsaved-value="any">
+            <key-many-to-one name="rhnPackage"
+                class="com.redhat.rhn.domain.rhnpackage.Package"
+                column="package_id"/>
+            <key-property name="name" column="name" type="string" length="128" />
+            <key-property name="text" column="text" type="string" length="3000" />
+            <key-property name="time" column="time" type="timestamp" />
+        </composite-id>
+        
         <property name="created" column="created" type="timestamp" 
             insert="false" update="false"/>
             
