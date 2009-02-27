@@ -15,6 +15,7 @@ Patch2:		scriptvfy.l.patch
 Patch3:		binpath.patch
 Patch4:		sbinpath.patch
 Patch5:		cpio-D.patch
+Patch6:		compute_checksum-64bit.patch
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -34,6 +35,7 @@ OpenSolaris.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 make -f makefile SHELL=/bin/bash CC=gcc BINDIR=%{_bindir} SBINDIR=%{_sbindir}
@@ -96,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/sadm/install/admin/default
 
 %changelog
+* Fri Feb 27 2009 Jan Pazdziora
+- fixed pkgmk producing wrong checksums in pkgmap on 64bit
+
 * Wed Dec 31 2008 Jan Pazdziora
 - stripped the D option from cpio commands
 
