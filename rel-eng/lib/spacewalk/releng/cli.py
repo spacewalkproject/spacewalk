@@ -266,6 +266,13 @@ class BaseCliModule(object):
 
         return config
 
+    def _validate_options(self):
+        """
+        Subclasses can implement if they need to check for any
+        incompatible cmd line options.
+        """
+        pass
+
 
 
 class BuildModule(BaseCliModule):

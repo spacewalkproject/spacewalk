@@ -218,8 +218,7 @@ class Builder(object):
         submit to those branches with proper disttag's.
         """
         if self._can_build_in_cvs():
-            #self._cvs_release()
-            pass
+            self._cvs_release()
 
         if self._can_build_in_koji():
             self._koji_release()
@@ -271,6 +270,13 @@ class Builder(object):
         for koji_tag in koji_tags:
             # Lookup the disttag configured for this Koji tag:
             disttag = self.global_config.get(koji_tag, "disttag")
+            if self.global_config.has_option(koji_tag, "ignore_pkgs"):
+                if self.project_name in self.global_config.get(koji_tag,
+                        "ignore_pkgs").strip().split(" "):
+                    print("WARNING: %s specified in ignore_pkgs for %s" % (
+                        self.project_name, koji_tag))
+                    print("WARNING: NOT submitting this srpm to koji.")
+                    continue
 
             # Getting tricky here, normally Builder's are only used to
             # create one rpm and then exit. Here we're going to try
