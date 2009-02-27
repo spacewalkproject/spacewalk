@@ -187,6 +187,8 @@ def create_tgz(git_root, prefix, commit, relative_dir, rel_eng_dir,
 
     timestamp_script = os.path.join(SCRIPT_DIR,
             "tar-fixup-stamp-comment.pl")
+    if not os.path.exists(timestamp_script):
+        error_out("Unable to locate required script: %s" % timestamp_script)
     archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s %s %s | gzip -n -c - | tee %s" % \
         (
                 prefix,
