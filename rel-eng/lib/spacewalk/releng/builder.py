@@ -125,8 +125,13 @@ class Builder(object):
             self._srpm()
         if options.rpm:
             self._rpm()
+
         if options.release:
             self.release()
+        elif options.cvs_release:
+            self._cvs_release()
+        elif options.koji_release:
+            self._koji_release()
 
         # Submit builds to brew/koji if requested:
         koji_opts = DEFAULT_KOJI_OPTS
@@ -213,7 +218,8 @@ class Builder(object):
         submit to those branches with proper disttag's.
         """
         if self._can_build_in_cvs():
-            self._cvs_release()
+            #self._cvs_release()
+            pass
 
         if self._can_build_in_koji():
             self._koji_release()
@@ -269,7 +275,7 @@ class Builder(object):
             # Getting tricky here, normally Builder's are only used to
             # create one rpm and then exit. Here we're going to try
             # to run multiple srpm builds:
-            self._srpm(dist=disttag)
+            self._srpm(dist=disttag, reuse_cvs_checkout=True)
 
             self._submit_build("koji", koji_opts, koji_tag)
 
@@ -622,15 +628,18 @@ class CvsBuilder(NoTgzBuilder):
         debug("CvsBuilder sources: %s" % self.sources)
         NoTgzBuilder.run(self, options)
 
-    def _srpm(self):
+    def _srpm(self, dist=None, reuse_cvs_checkout=False):
         """ Build an srpm from CVS. """
-        self._cvs_rpm_common(target="test-srpm")
-
+        rpms = self._cvs_rpm_common(target="test-srpm", dist=dist,
+                reuse_cvs_checkout=reuse_cvs_checkout)
+        # Should only be one rpm returned for srpm:
+        self.srpm_location = rpms[0]
 
     def _rpm(self):
         self._cvs_rpm_common(target="i386", all_branches=True)
 
-    def _cvs_rpm_common(self, target, all_branches=False):
+    def _cvs_rpm_common(self, target, all_branches=False, dist=None, 
+            reuse_cvs_checkout=False):
         """ Code common to building both rpms and srpms with CVS tools. """
         self._create_build_dirs()
         if not self.ran_tgz:
@@ -639,7 +648,9 @@ class CvsBuilder(NoTgzBuilder):
         if not self._can_build_in_cvs():
             error_out("Repo not properly configured to build in CVS. (--debug for more info)")
 
-        self._verify_cvs_module_not_already_checked_out()
+        if not reuse_cvs_checkout:
+            self._verify_cvs_module_not_already_checked_out()
+
         commands.getoutput("mkdir -p %s" % self.cvs_workdir)
         self._cvs_checkout_module()
         self._cvs_verify_branches_exist()
@@ -662,19 +673,26 @@ class CvsBuilder(NoTgzBuilder):
                 branch)
         os.chdir(branch_dir)
 
-        dist = ""
+        disttag = ""
         if self.dist is not None:
-            dist= "DIST=%s" % self.dist
-        output = run_command("make %s %s" % (dist, target))
+            disttag = "DIST=%s" % self.dist
+        elif dist is not None:
+            disttag = "DIST=%s" % dist
+
+        output = run_command("make %s %s" % (disttag, target))
         debug(output)
+        rpms = []
         for line in output.split("\n"):
             if line.startswith("Wrote: "):
                 srpm_path = line.strip().split(" ")[1]
                 filename = os.path.basename(srpm_path)
                 run_command("mv %s %s" % (srpm_path, self.rpmbuild_basedir))
-                print("Wrote: %s" % os.path.join(self.rpmbuild_basedir, filename))
+                final_rpm_path = os.path.join(self.rpmbuild_basedir, filename)
+                print("Wrote: %s" % final_rpm_path)
+                rpms.append(final_rpm_path)
         if not self.test:
             print("Please be sure to run --release to commit/tag/build this package in CVS.")
+        return rpms
 
 
 

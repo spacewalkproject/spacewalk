@@ -158,6 +158,8 @@ class BaseCliModule(object):
     def main(self):
         (self.options, args) = self.parser.parse_args()
 
+        self._validate_options()
+
         if len(sys.argv) < 2:
             print parser.error("Must supply an argument. Try -h for help.")
 
@@ -313,6 +315,12 @@ class BuildModule(BaseCliModule):
                     "(import into CVS and submit to build system, or create ",
                     "src.rpm's and submit directly to koji)"
                 ))
+        self.parser.add_option("--cvs-release", dest="cvs_release",
+                action="store_true", help="Release package only in CVS. (if possible)"
+                )
+        self.parser.add_option("--koji-release", dest="koji_release",
+                action="store_true", help="Release package only in Koji. (if possible)"
+                )
         self.parser.add_option("--upload-new-source", dest="cvs_new_sources",
                 action="append",
                 help="Upload a new source tarball to CVS lookaside during " \
@@ -386,6 +394,11 @@ class BuildModule(BaseCliModule):
             error_out("Must specify --srpm or --rpm with --brew/--koji")
         if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
+
+        if self.options.release and (self.options.cvs_release or
+                self.options.koji_release):
+            error_out(["Cannot combine --cvs-release/--koji-release with --release.",
+                "(--release includes both)"])
 
 
 
