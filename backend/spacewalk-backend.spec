@@ -558,7 +558,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.15-1
+* Thu Feb 26 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.15-1
 - 430634 - fixing the profile sync code to include arch info
 
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.15-1
