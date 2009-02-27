@@ -2658,6 +2658,10 @@ sub snapshot_server {
   my $class = shift;
   my %params = validate(@_, {server_id => 1, reason => 1, transaction => 0});
 
+  if (!PXT::Config->get('take_snapshot')) {
+      return;
+  }
+
   my $dbh = $params{transaction} || RHN::DB->connect;
 
   $dbh->call_procedure('rhn_server.snapshot_server', $params{server_id}, $params{reason});
@@ -2674,6 +2678,10 @@ sub snapshot_server {
 sub snapshot_set {
   my $class = shift;
   my %params = validate(@_, {set_label => 1, user_id => 1, reason => 1, transaction => 0});
+
+  if (!PXT::Config->get('take_snapshot')) {
+      return;
+  }
 
   my $dbh = $params{transaction} || RHN::DB->connect;
 

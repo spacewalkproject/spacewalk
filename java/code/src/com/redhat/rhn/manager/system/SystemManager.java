@@ -128,6 +128,11 @@ public class SystemManager extends BaseManager {
      * @param reason The reason for the snapshotting.
      */
     public static void snapshotServer(Server server, String reason) {
+
+        if (!Config.get().getBoolean(Config.TAKE_SNAPSHOTS)) {
+            return;
+        }
+
         // If the server is null or doesn't have the snapshotting feature, don't bother.
         if (server == null || !serverHasFeature(server.getId(), "ftr_snapshotting")) {
             return;
