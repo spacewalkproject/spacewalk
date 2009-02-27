@@ -361,7 +361,7 @@ public class KickstartFactory extends HibernateFactory {
             log.debug("No ks meta for this profile.");
         }
         try {
-            File ksfile = new File(ksdataIn.getCobblerFileName());
+            File ksfile = new File(p.getKickstart());
             if (ksfile.exists()) {
                 log.debug("file exists, deleting");
                 ksfile.delete();
