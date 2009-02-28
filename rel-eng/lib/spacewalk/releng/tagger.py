@@ -215,6 +215,8 @@ class VersionTagger(object):
         new_tag = self._get_new_tag(new_version)
         print "Creating new tag [%s]" % new_tag
         run_command('git tag -m "%s" %s' % (tag_msg, new_tag))
+        print("You must run [git push && git push --tags] before this " +
+            "tag can be used")
 
     def _check_tag_does_not_exist(self, new_tag):
         status, output = commands.getstatusoutput('git tag | grep %s' % new_tag)
