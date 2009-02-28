@@ -63,7 +63,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         KickstartData data = 
-            builder.create(TestUtils.randomString(), tree, KickstartVirtualizationType.XEN_PARAVIRT, 
+            builder.create(TestUtils.randomString(), tree, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
                 "http://localhost/ks", "redhat", "localhost");
         assertNotNull(data);
     }
@@ -76,7 +77,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
         KickstartData rhel4data = 
-            builder.create(TestUtils.randomString(), tree, KickstartVirtualizationType.XEN_PARAVIRT, 
+            builder.create(TestUtils.randomString(), tree, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
                 "http://localhost/ks", "redhat", "localhost");
         
         String contents = FileUtils.readStringFromFile(rhel4data.getCobblerFileName());
@@ -88,7 +90,8 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         KickstartData rhel5data = 
-            builder.create(TestUtils.randomString(), tree, KickstartVirtualizationType.XEN_PARAVIRT, 
+            builder.create(TestUtils.randomString(), tree, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
                 "http://localhost/ks", "redhat", "localhost");
         
         contents = FileUtils.readStringFromFile(rhel5data.getCobblerFileName());
