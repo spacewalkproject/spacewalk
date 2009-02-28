@@ -193,7 +193,7 @@ public class KickstartFactory extends HibernateFactory {
             else if (cn.getName().equals("lilocheck") && !ksdata.isPreRHEL5Kickstart()) {
                 continue;
             } 
-            else if (cn.getName().equals("langsupport") && !ksdata.isPreRHEL5Kickstart()) {
+            else if (cn.getName().equals("langsupport") && ksdata.isRhel5OrGreater()) {
                 continue;
             }
             else {
@@ -362,7 +362,7 @@ public class KickstartFactory extends HibernateFactory {
         }
         try {
             String path = ksdataIn.getCobblerFileName();
-            if (p != null) { 
+            if (p != null && p.getKickstart() != null) { 
                 path = p.getKickstart();
             }
             File ksfile = new File(path);

@@ -687,6 +687,11 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertFalse(k.isRhel4());
         assertTrue(k.isRhel5());
         assertTrue(k.isRhel5OrGreater());
+        
+        k.getTree().setInstallType(KickstartFactory.
+                lookupKickstartInstallTypeByLabel(KickstartInstallType.FEDORA));
+        assertTrue(k.isRhel5OrGreater());
+        assertFalse(k.isRhel5());
     }
     
     
