@@ -138,7 +138,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertTrue(contents.indexOf("$SNIPPET") > 0);
 
     }
-    
+          
     public void testLookupByLabel() throws Exception {
         user.addRole(RoleFactory.ORG_ADMIN);
         KickstartData k = createKickstartWithProfile(user);
@@ -689,7 +689,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertTrue(k.isRhel5OrGreater());
         
         k.getTree().setInstallType(KickstartFactory.
-                lookupKickstartInstallTypeByLabel(KickstartInstallType.FEDORA));
+                lookupKickstartInstallTypeByLabel("fedora_9"));
         assertTrue(k.isRhel5OrGreater());
         assertFalse(k.isRhel5());
     }

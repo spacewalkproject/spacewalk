@@ -815,7 +815,8 @@ public class KickstartData {
      */
     public boolean isRhel5OrGreater() {
         if (getInstallType() != null) {
-            return getInstallType().isRhel5OrGreater();
+            return (getInstallType().isRhel5OrGreater() || 
+                    getInstallType().isFedora());
         }
         else {
             return false;

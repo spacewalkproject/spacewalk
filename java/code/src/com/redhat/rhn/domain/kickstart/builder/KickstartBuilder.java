@@ -553,7 +553,7 @@ public class KickstartBuilder {
     private void setLanguage(KickstartWizardHelper cmd, 
             KickstartData ksdata) {
         cmd.createCommand("lang", "en_US", ksdata);
-        if (!ksdata.isFedora()) {
+        if (!ksdata.isRhel5OrGreater()) {
             cmd.createCommand("langsupport", "--default en_US en_US", ksdata);
         }
     }
@@ -561,7 +561,7 @@ public class KickstartBuilder {
     private void setKeyboardMouse(KickstartWizardHelper cmd, 
             KickstartData ksdata) {
         cmd.createCommand("keyboard", "us", ksdata);
-        if (!ksdata.isFedora()) {
+        if (!ksdata.isRhel5OrGreater()) {
             cmd.createCommand("mouse", "none", ksdata);
         }
     }
@@ -579,7 +579,9 @@ public class KickstartBuilder {
     }
     
     private void setMiscDefaults(KickstartWizardHelper cmd, KickstartData ksdata) {
-        cmd.createCommand("zerombr", "yes", ksdata);
+        if (!ksdata.isRhel5OrGreater()) {
+            cmd.createCommand("zerombr", "yes", ksdata);
+        }
         cmd.createCommand("reboot", null, ksdata);
         cmd.createCommand("skipx", null, ksdata);
         cmd.createCommand("firewall", "--disabled", ksdata);
