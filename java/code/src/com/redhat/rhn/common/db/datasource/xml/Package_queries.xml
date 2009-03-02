@@ -730,19 +730,21 @@ ORDER BY  UPPER(PN.name)
 SELECT  pn.id AS id,
         pn.name AS name,
         pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS nvre,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)|| '|' || pa.id AS id_combo
-  FROM  
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release)|| '|' || full_list.arch_id AS id_combo
+  FROM  rhnPackageName PN,
         (
-         SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr
+         SELECT  SOP.package_name_id AS name_id, MAX(PE.evr) evr, 
+                 SP.package_arch_id as arch_id
            FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+                 INNER JOIN rhnServerPackage SP on SP.server_id = SOP.server_id
           WHERE  SOP.server_id = :sid
+            AND  SOP.package_name_id = SP.name_id
             AND  SOP.package_evr_id = PE.id
-       GROUP BY  SOP.package_name_id
-         ) full_list 
-         	INNER JOIN  rhnPackageName PN on full_list.name_id = PN.id
-            INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
-            INNER JOIN rhnPackageArch pa ON pa.id = pkg.package_arch_id    
- ORDER BY  UPPER(PN.name)
+            AND  SP.package_arch_id IS NOT NULL
+       GROUP BY  SOP.package_name_id, SP.package_arch_id
+         ) full_list
+ WHERE  full_list.name_id = PN.id
+ORDER BY  UPPER(PN.name)
   </query>
   <elaborator params="sid" multiple="t">
 SELECT  PN.id AS id,
