@@ -467,7 +467,7 @@ create schema spacewalk;
 -- \i views/rhnHistoryView_refresh.sql
 -- \i views/rhnHistoryView_packages.sql
 -- \i views/rhnHistoryView_errata.sql
--- \i views/rhnHistoryView.sql
+\i views/rhnHistoryView.sql
 \i views/rhnHWDevice.sql
 -- \i views/rhnOrgErrata.sql
 -- \i views/rhnOrgPackageOverview.sql
@@ -483,7 +483,7 @@ create schema spacewalk;
 \i views/rhnServerGroupOverview.sql
 \i views/rhnServerGroupOVLiteHelper.sql
 -- \i views/rhnServerNeededPackageView.sql
--- \i views/rhnServerOutdatedPackages.sql
+\i views/rhnServerOutdatedPackages.sql
 \i views/rhnVisibleServerGroupMembers.sql
 \i views/rhnServerOverview.sql
 \i views/rhnStorageDevice.sql
