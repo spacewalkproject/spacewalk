@@ -108,8 +108,8 @@ _query_get_slot_types = rhnSQL.Statement("""
 """)
 
 _query_get_allorg_slot_types = rhnSQL.Statement("""
-    select sg.org_id,sg.group_type slot_type_id, 
-           sgt.label slot_name, sg.max_members, sg.current_members
+    select sg.org_id,sg.group_type as slot_type_id, 
+           sgt.label as slot_name, sg.max_members, sg.current_members
       from rhnServerGroup sg,
            rhnServerGroupType sgt
      where sg.group_type = sgt.id
