@@ -67,6 +67,8 @@ is
 begin
         return a.version || '-' || a.release || ':' || a.epoch;
 end;
+/
+show errors
 
 create or replace function evr_t_as_vre_simple( a evr_t )
   return VARCHAR2
@@ -82,5 +84,6 @@ begin
     
     return vre_out;
 end;
-
+/
+show errors
 
