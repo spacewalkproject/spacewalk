@@ -53,7 +53,7 @@ $$
 language plpgsql;
 
 
-create or replace trigger
+create trigger
 rhn_sg_member_email_del_trig
 after delete on rhnServerGroupMembers
 for each row

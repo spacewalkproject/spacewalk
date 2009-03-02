@@ -418,7 +418,33 @@ create schema spacewalk;
 /* triggers go here */
 \i triggers/rhnOrgQuota.sql
 \i triggers/rhnSatelliteCert.sql
-\i triggers/web_contact.sql
+--\i triggers/web_contact.sql
+\i triggers/rhnActionStatus_triggers.sql
+\i triggers/rhnChannelCloned_triggers.sql
+\i triggers/rhnChannelPackage_triggers.sql
+\i triggers/rhnChannel_triggers.sql
+\i triggers/rhnConfigChannel_triggers.sql
+\i triggers/rhnConfigRevision_triggers.sql
+\i triggers/rhnErrataPackage_triggers.sql
+\i triggers/rhnErrata_triggers.sql
+\i triggers/rhnKickstartSession_triggers.sql
+\i triggers/rhnPrivateChannelFamily_triggers.sql
+\i triggers/rhnServerChannel_triggers.sql
+\i triggers/rhnServerGroupMembers_email_triggers.sql
+\i triggers/rhnServerGroupMembers_triggers.sql
+\i triggers/rhnServerGroup_triggers.sql
+\i triggers/rhnTransactionOperation_triggers.sql
+\i triggers/rhnTransaction_triggers.sql
+\i triggers/rhnUserGroupMembers_email_triggers.sql
+\i triggers/rhnUserGroupMembers_triggers.sql
+\i triggers/rhnUserGroup_triggers.sql
+\i triggers/rhnUserInfo_triggers.sql
+\i triggers/rhnUserServerGroupPerms_triggers.sql
+\i triggers/rhnVirtualInstance_triggers.sql
+\i triggers/web_contact_triggers.sql
+\i triggers/web_customer_triggers.sql
+\i triggers/web_user_contact_permission_triggers.sql
+
 
 /* functions go here */
 \i procs/empty_blob.sql

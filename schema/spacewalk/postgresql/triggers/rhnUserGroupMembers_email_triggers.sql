@@ -29,10 +29,10 @@ begin
 
         return new;
 end;
-$$ language plpgsq;
+$$ language plpgsql;
 
 
-create or replace trigger
+create trigger
 rhn_ug_member_email_mod_trig
 before insert or update on rhnUserGroupMembers
 for each row

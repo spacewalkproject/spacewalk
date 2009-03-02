@@ -78,7 +78,6 @@ end;
 $$ language plpgsql;
 
 
-drop trigger rhn_channel_del_trig on rhnChannel;
 create trigger
 rhn_channel_del_trig
 before delete on rhnChannel
@@ -101,7 +100,6 @@ end;
 $$ language plpgsql;
 
 
-drop trigger rhn_channel_access_trig on rhnChannel;
 
 create trigger 
 rhn_channel_access_trig

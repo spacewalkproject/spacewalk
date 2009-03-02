@@ -34,10 +34,6 @@ for each row
 execute procedure rhn_ks_session_mod_trig_fun();
 
 
-
-/
-show errors
-
 create or replace function rhn_ks_session_history_trigger_fun() returns trigger
 as
 $$
