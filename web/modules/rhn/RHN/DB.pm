@@ -544,7 +544,7 @@ sub execute_h {
     if (ref $v and blessed($v) and $v->isa("RHN::DB::Type::BLOB")) {
       $attr->{ora_type} = ORA_BLOB;
       if (defined $v->{ora_field}) {
-	$attr->{ora_field} = $v->{ora_field};
+        $attr->{ora_field} = $v->{ora_field};
       }
       $v = $v->{value};
     }

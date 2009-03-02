@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Gritch
-Version:      1.27.3
+Version:      1.27.4
 Release:      1%{?dist}
 Summary:      Perl throttled email notification for Spacewalk
 URL:          https://fedorahosted.org/spacewalk
@@ -23,7 +23,7 @@ This package provides throttled email notification for Spacewalk.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
@@ -44,10 +44,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files 
 %defattr(-,root,root,-)
-%{perl_vendorlib}/NOCpulse/*
+%{perl_vendorlib}/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.4-1
+- add LICENSE
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.27.3-1
 - BR perl(ExtUtils::MakeMaker)
 

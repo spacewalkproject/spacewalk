@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2009 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -17,14 +17,13 @@
 import os
 import re
 import sys
+import string
 import commands
 
-from spacewalk.releng.common import run_command, find_git_root, \
-        check_tag_exists, debug, error_out, find_spec_file, \
-        get_project_name, get_relative_project_dir, get_build_commit, \
-        get_git_head_commit, create_tgz
+from spacewalk.releng.common import *
 
 DEFAULT_KOJI_OPTS = "build --nowait"
+DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
 
 class Builder(object):
     """
@@ -36,8 +35,8 @@ class Builder(object):
     """
 
     def __init__(self, name=None, version=None, tag=None, build_dir=None,
-            pkg_config=None, global_config=None, dist=None, test=False,
-            offline=False):
+            pkg_config=None, global_config=None, user_config=None, dist=None,
+            test=False, offline=False):
 
         self.git_root = find_git_root()
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
@@ -48,6 +47,7 @@ class Builder(object):
         self.dist = dist
         self.test = test
         self.global_config = global_config
+        self.user_config = user_config
         self.offline=offline
         self.no_cleanup = False
 
@@ -90,6 +90,25 @@ class Builder(object):
         # Set to path to srpm once we build one.
         self.srpm_location = None
 
+        # Configure CVS variables if possible. Will check later that
+        # they're actually defined if the user requested CVS work be done.
+        if self.global_config.has_section("cvs"):
+            if self.global_config.has_option("cvs", "cvsroot"):
+                self.cvs_root = self.global_config.get("cvs", "cvsroot")
+                debug("cvs_root = %s" % self.cvs_root)
+            if self.global_config.has_option("cvs", "branches"):
+                self.cvs_branches = \
+                    global_config.get("cvs", "branches").split(" ")
+
+        # TODO: if it looks like we need custom CVSROOT's for different users,
+        # allow setting of a property to lookup in ~/.spacewalk-build-rc to
+        # use instead. (if defined)
+        self.cvs_workdir = DEFAULT_CVS_BUILD_DIR
+        debug("cvs_workdir = %s" % self.cvs_workdir)
+
+        self.cvs_package_workdir = os.path.join(self.cvs_workdir,
+                self.project_name)
+
     def run(self, options):
         """
         Perform the actions requested of the builder.
@@ -107,14 +126,12 @@ class Builder(object):
         if options.rpm:
             self._rpm()
 
-        # Submit builds to brew/koji if requested:
-        koji_opts = DEFAULT_KOJI_OPTS
-        if options.koji_opts:
-            koji_opts = options.koji_opts
-        if options.brew:
-            self._submit_build("brew", koji_opts, options.brew)
-        if options.koji:
-            self._submit_build("koji", koji_opts, options.koji)
+        if options.release:
+            self.release()
+        elif options.cvs_release:
+            self._cvs_release()
+        elif options.koji_release:
+            self._koji_release()
 
         self.cleanup()
 
@@ -136,34 +153,8 @@ class Builder(object):
         self.sources.append(full_path)
         return full_path
 
-    def _setup_sources(self):
-        """
-        Create a copy of the git source for the project at the point in time
-        our build tag was created.
-
-        Created in the temporary rpmbuild SOURCES directory.
-        """
-        self._create_build_dirs()
-
-        print("Creating %s from git tag: %s..." % (self.tgz_filename, 
-            self.git_commit_id))
-        create_tgz(self.git_root, self.tgz_dir, self.git_commit_id, 
-                self.relative_project_dir, self.rel_eng_dir, 
-                os.path.join(self.rpmbuild_sourcedir, self.tgz_filename))
-
-        # Extract the source so we can get at the spec file, etc.
-        debug("Copying git source to: %s" % self.rpmbuild_gitcopy)
-        run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
-            self.tgz_filename))
-
-        # NOTE: The spec file we actually use is the one exported by git
-        # archive into the temp build directory. This is done so we can
-        # modify the version/release on the fly when building test rpms
-        # that use a git SHA1 for their version.
-        self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
-        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
-
-    def _srpm(self):
+    # TODO: reuse_cvs_checkout isn't needed here, should be cleaned up:
+    def _srpm(self, dist=None, reuse_cvs_checkout=False):
         """
         Build a source RPM.
         """
@@ -178,6 +169,8 @@ class Builder(object):
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
+        elif dist:
+            define_dist = "--define 'dist %s'" % dist
 
         cmd = "rpmbuild %s %s --nodeps -bs %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
@@ -197,7 +190,7 @@ class Builder(object):
         define_dist = ""
         if self.dist:
             define_dist = "--define 'dist %s'" % self.dist
-        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % \
+        cmd = "rpmbuild %s %s --clean -ba %s" % \
                 (self._get_rpmbuild_dir_options(), define_dist, self.spec_file)
         output = run_command(cmd)
         print output
@@ -205,6 +198,279 @@ class Builder(object):
         if len(files_written) < 2:
             error_out("Error parsing rpmbuild output")
         self.srpm_location = files_written[0]
+
+    def release(self):
+        """
+        Release this package via configuration for this git repo and branch.
+
+        Check if CVS support is configured in rel-eng/global.build.py.props
+        and initiate CVS import/tag/build if so.
+
+        Check for configured Koji branches also, if found create srpms and
+        submit to those branches with proper disttag's.
+        """
+        if self._can_build_in_cvs():
+            self._cvs_release()
+
+        if self._can_build_in_koji():
+            self._koji_release()
+
+    def _cvs_release(self):
+        """
+        Sync spec file/patches with CVS, create tags, and submit to brew/koji.
+        """
+
+        self._verify_cvs_module_not_already_checked_out()
+
+        print("Building release in CVS...")
+        commands.getoutput("mkdir -p %s" % self.cvs_workdir)
+        debug("cvs_branches = %s" % self.cvs_branches)
+
+        self._cvs_checkout_module()
+        self._cvs_verify_branches_exist()
+
+        # Get the list of all sources from the builder:
+        self.tgz()
+
+        self._cvs_sync_spec()
+        self._cvs_sync_patches()
+
+        # Important step here, ends up populating several important members
+        # on the builder object so some of the below lines will not work
+        # if moved above this one.
+        self._cvs_upload_sources()
+
+        self._cvs_user_confirm_commit()
+
+        self._cvs_make_tag()
+        self._cvs_make_build()
+
+    def _koji_release(self):
+        """
+        Lookup autobuild Koji tags from global config, create srpms with
+        appropriate disttags, and submit builds to Koji.
+        """
+        autobuild_tags = self.global_config.get("koji", "autobuild_tags")
+        print("Building release in Koji...")
+        debug("Koji tags: %s" % autobuild_tags)
+        koji_tags = autobuild_tags.strip().split(" ")
+
+        koji_opts = DEFAULT_KOJI_OPTS
+        if self.user_config.has_key('KOJI_OPTIONS'):
+            koji_opts = self.user_config['KOJI_OPTIONS']
+
+        for koji_tag in koji_tags:
+            # Lookup the disttag configured for this Koji tag:
+            disttag = self.global_config.get(koji_tag, "disttag")
+            if self.global_config.has_option(koji_tag, "ignore_pkgs"):
+                if self.project_name in self.global_config.get(koji_tag,
+                        "ignore_pkgs").strip().split(" "):
+                    print("WARNING: %s specified in ignore_pkgs for %s" % (
+                        self.project_name, koji_tag))
+                    print("WARNING: NOT submitting this srpm to koji.")
+                    continue
+
+            # Getting tricky here, normally Builder's are only used to
+            # create one rpm and then exit. Here we're going to try
+            # to run multiple srpm builds:
+            self._srpm(dist=disttag, reuse_cvs_checkout=True)
+
+            self._submit_build("koji", koji_opts, koji_tag)
+
+    def _setup_sources(self):
+        """
+        Create a copy of the git source for the project at the point in time
+        our build tag was created.
+
+        Created in the temporary rpmbuild SOURCES directory.
+        """
+        self._create_build_dirs()
+
+        debug("Creating %s from git tag: %s..." % (self.tgz_filename,
+            self.git_commit_id))
+        create_tgz(self.git_root, self.tgz_dir, self.git_commit_id,
+                self.relative_project_dir, self.rel_eng_dir,
+                os.path.join(self.rpmbuild_sourcedir, self.tgz_filename))
+
+        # Extract the source so we can get at the spec file, etc.
+        debug("Copying git source to: %s" % self.rpmbuild_gitcopy)
+        run_command("cd %s/ && tar xzf %s" % (self.rpmbuild_sourcedir,
+            self.tgz_filename))
+
+        # NOTE: The spec file we actually use is the one exported by git
+        # archive into the temp build directory. This is done so we can
+        # modify the version/release on the fly when building test rpms
+        # that use a git SHA1 for their version.
+        self.spec_file_name = find_spec_file(in_dir=self.rpmbuild_gitcopy)
+        self.spec_file = os.path.join(self.rpmbuild_gitcopy, self.spec_file_name)
+
+    def _verify_cvs_module_not_already_checked_out(self):
+        """ Exit if CVS module appears to already be checked out. """
+        # Make sure the cvs checkout directory doesn't already exist:
+        cvs_co_dir = os.path.join(self.cvs_workdir, self.project_name)
+        if os.path.exists(cvs_co_dir):
+            error_out("CVS workdir exists, please remove and try again: %s"
+                    % cvs_co_dir)
+
+    def _cvs_checkout_module(self):
+        print("Checking out cvs module [%s]" % self.project_name)
+        os.chdir(self.cvs_workdir)
+        run_command("cvs -d %s co %s" % (self.cvs_root, self.project_name))
+
+    def _cvs_verify_branches_exist(self):
+        """ Check that CVS checkout contains the branches we expect. """
+        os.chdir(self.cvs_package_workdir)
+        for branch in self.cvs_branches:
+            if not os.path.exists(os.path.join(self.cvs_workdir,
+                self.project_name, branch)):
+                error_out("%s CVS checkout is missing branch: %s" %
+                        (self.project_name, branch))
+
+    def _cvs_upload_sources(self):
+        """
+        Upload any tarballs to the CVS lookaside directory. (if necessary)
+        Uses the "make new-sources" target in common.
+        """
+        if len(self.sources) == 0:
+            debug("No sources need to be uploaded.")
+            return
+
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.project_name,
+                    branch)
+            os.chdir(branch_dir)
+            output = run_command('make new-sources FILES="%s"' %
+                    string.join(self.sources, " "))
+            debug(output)
+
+    def _cvs_sync_spec(self):
+        """
+        Copy spec file and any required patches into CVS branches.
+
+        TODO: Implement patch copying, if it turns out to be required. (not
+        sure if we actually need it yet)
+        """
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.project_name,
+                    branch)
+            os.chdir(branch_dir)
+            debug("Copying spec file: %s" % self.spec_file)
+            debug("  To: %s" % branch_dir)
+            run_command("cp %s %s" % (self.spec_file, branch_dir))
+
+            # Will fail if the file is already tracked in CVS:
+            (status, output) = commands.getstatusoutput("cvs add %s" %
+                    self.spec_file_name)
+
+    def _cvs_sync_patches(self):
+        """
+        Copy any patches referenced in the spec file to the CVS branches and
+        cvs add them.
+        """
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.project_name,
+                    branch)
+            os.chdir(branch_dir)
+            (status, output) = commands.getstatusoutput("cat %s | grep ^Patch" %
+                    self.spec_file)
+            if status > 0:
+                # Grep failed, no patches found.
+                return
+            for patch_line in output.split("\n"):
+                patch_filename = patch_line.strip().split(" ")[1]
+                debug("Copying patch to CVS: %s" % patch_filename)
+                full_path = os.path.join(self.rpmbuild_gitcopy,
+                        patch_filename)
+                new_full_path = os.path.join(branch_dir, patch_filename)
+                cvs_add = True
+                if os.path.exists(new_full_path):
+                    cvs_add = False
+                run_command("cp %s %s" % (full_path, branch_dir))
+                if cvs_add:
+                    commands.getstatusoutput("cvs add %s" %  patch_filename)
+
+    def _cvs_user_confirm_commit(self):
+        """ Prompt user if they wish to proceed with commit. """
+        print("")
+        print("cvs diff for [%s]" % self.cvs_package_workdir)
+        print("")
+
+        os.chdir(self.cvs_package_workdir)
+        (status, output) = commands.getstatusoutput("cvs diff")
+        print(output)
+
+        print("")
+        print("##### Please review the above diff #####")
+        answer = raw_input("Do you wish to proceed with commit? [y/n] ")
+        if answer.lower() not in ['y', 'yes', 'ok', 'sure']:
+            print("Fine, you're on your own!")
+            self.cleanup()
+            sys.exit(1)
+        else:
+            print("Proceeding with commit.")
+            os.chdir(self.cvs_package_workdir)
+            cmd = 'cvs commit -m "Update %s to %s"' % \
+                    (self.project_name, self.build_version)
+            debug("CVS commit command: %s" % cmd)
+            output = run_command(cmd)
+
+    def _cvs_make_tag(self):
+        """ Create a CVS tag based on what we just committed. """
+        os.chdir(self.cvs_package_workdir)
+        print("Creating CVS tags...")
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.project_name,
+                    branch)
+            os.chdir(branch_dir)
+            (status, output) = commands.getstatusoutput("make tag")
+            print(output)
+            if status > 1:
+                self.cleanup()
+                sys.exit(1)
+
+    def _cvs_make_build(self):
+        """ Build srpm and submit to build system. """
+        os.chdir(self.cvs_package_workdir)
+        print("Submitting CVS builds...")
+        for branch in self.cvs_branches:
+            branch_dir = os.path.join(self.cvs_workdir, self.project_name,
+                    branch)
+            os.chdir(branch_dir)
+            output = run_command("make build")
+            print(output)
+
+    def _can_build_in_cvs(self):
+        """
+        Return True if this repo and branch is configured to build in CVS.
+        """
+        if not self.global_config.has_section("cvs"):
+            debug("Cannot build from CVS, no 'cvs' section found in global.build.py.props")
+            return False
+
+        if not self.global_config.has_option("cvs", "cvsroot"):
+            debug("Cannot build from CVS, no 'cvsroot' defined in global.build.py.props")
+            return False
+
+        if not self.global_config.has_option("cvs", "branches"):
+            debug("Cannot build from CVS no branches defined in global.build.py.props")
+            return False
+
+        return True
+
+    def _can_build_in_koji(self):
+        """
+        Return True if this repo and branch are configured to auto build in
+        any Koji tags.
+        """
+        if not self.global_config.has_section("koji"):
+            debug("No 'koji' section found in global.build.py.props")
+            return False
+
+        if not self.global_config.has_option("koji", "autobuild_tags"):
+            debug("Cannot build in Koji, no autobuild_tags defined in global.build.py.props")
+            return False
+
+        return True
 
     def _submit_build(self, executable, koji_opts, tag):
         """ Submit srpm to brew/koji. """
@@ -228,12 +494,15 @@ class Builder(object):
             error_out("Unable to locate 'Wrote: ' lines in rpmbuild output")
         return paths
 
-    def cleanup(self, force=False):
+    def cleanup(self):
         """
         Remove all temporary files and directories.
         """
-        if force or not self.no_cleanup:
+        if not self.no_cleanup:
+            debug("Cleaning up [%s]" % self.rpmbuild_dir)
             commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
+            debug("Cleaning up [%s]" % self.cvs_package_workdir)
+            run_command("rm -rf %s" % self.cvs_package_workdir)
 
     def _create_build_dirs(self):
         """
@@ -248,9 +517,11 @@ class Builder(object):
             # file we're building off. (note that this is a temp copy of the
             # spec) Swap out the actual release for one that includes the git
             # SHA1 we're building for our test package:
-            cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
+            setup_specfile_script = os.path.join(SCRIPT_DIR,
+                    "test-setup-specfile.pl")
+            cmd = "perl %s %s %s %s-%s %s" % \
                     (
-                        self.rel_eng_dir,
+                        setup_specfile_script,
                         self.spec_file,
                         self.git_commit_id,
                         self.project_name,
@@ -329,9 +600,10 @@ class NoTgzBuilder(Builder):
             # file we're building off. (note that this is a temp copy of the
             # spec) Swap out the actual release for one that includes the git
             # SHA1 we're building for our test package:
-            cmd = "perl %s/test-setup-specfile.pl %s %s" % \
+            script = os.path.join(SCRIPT_DIR, "test-setup-specfile.pl")
+            cmd = "perl %s %s %s" % \
                     (
-                        self.rel_eng_dir,
+                        script,
                         self.spec_file,
                         self.git_commit_id
                     )
@@ -345,11 +617,80 @@ class CvsBuilder(NoTgzBuilder):
 
     Builder for packages whose sources are managed in dist-cvs/Fedora CVS.
     """
-    def _srpm(self):
-        error_out("Cannot build source rpm for this project yet.")
+    def run(self, options):
+        """ Override parent to validate any new sources that. """
+        # Convert new sources to full paths right now, before we chdir:
+        if options.cvs_new_sources is not None:
+            for new_source in options.cvs_new_sources:
+                self.sources.append(os.path.abspath(new_source))
+        debug("CvsBuilder sources: %s" % self.sources)
+        NoTgzBuilder.run(self, options)
+
+    def _srpm(self, dist=None, reuse_cvs_checkout=False):
+        """ Build an srpm from CVS. """
+        rpms = self._cvs_rpm_common(target="test-srpm", dist=dist,
+                reuse_cvs_checkout=reuse_cvs_checkout)
+        # Should only be one rpm returned for srpm:
+        self.srpm_location = rpms[0]
 
     def _rpm(self):
-        error_out("Cannot build rpm for this project yet.")
+        self._cvs_rpm_common(target="i386", all_branches=True)
+
+    def _cvs_rpm_common(self, target, all_branches=False, dist=None, 
+            reuse_cvs_checkout=False):
+        """ Code common to building both rpms and srpms with CVS tools. """
+        self._create_build_dirs()
+        if not self.ran_tgz:
+            self.tgz()
+
+        if not self._can_build_in_cvs():
+            error_out("Repo not properly configured to build in CVS. (--debug for more info)")
+
+        if not reuse_cvs_checkout:
+            self._verify_cvs_module_not_already_checked_out()
+
+        commands.getoutput("mkdir -p %s" % self.cvs_workdir)
+        self._cvs_checkout_module()
+        self._cvs_verify_branches_exist()
+
+        if self.test:
+            self._setup_test_specfile()
+
+        # Copy latest spec so we build that version, even if it isn't the
+        # latest actually committed to CVS:
+        self._cvs_sync_spec()
+        self._cvs_sync_patches()
+
+        # Use "make srpm" target to create our source RPM:
+        os.chdir(self.cvs_package_workdir)
+        print("Building with CVS make %s..." % target)
+
+        # Only running on the last branch, good enough?
+        branch = self.cvs_branches[-1]
+        branch_dir = os.path.join(self.cvs_workdir, self.project_name,
+                branch)
+        os.chdir(branch_dir)
+
+        disttag = ""
+        if self.dist is not None:
+            disttag = "DIST=%s" % self.dist
+        elif dist is not None:
+            disttag = "DIST=%s" % dist
+
+        output = run_command("make %s %s" % (disttag, target))
+        debug(output)
+        rpms = []
+        for line in output.split("\n"):
+            if line.startswith("Wrote: "):
+                srpm_path = line.strip().split(" ")[1]
+                filename = os.path.basename(srpm_path)
+                run_command("mv %s %s" % (srpm_path, self.rpmbuild_basedir))
+                final_rpm_path = os.path.join(self.rpmbuild_basedir, filename)
+                print("Wrote: %s" % final_rpm_path)
+                rpms.append(final_rpm_path)
+        if not self.test:
+            print("Please be sure to run --release to commit/tag/build this package in CVS.")
+        return rpms
 
 
 
@@ -365,13 +706,13 @@ class SatelliteBuilder(NoTgzBuilder):
     patches applied in satellite git.
     """
     def __init__(self, name=None, version=None, tag=None, build_dir=None,
-            pkg_config=None, global_config=None, dist=None, test=False,
-            offline=False):
+            pkg_config=None, global_config=None, user_config=None, dist=None,
+            test=False, offline=False):
 
         NoTgzBuilder.__init__(self, name=name, version=version, tag=tag,
                 build_dir=build_dir, pkg_config=pkg_config,
-                global_config=global_config, dist=dist, test=test,
-                offline=offline)
+                global_config=global_config, user_config=user_config, dist=dist,
+                test=test, offline=offline)
 
         if not pkg_config or not pkg_config.has_option("buildconfig",
                 "upstream_name"):

@@ -417,7 +417,7 @@ class UploadClass(uploadLib2.UploadClass):
                     #else it prompts for one.
                     self.authenticate()
                 except:
-		    self.warn(2, sys.exc_info()[1])
+                    self.warn(2, sys.exc_info()[1])
                     wait = random.randint(1, 5)
                     self.warn(0, "Waiting %d seconds and trying again..." % wait)
                     time.sleep(wait)

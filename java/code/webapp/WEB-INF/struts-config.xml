@@ -2138,46 +2138,20 @@
     </action>
      
     <action path="/errata/manage/AddPackages" scope="request"
-        type="com.redhat.rhn.frontend.action.errata.AddPackagesSetupAction"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/WEB-INF/pages/errata/packages/add.jsp"/>
-    </action> 
-
-    <action path="/errata/manage/AddPackagesSubmit" 
-            scope="request"
-            input="/WEB-INF/pages/errata/packages/add.jsp"
-            type="com.redhat.rhn.frontend.action.errata.AddPackagesAction"
-            parameter="dispatch"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/errata/manage/AddPackages.do" redirect="true"/>
-        <forward name="confirm"
-            path="/errata/manage/AddPackagesConfirm.do" redirect="true"/>
+            type="com.redhat.rhn.frontend.action.errata.AddPackagesAction">
+       <forward name="default" path="/WEB-INF/pages/errata/packages/add.jsp"/>
+       <forward name="confirm"
+           path="/errata/manage/AddPackagesConfirm.do" redirect="true"/>
     </action>
-    
+
     <action path="/errata/manage/AddPackagesConfirm"
             scope="request"
-            type="com.redhat.rhn.frontend.action.errata.AddPackagesConfirmSetupAction"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
+            input="/WEB-INF/pages/errata/packages/confirm.jsp"
+            type="com.redhat.rhn.frontend.action.errata.AddPackagesConfirmAction">
         <forward name="default"
             path="/WEB-INF/pages/errata/packages/confirm.jsp"/>
-    </action>
-    
-    <action path="/errata/manage/AddPackagesConfirmSubmit"
-            scope="request"
-            input="/WEB-INF/pages/errata/packages/confirm.jsp"
-            type="com.redhat.rhn.frontend.action.errata.AddPackagesConfirmAction"
-            parameter="dispatch"
-            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-            path="/errata/manage/AddPackagesConfirm.do" redirect="true"/>
-        <forward name="success"
-            path="/errata/manage/AddPackagePackagePush.do" redirect="true"/>
+       <forward name="success"
+           path="/errata/manage/AddPackagePackagePush.do" redirect="true"/>
     </action>
     
      <action path="/errata/manage/AddPackagePackagePush"

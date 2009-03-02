@@ -28,9 +28,9 @@ import java.util.Set;
  */
 public class UpgradablePackageListItem extends PackageListItem {
     private Long serverId;
-    private List errataId;
-    private List errataAdvisory;
-    private List errataAdvisoryType;
+    private List errataId = new ArrayList();
+    private List errataAdvisory = new ArrayList();
+    private List errataAdvisoryType = new ArrayList();;
     private Set installed;
 
     /**

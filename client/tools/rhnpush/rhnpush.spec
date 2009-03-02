@@ -5,12 +5,12 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       0.4.4
+Version:       0.4.5
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:     noarch
-Requires:      rpm-python
+Requires:      rpm-python, rhnlib
 BuildRequires: docbook-utils, gettext
 
 Summary: Package uploader for the Red Hat Network Satellite Server
@@ -49,6 +49,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.5-1
+- rebuild
+
+* Wed Feb 25 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.4-1
+- Resolves: 487426 rhnpush should now require rhnlib
+
 * Fri Feb 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.4-1
 - change builrequires from file dep. to package dep.
 

@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -83,7 +83,8 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 || :
+LC_ALL=C /usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 2>&1 \
+        | grep -v '/usr/sbin/semanage: Port tcp/5347 already defined' || :
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 /sbin/restorecon -ri /var/run/jabberd || :
@@ -110,6 +111,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Feb 25 2009 Jan Pazdziora 1.4.0-5
+- 485396 - silence semanage if port is already defined
+
 * Wed Feb  4 2009 Jan Pazdziora 1.4.0-4
 - use init_script_file to allow build on Fedoras
 

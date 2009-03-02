@@ -189,3 +189,4 @@ tunable_policy(`oracle_11g_support',`
 	allow oracle_tnslsnr_t self:process execstack;
 ')
 
+role unconfined_r types oracle_sqlplus_t;

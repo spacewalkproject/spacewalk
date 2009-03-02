@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
@@ -29,6 +30,7 @@ import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
 import org.cobbler.Profile;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -77,7 +79,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     
     
     protected void updateCobblerFields(Profile profile) {
-        profile.setKickstart(this.ksData.getCobblerFileName());
         profile.setDistro(getDistroForKickstart());
         if (kernelOptions != null) {
             profile.setKernelOptions(kernelOptions);
@@ -90,7 +91,21 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             KickstartFactory.lookupDefaultKickstartSessionForKickstartData(this.ksData); 
         if (ksession != null) {
             ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(ksession);
-            profile.setRedHatManagementKey(key.getKey());
+            
+            StringBuffer keystring = new StringBuffer();
+            keystring.append(key.getKey());
+            if (this.ksData.getDefaultRegTokens() != null) {
+                log.debug("Adding associated activation keys.");
+                Iterator i = this.ksData.getDefaultRegTokens().iterator();
+                while (i.hasNext()) {
+                    ActivationKey akey = 
+                        ActivationKeyFactory.lookupByToken((Token) i.next());
+                    keystring.append(",");
+                    keystring.append(akey.getKey());
+                }
+            }
+            log.debug("Setting setRedHatManagementKey to: " + keystring);
+            profile.setRedHatManagementKey(keystring.toString());
         }
         else {
             log.warn("We could not find a default kickstart session for this ksdata: " + 

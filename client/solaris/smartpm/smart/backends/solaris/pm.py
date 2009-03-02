@@ -44,7 +44,7 @@ def solinstall(adminfile, path, pkg, prog=None):
 
     if pkg.name.startswith("patch-"):
         # Patch and patch cluster install
-        tdir = "/tmp/"
+        tdir = tempfile.mkdtemp('-dir', 'solinstall-', '/tmp')
         pkgdir = ""
         ret = 0
 
@@ -60,7 +60,7 @@ def solinstall(adminfile, path, pkg, prog=None):
                     raise UnzipException("patch %s not in a zip file: %s" % \
                                              (pkg.name, path))
 
-                cmdstr = "unzip %s -d %s" % (path, tdir)
+                cmdstr = "unzip %s -u -d %s" % (path, tdir)
                 ret, x = commands.getstatusoutput(cmdstr)
 
                 if ret != 0:
@@ -112,8 +112,8 @@ def solinstall(adminfile, path, pkg, prog=None):
             os.chdir(saved_cwd)
 
             # Cleanup temp dir
-            if ret == 0 and pkgdir.startswith(tdir):
-                shutil.rmtree(pkgdir)
+            if ret == 0:
+                shutil.rmtree(tdir)
 
     else:
         # Package install

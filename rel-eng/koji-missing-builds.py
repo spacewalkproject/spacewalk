@@ -8,13 +8,19 @@ import os
 import string
 import sys
 from optparse import OptionParser
+import ConfigParser
+
+config = ConfigParser.RawConfigParser()
+config.read('global.build.py.props')
 
 usage = "usage: %prog [options] <tag to check>"
 parser = OptionParser(usage, version='%prog 0.0.1')
 parser.add_option("-g","--git", action="store_true", default=False,
   help="print list of builds not managed in git")
 parser.add_option("-b","--brew", action="store_true", default=False,
-  help="check builds in brew instread of koji")
+  help="check builds in brew instead of koji")
+parser.add_option("--no-extra", action="store_false", default=True,
+  dest="no_extra", help="suppress the extra builds listing")
 (opts, args) = parser.parse_args()
 
 if len(args) < 1:
@@ -35,13 +41,15 @@ distmap = {'6E':'.el6',
 distsuffix = ''
 tag = args[0]
 disttag = distmap[tag.split('-')[1]]
+pkgstoignore = []
+if config.has_section(tag) and config.has_option(tag, 'ignore_pkgs'):
+    pkgstoignore = config.get(tag, 'ignore_pkgs').split(' ')
 
 if opts.brew:
     mysession = koji.ClientSession("http://brewhub.devel.redhat.com/brewhub")
     distsuffix = 'sat'
 else:
     mysession = koji.ClientSession("http://koji.rhndev.redhat.com/kojihub")
-
 
 rpmlist = mysession.getLatestRPMS(tag)
 nvrs = []
@@ -52,11 +60,14 @@ notingit = []
 for rpm in rpmlist[1]:
     rpmname = rpm['nvr'].rstrip(distsuffix)
     rpmname = rpmname.replace(disttag, '')
-    nvrs.append(rpmname)
-    kojinames.append([rpm['name'], rpmname])
+    if rpm['name'] not in pkgstoignore:
+        nvrs.append(rpmname)
+        kojinames.append([rpm['name'], rpmname])
 
 pkgfileList = os.listdir( '%s/packages/' % str(os.path.abspath(__file__)).strip('koji-missing-builds.py'))
 pkgfileList.remove('.README')
+for item in pkgstoignore:
+    pkgfileList.remove(item)
 
 for pkg in pkgfileList:
     fd = open('%s/packages/%s' % (str(os.path.abspath(__file__)).strip('koji-missing-builds.py'), pkg))
@@ -76,10 +87,11 @@ for pkg in kojinames:
             print "     %s" % pkg[1]
         notingit.append(pkg[1])
 
-print "Extra builds in koji:"
-for pkg in nvrs:
-    if not pkg in pkglist and not pkg in notingit:
-        print "     %s" % pkg
+if opts.no_extra:
+    print "Extra builds in koji:"
+    for pkg in nvrs:
+        if not pkg in pkglist and not pkg in notingit:
+            print "     %s" % pkg
 
 print "Builds missing in koji:"
 for pkg in pkglist:

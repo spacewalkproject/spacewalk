@@ -4,6 +4,7 @@
   <property environment="env" />
   
   <property file="${user.home}/.rhn.properties" />
+  <property name = "custom.log4j" location="${user.home}/.log4j.properties" />
   <property name="src.dir" location="${rhn-home}/code" />
   <property name="build.dir" location="${rhn-home}/build" />
   <property name="lib.dir" location="${rhn-home}/lib" />
@@ -100,10 +101,10 @@
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel c3p0 cglib
-             commons-beanutils commons-cli commons-codec commons-configuration
+             commons-collections commons-beanutils commons-cli commons-codec commons-configuration
              commons-digester commons-discovery commons-el
              commons-fileupload commons-lang commons-logging
-             commons-validator concurrent dom4j hibernate3
+             commons-validator concurrent dom4j hibernate3 jta
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz sitemesh struts taglibs-core

@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.14
+Version:        0.5.16
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -85,6 +85,12 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Feb 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.16-1
+- 486054 - add configuration variable to list of overrides.
+
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.15-1
+- 486560 -  Installer is unable to restart database during 500 -> 530 upgrade
+
 * Wed Feb 18 2009 Dave Parker <dparker@redhat.com> 0.5.14-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.2
 

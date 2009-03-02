@@ -254,7 +254,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         else {
             RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
             RhnSet pkgs = decl.get(user);
-            packs = toList(pkgs);
+            packs = rhnSetToList((RhnSet)pkgs);
         }
         return packs;
     }
@@ -282,7 +282,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         return pkgs;
     }    
     
-    private List<Map<String, Long>> toList(RhnSet set) {
+    private List<Map<String, Long>> rhnSetToList(RhnSet set) {
         List<Map<String, Long>> pkgs = new LinkedList<Map<String, Long>>();
         for (RhnSetElement rse : set.getElements()) {
             Map<String, Long> row = new HashMap<String, Long>();

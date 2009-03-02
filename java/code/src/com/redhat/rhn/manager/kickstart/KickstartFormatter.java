@@ -382,7 +382,7 @@ public class KickstartFormatter {
      */
     private String getPackageOptions() {
         // if kstree is > 2.1 then add the resolve deps, ignore other deps
-        String opts = this.ksdata.isRhel2() || this.ksdata.isFedora() ? "" : DEPS;
+        String opts = this.ksdata.isRhel2() || this.ksdata.isRhel5OrGreater() ? "" : DEPS;
         return PACKAGES + SPACE + opts + NEWLINE; 
     }
     

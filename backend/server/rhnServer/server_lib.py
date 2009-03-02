@@ -389,7 +389,8 @@ def dbiDate2timestamp(dateobj):
     
 
 def snapshot_server(server_id, reason):
-    return rhnSQL.Procedure("rhn_server.snapshot_server")(server_id, reason)
+    if CFG.TAKE_SNAPSHOTS:
+       return rhnSQL.Procedure("rhn_server.snapshot_server")(server_id, reason)
 
 
 def check_entitlement(server_id):

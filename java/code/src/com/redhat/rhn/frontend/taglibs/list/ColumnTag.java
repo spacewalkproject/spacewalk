@@ -34,9 +34,9 @@ import javax.servlet.jsp.tagext.TagSupport;
  */
 public class ColumnTag extends BodyTagSupport {
     private static final Logger LOG = Logger.getLogger(ColumnTag.class);
-    
+
     private static final long serialVersionUID = -1139212563984660282L;
-    
+
     protected String styleClass;
     protected String attributeName;
     protected String sortAttribute;
@@ -66,7 +66,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setSortattr(String sortAttr) {
         sortAttribute = sortAttr;
     }
-    
+
     /**
      * Sets the resource bundle key used to display the column's header
      * @param key resource bundle key
@@ -74,7 +74,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setHeaderkey(String key) {
         headerKey = key;
     }
- 
+
     /**
      * Sets the text to display in the column's header.  "header text" may be used
      * instead of a header key in cases where there is no resource bundle needed.
@@ -84,7 +84,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setHeadertext(String text) {
         headerText = text;
     }
-    
+
     /**
      * Sets the CSS class for the header
      * @param styleIn CSS class name
@@ -92,7 +92,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setHeaderclass(String styleIn) {
         headerStyle = styleIn;
     }
-    
+
     /**
      * Sets the data bean attribute to use for this column
      * @param attr data bean attribute
@@ -100,7 +100,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setAttr(String attr) {
         attributeName = attr;
     }
-    
+
     /**
      * Sets the CSS class to use for the data cells
      * @param styleIn CSS class name
@@ -108,8 +108,8 @@ public class ColumnTag extends BodyTagSupport {
     public void setStyleclass(String styleIn) {
         styleClass = styleIn;
     }
-    
-    
+
+
     /**
      * Is this column bound or not
      * @param bound bound flag
@@ -117,14 +117,14 @@ public class ColumnTag extends BodyTagSupport {
     public void setBound(String bound) {
         isBound = ListTagUtil.toBoolean(bound);
     }
-    
+
     /**
      * ${@inheritDoc}
      */
     public int doStartTag() throws JspException {
-        ListCommand command = (ListCommand) 
+        ListCommand command = (ListCommand)
             ListTagUtil.getCurrentCommand(this, pageContext);
-        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this, 
+        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                 ListTag.class);
         int retval = BodyTagSupport.SKIP_BODY;
         if (command.equals(ListCommand.ENUMERATE)) {
@@ -147,31 +147,31 @@ public class ColumnTag extends BodyTagSupport {
         }
         return retval;
     }
-    
+
     /**
      * ${@inheritDoc}
-     */    
+     */
     public int doEndTag() throws JspException {
         if (sortable && attributeName == null && sortAttribute == null) {
             throw new JspException("Sortable columns must use either attr or sortAttr");
         }
         checkForBoundsAndAttrs();
-        ListCommand command = (ListCommand) 
+        ListCommand command = (ListCommand)
                            ListTagUtil.getCurrentCommand(this, pageContext);
         if (command.equals(ListCommand.RENDER)) {
-            ListTagUtil.write(pageContext, "</td>");    
+            ListTagUtil.write(pageContext, "</td>");
         }
-        else if (command.equals(ListCommand.ENUMERATE) && 
+        else if (command.equals(ListCommand.ENUMERATE) &&
                             !StringUtils.isBlank(filterAttr)) {
             setupColumnFilter();
         }
-        
+
         return BodyTagSupport.EVAL_PAGE;
     }
-    
+
     /**
      * ${@inheritDoc}
-     */    
+     */
     public void release() {
         styleClass = null;
         attributeName = null;
@@ -183,43 +183,51 @@ public class ColumnTag extends BodyTagSupport {
         filterAttr = null;
         sortable = false;
     }
-    
+
     protected void renderHeader() throws JspException {
         if ((headerKey == null) && (headerText == null)) {
             return;
         }
         ListTagUtil.write(pageContext, "<th");
-        
+
         if (headerClass != null) {
             ListTagUtil.write(pageContext, " class=\"");
             ListTagUtil.write(pageContext, headerClass);
             ListTagUtil.write(pageContext, "\" ");
         }
-        
-        
+
+
         String sortDir = getSortDir();
         if (headerStyle != null || isCurrColumnSorted()) {
             ListTagUtil.write(pageContext, " class=\"");
-            
+
             if (headerStyle != null) {
                 ListTagUtil.write(pageContext, headerStyle);
                 ListTagUtil.write(pageContext, " ");
             }
- 
+
             if (isCurrColumnSorted()) {
                 if (isAlphaBarSelected()) {
                     sortDir = RequestContext.SORT_ASC;
                 }
                 ListTagUtil.write(pageContext, sortDir + "Sort");
             }
-     
+
             ListTagUtil.write(pageContext, "\"");
         }
-        
-        
+
+
         ListTagUtil.write(pageContext, ">");
         if (isSortable()) {
             writeSortLink();
+        }
+        if (filterAttr != null) {
+            HtmlTag filterClass = new HtmlTag("input");
+            filterClass.setAttribute("type", "hidden");
+            filterClass.setAttribute("name",
+                    ListTagUtil.makeFilterAttributeByLabel(getListName()));
+            filterClass.setAttribute("value", filterAttr);
+            ListTagUtil.write(pageContext, filterClass.render());
         }
         LocalizationService ls = LocalizationService.getInstance();
         if (headerKey != null) {
@@ -236,53 +244,53 @@ public class ColumnTag extends BodyTagSupport {
 
     private boolean isCurrColumnSorted() {
         String sortName = getSortName();
-        
-        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this, 
+
+        ListTag parent = (ListTag) BodyTagSupport.findAncestorWithClass(this,
                 ListTag.class);
-        
+
         if (isAlphaBarSelected()  && parent.getAlphaBarColumn().equals(sortName))  {
             return true;
         }
-        
+
         String requestLabel  = pageContext.getRequest().
                         getParameter(ListTagUtil.makeSortByLabel(getListName()));
         if (isSortable() && sortName.equals(requestLabel)) {
             return true;
         }
-        
+
         return isSortable() && requestLabel == null &&
-                            !StringUtils.isBlank(defaultSortDir);            
+                            !StringUtils.isBlank(defaultSortDir);
     }
-    
+
     private void writeSortLink() throws JspException {
-        HttpServletRequest request = (HttpServletRequest) 
+        HttpServletRequest request = (HttpServletRequest)
             pageContext.getRequest();
         String sortBy = getSortName();
-        String url = ListTagUtil.makeColumnSortLink(request, getListName(), 
+        String url = ListTagUtil.makeColumnSortLink(request, getListName(),
                 sortBy, getSortDir());
-        
-        //We add this here so that sorting works across pagenation 
+
+        //We add this here so that sorting works across pagenation
         if (isCurrColumnSorted()) {
             HtmlTag sortByInputTag = new HtmlTag("input");
             sortByInputTag.setAttribute("type", "hidden");
             sortByInputTag.setAttribute("name", ListTagUtil.makeSortByLabel(getListName()));
             sortByInputTag.setAttribute("value", sortBy);
-            
+
             HtmlTag sortByDirTag = new HtmlTag("input");
             sortByDirTag.setAttribute("type", "hidden");
-            sortByDirTag.setAttribute("name", 
+            sortByDirTag.setAttribute("name",
                     ListTagUtil.makeSortDirLabel(getListName()));
             sortByDirTag.setAttribute("value", getSortDir());
-            
+
             ListTagUtil.write(pageContext, sortByInputTag.render());
             ListTagUtil.write(pageContext, sortByDirTag.render());
         }
-        
+
         ListTagUtil.write(pageContext, "<a href=\"");
         ListTagUtil.write(pageContext, url);
         ListTagUtil.write(pageContext, "\">");
     }
-    
+
     private String getSortDir() {
 
         String sortDirectionKey = ListTagUtil.makeSortDirLabel(getListName());
@@ -306,7 +314,7 @@ public class ColumnTag extends BodyTagSupport {
         }
         writeStartingTd();
     }
-    
+
     protected void renderBound() throws JspException {
         ListTag parent = (ListTag)
             BodyTagSupport.findAncestorWithClass(this, ListTag.class);
@@ -317,7 +325,7 @@ public class ColumnTag extends BodyTagSupport {
     }
 
     /**
-     * 
+     *
      */
     private void checkForBoundsAndAttrs() {
         if (isBound && StringUtils.isBlank(attributeName)) {
@@ -328,20 +336,20 @@ public class ColumnTag extends BodyTagSupport {
             throw new RuntimeException(msg);
         }
     }
-    
+
     protected String getListName() {
         ListTag parent = (ListTag)
             BodyTagSupport.findAncestorWithClass(this, ListTag.class);
         return parent.getUniqueName();
     }
-    
+
     protected void writeStartingTd() throws JspException {
         ListTagUtil.write(pageContext, "<td");
-        
-        ListCommand command = (ListCommand) 
+
+        ListCommand command = (ListCommand)
                 ListTagUtil.getCurrentCommand(this, pageContext);
-        
-        if (styleClass != null || 
+
+        if (styleClass != null ||
                 (isCurrColumnSorted() && command != ListCommand.COL_HEADER)) {
             ListTagUtil.write(pageContext, " class=\"");
             if (styleClass != null) {
@@ -353,15 +361,15 @@ public class ColumnTag extends BodyTagSupport {
             }
             ListTagUtil.write(pageContext, "\"");
         }
-        ListTagUtil.write(pageContext, ">");       
+        ListTagUtil.write(pageContext, ">");
     }
-    
+
     private boolean isSortable() {
-        ListTag parent = (ListTag) 
+        ListTag parent = (ListTag)
             TagSupport.findAncestorWithClass(this, ListTag.class);
         return sortable && parent.getPageRowCount() > 0;
     }
-    
+
     private boolean isAlphaBarSelected() {
         return AlphaBarHelper.getInstance().isSelected(getListName(),
                         pageContext.getRequest());
@@ -385,8 +393,8 @@ public class ColumnTag extends BodyTagSupport {
                 String msg = "Trying to set  column [%s] as the default sort." +
                 "The default sort column has already been set for [%s]." +
                         " Can't reset it to [%s].";
-    
-                LOG.warn(String.format(msg, sortName, 
+
+                LOG.warn(String.format(msg, sortName,
                                         manip.getDefaultSortAttribute(), sortName));
             }
         }
@@ -409,7 +417,7 @@ public class ColumnTag extends BodyTagSupport {
         }
     }
 
-    
+
     /**
      * @return Returns the headerClass.
      */
@@ -417,14 +425,14 @@ public class ColumnTag extends BodyTagSupport {
         return headerClass;
     }
 
-    
+
     /**
      * @param headerClassIn The headerClass to set.
      */
     public void setHeaderClass(String headerClassIn) {
         this.headerClass = headerClassIn;
     }
-    
+
     /**
      * Sets the filter attribute
      * @param attribute the name of the filter attribute
@@ -432,7 +440,7 @@ public class ColumnTag extends BodyTagSupport {
     public void setFilterattr(String attribute) {
         this.filterAttr = attribute;
     }
-    
+
     private void setupColumnFilter() throws JspException {
         ListTag parent = (ListTag)
                 BodyTagSupport.findAncestorWithClass(this, ListTag.class);

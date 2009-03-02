@@ -28,8 +28,8 @@ public class KickstartInstallType extends BaseDomainHelper {
     public static final String RHEL_3 = "rhel_3";
     public static final String RHEL_4 = "rhel_4";
     public static final String RHEL_5 = "rhel_5";
-    private static final String FEDORA = "fedora";
-    private static final String GENERIC = "generic";
+    public static final String FEDORA = "fedora";
+    public static final String GENERIC = "generic";
     
     private Long id;
     private String label;

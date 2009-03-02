@@ -1,6 +1,6 @@
 Name:         eventReceivers
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      2.20.10
+Version:      2.20.11
 Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 URL:          https://fedorahosted.org/spacewalk
@@ -9,7 +9,8 @@ Group:        Applications/Internet
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-
+# smtpdaemon or mailx. I picked up smtpdaemon
+Requires:     smtpdaemon
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,
@@ -28,20 +29,23 @@ This package contains handler, which receive events from scouts.
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install MonitoringAccessHandler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install EventHandler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install HttpsMX.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
+install -m644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %files
-%defattr(644,root,root,-)
-%{perl_vendorlib}/NOCpulse/*
+%defattr(-,root,root,-)
+%{perl_vendorlib}/*
+%doc LICENSE
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Feb 24 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.11-1
+- add LICENSE
+- add Requires smtpdaemon
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.20.10-1
 - remove dead code (apachereg)
 

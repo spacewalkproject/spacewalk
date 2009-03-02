@@ -25,7 +25,7 @@ use English;
 $ENV{PATH} = '/bin:/usr/bin';
 
 my $usage = "usage: $0 --source=<source_file> --target=<target_file> "
-	. "--tablespace-name=<tabelspace> [ --help ]\n";
+	. "--tablespace-name=<tablespace> [ --help ]\n";
 
 my $source = '';
 my $target = '';

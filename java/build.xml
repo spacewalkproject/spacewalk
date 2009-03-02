@@ -553,8 +553,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            classpathref="buildjars" >
     </javac>
   </target>
-
-  <target name="compile-main" depends="link-jars,prepare"
+  <target name="compile-main" depends="do-compile-main, setup-log4j"/>
+  <target name="do-compile-main" depends="link-jars,prepare"
           description="Compile the main codebase" unless="installbuild">
     <mkdir dir="${build.dir}/classes" />
     <javac destdir="${build.dir}/classes"
@@ -579,10 +579,25 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <fileset dir="${src.dir}/src">
         <exclude name="**/*.java" />
         <exclude name="**/package.html" />
+         <exclude name="**/log4j.properties" />
       </fileset>
     </copy>
-  </target>
+ </target>
 
+
+ <target name ="setup-log4j" >
+     <property name="dest.log4j" location = "${build.dir}/classes/log4j.properties"/>
+     <if>
+         <available file="${custom.log4j}"/>
+         <then>
+             <copy tofile="${dest.log4j}" file="${custom.log4j}"/>
+         </then>
+         <else>
+             <copy tofile="${dest.log4j}" file="${src.dir}/src/log4j.properties"/>
+         </else>
+     </if> 
+ </target>
+  
   <target name="compile-notests" depends="link-jars,prepare"
           description="compiles the main codebase without testcases" if="installbuild">
     <mkdir dir="${build.dir}/classes" />

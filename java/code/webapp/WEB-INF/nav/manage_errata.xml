@@ -19,6 +19,9 @@
             <rhn-tab-url> 
                 /rhn/errata/manage/RemovePackages.do
             </rhn-tab-url>
+            <rhn-tab-url>
+                /rhn/errata/manage/AddPackagePackagePush.do
+            </rhn-tab-url>
         </rhn-tab>
         <rhn-tab name="Add" node-id="add_errata_packages">
             <rhn-tab-url> 

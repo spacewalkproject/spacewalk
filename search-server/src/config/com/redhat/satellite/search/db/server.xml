@@ -49,9 +49,9 @@
                 rr.ram as ram,
                 rr.swap as swap
             FROM rhnServer s
-                INNER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
-                INNER JOIN rhnServerInfo si on s.id = si.server_id
-                INNER JOIN rhnRam rr on s.id = rr.server_id
+                LEFT OUTER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
+                LEFT OUTER JOIN rhnServerInfo si on s.id = si.server_id
+                LEFT OUTER JOIN rhnRam rr on s.id = rr.server_id
                 LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
                 LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
                 LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id

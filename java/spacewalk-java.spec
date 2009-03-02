@@ -1,14 +1,16 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 %define cobprofdir      %{_localstatedir}/lib/rhn/kickstarts
+%define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
+%define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.21
+Version: 0.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -69,6 +71,7 @@ BuildRequires: jakarta-commons-configuration
 BuildRequires: dom4j
 BuildRequires: hibernate3
 BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
@@ -177,6 +180,8 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/lib
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
+install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
+install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
@@ -205,6 +210,8 @@ fi
 %defattr(644,tomcat,tomcat,775)
 %dir %{appdir}
 %dir %{cobprofdir}
+%dir %{cobprofdirup}
+%dir %{cobprofdirwiz}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 
@@ -224,6 +231,36 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Feb 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.25-1
+- Profile rename has been finally fixed
+- 469921 - system.scheduleSyncPackagesWithSystems generated a NullPointerException
+- fixing mistake in method name
+- 485120 - fixed issue where changing org
+- name or changing profile name breaks kickstarts (including raw).  Also moved kickstart file location
+
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.24-1
+- removing listScripts, addScript, removeScript and downloadKickstart APIs from KickstartHandler
+- 486749 - Add symlinks for jakarta-commons-collections and jta jars.
+- 484942 - "Satellite" is in monitoring schema and have to be translated to product name
+
+* Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.23-1
+- modifying list tag to not clear set during a select all()
+- fixing some issues with converting rhnset to implement set
+- Fix to a cobbler rename profile issue...
+- making edit command a bit more relaxed if there is no associated cobbler profile
+- 486606 - Changed query and page to load/display arch for each package selected
+- 487066 - change create link to be lowercase (create new key).
+- 482879 - fixing compile error and syncing whenever we update a ksdata
+- 482879 - make sure we add all the activation keys to the cobbler profile
+- 486982 - fixed ise on software upgrade list
+- 480191 - fix query used by systems->software->packages->install
+- 487174 - fixing issue where clearing the filter, resulted in the page being submitted
+- 241070 - select all on filtered list would select the entire list and not just what was filtered.
+- 483555 - Ported to new list tag to get Select All functionality correct when a filter is active.
+
+* Tue Feb 24 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.22-1
+- fixing the repodata task queries to avoid tempspace issues
+ 
 * Thu Feb 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
 - 486502 - Changed order when list a group of systemIds so top result is highest.
 - Fixing problem which broke unique documents in the lucene index.

@@ -32,23 +32,23 @@ public class ColumnFilter extends BaseListFilter {
 
     /**
      * Constructor
-     * @param headerKey the key selected for search 
-     * @param filterAttr the attribute to search on 
+     * @param headerKey the key selected for search
+     * @param filterAttr the attribute to search on
      */
     public ColumnFilter(String headerKey, String filterAttr) {
         key = headerKey;
         attr = filterAttr;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public void processMap(Map map, Locale userLocale) {
-        LocalizationService ls = 
+        LocalizationService ls =
             LocalizationService.getInstance();
         String label = ls.getMessage(key, userLocale);
-        map.put(label, attr);        
+        map.put(label, attr);
     }
 
     /**

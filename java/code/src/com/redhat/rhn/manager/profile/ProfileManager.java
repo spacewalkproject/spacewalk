@@ -611,8 +611,10 @@ public class ProfileManager extends BaseManager {
                 log.debug("  rse, fetching: " + pkgIdCombo);
             }
             PackageMetadata pm = (PackageMetadata) profilesMap.get(pkgIdCombo);
-            pm.updateActionStatus();
-            packagesToSync.add(pm);
+            if (pm != null) {
+                pm.updateActionStatus();
+                packagesToSync.add(pm);
+            }
         }
         
         Collections.sort(packagesToSync);

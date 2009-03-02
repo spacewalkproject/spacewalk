@@ -17,6 +17,9 @@ package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+
+import org.cobbler.Profile;
 
 
 /**
@@ -42,8 +45,11 @@ public class KickstartRawData extends KickstartData {
      */
     public String getData() {
         if (this.data == null) {
+            Profile prof = Profile.lookupById(
+                    CobblerXMLRPCHelper.getConnection("kickstart-getData"),
+                    this.getCobblerId());
             this.data = FileUtils.
-                readStringFromFile(this.getCobblerFileName());
+                readStringFromFile(prof.getKickstart());
         }
         return this.data;
     }

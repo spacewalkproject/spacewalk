@@ -386,6 +386,31 @@ public class PackageManager extends BaseManager {
     }
     
     /**
+     * Returns a dataResult containing all of the packages available to an
+     * errata. Picks the right query depending on whether or not the errata
+     * is published.
+     * @param errata The errata in question
+     * @return Returns the list of packages available for this particular errata.
+     */
+    public static DataResult packagesAvailableToErrata(Errata errata) {
+        Org org = errata.getOrg();
+        
+        // Get the correct query depending on whether or not this errata is published.
+        String mode = "packages_available_to_tmp_errata";
+        if (errata.isPublished()) {
+            mode = "packages_available_to_errata";
+        }
+        
+        // Setup the params and execute the query
+        SelectMode m = ModeFactory.getMode("Package_queries", mode);
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        params.put("eid", errata.getId());
+
+        return makeDataResult(params, params, null, m);
+    }
+    
+    /**
      * Returns a data result containing all of the packages available to an errata
      * in the channel specified by cid.
      * @param errata The errata in question
@@ -421,6 +446,35 @@ public class PackageManager extends BaseManager {
     }
     
     /**
+     * Returns a data result containing all of the packages available to an errata
+     * in the channel specified by cid.
+     * @param errata The errata in question
+     * @param cid The channel id, we want packages in this channel
+     * @param user The user requesting the list
+     * @return Returns the list of packages available for this particular errata in
+     * this particular channel.
+     */
+    public static DataResult packagesAvailableToErrataInChannel(Errata errata,
+                                                                Long cid,
+                                                                User user) {
+        //Set the mode depending on if the errata is published
+        String mode = "packages_available_to_tmp_errata_in_channel";
+        if (errata.isPublished()) {
+            mode = "packages_available_to_errata_in_channel";
+        }
+        
+        //Setup params and execute query
+        SelectMode m = ModeFactory.getMode("Package_queries", mode);
+        Map params = new HashMap();
+        params.put("target_eid", errata.getId().toString());
+        params.put("source_cid", cid.toString());
+
+        Map elabParams = new HashMap();
+        elabParams.put("org_id", user.getOrg().getId());
+        return makeDataResult(params, elabParams, null, m);
+    }
+    
+    /**
      * Returns a DataResult containing PackageOverview dto's representing the
      * package_ids_in_set query
      * @param user The User
@@ -449,6 +503,30 @@ public class PackageManager extends BaseManager {
             dr = m.execute(params);
             dr.setElaborationParams(elabs);
         }
+        return dr;
+
+    }
+    
+    /**
+     * Returns a DataResult containing PackageOverview dto's representing the
+     * package_ids_in_set query
+     * @param user The User
+     * @param label The label of the set we want
+     * @return Returns the list of packages whose id's are in the given set
+     */
+    public static DataResult packageIdsInSet(User user, String label) {
+        
+        SelectMode m = ModeFactory.getMode("Package_queries",
+                "package_ids_in_set");
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("user_id", user.getId());
+        params.put("set_label", label);
+        
+        Map<String, Long> elabs = new HashMap<String, Long>();
+        elabs.put("org_id", user.getOrg().getId());
+        
+        DataResult dr;
+        dr = makeDataResult(params, elabs, null, m);
         return dr;
 
     }

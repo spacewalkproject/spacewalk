@@ -5,7 +5,7 @@ Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.1.5
+Version:   5.1.6
 Release:   1%{?dist}
 License:   GPLv2
 Group:     System Environment/Daemons
@@ -83,6 +83,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Sat Feb 28 2009 Dennis Gilmore <dennis@ausil.us> 5.1.6-1
+- rebuild 
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 5.1.5-1
 - 479541, 483867 - replaced runuser with /sbin/runuser
 

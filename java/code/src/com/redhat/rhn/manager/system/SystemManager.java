@@ -128,6 +128,11 @@ public class SystemManager extends BaseManager {
      * @param reason The reason for the snapshotting.
      */
     public static void snapshotServer(Server server, String reason) {
+
+        if (!Config.get().getBoolean(Config.TAKE_SNAPSHOTS)) {
+            return;
+        }
+
         // If the server is null or doesn't have the snapshotting feature, don't bother.
         if (server == null || !serverHasFeature(server.getId(), "ftr_snapshotting")) {
             return;
@@ -1235,8 +1240,7 @@ public class SystemManager extends BaseManager {
                 "unsubscribe_server_from_channel");
         Map in = new HashMap();
         in.put("server_id", server.getId());
-        in.put("channel_id", channel.getId());
-        
+        in.put("channel_id", channel.getId());        
         m.execute(in, new HashMap());
         if (Config.get().getInt("web.channel_sub.flushmode", 0) == 1) {
             /*
@@ -1251,9 +1255,8 @@ public class SystemManager extends BaseManager {
                 HibernateFactory.getSession().refresh(server);
                 return server;
             }
-        }
-        return server;
-        
+        }        
+        return server;        
     }
     
     /**
@@ -2174,9 +2177,9 @@ public class SystemManager extends BaseManager {
         "systems_subscribed_to_channel");
         Map params = new HashMap();
         params.put("user_id", user.getId());
-        params.put("org_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
         params.put("cid", cid);
-        DataResult toReturn = m.execute(params);
+        DataResult toReturn = m.execute(params);        
         toReturn.elaborate();
         return toReturn;
     }

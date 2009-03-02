@@ -14,124 +14,159 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.RhnSetAction;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.util.LabelValueBean;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
-import java.util.HashMap;
-import java.util.Map;
+/** @version $Revision$ */
+public class AddPackagesAction extends RhnAction implements Listable {
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+    private static final String DATA_SET = "pageList";
 
-/**
- * AddPackagesAction
- * @version $Rev$
- */
-public class AddPackagesAction extends RhnSetAction {
-
-    /**
-     * confirm handles updating the set and forwarding the user to the confirmation 
-     * screen.
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request Request
-     * @param response Response
-     * @return Returns the action forward for the confirm mapping.
-     */
-    public ActionForward confirm(ActionMapping mapping,
-                                 ActionForm formIn,
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping actionMapping,
+                                 ActionForm actionForm,
                                  HttpServletRequest request,
-                                 HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);
+                                 HttpServletResponse response)
+        throws Exception {
+
+        request.setAttribute("parentUrl", request.getRequestURI());
+
+        RequestContext context = new RequestContext(request);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("eid", context.getRequiredParam("eid"));
+
+
+        RhnSetDecl decl = RhnSetDecl.PACKAGES_TO_ADD.createCustom(
+                context.getRequiredParam("eid"));
+
+        if (request.getParameter("view_clicked") != null) {
+            RhnSet set = decl.get(context.getCurrentUser());
+            set.clear();
+            RhnSetManager.store(set);
+        }
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
+        helper.setDataSetName(DATA_SET);
+
+
+        // If it's a view change, don't throw a message saying there was nothing selected
+        if (request.getParameter("view_channel") != null) {
+            helper.ignoreEmptySelection();
+        }
+
+        helper.execute();
+
+        if (helper.isDispatched()) {
+            Long eid = context.getRequiredParam("eid");
+            StrutsDelegate strutsDelegate = getStrutsDelegate();
+            return strutsDelegate.forwardParam(actionMapping.findForward("confirm"),
+                "eid", eid.toString());
+        }
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
-        //update the set
-        updateSet(request);
-        
-        //forward to the confirm mapping
-        Long eid = requestContext.getRequiredParam("eid");
-        return strutsDelegate.forwardParam(mapping.findForward("confirm"), 
-                                      "eid", eid.toString());
+        return strutsDelegate.forwardParams(
+            actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), params);
     }
-                                 
-    /**
-     * SwitchViews handles switching the view between packages available to an errata in
-     * any channel and packages available to an errata in a specific channel
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request Request
-     * @param response Response
-     * @return Returns the default action forward without pagination
-     */
-    public ActionForward switchViews(ActionMapping mapping,
-                                     ActionForm formIn,
-                                     HttpServletRequest request,
-                                     HttpServletResponse response) {
-        //make sure we save any changes
-        updateSet(request);
-        //make our own param map *without* pagination involved
-        Map params = new HashMap();
-        processParamMap(formIn, request, params);
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
-                                       HttpServletRequest request) {
+
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+        HttpServletRequest request = context.getRequest();
+        User user = context.getLoggedInUser();
+
+        // Put the advisory into the request for the page header
         Errata errata = new RequestContext(request).lookupErratum();
-        String viewChannel = request.getParameter("view_channel");
-        if (viewChannel == null || //first time customer
-            viewChannel.equals("any_channel")) {
-            /*
-             * Get packages for *all* channels.
-             * View: All managed packages
-             */
-            return PackageManager.packagesAvailableToErrata(errata, user, null);
+        request.setAttribute("advisory", errata.getAdvisory());
+
+        // Add the view options for the page to use in the drop down
+        request.setAttribute("viewoptions", getViewOptions(user));
+
+        String viewChannel = getSelectedCid(context);
+
+        DataResult result;
+        if (viewChannel.equals("any_channel")) {
+            // Packages from all channels should be displayed
+            result = PackageManager.packagesAvailableToErrata(errata);
         }
-        else { //must have a cid for view_channel
+        else {
+            // Packages from a specific channel should be displayed
             Long cid = new Long(viewChannel);
-            //TODO: add some error checking here
-            return PackageManager.packagesAvailableToErrataInChannel(errata, cid, 
-                                                                     user, null);
+            result =
+                PackageManager.packagesAvailableToErrataInChannel(errata, cid, user);
         }
+
+        TagHelper.bindElaboratorTo("groupList", result.getElaborator(), request);
+
+        return result;
+    }
+
+
+    private String getSelectedCid(RequestContext context) {
+        String viewChannel = context.getRequest().getParameter("view_channel");
+        if (viewChannel == null) {
+            return "any_channel";
+        }
+        return viewChannel;
     }
 
     /**
-     * {@inheritDoc}
+     * Helper method to init the viewoptions list. This becomes the drop-down
+     * select box for channels.
+     *
+     * @param user The logged in user
+     * @return Returns a list of LabelValueBeans to set in the request for
+     *         the page.
      */
-    protected void processMethodKeys(Map map) {
-        map.put("errata.edit.packages.add.viewsubmit", "switchViews");
-        map.put("errata.edit.packages.add.addpackages", "confirm");
-    }
+    private List getViewOptions(User user) {
+        // List containing the names of the channels this user has permissions to. 
+        List subscribableChannels = ChannelManager.channelsForUser(user);
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
-                                   Map params) {
-        params.put("eid", request.getParameter("eid"));
-        params.put("view_channel", request.getParameter("view_channel"));
-        params.put(RequestContext.FILTER_STRING, 
-                   request.getParameter(RequestContext.FILTER_STRING));
-    }
+        //Init the viewoptions list to contain the "any_channel" option
+        List<LabelValueBean> viewoptions = new ArrayList<LabelValueBean>();
+        viewoptions.add(new LabelValueBean("All managed packages",
+            "any_channel"));
 
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.PACKAGES_TO_ADD;
+        Org org = user.getOrg();
+        Set channels = org.getOwnedChannels();
+
+        // Loop through the channels and see if the channel name is in the list of
+        // subscribable channels. If so, add it to the viewoptions list.
+        for (Iterator itr = channels.iterator(); itr.hasNext();) {
+            //get the channel from the list
+            Channel channel = (Channel) itr.next();
+            if (subscribableChannels.contains(channel.getName())) {
+                //Channel is subscribable by this user so add it to the list of options
+                viewoptions.add(new LabelValueBean(channel.getName(),
+                    channel.getId().toString()));
+            }
+        }
+
+        return viewoptions;
     }
 
 }

@@ -24,20 +24,20 @@ public class PackageComparison extends BaseDto {
     
     protected Long id;
     protected String name;
-    protected String currentNvre;
-    protected String newNvre;
-    
+    protected String currentNvrea;
+    protected String newNvrea;
+
     /**
      * @return Returns the currentNvre.
      */
-    public String getCurrentNvre() {
-        return currentNvre;
+    public String getCurrentNvrea() {
+        return currentNvrea;
     }
     /**
      * @param currentNvreIn The currentNvre to set.
      */
-    public void setCurrentNvre(String currentNvreIn) {
-        this.currentNvre = currentNvreIn;
+    public void setCurrentNvrea(String currentNvreIn) {
+        this.currentNvrea = currentNvreIn;
     }
     /**
      * @return Returns the id.
@@ -54,14 +54,14 @@ public class PackageComparison extends BaseDto {
     /**
      * @return Returns the newNvre.
      */
-    public String getNewNvre() {
-        return newNvre;
+    public String getNewNvrea() {
+        return newNvrea;
     }
     /**
      * @param newNvreIn The newNvre to set.
      */
-    public void setNewNvre(String newNvreIn) {
-        this.newNvre = newNvreIn;
+    public void setNewNvrea(String newNvreIn) {
+        this.newNvrea = newNvreIn;
     }
     /**
      * @return Returns the name.
@@ -81,8 +81,8 @@ public class PackageComparison extends BaseDto {
      */
     public String toString() {
         return new ToStringBuilder(this).append("id", id).append("name", name)
-            .append("currentNvre", currentNvre).append("newNvre", newNvre)
+            .append("currentNvre", currentNvrea).append("newNvre", newNvrea)
                 .toString();
     }
-    
+
 }

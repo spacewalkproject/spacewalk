@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.errata.test;
 
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-import com.redhat.rhn.frontend.action.errata.AddPackagesConfirmSetupAction;
 import com.redhat.rhn.frontend.action.errata.RemovePackagesSetupAction;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -30,9 +29,6 @@ import org.apache.struts.action.Action;
 public class BaseErrataConfirmSetupActionTest extends RhnBaseTestCase {
 
     public void testExecute() throws Exception {
-        AddPackagesConfirmSetupAction action1 = new AddPackagesConfirmSetupAction();
-        runTest(action1);
-        
         RemovePackagesSetupAction action2 = new RemovePackagesSetupAction();
         runTest(action2);
     }

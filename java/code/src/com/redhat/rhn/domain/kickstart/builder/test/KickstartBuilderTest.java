@@ -14,10 +14,12 @@
  */
 package com.redhat.rhn.domain.kickstart.builder.test;
 
+import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -52,6 +54,53 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         kickstartFileContents = TestUtils.readAll(
                 TestUtils.findTestData(filename));
         return new KickstartParser(kickstartFileContents);
+    }
+    
+    public void testCreate() throws Exception {
+        KickstartBuilder builder = new KickstartBuilder(user);
+        
+        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
+        tree.setInstallType(KickstartFactory.
+                lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
+        KickstartData data = 
+            builder.create(TestUtils.randomString(), tree, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
+                "http://localhost/ks", "redhat", "localhost");
+        assertNotNull(data);
+    }
+    
+    // 
+    public void testDepricatedAnacondCommands() throws Exception {
+        KickstartBuilder builder = new KickstartBuilder(user);
+        
+        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
+        tree.setInstallType(KickstartFactory.
+                lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_4));
+        KickstartData rhel4data = 
+            builder.create(TestUtils.randomString(), tree, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
+                "http://localhost/ks", "redhat", "localhost");
+        
+        String contents = FileUtils.readStringFromFile(rhel4data.getCobblerFileName());
+        assertTrue(contents.indexOf("langsupport") > 0);
+        assertTrue(contents.indexOf("mouse") > 0);
+        assertTrue(contents.indexOf("zerombr") > 0);
+        assertTrue(contents.indexOf("resolvedeps") > 0);
+        
+        tree.setInstallType(KickstartFactory.
+                lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
+        KickstartData rhel5data = 
+            builder.create(TestUtils.randomString(), tree, 
+                    KickstartVirtualizationType.XEN_PARAVIRT, 
+                "http://localhost/ks", "redhat", "localhost");
+        
+        contents = FileUtils.readStringFromFile(rhel5data.getCobblerFileName());
+        
+        assertTrue(contents.indexOf("langsupport") < 0);
+        assertTrue(contents.indexOf("mouse") < 0);
+        assertTrue(contents.indexOf("zerombr") < 0);
+        assertTrue(contents.indexOf("resolvedeps") < 0);
+        
     }
     
     
@@ -343,4 +392,7 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         assertNotNull(urlCmd);
         assertTrue(urlCmd.getArguments().startsWith("http://"));
     }
+    
+    
+    
 }

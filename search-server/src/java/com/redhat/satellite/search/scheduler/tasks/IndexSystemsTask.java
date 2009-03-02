@@ -77,7 +77,9 @@ public class IndexSystemsTask extends GenericIndexTask {
         attrs.put("cpuModel", srvr.getCpuModel());
         attrs.put("cpuVersion", srvr.getCpuVersion());
         attrs.put("cpuVendor", srvr.getCpuVendor());
-        attrs.put("cpuNumberOfCpus", srvr.getCpuNumberOfCpus().toString());
+        if (srvr.getCpuNumberOfCpus() != null) {
+            attrs.put("cpuNumberOfCpus", srvr.getCpuNumberOfCpus().toString());
+        }
         attrs.put("cpuAcpiVersion", srvr.getCpuAcpiVersion());
         attrs.put("cpuApic", srvr.getCpuApic());
         attrs.put("cpuApmVersion", srvr.getCpuApmVersion());

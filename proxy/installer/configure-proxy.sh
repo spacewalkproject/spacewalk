@@ -71,8 +71,9 @@ yes_no() {
 
 config_error () {
         if [ $1 -gt 0 ]; then
-                echo "$2 Configuration interrupted."
-                exit 1
+                echo "$2 Installation interrupted."
+                /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --deactivate --non-interactive
+                exit $1
         fi
 }
 
@@ -140,6 +141,11 @@ default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 config_error $? "Proxy activation failed!"
 
 $YUM_OR_UPDATE spacewalk-proxy-management
+# check if package install successfully
+rpm -q spacewalk-proxy-management >/dev/null
+if [ $? -ne 0 ]; then
+	config_error 2 "Installation of package spacewalk-proxy-management failed."
+fi
 
 rpm -q spacewalk-proxy-monitoring >/dev/null
 MONITORING=$?
@@ -154,6 +160,11 @@ if [ $MONITORING -ne 0 ]; then
 	fi
 else
 	$YUM_OR_UPDATE spacewalk-proxy-monitoring
+    # check if package install successfully
+    rpm -q spacewalk-proxy-monitoring >/dev/null
+    if [ $? -ne 0 ]; then
+        config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
+    fi
 fi
 ENABLE_SCOUT=0
 if [ $MONITORING -eq 0 ]; then

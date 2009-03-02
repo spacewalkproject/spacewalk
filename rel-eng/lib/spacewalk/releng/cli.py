@@ -31,7 +31,6 @@ SCRIPT_DIR = os.path.abspath(os.path.join(os.path.dirname(
 
 from spacewalk.releng.builder import Builder, NoTgzBuilder
 from spacewalk.releng.tagger import VersionTagger, ReleaseTagger
-from spacewalk.releng.cvs import CvsReleaser
 from spacewalk.releng.common import DEFAULT_BUILD_DIR
 from spacewalk.releng.common import find_git_root, run_command, \
         error_out, debug, get_project_name, get_relative_project_dir, \
@@ -74,20 +73,15 @@ def get_class_by_name(name):
     c = getattr(mod, class_name)
     return c
 
-def lookup_build_dir():
-    """
-    Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
-    return the current working directory.
-    """
-    build_dir = DEFAULT_BUILD_DIR
+def read_user_config():
+    config = {}
     file_loc = os.path.expanduser("~/.spacewalk-build-rc")
     try:
         f = open(file_loc)
     except:
         # File doesn't exist but that's ok because it's optional.
-        return build_dir
+        return config
 
-    config = {}
     for line in f.readlines():
         if line.strip() == "":
             continue
@@ -95,285 +89,84 @@ def lookup_build_dir():
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
+    return config
 
-    if config.has_key('RPMBUILD_BASEDIR'):
-        build_dir = config["RPMBUILD_BASEDIR"]
+def lookup_build_dir(user_config):
+    """
+    Read build_dir in from ~/.spacewalk-build-rc if it exists, otherwise
+    return the current working directory.
+    """
+    build_dir = DEFAULT_BUILD_DIR
+
+    if user_config.has_key('RPMBUILD_BASEDIR'):
+        build_dir = user_config["RPMBUILD_BASEDIR"]
 
     return build_dir
 
 
 
 class CLI:
-    """ Parent command line interface class. """
+    """
+    Parent command line interface class.
+
+    Simply delegated to sub-modules which group appropriate command line
+    options together.
+    """
 
     def main(self):
-        usage = "usage: %prog [options] arg"
-        parser = OptionParser(usage)
+        if len(sys.argv) < 2 or not CLI_MODULES.has_key(sys.argv[1]):
+            self._usage()
+            sys.exit(1)
 
-        # Options for building tar.gz, srpm, and rpm:
-        parser.add_option("--tgz", dest="tgz", action="store_true",
-                help="Build .tar.gz")
-        parser.add_option("--srpm", dest="srpm", action="store_true",
-                help="Build srpm")
-        parser.add_option("--rpm", dest="rpm", action="store_true",
-                help="Build rpm")
-        parser.add_option("--dist", dest="dist", metavar="DISTTAG",
-                help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
-        parser.add_option("--test", dest="test", action="store_true",
-                help="use current branch HEAD instead of latest package tag")
-        parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
-                help="do not clean up temporary build directories/files")
-        parser.add_option("--tag", dest="tag", metavar="PKGTAG",
-                help="build a specific tag instead of the latest version " +
-                    "(i.e. spacewalk-java-0.4.0-1)")
+        module_class = CLI_MODULES[sys.argv[1]]
+        module = module_class()
+        module.main()
 
-        # Options for submitting srpms to brew or koji:
-        parser.add_option("--brew", dest="brew", metavar="BREWTAG",
-                help="Submit srpm for build in a brew tag.")
-        parser.add_option("--koji", dest="koji", metavar="KOJITAG",
-                help="Submit srpm for build in a koji tag.")
-        parser.add_option("--koji-opts", dest="koji_opts", metavar="KOJIOPTIONS",
-                help="%s %s %s" %
-                (
-                    "Options to use with brew/koji command.",
-                    "Tag and package name will be appended automatically.",
-                    "Default is 'build --nowait'.",
-                ))
+    def _usage(self):
+        print("Usage: %s MODULENAME --help" %
+                (os.path.basename(sys.argv[0])))
+        print("Supported modules:")
+        print("   tag      - Tag package releases.")
+        print("   build    - Build packages.")
+        print("   report   - Display various reports on the repo.")
 
+
+
+class BaseCliModule(object):
+    """ Common code used amongst all CLI modules. """
+
+    def __init__(self):
+        self.parser = None
+        self.global_config = None
+        self.options = None
+        self.pkg_config = None
+        self.user_config = read_user_config()
+
+    def _add_common_options(self):
+        """
+        Add options to the command line parser which are relevant to all
+        modules.
+        """
         # Options used for many different activities:
-        parser.add_option("--debug", dest="debug", action="store_true",
+        self.parser.add_option("--debug", dest="debug", action="store_true",
                 help="print debug messages", default=False)
-        parser.add_option("--offline", dest="offline", action="store_true",
-                help="do not attempt any remote communication (avoid using this please)",
+        self.parser.add_option("--offline", dest="offline", action="store_true",
+                help="do not attempt any remote communication (avoid using " +
+                    "this please)",
                 default=False)
 
-        # Options for tagging new package releases:
-        parser.add_option("--tag-release", dest="tag_release",
-                action="store_true",
-                help="Tag a new release of the package.")
-        parser.add_option("--keep-version", dest="keep_version",
-                action="store_true",
-                help="Use spec file version/release to tag package.")
+    def main(self):
+        (self.options, args) = self.parser.parse_args()
 
-        # Options for other high level tasks:
-        parser.add_option("--untagged-diffs", dest="untagged_report",
-                action="store_true",
-                help= "%s %s %s" % (
-                    "Print out diffs for all packages with changes between",
-                    "their most recent tag and HEAD. Useful for determining",
-                    "which packages are in need of a re-tag."
-                ))
-        parser.add_option("--untagged-commits", dest="untagged_commits",
-                action="store_true",
-                help= "%s %s %s" % (
-                    "Print out the list for all packages with changes between",
-                    "their most recent tag and HEAD. Useful for determining",
-                    "which packages are in need of a re-tag."
-                ))
-        parser.add_option("--cvs-release", dest="cvs_release",
-                action="store_true", help="%s %s" % (
-                    "Import sources into CVS, tag, and build package using",
-                    "brew/koji. Relies on rel-eng configuration to know which"
-                    "CVS repository and build system to use."
-                ))
-
-        (options, args) = parser.parse_args()
+        self._validate_options()
 
         if len(sys.argv) < 2:
             print parser.error("Must supply an argument. Try -h for help.")
 
-        global_config = self._read_global_config()
+        self.global_config = self._read_global_config()
 
-        if options.debug:
+        if self.options.debug:
             os.environ['DEBUG'] = "true"
-
-        # TODO: Shortcut here, build.py does some things unrelated to
-        # building/tagging packages, check for these options, do what's
-        # requested, and exit rather than start looking up data specific
-        # to building etc. This really should be cleaned up.
-        if options.untagged_report:
-            self._run_untagged_report(global_config)
-            sys.exit(1)
-
-        if options.untagged_commits:
-            self._run_untagged_commits(global_config)
-            sys.exit(1)
-
-        # Check for builder options and tagger options, if one or more from both
-        # groups are found, error out:
-        (building, tagging) = self._validate_options(options)
-
-        build_dir = lookup_build_dir()
-        package_name = get_project_name(tag=options.tag)
-
-
-        build_tag = None
-        build_version = None
-        # Determine which package version we should build:
-        if options.tag:
-            build_tag = options.tag
-            build_version = build_tag[len(package_name + "-"):]
-        elif building or options.cvs_release:
-            build_version = get_latest_tagged_version(package_name)
-            if build_version == None:
-                error_out(["Unable to lookup latest package info.",
-                        "Perhaps you need to --tag-release first?"])
-            build_tag = "%s-%s" % (package_name, build_version)
-
-        if not options.test and building:
-            check_tag_exists(build_tag, offline=options.offline)
-
-        pkg_config = self._read_project_config(package_name, build_dir,
-                options.tag, options.no_cleanup)
-
-        if building or options.cvs_release:
-            builder = self._create_builder(package_name, build_tag,
-                    build_version, options, pkg_config, global_config,
-                    build_dir)
-            if building:
-                builder.run(options)
-            elif options.cvs_release:
-                self._run_cvs_release(global_config, builder, options)
-        elif tagging:
-            self._run_tagger(options, pkg_config, global_config)
-
-    def _create_builder(self, package_name, build_tag, build_version, options,
-            pkg_config, global_config, build_dir):
-        """
-        Create (but don't run) the builder class. Builder object may be
-        used by other objects without actually having run() called.
-        """
-
-        builder_class = None
-        if pkg_config.has_option("buildconfig", "builder"):
-            builder_class = get_class_by_name(pkg_config.get("buildconfig",
-                "builder"))
-        else:
-            builder_class = get_class_by_name(global_config.get(
-                GLOBALCONFIG_SECTION, DEFAULT_BUILDER))
-        debug("Using builder class: %s" % builder_class)
-
-        # Instantiate the builder:
-        builder = builder_class(
-                name=package_name,
-                version=build_version,
-                tag=build_tag,
-                build_dir=build_dir,
-                pkg_config=pkg_config,
-                global_config=global_config,
-                dist=options.dist,
-                test=options.test,
-                offline=options.offline)
-        return builder
-
-    def _run_tagger(self, options, pkg_config, global_config):
-        tagger_class = None
-        if pkg_config.has_option("buildconfig", "tagger"):
-            tagger_class = get_class_by_name(pkg_config.get("buildconfig",
-                "tagger"))
-        else:
-            tagger_class = get_class_by_name(global_config.get(
-                GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
-        debug("Using tagger class: %s" % tagger_class)
-
-        tagger = tagger_class(global_config=global_config,
-                keep_version=options.keep_version)
-        tagger.run(options)
-
-    def _run_untagged_commits(self, global_config):
-        """
-        Display a report of all packages with differences between HEAD and
-        their most recent tag, as well as a patch for that diff. Used to
-        determine which packages are in need of a rebuild.
-        """
-        print("Scanning for packages that may need a --tag-release...")
-        print("")
-        git_root = find_git_root()
-        rel_eng_dir = os.path.join(git_root, "rel-eng")
-        os.chdir(git_root)
-        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
-        for root, dirs, files in os.walk(package_metadata_dir):
-            for md_file in files:
-                if md_file[0] == '.':
-                    continue
-                f = open(os.path.join(package_metadata_dir, md_file))
-                (version, relative_dir) = f.readline().strip().split(" ")
-                project_dir = os.path.join(git_root, relative_dir)
-                self._print_log(global_config, md_file, version, project_dir)
-
-    def _run_untagged_report(self, global_config):
-        """
-        Display a report of all packages with differences between HEAD and
-        their most recent tag, as well as a patch for that diff. Used to
-        determine which packages are in need of a rebuild.
-        """
-        print("Scanning for packages that may need a --tag-release...")
-        print("")
-        git_root = find_git_root()
-        rel_eng_dir = os.path.join(git_root, "rel-eng")
-        os.chdir(git_root)
-        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
-        for root, dirs, files in os.walk(package_metadata_dir):
-            for md_file in files:
-                if md_file[0] == '.':
-                    continue
-                f = open(os.path.join(package_metadata_dir, md_file))
-                (version, relative_dir) = f.readline().strip().split(" ")
-                project_dir = os.path.join(git_root, relative_dir)
-                self._print_diff(global_config, md_file, version, project_dir)
-
-    def _run_cvs_release(self, global_config, builder, options):
-        """
-        Import sources into CVS, tag and build in the build system configured
-        for this git repository.
-        """
-        cvs_builder = CvsReleaser(global_config, builder)
-        cvs_builder.run(options)
-
-    def _print_log(self, global_config, package_name, version, project_dir):
-        """
-        Print the log between the most recent package tag and HEAD, if
-        necessary.
-        """
-        last_tag = "%s-%s" % (package_name, version)
-        os.chdir(project_dir)
-        patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
-                (last_tag, "HEAD", ".")
-        output = run_command(patch_command)
-        if (output):
-            print("-" * (len(last_tag) + 8))
-            print("%s..%s:" % (last_tag, "HEAD"))
-            print(output)
-
-    def _print_diff(self, global_config, package_name, version, project_dir):
-        """
-        Print a diff between the most recent package tag and HEAD, if
-        necessary.
-        """
-        last_tag = "%s-%s" % (package_name, version)
-        os.chdir(project_dir)
-        patch_command = "git diff --relative %s..%s" % \
-                (last_tag, "HEAD")
-        output = run_command(patch_command)
-
-        # If the diff contains 1 line then there is no diff:
-        linecount = len(output.split("\n"))
-        if linecount == 1:
-            return
-
-        # Otherwise, print out info on the diff for this package:
-        print("#" * len(package_name))
-        print(package_name)
-        print("#" * len(package_name))
-        print("")
-        print patch_command
-        print("")
-        print(output)
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
 
     def _read_global_config(self):
         """
@@ -463,7 +256,8 @@ class CLI:
             debug("Using build properties: %s" % properties_file)
             config.read(properties_file)
         else:
-            debug("Unable to locate build properties for this package.")
+            debug("Unable to locate custom build properties for this package.")
+            debug("   Using global.build.py.props")
 
         # TODO: Not thrilled with this:
         if wrote_temp_file and not no_cleanup:
@@ -472,16 +266,301 @@ class CLI:
 
         return config
 
-    def _validate_options(self, options):
-        found_builder_options = (options.tgz or options.srpm or options.rpm)
-        found_tagger_options = (options.tag_release)
-        if found_builder_options and found_tagger_options:
-            error_out("Cannot invoke both build and tag options at the " +
-                    "same time.")
-        if options.srpm and options.rpm:
+    def _validate_options(self):
+        """
+        Subclasses can implement if they need to check for any
+        incompatible cmd line options.
+        """
+        pass
+
+
+
+class BuildModule(BaseCliModule):
+
+    def __init__(self):
+        BaseCliModule.__init__(self)
+        usage = "usage: %prog build [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+        self.parser.add_option("--tgz", dest="tgz", action="store_true",
+                help="Build .tar.gz")
+        self.parser.add_option("--srpm", dest="srpm", action="store_true",
+                help="Build srpm")
+        self.parser.add_option("--rpm", dest="rpm", action="store_true",
+                help="Build rpm")
+        self.parser.add_option("--dist", dest="dist", metavar="DISTTAG",
+                help="Dist tag to apply to srpm and/or rpm. (i.e. .el5)")
+        self.parser.add_option("--test", dest="test", action="store_true",
+                help="use current branch HEAD instead of latest package tag")
+        self.parser.add_option("--no-cleanup", dest="no_cleanup",
+                action="store_true",
+                help="do not clean up temporary build directories/files")
+        self.parser.add_option("--tag", dest="tag", metavar="PKGTAG",
+                help="build a specific tag instead of the latest version " +
+                    "(i.e. spacewalk-java-0.4.0-1)")
+
+        self.parser.add_option("--release", dest="release",
+                action="store_true", help="%s %s %s" % (
+                    "Release package according to repo configuration.",
+                    "(import into CVS and submit to build system, or create ",
+                    "src.rpm's and submit directly to koji)"
+                ))
+        self.parser.add_option("--cvs-release", dest="cvs_release",
+                action="store_true", help="Release package only in CVS. (if possible)"
+                )
+        self.parser.add_option("--koji-release", dest="koji_release",
+                action="store_true", help="Release package only in Koji. (if possible)"
+                )
+        self.parser.add_option("--upload-new-source", dest="cvs_new_sources",
+                action="append",
+                help="Upload a new source tarball to CVS lookaside during " \
+                    " --release. (i.e. runs 'make new-sources')")
+
+    def main(self):
+        BaseCliModule.main(self)
+
+        build_dir = lookup_build_dir(self.user_config)
+        package_name = get_project_name(tag=self.options.tag)
+
+        build_tag = None
+        build_version = None
+        # Determine which package version we should build:
+        if self.options.tag:
+            build_tag = self.options.tag
+            build_version = build_tag[len(package_name + "-"):]
+        else:
+            build_version = get_latest_tagged_version(package_name)
+            if build_version == None:
+                error_out(["Unable to lookup latest package info.",
+                        "Perhaps you need to --tag-release first?"])
+            build_tag = "%s-%s" % (package_name, build_version)
+
+        if not self.options.test:
+            check_tag_exists(build_tag, offline=self.options.offline)
+
+        self.pkg_config = self._read_project_config(package_name, build_dir,
+                self.options.tag, self.options.no_cleanup)
+
+        builder = self._create_builder(package_name, build_tag,
+                build_version, self.options, self.pkg_config,
+                build_dir)
+        builder.run(self.options)
+
+    def _create_builder(self, package_name, build_tag, build_version, options,
+            pkg_config, build_dir):
+        """
+        Create (but don't run) the builder class. Builder object may be
+        used by other objects without actually having run() called.
+        """
+
+        builder_class = None
+        if pkg_config.has_option("buildconfig", "builder"):
+            builder_class = get_class_by_name(pkg_config.get("buildconfig",
+                "builder"))
+        else:
+            builder_class = get_class_by_name(self.global_config.get(
+                GLOBALCONFIG_SECTION, DEFAULT_BUILDER))
+        debug("Using builder class: %s" % builder_class)
+
+        # Instantiate the builder:
+        builder = builder_class(
+                name=package_name,
+                version=build_version,
+                tag=build_tag,
+                build_dir=build_dir,
+                pkg_config=pkg_config,
+                global_config=self.global_config,
+                user_config=self.user_config,
+                dist=options.dist,
+                test=options.test,
+                offline=options.offline)
+        return builder
+
+    def _validate_options(self):
+        if self.options.srpm and self.options.rpm:
             error_out("Please choose only one of --srpm and --rpm")
-        if (options.brew or options.koji) and not (options.rpm or options.srpm):
-            error_out("Must specify --srpm or --rpm with --brew/--koji")
-        if options.test and options.tag:
+        if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
-        return (found_builder_options, found_tagger_options)
+
+        if self.options.release and (self.options.cvs_release or
+                self.options.koji_release):
+            error_out(["Cannot combine --cvs-release/--koji-release with --release.",
+                "(--release includes both)"])
+
+
+
+class TagModule(BaseCliModule):
+
+    def __init__(self):
+        BaseCliModule.__init__(self)
+        usage = "usage: %prog tag [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+        # Options for tagging new package releases:
+        self.parser.add_option("--tag-release", dest="tag_release",
+                action="store_true",
+                help="Tag a new release of the package.")
+        self.parser.add_option("--keep-version", dest="keep_version",
+                action="store_true",
+                help="Use spec file version/release to tag package.")
+
+
+    def main(self):
+        BaseCliModule.main(self)
+
+        build_dir = lookup_build_dir(self.user_config)
+        package_name = get_project_name(tag=None)
+
+        self.pkg_config = self._read_project_config(package_name, build_dir,
+                None, None)
+
+        tagger_class = None
+        if self.pkg_config.has_option("buildconfig", "tagger"):
+            tagger_class = get_class_by_name(self.pkg_config.get("buildconfig",
+                "tagger"))
+        else:
+            tagger_class = get_class_by_name(self.global_config.get(
+                GLOBALCONFIG_SECTION, DEFAULT_TAGGER))
+        debug("Using tagger class: %s" % tagger_class)
+
+        tagger = tagger_class(global_config=self.global_config,
+                keep_version=self.options.keep_version)
+        tagger.run(self.options)
+
+
+
+class ReportModule(BaseCliModule):
+    """ CLI Module For Various Reports. """
+
+    def __init__(self):
+        BaseCliModule.__init__(self)
+        usage = "usage: %prog report [options]"
+        self.parser = OptionParser(usage)
+
+        self._add_common_options()
+
+        self.parser.add_option("--untagged-diffs", dest="untagged_report",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out diffs for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
+        self.parser.add_option("--untagged-commits", dest="untagged_commits",
+                action="store_true",
+                help= "%s %s %s" % (
+                    "Print out the list for all packages with changes between",
+                    "their most recent tag and HEAD. Useful for determining",
+                    "which packages are in need of a re-tag."
+                ))
+
+    def main(self):
+        BaseCliModule.main(self)
+
+        if self.options.untagged_report:
+            self._run_untagged_report(self.global_config)
+            sys.exit(1)
+
+        if self.options.untagged_commits:
+            self._run_untagged_commits(self.global_config)
+            sys.exit(1)
+
+    def _run_untagged_commits(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_log(global_config, md_file, version, project_dir)
+
+    def _run_untagged_report(self, global_config):
+        """
+        Display a report of all packages with differences between HEAD and
+        their most recent tag, as well as a patch for that diff. Used to
+        determine which packages are in need of a rebuild.
+        """
+        print("Scanning for packages that may need a --tag-release...")
+        print("")
+        git_root = find_git_root()
+        rel_eng_dir = os.path.join(git_root, "rel-eng")
+        os.chdir(git_root)
+        package_metadata_dir = os.path.join(rel_eng_dir, "packages")
+        for root, dirs, files in os.walk(package_metadata_dir):
+            for md_file in files:
+                if md_file[0] == '.':
+                    continue
+                f = open(os.path.join(package_metadata_dir, md_file))
+                (version, relative_dir) = f.readline().strip().split(" ")
+                project_dir = os.path.join(git_root, relative_dir)
+                self._print_diff(global_config, md_file, version, project_dir)
+
+    def _print_log(self, global_config, package_name, version, project_dir):
+        """
+        Print the log between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
+                (last_tag, "HEAD", ".")
+        output = run_command(patch_command)
+        if (output):
+            print("-" * (len(last_tag) + 8))
+            print("%s..%s:" % (last_tag, "HEAD"))
+            print(output)
+
+    def _print_diff(self, global_config, package_name, version, project_dir):
+        """
+        Print a diff between the most recent package tag and HEAD, if
+        necessary.
+        """
+        last_tag = "%s-%s" % (package_name, version)
+        os.chdir(project_dir)
+        patch_command = "git diff --relative %s..%s" % \
+                (last_tag, "HEAD")
+        output = run_command(patch_command)
+
+        # If the diff contains 1 line then there is no diff:
+        linecount = len(output.split("\n"))
+        if linecount == 1:
+            return
+
+        # Otherwise, print out info on the diff for this package:
+        print("#" * len(package_name))
+        print(package_name)
+        print("#" * len(package_name))
+        print("")
+        print patch_command
+        print("")
+        print(output)
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+
+
+
+CLI_MODULES = {
+    "build": BuildModule,
+    "tag": TagModule,
+    "report": ReportModule,
+}
+

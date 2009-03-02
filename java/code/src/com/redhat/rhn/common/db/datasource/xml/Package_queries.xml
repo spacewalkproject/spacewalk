@@ -622,27 +622,29 @@ SELECT P.id, P.summary, PP.name as provider
   <query params="sid">
 SELECT  distinct pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || pa.id AS ID_COMBO,
-        pa.name as ARCH
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) || '|' || full_list.arch_id AS ID_COMBO,
+        full_list.arch_name as ARCH
   FROM  (
-         SELECT  p.name_id name_id, max(pe.evr) evr
+         SELECT  p.name_id name_id, max(pe.evr) evr,
+                 pa.name as arch_name, pa.id as arch_id
            FROM  rhnPackageEVR PE, rhnPackage P,
-                 rhnChannelPackage CP, rhnServerChannel SC
+                 rhnChannelPackage CP, rhnServerChannel SC,
+                 rhnPackageArch PA
           WHERE  sc.server_id = :sid
             AND  sc.channel_id = cp.channel_id
             AND  cp.package_id = p.id
             AND  p.evr_id = pe.id
-       GROUP BY  p.name_id
+            AND  p.package_arch_id = pa.id
+       GROUP BY  p.name_id, pa.name, pa.id
        ) full_list,
-       rhnPackageArch pa,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
  WHERE  full_list.name_id = pn.id
    AND  full_list.name_id NOT IN (SELECT SP.name_id FROM rhnServerPackage SP WHERE SP.server_id = :sid)
-   AND  pa.id = pkg.package_arch_id
 ORDER BY  UPPER(pn.name)
   </query>
 </mode>
+
 
 <mode name="lookup_id_combo_by_name">
 <query params="sid, name">
@@ -1338,12 +1340,14 @@ ORDER BY last_modified
   <query params="cid, eid">
 SELECT P1.id, 
        PN.name,
-       PE2.evr.as_vre_simple() AS current_nvre,
-       PE1.evr.as_vre_simple() AS new_nvre
+       PE2.evr.as_vre_simple() || '.' || PA2.label AS current_nvrea,
+       PE1.evr.as_vre_simple() || '.' || PA1.label AS new_nvrea
 FROM rhnPackage P1,
-     rhnPackageEVR PE1, 
+     rhnPackageEVR PE1,
+     rhnPackageArch PA1,
      rhnChannelNewestPackage CNP, 
-     rhnPackageEVR PE2, 
+     rhnPackageEVR PE2,
+     rhnPackageArch PA2,
      rhnPackageName PN, 
      rhnErrataPackage EP
 WHERE EP.errata_id = :eid
@@ -1352,7 +1356,9 @@ WHERE EP.errata_id = :eid
   AND P1.name_id = CNP.name_id
   AND p1.package_arch_id = CNP.package_arch_id
   AND PE1.id = P1.evr_id
+  AND PA1.id = P1.package_arch_id
   AND PE2.id = CNP.evr_id
+  AND PA2.id = CNP.package_arch_id
   AND PN.id = P1.name_id
   AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release, PE2.epoch, PE2.version, PE2.release) > 0
   </query>
@@ -1363,18 +1369,20 @@ WHERE EP.errata_id = :eid
   <query params="cid, eid">
 SELECT P.id,
        PN.name,
-       NULL AS current_nvre,
-       PE1.evr.as_vre_simple() AS new_nvre
+       NULL AS current_nvrea,
+       PE1.evr.as_vre_simple() || '.' || PA.label AS new_nvrea
 FROM rhnPackage P,
   rhnErrataPackage EP,
   rhnPackageEVR PE1,
   rhnPackageName PN,
   rhnChannelPackageArchCompat pac,
-  rhnChannel c 
+  rhnChannel c,
+  rhnPackageArch PA
 WHERE EP.errata_id = :eid
   AND EP.package_id = P.id
   AND PE1.id = P.evr_id
   AND PN.id = P.name_id
+  AND PA.id = P.package_arch_id
   AND pac.channel_arch_id = c.channel_arch_id
   AND pac.package_arch_id = p.package_arch_id
   AND C.id = :cid

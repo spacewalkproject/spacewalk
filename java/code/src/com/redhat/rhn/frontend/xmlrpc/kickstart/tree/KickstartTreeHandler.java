@@ -34,7 +34,7 @@ import java.util.List;
  * KickstartTreeHandler - methods related to CRUD operations
  * on KickstartableTree objects.
  * @xmlrpc.namespace kickstart.tree
- * @xmlrpc.doc Provides methods to create kickstart files
+ * @xmlrpc.doc Provides methods to access and modify the kickstart trees.
  * @version $Rev$
  */
 public class KickstartTreeHandler extends BaseHandler {
@@ -68,9 +68,10 @@ public class KickstartTreeHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @return Array of KickstartInstallType objects
      * 
-     * @xmlrpc.doc List the available kickstartable install types (rhel2,3,4,5 and fedora9+)
+     * @xmlrpc.doc List the available kickstartable install types (rhel2,3,4,5 and
+     * fedora9+).
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype #array() $KickstartInstallType #array_end()
+     * @xmlrpc.returntype #array() $KickstartInstallTypeSerializer #array_end()
      */
     public List listInstallTypes(String sessionKey) {
         return KickstartFactory.lookupKickstartInstallTypes();
@@ -87,15 +88,15 @@ public class KickstartTreeHandler extends BaseHandler {
      * rhel_3, rhel_4, rhel_5, fedora_9)
      * @return 1 if successful, exception otherwise.
      * 
-     * @xmlrpc.doc Create a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.doc Create a Kickstart Tree (Distribution) in Satellite.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the new kickstart tree")
-     * @xmlrpc.param #param_desc("string", "basePath", "path to the base or
+     * @xmlrpc.param #param_desc("string", "treeLabel" "The new kickstart tree label.")
+     * @xmlrpc.param #param_desc("string", "basePath", "Path to the base or
      * root of the kickstart tree.")
-     * @xmlrpc.param #param_desc("string", "channelLabel", "label of channel to 
-     * associate with ks tree. ")
-     * @xmlrpc.param #param_desc("string", "installType", "String label for 
-     * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9")
+     * @xmlrpc.param #param_desc("string", "channelLabel", "Label of channel to
+     * associate with the kickstart tree. ")
+     * @xmlrpc.param #param_desc("string", "installType", "Label for
+     * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9).")
      * @xmlrpc.returntype #return_int_success()
      */
     public int create(String sessionKey, String treeLabel,
@@ -126,10 +127,10 @@ public class KickstartTreeHandler extends BaseHandler {
      * @param treeLabel Label for the new kickstart tree
      * @return 1 if successful, exception otherwise.
      * 
-     * @xmlrpc.doc Delete a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.doc Delete a Kickstart Tree (Distribution) in Satellite.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the
-     * kickstart tree you want to delete")
+     * kickstart tree to delete.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int delete(String sessionKey, String treeLabel) {
@@ -161,7 +162,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * associated with this kickstart tree!
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the
-     * kickstart tree you want to delete")
+     * kickstart tree to delete.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int deleteTreeAndProfiles(String sessionKey, String treeLabel) {
@@ -195,15 +196,15 @@ public class KickstartTreeHandler extends BaseHandler {
      * 
      * @return 1 if successful, exception otherwise.
      * 
-     * @xmlrpc.doc Edit a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.doc Edit a Kickstart Tree (Distribution) in Satellite.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the kickstart tree")
-     * @xmlrpc.param #param_desc("string", "basePath", "path to the base or
+     * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the kickstart tree.")
+     * @xmlrpc.param #param_desc("string", "basePath", "Path to the base or
      * root of the kickstart tree.")
-     * @xmlrpc.param #param_desc("string", "channelLabel", "label of channel to 
-     * associate with ks tree. ")
-     * @xmlrpc.param #param_desc("string", "installType", "String label for 
-     * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9")
+     * @xmlrpc.param #param_desc("string", "channelLabel", "Label of channel to
+     * associate with kickstart tree.")
+     * @xmlrpc.param #param_desc("string", "installType", "Label for
+     * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9).")
      *
      * @xmlrpc.returntype #return_int_success()
      */
@@ -237,11 +238,11 @@ public class KickstartTreeHandler extends BaseHandler {
      * @param newLabel to assign to tree.
      * @return 1 if successful, exception otherwise.
      * 
-     * @xmlrpc.doc Rename a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.doc Rename a Kickstart Tree (Distribution) in Satellite.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "originalLabel" "Label for the
-     * kickstart tree you want to rename")
-     * @xmlrpc.param #param_desc("string", "newLabel" "new label to change too")
+     * kickstart tree to rename.")
+     * @xmlrpc.param #param_desc("string", "newLabel" "The kickstart tree's new label.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int rename(String sessionKey, String originalLabel, String newLabel) {

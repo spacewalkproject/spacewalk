@@ -152,7 +152,7 @@ public abstract class CobblerCommand {
         if (org == null) {
             return label.replace(' ', '_');
         }
-        String format = "%s--%s--%s";
+        String format = "%s--%s";
         
         String kickstartConfigDir = Config.get().getString("kickstart.cobbler.dir", 
             "/var/lib/rhn/kickstarts/");

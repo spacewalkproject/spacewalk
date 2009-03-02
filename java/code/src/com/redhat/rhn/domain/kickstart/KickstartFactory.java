@@ -193,7 +193,7 @@ public class KickstartFactory extends HibernateFactory {
             else if (cn.getName().equals("lilocheck") && !ksdata.isPreRHEL5Kickstart()) {
                 continue;
             } 
-            else if (cn.getName().equals("langsupport") && !ksdata.isPreRHEL5Kickstart()) {
+            else if (cn.getName().equals("langsupport") && ksdata.isRhel5OrGreater()) {
                 continue;
             }
             else {
@@ -324,7 +324,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param ksdataIn Kickstart Data to be stored in db
      * @param ksession KickstartSession to associate with this save.
      */
-    public static void saveKickstartData(KickstartData ksdataIn, 
+    public static void saveKickstartData(KickstartData ksdataIn,
             KickstartSession ksession) {
         log.debug("saveKickstartData: " + ksdataIn.getLabel());
         singleton.saveObject(ksdataIn);
@@ -361,7 +361,11 @@ public class KickstartFactory extends HibernateFactory {
             log.debug("No ks meta for this profile.");
         }
         try {
-            File ksfile = new File(ksdataIn.getCobblerFileName());
+            String path = ksdataIn.getCobblerFileName();
+            if (p != null && p.getKickstart() != null) { 
+                path = p.getKickstart();
+            }
+            File ksfile = new File(path);
             if (ksfile.exists()) {
                 log.debug("file exists, deleting");
                 ksfile.delete();
