@@ -1162,7 +1162,7 @@ public class PackageManager extends BaseManager {
         
         mode.executeUpdate(params);
         
-        log.error("Time to delete [" + ids.size() + "] packages [" +
+        log.debug("Time to delete [" + ids.size() + "] packages [" +
             (System.currentTimeMillis() - start) + "] ms");
         
         start = System.currentTimeMillis();
@@ -1176,7 +1176,7 @@ public class PackageManager extends BaseManager {
             ErrataCacheManager.deleteCacheEntriesForChannelPackages(channelId, pList);
         }
 
-        log.error("Time to update [" + channelIds.size() + "] channels [" +
+        log.debug("Time to update [" + channelIds.size() + "] channels [" +
             (System.currentTimeMillis() - start) + "] ms");
     }
     
