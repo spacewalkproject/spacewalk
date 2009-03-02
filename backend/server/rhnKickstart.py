@@ -159,7 +159,7 @@ def create_tree(ks_label, channel_label, path, boot_image, kstree_type, install_
             id, org_id, label, base_path, channel_id, boot_image, kstree_type,
             install_type)
         values (
-            rhn_kstree_id_seq.nextval, :org_id, :label, :base_path, :channel_id, 
+            nextval('rhn_kstree_id_seq'), :org_id, :label, :base_path, :channel_id, 
             :boot_image, 
             (select id from rhnKSTreeType where label = :kstree_type),
             (select id from rhnKSInstallType where label = :install_type))

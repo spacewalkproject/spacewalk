@@ -33,7 +33,7 @@ class RepodataQueue(object):
                 (id, channel_label, client, reason, force, bypass_filters,
                  next_action, created, modified)
             values (
-                rhn_repo_regen_queue_id_seq.nextval,
+                nextval('rhn_repo_regen_queue_id_seq'),
                 :channel, :client, :reason, :force, :bypass_filters,
                 sysdate, sysdate, sysdate
             )

@@ -531,7 +531,7 @@ def create_first_private_chan_family():
        _query_create_chfam = """
           INSERT INTO  rhnChannelFamily
                  (id, name, label, org_id, product_url)
-          VALUES (rhn_channel_family_id_seq.nextval, :name, :label, :org, :url)
+          VALUES (nextval('rhn_channel_family_id_seq'), :name, :label, :org, :url)
 
        """
        h = rhnSQL.prepare(_query_create_chfam)

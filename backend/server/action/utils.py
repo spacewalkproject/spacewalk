@@ -329,7 +329,7 @@ class PackageInstallScheduler:
                                          name_id, 
                                          evr_id, 
                                          package_arch_id)
-            values (rhn_act_p_id_seq.nextval,
+            values (nextval('rhn_act_p_id_seq'),
                     :action_id,
                     'install',
                     :name_id,

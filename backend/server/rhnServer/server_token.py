@@ -202,7 +202,7 @@ _query_token_packages = rhnSQL.Statement("""
 """)
 _query_token_packages_insert = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, 'upgrade')
+    values (nextval('rhn_act_p_id_seq'), :action_id, :name_id, 'upgrade')
 """)
 
 def token_packages(server_id, tokens_obj):
@@ -272,7 +272,7 @@ _query_token_latest_revisions = rhnSQL.Statement("""
 
 _query_add_revision_to_action = rhnSQL.Statement("""
     insert into rhnActionConfigRevision (id, action_id, server_id, config_revision_id)
-    values (rhn_actioncr_id_seq.nextval, :action_id, :server_id, :config_revision_id)
+    values (nextval('rhn_actioncr_id_seq'), :action_id, :server_id, :config_revision_id)
 """)
 
 def deploy_configs_if_needed(server):
