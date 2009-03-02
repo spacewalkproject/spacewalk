@@ -774,6 +774,8 @@ sub postgresql_clear_db {
     open STDERR, "| grep -v '^NOTICE:  '"
         or die "Cannot pipe STDERR to grep\n";
 
+    # TODO: This is no good, we're using schemas to replicate packages, these 
+    # too need to be deleted and the list is too large to maintain...
     my $sth = $dbh->prepare("DROP SCHEMA public CASCADE");
     $sth->execute;
 
