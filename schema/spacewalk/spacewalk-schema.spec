@@ -35,7 +35,6 @@ pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 postgresql/postgresql.%{universe} $RPM_BUILD_ROOT%{rhnroot}
 
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
