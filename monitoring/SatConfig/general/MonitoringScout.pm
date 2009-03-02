@@ -28,14 +28,14 @@ sub printStatus
         my ($self,@params) = @_;
 	my $pxtconf = new PXT::Config("web");
 	if ($pxtconf->get("is_monitoring_backend")) {
-		$self->dprint(0,"   ++++ Monitoring backend functionality is enabled");
+		$self->dprint(1,"   ++++ Monitoring backend functionality is enabled");
 	} else {
-		$self->dprint(0,"   ---- Monitoring backend functionality is disabled");
+		$self->dprint(1,"   ---- Monitoring backend functionality is disabled");
 	}
 	if ($pxtconf->get("is_monitoring_scout")) {
-		$self->dprint(0,"   ++++ Monitoring scout functionality is enabled");
+		$self->dprint(1,"   ++++ Monitoring scout functionality is enabled");
 	} else {
-		$self->dprint(0,"   ---- Monitoring scout functionality is disabled");
+		$self->dprint(1,"   ---- Monitoring scout functionality is disabled");
 	}
         $self->SUPER::printStatus(@params);
 }

@@ -44,8 +44,8 @@ sub initialize
 			if (! $switches->{'hbResourceMode'}) {
 				$stream = $self->debugObject->addstream(LEVEL=>$self->get_debug);
 				$stream->timestamps(1);
-				$self->dprint($self->get_debug,'Debug level = ',$self->get_debug);
-				$self->dprint(0,'Switches: ',join(',',@ARGV));
+				$self->dprint(1,'Debug level = ',$self->get_debug);
+				$self->dprint(2,'Switches: ',join(',',@ARGV));
 			} else {
 				$self->debugObject->addstream(LEVEL=>-1);
 			}
@@ -163,7 +163,7 @@ sub installSysVLinks
 		my @levels = split(',',$self->configValue('runLevels'));
 		my $startSeq = $self->configValue('startSeq');
 		my $stopSeq = $self->configValue('stopSeq');
-		$self->dprint(0,'Installing '.ref($self).' for SysV startup in runlevels '.join(',',@levels).", start=$startSeq, stop=$stopSeq");
+		$self->dprint(1,'Installing '.ref($self).' for SysV startup in runlevels '.join(',',@levels).", start=$startSeq, stop=$stopSeq");
 		my $level;
 		foreach $level (@levels) {
 			symlink('/etc/rc.d/init.d/'.ref($self),'/etc/rc.d/rc'.$level.'.d/S'.$startSeq.ref($self));
@@ -182,7 +182,7 @@ sub uninstallSysVLinks
 {
 	my $self = shift();
 	unlink('/etc/rc.d/init.d/'.ref($self));
-	$self->dprint(0,'Uninstalling '.ref($self).' from SysV startup');
+	$self->dprint(1,'Uninstalling '.ref($self).' from SysV startup');
 	my $level;
 	foreach $level (0,1,2,3,4,5,6) {
 		$self->shell('rm /etc/rc.d/rc'.$level.'.d/S*'.ref($self));
@@ -275,7 +275,7 @@ sub startStep
 {
 	my $self = shift();
 	if ((! $self->isStarted) || $self->get_force) {
-		$self->dprint(0,'STARTING...');
+		print "Starting ", $self->get_name, " ...  ";
 		if ($self->get_force) {
 			$self->clearStopActions;
 		}
@@ -284,9 +284,9 @@ sub startStep
 		$self->set_lastAction('start');
 		if ($self->hasErrors) {
 			$self->listErrors;
-			$self->dprint(0,'START HAD ERRORS ');
+			print "[ FAIL ]\n";
 		} else {
-			$self->dprint(0,'STARTED OK');
+			print "[ OK ]\n";
 		}
 		if (-f '/etc/rc.d/init.d/'.ref($self))  {
 			# This is for RH "rc" script - won't kill if this isn't here
@@ -296,7 +296,8 @@ sub startStep
 		}
 		return $self->hasErrors;
 	} else {
-		$self->dprint(0,'ALREADY RUNNING');
+		print "[ FAIL ]\n";
+		$self->dprint(1,'ALREADY RUNNING');
 		return 1;
 	}
 }
@@ -305,15 +306,15 @@ sub stopStep
 {
 	my $self = shift();
 	if ($self->isStarted || $self->get_force) {
-		$self->dprint(0,'STOPPING');
+		print 'Stopping ', $self->get_name, " ...  ";
 		$self->clearLastActionErrors;
 		$self->stopActions;
 		$self->set_lastAction('stop');
 		if ($self->hasErrors) {
 			$self->listErrors;
-			$self->dprint(0,'STOP HAD ERRORS ');
+			print "[ FAIL ]\n";
 		} else {
-			$self->dprint(0,'STOPPED OK');
+			print "[ OK ]\n";
 		}
 		if ( -f '/var/lock/subsys/'.ref($self)) {
 			# This is for RH "rc" script - won't kill if this isn't here
@@ -321,7 +322,8 @@ sub stopStep
 		}
 		return $self->hasErrors;
 	} else {
-		$self->dprint(0,'ALREADY STOPPED');
+		print "[ FAIL ]\n";
+		$self->dprint(1,'ALREADY STOPPED');
 		return 1;
 	}
 }
@@ -470,27 +472,27 @@ sub _printStatus
 			print "stopped\n"
 		}
 	} else {
-		$self->dprint(0,'============ STATUS ===============');
+		$self->dprint(1,'============ STATUS ===============');
 		$self->printStatus($avoidRedundancy);
-		$self->dprint(0,'===================================');
+		$self->dprint(1,'===================================');
 	}
 }
 
 sub printStatus
 {
 	my ($self,$avoidRedundancy) = @_;
-	$self->dprint(0,'Last action: ',$self->get_lastAction);
+	$self->dprint(1,'Last action: ',$self->get_lastAction);
 	if (-f '/etc/rc.d/init.d/'.ref($self)) {
-		$self->dprint(0,'** Installed for SysV startup **');
+		$self->dprint(1,'** Installed for SysV startup **');
 	} elsif ($self->configValue(runLevels)) {
-		$self->dprint(0,'** Can be installed for SysV startup **');
-		$self->dprint(0,'Run levels: ',$self->configValue('runLevels'));
-		$self->dprint(0,'Start sequence: ',$self->configValue('startSeq'));
-		$self->dprint(0,'Stop sequence: ',$self->configValue('stopSeq'));
+		$self->dprint(1,'** Can be installed for SysV startup **');
+		$self->dprint(1,'Run levels: ',$self->configValue('runLevels'));
+		$self->dprint(1,'Start sequence: ',$self->configValue('startSeq'));
+		$self->dprint(1,'Stop sequence: ',$self->configValue('stopSeq'));
 	}
 	if ($self->isStarted) {
 		if ($self->isRunning) {
-			$self->dprint(0,'STARTED and RUNNING');
+			$self->dprint(1,'STARTED and RUNNING');
 		} else {
 			$self->dprint(0,'WARNING: STARTED BUT *NOT* RUNNING');
 		}
@@ -500,7 +502,7 @@ sub printStatus
 			$self->dprint(1,"\t",$action->[0]);
 		}
 	} else {
-		$self->dprint(0,'STOPPED');
+		$self->dprint(1,'STOPPED');
 	}
 	if ($self->hasErrors) {
 		$self->dprint(0,'ERRORS ENCOUNTERED DURING LAST ACTION:');
