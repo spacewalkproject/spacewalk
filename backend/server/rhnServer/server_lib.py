@@ -435,7 +435,7 @@ begin
 
     insert into rhnPushClient 
            (id, server_id, name, shared_key, state_id)
-    values (nextval('rhn_pclient_id_seq'), :server_id, :name, 
+    values (sequence_nextval('rhn_pclient_id_seq'), :server_id, :name, 
             :shared_key, :state_id);
     commit;
 end;

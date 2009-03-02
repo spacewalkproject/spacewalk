@@ -384,7 +384,7 @@ def processPackageKeyAssociations(header, md5sum):
     insert_keyid_sql = rhnSQL.prepare("""
         insert into rhnPackagekey
             (id, key_id, key_type_id) values
-            (nextval('rhn_pkey_id_seq'), :key_id, :key_type_id)
+            (sequence_nextval('rhn_pkey_id_seq'), :key_id, :key_type_id)
     """)
 
     lookup_keyid_sql = rhnSQL.prepare("""

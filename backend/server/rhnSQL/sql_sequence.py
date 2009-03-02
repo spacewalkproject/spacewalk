@@ -32,7 +32,7 @@ class Sequence:
         self.__db = db
 
     def next(self):
-	sql = "select nextval('%s') as ID from dual" % self.__seq
+	sql = "select sequence_nextval('%s') as ID from dual" % self.__seq
 	cursor = self.__db.prepare(sql)
 	cursor.execute()
 	ret = cursor.fetchone_dict()        

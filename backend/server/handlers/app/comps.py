@@ -48,7 +48,7 @@ class Comps(RPC_Base):
         sql_stmt = rhnSQL.prepare("""
         insert into rhnChannelComps
             (id, channel_id, relative_filename)
-        values (nextval('rhn_channelcomps_id_seq'),
+        values (sequence_nextval('rhn_channelcomps_id_seq'),
                 :channel_id,
                 :relative_filename)
         """)
