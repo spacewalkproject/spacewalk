@@ -28,7 +28,6 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
-import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.InstalledPackage;
@@ -1103,28 +1102,82 @@ public class PackageManager extends BaseManager {
      * @param user the user doing the deleting
      */
     public static void deletePackages(Set<Long> ids, User user) {
+        
         if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
             throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
         }
-        Set<Channel> channels = new HashSet<Channel>();
+
+        long start = System.currentTimeMillis();
+
+        // Stuff the package IDs into an RhnSet that the rest of the queries
+        // will work on
+        RhnSet set = RhnSetDecl.PACKAGES_TO_REMOVE.create(user);
+
         for (Long id : ids) {
-            clearNeededPackageCache(id);
-            Package pack = PackageFactory.lookupByIdAndOrg(id, user.getOrg());
-            channels.addAll(pack.getChannels());
-            PackageManager.schedulePackageFileForDeletion(pack.getPath());
-            List<PackageSource> sources = PackageFactory.lookupPackageSources(pack);
-            for (PackageSource source : sources) {
-                PackageFactory.deletePackageSource(source);
-            }
-            PackageFactory.deletePackage(pack);
+            set.addElement(id);
         }
+
+        RhnSetManager.store(set);
+
+        // Needed for subsequent queries
+        WriteMode mode;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("set_label", set.getLabel());
+
+        // First, capture all of the channels that have one or more of the packages
+        // to delete (we'll need this later)
+        SelectMode selectMode = ModeFactory.getMode("Package_queries",
+            "determine_channels_for_packages_in_set");
+
+        DataResult dataResult = selectMode.execute(params);
+        Set<Map> channelIds = new HashSet<Map>(dataResult);
+
+        // Clear server->package cache for all packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "cleanup_needed_package_cache_from_set");
         
-        List<Long> pList = new ArrayList<Long>();
-        pList.addAll(ids);
-        for (Channel chan : channels) {
-            ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
-            ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), pList);
+        mode.executeUpdate(params);
+        
+        // Schedule package files for deletion for all packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "schedule_pkg_for_delete_from_set");
+        
+        mode.executeUpdate(params);
+        
+        // Delete package sources for all packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "delete_package_sources_from_set");
+        
+        mode.executeUpdate(params);
+        
+        // Delete link between channel and package
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "cleanup_package_channels_from_set");
+        
+        mode.executeUpdate(params);
+        
+        // Delete all packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "delete_packages_from_set");
+        
+        mode.executeUpdate(params);
+        
+        log.error("Time to delete [" + ids.size() + "] packages [" +
+            (System.currentTimeMillis() - start) + "] ms");
+        
+        start = System.currentTimeMillis();
+
+        // For now, continue to use repeated calls to the managers rather than having the
+        // calls take place using the data in the package IDs RhnSet
+        List<Long> pList = new ArrayList<Long>(ids);
+        for (Map channelIdData : channelIds) {
+            Long channelId = (Long) channelIdData.get("channel_id");
+            ChannelManager.refreshWithNewestPackages(channelId, "web.package_delete");
+            ErrataCacheManager.deleteCacheEntriesForChannelPackages(channelId, pList);
         }
+
+        log.error("Time to update [" + channelIds.size() + "] channels [" +
+            (System.currentTimeMillis() - start) + "] ms");
     }
     
     /**

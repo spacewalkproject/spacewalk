@@ -164,12 +164,24 @@ WHERE id IN
   </query>
 </write-mode>
 
-
 <write-mode name="cleanup_package_channels">
   <query params="pid">
     DELETE from
     rhnChannelPackage
     where package_id = :pid
+  </query>
+</write-mode>
+
+<!-- Deletes references from a channel to a package for all packages in the given RhnSet.
+     The set must contain the package ID in the "element" of the set. -->
+<write-mode name="cleanup_package_channels_from_set">
+  <query params="set_label">
+    DELETE FROM rhnChannelPackage
+          WHERE package_id IN (
+                SELECT s.element
+                  FROM rhnSet s
+                 WHERE s.label = :set_label
+                )
   </query>
 </write-mode>
 
@@ -1428,6 +1440,32 @@ SELECT P.id, PE.epoch, PE.version, PE.release
       VALUES (:path, sysdate)
   </query>
 </write-mode>
+                  
+<!-- Schedules the deletion of all packages found in the given RhnSet. The set must
+     contain the package ID in the "element" of the set. -->
+<write-mode name="schedule_pkg_for_delete_from_set">
+  <query params="set_label">
+    INSERT INTO rhnPackageFileDeleteQueue (path, created)
+      (SELECT p.path, sysdate
+         FROM rhnPackage p, rhnSet s
+        WHERE p.id = s.element
+          AND s.label = :set_label
+      )
+  </query>
+</write-mode>
+   
+<!-- Deletes packages found in the given RhnSet. The set must contain the package ID in
+     the "element" of the set. -->
+<write-mode name="delete_packages_from_set">
+   <query params="set_label">
+      DELETE FROM rhnPackage p
+            WHERE p.id IN (
+                  SELECT s.element
+                    FROM rhnSet s
+                   WHERE s.label = :set_label
+                  )
+   </query>
+</write-mode>
 
 <write-mode name="insert_channel_packages_in_set">
   <query params="cid, set_label, user_id">
@@ -1692,6 +1730,19 @@ SELECT distinct P.id AS ID,
   </query>
 </write-mode>
 
+<!-- Runs the cache cleanup for all packages in an RhnSet. The package ID must be in
+     "element" of the set. -->
+<write-mode name="cleanup_needed_package_cache_from_set">
+  <query params="set_label">
+    DELETE FROM rhnServerNeededCache r
+          WHERE r.package_id IN
+                (SELECT element
+                   FROM rhnSet s
+                  WHERE s.label = :set_label)
+      
+  </query>
+</write-mode>
+
 <mode name="guestimate_package_by_channel" >
   <query params="cid, nameId, evrId">
 	SELECT P.id
@@ -1747,4 +1798,31 @@ SELECT P.id
 ORDER BY P.package_arch_id DESC
   </query>
 </mode>
+   
+<!-- Deletes sources of all packages found in the given RhnSet. The set must
+     contain the package ID in the "element" of the set. -->
+<write-mode name="delete_package_sources_from_set">
+   <query params="set_label">
+      DELETE FROM rhnPackageSource ps
+       WHERE ps.source_rpm_id IN (
+             SELECT p.source_rpm_id
+               FROM rhnPackage p, rhnSet s
+              WHERE p.id = s.element
+                AND s.label = :set_label
+             )
+   </query>
+   
+</write-mode>
+
+<!-- Returns the set of channels that any of the packages in the given set belong to.
+     The set must contain the package ID in the "element" of the set. -->
+<mode name="determine_channels_for_packages_in_set">
+   <query params="set_label">
+      SELECT DISTINCT cp.channel_id
+        FROM rhnChannelPackage cp, rhnSet s
+       WHERE cp.package_id = s.element
+         AND s.label = :set_label
+   </query>
+</mode>
+   
 </datasource_modes>
