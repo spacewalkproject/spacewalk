@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -38,7 +38,6 @@ class Tests(unittest.TestCase):
 
     def test_new_org_1(self):
         org_id = misc_functions.create_new_org()
-        # PGPORT_1:NO Change #
         h = rhnSQL.prepare("select id from web_customer where id = :id")
         h.execute(id=org_id)
         row = h.fetchone_dict()
