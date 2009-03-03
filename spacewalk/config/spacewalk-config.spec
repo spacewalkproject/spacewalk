@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/webapp-keyring.gpg
 %config(noreplace) /var/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) /var/lib/cobbler/snippets/spacewalk_file_preservation
-%dir /etc/rhn
+%attr(0750,root,apache) %dir /etc/rhn
 %dir /etc/rhn/satellite-httpd
 %dir /etc/rhn/satellite-httpd/conf
 %dir /etc/rhn/satellite-httpd/conf/rhn
