@@ -463,6 +463,7 @@ create schema spacewalk;
 
 /* Data population scripts go here */
 \i tables/rhnUserGroupType_data.sql
+\i tables/rhnServerGroupType_data.sql
 
 /* packages go here */
 \i packages/rhn_user.pkb
