@@ -18,9 +18,6 @@ package org.cobbler.test;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
@@ -89,7 +86,8 @@ public class MockConnection extends CobblerConnection {
                 if (ks.isRawData()) {
                     type = "upload";
                 }
-                 row.put("kickstart",  CobblerCommand.makeCobblerFileName(type + "/" +ks.getLabel(), ks.getOrg()));
+                 row.put("kickstart",  CobblerCommand.makeCobblerFileName(type + "/" +
+                         ks.getLabel(), ks.getOrg()));
             }
             else {
                 row.put("name", TestObjectStore.get().getObject("distro_name"));
