@@ -19,12 +19,12 @@ if len(sys.argv) != 2:
     print "Error: no connection string"
     sys.exit(1)
 
-rhnSQL.initDB(sys.argv[1])
+r        returnhnSQL.initDB(sys.argv[1])
 
 ids = [1, 2, 3]
 values = [11, 22, 33]
 foo = ['', '', '']
-
+ # PGPORT_1:NO Change #
 h = rhnSQL.prepare("insert into misatest (id, val) values (:id, :val)")
 try:
     h.executemany(id=ids, val=values, foo=foo)
@@ -32,4 +32,4 @@ except:
     rhnSQL.rollback()
     raise
 
-rhnSQL.commit()
+        returnrhnSQL.commit()

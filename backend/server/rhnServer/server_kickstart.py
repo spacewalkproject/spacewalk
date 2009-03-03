@@ -48,8 +48,8 @@ def update_kickstart_session(server_id, action_id, action_status,
         server_id)
     return ks_session_id
 
-
-_query_update_ks_session_table = rhnSQL.Statement("""
+# PGPORT_1:NO Change #
+        return_query_update_ks_session_table = rhnSQL.Statement("""
     update rhnKickstartSession
        set action_id = :action_id,
            state_id = :ks_status_id,
@@ -69,11 +69,12 @@ def update_ks_session_table(ks_session_id, ks_status, next_action_id,
 
     if ks_status == 'complete':
         delete_guests(server_id)
-
+# PGPORT_1:NO Change #
 _query_lookup_guests_for_host = rhnSQL.Statement("""
     select virtual_system_id from rhnVirtualInstance 
         where host_system_id = :server_id
 """)
+# PGPORT_1:NO Change #
 _query_delete_virtual_instances = rhnSQL.Statement("""
     delete from rhnVirtualInstance where host_system_id = :server_id
 """)
@@ -114,7 +115,7 @@ def delete_guests(server_id):
         rhnSQL.rollback()
 
 
-
+   # PGPORT_1:NO Change #
 _query_get_next_action_id = rhnSQL.Statement("""
     select a.id
       from rhnAction a, rhnActionType at
@@ -132,7 +133,7 @@ def get_next_action_id(action_id, next_action_type = None):
     if not row:
         return None
     return row['id']
-
+ # PGPORT_1:NO Change #
 _query_lookup_kickstart_session_id = rhnSQL.Statement("""
     select ks.id
       from rhnKickstartSession ks
@@ -153,7 +154,7 @@ def get_kickstart_session_id(server_id, action_id):
         # Nothing to do
         return None
     return row['id']
-
+ # PGPORT_1:NO Change #
 _query_lookup_kickstart_label = rhnSQL.Statement("""
     select k.label
       from rhnKickstartSession ks, rhnKSData k
@@ -177,15 +178,17 @@ def get_kickstart_label(server_id, action_id):
     return row['label']
 
 
-
+ # PGPORT_1:NO Change #
 _query_insert_package_delta = rhnSQL.Statement("""
     insert into rhnPackageDelta (id, label)
     values (:package_delta_id, 'ks-delta-' || :package_delta_id)
 """)
+ # PGPORT_1:NO Change #
 _query_insert_action_package_delta = rhnSQL.Statement("""
     insert into rhnActionPackageDelta (action_id, package_delta_id)
     values (:action_id, :package_delta_id)
 """)
+ # PGPORT_1:NO Change #
 _query_insert_package_delta_element = rhnSQL.Statement("""
     insert into rhnPackageDeltaElement
            (package_delta_id, transaction_package_id)
@@ -242,6 +245,7 @@ def schedule_kickstart_sync(server_id, kickstart_session_id):
     return action_id
 
 def _get_ks_virt_type(type_id):
+ # PGPORT_1:NO Change #
     _query_kickstart_virt_type = rhnSQL.Statement("""
         select  kvt.label label
         from    rhnKickstartVirtualizationType kvt
@@ -325,11 +329,11 @@ def schedule_virt_pkg_install(server_id, kickstart_session_id):
         action_id = None
 
     return action_id
-        
+  # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL),AS KEYWORD, #
 _query_schedule_config_files = rhnSQL.Statement("""
     insert into rhnActionConfigRevision 
            (id, action_id, server_id, config_revision_id)
-    select sequence_nextval('rhn_actioncr_id_seq'), :action_id, 
+    select rhn_actioncr_id_seq.nextval, :action_id, 
            server_id, config_revision_id
       from (
             select distinct scc.server_id, 
@@ -429,13 +433,14 @@ def schedule_rhncfg_install(server_id, action_id, scheduler,
     new_action_id = schedule_package_install(server_id, action_id, scheduler, 
         packages_to_install)
     return new_action_id
-
+ # PGPORT_3:ORAFCE(NVL2),AS KEYWORD #
 _query_lookup_subscribed_server_channels = rhnSQL.Statement("""
     select sc.channel_id, NVL2(c.parent_channel, 0, 1) is_base_channel
       from rhnServerChannel sc, rhnChannel c
      where sc.server_id = :server_id
        and sc.channel_id = c.id
 """)
+ # PGPORT_1:NO Change #
 _query_lookup_unsubscribed_server_channels = rhnSQL.Statement("""
 select c.id
   from 
@@ -513,7 +518,7 @@ def _subscribe_server_to_capable_channels(server_id, scheduler, capability):
     # No channels provide this capability - we're done
     log_debug(4, "No channels to provide capability", capability)
     return None
-
+ # PGPORT_1:NO Change #
 _query_channel_provides_capability = rhnSQL.Statement("""
     select distinct pp.package_id, pn.name, pe.version, pe.release, pe.epoch
       from rhnChannelNewestPackage cnp,
@@ -537,11 +542,11 @@ def _channel_provides_capability(channel_id, capability):
     if not ret:
         return ret
     return ret
-    
+  # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
 _query_insert_action_packages = rhnSQL.Statement("""
     insert into rhnActionPackage 
            (id, action_id, name_id, evr_id, package_arch_id, parameter)
-    select sequence_nextval('rhn_act_p_id_seq'), :action_id, name_id, evr_id,
+    select rhn_act_p_id_seq.nextval, :action_id, name_id, evr_id,
            package_arch_id, 'upgrade'
       from rhnPackage
      where id = :package_id
@@ -589,7 +594,7 @@ def _packages_from_cursor(cursor):
         result.append((p_name, row['version'], row['release'],
             row['epoch'] or ''))
     return result
-
+ # PGPORT_1:NO Change #
 _query_lookup_pending_kickstart_sessions = rhnSQL.Statement("""
     select ks.id, ks.action_id, NULL other_server_id
       from rhnKickstartSessionState kss,
@@ -602,7 +607,7 @@ _query_lookup_pending_kickstart_sessions = rhnSQL.Statement("""
        and kss.label not in ('complete', 'failed')
        and (:ks_session_id is null or ks.id != :ks_session_id)
 """)
-
+ # PGPORT_1:NO Change #
 _query_terminate_pending_kickstart_sessions = rhnSQL.Statement("""
     update rhnKickstartSession
        set action_id = NULL,
@@ -664,39 +669,37 @@ def terminate_kickstart_sessions(server_id):
 
 
 # Fetches the package profile from the kickstart session
+ # PGPORT_1:NO Change #
 def get_kisckstart_session_package_profile(kickstart_session_id):
     h = rhnSQL.prepare("""
-        select pn.name, pe.version, pe.release, pe.epoch, pa.label
+        select pn.name, pe.version, pe.release, pe.epoch
           from rhnKickstartSession ks,
                rhnServerProfilePackage spp,
                rhnPackageName pn,
-               rhnPackageEVR pe,
-               rhnPackageArch pa
+               rhnPackageEVR pe
          where ks.id = :kickstart_session_id
            and ks.server_profile_id = spp.server_profile_id
            and spp.name_id = pn.id
            and spp.evr_id = pe.id
-           and spp.package_arch_id = pa.id
     """)
     h.execute(kickstart_session_id=kickstart_session_id)
     return _packages_from_cursor(h)
 
 def get_server_package_profile(server_id):
     # XXX misa 2005-05-25  May need to look at package arches too
+    # PGPORT_1:NO Change #
     h = rhnSQL.prepare("""
-        select pn.name, pe.version, pe.release, pe.epoch, pa.label
+        select pn.name, pe.version, pe.release, pe.epoch
           from rhnServerPackage sp,
                rhnPackageName pn,
-               rhnPackageEVR pe,
-               rhnPackageArch pa
+               rhnPackageEVR pe
          where sp.server_id = :server_id
            and sp.name_id = pn.id
            and sp.evr_id = pe.id
-           and sp.package_arch_id = pa.id
     """)
     h.execute(server_id=server_id)
     return _packages_from_cursor(h)
-
+ # PGPORT_1:NO Change #
 _query_get_kickstart_session_info = rhnSQL.Statement("""
     select org_id, scheduler, deploy_configs, virtualization_type
       from rhnKickstartSession
@@ -712,7 +715,7 @@ def get_kickstart_session_info(kickstart_session_id, server_id):
             "for server %s" % (kickstart_session_id, server_id))
 
     return row
-
+ # PGPORT_1:NO Change #
 _query_lookup_ks_server_profile = rhnSQL.Statement("""
     select kss.server_profile_id
       from rhnServerProfileType spt,
@@ -723,6 +726,7 @@ _query_lookup_ks_server_profile = rhnSQL.Statement("""
        and sp.profile_type_id = spt.id
        and spt.label = :profile_type_label
 """)
+ # PGPORT_1:NO Change #
 _query_delete_server_profile = rhnSQL.Statement("""
     delete from rhnServerProfile where id = :server_profile_id
 """)
@@ -752,4 +756,4 @@ def cleanup_profile(server_id, action_id, ks_session_id, action_status):
     # rhnServerProfilePacakge.server_profile_id
     h = rhnSQL.prepare(_query_delete_server_profile)
     h.execute(server_profile_id=server_profile_id)
-
+        return
