@@ -349,6 +349,48 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
     }
     
+    public void testListSubscribableBaseChannels() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+
+        Channel base = ChannelFactoryTest.createTestChannel(admin);
+        base.setParentChannel(null);
+        SystemManager.subscribeServerToChannel(admin, server, base);
+
+        Object[] results = handler.listSubscribableBaseChannels(adminKey,
+                                       new Integer(server.getId().intValue()));
+
+        assertTrue(results.length > 0);
+        //make sure that every channel returned has null for parent_channel
+        for (int i = 0; i < results.length; i++) {
+            Map map = (Map) results[i];
+            Number id = (Number) map.get("id");
+            Long cid = new Long(id.longValue());
+            Channel c = ChannelManager.lookupByIdAndUser(cid, admin);
+            assertNull(c.getParentChannel());
+        }
+    }
+
+    public void testListSubscribableChildChannels() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        Channel parent = ChannelFactoryTest.createTestChannel(admin);
+        parent.setParentChannel(null);
+
+        Channel child = ChannelFactoryTest.createTestChannel(admin);
+        child.setParentChannel(parent);
+
+        Object[] result = handler.listSubscribableChildChannels(adminKey,
+                                                    new Integer(server.getId().intValue()));
+        //server shouldn't have any channels yet
+        assertEquals(0, result.length);
+        SystemManager.subscribeServerToChannel(admin, server, parent);
+        server = (Server) reload(server);
+        result = handler.listSubscribableChildChannels(adminKey,
+                                           new Integer(server.getId().intValue()));
+
+        //server should have 1 child channel
+        assertEquals(1, result.length);
+    }
+
     public void testListBaseChannels() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         
