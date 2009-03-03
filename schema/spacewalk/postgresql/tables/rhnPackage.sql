@@ -60,7 +60,7 @@ rhnPackage
                                 -- possible'' easier
         path            varchar(1000),
 	header_sig	varchar(64),
-	copyright	varchar(64),
+	copyright	varchar(128),
 	cookie		varchar(128),
 	last_modified	timestamp default (current_timestamp) not null,
         created         timestamp default (current_timestamp) not null,
