@@ -44,6 +44,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import sun.tools.tree.ThisExpression;
+
 
 /**
  * KickstartFactory
@@ -141,6 +143,20 @@ public class KickstartFactory extends HibernateFactory {
                                       .setLong("org_id", orgId.longValue())
                                       .uniqueResult();
     }
+    
+    /**
+     * Lookup a KickstartData based on a label 
+     * @param label to lookup
+     * @return KickstartData if found, null if not
+     */
+    public static KickstartData lookupKickstartDataByLabel(
+            String label) {
+        return (KickstartData) HibernateFactory.getSession().
+                                      getNamedQuery("KickstartData.findByLabel")
+                                      .setString("label", label)
+                                      .uniqueResult();
+    }    
+    
     
     /**
      * Returns a list of kickstart data cobbler ids
