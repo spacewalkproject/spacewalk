@@ -90,9 +90,11 @@
              filter="com.redhat.rhn.frontend.action.channel.PackageNameFilter">
       <rl:decorator name="PageSizeDecorator"/>
       <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.name" styleclass="first-column">
-        <rhn:highlight tag="strong" text="${search_string}">
-        <a href="/rhn/software/packages/NameOverview.do?package_name=${current.urlEncodedPackageName}${archparams}&search_subscribed_channels=${requestScope.relevant}">${current.packageName}</a>
-        </rhn:highlight>
+        <a href="/rhn/software/packages/NameOverview.do?package_name=${current.urlEncodedPackageName}${archparams}&search_subscribed_channels=${requestScope.relevant}">
+            <rhn:highlight tag="strong" text="${search_string}">
+                ${current.packageName}
+            </rhn:highlight>
+        </a>
       </rl:column>
       <rl:column bound="false" sortable="false" headerkey="packagesearch.jsp.summary" styleclass="last-column">
         <c:choose>
