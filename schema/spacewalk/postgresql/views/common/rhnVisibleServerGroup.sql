@@ -14,20 +14,10 @@
 --
 --
 --
---
---
-
-create or replace view rhn_customer_monitoring as
-select	org.id			as recid,
-	org.name		as description,
-	1			as schedule_id,	--24 x 7
-	0			as def_ack_wait,
-	1			as def_strategy,	--Broadcast, No Ack
-	'GMT'			as preferred_time_zone,
-	0			as auto_update	--Windows only
-from
-	web_customer org
---where	1=1
---	and some logic here to check for entitlements?
-;
+CREATE OR REPLACE VIEW
+rhnVisibleServerGroup
+AS
+  SELECT *
+    FROM rhnServerGroup SG
+   WHERE SG.group_type IS NULL;
 

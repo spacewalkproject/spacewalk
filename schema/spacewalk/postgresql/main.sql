@@ -469,63 +469,63 @@ create schema spacewalk;
 
 /* views go here */
 \i views/rhnOrgChannelFamilyPermissions.sql
--- \i views/rhn_contact_monitoring.sql
+-- \i views/common/rhn_contact_monitoring.sql
 \i views/rhn_customer_monitoring.sql
--- \i views/rhn_host_monitoring.sql
-\i views/rhnActionOverview.sql
-\i views/rhnOrgChannelTreeView.sql
-\i views/rhnSharedChannelView.sql
-\i views/rhnSharedChannelTreeView.sql
--- \i views/rhnAvailableChannels.sql
-\i views/rhnCDDevice.sql
-\i views/rhnChannelFamilyOverview.sql
-\i views/rhnChannelFamilyPermissions.sql
-\i views/rhnServerEntitlementView.sql
-\i views/rhnChannelFamilyServerPhysical.sql
-\i views/rhnChannelFamilyServers.sql
-\i views/rhnChannelFamilyServerVirtual.sql
--- \i views/rhnChannelNewestPackageView.sql
--- \i views/rhnChannelPackageOverview.sql
-\i views/rhnChannelPermissions.sql
-\i views/rhnChannelTreeView.sql
--- \i views/rhnDemoOrgs.sql
-\i views/rhnEntitledServers.sql
--- \i views/rhnHistoryView_refresh.sql
--- \i views/rhnHistoryView_packages.sql
--- \i views/rhnHistoryView_errata.sql
+-- \i views/common/rhn_host_monitoring.sql
+\i views/common/rhnActionOverview.sql
+\i views/common/rhnOrgChannelTreeView.sql
+\i views/common/rhnSharedChannelView.sql
+\i views/common/rhnSharedChannelTreeView.sql
+-- \i views/common/rhnAvailableChannels.sql
+\i views/common/rhnCDDevice.sql
+\i views/common/rhnChannelFamilyOverview.sql
+\i views/common/rhnChannelFamilyPermissions.sql
+\i views/common/rhnServerEntitlementView.sql
+\i views/common/rhnChannelFamilyServerPhysical.sql
+\i views/common/rhnChannelFamilyServers.sql
+\i views/common/rhnChannelFamilyServerVirtual.sql
+-- \i views/common/rhnChannelNewestPackageView.sql
+-- \i views/common/rhnChannelPackageOverview.sql
+\i views/common/rhnChannelPermissions.sql
+\i views/common/rhnChannelTreeView.sql
+-- \i views/common/rhnDemoOrgs.sql
+\i views/common/rhnEntitledServers.sql
+-- \i views/common/rhnHistoryView_refresh.sql
+-- \i views/common/rhnHistoryView_packages.sql
+-- \i views/common/rhnHistoryView_errata.sql
 \i views/rhnHistoryView.sql
-\i views/rhnHWDevice.sql
--- \i views/rhnOrgErrata.sql
--- \i views/rhnOrgPackageOverview.sql
--- \i views/rhnPaidOrgs.sql
-\i views/rhnWebContactDisabled.sql
--- \i views/rhnPrivateErrataMail.sql
-\i views/rhnServerEntitlementPhysical.sql
-\i views/rhnServerEntitlementVirtual.sql
-\i views/rhnServerErrataTypeView.sql
-\i views/rhnServerFeaturesView.sql
-\i views/rhnServerGroupMembership.sql
-\i views/rhnUserManagedServerGroups.sql
+\i views/common/rhnHWDevice.sql
+-- \i views/common/rhnOrgErrata.sql
+-- \i views/common/rhnOrgPackageOverview.sql
+-- \i views/common/rhnPaidOrgs.sql
+\i views/common/rhnWebContactDisabled.sql
+-- \i views/common/rhnPrivateErrataMail.sql
+\i views/common/rhnServerEntitlementPhysical.sql
+\i views/common/rhnServerEntitlementVirtual.sql
+\i views/common/rhnServerErrataTypeView.sql
+\i views/common/rhnServerFeaturesView.sql
+\i views/common/rhnServerGroupMembership.sql
+\i views/common/rhnUserManagedServerGroups.sql
 \i views/rhnServerGroupOverview.sql
-\i views/rhnServerGroupOVLiteHelper.sql
+\i views/common/rhnServerGroupOVLiteHelper.sql
 -- \i views/rhnServerNeededPackageView.sql
-\i views/rhnServerOutdatedPackages.sql
-\i views/rhnVisibleServerGroupMembers.sql
+\i views/common/rhnServerOutdatedPackages.sql
+\i views/common/rhnVisibleServerGroupMembers.sql
 \i views/rhnServerOverview.sql
-\i views/rhnStorageDevice.sql
-\i views/rhnUserActionOverview.sql
-\i views/rhnUserAppletOverview.sql
+\i views/common/rhnStorageDevice.sql
+\i views/common/rhnUserActionOverview.sql
+\i views/common/rhnUserAppletOverview.sql
 \i views/rhnUserChannelFamilyPerms.sql
-\i views/rhnUserChannelTreeView.sql
--- \i views/rhnUserAvailableChannels.sql
--- \i views/rhnUserChannel.sql
-\i views/rhnUserGroupMembership.sql
-\i views/rhnUserServerPermsDupes.sql
-\i views/rhnVisibleServerGroup.sql
-\i views/rhnUserTypeBase.sql
+\i views/common/rhnUserChannelTreeView.sql
+-- \i views/common/rhnUserAvailableChannels.sql
+-- \i views/common/rhnUserChannel.sql
+\i views/common/rhnUserGroupMembership.sql
+\i views/common/rhnUserServerPermsDupes.sql
+\i views/common/rhnVisibleServerGroup.sql
+\i views/common/rhnUserTypeBase.sql
 \i views/rhnUserTypeCommaView.sql
-\i views/rhnUsersInOrgOverview.sql
-\i views/rhnVisServerGroupMembership.sql
+\i views/common/rhnUsersInOrgOverview.sql
+\i views/common/rhnVisServerGroupMembership.sql
 \i views/rhnVisServerGroupOverviewLite.sql
 \i views/rhnVisServerGroupOverview.sql
 \i views/rhnWebContactEnabled.sql
