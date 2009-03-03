@@ -82,12 +82,14 @@ public class MockConnection extends CobblerConnection {
 
                 String kname = (String) TestObjectStore.get().getObject("profile_name");
                 KickstartData ks = KickstartFactory.lookupKickstartDataByLabel(kname);
-                String type = "wizard";
-                if (ks.isRawData()) {
-                    type = "upload";
+                if (ks != null) {
+                    String type = "wizard";
+                    if (ks.isRawData()) {
+                        type = "upload";
+                    }
+                    row.put("kickstart",  CobblerCommand.makeCobblerFileName(type + "/" +
+                             ks.getLabel(), ks.getOrg()));
                 }
-                 row.put("kickstart",  CobblerCommand.makeCobblerFileName(type + "/" +
-                         ks.getLabel(), ks.getOrg()));
             }
             else {
                 row.put("name", TestObjectStore.get().getObject("distro_name"));
