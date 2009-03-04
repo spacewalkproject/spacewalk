@@ -381,98 +381,82 @@ sub syscall_retry {
 sub setup_ssl_vhost {
   my $opts = shift;
   my $answers = shift;
+  my ($sslconf_content, $original_sslconf_content, $pre, $vhost, $post);
+  my $sslconf_path = '/etc/httpd/conf.d/ssl.conf';
+  local *FILE;
+
   if ($opts{"skip-ssl-vhost-setup"}) {
     print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
     return;
   }
   Spacewalk::Setup::ask(
-      -noninteractive => $opts{"non-interactive"},
-      -question => "Should setup configure apache's default ssl server for you (saves original ssl.conf) y/n",
-      -test => sub { my $text = shift;
-		     return $text =~ /^[YyNn]/ },
-      -answer => \$answers->{"ssl-config-sslvhost"},
-     );
+    -noninteractive => $opts{"non-interactive"},
+    -question => "Should setup configure apache's default ssl server for you (saves original ssl.conf) y/n",
+    -test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
+    -answer => \$answers->{"ssl-config-sslvhost"},
+  );
   unless ( $answers->{"ssl-config-sslvhost"} =~ /^[Yy]/ ) {
-      print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
-      return
+    print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
+    return;
   }
-  # rename /etc/httpd/conf.d/ssl.conf if it exists
-  if ( -f '/etc/httpd/conf.d/ssl.conf' ) {
+  # backup /etc/httpd/conf.d/ssl.conf if it exists
+  if (-f $sslconf_path) {
     my $done = 0;
-    while ( not $done) {
-       system('mv --backup=numbered /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf-swsave');
-       if ( $? >> 8 ) {
-           print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original ssl.conf\n");
-           $done = syscall_retry;
-       } else {
-           Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave");
-           $done = 1;
-       }
+    while (not $done) {
+      system('cp --backup=numbered /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf-swsave');
+      if ( $? >> 8 ) {
+        print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original ssl.conf\n");
+        $done = syscall_retry;
+      } else {
+        print Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave");
+        $done = 1;
+      }
     }
+    open FILE, $sslconf_path or die "Error opening [$sslconf_path]: $!\n";
+  } else {
+    print Spacewalk::Setup::loc("Setup did not find $sslconf_path. Using default setup template.\n");
+    my $init_sslconf_path = Spacewalk::Setup::SHARED_DIR . '/ssl.conf.base';
+    open FILE, $init_sslconf_path or die "Error opening [$sslconf_path]: $!\n";
   }
-  # write new ssl.conf
-  #
-  # The regex and tabs are purely for source code aesthetics
-  # but as such the tabs are  *required*.
-  #
-  # The key and certificate symlinks into the /etc/pki structure
-  # happen in spacewalk/satellite/config - if they change there
-  # they need to change here as well.
-  #
-  my @ssl_configuration = <<'EOF' =~ /\t(.*)\n/g;
-	LoadModule ssl_module modules/mod_ssl.so
-	Listen 443
-	AddType application/x-x509-ca-cert .crt
-	AddType application/x-pkcs7-crl    .crl
-	SSLPassPhraseDialog  builtin
-	SSLSessionCache         shmcb:/var/cache/mod_ssl/scache(512000)
-	SSLSessionCacheTimeout  300
-	SSLMutex default
-	SSLRandomSeed startup file:/dev/urandom  256
-	SSLRandomSeed connect builtin
-	SSLCryptoDevice builtin
-	<VirtualHost _default_:443>
-	ErrorLog logs/ssl_error_log
-	TransferLog logs/ssl_access_log
-	LogLevel warn
-	SSLEngine on
-	SSLProtocol all -SSLv2
-	SSLCipherSuite ALL:!ADH:!EXPORT:!SSLv2:RC4+RSA:+HIGH:+MEDIUM:+LOW
-	SSLCertificateFile /etc/pki/tls/certs/spacewalk.crt
-	SSLCertificateKeyFile /etc/pki/tls/private/spacewalk.key
-	<Files ~ "\.(cgi|shtml|phtml|php3?)$">
-	SSLOptions +StdEnvVars
-	</Files>
-	<Directory "/var/www/cgi-bin">
-	SSLOptions +StdEnvVars
-	</Directory>
-	SetEnvIf User-Agent ".*MSIE.*" \
-		nokeepalive ssl-unclean-shutdown \
-		downgrade-1.0 force-response-1.0
-	CustomLog logs/ssl_request_log \
-		"%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
-	RewriteEngine on
-	RewriteOptions inherit
-	SSLProxyEngine on
-	</VirtualHost>
-EOF
-  my $done = 0;
-  while ( not $done ) {
-     if ( open(SSLCONF,'>/etc/httpd/conf.d/ssl.conf') ) {
-       print SSLCONF join("\n",@ssl_configuration);
-       if ( ! close(SSLCONF) ) {
-           print Spacewalk::Setup::loc("There was an error writing /etc/httpd/conf.d/ssl.conf.");
-           print Spacewalk::Setup::loc("error: '$!'\n");
-           $done = syscall_retry;
-       } else {
-           $done = 1;
-       }
-     } else {
-       print Spacewalk::Setup::loc("There was an error opening /etc/httpd/conf.d/ssl.conf for writing.");
-       print Spacewalk::Setup::loc("error: '$!'\n");
-       $done = syscall_retry;
-     }
+
+  {
+    local $/ = undef;
+    $sslconf_content = <FILE>;
+    $original_sslconf_content = $sslconf_content;
+    close FILE;
   }
+
+  if ($sslconf_content =~ /(.*<VirtualHost _default_:443>)(.*)(<\/VirtualHost>.*)/s) {
+    $pre = $1; $vhost = $2; $post = $3;
+  } else {
+    print Spacewalk::Setup::loc("Setup was unable to locate VirtualHost section in existing ssl configuration.\n");
+    exit;
+  }
+
+  for my $file (glob Spacewalk::Setup::SHARED_DIR . '/ssl.conf.[0-9]') {
+    open FILE, $file or die "Error reading [$file]: $!\n";
+    my $regexp = <FILE>;
+    chomp $regexp;
+
+    my $content;
+    {
+	  local $/ = undef;
+	  $content = <FILE>;
+	}
+	close FILE;
+    $vhost =~ s!$regexp!$content!gm or $vhost .= $content;
+  }
+
+  $sslconf_content = $pre . $vhost . $post;
+
+  if ($sslconf_content ne $original_sslconf_content) {
+    open FILE, ">$sslconf_path" or die "Error opening [$sslconf_path]: $!\n";
+    chmod 0644, $sslconf_path;
+    print FILE $pre . $vhost . $post;
+    close FILE;
+  }
+
+  return;
 }
 
 sub setup_ssl_certs {
