@@ -25,9 +25,11 @@ import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.Profile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1345,6 +1347,17 @@ public class KickstartData {
      * @return the cobblerName
      */
     public String getCobblerFileName() {
+
+        if (getCobblerId() != null) {
+            Profile prof = Profile.lookupById(
+                    CobblerXMLRPCHelper.getConnection("Kickstartread"), getCobblerId());
+            if (!StringUtils.isBlank(prof.getKickstart())) {
+                return prof.getKickstart();
+            }
+        }
+
+        String path = "";
+
         if (isRawData()) {
             return CobblerCommand.makeCobblerFileName(RAW_DIR + "/" + getLabel(), getOrg());
         }
