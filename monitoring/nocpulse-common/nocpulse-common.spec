@@ -84,7 +84,7 @@ fi
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
-%dir %attr(-, %{package_name},%{package_name}) %{_var}/log/%{package_name}
+%dir %attr(775, %{package_name},apache) %{_var}/log/%{package_name}
 %dir %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}
 %dir %attr(700, %{package_name},%{package_name})%{_var}/lib/%{package_name}/.ssh
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
@@ -94,6 +94,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Mar  4 2009 Miroslav Suchý <msuchy@redhat.com>
+- 435203 - set /var/log/nocpulse writeable by apache user
+
 * Thu Feb 19 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.5-1
 - 435415 - redirect nocops emails to root
 
