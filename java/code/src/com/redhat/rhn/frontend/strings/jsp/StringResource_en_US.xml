@@ -20739,7 +20739,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.toolbar">
-        <source>Software Channel: {0}</source>
+        <source>{0}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -20896,6 +20896,72 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/software/Search.do</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="toolbar.delete.channel">
+         <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
+        </context-group>
+     </trans-unit>
+       <trans-unit id="header.jsp.errata.add">
+         <source>Add Errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata//Add.do</context>
+        </context-group>
+     </trans-unit>
+       <trans-unit id="list.jsp.errata.listremove">
+         <source>List/Remove Errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/Errata.do</context>
+        </context-group>
+     </trans-unit>
+       <trans-unit id="list.jsp.errata.add">
+         <source>Add Errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/Errata.do</context>
+        </context-group>
+     </trans-unit>
+       <trans-unit id="list.jsp.errata.clone">
+         <source>Clone Errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/Errata.do</context>
+        </context-group>
+     </trans-unit>
+       <trans-unit id="channel.jsp.errata.listempty">
+         <source>There are no errata associated with this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="channel.jsp.errata.confirmremove">
+         <source>Confirm Removal</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="channel.jsp.errata.remove">
+         <source>Remove Errata</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="channel.jsp.errata.remove.message">
+         <source>Below is the list of errata associated with this channel. To remove an erratum from this channel, select it here, and click 'Remove' below.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="channel.jsp.errata.remove.confirmmessage">
+         <source>Click 'Confirm' below to remove these errata from your channel. Related packages will also be removed from the channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="channel.jsp.errata.remove.finalmessage">
+         <source>Successfully removed {0} errata from this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
   </body>
   </file>
 </xliff>

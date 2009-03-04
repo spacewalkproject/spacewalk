@@ -190,6 +190,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.channel.ClonedChannel as c where c.org = :org]]>
     </query>
 
+
+    <query name="Channel.packageInChannelAndErrata">
+        <![CDATA[
+		select p.id
+		from com.redhat.rhn.domain.channel.Channel  c,
+			  com.redhat.rhn.domain.rhnpackage.Package  p,
+			  com.redhat.rhn.domain.errata.impl.PublishedErrata  e
+			  where p member of c.packages
+				and p member of e.packages
+				and c.id = :cid
+				and e.id in (:eids)
+				   ]]>
+    </query>
+
+
     <sql-query name="Channel.accessibleChildChannelIds">
         <![CDATA[SELECT {c.*}
   FROM rhnChannel c,
@@ -280,9 +295,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar type="long" column="package_id"/>
         <![CDATA[select cp.package_id from rhnChannelPackage cp where cp.channel_id = :cid]]>
     </sql-query>    
-    
 
-    
     <sql-query name="Channel.lookupOriginalPackages">
         <![CDATA[
 		        SELECT OLDEST.id

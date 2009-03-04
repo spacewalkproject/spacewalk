@@ -15,22 +15,26 @@
     <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
 
+
+
  <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
- 
- <br><br>
- <br><br> 
- 
+     <h2>
+      <img src="/img/rhn-icon-errata.gif" alt="erratum" /> <bean:message key="header.jsp.errata.add"/>
+    </h2>
+
  <table class="details">
+ 
+ 
  	<tr>
 	 	<th>
-			<a href="/rhn/channels/manage/packages/AddRedHatErrata.do?cid=${cid}">
+			<a href="/rhn/channels/manage/errata/AddRedHatErrata.do?cid=${cid}">
 					<bean:message key="channel.manage.errata.addredhaterrata"/>   </a><Br>
 		</th>
 		<td> <bean:message key="channel.manage.errata.addredhaterratamsg"/>   </td>
 	 </tr>
 	 <tr>
 	 	<th>
-			<a href="/rhn/channels/manage/packages/AddCustomErrata.do?cid=${cid}">
+			<a href="/rhn/channels/manage/errata/AddCustomErrata.do?cid=${cid}">
 			<bean:message key="channel.manage.errata.addcustomerrata"/></a>
 		</th>
 		<td><bean:message key="channel.manage.errata.addcustomerratamsg"/>  </td>

@@ -43,6 +43,29 @@ DELETE
   </query>
 </write-mode>
 
+
+<write-mode name="remove_errata">
+  <query params="cid">
+DELETE
+  FROM rhnChannelErrata CE
+  where CE.channel_id = :cid
+  and  CE.errata_id in (%s)
+  </query>
+</write-mode>
+
+
+<write-mode name="remove_errata_packages">
+  <query params="cid">
+DELETE
+  FROM rhnChannelPackage CP
+  where CP.channel_id = :cid
+  and  CP.package_id in ( select EP.package_id from
+							rhnErrataPackage EP
+							where EP.errata_id in (%s))
+  </query>
+</write-mode>
+
+
 <write-mode name="request_repo_regen">
   <query params="label, client, reason">
 INSERT 

@@ -116,6 +116,9 @@ public class BaseSetHelper {
 
 
     protected boolean lookupEquals(String lookupKey, String value) {
+        if (value == null) {
+            return false;
+        }
         LocalizationService ls = LocalizationService.getInstance();
         String lookedup = ls.getMessage(lookupKey);
         return value.equals(lookedup);

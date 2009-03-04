@@ -23,12 +23,21 @@ import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +49,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ErrataRemoveAction extends RhnListAction implements Listable {
 
-    private static final String LIST_NAME = "errata_list";
     private static final String CONFIRM = "channel.jsp.errata.confirmremove";
     private static final String CID = "cid";
 
@@ -54,6 +62,8 @@ public class ErrataRemoveAction extends RhnListAction implements Listable {
 
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getCurrentUser();
+
+        requestContext.getRequiredParam(CID);
 
         Long cid = Long.parseLong(request.getParameter(CID));
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,
@@ -78,26 +88,37 @@ public class ErrataRemoveAction extends RhnListAction implements Listable {
         request.setAttribute("cid", cid);
 
         if (requestContext.wasDispatched(CONFIRM)) {
-            return mapping.findForward("submit");
+           ChannelManager.removeErrata(currentChan, decl.get(user).getElementValues(),
+                   user);
+           Map params = new HashMap();
+           params.put(CID, cid);
+
+           ActionMessages msg = new ActionMessages();
+           Set args = new HashSet();
+           args.add(decl.get(user).size());
+           msg.add(ActionMessages.GLOBAL_MESSAGE,
+              new ActionMessage("channel.jsp.errata.remove.finalmessage", args.toArray()));
+
+           getStrutsDelegate().saveMessages(request, msg);
+           return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
+                   params);
         }
         return mapping.findForward("default");
     }
 
 
-
-    @Override
+    /**
+     *
+     * {@inheritDoc}
+     */
     public DataResult getResult(RequestContext context) {
         Long cid = Long.parseLong(context.getRequest().getParameter(CID));
         User user = context.getCurrentUser();
         RhnSetDecl decl = RhnSetDecl.ERRATA_TO_REMOVE.createCustom(cid);
 
-
-
-
         Channel currentChan = ChannelFactory.lookupByIdAndUser(cid,
                 context.getCurrentUser());
-    //    return ChannelManager.listErrata(currentChan);
-        return null;
+        return ErrataManager.errataInSet(user, decl.getLabel());
     }
 
 

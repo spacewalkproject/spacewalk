@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.channel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -524,6 +525,24 @@ public class ChannelFactory extends HibernateFactory {
                 "KickstartableTree.findTreesForChannel", params);
     }
     
+
+    /**
+     * Get a list of packages ids that are in a channel
+     *  and in a list of errata.  (The errata do not
+     *  necessarily have to be associate with the channel)
+     * @param chan the channel
+     * @param eids the errata ids
+     * @return list of package ids
+     */
+    public static List getChannelPackageWithErrata(Channel chan, Collection<Long> eids) {
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+        params.put("eids", eids);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.packageInChannelAndErrata", params);
+
+    }
+
     /**
      * Lookup a ChannelArch based on its name
      * @param name arch name

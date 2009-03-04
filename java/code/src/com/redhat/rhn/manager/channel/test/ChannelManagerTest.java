@@ -25,6 +25,9 @@ import com.redhat.rhn.domain.channel.ProductName;
 import com.redhat.rhn.domain.channel.ReleaseChannelMap;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.common.CommonConstants;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -35,6 +38,7 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
@@ -54,6 +58,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -278,7 +283,42 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testLatestPackages() {
     }
     
-    public void testListErrata() {
+    public void testListErrata() throws Exception {
+        Channel c = ChannelFactoryTest.createTestChannel(user);
+        Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        ErrataFactory.publishToChannel(e, c, user);
+
+        e = (Errata) TestUtils.saveAndReload(e);
+
+        List<ErrataOverview> errata = ChannelManager.listErrata(c, null, null, user);
+        boolean found = false;
+        for (ErrataOverview eo : errata) {
+            if (eo.getId().equals(e.getId())) {
+                found = true;
+            }
+        }
+        assertTrue(found);
+
+
+        found = false;
+        Date date = new Date();
+        errata = ChannelManager.listErrata(c, new Date(date.getTime() - 1000), null, user);
+        for (ErrataOverview eo : errata) {
+            if (eo.getId().equals(e.getId())) {
+                found = true;
+            }
+        }
+        assertTrue(found);
+
+        found = false;
+        errata = ChannelManager.listErrata(c, new Date(date.getTime() - 1000),
+                                    new Date(date.getTime() + 5000000), user);
+        for (ErrataOverview eo : errata) {
+            if (eo.getId().equals(e.getId())) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
     
     public void testPackagesLike() throws Exception {
@@ -654,4 +694,23 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertTrue(parches.contains("i386"));
     }
     
+
+    public void testRemoveErrata() throws Exception {
+        Channel c = ChannelFactoryTest.createTestChannel(user);
+        Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        ErrataFactory.publishToChannel(e, c, user);
+
+        e = (Errata) TestUtils.saveAndReload(e);
+
+        assertTrue(e.getChannels().contains(c));
+
+        Set eids = new HashSet();
+        eids.add(e.getId());
+
+        ChannelManager.removeErrata(c, eids, user);
+        e = (Errata) TestUtils.saveAndReload(e);
+        assertFalse(e.getChannels().contains(c));
+        c = ChannelManager.lookupByLabel(user.getOrg(), c.getLabel());
+        assertFalse(c.getErratas().contains(eids));
+    }
 }

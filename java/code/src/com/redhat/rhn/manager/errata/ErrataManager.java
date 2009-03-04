@@ -379,6 +379,24 @@ public class ErrataManager extends BaseManager {
     }
     
     /**
+     * Return a list of errata overview objects contained in a set
+     * @param user the user doing the lookup
+     * @param setLabel the set
+     * @return the set of ErrataOverview
+     */
+    public static DataResult<ErrataOverview> errataInSet(User user, String setLabel) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "in_set_details");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("set_label", setLabel);
+        DataResult dr = m.execute(params);
+        params.remove("set_label");
+        dr.setElaborationParams(params);
+        return dr;
+    }
+
+
+    /**
      * Helper method to get the unpublished/published errata
      * @param user Currently logged in user
      * @param pc PageControl
@@ -416,6 +434,7 @@ public class ErrataManager extends BaseManager {
         return makeDataResult(params, elabParams, pc, m);
     }
     
+
     /**
      * Delete published errata in the set named as label
      * @param user User performing the operation

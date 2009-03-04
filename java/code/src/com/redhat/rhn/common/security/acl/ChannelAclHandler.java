@@ -45,7 +45,7 @@ public class ChannelAclHandler extends BaseHandler {
      * Sometimes, "cid" is an array of strings of len-1 where the -entry- is the 
      * cid-str (rhn:require) Sigh.
      */
-    protected Channel getChannel(User usr, HashMap ctx) {
+    protected Channel getChannel(User usr, Map ctx) {
         Object cidObj = ctx.get(CID);
         String cidStr = null;
         if (cidObj instanceof String) {
@@ -269,16 +269,11 @@ public class ChannelAclHandler extends BaseHandler {
     public boolean aclChannelIsClone(Object ctx, String[] params) {
         Map map = (Map) ctx;
         Object idObj = map.get("cid");
-        
-        if (idObj != null) {
-            Long id = Long.parseLong((String)idObj);
-            Channel chan = ChannelFactory.lookupById(id);
-            
-            if (ChannelFactory.lookupOriginalChannel(chan) != null) {
-                return true;
-            }
+        Channel chan = getChannel((User)map.get(USER), map);
+        if (chan == null) {
+            return false;
         }
-        return false;        
+        return chan.isCloned();
     }     
     
     

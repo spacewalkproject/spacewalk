@@ -211,15 +211,62 @@ ORDER BY E.issue_date DESC
   </query>
 </mode>
 
-<mode name="relevant_to_channel_between">
+
+
+<mode name="in_channel_between" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="cid, start_date, end_date">
+SELECT DISTINCT E.id
+  FROM rhnErrata E,
+       rhnChannelErrata CE
+ WHERE CE.channel_id = :cid
+   AND CE.errata_id = E.id
+   AND E.last_modified &gt;= :start_date
+   AND E.last_modified &lt;= :end_date
+  </query>
+    <elaborator name="errata_overview" />
+</mode>
+
+<mode name="in_channel_after" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="cid, start_date">
+SELECT DISTINCT E.id
+  FROM rhnErrata E,
+       rhnChannelErrata CE
+ WHERE CE.channel_id = :cid
+   AND CE.errata_id = E.id
+   AND E.last_modified &gt;= :start_date
+  </query>
+      <elaborator name="errata_overview" />
+</mode>
+
+<mode name="in_channel" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="cid">
+SELECT DISTINCT E.id,
+				E.advisory AS advisory,
+                E.update_date AS update_date,
+                E.synopsis as advisory_synopsis,
+                E.advisory_type as advisory_type,
+                E.last_modified as last_modified
+  FROM rhnErrata E,
+       rhnChannelErrata CE
+ WHERE CE.channel_id = :cid
+   AND CE.errata_id = E.id
+  </query>
+  <elaborator name="errata_overview" />
+</mode>
+
+
+<mode name="relevant_to_channel_between_deprecated">
   <query params="cid, start_date_str, end_date_str">
-SELECT DISTINCT 
+SELECT DISTINCT E.id,
 				E.advisory_name AS advisory,
+				E.advisory_name AS advisory_name,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
+                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS date,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 E.synopsis as synopsis,
+                E.synopsis as advisory_synopsis,
                 E.advisory_type as advisory_type,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date                
+                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date
   FROM rhnErrata E,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
@@ -230,7 +277,7 @@ ORDER BY last_modified_date DESC
   </query>
 </mode>
 
-<mode name="relevant_to_channel_after">
+<mode name="relevant_to_channel_after_deprecated">
   <query params="cid, start_date_str">
 SELECT DISTINCT 
 				E.advisory_name AS advisory,
@@ -248,22 +295,24 @@ ORDER BY last_modified_date DESC
   </query>
 </mode>
 
-<mode name="relevant_to_channel">
+<mode name="relevant_to_channel_deprecated">
   <query params="cid">
-SELECT DISTINCT 
+SELECT DISTINCT
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 E.synopsis as synopsis,
                 E.advisory_type as advisory_type,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date  
+                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date
   FROM rhnErrata E,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
    AND CE.errata_id = E.id
-ORDER BY last_modified_date DESC
+ORDER BY update_date DESC
   </query>
 </mode>
+
+
 
 <mode name="relevant_to_channel_by_type">
   <query params="cid, type">
@@ -528,8 +577,6 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
   </query>
 </mode>
 
-
-
 <query name="in_set" params="user_id, set_label">
 SELECT DISTINCT E.id, E.update_date
   FROM rhnErrata E,
@@ -544,6 +591,25 @@ ORDER BY E.update_date, E.id
   <query name="in_set" />
   <elaborator name="errata_overview" />
 </mode>
+
+
+<mode name="in_set_details" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+	<query params="user_id, set_label">
+	SELECT DISTINCT E.id,
+				E.update_date,
+				E.advisory,
+				E.advisory_type,
+				E.last_modified
+	  FROM rhnErrata E,
+	       rhnSet ST
+	 WHERE ST.user_id = :user_id
+	   AND ST.label = :set_label
+	   AND ST.element = E.id
+	ORDER BY E.update_date, E.id
+	</query>
+  <elaborator name="errata_overview" />
+</mode>
+
 
 <mode name="unpublished_in_set" class="com.redhat.rhn.frontend.dto.OwnedErrata">
   <query params="user_id, set_label">

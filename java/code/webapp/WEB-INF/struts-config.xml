@@ -6159,7 +6159,7 @@
        <forward name="success" path="/WEB-INF/pages/systems/entitlements/physicalhosts.jsp"/>
      </action>
      
-    <action path="/channels/manage/packages/Add"
+    <action path="/channels/manage/errata/Add"
         scope="request"
         input="/WEB-INF/pages/channel/manage/add.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.AddErrataAction"
@@ -6167,40 +6167,67 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/add.jsp" />
    
     </action>     
+
+    <action path="/channels/manage/errata/ListRemove"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/errataremove.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.ListErrataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/errataremove.jsp" />
+      <forward name="submit" path="/channels/manage/errata/ConfirmRemove.do"  redirect="true"/>
+    </action>
+
+    <action path="/channels/manage/errata/ConfirmRemove"
+        scope="request"
+        input="/WEB-INF/pages/channel/manage/confirmerrataremove.jsp"
+        type="com.redhat.rhn.frontend.action.channel.manage.ErrataRemoveAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/confirmerrataremove.jsp" />
+      <forward name="submit" path="/channels/manage/errata/ListRemove.do"  redirect="true"/>
+    </action>
      
-      <action path="/channels/manage/packages/AddRedHatErrata"
+      <action path="/channels/manage/errata/AddRedHatErrata"
         scope="request"
         input="/WEB-INF/pages/channel/manage/adderrataredhat.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.AddRedHatErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/adderrataredhat.jsp" />
-      <forward name="submit" path="/channels/manage/packages/ConfirmErrataAdd.do"  redirect="true"/>          
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do"  redirect="true"/>
       </action>        
       
-      <action path="/channels/manage/packages/AddCustomErrata"
+      <action path="/channels/manage/errata/AddCustomErrata"
         scope="request"
         input="/WEB-INF/pages/channel/manage/addcustomerrata.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.AddCustomErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/addcustomerrata.jsp" />
-      <forward name="submit" path="/channels/manage/packages/ConfirmErrataAdd.do" redirect="true"/>   
+      <forward name="submit" path="/channels/manage/errata/ConfirmErrataAdd.do" redirect="true"/>
       </action>              
       
-      <action path="/channels/manage/packages/ConfirmErrataAdd"
+      <action path="/channels/manage/errata/ConfirmErrataAdd"
         scope="request"
         input="/WEB-INF/pages/channel/manage/confirmerrata.jsp"
         type="com.redhat.rhn.frontend.action.channel.manage.ConfirmErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/confirmerrata.jsp" />
-      <forward name="clone" path="/channels/manage/packages/PublishErrata.do" redirect="true"/>   
+      <forward name="clone" path="/channels/manage/errata/PublishErrata.do" redirect="true"/>
       </action> 
       
-     <action path="/channels/manage/packages/PublishErrata"
+     <action path="/channels/manage/errata/PublishErrata"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.PublishErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-       <forward name="default" path="/channels/manage/packages/Add.do" />  
-      </action>                 
+       <forward name="default" path="/channels/manage/errata/Add.do" />
+      </action>
+
+   <action path="/channels/manage/errata/Errata"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.ErrataIndexAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/errata.jsp" />
+      </action>
+
+
       
      <action path="/channels/manage/solaris/ListPatchSets"
         scope="request"

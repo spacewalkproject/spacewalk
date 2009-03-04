@@ -30,6 +30,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.session.WebSessionFactory;
 import com.redhat.rhn.domain.user.User;
@@ -37,6 +38,8 @@ import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.test.ErrataCacheManagerTest;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -46,7 +49,6 @@ import org.apache.commons.lang.time.StopWatch;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -329,6 +331,26 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         FileWriter fr = new FileWriter(new File("errataout" + erratas.size() +  ".txt"));
         fr.write(output.toString());
         fr.close();
+    }
+
+    public void testErrataInSet() throws Exception {
+        User user = UserTestUtils.findNewUser();
+
+        Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        e = (Errata) TestUtils.saveAndReload(e);
+        RhnSet set = RhnSetDecl.ERRATA_TO_REMOVE.get(user);
+        set.add(e.getId());
+        RhnSetManager.store(set);
+
+        List<ErrataOverview> list = ErrataManager.errataInSet(user, set.getLabel());
+        boolean found = false;
+        for (ErrataOverview item : list) {
+            if (item.getId().equals(e.getId())) {
+                found = true;
+            }
+        }
+        assertTrue(found);
+
     }
 
     /**

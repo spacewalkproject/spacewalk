@@ -67,7 +67,7 @@
                            sortattr="advisory"
                            >
 
-                        <a href="/rhn/errata/manage/Edit.do?eid==${current.id}">${current.advisory}</a>
+                        <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisory}</a>
                 </rl:column>
 
 
@@ -79,14 +79,16 @@
                         ${current.advisorySynopsis}
                 </rl:column>
 
+               <%--
                  <rl:column sortable="true"
                                    bound="false"
-                           headerkey="erratalist.jsp.updated"
+                           headerkey="lastModified"
                            sortattr="lastModifiedObject"
                           >
                         ${current.lastModified}
                 </rl:column>
 
+                --%>
 
                  <rl:column sortable="true"
                                    bound="false"

@@ -31,6 +31,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,8 +44,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ListErrataAction extends RhnListAction implements Listable {
 
-    private static final String LIST_NAME = "errata_list";
-    private static final String CONFIRM = "channel.jsp.errata.confirmremove";
+    private static final String ERRATA_DATA = "errata_data";
+    private static final String CONFIRM = "channel.jsp.errata.remove";
     private static final String CID = "cid";
 
     /**
@@ -74,12 +77,16 @@ public class ListErrataAction extends RhnListAction implements Listable {
 
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this, request, decl);
+        helper.setDataSetName(ERRATA_DATA);
         helper.setWillClearSet(true);
         helper.execute();
 
 
-        if (requestContext.wasDispatched(CONFIRM)) {
-            return mapping.findForward("submit");
+        if (requestContext.wasDispatched(CONFIRM) && decl.get(user).size() > 0) {
+            Map params = new HashMap();
+            params.put(CID, cid);
+            return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
+                    params);
         }
 
 
@@ -89,7 +96,10 @@ public class ListErrataAction extends RhnListAction implements Listable {
 
 
 
-    @Override
+    /**
+     *
+     * {@inheritDoc}
+     */
     public DataResult getResult(RequestContext context) {
         Long cid = Long.parseLong(context.getRequest().getParameter(CID));
         User user = context.getCurrentUser();

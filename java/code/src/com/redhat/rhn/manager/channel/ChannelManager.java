@@ -60,13 +60,16 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.ProxyChannelNotFoundException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -1067,47 +1070,61 @@ public class ChannelManager extends BaseManager {
     
     
     /**
-     * List the errata applicable to a channel, uses an ErrataOverview Object
-     * @param channel channel whose errata are sought
-     * @return the errata applicable to a channel
-     */
-    public static List listErrata(Channel channel) {
-                return listErrata(channel, null, null);
-    }
-    
-            
-
-
-    /**
-     * List the errata applicable to a channel after given start date.
+     * List the errata applicable to a channel between start and end date
      * @param channel channel whose errata are sought
      * @param start start date
+     * @param end end date
+     * @param user the user doing the list
      * @return the errata applicable to a channel
      */
-    public static DataResult listErrata(Channel channel, String start) {
-        return listErrata(channel, start, null);
+    public static DataResult<ErrataOverview> listErrata(Channel channel, Date start,
+                                                                    Date end, User user) {
+        String mode = "in_channel";
+        Map params = new HashMap();
+        params.put("cid", channel.getId());
+
+        if (start != null) {
+            params.put("start_date", new Timestamp(start.getTime()));
+            mode = "in_channel_after";
+        }
+
+        if (end != null) {
+            params.put("end_date", new Timestamp(end.getTime()));
+            mode = "in_channel_between";
+        }
+
+        SelectMode m = ModeFactory.getMode(
+                "Errata_queries", mode);
+
+        DataResult dr = m.execute(params);
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+        dr.setElaborationParams(elabParams);
+        return dr;
     }
     
+
     /**
      * List the errata applicable to a channel between start and end date
+     * @deprecated
      * @param channel channel whose errata are sought
      * @param start start date
      * @param end end date
      * @return the errata applicable to a channel
      */
-    public static DataResult listErrata(Channel channel, String start, String end) {
-        String mode = "relevant_to_channel";
+    public static DataResult listErrataForDates(Channel channel, String start, String end) {
+        String mode = "relevant_to_channel_deprecated";
         Map params = new HashMap();
         params.put("cid", channel.getId());
         
         if (!StringUtils.isEmpty(start)) {
             params.put("start_date_str", start);
-            mode = "relevant_to_channel_after";
+            mode = "relevant_to_channel_after_deprecated";
         }
         
         if (!StringUtils.isEmpty(end)) {
             params.put("end_date_str", end);
-            mode = "relevant_to_channel_between";
+            mode = "relevant_to_channel_between_deprecated";
         }
 
         SelectMode m = ModeFactory.getMode(
@@ -2321,5 +2338,38 @@ public class ChannelManager extends BaseManager {
         params.put("reason", reason);
         m.executeUpdate(params);
     }
+
+    /**
+     * Remove a set of erratas from a channel
+     *      and remove associated packages
+     * @param chan The channel to remove from
+     * @param errataIds set of errata ids to remove
+     * @param user the user doing the removing
+     */
+    public static void removeErrata(Channel chan, Set<Long> errataIds, User user) {
+        if (!UserManager.verifyChannelAdmin(user, chan)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        List<Long> ids = new ArrayList<Long>();
+        ids.addAll(errataIds);
+
+        List pids = ChannelFactory.getChannelPackageWithErrata(chan, ids);
+
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "remove_errata");
+        m.executeUpdate(params, ids);
+
+        m = ModeFactory.getWriteMode("Channel_queries", "remove_errata_packages");
+        m.executeUpdate(params, ids);
+
+        ChannelManager.refreshWithNewestPackages(chan, "Remove errata");
+        ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), pids);
+        ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), ids);
+    }
+
+
 
 }

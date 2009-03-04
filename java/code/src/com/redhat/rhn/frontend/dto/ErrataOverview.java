@@ -41,6 +41,7 @@ public class ErrataOverview extends BaseDto {
     private List actionId;
     private List status;
     private Long associatedSystemId;
+    private Date lastModified;
    
     /**
      * This method is only used for csv export.. 
@@ -352,5 +353,27 @@ public class ErrataOverview extends BaseDto {
             results[1] = actionId.get(status.indexOf("Failed"));
         }
         return results;
+    }
+
+    /**
+     * @return Returns the lastModified.
+     */
+    public Date getLastModifiedObject() {
+        return lastModified;
+    }
+
+    /**
+     * @return Returns the lastModified.
+     */
+    public String getLastModified() {
+        return LocalizationService.getInstance().formatDate(lastModified);
+    }
+
+
+    /**
+     * @param lastModifiedIn The lastModified to set.
+     */
+    public void setLastModified(Date lastModifiedIn) {
+        this.lastModified = lastModifiedIn;
     }
 }

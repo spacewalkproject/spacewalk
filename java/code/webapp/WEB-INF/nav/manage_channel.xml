@@ -14,16 +14,16 @@
     <rhn-tab-url>/network/software/channels/manage/managers.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_exists();user_can_admin_channel();channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/manage/errata/index.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/manage/errata/Errata.do</rhn-tab-url>
     <rhn-tab name="List / Remove"  node-id="remove_channel_errata">
-      <rhn-tab-url>/network/software/channels/manage/errata/list.pxt</rhn-tab-url>
-      <rhn-tab-url>/network/software/channels/manage/errata/remove_confirm.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/ListRemove.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/ConfirmRemove.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Add" node-id="add_channel_errata">
-      <rhn-tab-url>/rhn/channels/manage/packages/Add.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/channels/manage/packages/AddRedHatErrata.do</rhn-tab-url>
-      <rhn-tab-url>/rhn/channels/manage/packages/AddCustomErrata.do</rhn-tab-url>            
-      <rhn-tab-url>/rhn/channels/manage/packages/ConfirmErrataAdd.do</rhn-tab-url>            
+      <rhn-tab-url>/rhn/channels/manage/errata/Add.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/AddRedHatErrata.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/AddCustomErrata.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/errata/ConfirmErrataAdd.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Clone" acl="channel_is_clone();user_role(channel_admin);"  node-id="clone_channel_errata">
       <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt</rhn-tab-url>

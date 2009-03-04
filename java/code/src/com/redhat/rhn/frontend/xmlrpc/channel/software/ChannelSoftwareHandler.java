@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
@@ -1078,15 +1079,56 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
     }
 
+
     /**
-     * List the errata applicable to a channel
+     * List the errata applicable to a channel after given startDate
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel
+     * @param startDate begin date
      * @return the errata applicable to a channel
      * @throws NoSuchChannelException thrown if there is no channel matching
      * channelLabel.
      *
-     * @xmlrpc.doc List the errata applicable to a channel
+     * @xmlrpc.doc List the errata applicable to a channel after given startDate
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param($date, "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop_desc("string","issue_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop_desc("string","update_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop_desc("string","last_modified_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public List listErrata(String sessionKey, String channelLabel,
+            Date startDate) throws NoSuchChannelException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+
+        DataResult dr = ChannelManager.listErrata(channel, startDate, null, loggedInUser);
+        dr.elaborate();
+        return dr;
+    }
+
+    /**
+     * List the errata applicable to a channel between startDate and endDate.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param startDate begin date
+     * @param endDate end date
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc List the errata applicable to a channel between startDate and endDate.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.returntype
@@ -1104,14 +1146,69 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
+
+    public List<ErrataOverview> listErrata(String sessionKey, String channelLabel,
+            Date startDate, Date endDate) throws NoSuchChannelException {
+
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+
+        DataResult errata = ChannelManager.listErrata(channel, startDate, endDate,
+                loggedInUser);
+        errata.elaborate();
+        return errata;
+    }
+
+
+
+
+    /**
+     * List the errata applicable to a channel
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * When removing deprecation, swtich this method over to using
+     *     listErrata(sessionKey, null, null) after deleting
+     *     listErrata(String, String, String, String), then update docs
+     *     to use  $ErrataOverviewSerializer
+     *
+     *
+     * @xmlrpc.doc List the errata applicable to a channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *    #array()
+     *      #struct("errata")
+     *        #prop_desc("int", "id", "Errata Id")
+     *        #prop("string","advisory_type")
+     *        #prop_desc("string", "date", "Date erratum was created.")
+     *        #prop_desc("string", "advisory_synopsis", "Summary of the erratum.")
+     *        #prop_desc("string", "advisory_type", "Type label such as Security, Bug Fix")
+     *        #prop_desc("string", "advisory_name", "Name such as RHSA, etc")
+     *        #prop_desc("string","advisory", "name of the advisory (Deprecated)")
+     *        #prop_desc("string","issue_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS (Deprecated)")
+     *        #prop_desc("string","update_date",
+     *                        "date format follows YYYY-MM-DD HH24:MI:SS (Deprecated)")
+     *        #prop("string","synopsis (Deprecated)")
+     *        #prop_desc("string","last_modified_date",
+     *                         "date format follows YYYY-MM-DD HH24:MI:SS (Deprecated)")
+     *      #struct_end()
+     *    #array_end()
+     */
     public Object[] listErrata(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
 
-        return listErrata(sessionKey, channelLabel, null, null);
+        return listErrata(sessionKey, channelLabel, "", "");
     }
     
     /**
      * List the errata applicable to a channel after given startDate
+     * @deprecated
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel
      * @param startDate begin date
@@ -1120,6 +1217,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * channelLabel.
      *
      * @xmlrpc.doc List the errata applicable to a channel after given startDate
+     *      (Deprecated)
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param("string", "startDate")
@@ -1146,6 +1244,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     
     /**
      * List the errata applicable to a channel between startDate and endDate.
+     * @deprecated
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel
      * @param startDate begin date
@@ -1154,11 +1253,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @throws NoSuchChannelException thrown if there is no channel matching
      * channelLabel.
      *
-     * @xmlrpc.doc Returns list of subscribed systems for the given channel label
+     * @xmlrpc.doc List the errata applicable to a channel between startDate and endDate.
+     *      (Deprecated)
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("string", "startDate")
-     * @xmlrpc.param #param("string", "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("errata")
@@ -1174,6 +1272,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
+
     public Object[] listErrata(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
@@ -1181,7 +1280,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         
-        List errata = ChannelManager.listErrata(channel, startDate, endDate);
+        List errata = ChannelManager.listErrataForDates(channel, startDate, endDate);
         return errata.toArray();
     }
     
