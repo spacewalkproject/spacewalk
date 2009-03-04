@@ -22,10 +22,10 @@ create or replace view rhnChannelFamilyServers as
 		rsc.server_id			as server_id,
 		rsc.created			as created,
 		rsc.modified			as modified
-	from	rhnChannelFamilyMembers		as rcfm,
-		rhnChannelFamily		as rcf,
-		rhnServerChannel		as rsc,
-		rhnServer			as rs
+	from	rhnChannelFamilyMembers		rcfm,
+		rhnChannelFamily		rcf,
+		rhnServerChannel		rsc,
+		rhnServer			rs
 	where
 		rcfm.channel_id = rsc.channel_id
 		and rcfm.channel_family_id = rcf.id

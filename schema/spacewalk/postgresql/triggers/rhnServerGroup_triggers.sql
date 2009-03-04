@@ -55,6 +55,7 @@ BEGIN
            IF NOT FOUND THEN
 		PERFORM rhn_exception.raise_exception_val('no_org_admin_group', org_id_val);
            END IF;
+        RETURN new;
 
 END;
 $$ LANGUAGE PLPGSQL;

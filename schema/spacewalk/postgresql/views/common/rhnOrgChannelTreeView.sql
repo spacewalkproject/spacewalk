@@ -68,5 +68,5 @@ select * from (
 	where	cfp.channel_family_id = cfm.channel_family_id
 		and cfm.channel_id = c.id
 		and c.parent_channel = pc.id
-) as s order by parent_or_self_label, parent_or_self_id;
+) s order by parent_or_self_label, parent_or_self_id;
 
