@@ -219,7 +219,8 @@ sub channel_edit_cb {
   # bugzilla: 161517 - allow _ and / in channel labels
   # bugzilla: 459827 - disallow names longer than 64 characters
   unless ($channel_name =~ /^[a-z][\w\d\s\-\.\'\(\)\/\_]*$/i and length($channel_name) >= 6 and length($channel_name) <= 64) {
-    $pxt->push_message(local_alert => "Invalid channel name '" . PXT::Utils->escapeHTML($channel_name) . "' - must be at least 6 characters long, begin with a letter, and contain only letters, digits, spaces, '-', ' / ', '_' and '.'");
+    $pxt->push_message(local_alert => "Invalid channel name '" .
+    PXT::Utils->escapeHTML($channel_name) . "' - must be at least 6 characters long and no longer than 64 characters, begin with a letter, and contain only letters, digits, spaces, '-', ' / ', '_' and '.'");
     $errors++;
   }
 
