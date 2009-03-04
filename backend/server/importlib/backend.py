@@ -242,7 +242,7 @@ class Backend:
 
     def lookupOrg(self): 
         # Returns the org id
-        sql = "select min(id) id from web_customer"
+        sql = "select min(id) as id from web_customer"
         h = self.dbmodule.prepare(sql)
         h.execute()
         rows = h.fetchall_dict()
