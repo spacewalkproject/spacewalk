@@ -698,8 +698,8 @@ def _fetch_existing_channel_families():
 
 
 _query_fetch_channel_family_permissions = rhnSQL.Statement("""
-    select cf.label channel_family, cfp.org_id,
-           cfp.max_members, cfp.current_members, cf.org_id owner_org_id
+    select cf.label as channel_family, cfp.org_id,
+           cfp.max_members, cfp.current_members, cf.org_id as owner_org_id
       from rhnChannelFamilyPermissions cfp, rhnChannelFamily cf
      where cfp.channel_family_id = cf.id
 """)
