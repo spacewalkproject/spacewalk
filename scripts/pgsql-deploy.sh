@@ -19,7 +19,7 @@ scp ./spacewalk/setup/bin/spacewalk-setup $SWHOST:/usr/bin/spacewalk-setup
 ssh $SWHOST mkdir /usr/share/spacewalk/schema/
 scp -r ./schema/spacewalk/postgresql/ $SWHOST:/usr/share/spacewalk/schema/
 
-scp -r ./backend/server/rhnSQL $SWHOST:/usr/share/rhn/server/
+scp -r ./backend/server $SWHOST:/usr/share/rhn/
 scp -r ./backend/satellite_tools $SWHOST:/usr/share/rhn/
 
 scp ./spacewalk/admin/rhn-populate-database.pl $SWHOST:/usr/bin/rhn-populate-database.pl
