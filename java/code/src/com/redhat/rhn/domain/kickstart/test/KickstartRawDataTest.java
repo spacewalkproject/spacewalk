@@ -22,7 +22,10 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
+import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
 /**
@@ -38,6 +41,7 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
         super.setUp();
         user.addRole(RoleFactory.ORG_ADMIN);
         tree = KickstartableTreeTest.createTestKickstartableTree();
+        CobblerDistroCreateCommand cmd = new CobblerDistroCreateCommand(tree);
         ksdata = createRawData(user, "boring" + TestUtils.randomString(), tree, 
                 fileContents,
                 KickstartVirtualizationType.XEN_PARAVIRT);
@@ -45,14 +49,21 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
     }
 
     public void testLookupAndSaveKickstartRawData() throws Exception {
+                
         ((KickstartRawData) ksdata).setData(fileContents);
+        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata);
+        cmd.store();
+        
         KickstartFactory.saveKickstartData(ksdata);
         String contents = FileUtils.readStringFromFile(ksdata.getCobblerFileName());
         assertEquals(fileContents, contents);
         
+        
+        
         long id = ksdata.getId();
         KickstartRawData checker = (KickstartRawData) KickstartFactory.
                     lookupKickstartDataByIdAndOrg(user.getOrg(), id);
+        
         assertEquals(fileContents, checker.getData());
         // Setting to null zeros out in memory but 
         // re-calling getData() will re-load it off disk.
@@ -98,6 +109,10 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
         data.getKickstartDefaults().getVirtualizationType().getLabel());
         assertEquals(tree, data.getKickstartDefaults().getKstree());
         assertEquals(user.getOrg(), data.getOrg());
+        
+        TestObjectStore.get().putObject("profile_uid", data.getId().toString());
+        TestObjectStore.get().putObject("profile_name", data.getLabel());
+        
         return data;
     }
 

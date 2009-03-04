@@ -64,6 +64,7 @@ public class MockConnection extends CobblerConnection {
         token = tokenIn;
     }
     
+
     /**
      * {@inheritDoc}
      *      
@@ -75,11 +76,14 @@ public class MockConnection extends CobblerConnection {
         // System.out.println("called: " + name + " args: " + args);
         Object retval = null;
         if (name.equals("get_distros") || name.equals("get_profiles")) {
+            retval = new LinkedList();
+            
             Map row = new HashMap();
+            Map row2 = new HashMap(); //for xend distro, man this is ugly
             if (name.equals("get_profiles")) {
                 row.put("name", TestObjectStore.get().getObject("profile_name"));
                 row.put("uid", TestObjectStore.get().getObject("profile_uid"));
-
+                
                 String kname = (String) TestObjectStore.get().getObject("profile_name");
                 KickstartData ks = KickstartFactory.lookupKickstartDataByLabel(kname);
                 if (ks != null) {
@@ -94,6 +98,9 @@ public class MockConnection extends CobblerConnection {
             else {
                 row.put("name", TestObjectStore.get().getObject("distro_name"));
                 row.put("uid", TestObjectStore.get().getObject("distro_uid"));
+                row2.put("name", TestObjectStore.get().getObject("distro_name"));
+                row2.put("uid", TestObjectStore.get().getObject("distro_xen_uid"));
+                ((LinkedList) retval).add(row2);
             }
             row.put("virt_bridge", "xenb0");
             row.put("virt_cpus", Integer.valueOf(1));
@@ -104,12 +111,19 @@ public class MockConnection extends CobblerConnection {
             row.put("kernel_options", new HashMap());
             row.put("kernel_options_post", new HashMap());
             row.put("ks_meta", new HashMap());
+            
+            row2.put("virt_bridge", "xenb0");
+            row2.put("virt_cpus", Integer.valueOf(1));
+            row2.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+            row2.put("virt_path", "/tmp/foo");
+            row2.put("virt_file_size", Integer.valueOf(8));
+            row2.put("virt_ram", Integer.valueOf(512));
+            row2.put("kernel_options", new HashMap());
+            row2.put("kernel_options_post", new HashMap());
+            row2.put("ks_meta", new HashMap());
 
-
-
-
-            retval = new LinkedList();
             ((LinkedList) retval).add(row);
+           
         }
         else if (name.equals("modify_profile") && args[0].equals("name")) {
             TestObjectStore.get().putObject("profile_name", args[1]);

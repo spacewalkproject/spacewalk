@@ -86,7 +86,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
 
         invokeCobblerUpdate();
         Map cProfile = getProfileMap();
-        ksData.setCobblerId((String)cProfile.get("uid"));
+        ksData.setCobblerId(prof.getUid());
         return null;
     }
 

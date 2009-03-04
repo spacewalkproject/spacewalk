@@ -48,6 +48,9 @@ public class KickstartRawData extends KickstartData {
             Profile prof = Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection("kickstart-getData"),
                     this.getCobblerId());
+            if (prof == null) {
+                return "";
+            }
             this.data = FileUtils.
                 readStringFromFile(prof.getKickstart());
         }

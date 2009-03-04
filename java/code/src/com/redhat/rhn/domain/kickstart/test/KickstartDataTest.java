@@ -418,6 +418,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         return k;
     }
     
+    
+    
     public static KickstartData createKickstartWithOptions(Org orgIn) throws Exception {
         KickstartData k = createTestKickstartData(orgIn);        
         assertNotNull(k);        
