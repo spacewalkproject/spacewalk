@@ -722,23 +722,6 @@ _query_purge_extra_channel_families_1 = rhnSQL.Statement("""
 """)
 
 
-_query_purge_extra_channel_families_2 = rhnSQL.Statement("""
-    delete from rhnChannelFamily cf
-     where not exists (
-        select 1 from rhnChannelFamilyMembers
-         where channel_family_id = cf.id
-       )
-       and not exists (
-        select 1 from rhnChannelFamilyPermissions
-         where channel_family_id = cf.id
-           and (max_members != 0 or max_members is null)
-       )
-       and not exists (
-        select 1 from rhnChannelFamilyVirtSubLevel
-         where  channel_family_id = cf.id
-       )
-""")
-
 _query_purge_private_channel_families = rhnSQL.Statement("""
     delete from rhnChannelFamily cf
         where cf.org_id is null
