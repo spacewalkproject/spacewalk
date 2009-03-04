@@ -106,6 +106,7 @@ public class RhnSetDecl {
             "install_package_list", SetCleanup.NOOP);
 
     // set of packages by name_id/evr_id; can not be cleaned
+    // set of package_ids for deleting packages (from manage software packages)
     public static final RhnSetDecl PACKAGES_TO_REMOVE = make(
             "packages_to_remove", SetCleanup.NOOP);
 

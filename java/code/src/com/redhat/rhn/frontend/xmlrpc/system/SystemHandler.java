@@ -286,6 +286,8 @@ public class SystemHandler extends BaseHandler {
      * can subscribe this system to.
      * @throws FaultException A FaultException is thrown if the server corresponding to 
      * sid cannot be found.
+     * @deprecated being replaced by listSubscribableBaseChannels(string sessionKey,
+     * int serverId)
      * 
      * @xmlrpc.doc Returns a list of subscribable base channels.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -304,6 +306,39 @@ public class SystemHandler extends BaseHandler {
      * 
      */
     public Object[] listBaseChannels(String sessionKey, Integer sid) throws FaultException {
+
+        return listSubscribableBaseChannels(sessionKey, sid);
+    }
+
+    /**
+     * Gets a list of base channels subscribable by the logged in user for the server with
+     * the given id.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id of the server in question
+     * @return Returns an array of maps representing the base channels the logged in user
+     * can subscribe this system to.
+     * @throws FaultException A FaultException is thrown if the server corresponding to
+     * sid cannot be found.
+     *
+     * @xmlrpc.doc Returns a list of subscribable base channels.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     *
+     * @xmlrpc.returntype
+     *  #array()
+     *      #struct("channel")
+     *          #prop_desc("int" "id" "Base Channel ID.")
+     *          #prop_desc("string" "name" "Name of channel.")
+     *          #prop_desc("string" "label" "Label of Channel")
+     *          #prop_desc("int", "current_base", "1 indicates it is the current base
+     *                                      channel")
+     *      #struct_end()
+     *  #array_end()
+     *
+     */
+    public Object[] listSubscribableBaseChannels(String sessionKey, Integer sid)
+        throws FaultException {
+
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid); 
@@ -337,7 +372,7 @@ public class SystemHandler extends BaseHandler {
     
         return returnList.toArray();
     }
-    
+
     /**
      * Gets a list of all active systems visible to user 
      * @param sessionKey The sessionKey containing the logged in user
@@ -393,7 +428,9 @@ public class SystemHandler extends BaseHandler {
      * subscribe too.
      * @throws FaultException A FaultException is thrown if the server corresponding to 
      * sid cannot be found.
-     * 
+     * @deprecated being replaced by listSubscribableChildChannels(string sessionKey,
+     * int serverId)
+     *
      * @xmlrpc.doc Returns a list of subscribable child channels.  This only shows channels
      * the system is *not* currently subscribed to.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -411,6 +448,37 @@ public class SystemHandler extends BaseHandler {
      *      #array_end()
      */
     public Object[] listChildChannels(String sessionKey, Integer sid) 
+            throws FaultException {
+
+        return listSubscribableChildChannels(sessionKey, sid);
+    }
+
+    /**
+     * List the child channels that this system can subscribe to.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id of the system in question
+     * @return Returns an array of maps representing the channels this server could
+     * subscribe too.
+     * @throws FaultException A FaultException is thrown if the server corresponding to
+     * sid cannot be found.
+     *
+     * @xmlrpc.doc Returns a list of subscribable child channels.  This only shows channels
+     * the system is *not* currently subscribed to.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("child channel")
+     *              #prop("int", "id")
+     *              #prop("string", "name")
+     *              #prop("string", "label")
+     *              #prop("string", "summary")
+     *              #prop("string", "has_license")
+     *              #prop("string", "gpg_key_url")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listSubscribableChildChannels(String sessionKey, Integer sid)
             throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -433,7 +501,6 @@ public class SystemHandler extends BaseHandler {
             Map row = (Map) itr.next();
             Map channel = new HashMap();
             
-
             channel.put("id", row.get("id"));
             channel.put("label", row.get("label"));
             channel.put("name", row.get("name"));
@@ -448,7 +515,7 @@ public class SystemHandler extends BaseHandler {
         
         return returnList.toArray();
     }
-    
+
     /**
      * Given a package name + version + release + epoch, returns the list of
      * packages installed on the system w/ the same name that are older. 
@@ -1713,6 +1780,7 @@ public class SystemHandler extends BaseHandler {
         return server.getCreated();
     }
     
+
     /**
      * List the child channels that this system is subscribed to.
      * @param sessionKey The sessionKey containing the logged in user

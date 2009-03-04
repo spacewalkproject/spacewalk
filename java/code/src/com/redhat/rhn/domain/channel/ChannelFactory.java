@@ -399,22 +399,33 @@ public class ChannelFactory extends HibernateFactory {
     }
 
     /**
+     * Utility to call {@link #refreshNewestPackageCache(Long, String)} given a channel.
+     *
+     * @param c     channel to be refreshed
+     * @param label the label
+     */
+    public static void refreshNewestPackageCache(Channel c, String label) {
+        refreshNewestPackageCache(c.getId(), label);
+    }
+
+    /**
      * Refreshes the channel with the "newest" packages.  Newest isn't just
      * the latest versions, an errata could have obsoleted a package in which
      * case this would have removed said package from the channel.
-     * @param c Channel to be refreshed.
-     * @param label the label.
+     *
+     * @param channelId identifies the channel to be refreshed
+     * @param label     the label
      */
-    public static void refreshNewestPackageCache(Channel c, String label) {
-        CallableMode m = ModeFactory.getCallableMode(
-                "Channel_queries", "refresh_newest_package");
+    public static void refreshNewestPackageCache(Long channelId, String label) {
+        CallableMode m = ModeFactory.getCallableMode("Channel_queries",
+            "refresh_newest_package");
         Map inParams = new HashMap();
-        inParams.put("cid", c.getId());
+        inParams.put("cid", channelId);
         inParams.put("label", label);
-        
+
         m.execute(inParams, new HashMap());
     }
-    
+
     /**
      * Returns true if the given label is in use.
      * @param label Label 

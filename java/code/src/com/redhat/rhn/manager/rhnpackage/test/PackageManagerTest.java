@@ -59,6 +59,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * PackageManagerTest
@@ -628,5 +630,34 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         
         assertTrue(result != null);
         assertEquals(2, result.size());
+    }
+    
+    public void testDeletePackages() throws Exception {
+        // Configuration
+        final int numPackagesToDelete = 50;
+
+        // Setup
+        user.addRole(RoleFactory.ORG_ADMIN);
+
+        Set<Long> doomedPackageIds = new HashSet<Long>(numPackagesToDelete);
+        for (int ii = 0; ii < numPackagesToDelete; ii++) {
+            Package pack = PackageTest.createTestPackage(user.getOrg());
+            doomedPackageIds.add(pack.getId());
+        }
+        
+        int numPackagesBeforeDelete =
+            PackageFactory.lookupOrphanPackages(user.getOrg()).size();
+        assertTrue(numPackagesBeforeDelete >= numPackagesToDelete);
+        
+        
+        // Test
+        PackageManager.deletePackages(doomedPackageIds, user);
+        
+        // Verify
+        int numPackagesAfterDelete =
+        PackageFactory.lookupOrphanPackages(user.getOrg()).size();
+                assertEquals(numPackagesBeforeDelete - numPackagesToDelete,
+                             numPackagesAfterDelete);
+                
     }
 }
