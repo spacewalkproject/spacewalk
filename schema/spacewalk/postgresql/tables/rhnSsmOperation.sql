@@ -27,7 +27,7 @@ rhnSsmOperation
     user_id     numeric
                 not null
                 constraint rhn_ssmop_user_fk
-                    references rhnUser(id)
+                    references web_contact(id)
                     on delete cascade,
     description varchar(256)
                 not null,

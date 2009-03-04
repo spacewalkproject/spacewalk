@@ -24,8 +24,8 @@ CREATE OR REPLACE VIEW rhnServerErrataTypeView
 )
 AS
 SELECT
-    	SNPC.server_id,
-	SNPC.errata_id,
+    	SNEC.server_id,
+	SNEC.errata_id,
 	E.advisory_type
 FROM    rhnErrata E,
     	rhnServerNeededErrataCache SNEC
