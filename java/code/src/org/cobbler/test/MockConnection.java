@@ -15,7 +15,10 @@
 
 package org.cobbler.test;
 
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -34,6 +37,7 @@ import java.util.Map;
  */
 public class MockConnection extends CobblerConnection {
     private String token;
+    private String login;
     
     /**
      * Mock constructors for Cobbler connection
@@ -45,6 +49,8 @@ public class MockConnection extends CobblerConnection {
     public MockConnection(String urlIn, 
             String userIn, String passIn) {
         super();
+        login  = userIn;
+
     }
 
     /**
@@ -73,6 +79,17 @@ public class MockConnection extends CobblerConnection {
             if (name.equals("get_profiles")) {
                 row.put("name", TestObjectStore.get().getObject("profile_name"));
                 row.put("uid", TestObjectStore.get().getObject("profile_uid"));
+
+                String kname = (String) TestObjectStore.get().getObject("profile_name");
+                KickstartData ks = KickstartFactory.lookupKickstartDataByLabel(kname);
+                if (ks != null) {
+                    String type = "wizard";
+                    if (ks.isRawData()) {
+                        type = "upload";
+                    }
+                    row.put("kickstart",  CobblerCommand.makeCobblerFileName(type + "/" +
+                             ks.getLabel(), ks.getOrg()));
+                }
             }
             else {
                 row.put("name", TestObjectStore.get().getObject("distro_name"));
@@ -87,6 +104,10 @@ public class MockConnection extends CobblerConnection {
             row.put("kernel_options", new HashMap());
             row.put("kernel_options_post", new HashMap());
             row.put("ks_meta", new HashMap());
+
+
+
+
             retval = new LinkedList();
             ((LinkedList) retval).add(row);
         }

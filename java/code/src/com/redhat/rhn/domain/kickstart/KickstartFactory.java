@@ -143,6 +143,20 @@ public class KickstartFactory extends HibernateFactory {
     }
     
     /**
+     * Lookup a KickstartData based on a label 
+     * @param label to lookup
+     * @return KickstartData if found, null if not
+     */
+    public static KickstartData lookupKickstartDataByLabel(
+            String label) {
+        return (KickstartData) HibernateFactory.getSession().
+                                      getNamedQuery("KickstartData.findByLabel")
+                                      .setString("label", label)
+                                      .uniqueResult();
+    }    
+    
+    
+    /**
      * Returns a list of kickstart data cobbler ids
      * this is useful for cobbler only profiles..
      * @return a list of cobbler ids.  

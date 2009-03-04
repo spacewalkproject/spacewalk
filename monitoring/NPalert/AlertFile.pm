@@ -45,15 +45,18 @@ sub remove_locks {
   my @files=glob($pattern);
   $Log->log(9,"files are @files\n");
 
-  foreach (@files) {
-    $Log->log(9,"lock file: $_\n");
-    open(FILE,"< $_");
+  foreach my $f (@files) {
+    $Log->log(9,"lock file: $f\n");
+    open(FILE,"< $f");
     my @contents=<FILE>;
     close(FILE);
     my $content=join('',@contents);
     $Log->log(9,"lock file contents: $content\n");
 
-    my ($program_name, $process_id)=split(/\-/,$content);
+    # content is in format <prog-name>-<process id>
+    # beware that prog-name itself can contain dash
+    $content=~m/(.*)-(\d+)/;
+    my ($program_name, $process_id)=($1, $2);
     $Log->log(9,"program name: $program_name, process_id: $process_id\n");
     
     if ($prog && ($program_name !~ /$prog/)) {
@@ -65,7 +68,7 @@ sub remove_locks {
       next
     }
     
-    unlink($_) || warn "Unable to unlink $_\n";
+    unlink($f) || warn "Unable to unlink $f\n";
   } 
   return @files
 }

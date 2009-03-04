@@ -17,7 +17,7 @@ sub startActions
         umask(022);  # Create the file world-readable
 
 	if (%$localConfig) {
-		$self->dprint(0,'Grabbing local config info');
+		$self->dprint(1,'Grabbing local config info');
 		my $config = (values(%$localConfig))[0];
 		my $dbd = $config->get_dbd;
 		my $dbname = $config->get_dbname;
@@ -33,7 +33,7 @@ sub startActions
 			$self->addError($@);
 		}
 	} elsif (%$remoteConfig) {
-		$self->dprint(0,'Grabbing remote config info');
+		$self->dprint(1,'Grabbing remote config info');
 		my $config = (values(%$remoteConfig))[0];
 		my $protocol = $config->get_protocol;
 		my $path = $config->get_path;

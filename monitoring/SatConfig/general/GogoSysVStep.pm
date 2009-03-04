@@ -8,16 +8,16 @@ sub printStatus
 {
 	my ($self,@params) = @_;
 	$self->SUPER::printStatus(@params);
-	$self->dprint(0,'GoGo options:');
-	$self->dprint(0,'--fname='.ref($self));
-	$self->dprint(0,'--command='.$self->get_command);
-	if ($self->configValue('user')) { $self->dprint(0,'--user='.$self->get_user)}
-	if ($self->configValue('hbfile')) { $self->dprint(0,'--hbfile='.$self->get_hbfile)}
-	if ($self->configValue('hbfreq')) { $self->dprint(0,'--hbfreq='.$self->get_hbfreq)}
-	if ($self->configValue('hbcheck')) { $self->dprint(0,'--hbcheck='.$self->get_hbcheck)}
-	if ($self->configValue('notify')) { $self->dprint(0,'--notify='.$self->get_notify)}
-	if ($self->configValue('grtchdir')) { $self->dprint(0,'--grtchdir='.$self->get_grtchdir)}
-	if ($self->configValue('workingDir')) { $self->dprint(0,'workingDir='.$self->get_workingDir)}
+	$self->dprint(2,'GoGo options:');
+	$self->dprint(2,'--fname='.ref($self));
+	$self->dprint(2,'--command='.$self->get_command);
+	if ($self->configValue('user')) { $self->dprint(2,'--user='.$self->get_user)}
+	if ($self->configValue('hbfile')) { $self->dprint(2,'--hbfile='.$self->get_hbfile)}
+	if ($self->configValue('hbfreq')) { $self->dprint(2,'--hbfreq='.$self->get_hbfreq)}
+	if ($self->configValue('hbcheck')) { $self->dprint(2,'--hbcheck='.$self->get_hbcheck)}
+	if ($self->configValue('notify')) { $self->dprint(2,'--notify='.$self->get_notify)}
+	if ($self->configValue('grtchdir')) { $self->dprint(2,'--grtchdir='.$self->get_grtchdir)}
+	if ($self->configValue('workingDir')) { $self->dprint(2,'workingDir='.$self->get_workingDir)}
 }
 
 sub isTrulyRunning

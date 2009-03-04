@@ -546,7 +546,8 @@ public class ErrataManager extends BaseManager {
         // If this is a non-accessible RH errata or the errata belongs to another org,
         // throw a lookup exception
         if (returnedErrata.getOrg() == null ||  
-            returnedErrata.getOrg().getId() != user.getOrg().getId()) {
+            (returnedErrata.getOrg().getId() != user.getOrg().getId() &&
+             !user.getOrg().getTrustedOrgs().contains(returnedErrata.getOrg()))) {
             LocalizationService ls = LocalizationService.getInstance();
             LookupException e = new LookupException("Could not find errata: " + eid);
             e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.errata"));

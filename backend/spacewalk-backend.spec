@@ -7,13 +7,13 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.17
+Version: 0.5.18
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: python, rpm-python
+Requires: python, rpm-python, spacewalk-config
 Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
@@ -289,7 +289,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/RPC_Base.py*
 %attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
-%attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %{rhnconf}/default/rhn.conf
 
@@ -558,6 +557,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Mar 03 2009 Dave Parker <dparker@redhat.com> 0.5.18-1
+- 483802 - Directory /etc/rhn owned by two packages, group does not match
+
 * Fri Feb 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.17-1
 - rebuild
 

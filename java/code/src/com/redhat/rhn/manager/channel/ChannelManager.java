@@ -130,16 +130,29 @@ public class ChannelManager extends BaseManager {
     private ChannelManager() {
         
     }
-    
+
     /**
      * Refreshes the channel with the "newest" packages.  Newest isn't just
      * the latest versions, an errata could have obsoleted a package in which
      * case this would have removed said package from the channel.
-     * @param channel Channel to be refreshed.
-     * @param label the label.
+     *
+     * @param channel channel to be refreshed
+     * @param label   the label
      */
     public static void refreshWithNewestPackages(Channel channel, String label) {
         ChannelFactory.refreshNewestPackageCache(channel, label);
+    }
+
+    /**
+     * Refreshes the channel with the "newest" packages.  Newest isn't just
+     * the latest versions, an errata could have obsoleted a package in which
+     * case this would have removed said package from the channel.
+     * 
+     * @param channelId identifies the channel to be refreshed
+     * @param label     the label
+     */
+    public static void refreshWithNewestPackages(Long channelId, String label) {
+        ChannelFactory.refreshNewestPackageCache(channelId, label);
     }
     
     /**

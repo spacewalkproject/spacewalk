@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.4
+Version: 0.5.5
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -64,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/webapp-keyring.gpg
 %config(noreplace) /var/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) /var/lib/cobbler/snippets/spacewalk_file_preservation
-%dir /etc/rhn
+%attr(0750,root,apache) %dir /etc/rhn
 %dir /etc/rhn/satellite-httpd
 %dir /etc/rhn/satellite-httpd/conf
 %dir /etc/rhn/satellite-httpd/conf/rhn
@@ -99,6 +99,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Tue Mar 03 2009 Dave Parker <dparker@redhat.com> 0.5.5-1
+- 483802 Directory /etc/rhn owned by two packages, group does not match
+
 * Wed Feb 25 2009 Jan Pazdziora 0.5.4-1
 - load modules/mod_version.so, for Fedora 10
 
