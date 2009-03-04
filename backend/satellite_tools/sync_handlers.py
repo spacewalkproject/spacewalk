@@ -723,9 +723,9 @@ _query_purge_extra_channel_families_1 = rhnSQL.Statement("""
 
 
 _query_purge_private_channel_families = rhnSQL.Statement("""
-    delete from rhnChannelFamily cf
-        where cf.org_id is null
-          and cf.label like '%private%'
+    delete from rhnChannelFamily
+        where org_id is null
+          and label like '%private%'
 """)
 
 def purge_extra_channel_families():
