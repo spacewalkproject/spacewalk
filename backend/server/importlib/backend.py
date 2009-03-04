@@ -57,18 +57,22 @@ class Backend:
     # This object is initialized by the specific subclasses (e.g.
     # OracleBackend)
     tables = TableCollection()
+    # TODO: Some reason why we're passing a module in here? Seems to
+    # always be rhnSQL anyhow...
     def __init__(self, dbmodule):
         self.dbmodule = dbmodule
         self.sequences = {}
 
+    # TODO: Why is there a pseudo-constructor here instead of just using
+    # __init__?
     def init(self):
         # Initializes the database connection objects
         # This function has to be called on a newly defined Backend object
         # Initialize sequences
         for k, v in sequences.items():
             self.sequences[k] = self.dbmodule.Sequence(v)
-        # Set date format
-        self.setDateFormat("YYYY-MM-DD HH24:MI:SS")
+        # TODO: Why do we return a reference to ourselves? If somebody called
+        # this method they already have a reference...
         return self
 
     def setDateFormat(self, format):

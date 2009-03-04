@@ -21,7 +21,8 @@ import os
 
 from xml.sax import SAXParseException
 
-from common import Traceback
+from common import Traceback, CFG
+from server.rhnSQL.const import ORACLE, POSTGRESQL
 
 import xmlSource
 import xmlDiskSource
@@ -37,8 +38,14 @@ class Backend:
     def get_backend(self):
         if self.__backend:
             return self.__backend
-        from server.importlib.backendOracle import OracleBackend
-        Backend.__backend = OracleBackend()
+
+
+        if CFG.DB_BACKEND == ORACLE:
+            from server.importlib.backendOracle import OracleBackend
+            Backend.__backend = OracleBackend()
+        elif CFG.DB_BACKEND == POSTGRESQL:
+            from server.importlib.backendOracle import PostgresqlBackend
+            Backend.__backend = PostgresqlBackend()
         Backend.__backend.init()
         return Backend.__backend
         
