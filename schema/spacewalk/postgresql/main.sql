@@ -353,8 +353,6 @@ create schema spacewalk;
 \i tables/rhnServerLocation.sql
 \i tables/rhnServerLock.sql
 \i tables/rhnServerMessage.sql
-\i tables/rhnServerNeededErrataCache.sql
-\i tables/rhnServerNeededPackageCache.sql
 \i tables/rhnServerNetwork.sql
 \i tables/rhnServerNotes.sql
 \i tables/rhnServerPackageArchCompat.sql
@@ -414,6 +412,10 @@ create schema spacewalk;
 \i tables/web_user_contact_permission.sql
 \i tables/web_user_site_type.sql
 \i tables/web_user_site_info.sql
+\i tables/rhnRepoRegenQueue.sql
+\i tables/rhnServerNeededCache.sql
+\i tables/rhnSsmOperation.sql
+\i tables/rhnSsmOperationServer.sql
 
 /* triggers go here */
 \i triggers/rhnOrgQuota.sql
@@ -445,7 +447,6 @@ create schema spacewalk;
 \i triggers/web_customer_triggers.sql
 \i triggers/web_user_contact_permission_triggers.sql
 
-
 /* functions go here */
 \i procs/empty_blob.sql
 \i procs/create_first_org.sql
@@ -469,6 +470,8 @@ create schema spacewalk;
 \i packages/rhn_user.pkb
 
 /* views go here */
+\i views/common/rhnServerNeededPackageCache.sql
+\i views/common/rhnServerNeededErrataCache.sql
 \i views/rhnOrgChannelFamilyPermissions.sql
 -- \i views/common/rhn_contact_monitoring.sql
 \i views/rhn_customer_monitoring.sql

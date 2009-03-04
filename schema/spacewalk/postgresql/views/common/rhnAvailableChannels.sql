@@ -41,10 +41,12 @@ select
      CT.name,
      CT.channel_arch_id,
      CT.padded_name,
-     (SELECT COUNT(1)
-        FROM rhnServer S
-       WHERE S.org_id = ct.org_id
-         AND EXISTS (SELECT 1 FROM rhnServerChannel WHERE channel_id = ct.id AND server_id = S.id)),
+    (SELECT COUNT(1)
+     FROM rhnServer S 
+     INNER JOIN rhnServerChannel SC
+       ON SC.server_id = S.id
+     WHERE SC.channel_id = CT.id AND
+           S.org_id = CT.org_id),
      rhn_channel.available_chan_subscriptions(ct.id, ct.org_id),
      CT.last_modified,
      CT.label,
@@ -60,10 +62,12 @@ select
      CT.name,
      CT.channel_arch_id,
      CT.padded_name,
-     (SELECT COUNT(1) 
-        FROM rhnServer S 
-       WHERE S.org_id = ct.org_id 
-         AND EXISTS (SELECT 1 FROM rhnServerChannel WHERE channel_id = ct.id AND server_id = S.id)),
+    (SELECT COUNT(1)
+     FROM rhnServer S 
+     INNER JOIN rhnServerChannel SC
+       ON SC.server_id = S.id
+     WHERE SC.channel_id = CT.id AND
+           S.org_id = CT.org_id),
      NULL,
      CT.last_modified,
      CT.label,
