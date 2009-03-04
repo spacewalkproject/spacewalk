@@ -756,7 +756,9 @@ class Dumper(dumper.XML_Dumper):
                 #generate the path to the kickstart files under the export directory.
                 path_to_export_file = self.fm.getKickstartFileFile(kickstart_file['label'], kickstart_file['relative-path'])
                 #os.path.join(self.mp, kickstart_file['base-path'], kickstart_file['relative-path'])
-    
+                if os.path.exists(path_to_export_file):
+                    # already exists, skip ks file
+                    continue 
                 #Get the dirs to the file under the export directory.
                 dirs_to_file = os.path.split(path_to_export_file)[0]
     
