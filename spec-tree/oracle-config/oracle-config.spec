@@ -1,13 +1,9 @@
-Source9999: version
-%define version     %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-%define release     %(echo `awk '{ print $2 }' %{SOURCE9999}`)
-
 %define oracle_base /opt/apps/oracle
 
 Summary: Oracle configuration files
 Name: oracle-config
-Version: %{version}
-Release: %{release}%{?dist}
+Version: 1.0.5
+Release: 1%{?dist}
 License: RHN Subscription License
 Group:   RHN/Server
 BuildArch: noarch
@@ -67,6 +63,9 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
+* Wed Mar 04 2009 Michael Mraka <michael.mraka@redhat.com> 1.0.5-1
+- updated spec for spacewalk git repo
+
 * Mon Dec  1 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-4
 - resolved #470492 - coraenv
 
