@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.16
+Version:        0.5.17
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -90,6 +90,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Mar  4 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.17-1
+- ssl virtual host setup modifies existing ssl.conf
+
 * Fri Feb 27 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.16-1
 - 486054 - add configuration variable to list of overrides.
 
