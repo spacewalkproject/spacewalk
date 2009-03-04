@@ -125,7 +125,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
         ArrayList displayList = new ArrayList();
 
         displayList.add(grub);
-        if (cmd.getKickstartData().isPreRHEL5Kickstart()) {
+        if (!cmd.getKickstartData().isRhel5OrGreater()) {
             HashMap lilo = new HashMap();
             lilo.put("display", "LILO");
             lilo.put("value", "lilo");

@@ -204,7 +204,7 @@ public class KickstartFactory extends HibernateFactory {
                 continue;
             }
             // Don't display these options if this is a pre-RHEL5 kickstart profile:
-            else if (cn.getName().equals("lilocheck") && !ksdata.isPreRHEL5Kickstart()) {
+            else if (cn.getName().equals("lilocheck") && ksdata.isRhel5OrGreater()) {
                 continue;
             } 
             else if (cn.getName().equals("langsupport") && ksdata.isRhel5OrGreater()) {

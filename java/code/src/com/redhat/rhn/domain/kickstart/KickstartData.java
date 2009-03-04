@@ -1219,25 +1219,7 @@ public class KickstartData {
         }
         
     }
-    
-    /**
-     * Util method to determine if we are pre RHEL5
-     * @return boolean if this KickstartData is using RHEL2.1, RHEL3, or RHEL4
-     */
-    public boolean isPreRHEL5Kickstart() {
-        if (this.isLegacyKickstart()) {
-            return true;
-        }
-        if (this.getTree() != null && this.getTree().getInstallType() != null) {
-            String installType = this.getTree().getInstallType().getLabel();
-            return (installType.equals(KickstartInstallType.RHEL_4));
-        } 
-        else {
-            return false;
-        }
         
-    }
-    
     /**
      * Bean wrapper so we can call isLegacyKickstart() from JSTL
      * @return boolean if this KickstartData is using RHEL2.1 or RHEL3
