@@ -24,15 +24,17 @@ import com.redhat.rhn.domain.kickstart.KickstartTreeType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
-import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.cobbler.Distro;
 import org.hibernate.Session;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -161,11 +163,14 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         k.setInstallType(installtype);
         k.setTreeType(treetype);
         k.setChannel(treeChannel);
-        k.setCobblerId(TestUtils.randomString());
-        k.setCobblerXenId(TestUtils.randomString());
-        TestObjectStore.get().putObject("distro_uid", k.getCobblerId());
-        TestObjectStore.get().putObject("distro_xen_uid", k.getCobblerXenId());
-        TestObjectStore.get().putObject("distro_name", k.getLabel());
+
+        Distro d = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
+                k.getLabel(), k.getKernelPath(), k.getInitrdPath(), new HashMap());
+        Distro xend = Distro.create(CobblerXMLRPCHelper.getConnection("test"),
+                k.getLabel(), k.getKernelPath(), k.getInitrdPath(), new HashMap());
+
+        k.setCobblerId(d.getUid());
+        k.setCobblerXenId(xend.getUid());
         
         TestUtils.saveAndFlush(k);
         

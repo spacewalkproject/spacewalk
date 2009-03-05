@@ -50,15 +50,16 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
-import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import org.cobbler.Distro;
 import org.hibernate.Session;
 
 import java.util.Collection;
@@ -163,6 +164,17 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartData k = createTestKickstartData(user.getOrg()); 
         KickstartDefaults d1 = createDefaults(k, user);
         k.setKickstartDefaults(d1);
+
+
+        SortedSet<KickstartCommand> optionsSet = new TreeSet<KickstartCommand>();
+        k.setCustomOptions(optionsSet);
+
+        Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
+                k.getKickstartDefaults().getKstree().getCobblerId());
+        org.cobbler.Profile.create(CobblerXMLRPCHelper.getConnection("test"),
+                k.getLabel(), d);
+
+
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         d1.setProfile(p);
         d1.getKstree().setChannel(p.getBaseChannel());
@@ -406,15 +418,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
         k.addPackageName(pn);
         k.addPackageName(pn2);
-        TestUtils.saveAndFlush(k);
-        k.setCobblerId(k.getId().toString());
-        TestObjectStore.get().putObject("profile_uid", k.getId().toString());
-        TestObjectStore.get().putObject("profile_name", k.getLabel());
+
         
-        SortedSet<KickstartCommand> optionsSet = new TreeSet<KickstartCommand>();
-        k.setCustomOptions(optionsSet);
-       
-               
+
+        k = (KickstartData) TestUtils.saveAndReload(k);
         return k;
     }
     

@@ -15,19 +15,16 @@
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
-import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
 
-import org.apache.commons.lang.math.RandomUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.test.MockConnection;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * Mock class for invoking xmlrpc
@@ -43,8 +40,15 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
     public MockXMLRPCInvoker() { 
         log.debug("Constructor: " + TestUtils.randomString());
     }
+
+    @Override
+    public Object invokeMethod(String procedureName, List args)
+        throws XmlRpcFault {
+        MockConnection con = new MockConnection("url", "token");
+        return con.invokeMethod(procedureName, args.toArray());
+    }
     
-    public Object invokeMethod(String procedureName, List args) {
+  /*  public Object invokeMethod(String procedureName, List args) {
         methodsCalled.add(procedureName);
         log.debug("invoking: " + procedureName + " with: " + args);
         // Check that none of the args are null
@@ -243,7 +247,7 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
             }
         }
         return null;
-    }
+    } */
 
 
 }

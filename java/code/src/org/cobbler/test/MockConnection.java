@@ -15,15 +15,12 @@
 
 package org.cobbler.test;
 
-import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
-import com.redhat.rhn.testing.TestObjectStore;
-import com.redhat.rhn.testing.TestUtils;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.cobbler.CobblerConnection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,6 +36,18 @@ public class MockConnection extends CobblerConnection {
     private String token;
     private String login;
     
+
+
+    private static List<Map> profiles = new ArrayList<Map>();
+    private static List<Map> distros = new ArrayList<Map>();
+    private static List<Map> systems = new ArrayList<Map>();
+
+
+    private static Map<String, Map> systemMap = new HashMap<String, Map>();
+    private static Map<String, Map> profileMap = new HashMap<String, Map>();
+    private static Map<String, Map> distroMap = new HashMap<String, Map>();
+
+
     /**
      * Mock constructors for Cobbler connection
      * Don't care..
@@ -65,87 +74,138 @@ public class MockConnection extends CobblerConnection {
     }
     
 
-    /**
-     * {@inheritDoc}
-     *      
-     */
-    @Override
-    public Object invokeMethod(String name, Object... args) {
-        //no op -> mock version .. 
-        // we'll add more useful constructs in the future..
-        // System.out.println("called: " + name + " args: " + args);
-        Object retval = null;
-        if (name.equals("get_distros") || name.equals("get_profiles")) {
-            retval = new LinkedList();
-            
-            Map row = new HashMap();
-            Map row2 = new HashMap(); //for xend distro, man this is ugly
-            if (name.equals("get_profiles")) {
-                row.put("name", TestObjectStore.get().getObject("profile_name"));
-                row.put("uid", TestObjectStore.get().getObject("profile_uid"));
-                
-                String kname = (String) TestObjectStore.get().getObject("profile_name");
-                KickstartData ks = KickstartFactory.lookupKickstartDataByLabel(kname);
-                if (ks != null) {
-                    String type = "wizard";
-                    if (ks.isRawData()) {
-                        type = "upload";
-                    }
-                    row.put("kickstart",  CobblerCommand.makeCobblerFileName(type + "/" +
-                             ks.getLabel(), ks.getOrg()));
-                }
-            }
-            else {
-                row.put("name", TestObjectStore.get().getObject("distro_name"));
-                row.put("uid", TestObjectStore.get().getObject("distro_uid"));
-                row2.put("name", TestObjectStore.get().getObject("distro_name"));
-                row2.put("uid", TestObjectStore.get().getObject("distro_xen_uid"));
-                ((LinkedList) retval).add(row2);
-            }
-            row.put("virt_bridge", "xenb0");
-            row.put("virt_cpus", Integer.valueOf(1));
-            row.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
-            row.put("virt_path", "/tmp/foo");
-            row.put("virt_file_size", Integer.valueOf(8));
-            row.put("virt_ram", Integer.valueOf(512));
-            row.put("kernel_options", new HashMap());
-            row.put("kernel_options_post", new HashMap());
-            row.put("ks_meta", new HashMap());
-            
-            row2.put("virt_bridge", "xenb0");
-            row2.put("virt_cpus", Integer.valueOf(1));
-            row2.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
-            row2.put("virt_path", "/tmp/foo");
-            row2.put("virt_file_size", Integer.valueOf(8));
-            row2.put("virt_ram", Integer.valueOf(512));
-            row2.put("kernel_options", new HashMap());
-            row2.put("kernel_options_post", new HashMap());
-            row2.put("ks_meta", new HashMap());
 
-            ((LinkedList) retval).add(row);
-           
-        }
-        else if (name.equals("modify_profile") && args[0].equals("name")) {
-            TestObjectStore.get().putObject("profile_name", args[1]);
-        }
-        else if ("get_profile".equals(name)) {
-            retval = new HashMap();
-            ((Map) retval).put("name", TestUtils.randomString());
-            ((Map) retval).put("uid", TestObjectStore.get().getObject("profile_uid"));
-            ((Map) retval).put("ks_meta", new HashMap());
-        }
-        else if ("get_distro".equals(name)) {
-            retval = new HashMap();
-            ((Map) retval).put("name", TestObjectStore.get().getObject("distro_name"));
-            ((Map) retval).put("uid", TestObjectStore.get().getObject("distro_uid"));
-            ((Map) retval).put("ks_meta", new HashMap());
-        }
-        else if ("remove_distro".equals(name)) {
-            return Boolean.TRUE;
-        }
-        // System.out.println("retval: " + retval);
-        return retval;
+
+   public Object invokeMethod(String name, Object... args) {
+    //no op -> mock version ..
+    // we'll add more useful constructs in the future..
+    // System.out.println("called: " + name + " args: " + args);
+
+    if ("token_check".equals(name)) {
+        return true;
     }
+    //profiles:
+    if ("get_profiles".equals(name)) {
+        return profiles;
+    }
+    else if (name.equals("modify_profile")) {
+        profileMap.get(args[0]).put(args[1], args[2]);
+    }
+    else if ("get_profile".equals(name)) {
+        return findByName((String)args[0], profiles);
+    }
+    else if ("get_profile_handle".equals(name)) {
+        String key = random();
+        profileMap.put(key, findByName((String) args[0], profiles));
+        return key;
+    }
+    else if ("remove_profile".equals(name)) {
+        profiles.remove(findByName((String)args[0], profiles));
+    }
+    else if ("new_profile".equals(name)) {
+        HashMap profile = new HashMap();
+        String key = random();
+        profile.put("uid", random());
+
+        profiles.add(profile);
+        profileMap.put(key, profile);
+
+        profile.put("virt_bridge", "xenb0");
+        profile.put("virt_cpus", Integer.valueOf(1));
+        profile.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+        profile.put("virt_path", "/tmp/foo");
+        profile.put("virt_file_size", Integer.valueOf(8));
+        profile.put("virt_ram", Integer.valueOf(512));
+        profile.put("kernel_options", new HashMap());
+        profile.put("kernel_options_post", new HashMap());
+        profile.put("ks_meta", new HashMap());
+        return key;
+    }
+    //distros
+    else if ("get_distros".equals(name)) {
+        return distros;
+    }
+    else if (name.equals("modify_distro")) {
+        distroMap.get(args[0]).put(args[1], args[2]);
+    }
+    else if ("get_distro".equals(name)) {
+        return findByName((String)args[0], distros);
+    }
+    else if ("get_distro_handle".equals(name)) {
+        String key = random();
+        distroMap.put(key, findByName((String) args[0], distros));
+        return key;
+    }
+    else if ("remove_distro".equals(name)) {
+        distros.remove(findByName((String)args[0], distros));
+    }
+    else if ("new_distro".equals(name)) {
+        HashMap distro = new HashMap();
+        String key = random();
+        distro.put("uid", random());
+
+        distros.add(distro);
+        distroMap.put(key, distro);
+
+        distro.put("virt_bridge", "xenb0");
+        distro.put("virt_cpus", Integer.valueOf(1));
+        distro.put("virt_type", KickstartVirtualizationType.XEN_FULLYVIRT);
+        distro.put("virt_path", "/tmp/foo");
+        distro.put("virt_file_size", Integer.valueOf(8));
+        distro.put("virt_ram", Integer.valueOf(512));
+        distro.put("kernel_options", new HashMap());
+        distro.put("kernel_options_post", new HashMap());
+        distro.put("ks_meta", new HashMap());
+        return key;
+    }
+    //System
+    if ("get_systems".equals(name)) {
+        return systems;
+    }
+    else if (name.equals("modify_system")) {
+        systemMap.get(args[0]).put(args[1], args[2]);
+    }
+    else if ("get_system".equals(name)) {
+        return findByName((String)args[0], systems);
+    }
+    else if ("get_system_handle".equals(name)) {
+        String key = random();
+        systemMap.put(key, findByName((String) args[0], systems));
+        return key;
+    }
+    else if ("remove_system".equals(name)) {
+        systems.remove(findByName((String)args[0], systems));
+    }
+    else if ("new_system".equals(name)) {
+        HashMap profile = new HashMap();
+        String key = random();
+        profile.put("uid", random());
+
+        systems.add(profile);
+        systemMap.put(key, profile);
+        profile.put("ks_meta", new HashMap());
+        return key;
+    }
+    else {
+        System.out.println("Unhandled xmlrpc call in MockConnection: " + name);
+    }
+    return "";
+}
+
+
+   private Map findByName(String name, List<Map> maps) {
+       for (Map map : maps) {
+           if (name.equals(map.get("name"))) {
+               return map;
+           }
+       }
+       return null;
+   }
+
+
+   private String random() {
+       return RandomStringUtils.randomAlphabetic(10);
+   }
     
     /**
      * {@inheritDoc}
@@ -154,7 +214,7 @@ public class MockConnection extends CobblerConnection {
                                     Object... args) {
         List<Object> params = new LinkedList<Object>(Arrays.asList(args));
         params.add(token);
-        return invokeMethod(procedureName, params);
+        return invokeMethod(procedureName, params.toArray());
     }
     
     /**
@@ -164,4 +224,6 @@ public class MockConnection extends CobblerConnection {
     public void setToken(String tokenIn) {
         token = tokenIn;
     }    
+
+
 }

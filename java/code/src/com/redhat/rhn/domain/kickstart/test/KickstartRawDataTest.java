@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart.test;
 
 import com.redhat.rhn.common.util.FileUtils;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
@@ -24,9 +25,14 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
-import com.redhat.rhn.testing.TestObjectStore;
 import com.redhat.rhn.testing.TestUtils;
+
+import org.cobbler.Distro;
+
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * @version $Rev$
@@ -110,8 +116,14 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
         assertEquals(tree, data.getKickstartDefaults().getKstree());
         assertEquals(user.getOrg(), data.getOrg());
         
-        TestObjectStore.get().putObject("profile_uid", data.getId().toString());
-        TestObjectStore.get().putObject("profile_name", data.getLabel());
+        SortedSet<KickstartCommand> optionsSet = new TreeSet<KickstartCommand>();
+        data.setCustomOptions(optionsSet);
+
+        Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
+                data.getKickstartDefaults().getKstree().getCobblerId());
+        org.cobbler.Profile.create(CobblerXMLRPCHelper.getConnection("test"),
+                data.getLabel(), d);
+
         
         return data;
     }

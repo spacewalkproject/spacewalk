@@ -50,7 +50,6 @@ public class TestCaseHelper {
         // In case someone disabled it and forgot to 
         // renable it.
         RhnBaseTestCase.enableLocalizationServiceLogging();
-        TestObjectStore.get().clearObjects();
         
     }
     
