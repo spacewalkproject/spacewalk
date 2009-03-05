@@ -87,8 +87,10 @@ public class EditChannelAction extends RhnAction implements Listable {
         if (ctx.hasParam("create_button")) {
             Long cid = create(form, errors, ctx);
             params.put("cid", cid);
+            if (errors.isEmpty()) {
             createSuccessMessage(request, "message.channelcreated",
                     form.getString("name"));
+            }
         }
         else if (ctx.hasParam("edit_button")) {
             //params.put("cid", ctx.getParam("cid", true));
@@ -112,11 +114,15 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
             
             edit(form, errors, ctx);
+            if (errors.isEmpty()) {
+            createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
                                      
             //did they enable per user subscriptions?
             String sub = (String)form.get("per_user_subscriptions");            
             if (!sub.equals("all")) {
-                addMessage(request, "message.channelsubscribers");
+                 addMessage(request, "message.channelsubscribers");
             }
         }
         // handler for private confirmation page
@@ -140,8 +146,6 @@ public class EditChannelAction extends RhnAction implements Listable {
                     mapping.findForward("default"), 
                     params);
         }
-        createSuccessMessage(request, "message.channelupdated",
-                form.getString("name"));
 
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), params);
