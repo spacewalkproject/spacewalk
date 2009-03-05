@@ -133,6 +133,7 @@ sub load_dsn_aliases {
   }
 }
 
+# TODO: This looks fishy, this file doesn't seem to exist anymore:
 RHN::DB->load_dsn_aliases("/etc/pxtdb.conf");
 
 # soft connect -- if connect fails, return undef instead of raising exception
