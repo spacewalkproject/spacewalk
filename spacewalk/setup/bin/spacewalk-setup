@@ -1140,10 +1140,15 @@ sub update_monitoring_environment {
   my $answers = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
-  # BZ 226915 we cannot use db_name from %answers - it contains instance name
-  # we want real db name
-  my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
+
+  my $db_name = $answers->{'db-sid'};
+  if ($answers->{'db-backend'} eq 'oracle') {
+      # BZ 226915 we cannot use db_name from %answers - it contains instance name
+      # we want real db name
+      ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
  # PGPORT_1:NO Change #
+  }
+
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(?)
@@ -1174,7 +1179,7 @@ sub update_monitoring_config {
     UPDATE rhn_config_macro
     SET    definition = ?,
            last_update_user = 'installer',
-           last_update_date = sysdate
+           last_update_date = CURRENT_TIMESTAMP
     WHERE  name = ?
 EOQ
 
