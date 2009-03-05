@@ -7761,7 +7761,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
       <trans-unit id="org.entitlements.software.proposedwarning">
-          <source>Warning: Your Proposed {0} allocation requires less entitlements than are in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
+          <source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
       </trans-unit>
             
       <trans-unit id="securityErrata">
