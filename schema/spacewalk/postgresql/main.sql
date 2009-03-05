@@ -407,7 +407,6 @@ create schema spacewalk;
 \i tables/state_change.sql
 \i tables/time_series.sql
 \i tables/valid_countries.sql
--- \i tables/valid_countries_tl.sql
 \i tables/web_customer_notification.sql
 \i tables/web_user_contact_permission.sql
 \i tables/web_user_site_type.sql
@@ -420,7 +419,6 @@ create schema spacewalk;
 /* triggers go here */
 \i triggers/rhnOrgQuota.sql
 \i triggers/rhnSatelliteCert.sql
---\i triggers/web_contact.sql
 \i triggers/rhnActionStatus_triggers.sql
 \i triggers/rhnChannelCloned_triggers.sql
 \i triggers/rhnChannelPackage_triggers.sql
@@ -510,6 +508,7 @@ create schema spacewalk;
 \i data/rhn_strategies_data.sql
 \i data/rhn_time_zone_names_data.sql
 \i data/rhnServerGroupType_data.sql
+\i data/valid_countries.sql
 
 /* packages go here */
 \i packages/rhn_user.pkb
