@@ -1795,7 +1795,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.returntype  #return_int_success()  
      *          
      */
-    public int regeneratedNeededCache(String sessionKey) {
+    public int regenerateNeededCache(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
         if (loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
             Set set = new HashSet();
