@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.4.4
+Version:      0.5.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Thu Mar  5 2009 Milan Zazrivec 0.5.1-1
+- obsolete LongLegs, Time-System
+
 * Mon Feb 16 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
 - remove perl-Apache-Admin-Config packages
 - remove support packages, which are installed by transitive hulk
