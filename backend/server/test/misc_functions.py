@@ -74,8 +74,9 @@ def fetch_server_group(org_id, name):
     s = rhnServerGroup.ServerGroup()
     s.load(org_id, name)
     return s
-
+#PGPORT_1:NO Change
 _query_fetch_server_groups = rhnSQL.Statement("""
+
     select sgm.server_group_id
       from rhnServerGroupMembers sgm,
            rhnServerGroup sg
@@ -125,6 +126,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
     user_id = u.getid()
 
     # Set roles
+   #PGPORT_1:NO Change
     h = rhnSQL.prepare("""
         select ug.id
           from rhnUserGroupType ugt, rhnUserGroup ug

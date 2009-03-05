@@ -70,7 +70,7 @@ class Table:
         self.__cache = None
         if cache:
             self.__cache = {}
-
+        # PGPORT_5:POSTGRES_VERSION_QUERY(ROWNUM) #
 	# see if the table exists
 	sql = "select %s from %s where rownum = 0" % (self.__hashid, self.__table)
 	try:
@@ -120,6 +120,7 @@ class Table:
             else:
                 clause = "%s = :%s" % (col, col)
             args.append(clause)
+        # PGPORT_1:NO CHANGE
 	sql = "select * from %s where " % self.__table
 	cursor = self.__db.prepare(sql + string.join(args, " and "))
 	apply(cursor.execute, (), row)
@@ -141,6 +142,7 @@ class Table:
     def __getitem__(self, key):
         if self.__cache and self.__cache.has_key(key):
 	    return self.__cache[key]
+         # PGPORT_1:NO CHANGE
         h = self.__db.prepare("select * from %s where %s = :p1" % (
             self.__table, self.__hashid))
         h.execute(p1=key)
@@ -198,6 +200,7 @@ class Table:
 
     # length
     def __len__(self):
+        # PGPORT_1:NO CHANGE
         h = self.__db.prepare("select count(*) as ID from %s" % self.__table)
         h.execute()
         row = h.fetchone_dict()
@@ -206,6 +209,7 @@ class Table:
         return int(row["id"])
 
     # delete an entry by the key
+    # PGPORT_1:NO CHANGE
     def __delitem__(self, key):
         h = self.__db.prepare("delete from %s where %s = :p1" % (
             self.__table, self.__hashid))
@@ -215,6 +219,7 @@ class Table:
         return 0
 
     # get all keys
+    # PGPORT_1:NO CHANGE
     def keys(self):
         h = self.__db.prepare("select %s NAME from %s" % (
             self.__hashid, self.__table))
@@ -229,9 +234,11 @@ class Table:
     # smaller value
     def has_key(self, key):
         if self.__cache is not None:
+ # PGPORT_1:NO CHANGE
             h = self.__db.prepare("select * from %s where %s = :p1" %
                                   (self.__table, self.__hashid))
         else:
+ # PGPORT_1:NO CHANGE
             h = self.__db.prepare("select %s from %s where %s = :p1" %
                                   (self.__hashid, self.__table, self.__hashid))
         h.execute(p1=key)

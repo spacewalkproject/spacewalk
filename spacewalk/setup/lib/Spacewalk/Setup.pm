@@ -393,7 +393,7 @@ sub clear_db {
     system_debug('/sbin/service tsdb_local_queue stop');
 
     print loc("** Database: Services stopped.  Clearing DB.\n");
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
     my $select_sth = $dbh->prepare(<<EOQ);
   SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
     FROM user_objects UO
@@ -514,7 +514,7 @@ sub answered {
 sub get_nls_database_parameters {
     my $answers = shift;
     my $dbh = get_dbh($answers);
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
     my $sth = $dbh->prepare(<<EOQ);
 SELECT NDP.parameter, NDP.value
   FROM nls_database_parameters NDP
@@ -753,7 +753,7 @@ sub postgresql_populate_db {
 sub postgresql_test_db_schema {
     my $answers = shift;
     my $dbh = get_dbh($answers);
-
+   #PGPORT_1:NO Change    
     # Assumption, if web_customer table exists then schema exists:
     my $sth = $dbh->prepare("SELECT tablename from pg_tables where schemaname='public' and tablename='web_customer'");
 
@@ -776,6 +776,7 @@ sub postgresql_clear_db {
 
     # TODO: This is no good, we're using schemas to replicate packages, these 
     # too need to be deleted and the list is too large to maintain...
+    # #PGPORT_1:NO Change
     my $sth = $dbh->prepare("DROP SCHEMA public CASCADE");
     $sth->execute;
 
@@ -1046,7 +1047,7 @@ sub oracle_check_db_privs {
     my $answers = shift;
 
     my $dbh = get_dbh($answers);
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
     my $sth = $dbh->prepare(<<EOQ);
 SELECT DISTINCT privilege
   FROM (
@@ -1111,7 +1112,7 @@ sub oracle_check_db_tablespace_settings {
     my $tablespace_name = oracle_get_default_tablespace_name($answers);
 
     my $dbh = get_dbh($answers);
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
     my $sth = $dbh->prepare(<<EOQ);
 SELECT UT.status, UT.contents, UT.logging
   FROM user_tablespaces UT
@@ -1264,7 +1265,7 @@ sub oracle_test_db_schema {
   my $answers = shift;
 
   my $dbh = get_dbh($answers);
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<'EOQ');
 SELECT 1
   FROM user_objects
@@ -1326,7 +1327,7 @@ sub oracle_get_default_tablespace_name {
   my $answers = shift;
 
   my $dbh = get_dbh($answers);
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOQ);
 SELECT UU.default_tablespace
   FROM user_users UU

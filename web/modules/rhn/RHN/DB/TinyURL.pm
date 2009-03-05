@@ -32,6 +32,7 @@ sub lookup {
   my $token = $params{token};
 
   my $dbh = RHN::DB->connect;
+#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
   my $sth = $dbh->prepare(<<EOS);
 SELECT url FROM rhnTinyURL
  WHERE token = :token
@@ -53,6 +54,7 @@ sub lookup_consume {
 
   my $ret = $class->lookup(-token => $token);
   if ($ret) {
+#PGPORT_1:NO Change
     my $dbh = RHN::DB->connect;
     my $sth = $dbh->prepare("UPDATE rhnTinyURL SET enabled = 'N' WHERE token = :token");
     $sth->execute_h(token => $token);
@@ -77,6 +79,7 @@ sub create {
   }
 
   my $dbh = RHN::DB->connect;
+#PGPORT_1:NO Change
   my $sth = $dbh->prepare(<<EOS);
 INSERT INTO rhnTinyURL
   (token, url, enabled, expires)

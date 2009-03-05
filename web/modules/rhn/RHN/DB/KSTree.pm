@@ -60,7 +60,7 @@ sub lookup {
   my ($clause, $query_params) = helper_pick_field($id, $label);
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_1:NO Change #
   my $query = <<EOQ;
 SELECT KT.id, KT.label, KT.base_path, KT.channel_id, KT.boot_image,
        KT.org_id, KTT.id AS TREE_TYPE, KTT.label AS TREE_TYPE_LABEL, KTT.name AS TREE_TYPE_NAME,
@@ -88,7 +88,7 @@ EOQ
 
   return unless ($row);
   $self->$_($row->{uc $_}) for qw/id label base_path channel_id boot_image org_id tree_type tree_type_name tree_type_label install_type install_type_label install_type_name channel_arch_id channel_arch_label channel_arch_name/;
-
+ # PGPORT_1:NO Change #
   $sth = $dbh->prepare("SELECT relative_filename, file_size, md5sum, TO_CHAR(last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED FROM rhnKSTreeFile WHERE kstree_id = :tree_id");
   $sth->execute_h(tree_id => $self->id);
   $self->files( [ $sth->fullfetch_hashref ] );
@@ -105,7 +105,7 @@ sub create_tree {
   $params{tree_type} ||= 'rhn-managed';
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
   my $sth = $dbh->prepare(<<EOS);
 INSERT INTO rhnKickstartableTree
   (id, label, base_path, channel_id, boot_image, org_id, kstree_type, install_type)
@@ -130,7 +130,7 @@ sub delete_tree {
   my $id = shift;
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare("SELECT channel_id FROM rhnKickstartableTree WHERE id = :kstid");
   $sth->execute_h(kstid => $id);
 
@@ -139,7 +139,7 @@ sub delete_tree {
   unless (defined $channel_id) {
     die "no channel id for given kickstart tree id $id";
   }
-
+ # PGPORT_1:NO Change #
   $sth = $dbh->prepare("DELETE FROM rhnKickstartableTree WHERE id = :kstid");
   $sth->execute_h(kstid => $id);
   $dbh->call_procedure('rhn_channel.update_channel', $channel_id);
@@ -167,7 +167,7 @@ sub commit {
   my $self = shift;
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhnKickstartableTree
    SET label = :label,
@@ -185,13 +185,14 @@ EOQ
 
 sub commit_files {
   my $self = shift;
-
+ # PGPORT_1:NO Change #
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare("DELETE FROM rhnKSTreeFile WHERE kstree_id = ?");
   $sth->execute($self->id);
 
   my %seen;
   for my $file (@{$self->files}) {
+ # PGPORT_1:NO Change #
     $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnKSTreeFile
   (kstree_id, relative_filename, md5sum, last_modified, file_size)
@@ -263,6 +264,7 @@ sub compatible_tree {
   my $kstid = shift;
 
   my $dbh = RHN::DB->connect;
+ # PGPORT_2:AS KEYWORD #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT 1
   FROM rhnKickstartableTree KST1, rhnKickstartableTree KST2,
