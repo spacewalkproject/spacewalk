@@ -53,8 +53,8 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 
-Obsoletes: LongLegs
-Obsoletes: Time-System
+Obsoletes: LongLegs < 1.11.0
+Obsoletes: Time-System < 1.7.0
 
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
