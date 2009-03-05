@@ -20,9 +20,17 @@
 -- move all auto -> xenpv
 update rhnKickstartDefaults set virtualization_type = 
  (select id from rhnkickstartvirtualizationtype 
-  where label = 'xenpv')
+  where label = 'qemu')
 where virtualization_type = (select id from rhnkickstartvirtualizationtype 
   where label = 'auto');
+
+update rhnKickstartSession set virtualization_type = 
+ (select id from rhnkickstartvirtualizationtype 
+  where label = 'qemu')
+where virtualization_type = (select id from rhnkickstartvirtualizationtype 
+  where label = 'auto');
+  
+
   
 delete from rhnKickstartVirtualizationType
   where label = 'auto';
