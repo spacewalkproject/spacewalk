@@ -1078,7 +1078,7 @@ SELECT DISTINCT PN.name AS NAME,
   <query params="sid">
 SELECT  pn.name AS NAME,
         pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
-        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID_COMBO,
         pa.name as ARCH
   FROM  (
          SELECT  p.name_id name_id, max(pe.evr) evr
