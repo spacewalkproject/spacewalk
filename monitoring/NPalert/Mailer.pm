@@ -1,21 +1,19 @@
 package NOCpulse::Notif::Mailer;             
 
 use strict;
-use Class::MethodMaker 
+use Mail::Address;
+use NOCpulse::Log::Logger;
+
+
+use Class::MethodMaker
   new_hash_init => 'new',
-  get_set       => [qw(subject body replyaddr from precedence priority 
+  get_set       => [qw(subject body replyaddr from precedence priority
                       _capture)],
   list          => 'addressees';
 
-use IO::Capture::Stderr;
-use Mail::Address;
-use NOCpulse::Log::Logger;
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
 
-
-##############
 sub send_via {
-##############
   my ($self,$smtp) = @_;
   my $code = 0;   # smtp return code
 
@@ -102,34 +100,24 @@ sub send_via {
   return $code
 }
 
-######################
 sub check_addressees {
-######################
   my ($self,$smtp)=@_;
-
   #No-op
 }
 
-#################
+# hook called on beggining of smtp transaction
 sub _start_send {
-#################
   my ($self,$smtp)=@_;
-
-#  my $capture = IO::Capture::Stderr->new();
-#  $capture->start;    
-#  $self->_capture($capture);
+  # no-op
 }
 
-###############
+# hook called on end of smtp transaction - success or failed
 sub _end_send {
-###############
   my ($self,$smtp,$code)=@_;
 
   $smtp->reset;
-#  my $capture=$self->_capture;
-#  $capture->stop;
-#  $Log->log(4,join('',$capture->read));
 }
+
 1;
 
 __END__
