@@ -81,9 +81,15 @@ public class MockConnection extends CobblerConnection {
     // we'll add more useful constructs in the future..
     // System.out.println("called: " + name + " args: " + args);
 
-    if ("token_check".equals(name)) {
+    
+       
+    if ("token_check".equals(name) || "update".equals(name)) {
         return true;
     }
+    if ("login".equals(name)) {
+        return random();
+    }
+    
     //profiles:
     if ("get_profiles".equals(name)) {
         return profiles;
@@ -159,7 +165,7 @@ public class MockConnection extends CobblerConnection {
         return key;
     }
     //System
-    if ("get_systems".equals(name)) {
+    else if ("get_systems".equals(name)) {
         return systems;
     }
     else if (name.equals("modify_system")) {

@@ -50,6 +50,7 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
@@ -78,6 +79,15 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     private static final String STATIC_DEV = "dhcp:eth0";
     private static final String KERNEL_PARAMS = "ide0=ata66";
 
+    
+    public static void createCobblerObjects(KickstartData k) {
+        Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
+                k.getKickstartDefaults().getKstree().getCobblerId());
+        org.cobbler.Profile.create(CobblerXMLRPCHelper.getConnection("test"),
+                CobblerCommand.makeCobblerName(k), d);
+
+    }
+    
     public void testKickstartDataTest() throws Exception {
         KickstartData k = createTestKickstartData(user.getOrg());
         assertNotNull(k);
@@ -169,11 +179,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         SortedSet<KickstartCommand> optionsSet = new TreeSet<KickstartCommand>();
         k.setCustomOptions(optionsSet);
 
-        Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
-                k.getKickstartDefaults().getKstree().getCobblerId());
-        org.cobbler.Profile.create(CobblerXMLRPCHelper.getConnection("test"),
-                k.getLabel(), d);
-
+        createCobblerObjects(k);
 
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         d1.setProfile(p);
@@ -435,6 +441,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.setKickstartDefaults(KickstartDataTest.createDefaults(k, 
                 UserTestUtils.ensureOrgAdminExists(orgIn)));
         
+        
+        createCobblerObjects(k);
+        
         KickstartCommandName raidName = lookupByLabel("raids");
         assertNotNull(raidName);
         KickstartCommandName partitionName = lookupByLabel("partitions");
@@ -530,6 +539,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartDefaults d1 = KickstartDataTest.createDefaults(ksdata, 
                 UserTestUtils.ensureOrgAdminExists(orgIn));
         ksdata.setKickstartDefaults(d1);
+        
+        createCobblerObjects(ksdata);
         
         return ksdata;
     }
