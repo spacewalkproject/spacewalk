@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.channel;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
@@ -51,6 +52,10 @@ public class ChannelPackagesAction extends RhnAction {
         
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
         
+        if (chan == null) {
+             throw new BadParameterException("Invalid cid parameter:" + cid);
+        }
+
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("cid", chan.getId());
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
