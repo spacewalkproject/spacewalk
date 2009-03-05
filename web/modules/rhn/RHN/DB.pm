@@ -56,12 +56,6 @@ sub set_default_handle {
   $RHN::DB::default_handle = shift;
 }
 
-sub get_default_handle {
-  my $class = shift;
-
-  return $RHN::DB::default_handle;
-}
-
 # this forces connection immediately after form, before first request
 # is served.  can cause a bit of a rush to the db as a bunch of
 # httpd's connect, but should be manageable.  typically called in
