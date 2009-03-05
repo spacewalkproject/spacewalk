@@ -557,6 +557,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.19-1
+- 488753 - Adding nevra support to satsync
+
 * Tue Mar 03 2009 Dave Parker <dparker@redhat.com> 0.5.18-1
 - 483802 - Directory /etc/rhn owned by two packages, group does not match
 
