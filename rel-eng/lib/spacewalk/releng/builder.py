@@ -23,7 +23,7 @@ import commands
 from spacewalk.releng.common import *
 
 DEFAULT_KOJI_OPTS = "build --nowait"
-DEFAULT_CVS_BUILD_DIR = os.path.join(DEFAULT_BUILD_DIR, "cvswork")
+DEFAULT_CVS_BUILD_DIR = "cvswork"
 
 class Builder(object):
     """
@@ -103,7 +103,8 @@ class Builder(object):
         # TODO: if it looks like we need custom CVSROOT's for different users,
         # allow setting of a property to lookup in ~/.spacewalk-build-rc to
         # use instead. (if defined)
-        self.cvs_workdir = DEFAULT_CVS_BUILD_DIR
+        self.cvs_workdir = os.path.join(self.rpmbuild_basedir,
+                DEFAULT_CVS_BUILD_DIR)
         debug("cvs_workdir = %s" % self.cvs_workdir)
 
         self.cvs_package_workdir = os.path.join(self.cvs_workdir,
