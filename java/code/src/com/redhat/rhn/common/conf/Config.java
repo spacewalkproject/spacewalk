@@ -154,7 +154,7 @@ public class Config {
 
     public static final String WEB_SUBSCRIBE_PROXY_CHANNEL = "web.subscribe_proxy_channel";
     
-    public static final String TAKE_SNAPSHOTS = "take_snapshots";
+    public static final String TAKE_SNAPSHOTS = "enable_snapshots";
 
 
     /**
