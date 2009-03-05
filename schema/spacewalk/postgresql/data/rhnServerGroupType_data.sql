@@ -73,5 +73,3 @@ insert into rhnServerGroupType ( id, label, name, permanent, is_base)
    );
 
 
-commit;
-

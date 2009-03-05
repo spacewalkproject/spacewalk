@@ -13,23 +13,18 @@
 -- in this software or its documentation. 
 --
 --
+-- prefixes for web users, as used in satellite
+--
 --
 --
 
-CREATE OR REPLACE VIEW rhnServerErrataTypeView
-(
-    	server_id,
-	errata_id,
-	errata_type
-)
-AS
-SELECT
-    	SNEC.server_id,
-	SNEC.errata_id,
-	E.advisory_type
-FROM    rhnErrata E,
-    	rhnServerNeededErrataCache SNEC
-WHERE   E.id = SNEC.errata_id
-GROUP BY SNEC.server_id, SNEC.errata_id, E.advisory_type
-;
+insert into WEB_USER_PREFIX values (' ');
+insert into WEB_USER_PREFIX values ('.');
+insert into WEB_USER_PREFIX values ('Mr.');
+insert into WEB_USER_PREFIX values ('Mrs.');
+insert into WEB_USER_PREFIX values ('Miss');
+insert into WEB_USER_PREFIX values ('Ms.');
+insert into WEB_USER_PREFIX values ('Dr.');
+insert into WEB_USER_PREFIX values ('Hr.');
+insert into WEB_USER_PREFIX values ('Sr.');
 

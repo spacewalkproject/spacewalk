@@ -16,20 +16,17 @@
 --
 --
 
-CREATE OR REPLACE VIEW rhnServerErrataTypeView
+create table
+rhnSsmOperationServer
 (
-    	server_id,
-	errata_id,
-	errata_type
+    operation_id   numeric
+                   constraint rhn_ssmops_ssmop_fk
+                       references rhnSsmOperation(id)
+                       on delete cascade,
+    server_id      numeric
+                   constraint rhn_ssmops_ser_fk
+                       references rhnServer(id)
+                       on delete cascade
 )
-AS
-SELECT
-    	SNEC.server_id,
-	SNEC.errata_id,
-	E.advisory_type
-FROM    rhnErrata E,
-    	rhnServerNeededErrataCache SNEC
-WHERE   E.id = SNEC.errata_id
-GROUP BY SNEC.server_id, SNEC.errata_id, E.advisory_type
 ;
 

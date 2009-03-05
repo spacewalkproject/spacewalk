@@ -23,13 +23,7 @@ web_user_site_type
 	type			char(1) not null
 				constraint wust_type_pk primary key,
 	description		varchar(64) not null
-)
-	;
-
-insert into WEB_USER_SITE_TYPE VALUES('M', 'MARKET');
-insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');
-insert into WEB_USER_SITE_TYPE VALUES('S', 'SHIP_TO');
-insert into WEB_USER_SITE_TYPE VALUES('R', 'SERVICE');
+);
 
 --
 -- Revision 1.2  2002/05/09 05:37:31  gafton

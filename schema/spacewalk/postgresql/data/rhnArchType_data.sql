@@ -16,14 +16,14 @@
 --
 --
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'rpm', 'RPM');
+	(nextval('rhn_archtype_id_seq'), 'rpm', 'RPM');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'sysv-solaris', 'SysV-Solaris');
+	(nextval('rhn_archtype_id_seq'), 'sysv-solaris', 'SysV-Solaris');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'tar', 'tar');
+	(nextval('rhn_archtype_id_seq'), 'tar', 'tar');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_seq.nextval, 'solaris-patch', 'Solaris Patch');
+	(nextval('rhn_archtype_id_seq'), 'solaris-patch', 'Solaris Patch');
 insert into rhnArchType (id, label, name) values
-	(rhn_archtype_id_Seq.nextval, 'solaris-patch-cluster',
+	(nextval('rhn_archtype_id_Seq'), 'solaris-patch-cluster',
 		'Solaris Patch Cluster');
 

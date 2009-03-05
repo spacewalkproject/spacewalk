@@ -12,29 +12,20 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
+-- Site Type
 --
 --
---
--- triggers for rhnUserInfo updates
 --
 
-create or replace trigger
-rhn_user_info_mod_trig
-before insert or update on rhnUserInfo
-for each row
-begin
-	:new.modified := sysdate;
-end rhn_user_info_mod_trig;
-/
-show errors
+insert into WEB_USER_SITE_TYPE VALUES('M', 'MARKET');
+insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');
+insert into WEB_USER_SITE_TYPE VALUES('S', 'SHIP_TO');
+insert into WEB_USER_SITE_TYPE VALUES('R', 'SERVICE');
 
 --
+-- Revision 1.2  2002/05/09 05:37:31  gafton
+-- re-unify again
 --
--- Revision 1.3  2004/11/17 22:04:44  pjones
--- bugzilla: 134953 -- remove the wacky trigger scheme for updating timezone
--- info
---
--- Revision 1.2  2004/11/05 20:48:58  pjones
--- bugzilla: none -- triggers have to be seperated out since they're there for
--- both tables.
+-- Revision 1.1  2002/02/13 16:20:43  pjones
+-- commit these here
 --

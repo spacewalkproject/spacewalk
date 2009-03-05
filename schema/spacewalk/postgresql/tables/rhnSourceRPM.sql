@@ -22,7 +22,7 @@ rhnSourceRPM
 	id		numeric not null
 			constraint rhn_sourceRPM_id_pk primary key,
 --			using index tablespace [[64k_tbs]],
-	name		varchar(128) not null
+	name		varchar(256) not null
 			constraint rhn_srpm_name_uq unique
 --	                using tablespace [[64k_tbs]]
 )

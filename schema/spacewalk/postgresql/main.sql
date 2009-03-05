@@ -353,8 +353,6 @@ create schema spacewalk;
 \i tables/rhnServerLocation.sql
 \i tables/rhnServerLock.sql
 \i tables/rhnServerMessage.sql
-\i tables/rhnServerNeededErrataCache.sql
-\i tables/rhnServerNeededPackageCache.sql
 \i tables/rhnServerNetwork.sql
 \i tables/rhnServerNotes.sql
 \i tables/rhnServerPackageArchCompat.sql
@@ -414,6 +412,10 @@ create schema spacewalk;
 \i tables/web_user_contact_permission.sql
 \i tables/web_user_site_type.sql
 \i tables/web_user_site_info.sql
+\i tables/rhnRepoRegenQueue.sql
+\i tables/rhnServerNeededCache.sql
+\i tables/rhnSsmOperation.sql
+\i tables/rhnSsmOperationServer.sql
 
 /* triggers go here */
 \i triggers/rhnOrgQuota.sql
@@ -445,7 +447,6 @@ create schema spacewalk;
 \i triggers/web_customer_triggers.sql
 \i triggers/web_user_contact_permission_triggers.sql
 
-
 /* functions go here */
 \i procs/empty_blob.sql
 \i procs/create_first_org.sql
@@ -462,13 +463,60 @@ create schema spacewalk;
 \i procs/delete_server_bulk.sql
 
 /* Data population scripts go here */
-\i tables/rhnUserGroupType_data.sql
-\i tables/rhnServerGroupType_data.sql
+\i data/rhn_environment_data.sql
+\i data/rhn_method_types_data.sql
+\i data/rhnConfigChannelType_data.sql
+\i data/rhn_probe_types_data.sql
+\i data/rhn_semantic_data_type_data.sql
+\i data/rhn_redirect_match_types_data.sql
+\i data/rhn_command_class_data.sql
+\i data/rhn_command_groups_data.sql
+\i data/rhn_command_requirements_data.sql
+\i data/rhn_command_data.sql
+\i data/rhnActionType_data.sql
+\i data/rhn_config_security_type_data.sql
+\i data/rhnUserGroupType_data.sql
+\i data/rhn_redirect_types_data.sql
+\i data/rhn_widget_data.sql
+\i data/rhnConfigFileFailure_data.sql
+\i data/rhn_notification_formats_data.sql
+--\i data/rhnServerArch_data.sql
+-- \i data/rhnServerPackageArchCompat_data.sql
+\i data/rhn_quanta_data.sql
+\i data/rhn_units_data.sql
+\i data/rhn_metrics_data.sql
+\i data/rhn_config_macro_data.sql
+\i data/rhn_config_group_data.sql
+\i data/rhnKickstartSessionState_data.sql
+\i data/rhnEmailAddressState_data.sql
+\i data/rhn_os_data.sql
+--\i data/rhnServerChannelArchCompat_data.sql
+\i data/rhnActionStatus_data.sql
+\i data/rhn_config_parameter_data.sql
+\i data/rhn_os_commands_xref_data.sql
+\i data/rhnRelationshipType_data.sql
+\i data/rhn_db_environment_data.sql
+\i data/rhn_schedule_types_data.sql
+\i data/rhn_command_queue_commands_data.sql
+\i data/rhnPushClientState_data.sql
+\i data/rhnCpuArch_data.sql
+\i data/rhn_pager_types_data.sql
+--\i data/rhnChannelPackageArchCompat_data.sql
+\i data/rhn_command_parameter_data.sql
+\i data/rhnArchType_data.sql
+\i data/rhnErrataFileType_data.sql
+\i data/rhn_threshold_type_data.sql
+\i data/rhn_command_param_threshold_data.sql
+\i data/rhn_strategies_data.sql
+\i data/rhn_time_zone_names_data.sql
+\i data/rhnServerGroupType_data.sql
 
 /* packages go here */
 \i packages/rhn_user.pkb
 
 /* views go here */
+\i views/common/rhnServerNeededPackageCache.sql
+\i views/common/rhnServerNeededErrataCache.sql
 \i views/rhnOrgChannelFamilyPermissions.sql
 -- \i views/common/rhn_contact_monitoring.sql
 \i views/rhn_customer_monitoring.sql

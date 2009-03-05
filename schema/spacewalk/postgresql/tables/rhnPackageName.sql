@@ -23,7 +23,7 @@ rhnPackageName
                         constraint rhn_pn_id_pk primary key
 --			using index tablespace [[2m_tbs]]
                         ,
-        name            varchar(128)
+        name            varchar(256)
 			not null
                         constraint rhn_pn_name_uq unique
 --                      using index tablespace [[2m_tbs]]

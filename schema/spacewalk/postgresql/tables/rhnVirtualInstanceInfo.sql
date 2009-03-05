@@ -42,7 +42,4 @@ rhnVirtualInstanceInfo
 
 create sequence rhn_vii_id_seq;
 
-;
-	
-
 --

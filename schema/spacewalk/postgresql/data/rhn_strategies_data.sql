@@ -43,16 +43,16 @@ ack_completed)
 
 --Increment the sequence so the next value is 12
 -- These select 6 through 11.
-select rhn_strategies_recid_seq.nextval from dual; 
-select rhn_strategies_recid_seq.nextval from dual;
-select rhn_strategies_recid_seq.nextval from dual;
-select rhn_strategies_recid_seq.nextval from dual;
-select rhn_strategies_recid_seq.nextval from dual;
-select rhn_strategies_recid_seq.nextval from dual;
+select nextval('rhn_strategies_recid_seq') from dual; 
+select nextval('rhn_strategies_recid_seq') from dual;
+select nextval('rhn_strategies_recid_seq') from dual;
+select nextval('rhn_strategies_recid_seq') from dual;
+select nextval('rhn_strategies_recid_seq') from dual;
+select nextval('rhn_strategies_recid_seq') from dual;
 
 insert into rhn_strategies(recid,name,comp_crit,esc_crit,contact_strategy,
 ack_completed) 
-    values (rhn_strategies_recid_seq.nextval,'Escalate-NoAck',
+    values (nextval('rhn_strategies_recid_seq'),'Escalate-NoAck',
     'Sent>0','Failed>0|Incomplete>0','Escalate','No');
 
 --

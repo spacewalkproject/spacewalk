@@ -20,91 +20,91 @@
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Created', 'created',
+values (nextval('rhn_ks_session_state_id_seq'), 'Created', 'created',
         'Kickstart session created, but has not yet been used.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Deployed', 'deployed',
+values (nextval('rhn_ks_session_state_id_seq'), 'Deployed', 'deployed',
         'Files required for kickstart action have been installed.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Injected', 'injected',
+values (nextval('rhn_ks_session_state_id_seq'), 'Injected', 'injected',
         'The system configuration has been modified to begin kickstart upon next boot.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Restarted', 'restarted',
+values (nextval('rhn_ks_session_state_id_seq'), 'Restarted', 'restarted',
         'The system has been restarted in order to begin the kickstart process.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Configuration accessed', 'configuration_accessed',
+values (nextval('rhn_ks_session_state_id_seq'), 'Configuration accessed', 'configuration_accessed',
         'The system has downloaded the kickstart configuraton file from Spacewalk.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Started', 'started',
+values (nextval('rhn_ks_session_state_id_seq'), 'Started', 'started',
         'The initial files required for anaconda have been downloaded.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'In Progress', 'in_progress',
+values (nextval('rhn_ks_session_state_id_seq'), 'In Progress', 'in_progress',
         'The system is downloading the RPMs required to install.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Registration Complete', 'registered',
+values (nextval('rhn_ks_session_state_id_seq'), 'Registration Complete', 'registered',
         'The system has successfully registered with Spacewalk after kickstarting.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Package Synch', 'package_synch',
+values (nextval('rhn_ks_session_state_id_seq'), 'Package Synch', 'package_synch',
         'Package synchronization in progress.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Package Synch Scheduled', 
+values (nextval('rhn_ks_session_state_id_seq'), 'Package Synch Scheduled', 
         'package_synch_scheduled', 'Package synchronization scheduled.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Configuration Deployment', 
+values (nextval('rhn_ks_session_state_id_seq'), 'Configuration Deployment', 
         'configuration_deploy', 'Configuration files are being deployed.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Complete', 'complete',
+values (nextval('rhn_ks_session_state_id_seq'), 'Complete', 'complete',
         'Kickstart complete.'
        );
 
 insert
   into rhnKickstartSessionState
        (id, name, label, description)
-values (rhn_ks_session_state_id_seq.nextval, 'Failed', 'failed',
+values (nextval('rhn_ks_session_state_id_seq'), 'Failed', 'failed',
         'Kickstart failed.'
        );
 

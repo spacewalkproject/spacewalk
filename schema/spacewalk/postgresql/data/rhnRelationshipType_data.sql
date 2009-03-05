@@ -14,11 +14,10 @@
 --
 --
 --
+--
 
-insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'RPM' );
-insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'SRPM' );
-insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'IMG' );
+insert into rhnRelationshipType ( id, label, description ) values (
+	nextval('rhn_reltype_id_seq'), 'cloned_from',
+	'was cloned from'
+);
 
