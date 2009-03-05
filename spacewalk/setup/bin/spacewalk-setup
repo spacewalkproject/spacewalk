@@ -323,7 +323,7 @@ sub valid_cert_countries {
   my $answers = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
-
+ # PGPORT_4:QUERY_REWRITE(ANSI JOIN) #
   my $sth = $dbh->prepare(<<EOQ);
   SELECT VC.code AS CODE,
          nvl(TL.short_name_tl, VC.short_name) AS NAME
@@ -1090,6 +1090,7 @@ sub final_db_config {
   my $answers = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT TS.value
   FROM rhnTemplateString TS
@@ -1100,6 +1101,7 @@ EOQ
   my ($current_hostname) = $sth->fetchrow();
 
   unless ($current_hostname) {
+ # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
     $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnTemplateString TS
@@ -1228,7 +1230,7 @@ sub update_monitoring_environment {
   # BZ 226915 we cannot use db_name from %answers - it contains instance name
   # we want real db name
   my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
-
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(?)
@@ -1254,6 +1256,7 @@ sub update_monitoring_config {
   my $mon_config = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = ?,
@@ -1334,7 +1337,7 @@ sub clear_db {
   Spacewalk::Setup::system_debug('/sbin/service tsdb_local_queue stop');
 
   print Spacewalk::Setup::loc("** Database: Services stopped.  Clearing DB.\n");
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(SYSTEM CATALOG) #
   my $select_sth = $dbh->prepare(<<EOQ);
   SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
     FROM user_objects UO

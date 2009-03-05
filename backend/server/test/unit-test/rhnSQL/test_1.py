@@ -20,7 +20,7 @@ class Tests1(unittest.TestCase):
         self.table_name = "misatest_%d" % os.getpid()
         rhnSQL.initDB(DB)
         self._cleanup()
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(varchar2) #
         rhnSQL.execute("create table %s (id int, val varchar2(10))" %
             self.table_name)
         rhnSQL.commit()
@@ -76,6 +76,7 @@ class Tests1(unittest.TestCase):
 
     def test_executemany_1(self):
         """Tests executemany"""
+ # PGPORT_1:NO Change #
         q = "insert into %s (id, val) values (:id, :val)" % self.table_name
         h = rhnSQL.prepare(q)
         ids = [1, 2, 3] * 100
@@ -99,17 +100,20 @@ class Tests1(unittest.TestCase):
     def test_execute_rowcount(self):
         """Tests row counts"""
         # XXX
+ # PGPORT_1:NO Change #
         table_name = "misatest"
         rhnSQL.execute("delete from misatest")
+ # PGPORT_1:NO Change #
         ret = rhnSQL.execute("insert into misatest values (1, 1)")
         self.assertEqual(ret, 1)
+ # PGPORT_1:NO Change #
         ret = rhnSQL.execute("insert into misatest values (2, 2)")
         self.assertEqual(ret, 1)
-
+ # PGPORT_1:NO Change #
         ret = rhnSQL.execute("delete from misatest")
         self.assertEqual(ret, 2)
         rhnSQL.commit()
-
+ # PGPORT_1:NO Change #
     def _list_tables(self):
         h = rhnSQL.prepare("select table_name from user_tables")
         h.execute()

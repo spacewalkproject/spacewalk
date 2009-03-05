@@ -2,6 +2,7 @@
 
 <write-mode name="remove_channel_permissions">
   <query params="user_id,cid,role_label">
+<!-- PGPORT_1:NO Change -->
 DELETE
   FROM rhnChannelPermission CP
  WHERE CP.user_id = :user_id
@@ -12,6 +13,7 @@ DELETE
 
 <write-mode name="reset_channel_permissions">
   <query params="user_id,cid,role_label">
+<!-- PGPORT_1:NO Change -->
 INSERT
   INTO rhnChannelPermission
        (channel_id, user_id, role_id) 
@@ -21,12 +23,14 @@ VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :
 
 <mode name="get_all_orgs" class="com.redhat.rhn.frontend.dto.OrgSystemEntitlementDto">
   <query params="label">
+<!-- PGPORT_1:NO Change -->
       SELECT id as orgid,name as orgname,:label as entname from web_customer where id != 1 
   </query>
 </mode>
 
 <mode name="has_channel_family_entitlement">
   <query params="org_id, label">
+<!-- PGPORT_1:NO Change -->
 SELECT 1
   FROM rhnChannelFamilyPermissions CFP
  WHERE CFP.channel_family_id = (SELECT id FROM rhnChannelFamily WHERE label = :label)
@@ -36,6 +40,7 @@ SELECT 1
 
 <mode name="orgs_in_satellite" class="com.redhat.rhn.frontend.dto.OrgDto">
   <query params="">
+<!-- PGPORT_2:AS KEYWORD -->
 SELECT
    wc.id, 
    wc.name, 
@@ -48,6 +53,7 @@ FROM web_customer wc
 
 <mode name="trusted_orgs" class="com.redhat.rhn.frontend.dto.TrustedOrgDto">
   <query params="org_id">
+<!-- PGPORT_1:NO Change -->
 SELECT wc.id, wc.name,
        (SELECT COUNT(s.id)      
        FROM rhnSharedChannelView s
@@ -63,6 +69,7 @@ AND    torg.org_id = :org_id
 
 <mode name="trust_overview" class="com.redhat.rhn.frontend.dto.OrgTrustOverview">
   <query params="org_id">
+ <!-- PGPORT_2:AS KEYWORD -->
 SELECT org.id,
        org.name,
        (SELECT count(*)
@@ -75,6 +82,7 @@ WHERE  org.id != :org_id
 </mode>
 
 <mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto">
+<!-- PGPORT_1:NO Change -->
   <query> SELECT   sgt.id as id,
 		sgt.label as label,
             SUM(sg.max_members) as total,
@@ -94,6 +102,7 @@ ORDER BY sgt.label
 
 <mode name="get_org_entitlement_counts">
   <query params="label">
+<!-- PGPORT_1:NO Change -->
 SELECT      wc.name as name, 
             wc.id as orgid,
             sgt.label,
@@ -117,6 +126,7 @@ ORDER BY wc.name
 
 <mode name="get_sat_entitlement_usage">
   <query params="label">
+<!-- PGPORT_1:NO Change -->
 SELECT   SUM(sg.max_members) as total,
          SUM(sg.current_members) as curr,
          COUNT(sg.max_members) as alloc
@@ -130,6 +140,7 @@ AND      sg.max_members > 0
 
 <mode name="get_used_org_counts">
   <query params="label">
+<!-- PGPORT_1:NO Change -->
   SELECT COUNT(sg.org_id) as orgsused
     FROM rhnServerGroup sg, rhnServerGroupMembers sgm, rhnServerGroupType sgt
    WHERE sg.GROUP_TYPE = sgt.id
@@ -172,6 +183,7 @@ AND      sg.max_members > 0
 
 <write-mode name="create_chan_family">
   <query params="org_id, name, label, url">
+ <!-- PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) -->
 INSERT INTO  rhnChannelFamily
              (id, name, label, org_id, product_url)
      VALUES  (rhn_channel_family_id_seq.nextval, :name, :label, :org_id, :url)

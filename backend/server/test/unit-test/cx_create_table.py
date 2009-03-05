@@ -61,6 +61,7 @@ def drop_table(dbh, table_name):
 
 def list_tables(dbh):
     h = dbh.cursor()
+   #PGPORT_5:POSTGRES_VERSION_QUERY(VERSION)
     h.execute("select table_name from user_tables")
     return map(lambda x: x[0].upper(), h.fetchall())
 

@@ -394,11 +394,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     <query name="Action.getServerActionCount">
+<!-- PGPORT_1:NO Change -->
         <![CDATA[
 			select a.serverActions.size
         	from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
     </query>    
-    
+    <!-- PGPORT_1:NO Change -->
     <sql-query name="Action.getServerActionCountByStatus">
         <return-scalar type="int" column="count"/>
         <![CDATA[select count(sa.server_id) as count from rhnServerAction sa where sa.action_id = :aid and
@@ -412,6 +413,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     ]]></query>
     
    <sql-query name="Action.findLastActionByServerIdAndActionTypeIdAndUserId">                 
+<!-- PGPORT_2:AS KEYWORD -->
         <![CDATA[
 select {ra.*}
     from rhnAction {ra},
@@ -447,21 +449,21 @@ select {ra.*}
             sa.server = :server]]>
     </query>
     
-    
+    <!-- PGPORT_1:NO Change -->
      <query name="Action.rescheduleFailedActions">
        <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa 
        					set sa.status = :queued, sa.remainingTries = :tries
        					where sa.status = :failed and
        							sa.parentAction = :action ]]>
     </query>
-    
+    <!-- PGPORT_1:NO Change -->
      <query name="Action.rescheduleAllActions">
        <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa 
        					set sa.status = :queued, sa.remainingTries = :tries
        					where sa.parentAction = :action ]]>
     </query>    
     
-    
+    <!-- PGPORT_1:NO Change -->
    <sql-query name="Action.findServerIds">                 
         <![CDATA[
 select sa.server_id

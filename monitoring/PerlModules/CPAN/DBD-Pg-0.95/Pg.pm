@@ -130,7 +130,7 @@ $DBD::Pg::VERSION = '0.95';
 
     sub table_info {         # DBI spec: TABLE_CAT, TABLE_SCHEM, TABLE_NAME, TABLE_TYPE, REMARKS
         my($dbh) = @_;
-
+ # PGPORT_1:NO Change #
         my $sth = $dbh->prepare("
             SELECT c.reltype, u.usename, c.relname, 'TABLE', '' 
             FROM pg_class c, pg_user u 
@@ -157,7 +157,7 @@ $DBD::Pg::VERSION = '0.95';
 
     sub tables {
         my($dbh) = @_;
-
+ # PGPORT_1:NO Change #
         my $sth = $dbh->prepare("
             select relname 
             from   pg_class 
@@ -176,7 +176,7 @@ $DBD::Pg::VERSION = '0.95';
         return @tables;
     }
 
-
+ # PGPORT_1:NO Change #
     sub table_attributes {
         my ($dbh, $table) = @_;
         my $result = [];    
@@ -195,6 +195,7 @@ $DBD::Pg::VERSION = '0.95';
         return $result unless scalar(@$attrs);
 
         # Get the primary key
+        # PGPORT_1:NO Change #
         my ($pri_key) = $dbh->selectrow_array("SELECT pg_attribute.attname
                                                FROM   pg_class, pg_attribute, pg_index
                                                WHERE  pg_class.oid          = pg_attribute.attrelid 
@@ -222,10 +223,12 @@ $DBD::Pg::VERSION = '0.95';
             };
 
             # Get the default value, if any
+            # PGPORT_1:NO Change #
             my ($default) = $dbh->selectrow_array("SELECT adsrc FROM pg_attrdef WHERE  adnum = $attnum") if -1 == $attnum;
             $default = '' unless $default;
 
             # Test for any constraints
+            # PGPORT_1:NO Change #
             my ($constraint) = $dbh->selectrow_array("select rcsrc from pg_relcheck where rcname = '${table}_$col_name'");
             $constraint = '' unless $constraint;
 

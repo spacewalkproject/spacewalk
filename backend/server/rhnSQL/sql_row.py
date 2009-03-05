@@ -38,6 +38,7 @@ class Row(UserDictCase):
         self.table = table
         self.hashname = string.lower(hashname)
         # see if the table exists
+        #PGPORT_5:POSTGRES_VERSION_QUERY(ROWNUM)
 	sql = "select %s from %s where rownum = 0" % (self.hashname, self.table)
 	try:
 	    h = self.db.prepare(sql)
@@ -93,6 +94,7 @@ class Row(UserDictCase):
         self.save()
 
     # load an entry
+   #PGPORT_1:NO Change
     def load(self, hashval):
         h = self.db.prepare("select * from %s where %s = :hashval" % (self.table, self.hashname))
         h.execute(hashval = hashval)
@@ -107,6 +109,7 @@ class Row(UserDictCase):
         return 1
     
     # kind of the same as load, but we load it from a sql clause instead
+    #PGPORT_1:NO Change
     def load_sql(self, sql, pdict = {}):
         h = self.db.prepare("select * from %s where %s" % (self.table, sql))
         apply(h.execute, (), pdict)

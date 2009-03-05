@@ -86,12 +86,12 @@ sub test_sql {
     $self->assert($ora->connected, "Cannot connect to Oracle: ", $ora->errors);
 
     my $result;
-
+   #PGPORT_1:NO Change
     $result = $ora->fetch_first('select count(*) from dual');
     $self->assert(ref($result) eq 'HASH', "Dual count results not hash: ", ref($result));
     my $count = $result->{'COUNT(*)'};
     $self->assert($count == 1, "Dual row count not one: $count");
-
+  #PGPORT_5:POSTGRES_VERSION_QUERY(ROWNUM)
     $result = $ora->fetch(q{
         select recid, description
         from probe where rownum < 10
@@ -106,7 +106,7 @@ sub test_sql {
     $self->assert($recid == 2, "Wrong recid for second row: $recid");
     my $descr = $result->[1]->{'DESCRIPTION'};
     $self->assert($descr eq 'lab-2', "Wrong description for second row: $descr");
-
+   #PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
     $result = $ora->fetch_first(q{
         select a.value as SPACE_REQS, b.value as ALLOC_RETRIES
         from   v$sysstat a, v$sysstat b
@@ -116,7 +116,7 @@ sub test_sql {
     $self->assert(ref($result) eq 'HASH', "Sysstat query not an array ref: ", ref($result));
     $self->assert(defined $result->{SPACE_REQS}, "Sysstat query got no space requests");
     $self->assert(defined $result->{ALLOC_RETRIES}, "Sysstat query got no allocation retries");
-
+#PGPORT_1:NO Change
     try {
         $result = $ora->fetch('select foo from no_such_table, another_bad_one',
                               ['no_such_table', 'another_bad_one']);
