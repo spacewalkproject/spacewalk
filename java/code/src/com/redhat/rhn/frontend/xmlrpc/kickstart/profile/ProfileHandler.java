@@ -28,6 +28,7 @@ import java.util.TreeSet;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -47,6 +48,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
@@ -641,6 +643,11 @@ public class ProfileHandler extends BaseHandler {
 
        IpAddress minIp = new IpAddress(min);
        IpAddress maxIp = new IpAddress(max);
+
+       if (!com.validateIpRange(minIp.getOctets(), maxIp.getOctets())) {
+           ValidatorError error = new ValidatorError("kickstart.iprange_validate.failure");
+           throw new ValidationException(error.getMessage());
+       }
 
        if (!com.addIpRange(minIp.getOctets(), maxIp.getOctets())) {
            throw new IpRangeConflictException(min + " - " + max);

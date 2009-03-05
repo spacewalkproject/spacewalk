@@ -99,7 +99,17 @@ public class KickstartIpCommand extends BaseKickstartCommand {
     }
     
     /**
-     * 
+     * Validate the IP address are within the valid range.
+     * @param oct1In min ip octets
+     * @param oct2In max ip octets
+     * @return whether this range is valid (octets are 0-255)
+     */
+    public boolean validateIpRange(long[] oct1In, long[] oct2In) {
+        return (validateIp(oct1In) && validateIp(oct2In));
+    }
+
+    /**
+     * Validate the IP address are within the valid range.
      * @param oct1In min ip octets
      * @param oct2In max ip octets
      * @return whether this range is valid (octets are 0-255)
