@@ -73,7 +73,8 @@ class ChannelPackageSubscription(GenericPackageImport):
                 package['name_id'],
                 package['evr_id'],
                 package['package_arch_id'],
-                package['org_id'])
+                package['org_id'],
+                package['md5sum'])
 
             if not uniqdict.has_key(nevrao):
                 # Uniquify the channel names

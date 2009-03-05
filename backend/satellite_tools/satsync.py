@@ -824,7 +824,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         self._diff_packages()
 
-    _query_compare_packages = rhnSQL.Statement("""
+    _query_compare_packages = """
         select p.id, p.md5sum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnPackage p
@@ -833,13 +833,18 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
            and p.package_arch_id = lookup_package_arch(:arch)
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
-    """)
+           and p.md5sum =: md5sum
+    """
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
+        nvrea_keys = ['name', 'epoch', 'version', \
+                      'release', 'arch', 'md5sum']
         h = rhnSQL.prepare(self._query_compare_packages)
+
         missing_channel_packages = {}
         missing_fs_packages = {}
+
         for channel_label, upids in self._uq_channel_packages.items():
             log(1, "Diffing package metadata (what's missing locally?): %s" %
                 channel_label)
@@ -861,7 +866,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 package = package_collection.get_package(pid, p_timestamp)
                 assert package is not None
                 nevra = {}
-                for t in ['name', 'epoch', 'version', 'release', 'arch']:
+                for t in nvrea_keys:
                     nevra[t] = package[t] or ""
 
                 if OPTIONS.orgid is not None:
