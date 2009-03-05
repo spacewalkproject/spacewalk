@@ -12,23 +12,22 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- Site Type
 --
 --
 --
+-- this table holds the types for saved searches
 
-create table
-web_user_site_type
-(
-	type			char(1) not null
-				constraint wust_type_pk primary key,
-	description		varchar(64) not null
-);
+insert into rhnSavedSearchType (id, label)
+	values (nextval('rhn_sstype_id_seq'), 'system');
+insert into rhnSavedSearchType (id, label)
+	values (nextval('rhn_sstype_id_seq'), 'package');
+insert into rhnSavedSearchType (id, label)
+	values (nextval('rhn_sstype_id_seq'), 'errata');
 
 --
--- Revision 1.2  2002/05/09 05:37:31  gafton
--- re-unify again
+-- Revision 1.2  2003/01/30 16:11:28  pjones
+-- storage parameters, also fix deps to make it build again
 --
--- Revision 1.1  2002/02/13 16:20:43  pjones
--- commit these here
+-- Revision 1.1  2002/11/15 20:51:26  pjones
+-- add saved search schema
 --

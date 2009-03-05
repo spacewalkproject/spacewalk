@@ -14,11 +14,16 @@
 --
 --
 --
-
-insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'RPM' );
-insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'SRPM' );
-insert into rhnErrataFileType ( id, label )
-	values ( rhn_erratafile_type_id_seq.nextval, 'IMG' );
+--
+insert into rhnArchType (id, label, name) values
+	(nextval('rhn_archtype_id_seq'), 'rpm', 'RPM');
+insert into rhnArchType (id, label, name) values
+	(nextval('rhn_archtype_id_seq'), 'sysv-solaris', 'SysV-Solaris');
+insert into rhnArchType (id, label, name) values
+	(nextval('rhn_archtype_id_seq'), 'tar', 'tar');
+insert into rhnArchType (id, label, name) values
+	(nextval('rhn_archtype_id_seq'), 'solaris-patch', 'Solaris Patch');
+insert into rhnArchType (id, label, name) values
+	(nextval('rhn_archtype_id_Seq'), 'solaris-patch-cluster',
+		'Solaris Patch Cluster');
 

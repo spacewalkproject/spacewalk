@@ -16,6 +16,7 @@
 --
 --
 
+/*
 create or replace trigger
 rhn_ks_session_mod_trig
 before insert or update on rhnKickstartSession
@@ -55,6 +56,7 @@ begin
 end;
 /
 show errors
+*/
 
 --
 --

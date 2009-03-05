@@ -463,8 +463,53 @@ create schema spacewalk;
 \i procs/delete_server_bulk.sql
 
 /* Data population scripts go here */
-\i tables/rhnUserGroupType_data.sql
-\i tables/rhnServerGroupType_data.sql
+\i data/rhn_environment_data.sql
+\i data/rhn_method_types_data.sql
+\i data/rhnConfigChannelType_data.sql
+\i data/rhn_probe_types_data.sql
+\i data/rhn_semantic_data_type_data.sql
+\i data/rhn_redirect_match_types_data.sql
+\i data/rhn_command_class_data.sql
+\i data/rhn_command_groups_data.sql
+\i data/rhn_command_requirements_data.sql
+\i data/rhn_command_data.sql
+\i data/rhnActionType_data.sql
+\i data/rhn_config_security_type_data.sql
+\i data/rhnUserGroupType_data.sql
+\i data/rhn_redirect_types_data.sql
+\i data/rhn_widget_data.sql
+\i data/rhnConfigFileFailure_data.sql
+\i data/rhn_notification_formats_data.sql
+--\i data/rhnServerArch_data.sql
+-- \i data/rhnServerPackageArchCompat_data.sql
+\i data/rhn_quanta_data.sql
+\i data/rhn_units_data.sql
+\i data/rhn_metrics_data.sql
+\i data/rhn_config_macro_data.sql
+\i data/rhn_config_group_data.sql
+\i data/rhnKickstartSessionState_data.sql
+\i data/rhnEmailAddressState_data.sql
+\i data/rhn_os_data.sql
+--\i data/rhnServerChannelArchCompat_data.sql
+\i data/rhnActionStatus_data.sql
+\i data/rhn_config_parameter_data.sql
+\i data/rhn_os_commands_xref_data.sql
+\i data/rhnRelationshipType_data.sql
+\i data/rhn_db_environment_data.sql
+\i data/rhn_schedule_types_data.sql
+\i data/rhn_command_queue_commands_data.sql
+\i data/rhnPushClientState_data.sql
+\i data/rhnCpuArch_data.sql
+\i data/rhn_pager_types_data.sql
+--\i data/rhnChannelPackageArchCompat_data.sql
+\i data/rhn_command_parameter_data.sql
+\i data/rhnArchType_data.sql
+\i data/rhnErrataFileType_data.sql
+\i data/rhn_threshold_type_data.sql
+\i data/rhn_command_param_threshold_data.sql
+\i data/rhn_strategies_data.sql
+\i data/rhn_time_zone_names_data.sql
+\i data/rhnServerGroupType_data.sql
 
 /* packages go here */
 \i packages/rhn_user.pkb

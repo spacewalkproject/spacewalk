@@ -42,7 +42,7 @@ rhn_strategies
 comment on table rhn_strategies 
     is 'strat  strategy definitions';
 
---create sequence rhn_strategies_recid_seq;
+create sequence rhn_strategies_recid_seq;
 
 --
 --Revision 1.4  2004/05/26 21:43:20  kja

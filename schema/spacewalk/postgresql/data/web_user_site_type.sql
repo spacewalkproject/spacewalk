@@ -12,12 +12,20 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
+-- Site Type
 --
 --
 --
 
-insert into rhnRelationshipType ( id, label, description ) values (
-	rhn_reltype_id_seq.nextval, 'cloned_from',
-	'was cloned from'
-);
+insert into WEB_USER_SITE_TYPE VALUES('M', 'MARKET');
+insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');
+insert into WEB_USER_SITE_TYPE VALUES('S', 'SHIP_TO');
+insert into WEB_USER_SITE_TYPE VALUES('R', 'SERVICE');
 
+--
+-- Revision 1.2  2002/05/09 05:37:31  gafton
+-- re-unify again
+--
+-- Revision 1.1  2002/02/13 16:20:43  pjones
+-- commit these here
+--

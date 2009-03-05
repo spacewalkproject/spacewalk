@@ -12,23 +12,12 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- Site Type
 --
 --
 --
 
-create table
-web_user_site_type
-(
-	type			char(1) not null
-				constraint wust_type_pk primary key,
-	description		varchar(64) not null
+insert into rhnRelationshipType ( id, label, description ) values (
+	nextval('rhn_reltype_id_seq'), 'cloned_from',
+	'was cloned from'
 );
 
---
--- Revision 1.2  2002/05/09 05:37:31  gafton
--- re-unify again
---
--- Revision 1.1  2002/02/13 16:20:43  pjones
--- commit these here
---
