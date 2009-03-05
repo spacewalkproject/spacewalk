@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.6
+Version:      2.1.7
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -94,6 +94,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Mar  5 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.7-1
+- keep last 5 logs in logrotate
+
 * Wed Mar  4 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.6-1
 - 435203 - set /var/log/nocpulse writeable by apache user
 
