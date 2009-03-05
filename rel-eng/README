@@ -26,6 +26,12 @@ Usage:
 
     make upload-tgz     Create the tar.gz for the latest tagged release of
             the package and upload it to fedorahosted.org.
+            If yours account differs from your current login you may want
+            to add to ~/.ssh/config those lines:
+            host *.fedorahosted.org
+              user <username>
+            host fedorahosted.org
+              user <username>
 
     make test-srpm      Packs source from local HEAD and builds srpm locally.
 			You can then rpmbuild it on your machine or
@@ -44,10 +50,6 @@ Usage:
 		RPMBUILD_BASEDIR = /tmp/spacewalk-build
 	there, the path pointing to directory where builds will take place
 	and where .rpm will land (instead of your working tree).
-        The line
-                FEDORAHOSTED_USER = login
-        allow you to set login name for uploading tgz files to 
-        fedorahosted.org if you current login differ.
 
 The Makefile in package's directory should specify NAME and SPECFILE, and
 then include this Makefile, via
