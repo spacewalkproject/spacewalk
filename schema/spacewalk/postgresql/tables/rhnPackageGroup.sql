@@ -32,8 +32,6 @@ rhnPackageGroup
 
 create sequence rhn_package_group_id_seq;
 
-;
-
 /*create or replace trigger
 rhn_package_group_mod_trig
 before insert or update on rhnPackageGroup

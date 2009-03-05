@@ -34,7 +34,7 @@ create table rhnServerChannel
 create index rhn_sc_cid_sid_idx
 	on rhnServerChannel(channel_id, server_id)
 --	tablespace [[8m_tbs]]
-
+;
 
 --
 -- Revision 1.12  2004/02/09 16:38:38  pjones

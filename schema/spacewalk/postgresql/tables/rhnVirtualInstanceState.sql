@@ -33,7 +33,5 @@ rhnVirtualInstanceState
 
 create sequence rhn_vis_id_seq;
 
-;
-
 
 --
