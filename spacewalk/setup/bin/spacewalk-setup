@@ -314,14 +314,14 @@ sub valid_cert_countries {
   my $answers = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
- # PGPORT_4:QUERY_REWRITE(ANSI JOIN) #
+ # PGPORT_4:DONE:QUERY_REWRITE(ANSI JOIN) #
+  # NOTE: Removed a nvl on TL.short_name_tl and VC.short_name here,
+  # short_name_tl was always NULL.
   my $sth = $dbh->prepare(<<EOQ);
-  SELECT VC.code AS CODE,
-         nvl(TL.short_name_tl, VC.short_name) AS NAME
-    FROM valid_countries VC,
-         valid_countries_tl TL
-   WHERE TL.lang (+) = 'en'
-     AND TL.code (+)= VC.code
+SELECT  VC.code AS CODE,
+          VC.short_name AS NAME
+     FROM valid_countries_tl TL
+		right join  valid_countries VC on  VC.code = TL.code and TL.lang = 'en'
 ORDER BY VC.short_name
 EOQ
 
