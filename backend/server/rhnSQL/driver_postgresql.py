@@ -225,8 +225,11 @@ class Cursor(sql_base.Cursor):
 
         # Accept Oracle style named query params, but convert for python-pgsql
         # under the hood:
+        temp_sql = ""
+        if self.sql is not None:
+            temp_sql = self.sql
         (self.sql, self.param_indicies, self.param_count) = \
-                convert_named_query_params(self.sql)
+                convert_named_query_params(temp_sql)
 
     def _prepare_sql(self):
         cursor = self.dbh.cursor()
