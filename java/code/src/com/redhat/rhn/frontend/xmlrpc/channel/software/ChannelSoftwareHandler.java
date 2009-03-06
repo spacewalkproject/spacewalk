@@ -1761,7 +1761,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * Regenerate the errata cache for all the systems subscribed to a particular channel
      * @param sessionKey the session key
      * @param channelLabel the channel label
-     * @return on on success!
+     * @return int - 1 on success!
      * 
      * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package 
      *      cache for all systems subscribed to the specified channel.  This should 
@@ -1786,7 +1786,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
     /**
      * Regenerate the errata cache for all the systems subscribed to the satellite
      * @param sessionKey the session key
-     * @return on on success!
+     * @return int - 1 on success!
      * 
      * @xmlrpc.doc Completely clear and regenerate the needed Errata and Package 
      *      cache for all systems subscribed.  You must be a Satellite Admin to 
