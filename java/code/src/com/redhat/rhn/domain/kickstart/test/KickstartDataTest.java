@@ -83,8 +83,10 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public static void createCobblerObjects(KickstartData k) {
         Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
                 k.getKickstartDefaults().getKstree().getCobblerId());
-        org.cobbler.Profile.create(CobblerXMLRPCHelper.getConnection("test"),
+        org.cobbler.Profile p = org.cobbler.Profile.create(
+                CobblerXMLRPCHelper.getConnection("test"),
                 CobblerCommand.makeCobblerName(k), d);
+        k.setCobblerId(p.getUid());
 
     }
     

@@ -19,8 +19,7 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
-
-import java.util.Map;
+import org.cobbler.Distro;
 
 /**
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
@@ -47,26 +46,10 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
     @Override
     public ValidatorError store() {
         
-        Map cDistro = getDistroMap();
-        // now that we have saved the distro to the filesystem
-        // we need to reflect this in the actual Java object. 
-        
-        // Get a new handle because the old handled pointed to 
-        // the old object and if we call save_distro below we will
-        // get a new distro saved.
-        
-        String cDistroName = (String)cDistro.get("name");
-        String handle = (String) invokeXMLRPC("get_distro_handle",
-                                        cDistroName, xmlRpcToken);
-        String spacewalkName = makeCobblerName(tree);
-        if (!spacewalkName.equals(cDistroName)) {
-            invokeXMLRPC("rename_distro", handle, spacewalkName, xmlRpcToken);
-            handle = (String) invokeXMLRPC("get_distro_handle", 
-                                            spacewalkName, xmlRpcToken);            
-        }        
-        updateCobblerFields(handle);
-        invokeXMLRPC("save_distro", handle, xmlRpcToken);
-        invokeCobblerUpdate();
+        Distro d = Distro.lookupById(
+                CobblerXMLRPCHelper.getConnection(user.getLogin()), tree.getCobblerId());
+        d.setName(makeCobblerName(tree));
+        updateCobblerFields();
         return null;
     }
 
