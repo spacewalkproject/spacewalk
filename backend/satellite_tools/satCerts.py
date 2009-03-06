@@ -206,7 +206,7 @@ def set_slots_from_cert(cert):
         slot_name = cert.lookup_slot_by_db_label(db_label)
         activate_system_entitlement(org_id, db_label, 0)
         org_service_proc(org_id, slot_name, 'N')
-            
+
     # NOTE: must rhnSQL.commit() in calling function.
 
 def storeRhnCert(cert, check_generation=0, check_version=0):
@@ -447,15 +447,16 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
 
     cert = strip(open(caCert, 'rb').read())
 
-    h = rhnSQL.prepare(_querySelectCryptoCert)
-    h.execute(rhn_cryptokey_id=rhn_cryptokey_id)
-    row = h.fetchone_dict()
-    if not row:
+    # Use our update blob wrapper to accomodate differences between Oracle
+    # and PostgreSQL:
+    h = rhnSQL.cursor()
+    try:
+        h.update_blob("rhnCryptoKey", "key", "WHERE id = :rhn_cryptokey_id",
+            cert, rhn_cryptokey_id=rhn_cryptokey_id)
+    except:
         # didn't go in!
         raise CaCertInsertionError("ERROR: CA certificate failed to be "
                                    "inserted into the database")
-    lob = row['key']
-    lob.write(cert)
 
 
 def store_rhnCryptoKey(description, caCert, verbosity=0):
@@ -506,13 +507,6 @@ _queryInsertCryptoCertInfo = rhnSQL.Statement("""
     SELECT :rhn_cryptokey_id, :org_id, :description, ckt.id, empty_blob()
       FROM rhnCryptoKeyType ckt
      WHERE ckt.label = 'SSL'
-""")
-#PGPORT_1:NO Change
-_querySelectCryptoCert = rhnSQL.Statement("""
-    SELECT key
-      FROM rhnCryptoKey
-     WHERE id = :rhn_cryptokey_id
-       FOR update of key
 """)
 
 
