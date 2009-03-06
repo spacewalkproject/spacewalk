@@ -1049,9 +1049,9 @@ EOQ
  # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
     $sth = $dbh->prepare(<<EOQ);
 INSERT
-  INTO rhnTemplateString TS
+  INTO rhnTemplateString
        (id, category_id, label, value, description)
-VALUES (rhn_template_str_id_seq.nextval,
+VALUES (sequence_nextval('rhn_template_str_id_seq'),
         (SELECT TC.id FROM rhnTemplateCategory TC WHERE TC.label = 'org_strings'),
         'hostname',
         ?,
@@ -1123,6 +1123,8 @@ sub setup_monitoring {
 
   update_monitoring_environment($answers);
 
+  # TODO: Must be addressed for PostgreSQL, dives into db initialization
+  # for the entire perl stack to it's not pretty.
   my $org_id = RHN::SatInstall->get_satellite_org_id();
   my $sc = new RHN::SatCluster(customer_id => $org_id,
              description => 'RHN Monitoring Satellite',
