@@ -517,14 +517,17 @@ class ReportModule(BaseCliModule):
         necessary.
         """
         last_tag = "%s-%s" % (package_name, version)
-        os.chdir(project_dir)
-        patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
-                (last_tag, "HEAD", ".")
-        output = run_command(patch_command)
-        if (output):
-            print("-" * (len(last_tag) + 8))
-            print("%s..%s:" % (last_tag, "HEAD"))
-            print(output)
+        try:
+            os.chdir(project_dir)
+            patch_command = "git log --pretty=oneline --relative %s..%s -- %s" % \
+                    (last_tag, "HEAD", ".")
+            output = run_command(patch_command)
+            if (output):
+                print("-" * (len(last_tag) + 8))
+                print("%s..%s:" % (last_tag, "HEAD"))
+                print(output)
+        except:
+            print("%s no longer exists" % project_dir)
 
     def _print_diff(self, global_config, package_name, version, project_dir):
         """
