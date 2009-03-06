@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
+import com.redhat.rhn.domain.server.NetworkInterface;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -245,6 +247,21 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 retval.put("uid", String.valueOf(RandomUtils.nextInt(5000)));
                 return retval;
             }
+        }
+        else if (procedureName.equals("get_systems")) {
+            List retval = new LinkedList();
+            Map system = new HashMap();
+            system.put("name", TestUtils.randomString());
+            system.put("redhat-management-key", TestUtils.randomString());
+            system.put("uid", String.valueOf(RandomUtils.nextInt(5000)));
+            Map interfaces = new HashMap();
+            Map iface = new HashMap();
+            iface.put("mac_address", NetworkInterfaceTest.TEST_MAC);
+            iface.put("ip_address", "127.0.0.1");
+            interfaces.put("eth0", iface);
+            system.put("interfaces", interfaces);
+            retval.add(system);
+            return retval;
         }
         return null;
     } */

@@ -31,7 +31,8 @@ import java.util.Date;
  * @version $Rev$
  */
 public class NetworkInterfaceTest extends RhnBaseTestCase {
-
+    
+    public static String TEST_MAC = "AA:AA:BB:BB:CC:CC";
     /**
      * Test the equals method for NetworkInterface.
      * @throws Exception
@@ -72,7 +73,7 @@ public class NetworkInterfaceTest extends RhnBaseTestCase {
     public static NetworkInterface createTestNetworkInterface(Server server) 
     throws Exception {
         return createTestNetworkInterface(server, TestUtils.randomString(), 
-                "AA:AA:BB:BB:CC:CC", "127.0.0.1"); 
+                TEST_MAC, "127.0.0.1"); 
     }
     
     /**
