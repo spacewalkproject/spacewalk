@@ -45,7 +45,7 @@ class History:
                  summary,
                  details)
             values
-                (rhn_event_id_seq.nextval,
+                (sequence_nextval('rhn_event_id_seq'),
                  :server_id,
                  :summary,
                  :details)

@@ -51,7 +51,7 @@ def fetch_server_group(org_id, name):
     s = rhnServerGroup.ServerGroup()
     s.load(org_id, name)
     return s
-
+#PGPORT_1:NO Change
 _query_fetch_server_groups = rhnSQL.Statement("""
     select sgm.server_group_id
       from rhnServerGroupMembers sgm,
@@ -100,7 +100,7 @@ def create_new_user(org_id=None, username=None, password=None, roles=None):
     u.contact['password'] = password
     u.save()
     user_id = u.getid()
-
+#PGPORT_1:NO Change
     # Set roles
     h = rhnSQL.prepare("""
         select ug.id
@@ -156,7 +156,7 @@ class InvalidEntitlementError(Exception):
 
 class InvalidRoleError(Exception):
     pass
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
 _query_grant_entitlements = rhnSQL.Statement("""
     begin
         select to_char(sysdate, 'YYYYMMDDHH24MISS') into :t0 from dual;

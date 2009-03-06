@@ -1140,7 +1140,7 @@ class Backend:
         statement = self.dbmodule.prepare("""
             insert into rhnProductName 
                  (id, label, name)
-              values (rhn_productname_id_seq.nextval, 
+              values (sequence_nextval('rhn_productname_id_seq'), 
                       :product_label, :product_name)
 	""")
 

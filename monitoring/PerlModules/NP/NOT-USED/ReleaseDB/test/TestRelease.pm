@@ -49,6 +49,7 @@ sub test_constructor {
 
   # Make sure we can talk to the database (autoconnect is on 
   # by default)
+ #PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
   my $rv = $rdb->execute('SELECT sysdate FROM dual', [qw(dual)], FETCH_SINGLE);
   $self->assert(keys %$rv);
 
@@ -458,6 +459,7 @@ sub test_macro_verification {
   my $rv = $rdb->verify_macro_components(MACRO_NAME => 'TOP_MACRO');
 
   # Now delete the COMPONENT_VERSION records for a component and try again
+  #PGPORT_1:NO Change
   $rv = $rdb->execute("DELETE FROM component_version 
 		       WHERE  component_name = ?",
 		       'component_version', FETCH_ROWCOUNT,

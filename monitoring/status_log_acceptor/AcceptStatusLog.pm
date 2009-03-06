@@ -19,7 +19,7 @@ sub store_probe_state
     my $probe_state = shift;
     
     # print "storing probe state...\n";
-
+    #PGPORT_1:NO Change
     my $update_probe = $cs_dbh->prepare(q{
       UPDATE PROBE_STATE 
       SET    LAST_CHECK = TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'),
@@ -28,7 +28,7 @@ sub store_probe_state
       WHERE  SCOUT_ID = ?
       AND    PROBE_ID = ?
     });
-    
+    #PGPORT_1:NO Change
     my $insert_probe = $cs_dbh->prepare(q{
       INSERT INTO PROBE_STATE 
         (LAST_CHECK, STATE, OUTPUT, SCOUT_ID, PROBE_ID) 
@@ -93,10 +93,10 @@ sub store_program
                      pct_pending recent_state_changes imminent_probes
                      max_exec_time min_exec_time avg_exec_time max_latency
                      min_latency avg_latency );
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
     my $update_sql = 
         "UPDATE SATELLITE_STATE SET LAST_CHECK = SYSDATE";
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
     my $insert_sql = sprintf(
        "INSERT INTO SATELLITE_STATE (SATELLITE_ID, LAST_CHECK, %s) " . 
        "VALUES (?, SYSDATE", join(",\n", @params));

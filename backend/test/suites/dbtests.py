@@ -45,7 +45,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         #ids = [1, 2, 3, 4, 5]
         #names = ["Bill", "Ted", "Mary", "Tom", "Susan"]
         #cursor.executemany([ids, names])
-
+        # PGPORT_1:NO Change #
         insert_query = "INSERT INTO %s(id, name, num) VALUES(:id, :name, :num)" % \
                 self.temp_table
         cursor = rhnSQL.prepare(insert_query)
@@ -58,7 +58,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         cursor = rhnSQL.prepare(drop_table_query)
         cursor.execute()
         rhnSQL.commit()
-
+        # PGPORT_1:NO Change #
     def test_execute_not_all_variables_bound(self):
         query = "INSERT INTO %s(id, name) VALUES(:id, :name)" % \
                 self.temp_table
@@ -71,7 +71,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertRaises(rhnSQL.SQLStatementPrepareError,
             cursor.execute)
         rhnSQL.rollback()
-
+        # PGPORT_1:NO Change #
     def test_execute_bindbyname_extra_params_passed(self):
         query = "SELECT * FROM %s WHERE id = :id" % self.temp_table
         cursor = rhnSQL.prepare(query)
@@ -79,7 +79,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         results = cursor.fetchone()
         self.assertEquals(TEST_IDS[0], results[0])
         self.assertEquals(TEST_NAMES[0], results[1])
-
+        # PGPORT_1:NO Change #
     def test_executemany(self):
         query = "INSERT INTO %s(id, name) VALUES(:id, :name)" \
                 % self.temp_table
@@ -88,7 +88,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
 
         cursor = rhnSQL.prepare(query)
         cursor.executemany(id=ids, name=names)
-
+        # PGPORT_1:NO Change #
         query = rhnSQL.prepare("SELECT * FROM %s WHERE id >= 1000 ORDER BY ID"
                 % self.temp_table)
         query.execute()
@@ -104,15 +104,42 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         query = "SELECT * FROM %s" \
                 % self.temp_table
         cursor = rhnSQL.prepare(query)
-        cursor.executemany()
 
+        # Just want to see that this doesn't throw an exception:
+        cursor.executemany()
+        # PGPORT_1:NO Change #
+    def test_execute_bulk(self):
+        query = "INSERT INTO %s(id, name) VALUES(:id, :name)" \
+                % self.temp_table
+        ids = [1000, 1001]
+        names = ["Somebody", "Else"]
+
+        cursor = rhnSQL.prepare(query)
+        d = {
+                'id': ids,
+                'name': names,
+        }
+        cursor.execute_bulk(d)
+        # PGPORT_1:NO Change #
+        query = rhnSQL.prepare("SELECT * FROM %s WHERE id >= 1000 ORDER BY ID"
+                % self.temp_table)
+        query.execute()
+        rows = query.fetchall()
+        self.assertEquals(2, len(rows))
+
+        self.assertEquals(1000, rows[0][0])
+        self.assertEquals(1001, rows[1][0])
+        self.assertEquals("Somebody", rows[0][1])
+        self.assertEquals("Else", rows[1][1])
+
+        # PGPORT_1:NO Change #
     def test_numeric_columns(self):
         h = rhnSQL.prepare("SELECT num FROM %s WHERE id = %s" %
                 (self.temp_table, TEST_IDS[0]))
         h.execute()
         row = h.fetchone()
         self.assertEqual(TEST_NUMS[0], row[0])
-
+        # PGPORT_1:NO Change #
     def test_fetchone(self):
         query = "SELECT * FROM %s WHERE id = 1 ORDER BY id" % self.temp_table
         cursor = rhnSQL.prepare(query)
@@ -120,7 +147,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         results = cursor.fetchone()
         self.assertEquals(TEST_IDS[0], results[0])
         self.assertEquals(TEST_NAMES[0], results[1])
-
+        # PGPORT_1:NO Change #
     def test_fetchone_dict(self):
         query = "SELECT * FROM %s WHERE id = 1 ORDER BY id" % self.temp_table
         cursor = rhnSQL.prepare(query)
@@ -129,7 +156,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertEquals(TEST_IDS[0], results['id'])
         self.assertEquals(TEST_NAMES[0], results['name'])
         self.assertEquals(TEST_NUMS[0], results['num'])
-
+        # PGPORT_1:NO Change #
     def test_fetchall(self):
         query = rhnSQL.prepare("SELECT * FROM %s ORDER BY id" %
                 self.temp_table)
@@ -142,7 +169,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             self.assertEquals(TEST_IDS[i], rows[i][0])
             self.assertEquals(TEST_NAMES[i], rows[i][1])
             i = i + 1
-
+        # PGPORT_1:NO Change #
     def test_fetchall_dict(self):
         query = rhnSQL.prepare("SELECT * FROM %s ORDER BY id" %
                 self.temp_table)
@@ -155,6 +182,16 @@ class RhnSQLDatabaseTests(unittest.TestCase):
             self.assertEquals(TEST_IDS[i], rows[i]['id'])
             self.assertEquals(TEST_NAMES[i], rows[i]['name'])
             i = i + 1
+        # PGPORT_1:NO Change #
+    def test_unicode_string_argument(self):
+        query = rhnSQL.prepare("SELECT * FROM %s WHERE name=:name" % 
+            self.temp_table)
+        query.execute(name=u'blah')
+
+#    def test_procedure(self):
+#        sp = rhnSQL.Procedure("return_int")
+#        ret = sp(5)
+#        self.assertEquals(5, ret)
 
 
 
@@ -163,19 +200,15 @@ class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
         CREATE TABLE %s(id INT, name TEXT, num NUMERIC(5,2))
     """
 
-    def setUp(self):
-        self.temp_table = "testtable%s" % randint(1, 10000000)
-        create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
-        cursor = rhnSQL.prepare(create_table_query)
-        cursor.execute()
-
-        RhnSQLDatabaseTests.setUp(self)
-
-
-
-class OracleDatabaseTests(RhnSQLDatabaseTests):
-    QUERY_CREATE_TABLE = """
-        CREATE TABLE %s(id NUMBER, name VARCHAR2(256), num NUMBER(5,2))
+    SIMPLE_PROCEDURE = """
+CREATE OR REPLACE FUNCTION return_int(returnme INTEGER) RETURNS int AS $$
+DECLARE
+    myInt int;
+BEGIN
+    myInt := returnme;
+    RETURN myInt;
+END
+$$ LANGUAGE 'plpgsql';
     """
 
     def setUp(self):
@@ -185,6 +218,51 @@ class OracleDatabaseTests(RhnSQLDatabaseTests):
         cursor.execute()
 
         RhnSQLDatabaseTests.setUp(self)
+
+        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
+        cursor.execute()
+
+    def tearDown(self):
+        try:
+            cursor = rhnSQL.prepare("DROP FUNCTION return_int(returnme integer)")
+            cursor.execute()
+        except:
+            pass
+
+        RhnSQLDatabaseTests.tearDown(self)
+
+
+ # PGPORT_5:POSTGRES_VERSION_QUERY(DATATYPE) #
+class OracleDatabaseTests(RhnSQLDatabaseTests):
+    QUERY_CREATE_TABLE = """
+        CREATE TABLE %s(id NUMBER, name VARCHAR2(256), num NUMBER(5,2))
+    """
+
+    SIMPLE_PROCEDURE = """
+CREATE OR REPLACE FUNCTION 
+    return_int(returnme in integer) 
+RETURN INTEGER  AS
+BEGIN
+    RETURN returnme;
+END;
+    """
+
+    def setUp(self):
+        self.temp_table = "testtable%s" % randint(1, 10000000)
+        create_table_query = self.QUERY_CREATE_TABLE % self.temp_table
+        cursor = rhnSQL.prepare(create_table_query)
+        cursor.execute()
+
+        RhnSQLDatabaseTests.setUp(self)
+
+        cursor = rhnSQL.prepare(self.SIMPLE_PROCEDURE)
+        cursor.execute()
+
+    def tearDown(self):
+        cursor = rhnSQL.prepare("DROP FUNCTION return_int")
+        cursor.execute()
+
+        RhnSQLDatabaseTests.tearDown(self)
 
 
 

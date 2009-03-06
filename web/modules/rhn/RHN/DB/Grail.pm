@@ -21,7 +21,7 @@ use RHN::DB;
 sub components_for_user {
   my $class = shift;
   my $user_id = shift;
-
+#PGPORT_1:NO Change
   my $dbh = RHN::DB->connect;
   my $query = "SELECT component_pkg, component_mode FROM rhnGrailComponentChoices WHERE user_id = ? ORDER BY ordering";
   my $sth = $dbh->prepare($query);
@@ -39,6 +39,7 @@ sub components_available {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
+#PGPORT_4:QUERY_REWRITE(ANSI JOIN),NVL
   my $query = <<EOQ;
     SELECT  component_pkg, component_mode, config_mode, component_label, NVL(UGT.label, ''), GC.id
       FROM  rhnGrailComponents GC, rhnUserGroupType UGT
@@ -62,12 +63,13 @@ sub set_user_components {
   my @components = @_;
 
   my $dbh = RHN::DB->connect;
+#PGPORT_1:NO Change
   my $query = <<EOQ;
 DELETE FROM rhnGrailComponentChoices WHERE user_id = ?
 EOQ
   my $sth = $dbh->prepare($query);
   $sth->execute($uid);
-
+#PGPORT_1:NO Change
   $query = <<EOQ;
 INSERT INTO   rhnGrailComponentChoices
      SELECT   ?, ?, component_pkg, component_mode

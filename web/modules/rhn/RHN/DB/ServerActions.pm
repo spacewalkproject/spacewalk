@@ -28,7 +28,7 @@ sub channel_license_consent_for_set {
   my $channel_id = shift;
   my $user_id = shift;
   my $transaction = shift;
-
+#PGPORT_1:NO Change
   my $query = <<EOQ;
 INSERT INTO rhnChannelFamilyLicenseConsent (channel_family_id, user_id, server_id)
 SELECT CFM.channel_family_id, ?, SC.server_id
@@ -63,7 +63,6 @@ sub assign_set_to_group {
   my $set = shift;
   my $sgid = shift;
   die "Invalid format for sgid $sgid" if $sgid =~ /\D/;	# contain nondigit? die
-
   my $query = <<EOQ;
 BEGIN
   rhn_server.insert_set_into_servergroup(:server_group_id,:user_id,:label);

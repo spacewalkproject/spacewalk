@@ -73,7 +73,7 @@ foreach my $field ($p->method_names) {
 sub set_profile_type {
   my $self = shift;
   my $label = shift;
-
+ # PGPORT_1:NO Change #
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT id FROM rhnServerProfileType WHERE label = :l');
   $sth->execute_h(l => $label);
@@ -124,7 +124,7 @@ sub commit {
   my $mode = 'update';
 
   my $dbh = $transaction || RHN::DB->connect;
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
   if ($self->id == -1) {
     my $sth = $dbh->prepare("SELECT rhn_server_profile_id_seq.nextval FROM DUAL");
     $sth->execute;
@@ -164,7 +164,7 @@ sub compatible_servers_in_set {
   my $user_id = shift;
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_1:NO Change #
   my $query = <<EOQ;
 SELECT S.id,
        S.name
@@ -193,7 +193,7 @@ sub compatible_servers {
   my $self = shift;
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_1:NO Change #
   my $query = <<EOQ;
 SELECT S.id,
        S.name
@@ -228,6 +228,7 @@ sub copy_from {
   if ($params{sid}) {
 # BZ 145708 - need to add package_arch_id to rhnServerProfilePackage,
 # or switch to rhnServerProfilePackage.installed_package_id
+# PGPORT_1:NO Change #
     $query =<<EOQ;
 INSERT INTO rhnServerProfilePackage
     (server_profile_id, name_id, evr_id)
@@ -243,6 +244,7 @@ EOQ
   else {
 # BZ 145708 - need to add package_arch_id to rhnServerProfilePackage,
 # or switch to rhnServerProfilePackage.installed_package_id
+ # PGPORT_1:NO Change #
     $query =<<EOQ;
 INSERT INTO rhnServerProfilePackage
     (server_profile_id, name_id, evr_id)
@@ -255,7 +257,7 @@ EOQ
 		     old_prid => $params{prid},
 		    );
   }
-
+ # PGPORT_1:NO Change #
   my $dbh = $params{transaction} || RHN::DB->connect;
   my $sth = $dbh->prepare("DELETE FROM rhnServerProfilePackage WHERE server_profile_id = ?");
   $sth->execute($self->id);
@@ -273,7 +275,7 @@ sub package_info_for_match_action {
 
   my ($action_id, $lower, $upper, $total_ref) =
     map { $params{"-" . $_} } qw/action_id lower upper total_rows/;
-
+  # PGPORT_1:NO Change #
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
 SELECT PN.name || '-' || PE.evr.as_vre_simple(), AP.parameter
@@ -320,7 +322,7 @@ sub compatible_with_server {
   }
 
   my $dbh = RHN::DB->connect;
-
+ # PGPORT_1:NO Change #
   my $query = <<EOQ;
 SELECT DISTINCT P.id, P.name
   FROM rhnServer S,
@@ -363,6 +365,7 @@ sub canonical_package_list {
   my $self = shift;
 
   my $dbh = RHN::DB->connect;
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOS);
 SELECT SPP.name_id, PN.name, SPP.evr_id, SPPE.evr.as_vre_simple(), SPPE.epoch, SPPE.version, SPPE.release
   FROM rhnPackageName PN,
@@ -388,12 +391,13 @@ sub delete_profile {
   my $self = shift;
 
   my $dbh = RHN::DB->connect;
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 DELETE FROM rhnServerProfilePackage WHERE server_profile_id = :prid
 EOQ
 
   $sth->execute_h(prid => $self->id);
-
+ # PGPORT_1:NO Change #
   $sth = $dbh->prepare(<<EOQ);
 DELETE FROM rhnServerProfile WHERE id = :prid
 EOQ
@@ -489,6 +493,7 @@ sub remove_packages_by_id_combo {
   my @id_combos = @_;
 
   my $dbh = RHN::DB->connect;
+ # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 DELETE
   FROM rhnServerProfilePackage SPP

@@ -568,13 +568,21 @@ def main():
 
     if not options.sanity_only:
         prepRhnCert(options)
-
         # local activation
         try:
-            rhnSQL.initDB(CFG.DEFAULT_DB)
+
+            db_backend = CFG.DB_BACKEND
+            db_host = CFG.DB_HOST
+            db_port = CFG.DB_PORT
+            db_user = CFG.DB_user
+            db_password = CFG.DB_PASSWORD
+            database = CFG.DB_NAME
+
+            rhnSQL.initDB(backend=db_backend, host=db_host, port=db_port, 
+                        username=db_user, password=db_password, database=database)
             if options.verbose:
-                print ("Database connectioned initialized: refer to default_db "
-                       "setting in %s" % CFG.file)
+                print ("Database connectioned initialized: refer to %s" % 
+                       CFG.file)
             activateSatellite_local(options)
         except RHNCertLocalActivationException, e:
             writeError(e)

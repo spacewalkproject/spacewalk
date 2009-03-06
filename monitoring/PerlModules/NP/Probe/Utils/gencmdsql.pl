@@ -99,6 +99,7 @@ sub command_sql {
     my @text = ("\n");
 
     push @text, "prompt command_class $command_class\n";
+  # PGPORT_3:ORAFCE(DUAL) #
     push @text, "
 insert into command_class(class_name) select '$command_class' from dual
 where not exists (

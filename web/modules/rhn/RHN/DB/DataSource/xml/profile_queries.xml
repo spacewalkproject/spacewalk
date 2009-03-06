@@ -2,6 +2,7 @@
 
 <mode name="profile_overview">
   <query params="org_id">
+<!-- # PGPORT_2:AS KEYWORD-->
 SELECT SP.ID, SP.NAME, SP.created, C.name CHANNEL_NAME
   FROM rhnChannel C,
        rhnServerProfile SP
@@ -11,7 +12,7 @@ SELECT SP.ID, SP.NAME, SP.created, C.name CHANNEL_NAME
 ORDER BY UPPER(SP.name)
   </query>
 </mode>
-
+<!-- # PGPORT_2:AS KEYWORD-->
 <mode name="profile_package_overview">
   <query params="prid">
 SELECT PN.name || '-' || PE.evr.as_vre_simple() PACKAGE_NVRE
@@ -24,7 +25,7 @@ SELECT PN.name || '-' || PE.evr.as_vre_simple() PACKAGE_NVRE
 ORDER BY UPPER(PN.name), PE.evr
   </query>
 </mode>
-
+<!--#PGPORT_1:NO Change-->
 <mode name="compatible_with_channel">
   <query params="org_id, cid">
 SELECT DISTINCT SP.id, SP.name

@@ -128,7 +128,7 @@ my $attrs = $dbh->func('builtin', 'table_attributes');
 ######################### test various insert methods
 
 # insert into table with $dbh->do($stmt)
-
+ # PGPORT_1:NO Change #
 $dbh->do("INSERT INTO builtin VALUES(
   't',
   'a',
@@ -146,7 +146,7 @@ $dbh->do("INSERT INTO builtin VALUES(
   )") or die $DBI::errstr;
 
 # insert into table with $dbh->prepare() with placeholders and $dbh->execute(@bind_values)
-
+ # PGPORT_1:NO Change #
 ( $sth = $dbh->prepare( "INSERT INTO builtin 
   ( bool_, char_, char12_, char16_, varchar12_, text_, date_, int4_, int4a_, float8_, point_, lseg_, box_ )
   VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
@@ -189,7 +189,7 @@ $sth->execute (
    ) or die $DBI::errstr;
 
 # insert into table with $dbh->do($stmt, @bind_values)
-
+ # PGPORT_1:NO Change #
 $dbh->do( "INSERT INTO builtin 
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )",
    {},
@@ -225,7 +225,7 @@ my $pg_cmd_status = $sth->{pg_cmd_status};
 ######################### test various select methods
 
 # select from table using input parameters and and various fetchrow methods
-
+ # PGPORT_1:NO Change #
 $sth = $dbh->prepare("SELECT * FROM builtin where int4_ < ? + ?") or die $DBI::errstr;
 
 ( $sth->bind_param(1, '4000', DBI::SQL_INTEGER) )
@@ -304,7 +304,7 @@ $sth->fetch or die $DBI::errstr;
 $sth->finish or die $DBI::errstr;
 
 # select from table using input parameters
-
+ # PGPORT_1:NO Change #
 $sth = $dbh->prepare( "SELECT * FROM builtin where char16_ = ?" ) or die $DBI::errstr;
 
 my $string = q{quote \ ' this};
@@ -328,9 +328,9 @@ my $rows = $sth->rows;
 $sth->finish or die $DBI::errstr;
 
 ######################### test copy to/from stdout/stdin
-
+ # PGPORT_1:NO Change #
 $dbh->do( "DELETE FROM builtin" ) or die $DBI::errstr;
-
+ # PGPORT_1:NO Change #
 $dbh->do( "COPY builtin FROM STDIN" ) or die $DBI::errstr;
 
 my $ret;
@@ -344,7 +344,7 @@ $dbh->func('endcopy');
 ( 1 == $ret )
     and print "\$dbh->func(putline) ........ ok\n"
     or  print "\$dbh->func(putline) ........ not ok: ", $ret, "\n";
-
+ # PGPORT_1:NO Change #
 $dbh->do( "COPY builtin TO STDOUT" ) or die $DBI::errstr;
 my $buf = '';
 $ret = 0;

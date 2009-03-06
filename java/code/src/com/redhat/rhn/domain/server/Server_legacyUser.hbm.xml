@@ -176,7 +176,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.Server as s where s.id = :sid and ORG_ID = :orgId]]>
     </query>
 
-
+ <!-- PGPORT_1:NO Change -->
     <sql-query name="Server.findVirtPlatformHostsByOrg">
         <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count 
     				from rhnServer S 
@@ -188,7 +188,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				        and vi.virtual_system_id  is not null
 				    group by s.id, s.name]]>
     </sql-query> 
-    
+    <!-- PGPORT_1:NO Change -->
     <sql-query name="Server.findVirtHostsExceedingGuestLimitByOrg">
         <![CDATA[select  s.id as id, s.name as name, count(vi.id) as count 
     				from rhnServer S 
@@ -203,6 +203,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     
     <sql-query name="Server.lookupAdministrators">
+<!-- PGPORT_1:NO Change -->
         <![CDATA[select {wc.*}
 						from WEB_CONTACT wc	
 						inner join rhnUserServerPerms usp on wc.id = usp.user_id
@@ -215,6 +216,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
     
     <sql-query name="Server.findUngrouped">
+<!-- PGPORT_1:NO Change -->
             <![CDATA[select {S.*}
 			           	from rhnServer {S}
 		                     left outer join  rhnSatelliteInfo S_2_ on S.id = S_2_.server_id
@@ -236,6 +238,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 
     <sql-query name="Server.listProxies">
+<!-- PGPORT_1:NO Change -->
         <![CDATA[select S.id
 			           	from rhnServer S
 			           	inner join rhnUserServerPerms USP on USP.server_id = S.id
@@ -246,6 +249,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>    
 
      <sql-query name="Server.findInSet">
+<!-- PGPORT_1:NO Change -->
      <![CDATA[
          select S.*,
            case when p.host_id is not null then 1

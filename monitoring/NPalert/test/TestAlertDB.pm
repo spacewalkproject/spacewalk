@@ -170,7 +170,7 @@ sub test_connect {
   my $db = $self->{'blah'};
 
   $db->connect;
-
+#PGPORT_1:NO Change
   eval {
     $db->dbprepare("select * from dual");
   };

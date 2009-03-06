@@ -1,5 +1,5 @@
 <datasource_modes>
-
+  <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(DECODE),AS KEYWORD -->
 <query name="visible_to_user_overview_fast" params="org_id, user_id">
 		SELECT   
          G.ID AS ID, G.NAME AS NAME, 
@@ -58,6 +58,7 @@
   </query> 
   
   <query name="errata_count">
+<!-- PGPORT_1:NO Change -->
            SELECT 
            	 sgm.server_group_id AS ID,
            	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA, 
@@ -77,6 +78,7 @@
   </query>
 
   <query name="visible_to_user_overview_slow" params="org_id, user_id">
+ <!-- PGPORT_3:ORAFCE(NVL) -->
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
          NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
@@ -91,6 +93,7 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 
 
 <query name="visible_to_user_ids-back" params="user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ORDER BY) -->
 SELECT DISTINCT SG.id AS ID, SG.name AS NAME, 
 		( SELECT COUNT ( * )
 			   FROM rhnServerGroupMembers SGM
@@ -107,6 +110,7 @@ ORDER BY UPPER(NAME)
 </query>
 
 <query name="visible_to_user_ids" params="user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ORDER BY) -->
 SELECT DISTINCT SG.id AS ID, SG.name AS NAME
   FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
  WHERE UMSG.user_id = :user_id
@@ -119,6 +123,7 @@ ORDER BY UPPER(NAME)
 
 <mode name="is_visible">
 	<query  params="sgid, user_id">
+<!-- PGPORT_1:NO Change -->
 		SELECT 1
 		  FROM rhnServerGroup SG
 		  		inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id 
@@ -137,6 +142,7 @@ ORDER BY UPPER(NAME)
 
 <mode name="visible_to_system">
   <query params="sid, org_id, user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(DECODE),AS KEYWORD -->
   SELECT MAX(DECODE(VSGM.server_id, :sid, 1, 0)) is_system_member,
          VSGM.GROUP_ID id,
          VSGM.GROUP_NAME,
@@ -155,6 +161,7 @@ ORDER BY UPPER(VSGM.group_name), VSGM.group_id
 
 <mode name="user_permissions">
   <query params="user_id, org_id">
+ <!-- PGPORT_3:ORAFCE(NVL) -->
 SELECT SG.id, SG.name AS NAME, SG.current_Members as server_count,
        NVL((SELECT MAX(1)
               FROM rhnUserServerGroupPerms USGP 
@@ -169,6 +176,7 @@ ORDER BY UPPER(SG.name), SG.id
 
 <mode name="unused_entitlements">
   <query params="org_id">
+<!-- PGPORT_1:NO Change -->
 SELECT SUM(max_members - current_members) AS available
   FROM rhnServerGroup
  WHERE org_id = :org_id

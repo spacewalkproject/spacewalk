@@ -2,6 +2,7 @@
 
 <mode name="scouts_for_org">
   <query params="org_id">
+<!-- PGPORT_1:NO Change -->
 SELECT SC.recid AS ID,
        SC.customer_id,
        SC.description,
@@ -29,6 +30,7 @@ ORDER BY UPPER(SC.description)
 
 <mode name="scouts_all">
   <query params="">
+<!-- PGPORT_1:NO Change -->
 SELECT SC.recid AS ID,
        SC.customer_id,
        SC.description,
@@ -60,6 +62,7 @@ ORDER BY UPPER(SC.description)
 - if date executed is not null then an exit status of '0' is OK, '1' is warning, otherwise "error"
 -->
 <query name="config_push_status" params="org_id">
+  <!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE),ORAFCE(DECODE), -->
 SELECT distinct decode(
        CQE.date_executed, null, decode(sign(SYSDATE - CQI.expiration_date), -1, 'PENDING', 'EXPIRED'),
        decode(exit_status, 0, 'OK', 1, 'WARNING', 'ERROR')) AS CONFIG_STATUS,
@@ -85,6 +88,7 @@ SELECT distinct decode(
 
 
 <query name="org_changes" params="org_id">
+ <!-- PGPORT_3:ORAFCE(NVL),AS KEYWORD -->
 SELECT 1 AS PUSH_NEEDED,
          SC.recid AS id
   FROM rhn_sat_cluster SC, (
@@ -121,6 +125,7 @@ SELECT 1 AS PUSH_NEEDED,
 
 
 <query name="config_push_status_all" params="">
+ <!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT distinct decode(
        CQE.date_executed, null, decode(sign(SYSDATE - CQI.expiration_date), -1, 'PENDING', 'EXPIRED'),
        decode(exit_status, 0, 'OK', 1, 'WARNING', 'ERROR')) AS CONFIG_STATUS,
@@ -145,6 +150,7 @@ SELECT distinct decode(
 
 
 <query name="org_changes_all" params="">
+ <!-- PGPORT_3:ORAFCE(NVL),AS KEYWORD -->
 SELECT 1 AS PUSH_NEEDED,
          SC.recid AS id
   FROM rhn_sat_cluster SC, (
@@ -180,6 +186,7 @@ SELECT 1 AS PUSH_NEEDED,
 
 <mode name="fetch_key">
   <query params="sat_cluster_id">
+<!-- PGPORT_1:NO Change -->
 SELECT recid as ID,
        scout_shared_key
   FROM rhn_sat_node
