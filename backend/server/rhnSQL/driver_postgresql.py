@@ -211,6 +211,9 @@ class Database(sql_base.Database):
         # Pass the cursor in so we can close it after execute()
         return Procedure(name, c)
 
+    def cursor(self):
+        return Cursor(dbh=self.dbh)
+
 
 
 class Cursor(sql_base.Cursor):
