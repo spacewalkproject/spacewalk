@@ -837,11 +837,11 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
      * @xmlrpc.param #param_desc("string", "login", "login of the target user")
-     * @xmlrpc.param #param_desc("string", "value", "value of the flag to set")
+     * @xmlrpc.param #param_desc("boolean", "value", "value of the flag to set")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setUserSubscribable(String sessionKey, String channelLabel, 
-                   String login, boolean value) throws FaultException {
+                   String login, Boolean value) throws FaultException {
         // Get Logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
