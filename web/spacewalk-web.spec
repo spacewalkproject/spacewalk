@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.14
+Version: 0.5.15
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.15-1
+- 487563 - switching take_snapshots to enable_snapshots
+- 193788 - converting a few pages to java, so we can sort better
+- 459827 - mention the 64 character limit.
+- 485497 - adding IQ back to t6 list
+- 487563 - adding on/off switch for snapshots
+
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.14-1
 - rebuild
 
