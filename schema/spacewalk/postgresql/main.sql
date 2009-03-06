@@ -509,6 +509,7 @@ create schema spacewalk;
 \i data/rhn_time_zone_names_data.sql
 \i data/rhnServerGroupType_data.sql
 \i data/valid_countries.sql
+\i data/rhnTemplateCategory_data.sql
 
 /* packages go here */
 \i packages/rhn_user.pkb
