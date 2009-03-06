@@ -32,7 +32,7 @@ import java.util.Date;
  */
 public class NetworkInterfaceTest extends RhnBaseTestCase {
     
-    public static String TEST_MAC = "AA:AA:BB:BB:CC:CC";
+    public static final String TEST_MAC = "AA:AA:BB:BB:CC:CC";
     /**
      * Test the equals method for NetworkInterface.
      * @throws Exception

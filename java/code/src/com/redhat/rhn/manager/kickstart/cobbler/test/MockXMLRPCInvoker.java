@@ -14,8 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
-import com.redhat.rhn.domain.server.NetworkInterface;
-import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.testing.TestUtils;
 

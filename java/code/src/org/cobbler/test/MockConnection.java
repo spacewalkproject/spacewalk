@@ -16,6 +16,7 @@
 package org.cobbler.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -191,15 +192,20 @@ public class MockConnection extends CobblerConnection {
         return systems;
     }
     else if (name.equals("modify_system")) {
+        Map system = systemMap.get(args[0]);
+        system.put(args[1], args[2]);
         systemMap.get(args[0]).put(args[1], args[2]);
     }
     else if ("get_system".equals(name)) {
         return findByName((String)args[0], systems);
     }
     else if ("get_system_handle".equals(name)) {
-        String key = random();
-        systemMap.put(key, findByName((String) args[0], systems));
-        return key;
+        if (findByName((String) args[0], systems) != null) {
+            String key = random();
+            systemMap.put(key, findByName((String) args[0], systems));
+            return key;
+        }
+        return null;
     }
     else if ("remove_system".equals(name)) {
         systems.remove(findByName((String)args[0], systems));
@@ -208,7 +214,12 @@ public class MockConnection extends CobblerConnection {
         HashMap profile = new HashMap();
         String key = random();
         profile.put("uid", random());
-
+        Map interfaces = new HashMap();
+        Map iface = new HashMap();
+        iface.put("mac_address", NetworkInterfaceTest.TEST_MAC);
+        iface.put("ip_address", "127.0.0.1");
+        interfaces.put("eth0", iface);
+        profile.put("interfaces", interfaces);
         systems.add(profile);
         systemMap.put(key, profile);
         profile.put("ks_meta", new HashMap());
