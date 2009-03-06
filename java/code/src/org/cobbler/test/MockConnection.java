@@ -97,6 +97,8 @@ public class MockConnection extends CobblerConnection {
         return profiles;
     }
     else if (name.equals("modify_profile")) {
+        log.debug("PROFILE: Modify  w/ handle" + args[0] + ", set " + args[1] +
+                "to " + args[2]);
         profileMap.get(args[0]).put(args[1], args[2]);
     }
     else if ("get_profile".equals(name)) {
@@ -104,6 +106,7 @@ public class MockConnection extends CobblerConnection {
     }
     else if ("get_profile_handle".equals(name)) {
         String key = random();
+        log.debug("PROFILE:  Got handle  w/ name " + args[0]);
         profileMap.put(key, findByName((String) args[0], profiles));
         return key;
     }
@@ -113,8 +116,11 @@ public class MockConnection extends CobblerConnection {
     }
     else if ("new_profile".equals(name)) {
         HashMap profile = new HashMap();
+        String uid = random();
         String key = random();
-        profile.put("uid", random());
+        profile.put("uid", uid);
+
+        log.debug("PROFILE: Created w/ uid " + uid + "returing handle " + key);
 
         profiles.add(profile);
         profileMap.put(key, profile);
@@ -135,7 +141,7 @@ public class MockConnection extends CobblerConnection {
         return distros;
     }
     else if (name.equals("modify_distro")) {
-        log.debug("Modify distro w/ handle" + args[0] + ", set " + args[1] +
+        log.debug("DISTRO: Modify  w/ handle" + args[0] + ", set " + args[1] +
                 "to " + args[2]);
         distroMap.get(args[0]).put(args[1], args[2]);
     }
@@ -143,12 +149,12 @@ public class MockConnection extends CobblerConnection {
         return findByName((String)args[0], distros);
     }
     else if ("rename_distro".equals(name)) {
-        log.debug("Rename distro w/ handle" + args[0]);
+        log.debug("DISTRO: Rename w/ handle" + args[0]);
         distroMap.get(args[0]).put("name", args[2]);
         return "";
     }
     else if ("get_distro_handle".equals(name)) {
-        log.debug("Got handle for distro w/ name " + args[0]);
+        log.debug("DISTRO:  Got handle  w/ name " + args[0]);
         String key = random();
         distroMap.put(key, findByName((String) args[0], distros));
         return key;
@@ -164,7 +170,7 @@ public class MockConnection extends CobblerConnection {
         String key = random();
         distro.put("uid", uid);
 
-        log.debug("Created distro w/ uid " + uid + "returing handle " + key);
+        log.debug("DISTRO: Created w/ uid " + uid + "returing handle " + key);
 
         distros.add(distro);
         distroMap.put(key, distro);
@@ -247,5 +253,16 @@ public class MockConnection extends CobblerConnection {
         token = tokenIn;
     }    
 
+
+    public static void clear() {
+        profiles = new ArrayList<Map>();
+        distros = new ArrayList<Map>();
+        systems = new ArrayList<Map>();
+
+
+        systemMap = new HashMap<String, Map>();
+        profileMap = new HashMap<String, Map>();
+        distroMap = new HashMap<String, Map>();
+    }
 
 }
