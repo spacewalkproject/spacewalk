@@ -1138,6 +1138,18 @@ public class PackageManager extends BaseManager {
         
         mode.executeUpdate(params);
         
+
+        // Clear server->package cache for all packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "cleanup_package_changelog_from_set");
+        
+        mode.executeUpdate(params);        
+        
+        // Clear server->package cache for all packages
+        mode = ModeFactory.getWriteMode("Package_queries",
+            "cleanup_package_files_from_set");
+        mode.executeUpdate(params);
+        
         // Schedule package files for deletion for all packages
         mode = ModeFactory.getWriteMode("Package_queries",
             "schedule_pkg_for_delete_from_set");
