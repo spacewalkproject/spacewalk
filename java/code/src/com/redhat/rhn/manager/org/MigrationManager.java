@@ -34,6 +34,8 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerHistoryEvent;
 import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.server.VirtualInstance;
+import com.redhat.rhn.domain.token.Token;
+import com.redhat.rhn.domain.token.TokenFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeDto;
@@ -67,6 +69,11 @@ public class MigrationManager extends BaseManager {
         
             Org fromOrg = server.getOrg();
             
+            // Update the server to ignore entitlement checking... This is needed to ensure
+            // that things such as configuration files are moved with the system, even if
+            // the system currently has provisioning entitlements removed.
+            server.setIgnoreEntitlementsForMigration(Boolean.TRUE);
+
             MigrationManager.removeOrgRelationships(user, server);
             MigrationManager.updateAdminRelationships(fromOrg, toOrg, server);
             MigrationManager.moveServerToOrg(toOrg, server);
@@ -118,6 +125,9 @@ public class MigrationManager extends BaseManager {
             manager.removeServers(group, tempList, user);
         }
 
+        // Remove custom data values (aka System->CustomInfo)
+        ServerFactory.removeCustomDataValues(server);
+
         // Server relationships with guests:
         for (VirtualInstance guest : server.getGuests()) {
             server.removeGuest(guest);
@@ -131,6 +141,13 @@ public class MigrationManager extends BaseManager {
             server.getConfigChannels().clear();
         }
         
+        // If the server has a reactivation key, remove it... It will not be valid once the
+        // server is in the new org.
+        Token token = TokenFactory.lookupByServer(server);
+        if (token != null) {
+            TokenFactory.removeToken(token);
+        }
+
         // Remove the errata and package cache
         ErrataCacheManager.deleteNeededErrataCache(server.getId());
         ErrataCacheManager.deleteNeededPackageCache(server.getId());
@@ -157,8 +174,6 @@ public class MigrationManager extends BaseManager {
             }
         }
         
-        // We remove the entitlements last because some entitlements are needed
-        // in order to perform the actions above.
         SystemManager.removeAllServerEntitlements(server.getId());
     }
     
@@ -192,6 +207,20 @@ public class MigrationManager extends BaseManager {
      */
     public static void moveServerToOrg(Org toOrg, Server server) {
         
+        // if the server has any "Locally-Managed" config files associated with it, then
+        // a config channel was created for them... that channel needs to be moved to
+        // the new org...
+        if (server.getLocalOverride() != null) {
+            server.getLocalOverride().setOrg(toOrg);
+        }
+
+        // if the server has any "Local Sandbox" config files associated with it, then
+        // a config channel was created for them... that channel needs to be moved to
+        // the new org...
+        if (server.getSandboxOverride() != null) {
+            server.getSandboxOverride().setOrg(toOrg);
+        }
+
         // Move the server
         server.setOrg(toOrg);
     }
