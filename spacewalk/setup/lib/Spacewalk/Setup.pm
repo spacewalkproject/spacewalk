@@ -4,6 +4,8 @@ require Exporter;
 use warnings;
 use strict;
 
+use English;
+
 use Exporter 'import';
 use vars '@EXPORT_OK';
 @EXPORT_OK = qw(loc system_debug system_or_exit);
@@ -42,6 +44,15 @@ use constant DEFAULT_RHN_CONF_LOCATION =>
 
 use constant DEFAULT_RHN_ETC_DIR =>
   '/etc/sysconfig/rhn';
+
+use constant DEFAULT_SATCON_DICT =>
+  '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf';
+
+use constant DEFAULT_RHN_SATCON_TREE =>
+  '/etc/sysconfig/rhn-satellite-prep/etc';
+
+use constant DEFAULT_BACKUP_DIR =>
+   '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
 
 use constant INSTALL_LOG_FILE =>
   '/var/log/rhn/rhn-installation.log';
@@ -1196,8 +1207,63 @@ sub have_selinux {
 	return $have_selinux;
 }
 
+sub generate_satcon_dict {
+	my $class = shift;
+	my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
+		tree => { default => DEFAULT_RHN_SATCON_TREE },});
 
+	system_or_exit([ "/usr/bin/satcon-build-dictionary.pl",
+		"--tree=" . $params{tree},
+		"--target=" . $params{conf_file} ],
+		28,
+		'There was a problem building the satcon dictionary.');
 
+	return 1;
+}
+
+sub satcon_deploy {
+	my $class = shift;
+	my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
+				tree => { default => DEFAULT_RHN_SATCON_TREE },
+				dest => { default => '/etc' },
+				backup => { default => DEFAULT_BACKUP_DIR },
+				});
+
+	$params{backup} =~ s/\s+$//;
+	my @opts = ("--source=" . $params{tree}, "--dest=" . $params{dest},
+		"--conf=" . $params{conf_file}, "--backupdir=" . $params{backup});
+
+	system_or_exit([ "/usr/bin/satcon-deploy-tree.pl", @opts ],	30,
+		'There was a problem deploying the satellite configuration.');
+
+	return 1;
+}
+
+sub generate_server_pem {
+	my $class = shift;
+	my %params = validate(@_, { ssl_dir => 1, system => 1, out_file => 0 });
+
+	my @opts;
+	push @opts, '--ssl-dir=' . File::Spec->catfile($params{ssl_dir}, $params{system});
+
+	if ($params{out_file}) {
+		push @opts, '--out-file=' . $params{out_file};
+	}
+	my $opts = join(' ', @opts);
+
+	my $content;
+	open(FH, "/usr/bin/rhn-generate-pem.pl $opts |")
+		or die "Could not generate server.pem file: $OS_ERROR";
+
+	my @content = <FH>;
+	close(FH);
+
+	if (not $params{out_file}) {
+		$content = join('', @content);
+	}
+
+	return $content;
+}
 
 
 =head1 NAME

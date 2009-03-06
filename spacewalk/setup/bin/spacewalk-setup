@@ -45,17 +45,8 @@ use RHN::DB;
 my $DEBUG;
 $DEBUG = 0;
 
-use constant DEFAULT_RHN_SATCON_TREE =>
-  '/etc/sysconfig/rhn-satellite-prep/etc';
-
-use constant DEFAULT_SATCON_DICT =>
-  '/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf';
-
 use constant DEFAULT_CA_CERT_NAME =>
   'RHN-ORG-TRUSTED-SSL-CERT';
-
-use constant DEFAULT_BACKUP_DIR =>
-   '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
 
 use constant SCHEMAS_DIR => '/usr/share/spacewalk/schema/';
 
@@ -613,7 +604,7 @@ sub setup_ssl_certs {
   install_server_cert(-dir => $answers->{'ssl-dir'},
 		      -system => $system_name);
 
-  generate_server_pem(-ssl_dir => $answers->{'ssl-dir'},
+  Spacewalk::Setup::generate_server_pem(-ssl_dir => $answers->{'ssl-dir'},
 		      -system => $system_name,
 		      -out_file => '/etc/jabberd/server.pem');
 
@@ -712,36 +703,6 @@ sub install_server_cert {
   Spacewalk::Setup::system_or_exit(['/usr/bin/rhn-install-ssl-cert.pl', @opts], 38, 'Could not deploy SSL certificate.');
 
   return;
-}
-
-sub generate_server_pem {
-  my %params = validate(@_, { ssl_dir => 1,
-			      system => 1,
-			      out_file => 0 });
-
-  my @opts;
-
-  push @opts, '--ssl-dir=' . File::Spec->catfile($params{ssl_dir}, $params{system});
-
-  if ($params{out_file}) {
-    push @opts, '--out-file=' . $params{out_file};
-  }
-  my $opts = join(' ', @opts);
-
-  my $content;
-
-  open(FH, "/usr/bin/rhn-generate-pem.pl $opts |")
-    or die "Could not generate server.pem file: $OS_ERROR";
-
-  my @content = <FH>;
-
-  close(FH);
-
-  if (not $params{out_file}) {
-    $content = join('', @content);
-  }
-
-  return $content;
 }
 
 sub store_ssl_cert {
@@ -988,8 +949,8 @@ sub populate_initial_configs {
     }
   }
 
-  generate_satcon_dict();
-  write_config(\%config_opts, DEFAULT_SATCON_DICT);
+  Spacewalk::Setup::generate_satcon_dict();
+  write_config(\%config_opts, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
   satcon_deploy();
 
@@ -1054,7 +1015,7 @@ sub populate_final_configs {
   my $final_config = {satellite_install => 0,
 		     };
 
-  write_config($final_config, DEFAULT_SATCON_DICT);
+  write_config($final_config, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
   satcon_deploy(-tree => '/etc/sysconfig/rhn-satellite-prep/etc/rhn',
 		-dest => '/etc/rhn');
@@ -1106,20 +1067,6 @@ EOQ
   return;
 }
 
-sub generate_satcon_dict {
-  my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-			      tree => { default => DEFAULT_RHN_SATCON_TREE },
-			    });
-
-  Spacewalk::Setup::system_or_exit([ "/usr/bin/satcon-build-dictionary.pl",
-		   "--tree=" . $params{tree},
-		   "--target=" . $params{conf_file} ],
-		 28,
-		 'There was a problem building the satcon dictionary.');
-
-  return 1;
-}
-
 sub write_config {
   my $options = shift;
   my $target = shift || Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
@@ -1132,24 +1079,6 @@ sub write_config {
 		 ],
 		 29,
 		 'There was a problem setting initial configuration.');
-
-  return 1;
-}
-
-sub satcon_deploy {
-  my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
-			      tree => { default => DEFAULT_RHN_SATCON_TREE },
-			      dest => { default => '/etc' },
-			      backup => { default => DEFAULT_BACKUP_DIR },
-			    });
-
-  $params{backup} =~ s/\s+$//;
-  my @opts = ("--source=" . $params{tree}, "--dest=" . $params{dest},
-	      "--conf=" . $params{conf_file}, "--backupdir=" . $params{backup});
-
-  Spacewalk::Setup::system_or_exit([ "/usr/bin/satcon-deploy-tree.pl", @opts ],
-		   30,
-		   'There was a problem deploying the satellite configuration.');
 
   return 1;
 }
@@ -1194,7 +1123,7 @@ sub setup_monitoring {
   $sc->create_new();
 
   my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
-  write_config({ monitoringDOTscout_shared_key => $scout_shared_key }, DEFAULT_SATCON_DICT);
+  write_config({ monitoringDOTscout_shared_key => $scout_shared_key }, Spacewalk::Setup::DEFAULT_SATCON_DICT);
   
   return 1;
 }
