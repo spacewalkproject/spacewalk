@@ -34,7 +34,6 @@ import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
-import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.MigrationToSameOrgException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
@@ -161,20 +160,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         assertNotNull(OrgFactory.lookupByName(newName));
     }
     
-    public void testOrgTrusts() throws Exception {
-        Org[] org = createOrgs();
-        handler.addTrust(
-                adminKey, 
-                org[0].getId().intValue(),
-                org[1].getId().intValue());
-        assertTrue(isTrusted(org[0], org[1]));
-        handler.removeTrust(
-                adminKey, 
-                org[0].getId().intValue(),
-                org[1].getId().intValue());
-        assertFalse(isTrusted(org[0], org[1]));
-    }
-    
     private void compareDtos(OrgDto expected, OrgDto actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getName(), actual.getName());
@@ -193,14 +178,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     private Org createOrg(int index) {
         return createOrg(orgName[index], LOGIN + TestUtils.randomString(), 
                 PASSWORD, PREFIX, FIRST, LAST, EMAIL, false);
-    }
-    
-    private Org[] createOrgs() {
-        Org[] orgs = new Org[orgName.length];
-        for (int i = 0; i < orgs.length; i++) {
-            orgs[i] = createOrg(i);
-        }
-        return orgs;
     }
     
     private Org createOrg(String name, String login, 
@@ -507,17 +484,6 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         // exception and fail the calling test.
         fail("Unable to find channel family with free slots on satellite.");
         return null;
-    }
-    
-    @SuppressWarnings("unchecked")
-    private boolean isTrusted(Org org, Org trusted) {
-        List trusts = handler.listTrusts(adminKey, org.getId().intValue());
-        for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
-            if (t.getId().equals(trusted.getId()) && t.getTrusted()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void testMigrateSystem() throws Exception {
