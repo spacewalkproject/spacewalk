@@ -247,7 +247,7 @@ public class OrgTrustHandler extends BaseHandler {
      * @xmlrpc.doc Add an organization to the list of trusted organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.param #param("int", "trustOrgId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int addTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
@@ -275,7 +275,7 @@ public class OrgTrustHandler extends BaseHandler {
      * @xmlrpc.doc Remove an organization to the list of trusted organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.param #param("int", "trustOrgId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
