@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.26
+Version: 0.5.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -232,6 +232,24 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Mar 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.27-1
+- revert commit ba62c229
+- changing MockConnection and MockXmlrpcInvoker to handle multiple entities
+- 488723 - handling ise for channel packages listing
+- 488379 - Syntax error in sql query causing ISE corrected
+- 487317 - entitlement verbage change for error message
+- 484284 - fixing create/updates messages for custom channel edit actions
+- 488622 - api - kickstart.profile.addIpRange updated to validate input
+- 487563 - switching take_snapshots to enable_snapshots
+- 193788 - converting a few pages to java, so we can sort better
+- adding check to looking up cobbler id if its null
+- 466195 - apis - rename system.listBaseChannels and system.listChildChannels
+- 488277 - remove rhn-highlight from href address
+- 485313 - update string to remove extra space
+- 484305 - Refactored to keep the package deletion heavy lifting in the DB, avoids OutOfMemoryErrors.
+- 480012 - allow sharing org to see shared errata.
+- 487234 - fix the query used by the system->software->upgrade page
+
 * Mon Mar 02 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.26-1
 - add bcel to BuildRequires
 
