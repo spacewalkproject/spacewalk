@@ -393,8 +393,8 @@ sub restart_satellite {
   # for us, though, that would include the restart script.  oops.
   POSIX::setsid();
 
-  exec('/usr/bin/sudo', '/sbin/service', $params{service}, 'restart')
-    or throw "(exec_error) Could not exec 'service $params{service} restart': $!";
+  exec('/usr/bin/sudo', '/usr/sbin/rhn-satellite', 'restart')
+    or throw "(exec_error) Could not exec '/usr/sbin/rhn-satellite restart': $!";
 
   # exec does not return
 }
