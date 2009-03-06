@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2009 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -13,17 +13,14 @@
 # in this software or its documentation. 
 #
 
-## language imports
 import os
 import sys
 from optparse import Option, OptionParser
 
-## common, server imports
 from common import rhnTB
 from common.rhnConfig import CFG, initCFG
 from server import rhnSQL
 
-## local imports
 import satCerts
 
 DEFAULT_TRUSTED_CERT = 'RHN-ORG-TRUSTED-SSL-CERT'
@@ -45,7 +42,6 @@ def processCommandline():
     
     options = [
         Option('--ca-cert',      action='store', default=DEFAULT_TRUSTED_CERT, type="string", help='public CA certificate, default is %s' % DEFAULT_TRUSTED_CERT),
-        Option('--db',           action='store', default=CFG.DEFAULT_DB, type="string", help='alternative database connectionn string, default is %s' % CFG.DEFAULT_DB),
         Option('--label',        action='store', default='RHN-ORG-TRUSTED-SSL-CERT', type="string", help='FOR TESTING ONLY - alternative database label for this CA certificate, default is "RHN-ORG-TRUSTED-SSL-CERT"'),
         Option('-v','--verbose', action='count', help='be verbose (accumulable: -vvv means "be *really* verbose").'),
               ]
@@ -64,7 +60,15 @@ def processCommandline():
         sys.exit(10)
 
     try:
-        rhnSQL.initDB(values.db)
+        db_backend = CFG.DB_BACKEND
+        db_host = CFG.DB_HOST
+        db_port = CFG.DB_PORT
+        db_user = CFG.DB_user
+        db_password = CFG.DB_PASSWORD
+        db_name = CFG.DB_NAME
+
+        rhnSQL.initDB(backend=db_backend, host=db_host, port=db_port,
+                    username=db_user, password=db_password, database=db_name)
     except:
         sys.stderr.write("""\
 ERROR: there was a problem trying to initialize the database: %s
