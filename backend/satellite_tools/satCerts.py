@@ -491,7 +491,7 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
 
 #PGPORT_1:NO Change
 _querySelectCryptoCertInfo = rhnSQL.Statement("""
-    SELECT ck.id, ck.description, ckt.label type_label, ck.key
+    SELECT ck.id, ck.description, ckt.label as type_label, ck.key
       FROM rhnCryptoKeyType ckt,
            rhnCryptoKey ck
      WHERE ckt.label = 'SSL'
