@@ -7,6 +7,7 @@
 <mode name="simple_package_search">
   <query name="default_search_query" />
   <elaborator params="" multiple="t">
+<!-- PGPORT_2: AS keyword required -->
   SELECT PN.id ID,
          NVL(P.summary, ' ') MATCHING_FIELD
     FROM rhnPackageName PN,
@@ -19,6 +20,7 @@
 <mode name="package_search_by_name">
   <query name="default_search_query" />
   <elaborator params="" multiple="t">
+<!-- PGPORT_2: AS keyword required -->
   SELECT PN.id ID,
          NVL(P.summary, ' ') MATCHING_FIELD
     FROM rhnPackageName PN,
@@ -29,6 +31,7 @@
 </mode>
 
 <query name="default_search_query" params="user_id">
+<!-- PGPORT_4:QUERY_REWRITE(ORDER BY),AS KEYWORD -->
 SELECT  PN.id, PN.name PACKAGE_NAME
   FROM  rhnPackageName PN,
         rhnSet RS

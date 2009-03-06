@@ -24,7 +24,7 @@ rhnSQL.initDB(sys.argv[1])
 ids = [1, 2, 3]
 values = [11, 22, 33]
 foo = ['', '', '']
-
+ # PGPORT_1:NO Change #
 h = rhnSQL.prepare("insert into misatest (id, val) values (:id, :val)")
 try:
     h.executemany(id=ids, val=values, foo=foo)

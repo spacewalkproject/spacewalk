@@ -49,6 +49,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
 
         <query name="PackageSource.findByPackage">
+<!-- PGPORT_1:NO CHANGE -->
             <![CDATA[select ps
                        from com.redhat.rhn.domain.rhnpackage.Package as p,
                             com.redhat.rhn.domain.rpm.SourceRpm as sr,

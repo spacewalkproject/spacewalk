@@ -43,6 +43,7 @@ def token_channels(server, server_arch, tokens_obj):
 
     # what channels are associated with this token (filter only those
     # compatible with this server)
+    # PGPORT_1:NO Change #
     h = rhnSQL.prepare("""
     select 
         rtc.channel_id id, c.name, c.label, c.parent_channel
@@ -152,7 +153,7 @@ def token_channels(server, server_arch, tokens_obj):
         else:
             ret.append("Subscribed to channel '%s'" % c["name"])
     return ret
-
+  # PGPORT_1:NO Change #
 _query_token_server_groups = rhnSQL.Statement("""
     select rtg.server_group_id, sg.name
       from rhnRegTokenGroups rtg, rhnServerGroup sg
@@ -191,7 +192,7 @@ def token_server_groups(server_id, tokens_obj):
             ret.append("Subscribed to server group '%s'" % sg["name"])
     return ret
 
-
+ # PGPORT_4:QUERY_REWRITE(ANSI JOIN),REMOVE UPPER FROM ORDER BY CLAUSE #
 _query_token_packages = rhnSQL.Statement("""
     select pn.id as name_id, pa.id as arch_id, pn.name
       from rhnPackageName pn, rhnPackageArch pa, rhnRegTokenPackages rtp
@@ -250,6 +251,7 @@ def token_packages(server_id, tokens_obj):
 #  id=1,  '/etc/foo.txt',     priority=1
 #  id=27, '/etc/foo.txt',     priority=2
 #  id=53, '/var/tmp/baz.log', priority=2
+ # PGPORT_2:AS KEYWORD #
 _query_token_latest_revisions = rhnSQL.Statement("""
     select cf.latest_config_revision_id revision_id,
            cfn.path
@@ -269,7 +271,7 @@ _query_token_latest_revisions = rhnSQL.Statement("""
        and cf.latest_config_revision_id is not null
     order by cfn.path, cct.priority, scc.position
 """)
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
 _query_add_revision_to_action = rhnSQL.Statement("""
     insert into rhnActionConfigRevision (id, action_id, server_id, config_revision_id)
     values (sequence_nextval('rhn_actioncr_id_seq'), :action_id, :server_id, :config_revision_id)
@@ -324,7 +326,7 @@ def deploy_configs_if_needed(server):
 
     return action_id
 
-
+ # PGPORT_1:NO Change #
 _query_token_config_channels = rhnSQL.Statement("""
     select rtcc.config_channel_id,
            rtcc.position, cc.name
@@ -336,6 +338,7 @@ _query_token_config_channels = rhnSQL.Statement("""
 """)
 
 # XXX Same query exists in config/rhn_config_management.py
+ # PGPORT_1:NO Change #
 _query_set_server_config_channels = rhnSQL.Statement("""
     insert into rhnServerConfigChannel (server_id, config_channel_id, position)
     values (:server_id, :config_channel_id, :position)
@@ -346,7 +349,7 @@ def _get_token_config_channels(token_id):
     h.execute(token_id=token_id)
 
     return h.fetchall_dict() or []
-   
+    # PGPORT_1:NO Change #
 _query_current_config_channels = rhnSQL.Statement("""
     select server_id, config_channel_id
       from rhnServerConfigChannel
@@ -432,7 +435,7 @@ def token_config_channels(server, tokens_obj):
 
     return ret
 
-
+ # PGPORT_1:NO Change #
 _query_server_token_used = rhnSQL.Statement("""
     insert into rhnServerTokenRegs (server_id, token_id)
     values (:server_id, :token_id)
@@ -443,7 +446,7 @@ def server_used_token(server_id, token_id):
     h.execute(server_id=server_id, token_id=token_id)
 
 
-
+ # PGPORT_2:AS KEYWORD #
 _query_check_token_limits = rhnSQL.Statement("""
     select
        rt.usage_limit max_nr,
@@ -760,7 +763,7 @@ def _validate_entitlements(token_string, rereg_ents, base_entitlements,
 
         # NOTE: the call to entitle will actually skip the virtualization 
         # entitlement, so we can leave it in the list here.
-
+        # PGPORT_2:AS KEYWORD #
 _query_token = rhnSQL.Statement("""
     select rt.id as token_id,
            sgt.label as token_type,
@@ -811,7 +814,7 @@ def fetch_token(token_string):
         if not token_entry:
             # Unable to find the token
             log_error("Invalid token '%s'" % token)
-            raise rhnFault(60, _("Could not find token '%s'") % token, explain=0)
+            raise rhnFault(60, _("Could not find token '%s'") % token)
 
         row = token_entry
 
@@ -907,6 +910,7 @@ def fetch_token(token_string):
     return apply(ActivationTokens, (result, ), kwargs)
 
 # always be sure this query has matching columns as _query_token above...
+# PGPORT_2:AS KEYWORD #
 _query_org_default_token = rhnSQL.Statement("""
     select rt.id as token_id,
            sgt.label as token_type,
@@ -960,7 +964,7 @@ def fetch_org_token(org_id):
 
 
 
-
+ # PGPORT_1:NO Change #
 _query_disable_token = rhnSQL.Statement("""
     update rhnRegToken
        set disabled = 1

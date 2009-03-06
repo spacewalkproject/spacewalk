@@ -78,6 +78,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     <sql-query name="Org.accessibleChannels">
+<!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
         <![CDATA[SELECT  {c.*} 
                    FROM  rhnChannel {c},
                          rhnChannelCloned c_1_,
@@ -93,6 +94,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 	<sql-query name="Org.numOfOrgAdmins">
         <return-scalar type="long" column="user_id"/>
+<!-- PGPORT_1:NO CHANGE -->
     SELECT ugm.user_id
      FROM rhnUserGroupMembers ugm
     WHERE ugm.user_group_id = (SELECT id
@@ -107,6 +109,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
     <sql-query name="Org.numOfActiveUsers">
         <return-scalar type="long" column="users"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT count(u.id) as users 
         FROM   rhnUser u
         WHERE  1=1
@@ -114,6 +117,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query> 
     <sql-query name="Org.numOfSystems">
         <return-scalar type="long" column="systems"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT count(s.id) as systems 
         FROM   rhnServer s
         WHERE  1=1
@@ -121,6 +125,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query> 
     <sql-query name="Org.getMigratedSystems">
         <return-scalar type="long" column="systems"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT count(s.server_id) as systems
         FROM   rhnSystemMigrations s
         WHERE  1=1
@@ -129,6 +134,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
     <sql-query name="Org.getSharedSubscribedSys">
         <return-scalar type="long" column="channels"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT count(distinct(c.id)) as channels
         FROM   rhnServer s,
                rhnChannel c,
@@ -141,6 +147,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     <sql-query name="Org.getSharedChannels">
         <return-scalar type="long" column="id"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT count(s.id) as id
         FROM   rhnSharedChannelView s
         WHERE  1=1
@@ -149,6 +156,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>    
     <sql-query name="Org.getTrustedSince">
         <return-scalar type="date" column="created"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT created  
         FROM   rhnTrustedOrgs rto
         WHERE  1=1
@@ -157,6 +165,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query> 
     <sql-query name="Org.numOfServerGroups">
         <return-scalar type="long" column="groups"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT count(g.id) as groups
         FROM   rhnServerGroup g 
         WHERE  1=1
@@ -165,6 +174,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query> 
     <sql-query name="Org.numOfConfigChannels">
         <return-scalar type="long" column="channels"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT  count(CC.id) AS channels
         FROM  rhnConfigChannel CC, rhnConfigChannelType CCT
         WHERE 1=1
@@ -174,8 +184,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query> 
     <sql-query name="Org.numOfOrgs">
         <return-scalar type="long" column="org_count"/>
+<!-- PGPORT_1:NO CHANGE -->
         SELECT  count(wc.id) AS org_count FROM  WEB_CUSTOMER wc
     </sql-query>
+<!-- PGPORT_1:NO CHANGE -->
     <query name="Org.findOrgsWithSystemsInChannelFamily"><![CDATA[
         select o from 
             com.redhat.rhn.domain.org.OrgImpl as o

@@ -22,10 +22,12 @@
     </class>
 
     <query name="KickstartGuestInstallLog.findLogMessagesBySessionId">
+        <!-- PGPORT_1:NO CHANGE -->
         <![CDATA[select t.logMessage from com.redhat.rhn.domain.kickstart.KickstartGuestInstallLog as t where t.sessionId = :sessionId order by t.id]]>
     </query>
 
     <query name="KickstartGuestInstallLog.findNewestLogEntriesBySessionId">
+        <!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartGuestInstallLog as t where t.sessionId = :sessionId order by t.id desc]]>
     </query>
 
