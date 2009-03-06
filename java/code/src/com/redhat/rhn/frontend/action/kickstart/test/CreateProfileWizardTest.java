@@ -277,9 +277,7 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         //checking to make sure defaults were set correctly
         assertNotNull(ksdata.getCommand("rootpw"));
         assertNotNull(ksdata.getCommand("lang"));
-        assertNotNull(ksdata.getCommand("langsupport"));
         assertNotNull(ksdata.getCommand("keyboard"));
-        assertNotNull(ksdata.getCommand("mouse"));
         assertNotNull(ksdata.getCommand("bootloader"));
         assertNotNull(ksdata.getCommand("timezone"));
         assertNotNull(ksdata.getCommand("auth"));
@@ -318,11 +316,8 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         //checking to make sure args for the defaults were set correctly
         assertTrue(ksdata.getCommand("lang").getArguments().equals("en_US"));
         assertTrue(ksdata.getCommand("keyboard").getArguments().equals("us"));
-        assertTrue(ksdata.getCommand("mouse").getArguments().equals("none"));
-        assertTrue(ksdata.getCommand("zerombr").getArguments().equals("yes"));
+        assertTrue(ksdata.getCommand("zerombr").getArguments().length() == 0);
         assertTrue(ksdata.getCommand("clearpart").getArguments().equals("--all"));
-        assertTrue(ksdata.getCommand("langsupport").getArguments()
-                                                   .equals("--default en_US en_US"));
         assertTrue(ksdata.getCommand("bootloader").getArguments()
                                                   .equals("--location mbr"));
         assertTrue(ksdata.getCommand("timezone").getArguments()
