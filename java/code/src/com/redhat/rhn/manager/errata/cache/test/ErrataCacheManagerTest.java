@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
@@ -156,6 +157,14 @@ public class ErrataCacheManagerTest extends RhnBaseTestCase {
         newPackage.setPackageEvr(evr);
         newPackage = (Package) TestUtils.saveAndReload(newPackage);
         
+        InstalledPackage ip = new InstalledPackage();
+        ip.setServer(s);
+        ip.setArch(p.getPackageArch());
+        ip.setEvr(p.getPackageEvr());
+        ip.setName(p.getPackageName());
+
+        HibernateFactory.getSession().save(ip);
+
         retval.put("package", p);
         retval.put("newpackage", newPackage);
         userIn.addRole(RoleFactory.ORG_ADMIN);
