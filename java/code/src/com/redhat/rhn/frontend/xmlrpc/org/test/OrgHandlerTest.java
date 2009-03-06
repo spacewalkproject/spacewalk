@@ -279,8 +279,29 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testSetSystemEntitlements() throws Exception {
         Org testOrg = createOrg();
-        String systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
+
+        String systemEnt = EntitlementManager.ENTERPRISE_ENTITLED;
         int result = handler.setSystemEntitlements(adminKey, 
+                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
+        assertEquals(1, result);
+
+        systemEnt = EntitlementManager.PROVISIONING_ENTITLED;
+        result = handler.setSystemEntitlements(adminKey,
+                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
+        assertEquals(1, result);
+
+        systemEnt = EntitlementManager.MONITORING_ENTITLED;
+        result = handler.setSystemEntitlements(adminKey,
+                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
+        assertEquals(1, result);
+
+        systemEnt = EntitlementManager.VIRTUALIZATION_ENTITLED;
+        result = handler.setSystemEntitlements(adminKey,
+                new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
+        assertEquals(1, result);
+
+        systemEnt = EntitlementManager.VIRTUALIZATION_PLATFORM_ENTITLED;
+        result = handler.setSystemEntitlements(adminKey,
                 new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
         assertEquals(1, result);
 

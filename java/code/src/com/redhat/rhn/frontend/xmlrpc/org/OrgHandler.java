@@ -604,7 +604,15 @@ public class OrgHandler extends BaseHandler {
      * 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param_desc("string", "label", "System entitlement label.")
+     * @xmlrpc.param #param_desc("string", "label", "System entitlement label.
+     * Valid values include:")
+     *   #options()
+     *     #item("enterprise_entitled")
+     *     #item("monitoring_entitled")
+     *     #item("provisioning_entitled")
+     *     #item("virtualization_host")
+     *     #item("virtualization_host_platform")
+     *   #options_end()
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
@@ -616,7 +624,8 @@ public class OrgHandler extends BaseHandler {
         Org org = verifyOrgExists(orgId);
 
         Entitlement ent = EntitlementManager.getByName(systemEntitlementLabel);
-        if (ent == null || !EntitlementManager.getAddonEntitlements().contains(ent)) {
+        if (ent == null || (!EntitlementManager.getAddonEntitlements().contains(ent) &&
+            !EntitlementManager.getBaseEntitlements().contains(ent))) {
             throw new InvalidEntitlementException();
         }
 
