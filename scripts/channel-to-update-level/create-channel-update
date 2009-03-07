@@ -1,0 +1,405 @@
+#!/usr/bin/python
+
+
+#author Justin Sherrill jsherril@redhat.com
+#version: 2.0-beta
+#
+#
+
+
+
+import getopt
+import sys
+import getpass
+from xmlrpclib import Server
+import string
+import os
+from os import path
+
+
+DATA_DIR = "./data/"
+GATHER_DIR = "/mnt/engarchive2/released/"
+
+miniOps = "nChgs:u:p:b:v:r:a:u:e:d:c:D:P:"
+fullOps = ["nossl", "clear", "help", "gather", "server=", "user=", "password=", "bundle=", "version=", "release=", "arch=", "update=", "extra=", "sourceChannel=", "destChannel=", "data=", "parent="]
+
+versions = ( "5", "4", "3", "2.1" );
+releases = ( "AS", "ES", "WS", "Server", "Client", "Desktop");
+arches = ( "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64");
+updates = ("GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9" );
+subrepos = ("VT", "Cluster", "ClusterStorage", "Workstation"); #RHEL 5 yum repos on the discs
+extras = ("Extras", "Supplementary"); #things shipped on other cds
+
+
+bundleSize = 50
+server = None
+user = None
+password = None
+filename = None
+ssl = True
+
+
+client = None
+
+def main():
+   if hasOpt("h", "help"):
+      help()
+      exit(0)
+   if hasOpt("g", "gather"):
+      gather(hasOpt("c", "clear"))
+      exit(0)
+
+   global server, user, password, filename, ssl
+   server = getOpt("s", "server", msg = "--server not provided")
+   user = getOpt("u", "user", "--user not provided") 
+   password  = getOpt("p", "password")         
+   if password == None:
+      password = getpass.getpass()
+   if (getOpt("b", "bundle") is not None):
+      bundleSize == int(getOpt("b", "bundle")) 
+
+   #did you provide a data file?  If not we need all the information
+   if not hasOpt("D", "data"):
+      version = getOpt("v", "version", "--version must be specified")
+      release = getOpt("r", "release", "--release must be speciifed")
+      update = getOpt("u", "update", "--update must be specified")
+      arch = getOpt("a", "arch", "--arch must be specified")
+      extra = getOpt("e", "extra")
+      filename = getFileName(version,update, release, arch, extra)  
+   else:
+      filename = path.split(getOpt('D', 'data'))[1]
+      version, release, update, arch, extra = parseDataFilename(filename)   
+
+   if hasOpt("n", "nossl"):
+      ssl = False
+
+   clear = 0
+   if hasOpt("C", "clear"):
+      clear = 1
+
+   if not os.path.exists(DATA_DIR + filename):
+      print "Error: data file '" + filename + "' does not exist"
+      exit(1)
+
+   parent = ""
+   if hasOpt("P", "parent"):
+       parent = getOpt("P", "parent");
+
+
+   newChannelLabel = getOpt("d", "destChannel", "--destChannel must be specified")
+   newChannelLabel = newChannelLabel.lower()
+   srcChanLabel = getOpt("c", "sourceChannel")
+   if (srcChanLabel == None):
+      print "You have not specified a source channel, we will try to figure it out"
+   srcChanLabel = findSrcChan(version, release, arch, extra) 
+   
+   print("Trying with source channel: " + srcChanLabel)
+
+   #now lets login to the server
+   proto = "http"
+   if ssl:
+      proto = proto + "s"
+   client = Server(proto + "://" + server + "/rpc/api")
+   auth = client.auth.login(user, password) 
+   populate(client, auth, srcChanLabel, newChannelLabel, filename, parent, clear)
+
+
+def populate(client, auth, srcChannel, newChannel, filename, parent, clear):
+     
+   chanList = client.channel.listSoftwareChannels(auth)
+  
+   src_id = None
+   src_label = None
+   new_id = None
+   arch_label = None
+   new_label = None
+   for chan in chanList:
+      label = getChannelAttr(chan, 'label')
+      if label == srcChannel:
+         src_label = getChannelAttr(chan, 'label')
+         arch_label = getChannelAttr(chan, 'arch')
+      elif label == newChannel:
+         new_label = getChannelAttr(chan, 'label')
+    
+   if src_label == None:
+      print("Error: Source Channel '" + srcChannel + "' could not be found.")
+      exit(1)
+   if new_label == None:
+      print("Creating " + newChannel + " with arch " + arch_label)
+      if parent == '':
+         print("Creating base channel, " + newChannel + ", with arch " + arch_label)
+      else:
+         print("Creating child channel" + newChannel + " with arch " + arch_label + " with parent " + parent)
+      client.channel.software.create(auth, newChannel, newChannel, newChannel, getArchLabel(arch_label, client, auth), parent) 
+   else:
+      print("Reusing " + newChannel+ " as destination channel")
+   existing_packs = client.channel.software.listAllPackages(auth, srcChannel)
+   
+
+   if clear:
+      clearChannel(newChannel, existing_packs, client, auth)  
+   
+   #strip new lines 
+   fileList = map(str.strip, open(DATA_DIR + filename).readlines())
+   fileList.sort()
+   pack_num = 0
+   ids_to_add = []
+
+   print(str(len(fileList)) + " packages in source file to push.")  
+   
+   #for each filename, go through the src package list and find the package id
+   for rpm in fileList:
+      nvre_to_push = splitFilename(rpm) 
+      for src_pack in existing_packs:
+         if (nvre_to_push == splitPackage(src_pack)):
+            pack_num = pack_num + 1
+            ids_to_add.append(getPackageAttr(src_pack, 'id'))
+            break
+   print("Pushing " + str(pack_num) + " packages, please wait.")
+
+   while len(ids_to_add) > 0:
+      print '%d of %d' % (pack_num-len(ids_to_add), pack_num),
+      sys.stdout.flush()
+      client.channel.software.addPackages(auth, newChannel, ids_to_add[:bundleSize])
+      del ids_to_add[:bundleSize]
+      print '%s\r' % ' '*20,
+      sys.stdout.flush()
+      
+
+   print("Sucessfully pushed " + str(pack_num) + " packages out of "+ str(len(fileList)))
+
+
+
+
+def clearChannel(label, packages, client, auth):
+      ids_to_remove = []
+      print("Clearing channel packages")
+      for pack in packages:
+         ids_to_remove.append(getPackageAttr(pack, 'id'))
+      num_to_remove = len(ids_to_remove)
+      while len(ids_to_remove) > 0:
+         print '%d of %d' % (num_to_remove-len(ids_to_remove), num_to_remove),
+         sys.stdout.flush()
+         client.channel.software.removePackages(auth, label, ids_to_remove[:bundleSize])
+         del ids_to_remove[:bundleSize]
+         print '%s\r' % ' '*20,
+         sys.stdout.flush()
+      print("Finished clearing channel")
+
+
+
+def getArchLabel(archName, client, auth):
+   arches = client.channel.software.listArches(auth)
+   for arch in arches:
+      if getArchAttr(arch, 'name') == archName:
+         return getArchAttr(arch, 'label')
+
+
+def splitPackage(map):
+#   return [ getPackageAttr(map, 'name'), getPackageAttr(map, 'version'), getPackageAttr(map, 'release'), getPackageAttr(map, 'arch_label')]
+    return '-'.join([getPackageAttr(map, 'name'), getPackageAttr(map, 'version'), getPackageAttr(map, 'release'), getPackageAttr(map, 'arch_label')])
+
+def splitFilename(filename):
+   per = filename.split('.')
+   together = '.'.join(per[:-2]) + '-' + per[-2]
+#   return together.split('-')
+   return together
+   
+
+
+def getAttr(map, base, attribute):
+   label = map.get(attribute)
+   if label == None:
+      label = map.get(base + attribute)
+   return label
+
+def getPackageAttr(map, attribute):
+   return getAttr(map, 'package_', attribute)
+
+def getChannelAttr(map, attribute):
+   return getAttr(map, 'channel_', attribute)
+
+def getArchAttr(map, attribute):
+   return getAttr(map, 'arch_', attribute)
+
+#returns tuple (version, release, update, arch, extra)
+def parseDataFilename(file):
+   file = file.lower()
+   split = string.split(file, '-')
+   if len(split) == 4:
+      return (split[0], split[2], split[1], split[3], None) 
+   else:
+      return (split[0], split[2], split[1], split[3], split[4])
+
+def findSrcChan(version, release, arch, extra = None):
+   low_release = release.lower() 
+
+   if version == "2.1":
+      if low_release == "as":
+        return "redhat-advanced-server-2.1"
+      if release == "es":
+         return "redhat-ent-linux-i386-es-2.1"
+      if release == "ws":
+         return "redhat-ent-linux-i386-ws-2.1"
+   #if we don't have a subrepo/extras we're done
+   if extra == None:
+      return "rhel-%s-%s-%s" % (arch, low_release, version)
+   else:  #else we do, so lets process that
+      low_extra = extra.lower()
+      if low_extra == "extra":
+          return  "rhel-%s-%s-%s-%s" % (arch, low_release, low_extra, version) 
+      else:
+          return "rhel-%s-%s-%s-%s" % (arch, low_release, version ,low_extra ) 
+
+#this function has no real use outside of red hat
+def gather(clear):
+   if clear:
+      os.system("rm -rf " + DATA_DIR)
+
+   if not path.isdir(DATA_DIR):
+      os.mkdir(DATA_DIR)
+
+   for version in versions:
+      for update in updates:
+         for release in releases:
+            for arch in arches:
+               if float(version) <= 4:
+                  repoDir = "RHEL-%s/%s/%s/%s/tree/" % (version, update, release, arch)  
+                  fullDir = GATHER_DIR + repoDir
+                  saveRpmList(fullDir +  "RedHat/RPMS/", DATA_DIR + getFileName(version, update,release, arch))
+                  #save extras
+                  suppl = extras[0]
+                  repoDir = "RHEL-%s-%s/%s/%s/%s/tree/" % (version, suppl, update, release, arch)
+                  fullDir = GATHER_DIR + repoDir 
+                  saveRpmList(fullDir +  "RedHat/RPMS/", DATA_DIR + getFileName(version, update,release, arch, suppl))
+               else:
+                  repoDir = "RHEL-%s-%s/%s/%s/os/" % (version, release, update, arch) 
+                  fullDir = GATHER_DIR + repoDir
+                  saveRpmList(fullDir +  release + "/", DATA_DIR + getFileName(version, update,release, arch))
+                  #now lets handle the other repos:
+                  for subrepo in subrepos:
+                     saveRpmList(fullDir +  subrepo + "/", DATA_DIR + getFileName(version, update,release, arch, subrepo))
+                  #do supplementary
+                  suppl = extras[1]
+                  extraDir = "RHEL-%s-%s-%s/%s/%s/os/%s/" % (version, release, suppl, update, arch, suppl)
+                  fullDir = GATHER_DIR + extraDir
+                  saveRpmList(fullDir + "/", DATA_DIR + getFileName(version, update,release, arch, suppl))
+
+def saveRpmList(directory, filename):
+   if path.exists(directory) and not path.exists(filename):
+      os.system("ls " + directory + " | grep rpm | sort > " + filename);
+
+def getFileName(version, update, release, arch, additional=None):
+   if additional == None:
+    return "%s-%s-%s-%s" % (version, update.upper(), release.upper(), arch)
+   else:
+      return "%s-%s-%s-%s-%s" % (version, update.upper(), release.upper(), arch, additional.capitalize())
+
+def hasOpt(mini, full):
+   opt, arg = getopt.getopt(sys.argv[1:], miniOps, fullOps)
+   for o, a in opt:
+      if o in ("-" + mini, "--" + full):
+         return 1
+   return False
+
+def getOpt(mini, full, msg = None):
+   opt, arg = getopt.getopt(sys.argv[1:], miniOps, fullOps)
+   for o, a in opt:
+      if o in ("-" + mini, "--" + full):
+         return a
+   if msg != None:
+      error(msg)
+   return None
+
+
+def help():
+   usage()
+   print """
+Common Options
+--------------
+
+\t  --nossl | -n
+		disables the use of SSL when connecting to the server
+
+\t  --clear | -C
+		remove all channel packages from the channel before adding
+
+\t  --server=<SERVER> | -s <SERVER>
+		the server to connect to (i.e.  hostname.domain.com)
+
+\t  --user=<USER> | -l <USER>
+		the user to connect as
+
+\t  --password=<PASSWORD> | -p <PASSWORD>
+		the password to use for the connection (if not specified, will be prompted for)
+
+\t  --version=<VERSION> | -v <VERSION>
+		the version to use (i.e. "5", "4", "3", "2.1" )
+
+\t  --release=<RELEASE> | -r <RELEASE>
+		the release to use (i.e. "AS", "ES", "WS", "Server", "Client", "Desktop")
+
+\t  --arch=<ARCH> | -a <ARCH>
+		the arch to use (i.e.  "i386",  "ia64",  "ppc",  "s390",  "s390x",  "x86_64")
+
+\t  --update=<UPDATE> | -u <UPDATE>
+		the update level to use (i.e. "GOLD", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9")
+
+\t  --extra=<EXTRA> | -e <EXTRA>
+		the child channel/repo to use (i.e. "VT", "Cluster", "ClusterStorage", "Workstation", "Extras", "Supplementary")
+
+\t  --data=<DATAFILE> | -D <DATAFILE>
+		a data file to use, may use this instead of version, release, update, arch,  and extra
+
+\t  --sourceChannel=<SRCCHAN> | -c <SRCCHAN>
+		the channel to pull packages from (will be auto detected if not provided)
+
+\t  --destChannel=<DESTCHAN> | -d <DESTCHAN>
+		the label of the destintation channel to push the packages to (will be created if not existing)
+
+\t  --parent=<PARENT> | -P LABEL
+		if specified, and --destChannel does not exist, --destChannel will be created with this parent
+
+\t  --help | -h
+
+
+Lesser Used Options
+-------------------
+
+\t  --gather | -g
+		used to gather data files, generally not useful to most people
+
+\t  --bundle=<BUNDLE> | -b <BUNDLE>
+		if you are getting '502 proxy' errors, try using a smaller value (default 50)
+
+
+Examples
+-------
+
+Create channel 'my-stable-channel' for RHEL 4 AS u3 i386:
+./create-channel-update  -u admin -s myserver.example.com -v 4 -u u3 -r AS -a i386   -d my-stable-channel
+
+or another way:
+./create-channel-update  -u admin -s myserver.example.com  -D ./data/4-U3-AS-i386  -d my-stable-channel
+
+Upgrade prevously created channel 'my-stable-channel' to RHEL 4 AS u4 i386: 
+./create-channel-update  -u admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel
+
+Add the extra's channel as a child channel of 'my-stable-channel':
+./create-channel-update  -u admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel
+"""
+
+def error(msg):
+   print msg
+   usage()
+   exit(-1)
+
+def usage():
+   print """
+./create-channel-update  -u USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE 
+		-u UPDATE -a ARCH -e EXTRA  [ -D DATAFILE]  [-c SRCCHAN] -d DESTCHAN [-P PARENT]  
+		[-C | --clear] [-n | --nossl]
+"""
+
+if __name__ == "__main__":
+    main()
