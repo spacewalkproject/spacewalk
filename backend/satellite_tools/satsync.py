@@ -2075,8 +2075,6 @@ def processCommandline():
             help='forcibly process all (not a diff of) package metadata'),
         Option(     '--force-all-errata',  action='store_true',
             help='forcibly process all (not a diff of) errata metadata'),
-        Option(     '--cache-refresh-level', action='store',
-            help='(deprecated)'),
         Option(     '--debug-level',         action='store',
             help='override debug level set in /etc/rhn/rhn.conf (which is currently set at %s).' % CFG.DEBUG),
         Option(     '--email',               action='store_true',
@@ -2114,9 +2112,6 @@ def processCommandline():
         msg = "ERROR: these arguments make no sense in this context (try --help): %s" % repr(args)
         log2stderr(-1, msg, 1,1)
         sys.exit(19)
-
-    if OPTIONS.cache_refresh_level:
-        log2stderr(-1, "WARNING: --cache-refresh-level has been deprecated", 1,1)
 
     #
     # process anything CFG related (db, debug, server, and print)
