@@ -101,7 +101,7 @@
 		  </rl:column>
 		
 		  <rl:column headerkey="erratalist.jsp.updated" bound="false"
-		  	sortattr="updateDate"
+		  	sortattr="updateDateObj"
 		  	sortable="true"
 		  	defaultsort="desc">
 		      ${current.updateDate}
