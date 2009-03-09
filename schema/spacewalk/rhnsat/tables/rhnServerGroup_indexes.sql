@@ -16,25 +16,21 @@
 
 create index rhn_sg_id_oid_name_idx
 	on rhnServerGroup(id,org_id,name)
-	parallel 6
         tablespace [[4m_tbs]]
 	nologging;
 	
 create index rhn_sg_oid_id_name_idx
 	on rhnServerGroup(org_id,id,name)
-	parallel 6
         tablespace [[8m_tbs]]
 	nologging;
 	
 create index rhn_sg_type_id_idx
 	on rhnServerGroup(group_type,id)
-	parallel 6
         tablespace [[4m_tbs]]
 	nologging;
 	
 create index rhn_sg_oid_type_id_idx
 	on rhnServerGroup(org_id, group_type, id)
-	parallel 6
         tablespace [[4m_tbs]]
 	nologging;
 
