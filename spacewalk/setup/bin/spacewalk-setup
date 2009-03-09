@@ -372,9 +372,6 @@ sub syscall_retry {
 sub setup_ssl_vhost {
   my $opts = shift;
   my $answers = shift;
-  my ($sslconf_content, $original_sslconf_content, $pre, $vhost, $post);
-  my $sslconf_path = '/etc/httpd/conf.d/ssl.conf';
-  local *FILE;
 
   if ($opts{"skip-ssl-vhost-setup"}) {
     print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
@@ -390,6 +387,10 @@ sub setup_ssl_vhost {
     print Spacewalk::Setup::loc("** Skipping SSL virtual host configuration.\n");
     return;
   }
+
+  my ($sslconf_content, $original_sslconf_content, $pre, $vhost, $post);
+  my $sslconf_path = '/etc/httpd/conf.d/ssl.conf';
+  local *FILE;
   # backup /etc/httpd/conf.d/ssl.conf if it exists
   if (-f $sslconf_path) {
     my $done = 0;
