@@ -69,11 +69,6 @@ web_user_site_info
 
 create sequence web_user_site_info_id_seq;
 
-create index web_user_site_info_wuid 
-    on web_user_site_info(web_user_id)
-create index wusi_email_uc_idx
-    on web_user_site_info ( email_uc );
-
 create or replace trigger
 web_user_si_timestamp
 before insert or update on web_user_site_info
@@ -85,25 +80,3 @@ end;
 /
 show errors
 
---
--- Revision 1.5  2003/02/20 17:44:17  misa
--- bugzilla: none  Typo
---
--- Revision 1.4  2003/02/18 23:39:09  pjones
--- cascade deletes here
---
--- Revision 1.3  2002/12/13 16:33:07  pjones
--- email_uc
---
--- Revision 1.2  2002/05/09 05:45:24  gafton
--- unify again
---
--- Revision 1.3  2002/02/22 15:24:24  pjones
--- missed address2_ol .  oops.
---
--- Revision 1.2  2002/02/19 18:55:48  pjones
--- add sequence
---
--- Revision 1.1  2002/02/13 16:20:43  pjones
--- commit these here
---
