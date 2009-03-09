@@ -71,7 +71,6 @@ create sequence web_user_site_info_id_seq;
 
 create index web_user_site_info_wuid 
     on web_user_site_info(web_user_id)
-    parallel 6;
 create index wusi_email_uc_idx
     on web_user_site_info ( email_uc );
 
