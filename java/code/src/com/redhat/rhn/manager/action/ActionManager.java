@@ -1327,7 +1327,8 @@ public class ActionManager extends BaseManager {
      */
     public static List scheduleAllErrataUpdate(User scheduler, Server srvr,
             Date earliest) {
-        List errata = SystemManager.unscheduledErrata(scheduler, srvr.getId(), null);
+        DataResult errata = SystemManager.unscheduledErrata(scheduler, srvr.getId(), null);
+        errata.elaborate();
         // I don't have time to model SQL into Hibernate lingo, and I don't want
         // to have to write yet another one off SQL query just to overcome
         // Hibernate.
