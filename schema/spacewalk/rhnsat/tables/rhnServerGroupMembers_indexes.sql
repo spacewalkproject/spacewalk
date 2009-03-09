@@ -21,7 +21,6 @@ create unique index rhn_sgmembers_sid_sgid_uq
 
 create index rhn_sgmembers_sgid_sid_idx
 	on rhnServerGroupMembers(server_group_id, server_id)
-	parallel 6
         tablespace [[4m_tbs]]
 	nologging;
 
