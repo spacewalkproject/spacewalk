@@ -651,7 +651,7 @@ sub ping {
                                 }
                                 push(@pings, $time);
                             }
-                            $Log->log_method(3, "ping time", "@pings[-1]\n");
+                            $Log->log_method(3, "ping time", "$pings[-1]\n");
 			}
 		    }
 		}
