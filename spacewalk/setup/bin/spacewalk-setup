@@ -405,9 +405,7 @@ sub setup_ssl_vhost {
     }
     open FILE, $sslconf_path or die "Error opening [$sslconf_path]: $!\n";
   } else {
-    print Spacewalk::Setup::loc("Setup did not find $sslconf_path. Using default setup template.\n");
-    my $init_sslconf_path = Spacewalk::Setup::SHARED_DIR . '/ssl.conf.base';
-    open FILE, $init_sslconf_path or die "Error opening [$sslconf_path]: $!\n";
+    die "$sslconf_path does not exist.\n";
   }
 
   {
