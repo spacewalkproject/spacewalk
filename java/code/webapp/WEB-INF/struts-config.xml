@@ -4233,6 +4233,17 @@
                  path="/WEB-INF/pages/admin/config/restart.jsp"/>
     </action>
 
+    <action path="/admin/config/Cobbler"
+        scope="request"
+        input="/WEB-INF/pages/admin/config/cobbler.jsp"
+        type="com.redhat.rhn.frontend.action.satellite.CobblerAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/config/cobbler.jsp"/>
+                 
+    </action>
+    
     <action path="/YourRhnClips"
         scope="request"
         input="/WEB-INF/pages/common/fragments/yourrhn/yourrhnclips.jsp"

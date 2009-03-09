@@ -74,6 +74,15 @@ public interface StrutsDelegate {
     void addError(String msgKey, ActionErrors errors);
     
     /**
+     * Add a message to an existing set of ActionErrors. Useful to add stuff to
+     * an already populated ActionErrors instance
+     * @param errors to add too
+     * @param msgKey to add
+     * @param params key params
+     */
+    void addError(ActionErrors errors, String msgKey,  Object... params);    
+    
+    /**
      * Add a UI message to the Request.
      * @param msgKey of the string you want to display
      * @param req used to store the message in.
