@@ -7,32 +7,27 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 --
 --
 --
 
-create table rhnServerNeededCache
-(
-	server_id	number
-			constraint rhn_sncp_sid_nn not null
-			constraint rhn_sncp_sid_fk
-				references rhnServer(id)
-				on delete cascade,
-	errata_id	number
-			constraint rhn_sncp_eid_fk
-				references rhnErrata(id)
-				on delete cascade,
-	package_id	number
-			constraint rhn_sncp_pid_nn not null
-			constraint rhn_sncp_pid_fk
-				references rhnPackage(id)
-				on delete cascade
-)
-	enable row movement
+create index rhn_snc_pid_idx
+	on rhnServerNeededCache(package_id)
+	tablespace [[128m_tbs]]
+	nologging;
+
+create index rhn_snc_sid_idx
+	on rhnServerNeededCache(server_id)
+	tablespace [[128m_tbs]]
+	nologging;
+
+create index rhn_snc_eid_idx
+	on rhnServerNeededCache(errata_id)
+	tablespace [[128m_tbs]]
 	nologging;
 
