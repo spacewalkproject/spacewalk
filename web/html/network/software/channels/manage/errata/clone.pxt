@@ -35,6 +35,7 @@
     <url>/rhn/errata/details/Details.do?eid={column:id}</url>
   </column>
   <column name="Owned Errata" label="owned_errata_list" />
+  <column name="Synopsis" label="ADVISORY_SYNOPSIS" />
   <column name="Action" label="select_action" />
 
   <empty_list_message>No Errata.</empty_list_message>

@@ -180,7 +180,7 @@ ORDER BY E.last_modified DESC, E.id
 
 <mode name="relevant_to_one_channel_but_not_another">
   <query params="cid, cid_2">
-SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.advisory_type
+SELECT DISTINCT E.id, E.update_date, E.advisory_name, E.advisory_type, E.synopsis as ADVISORY_SYNOPSIS
   FROM rhnErrata E,
        rhnChannelErrata CE
  WHERE CE.channel_id = :cid
