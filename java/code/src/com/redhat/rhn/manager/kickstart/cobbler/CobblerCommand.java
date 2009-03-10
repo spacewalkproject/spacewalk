@@ -156,8 +156,7 @@ public abstract class CobblerCommand {
         
         String kickstartConfigDir = Config.get().getString("kickstart.cobbler.dir", 
             "/var/lib/rhn/kickstarts/");
-        String fileName = String.format(format, label.replace(' ', '_'), org.getId(),
-                org.getName().replace(' ', '_')); 
+        String fileName = String.format(format, label.replace(' ', '_'), org.getId()); 
         String retval = kickstartConfigDir + fileName + ".cfg";
         return retval;         
     }
