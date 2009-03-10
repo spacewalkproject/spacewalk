@@ -213,9 +213,8 @@ def activateSatellite_local(options):
         raise RHNCertLocalActivationException(
             'RHN Entitlement Certificate cannot be imported - ' + str(e) \
             + '\nPlease rerun with --ignore-version-mismatch if you want to override this test.')
-    except satCerts.NoFreeEntitlementsError:
-        sys.stderr.write(
-	    'ERROR:: You do not have enough entitlements in the base org.\n')
+    except satCerts.NoFreeEntitlementsError, e:
+        sys.stderr.write('ERROR: ' + e.message + '\n'  )
         sys.exit(1)
     except Exception:
         raise RHNCertLocalActivationException(
