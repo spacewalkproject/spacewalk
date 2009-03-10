@@ -76,6 +76,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
+import com.redhat.rhn.frontend.dto.ProfilePackageOverviewDto;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
@@ -96,6 +97,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -1642,6 +1644,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         String profileLabel = TestUtils.randomString(); 
         
+        Profile newProfile = ProfileFactory.findByNameAndOrgId(profileLabel,
+                admin.getOrg().getId());
+        assertNull(newProfile);
         
         Integer returned = handler.createPackageProfile(adminKey, 
                 new Integer(testServer.getId().intValue()), 
@@ -1649,13 +1654,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         assertEquals(new Integer(1), returned);
         
-        Profile newProfile = ProfileFactory.findByNameAndOrgId(profileLabel, 
+        newProfile = ProfileFactory.findByNameAndOrgId(profileLabel,
                 admin.getOrg().getId());
         assertNotNull(newProfile);
-        assertEquals(1, newProfile.getPackageEntries().size());
-        assertEquals(testPackage.getPackageName().getName(),
-                ((ProfileEntry)newProfile.getPackageEntries().toArray()[0])
-                .getName().getName());  
+
+        DataResult profilePackages = ProfileManager.listProfilePackages(newProfile.getId());
+        assertEquals(1, profilePackages.size());
     }
     
     public void testComparePackageProfile() throws Exception {

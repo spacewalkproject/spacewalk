@@ -52,6 +52,7 @@ import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.NoBaseChannelFoundException;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
@@ -63,7 +64,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
-import com.redhat.rhn.domain.rhnpackage.profile.ProfileEntry;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
@@ -98,6 +98,7 @@ import com.redhat.rhn.frontend.xmlrpc.NotEnoughEntitlementsException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooLongException;
 import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooShortException;
+import com.redhat.rhn.frontend.xmlrpc.ProfileNoBaseChannelException;
 import com.redhat.rhn.frontend.xmlrpc.SystemIdInstantiationException;
 import com.redhat.rhn.frontend.xmlrpc.SystemsNotDeletedException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
@@ -2943,37 +2944,21 @@ public class SystemHandler extends BaseHandler {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
                 loggedInUser);
         
-        Profile profile = ProfileFactory.findByNameAndOrgId(profileLabel, 
-                loggedInUser.getOrg().getId());
-        if (profile != null) {
+        try {
+            Profile profile = ProfileManager.createProfile(loggedInUser, server,
+                profileLabel, desc);
+            ProfileManager.copyFrom(server, profile);
+        }
+        catch (DuplicateProfileNameException dbe) {
             throw new DuplicateProfileNameException("Package Profile already exists " +
                     "with name: " + profileLabel);
         }
-        else {
-            profile = ProfileFactory.createProfile(ProfileFactory.lookupByLabel("normal"));
-        }
-        
-        profile.setBaseChannel(server.getBaseChannel());
-        profile.setOrg(loggedInUser.getOrg());
-        profile.setName(profileLabel);
-        profile.setDescription(desc);
-        profile.setInfo("");
-        profile.setCreated(new Date());
-        
-        Set profileList = new HashSet();
-        Set systemList = server.getPackages();
-        
-        for (Iterator it = systemList.iterator(); it.hasNext();) {
-            InstalledPackage pack = (InstalledPackage) it.next();
-            ProfileEntry entry = new ProfileEntry();
-            entry.setEvr(pack.getEvr());
-            entry.setName(pack.getName());
-            entry.setProfile(profile);      
-            profileList.add(entry);
+        catch (NoBaseChannelFoundException nbcfe) {
+            throw new ProfileNoBaseChannelException();
         }
 
-        profile.setPackageEntries(profileList);
-        ProfileFactory.save(profile);
+        Profile newProfile = ProfileFactory.findByNameAndOrgId(profileLabel,
+                loggedInUser.getOrg().getId());
         
         return 1;
     }
