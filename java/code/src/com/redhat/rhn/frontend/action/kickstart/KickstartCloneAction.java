@@ -58,7 +58,7 @@ public class KickstartCloneAction extends RhnAction {
         
         KickstartCloneCommand cmd = 
             new KickstartCloneCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID), 
-                ctx.getCurrentUser()); 
+                ctx.getCurrentUser(), form.getString(FormActionContstants.LABEL)); 
                
         request.setAttribute(RequestContext.KICKSTART, cmd.getKickstartData());
 
@@ -75,7 +75,6 @@ public class KickstartCloneAction extends RhnAction {
                 // Validate the label
                 try {
                     builder.validateNewLabel(label);
-                    cmd.setNewLabel(form.getString(FormActionContstants.LABEL));
                     ValidatorError ve = cmd.store();
 
                     if (ve != null) {

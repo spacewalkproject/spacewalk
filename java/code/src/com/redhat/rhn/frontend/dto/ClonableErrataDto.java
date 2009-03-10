@@ -31,8 +31,8 @@ public class ClonableErrataDto extends BaseDto {
     protected String synopsis;
     protected String updateDate;
     protected Boolean alreadyCloned;
-    protected List channelId;
-    protected List channelName;
+    protected List channelId = new ArrayList();
+    protected List channelName =  new ArrayList();
 
     /**
      * @return Returns the channelId.

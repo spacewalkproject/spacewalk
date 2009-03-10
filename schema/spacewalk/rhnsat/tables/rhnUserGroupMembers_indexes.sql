@@ -16,13 +16,11 @@
 
 create unique index rhn_ugmembers_uid_ugid_uq
 	on rhnUserGroupMembers(user_id, user_group_id)
-	parallel 6
 	tablespace [[8m_tbs]]
   ;
 
 create index rhn_ugmembers_ugid_uid_idx
 	on rhnUserGroupMembers(user_group_id, user_id)
-	parallel 6
 	tablespace [[8m_tbs]]
 	nologging;
 

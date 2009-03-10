@@ -12,16 +12,15 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.frontend.action.channel.manage;
 
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.user.User;
+package com.redhat.rhn.frontend.action.satellite;
+
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.manager.satellite.CobblerSyncCommand;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -29,41 +28,33 @@ import org.apache.struts.action.ActionMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
- * ChannelPackagesAction
+ * @author paji
  * @version $Rev$
  */
-public class ChannelPackageMenuAction extends RhnAction {
-
-
-
+public class CobblerAction extends RhnAction {
     /** {@inheritDoc} */
+    @Override
     public ActionForward execute(ActionMapping mapping,
-            ActionForm formIn,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-
-        RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
-
-
-        long cid = requestContext.getRequiredParam("cid");
-
-        Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-        ChannelFactory.lookupByLabelAndUser(chan.getLabel(), user);
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-            throw new PermissionCheckFailureException(RoleFactory.CHANNEL_ADMIN);
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+        RequestContext ctx = new RequestContext(request);
+        
+        if (ctx.isSubmitted()) {
+            CobblerSyncCommand cmd = new CobblerSyncCommand(ctx.getLoggedInUser());
+            ValidatorError ve = cmd.store();
+            if (ve == null) {
+                addMessage(request, "cobbler.jsp.synced");    
+            }
+            else {
+                ActionErrors errors = new ActionErrors();
+                getStrutsDelegate().addError(errors, ve.getKey(), ve.getValues());
+                getStrutsDelegate().saveMessages(request, errors);
+            }
         }
-
-        request.setAttribute("channel_name", chan.getName());
-        request.setAttribute("channel", chan);
-
+        
         return mapping.findForward("default");
-
     }
-
-
-
-
-
 }
