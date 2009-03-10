@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.14
+Version:        0.5.15
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Mar 10 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.15-1
+- add missing ';' when creating web_user_site_info_wuid
+
 * Mon Mar  9 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.14-1
 - fix upgrade script dropping parallel query
 
