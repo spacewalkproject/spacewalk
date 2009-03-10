@@ -153,7 +153,6 @@ sub connect {
 
   return if PXT::Config->get('debug_disable_database');
 
-  $alias ||= $ENV{RHN_DEFAULT_DB};
   $alias ||= $RHN::DB::default_handle;
   if ($handles{$alias} and $handles{$alias}->{Active}) {
     my $dbh = $handles{$alias};
