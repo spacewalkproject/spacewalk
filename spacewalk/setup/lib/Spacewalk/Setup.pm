@@ -1222,7 +1222,6 @@ sub generate_satcon_dict {
 }
 
 sub satcon_deploy {
-	my $class = shift;
 	my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
 				tree => { default => DEFAULT_RHN_SATCON_TREE },
 				dest => { default => '/etc' },
@@ -1240,7 +1239,6 @@ sub satcon_deploy {
 }
 
 sub generate_server_pem {
-	my $class = shift;
 	my %params = validate(@_, { ssl_dir => 1, system => 1, out_file => 0 });
 
 	my @opts;
