@@ -1331,7 +1331,8 @@ public class KickstartData {
     public String getCobblerFileName() {
         if (getCobblerId() != null) {
             Profile prof = Profile.lookupById(
-                    CobblerXMLRPCHelper.getConnection("Kickstartread"), getCobblerId());
+                   CobblerXMLRPCHelper.getConnection(
+                   Config.get().getString(Config.COBBLER_AUTOMATED_USER)), getCobblerId());
             if (!StringUtils.isBlank(prof.getKickstart())) {
                 return prof.getKickstart();
             }
