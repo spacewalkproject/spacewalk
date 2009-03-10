@@ -16,7 +16,6 @@ package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 
 /**
@@ -33,9 +32,11 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
      * Construct a KickstartCloneCommand
      * @param ksidIn id of KickstartData that wants to be cloned
      * @param userIn user doing the cloning
+     * @param newLabelIn to gived to cloned ks.
      */
-    public KickstartCloneCommand(Long ksidIn, User userIn) {
+    public KickstartCloneCommand(Long ksidIn, User userIn, String newLabelIn) {
         super(ksidIn, userIn);
+        this.newLabel = newLabelIn;
     }
 
     /**
@@ -52,10 +53,8 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         }
         // we keep the name and the label the same.
         clonedKickstart = this.ksdata.deepCopy(user, newLabel);
-        KickstartFactory.saveKickstartData(clonedKickstart);
-        // TODO: COBBLERIZE
-        // CobblerProfileCreateCommand cmd =
-        //    new CobblerProfileCreateCommand(ksdata, "");
+        KickstartWizardHelper helperCmd = new KickstartWizardHelper(user);
+        helperCmd.store(clonedKickstart);
         return null;
     }
 
@@ -76,11 +75,4 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
     }
 
     
-    /**
-     * @param newLabelIn The newLabel to set.
-     */
-    public void setNewLabel(String newLabelIn) {
-        this.newLabel = newLabelIn;
-    }
-
 }

@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartCloneCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -78,12 +79,20 @@ public class KickstartRawDataTest extends BaseTestCaseWithUser {
     }
     
     public void testDeepCopy() throws Exception {
-        // Test deepCopy
-        KickstartRawData clone = new KickstartRawData();
+        ((KickstartRawData) ksdata).setData(fileContents);
+        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata);
+        cmd.store();
+        
+        KickstartFactory.saveKickstartData(ksdata);
+        System.out.println("KSData111.label: " + ksdata.getLabel());
+        System.out.println("KSData111.id: " + ksdata.getId());
+        KickstartCloneCommand ccmd = new KickstartCloneCommand(ksdata.getId(), 
+                user, TestUtils.randomString());
+        ccmd.store();
+        KickstartRawData clone = (KickstartRawData) ccmd.getClonedKickstart();
         clone = (KickstartRawData) ksdata.deepCopy(user, TestUtils.randomString());
         assertNotNull(clone);
         assertEquals(clone.getData(), ksdata.getData());
-
     }
     
     public void testEditActualFile() throws Exception {

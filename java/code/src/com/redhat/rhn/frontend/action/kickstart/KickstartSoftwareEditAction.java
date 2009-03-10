@@ -65,6 +65,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         String fieldChanged = form.getString("fieldChanged");
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         KickstartableTree tree = cmd.getKickstartData().getKickstartDefaults().getKstree();
+        KickstartHelper kshelper = new KickstartHelper(ctx.getRequest());
         List trees = null;
         Long incomingChannelId = (Long) form.get(CHANNEL);
         Long channelId = incomingChannelId;
@@ -132,7 +133,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         if (form.get(TREE) == null) {
             form.set(TREE, tree.getId());
         }
-        ctx.getRequest().setAttribute("nourl", "true");
+        
         if (form.getString(URL) == null) {
             ctx.getRequest().setAttribute("nourl", "true");
         }
@@ -173,12 +174,9 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     private void setupUrl(RequestContext ctx, DynaActionForm form, 
                             KickstartableTree kstree) {
         if (kstree != null) {
-            //KickstartHelper helper = new KickstartHelper(ctx.getRequest());
-            String url = kstree.getBasePath();
-            if (!kstree.basePathIsUrl() && url.charAt(0) != '/') {
-                url = '/' + url;
-            }
-            form.set(URL, url);
+            KickstartHelper kshelper = new KickstartHelper(ctx.getRequest());
+            form.set(URL, kstree.getDefaultDownloadLocation(
+                        kshelper.getKickstartHost()));
         }
         else {
             form.set(URL, "");
