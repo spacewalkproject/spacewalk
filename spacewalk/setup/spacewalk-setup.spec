@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.17
+Version:        0.5.18
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Mar 10 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.18-1
+- 488092 - moved some routines to Setup.pm so they can be used from outside
+
 * Wed Mar  4 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.17-1
 - ssl virtual host setup modifies existing ssl.conf
 
