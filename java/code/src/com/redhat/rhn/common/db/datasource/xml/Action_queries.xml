@@ -1,5 +1,5 @@
 <datasource_modes>
-
+ <!-- PGPORT_2:AS KEYWORD -->
 <mode name="system_events_history" class="com.redhat.rhn.frontend.dto.HistoryEvent">
   <query params="sid">
 SELECT EVENT_ID as ID,
@@ -49,6 +49,7 @@ ORDER BY COMPLETED DESC, PICKED_UP DESC, CREATED DESC, EVENT_ID DESC
 </mode>
 
 <query name="action_overview_elab" params="user_id, org_id" multiple="t">
+<!-- PGPORT_1:NO Change -->
 SELECT UAO.id,
        UAO.action_status,
        UAO.tally
@@ -64,6 +65,7 @@ SELECT UAO.id,
 <mode name="recently_scheduled_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id, age">
+<!-- PGPORT_3:ORAFCE(NVL) -->
 select 
     distinct a.id as id, 
    a.earliest_action as earliest, 
@@ -92,6 +94,7 @@ order by id desc
 
 
 <query name="action_list_elab" params="user_id, org_id" >
+<!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id as ID,
         A.prerequisite AS PREREQUISITE,
         UAO.type_name,
@@ -116,6 +119,7 @@ SELECT  DISTINCT UAO.id as ID,
 <mode name="pending_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST
   FROM  rhnUserActionOverview UAO
@@ -133,6 +137,7 @@ ORDER BY EARLIEST DESC
 <mode name="pending_actions_in_set"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id, set_label">
+<!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
         A.prerequisite AS PREREQUISITE,
@@ -158,6 +163,7 @@ ORDER BY EARLIEST DESC
 <mode name="all_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
+<!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
         UAO.type_name,
@@ -178,6 +184,7 @@ ORDER BY EARLIEST DESC
 <mode name="completed_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
+<!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
         UAO.type_name,
@@ -200,6 +207,7 @@ ORDER BY EARLIEST DESC
 <mode name="failed_action_list"
     class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
+<!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
         UAO.type_name,
@@ -223,6 +231,7 @@ ORDER BY EARLIEST DESC
 <mode name="archived_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
+<!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         UAO.earliest_action AS EARLIEST,
         UAO.type_name,
@@ -241,6 +250,7 @@ ORDER BY EARLIEST DESC
 
 <write-mode name="archive_actions">
   <query params="user_id, label, org_id">
+<!-- PGPORT_1:NO Change -->
 UPDATE rhnAction
    SET archived = 1
  WHERE id IN (SELECT element FROM rhnSet WHERE user_id = :user_id
@@ -259,6 +269,7 @@ END;
 
 <write-mode name="schedule_action">
   <query params="action_id, name_id, evr_id, arch_id">
+<!-- PGPORT_1:NO Change -->
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id, package_arch_id)
 VALUES (rhn_act_p_id_seq.nextval, :action_id, :name_id, :evr_id, :arch_id)
   </query>
@@ -266,6 +277,7 @@ VALUES (rhn_act_p_id_seq.nextval, :action_id, :name_id, :evr_id, :arch_id)
 
 <write-mode name="schedule_action_no_arch">
   <query params="action_id, name_id, evr_id">
+<!-- PGPORT_1:NO Change -->
 INSERT INTO rhnActionPackage (id, action_id, name_id, evr_id)
 VALUES (rhn_act_p_id_seq.nextval, :action_id, :name_id, :evr_id)
   </query>
@@ -274,6 +286,7 @@ VALUES (rhn_act_p_id_seq.nextval, :action_id, :name_id, :evr_id)
 <!-- this is so WRONG -->
 <write-mode name="insert_package_delta_element">
   <query params="delta_id, operation, n, e, v, r, a">
+<!-- PGPORT_1:NO Change -->
 INSERT INTO rhnPackageDeltaElement (package_delta_id, transaction_package_id)
 VALUES (:delta_id, lookup_transaction_package(:operation, :n, :e, :v, :r, :a))
   </query>
@@ -281,6 +294,7 @@ VALUES (:delta_id, lookup_transaction_package(:operation, :n, :e, :v, :r, :a))
 
 <write-mode name="insert_action_package_delta">
   <query params="action_id, delta_id">
+<!-- PGPORT_1:NO Change -->
 INSERT INTO rhnActionPackageDelta (action_id, package_delta_id)
 VALUES (:action_id, :delta_id)
   </query>
@@ -288,6 +302,7 @@ VALUES (:action_id, :delta_id)
 
 <mode name="visible_to_user">
   <query params="user_id, aid">
+<!-- PGPORT_1:NO Change -->
 SELECT  1
   FROM  rhnUserActionOverview UAO
  WHERE  UAO.user_id = :user_id

@@ -34,7 +34,7 @@ import dbtests
 PG_HOST = "localhost"
 PG_USER = "dgoodwin"
 PG_PASSWORD = "spacewalk"
-PG_DATABASE = "sw"
+PG_DATABASE = "spacewalk"
 
 rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
         password=PG_PASSWORD, database=PG_DATABASE)
@@ -54,5 +54,5 @@ if __name__ == "__main__":
         import testoob
         testoob.main(defaultTest="suite")
     except ImportError:
-        print "These tests would run prettier if you install python-testoob. :)"
+        print "These tests would run prettier if you installed testoob. :)"
         unittest.main(defaultTest="suite")

@@ -27,14 +27,14 @@ __rhnexport__ = ['schedule_deploy', 'schedule_pkg_install', ]
 # queries
 _query_copy_pkgs_from_shadow_action = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    select rhn_act_p_id_seq.nextval, :new_action_id, name_id, parameter
+    select sequence_nextval('rhn_act_p_id_seq'), :new_action_id, name_id, parameter
       from rhnActionPackage
      where action_id = :action_id
 """)
 
 _query_copy_revs_from_shadow_action = rhnSQL.Statement("""
     insert into rhnActionConfigRevision (id, action_id, server_id, config_revision_id)
-    select rhn_actioncr_id_seq.nextval, :new_action_id, server_id, config_revision_id
+    select sequence_nextval('rhn_actioncr_id_seq'), :new_action_id, server_id, config_revision_id
       from rhnActionConfigRevision
      where action_id = :action_id
        and server_id = :server_id

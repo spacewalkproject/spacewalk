@@ -92,7 +92,7 @@ class User:
             # I'll assume it's not something to happen very frequently, 
             # so I'll use a query for now
             # - misa
-            # 
+            # PGPORT_1:NO Change # 
             h = rhnSQL.prepare("""
                 select ui.use_pam_authentication
                 from web_contact w, rhnUserInfo ui
@@ -223,6 +223,7 @@ class User:
         is_admin = 0
         if self.customer.real:
             # get the org_id and the applicant group id for this org
+            # PGPORT_1:NO Change #
             org_id = self.customer["id"]
             h = rhnSQL.prepare("""
             select ug.id
@@ -281,6 +282,7 @@ class User:
                 self.contact["password"] = crypt_pwd
             self.contact.create(userid)
             # rhnUserInfo
+            # PGPORT_1:NO Change #
             h = rhnSQL.prepare("insert into rhnUserInfo (user_id) "
                                "values (:user_id)")
             h.execute(user_id=userid)
@@ -313,7 +315,7 @@ class User:
 
     def get_roles(self):
         user_id = self.getid()
-
+    # PGPORT_2:AS KEYWORD #
         h = rhnSQL.prepare("""
             select ugt.label role
               from rhnUserGroup ug,
@@ -408,6 +410,7 @@ def session_reload(session_string):
     return u
 
 # search for an userid
+ # PGPORT_1:NO Change #
 def get_user_id(username):
     username = str(username)
     h = rhnSQL.prepare("""
@@ -434,6 +437,7 @@ def search(user):
     return ret
 
 # create a reservation record
+ # PGPORT_1:NO Change #
 def reserve_user(username, password):
     return __reserve_user_db(username, password)
 
@@ -467,6 +471,7 @@ def __reserve_user_db(user, password):
         raise rhnFault(2001)
 
     # now check the reserved table
+    # PGPORT_1:NO Change #
     h = rhnSQL.prepare("""
     select r.login, r.password from rhnUserReserved r
     where r.login_uc = upper(:p1)
@@ -486,6 +491,7 @@ def __reserve_user_db(user, password):
     # this is not reserved either, register it
     if encrypted_password:
         # Encrypt the password, let the function pick the salt
+        # PGPORT_1:NO Change #
         password = encrypt_password(password)
 
     h = rhnSQL.prepare("""
@@ -507,6 +513,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     log_debug(3, username, email, encrypted_password)
 
     # now search it in the database        
+    # PGPORT_1:NO Change #
     h = rhnSQL.prepare("""
     select w.id, w.password, w.old_password, ui.use_pam_authentication
     from web_contact w, rhnUserInfo ui
@@ -520,6 +527,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     
     if not data:
         # the username is not there, check the reserved user table
+        # PGPORT_1:NO Change #
         h = rhnSQL.prepare("""
         select login, password, password old_password from rhnUserReserved
         where login_uc = upper(:username)
@@ -580,6 +588,7 @@ def __new_user_db(username, password, email, org_id, org_password):
             user.set_info("email", email)
             
     # XXX This should go away eventually
+    # PGPORT_1:NO Change #
     if org_id and org_password: # check out this org
         h = rhnSQL.prepare("""
         select id, password from web_customer
@@ -610,6 +619,7 @@ def __new_user_db(username, password, email, org_id, org_password):
     # check if we need to remove the reservation
     if not data.has_key("id"):
         # remove reservation
+        # PGPORT_1:NO Change #
         h = rhnSQL.prepare("""
         delete from rhnUserReserved where login_uc = upper(:username)
         """)
@@ -665,7 +675,7 @@ def check_email(email):
     
 def check_unique_email(email):
     return __check_unique_email_db(email)
-
+   # PGPORT_1:NO Change #
 def __check_unique_email_db(email):
     h = rhnSQL.prepare("""
         select 1

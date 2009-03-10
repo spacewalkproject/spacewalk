@@ -1,5 +1,6 @@
 <datasource_modes>
 <mode name="tablespace_overview">
+<!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSTEM) -->
   <query params="">
 SELECT DT.tablespace_name, DT.extent_management,
        DFS.bytes FREE_BYTES, DTS.bytes TOTAL_BYTES,

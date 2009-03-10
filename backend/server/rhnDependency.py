@@ -22,6 +22,7 @@ import string
 
 # QUERY PACKAGES
 # sql query for solving a dep as a package
+ # PGPORT_2:AS KEYWORD #
 __packages_with_arch_and_id_sql = """
 select distinct
     p.id id,
@@ -61,6 +62,7 @@ and pe.evr = (
     and p1.evr_id = pe1.id
     )
 """
+ # PGPORT_2:AS KEYWORD #
 __packages_sql = """
 select distinct
     pn.name name,
@@ -99,7 +101,7 @@ and pe.evr = (
     and p1.evr_id = pe1.id
     )
 """
-
+ # PGPORT_2:AS KEYWORD #
 __packages_all_sql = """
 select distinct
     pn.name name,
@@ -126,6 +128,7 @@ and p.package_arch_id = pa.id
 """
 # QUERY PROVIDES
 # sql query for solving a dep as a provide
+ # PGPORT_2:AS KEYWORD #
 __provides_sql  = """
 select  distinct
     pn.name,
@@ -171,7 +174,7 @@ and pe.evr = (
     and p1.evr_id = pe1.id
     )
 """
-
+ # PGPORT_2:AS KEYWORD #
 __provides_all_sql  = """
 select  distinct
     pn.name,
@@ -203,6 +206,7 @@ and p.package_arch_id = pa.id
 """
 # QUERY FILES
 # sql query for solving a dependency as a file provide
+ # PGPORT_2:AS KEYWORD #
 __files_sql = """
 select distinct
     pn.name,
@@ -248,7 +252,7 @@ and pe.evr = (
     )
 """
 
-
+ # PGPORT_2:AS KEYWORD #
 __files_all_sql = """
 select distinct
     pn.name,

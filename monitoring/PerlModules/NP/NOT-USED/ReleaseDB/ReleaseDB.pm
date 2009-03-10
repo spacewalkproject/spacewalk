@@ -150,7 +150,7 @@ sub expand_macro {
   my @bindvals;
 
   $self->_check_reqs(['MACRO_NAME'], \%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT component_class, component_name
     FROM   macro_component
@@ -196,6 +196,7 @@ sub select_all_cvs_paths {
 ###############################
   my $self = shift;
   my @bindvals;
+ # PGPORT_4:QUERY_REWRITE(UNIQUE) #
   my $sql = <<EOSQL;
 	SELECT UNIQUE CVS_PATH
 	FROM COMPONENT
@@ -226,7 +227,7 @@ sub select_release_components {
   $self->_check_reqs($pk, \%args);
 
   my($wherephrase, $bindvals) = $self->_wherephrase(\%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT BOX_TYPE, BOX_NAME, VERSION, RELEASE_NUMBER,
            rcv.COMPONENT_CLASS as COMPONENT_CLASS,
@@ -259,7 +260,7 @@ sub select_current_component_version {
   $args{'CVS_BRANCH'} ||= DBRANCH;
 
   my($wherephrase, $bindvals) = $self->_wherephrase(\%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT *
     FROM   component_version cv
@@ -296,7 +297,7 @@ sub select_current_macro_versions {
   $self->_check_reqs(['MACRO_NAME'], \%args);
 
   $args{'CVS_BRANCH'} ||= DBRANCH;
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(START WITH CONNECT BY CLAUSE) #
   my $sql = <<EOSQL;
     SELECT *
     FROM   component_version outer
@@ -420,7 +421,7 @@ sub verify_macro_components {
     "Cannot verify '$args{'MACRO_NAME'}': nonexistent macro\n"
   ) unless ($rec);
 
-
+ # PGPORT_1:NO Change #
   #   2) Verify all non-macro components;
   my $sql = <<EOSQL;
     SELECT   mc.component_class, mc.component_name
@@ -548,6 +549,7 @@ sub make_branch {
   $self->_check_reqs([qw(CVS_BRANCH)], \%args);
 
   # 1) Bail out if the branch already exists
+  #  # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT count(*) as RECORDS
     FROM   component_version
@@ -565,6 +567,7 @@ EOSQL
 
   # 2) Create branch by copying COMPONENT_VERSION
   #    records from the trunk to the branch
+  # PGPORT_1:NO Change #
   $sql = <<EOSQL;
   INSERT INTO component_version (
       COMPONENT_CLASS, COMPONENT_NAME, COMPONENT_VERSION, SORT_STRING,
@@ -602,6 +605,7 @@ sub merge_branch {
   $self->_check_reqs([qw(CVS_BRANCH)], \%args);
 
   # 1) Bail out if the trunk doesn't exist
+  # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT count(*) as RECORDS
     FROM   component_version
@@ -630,7 +634,7 @@ EOSQL
   # Situation b) is indicated when the latest version on the trunk
   # exists on the branch and is not equal to the latest version on
   # the branch.
-
+  # PGPORT_1:NO Change #
   $sql = <<EOSQL;
   INSERT INTO component_version (
       COMPONENT_CLASS, COMPONENT_NAME, COMPONENT_VERSION, SORT_STRING,
@@ -694,6 +698,7 @@ sub copy_to_branch {
   my($wherephrase, $bindvals) = $self->_wherephrase(\%args);
 
   # Copy a single component version to a branch.
+  # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
   INSERT INTO component_version (
       COMPONENT_CLASS, COMPONENT_NAME, COMPONENT_VERSION, SORT_STRING,
@@ -727,6 +732,7 @@ sub delete_whole_release {
   my($wherephrase, $bindvals) = $self->_wherephrase(\%args);
 
   # 1) Delete release_component_version records
+  # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     DELETE FROM release_component_version
     WHERE $wherephrase
@@ -736,6 +742,7 @@ EOSQL
 
 
   # 2) Delete release record
+  # PGPORT_1:NO Change #
   $sql = <<EOSQL;
     DELETE FROM release
     WHERE $wherephrase
@@ -937,6 +944,7 @@ sub _create {
     $fields{$col} = $DEFAULT->{$col} unless (exists($fields{$col}));
     if ($DEFAULT->{$col} eq 'sysdate') {
       # Fancy stuff for sysdate
+      # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
       push(@bindvars, 
 	"DECODE(?, 'sysdate', sysdate, TO_DATE(?, 'YYYY-MM-DD HH24:MI:SS'))");
       push(@bindvals, $fields{$col}, $fields{$col});
@@ -980,7 +988,7 @@ sub _select_records {
   my %args  = @_;
 
   my($wherephrase, $bindvals) = $self->_wherephrase(\%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT *
     FROM   $table
@@ -1017,7 +1025,7 @@ sub _delete_records {
   my %args  = @_;
 
   my($wherephrase, $bindvals) = $self->_wherephrase(\%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     DELETE
     FROM   $table
@@ -1059,7 +1067,7 @@ sub _update_records {
 
   my($setphrase,   $sbindvals) = $self->_wherephrase($set, ',');
   my($wherephrase, $wbindvals) = $self->_wherephrase(\%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     UPDATE $table
     SET    $setphrase

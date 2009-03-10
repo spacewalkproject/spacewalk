@@ -116,7 +116,6 @@ class Cursor:
     def __init__(self, dbh=None, sql=None, force=None):
         self.sql = sql
         self.dbh = dbh
-        self._type_mapping = []
 
         self.reparsed = 0
         self._real_cursor = None
@@ -156,6 +155,14 @@ class Cursor:
         self.sql = sql
         self._real_cursor = self._prepare(force=force)
 
+    def update_blob(self, table_name, column_name, where_clause, 
+            data, **kwargs):
+        """
+        Abstraction for the update of a blob column which can vary wildly
+        between different database implementations.
+        """
+        raise NotImplementedError
+
     def execute(self, *p, **kw):
         """ Execute a single query. """
         return apply(self._execute_wrapper, (self._execute, ) + p, kw)
@@ -173,8 +180,30 @@ class Cursor:
         """
         Uses executemany but chops the incoming dict into chunks for each
         call.
+
+        When attempting to execute bulk operations with a lot of rows in the
+        arrays,
+        Oracle may occasionally lock (probably the oracle client library).
+        I noticed this previously with the import code. -- misa
+        This function executes bulk operations in smaller chunks
+        dict is supposed to be the dictionary that we normally apply to
+        statement.execute.
         """
-        raise NotImplementedError
+        ret = 0
+        start_chunk = 0
+        while 1:
+            subdict = {}
+            for k, arr in dict.items():
+                subarr = arr[start_chunk:start_chunk + chunk_size]
+                if not subarr:
+                    # Nothing more to do here - we exhausted the array(s)
+                    return ret
+                subdict[k] = subarr
+            ret = ret + apply(self.executemany, (), subdict)
+            start_chunk = start_chunk + chunk_size
+
+        # Should never reach this point
+        return ret
 
     def _execute_wrapper(self, function, *p, **kw):
         """ 
@@ -243,92 +272,25 @@ class Cursor:
             return 1
         return 0
 
-    def _munge_arg(self, val):
-        for sqltype, dbtype in self._type_mapping:
-            if isinstance(val, sqltype):
-                var = self._real_cursor.var(dbtype, val.size)
-                var.setvalue(0, val.get_value())
-                return var
-
-        # TODO: Find out why somebody flagged this with XXX?
-        # XXX
-        return val.get_value()
-
-    def _unmunge_args(self, kw_dict, modified_params):
-        for k, v in modified_params:
-            v.set_value(kw_dict[k].getvalue())
-
-    def _munge_args(self, kw_dict):
-        modified = []
-        for k, v in kw_dict.items():
-            if not isinstance(v, sql_types.DatabaseDataType):
-                continue
-            vv = self._munge_arg(v)
-            modified.append((k, v))
-            kw_dict[k] = vv
-        return modified
 
 
-
-# A class to handle calls to the SQL functions and procedures
 class Procedure:
-    def __init__(self, name, proc):
-        self.name = name
-        self.proc = proc
+    """ 
+    Class for calling out to stored procedures.
 
-        # Subclasses override with their own type mapping to convert types
-        # specific to the database backend into those defined in sql_types.
-        # Mapped as a list of (sql_type.class, db.class) tuples.  self._type_mapping = []
-        self._type_mapping = []
-        
-    def __call__(self, *args):
-        log_debug(2, self.name, args)
-        retval = self._call_proc(args)
-        return retval
+    Written to behave very much like a Python function in that these
+    Procedure objects are "callable".
+
+    See database specific implementations for more details.
+    """
+    def __init__(self, name, cursor):
+        self.name = name
+        self.cursor = cursor
 
     def __del__(self):
-        if self.proc:
-            self.proc.close()
-            self.proc = None
-
-    def _call_proc(self, args):
-        return self._call_proc_ret(args, ret_type=None)
-
-    def _call_proc_ret(self, args, ret_type=None):
-        args = map(adjust_type, self._munge_args(args))
-        if ret_type:
-            for sqltype, db_type in self._type_mapping:
-                if isinstance(ret_type, sqltype):
-                    ret_type = db_type
-                    break
-                else:
-                    raise Exception("Unknown type", ret_type)
-
-        if ret_type:
-            return self.proc.callfunc(self.name, ret_type, args)
-        else:
-            return self.proc.callproc(self.name, args)
-
-    def _munge_args(self, args):
-        """
-        Converts database specific argument types to those defined in sql_base.
-        """
-        new_args = []
-        for arg in args:
-            if not isinstance(arg, sql_types.DatabaseDataType):
-                new_args.append(arg)
-                continue
-            new_args.append(self._munge_arg(arg))
-        return new_args
-
-    def _munge_arg(self, val):
-        for sqltype, db_specific_type in self._type_mapping:
-            var = self.proc.var(db_specific_type, val.size)
-            var.setvalue(0, val.get_value())
-            return var
-
-        # XXX
-        return val.get_value()
+        if self.cursor:
+            self.cursor.close()
+            self.cursor = None
 
 
 
@@ -372,6 +334,8 @@ class Database:
         in. see cx_Oracle's Cursor.callproc for more details"""
         return self._procedure_class(name, None)
     
+        return self._procedure_class(name, None)
+
     def function(self, name, ret_type):
         """
         Return a pointer to a callable instance for a given stored
@@ -382,7 +346,13 @@ class Database:
         usually the database drivers do not allow for auto-discovery.
         See cx_Oracle's Cursor.callfunc for more details.
         """
-        return self._procedure_class(name, None)
+        if not isinstance(ret_type, sql_types.DatabaseDataType):
+            raise sql_base.SQLError("Invalid return type specified", ret_type)
+        return self._function(name, ret_type)
+
+    def _function(self, name, ret_type):
+        raise NotImplementedError
+
     
     def transaction(self, name):
         "set a transaction point to which we can rollback to"

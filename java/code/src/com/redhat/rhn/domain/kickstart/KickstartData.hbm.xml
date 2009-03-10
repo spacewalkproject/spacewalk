@@ -114,6 +114,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     <sql-query name="commandSort">
             <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>
+          <!--#PGPORT_1:NO Change-->
                 SELECT {sortcol.*}
                 FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname 
                 WHERE KICKSTART_ID = :id
@@ -129,6 +130,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         AND ksd.kstree_id = 121
 -->
     <sql-query name="KickstartData.lookupByTreeId">
+<!--#PGPORT_1:NO Change-->
         <![CDATA[SELECT {k.*}
                     FROM rhnKickstartDefaults ksd,
                          rhnksdata k

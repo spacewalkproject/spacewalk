@@ -2,6 +2,7 @@
 
 <mode name="comparison_to_snapshot">
   <query params="">
+ <!-- PGPORT_3:ORAFCE(DUAL) -->
 SELECT 1 FROM DUAL
 <!-- dummy -->
   </query>
@@ -10,6 +11,7 @@ SELECT 1 FROM DUAL
 
 <mode name="system_snapshot_group_list">
   <query params="user_id, sid, ss_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
 SELECT  SG.id,
         SG.name AS GROUP_NAME,
         SGT.label AS GROUP_TYPE_LABEL,
@@ -28,6 +30,7 @@ SELECT  SG.id,
 
 
   <query name="visible_to_user_overview_fast" params="org_id, user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(DECODE),AS KEYWORD -->
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
          NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
@@ -49,6 +52,7 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
   </query>
 
   <query name="visible_to_user_overview_slow" params="org_id, user_id">
+ <!-- PGPORT_3:ORAFCE(NVL) -->
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
          NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
@@ -63,6 +67,7 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 
 
 <query name="visible_to_user_ids" params="user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ORDER BY) -->
 SELECT DISTINCT SG.id AS ID, SG.name AS GROUP_NAME
   FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
  WHERE UMSG.user_id = :user_id
@@ -79,6 +84,7 @@ ORDER BY UPPER(NAME)
 
 <mode name="visible_groups_summary">
   <query params="org_id, user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(DECODE),AS KEYWORD -->
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
          GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
          NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
@@ -104,6 +110,7 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 
  <mode name="groups_a_system_is_in">
  	<query params="sid, org_id, user_id">
+ <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
 	SELECT VSGM.group_id AS ID,
  		SG.name AS GROUP_NAME,
  		SGT.label AS GROUP_TYPE_LABEL,
@@ -124,6 +131,7 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 
 <mode name="groups_a_system_is_in_unsafe">
   <query params="sid, org_id">
+<!-- PGPORT_1:NO Change -->
 SELECT SGM.group_id AS ID,
        SG.name AS GROUP_NAME
   FROM rhnServerGroup SG,
@@ -138,6 +146,7 @@ ORDER BY UPPER(SG.name)
 
 <mode name="user_permissions">
   <query params="formvar_uid, org_id">
+<!-- PGPORT_1:NO Change -->
 SELECT SG.id, SG.name AS GROUP_NAME,
        NVL((SELECT MAX(1)
               FROM rhnUserServerGroupPerms USGP 
@@ -152,6 +161,7 @@ ORDER BY UPPER(SG.name), SG.id
 
 <mode name="ssm_group_membership_select">
   <query params="org_id">
+<!-- PGPORT_1:NO Change -->
 SELECT  SGO.group_id ID, SGO.group_name
   FROM  rhnServerGroup SG, rhnServerGroupOverview SGO
  WHERE  SGO.org_id = :org_id

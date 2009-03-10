@@ -30,7 +30,7 @@ sub assign_set_to_group {
   my $query = "delete from rhnSet where user_id = :user_id and label = :label";
   my $sth0 = $dbh->prepare($query);
   $sth0->execute_h(user_id=>$set->uid, label=>"user_group_list");
-
+ # PGPORT_1:NO Change #
   my $sth1 = $dbh->prepare(<<EOQ);
 INSERT INTO rhnSet (user_id, label, element, element_two)
 SELECT :user_id, 'user_group_list', element, :ugid
@@ -56,11 +56,11 @@ sub remove_set_from_group {
   my $ugid = shift;
 
   my $dbh = RHN::DB->connect();
-
+ # PGPORT_1:NO Change #
   my $query = "delete from rhnSet where user_id = :user_id and label = :label";
   my $sth0 = $dbh->prepare($query);
   $sth0->execute_h(user_id=>$set->uid, label=>"user_group_list");
-
+ # PGPORT_1:NO Change #
   my $sth1 = $dbh->prepare(<<EOQ);
 INSERT INTO rhnSet (user_id, label, element, element_two)
 SELECT :user_id, 'user_group_list', element, :ugid

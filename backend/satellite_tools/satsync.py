@@ -823,8 +823,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         h.close()
 
         self._diff_packages()
-
-    _query_compare_packages = """
+#PGPORT_2:AS KEYWORD
+    _query_compare_packages = rhnSQL.Statement("""
         select p.id, p.md5sum, p.path, p.package_size,
                TO_CHAR(p.last_modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnPackage p
@@ -833,18 +833,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
            and p.package_arch_id = lookup_package_arch(:arch)
            and (p.org_id = :org_id or
                (p.org_id is null and :org_id is null))
-           and p.md5sum =: md5sum
-    """
+    """)
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
         package_collection = sync_handlers.ShortPackageCollection()
-        nvrea_keys = ['name', 'epoch', 'version', \
-                      'release', 'arch', 'md5sum']
         h = rhnSQL.prepare(self._query_compare_packages)
-
         missing_channel_packages = {}
         missing_fs_packages = {}
-
         for channel_label, upids in self._uq_channel_packages.items():
             log(1, "Diffing package metadata (what's missing locally?): %s" %
                 channel_label)
@@ -866,7 +861,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 package = package_collection.get_package(pid, p_timestamp)
                 assert package is not None
                 nevra = {}
-                for t in nvrea_keys:
+                for t in ['name', 'epoch', 'version', 'release', 'arch']:
                     nevra[t] = package[t] or ""
 
                 if OPTIONS.orgid is not None:
@@ -1233,7 +1228,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     continue
                 uq_kickstarts[kt] = None
                 uq_cks.append(kt)
-
+#PGPORT_2:AS KEYWORD
     _query_get_kickstarts = rhnSQL.Statement("""
         select TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
           from rhnKickstartableTree
@@ -1462,7 +1457,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                     mp.append(eid)
 
         return missing_errata
-
+#PGPORT_2:AS KEYWORD
     _query_get_db_errata = rhnSQL.Statement("""
         select e.id, e.advisory_name,
                TO_CHAR(e.last_modified, 'YYYYMMDDHH24MISS') last_modified
@@ -1942,6 +1937,7 @@ def _provisioningCapableYN():
     """
 
     try:
+#PGPORT_1:No Change
         h = rhnSQL.prepare("""\
             SELECT 1
             FROM web_contact WC,
@@ -2258,7 +2254,7 @@ def processCommandline():
 
     if actionDict['no-rpms']:
         actionDict['rpms'] = 0
-        
+                
 
     #if actionDict['no-srpms']:
     #    actionDict['srpms'] = 0

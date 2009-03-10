@@ -14,7 +14,6 @@
 --
 --
 -- 
---
 
 insert into rhnFeature (id, label, name, created, modified)
 values (rhn_feature_seq.nextval, 'ftr_package_updates', 'Update Packages',

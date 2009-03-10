@@ -39,7 +39,7 @@ sub test_db_schema {
   return 1 unless PXT::Config->get("satellite");
 
   my $dbh = RHN::DB->connect;
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOQ);
 SELECT object_name
   FROM user_objects
@@ -51,7 +51,7 @@ EOQ
   $sth->finish;
 
   return 0 unless $row;
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   $sth = $dbh->prepare(<<EOQ);
 SELECT 1
   FROM user_objects
@@ -90,7 +90,7 @@ sub get_default_tablespace_name {
   my $db_user = shift;
 
   my $dbh = RHN::DB->connect;
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOQ);
 SELECT UU.default_tablespace
   FROM user_users UU
@@ -112,7 +112,7 @@ sub check_db_privs {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOQ);
 SELECT DISTINCT privilege
   FROM (
@@ -172,7 +172,7 @@ sub check_db_tablespace_settings {
   $class->check_db_privs();
 
   my $dbh = RHN::DB->connect;
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOQ);
 SELECT UT.status, UT.contents, UT.logging
   FROM user_tablespaces UT
@@ -211,7 +211,7 @@ sub get_nls_database_parameters {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOQ);
 SELECT NDP.parameter, NDP.value
   FROM nls_database_parameters NDP
@@ -253,7 +253,7 @@ sub clear_db {
   if (grep { $dbh->{Name} eq $_ } qw/webdev webqa web phx live prod/) {
     throw "No!  Attempt to clear db: '" . $dbh->{Name} . "'\n";
   }
-
+#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $select_sth = $dbh->prepare(<<EOQ);
   SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
     FROM user_objects UO
@@ -282,6 +282,7 @@ sub schema_version {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
+#PGPORT_1:NO Change
   my $sth = $dbh->prepare(<<EOQ);
    SELECT VI.label,
           VI.name_id,
@@ -317,6 +318,7 @@ sub update_monitoring_config {
   my $mon_config = shift;
 
   my $dbh = RHN::DB->connect;
+#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = :definition,
@@ -340,8 +342,9 @@ sub update_monitoring_environment {
   my $dbh = RHN::DB->connect;
   # BZ 226915 we cannot use db_name from %answers - it contains instance name
   # we want real db name
+  #PGPORT_3:ORAFCE(DUAL)
   my ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
-
+#PGPORT_1:NO Change
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(:db_name)
@@ -375,7 +378,7 @@ sub create_satellite_org {
 sub get_satellite_org_id {
   my $class = shift;
   my $dbh = RHN::DB->connect;
-
+#PGPORT_1:NO Change
   my $sth = $dbh->prepare("SELECT MIN(id) FROM web_customer");
   $sth->execute;
   my ($org_id) = $sth->fetchrow;
@@ -387,6 +390,7 @@ sub valid_cert_countries {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
+#PGPORT_4:QUERY_REWRITE(ANSI JOIN),NVL
   my $sth = $dbh->prepare(<<EOQ);
   SELECT VC.code AS VALUE,
          nvl(TL.short_name_tl, VC.short_name) AS LABEL
@@ -417,6 +421,7 @@ sub set_first_gritch_destination {
   throw "No user id" unless $uid;
 
   my $dbh = RHN::DB->connect;
+#PGPORT_1:NO Change
   my $sth = $dbh->prepare(<<EOQ);
   SELECT CM.recid,
          CM.method_name,

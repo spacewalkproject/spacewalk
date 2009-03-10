@@ -18,7 +18,7 @@ utabs = {}
 for k,v  in tabs.iteritems():
    utabs[k.upper()] = v
 
-
+#PGPORT_1:NO Change
 rhnSQL.initDB(DB)
 h = rhnSQL.prepare("""select table_name, column_name, data_type, data_length
 	from user_tab_columns""")

@@ -65,7 +65,7 @@ def get_all_orgs():
         raise NoOrgIdError("Unable to look up org_id")
     return rows
 
-
+#PGPORT_1:NO Change
 _queryLookupOrgId = rhnSQL.Statement("""
     SELECT id
       FROM web_customer
@@ -98,7 +98,7 @@ def create_first_org(owner):
         # Now create the first private channel family
         create_first_private_chan_family()
     return get_org_id()
-
+#PGPORT_1:NO Change
 _query_get_slot_types = rhnSQL.Statement("""
     select sg.group_type slot_type_id, sgt.label slot_name
       from rhnServerGroup sg,
@@ -106,10 +106,10 @@ _query_get_slot_types = rhnSQL.Statement("""
      where sg.org_id = :org_id
        and sg.group_type = sgt.id
 """)
-
+#PGPORT_1:NO Change
 _query_get_allorg_slot_types = rhnSQL.Statement("""
-    select sg.org_id,sg.group_type slot_type_id, 
-           sgt.label slot_name, sg.max_members, sg.current_members
+    select sg.org_id,sg.group_type as slot_type_id, 
+           sgt.label as slot_name, sg.max_members, sg.current_members
       from rhnServerGroup sg,
            rhnServerGroupType sgt
      where sg.group_type = sgt.id
@@ -206,7 +206,7 @@ def set_slots_from_cert(cert):
         slot_name = cert.lookup_slot_by_db_label(db_label)
         activate_system_entitlement(org_id, db_label, 0)
         org_service_proc(org_id, slot_name, 'N')
-            
+
     # NOTE: must rhnSQL.commit() in calling function.
 
 def storeRhnCert(cert, check_generation=0, check_version=0):
@@ -274,19 +274,13 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
         # bitch to fix because the channel family's name column is *based* on 
         # the certificate owner
 
-        # insert and prep the blob
         h = rhnSQL.prepare(_query_insert_cert)
         h.execute(label=label, version=version, expires=expires, issued=issued)
 
-        # update the blob
-        h_update = rhnSQL.prepare(_query_cert_for_update)
-        h_update.execute(label=label, version=version,
-                         issued=issued, expires=expires)
-        row = h_update.fetchone_dict()
-
-        # We should have a row, if we don't let the exception pass
-        cert_blob = row['cert']
-        cert_blob.write(cert)
+        # Oracle aparently needs a separate query to update the cert blob:
+        h.update_blob("rhnSatelliteCert", "cert", 
+            "WHERE label = :label AND version = :version", cert, label=label,
+            version=version)
 
     # always reset the slots
     set_slots_from_cert(sc)
@@ -299,7 +293,7 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
         push_monitoring_configs(org_id)
 
     rhnSQL.commit()
-
+#PGPORT_1:NO Change
 _query_update_dates = rhnSQL.Statement("""
     UPDATE rhnSatelliteCert
        SET issued = :issued, expires = :expires
@@ -307,14 +301,18 @@ _query_update_dates = rhnSQL.Statement("""
            AND ((version is null and :version is null)
                 OR version = :version)
 """)
-
+#PGPORT_1:NO Change
 _query_latest_version = rhnSQL.Statement("""
-    SELECT nvl(version, 0) version, version orig_version, cert,
-           TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') issued,
-           TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') expires
-      FROM rhnSatelliteCert
-     WHERE label = :label
-     ORDER BY version DESC NULLS LAST
+    SELECT COALESCE(version, 0) as version, version as orig_version, cert,
+        TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
+        TO_CHAR(expires, 'YYYY-MM-DD HH24:MI:SS') as expires
+    FROM rhnSatelliteCert
+    WHERE label = :label
+    ORDER BY CASE WHEN version IS NULL
+        THEN 0 
+        ELSE version
+    END, version
+    DESC
 """)
 def retrieve_db_cert(label='rhn-satellite-cert'):
     h = rhnSQL.prepare(_query_latest_version)
@@ -324,7 +322,7 @@ def retrieve_db_cert(label='rhn-satellite-cert'):
         return None
     row['cert'] = rhnSQL.read_lob(row['cert'])
     return row
-
+#PGPORT_1:NO Change
 _query_insert_cert = rhnSQL.Statement("""
     INSERT into rhnSatelliteCert 
            (label, version, cert, expires, issued)
@@ -332,30 +330,22 @@ _query_insert_cert = rhnSQL.Statement("""
             TO_DATE(:expires, 'YYYY-MM-DD HH24:MI:SS'), 
             TO_DATE(:issued, 'YYYY-MM-DD HH24:MI:SS'))
 """)
-
+#PGPORT_1:NO Change
 _query_update_web_customer = rhnSQL.Statement("""
     UPDATE web_customer
     SET name = :owner
     WHERE id = 1
 """)
-
+#PGPORT_1:NO Change
 _query_update_web_user = rhnSQL.Statement("""
     UPDATE web_user_personal_info
     SET company = :owner
 """)
-
+#PGPORT_1:NO Change
 _query_update_rhnchannelfamily = rhnSQL.Statement("""
     UPDATE rhnchannelfamily
     SET name = :owner
     WHERE org_id = 1
-""")
-
-_query_cert_for_update = rhnSQL.Statement("""
-    SELECT cert 
-      FROM rhnSatelliteCert
-     WHERE label = :label
-           AND version = :version
-       FOR update of cert
 """)
 
 #
@@ -378,7 +368,7 @@ def push_monitoring_configs(org_id):
 
         print "Pushing scout configs to all monitoring scouts"
         
-
+#PGPORT_1:NO Change
 _query_get_sat_clusters = rhnSQL.Statement("""
     SELECT recid
       FROM rhn_Sat_Cluster
@@ -457,15 +447,16 @@ def _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert):
 
     cert = strip(open(caCert, 'rb').read())
 
-    h = rhnSQL.prepare(_querySelectCryptoCert)
-    h.execute(rhn_cryptokey_id=rhn_cryptokey_id)
-    row = h.fetchone_dict()
-    if not row:
+    # Use our update blob wrapper to accomodate differences between Oracle
+    # and PostgreSQL:
+    h = rhnSQL.cursor()
+    try:
+        h.update_blob("rhnCryptoKey", "key", "WHERE id = :rhn_cryptokey_id",
+            cert, rhn_cryptokey_id=rhn_cryptokey_id)
+    except:
         # didn't go in!
         raise CaCertInsertionError("ERROR: CA certificate failed to be "
                                    "inserted into the database")
-    lob = row['key']
-    lob.write(cert)
 
 
 def store_rhnCryptoKey(description, caCert, verbosity=0):
@@ -499,9 +490,9 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
             raise CaCertInsertionError(
                 "...the traceback: %s" % fetchTraceback())
 
-
+#PGPORT_1:NO Change
 _querySelectCryptoCertInfo = rhnSQL.Statement("""
-    SELECT ck.id, ck.description, ckt.label type_label, ck.key
+    SELECT ck.id, ck.description, ckt.label as type_label, ck.key
       FROM rhnCryptoKeyType ckt,
            rhnCryptoKey ck
      WHERE ckt.label = 'SSL'
@@ -509,20 +500,13 @@ _querySelectCryptoCertInfo = rhnSQL.Statement("""
        AND ck.description = :description
        AND ck.org_id = :org_id
 """)
-
+#PGPORT_1:NO Change
 _queryInsertCryptoCertInfo = rhnSQL.Statement("""
     INSERT into rhnCryptoKey
            (id, org_id, description, crypto_key_type_id, key)
     SELECT :rhn_cryptokey_id, :org_id, :description, ckt.id, empty_blob()
       FROM rhnCryptoKeyType ckt
      WHERE ckt.label = 'SSL'
-""")
-
-_querySelectCryptoCert = rhnSQL.Statement("""
-    SELECT key
-      FROM rhnCryptoKey
-     WHERE id = :rhn_cryptokey_id
-       FOR update of key
 """)
 
 
@@ -538,10 +522,11 @@ def create_first_private_chan_family():
        Check to see if org has a channelfamily associated with it.
        If not, Create one.
        """
+#PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL)
        _query_create_chfam = """
           INSERT INTO  rhnChannelFamily
                  (id, name, label, org_id, product_url)
-          VALUES (rhn_channel_family_id_seq.nextval, :name, :label, :org, :url)
+          VALUES (sequence_nextval('rhn_channel_family_id_seq'), :name, :label, :org, :url)
 
        """
        h = rhnSQL.prepare(_query_create_chfam)

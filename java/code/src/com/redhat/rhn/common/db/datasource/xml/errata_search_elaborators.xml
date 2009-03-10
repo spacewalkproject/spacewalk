@@ -7,6 +7,7 @@
 <mode name="simple_errata_search">
   <query name="default_search_query" />
   <elaborator params="">
+<!-- PGPORT_1:NO CHANGE -->
   SELECT  E.id, E.synopsis MATCHING_FIELD
     FROM  rhnErrata E
    WHERE  E.id IN (%s)
@@ -16,6 +17,7 @@
 <mode name="errata_search_by_advisory">
   <query name="default_search_query" />
   <elaborator params="">
+<!-- PGPORT_1:NO CHANGE -->
   SELECT  E.id, E.synopsis MATCHING_FIELD
     FROM  rhnErrata E
    WHERE  E.id IN (%s)
@@ -25,6 +27,7 @@
 <mode name="errata_search_by_package_name">
   <query name="default_search_query" />
   <elaborator params="">
+<!-- PGPORT_1:NO CHANGE -->
   SELECT  E.id, 'DUMMY' MATCHING_FIELD
     FROM  rhnErrata E
    WHERE  E.id IN (%s)
@@ -32,6 +35,7 @@
 </mode>
 
 <query name="default_search_query" params="user_id">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS, 
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS ADVISORY_LAST_UPDATED
   FROM  rhnErrata E,

@@ -159,6 +159,7 @@ class Queue(rhnHandler):
         return f_action_ids
 
     def _invalidate_failed_prereq_actions(self):
+# PGPORT_2:AS KEYWORD
         h = rhnSQL.prepare("""
             select sa.action_id, a.prerequisite
               from rhnServerAction sa, rhnAction a
@@ -184,7 +185,7 @@ class Queue(rhnHandler):
             action_id, prereq_action_id = row['action_id'], row['prerequisite']
 
             self._invalidate_child_actions(action_id)
-
+# PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE), AS keyword
     _query_queue_get = rhnSQL.Statement("""
                     select sa.action_id id, a.version, 
                            sa.remaining_tries, at.label method,
@@ -304,6 +305,7 @@ class Queue(rhnHandler):
                 break
             else: # all fine
                 # Update the status of the action
+# PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
                 h = rhnSQL.prepare("""
                 update rhnServerAction
                     set status = 1,
@@ -358,7 +360,8 @@ class Queue(rhnHandler):
         log_debug(1, self.server_id, action_id, result)
         # check that the action is valid
         # We have a uniqueness constraint on (action_id, server_id)
-        h = rhnSQL.prepare("""
+# PGPORT_2:AS KEYWORD  
+      h = rhnSQL.prepare("""
             select at.label action_type,
                    at.trigger_snapshot,
                    at.name
@@ -477,6 +480,7 @@ class Queue(rhnHandler):
         # Authenticate the system certificate
         self.auth_system(system_id)
         log_debug(1, self.server_id)
+# PGPORT_2:AS KEYWORD
         h = rhnSQL.prepare("""
         select
             count(action_id) id
@@ -510,6 +514,7 @@ class Queue(rhnHandler):
         # get the names of the packages associated with each errata and
         # look them up in channels subscribed to by the server and select
         # the latest version
+# PGPORT_2:AS KEYWORD
         sql = """
         select
             pn.name name,
@@ -570,6 +575,7 @@ class Queue(rhnHandler):
         # - the latest packages (no EVR specified)
         # XXX Should we want to schedule the install for a specific version,
         # we'll have to modify this
+# PGPORT_2:AS KEYWORD
         statement = """
         select distinct
             pkglist.name name,

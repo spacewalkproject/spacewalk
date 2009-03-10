@@ -2,6 +2,7 @@
 
 <mode name="org_pkg_errata">
   <query params="org_id, pid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.advisory_name AS advisory,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
@@ -23,6 +24,7 @@ ORDER BY E.advisory_name
 
 <mode name="relevant_errata" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id">
+<!-- PGPORT_2: AS keyword required -->
 SELECT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
   FROM rhnErrata E,
        (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
@@ -38,6 +40,7 @@ ORDER BY  E.update_date DESC, E.id
 
 <mode name="relevant_errata_by_type" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id, type">
+<!-- PGPORT_2: AS keyword required -->
 SELECT E.id, E.update_date
   FROM rhnErrata E,
        (SELECT SNEC.errata_id, COUNT(SNEC.server_id) C
@@ -55,18 +58,28 @@ ORDER BY  E.update_date DESC, E.id
 
 <mode name="all_errata" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id">
-SELECT  DISTINCT E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
+<!-- PGPORT_1:NO CHANGE -->
+
+
+SELECT  E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
   FROM  rhnErrata E, rhnChannelErrata CE, rhnAvailableChannels AC
  WHERE  AC.org_id = :org_id
    AND  CE.channel_id = AC.channel_id
    AND  CE.errata_id = E.id
- ORDER BY  E.update_date DESC, E.id
+ UNION
+SELECT  E.id, E.update_date, E.synopsis AS ADVISORY_SYNOPSIS
+  FROM  rhnErrata E, rhnChannelErrata CE, rhnSharedChannelView SCV
+ WHERE  SCV.org_trust_id = :org_id
+   AND  CE.channel_id = SCV.id
+   AND  CE.errata_id = E.id
+ORDER BY 2 DESC, 1
   </query>
   <elaborator name="errata_overview" />
 </mode>
 
 <mode name="relevant_to_system" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id, sid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id, E.update_date,  
 			E.synopsis AS ADVISORY_SYNOPSIS,
             E.advisory_name AS ADVISORY_NAME,
@@ -82,6 +95,7 @@ SELECT DISTINCT E.id, E.update_date,
 ORDER BY E.update_date DESC, E.id
   </query>
   <elaborator params="sid" multiple="t">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT AEU.errata_id AS id,
                 AST.name AS status,
                 SA.action_id
@@ -104,6 +118,7 @@ SELECT DISTINCT AEU.errata_id AS id,
 
 <mode name="relevant_to_system_by_type" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="user_id, sid, type">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id, E.update_date,  
 			E.synopsis AS ADVISORY_SYNOPSIS,
             E.advisory_name AS ADVISORY_NAME,
@@ -123,6 +138,7 @@ ORDER BY E.update_date DESC, E.id
 
 <mode name="relevant_to_system_sorted_by_priority">
   <query params="user_id, sid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT E.synopsis AS ERRATA_SYNOPSIS, E.advisory_type
   FROM rhnErrata E,
        rhnServerNeededPackageCache SNEC,
@@ -138,6 +154,7 @@ ORDER BY  E.advisory_type DESC, E.update_date DESC,  E.id
 
 <mode name="count_critical_errata_for_system">
   <query params="user_id, sid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT COUNT(DISTINCT E.ID) AS COUNT
   FROM rhnErrata E,
        rhnServerNeededPackageCache SNEC,
@@ -153,6 +170,7 @@ SELECT COUNT(DISTINCT E.ID) AS COUNT
 
 <mode name="count_noncritical_errata_for_system">
   <query params="user_id, sid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT COUNT(DISTINCT E.ID) AS COUNT
   FROM rhnErrata E,
        rhnServerNeededPackageCache SNEC,
@@ -168,6 +186,7 @@ SELECT COUNT(DISTINCT E.ID) AS COUNT
    
 <mode name="unscheduled_relevant_to_system" class="com.redhat.rhn.domain.errata.impl.PublishedErrata">
   <query params="user_id, sid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id, E.update_date
   FROM rhnErrata E,
        rhnServerNeededPackageCache SNPC
@@ -186,6 +205,7 @@ SELECT DISTINCT E.id, E.update_date
 ORDER BY E.update_date, E.id
   </query>
   <elaborator name="published_overview" params="">
+<!-- PGPORT_1:NO CHANGE -->
     SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis
     FROM  rhnErrata E
     WHERE  E.id IN (%s)
@@ -195,6 +215,7 @@ ORDER BY E.update_date, E.id
 
 <mode name="issued_between">
   <query params="start_date_str, end_date_str">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT
                 E.id, E.issue_date
   FROM rhnErrata E
@@ -205,10 +226,9 @@ ORDER BY E.issue_date DESC
   </query>
 </mode>
 
-
-
 <mode name="in_channel_between" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="cid, start_date, end_date">
+
 SELECT DISTINCT E.id
   FROM rhnErrata E,
        rhnChannelErrata CE
@@ -251,6 +271,7 @@ SELECT DISTINCT E.id,
 
 <mode name="relevant_to_channel_between_deprecated">
   <query params="cid, start_date_str, end_date_str">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id,
 				E.advisory_name AS advisory,
 				E.advisory_name AS advisory_name,
@@ -273,6 +294,7 @@ ORDER BY last_modified_date DESC
 
 <mode name="relevant_to_channel_after_deprecated">
   <query params="cid, start_date_str">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT 
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
@@ -291,6 +313,25 @@ ORDER BY last_modified_date DESC
 
 <mode name="relevant_to_channel_deprecated">
   <query params="cid">
+<!-- PGPORT_1:NO CHANGE -->
+SELECT DISTINCT 
+				E.advisory_name AS advisory,
+                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
+                TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
+                E.synopsis as synopsis,
+                E.advisory_type as advisory_type,
+                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date  
+  FROM rhnErrata E,
+       rhnChannelErrata CE
+ WHERE CE.channel_id = :cid
+   AND CE.errata_id = E.id
+ORDER BY last_modified_date DESC
+  </query>
+</mode>
+
+<mode name="relevant_to_channel_by_type">
+  <query params="cid, type">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
@@ -328,6 +369,7 @@ ORDER BY last_modified_date DESC
 
 <mode name="in_sources_for_target" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid, user_id">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id , E.advisory_name AS advisory,
                 E.update_date AS UPDATE_DATE,
                 E.synopsis as ADVISORY_SYNOPSIS,
@@ -349,6 +391,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode  name="errata_list_in_set" class="com.redhat.rhn.frontend.dto.ErrataOverview">
 <query params="user_id, set" >
+<!-- PGPORT_1:NO CHANGE -->
   Select DISTINCT E.id , E.advisory_name AS advisory,
                E.update_date AS UPDATE_DATE,
                E.synopsis as ADVISORY_SYNOPSIS,
@@ -364,6 +407,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="in_sources_for_target_package_assoc" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid, user_id">
+<!-- PGPORT_1:NO CHANGE -->
   Select DISTINCT Errata1.id , Errata1.advisory_name AS advisory,
                Errata1.update_date AS UPDATE_DATE,
                Errata1.synopsis as ADVISORY_SYNOPSIS,
@@ -400,6 +444,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="for_target" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id , E.advisory_name AS advisory,
                 E.update_date AS UPDATE_DATE,
                 E.synopsis as ADVISORY_SYNOPSIS,
@@ -424,6 +469,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="for_target_package_assoc" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid">
+<!-- PGPORT_1:NO CHANGE -->
   Select  DISTINCT Errata1.id , Errata1.advisory_name AS advisory,
                Errata1.update_date AS UPDATE_DATE,
                Errata1.synopsis as ADVISORY_SYNOPSIS,
@@ -455,6 +501,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="custom_for_target" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id , E.advisory_name AS advisory,
                 E.update_date AS UPDATE_DATE,
                 E.synopsis as ADVISORY_SYNOPSIS,
@@ -477,6 +524,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="custom_for_target_package_assoc" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid">
+<!-- PGPORT_1:NO CHANGE -->
   Select  DISTINCT Errata1.id , Errata1.advisory_name AS advisory,
                Errata1.update_date AS UPDATE_DATE,
                Errata1.synopsis as ADVISORY_SYNOPSIS,
@@ -505,6 +553,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="find_packages_for_errata_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="uid, set">
+<!-- PGPORT_2:AS KEYWORD -->
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 	EVR.version
        || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
@@ -525,11 +574,12 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="find_packages_for_errata_set_with_assoc" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="custom_cid, uid, set">
+<!-- PGPORT_2:AS KEYWORD -->
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 		EVR.version
        || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
          package_nvre,
-         P.summary
+P.summary
     from
         rhnSet S inner join
         rhnErrata E on S.element = E.id inner join
@@ -537,9 +587,9 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
         rhnPackage P on P.id = EP.package_id inner join
         rhnPackageArch PA on PA.id = P.package_arch_id inner join
         rhnPackageEvr EVR on Evr.id = P.evr_id inner join
-    	rhnPackage P2 on P2.name_id = P.name_id inner join
-    	rhnChannelPackage CP on CP.package_id = P2.id inner join
-     	rhnPackageName PN on  PN.id = P.name_id
+    rhnPackage P2 on P2.name_id = P.name_id inner join
+    rhnChannelPackage CP on CP.package_id = P2.id
+    inner join rhnPackageName PN on  PN.id = P.name_id
     where S.label = :set
    		 and S.user_id = :uid
          and CP.channel_id = :custom_cid
@@ -549,6 +599,7 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
 
 <mode name="find_packages_for_errata_and_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="custom_cid, eid, org_id">
+<!-- PGPORT_2:AS KEYWORD -->
 	select distinct P.id, PN.name package_name, PA.label as package_arch,
 		EVR.version
        || '-' || EVR.release || (CASE WHEN EVR.epoch IS NULL THEN '' ELSE ':' || EVR.epoch END)
@@ -571,7 +622,9 @@ SELECT DISTINCT E.id , E.advisory_name AS advisory,
   </query>
 </mode>
 
+
 <query name="in_set" params="user_id, set_label">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id, E.update_date
   FROM rhnErrata E,
        rhnSet ST
@@ -585,7 +638,6 @@ ORDER BY E.update_date, E.id
   <query name="in_set" />
   <elaborator name="errata_overview" />
 </mode>
-
 
 <mode name="in_set_details" class="com.redhat.rhn.frontend.dto.ErrataOverview">
 	<query params="user_id, set_label">
@@ -607,6 +659,7 @@ ORDER BY E.update_date, E.id
 
 <mode name="unpublished_in_set" class="com.redhat.rhn.frontend.dto.OwnedErrata">
   <query params="user_id, set_label">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id,
        E.update_date,
        E.advisory,
@@ -629,6 +682,7 @@ ORDER BY E.update_date, E.id
 
 <mode name="published_in_set" class="com.redhat.rhn.frontend.dto.OwnedErrata">
   <query params="user_id, set_label">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id,
        E.update_date,
        E.advisory,
@@ -649,8 +703,11 @@ ORDER BY E.update_date, E.id
   <elaborator name="errata_overview" />
 </mode>
 
+
+
 <mode name="published_owned_errata" class="com.redhat.rhn.frontend.dto.OwnedErrata">
   <query params="org_id">
+<!-- PGPORT_1:NO CHANGE -->
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name, E.synopsis,
          E.update_date,
          E.created,
@@ -664,6 +721,7 @@ ORDER BY  E.update_date DESC, E.id
 
 <mode name="unpublished_owned_errata" class="com.redhat.rhn.frontend.dto.OwnedErrata">
   <query params="org_id">
+<!-- PGPORT_1:NO CHANGE -->
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name, E.synopsis,
          E.update_date,
          E.created,
@@ -675,8 +733,11 @@ ORDER BY  E.update_date DESC, E.id
   </query>
 </mode>
 
+
+
 <mode name="clonable_errata_list_all" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="org_id">
+<!-- PGPORT_3:ORAFCE(NVL) -->
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
          NVL(((SELECT 1
@@ -704,6 +765,7 @@ ORDER BY E.update_date DESC, E.id
 
 <mode name="clonable_errata_list_uncloned" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="org_id">
+<!-- PGPORT_3:ORAFCE(NVL) -->
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
          NVL(((SELECT 1
@@ -741,6 +803,7 @@ ORDER BY E.update_date DESC, E.id
 
 <mode name="clonable_errata_for_channel_all" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="channel_id, org_id">
+<!-- PGPORT_3:ORAFCE(NVL) -->
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
          NVL(((SELECT 1
@@ -769,6 +832,7 @@ ORDER BY E.update_date DESC, E.id
 
 <mode name="clonable_errata_for_channel_uncloned" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="channel_id, org_id">
+<!-- PGPORT_3:ORAFCE(NVL) -->
   SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
                   NVL(((SELECT 1
@@ -805,7 +869,10 @@ ORDER BY E.update_date DESC, E.id
   <elaborator name="related_channels_owned_by_org"/>
 </mode>
 
+
+
 <query name="related_channels_owned_by_org" multiple="t" params="org_id">
+<!-- PGPORT_1:NO CHANGE -->
   SELECT CE.errata_id AS ID, C.id as channel_id, C.name AS channel_name
     FROM rhnChannelErrata CE,
          rhnChannel C,
@@ -817,7 +884,9 @@ ORDER BY E.update_date DESC, E.id
 ORDER BY CE.errata_id, C.name
 </query>
      
+
 <query name="errata_overview" params="user_id">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.update_date, E.synopsis as advisory_synopsis,
     (SELECT  COUNT(DISTINCT S.id)
        FROM  rhnServerNeededErrataCache SNEC, rhnServer S, rhnUserServerPerms USP
@@ -835,6 +904,7 @@ ORDER BY  E.update_date DESC
 </query>
 
 <query name="relevant_to_system_set_elab" params="user_id">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type,
         E.synopsis AS advisory_synopsis,
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS advisory_last_updated,
@@ -860,39 +930,47 @@ ORDER BY  E.update_date DESC
 
 <write-mode name="deletePaidErrataTempCache">
   <query params="errata_id">
+<!-- PGPORT_1:NO CHANGE -->
  delete from rhnPaidErrataTempCache where errata_id = :errata_id
   </query>
 </write-mode>
 
 <write-mode name="deleteErrataFile">
   <query params="errata_id">
+<!-- PGPORT_1:NO CHANGE -->
  delete from rhnErrataFile where errata_id = :errata_id
   </query>
 </write-mode>
 
 <write-mode name="deleteErrataPackage">
   <query params="errata_id">
+<!-- PGPORT_1:NO CHANGE -->
  delete from rhnErrataPackage where errata_id = :errata_id
   </query>
 </write-mode>
 
 <write-mode name="deleteErrataTmp">
   <query params="errata_id">
+<!-- PGPORT_1:NO CHANGE -->
  delete from rhnErrataTmp where id = :errata_id
   </query>
 </write-mode>
 
 <write-mode name="deleteErrata">
   <query params="errata_id, org_id">
+<!-- PGPORT_1:NO CHANGE -->
  delete from rhnErrata where id = :errata_id and org_id = :org_id
   </query>
 </write-mode>
 
 
+
 <write-mode name="deleteServerErrataPackageCache">
   <query params="errata_id, org_id">
+<!-- PGPORT_1:NO CHANGE -->
 delete from rhnServerNeededCache
   where server_id in (select id from rhnServer where org_id = :org_id)
+  and org_id = :org_id
   and errata_id = :errata_id
   </query>
 </write-mode>
@@ -907,6 +985,7 @@ delete from rhnServerNeededCache
 
 <!-- Errata Search Queries -->
 <elaborator name="default_errata_elaborator" params="">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT  E.id, E.advisory, E.advisory_name, E.advisory_type, E.synopsis AS ADVISORY_SYNOPSIS, 
         TO_CHAR(E.update_date, 'YYYY-MM-DD') AS ADVISORY_LAST_UPDATED
   FROM  rhnErrata E
@@ -916,6 +995,7 @@ ORDER BY E.update_date DESC
 
 <mode name="errata_search_by_advisory" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id, search_string">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id, E.update_date
   FROM rhnErrata E,
        rhnChannelErrata CE,
@@ -931,6 +1011,7 @@ SELECT DISTINCT E.id, E.update_date
 
 <mode name="errata_search_by_package_name" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="org_id, search_string">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT DISTINCT E.id, E.update_date
   FROM rhnErrata E,
        rhnPackageName PN,
@@ -952,6 +1033,7 @@ SELECT DISTINCT E.id, E.update_date
 
 <mode name="bugs_fixed_by_errata" class="com.redhat.rhn.frontend.dto.Bug">
   <query params="eid">
+<!-- PGPORT_1:NO CHANGE -->
 SELECT  EBL.bug_id, EBL.summary
   FROM  rhnErrataBugList EBL
  WHERE  EBL.errata_id = :eid
@@ -1020,6 +1102,7 @@ SELECT  1
 
 <write-mode name="populate_visible_errata">
   <query params="session_id, org_id">
+<!-- PGPORT_1:NO CHANGE -->
   insert into rhnVisibleObjects ( SELECT distinct :session_id, E.id, 'errata'
                                     FROM rhnErrata E,
                                          rhnChannelErrata CE,
@@ -1032,6 +1115,7 @@ SELECT  1
 
 <mode name="channel_errata_for_list" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="cid">
+<!-- PGPORT_1:NO CHANGE -->
  SELECT DISTINCT E.id,
 				E.advisory_name AS advisory,
                 E.update_date AS update_date,

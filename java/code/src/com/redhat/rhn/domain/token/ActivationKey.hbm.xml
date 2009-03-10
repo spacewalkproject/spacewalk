@@ -22,15 +22,18 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
     
     <query name="ActivationKey.findByKey">
+<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.key = :key]]>
     </query>
     
     <query name="ActivationKey.findByToken">
+<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token = :token and 
         	kickstartSession = null]]>
     </query>
     
     <query name="ActivationKey.findByServer">
+<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[select actKey
                    from com.redhat.rhn.domain.token.ActivationKey actKey,
                         com.redhat.rhn.domain.token.Token token
@@ -39,10 +42,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     <query name="ActivationKey.findBySession">
+<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.kickstartSession = :session]]>
     </query>
     
     <query name="ActivationKey.findByOrg">
+<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.token.ActivationKey as ak where ak.token.org = :org]]>
     </query>
     

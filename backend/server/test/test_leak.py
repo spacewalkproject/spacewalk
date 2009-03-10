@@ -20,7 +20,7 @@ from server import rhnSQL
 
 print os.getpid()
 rhnSQL.initDB('rhnuser/rhnuser@webdev')
-
+  # PGPORT_3:ORAFCE() #
 h = rhnSQL.prepare("select 1 from dual")
 
 start = time.time()

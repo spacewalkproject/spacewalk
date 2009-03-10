@@ -95,7 +95,7 @@ sub CQ_Commands {
     return @cols;
 
   } elsif ($action eq 'insert') {
-
+ # PGPORT_3:ORAFCE(DUAL) #
     my $rv = $self->dbexec("SELECT $idseq FROM dual");
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
@@ -153,7 +153,7 @@ sub CQ_Instances {
     return @cols;
 
   } elsif ($action eq 'insert') {
-
+ # PGPORT_3:ORAFCE(DUAL) #
     my $rv = $self->dbexec("SELECT $idseq FROM dual");
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
@@ -345,7 +345,7 @@ sub Customer {
     return @cols;
 
   } elsif ($action eq 'insert') {
-
+ # PGPORT_3:ORAFCE(DUAL) #
     my $rv = $self->dbexec("SELECT $idseq FROM dual");
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
@@ -406,7 +406,7 @@ sub Netsaint {
     return @cols;
 
   } elsif ($action eq 'insert') {
-
+ # PGPORT_3:ORAFCE(DUAL) #
     my $rv = $self->dbexec("SELECT $idseq FROM dual");
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
@@ -472,7 +472,7 @@ sub Node {
     return @cols;
 
   } elsif ($action eq 'insert') {
-
+ # PGPORT_3:ORAFCE(DUAL) #
     my $rv = $self->dbexec("SELECT $idseq FROM dual");
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
@@ -575,7 +575,7 @@ sub Contact {
     return @cols;
 
   } elsif ($action eq 'insert') {
-
+ # PGPORT_3:ORAFCE(DUAL) #
     my $rv = $self->dbexec("SELECT $idseq FROM dual");
     $idnum = $rv->[0]->[0];
     unshift(@$whereclauses, '?');
@@ -958,7 +958,7 @@ sub getUnexpiredCQ_SessionBySessionId {
 
   my $self    = shift;
   my $sid     = shift;
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
   my($dataref, $ordref) = 
     $self->CQ_Sessions('select', ['session_id = ?', 
                                   'expiration_date > sysdate'], [$sid]);
@@ -1417,7 +1417,7 @@ sub updateCQ_Session {
 sub get_sysdate {
 #################
   my $self = shift();
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
   my $statement = sprintf("SELECT TO_CHAR(sysdate, '%s') as current_time FROM dual",$self->dateformat);
   my $ref       = $self->dbexec($statement);
 

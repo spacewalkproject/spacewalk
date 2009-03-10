@@ -14,7 +14,7 @@ sub run {
     $params{ora_sid} = delete $params{sid_0};
 
     my $ora = $args{data_source_factory}->oracle(%params);
-
+    #PGPORT_1:NO Change
     my $row = $ora->fetch_first(q{
 			    select count(*) as BLOCKED from v$lock
 			    where ctime > ?

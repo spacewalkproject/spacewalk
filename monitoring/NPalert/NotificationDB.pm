@@ -171,8 +171,10 @@ EOSQL
 sub select_schedule_days {
 ##########################
   my $self  = shift;
+ # PGPORT_1:NO Change #
   my $table = 'RHN_SCHEDULE_DAYS';
   my $sql   = <<EOSQL;
+
 SELECT 
   RECID, SCHEDULE_ID, ORD, 
   TO_CHAR(START_1,'HH24:MI') AS START_1,
@@ -196,7 +198,7 @@ sub select_global_redirects {
 #############################
   my $self  = shift;
   my $table = 'RHN_REDIRECTS';
-
+ # PGPORT_1:NO Change #
   my $fmt = DEF_DB_DATE_FMT;
   my $sql = <<EOSQL;
       SELECT 
@@ -234,7 +236,7 @@ sub select_active_redirects {
 #############################
   my $self  = shift;
   my $table = 'RHN_REDIRECTS';
-
+   # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
   my $fmt = DEF_DB_DATE_FMT;
   my $sql = <<EOSQL;
       SELECT 
@@ -294,7 +296,7 @@ EOSQL
         push(@$arrayptr, 'e' . $_->{EMAIL_ADDRESS});
       }
     }
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
     $table  = 'RHN_REDIRECT_METHOD_TARGETS';
     $table2 = 'RHN_REDIRECTS';
     $sql    = <<EOSQL;
@@ -319,6 +321,7 @@ EOSQL
         push(@$arrayptr, 'i' . $_->{CONTACT_METHOD_ID});
       }
     }
+ # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
     $table  = 'RHN_REDIRECT_GROUP_TARGETS';
     $table2 = 'RHN_REDIRECTS';
     $sql    = <<EOSQL;
@@ -354,7 +357,7 @@ sub select_active_redirect_criteria {
   my $self   = shift;
   my $table  = 'RHN_REDIRECT_CRITERIA';
   my $table2 = 'RHN_REDIRECTS';
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
   my $sql = <<EOSQL;
       SELECT 
         $table.RECID,
@@ -377,7 +380,9 @@ sub select_contact_groups {
 ###########################
   my $self  = shift;
   my $table = 'RHN_CONTACT_GROUPS';
-  my $sql   = <<EOSQL;
+ # PGPORT_1:NO Change # 
+ my $sql   = <<EOSQL;
+ 
     select g.*,  
            (contact_strategy || ':' || ack_completed  || 'Ack') as strategy
      from  $table g, 
@@ -396,6 +401,7 @@ sub select_contact_groups_and_members {
   my %grouphash = map { $_->{MEMBERS} = []; $_->{'RECID'} => $_ } @$groupptr;
 
   my $table = 'RHN_CONTACT_GROUP_MEMBERS';
+ # PGPORT_1:NO Change #
   my $sql   = <<EOSQL;
     select * 
     from $table
@@ -440,7 +446,7 @@ sub select_customers_and_active_redirects {
 sub select_schedule_and_zone_combos {
 #####################################
   my $self = shift;
-
+  # PGPORT_4:QUERY_REWRITE(ANSI JOIN) #
   my $table          = 'RHN_CONTACT_METHODS';
   my $support_table1 = 'RHNUSERINFO';
   my $support_table2 = 'RHNTIMEZONE';
@@ -466,7 +472,7 @@ sub select_host_by_host_probe_id {
   my $id     = shift;
   my $table  = 'RHN_HOST_MONITORING';
   my $table2 = 'RHN_HOST_PROBE';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
       SELECT $table.*
       FROM $table, $table2
@@ -488,7 +494,7 @@ sub select_service_probes_by_host_probe_id {
   my $table2 = 'RHN_HOST_PROBE';
   my $table3 = 'RHN_HOST_MONITORING';
   my $table4 = 'RHN_CHECK_PROBE';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
       SELECT $table.recid as recid, 
              $table.description as description
@@ -511,7 +517,7 @@ sub select_service_probes_by_host_id {
   my $probe_table  = 'RHN_PROBE';
   my $host_table   = 'RHN_HOST_MONITORING';
   my $svc_ck_table = 'RHN_CHECK_PROBE';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
       SELECT $probe_table.recid as recid, 
              $probe_table.description as description
@@ -533,7 +539,7 @@ sub select_URLs_by_customer_id {
   my $id     = shift;
   my $table  = 'RHN_URL_PROBE_ROLE';
   my $table2 = 'RHN_URL_PROBE_STEP';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
   SELECT 
           s.url_probe_id as url_probe_id, 
@@ -559,7 +565,7 @@ sub select_host_probes_by_customer_id {
   my $table  = 'RHN_PROBE';
   my $table2 = 'RHN_HOST_PROBE';
   my $table3 = 'RHN_HOST_MONITORING';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     select $table.recid as recid,  
     $table3.name as host_name 
@@ -582,7 +588,7 @@ sub select_scout_clusters_by_customer_id {
   my $id     = shift;
   my $table  = 'RHN_SAT_CLUSTER';
   my $table2 = 'RHN_LL_NETSAINT';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT
             recid,
@@ -605,7 +611,7 @@ sub select_sat_node_by_sat_cluster_id {
   my $self  = shift;
   my $id    = shift;
   my $table = 'RHN_SAT_NODE';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT *
     FROM   $table
@@ -622,7 +628,7 @@ sub select_redirect_criteria_by_redirect_id {
   my $self  = shift;
   my $id    = shift;
   my $table = 'RHN_REDIRECT_CRITERIA';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT *
     FROM   $table
@@ -639,7 +645,7 @@ sub select_current_alert_by_ticket_id {
   my $self  = shift;
   my $id    = shift;
   my $table = 'RHN_CURRENT_ALERTS';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT *
     FROM   $table
@@ -658,7 +664,7 @@ sub select_contact_methods_by_customer_id {
   my $id     = shift;
   my $table  = 'RHN_CONTACT_METHODS';
   my $table2 = 'RHN_CONTACT_MONITORING';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT $table.*
     FROM   $table, $table2 
@@ -676,7 +682,7 @@ sub select_sat_clusters_by_customer_id {
   my $self  = shift;
   my $id    = shift;
   my $table = 'RHN_SAT_CLUSTER';
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT *
     FROM   $table
@@ -783,6 +789,7 @@ sub select_max_last_update_date {
   my ($self, $table) = @_;
 
   my $fmt = SORTABLE_DB_DATE_FMT;
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     SELECT TO_CHAR(MAX(last_update_date),'$fmt') as last_update_date
     FROM   $table
@@ -916,7 +923,7 @@ sub _create {
     }
   } ## end foreach my $item (@$COLS)
   my $BVSTR = join(',', @bindvars);
-
+ # PGPORT_1:NO Change #
   my $sql = "INSERT INTO $table ($COLSTR) VALUES ($BVSTR)";
 
   return $self->execute($sql, $table, FETCH_ROWCOUNT, @bindvals);
@@ -928,7 +935,7 @@ sub _create_with_seq {
   my ($self, $col, $seq, $table, %args) = @_;
 
   my $x = 'DUAL';
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
   my $sql = <<EOSQL;
     SELECT $seq.NEXTVAL as id
     FROM   $x
@@ -970,13 +977,13 @@ sub _select_records {
 
   if (%args) {
     ($wherephrase, $bindvals) = $self->_wherephrase($table, \%args);
-
+ # PGPORT_1:NO Change #
     $sql = <<EOSQL;
        SELECT $selectphrase
        FROM   $table
        WHERE  $wherephrase
 EOSQL
-
+ # PGPORT_1:NO Change #
   } else {
     $sql = <<EOSQL;
        SELECT $selectphrase
@@ -1019,7 +1026,7 @@ sub _delete_records {
   my %args  = @_;
 
   my ($wherephrase, $bindvals) = $self->_wherephrase($table, \%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     DELETE
     FROM   $table
@@ -1057,7 +1064,7 @@ sub _update_records {
 
   my ($setphrase, $sbindvals) = $self->_wherephrase($table, $set, ',');
   my ($wherephrase, $wbindvals) = $self->_wherephrase($table, \%args);
-
+ # PGPORT_1:NO Change #
   my $sql = <<EOSQL;
     UPDATE $table
     SET    $setphrase
@@ -1133,7 +1140,7 @@ sub _select_table_description {
   my ($self, @args) = @_;
 
   my $table = 'ALL_TAB_COLUMNS';
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG) #
   my $sql = <<EOSQL;
     SELECT   
       column_name,
@@ -1157,7 +1164,7 @@ sub _select_table_primary_keys {
   my ($self, @args) = @_;
 
   my $table = 'ALL_CONSTRAINTS';
-
+ # PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG) #
   my $sql = <<EOSQL;
     SELECT ac.constraint_name,
            ac.table_name,
@@ -1182,7 +1189,7 @@ EOSQL
 sub dbIsOkay {
   my $self  = shift;
   my $table = 'dual';
-
+  # PGPORT_1:NO Change #
   eval {
     my $sql = <<EOSQL;
       SELECT 1 as recid

@@ -23,7 +23,6 @@ database so that it can be used for things such as provisioning.
     <cmdsynopsis>
         <command>&THECOMMAND;</command> 
         <arg>--ca-cert=<replaceable>CA_CERTIFICATE</replaceable></arg>
-        <arg>--db=<replaceable>DB_CONNECTION_STRING</replaceable></arg>
         <arg>--label=<replaceable>INTERNAL_LABEL</replaceable></arg>
         <arg>-v | --verbose</arg>
     </cmdsynopsis>
@@ -35,7 +34,8 @@ database so that it can be used for things such as provisioning.
 <para>This is a simple utility that pushes your CA SSL certificate into the
 local database so that it can be used for things such as provisioning. It
 should only be used if the CA certificate used for your RHN products has
-changed.</para>
+changed. Database connection settings are read from /etc/rhn/rhn.conf. (see
+the "db-*" settings)</para>
 
 </RefSect1>
 
@@ -45,13 +45,6 @@ changed.</para>
         <term>--ca-cert=<replaceable>CA_CERTIFICATE</replaceable></term>
         <listitem>
             <para>Full path to the public CA certificate to be stored in the database.</para>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--db=<replaceable>DB_CONNECTION_STRING</replaceable></term>
-        <listitem>
-            <para>Alternative database connectionn string. The default is the
-            setting found in /etc/rhn/rhn.conf.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

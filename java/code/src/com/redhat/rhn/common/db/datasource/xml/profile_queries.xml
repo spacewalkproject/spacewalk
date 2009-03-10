@@ -2,6 +2,7 @@
 
 <mode name="profile_overview" class="com.redhat.rhn.frontend.dto.ProfileOverviewDto">
   <query params="org_id">
+<!-- # PGPORT_2:AS KEYWORD-->
 SELECT SP.ID, SP.NAME, C.name CHANNEL_NAME,
        TO_CHAR(SP.created, 'YYYY-MM-DD') AS CREATED
   FROM rhnChannel C,
@@ -15,6 +16,7 @@ ORDER BY UPPER(SP.name)
 
 <mode name="profile_package_overview" class="com.redhat.rhn.frontend.dto.ProfilePackageOverviewDto">
   <query params="prid">
+<!--#PGPORT_1:NO Change-->
 SELECT PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
        PA.label as arch
   FROM rhnServerProfilePackage SPP LEFT OUTER JOIN
@@ -28,6 +30,7 @@ ORDER BY UPPER(PN.name), PE.evr
 
 <mode name="compatible_with_channel" class="com.redhat.rhn.frontend.dto.ProfileDto">
   <query params="org_id, cid">
+<!--#PGPORT_4:QUERY_REWRITE(ORDER BY)--> 
 SELECT DISTINCT SP.id, SP.name
   FROM rhnServerProfile SP, rhnServerProfileType SPT
  WHERE SP.org_id = :org_id
@@ -40,6 +43,7 @@ ORDER BY SP.name
 
 <write-mode name="delete_package_profile">
   <query params="sid">
+<!--#PGPORT_1:NO Change-->
     DELETE FROM rhnServerProfilePackage
      WHERE server_profile_id = :sid
   </query>
@@ -47,6 +51,7 @@ ORDER BY SP.name
 
 <write-mode name="insert_package_profile">
   <query params="prid, sid">
+<!--#PGPORT_1:NO Change-->
     INSERT INTO rhnServerProfilePackage (server_profile_id, name_id, evr_id, package_arch_id)
     SELECT DISTINCT :prid, SP.name_id, SP.evr_id, SP.package_arch_id
       FROM rhnServerPackage SP
