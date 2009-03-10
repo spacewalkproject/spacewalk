@@ -49,7 +49,7 @@ def update_kickstart_session(server_id, action_id, action_status,
     return ks_session_id
 
 # PGPORT_1:NO Change #
-        _query_update_ks_session_table = rhnSQL.Statement("""
+    _query_update_ks_session_table = rhnSQL.Statement("""
     update rhnKickstartSession
        set action_id = :action_id,
            state_id = :ks_status_id,
