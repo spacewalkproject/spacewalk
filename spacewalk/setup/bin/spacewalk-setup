@@ -954,7 +954,7 @@ sub populate_initial_configs {
   Spacewalk::Setup::generate_satcon_dict();
   write_config(\%config_opts, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
-    satcon_deploy();
+  Spacewalk::Setup::satcon_deploy();
 
     return \%config_opts;
 }
@@ -1019,7 +1019,7 @@ sub populate_final_configs {
 
   write_config($final_config, Spacewalk::Setup::DEFAULT_SATCON_DICT);
 
-  satcon_deploy(-tree => '/etc/sysconfig/rhn-satellite-prep/etc/rhn',
+  Spacewalk::Setup::satcon_deploy(-tree => '/etc/sysconfig/rhn-satellite-prep/etc/rhn',
 		-dest => '/etc/rhn');
 
   return;
