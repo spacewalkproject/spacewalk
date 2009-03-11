@@ -58,7 +58,7 @@ def main():
     #create activation key
 
     act_key = client.activationkey.create(key, uniquify(options.prefix.lower()), 
-                        uniquify(options.prefix.title() + " Key"), channel, -1, ["provisioning_entitled"], False)
+                        uniquify(options.prefix.title() + " Key"), channel, ["provisioning_entitled"], False)
     print act_key
     #create the distro
     distro = uniquify(options.prefix.lower())
@@ -67,7 +67,7 @@ def main():
 
     #create the profile
     profile = uniquify(options.prefix.lower())
-    client.kickstart.import_raw_file(key, profile, 'auto',distro, "Foo" )
+    client.kickstart.import_raw_file(key, profile, 'para_host',distro, "Foo" )
 
     client.auth.logout(key)
 
