@@ -16,26 +16,7 @@ prog="rhnmd"
 
 # Some functions to make the below more readable
 SU="/sbin/runuser -s /bin/bash - nocpulse -c"
-KEYGEN="/usr/bin/ssh-keygen"
 SSHD="/usr/sbin/rhnmd-wrap"
-DSA_KEY=/etc/nocpulse/ssh_host_dsa_key
-PID_FILE=/var/run/rhnmd.pid
-
-do_dsa_keygen() {
-	if [ ! -s $DSA_KEY ]; then
-		echo -n $"Generating SSH2 DSA host key: "
-		if $SU "$KEYGEN -q -t dsa -f $DSA_KEY -C '' -N ''" >&/dev/null; then
-			chmod 600 $DSA_KEY
-			chmod 644 $DSA_KEY.pub
-			success $"DSA key generation"
-			echo
-		else
-			failure $"DSA key generation"
-			echo
-			exit 1
-		fi
-	fi
-}
 
 do_restart_sanity_check()
 {
@@ -49,9 +30,6 @@ do_restart_sanity_check()
 
 start()
 {
-	# Create keys if necessary
-	do_dsa_keygen
-
 	echo -n $"Starting $prog:"
 	daemon --user nocpulse $SSHD -f /etc/nocpulse/rhnmd_config && success || failure
 	RETVAL=$?
