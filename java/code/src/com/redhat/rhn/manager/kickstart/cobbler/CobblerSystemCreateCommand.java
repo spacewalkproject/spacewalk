@@ -30,8 +30,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 
@@ -44,7 +46,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     
     private Server server;
     private String mediaPath;
-    private String name;
+    private String profileName;
     private String activationKeys;
     
     /**
@@ -62,7 +64,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         this.server = serverIn;
         this.mediaPath = mediaPathIn;
         if (ksDataIn != null) {
-            name = (String)lookupCobblerProfile(ksDataIn).get("name");
+            profileName = (String)lookupCobblerProfile(ksDataIn).get("name");
         }
         else {
             throw new NullPointerException("ksDataIn cant be null");
@@ -81,7 +83,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         super(serverIn.getCreator());
         this.server = serverIn;
         this.mediaPath = null;
-        this.name = cobblerProfileName;
+        this.profileName = cobblerProfileName;
         String note = "Reactivation key for " + server.getName() + ".";
         ActivationKey key = ActivationKeyManager.getInstance().
                     createNewReActivationKey(server.getCreator(), server, note);
@@ -101,9 +103,58 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
             String nameIn) {
         super(userIn);
         this.server = serverIn;
-        name = nameIn;
+        profileName = nameIn;
     }    
+  
+    private String getSystemHandleByMAC() {
+        Map sysmap = getSystemMapByMac();
+        if (sysmap != null) {
+            log.debug("getSystemHandleByMAC.found match.");
+            String sysname = (String) sysmap.get("name");
+            String handle = (String) invokeXMLRPC("get_system_handle",
+                    sysname, xmlRpcToken);
+            log.debug("getSystemHandleByMAC.returning handle: " + handle);
+            return handle;
+        }
+        return null;
+    }
+    
+    private Map getSystemMapByMac() {
+        // Build up list of mac addrs
+        Iterator i = server.getNetworkInterfaces().iterator();
+        List macs = new LinkedList();
+        while (i.hasNext()) {
+            NetworkInterface n = (NetworkInterface) i.next();
+            macs.add(n.getHwaddr().toLowerCase());
+        }
+
+        List <String> args = new ArrayList();
+        args.add(xmlRpcToken);
+        List<Map> systems = (List) invokeXMLRPC("get_systems", args);
+        for (Map row : systems) {
+            Set ifacenames = ((Map) row.get("interfaces")).keySet();
+            log.debug("Ifacenames: " + ifacenames);
+            Map ifaces = (Map) row.get("interfaces");
+            log.debug("ifaces: " + ifaces);
+            Iterator names = ifacenames.iterator();
+            while (names.hasNext()) {
+                String name = (String) names.next();
+                log.debug("Name: " + name);
+                Map iface = (Map) ifaces.get(name);
+                log.debug("iface: " + iface);
+                String mac = (String) iface.get("mac_address");
+                log.debug("getSystemMapByMac.ROW: " + row + 
+                        " looking for: " + macs);
+                if (mac != null && 
+                        macs.contains(mac.toLowerCase())) {
+                    log.debug("getSystemMapByMac.found match.");
+                    return row;
+                }
+            }
+        }
+        return null;
         
+    }
 
 
     /**
@@ -112,20 +163,26 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public ValidatorError store() {
         String handle = null;
-        log.debug("Map null?: " + (getSystemMap() != null));
-        
-        Map systemMp = getSystemMap();
-        if (systemMp != null && !systemMp.isEmpty()) {
-            handle = (String) invokeXMLRPC("get_system_handle",
-                    this.getCobblerSystemRecordName(), xmlRpcToken);
+        // First lookup by MAC addr
+        handle = getSystemHandleByMAC();
+        if (handle == null) {
+            // Next try by name
+            try {
+                handle = (String) invokeXMLRPC("get_system_handle",
+                        getCobblerSystemRecordName(), xmlRpcToken);
+                log.debug("Did we find handle by name: " + handle);
+            } 
+            catch (RuntimeException e) {
+                log.debug("No system by that name either.  create a new one");
+            }
         }
-        else {
+        // Else, lets make a new system
+        if (handle == null) {
             handle = (String) invokeXMLRPC("new_system", xmlRpcToken);
+            log.debug("handle: " + handle);
+            invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
+                                     xmlRpcToken);
         }
-        
-        log.debug("handle: " + handle);
-        invokeXMLRPC("modify_system", handle, "name", getCobblerSystemRecordName(),
-                                 xmlRpcToken);
         
         if (this.server.getNetworkInterfaces() == null ||
                 this.server.getNetworkInterfaces().isEmpty()) {
@@ -135,7 +192,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         processNetworkInterfaces(handle, xmlRpcToken, server);
         
         Object[] args = new String[]{handle, "profile", 
-                name, xmlRpcToken};
+                profileName, xmlRpcToken};
         invokeXMLRPC("modify_system", Arrays.asList(args));
         
         if (this.activationKeys == null || this.activationKeys.length() == 0) {
@@ -162,7 +219,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         
         invokeXMLRPC("save_system", handle, xmlRpcToken);
         
-        Map cSystem = getSystemMap();
+        Map cSystem = getSystemMapByMac();
         server.setCobblerId((String)cSystem.get("uid"));
         return null;
     }
@@ -199,16 +256,5 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public Server getServer() {
         return server;
     }
-
-    /**
-     * Get the Cobbler map representation fo the system
-     * @return Map of system
-     */
-    public Map getSystemMap() {
-        List < String > args = new ArrayList();
-        args.add(getCobblerSystemRecordName());
-        args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_system", args);
-        return retval;
-    }
+  
 }

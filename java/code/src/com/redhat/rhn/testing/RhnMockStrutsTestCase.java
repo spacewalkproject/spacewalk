@@ -89,6 +89,8 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         Config.get().setString("kickstart.cobbler.dir", "/tmp/");
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
+
+        MockConnection.clear();
     }
     
     /**

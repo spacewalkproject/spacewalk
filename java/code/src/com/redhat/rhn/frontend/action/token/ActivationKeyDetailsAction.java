@@ -70,14 +70,14 @@ public class ActivationKeyDetailsAction extends RhnAction {
     private static final String SELECTED_ENTS = "selectedEntitlements";
     private static final String ORG_DEFAULT = "universal";
     private static final String AUTO_DEPLOY = "autoDeploy";
-    private static final Long DEFAUL_CHANNEL_ID = -1L; 
+    private static final Long DEFAULT_CHANNEL_ID = -1L; 
     private static final String EDIT_MODE = "edit";
     private static final String CREATE_MODE = "create";
     private static final String PREFIX = "prefix";
     private static final String UNPREFIXED = "unprefixed";
     private static final String BLANK_DESCRIPTION = "blankDescription";
 
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -246,7 +246,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
         form.set(ORG_DEFAULT, key.isUniversalDefault());
         Channel chan = key.getBaseChannel();
         if (chan == null) {
-            form.set(SELECTED_CHANNEL, DEFAUL_CHANNEL_ID);    
+            form.set(SELECTED_CHANNEL, DEFAULT_CHANNEL_ID);    
         }
         else {
             form.set(SELECTED_CHANNEL, chan.getId());
@@ -279,12 +279,14 @@ public class ActivationKeyDetailsAction extends RhnAction {
         User user = context.getLoggedInUser();
         List<LabelValueBean> channelWidgets = new LinkedList<LabelValueBean>();
         channelWidgets.add(lvl10n("activation-key.jsp.rh-default",
-                            String.valueOf(DEFAUL_CHANNEL_ID)));
-        for (Channel channel : ChannelFactory.listRedHatBaseChannels()) {
+                            String.valueOf(DEFAULT_CHANNEL_ID)));
+        List<Channel> rhChannels = ChannelFactory.listRedHatBaseChannels();
+        for (Channel channel : rhChannels) {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
         }
 
-        for (Channel channel : ChannelFactory.listCustomBaseChannels(user)) {
+        List<Channel> customChannels = ChannelFactory.listCustomBaseChannels(user);
+        for (Channel channel : customChannels) {
             channelWidgets.add(lv(channel.getName(), String.valueOf(channel.getId())));
         }        
         context.getRequest().setAttribute(POSSIBLE_CHANNELS, channelWidgets.toArray());
@@ -336,7 +338,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     private Channel lookupChannel(DynaActionForm daForm, User user) {
         Long selectedChannel = (Long)daForm.get(SELECTED_CHANNEL);
 
-        if (!DEFAUL_CHANNEL_ID.equals(selectedChannel)) {
+        if (!DEFAULT_CHANNEL_ID.equals(selectedChannel)) {
             return ChannelManager.lookupByIdAndUser(
                                 selectedChannel, user);
         }

@@ -51,11 +51,13 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         user = UserTestUtils.createUserInOrgOne();
         user.addRole(RoleFactory.ORG_ADMIN);
         this.ksdata = KickstartDataTest.createKickstartWithDefaultKey(this.user.getOrg());
-        this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
-
+        this.ksdata.getTree().setBasePath("/opt/repo/f9-x86_64/");
+        
         // Uncomment this if you want the tests to actually talk to cobbler
-        // Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+        //Config.get().setString(CobblerXMLRPCHelper.class.getName(),
         //        CobblerXMLRPCHelper.class.getName());
+        //Config.get().setString(CobblerConnection.class.getName(),
+        //        CobblerConnection.class.getName());
         //commitAndCloseSession();
         
         CobblerDistroCreateCommand dcreate = new 
@@ -63,6 +65,13 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         dcreate.store();
     }
 
+    /*public void testDupSystems() throws Exception {
+        Server s = ServerFactory.lookupById(new Long(1000010339));
+        CobblerSystemCreateCommand cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
+                "http://localhost/test/path", TestUtils.randomString());
+        cmd.store();
+    }*/
+    
     public void testSystemCreate() throws Exception {
 
         Server s = ServerTestUtils.createTestSystem(user);
@@ -73,14 +82,12 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
                     "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
         assertNotNull(s.getCobblerId());
-        Map systemMap = cmd.getSystemMap(); 
-        assertNotNull(systemMap);
-        assertTrue(systemMap.containsKey("name"));
         
         // Ensure we can call it twice.
         cmd = new CobblerSystemCreateCommand(user, s, ksdata, 
                 "http://localhost/test/path", TestUtils.randomString());
         cmd.store();
+        assertNotNull(s.getCobblerId());
     }
     
     public void testProfileCreate() throws Exception {

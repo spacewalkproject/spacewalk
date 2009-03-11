@@ -55,6 +55,7 @@ public class ChannelPackageMenuAction extends RhnAction {
             throw new PermissionCheckFailureException(RoleFactory.CHANNEL_ADMIN);
         }
 
+        request.setAttribute("channel_name", chan.getName());
         request.setAttribute("channel", chan);
 
         return mapping.findForward("default");

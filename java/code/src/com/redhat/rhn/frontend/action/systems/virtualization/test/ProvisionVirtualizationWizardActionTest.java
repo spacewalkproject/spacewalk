@@ -104,7 +104,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         // Step Two
         addRequestParameter(RequestContext.SID, s.getId().toString());
         addRequestParameter("wizardStep", "second");
-        addRequestParameter("items_selected", k.getId().toString());
+        addRequestParameter("items_selected", k.getCobblerId().toString());
         addRequestParameter("scheduleAsap", "false");
         addRequestParameter("date_month", "2");
         addRequestParameter("date_day", "16");
@@ -148,7 +148,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
                 KickstartScheduleCommand.TARGET_PROFILE_TYPE_SYSTEM);
         addRequestParameter("targetProfile", otherServer.getId().toString());
         addRequestParameter("wizardStep", "third");
-        addRequestParameter("items_selected", k.getId().toString());
+        addRequestParameter("items_selected", k.getCobblerId().toString());
         addRequestParameter("scheduleAsap", "false");
         addRequestParameter("date_month", "2");
         addRequestParameter("date_day", "16");

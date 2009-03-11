@@ -55,6 +55,22 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         TestUtils.saveAndFlush(admin);
     }
     
+    public void testOrgTrusts() throws Exception {
+        Org org2 = createOrg();
+        Org org3 = createOrg();
+
+        handler.addTrust(
+                adminKey,
+                org2.getId().intValue(),
+                org3.getId().intValue());
+        assertTrue(isTrusted(org2, org3));
+        handler.removeTrust(
+                adminKey,
+                org2.getId().intValue(),
+                org3.getId().intValue());
+        assertFalse(isTrusted(org2, org3));
+    }
+
     public void testListOrgs() throws Exception {
         // setup
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
@@ -248,7 +264,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
     }
     
     private boolean isTrusted(Org org, Org trusted) {
-        List trusts = orgHandler.listTrusts(adminKey, org.getId().intValue());
+        List trusts = handler.listTrusts(adminKey, org.getId().intValue());
         for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
             if (t.getId().equals(trusted.getId()) && t.getTrusted()) {
                 return true;

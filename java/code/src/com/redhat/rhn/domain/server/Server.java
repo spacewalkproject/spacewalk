@@ -61,6 +61,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
      */
     private static Logger log = Logger.getLogger(Server.class);
 
+    private Boolean ignoreEntitlementsForMigration;
+
     private Long id;
     private Org org;
     private String digitalServerId;
@@ -103,7 +105,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private Set packages;
     private ProxyInfo proxyInfo;
 
-   
     /**
      * @return the proxyInfo
      */
@@ -120,7 +121,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
         this.proxyInfo = proxy;
     }
 
-/**
+    /**
      * Retrieves the local override channel associated with this system.
      * @return the Local Override Channel or NULL if theres none created yet
      *              in rhnServerConfigChannel 
@@ -146,7 +147,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
         }
         localChannels.add(channel);
     }    
-    
     
     protected void setLocalChannels(Set chls) {
         localChannels = chls;
@@ -222,6 +222,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * ONLY TO BE USED FOR/BY HIBERNATE
+     *
      * @return List of config channels
      */
     protected List getConfigChannelsHibernate() {
@@ -229,7 +230,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
     
     /**
-     * @return Returns the ServerConfigChannels mappings.
+     * @return Returns the ServerConfigChannels mappings currently available
+     * to the server based on it's entitlements.
      */
     public List <ConfigChannel> getConfigChannels() {
         ensureConfigManageable();
@@ -245,7 +247,9 @@ public class Server extends BaseDomainHelper implements Identifiable {
     }
     
     private void ensureConfigManageable() {
-        ConfigurationManager.getInstance().ensureConfigManageable(this);
+        if (!getIgnoreEntitlementsForMigration()) {
+            ConfigurationManager.getInstance().ensureConfigManageable(this);
+        }
     }
     
     /**
@@ -283,6 +287,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
         networks = new HashSet();
         networkInterfaces = new HashSet();
         customDataValues = new HashSet();
+
+        ignoreEntitlementsForMigration = new Boolean(Boolean.FALSE);
     }
 
     /**
@@ -821,7 +827,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
         return null;
     }
 
-    
     /**
      * Get the primary hostname for this server
      * @return Returns the primary hostname for this server
@@ -1631,4 +1636,22 @@ public class Server extends BaseDomainHelper implements Identifiable {
         this.cobblerId = cobblerIdIn;
     }
 
+    /**
+     * @return Returns the ignoreEntitlementsForMigration.
+     */
+    public Boolean getIgnoreEntitlementsForMigration() {
+        return ignoreEntitlementsForMigration;
+    }
+
+    /**
+     * This method should ONLY be used for system migrations, hence the long method name.
+     *
+     * This method will set a local flag (i.e. not Hibernate-related) that if set will
+     * result in skipping entitlement checking on various methods.
+     *
+     * @param ignoreIn  Set to true to override entitlement sestings.
+     */
+    public void setIgnoreEntitlementsForMigration(Boolean ignoreIn) {
+        this.ignoreEntitlementsForMigration = ignoreIn;
+    }
 }

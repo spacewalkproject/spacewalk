@@ -69,7 +69,6 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
         log.debug("procedure: " + procedureName + " Orig ags: " + args);
         Object retval;
         try {
-            log.debug("args array: " + args);
             retval = client.invoke(procedureName, args);
         } 
         catch (XmlRpcException e) {

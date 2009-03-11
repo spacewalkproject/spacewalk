@@ -16,8 +16,10 @@
 package org.cobbler.test;
 
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.domain.server.test.NetworkInterfaceTest;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Logger;
 import org.cobbler.CobblerConnection;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class MockConnection extends CobblerConnection {
     private String token;
     private String login;
     
+    private Logger log = Logger.getLogger(MockConnection.class);
 
 
     private static List<Map> profiles = new ArrayList<Map>();
@@ -79,7 +82,7 @@ public class MockConnection extends CobblerConnection {
    public Object invokeMethod(String name, Object... args) {
     //no op -> mock version ..
     // we'll add more useful constructs in the future..
-    // System.out.println("called: " + name + " args: " + args);
+    // log.debug("called: " + name + " args: " + args);
 
     
        
@@ -95,6 +98,8 @@ public class MockConnection extends CobblerConnection {
         return profiles;
     }
     else if (name.equals("modify_profile")) {
+        log.debug("PROFILE: Modify  w/ handle" + args[0] + ", set " + args[1] +
+                "to " + args[2]);
         profileMap.get(args[0]).put(args[1], args[2]);
     }
     else if ("get_profile".equals(name)) {
@@ -102,16 +107,21 @@ public class MockConnection extends CobblerConnection {
     }
     else if ("get_profile_handle".equals(name)) {
         String key = random();
+        log.debug("PROFILE:  Got handle  w/ name " + args[0]);
         profileMap.put(key, findByName((String) args[0], profiles));
         return key;
     }
     else if ("remove_profile".equals(name)) {
         profiles.remove(findByName((String)args[0], profiles));
+        return true;
     }
     else if ("new_profile".equals(name)) {
         HashMap profile = new HashMap();
+        String uid = random();
         String key = random();
-        profile.put("uid", random());
+        profile.put("uid", uid);
+
+        log.debug("PROFILE: Created w/ uid " + uid + "returing handle " + key);
 
         profiles.add(profile);
         profileMap.put(key, profile);
@@ -132,23 +142,36 @@ public class MockConnection extends CobblerConnection {
         return distros;
     }
     else if (name.equals("modify_distro")) {
+        log.debug("DISTRO: Modify  w/ handle" + args[0] + ", set " + args[1] +
+                "to " + args[2]);
         distroMap.get(args[0]).put(args[1], args[2]);
     }
     else if ("get_distro".equals(name)) {
         return findByName((String)args[0], distros);
     }
+    else if ("rename_distro".equals(name)) {
+        log.debug("DISTRO: Rename w/ handle" + args[0]);
+        distroMap.get(args[0]).put("name", args[2]);
+        return "";
+    }
     else if ("get_distro_handle".equals(name)) {
+        log.debug("DISTRO:  Got handle  w/ name " + args[0]);
         String key = random();
         distroMap.put(key, findByName((String) args[0], distros));
         return key;
     }
     else if ("remove_distro".equals(name)) {
         distros.remove(findByName((String)args[0], distros));
+        return true;
     }
     else if ("new_distro".equals(name)) {
+        String uid = random();
+
         HashMap distro = new HashMap();
         String key = random();
-        distro.put("uid", random());
+        distro.put("uid", uid);
+
+        log.debug("DISTRO: Created w/ uid " + uid + "returing handle " + key);
 
         distros.add(distro);
         distroMap.put(key, distro);
@@ -169,15 +192,20 @@ public class MockConnection extends CobblerConnection {
         return systems;
     }
     else if (name.equals("modify_system")) {
+        Map system = systemMap.get(args[0]);
+        system.put(args[1], args[2]);
         systemMap.get(args[0]).put(args[1], args[2]);
     }
     else if ("get_system".equals(name)) {
         return findByName((String)args[0], systems);
     }
     else if ("get_system_handle".equals(name)) {
-        String key = random();
-        systemMap.put(key, findByName((String) args[0], systems));
-        return key;
+        if (findByName((String) args[0], systems) != null) {
+            String key = random();
+            systemMap.put(key, findByName((String) args[0], systems));
+            return key;
+        }
+        return null;
     }
     else if ("remove_system".equals(name)) {
         systems.remove(findByName((String)args[0], systems));
@@ -186,14 +214,19 @@ public class MockConnection extends CobblerConnection {
         HashMap profile = new HashMap();
         String key = random();
         profile.put("uid", random());
-
+        Map interfaces = new HashMap();
+        Map iface = new HashMap();
+        iface.put("mac_address", NetworkInterfaceTest.TEST_MAC);
+        iface.put("ip_address", "127.0.0.1");
+        interfaces.put("eth0", iface);
+        profile.put("interfaces", interfaces);
         systems.add(profile);
         systemMap.put(key, profile);
         profile.put("ks_meta", new HashMap());
         return key;
     }
     else {
-        System.out.println("Unhandled xmlrpc call in MockConnection: " + name);
+        log.debug("Unhandled xmlrpc call in MockConnection: " + name);
     }
     return "";
 }
@@ -231,5 +264,16 @@ public class MockConnection extends CobblerConnection {
         token = tokenIn;
     }    
 
+
+    public static void clear() {
+        profiles = new ArrayList<Map>();
+        distros = new ArrayList<Map>();
+        systems = new ArrayList<Map>();
+
+
+        systemMap = new HashMap<String, Map>();
+        profileMap = new HashMap<String, Map>();
+        distroMap = new HashMap<String, Map>();
+    }
 
 }

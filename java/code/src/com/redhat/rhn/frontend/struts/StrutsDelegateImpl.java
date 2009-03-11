@@ -83,11 +83,19 @@ public class StrutsDelegateImpl implements StrutsDelegate {
      */
     // TODO Write unit tests for addError(String, ActionErrors)
     public void addError(String msgKey, ActionErrors errors) {
+        addError(errors, msgKey, new Object[0]);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    // TODO Write unit tests for addError(String, ActionErrors)
+    public void addError(ActionErrors errors, String msgKey, Object...params) {
         ActionMessages msg = new ActionMessages();
         msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(msgKey,
-                new String[0]));
+                params));
         errors.add(msg);
-    }
+    }    
     
     /**
      * {@inheritDoc}

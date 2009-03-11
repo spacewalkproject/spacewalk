@@ -24,8 +24,8 @@ import com.redhat.rhn.testing.TestUtils;
 public class KickstartCloneCommandTest extends BaseKickstartCommandTestCase {
     
     public void testClone() throws Exception {
-        KickstartCloneCommand cmd = new KickstartCloneCommand(ksdata.getId(), user);
-        cmd.setNewLabel("someNewLabel [" + TestUtils.randomString() + "]");
+        KickstartCloneCommand cmd = new KickstartCloneCommand(ksdata.getId(), user,
+                "someNewLabel [" + TestUtils.randomString() + "]");
         cmd.store();
         assertNotNull(cmd.getClonedKickstart());
         assertNotNull(cmd.getClonedKickstart().getId());

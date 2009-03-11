@@ -20,8 +20,9 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.log4j.Logger;
+import org.cobbler.CobblerConnection;
+import org.cobbler.Distro;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,30 +71,31 @@ public class CobblerDistroCommand extends CobblerCommand {
         return lookupCobblerDistro(this.tree);
     }
     
-    
-    protected void updateCobblerFields(String handle) {
-        log.debug("kernel path: " + tree.getKernelPath());
-        invokeXMLRPC("modify_distro", handle, "kernel", 
-                                tree.getKernelPath(), xmlRpcToken);
+    /**
+     * Copy cobbler fields that shouldn't change in cobbler
+     */
+    protected void updateCobblerFields() {
+        CobblerConnection con = CobblerXMLRPCHelper.getConnection(user.getLogin());
+        Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
+        Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
 
-        // Setup the kickstart metadata so the URLs and activation key are setup
+        nonXen.setKernel(tree.getKernelPath());
+        xen.setKernel(tree.getKernelXenPath());
+
+        nonXen.setInitrd(tree.getInitrdPath());
+        xen.setInitrd(tree.getInitrdXenPath());
+
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
                 helper.getKickstartMediaPath());
-
         if (tree.getOrgId() != null) {
             ksmeta.put("org", tree.getOrg().getId());
         }
-        
-        Object[] args = new Object[]{handle, "ksmeta", 
-                ksmeta, xmlRpcToken};
-        invokeXMLRPC("modify_distro", Arrays.asList(args));
-        
-        log.debug("kernel path: " + tree.getInitrdPath());
-        invokeXMLRPC("modify_distro", handle, "initrd",
-                            tree.getInitrdPath(), xmlRpcToken);
+        nonXen.setKsMeta(ksmeta);
+        xen.setKsMeta(ksmeta);
     }
+
 
     /**
      * {@inheritDoc}

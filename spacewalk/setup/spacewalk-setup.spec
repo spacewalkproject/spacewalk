@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.17
+Version:        0.5.18
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -56,7 +56,6 @@ install -m 0644 share/sudoers.clear %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.1 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.2 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.3 %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0644 share/ssl.conf.base %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.1 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.2 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.3 %{buildroot}/%{_datadir}/spacewalk/setup/
@@ -91,6 +90,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Mar 10 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.18-1
+- 488092 - moved some routines to Setup.pm so they can be used from outside
+
 * Wed Mar  4 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.17-1
 - ssl virtual host setup modifies existing ssl.conf
 

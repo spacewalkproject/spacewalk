@@ -907,7 +907,7 @@ public class ActivationKeyHandler extends BaseHandler {
       * @return 1 on success 0 on failure
       * 
       * @xmlrpc.doc  Given a list of activation keys and configuration channels, 
-      * this method a the configuration channels to either the top or
+      * this method adds given configuration channels to either the top or
       * the bottom (whichever you specify) of an activation key's  
       * configuration channels list. The ordering of the configuration channels
       * provided in the add list is maintained while adding.

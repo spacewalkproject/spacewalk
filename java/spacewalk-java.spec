@@ -10,12 +10,13 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.27
+Version: 0.5.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
+ExcludeArch: ia64
 
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
@@ -232,6 +233,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Mar 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.28-1
+- added ExcludeArch: ia64
+
 * Thu Mar 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.27-1
 - revert commit ba62c229
 - changing MockConnection and MockXmlrpcInvoker to handle multiple entities

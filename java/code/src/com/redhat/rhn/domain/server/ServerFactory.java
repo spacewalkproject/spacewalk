@@ -36,6 +36,7 @@ import org.hibernate.Session;
 
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -81,6 +82,19 @@ public class ServerFactory extends HibernateFactory {
             log.error("Hibernate exception: " + he.toString());
         }
         return null;
+    }
+
+    /**
+     * Remove the custom data values associated with a server.
+     * @param server The server
+     */
+    public static void removeCustomDataValues(Server server) {
+
+        Session session = HibernateFactory.getSession();
+        for (Object value : server.getCustomDataValues()) {
+            session.delete(value);
+        }
+        server.getCustomDataValues().clear();
     }
 
     /**
@@ -541,6 +555,46 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
+     * List snapshots for a server by org that were created after the date provided
+     * @param server the server to check for
+     * @param org the org doing the request
+     * @param startDate the start date
+     * @return List of server Snapshots
+     */
+    public static List<ServerSnapshot> listSnapshotsForServerByDate(Server server,
+            Org org, Date startDate) {
+        Map params = new HashMap();
+        params.put("org", org);
+        params.put("server", server);
+        params.put("start_date", startDate);
+        List<ServerSnapshot> snaps = singleton.listObjectsByNamedQuery(
+                "ServerSnapshot.findAfterDate", params);
+        return snaps;
+    }
+
+    /**
+     * List snapshots for a server by org that were created between the dates provided.
+     * Note: it will include snapshots with creation dates that match the start or end
+     * date.
+     * @param server the server to check for
+     * @param org the org doing the request
+     * @param startDate the start date
+     * @param endDate the end date
+     * @return List of server Snapshots
+     */
+    public static List<ServerSnapshot> listSnapshotsForServerByDate(Server server,
+            Org org, Date startDate, Date endDate) {
+        Map params = new HashMap();
+        params.put("org", org);
+        params.put("server", server);
+        params.put("start_date", startDate);
+        params.put("end_date", endDate);
+        List<ServerSnapshot> snaps = singleton.listObjectsByNamedQuery(
+                "ServerSnapshot.findBetweenDates", params);
+        return snaps;
+    }
+
+    /**
      * Looks up a server snapshot by it's id
      * @param id the snap id
      * @return the server snapshot
@@ -578,5 +632,4 @@ public class ServerFactory extends HibernateFactory {
                 "ServerSnapshot.findTags", params);
         return snaps;
     }
-
 }

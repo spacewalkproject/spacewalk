@@ -212,6 +212,9 @@
       <rhn-tab name="Restart" acl="user_role(satellite_admin)">
         <rhn-tab-url>/rhn/admin/config/Restart.do</rhn-tab-url>
       </rhn-tab>
+	  <rhn-tab name="Cobbler" acl="user_role(satellite_admin)">
+	    <rhn-tab-url>/rhn/admin/config/Cobbler.do</rhn-tab-url>
+	  </rhn-tab>        
     </rhn-tab>
     <rhn-tab name="Task Engine Status" url="/internal/satellite/task_engine/index.pxt" acl="user_role(satellite_admin)">
     </rhn-tab>

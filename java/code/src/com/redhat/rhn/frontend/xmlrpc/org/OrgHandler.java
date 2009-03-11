@@ -184,78 +184,6 @@ public class OrgHandler extends BaseHandler {
     }
     
     /**
-     * Returns a list of organizations along with a trusted indicator.
-     * @param sessionKey Caller's session key.
-     * @param orgId the id of an organization.
-     * @return Returns a list of organizations along with a trusted indicator.
-     * @xmlrpc.doc Returns the list of trusted organizations.
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.returntype
-     * $OrgTrustOverviewSerializer
-     */
-    @SuppressWarnings("unchecked")
-    public List listTrusts(String sessionKey, Integer orgId) {
-        User user = getSatAdmin(sessionKey);
-        verifyOrgExists(orgId);
-        return OrgManager.orgTrusts(user, Long.valueOf(orgId));
-    }
-    
-    /**
-     * Add a organization to the list of <i>trusted</i> organizations.
-     * @param sessionKey Caller's session key.
-     * @param orgId The id of the organization to be updated.
-     * @param trustOrgId The id of the organization to be added.
-     * @return 1 on success, else 0.
-     * @xmlrpc.doc Add a organization to the list of trusted organizations. 
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param("string", "trustOrgId")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int addTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
-        getSatAdmin(sessionKey);
-        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
-        if (org == null) {
-            throw new NoSuchOrgException(orgId.toString());
-        }
-        Org trusted = OrgFactory.lookupById(Long.valueOf(trustOrgId));
-        if (trusted == null) {
-            throw new NoSuchOrgException(trustOrgId.toString());
-        }
-        org.getTrustedOrgs().add(trusted);
-        OrgFactory.save(org);
-        return 1;
-    }
-    
-    /**
-     * Remove a organization to the list of <i>trusted</i> organizations.
-     * @param sessionKey Caller's session key.
-     * @param orgId the id of the organization to be updated.
-     * @param trustOrgId The id of the organization to be removed.
-     * @return 1 on success, else 0.
-     * @xmlrpc.doc Remove a organization to the list of trusted organizations. 
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param("string", "trustOrgId")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int removeTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
-        getSatAdmin(sessionKey);
-        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
-        if (org == null) {
-            throw new NoSuchOrgException(orgId.toString());
-        }
-        Org trusted = OrgFactory.lookupById(Long.valueOf(trustOrgId));
-        if (trusted == null) {
-            throw new NoSuchOrgException(trustOrgId.toString());
-        }
-        org.getTrustedOrgs().remove(trusted);
-        OrgFactory.save(org);
-        return 1;
-    }
-    
-    /**
      * Delete an organization.
      * 
      * @param sessionKey User's session key.
@@ -676,7 +604,15 @@ public class OrgHandler extends BaseHandler {
      * 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param_desc("string", "label", "System entitlement label.")
+     * @xmlrpc.param #param_desc("string", "label", "System entitlement label.
+     * Valid values include:")
+     *   #options()
+     *     #item("enterprise_entitled")
+     *     #item("monitoring_entitled")
+     *     #item("provisioning_entitled")
+     *     #item("virtualization_host")
+     *     #item("virtualization_host_platform")
+     *   #options_end()
      * @xmlrpc.param #param("int", "allocation")
      * @xmlrpc.returntype #return_int_success()
      */
@@ -688,7 +624,8 @@ public class OrgHandler extends BaseHandler {
         Org org = verifyOrgExists(orgId);
 
         Entitlement ent = EntitlementManager.getByName(systemEntitlementLabel);
-        if (ent == null || !EntitlementManager.getAddonEntitlements().contains(ent)) {
+        if (ent == null || (!EntitlementManager.getAddonEntitlements().contains(ent) &&
+            !EntitlementManager.getBaseEntitlements().contains(ent))) {
             throw new InvalidEntitlementException();
         }
 

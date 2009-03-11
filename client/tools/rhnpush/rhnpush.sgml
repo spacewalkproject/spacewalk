@@ -84,9 +84,15 @@ Utility to push binary and source RPMs into an RHN channel.
         <arg>--server=<replaceable>SERVER</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
-        <arg>--new-cache</arg>
+        <arg>-N</arg> <arg>--new-cache</arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--no-cache</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-session-caching</arg>
+    </cmdsynopsis>
+  <cmdsynopsis>
         <arg>--extended-test</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -268,6 +274,18 @@ Utility to push binary and source RPMs into an RHN channel.
             <para>create a new username/password cache</para>
         </listitem>
     </varlistentry>
+    <varlistentry>
+        <term>--no-cache</term>
+        <listitem>
+            <para>Do not create username/password cache</para>
+        </listitem>
+    </varlistentry>
+   <varlistentry>
+        <term>--no-session-caching</term>
+        <listitem>
+            <para>This option disabled session token support. Useful for satellites older than 4.0.6</para>
+        </listitem>
+    </varlistentry> 
     <varlistentry>
         <term>--extended-test</term>
         <listitem>

@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.19
+Version: 0.5.20
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -46,6 +46,7 @@ Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: mod_python
+Requires: PyPAM
 Obsoletes: rhns-server < 5.3.0
 Provides: rhns-server = %{version}-%{release}
 
@@ -557,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 06 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.20-1
+- Add missing dependency on PyPAM.
+
 * Thu Mar 05 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.19-1
 - 488753 - Adding nevra support to satsync
 

@@ -239,15 +239,15 @@ public class OrgTrustHandler extends BaseHandler {
     }
     
     /**
-     * Add a organization to the list of <i>trusted</i> organizations.
+     * Add an organization to the list of <i>trusted</i> organizations.
      * @param sessionKey Caller's session key.
      * @param orgId The id of the organization to be updated.
      * @param trustOrgId The id of the organization to be added.
      * @return 1 on success, else 0.
-     * @xmlrpc.doc Add a organization to the list of trusted organizations. 
+     * @xmlrpc.doc Add an organization to the list of trusted organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.param #param("int", "trustOrgId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int addTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
@@ -267,15 +267,15 @@ public class OrgTrustHandler extends BaseHandler {
     }
     
     /**
-     * Remove a organization to the list of <i>trusted</i> organizations.
+     * Remove an organization to the list of <i>trusted</i> organizations.
      * @param sessionKey Caller's session key.
      * @param orgId the id of the organization to be updated.
      * @param trustOrgId The id of the organization to be removed.
      * @return 1 on success, else 0.
-     * @xmlrpc.doc Remove a organization to the list of trusted organizations. 
+     * @xmlrpc.doc Remove an organization to the list of trusted organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
-     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.param #param("int", "trustOrgId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeTrust(String sessionKey, Integer orgId, Integer trustOrgId) {

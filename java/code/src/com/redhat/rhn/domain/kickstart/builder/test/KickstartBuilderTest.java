@@ -84,8 +84,10 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
         String contents = FileUtils.readStringFromFile(rhel4data.getCobblerFileName());
         assertTrue(contents.indexOf("langsupport") > 0);
         assertTrue(contents.indexOf("mouse") > 0);
-        assertTrue(contents.indexOf("zerombr") > 0);
+        assertTrue(contents.indexOf("zerombr yes") > 0);
         assertTrue(contents.indexOf("resolvedeps") > 0);
+        
+        System.out.println("Contents: " + contents);
         
         tree.setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
@@ -95,10 +97,11 @@ public class KickstartBuilderTest extends BaseTestCaseWithUser {
                 "http://localhost/ks", "redhat", "localhost");
         
         contents = FileUtils.readStringFromFile(rhel5data.getCobblerFileName());
-        
+        System.out.println("Contents: " + contents);
         assertTrue(contents.indexOf("langsupport") < 0);
         assertTrue(contents.indexOf("mouse") < 0);
-        assertTrue(contents.indexOf("zerombr") < 0);
+        assertTrue(contents.indexOf("zerombr yes") < 0);
+        assertTrue(contents.indexOf("zerombr") > 0);
         assertTrue(contents.indexOf("resolvedeps") < 0);
         
     }

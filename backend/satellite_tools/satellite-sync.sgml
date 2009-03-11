@@ -25,8 +25,12 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <arg>-m<replaceable>DIRECTORY</replaceable></arg>
         <arg>--mount-point=<replaceable>DIRECTORY</replaceable></arg>
     </cmdsynopsis>
+   <cmdsynopsis>
+        <arg>--rhn-cert</arg>
+    </cmdsynopsis>
+    <cmdsynopsis> 
     <cmdsynopsis>
-        <arg>--list-channels</arg>
+         <arg>-l</arg> <arg>--list-channels</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-c<replaceable>CHANNEL</replaceable></arg>
@@ -69,9 +73,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--no-kickstarts</arg>
-    </cmdsynopsis>
-    <cmdsynopsis>
-        <arg>--cache-refresh-level=<replaceable>REFRESH_LEVEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--debug-level=<replaceable>DEBUG_LEVEL</replaceable></arg>
@@ -120,6 +121,10 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     <cmdsynopsis>
         <arg>-h</arg> <arg>--help</arg>
     </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--usage</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
 </Synopsis>
 </RefSynopsisDiv>
 
@@ -186,6 +191,12 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--usage</term>
+        <listitem>
+            <para>Display the usage options for satellite sync.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>-m<replaceable>DIRECTORY</replaceable>,
             --mount-point=<replaceable>DIRECTORY</replaceable></term>
         <listitem>
@@ -193,7 +204,13 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--list-channels</term>
+        <term>--rhn-cert</term>
+        <listitem>
+            <para>satellite certificate to import(use only with -m option)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list-channels</term>
         <listitem>
             <para>list all available channels for import/syncing and exit.</para>
         </listitem>
@@ -270,7 +287,7 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     <varlistentry>
         <term>--force-all-packages</term>
         <listitem>
-            <simpara>forcibly process all full package metadata regardless of diff results.</simpara>
+            <simpara>forcibly process full package metadata regardless of diff results.</simpara>
             <simpara>This option will automatically enable --step rpms.</simpara>
         </listitem>
     </varlistentry>
@@ -278,12 +295,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <term>--force-all-errata</term>
         <listitem>
             <simpara>forcibly process all errata metadata regardless of diff results.</simpara>
-        </listitem>
-    </varlistentry>
-    <varlistentry>
-        <term>--cache-refresh-level=<replaceable>REFRESH_LEVEL</replaceable></term>
-        <listitem>
-            <para>DEPRECATED: provided for backward compatability only.</para>
         </listitem>
     </varlistentry>
     <varlistentry>

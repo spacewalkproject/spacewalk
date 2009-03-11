@@ -140,12 +140,15 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         Iterator i = dr.iterator();
         boolean found = false;
         while (i.hasNext()) {
-            KickstartChannelDto dto = (KickstartChannelDto) i.next();
-            Channel lookedUp = ChannelFactory.lookupByLabel(user.getOrg(), 
-                    dto.getChannelLabel());
-            assertNotNull(lookedUp);
-            if (lookedUp.getChannelArch().getName().equals("x86_64")) {
-                found = true;
+            Object dto = i.next();
+            if (dto instanceof KickstartChannelDto) {
+                KickstartChannelDto kdto = (KickstartChannelDto) dto;
+                Channel lookedUp = ChannelFactory.lookupByLabel(user.getOrg(), 
+                        kdto.getChannelLabel());
+                assertNotNull(lookedUp);
+                if (lookedUp.getChannelArch().getName().equals("x86_64")) {
+                    found = true;
+                }
             }
         }
         assertTrue(found);

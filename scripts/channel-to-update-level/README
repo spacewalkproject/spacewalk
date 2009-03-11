@@ -3,7 +3,7 @@ Create channel to update level
 
 This script can create a channel to a specific update level (i.e. RHEL4u3) or upgrade an existing channel to a higher update level on an RHN Satellite.
 
-For help, simply run ./create-channel-to-update.pl --help
+For help, simply run ./create-channel-update --help
 
 In addition to the script, you should find in this directory:
 data/   - Data files for all of the update releases.
@@ -11,6 +11,13 @@ README  - This file
 
 
 Changelog:
+
+03/06/09 - 2.0-beta
+- Rewrite in python, supporting command line arguments.  
+- Now support clearing channel (with --clear) before pushing packages
+- Can now specify the src channel if you don't want to the script to figure it out
+- Can now just specify the data file instead of version, release, arch, etc..
+- Can specify the parent channel to create a child (if channel doesn't exist)
 
 11/21/08 - 1.5
 - Added support for Extras and Supplementary channels

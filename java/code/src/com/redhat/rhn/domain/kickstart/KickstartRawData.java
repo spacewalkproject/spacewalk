@@ -76,7 +76,7 @@ public class KickstartRawData extends KickstartData {
     public KickstartData deepCopy(User user, String newLabel) {
         KickstartRawData copied = new KickstartRawData();
         updateCloneDetails(copied, user, newLabel);
-        copied.data = this.data;
+        copied.setData(this.getData());
         return copied;
     }
     

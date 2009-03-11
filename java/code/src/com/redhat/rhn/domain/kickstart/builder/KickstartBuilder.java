@@ -582,6 +582,9 @@ public class KickstartBuilder {
         if (!ksdata.isRhel5OrGreater()) {
             cmd.createCommand("zerombr", "yes", ksdata);
         }
+        else {
+            cmd.createCommand("zerombr", "", ksdata);
+        }
         cmd.createCommand("reboot", null, ksdata);
         cmd.createCommand("skipx", null, ksdata);
         cmd.createCommand("firewall", "--disabled", ksdata);

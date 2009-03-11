@@ -99,8 +99,6 @@ create index rhn_channel_access_idx
 	tablespace [[64k_tbs]]
 	nologging;
 
-show errors
-
 --
 -- Revision 1.60  2003/06/19 19:02:02  bretm
 -- bugzilla:  89504
