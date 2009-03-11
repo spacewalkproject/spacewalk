@@ -232,6 +232,7 @@ public class KickstartFormatter {
      */    
     private StringBuffer getHeader() {
         StringBuffer header = new StringBuffer();
+        header.append("#errorCatcher Echo").append(NEWLINE);
         header.append(HEADER);
         header.append(COMMENT);
         header.append("# Profile Label : " + this.ksdata.getLabel() + NEWLINE);

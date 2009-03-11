@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -355,13 +354,7 @@ public class KickstartFactory extends HibernateFactory {
             fileData = formatter.getFileData();
         }
         // Escape the dollar signs
-        fileData = StringUtils.replace(fileData, "$", "\\$");
-        String mediapath = KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
-        // TODO: Make this actually loop over cobbler vars vs just hard coded names
-        fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
-        fileData = StringUtils.replace(fileData, "\\$SNIPPET", "$SNIPPET");
-        fileData = StringUtils.replace(fileData, "\\$kickstart_", "$kickstart_");
-        fileData = StringUtils.replace(fileData, "\\$yum_", "$yum_");
+        fileData = StringUtils.replace(fileData, "$(", "\\$(");
         Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
                 Config.get().getCobblerAutomatedUser()), ksdataIn.getCobblerId());
         if (p != null && p.getKsMeta() != null) {
