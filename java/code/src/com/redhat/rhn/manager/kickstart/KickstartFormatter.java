@@ -180,7 +180,7 @@ public class KickstartFormatter {
      * @return String containing kickstart file
      */
     public String getFileData() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(getHeader());
         buf.append(getCommands());
         
@@ -193,6 +193,12 @@ public class KickstartFormatter {
         buf.append(getPackageOptions());
         buf.append(NEWLINE);
         buf.append(getPackages());
+        buf.append(NEWLINE);
+        buf.append("%" + KickstartScript.TYPE_PRE);
+        buf.append(NEWLINE);
+        buf.append("$kickstart_start");
+        buf.append(NEWLINE);
+        addCobblerSnippet(buf, "pre_install_network_config");
         buf.append(NEWLINE);        
         buf.append(getPrePost(KickstartScript.TYPE_PRE));
         buf.append(NEWLINE);      
@@ -203,11 +209,22 @@ public class KickstartFormatter {
         buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
+        addCobblerSnippet(buf, "post_install_kernel_options");
+        addCobblerSnippet(buf, "post_install_network_config");
+        addCobblerSnippet(buf, "koan_environment");
+        buf.append("$kickstart_done");
+        buf.append(NEWLINE);
         String retval = buf.toString();
         log.debug("fileData.retval:");
         log.debug(retval);
         return retval;
     }
+
+    private void addCobblerSnippet(StringBuilder buf, String contents) {
+        String format = "$SNIPPET('%s')\n";
+        buf.append(String.format(format, contents));
+    }
+    
 
     /**
      * 

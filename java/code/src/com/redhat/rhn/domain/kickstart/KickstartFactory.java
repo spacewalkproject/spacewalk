@@ -360,6 +360,8 @@ public class KickstartFactory extends HibernateFactory {
         // TODO: Make this actually loop over cobbler vars vs just hard coded names
         fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
         fileData = StringUtils.replace(fileData, "\\$SNIPPET", "$SNIPPET");
+        fileData = StringUtils.replace(fileData, "\\$kickstart_", "$kickstart_");
+        fileData = StringUtils.replace(fileData, "\\$yum_", "$yum_");
         Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
                 Config.get().getCobblerAutomatedUser()), ksdataIn.getCobblerId());
         if (p != null && p.getKsMeta() != null) {
