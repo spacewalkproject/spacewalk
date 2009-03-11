@@ -824,6 +824,11 @@ class SatelliteBuilder(NoTgzBuilder):
         debug("Generating patch with: %s" % patch_command)
         output = run_command(patch_command)
         print(output)
+        # Creating two copies of the patch here in the temp build directories
+        # just out of laziness. Some builders need sources in SOURCES and
+        # others need them in the git copy. Being lazy here avoids one-off
+        # hacks and both copies get cleaned up anyhow.
+        run_command("cp %s %s" % (self.patch_file, self.rpmbuild_sourcedir))
 
     def _insert_patches_into_spec_file(self):
         """
