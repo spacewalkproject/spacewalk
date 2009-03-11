@@ -20,7 +20,7 @@ SSHD="/usr/sbin/rhnmd-wrap"
 
 do_restart_sanity_check()
 {
-	$SU "$SSHD -t"
+	$SU "$SSHD -t -f /etc/nocpulse/rhnmd_config"
 	RETVAL=$?
 	if [ ! "$RETVAL" = 0 ]; then
 		failure $"Configuration file or keys are invalid"
