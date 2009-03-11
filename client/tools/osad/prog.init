@@ -2,7 +2,7 @@
 #
 # @@PROG@@     This shell script starts the @@PROG@@ daemon
 #
-# chkconfig: 2345 76 24
+# chkconfig: 2345 81 04
 # description: @@PROG@@ is a daemon used by the Spacewalk
 #
 ### BEGIN INIT INFO
