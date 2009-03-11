@@ -377,16 +377,16 @@ Examples
 -------
 
 Create channel 'my-stable-channel' for RHEL 4 AS u3 i386:
-./create-channel-update  -u admin -s myserver.example.com -v 4 -u u3 -r AS -a i386   -d my-stable-channel
+./create-channel-update  -l admin -s myserver.example.com -v 4 -u u3 -r AS -a i386   -d my-stable-channel
 
 or another way:
-./create-channel-update  -u admin -s myserver.example.com  -D ./data/4-U3-AS-i386  -d my-stable-channel
+./create-channel-update  -l admin -s myserver.example.com  -D ./data/4-U3-AS-i386  -d my-stable-channel
 
 Upgrade prevously created channel 'my-stable-channel' to RHEL 4 AS u4 i386: 
-./create-channel-update  -u admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel
+./create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel
 
 Add the extra's channel as a child channel of 'my-stable-channel':
-./create-channel-update  -u admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel
+./create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel
 """
 
 def error(msg):

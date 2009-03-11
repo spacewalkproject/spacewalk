@@ -5,12 +5,32 @@ This script can create a channel to a specific update level (i.e. RHEL4u3) or up
 
 For help, simply run ./create-channel-update --help
 
+
+Examples
+-------
+
+Create channel 'my-stable-channel' for RHEL 4 AS u3 i386:
+./create-channel-update  -l admin -s myserver.example.com -v 4 -u u3 -r AS -a i386   -d my-stable-channel
+
+or another way:
+./create-channel-update  -l admin -s myserver.example.com  -D ./data/4-U3-AS-i386  -d my-stable-channel
+
+Upgrade prevously created channel 'my-stable-channel' to RHEL 4 AS u4 i386: 
+./create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386   -d my-stable-channel
+
+Add the extra's channel as a child channel of 'my-stable-channel':
+./create-channel-update  -l admin -s myserver.example.com -v 4 -u u4 -r AS -a i386 -e extras  -p my-stable-channel
+
+
+
+
 In addition to the script, you should find in this directory:
 data/   - Data files for all of the update releases.
 README  - This file
 
 
 Changelog:
+-----------
 
 03/06/09 - 2.0-beta
 - Rewrite in python, supporting command line arguments.  
