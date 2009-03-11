@@ -54,6 +54,7 @@ function process_check_all(set_label, cboxes, flag) {
 }
 
 function checkbox_clicked(thebox, set_label) {
+ alert("check cliked")
   var form_name = thebox.form.name;
   if (form_name == "") {
     form_name = thebox.form.id;
@@ -72,7 +73,6 @@ function process_checkbox_clicked(thebox, set_label, checkall) {
 
   var count_checked_or_disabled = 0;
   var all_checked = false;
-
   if (cboxes.length) {
     for (i = 0; i < cboxes.length; i++) {
       if (cboxes[i].checked || cboxes[i].disabled) {
@@ -89,16 +89,16 @@ function process_checkbox_clicked(thebox, set_label, checkall) {
       all_checked = true;
     }
   }
-
   var a = new Array();
   a[0] = thebox.value;
-  checkall.checked = all_checked;
+  if (checkall) {
+	checkall.checked = all_checked;
+  }
   update_server_set("ids", set_label, thebox.checked, a);
 }
 
 
 function update_server_set(variable, set_label, checked, values) {
-  
   var url = "/rhn/SetItemSelected.do";
   body = "set_label=" + set_label + "&";
 
