@@ -20,7 +20,7 @@ from os import path
 DATA_DIR = "./data/"
 GATHER_DIR = "/mnt/engarchive2/released/"
 
-miniOps = "nChgs:u:p:b:v:r:a:u:e:d:c:D:P:"
+miniOps = "nChgs:u:p:b:v:l:r:a:u:e:d:c:D:P:"
 fullOps = ["nossl", "clear", "help", "gather", "server=", "user=", "password=", "bundle=", "version=", "release=", "arch=", "update=", "extra=", "sourceChannel=", "destChannel=", "data=", "parent="]
 
 versions = ( "5", "4", "3", "2.1" );
@@ -46,12 +46,12 @@ def main():
       help()
       exit(0)
    if hasOpt("g", "gather"):
-      gather(hasOpt("c", "clear"))
+      gather(hasOpt("C", "clear"))
       exit(0)
 
    global server, user, password, filename, ssl
    server = getOpt("s", "server", msg = "--server not provided")
-   user = getOpt("u", "user", "--user not provided") 
+   user = getOpt("l", "user", "--user not provided") 
    password  = getOpt("p", "password")         
    if password == None:
       password = getpass.getpass()
@@ -91,7 +91,7 @@ def main():
    srcChanLabel = getOpt("c", "sourceChannel")
    if (srcChanLabel == None):
       print "You have not specified a source channel, we will try to figure it out"
-   srcChanLabel = findSrcChan(version, release, arch, extra) 
+      srcChanLabel = findSrcChan(version, release, arch, extra) 
    
    print("Trying with source channel: " + srcChanLabel)
 
@@ -396,6 +396,7 @@ def error(msg):
 
 def usage():
    print """
+./create-channel-update --help
 ./create-channel-update  -u USER  -s SERVER [-p PASSWORD]  -v VERSION -r RELEASE 
 		-u UPDATE -a ARCH -e EXTRA  [ -D DATAFILE]  [-c SRCCHAN] -d DESTCHAN [-P PARENT]  
 		[-C | --clear] [-n | --nossl]
