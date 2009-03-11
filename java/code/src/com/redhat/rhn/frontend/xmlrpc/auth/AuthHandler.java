@@ -31,8 +31,8 @@ import javax.security.auth.login.LoginException;
  * Corresponds to Auth.pm in old perl code.
  * @version $Rev$
  * @xmlrpc.namespace auth
- * @xmlrpc.doc This namespace provides methods to authenticate with the Red Hat
- * Network.
+ * @xmlrpc.doc This namespace provides methods to authenticate with the system's 
+ * management server.
  */
 public class AuthHandler extends BaseHandler {
 
@@ -64,7 +64,8 @@ public class AuthHandler extends BaseHandler {
      * used by most other API methods.
      * @xmlrpc.param #param("string", "username")
      * @xmlrpc.param #param("string", "password")
-     * @xmlrpc.returntype string
+     * @xmlrpc.returntype 
+     *     #param("string", "sessionKey")
      */
     public String login(String username, String password) 
                       throws LoginException {
@@ -86,8 +87,9 @@ public class AuthHandler extends BaseHandler {
      * used by other methods.
      * @xmlrpc.param #param("string", "username")
      * @xmlrpc.param #param("string", "password")
-     * @xmlrpc.param #param("int", "duration", "Length of session.")
-     * @xmlrpc.returntype string
+     * @xmlrpc.param #param_desc("int", "duration", "Length of session.")
+     * @xmlrpc.returntype 
+     *     #param("string", "sessionKey")
      */
     public String login(String username, String password, Integer durationIn) 
                       throws LoginException {
@@ -101,27 +103,20 @@ public class AuthHandler extends BaseHandler {
     
     /**
      * This method is used to see if an external service is handing back an authorized
-     * token indicating that Spacewalk trusts the requester in some manner.  This is 
-     * currently used 
+     * token indicating that the server trusts the requester in some manner.  This is 
+     * currently used in the integration with Cobbler; however, it may be used for other
+     * services in the future.  
      * 
-     * @param login to check against
-     * @param token to validate against username
-     * @return 1 if the token is valid with this username, 0 otherwise. 
+     * @param login login of the user to check against token
+     * @param token token to validate
+     * @return 1 if the token is valid with this username, 0 otherwise.
      * 
-     * @xmlrpc.doc This method is used to see if an external service is 
-     * handing back an authorized token indicating that Spacewalk trusts 
-     * the requester in some manner.  This is currently used in the cobbler
-     * integration. 
-     * 
-     * @xmlrpc.param #param_desc("string", "login", "login of user to check against token")
-     * @xmlrpc.param #param_desc("string", "token", "token to validate") 
-     * @xmlrpc.returntype int - 1 if the token is valid with this
-     * username, 0 otherwise.
+     * @xmlrpc.ignore Since this API is for internal integration between services and is not useful
+     * to external users of the API, the typical XMLRPC API documentation is not being 
+     * included.
      */
     public int checkAuthToken(String login, String token) {
         int retval = 0;
-        
-        
         
         boolean valid = IntegrationService.get().
             checkRandomToken(login, token);
