@@ -111,9 +111,9 @@ public class AuthHandler extends BaseHandler {
      * @param token token to validate
      * @return 1 if the token is valid with this username, 0 otherwise.
      * 
-     * @xmlrpc.ignore Since this API is for internal integration between services and is not useful
-     * to external users of the API, the typical XMLRPC API documentation is not being 
-     * included.
+     * @xmlrpc.ignore Since this API is for internal integration between services and
+     * is not useful to external users of the API, the typical XMLRPC API documentation
+     * is not being included.
      */
     public int checkAuthToken(String login, String token) {
         int retval = 0;

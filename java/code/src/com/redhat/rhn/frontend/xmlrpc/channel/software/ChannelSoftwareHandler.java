@@ -137,8 +137,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * between the given dates.  
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
-     * @xmlrpc.param #param("dateTime.iso8601", "endDate")
+     * @xmlrpc.param #param($date, "startDate")
+     * @xmlrpc.param #param($date, "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
@@ -174,7 +174,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * modified date is greater than given date.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
-     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.param #param($date, "startDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("package")
@@ -1131,6 +1131,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.doc List the errata applicable to a channel between startDate and endDate.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param($date, "startDate")
+     * @xmlrpc.param #param($date, "endDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("errata")
@@ -1208,16 +1210,16 @@ public class ChannelSoftwareHandler extends BaseHandler {
     
     /**
      * List the errata applicable to a channel after given startDate
-     * @deprecated
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel
      * @param startDate begin date
      * @return the errata applicable to a channel
      * @throws NoSuchChannelException thrown if there is no channel matching
      * channelLabel.
+     * @deprecated being replaced by listErrata(string sessionKey,
+     * string channelLabel, dateTime.iso8601 startDate)
      *
      * @xmlrpc.doc List the errata applicable to a channel after given startDate
-     *      (Deprecated)
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param("string", "startDate")
@@ -1244,7 +1246,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
     
     /**
      * List the errata applicable to a channel between startDate and endDate.
-     * @deprecated
      * @param sessionKey The sessionKey containing the logged in user
      * @param channelLabel The label for the channel
      * @param startDate begin date
@@ -1252,11 +1253,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @return the errata applicable to a channel
      * @throws NoSuchChannelException thrown if there is no channel matching
      * channelLabel.
+     * @deprecated being replaced by listErrata(string sessionKey,
+     * string channelLabel, dateTime.iso8601 startDate, dateTime.iso8601)
      *
      * @xmlrpc.doc List the errata applicable to a channel between startDate and endDate.
-     *      (Deprecated)
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "startDate")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("errata")
