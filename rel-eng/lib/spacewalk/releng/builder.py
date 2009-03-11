@@ -113,6 +113,9 @@ class Builder(object):
         self.cvs_package_workdir = os.path.join(self.cvs_workdir,
                 self.project_name)
 
+        # When syncing files with CVS, only copy files with these extensions:
+        self.cvs_copy_extensions = (".spec", ".patch")
+
     def run(self, options):
         """
         Perform the actions requested of the builder.
@@ -362,11 +365,23 @@ class Builder(object):
         debug("Searching for git files to copy to CVS:")
         files_to_copy = []
         for filename in os.listdir(self.rpmbuild_gitcopy):
-            if filename not in CVS_PROTECT_FILES:
+            if os.path.isdir(os.path.join(self.rpmbuild_gitcopy, filename)):
+                # skip it
+                continue
+            if filename in CVS_PROTECT_FILES:
+                debug("   skipping:  %s (protected file)" % filename)
+                continue
+
+            # Check if file ends with something this builder subclass wants
+            # to copy:
+            copy_it = False
+            for extension in self.cvs_copy_extensions:
+                if filename.endswith(extension):
+                    copy_it = True
+                    continue
+            if copy_it:
                 debug("   copying:   %s" % filename)
                 files_to_copy.append(filename)
-            else:
-                debug("   skipping:  %s" % filename)
 
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.project_name,
@@ -389,7 +404,7 @@ class Builder(object):
 
                 if cvs_add:
                     print("   added: %s" % copy_me)
-                    commands.getstatusoutput("cvs add %s" %  dest_path)
+                    commands.getstatusoutput("cvs add %s" %  copy_me)
                 else:
                     print("   copied: %s" % copy_me)
 
@@ -580,6 +595,18 @@ class NoTgzBuilder(Builder):
     Usually these packages have source tarballs checked directly into git.
     i.e. most of the packages in spec-tree.
     """
+    def __init__(self, name=None, version=None, tag=None, build_dir=None,
+            pkg_config=None, global_config=None, user_config=None, dist=None,
+            test=False, offline=False):
+
+        Builder.__init__(self, name=name, version=version, tag=tag,
+                build_dir=build_dir, pkg_config=pkg_config,
+                global_config=global_config, user_config=user_config, dist=dist,
+                test=test, offline=offline)
+
+        # When syncing files with CVS, copy everything from git:
+        self.cvs_copy_extensions = ("",)
+
     def tgz(self):
         """ Override parent behavior, we already have a tgz. """
         # TODO: Does it make sense to allow user to create a tgz for this type
@@ -756,6 +783,9 @@ class SatelliteBuilder(NoTgzBuilder):
         self.upstream_tag = None
         self.patch_filename = None
         self.patch_file = None
+
+        # When syncing files with CVS, only copy files with these extensions:
+        self.cvs_copy_extensions = (".spec", ".patch")
 
     def tgz(self):
         """

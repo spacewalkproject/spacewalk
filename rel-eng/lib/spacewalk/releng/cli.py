@@ -380,14 +380,20 @@ class BuildModule(BaseCliModule):
 
     def _validate_options(self):
         if self.options.srpm and self.options.rpm:
-            error_out("Please choose only one of --srpm and --rpm")
+            error_out("Cannot combine --srpm and --rpm")
         if self.options.test and self.options.tag:
             error_out("Cannot build test version of specific tag.")
+        if (self.options.srpm or self.options.rpm) and self.options.release:
+            error_out("Cannot combine --srpm/--rpm with --release.")
 
         if self.options.release and (self.options.cvs_release or
                 self.options.koji_release):
             error_out(["Cannot combine --cvs-release/--koji-release with --release.",
                 "(--release includes both)"])
+        if self.options.release and self.options.test:
+            error_out("Cannot combine --release with --test.")
+        if self.options.release and self.options.offline:
+            error_out("Cannot do an offline --release.")
 
 
 
