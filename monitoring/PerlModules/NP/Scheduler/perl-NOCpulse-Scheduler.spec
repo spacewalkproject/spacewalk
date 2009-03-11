@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Scheduler
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.58.10
+Version:      1.58.11
 Release:      1%{?dist}
 Summary:      NOCpulse Event Scheduler
 URL:          https://fedorahosted.org/spacewalk
@@ -53,6 +53,9 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 1.58.11-1
+- kernel.pl should create and own NPkernel.out
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.58.10-1
 - BR perl(ExtUtils::MakeMaker)
 
