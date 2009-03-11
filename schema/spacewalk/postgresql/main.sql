@@ -443,7 +443,7 @@ create schema spacewalk;
 \i triggers/rhnVirtualInstance_triggers.sql
 \i triggers/web_contact_triggers.sql
 \i triggers/web_customer_triggers.sql
-\i triggers/web_user_contact_permission_triggers.sql
+\i triggers/web_user_personal_info_triggers.sql
 
 /* functions go here */
 \i procs/empty_blob.sql
