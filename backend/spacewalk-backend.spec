@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.20
+Version: 0.5.21
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -560,6 +560,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.21-1
+- 483802 - remove conflicts between spacewalk-proxy-common and spacewalk-config
+- 209620 - satellite-debug creates world readable output
+- 479439 - adding better message when trying to downgrade entitelments
+- 481236 - making package downloads work for http
+- 485875 - fixing missing man page options and removed deprecated ones for satsync
+
 * Fri Mar 06 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.20-1
 - Add missing dependency on PyPAM.
 
