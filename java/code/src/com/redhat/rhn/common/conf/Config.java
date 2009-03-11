@@ -652,7 +652,7 @@ public class Config {
     public String getCobblerServerUrl() {
         String cobblerServer = getCobblerHost();
         int cobblerServerPort = getInt("cobbler.port", 80);
-        return "http://" + cobblerServer + ":" + cobblerServerPort + "/cobbler_api_rw";
+        return "http://" + cobblerServer + ":" + cobblerServerPort;
     }
     
     

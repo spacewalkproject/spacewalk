@@ -19,10 +19,12 @@ import org.apache.log4j.Logger;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * 
@@ -34,34 +36,46 @@ import redstone.xmlrpc.XmlRpcClient;
  * @version $Rev$
  */
 public class CobblerConnection {
-    
+    private static final double COBBLER_VERSION = 1.6;
     private XmlRpcClient client;
-    
+    private String actualUrl;
     private static Logger log = Logger.getLogger(CobblerConnection.class);
     
     private String token;
     
     protected CobblerConnection() {
     }
+
+    /**
+     * Constructor to just connect the client to the server
+     * NO token is setup.. Client has to call token
+     * @param url  cobbler base url, example http://localhost 
+     * @throws XmlRpcException if there some communication issue..
+     */
+    
+    public CobblerConnection(String url) {
+        try {
+            actualUrl = adjustUrl(url);
+            client = new XmlRpcClient(actualUrl, false);
+        }
+        catch (MalformedURLException e) {
+            throw new XmlRpcException(e);
+        }
+    }    
     
     /**
      * Constructor to setup the client based on 
      * user name and password.. Connects to cobbler
      * and logs in the user right here to obtain the
      * token 
-     * @param url complete cobbler url, example http://localhost/cobbler_api_rw
+     * @param url  cobbler base url, example http://localhost 
      * @param user the username
      * @param pass the password
      * @throws XmlRpcException if there some communication issue..
      */
     public CobblerConnection(String url, String user, String pass) {
-        try {
-            client = new XmlRpcClient(url, false);
-            login(user, pass);
-        }
-        catch (MalformedURLException e) {
-            throw new XmlRpcException(e);
-        }
+        this(url);
+        login(user, pass);
     }
 
     /**
@@ -69,22 +83,28 @@ public class CobblerConnection {
      * the token itself.. Connects to cobbler. Idea here
      * is that if you have the xmlrpc token by logging in previously
      * you could use that here..
-     * @param url complete cobbler url, example http://localhost/cobbler_api_rw
+     * @param url cobbler base url, example http://localhost
      * @param tokenIn the token
      * @throws XmlRpcException if there some communication issue..
      */    
     public CobblerConnection(String url, String tokenIn) {
-        try {
-            client = new XmlRpcClient(url, false);
-            token = tokenIn; 
-        }
-        catch (MalformedURLException e) {
-            throw new XmlRpcException(e);
-        }
+        this(url);
+         token = tokenIn; 
     }    
     
-    private void login(String login, String password) {
-        token = (String) invokeMethod("login", login, password);   
+    /**
+     * Simple method to login in to cobbler with the given 
+     * user name and password.. The returned token 
+     * is stored in the connection itself so that it
+     * could be used for futre operations.. It
+     * is also returned if so needed. 
+     * @param login user name
+     * @param password password
+     * @return the login token
+     */
+    public String login(String login, String password) {
+        token = (String) invokeMethod("login", login, password);
+        return token;
     }
     
 
@@ -145,12 +165,41 @@ public class CobblerConnection {
     public void setToken(String tokenIn) {
         token = tokenIn;
     }
-    
+
     /**
-     * get the cobbler token
+     * Returns the actual cobbler server url including the suffix
+     * @return the server URL
      */
-    public void getToken() {
-        return;
+    public String getUrl() {
+        return actualUrl;
     }
     
+    /**
+     * Gets the cobbler version
+     * @return the cobbler version.
+     */
+    public double getVersion() {
+        return (Double)invokeMethod("version");
+    }
+
+    private String adjustUrl(String urlIn) {
+        String url = urlIn + "/cobbler_api";
+        try {
+            XmlRpcClient baseClient = new XmlRpcClient(url, false);
+            Double result = (Double)baseClient.invoke("version", Collections.EMPTY_LIST);
+            if (result >= COBBLER_VERSION) {
+                return url;
+            }
+            return url + "_rw";
+        }
+        catch (MalformedURLException e) {
+            throw new XmlRpcException(e);
+        }
+        catch (redstone.xmlrpc.XmlRpcException e) {
+            throw new XmlRpcException(e);
+        }
+        catch (XmlRpcFault e) {
+            throw new XmlRpcException(e); 
+        }        
+    }
 }

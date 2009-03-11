@@ -42,16 +42,13 @@ import redstone.xmlrpc.XmlRpcFault;
 public class CobblerXMLRPCHelper implements XMLRPCInvoker {
     
     private XmlRpcClient client;
-    
     private static Logger log = Logger.getLogger(CobblerXMLRPCHelper.class);
-    
     /**
      * Constructor
      */
     public CobblerXMLRPCHelper() {
         try {
-            client = new XmlRpcClient(Config.get().
-                    getCobblerServerUrl(), false);
+            client = new XmlRpcClient(getCobblerUrl(), false);
         }
         catch (MalformedURLException e) {
             throw new RuntimeException(e);
@@ -99,8 +96,13 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
             IntegrationService.get().getAuthToken(userName);
         return (CobblerConnection)MethodUtil.getClassFromConfig(
                                 CobblerConnection.class.getName(),
-                                Config.get().getCobblerServerUrl(), token); 
+                                Config.get().getCobblerServerUrl(), token);
     }
     
-    
+    private static String getCobblerUrl() {
+        CobblerConnection conn = (CobblerConnection)MethodUtil.getClassFromConfig(
+                CobblerConnection.class.getName(),
+                Config.get().getCobblerServerUrl());
+        return conn.getUrl();    
+    }
 }
