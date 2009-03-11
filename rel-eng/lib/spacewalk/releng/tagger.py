@@ -61,9 +61,9 @@ class VersionTagger(object):
         NOTE: this method may do nothing if the user requested no build actions
         be performed. (i.e. only release tagging, etc)
         """
-        # This pretty much always happens if we get this far...
         if options.tag_release:
-            self._tag_release()
+            print("WARNING: --tag-release option no longer necessary, 'tito tag' will accomplish the same thing.")
+        self._tag_release()
 
     def _tag_release(self):
         """
@@ -152,7 +152,6 @@ class VersionTagger(object):
             old_version = "untagged"
         # TODO: Do this here instead of calling out to an external Perl script:
         if not self.keep_version:
-
             bump_type = "bump-version"
             if release:
                 bump_type = "bump-release"

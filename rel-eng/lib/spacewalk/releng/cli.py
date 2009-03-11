@@ -315,7 +315,8 @@ class BuildModule(BaseCliModule):
                 )
         self.parser.add_option("--upload-new-source", dest="cvs_new_sources",
                 action="append",
-                help="Upload a new source tarball to CVS lookaside. Only required if building from CVS and the source tarball has not been previously uploaded. Must specify for all --test runs until the 'sources' file is actually committed to CVS during a --release. Used when running 'make new-sources' CVS target.")
+                help="Upload a new source tarball to CVS lookaside. (i.e. runs 'make new-sources') Must be " \
+                    "used until 'sources' file is committed to CVS.")
 
     def main(self):
         BaseCliModule.main(self)
@@ -333,7 +334,7 @@ class BuildModule(BaseCliModule):
             build_version = get_latest_tagged_version(package_name)
             if build_version == None:
                 error_out(["Unable to lookup latest package info.",
-                        "Perhaps you need to --tag-release first?"])
+                        "Perhaps you need to tag first?"])
             build_tag = "%s-%s" % (package_name, build_version)
 
         if not self.options.test:
@@ -400,12 +401,13 @@ class TagModule(BaseCliModule):
         self._add_common_options()
 
         # Options for tagging new package releases:
+        # NOTE: deprecated and no longer needed:
         self.parser.add_option("--tag-release", dest="tag_release",
                 action="store_true",
-                help="Tag a new release of the package.")
+                help="Deprecated, no longer required.")
         self.parser.add_option("--keep-version", dest="keep_version",
                 action="store_true",
-                help="Use spec file version/release to tag package.")
+                help="Use spec file version/release exactly as specified in spec file to tag package.")
 
 
     def main(self):
@@ -474,7 +476,7 @@ class ReportModule(BaseCliModule):
         their most recent tag, as well as a patch for that diff. Used to
         determine which packages are in need of a rebuild.
         """
-        print("Scanning for packages that may need a --tag-release...")
+        print("Scanning for packages that may need to be tagged...")
         print("")
         git_root = find_git_root()
         rel_eng_dir = os.path.join(git_root, "rel-eng")
@@ -495,7 +497,7 @@ class ReportModule(BaseCliModule):
         their most recent tag, as well as a patch for that diff. Used to
         determine which packages are in need of a rebuild.
         """
-        print("Scanning for packages that may need a --tag-release...")
+        print("Scanning for packages that may need to be tagged...")
         print("")
         git_root = find_git_root()
         rel_eng_dir = os.path.join(git_root, "rel-eng")

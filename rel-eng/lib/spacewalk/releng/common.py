@@ -95,7 +95,7 @@ def check_tag_exists(tag, offline=False):
             (repo_url, tag))
     if upstream_tag_sha1 == "":
         error_out(["Tag does not exist in remote git repo: %s" % tag,
-            "You must --tag-release, then git push and git push --tags"])
+            "You must tag, then git push and git push --tags"])
 
     debug("Remote tag SHA1: %s" % upstream_tag_sha1)
     if upstream_tag_sha1 != tag_sha1:
