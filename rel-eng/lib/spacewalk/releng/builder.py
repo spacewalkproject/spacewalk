@@ -640,7 +640,7 @@ class CvsBuilder(NoTgzBuilder):
         # Convert new sources to full paths right now, before we chdir:
         if options.cvs_new_sources is not None:
             for new_source in options.cvs_new_sources:
-                self.sources.append(os.path.abspath(new_source))
+                self.sources.append(os.path.abspath(os.path.expanduser(new_source)))
         debug("CvsBuilder sources: %s" % self.sources)
         NoTgzBuilder.run(self, options)
 
@@ -678,6 +678,8 @@ class CvsBuilder(NoTgzBuilder):
         # latest actually committed to CVS:
         self._cvs_sync_spec()
         self._cvs_sync_patches()
+
+        self._cvs_upload_sources()
 
         # Use "make srpm" target to create our source RPM:
         os.chdir(self.cvs_package_workdir)

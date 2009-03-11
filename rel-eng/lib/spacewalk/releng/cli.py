@@ -315,8 +315,7 @@ class BuildModule(BaseCliModule):
                 )
         self.parser.add_option("--upload-new-source", dest="cvs_new_sources",
                 action="append",
-                help="Upload a new source tarball to CVS lookaside during " \
-                    " --release. (i.e. runs 'make new-sources')")
+                help="Upload a new source tarball to CVS lookaside. Only required if building from CVS and the source tarball has not been previously uploaded. Must specify for all --test runs until the 'sources' file is actually committed to CVS during a --release. Used when running 'make new-sources' CVS target.")
 
     def main(self):
         BaseCliModule.main(self)
