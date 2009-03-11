@@ -236,8 +236,7 @@ sub _timestamp {
 sub _trim_whitespace {
   my ($self, $string) = @_;
 
-  $string =~ s/^\s*(.*)$/\1/;
-  $string =~ s/^(.*\S)\s*$/\1/;
+  $string =~ s/^\s*(.*?)\s*$/$1/;
   return $string
 }
 

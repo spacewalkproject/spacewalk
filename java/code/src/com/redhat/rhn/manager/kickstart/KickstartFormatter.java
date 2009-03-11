@@ -428,7 +428,8 @@ public class KickstartFormatter {
                             (typeIn.equals(KickstartScript.TYPE_POST) && 
                                     (kss.getChroot().equals("Y")))) {
                         retval.append(NEWLINE);
-                        if (kss.getInterpreter() != null) {
+                        if ((kss.getInterpreter() != null) &&
+                            (!kss.getInterpreter().isEmpty())) {
                             retval.append("%" + typeIn + SPACE + INTERPRETER_OPT + SPACE +
                                     kss.getInterpreter() + NEWLINE);
                         }

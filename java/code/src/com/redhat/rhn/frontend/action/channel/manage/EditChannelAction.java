@@ -88,7 +88,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             Long cid = create(form, errors, ctx);
             params.put("cid", cid);
             if (errors.isEmpty()) {
-            createSuccessMessage(request, "message.channelcreated",
+                createSuccessMessage(request, "message.channelcreated",
                     form.getString("name"));
             }
         }
@@ -115,7 +115,7 @@ public class EditChannelAction extends RhnAction implements Listable {
             
             edit(form, errors, ctx);
             if (errors.isEmpty()) {
-            createSuccessMessage(request, "message.channelupdated",
+                createSuccessMessage(request, "message.channelupdated",
                     form.getString("name"));
             }
                                      

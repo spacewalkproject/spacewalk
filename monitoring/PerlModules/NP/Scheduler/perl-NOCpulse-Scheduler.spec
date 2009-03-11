@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Scheduler
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.58.10
+Version:      1.58.11
 Release:      1%{?dist}
 Summary:      NOCpulse Event Scheduler
 URL:          https://fedorahosted.org/spacewalk
@@ -29,7 +29,7 @@ defining event types.
 %install
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/NPkernel.out
 
 install -m 644 Scheduler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 install -m 644 Event.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
@@ -47,11 +47,15 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 %{perl_vendorlib}/NOCpulse/*
 %{_bindir}/kernel.pl
 %attr(755,nocpulse,nocpulse) %{_var}/lib/nocpulse
+%attr(755,nocpulse,nocpulse) %{_var}/lib/nocpulse/NPkernel.out
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 1.58.11-1
+- kernel.pl should create and own NPkernel.out
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 1.58.10-1
 - BR perl(ExtUtils::MakeMaker)
 

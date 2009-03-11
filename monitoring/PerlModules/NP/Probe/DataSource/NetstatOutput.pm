@@ -169,7 +169,7 @@ sub parse_line {
     $entry->local_ip(NOCpulse::Probe::Utils::IPAddressRange->new(octets => $octet_ref));
     $entry->local_port($port);
 
-    my ($octet_ref, $port) = $self->split_ip($fields[$remote_field], $split_regex);
+    ($octet_ref, $port) = $self->split_ip($fields[$remote_field], $split_regex);
     $entry->remote_ip(NOCpulse::Probe::Utils::IPAddressRange->new(octets => $octet_ref));
     $entry->remote_port($port);
 

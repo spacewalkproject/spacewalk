@@ -136,7 +136,7 @@ sub spawn {
     } else {
 
       # We've been passed a string to exec.
-      exec($exec, @args);
+      CORE::exec($exec, @args);
 
       # Shouldn't get here
       print STDERR "Exec failed: $!\n";
