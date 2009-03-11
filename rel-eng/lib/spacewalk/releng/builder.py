@@ -662,7 +662,9 @@ class CvsBuilder(NoTgzBuilder):
         self.srpm_location = rpms[0]
 
     def _rpm(self):
-        self._cvs_rpm_common(target="i386", all_branches=True)
+        # Lookup the architecture of the system for the correct make target:
+        arch = run_command("uname -i")
+        self._cvs_rpm_common(target=arch, all_branches=True)
 
     def _cvs_rpm_common(self, target, all_branches=False, dist=None, 
             reuse_cvs_checkout=False):
