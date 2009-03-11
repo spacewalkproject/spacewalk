@@ -5,7 +5,7 @@ Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.1.6
+Version:   5.1.7
 Release:   1%{?dist}
 License:   GPLv2
 Group:     System Environment/Daemons
@@ -65,7 +65,7 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
-* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com>
+* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 5.1.7-1
 - 489573 - remove generating keys and leave it on nocpulse-common
 
 * Sat Feb 28 2009 Dennis Gilmore <dennis@ausil.us> 5.1.6-1
