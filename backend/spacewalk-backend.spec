@@ -13,7 +13,9 @@ URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: python, rpm-python, spacewalk-config
+Requires: python, rpm-python
+# /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
+Requires: /etc/rhn
 Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
