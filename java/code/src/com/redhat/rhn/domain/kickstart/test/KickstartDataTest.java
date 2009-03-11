@@ -86,6 +86,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         org.cobbler.Profile p = org.cobbler.Profile.create(
                 CobblerXMLRPCHelper.getConnection("test"),
                 CobblerCommand.makeCobblerName(k), d);
+        p.setKickstart(k.getCobblerFileName());
         k.setCobblerId(p.getUid());
 
     }

@@ -396,7 +396,7 @@ public class KickstartFactory extends HibernateFactory {
         } 
         catch (Exception e) {
             log.error("Error trying to write KS file to disk: [" + 
-                    ksdataIn.getCobblerFileName() + "]", e);
+                    ksdataIn.getLabel() + "]", e);
             throw new RuntimeException(e);
         }
     } 
