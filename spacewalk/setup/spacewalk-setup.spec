@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.20
+Version:        0.5.21
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -90,7 +90,10 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Mar 12 2009 Partha Aji <paji@redhat.com> 0.5.21-1
+* Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
+- rebuild
+
+* Thu Mar 12 2009 Partha Aji <paji@redhat.com>
 - None - cobbler-setup now requires PyYAML. So adding it..
 
 * Thu Mar 12 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.20-1
