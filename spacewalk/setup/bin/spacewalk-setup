@@ -1106,17 +1106,24 @@ sub setup_monitoring {
   RHN::DB->set_default_handle(sprintf('%s/%s@%s', $answers->{'db-user'}, $answers->{'db-password'}, $answers->{'db-sid'}));
 
   update_monitoring_config($answers, \%mon_config);
-
   update_monitoring_environment($answers);
 
-  my $org_id = RHN::SatInstall->get_satellite_org_id();
-  my $sc = new RHN::SatCluster(customer_id => $org_id,
-             description => 'RHN Monitoring Satellite',
-             last_update_user => 'installer',
-            );
-  $sc->create_new();
+  my $scout;
+  eval { # scout on Satellite has always ID = 1
+        $scout = RHN::SatCluster->lookup(-recid => 1);
+  };
+  if ($@) { #scout does not exist, lets create new
+        my $org_id = RHN::SatInstall->get_satellite_org_id();
+        $scout = new RHN::SatCluster(customer_id => $org_id,
+                description => 'RHN Monitoring Satellite',
+                last_update_user => 'installer',
+        );
+        $scout->create_new();
+  } else {
+        print Spacewalk::Setup::loc("** Skipping scout creation. Already created.\n");
+  }
 
-  my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
+  my $scout_shared_key = RHN::SatCluster->fetch_key($scout->recid);
   write_config({ monitoringDOTscout_shared_key => $scout_shared_key }, Spacewalk::Setup::DEFAULT_SATCON_DICT);
   
   return 1;
