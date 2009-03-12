@@ -1202,10 +1202,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #struct_end()
      *    #array_end()
      */
-    public Object[] listErrata(String sessionKey, String channelLabel)
+    public List listErrata(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
-
-        return listErrata(sessionKey, channelLabel, "", "");
+        List<Map> list = (List<Map>) listErrata(sessionKey, channelLabel, "", "");
+        //
+        for (Map item : list) {
+            item.put("date", item.get("issue_date"));
+        }
+        return list;
     }
     
     /**
@@ -1238,7 +1242,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Object[] listErrata(String sessionKey, String channelLabel,
+    public List listErrata(String sessionKey, String channelLabel,
             String startDate) throws NoSuchChannelException {
         
         return listErrata(sessionKey, channelLabel, startDate, null);
@@ -1277,7 +1281,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *      #array_end()
      */
 
-    public Object[] listErrata(String sessionKey, String channelLabel,
+    public List listErrata(String sessionKey, String channelLabel,
             String startDate, String endDate) throws NoSuchChannelException {
 
         //Get Logged in user
@@ -1285,7 +1289,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
         
         List errata = ChannelManager.listErrataForDates(channel, startDate, endDate);
-        return errata.toArray();
+        return errata;
     }
     
     /**

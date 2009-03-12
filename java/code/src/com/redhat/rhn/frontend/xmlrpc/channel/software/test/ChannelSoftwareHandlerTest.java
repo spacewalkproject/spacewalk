@@ -812,10 +812,10 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Channel mergeFrom = ChannelFactoryTest.createTestChannel(admin);
         Channel mergeTo = ChannelFactoryTest.createTestChannel(admin);
         
-        Object[] fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
-        assertEquals(fromList.length, 0);
-        Object[] toList = handler.listErrata(adminKey, mergeTo.getLabel());
-        assertEquals(toList.length, 0);
+        List fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
+        assertEquals(fromList.size(), 0);
+        List toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(toList.size(), 0);
 
         Map errataInfo = new HashMap();
         String advisoryName = TestUtils.randomString();
@@ -841,24 +841,24 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         TestUtils.flushAndEvict(errata);
 
         fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
-        assertEquals(fromList.length, 1);
+        assertEquals(fromList.size(), 1);
         
         Object[] mergeResult = handler.mergeErrata(adminKey, mergeFrom.getLabel(), 
                 mergeTo.getLabel());
-        assertEquals(mergeResult.length, fromList.length);
+        assertEquals(mergeResult.length, fromList.size());
         
         toList = handler.listErrata(adminKey, mergeTo.getLabel());
-        assertEquals(mergeResult.length, fromList.length);
+        assertEquals(mergeResult.length, fromList.size());
     }
     
     public void testMergeErrataByDate() throws Exception {
         Channel mergeFrom = ChannelFactoryTest.createTestChannel(admin);
         Channel mergeTo = ChannelFactoryTest.createTestChannel(admin);
         
-        Object[] fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
-        assertEquals(fromList.length, 0);
-        Object[] toList = handler.listErrata(adminKey, mergeTo.getLabel());
-        assertEquals(toList.length, 0);
+        List fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
+        assertEquals(fromList.size(), 0);
+        List toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(toList.size(), 0);
 
         Map errataInfo = new HashMap();
         String advisoryName = TestUtils.randomString();
@@ -884,14 +884,14 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         TestUtils.flushAndEvict(errata);
         
         fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
-        assertEquals(fromList.length, 1);
+        assertEquals(fromList.size(), 1);
         
         Object[] mergeResult = handler.mergeErrata(adminKey, mergeFrom.getLabel(), 
                 mergeTo.getLabel(), "2008-09-30", "2030-09-30");
-        assertEquals(mergeResult.length, fromList.length);
+        assertEquals(mergeResult.length, fromList.size());
         
         toList = handler.listErrata(adminKey, mergeTo.getLabel());
-        assertEquals(mergeResult.length, fromList.length);
+        assertEquals(mergeResult.length, fromList.size());
         
         // perform a second merge on an interval where we know we don't have any 
         // errata and verify the result
@@ -900,7 +900,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertEquals(mergeResult.length, 0);
         
         toList = handler.listErrata(adminKey, mergeTo.getLabel());
-        assertEquals(toList.length, fromList.length);
+        assertEquals(toList.size(), fromList.size());
     }
     
     
