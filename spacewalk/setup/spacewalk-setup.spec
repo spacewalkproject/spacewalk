@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.19
+Version:        0.5.20
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 12 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.20-1
+- 489350 - if scout already exist, dont create it again if db was not wiped
+
 * Tue Mar 10 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.19-1
 - 488092 - moved some routines to Setup.pm so they can be used from outside
 - call satcon_deploy with full path to Spacewalk::Setup
