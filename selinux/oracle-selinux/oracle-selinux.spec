@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.5%{?obtag}%{?dist}%{?repo}
+Release:         23.6%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -189,6 +189,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
 
 %changelog
+* Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1-23.6
+- oracle-selinux: allow unconfined_r to run oracle_sqlplus_t.
+
 * Thu Feb 19 2009 Jan Pazdziora 0.1-23.5
 - make the unconfined_devpts_t part optional
 
