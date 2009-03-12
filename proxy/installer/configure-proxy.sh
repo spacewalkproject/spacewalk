@@ -92,6 +92,13 @@ default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{ve
 
 default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' /etc/sysconfig/rhn/up2date)
 
+if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
+   cat <<WARNING
+*** Warning: plain rhn.redhat.com should not be used as RHN Parent.
+*** Using xmlrpc.rhn.redhat.com instead.
+WARNING
+fi
+
 default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
 default_or_input "Use SSL" USE_SSL 'Y/n'

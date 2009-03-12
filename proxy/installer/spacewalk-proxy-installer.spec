@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Mar 12 2009 Miroslav Suchý <msuchy@redhat.com>
+- 489674 - warn if user select rhn.redhat.com as parent without xmlrpc. prefix
+
 * Mon Mar  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.17-1
 - enable scout by default if monitoring is enabled
 
