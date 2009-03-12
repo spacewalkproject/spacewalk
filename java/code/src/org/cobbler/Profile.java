@@ -403,4 +403,12 @@ public class Profile extends CobblerObject {
       public void setRedHatManagementKey(String key) {
           modify(REDHAT_KEY, key);
       }
+      
+      /**
+       * Generates the kickstart text and returns that
+       * @return the generated kickstart text
+       */
+      public String generateKickstart() {
+          return (String)client.invokeTokenMethod("generate_kickstart", getName());
+      }
 }

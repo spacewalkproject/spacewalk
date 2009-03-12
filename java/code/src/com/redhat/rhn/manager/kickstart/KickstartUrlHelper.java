@@ -125,12 +125,14 @@ public class KickstartUrlHelper {
      */
     public String getKickstartFileUrlBase() {
         
-        StringBuffer urlBase = new StringBuffer();
+        StringBuilder urlBase = new StringBuilder();
         urlBase.append(protocol);
+        if (!protocol.endsWith("://")) {
+            urlBase.append("://");    
+        }
         urlBase.append(host);
         urlBase.append(KS_CFG + "/org/"); 
-        urlBase.append(ksData.getOrg().getId().toString()); 
-        
+        urlBase.append(ksData.getOrg().getId().toString());        
         return urlBase.toString();
     }
     
