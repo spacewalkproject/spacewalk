@@ -54,7 +54,6 @@ function process_check_all(set_label, cboxes, flag) {
 }
 
 function checkbox_clicked(thebox, set_label) {
- alert("check cliked")
   var form_name = thebox.form.name;
   if (form_name == "") {
     form_name = thebox.form.id;
