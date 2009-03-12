@@ -1107,8 +1107,6 @@ sub setup_monitoring {
 
   update_monitoring_config($answers, \%mon_config);
 
-  my $dbname = $mon_config{RHN_DB_NAME};
-
   update_monitoring_environment($answers);
 
   my $org_id = RHN::SatInstall->get_satellite_org_id();
