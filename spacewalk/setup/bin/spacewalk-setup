@@ -1222,53 +1222,6 @@ sub random_password {
   return $ret;
 }
 
-sub clear_db {
-  my $answers = shift;
-
-  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
-
-  print Spacewalk::Setup::loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
-
-  Spacewalk::Setup::system_debug('/sbin/service tomcat5 stop');
-  Spacewalk::Setup::system_debug('/sbin/service taskomatic stop');
-  Spacewalk::Setup::system_debug('/sbin/service httpd stop');
-  Spacewalk::Setup::system_debug('/sbin/service jabberd stop');
-  Spacewalk::Setup::system_debug('/sbin/service osa-dispatcher stop');
-  Spacewalk::Setup::system_debug('/sbin/service tsdb_local_queue stop');
-
-  print Spacewalk::Setup::loc("** Database: Services stopped.  Clearing DB.\n");
-
-  my $select_sth = $dbh->prepare(<<EOQ);
-  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
-    FROM user_objects UO
-   WHERE UO.object_type NOT IN ('TABLE', 'INDEX', 'TRIGGER', 'LOB')
-UNION
-  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name
-         || ' cascade constraints' AS DROP_STMT
-    FROM user_objects UO
-   WHERE UO.object_type = 'TABLE'
-     AND UO.object_name NOT LIKE '%$%'
-EOQ
-
-  $select_sth->execute();
-
-  while (my ($drop_stmt) = $select_sth->fetchrow()) {
-    my $drop_sth = $dbh->prepare($drop_stmt);
-    $drop_sth->execute();
-  }
-
-  if ($DEBUG) {
-    $dbh->rollback();
-  }
-  else {
-    $dbh->commit();
-  }
-
-  $dbh->disconnect();
-
-  return;
-}
-
 sub need_oracle_9i_10g_upgrade {
       my $orahome = qx{dbhome embedded};
       chomp($orahome);
