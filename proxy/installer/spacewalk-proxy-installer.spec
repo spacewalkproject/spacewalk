@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.5.17
+Version: 0.5.18
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -83,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
-* Thu Mar 12 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Mar 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.18-1
 - 489674 - warn if user select rhn.redhat.com as parent without xmlrpc. prefix
 
 * Mon Mar  2 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.17-1
