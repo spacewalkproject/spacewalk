@@ -1208,7 +1208,6 @@ sub have_selinux {
 }
 
 sub generate_satcon_dict {
-	my $class = shift;
 	my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
 		tree => { default => DEFAULT_RHN_SATCON_TREE },});
 
