@@ -83,8 +83,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-LC_ALL=C /usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 2>&1 \
-        | grep -v '/usr/sbin/semanage: Port tcp/5347 already defined' || :
+/usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 || :
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 /sbin/restorecon -ri /var/run/jabberd || :
