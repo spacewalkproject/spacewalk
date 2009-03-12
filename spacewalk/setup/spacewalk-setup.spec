@@ -90,6 +90,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 12 2009 Partha Aji <paji@redhat.com> 0.5.21-1
+- None - cobbler-setup now requires PyYAML. So adding it..
+
 * Thu Mar 12 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.20-1
 - 489350 - if scout already exist, dont create it again if db was not wiped
 
