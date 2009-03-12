@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.28
+Version: 0.5.29
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -233,6 +233,42 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.29-1
+- 489760 - used cheetah's #errorCatcher Echo to handle escaping in ks files.
+- 249459 - fixing issue where org trust page was busted
+- 488137 - refer to cobbler_api instead of cobbler_api_rw to support cobbler >= 1.6
+- update deprecated methods in ChannelSoftwareHandler to be more consistent
+- 484463 - added more cobbler bits to the kickstart formatter that were missing
+- 488830 - api - auth handler - remove the public doc for checkAuthToken
+- apidoc generation now ignores an individual call using @xmlrpc.ignore
+- added taskomatic task to regenerate deleted kickstart wizard files
+- Fixed the ks-setup.py script to function correctly w.r.t space05 changes
+- 481180 - do not include --interpreter in profile for scripts without scripting lang
+- fix indentations to make it more readable
+- Removed code that was getting ignored.
+- 489577 - fixing issue that caused taskomatic tracebacks when talking to cobbler
+- 489363 - add missing exception class...
+- 489363 - api - system.createPackageProfile did not include pkg arch in profile
+- 489426 - fixing cloning of kickstarts for regular and raw style
+- 489347 - fixing "File Location" field on OS tab to show the --url param
+- 483287 - Added ability to do a cobbler sync thru the UI
+- adding missing param, for channel name to show up in header
+- 483776 - fixing ISE (NPE) on clone errata page
+- 462079 - fixed issue where an auto-scheduled errata had name of  "null - null"
+- 467265 - fixing issue where errata list was sorting date incorrectly
+- fixing package delete to delete from a couple more tables
+- 489042 - api - org.setSystemEntitlements - supports setting base entitlements.
+- added list of supported entitlements to the api doc
+- 488999 - c.s.setUserSubscribable documented value as string while impl
+- expected a primitive boolean as input instead of Boolean
+- 488148 - test fixes related to bugzilla
+- 488148 - use pre-existing system record if there is one.
+- 489033 - correcting type of trustOrgId in org.trust.addTrust and removeTrust
+- 488990 - api - remove addTrust, removeTrust, listTrusts apis from org handler.
+- 488548 - api - org.migrateSystems - fix reactivationkeys, custom info and config
+- 488348 - use channel org_id to prevent returning RH channels in addition to custom
+- Fixed variable name typo.
+ 
 * Fri Mar 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.28-1
 - added ExcludeArch: ia64
 
