@@ -25,6 +25,7 @@ Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
 Requires:       cobbler >= 1.4.2
+Requires:       PyYAML
 Requires:       jabberd
 
 
