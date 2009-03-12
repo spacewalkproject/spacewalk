@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -110,6 +110,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Mar 12 2009 Jan Pazdziora 1.4.0-6
+- 485396 - silence semanage output altogether
+
 * Wed Feb 25 2009 Jan Pazdziora 1.4.0-5
 - 485396 - silence semanage if port is already defined
 
