@@ -1205,10 +1205,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public List listErrata(String sessionKey, String channelLabel)
         throws NoSuchChannelException {
         List<Map> list = (List<Map>) listErrata(sessionKey, channelLabel, "", "");
-        //
-        for (Map item : list) {
-            item.put("date", item.get("issue_date"));
-        }
         return list;
     }
     
