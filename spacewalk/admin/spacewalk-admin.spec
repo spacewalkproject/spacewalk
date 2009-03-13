@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.11
+Version: 0.5.12
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Fri Mar 13 2009 Jan Pazdziora 0.5.12-1
+- 486738 - change to root's home directory before running sqlplus
+
 * Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.11-1
 - added chkconfig option and improved database detection in rhn-satellite script
 
