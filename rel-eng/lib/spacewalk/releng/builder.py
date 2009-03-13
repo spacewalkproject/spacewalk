@@ -827,6 +827,7 @@ class SatelliteBuilder(NoTgzBuilder):
         create_tgz(self.git_root, prefix, commit, relative_dir, 
                 self.rel_eng_dir, tgz_fullpath)
         self.ran_tgz = True
+        self.sources.append(tgz_fullpath)
 
         # If these are equal then the tag we're building was likely created in 
         # Spacewalk and thus we don't need to do any patching.
@@ -835,7 +836,6 @@ class SatelliteBuilder(NoTgzBuilder):
 
         self._generate_patches()
         self._insert_patches_into_spec_file()
-        self.sources.append(tgz_fullpath)
 
     def _generate_patches(self):
         """
