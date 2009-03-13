@@ -433,7 +433,7 @@ sub setup_ssl_vhost {
         print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original ssl.conf\n");
         $done = syscall_retry;
       } else {
-        print Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave");
+        print Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave\n");
         $done = 1;
       }
     }
