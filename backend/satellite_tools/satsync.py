@@ -175,8 +175,13 @@ class Runner:
         except (KeyboardInterrupt, SystemExit):
             raise
         except xmlWireSource.rpclib.Fault, e:
-            log(-1, ['', messages.syncer_error % e.faultString], )
-            sys.exit(9)
+            if CFG.ISS_PARENT:  
+                # we met old satellite who do not know ISS
+                log(-1, ['', messages.iss_not_available % e.faultString], )
+                sys.exit(26)
+            else:
+                log(-1, ['', messages.syncer_error % e.faultString], )
+                sys.exit(9)
         except Exception, e:
             log(-1, ['', messages.syncer_error % e], )
             sys.exit(10)
