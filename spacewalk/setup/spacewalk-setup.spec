@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.21
+Version:        0.5.22
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -90,6 +90,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Mar 13 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.22-1
+- run setup_monitoring even for upgrades
+
 * Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
 - rebuild
 
