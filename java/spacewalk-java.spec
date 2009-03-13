@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.29
+Version: 0.5.30
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -233,6 +233,13 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.30-1
+- fixed iprange delete URLs weren't being correctly rendered
+- 480432 - fixed kickstart urls: .../rhn/kickstart/ks/cfg/org/1/org_default
+- 489792 - fixing incorrect api return types
+- 489775 - fixing listErrata api due to bad query
+- 481180 - update KickstartFormatter to use StringUtils on --interpreter check
+
 * Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.29-1
 - 489760 - used cheetah's #errorCatcher Echo to handle escaping in ks files.
 - 249459 - fixing issue where org trust page was busted
