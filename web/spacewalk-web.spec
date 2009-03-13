@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.16
+Version: 0.5.17
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.17-1
+- forgot to remove an alert, arg
+
 * Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.16-1
 - 249459 - fixing issue where org trust page was busted
 - 481236 - fix issue where rewrite was not being inherited by virtual host, making package downloads didn't work
