@@ -1083,11 +1083,6 @@ sub setup_monitoring {
   my $opts = shift;
   my $answers = shift;
 
-  if ($opts{"upgrade"}) {
-    print Spacewalk::Setup::loc("** Skipping monitoring setup.\n");
-    return;
-  }
-
   # write monitoring config to DB.
   my %mon_config =
     (
