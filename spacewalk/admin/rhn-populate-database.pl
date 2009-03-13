@@ -94,6 +94,7 @@ if ($clear_db) {
   RHN::SatInstall->clear_db();
 }
 
+chdir;
 if (defined $log_file) {
   local *LOGFILE;
   open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
