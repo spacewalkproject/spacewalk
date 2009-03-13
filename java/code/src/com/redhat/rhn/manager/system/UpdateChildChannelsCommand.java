@@ -28,7 +28,6 @@ import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -43,7 +42,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
      */
     private static Logger log = Logger.getLogger(UpdateChildChannelsCommand.class);
 
-    private List cids;
+    private List<Long> cids;
     private Server server;
     
     /**
@@ -52,36 +51,31 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
      * @param s server to update
      * @param channelIdsIn List of Long channel ids
      */
-    
-    public UpdateChildChannelsCommand(User userIn, Server s, List <Integer> channelIdsIn) {
+    public UpdateChildChannelsCommand(User userIn, Server s, List <Long> channelIdsIn) {
         this.cids = channelIdsIn;
         this.user = userIn;
         this.server = s;
     }
     
-    
     /**
      * {@inheritDoc}
      */
     public ValidatorError store() {
-        List<Integer> remove = new ArrayList<Integer>();
+        List<Long> remove = new ArrayList<Long>();
         /*
          * Loop through the servers channels and take any channels the server is already
          * subscribed to out of the cids list. Also, keep track of any we will have to 
          * unsubscribe from in the remove list.
          */
-        for (Iterator itr = server.getChannels().iterator(); itr.hasNext();) {
-            Channel c = (Channel) itr.next();
-            Integer cid = new Integer(c.getId().intValue());
-            
-            if (cids.contains(cid)) {
+        for (Channel c : server.getChannels()) {
+            if (cids.contains(c.getId())) {
                 // already subscribed
-                cids.remove(cid);
+                cids.remove(c.getId());
             }
             else if (!c.isProxy() && !c.isSatellite() && !c.isBaseChannel()) {
                 // Don't remove base channels, satellite or proxy subscriptions
                 // need to unsubscribe since it is not in cids
-                remove.add(cid);
+                remove.add(c.getId());
             }
         }
         
@@ -104,7 +98,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
     }
     
     private static boolean subscribeToNewChannels(User loggedInUser, 
-            List channelIds, Server serverIn) 
+            List<Long> channelIds, Server serverIn)
         throws FaultException {
         
         boolean failedChannels = false;
@@ -114,13 +108,11 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
          * a valid child channel (parentChannel == null) and subscribe the server to the
          * channel.
          */
-        for (Iterator itr = channelIds.iterator(); itr.hasNext();) {
-            Integer cid = (Integer) itr.next();
+        for (Long cid : channelIds) {
 
             Channel channel = null;
             try {
-                channel = ChannelManager.lookupByIdAndUser(new Long(cid.longValue()), 
-                        loggedInUser);
+                channel = ChannelManager.lookupByIdAndUser(cid, loggedInUser);
             }
             catch (LookupException e) {
                 //convert to FaultException
@@ -164,19 +156,17 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
     }
 
     private static void unsubscribeFromOldChannels(User loggedInUser, 
-            List remove, Server serverIn) 
+            List<Long> remove, Server serverIn)
             throws FaultException {
         /*
          * Loop through the list of cids to remove and unsubscribe the server from the 
          * channel. Make sure we don't do anything to the base channel.
          */
-        for (Iterator itr = remove.iterator(); itr.hasNext();) {
-            Integer cid = (Integer) itr.next();
+        for (Long cid : remove) {
 
             Channel channel = null;
             try {
-                channel = ChannelManager.lookupByIdAndUser(new Long(cid.longValue()), 
-                        loggedInUser);
+                channel = ChannelManager.lookupByIdAndUser(cid, loggedInUser);
             }
             catch (LookupException e) {
                 throw new InvalidChannelException();
@@ -193,6 +183,4 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             }
         }
     }
-
-  
 }

@@ -79,6 +79,7 @@ import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
@@ -199,7 +200,10 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
     }
     
-    public void testSetChildChannels() throws Exception {
+    public void testSetChildChannelsDeprecated() throws Exception {
+        // the usage of setChildChannels API as tested by this junit where
+        // channel ids are passed as arguments is being deprecated...
+
         Server server = ServerFactoryTest.createTestServer(admin, true, 
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         assertNull(server.getBaseChannel());
@@ -288,8 +292,100 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             // success
         }
     }
-    
-    public void testSetBaseChannel() throws Exception {
+
+    public void testSetChildChannels() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        assertNull(server.getBaseChannel());
+        Integer sid = new Integer(server.getId().intValue());
+
+        Channel base = ChannelFactoryTest.createTestChannel(admin);
+        base.setParentChannel(null);
+
+        Channel child1 = ChannelFactoryTest.createTestChannel(admin);
+        child1.setParentChannel(base);
+
+        Channel child2 = ChannelFactoryTest.createTestChannel(admin);
+        child2.setParentChannel(base);
+
+        //subscribe to base channel.
+        SystemManager.subscribeServerToChannel(admin, server, base);
+        server = (Server) reload(server);
+        assertNotNull(server.getBaseChannel());
+
+        List channelLabels = new ArrayList();
+        channelLabels.add(new String(child1.getLabel()));
+        channelLabels.add(new String(child2.getLabel()));
+
+        int result = handler.setChildChannels(adminKey, sid, channelLabels);
+        server = (Server) TestUtils.reload(server);
+        assertEquals(1, result);
+        assertEquals(3, server.getChannels().size());
+
+        //Try 'unsubscribing' from child1...
+        channelLabels = new ArrayList();
+        channelLabels.add(new String(child2.getLabel()));
+        assertEquals(1, channelLabels.size());
+
+        result = handler.setChildChannels(adminKey, sid, channelLabels);
+        server = (Server) TestUtils.reload(server);
+        assertEquals(1, result);
+        assertEquals(2, server.getChannels().size());
+
+        //Try putting an invalid channel in there
+        channelLabels = new ArrayList();
+        channelLabels.add(new String("invalid-unknown-channel-label"));
+        assertEquals(1, channelLabels.size());
+
+        try {
+            result = handler.setChildChannels(adminKey, sid, channelLabels);
+            fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
+        }
+        catch (InvalidChannelLabelException e) {
+            //success
+        }
+        assertEquals(2, server.getChannels().size());
+
+        Channel base2 = ChannelFactoryTest.createTestChannel(admin);
+        base2.setParentChannel(null);
+        channelLabels = new ArrayList();
+        channelLabels.add(new String(base2.getLabel()));
+        assertEquals(1, channelLabels.size());
+
+        try {
+            result = handler.setChildChannels(adminKey, sid, channelLabels);
+            fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
+        }
+        catch (InvalidChannelException e) {
+            //success
+        }
+        server = (Server) reload(server);
+        assertEquals(2, server.getChannels().size());
+
+        // try setting the base channel of an s390 server to
+        // IA-32.
+        try {
+            List ia32Children = new ArrayList();
+            ia32Children.add(new String(child1.getLabel()));
+            ia32Children.add(new String(child2.getLabel()));
+
+            // change the arch of the server
+            server.setServerArch(
+                    ServerFactory.lookupServerArchByLabel("s390-redhat-linux"));
+            ServerFactory.save(server);
+
+
+            result = handler.setChildChannels(adminKey, sid, ia32Children);
+            fail("allowed invalid child channel to be set.");
+        }
+        catch (InvalidChannelException e) {
+            // success
+        }
+    }
+
+    public void testSetBaseChannelDeprecated() throws Exception {
+        // the setBaseChannel API tested by this junit is being deprecated
+
         Server server = ServerFactoryTest.createTestServer(admin, true, 
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         assertNull(server.getBaseChannel());
@@ -348,7 +444,63 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             // success
         }
     }
-    
+
+    public void testSetBaseChannel() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        assertNull(server.getBaseChannel());
+        Integer sid = new Integer(server.getId().intValue());
+
+        Channel base1 = ChannelFactoryTest.createTestChannel(admin);
+        base1.setParentChannel(null);
+
+        Channel base2 = ChannelFactoryTest.createTestChannel(admin);
+        base2.setParentChannel(null);
+
+        Channel child1 = ChannelFactoryTest.createTestChannel(admin);
+        child1.setParentChannel(base1);
+
+        // Set base channel to base1
+        int result = handler.setBaseChannel(adminKey, sid, base1.getLabel());
+        server = (Server) reload(server);
+        assertEquals(1, result);
+        assertNotNull(server.getBaseChannel());
+        assertEquals(server.getBaseChannel().getLabel(), base1.getLabel());
+
+        // Set base channel to base2
+        result = handler.setBaseChannel(adminKey, sid, base2.getLabel());
+        server = (Server) TestUtils.reload(server);
+        assertEquals(1, result);
+        assertNotNull(server.getBaseChannel());
+        assertEquals(server.getBaseChannel().getLabel(), base2.getLabel());
+
+        // Try setting base channel to child
+        try {
+            result = handler.setBaseChannel(adminKey, sid, child1.getLabel());
+            fail("SystemHandler.setBaseChannel allowed invalid base channel to be set.");
+        }
+        catch (InvalidChannelException e) {
+            // success
+        }
+        assertEquals(server.getBaseChannel().getLabel(), base2.getLabel());
+
+        // try setting the base channel of an s390 server to
+        // IA-32.
+        try {
+            // change the arch of the server
+            server.setServerArch(
+                    ServerFactory.lookupServerArchByLabel("s390-redhat-linux"));
+            ServerFactory.save(server);
+
+
+            result = handler.setBaseChannel(adminKey, sid, base1.getLabel());
+            fail("allowed channel with incompatible arch to be set");
+        }
+        catch (InvalidChannelException e) {
+            // success
+        }
+    }
+
     public void testListSubscribableBaseChannels() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 

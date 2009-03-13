@@ -108,7 +108,18 @@ public class ChannelFactory extends HibernateFactory {
                                        "Channel.findByLabelAndUserId", params);
     }    
     
-    
+    /**
+     * Retrieve a list of channel ids associated with the labels provided
+     * @param labelsIn the labels to search for
+     * @return list of channel ids
+     */
+    public static List getChannelIds(List<String> labelsIn) {
+        Map params = new HashMap();
+        params.put("labels", labelsIn);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findChannelIdsByLabels", params);
+    }
+
     /**
      * Insert or Update a Channel.
      * @param c Channel to be stored in database.

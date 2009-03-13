@@ -301,10 +301,10 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         
         String[] childChannelIds = request.getParameterValues(CHILD_CHANNELS);
         
-        List channelIdsList = new LinkedList();
+        List<Long> channelIdsList = new LinkedList<Long>();
         if (childChannelIds != null) {
             for (int i = 0; i < childChannelIds.length; i++) {
-                channelIdsList.add(Integer.valueOf(childChannelIds[i]));
+                channelIdsList.add(Long.valueOf(childChannelIds[i]));
                 log.debug("Adding child id: " + channelIdsList.get(i));
             }
         }

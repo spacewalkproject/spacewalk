@@ -86,12 +86,15 @@ import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelListException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NotEnoughEntitlementsException;
@@ -217,12 +220,15 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * Sets the child channels for a given server. This method unsubscribes the server from
-     * any child channels that aren't in the list of channel ids passed in, so use with 
-     * caution.
+     * Subscribe the given server to the child channels provided.  This
+     * method will unsubscribe the server from any child channels that the server
+     * is currently subscribed to, but that are not included in the list.  The user may
+     * provide either a list of channel ids (int) or a list of channel labels (string) as
+     * input.
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id of the server in question
-     * @param cids The list of channel ids this server should be subscribed to.
+     * @param channelIdsOrLabels The list of channel ids or labels this server should
+     * be subscribed to.
      * @return Returns 1 if successful, exception otherwise.
      * @throws FaultException A FaultException is thrown if: 
      *   - the server corresponding to sid cannot be found.
@@ -230,24 +236,72 @@ public class SystemHandler extends BaseHandler {
      *   - the user doesn't have subscribe access to any one of the current or 
      *     new child channels.
      *
-     * @xmlrpc.doc Subscribes the given server to the child channels (ids).
+     * @xmlrpc.doc Subscribe the given server to the child channels provided.  This
+     * method will unsubscribe the server from any child channels that the server
+     * is currently subscribed to, but that are not included in the list.  The user may
+     * provide either a list of channel ids (int) or a list of channel labels (string) as
+     * input.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param  #array_single ("int", "channelId")
+     * @xmlrpc.param #array_single("int (deprecated) or string", "channelId (deprecated)
+     * or channelLabel")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setChildChannels(String sessionKey, Integer sid, List cids) 
+    public int setChildChannels(String sessionKey, Integer sid, List channelIdsOrLabels)
         throws FaultException {
+
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
+
+        // Determine if user passed in a list of channel ids or labels... note: the list
+        // must contain all ids or labels (i.e. not a combination of both)
+        boolean receivedLabels = false;
+        if (channelIdsOrLabels.size() > 0) {
+            if (channelIdsOrLabels.get(0) instanceof String) {
+                receivedLabels = true;
+            }
+
+            // check to make sure that the objects are all the same type
+            for (Object object : channelIdsOrLabels) {
+                if (receivedLabels) {
+                    if (!(object instanceof String)) {
+                        throw new InvalidChannelListException();
+                    }
+                }
+                else {
+                    if (!(object instanceof Integer)) {
+                        throw new InvalidChannelListException();
+                    }
+                }
+            }
+        }
+
+        List<Long> channelIds = new ArrayList<Long>();
+        if (receivedLabels) {
+            channelIds = ChannelFactory.getChannelIds(channelIdsOrLabels);
+
+            // if we weren't able to retrieve channel ids for all labels provided,
+            // one or more of the labels must be invalid...
+            if (channelIds.size() != channelIdsOrLabels.size()) {
+                throw new InvalidChannelLabelException();
+            }
+        }
+        else {
+            // unfortunately, the interface only allows Integer input (not Long);
+            // therefore, convert the input to Long, since channel ids are
+            // internally represented as Long
+            for (Object channelId : channelIdsOrLabels) {
+                channelIds.add(new Long((Integer) channelId));
+            }
+        }
+
         UpdateChildChannelsCommand cmd = new UpdateChildChannelsCommand(loggedInUser, 
-                server, cids);
+                server, channelIds);
         cmd.store();
 
         return 1;
     }
-    
     
     /**
      * Sets the base channel for the given server to the given channel
@@ -260,24 +314,77 @@ public class SystemHandler extends BaseHandler {
      *   - the channel corresponding to cid is not a base channel.
      *   - the user doesn't have subscribe access to either the current or 
      *     the new base channel.
+     * @deprecated being replaced by system.setBaseChannel(string sessionKey,
+     * int serverId, string channelLabel)
      *     
      * @xmlrpc.doc Assigns the server to a new baseChannel.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param int channelId
+     * @xmlrpc.param #param("int", "channelId")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setBaseChannel(String sessionKey, Integer sid, Integer cid) 
         throws FaultException {
         //Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = lookupServer(loggedInUser, sid); 
+        Server server = lookupServer(loggedInUser, sid);
         UpdateBaseChannelCommand cmd = 
             new UpdateBaseChannelCommand(loggedInUser, server, new Long(cid.longValue()));
         cmd.store();
         return 1;
     }
     
+    /**
+     * Sets the base channel for the given server to the given channel
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id for the server
+     * @param channelLabel The id for the channel
+     * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - the server corresponding to sid cannot be found.
+     *   - the channel corresponding to cid is not a base channel.
+     *   - the user doesn't have subscribe access to either the current or
+     *     the new base channel.
+     *
+     * @xmlrpc.doc Assigns the server to a new base channel.  If the user provides an empty
+     * string for the channelLabel, the current base channel and all child channels will
+     * be removed from the system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "channelLabel")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setBaseChannel(String sessionKey, Integer sid, String channelLabel)
+        throws FaultException {
+
+        //Get the logged in user and server
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, sid);
+
+        UpdateBaseChannelCommand cmd = null;
+        if (StringUtils.isEmpty(channelLabel)) {
+            // if user provides an empty string for the channel label, they are requesting
+            // to remove the base channel
+            cmd = new UpdateBaseChannelCommand(loggedInUser, server, new Long(-1));
+        }
+        else {
+            List<String> channelLabels = new ArrayList<String>();
+            channelLabels.add(channelLabel);
+
+            List<Long> channelIds = new ArrayList<Long>();
+            channelIds = ChannelFactory.getChannelIds(channelLabels);
+
+            if (channelIds.size() > 0) {
+                cmd = new UpdateBaseChannelCommand(loggedInUser, server, channelIds.get(0));
+            }
+            else {
+                throw new InvalidChannelLabelException();
+            }
+        }
+        cmd.store();
+        return 1;
+    }
+
     /**
      * Gets a list of base channels subscribable by the logged in user for the server with 
      * the given id.
@@ -3599,4 +3706,13 @@ public class SystemHandler extends BaseHandler {
         return returnList;
     }
 
+    private Channel lookupChannelByLabel(Org org, String label)
+        throws NoSuchChannelException {
+
+        Channel channel = ChannelManager.lookupByLabel(org, label);
+        if (channel == null) {
+            throw new NoSuchChannelException();
+        }
+        return channel;
+    }
 }

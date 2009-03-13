@@ -7672,6 +7672,10 @@ Follow this url to see the full list of inactive systems:
           <source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
       </trans-unit>
       
+      <trans-unit id="api.channel.invalidchannellist">
+          <source>The channel list provided is invalid.  It must contain a list of channel labels or ids, but not a mixture of both.</source>
+      </trans-unit>
+
       <trans-unit id="channel.invalidchannelarch">
           <source>The channel arch specified ({0}) is invalid.</source>
       </trans-unit>     

@@ -724,6 +724,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *   - user can't subscribe server to channel
      *   - a base channel is not specified
      *   - multiple base channels are specified
+     * @deprecated being replaced by system.setBaseChannel(string sessionKey,
+     * int serverId, string channelLabel) and system.setChildChannels(string sessionKey,
+     * int serverId, array[string channelLabel])
      *
      * @xmlrpc.doc Change a systems subscribed channels to the list of channels passed in.
      * @xmlrpc.param #session_key()
@@ -1426,6 +1429,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @param labels a list of channel labels to subscribe the system to
      * @param sid the serverId of the system in question
      * @return 1 for success
+     * @deprecated being replaced by system.setBaseChannel(string sessionKey,
+     * int serverId, string channelLabel) and system.setChildChannels(string sessionKey,
+     * int serverId, array[string channelLabel])
      * 
      * @xmlrpc.doc Subscribes a system to a list of channels.  If a base channel is  
      *      included, that is set before setting child channels.  When setting child 
@@ -1451,7 +1457,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         
         Channel base = null;
-        List childChannelIds = new ArrayList(); 
+        List<Integer> childChannelIds = new ArrayList();
         
         for (Iterator itr = labels.iterator(); itr.hasNext();) {
             String label = (String) itr.next();

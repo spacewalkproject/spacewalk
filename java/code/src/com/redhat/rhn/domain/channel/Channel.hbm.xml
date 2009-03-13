@@ -176,6 +176,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
+    <query name="Channel.findChannelIdsByLabels">
+        <![CDATA[SELECT c.id
+              FROM com.redhat.rhn.domain.channel.Channel c
+             WHERE c.label in (:labels)]]>
+    </query>
+
     <sql-query name="Channel.findBaseChannel">
         <![CDATA[SELECT {c.*} 
               FROM rhnChannel {c}, rhnChannelCloned c_1_, rhnServerChannel sc
