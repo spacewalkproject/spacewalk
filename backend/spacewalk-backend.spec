@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.21
+Version: 0.5.22
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -560,6 +560,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Mar 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.22-1
+- 484879 - warn if you are connection using ISS to parent which do not know ISS
+
 * Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.21-1
 - 483802 - remove conflicts between spacewalk-proxy-common and spacewalk-config
 - 209620 - satellite-debug creates world readable output
