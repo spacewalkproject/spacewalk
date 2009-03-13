@@ -392,8 +392,6 @@ class BuildModule(BaseCliModule):
                 "(--release includes both)"])
         if self.options.release and self.options.test:
             error_out("Cannot combine --release with --test.")
-        if self.options.release and self.options.offline:
-            error_out("Cannot do an offline --release.")
 
 
 
