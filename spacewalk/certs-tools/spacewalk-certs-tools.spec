@@ -13,6 +13,9 @@ BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
 Obsoletes: rhns-certs-tools < 5.3.0
+# can not provides = %{version} since some old packages expect > 3.6.0
+Provides:  rhns-certs = 5.3.0
+Provides:  rhns-certs-tools = 5.3.0
 
 %description
 This package contains tools to generate the SSL certificates required by 
@@ -46,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Fri Mar 13 2009 Miroslav Suchy <msuchy@redhat.com>
+- put Provides to satisfy older Proxies
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.2-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 
