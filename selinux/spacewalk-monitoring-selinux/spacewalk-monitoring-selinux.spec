@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.5.4
+Version:        0.5.5
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -112,6 +112,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Fri Mar 13 2009 Jan Pazdziora 0.5.5-1
+- 487280 - allow monitoring to write to console and communicate with initrc_t
+
 * Tue Feb 10 2009 Jan Pazdziora 0.5.4-1
 - allow httpd to manage /var/lib/notification
 
