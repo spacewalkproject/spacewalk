@@ -75,12 +75,13 @@ public class KickstartData {
     private Set defaultRegTokens;
     private Set preserveFileLists;
     private List<PackageName> packageNames;        
-    private Collection<KickstartCommand> commands;
+    private Collection<KickstartCommand> commands = new HashSet<KickstartCommand>();
     private Set ips;          // rhnKickstartIpRange
     private Set<KickstartScript> scripts;      // rhnKickstartScript
     private KickstartDefaults kickstartDefaults;
     
-
+    private static final Pattern URL_REGEX =
+        Pattern.compile("--url\\s*(\\S+)", Pattern.CASE_INSENSITIVE);
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
     
     public static final String WIZARD_DIR = "wizard";
@@ -502,7 +503,7 @@ public class KickstartData {
     public Collection<KickstartCommand> getCommands() {
         return this.commands;
     }
-    
+
     /**
      * Convenience method to detect if command is set
      * @param commandName Command name
@@ -568,7 +569,7 @@ public class KickstartData {
         this.commands = c;
     }
     
-    private Set getCommandSubset(String name) {
+    private Set <KickstartCommand> getCommandSubset(String name) {
         Set retval = new HashSet();
         if (this.commands != null && this.commands.size() > 0) {
             for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
@@ -584,6 +585,8 @@ public class KickstartData {
         logger.debug("getCommandSubset : returning: " + retval);
         return Collections.unmodifiableSet(retval);
     }
+    
+    
     
     /**
      * Getter for commandPartion
@@ -657,14 +660,47 @@ public class KickstartData {
         this.commands.add(r);
     }
     
+    /**
+     * @return Returns the repos.
+     */    
+    public Set <KickstartCommand> getRepos() {
+        return getCommandSubset("repo");
+    }
+
+    /**
+     * Updates the repos commands associated to this ks data.  
+     * @param repoCommands the repos to update
+     */
+    public void setRepos(Collection<KickstartCommand> repoCommands) {
+        replaceSet(getRepos(), repoCommands);
+    }
     
     /**
      * @return Returns the repos.
      */
-    public Set getRepos() {
-        return getCommandSubset("raids");
+    public Set<RepoInfo> getRepoInfos() {
+        Set <KickstartCommand> repoCommands =  getRepos();
+        Set <RepoInfo> info = new HashSet<RepoInfo>();
+        for (KickstartCommand cmd : repoCommands) {
+            info.add(RepoInfo.parse(cmd));
+        }
+        return info;
     }
 
+    /**
+     * Updates the repos commands associated to this ks data.  
+     * @param repos the repos to update
+     **/
+    public void setRepoInfos(Collection<RepoInfo> repos) { 
+        Set <KickstartCommand> repoCommands = new HashSet<KickstartCommand>();
+        for (RepoInfo repo : repos) {
+            KickstartCommand cmd = KickstartFactory.createKickstartCommand(this, "repo");
+            repo.setArgumentsIn(cmd);
+            repoCommands.add(cmd);
+        }
+        setRepos(repoCommands);
+    }
+    
     
     /**
      * @return Returns the customOptions.
@@ -761,7 +797,20 @@ public class KickstartData {
         return Collections.unmodifiableSet(retval);
     }
     
-    
+    /**
+     * @return the download url suffix
+     */
+    public String getUrl() {
+        for (KickstartCommand c : getOptions()) {
+            if (c.getCommandName().getName().equals("url")) {
+                Matcher match = URL_REGEX.matcher(c.getArguments());
+                if (match.find()) {
+                    return match.group(1);
+                }
+            }
+        }
+        return "";
+    }
      
     /**
      * 

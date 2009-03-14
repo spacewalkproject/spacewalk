@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -267,11 +268,9 @@ public class KickstartFormatter {
                 String argVal = adjustUrlHost(command);
                 commands.append(cname + SPACE + argVal + NEWLINE);
             }
-            else if (cname.matches("repo") && 
-                    command.getArguments().indexOf("--baseurl=/") >= 0) {
-                
-                StringBuffer finalBaseurl = adjustRepoHost(command);
-                commands.append(cname + SPACE + finalBaseurl.toString() + NEWLINE);
+            else if (cname.matches("repo")) {                
+                RepoInfo repo = RepoInfo.parse(command);
+                commands.append(repo.getFormattedCommand(ksdata) + NEWLINE);
             }
             else if ("custom".equals(cname)) {
                 commands.append(command.getArguments() + NEWLINE);
@@ -325,37 +324,6 @@ public class KickstartFormatter {
         }
         log.debug("returning url: " + argVal);
         return argVal;
-    }
-
-    /**
-     * Correct the repo command to include the most suitable hostname.
-     */
-    private StringBuffer adjustRepoHost(KickstartCommand command) {
-        String argVal = command.getArguments();
-        log.debug("Adjusting repo: " + argVal);
-        StringBuffer finalBaseurl = new StringBuffer("");
-        String args = command.getArguments();
-        for (String token : args.split("\\ ")) {
-            log.debug("   token = " + token);
-            if (!token.startsWith("--baseurl=")) {
-                if (finalBaseurl.length() > 0) {
-                    finalBaseurl.append(" ");
-                }
-                finalBaseurl.append(token);
-            }
-            else {
-                String location = token.substring("--baseurl=".length());
-                // Inject a host:
-                location = "http://" + ksHost + location;
-                log.debug("   fixed baseurl = " + location.toString());
-                if (finalBaseurl.length() > 0) {
-                    finalBaseurl.append(" ");
-                }
-                finalBaseurl.append("--baseurl=");
-                finalBaseurl.append(location);
-            }
-        }
-        return finalBaseurl;
     }
     
     /**

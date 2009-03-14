@@ -33,12 +33,11 @@ function reloadForm(ctl) {
 
 <h2><bean:message key="softwareedit.jsp.header2"/></h2>
 
-
-
 <div>
   <p>
     <bean:message key="softwareedit.jsp.summary1"/>
   </p>
+  
     <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do" styleId="editForm">
       <table class="details">
           <tr>
@@ -108,6 +107,21 @@ function reloadForm(ctl) {
 				</c:choose>
             </td>
           </tr>
+          <tr>
+            <th><bean:message key="softwareedit.jsp.repos" />:</th>
+            <td>
+	<c:if test = "${not empty kickstartSoftwareForm.map.possibleRepos}">		
+      <c:forEach items="${kickstartSoftwareForm.map.possibleRepos}" var="item">
+    		<html:multibox property="selectedRepos" disabled="${item.disabled}">
+    	  		${item.value}
+    		</html:multibox>
+    		${item.label}
+    		<br />
+    	</c:forEach>
+    </c:if><br/><rhn:tooltip key="softwareedit.jsp.repos-tooltip"/>            
+            </td>
+          </tr>
+          
           <tr>          
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>
@@ -116,6 +130,8 @@ function reloadForm(ctl) {
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true" styleId="editFormSubmitted"/>
       <html:hidden property="fieldChanged" value="" styleId="fieldChanged" />
+	</br>      
+
     </html:form>
 </div>
 

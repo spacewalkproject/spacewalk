@@ -286,7 +286,17 @@ public class KickstartFactory extends HibernateFactory {
         return retval;
     }
     
-
+    /**
+     * Looks up a specific KickstartCommand
+     * @param id id of the KickstartCommand
+     * @return found instance, if any
+     */
+    public static KickstartCommand lookupKickstartCommandById(Long id) {
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(KickstartCommand.class);
+        criteria.add(Restrictions.eq("id", id));
+        return (KickstartCommand) criteria.uniqueResult();        
+    }
     
     /**
      * 

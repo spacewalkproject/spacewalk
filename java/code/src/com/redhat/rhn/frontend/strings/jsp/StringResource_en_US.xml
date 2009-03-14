@@ -10577,7 +10577,21 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
         </context-group>
     </trans-unit>
+    
+    <trans-unit id="softwareedit.jsp.repos">
+        <source>Repositories</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
+        </context-group>
+    </trans-unit>    
 
+    <trans-unit id="softwareedit.jsp.repos-tooltip">
+        <source>Selected Repositories will be available in the &lt;strong&gt;%packages &lt;/strong&gt; section of the kickstart file.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartSoftwareEdit</context>
+        </context-group>
+    </trans-unit>
+    
     <trans-unit id="softwareedit.jsp.tip1">
         <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; New file location must be the root of an install tree (for the operating system version above) on either an http or ftp server.&lt;/span&gt;</source>
         <context-group name="ctx">

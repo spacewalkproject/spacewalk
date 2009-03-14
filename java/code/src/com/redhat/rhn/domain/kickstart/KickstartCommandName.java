@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 
 /**
  * KickstartCommandName
@@ -21,7 +24,7 @@ package com.redhat.rhn.domain.kickstart;
  * This is a read only table so method access will be private
  */
 public class KickstartCommandName {
-
+    public static final String REPO = "repo";
     private Long id;
     private Long order;
     private String name;
@@ -102,5 +105,45 @@ public class KickstartCommandName {
      */
     public void setRequired(Boolean requiredIn) {
         this.required = requiredIn;
+    }
+    
+    /**
+     * @return returns true if this is repo command
+     */
+    public boolean isRepoCommand() {
+        return REPO.equals(getName());
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof KickstartCommandName)) {
+            return false;
+        }
+        KickstartCommandName that = (KickstartCommandName) obj;
+        EqualsBuilder builder = new EqualsBuilder();
+        builder.append(getName(), that.getName());
+        builder.append(getArgs(), that.getArgs());
+        builder.append(getOrder(), that.getOrder());
+        builder.append(getRequired(), that.getRequired());
+        return builder.isEquals();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(getName());
+        builder.append(getArgs());
+        builder.append(getOrder());
+        builder.append(getRequired());
+        return builder.toHashCode();
     }
 }

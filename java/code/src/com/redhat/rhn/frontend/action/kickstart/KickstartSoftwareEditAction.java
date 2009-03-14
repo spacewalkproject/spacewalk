@@ -16,8 +16,11 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
+import com.redhat.rhn.frontend.struts.LabelValueEnabledBean;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
@@ -34,6 +37,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -53,6 +57,8 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
     public static final String AVAIL_CHILD_CHANNELS = "avail_child_channels";
     public static final String CHILD_CHANNELS = "child_channels";
     public static final String STORED_CHILD_CHANNELS = "stored_child_channels";
+    public static final String POSSIBLE_REPOS = "possibleRepos";
+    public static final String SELECTED_REPOS = "selectedRepos";
     protected String getSuccessKey() {
         return "kickstart.software.success";
     }
@@ -137,6 +143,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         if (form.getString(URL) == null) {
             ctx.getRequest().setAttribute("nourl", "true");
         }
+        setupRepos(ctx, form, cmd.getKickstartData());
     }
 
     private void setupChildChannels(RequestContext ctx, Long channelId, 
@@ -192,6 +199,7 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
             DynaActionForm form,  
             BaseKickstartCommand cmdIn) {
         
+        KickstartData ksdata = cmdIn.getKickstartData();
         RequestContext ctx = new RequestContext(request);
         
         KickstartableTree tree =  KickstartFactory.lookupKickstartTreeByIdAndOrg(
@@ -211,6 +219,11 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
                 (Long) form.get(TREE),
                 (String) form.getString(URL));
         
+        if (ve == null) {
+            String [] repos = form.getStrings(SELECTED_REPOS);
+            cmd.updateRepos(repos);
+        }
+        
         CobblerProfileEditCommand cpec = new CobblerProfileEditCommand(
                 cmdIn.getKickstartData(), ctx.getLoggedInUser());
         cpec.store();
@@ -227,6 +240,24 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         }
     }
 
+    private void setupRepos(RequestContext context, 
+            DynaActionForm form, KickstartData ksdata) {
+        List <LabelValueEnabledBean> repos = new LinkedList<LabelValueEnabledBean>();
+        for (String name : RepoInfo.getStandardRepos().keySet()) {
+            repos.add(lve(name, name, false));
+        }
+        form.set(POSSIBLE_REPOS, (LabelValueEnabledBean[])
+                        repos.toArray(new LabelValueEnabledBean[0]));
+        Set<RepoInfo> selected = ksdata.getRepoInfos();
+        String [] items = new String[selected.size()];
+        int i = 0;
+        for (RepoInfo repo : selected) {
+            items[i] = repo.getName();
+            i++;
+        }
+        form.set(SELECTED_REPOS, items);
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -234,6 +265,5 @@ public class KickstartSoftwareEditAction extends BaseKickstartEditAction {
         return new KickstartEditCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser());
     }
-
 
 }

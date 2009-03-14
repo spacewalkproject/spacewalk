@@ -96,12 +96,14 @@ sub dist_handler {
 
   my $disk_path;
   my $kickstart_mount = PXT::Config->get('kickstart_mount_point');
-  if (index($tree->base_path, $kickstart_mount) == 0) {
+
+  if ($tree->org_id) {
+     if (index($tree->base_path, $kickstart_mount) == 0) {
       warn("Trimming ...");
       $kickstart_mount = "";
+      }
   }
 
-  
    if ($path =~ /\.rpm$/) {
     # is it a request for an RPM?  If so, try to serve from our magic repo
     my $filename = (split m(/), $path)[-1];

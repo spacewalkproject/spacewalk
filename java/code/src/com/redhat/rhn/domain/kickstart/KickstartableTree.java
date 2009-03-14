@@ -188,7 +188,7 @@ public class KickstartableTree extends BaseDomainHelper {
                 return this.getBasePath();
             }
             else {
-                StringBuffer buf = new StringBuffer();
+                StringBuilder buf = new StringBuilder();
                 if (host != null && host.length() > 0) {
                     buf.append("http://").append(host);
                 }

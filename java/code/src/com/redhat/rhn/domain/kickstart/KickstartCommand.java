@@ -120,8 +120,10 @@ public class KickstartCommand implements Comparable {
      * @return how does it stack up!
      */    
     public int compareTo(Object kc) {
+        if (kc == this) {
+            return 0;
+        }
         KickstartCommand k = (KickstartCommand)kc;
-
         int order = getCommandName().getOrder().compareTo(k.getCommandName().getOrder());
         
         if (order == 0) {
@@ -155,7 +157,7 @@ public class KickstartCommand implements Comparable {
      */
     public String toString() {
             return this.getClass().getName() + " name: " + 
-                this.getCommandName().getName();
+                this.getCommandName().getName() + " arguments " + getArguments();
      }
 
     /**
