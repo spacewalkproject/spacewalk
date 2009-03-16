@@ -385,7 +385,7 @@ public class ErrataCacheManager extends HibernateFactory {
         Map params = new HashMap();
         params.put("errata_id", eid);
         count = m.executeUpdate(params, pids);
-        log.error("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
+        log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
     }
     
 
