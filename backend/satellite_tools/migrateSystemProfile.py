@@ -112,7 +112,11 @@ def login(username, password):
     """
      Authenticate Session call
     """ 
-    sessionkey = client.auth.login(username, password)
+    try:
+        sessionkey = client.auth.login(username, password)
+    except xmlrpclib.Fault, e:
+        sys.stderr.write("Error: %s\n" % e.faultString)
+        sys.exit(-1)
     return sessionkey
 
 def logout(session_key):
