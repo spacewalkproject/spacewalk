@@ -113,7 +113,7 @@ public interface ErrataFile {
     /**
      * @return Returns the packages for this errata file.
      */
-    Set getPackages();
+    Set<Package> getPackages();
 
     /**
      * @param packagesIn The packages to set.
