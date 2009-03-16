@@ -16,9 +16,9 @@ BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
 Requires: rhnlib
-Provides: rhn-config-action
-Provides: rhn-config-client-package
-Provides: rhn-config-management-package
+Provides: rhn-config-action = %{version}
+Provides: rhn-config-client-package = %{version}
+Provides: rhn-config-management-package = %{version}
 
 %description 
 Red Hat Network Configuration Client Libraries
@@ -27,8 +27,8 @@ Red Hat Network Configuration Client Libraries
 Summary: Red Hat Network Configuration Client
 Group:   Applications/System
 PreReq: %{name} = %{version}-%{release}
-Provides: rhn-config-action
-Provides: rhn-config-client-package
+Provides: rhn-config-action = %{version}
+Provides: rhn-config-client-package = %{version}
 
 %description client
 Red Hat Network Configuration Client
@@ -37,7 +37,7 @@ Red Hat Network Configuration Client
 Summary: Red Hat Network Configuration Management Client
 Group:   Applications/System
 PreReq: %{name} = %{version}-%{release}
-Provides: rhn-config-management-package
+Provides: rhn-config-management-package = %{version}
 
 %description management
 Red Hat Network Configuration Management Client
@@ -55,8 +55,8 @@ Requires: up2date
 Requires: rhn-client-tools
 %endif
 
-Provides: rhn-config-action
-Provides: rhn-config-client-package
+Provides: rhn-config-action = %{version}
+Provides: rhn-config-client-package = %{version}
 
 %description actions
 Red Hat Network Configuration Client Actions
