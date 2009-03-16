@@ -1,8 +1,8 @@
 Summary: Support programs and libraries for Red Hat Network
 License: GPLv2
 Group: System Environment/Base
-Source0: %{name}-%{version}.tar.gz
-Url: http://rhn.redhat.com
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
 Version: 0.4.21
 Release: 1%{?dist}
