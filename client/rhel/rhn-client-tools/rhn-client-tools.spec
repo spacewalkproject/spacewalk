@@ -4,7 +4,7 @@ Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.4.21
+Version: 0.4.22
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -196,7 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
-* Mon Mar 16 2009 Miroslav Suchy <msuchy@redhat.com>
+* Mon Mar 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.22-1
 - use macros insted hardcoded paths
 
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.21-1
