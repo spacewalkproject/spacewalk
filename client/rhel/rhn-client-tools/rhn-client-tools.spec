@@ -1,4 +1,4 @@
-Summary: Support programs and libraries for Red Hat Network
+Summary: Support programs and libraries for Red Hat Network or Spacewalk
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -28,7 +28,7 @@ BuildRequires: intltool
 
 %description
 Red Hat Network Client Tools provides programs and libraries to allow your
-system to receive software updates from Red Hat Network.
+system to receive software updates from Red Hat Network or Spacewalk.
 
 %package -n rhn-check
 Summary: Check for RHN actions
@@ -36,10 +36,11 @@ Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 
 %description -n rhn-check
-rhn-check polls a Red Hat Network server to find and execute scheduled actions.
+rhn-check polls a Red Hat Network or Spacewalk server to find and execute 
+scheduled actions.
 
 %package -n rhn-setup
-Summary: Configure and register an RHN client
+Summary: Configure and register an RHN/Spacewalk client
 Group: System Environment/Base
 Requires: usermode >= 1.36
 Requires: %{name} = %{version}-%{release}
@@ -47,10 +48,11 @@ Requires: rhnsd
 
 %description -n rhn-setup
 rhn-setup contains programs and utilities to configure a system to use
-Red Hat Network, and to register a system with a Red Hat Network server.
+Red Hat Network or Spacewalk, and to register a system with a Red Hat Network
+or Spacewalk server.
 
 %package -n rhn-setup-gnome
-Summary: A GUI interface for RHN Registration
+Summary: A GUI interface for RHN/Spacewalk Registration
 Group: System Environment/Base
 Requires: %{name} = %{version}-%{release}
 Requires: rhn-setup = %{version}-%{release}
@@ -60,7 +62,7 @@ Requires: usermode-gtk
 
 %description -n rhn-setup-gnome
 rhn-setup-gnome contains a GTK+ graphical interface for configuring and
-registering a system with a Red Hat Network server.
+registering a system with a Red Hat Network or Spacewalk server.
 
 
 %prep
@@ -83,7 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files -f %{name}.lang
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 # some info about mirrors
 %doc doc/ChangeLog 
 %doc doc/mirrors.txt 
@@ -93,106 +95,109 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/rhn-profile-sync.8*
 %{_mandir}/man5/up2date.5*
 
-%dir /etc/sysconfig/rhn
-%dir /etc/sysconfig/rhn/clientCaps.d
-%config(noreplace) /etc/sysconfig/rhn/up2date
-%config(noreplace) /etc/logrotate.d/up2date
-%config(noreplace) /etc/rpm/macros.up2date
+%dir %{_sysconfdir}/sysconfig/rhn
+%dir %{_sysconfdir}/sysconfig/rhn/clientCaps.d
+%config(noreplace) %{_sysconfdir}/sysconfig/rhn/up2date
+%config(noreplace) %{_sysconfdir}/logrotate.d/up2date
+%config(noreplace) %{_sysconfdir}/rpm/macros.up2date
 
 # dirs
-%dir /usr/share/rhn
-%dir /usr/share/rhn/up2date_client
+%dir %{_datadir}/rhn
+%dir %{_datadir}/rhn/up2date_client
 
 #files
-/usr/share/rhn/up2date_client/__init__.*
-/usr/share/rhn/up2date_client/config.*
-/usr/share/rhn/up2date_client/haltree.*
-/usr/share/rhn/up2date_client/hardware.*
-/usr/share/rhn/up2date_client/up2dateUtils.*
-/usr/share/rhn/up2date_client/up2dateLog.*
-/usr/share/rhn/up2date_client/up2dateErrors.*
-/usr/share/rhn/up2date_client/up2dateAuth.*
-/usr/share/rhn/up2date_client/rpcServer.*
-/usr/share/rhn/up2date_client/rhnserver.*
-/usr/share/rhn/up2date_client/rpmUtils.*
-/usr/share/rhn/up2date_client/rhnPackageInfo.*
-/usr/share/rhn/up2date_client/rhnChannel.*
-/usr/share/rhn/up2date_client/rhnErrata.*
-/usr/share/rhn/up2date_client/rhnHardware.*
-/usr/share/rhn/up2date_client/transaction.*
-/usr/share/rhn/up2date_client/clientCaps.*
-/usr/share/rhn/up2date_client/capabilities.*
-/usr/share/rhn/up2date_client/rhncli.*
-/usr/share/rhn/up2date_client/rhn_fcntl.*
-/usr/share/rhn/up2date_client/rhnLockfile.*
-/usr/share/rhn/__init__.*
+%{_datadir}/rhn/up2date_client/__init__.*
+%{_datadir}/rhn/up2date_client/config.*
+%{_datadir}/rhn/up2date_client/haltree.*
+%{_datadir}/rhn/up2date_client/hardware.*
+%{_datadir}/rhn/up2date_client/up2dateUtils.*
+%{_datadir}/rhn/up2date_client/up2dateLog.*
+%{_datadir}/rhn/up2date_client/up2dateErrors.*
+%{_datadir}/rhn/up2date_client/up2dateAuth.*
+%{_datadir}/rhn/up2date_client/rpcServer.*
+%{_datadir}/rhn/up2date_client/rhnserver.*
+%{_datadir}/rhn/up2date_client/rpmUtils.*
+%{_datadir}/rhn/up2date_client/rhnPackageInfo.*
+%{_datadir}/rhn/up2date_client/rhnChannel.*
+%{_datadir}/rhn/up2date_client/rhnErrata.*
+%{_datadir}/rhn/up2date_client/rhnHardware.*
+%{_datadir}/rhn/up2date_client/transaction.*
+%{_datadir}/rhn/up2date_client/clientCaps.*
+%{_datadir}/rhn/up2date_client/capabilities.*
+%{_datadir}/rhn/up2date_client/rhncli.*
+%{_datadir}/rhn/up2date_client/rhn_fcntl.*
+%{_datadir}/rhn/up2date_client/rhnLockfile.*
+%{_datadir}/rhn/__init__.*
 
-/usr/sbin/rhn-profile-sync
+%{_sbindir}/rhn-profile-sync
 
 #public keys and certificates
-/usr/share/rhn/RHNS-CA-CERT
+%{_datadir}/rhn/RHNS-CA-CERT
 
 %files -n rhn-check
-%defattr(-,root,root)
-%dir /usr/share/rhn/actions
+%defattr(-,root,root,-)
+%dir %{_datadir}/rhn/actions
 %{_mandir}/man8/rhn_check.8*
 
-/usr/sbin/rhn_check
+%{_sbindir}/rhn_check
 
-/usr/share/rhn/up2date_client/getMethod.*
+%{_datadir}/rhn/up2date_client/getMethod.*
 
 # actions for rhn_check to run
-/usr/share/rhn/actions/__init__.*
-/usr/share/rhn/actions/hardware.*
-/usr/share/rhn/actions/errata.*
-/usr/share/rhn/actions/systemid.*
-/usr/share/rhn/actions/reboot.*
-/usr/share/rhn/actions/rhnsd.*
-/usr/share/rhn/actions/up2date_config.*
+%{_datadir}/rhn/actions/__init__.*
+%{_datadir}/rhn/actions/hardware.*
+%{_datadir}/rhn/actions/errata.*
+%{_datadir}/rhn/actions/systemid.*
+%{_datadir}/rhn/actions/reboot.*
+%{_datadir}/rhn/actions/rhnsd.*
+%{_datadir}/rhn/actions/up2date_config.*
 
 %files -n rhn-setup
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{_mandir}/man8/rhnreg_ks.8*
 %{_mandir}/man8/rhn_register.8*
 
-%config(noreplace) /etc/security/console.apps/rhn_register
-%config(noreplace) /etc/pam.d/rhn_register
+%config(noreplace) %{_sysconfdir}/security/console.apps/rhn_register
+%config(noreplace) %{_sysconfdir}/pam.d/rhn_register
 
-/usr/bin/rhn_register
-/usr/sbin/rhn_register
-/usr/sbin/rhnreg_ks
+%{_bindir}/rhn_register
+%{_sbindir}/rhn_register
+%{_sbindir}/rhnreg_ks
 
-/usr/share/rhn/up2date_client/rhnreg.*
-/usr/share/rhn/up2date_client/tui.*
-/usr/share/rhn/up2date_client/rhnreg_constants.*
+%{_datadir}/rhn/up2date_client/rhnreg.*
+%{_datadir}/rhn/up2date_client/tui.*
+%{_datadir}/rhn/up2date_client/rhnreg_constants.*
 
 # firstboot is smart enough now to skip these modules
 # if the modules say to
-/usr/share/firstboot/modules/rhn_activate_gui.*
-/usr/share/firstboot/modules/rhn_login_gui.*
-/usr/share/firstboot/modules/rhn_register_firstboot_gui_window.*
-/usr/share/firstboot/modules/rhn_start_gui.*
-/usr/share/firstboot/modules/rhn_choose_server_gui.*
-/usr/share/firstboot/modules/rhn_provide_certificate_gui.*
-/usr/share/firstboot/modules/rhn_create_profile_gui.*
-/usr/share/firstboot/modules/rhn_choose_org_gui.*
-/usr/share/firstboot/modules/rhn_review_gui.*
-/usr/share/firstboot/modules/rhn_finish_gui.*
+%{_datadir}/firstboot/modules/rhn_activate_gui.*
+%{_datadir}/firstboot/modules/rhn_login_gui.*
+%{_datadir}/firstboot/modules/rhn_register_firstboot_gui_window.*
+%{_datadir}/firstboot/modules/rhn_start_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_server_gui.*
+%{_datadir}/firstboot/modules/rhn_provide_certificate_gui.*
+%{_datadir}/firstboot/modules/rhn_create_profile_gui.*
+%{_datadir}/firstboot/modules/rhn_choose_org_gui.*
+%{_datadir}/firstboot/modules/rhn_review_gui.*
+%{_datadir}/firstboot/modules/rhn_finish_gui.*
 
 %files -n rhn-setup-gnome
-%defattr(-,root,root)
-/usr/share/rhn/up2date_client/messageWindow.*
-/usr/share/rhn/up2date_client/rhnregGui.*
-/usr/share/rhn/up2date_client/rh_register.glade
-/usr/share/rhn/up2date_client/gui.*
-/usr/share/rhn/up2date_client/progress.*
-/usr/share/pixmaps/*png
-/usr/share/icons/hicolor/16x16/apps/up2date.png
-/usr/share/icons/hicolor/24x24/apps/up2date.png
-/usr/share/icons/hicolor/32x32/apps/up2date.png
-/usr/share/icons/hicolor/48x48/apps/up2date.png
+%defattr(-,root,root,-)
+%{_datadir}/rhn/up2date_client/messageWindow.*
+%{_datadir}/rhn/up2date_client/rhnregGui.*
+%{_datadir}/rhn/up2date_client/rh_register.glade
+%{_datadir}/rhn/up2date_client/gui.*
+%{_datadir}/rhn/up2date_client/progress.*
+%{_datadir}/pixmaps/*png
+%{_datadir}/icons/hicolor/16x16/apps/up2date.png
+%{_datadir}/icons/hicolor/24x24/apps/up2date.png
+%{_datadir}/icons/hicolor/32x32/apps/up2date.png
+%{_datadir}/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
+* Mon Mar 16 2009 Miroslav Suchy <msuchy@redhat.com>
+- use macros insted hardcoded paths
+
 * Thu Feb 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.21-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 
