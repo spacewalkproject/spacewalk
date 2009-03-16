@@ -72,3 +72,10 @@ allow osa_dispatcher_t inaddr_any_node_t:tcp_socket node_bind;
 allow osa_dispatcher_t osa_dispatcher_t:tcp_socket listen;
 
 files_list_tmp(osa_dispatcher_t)
+
+optional_policy(`
+	tunable_policy(`allow_ypbind',`
+		nis_use_ypbind_uncond(osa_dispatcher_t)
+	')
+')
+
