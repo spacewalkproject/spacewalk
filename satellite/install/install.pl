@@ -39,7 +39,7 @@ print loc("* Starting the Red Hat Network Satellite installer.\n");
 my $DEBUG;
 $DEBUG = 0;
 
-Spacewalk::Setup::init_log_files(@ARGV);
+Spacewalk::Setup::init_log_files("RHN Satellite",@ARGV);
 
 my %opts = Spacewalk::Setup::parse_options();
 
