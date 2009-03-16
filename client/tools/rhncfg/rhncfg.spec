@@ -4,7 +4,7 @@
 
 Name: rhncfg
 Summary: Red Hat Network Configuration Client Libraries
-Group: RHN/Server
+Group:   Applications/System
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
 Version: 5.9.3
@@ -24,7 +24,7 @@ Red Hat Network Configuration Client Libraries
 
 %package client
 Summary: Red Hat Network Configuration Client
-Group: RHN/Server
+Group:   Applications/System
 PreReq: %{name} = %{version}-%{release}
 Provides: rhn-config-action
 Provides: rhn-config-client-package
@@ -34,7 +34,7 @@ Red Hat Network Configuration Client
 
 %package management
 Summary: Red Hat Network Configuration Management Client
-Group: RHN/Server
+Group:   Applications/System
 PreReq: %{name} = %{version}-%{release}
 Provides: rhn-config-management-package
 
@@ -43,7 +43,7 @@ Red Hat Network Configuration Management Client
 
 %package actions
 Summary: Red Hat Network Configuration Client Actions
-Group: RHN/Server
+Group:   Applications/System
 PreReq: %{name} = %{version}-%{release}
 Requires: %{name}-client
 
