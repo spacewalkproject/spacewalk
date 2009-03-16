@@ -97,11 +97,9 @@ sub dist_handler {
   my $disk_path;
   my $kickstart_mount = PXT::Config->get('kickstart_mount_point');
 
-  if ($tree->org_id) {
-     if (index($tree->base_path, $kickstart_mount) == 0) {
+  if (index($tree->base_path, $kickstart_mount) == 0) {
       warn("Trimming ...");
       $kickstart_mount = "";
-      }
   }
 
    if ($path =~ /\.rpm$/) {
