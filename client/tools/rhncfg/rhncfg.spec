@@ -26,7 +26,7 @@ Red Hat Network Configuration Client Libraries
 %package client
 Summary: Red Hat Network Configuration Client
 Group:   Applications/System
-PreReq: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 Provides: rhn-config-action = %{version}
 Provides: rhn-config-client-package = %{version}
 
@@ -36,7 +36,7 @@ Red Hat Network Configuration Client
 %package management
 Summary: Red Hat Network Configuration Management Client
 Group:   Applications/System
-PreReq: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 Provides: rhn-config-management-package = %{version}
 
 %description management
@@ -45,7 +45,7 @@ Red Hat Network Configuration Management Client
 %package actions
 Summary: Red Hat Network Configuration Client Actions
 Group:   Applications/System
-PreReq: %{name} = %{version}-%{release}
+Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client
 
 # If this is rhel 4 or less we need up2date.
