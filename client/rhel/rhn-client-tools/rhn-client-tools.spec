@@ -92,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/fedora-core-1 
 %doc doc/updates-released
 %doc doc/AUTHORS
+%doc doc/LICENSE
 %{_mandir}/man8/rhn-profile-sync.8*
 %{_mandir}/man5/up2date.5*
 
