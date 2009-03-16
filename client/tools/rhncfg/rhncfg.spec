@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %{rhnroot}/actions/*
 /usr/bin/rhn-actions-control
-%{client_caps_dir}/*
+%config(noreplace) %{client_caps_dir}/*
 %{_mandir}/man8/rhn-actions-control.8*
 
 # $Id$
