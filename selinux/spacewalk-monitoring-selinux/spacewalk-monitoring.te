@@ -34,6 +34,7 @@ type spacewalk_monitoring_tmp_t;
 files_tmp_file(spacewalk_monitoring_tmp_t)
 
 init_daemon_domain(spacewalk_monitoring_t, spacewalk_monitoring_exec_t)
+dontaudit spacewalk_monitoring_t self:capability sys_tty_config;
 domtrans_pattern(java_t, spacewalk_monitoring_exec_t, spacewalk_monitoring_t)
 
 files_read_etc_files(spacewalk_monitoring_t)
