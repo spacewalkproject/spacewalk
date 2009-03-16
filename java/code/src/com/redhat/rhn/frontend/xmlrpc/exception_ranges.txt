@@ -22,4 +22,5 @@ Action Exceptions           2700-2749
 Kickstart Exceptions        2750-2799
 Misc Exceptions             2800-2850
 Org Exceptions              2850-2900
-SearchServer Exceptions     2901-2904
+SearchServer Exceptions     2901-2949
+Authentication Exceptions   2950-2959

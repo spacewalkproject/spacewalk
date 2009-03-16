@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.UserLoginException;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -94,7 +95,15 @@ public class AuthHandler extends BaseHandler {
     public String login(String username, String password, Integer durationIn) 
                       throws LoginException {
         //Log in the user (handles authentication and active/disabled logic)
-        User user = UserManager.loginUser(username, password);
+        User user = null;
+        try {
+            user = UserManager.loginUser(username, password);
+        }
+        catch (LoginException e) {
+            // Convert to fault exception
+            throw new UserLoginException(e.getMessage());
+        }
+        
         long duration = getDuration(durationIn);
         //Create a new session with the user
         WebSession session = SessionManager.makeSession(user.getId(), duration);
