@@ -79,6 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{rhnroot}/config_common
+%doc LICENSE
 
 %files client
 %defattr(-,root,root)
