@@ -110,25 +110,25 @@ SELECT  DISTINCT UAO.id as ID,
    AND  UAO.id IN (%s)
 </query>
 
-
-
-
 <mode name="pending_action_list"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
   <query params="user_id, org_id">
 SELECT  DISTINCT UAO.id AS ID,
-        UAO.earliest_action AS EARLIEST
-  FROM  rhnUserActionOverview UAO
+        UAO.earliest_action AS EARLIEST,
+        UAO.type_name,
+        (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
+        UAO.scheduler,
+        WC.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
    AND  UAO.action_status_id IN (0,1)
    AND  UAO.archived = 0
+   AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
   <elaborator name="action_list_elab" />
-  
 </mode>
-
 
 <mode name="pending_actions_in_set"
       class="com.redhat.rhn.frontend.dto.ScheduledAction">
