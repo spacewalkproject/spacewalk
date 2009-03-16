@@ -441,12 +441,17 @@ class Packages(RPC_Base):
         force     = info.get('force', 0)
         orgid = info.get('org_id')
         
-        if orgid == 'null':
-            org_id, force = rhnPackageUpload.authenticate_session(session_string,
-                                                                  channels=channels, null_org=1, force=force)
-        else:
-            org_id, force = rhnPackageUpload.authenticate_session(session_string,
-                                                                  channels=channels, force=force)
+        try:
+            if orgid == 'null':
+                org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, null_org=1, force=force)
+            else:
+                org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, force=force)
+        except rhnSession.InvalidSessionError:
+            raise rhnFault(33)
+        except rhnSession.ExpiredSessionError:
+            raise rhnFault(34)
     
         return self._getPackageMD5sum(org_id, pkg_infos, info)
  
@@ -548,12 +553,17 @@ class Packages(RPC_Base):
         force = info.get('force', 0)
         orgid = info.get('org_id')
         
-        if orgid == 'null':
-            org_id, force = rhnPackageUpload.authenticate_session(session_string,
-                                                                  channels=channels, null_org=1, force=force)
-        else:
-            org_id, force = rhnPackageUpload.authenticate_session(session_string,
-                                                                  channels=channels,  force=force)
+        try:
+            if orgid == 'null':
+                org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, null_org=1, force=force)
+            else:
+                org_id, force = rhnPackageUpload.authenticate_session(
+                    session_string, channels=channels, force=force)
+        except rhnSession.InvalidSessionError:
+            raise rhnFault(33)
+        except rhnSession.ExpiredSessionError:
+            raise rhnFault(34)
 
         return self._getSourcePackageMD5sum(org_id, pkg_infos, info)
     
