@@ -256,8 +256,7 @@ public abstract class CobblerCommand {
     
     protected CobblerConnection getCobblerConnection() {
         if (user == null) {
-            return CobblerXMLRPCHelper.getConnection(
-                    Config.get().getCobblerAutomatedUser());
+            return CobblerXMLRPCHelper.getAutomatedConnection();
         }
         else {
             return CobblerXMLRPCHelper.getConnection(user);

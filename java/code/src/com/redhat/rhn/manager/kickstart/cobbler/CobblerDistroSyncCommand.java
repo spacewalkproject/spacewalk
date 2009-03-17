@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -54,8 +53,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
 
     protected Map<String, Distro> getDistros() {
         Map<String, Distro> toReturn = new HashMap<String, Distro>();
-        List<Distro> distros = Distro.list(CobblerXMLRPCHelper.getConnection(
-                Config.get().getCobblerAutomatedUser()));
+        List<Distro> distros = Distro.list(CobblerXMLRPCHelper.getAutomatedConnection());
         for (Distro distro : distros) {
             toReturn.put((String)distro.getUid(), distro);
         }
@@ -180,8 +178,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             }
             
             Distro distro = Distro.create(
-                    CobblerXMLRPCHelper.getConnection(
-                               Config.get().getCobblerAutomatedUser()),
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
                     tree.getCobblerDistroName(), tree.getKernelPath(), 
                     tree.getInitrdPath(), ksmeta);
             tree.setCobblerId(distro.getUid());
@@ -199,8 +196,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
             }
             
             Distro distroXen = Distro.create(
-                    CobblerXMLRPCHelper.getConnection(
-                            Config.get().getCobblerAutomatedUser()),
+                    CobblerXMLRPCHelper.getAutomatedConnection(),
                 tree.getCobblerXenDistroName(), tree.getKernelXenPath(), 
                 tree.getInitrdXenPath(), ksmeta); 
             tree.setCobblerXenId(distroXen.getUid());

@@ -105,4 +105,13 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
                 Config.get().getCobblerServerUrl());
         return conn.getUrl();    
     }
+    
+    /**
+     * Returns the cobbler anonymous/automated using the connection
+     * cobbler automated user config entry..
+     * @return the cobbler connection..
+     */
+    public static CobblerConnection getAutomatedConnection() {
+        return getConnection(Config.get().getCobblerAutomatedUser());
+    }
 }

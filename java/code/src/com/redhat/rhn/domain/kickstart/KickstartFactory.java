@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
@@ -365,8 +364,8 @@ public class KickstartFactory extends HibernateFactory {
         }
         // Escape the dollar signs
         fileData = StringUtils.replace(fileData, "$(", "\\$(");
-        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
-                Config.get().getCobblerAutomatedUser()), ksdataIn.getCobblerId());
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
+                                                    ksdataIn.getCobblerId());
         if (p != null && p.getKsMeta() != null) {
             Map ksmeta = p.getKsMeta();
             Iterator i = ksmeta.keySet().iterator();

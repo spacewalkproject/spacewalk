@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
@@ -169,8 +168,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
             KickstartVirtualizationType virtType, User user) {
         CobblerConnection con;
         if (user == null) {
-             con = CobblerXMLRPCHelper.getConnection(
-                     Config.get().getCobblerAutomatedUser());
+             con = CobblerXMLRPCHelper.getAutomatedConnection();
         }
         else {
              con = CobblerXMLRPCHelper.getConnection(user);

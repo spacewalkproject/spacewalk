@@ -296,9 +296,11 @@ public class KickstartUrlHelper {
      */
     public static String getCobblerProfileUrl(KickstartData data) {
         Profile prof = Profile.lookupById(
-                CobblerXMLRPCHelper.getConnection("kickstart-url"), 
-                data.getCobblerId());      
+                CobblerXMLRPCHelper.getAutomatedConnection(), 
+                        data.getCobblerId());      
         return "http://" + Config.get().getCobblerHost() + COBBLER_URL_BASE_PATH + 
                     prof.getName();
     }
+    
+    
 }
