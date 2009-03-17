@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -204,10 +205,19 @@ public class KickstartUrlHelper {
      * @return String url , cobbler style: http://@@http_server@@/$media_url 
      */
     public String getCobblerMediaUrl() {
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         url.append(protocol + host + "/$" + COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
+    }
+    
+    /**
+     * Return the repo URL to be used in the formatted
+     * @param repo the repo object
+     * @return the repo url.
+     */
+    public String getRepoUrl(RepoInfo repo) {
+        return getCobblerMediaUrl() + "/" + repo.getUrl();
     }
 
     /**

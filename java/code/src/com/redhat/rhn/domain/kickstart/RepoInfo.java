@@ -103,7 +103,7 @@ public class RepoInfo {
     public String getFormattedCommand(KickstartData data) { 
         KickstartUrlHelper helper = new KickstartUrlHelper(data);
         return String.format("repo --name=%s --baseurl=%s", name, 
-                                    helper.getCobblerMediaUrl() + "/" + baseUrl);
+                                    helper.getRepoUrl(this));
     }
     
     /**
