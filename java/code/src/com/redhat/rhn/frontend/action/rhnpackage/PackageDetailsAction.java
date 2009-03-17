@@ -55,6 +55,7 @@ public class PackageDetailsAction extends RhnAction {
         
         Package pack;
         long pid;
+        long archId = 0;
         
         //If this is an easy one and we have the pid
         if (request.getParameter("pid") != null) {
@@ -65,7 +66,9 @@ public class PackageDetailsAction extends RhnAction {
             PackageListItem item = PackageListItem.parse(request.getParameter("id_combo"));
             long nameId = item.getIdOne();
             long evrId = item.getIdTwo();
-            long archId = item.getIdThree();
+            if (item.getIdThree() != null) {
+                archId = item.getIdThree();
+            }
            
             String cidParam = request.getParameter("cid");
             String sidParam = request.getParameter("sid");
