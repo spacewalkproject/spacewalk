@@ -787,8 +787,8 @@ public class ListTag extends BodyTagSupport {
         if (PageSizeDecorator.pageWidgetSelected(httpRequest, getUniqueName())) {
             int size = PageSizeDecorator.getSelectedPageSize(httpRequest, 
                                                         getUniqueName());
-            if (size < 1 || size > PageSizeDecorator.PAGE_SIZE[
-                           PageSizeDecorator.PAGE_SIZE.length - 1]) {
+            List <Integer> pageSizes = PageSizeDecorator.getPageSizes();
+            if (size < 1 || size > pageSizes.get(pageSizes.size() - 1)) {
                 return;
             }
             else {
@@ -796,23 +796,6 @@ public class ListTag extends BodyTagSupport {
             }
             
         }
-        
-        //Check and see if the pageSize parameter has been set
-       /* String sizeString = (String)httpRequest.getParameter("pageSize");
-        Integer size = null;
-        try {
-            size = Integer.parseInt(sizeString);
-        }
-        catch (NumberFormatException except) {
-            return;
-        }
-        //only allow valid combinations
-        if (size < 1 || size > PageSizeDecorator.PAGE_SIZE[
-                    PageSizeDecorator.PAGE_SIZE.length - 1]) {
-            return;
-        }
-        pageSize = size;
-*/
     }
 
     private void verifyEnvironment() throws JspException {

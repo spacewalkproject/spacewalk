@@ -14,14 +14,15 @@
  */
 package com.redhat.rhn.manager.user.test;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.user.CreateUserCommand;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-import com.redhat.rhn.common.validator.ValidatorError;
 
 public class CreateUserCommandTest extends RhnBaseTestCase {
     
@@ -61,7 +62,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         errors = command.validate();
         assertEquals(0, errors.length);
     }
-    
+
     public void testStore() {
         Org org = UserTestUtils.findNewOrg("testorg");
         
@@ -84,6 +85,7 @@ public class CreateUserCommandTest extends RhnBaseTestCase {
         
         User result = UserFactory.lookupById(uid);
         assertEquals(login, result.getLogin());
+        assertEquals(PageSizeDecorator.getDefaultPageSize(), result.getPageSize());
     }
     
     public void testUsernameValidation() {
