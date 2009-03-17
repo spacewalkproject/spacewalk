@@ -39,7 +39,7 @@ print loc("* Starting the Red Hat Network Satellite installer.\n");
 my $DEBUG;
 $DEBUG = 0;
 
-Spacewalk::Setup::init_log_files("RHN Satellite",@ARGV);
+Spacewalk::Setup::init_log_files(get_product_name(), @ARGV);
 
 my %opts = Spacewalk::Setup::parse_options();
 
@@ -957,6 +957,38 @@ sub install_rhn_packages {
   }
   return 1;
 }
+
+sub get_product_name {
+  my $composeinfo_file = ".composeinfo";
+  my $productName = "RHN Satellite";
+  my $productVersion, my $productSection;
+
+  open(CINFO, $composeinfo_file) || return $productName;
+
+  foreach my $line (<CINFO>) {
+    chomp $line;
+
+    if ($line =~ /^\[(.+)\]$/) {
+      $productSection = ($1 eq "product");
+    }
+
+    if ($productSection) {
+
+      if ($line =~ /^name\s*=\s*(.+)$/) {
+        $productName = $1;
+      }
+      if ($line =~ /^version\s*=\s*(.+)$/) {
+        $productVersion = $1;
+      }
+
+    }
+  }
+  close(CINFO);
+
+  if (defined $productVersion) { return "$productName $productVersion"; }
+  else { return "$productName"; }
+}
+
 
 __END__
 
