@@ -328,6 +328,7 @@ public class ProfileHandler extends BaseHandler {
      * @return the kickstart file
      * 
      * @xmlrpc.doc Download the full contents of a kickstart file.
+     * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
      * kickstart to download.")
      * @xmlrpc.param #param_desc("string", "host", "The host to use when
