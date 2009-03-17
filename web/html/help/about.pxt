@@ -15,7 +15,6 @@ it can be accessed from anywhere. <pxt-config var="product_name"/> or Proxy serv
 advanced capabilities and the ability to get updates directly from Red Hat with
 even greater levels of security and reduced network bandwidth.
     </p>
-      <p>Learn how to <a href="/rhn/help/quickstart.jsp">start using RHN</a>.</p>
 
   <h2>Modules</h2>
     <p>
@@ -25,21 +24,21 @@ even greater levels of security and reduced network bandwidth.
   <div class="marketing-summary">
   <h3>Update Module</h3>
     <p>
-Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and <a href="http://www.redhat.com/software/rhn/update/" target="_new">more</a>.
+Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and <a href="http://www.redhat.com/rhn/rhndetails/update/" target="_new">more</a>.
     </p>
   </div>
 
   <div class="marketing-summary">
   <h3>Management Module</h3>
     <p>
-The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with <pxt-config var="product_name"/>), and <a href="http://www.redhat.com/software/rhn/management/" target="_new">more</a>.
+The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with <pxt-config var="product_name"/>), and <a href="http://www.redhat.com/rhn/rhndetails/management/" target="_new">more</a>.
     </p>
   </div>
 
   <div class="marketing-summary">
   <h3>Provisioning Module</h3>
     <p>
-The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and <a href="http://www.redhat.com/software/rhn/provisioning/" target="_new">more</a>.
+The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and <a href="http://www.redhat.com/rhn/rhndetails/provisioning/" target="_new">more</a>.
     </p>
   </div>
 
@@ -71,7 +70,7 @@ All <pxt-config var="product_name"/> functionality (system profiles, reporting d
   </div>
 
     <p>
-<a href="http://www.redhat.com/software/rhn/architecture" target="_new">Read more</a> about RHN architectures.
+<a href="https://www.redhat.com/red_hat_network/deploydetail" target="_new">Read more</a> about RHN architectures.
     </p>
   </grail-canvas-template>
 </pxt-passthrough>
