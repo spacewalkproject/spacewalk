@@ -94,9 +94,12 @@
             </p>
             </div-->
           <p/>
-
           <select name="new_base_channel_id" size="5">
-            <option value="-1"><bean:message key="sdc.channels.edit.no_base_channel"/></option>
+            <option value="-1"
+            	<c:if test="${current_base_channel_id == -1}">
+            		selected="selected"
+            	</c:if>  >
+            	<bean:message key="sdc.channels.edit.no_base_channel"/></option>
             <c:if test="${not empty custom_base_channels}">
               <optgroup label='<bean:message key="basesub.jsp.rhn-channels"/>'>
             </c:if>

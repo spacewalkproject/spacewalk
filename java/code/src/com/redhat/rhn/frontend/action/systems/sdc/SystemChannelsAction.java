@@ -195,7 +195,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         Channel newChannel = null;
         List<Channel> preservedChildChannels = new LinkedList<Channel>();
 
-        if (newBaseChannelId.longValue() != -1) {
+        if (newBaseChannelId != null && newBaseChannelId.longValue() != -1) {
             newChannel = ChannelManager.lookupByIdAndUser(
                 new Long(newBaseChannelId.longValue()), user);
 
