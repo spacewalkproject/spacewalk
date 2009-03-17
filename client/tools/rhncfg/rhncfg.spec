@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.3
+Version: 5.9.4
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -104,7 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Tue Mar 17 2009 Miroslav Suchy <msuchy@redhat.com>
+* Tue Mar 17 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.4-1
 - Polish the spec according Fedora Packaging Guidelines
 
 * Wed Feb 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.3-1
