@@ -424,6 +424,11 @@ def get_user_id(username):
 def search(user):
     log_debug(3, user)
     userid = get_user_id(user)
+    if is_user_disabled(user):
+        msg = _("""
+               %s Account has been deactivated on this server.
+               Please contact your Org administrator for more help.""")
+        raise rhnFault(1, msg % user, explain=0)
     if not userid: # no user found
         return None
     ret = User(user, "")
@@ -432,6 +437,19 @@ def search(user):
         # we can not realy say that the entry does not exist...
         raise rhnFault(10)
     return ret
+
+def is_user_disabled(user):
+    log_debug(3, user)
+    username = str(user)
+    h = rhnSQL.prepare("""
+    select 1 from rhnWebContactDisabled
+    where login_uc = upper(:username)
+    """)
+    h.execute(username=username)
+    row = h.fetchone_dict()
+    if row:
+        return 1
+    return 0
 
 # create a reservation record
 def reserve_user(username, password):
