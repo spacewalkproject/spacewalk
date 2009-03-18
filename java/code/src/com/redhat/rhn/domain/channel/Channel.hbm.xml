@@ -286,6 +286,19 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
   </sql-query>
   
+    <sql-query name="Channel.packageByFileName">
+      <![CDATA[SELECT {p.*}
+          FROM rhnPackage {p}
+             left join rhnSolarisPatchSet P_2_ on p.id = P_2_.package_id
+             left join rhnSolarisPatch P_1_ on p.id = P_1_.package_id,
+             rhnChannelPackage CP
+             WHERE CP.channel_id = :channel_id
+               AND CP.package_id = P.id
+               AND P.path LIKE :pathlike               
+        ]]>
+    <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
+    </sql-query>
+  
     <sql-query name="Channel.getServerIds">
         <return-scalar type="long" column="server_id"/>
         <![CDATA[select server_id from rhnServerChannel where channel_id = :cid]]>

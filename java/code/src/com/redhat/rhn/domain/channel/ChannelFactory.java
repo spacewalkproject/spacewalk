@@ -783,4 +783,22 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.listAllChildren", params);
     }
+
+    /**
+     * Lookup a Package based on the channel and package file name
+     * @param channel to look in
+     * @param fileName to look up
+     * @return Package if found
+     */
+    public static Package lookupPackageByFilename(Channel channel,
+            String fileName) {
+        
+        Package retval = (Package)
+            HibernateFactory.getSession().getNamedQuery("Channel.packageByFileName")
+              .setString("pathlike", "%/" + fileName)
+              .setLong("channel_id", channel.getId().longValue())
+              .uniqueResult();
+
+        return retval;
+    }
 }
