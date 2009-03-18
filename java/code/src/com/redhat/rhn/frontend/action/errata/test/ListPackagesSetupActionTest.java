@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.errata.test;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.frontend.action.errata.ListPackagesSetupAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
@@ -39,6 +40,7 @@ public class ListPackagesSetupActionTest extends RhnBaseTestCase {
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
         sah.getRequest().setupAddParameter("eid", e.getId().toString());
         sah.getRequest().setupAddParameter("view_channel", (String) null);
+        sah.getRequest().setupAddParameter(RhnAction.SUBMITTED, Boolean.TRUE.toString());
         sah.executeAction();
         
         //make sure we got something for page list
