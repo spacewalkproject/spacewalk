@@ -8,8 +8,6 @@ License:      GPLv2
 Group:        Applications/System
 BuildArch:    noarch
 
-Conflicts: rhnmd
-
 # Monitoring support
 #we need this package for EL4
 #Requires:       perl-CGI-mp20
@@ -106,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Mar 18 2009 Miroslav Suchý <msuchy@redhat.com>
+- 489573 - we do not conflict with rhnmd any more
+
 * Thu Mar  5 2009 Milan Zazrivec 0.5.2-1
 - obsolete LongLegs, Time-System
 
