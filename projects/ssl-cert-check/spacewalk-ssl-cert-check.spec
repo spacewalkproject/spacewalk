@@ -41,6 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-) 
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 %attr(0755,root,root) %{_datadir}/ssl/ssl-cert-check
+%doc LICENSE
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
