@@ -119,23 +119,17 @@ public class FileUtils {
     public static byte[] readByteArrayFromFile(File fileToRead, long start, long end) {
         log.debug("readByteArrayFromFile: " + fileToRead.getAbsolutePath() + 
                 " start: " + start + " end: " + end);
-        InputStream is;
-        try {
-            is = new FileInputStream(fileToRead);
-        }
-        catch (FileNotFoundException fnf) {
-            log.error("Could not read from: " + fileToRead.getAbsolutePath());
-            throw new RuntimeException(fnf);
-        }
+
         int size = (int) (end - start);
         log.debug("size of array: " + size);
         // Create the byte array to hold the data
         byte[] bytes = new byte[size];
-    
-        // Read in the bytes
-        int offset = 0;
-        int numRead = 0;
+        InputStream is = null;
         try {
+            is = new FileInputStream(fileToRead);
+            // Read in the bytes
+            int offset = 0;
+            int numRead = 0;
             // Skip ahead 
             is.skip(start);
             // start reading
@@ -145,12 +139,25 @@ public class FileUtils {
                         bytes.length - offset);
                 offset += numRead;
             }
-            is.close();
+        }
+        catch (FileNotFoundException fnf) {
+            log.error("Could not read from: " + fileToRead.getAbsolutePath());
+            throw new RuntimeException(fnf);
         }
         catch (IOException e) {
             log.error("Could not read from: " + fileToRead.getAbsolutePath());
             throw new RuntimeException(e);
             
+        }
+        finally {
+            if (is != null) {
+                try {
+                    is.close();
+                }
+                catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         return bytes;
     }

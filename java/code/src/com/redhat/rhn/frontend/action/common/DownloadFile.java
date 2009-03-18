@@ -328,12 +328,16 @@ public class DownloadFile extends DownloadAction {
                 }
                 KickstartFactory.saveKickstartSession(ksession);
             }
-            log.debug("Final path before returning getStreamForBinary(): " + diskPath);
+            if (log.isDebugEnabled()) {
+                log.debug("Final path before returning getStreamForBinary(): " + diskPath);
+            }
             
-            Enumeration e = request.getHeaderNames();
-            while (e.hasMoreElements()) {
-                String name = (String) e.nextElement();
-                log.debug("header: [" + name + "]: " + request.getHeader(name)); 
+            if (log.isDebugEnabled()) {
+                Enumeration e = request.getHeaderNames();
+                while (e.hasMoreElements()) {
+                    String name = (String) e.nextElement();
+                    log.debug("header: [" + name + "]: " + request.getHeader(name)); 
+                }
             }
             if (request.getMethod().equals("HEAD")) {
                 log.debug("Method is HEAD .. serving checksum");
