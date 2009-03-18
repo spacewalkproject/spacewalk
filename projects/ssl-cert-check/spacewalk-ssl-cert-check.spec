@@ -4,6 +4,8 @@ Group:   Applications/System
 License: GPLv2
 Source1: ssl-cert-check 
 Source2: rhn-ssl-cert-check 
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 1.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -18,20 +20,19 @@ server are expected to expire in the next 30 days, and if so, email the
 administrator.
 
 %prep
-# Nothing to do
+%setup -q
 
 %build
 # Nothing to do
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT
-ls -la $RPM_SOURCE_DIR/ssl-cert-check
+
 install -d $RPM_BUILD_ROOT/%{_datadir}/ssl
 install -d $RPM_BUILD_ROOT/etc/cron.daily
 
-install -m755 %{SOURCE1} $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
-install -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
+install -m755 ssl-cert-check $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
+install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 
 %clean
 rm -rf $RPM_BUILD_ROOT
