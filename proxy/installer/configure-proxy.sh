@@ -227,11 +227,20 @@ echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> /etc/ht
 # lets do SSL stuff
 SSL_BUILD_DIR="/root/ssl-build"
 
+if [ -n "$SSL_PASSWORD" ] ; then
+        # use SSL_PASSWORD if already set
+        RHNSSLTOOLPWD="--password '$SSL_PASSWORD'"
+elif [ "$INTERACTIVE" = "0" ] ; then
+        # non-interactive mode but no SSL_PASSWORD :(
+        config_error 4 "Please define SSL_PASSWORD."
+fi
+
 if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
 	echo "Generating CA key and public certificate:"
 	/usr/bin/rhn-ssl-tool --gen-ca -q --dir="$SSL_BUILD_DIR" --set-common-name="$SSL_COMMON" \
 		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE" \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
+		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+                $RHNSSLTOOLPWD
 	config_error $? "CA certificate generation failed!"
 else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
@@ -253,7 +262,8 @@ fi
 echo "Generating SSL key and public certificate:"
 /usr/bin/rhn-ssl-tool --gen-server -q --no-rpm --set-hostname "$HOSTNAME" --dir="$SSL_BUILD_DIR" \
 		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE"  \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
+		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+                $RHNSSLTOOLPWD
 config_error $? "SSL key generation failed!"
 
 echo "Installing SSL certificate for Apache and Jabberd:"
