@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.5.2
+Version:      0.5.3
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -104,7 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Wed Mar 18 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Mar 18 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 489573 - we do not conflict with rhnmd any more
 
 * Thu Mar  5 2009 Milan Zazrivec 0.5.2-1
