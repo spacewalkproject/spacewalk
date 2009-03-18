@@ -652,7 +652,11 @@ SELECT  distinct pn.name AS NAME,
        rhnPackageName pn
      INNER JOIN rhnPackage PKG ON pkg.name_id = pn.id
  WHERE  full_list.name_id = pn.id
-   AND  full_list.name_id NOT IN (SELECT SP.name_id FROM rhnServerPackage SP WHERE SP.server_id = :sid)
+   AND  NOT EXISTS (SELECT 1
+                      FROM rhnServerPackage SP
+                     WHERE SP.server_id = :sid
+                       AND SP.name_id = full_list.name_id
+                       AND SP.package_arch_id = full_list.arch_id)
 ORDER BY  UPPER(pn.name)
   </query>
 </mode>
