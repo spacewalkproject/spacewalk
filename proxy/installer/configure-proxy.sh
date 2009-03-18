@@ -81,6 +81,8 @@ config_error () {
 YUM_OR_UPDATE="up2date -i"
 if [ -f /usr/bin/yum ]; then
 	YUM_OR_UPDATE="yum install"
+        # add -y for non-interactive installation
+	[ "$INTERACTIVE" = "0" ] && YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
 fi
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt /etc/sysconfig/rhn/systemid | cut -d- -f2`
