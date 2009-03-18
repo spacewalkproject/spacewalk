@@ -168,7 +168,8 @@ public class Config {
 
     public static final String PAGE_SIZES = "web.page_sizes";
     public static final String DEFAULT_PAGE_SIZE = "web.default_page_size";
-    
+
+    public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir"; 
     /**
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.
@@ -740,6 +741,18 @@ public class Config {
     public String getDefaultPageSize() {
         return getString(DEFAULT_PAGE_SIZE, "");
     }
-    
-}
 
+    /**
+     * Returns the directory which hosts all the 
+     * cobbler kickstart .cfg files.. 
+     * All the .cfg files that have been generated
+     * by spacewalk will be either at 
+     * ${kickstart.cobbler.dir}/wizard or
+     * ${kickstart.cobbler.dir}/upload  
+     * @return the dir which has the kickstarts
+     */
+    public String getKickstartConfigDir() {
+        return Config.get().getString(KICKSTART_COBBLER_DIR,
+                                            "/var/lib/rhn/kickstarts/");
+    }
+}

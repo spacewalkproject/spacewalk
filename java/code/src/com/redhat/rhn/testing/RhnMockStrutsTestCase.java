@@ -14,10 +14,10 @@
  */
 package com.redhat.rhn.testing;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
@@ -27,12 +27,8 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 
 import org.apache.struts.action.DynaActionForm;
-import org.cobbler.CobblerConnection;
-import org.cobbler.test.MockConnection;
 import org.hibernate.HibernateException;
 
 import java.util.Locale;
@@ -84,13 +80,7 @@ public class RhnMockStrutsTestCase extends MockStrutsTestCase {
         PxtSessionDelegate pxtDelegate = pxtDelegateFactory.newPxtSessionDelegate();
         
         pxtDelegate.updateWebUserId(request, response, user.getId());
-        Config.get().setString(CobblerXMLRPCHelper.class.getName(),
-                MockXMLRPCInvoker.class.getName());
-        Config.get().setString("kickstart.cobbler.dir", "/tmp/");
-        Config.get().setString(CobblerConnection.class.getName(),
-                MockConnection.class.getName());
-
-        MockConnection.clear();
+        KickstartDataTest.setupTestConfiguration();
     }
     
     /**

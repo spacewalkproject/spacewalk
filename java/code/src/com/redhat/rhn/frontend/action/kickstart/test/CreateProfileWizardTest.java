@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
@@ -31,6 +32,7 @@ import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.Iterator;
@@ -303,10 +305,12 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
                 }
             }
             if (cmd.getCommandName().getName().equals("repo")) {
-                System.out.println("ARGS: " + cmd.getArguments());
-                if (cmd.getArguments().indexOf("/kickstart/dist/") > 0) {
-                    correctrepos = true;
-                }
+                RepoInfo repo = RepoInfo.parse(cmd);
+                assertNotNull(repo);
+                assertTrue(!StringUtils.isBlank(repo.getName()));
+                assertTrue(!StringUtils.isBlank(repo.getUrl()));
+                correctrepos = true;
+
             }
         }
         assertTrue(correctswap);
