@@ -510,6 +510,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
 %{rhnroot}/satellite_tools/req_channels.py*
 %{rhnroot}/satellite_tools/satrm.py*
+%{rhnroot}/satellite_tools/rhn-entitlement-report.py*
 %{rhnroot}/satellite_tools/satsync.py*
 %{rhnroot}/satellite_tools/satCerts.py*
 %{rhnroot}/satellite_tools/satComputePkgHeaders.py*

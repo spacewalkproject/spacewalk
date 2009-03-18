@@ -117,6 +117,11 @@ if [ -d /var/log/tomcat5 ]; then
     cp -fapRd /var/log/tomcat5 $DIR/tomcat-logs
 fi
 
+#entitlement report
+if [ -e /usr/share/rhn/satellite_tools/rhn-entitlement-report.py ]; then
+   python /usr/share/rhn/satellite_tools/rhn-entitlement-report.py &> $DIR/entitlement-report
+fi
+
 # general monitoring moc logs
 if [ -d /var/log/nocpulse ] ; then
     echo "    * copying monitoring moc logs"
