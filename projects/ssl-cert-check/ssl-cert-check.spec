@@ -9,7 +9,8 @@ Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl
-Obsoletes: rhn-ssl-cert-check <= %{version}-%{release}
+Obsoletes: rhn-ssl-cert-check < %{version}
+Provides:  rhn-ssl-cert-check = %{version}
 
 %description 
 Runs a check once a day to see if the ssl certificates installed on this
@@ -39,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Wed Mar 18 2009 Miroslav Suchy <msuchy@redhat.com>
+- 490695 - versioned provides
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.5-1
 - 483867 - names of packages that help us distinguish Proxy from Spacewalk (Satellite) have changed.
 - 483867 - Spacewalk and Satellite no longer use /etc/rhn/satellite-httpd/conf/ssl.conf.
