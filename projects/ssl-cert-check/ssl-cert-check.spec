@@ -1,12 +1,12 @@
 Name: spacewalk-ssl-cert-check
-Summary: check ssl certs for impending expiration
-Group: RHN/Client
+Summary: Check ssl certs for impending expiration
+Group:   Applications/System
 License: GPLv2
 Source1: ssl-cert-check 
 Source2: rhn-ssl-cert-check 
 Version: 1.5
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl
 Obsoletes: rhn-ssl-cert-check < %{version}
@@ -18,8 +18,11 @@ server are expected to expire in the next 30 days, and if so, email the
 administrator.
 
 %prep
+# Nothing to do
 
 %build
+# Nothing to do
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
@@ -34,7 +37,7 @@ install -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root) 
+%defattr(-,root,root,-) 
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 %attr(0755,root,root) %{_datadir}/ssl/ssl-cert-check
 
