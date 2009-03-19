@@ -19,7 +19,7 @@ Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
 
-%define prepdir /etc/sysconfig/rhn-satellite-prep
+%define prepdir %{_sysconfdir}/sysconfig/rhn-satellite-prep
 
 %description
 Spacewalk Configuration Templates
@@ -37,8 +37,8 @@ mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
 
-ln -s ../../../httpd/conf/ssl.key/server.key $RPM_BUILD_ROOT/etc/pki/tls/private/server.key
-ln -s ../../../httpd/conf/ssl.crt/server.crt $RPM_BUILD_ROOT/etc/pki/tls/certs/server.crt
+ln -s ../../../httpd/conf/ssl.key/server.key $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/private/server.key
+ln -s ../../../httpd/conf/ssl.crt/server.crt $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs/server.crt
 
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      --exclude=etc/tomcat5 \
@@ -51,28 +51,28 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(0644,root,root,0755)
-%attr(0755,root,root) %{prepdir}/etc/tomcat5
-%attr(0755,root,root) /etc/rhn/satellite-httpd/conf/satidmap.pl
-%attr(0755,root,root) /etc/rhn/satellite-httpd/conf/startup.pl
-%config(noreplace) /etc/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
-%config(noreplace) /etc/httpd/conf.d/zz-spacewalk-www.conf
-%config(noreplace) /etc/rhn/satellite-httpd/conf/workers.properties
-%config(noreplace) /etc/webapp-keyring.gpg
-%config(noreplace) /var/lib/cobbler/kickstarts/spacewalk-sample.ks
-%config(noreplace) /var/lib/cobbler/snippets/spacewalk_file_preservation
-%attr(0755,root,apache) %dir /etc/rhn
-%dir /etc/rhn/satellite-httpd
-%dir /etc/rhn/satellite-httpd/conf
-%dir /etc/rhn/satellite-httpd/conf/rhn
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/rhn/cluster.ini
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/rhn/rhn.conf
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/pki/tls/private/server.key
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) /etc/pki/tls/certs/server.crt
+%attr(0755,root,root) %{prepdir}%{_sysconfdir}/tomcat5
+%attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
+%attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
+%config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/zz-spacewalk-www.conf
+%config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/workers.properties
+%config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
+%config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
+%config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
+%attr(0755,root,apache) %dir %{_sysconfdir}/rhn
+%dir %{_sysconfdir}/rhn/satellite-httpd
+%dir %{_sysconfdir}/rhn/satellite-httpd/conf
+%dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/cluster.ini
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/private/server.key
+%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/certs/server.crt
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
-%config /etc/pki/tls/private/spacewalk.key
-%config /etc/pki/tls/certs/spacewalk.crt
-/etc/satname
+%config %{_sysconfdir}/pki/tls/private/spacewalk.key
+%config %{_sysconfdir}/pki/tls/certs/spacewalk.crt
+%{_sysconfdir}/satname
 %{prepdir}
 
 %pre
@@ -83,13 +83,13 @@ rm -rf $RPM_BUILD_ROOT
 if [ -f /etc/init.d/satellite-httpd ] ; then
     /sbin/service satellite-httpd stop >/dev/null 2>&1
     /sbin/chkconfig --del satellite-httpd
-    perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
+    %{__perl} -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
 
 %post
 
-cat >> /etc/sysconfig/httpd <<EOF
+cat >> %{_sysconfdir}/sysconfig/httpd <<EOF
 export ORACLE_HOME=/opt/oracle
 export NLS_LANG=english.AL32UTF8
 EOF
