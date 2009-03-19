@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.17
+Version: 0.5.18
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.18-1
+- 472595 - fixes for kickstart performance, start of porting ks downloads to java
+- 490726 - minor updates to about.pxt
+- added support for db-control extend TEMP_TBS
+- 466502 - fixes issues related to repo command addition and proper ks url generation
+
 * Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.17-1
 - forgot to remove an alert, arg
 
