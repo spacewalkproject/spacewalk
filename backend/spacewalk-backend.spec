@@ -563,6 +563,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %changelog
 * Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.24-1
 - 468686 - restricts deactivated accounts from registering systems and managing systems. 
+- 485532 - Adding the overriding config values for apachec process sizelimit issue
 
 * Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
