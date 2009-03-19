@@ -424,13 +424,13 @@ def get_user_id(username):
 def search(user):
     log_debug(3, user)
     userid = get_user_id(user)
+    if not userid: # no user found
+        return None
     if is_user_disabled(user):
         msg = _("""
                %s Account has been deactivated on this server.
                Please contact your Org administrator for more help.""")
         raise rhnFault(1, msg % user, explain=0)
-    if not userid: # no user found
-        return None
     ret = User(user, "")
     if not ret.reload(userid) == 0:
         # something horked during reloading entry from database
