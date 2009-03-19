@@ -50,8 +50,8 @@ tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(0644,root,root,0755)
-%attr(0755,root,root) %{prepdir}%{_sysconfdir}/tomcat5
+%defattr(-,root,root,-)
+%{prepdir}%{_sysconfdir}/tomcat5
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/satidmap.pl
 %attr(0755,root,root) %{_sysconfdir}/rhn/satellite-httpd/conf/startup.pl
 %config(noreplace) %{_sysconfdir}/rhn/satellite-httpd/conf/rhn/rhn_monitoring.conf
@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
-%attr(0755,root,apache) %dir %{_sysconfdir}/rhn
+%dir %{_sysconfdir}/rhn
 %dir %{_sysconfdir}/rhn/satellite-httpd
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
