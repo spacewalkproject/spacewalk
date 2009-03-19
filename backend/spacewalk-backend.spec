@@ -200,7 +200,7 @@ Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
-Requires: cobbler >= 1.4.2
+Requires: cobbler >= 1.4.3
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
@@ -561,6 +561,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com>
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
+
 * Fri Mar 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.22-1
 - 484879 - warn if you are connection using ISS to parent which do not know ISS
 

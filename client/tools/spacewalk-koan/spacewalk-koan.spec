@@ -11,7 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python
 Requires:       python >= 2.3
-Requires:       koan >= 1.4.2
+Requires:       koan >= 1.4.3
 
 Provides: rhn.kickstart.boot_image = 5.3.0
 Provides: rhn-kickstart = 5.3.0
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com>
+- 486186 - Update spacewalk spec files to require koan >= 1.4.3
+
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1.10-1
 - 486638- Updated spec to have it conflict with rhn-kickstart rpm instead of obsoleting it.
 

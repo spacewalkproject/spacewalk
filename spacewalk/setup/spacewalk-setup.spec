@@ -24,7 +24,7 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler >= 1.4.2
+Requires:       cobbler >= 1.4.3
 Requires:       PyYAML
 Requires:       jabberd
 
@@ -90,6 +90,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com>
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
+
 * Fri Mar 13 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.22-1
 - run setup_monitoring even for upgrades
 
