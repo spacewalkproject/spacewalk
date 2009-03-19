@@ -2,8 +2,6 @@ Name: spacewalk-ssl-cert-check
 Summary: Check ssl certs for impending expiration
 Group:   Applications/System
 License: GPLv2
-Source1: ssl-cert-check 
-Source2: rhn-ssl-cert-check 
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 Version: 1.6
