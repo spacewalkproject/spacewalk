@@ -99,6 +99,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.25-1
+- 485532 - removing Apache2::SizeLimit instances and manage processes by requestlimit.
+
 * Tue Mar 03 2009 Dave Parker <dparker@redhat.com> 0.5.5-1
 - 483802 Directory /etc/rhn owned by two packages, group does not match
 
