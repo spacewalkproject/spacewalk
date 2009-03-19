@@ -3,7 +3,7 @@ Name: spacewalk-koan
 Group: System Environment/Kernel
 License: GPLv2
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.1.10
+Version: 0.1.11
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/rhn/actions/
 
 %changelog
-* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com>
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.1.11-1
 - 486186 - Update spacewalk spec files to require koan >= 1.4.3
 
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1.10-1
