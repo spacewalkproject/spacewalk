@@ -44,7 +44,6 @@ cp -R setup  %{buildroot}%{_datadir}/spacewalk/
 cp -R java-branding.jar %{buildroot}%{_datadir}/rhn/lib/
 ln -s %{_datadir}/rhn/lib/java-branding.jar %{buildroot}%{_var}/lib/tomcat5/webapps/rhn/WEB-INF/lib/java-branding.jar
 cp conf/rhn_docs.conf %{buildroot}/%{_sysconfdir}/rhn/default/rhn_docs.conf
-ln -s %{_bindir}/spacewalk-debug %{_bindir}/satellite-debug
 
 %clean
 rm -rf %{buildroot}
