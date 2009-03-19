@@ -33,7 +33,7 @@ Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
 Requires: jcommon
-Requires: jfreechart
+Requires: jfreechart >= 1.0.10
 Requires: jpam
 Requires: log4j
 Requires: redstone-xmlrpc
