@@ -510,6 +510,7 @@ create schema spacewalk;
 \i data/rhnServerGroupType_data.sql
 \i data/valid_countries.sql
 \i data/rhnTemplateCategory_data.sql
+\i data/rhn_physical_location_data.sql
 
 /* packages go here */
 \i packages/rhn_user.pkb

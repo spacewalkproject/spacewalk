@@ -44,15 +44,4 @@ comment on table rhn_physical_location
     is 'phslc  physical location records';
 
 --NOTE: Had to shorten sequence name
---create sequence rhn_physical_loc_recid_seq;
-
---
---Revision 1.3  2004/05/04 23:02:54  kja
---Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
---
---Revision 1.2  2004/04/30 20:45:21  kja
---Added missing sequence.
---
---Revision 1.1  2004/04/13 19:36:13  kja
---More monitoring schema.
---
+create sequence rhn_physical_loc_recid_seq;
