@@ -361,7 +361,6 @@
             <form-property name="group" type="java.lang.String"/>
             <form-property name="timeout" type="java.lang.Long"/>            
             <form-property name="script" type="java.lang.String"/>                        
-            <form-property name="set_label" type="java.lang.String"/>
             <form-property name="session_set_label" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="mode" type="java.lang.String"/>
