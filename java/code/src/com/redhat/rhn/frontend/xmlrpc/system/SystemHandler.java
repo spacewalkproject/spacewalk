@@ -58,7 +58,9 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
@@ -1380,7 +1382,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
      *      #struct("custom value")
-     *          #prop("string", "custom_info_label")
+     *          #prop("string", "custom info label")
      *      #struct_end()
      */
     public Map getCustomValues(String sessionKey, Integer sid) throws FaultException {
@@ -1407,7 +1409,67 @@ public class SystemHandler extends BaseHandler {
         
         return returnMap;
     }
-    
+
+    /**
+     * Delete the custom values defined for the custom system information keys
+     * provided from the given system.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id of the server in question
+     * @param keys A list of custom data labels/keys to delete from the server
+     * @return Returns a 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if the server corresponding to
+     * sid cannot be found.
+     *
+     * @xmlrpc.doc Delete the custom values defined for the custom system information keys
+     * provided from the given system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param  #array_single("string", "customInfoLabel")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteCustomValues(String sessionKey, Integer sid, List<String> keys)
+            throws FaultException {
+        // Get the logged in user and server
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, sid);
+        Org org = loggedInUser.getOrg();
+        List<String> skippedKeys = new ArrayList<String>();
+
+        /*
+         * Loop through the list the user sent us. Check to make sure that the org has the
+         * corresponding custom data key. If so, remove the value, if not, add the key to
+         * the skippedKeys list so we can throw a fault exception later and tell the user
+         * which keys were skipped.
+         */
+        for (String label : keys) {
+            CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(label,
+                loggedInUser.getOrg());
+
+            // Does the custom data key exist?
+            if (key == null || key.getLabel() == null) {
+                // Add label to skippedKeys list
+                skippedKeys.add(label);
+            }
+            else {
+                ServerFactory.removeCustomDataValue(server, key);
+            }
+        }
+
+        // If we skipped any keys, we need to throw an exception and let the user know.
+        if (skippedKeys.size() > 0) {
+            // We need to throw an exception. Append each undefined key to the
+            // exception message.
+            StringBuffer msg = new StringBuffer("One or more of the following " +
+                                                "custom info fields was not defined: ");
+
+            for (String label : skippedKeys) {
+                msg.append("\n" + label);
+            }
+            throw new UndefinedCustomFieldsException(msg.toString());
+        }
+        return 1;
+    }
+
     /**
      * Set the profile name for the server
      * @param sessionKey The sessionKey containing the logged in user

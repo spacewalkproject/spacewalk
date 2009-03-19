@@ -865,7 +865,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin);
         CustomDataKey testKey = CustomDataKeyTest.createTestCustomDataKey(admin);
         
-        //setCustomValues
+        // setCustomValues
         Org org = admin.getOrg();
         org.addCustomDataKey(testKey);
         
@@ -893,7 +893,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(val2, val.getValue());
         assertEquals(1, setResult);
         
-        // try with some undefined keys
+        // try to set custom values with some undefined keys
         valuesToSet.put(fooKey, val1);
         try {
             setResult = handler.setCustomValues(adminKey, 
@@ -910,6 +910,35 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                          new Integer(server.getId().intValue()));
         
         assertEquals(1, result.size());
+
+        // try to delete custom values using undefined keys
+        List<String> valuesToDelete = new ArrayList<String>();
+        valuesToDelete.add(fooKey);
+        try {
+            setResult = handler.deleteCustomValues(adminKey,
+                                                new Integer(server.getId().intValue()),
+                                                valuesToDelete);
+            fail("Didn't get exception for undefined keys.");
+        }
+        catch (UndefinedCustomFieldsException e) {
+            //success
+        }
+        val = server.getCustomDataValue(testKey);
+        assertNotNull(val);
+
+        result = handler.getCustomValues(adminKey, new Integer(server.getId().intValue()));
+        assertEquals(1, result.size());
+
+        // now delete the custom value that was previously added
+        valuesToDelete.clear();
+        valuesToDelete.add(testKey.getLabel());
+        setResult = handler.deleteCustomValues(adminKey,
+                new Integer(server.getId().intValue()),
+                valuesToDelete);
+
+        assertEquals(1, setResult);
+        val = server.getCustomDataValue(testKey);
+        assertNull(val);
     }
     
     public void testListUserSystems() throws Exception {
