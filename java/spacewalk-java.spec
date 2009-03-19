@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.32
+Version: 0.5.33
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -33,7 +33,7 @@ Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
 Requires: jcommon
-Requires: jfreechart >= 1.0.10
+Requires: jfreechart >= 1.0.9
 Requires: jpam
 Requires: log4j
 Requires: redstone-xmlrpc
@@ -233,7 +233,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Thu Mar 19 2009 Mike McCune <mmccune@gmail.com> 0.5.32-1
+* Thu Mar 19 2009 Mike McCune <mmccune@gmail.com> 0.5.33-1
 - 474774 - adding jfreechart 1.0 version requires
 
 * Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.31-1
