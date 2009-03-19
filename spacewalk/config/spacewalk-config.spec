@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.5
+Version: 0.5.6
 Release: 1%{?dist}
 # This src.rpm is canonical upstream.
 # You can obtain it using this set of commands
@@ -99,7 +99,7 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
-* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.25-1
+* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.6-1
 - 485532 - removing Apache2::SizeLimit instances and manage processes by requestlimit.
 
 * Tue Mar 03 2009 Dave Parker <dparker@redhat.com> 0.5.5-1
