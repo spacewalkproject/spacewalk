@@ -561,6 +561,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- 468686 - restricts deactivated accounts from registering systems and managing systems. 
+
 * Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
 
