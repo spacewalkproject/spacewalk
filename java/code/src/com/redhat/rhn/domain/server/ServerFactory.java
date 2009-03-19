@@ -96,7 +96,7 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
-     * Remove the custom data value associated associated with the custom data key
+     * Remove the custom data value associated with the custom data key
      * provided for the given server.
      * @param server The server
      * @param key The custom data key
