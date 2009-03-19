@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.23
+Version: 0.5.24
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -561,7 +561,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com>
+* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.24-1
 - 468686 - restricts deactivated accounts from registering systems and managing systems. 
 
 * Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
