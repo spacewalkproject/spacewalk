@@ -74,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/pki/tls/certs/spacewalk.crt
 %{_sysconfdir}/satname
 %{prepdir}
+%doc LICENSE
 
 %pre
 # This section is needed here because previous versions of spacewalk-config
