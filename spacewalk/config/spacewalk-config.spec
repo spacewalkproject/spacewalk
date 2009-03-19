@@ -70,9 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/certs/server.crt
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
-%config %{_sysconfdir}/pki/tls/private/spacewalk.key
-%config %{_sysconfdir}/pki/tls/certs/spacewalk.crt
-%{_sysconfdir}/satname
+%config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
+%config(noreplace) %{_sysconfdir}/pki/tls/certs/spacewalk.crt
+%config(noreplace) %{_sysconfdir}/satname
 %{prepdir}
 %doc LICENSE
 
