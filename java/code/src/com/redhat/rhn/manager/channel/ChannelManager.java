@@ -1283,6 +1283,29 @@ public class ChannelManager extends BaseManager {
     }
     
     /**
+     * Get the id of latest packages located in the channel tree
+     * where channelId is a parent
+     *
+     * @param channelId to lookup package against
+     * @param packageName to check
+     * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
+     */
+    public static Long getLatestPackageEqualInTree(Long channelId, String packageName) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+            "latest_package_equal_in_tree");
+        Map params = new HashMap();
+        params.put("cid", channelId);
+        params.put("name", packageName);
+        List results = m.execute(params);
+        if (results != null && results.size() > 0) {
+            Map row = (Map) results.get(0);
+            return (Long) row.get("package_id");
+        }
+        return null;
+    }
+
+
+    /**
      * List the latest packages equal in the passed in Channel and name
      * 
      * @param channelId to lookup package against

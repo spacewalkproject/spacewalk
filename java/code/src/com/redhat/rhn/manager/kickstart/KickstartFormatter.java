@@ -97,13 +97,15 @@ public class KickstartFormatter {
         NEWLINE;
     public static final String[] UPDATE_PKG_NAMES =         
     {"pyOpenSSL", "rhnlib", "libxml2-python"};
+    public static final String[] FRESH_PKG_NAMES_RHEL5 =
+    {"rhn-setup",  "yum-rhn-plugin", "rhnsd", "rhn-client-tools", "rhnlib", "rhn-check"};
     public static final String[] FRESH_PKG_NAMES_RHEL34 = 
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
     {"rhn_register", "up2date", "rhn_register-gnome", "up2date-gnome"};
     private static final String UPDATE_OPT_PATH = "/tmp/rhn_rpms/optional/";
     private static final String UPDATE_CMD = "rpm -Uvh --replacepkgs --replacefiles ";
-    private static final String FRESH_CMD = "rpm -Fvh /tmp/rhn_rpms/*rpm";
+    private static final String FRESH_CMD = "rpm -Uvh /tmp/rhn_rpms/*rpm";
     private static final String IMPORT_RHN_KEY5 = 
         "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release";
     private static final String IMPORT_RHN_KEY34 = 
@@ -802,9 +804,12 @@ public class KickstartFormatter {
             else if (ksdata.isRhel3() || ksdata.isRhel4()) {
                 pkglist = FRESH_PKG_NAMES_RHEL34;
             }
+            else {
+                pkglist = FRESH_PKG_NAMES_RHEL5;
+            }
             HashSet retval = new HashSet();
             for (int i = 0; i < pkglist.length; i++) {
-                Long packageId = ChannelManager.getLatestPackageEqual(c.getId(),
+                Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
                         pkglist[i]);
                 if (packageId != null) {
                     Package p = PackageFactory.lookupByIdAndUser(packageId, user);
