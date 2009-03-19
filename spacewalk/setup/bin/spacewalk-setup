@@ -1111,7 +1111,13 @@ sub setup_monitoring {
      RHN_SAT_WEB_PORT => 443
     );
 
-  RHN::DB->set_default_handle(sprintf('%s/%s@%s', $answers->{'db-user'}, $answers->{'db-password'}, $answers->{'db-sid'}));
+  # DB connection params not yet written to rhn.conf, must specify them manually:
+  my $connection_string =
+    RHN::DB->get_dbi_connection_string($answers->{'db-backend'},
+      $answers->{'db-host'}, $answers->{'db-port'}, $answers->{'db-sid'});
+  RHN::DB->add_alias($connection_string, $answers->{'db-user'},
+    $answers->{'db-password'}, { } );
+  RHN::DB->set_default_connection($connection_string);
 
   update_monitoring_config($answers, \%mon_config);
 

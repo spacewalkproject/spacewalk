@@ -62,7 +62,6 @@ makedir /etc/sysconfig/rhn
 makedir /var/www/lib
 
 cd /etc
-symlink $GITDIR/web/conf/pxtdb.conf
 symlink $GITDIR/satellite/config/etc/webapp-keyring.gpg
 
 cd /etc/rhn

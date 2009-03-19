@@ -14,6 +14,8 @@ echo ""
 # Watchout for the vendor_perl dir here, this is ok for RHEL 5 and thus probably CentOS 5, 
 # but this is beyond fragile:
 scp ./spacewalk/setup/lib/Spacewalk/Setup.pm $SWHOST:/usr/lib/perl5/vendor_perl/5.8.8/Spacewalk/Setup.pm
+scp -r ./web/modules/rhn/RHN/ $SWHOST:/usr/lib/perl5/site_perl/5.8.8/
+scp -r ./web/modules/pxt/PXT/ $SWHOST:/usr/lib/perl5/site_perl/5.8.8/
 scp ./spacewalk/setup/bin/spacewalk-setup $SWHOST:/usr/bin/spacewalk-setup
 
 ssh $SWHOST mkdir /usr/share/spacewalk/schema/
@@ -25,6 +27,7 @@ scp -r ./backend/satellite_tools $SWHOST:/usr/share/rhn/
 scp ./spacewalk/admin/rhn-populate-database.pl $SWHOST:/usr/bin/rhn-populate-database.pl
 
 scp ./spacewalk/config/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf $SWHOST:/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf
+scp ./web/conf/rhn_web.conf $SWHOST:/etc/rhn/default/rhn_web.conf
 
 echo ""
 echo "To undo these changes remove and re-install the following packages:"

@@ -28,11 +28,13 @@ our @ISA = qw/DBI/;
 my %aliases;
 my %handles = ();
 
+# Add an alias, maps dbi connection string to an array of username, 
+# password, and params.
 sub add_alias {
   my $class = shift;
-  my $alias = shift;
+  my $dbi_connection_string = shift;
 
-  $aliases{$alias} = [ @_ ];
+  $aliases{$dbi_connection_string} = [ @_ ];
 }
 
 sub clear_aliases {
@@ -47,13 +49,33 @@ sub lookup_alias {
   return $aliases{$alias};
 }
 
-# default_db, if set, takes precedence over pxt_database_dsn
-$RHN::DB::default_handle = PXT::Config->get("default_db") || PXT::Config->get("pxt_database_dsn");
+# Return a DBI connection string based on the given inputs. This is also
+# used as a key in our hash of established connections.
+sub get_dbi_connection_string {
+    my $class = shift;
+    my $backend = shift;
+    my $host = shift;
+    my $port = shift;
+    my $dbname = shift; # sid for oracle backend
 
-sub set_default_handle {
+    if ($backend eq "oracle") {
+        return "dbi:Oracle:$dbname";
+    }
+    elsif ($backend eq "postgresql") {
+        return "DBI:Pg:dbname=$dbname;host=$host;port=$port";
+    }
+}
+
+$RHN::DB::default_connection = get_dbi_connection_string(
+    PXT::Config->get("db_backend"),
+    PXT::Config->get("db_host"),
+    PXT::Config->get("db_port"),
+    PXT::Config->get("db_name"));
+
+sub set_default_connection {
   my $class = shift;
 
-  $RHN::DB::default_handle = shift;
+  $RHN::DB::default_connection = shift;
 }
 
 # this forces connection immediately after form, before first request
@@ -110,32 +132,6 @@ sub connection_cleanup {
   }
 }
 
-sub load_dsn_aliases {
-  my $class = shift;
-  my $file = shift;
-
-  $class->clear_aliases;
-  if (open FH, "/etc/pxtdb.conf") {
-    while (<FH>) {
-      chomp;
-
-      s/^\s+//;
-      s/\s+$//;
-      s/#.*$//g;
-      next unless $_;
-
-      my ($alias, $entry) = split /\s*:\s*/, $_, 2;
-      my ($dsn, $user, $pass, $opts) = $entry =~ /^(\S+)\s+([^;]+)\s+([^;]+);?(.*)$/;
-
-      $class->add_alias($alias, $dsn, $user, $pass, { split /\s+/, ($opts || '') });
-    }
-    close FH;
-  }
-}
-
-# TODO: This looks fishy, this file doesn't seem to exist anymore:
-RHN::DB->load_dsn_aliases("/etc/pxtdb.conf");
-
 # soft connect -- if connect fails, return undef instead of raising exception
 
 sub soft_connect {
@@ -150,10 +146,23 @@ sub soft_connect {
 sub connect {
   my $class = shift;
   my $alias = shift;
+  my $username = shift;
+  my $password = shift;
 
   return if PXT::Config->get('debug_disable_database');
 
-  $alias ||= $RHN::DB::default_handle;
+  # Store db handlers using an alias which is equal to their DBI
+  # connection string. Note that this does not include username or
+  # password information and thus we cannot have multiple connections
+  # to one db as different users (currently). If this turns out to be
+  # a problem, suggest we prepend/append the username in the alias hash
+  # key.
+
+  # TODO: Once upon a time these aliases were just Oracle dsn's, if the incoming
+  # alias is in this format, convert it to an Oracle dbi string?
+
+  $alias ||= $RHN::DB::default_connection;
+
   if ($handles{$alias} and $handles{$alias}->{Active}) {
     my $dbh = $handles{$alias};
 
@@ -172,17 +181,17 @@ sub connect {
     $ENV{NLS_LANG} = $nls_lang;
   }
 
-  if ($alias =~ m(^(.*)/(.*)@(.*)$)) {
-    my ($username, $password, $sid) = ($1, $2, $3);
-    RHN::DB->add_alias($alias, "dbi:Oracle:$sid", $username, $password, { } );
-  }
+#  if ($alias =~ m(^(.*)/(.*)@(.*)$)) {
+#    my ($username, $password, $sid) = ($1, $2, $3);
+#    RHN::DB->add_alias("dbi:Oracle:$sid", $username, $password, { } );
+#  }
 
   my $alias_data = RHN::DB->lookup_alias($alias);
   Carp::croak "RHN::DB->connect($alias): No such alias '$alias'" unless $alias_data;
 
-  my ($dsn, $username, $password, $params) = @{ $alias_data };
+  my ($username, $password, $params) = @{ $alias_data };
 
-  my $dbh = $handles{$alias} = $class->direct_connect($dsn, $username, $password,
+  my $dbh = $handles{$alias} = $class->direct_connect($alias, $username, $password,
 						      { %$params,
 						        HandleError => \&RHN::DB::handle_error,
 							RaiseError => 1,
@@ -210,12 +219,12 @@ sub connect {
 
 sub direct_connect {
   my $class = shift;
-  my $dsn = shift;
+  my $connection = shift;
   my $username = shift;
   my $password = shift;
   my $options = shift;
 
-  my $dbh = $class->SUPER::connect($dsn, $username, $password, $options);
+  my $dbh = $class->SUPER::connect($connection, $username, $password, $options);
 
   return $dbh;
 }

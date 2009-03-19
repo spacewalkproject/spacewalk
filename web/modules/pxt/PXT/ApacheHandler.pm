@@ -342,15 +342,16 @@ sub initialize_pxt {
     PXT::Config->set(base_port => $base_port);
   }
 
-  # default_db, if set, takes precedence over pxt_database_dsn
-  RHN::DB->set_default_handle(PXT::Config->get("default_db") || PXT::Config->get("pxt_database_dsn"));
-
-  if ($r->pnotes('hostname_personality')) {
-    my $dsn = $r->pnotes('hostname_personality');
-    if (RHN::DB->lookup_alias($dsn)) {
-      RHN::DB->set_default_handle($dsn);
-    }
-  }
+# NOTE: Commenting out as part of PostgreSQL effort, likely unused code.
+# Personalities once used to prepend a token to the cookie to avoid
+# conflicts with RHN cookies. Suspected to now be unused.
+#
+#if ($r->pnotes('hostname_personality')) {
+#    my $dsn = $r->pnotes('hostname_personality');
+#    if (RHN::DB->lookup_alias($dsn)) {
+#      RHN::DB->set_default_handle($dsn);
+#    }
+#  }
 
   if (PXT::Config->get('profile_queries')) {
     my $dbh = RHN::DB->connect;
