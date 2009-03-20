@@ -14,20 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
@@ -38,13 +24,26 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
-import com.redhat.rhn.frontend.dto.ErrataPackageFile;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * RemovePackages
@@ -93,15 +92,23 @@ public class RemovePackagesAction extends RhnSetAction {
                 //removed from the errata.
                 packagesRemoved++;
             }
-            for (ErrataFile ef : errata.getFiles()) {
-                if (ef instanceof ErrataPackageFile) {
-                    ErrataPackageFile efp = (ErrataPackageFile) ef;
-                    if (efp.getPackageId().equals(pkg.getId())) {
-                        ErrataFactory.removeFile(ef);
-                    }
-                }
-            }
             
+            //We have to do this round about way of removing errata files
+            // otherwise we are modifying the set that we are working on
+            // I really *hate* errata files
+            List<ErrataFile> efsToRemove = new ArrayList<ErrataFile>();
+            for (ErrataFile ef : errata.getFiles()) {
+                    if (ef.getPackages().contains(pkg)) {
+                        efsToRemove.add(ef);
+                    }
+            }
+            for (ErrataFile ef : efsToRemove) {
+                errata.removeFile(ef.getId());
+                ef.getPackages().remove(pkg);
+                if (ef.getPackages().isEmpty()) {
+                    ErrataFactory.removeFile(ef);
+                }
+            }            
         }
         //Save the errata
         ErrataManager.storeErrata(errata);

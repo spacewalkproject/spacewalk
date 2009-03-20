@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -37,6 +38,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Provides convenience methods for creating a kickstart profile.
@@ -104,38 +106,7 @@ public class KickstartWizardHelper {
             KickstartData owner) {
         KickstartCommand cmd = KickstartFactory.createKickstartCommand(owner, name);
         cmd.setArguments(args);
-        if (owner.getCommands() == null) {
-            owner.setCommands(new HashSet());
-        }
-        owner.getCommands().add(cmd);
         return cmd;
-    }
-
-    /**
-     * Create repo specific kickstart commands. Should only ever be used for 
-     * kickstart trees that are RHEL 5 or greater.
-     * @param ksdata Kickstart data to modify.
-     * @param downloadUrl Download url. (i.e. the argument to --url)
-     */
-    public void addRepoLocations(KickstartData ksdata, String downloadUrl) {
-        log.debug("Adding repo locations for: " + downloadUrl);
-        // for some reason our ks trees have preceeding rhn/kickstart in 
-        // their basepath.  Need to swap that out with the downloadable
-        // path to the repodata:
-        // before: http://host/rhn/kickstart/ks-rhel-i386-server-5/Workstation
-        // after:  http://host/kickstart/dist/ks-rhel-i386-server-5/Workstation
-        String repoUrl = downloadUrl.replaceAll("rhn/kickstart", "kickstart/dist");
-        addRepoLocation(ksdata, repoUrl, "Cluster");
-        addRepoLocation(ksdata, repoUrl, "ClusterStorage");
-        addRepoLocation(ksdata, repoUrl, "Workstation");
-        addRepoLocation(ksdata, repoUrl, "VT");
-        createCommand("key", "--skip", ksdata);
-    }
-
-    private void addRepoLocation(KickstartData ksdata, 
-            String location, String name) {
-        createCommand("repo", "--name=" + name + " --baseurl=" + location + "/" + name,
-                ksdata);
     }
     
     /**
@@ -255,4 +226,39 @@ public class KickstartWizardHelper {
         cmd.store();
         log.debug("store() - done.");
     }
+    
+    /**
+     * Adds the vt repo to this ks data
+     * @param ksdata the data to which the repos have to be processed
+     */
+    public void processRepos(KickstartData ksdata) {
+        if (ksdata.isRhel5OrGreater()) {
+            Set<RepoInfo> repos = ksdata.getRepoInfos();
+            RepoInfo vt = RepoInfo.vt(); 
+            if (!repos.contains(vt)) {
+                repos.add(vt);
+                ksdata.setRepoInfos(repos);
+            }
+        }
+        else {
+            ksdata.removeCommand("repo", false);
+        }
+    }
+    
+    /**
+     * Basically add or remove key --skip to the ks file...
+     * mainly used for the wizard
+     * @param ksdata the ksdata to which the key command has to be aded or removed..
+     */
+    public void processSkipKey(KickstartData ksdata) {
+        if (ksdata.isRhel5OrGreater()) {
+            KickstartCommand command = ksdata.getCommand("key");
+            if (command == null) {
+                createCommand("key", "--skip", ksdata);    
+            }
+        }
+        else {
+            ksdata.removeCommand("key", false);
+        }
+    }    
 }

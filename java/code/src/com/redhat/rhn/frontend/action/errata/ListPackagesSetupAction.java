@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.errata;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -51,6 +52,8 @@ public class ListPackagesSetupAction extends BaseErrataSetupAction {
         //Get the logged in user
         User user = requestContext.getLoggedInUser();
         
+ 
+        
         //Setup the page control for this user
         PageControl pc = new PageControl();
         pc.setIndexData(true);
@@ -63,6 +66,12 @@ public class ListPackagesSetupAction extends BaseErrataSetupAction {
         RhnSet set = RhnSetDecl.PACKAGES_TO_REMOVE.get(user);
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
+        
+       if (!requestContext.isSubmitted()) {
+            set.clear();
+            RhnSetFactory.save(set);
+        }
+        
         return super.execute(mapping, formIn, request, response);
     }
 }

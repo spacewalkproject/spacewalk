@@ -36,8 +36,8 @@ import java.util.Map;
  */
 public class MockConnection extends CobblerConnection {
     private String token;
-    private String login;
-    
+    private String url;
+
     private Logger log = Logger.getLogger(MockConnection.class);
 
 
@@ -61,8 +61,7 @@ public class MockConnection extends CobblerConnection {
     public MockConnection(String urlIn, 
             String userIn, String passIn) {
         super();
-        login  = userIn;
-
+        url = urlIn;
     }
 
     /**
@@ -74,9 +73,19 @@ public class MockConnection extends CobblerConnection {
     public MockConnection(String urlIn, String tokenIn) {
         super();
         token = tokenIn;
+        url = urlIn;
     }
     
 
+    /**
+     * Mock constructors for Cobbler connection
+     * Don't care..
+     * @param urlIn whatever url
+     */
+    public MockConnection(String urlIn) {
+        super();
+        url = urlIn;
+    }
 
 
    public Object invokeMethod(String name, Object... args) {
@@ -264,6 +273,14 @@ public class MockConnection extends CobblerConnection {
         token = tokenIn;
     }    
 
+    /**
+     * @return returns the cobbler url.. 
+     */
+    @Override
+    public String getUrl() {
+        return url + "/cobbler_api";
+    }
+    
 
     public static void clear() {
         profiles = new ArrayList<Map>();

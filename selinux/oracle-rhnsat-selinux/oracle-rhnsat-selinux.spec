@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         9%{?dist}
+Release:         10%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -106,6 +106,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Mon Mar 16 2009 Jan Pazdziora 10.2-10
+- 489377 - allow sqlplus and lsnrctl to use NIS
+
 * Wed Feb 25 2009 Jan Pazdziora 10.2-9
 - 486737 - allow lsnrctl to also append to oracle_common_log_t
 

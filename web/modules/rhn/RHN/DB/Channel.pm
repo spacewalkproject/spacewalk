@@ -1671,7 +1671,7 @@ sub package_by_filename_in_tree {
 
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
-SELECT P.id
+SELECT P.id, P.path
   FROM rhnPackage P,
        rhnChannelPackage CP,
        rhnChannel C
@@ -1682,11 +1682,10 @@ SELECT P.id
 EOQ
 
   $sth->execute_h(cid => $self->id, pathlike => "%/$filename");
-  my ($pid) = $sth->fetchrow;
+  my ($pid, $path) = $sth->fetchrow;
 
   $sth->finish();
-
-  return $pid;
+  return ($pid, $path);
 }
 
 sub latest_package_by_name {

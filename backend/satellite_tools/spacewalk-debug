@@ -117,6 +117,11 @@ if [ -d /var/log/tomcat5 ]; then
     cp -fapRd /var/log/tomcat5 $DIR/tomcat-logs
 fi
 
+#entitlement report
+if [ -e /usr/share/rhn/satellite_tools/rhn-entitlement-report.py ]; then
+   python /usr/share/rhn/satellite_tools/rhn-entitlement-report.py &> $DIR/entitlement-report
+fi
+
 # general monitoring moc logs
 if [ -d /var/log/nocpulse ] ; then
     echo "    * copying monitoring moc logs"
@@ -156,15 +161,18 @@ df -h > $DIR/diskinfo
 echo "    * timestamping"
 echo "Spacewalk debug created on $(date)" > $DIR/timestamp
 
-# 209620 - satellite-debug creates world readable output
-find $DIR -name "*PRIVATE*" -exec rm -f '{}' ';'
-find $DIR -name "server.key" -exec rm -f '{}' ';'
-find $DIR -name "server.pem" -exec rm -f '{}' ';'
-find $DIR -name "rhn-org-httpd-ssl*" -exec rm -f '{}' ';'
-
 echo "    * creating tarball (may take some time): $TARBALL"
-cd $BASE_DIR/spacewalk-debug-$$
-tar -cjf $TARBALL ${DIR#$BASE_DIR\/spacewalk-debug-$$\/}
+# 209620 - satellite-debug creates world readable output
+# set tarball premissions *before* writing data
+# exclude private keys
+install -m 600 /dev/null $TARBALL
+tar -cjf $TARBALL \
+    -C $(dirname $DIR) \
+    --exclude "*PRIVATE*" \
+    --exclude "server.key*" \
+    --exclude "server.pem*" \
+    --exclude "rhn-org-httpd-ssl*" \
+    $(basename $DIR)
 
 echo "    * removing temporary debug tree"
 rm -Rf $(echo $DIR | sed -e 's/\/[^\/]*$//g')

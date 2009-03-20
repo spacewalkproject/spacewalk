@@ -25,7 +25,6 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.taskomatic.task.RepollCustomerEntitlement;
 import com.redhat.rhn.taskomatic.task.threaded.QueueDriver;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 
@@ -35,7 +34,7 @@ import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
  */
 public class EntitlementQueueDriver implements QueueDriver {
     
-    private static final Logger LOG = Logger.getLogger(RepollCustomerEntitlement.class);
+    private static final Logger LOG = Logger.getLogger(EntitlementQueueDriver.class);
     
     /**
      * {@inheritDoc}

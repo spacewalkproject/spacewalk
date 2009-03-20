@@ -119,10 +119,16 @@ sub tablespace_datafiles {
   my $dbh = $self->sysdba_connect;
 #PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG),As keyword
   my $sth = $dbh->prepare(<<EOS);
-select file_name FILENAME, status STATUS, bytes BYTES
+select file_name FILENAME, status STATUS, bytes BYTES,
+       'DATAFILE' filetype
   from dba_data_files
   where tablespace_name = :ts
-order by file_name
+union
+select file_name FILENAME, status STATUS, bytes BYTES,
+       'TEMPFILE' filetype
+  from dba_temp_files
+  where tablespace_name = :ts
+order by filename
 EOS
   $sth->execute_h(ts => $ts);
   return $sth->fullfetch_hashref;
@@ -147,11 +153,12 @@ sub tablespace_end_backup {
 sub tablespace_extend {
   my $self = shift;
   my $ts = shift;
+  my $ft = shift;
   my $fn = shift;
   my $sz = shift;
 
   my $dbh = $self->sysdba_connect;
-  $dbh->do("ALTER TABLESPACE $ts ADD DATAFILE '$fn' SIZE $sz REUSE");
+  $dbh->do("ALTER TABLESPACE $ts ADD $ft '$fn' SIZE $sz REUSE");
 }
 
 sub report_database_stats {

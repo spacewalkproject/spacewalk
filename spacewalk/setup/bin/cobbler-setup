@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from cobbler.yaml import loadFile
+from yaml import load
 from Cheetah.Template import Template
 from socket import gethostbyname, gethostname
 import shutil
@@ -21,7 +21,9 @@ SETTINGS = join(CONFIG_DIR, 'settings')
 TEMP_MODULES = '/tmp/modules.conf'
 TEMP_SETTINGS = '/tmp/settings'
 
-    
+def loadFile(fl):
+    return load(open(fl).read())
+
 def copy(src, dest):
     if exists(dest):
         if isfile(dest):
@@ -35,7 +37,7 @@ def gen_template(template, answers, output):
 	open(output,"w").write(t.respond())
 
 def main():
-    answers = loadFile(DEFAULTS).next()
+    answers = dict(loadFile(DEFAULTS))
     answers['server'] = gethostname()
     answers['next_server'] = answers['server']
     answers['redhat_management_server'] = answers['server']

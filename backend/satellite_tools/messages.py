@@ -38,6 +38,12 @@ syncer_error = """
 ERROR: there was a problem synchronizing the information.
        Error message: %s
 """
+
+iss_not_available = """
+ERROR: The Server listed within iss-parent is not configured for ISS 
+       capability.
+       Please review your configuration before trying again.
+"""
             
 parent_channel_error = """
 ERROR: a child-channel cannot be synced without its parent being synced as

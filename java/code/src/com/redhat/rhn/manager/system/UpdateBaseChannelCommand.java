@@ -76,15 +76,14 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
                         server, newChannel)) {
             return new ValidatorError("system.channel.nochannelslots");
         }
-        List <Integer> newKidsToSubscribe = new LinkedList<Integer>();
+        List <Long> newKidsToSubscribe = new LinkedList<Long>();
         
         if (oldChannel != null && newChannel != null) {
             Map<Channel, Channel> preservableChildren = ChannelManager.
                             findCompatibleChildren(oldChannel, newChannel, user);
             for (Channel kid : server.getChannels()) {
                 if (preservableChildren.containsKey(kid)) {
-                    newKidsToSubscribe.add(preservableChildren.get(kid).
-                            getId().intValue());    
+                    newKidsToSubscribe.add(preservableChildren.get(kid).getId());
                 }
             }
         }

@@ -1,15 +1,16 @@
 Name: spacewalk-ssl-cert-check
-Summary: check ssl certs for impending expiration
-Group: RHN/Client
+Summary: Check ssl certs for impending expiration
+Group:   Applications/System
 License: GPLv2
-Source1: ssl-cert-check 
-Source2: rhn-ssl-cert-check 
-Version: 1.5
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 1.7
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl
-Obsoletes: rhn-ssl-cert-check <= %{version}-%{release}
+Obsoletes: rhn-ssl-cert-check < %{version}
+Provides:  rhn-ssl-cert-check = %{version}
 
 %description 
 Runs a check once a day to see if the ssl certificates installed on this
@@ -17,28 +18,34 @@ server are expected to expire in the next 30 days, and if so, email the
 administrator.
 
 %prep
+%setup -q
 
 %build
+# Nothing to do
+
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT
-ls -la $RPM_SOURCE_DIR/ssl-cert-check
+
 install -d $RPM_BUILD_ROOT/%{_datadir}/ssl
 install -d $RPM_BUILD_ROOT/etc/cron.daily
 
-install -m755 %{SOURCE1} $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
-install -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
+install -m755 ssl-cert-check $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
+install -m755 rhn-ssl-cert-check $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root) 
+%defattr(-,root,root,-) 
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 %attr(0755,root,root) %{_datadir}/ssl/ssl-cert-check
+%doc LICENSE
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Wed Mar 18 2009 Miroslav Suchy <msuchy@redhat.com> 1.7-1
+- 490695 - versioned provides
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.5-1
 - 483867 - names of packages that help us distinguish Proxy from Spacewalk (Satellite) have changed.
 - 483867 - Spacewalk and Satellite no longer use /etc/rhn/satellite-httpd/conf/ssl.conf.

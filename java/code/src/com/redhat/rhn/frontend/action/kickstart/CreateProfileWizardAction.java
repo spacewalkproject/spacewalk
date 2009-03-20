@@ -23,7 +23,6 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.wizard.RhnWizardAction;
@@ -408,11 +407,4 @@ public class CreateProfileWizardAction extends RhnWizardAction {
         }
         return path;
     }
-    
-    private boolean labelAlreadyExists(String label, User user) {
-        return (KickstartFactory.
-           lookupKickstartDataByLabelAndOrgId(label, user.getOrg().getId()) != null);
-    }
-    
-
 }

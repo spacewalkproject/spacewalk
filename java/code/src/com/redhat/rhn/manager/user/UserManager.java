@@ -38,6 +38,7 @@ import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
 import com.redhat.rhn.manager.BaseManager;
 
 import org.apache.commons.lang.BooleanUtils;
@@ -340,6 +341,9 @@ public class UserManager extends BaseManager {
         user = UserFactory.saveNewUser(user, addr, org.getId());
 
         user.setUsePamAuthentication(usePam); //set it back
+
+        //Set default page size also :)
+        user.setPageSize(PageSizeDecorator.getDefaultPageSize());
         storeUser(user); //save the user via hibernate
 
         return user;

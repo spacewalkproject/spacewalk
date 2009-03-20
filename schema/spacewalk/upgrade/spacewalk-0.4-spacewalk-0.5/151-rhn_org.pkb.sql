@@ -57,6 +57,11 @@ IS
         from	rhnChannel
         where	org_id = org_id_in;
 
+	cursor errata is
+		select id
+		from   rhnErrata
+		where  org_id = org_id_in;
+
     begin
 
         if org_id_in = 1 then
@@ -86,6 +91,11 @@ IS
           );
           delete from rhnServerProfile where base_channel = cc.id;
         end loop;
+
+		-- Delete all errata packages
+		for e in errata loop
+			delete from rhnErrataPackage where errata_id = e.id;
+		end loop;
 
         -- Give the org's entitlements back to the main org.
         rhn_entitlements.remove_org_entitlements(org_id_in);

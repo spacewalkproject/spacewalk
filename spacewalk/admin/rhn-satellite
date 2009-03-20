@@ -20,9 +20,16 @@
 #   chkconfig: - 74 26
 #   description: start and stop the RHN Satellite Service
 
-if [ -f /etc/sysconfig/rhn-satellite ]; then
-        . /etc/sysconfig/rhn-satellite
+
+
+if [ -x /etc/init.d/rhn-database ]; then
+   DB_SERVICE="rhn-database"
 fi
+
+if [ -x /etc/init.d/oracle-xe ]; then
+   DB_SERVICE="oracle-xe"
+fi
+
 
 SERVICES="jabberd $DB_SERVICE osa-dispatcher tomcat5 httpd Monitoring MonitoringScout rhn-search cobblerd taskomatic"
 
@@ -61,6 +68,37 @@ reverse_services() {
     done
     return $RET
 }
+
+chkconfig() {
+    ACTION="$1"
+    RET=0
+    E_STAT=0
+    for service in $SERVICES; do
+        if [ -e /etc/init.d/$service ]; then
+            /sbin/chkconfig $service $ACTION
+            E_STAT=$?
+        fi
+        if [ $E_STAT -ne 0 ]; then
+            RET=$E_STAT
+        fi
+    done
+    return $RET
+}
+
+turn_on() {
+   echo "Enabling rhn-satellite services..."
+   chkconfig on
+   echo "Done"
+   return 0
+}
+
+turn_off() {
+   echo "Disabling rhn-satellite services..."
+   chkconfig off 
+   echo "Done"
+   return 0
+}
+
 
 start() {
         echo "Starting rhn-satellite..."
@@ -110,6 +148,12 @@ case "$1" in
     stop)
 	stop
         ;;
+    enable)
+        turn_on
+        ;;
+    disable)
+        turn_off
+        ;;
     status)
 	status
         ;;
@@ -122,7 +166,7 @@ case "$1" in
         start       
         ;;
     *)
-        echo "Usage: rhn-satellite {start|stop|status|reload|restart}"
+        echo "Usage: rhn-satellite {start|stop|status|reload|restart|enable|disable}"
         exit 1
         ;;
 esac

@@ -17,6 +17,8 @@ package com.redhat.rhn.common.util.test;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.io.File;
+
 import junit.framework.TestCase;
 
 
@@ -38,4 +40,12 @@ public class FileUtilsTest extends TestCase {
         assertEquals(contents, reread);
     }
 
+    public void testGetBytesFromFile() throws Exception {
+        
+        File testFile = new File(TestUtils.findTestData("test.file").getFile());
+        byte[] out = FileUtils.readByteArrayFromFile(testFile, 25, 30);
+        String received = new String(out);
+        String expect = "DEFGH";
+        assertEquals(expect, received);
+    }
 }

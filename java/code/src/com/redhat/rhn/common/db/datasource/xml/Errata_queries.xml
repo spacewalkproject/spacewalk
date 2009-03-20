@@ -276,7 +276,6 @@ SELECT DISTINCT E.id,
 				E.advisory_name AS advisory,
 				E.advisory_name AS advisory_name,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
-                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS date,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 E.synopsis as synopsis,
                 E.synopsis as advisory_synopsis,
@@ -314,29 +313,14 @@ ORDER BY last_modified_date DESC
 <mode name="relevant_to_channel_deprecated">
   <query params="cid">
 <!-- PGPORT_1:NO CHANGE -->
-SELECT DISTINCT 
+SELECT DISTINCT E.id as id,
+				E.advisory_name AS advisory_name,
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
+                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS "date",                
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
                 E.synopsis as synopsis,
-                E.advisory_type as advisory_type,
-                TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date  
-  FROM rhnErrata E,
-       rhnChannelErrata CE
- WHERE CE.channel_id = :cid
-   AND CE.errata_id = E.id
-ORDER BY last_modified_date DESC
-  </query>
-</mode>
-
-<mode name="relevant_to_channel_by_type">
-  <query params="cid, type">
-<!-- PGPORT_1:NO CHANGE -->
-SELECT DISTINCT
-				E.advisory_name AS advisory,
-                TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
-                TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
-                E.synopsis as synopsis,
+                E.synopsis as advisory_synopsis,
                 E.advisory_type as advisory_type,
                 TO_CHAR(E.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS last_modified_date
   FROM rhnErrata E,
@@ -347,11 +331,10 @@ ORDER BY update_date DESC
   </query>
 </mode>
 
-
-
 <mode name="relevant_to_channel_by_type">
   <query params="cid, type">
-SELECT DISTINCT
+<!-- PGPORT_1:NO CHANGE -->
+SSELECT DISTINCT
 				E.advisory_name AS advisory,
                 TO_CHAR(E.issue_date, 'YYYY-MM-DD HH24:MI:SS') AS issue_date,
                 TO_CHAR(E.update_date, 'YYYY-MM-DD HH24:MI:SS') AS update_date,
@@ -366,6 +349,7 @@ SELECT DISTINCT
 ORDER BY last_modified_date DESC
   </query>
 </mode>
+
 
 <mode name="in_sources_for_target" class="com.redhat.rhn.frontend.dto.ErrataOverview">
   <query params="custom_cid, user_id">

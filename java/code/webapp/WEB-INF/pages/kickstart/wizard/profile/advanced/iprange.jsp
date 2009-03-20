@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
 <c:import url="/WEB-INF/pages/common/fragments/kickstart/ipranges.jspf">
-	<c:param name = "range_delete_url" value="/kickstart/KickstartIpRangeDeleteAdvanced.do"/>
+	<c:param name = "range_delete_url" value="/rhn/kickstart/KickstartIpRangeDeleteAdvanced.do"/>
 	<c:param name = "range_edit_url" value="/kickstart/KickstartIpRangeEditAdvanced.do"/>	
 </c:import>
 </body>

@@ -12,23 +12,24 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.rhn.domain.errata;
+package com.redhat.rhn.common.util.test;
 
-import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.common.util.MD5Sum;
+import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.TestUtils;
+
+import java.io.File;
+
 
 /**
- * ErrataPackageFile
- * @version $Rev$
+ * @author mmccune
+ *
  */
-public interface ErrataPackageFile extends ErrataFile {
-    
-    /**
-     * @return Returns thePackage.
-     */
-    Package getThePackage();
+public class MD5SumTest extends RhnBaseTestCase {
 
-    /**
-     * @param packageIn The package to set.
-     */
-    void setThePackage(Package packageIn);
+    public void testMD5Sum() throws Exception {
+        File testFile = new File(TestUtils.findTestData("test.file").getFile());
+        String sum = MD5Sum.getFileMD5Sum(testFile);
+        assertEquals("ab0aa62f30d67085cd07ea9004a1437f", sum);
+    }
 }

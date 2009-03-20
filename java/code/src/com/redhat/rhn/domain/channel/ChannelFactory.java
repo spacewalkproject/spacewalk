@@ -108,7 +108,18 @@ public class ChannelFactory extends HibernateFactory {
                                        "Channel.findByLabelAndUserId", params);
     }    
     
-    
+    /**
+     * Retrieve a list of channel ids associated with the labels provided
+     * @param labelsIn the labels to search for
+     * @return list of channel ids
+     */
+    public static List getChannelIds(List<String> labelsIn) {
+        Map params = new HashMap();
+        params.put("labels", labelsIn);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findChannelIdsByLabels", params);
+    }
+
     /**
      * Insert or Update a Channel.
      * @param c Channel to be stored in database.
@@ -771,5 +782,23 @@ public class ChannelFactory extends HibernateFactory {
         params.put("parent", parent);
         return singleton.listObjectsByNamedQuery(
                 "Channel.listAllChildren", params);
+    }
+
+    /**
+     * Lookup a Package based on the channel and package file name
+     * @param channel to look in
+     * @param fileName to look up
+     * @return Package if found
+     */
+    public static Package lookupPackageByFilename(Channel channel,
+            String fileName) {
+        
+        Package retval = (Package)
+            HibernateFactory.getSession().getNamedQuery("Channel.packageByFileName")
+              .setString("pathlike", "%/" + fileName)
+              .setLong("channel_id", channel.getId().longValue())
+              .uniqueResult();
+
+        return retval;
     }
 }

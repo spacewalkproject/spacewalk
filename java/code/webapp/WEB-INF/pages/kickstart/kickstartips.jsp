@@ -18,7 +18,7 @@
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
 <c:import url="/WEB-INF/pages/common/fragments/kickstart/ipranges.jspf">
-	<c:param name = "range_delete_url" value="/kickstart/KickstartIpRangeDelete.do"/>
+	<c:param name = "range_delete_url" value="/rhn/kickstart/KickstartIpRangeDelete.do"/>
 	<c:param name = "range_edit_url" value="/kickstart/KickstartIpRangeEdit.do"/>	
 </c:import>
 </body>

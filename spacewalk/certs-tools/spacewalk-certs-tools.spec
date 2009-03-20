@@ -2,15 +2,10 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.2
+Version: 0.5.3
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd satellite/certs
-# make test-srpm
 URL:      https://fedorahosted.org/spacewalk 
-Source0: %{name}-%{version}.tar.gz
+Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: openssl rpm-build
@@ -18,6 +13,9 @@ BuildRequires: docbook-utils
 BuildRequires: python
 Obsoletes: rhns-certs < 5.3.0
 Obsoletes: rhns-certs-tools < 5.3.0
+# can not provides = %{version} since some old packages expect > 3.6.0
+Provides:  rhns-certs = 5.3.0
+Provides:  rhns-certs-tools = 5.3.0
 
 %description
 This package contains tools to generate the SSL certificates required by 
@@ -51,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Fri Mar 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.3-1
+- put Provides to satisfy older Proxies
+
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.2-1
 - replace "!#/usr/bin/env python" with "!#/usr/bin/python"
 

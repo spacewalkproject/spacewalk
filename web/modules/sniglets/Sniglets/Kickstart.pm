@@ -96,23 +96,24 @@ sub dist_handler {
 
   my $disk_path;
   my $kickstart_mount = PXT::Config->get('kickstart_mount_point');
+
   if (index($tree->base_path, $kickstart_mount) == 0) {
       warn("Trimming ...");
       $kickstart_mount = "";
   }
 
-  
    if ($path =~ /\.rpm$/) {
     # is it a request for an RPM?  If so, try to serve from our magic repo
     my $filename = (split m(/), $path)[-1];
     my $channel = RHN::Channel->lookup(-id => $tree->channel_id);
-    my $package_id = $channel->package_by_filename_in_tree($filename);
-
+    #my $package_id = $channel->package_by_filename_in_tree($filename);
+    my ($package_id, $package_path) = $channel->package_by_filename_in_tree($filename);
+    
+    warn ("Package Path: " . $package_path);
+    
     if ($package_id) {
       # found the package in our channel repo?  good, serve it...
-      my $package = RHN::Package->lookup(-id => $package_id);
-
-      $disk_path = File::Spec->catfile(PXT::Config->get('mount_point'), $package->path);
+      $disk_path = File::Spec->catfile(PXT::Config->get('mount_point'), $package_path);
     }
     $new_state = 'in_progress';
   }
@@ -177,6 +178,20 @@ sub dist_handler {
       return manual_serve($pxt, $disk_path);
   }
 }
+
+sub tiny_url_handler {
+  my $pxt = shift;
+
+  my (undef, $tu, @rest) = split m(/), $pxt->path_info;
+
+  my $stored_url = RHN::TinyURL->lookup(-token => $tu);
+  $pxt->redirect("/errors/404.pxt") unless $stored_url;
+
+  my $final_url = join("/", $stored_url, @rest);
+  $pxt->manual_content(1);
+  $pxt->internal_redirect($final_url);
+}
+
 
 sub manual_404 {
   my $pxt = shift;
@@ -289,17 +304,5 @@ sub manual_serve {
     return;
 }
 
-sub tiny_url_handler {
-  my $pxt = shift;
-
-  my (undef, $tu, @rest) = split m(/), $pxt->path_info;
-
-  my $stored_url = RHN::TinyURL->lookup(-token => $tu);
-  $pxt->redirect("/errors/404.pxt") unless $stored_url;
-
-  my $final_url = join("/", $stored_url, @rest);
-  $pxt->manual_content(1);
-  $pxt->internal_redirect($final_url);
-}
 
 1;

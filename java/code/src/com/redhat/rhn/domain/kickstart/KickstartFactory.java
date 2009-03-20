@@ -14,13 +14,11 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
-import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringUtils;
@@ -287,7 +285,17 @@ public class KickstartFactory extends HibernateFactory {
         return retval;
     }
     
-
+    /**
+     * Looks up a specific KickstartCommand
+     * @param id id of the KickstartCommand
+     * @return found instance, if any
+     */
+    public static KickstartCommand lookupKickstartCommandById(Long id) {
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(KickstartCommand.class);
+        criteria.add(Restrictions.eq("id", id));
+        return (KickstartCommand) criteria.uniqueResult();        
+    }
     
     /**
      * 
@@ -355,13 +363,9 @@ public class KickstartFactory extends HibernateFactory {
             fileData = formatter.getFileData();
         }
         // Escape the dollar signs
-        fileData = StringUtils.replace(fileData, "$", "\\$");
-        String mediapath = KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
-        // TODO: Make this actually loop over cobbler vars vs just hard coded names
-        fileData = StringUtils.replace(fileData, "\\$" + mediapath, "$" + mediapath);
-        fileData = StringUtils.replace(fileData, "\\$SNIPPET", "$SNIPPET");
-        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getConnection(
-                Config.get().getCobblerAutomatedUser()), ksdataIn.getCobblerId());
+        fileData = StringUtils.replace(fileData, "$(", "\\$(");
+        Profile p = Profile.lookupById(CobblerXMLRPCHelper.getAutomatedConnection(),
+                                                    ksdataIn.getCobblerId());
         if (p != null && p.getKsMeta() != null) {
             Map ksmeta = p.getKsMeta();
             Iterator i = ksmeta.keySet().iterator();
@@ -396,7 +400,7 @@ public class KickstartFactory extends HibernateFactory {
         } 
         catch (Exception e) {
             log.error("Error trying to write KS file to disk: [" + 
-                    ksdataIn.getCobblerFileName() + "]", e);
+                    ksdataIn.getLabel() + "]", e);
             throw new RuntimeException(e);
         }
     } 
@@ -509,6 +513,24 @@ public class KickstartFactory extends HibernateFactory {
         }
         return retval;
     }
+
+    /**
+     * Lookup a KickstartableTree by its label.  
+     * 
+     * @param label to lookup
+     * @return KickstartableTree if found.
+     */
+    public static KickstartableTree lookupKickstartTreeByLabel(String label) {
+        Session session = null;
+        KickstartableTree retval = null;
+        session = HibernateFactory.getSession();
+        retval = (KickstartableTree)
+            session.getNamedQuery("KickstartableTree.findByLabel")
+                                      .setString("label", label)
+                                      .uniqueResult();
+        return retval;
+    }
+
 
     /**
      * Lookup a list of KickstartableTree objects that use the passed in channelId

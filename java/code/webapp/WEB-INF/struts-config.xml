@@ -158,7 +158,7 @@
             <form-property name="pagesize" type="java.lang.Integer"/>
             <form-property name="possiblePanes" 
                            type="org.apache.struts.util.LabelValueBean[]"/>
-            <form-property name="selectedPanes" type="java.lang.String[]"/>            
+            <form-property name="selectedPanes" type="java.lang.String[]"/>
         </form-bean>
         <form-bean name="assignedDefSysGrpForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
@@ -361,7 +361,6 @@
             <form-property name="group" type="java.lang.String"/>
             <form-property name="timeout" type="java.lang.Long"/>            
             <form-property name="script" type="java.lang.String"/>                        
-            <form-property name="set_label" type="java.lang.String"/>
             <form-property name="session_set_label" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="mode" type="java.lang.String"/>
@@ -587,6 +586,10 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="fieldChanged" type="java.lang.String" />
             <form-property name="child_channels" type="java.lang.String[]"/>
+			<form-property name="possibleRepos" 
+                           type="com.redhat.rhn.frontend.struts.LabelValueEnabledBean[]"/>
+            <form-property name="selectedRepos" type="java.lang.String[]"/>            
+            
         </form-bean>
         
         <form-bean name="kickstartIpRangeForm"

@@ -102,7 +102,7 @@ public class ApiDoclet {
             }
             
             for (MethodDoc method : clas.methods()) {
-                    if (method.isPublic()) {
+                    if (method.isPublic() && getFirst(method.tags(XMLRPC_IGNORE)) == null) {
                         
                         ApiCall call = new ApiCall(method);
                         call.setName(method.name());

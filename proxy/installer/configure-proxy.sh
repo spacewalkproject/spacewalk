@@ -81,6 +81,8 @@ config_error () {
 YUM_OR_UPDATE="up2date -i"
 if [ -f /usr/bin/yum ]; then
 	YUM_OR_UPDATE="yum install"
+        # add -y for non-interactive installation
+	[ "$INTERACTIVE" = "0" ] && YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
 fi
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt /etc/sysconfig/rhn/systemid | cut -d- -f2`
@@ -91,6 +93,14 @@ HOSTNAME=`hostname`
 default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
 
 default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' /etc/sysconfig/rhn/up2date)
+
+if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
+   RHN_PARENT="xmlrpc.rhn.redhat.com"
+   cat <<WARNING
+*** Warning: plain rhn.redhat.com should not be used as RHN Parent.
+*** Using xmlrpc.rhn.redhat.com instead.
+WARNING
+fi
 
 default_or_input "Traceback email" TRACEBACK_EMAIL ''
 
@@ -217,11 +227,20 @@ echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> /etc/ht
 # lets do SSL stuff
 SSL_BUILD_DIR="/root/ssl-build"
 
+if [ -n "$SSL_PASSWORD" ] ; then
+        # use SSL_PASSWORD if already set
+        RHNSSLTOOLPWD="--password '$SSL_PASSWORD'"
+elif [ "$INTERACTIVE" = "0" ] ; then
+        # non-interactive mode but no SSL_PASSWORD :(
+        config_error 4 "Please define SSL_PASSWORD."
+fi
+
 if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
 	echo "Generating CA key and public certificate:"
 	/usr/bin/rhn-ssl-tool --gen-ca -q --dir="$SSL_BUILD_DIR" --set-common-name="$SSL_COMMON" \
 		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE" \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
+		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+                $RHNSSLTOOLPWD
 	config_error $? "CA certificate generation failed!"
 else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
@@ -243,7 +262,8 @@ fi
 echo "Generating SSL key and public certificate:"
 /usr/bin/rhn-ssl-tool --gen-server -q --no-rpm --set-hostname "$HOSTNAME" --dir="$SSL_BUILD_DIR" \
 		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE"  \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
+		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+                $RHNSSLTOOLPWD
 config_error $? "SSL key generation failed!"
 
 echo "Installing SSL certificate for Apache and Jabberd:"

@@ -20,9 +20,6 @@ import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.RhnSetElement;
-import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
@@ -31,10 +28,8 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -44,7 +39,6 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -193,7 +187,6 @@ public class ScheduleRemoteCommand extends RhnAction {
         String group = (String) f.get("group");
         Long timeout = (Long) f.get("timeout");
         String script = (String) f.get("script");
-        String setLabel = (String) f.get("set_label");
         String sessionSetLabel = (String) f.get("session_set_label");
         String mode = (String) f.get("mode");
         
@@ -204,7 +197,6 @@ public class ScheduleRemoteCommand extends RhnAction {
             log.debug("group [" + group + "]");
             log.debug("timeout [" + timeout + "]");
             log.debug("script [" + script + "]");
-            log.debug("label [" + setLabel + "]");
             log.debug("mode [" + mode + "]");
         }
         
@@ -217,8 +209,7 @@ public class ScheduleRemoteCommand extends RhnAction {
                 ActionManager.createScript(username, group, timeout, script);
             ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
                 "", sad, earliest);
-            List<Map<String, Long>> packs = getPackages(user, request,
-                    setLabel, sessionSetLabel);
+            List<Map<String, Long>> packs = getPackages(user, request, sessionSetLabel);
             int numPackages = packs.size();
             PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
             pa.setPrerequisite(sra.getId());
@@ -227,8 +218,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             showRemoteCommandMsg(msgs, true);
         }
         else {
-            List<Map<String, Long>> packs = getPackages(user, request,
-                    setLabel, sessionSetLabel);            
+            List<Map<String, Long>> packs = getPackages(user, request, sessionSetLabel);
             int numPackages = packs.size();
             PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
             ScriptActionDetails sad =
@@ -240,22 +230,15 @@ public class ScheduleRemoteCommand extends RhnAction {
             showMessages(msgs, sra, server, numPackages, mode);
             showRemoteCommandMsg(msgs, false);
         }
-        
+        SessionSetHelper.obliterate(request, sessionSetLabel);
         return msgs;
     }
 
     private List<Map<String, Long>> getPackages(User user,
-            HttpServletRequest request, String setLabel, String sessionSetLabel) {
+            HttpServletRequest request, String sessionSetLabel) {
         List<Map<String, Long>> packs;
-        if (!StringUtils.isBlank(sessionSetLabel)) {
-            Set<String> set = SessionSetHelper.lookupAndBind(request, sessionSetLabel);
-            packs = toList(set);
-        }
-        else {
-            RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
-            RhnSet pkgs = decl.get(user);
-            packs = rhnSetToList((RhnSet)pkgs);
-        }
+        Set<String> set = SessionSetHelper.lookupAndBind(request, sessionSetLabel);
+        packs = toList(set);
         return packs;
     }
     
@@ -270,7 +253,6 @@ public class ScheduleRemoteCommand extends RhnAction {
         form.set("group", "root");
         form.set("timeout", new Long(600));
         form.set("script", "#!/bin/sh");
-        form.set("set_label", "foo");
         form.set("mode", request.getParameter("mode"));
     }
     
@@ -281,15 +263,4 @@ public class ScheduleRemoteCommand extends RhnAction {
         }
         return pkgs;
     }    
-    
-    private List<Map<String, Long>> rhnSetToList(RhnSet set) {
-        List<Map<String, Long>> pkgs = new LinkedList<Map<String, Long>>();
-        for (RhnSetElement rse : set.getElements()) {
-            Map<String, Long> row = new HashMap<String, Long>();
-            row.put("name_id", rse.getElement());
-            row.put("evr_id", rse.getElementTwo());
-            pkgs.add(row);
-        }
-        return pkgs;
-    }
 }

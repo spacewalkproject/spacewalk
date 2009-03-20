@@ -15,11 +15,10 @@
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
+import com.redhat.rhn.testing.RhnBaseTestCase;
 
-import junit.framework.TestCase;
 
-
-public class LoginTest extends TestCase {
+public class LoginTest extends RhnBaseTestCase {
 
     public void testLogin() throws Exception {
         CobblerLoginCommand cmd = new CobblerLoginCommand();

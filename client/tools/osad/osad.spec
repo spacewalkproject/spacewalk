@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.6
+Version: 5.9.9
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -161,7 +161,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-/usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290 || :
+/usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290 > /dev/null 2>&1 || :
 
 rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 /sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
@@ -227,6 +227,13 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Mon Mar 16 2009 Jan Pazdziora 5.9.9-1
+- remove /usr/sbin/semanage: Port tcp/1290 already defined error
+- allow osa-dispatcher to use NIS
+
+* Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.8-1
+- 479825 - fix osa-dispatcher to start after oracle(-xe) and stop before them.
+
 * Thu Feb 12 2009 Jan Pazdziora 5.9.6-1
 - do not build osa-dispatcher-selinux on RHEL 4 and earlier.
 - osa-dispatcher-selinux: setsebool is not used, so no need to Require it

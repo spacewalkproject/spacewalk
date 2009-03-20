@@ -1367,7 +1367,13 @@ class Backend:
             sql = "insert into %s (id, %s) values (:id, :value)" % (table,
                                                                     field)
             h = self.dbmodule.prepare(sql)
-            h.executemany(id=ids, value=values)
+            try:
+                h.executemany(id=ids, value=values)
+            except rhnSQL.SQLSchemaError, e:
+                if e.errno == 01401:
+                    raise ValueError, e.errmsg
+                else:
+                    raise rhnFault(30, e.errmsg, explain=0)
 
     def __buildQueries(self, childTables):
         childTableLookups = {}

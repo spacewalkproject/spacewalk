@@ -19,13 +19,12 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.xmlrpc.UserLoginException;
 import com.redhat.rhn.frontend.xmlrpc.auth.AuthHandler;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import javax.security.auth.login.LoginException;
 
 public class AuthHandlerTest extends RhnBaseTestCase {
 
@@ -61,7 +60,7 @@ public class AuthHandlerTest extends RhnBaseTestCase {
         try {
             handler.login("-21jkfskljs23412390233219", "foo");
         }
-        catch (LoginException e) {
+        catch (UserLoginException e) {
             //success
         }
 

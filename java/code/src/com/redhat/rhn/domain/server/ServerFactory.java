@@ -89,12 +89,23 @@ public class ServerFactory extends HibernateFactory {
      * @param server The server
      */
     public static void removeCustomDataValues(Server server) {
-
-        Session session = HibernateFactory.getSession();
         for (Object value : server.getCustomDataValues()) {
-            session.delete(value);
+            singleton.removeObject(value);
         }
         server.getCustomDataValues().clear();
+    }
+
+    /**
+     * Remove the custom data value associated with the custom data key
+     * provided for the given server.
+     * @param server The server
+     * @param key The custom data key
+     */
+    public static void removeCustomDataValue(Server server, CustomDataKey key) {
+        CustomDataValue value = server.getCustomDataValue(key);
+        if (value != null) {
+            singleton.removeObject(value);
+        }
     }
 
     /**

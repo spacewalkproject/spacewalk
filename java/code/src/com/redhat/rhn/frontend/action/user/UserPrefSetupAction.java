@@ -87,7 +87,7 @@ public class UserPrefSetupAction extends RhnAction {
      */
     private List getPageSizes() {
         List pages = new ArrayList();
-        for (int i : PageSizeDecorator.PAGE_SIZE) {
+        for (int i : PageSizeDecorator.getPageSizes()) {
             String istr = String.valueOf(i);
             pages.add(createDisplayMap(istr, istr));
         }

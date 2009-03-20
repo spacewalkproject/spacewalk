@@ -5,13 +5,13 @@ Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.1.6
+Version:   5.1.7
 Release:   1%{?dist}
 License:   GPLv2
 Group:     System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
-Conflicts: NPusers nocpulse-common
+Requires:  nocpulse-common
 BuildRequires: pam-devel gcc
 
 %description
@@ -24,20 +24,8 @@ scout and the monitored host.
 %build
 gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
 
-%pre
-if [ $1 -eq 1 ] ; then
-  getent group %{np_name} >/dev/null || groupadd -r %{np_name}
-  getent passwd %{np_name} >/dev/null || \
-  useradd -r -g %{np_name} -d %{_var}/lib/%{np_name} -c "RHNMD daemon" %{np_name}
-fi
-
 %post
 /sbin/chkconfig --add rhnmd
-
-if [ ! -f %{identity} ]
-then
-    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
-fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -62,15 +50,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root,root,-)
-%{_sysconfdir}/pam.d/rhnmd
-%dir %{_var}/lib/%{np_name}
-%attr(750,nocpulse,nocpulse) %{_var}/lib/%{np_name}
-%attr(700,nocpulse,nocpulse) %{_var}/lib/%{np_name}/.ssh
+%config(noreplace) %{_sysconfdir}/pam.d/rhnmd
 %config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
-%dir %{_sysconfdir}/%{np_name}
-%{_sysconfdir}/%{np_name}/*
+%config(noreplace) %{_sysconfdir}/%{np_name}/*
 %{_initrddir}/rhnmd
 %doc LICENSE
 
@@ -78,11 +62,12 @@ rm -rf $RPM_BUILD_ROOT
 if [ $1 = 0 ]; then
     /sbin/service rhnmd stop > /dev/null 2>&1
     /sbin/chkconfig --del rhnmd
-    /usr/sbin/userdel nocpulse
-    rm -rf /opt/nocpulse
 fi
 
 %changelog
+* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 5.1.7-1
+- 489573 - remove generating keys and leave it on nocpulse-common
+
 * Sat Feb 28 2009 Dennis Gilmore <dennis@ausil.us> 5.1.6-1
 - rebuild 
 

@@ -52,6 +52,7 @@ import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
@@ -60,9 +61,13 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import org.cobbler.CobblerConnection;
 import org.cobbler.Distro;
+import org.cobbler.test.MockConnection;
 import org.hibernate.Session;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -78,7 +83,41 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
 
     private static final String STATIC_DEV = "dhcp:eth0";
     private static final String KERNEL_PARAMS = "ide0=ata66";
+    
+    public static void setupTestConfiguration() throws IOException {
+        Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+                MockXMLRPCInvoker.class.getName());
+        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/");
+        Config.get().setString(CobblerConnection.class.getName(),
+                MockConnection.class.getName());
+        createKickstartDirs();
+        MockConnection.clear();
 
+    }
+    
+    public static void createKickstartDirs() throws IOException {
+        createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
+                                                 "/" + KickstartData.WIZARD_DIR));
+        createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
+                                        "/" + KickstartData.RAW_DIR));        
+    }
+    
+    private static void createDirIfNotExists(File dir) throws IOException {
+        String error = 
+                "Could not create the following directory:[" + dir.getPath() +
+                    "] . Please create that directory before proceeding with the tests"; 
+        if (dir.exists() && !dir.isDirectory()) {
+            if (!dir.renameTo(new File(dir.getPath() + ".bak")) &&
+                         !dir.delete()) {
+                throw new RuntimeException(error);
+            }
+        }
+        
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new RuntimeException(error);
+        }
+    }
+    
     
     public static void createCobblerObjects(KickstartData k) {
         Distro d = Distro.lookupById(CobblerXMLRPCHelper.getConnection("test"),
@@ -86,6 +125,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         org.cobbler.Profile p = org.cobbler.Profile.create(
                 CobblerXMLRPCHelper.getConnection("test"),
                 CobblerCommand.makeCobblerName(k), d);
+        p.setKickstart(k.getCobblerFileName());
         k.setCobblerId(p.getUid());
 
     }
@@ -392,7 +432,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
      * @throws Exception
      */
     public static KickstartData createTestKickstartData(Org orgIn) throws Exception {
-        
         String label = "KS Data: " + TestUtils.randomString();
         String name = "KS Data Name: " + TestUtils.randomString();
         String comments = "KS Data automated test";        
@@ -541,7 +580,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         KickstartDefaults d1 = KickstartDataTest.createDefaults(ksdata, 
                 UserTestUtils.ensureOrgAdminExists(orgIn));
         ksdata.setKickstartDefaults(d1);
-        
         createCobblerObjects(ksdata);
         
         return ksdata;
@@ -715,6 +753,4 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertTrue(k.isRhel5OrGreater());
         assertFalse(k.isRhel5());
     }
-    
-    
 }

@@ -81,13 +81,13 @@ sub connect {
     }
     
     Net::SSLeay::CTX_use_RSAPrivateKey_file ($ctx, $privateKey, &Net::SSLeay::FILETYPE_PEM);
-    my $msg = $self->_message_catalog->winsvc('ssl_private_key');
+    $msg = $self->_message_catalog->winsvc('ssl_private_key');
     if (Net::SSLeay::print_errs($msg)) {
         throw NOCpulse::Probe::Shell::WindowsService::SSLError($msg, $!);
     }
 
     Net::SSLeay::CTX_use_certificate_file($ctx, $certFile, &Net::SSLeay::FILETYPE_PEM);
-    my $msg = $self->_message_catalog->winsvc('ssl_cert');
+    $msg = $self->_message_catalog->winsvc('ssl_cert');
     if (Net::SSLeay::print_errs($msg)) {
         throw NOCpulse::Probe::Shell::WindowsService::SSLError($msg, $!);
     }

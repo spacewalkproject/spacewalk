@@ -8,7 +8,7 @@
 
 Name:           jabberd-selinux
 Version:        1.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -83,8 +83,7 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
-LC_ALL=C /usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 2>&1 \
-        | grep -v '/usr/sbin/semanage: Port tcp/5347 already defined' || :
+/usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 > /dev/null 2>&1 || :
 
 rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 /sbin/restorecon -ri /var/run/jabberd || :
@@ -111,6 +110,9 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Mar 12 2009 Jan Pazdziora 1.4.0-6
+- 485396 - silence semanage output altogether
+
 * Wed Feb 25 2009 Jan Pazdziora 1.4.0-5
 - 485396 - silence semanage if port is already defined
 

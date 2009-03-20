@@ -432,7 +432,7 @@ sub setup_ssl_vhost {
         print Spacewalk::Setup::loc("An error ocurred while attempting to back up your original ssl.conf\n");
         $done = syscall_retry;
       } else {
-        print Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave");
+        print Spacewalk::Setup::loc("** /etc/httpd/conf.d/ssl.conf has been backed up to ssl.conf-swsave\n");
         $done = 1;
       }
     }
@@ -1091,11 +1091,6 @@ sub setup_monitoring {
   my $opts = shift;
   my $answers = shift;
 
-  if ($opts{"upgrade"}) {
-    print Spacewalk::Setup::loc("** Skipping monitoring setup.\n");
-    return;
-  }
-
   # write monitoring config to DB.
   my %mon_config =
     (
@@ -1120,21 +1115,24 @@ sub setup_monitoring {
   RHN::DB->set_default_connection($connection_string);
 
   update_monitoring_config($answers, \%mon_config);
-
-  my $dbname = $mon_config{RHN_DB_NAME};
-
   update_monitoring_environment($answers);
 
-  # TODO: Must be addressed for PostgreSQL, dives into db initialization
-  # for the entire perl stack to it's not pretty.
-  my $org_id = RHN::SatInstall->get_satellite_org_id();
-  my $sc = new RHN::SatCluster(customer_id => $org_id,
-             description => 'RHN Monitoring Satellite',
-             last_update_user => 'installer',
-            );
-  $sc->create_new();
+  my $scout;
+  eval { # scout on Satellite has always ID = 1
+        $scout = RHN::SatCluster->lookup(-recid => 1);
+  };
+  if ($@) { #scout does not exist, lets create new
+        my $org_id = RHN::SatInstall->get_satellite_org_id();
+        $scout = new RHN::SatCluster(customer_id => $org_id,
+                description => 'RHN Monitoring Satellite',
+                last_update_user => 'installer',
+        );
+        $scout->create_new();
+  } else {
+        print Spacewalk::Setup::loc("** Skipping scout creation. Already created.\n");
+  }
 
-  my $scout_shared_key = RHN::SatCluster->fetch_key($sc->recid);
+  my $scout_shared_key = RHN::SatCluster->fetch_key($scout->recid);
   write_config({ monitoringDOTscout_shared_key => $scout_shared_key }, Spacewalk::Setup::DEFAULT_SATCON_DICT);
   
   return 1;
@@ -1242,53 +1240,6 @@ sub random_password {
     while $length-- >= 0;
 
   return $ret;
-}
-
-sub clear_db {
-  my $answers = shift;
-
-  my $dbh = Spacewalk::Setup::get_dbh($answers);
-
-  print Spacewalk::Setup::loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
-
-  Spacewalk::Setup::system_debug('/sbin/service tomcat5 stop');
-  Spacewalk::Setup::system_debug('/sbin/service taskomatic stop');
-  Spacewalk::Setup::system_debug('/sbin/service httpd stop');
-  Spacewalk::Setup::system_debug('/sbin/service jabberd stop');
-  Spacewalk::Setup::system_debug('/sbin/service osa-dispatcher stop');
-  Spacewalk::Setup::system_debug('/sbin/service tsdb_local_queue stop');
-
-  print Spacewalk::Setup::loc("** Database: Services stopped.  Clearing DB.\n");
- # PGPORT_5:POSTGRES_VERSION_QUERY(SYSTEM CATALOG) #
-  my $select_sth = $dbh->prepare(<<EOQ);
-  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
-    FROM user_objects UO
-   WHERE UO.object_type NOT IN ('TABLE', 'INDEX', 'TRIGGER', 'LOB')
-UNION
-  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name
-         || ' cascade constraints' AS DROP_STMT
-    FROM user_objects UO
-   WHERE UO.object_type = 'TABLE'
-     AND UO.object_name NOT LIKE '%$%'
-EOQ
-
-  $select_sth->execute();
-
-  while (my ($drop_stmt) = $select_sth->fetchrow()) {
-    my $drop_sth = $dbh->prepare($drop_stmt);
-    $drop_sth->execute();
-  }
-
-  if ($DEBUG) {
-    $dbh->rollback();
-  }
-  else {
-    $dbh->commit();
-  }
-
-  $dbh->disconnect();
-
-  return;
 }
 
 sub need_oracle_9i_10g_upgrade {

@@ -43,7 +43,6 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
-import com.redhat.rhn.domain.rhnpackage.profile.ProfileEntry;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -80,6 +79,7 @@ import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
@@ -96,6 +96,7 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -199,7 +200,10 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         }
     }
     
-    public void testSetChildChannels() throws Exception {
+    public void testSetChildChannelsDeprecated() throws Exception {
+        // the usage of setChildChannels API as tested by this junit where
+        // channel ids are passed as arguments is being deprecated...
+
         Server server = ServerFactoryTest.createTestServer(admin, true, 
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         assertNull(server.getBaseChannel());
@@ -288,8 +292,100 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             // success
         }
     }
-    
-    public void testSetBaseChannel() throws Exception {
+
+    public void testSetChildChannels() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        assertNull(server.getBaseChannel());
+        Integer sid = new Integer(server.getId().intValue());
+
+        Channel base = ChannelFactoryTest.createTestChannel(admin);
+        base.setParentChannel(null);
+
+        Channel child1 = ChannelFactoryTest.createTestChannel(admin);
+        child1.setParentChannel(base);
+
+        Channel child2 = ChannelFactoryTest.createTestChannel(admin);
+        child2.setParentChannel(base);
+
+        //subscribe to base channel.
+        SystemManager.subscribeServerToChannel(admin, server, base);
+        server = (Server) reload(server);
+        assertNotNull(server.getBaseChannel());
+
+        List channelLabels = new ArrayList();
+        channelLabels.add(new String(child1.getLabel()));
+        channelLabels.add(new String(child2.getLabel()));
+
+        int result = handler.setChildChannels(adminKey, sid, channelLabels);
+        server = (Server) TestUtils.reload(server);
+        assertEquals(1, result);
+        assertEquals(3, server.getChannels().size());
+
+        //Try 'unsubscribing' from child1...
+        channelLabels = new ArrayList();
+        channelLabels.add(new String(child2.getLabel()));
+        assertEquals(1, channelLabels.size());
+
+        result = handler.setChildChannels(adminKey, sid, channelLabels);
+        server = (Server) TestUtils.reload(server);
+        assertEquals(1, result);
+        assertEquals(2, server.getChannels().size());
+
+        //Try putting an invalid channel in there
+        channelLabels = new ArrayList();
+        channelLabels.add(new String("invalid-unknown-channel-label"));
+        assertEquals(1, channelLabels.size());
+
+        try {
+            result = handler.setChildChannels(adminKey, sid, channelLabels);
+            fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
+        }
+        catch (InvalidChannelLabelException e) {
+            //success
+        }
+        assertEquals(2, server.getChannels().size());
+
+        Channel base2 = ChannelFactoryTest.createTestChannel(admin);
+        base2.setParentChannel(null);
+        channelLabels = new ArrayList();
+        channelLabels.add(new String(base2.getLabel()));
+        assertEquals(1, channelLabels.size());
+
+        try {
+            result = handler.setChildChannels(adminKey, sid, channelLabels);
+            fail("SystemHandler.setChildChannels allowed invalid child channel to be set.");
+        }
+        catch (InvalidChannelException e) {
+            //success
+        }
+        server = (Server) reload(server);
+        assertEquals(2, server.getChannels().size());
+
+        // try setting the base channel of an s390 server to
+        // IA-32.
+        try {
+            List ia32Children = new ArrayList();
+            ia32Children.add(new String(child1.getLabel()));
+            ia32Children.add(new String(child2.getLabel()));
+
+            // change the arch of the server
+            server.setServerArch(
+                    ServerFactory.lookupServerArchByLabel("s390-redhat-linux"));
+            ServerFactory.save(server);
+
+
+            result = handler.setChildChannels(adminKey, sid, ia32Children);
+            fail("allowed invalid child channel to be set.");
+        }
+        catch (InvalidChannelException e) {
+            // success
+        }
+    }
+
+    public void testSetBaseChannelDeprecated() throws Exception {
+        // the setBaseChannel API tested by this junit is being deprecated
+
         Server server = ServerFactoryTest.createTestServer(admin, true, 
                 ServerConstants.getServerGroupTypeProvisioningEntitled());
         assertNull(server.getBaseChannel());
@@ -348,7 +444,63 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
             // success
         }
     }
-    
+
+    public void testSetBaseChannel() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        assertNull(server.getBaseChannel());
+        Integer sid = new Integer(server.getId().intValue());
+
+        Channel base1 = ChannelFactoryTest.createTestChannel(admin);
+        base1.setParentChannel(null);
+
+        Channel base2 = ChannelFactoryTest.createTestChannel(admin);
+        base2.setParentChannel(null);
+
+        Channel child1 = ChannelFactoryTest.createTestChannel(admin);
+        child1.setParentChannel(base1);
+
+        // Set base channel to base1
+        int result = handler.setBaseChannel(adminKey, sid, base1.getLabel());
+        server = (Server) reload(server);
+        assertEquals(1, result);
+        assertNotNull(server.getBaseChannel());
+        assertEquals(server.getBaseChannel().getLabel(), base1.getLabel());
+
+        // Set base channel to base2
+        result = handler.setBaseChannel(adminKey, sid, base2.getLabel());
+        server = (Server) TestUtils.reload(server);
+        assertEquals(1, result);
+        assertNotNull(server.getBaseChannel());
+        assertEquals(server.getBaseChannel().getLabel(), base2.getLabel());
+
+        // Try setting base channel to child
+        try {
+            result = handler.setBaseChannel(adminKey, sid, child1.getLabel());
+            fail("SystemHandler.setBaseChannel allowed invalid base channel to be set.");
+        }
+        catch (InvalidChannelException e) {
+            // success
+        }
+        assertEquals(server.getBaseChannel().getLabel(), base2.getLabel());
+
+        // try setting the base channel of an s390 server to
+        // IA-32.
+        try {
+            // change the arch of the server
+            server.setServerArch(
+                    ServerFactory.lookupServerArchByLabel("s390-redhat-linux"));
+            ServerFactory.save(server);
+
+
+            result = handler.setBaseChannel(adminKey, sid, base1.getLabel());
+            fail("allowed channel with incompatible arch to be set");
+        }
+        catch (InvalidChannelException e) {
+            // success
+        }
+    }
+
     public void testListSubscribableBaseChannels() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 
@@ -713,7 +865,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         Server server = ServerFactoryTest.createTestServer(admin);
         CustomDataKey testKey = CustomDataKeyTest.createTestCustomDataKey(admin);
         
-        //setCustomValues
+        // setCustomValues
         Org org = admin.getOrg();
         org.addCustomDataKey(testKey);
         
@@ -741,7 +893,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(val2, val.getValue());
         assertEquals(1, setResult);
         
-        // try with some undefined keys
+        // try to set custom values with some undefined keys
         valuesToSet.put(fooKey, val1);
         try {
             setResult = handler.setCustomValues(adminKey, 
@@ -758,6 +910,35 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                          new Integer(server.getId().intValue()));
         
         assertEquals(1, result.size());
+
+        // try to delete custom values using undefined keys
+        List<String> valuesToDelete = new ArrayList<String>();
+        valuesToDelete.add(fooKey);
+        try {
+            setResult = handler.deleteCustomValues(adminKey,
+                                                new Integer(server.getId().intValue()),
+                                                valuesToDelete);
+            fail("Didn't get exception for undefined keys.");
+        }
+        catch (UndefinedCustomFieldsException e) {
+            //success
+        }
+        val = server.getCustomDataValue(testKey);
+        assertNotNull(val);
+
+        result = handler.getCustomValues(adminKey, new Integer(server.getId().intValue()));
+        assertEquals(1, result.size());
+
+        // now delete the custom value that was previously added
+        valuesToDelete.clear();
+        valuesToDelete.add(testKey.getLabel());
+        setResult = handler.deleteCustomValues(adminKey,
+                new Integer(server.getId().intValue()),
+                valuesToDelete);
+
+        assertEquals(1, setResult);
+        val = server.getCustomDataValue(testKey);
+        assertNull(val);
     }
     
     public void testListUserSystems() throws Exception {
@@ -1642,6 +1823,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         String profileLabel = TestUtils.randomString(); 
         
+        Profile newProfile = ProfileFactory.findByNameAndOrgId(profileLabel,
+                admin.getOrg().getId());
+        assertNull(newProfile);
         
         Integer returned = handler.createPackageProfile(adminKey, 
                 new Integer(testServer.getId().intValue()), 
@@ -1649,13 +1833,12 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         assertEquals(new Integer(1), returned);
         
-        Profile newProfile = ProfileFactory.findByNameAndOrgId(profileLabel, 
+        newProfile = ProfileFactory.findByNameAndOrgId(profileLabel,
                 admin.getOrg().getId());
         assertNotNull(newProfile);
-        assertEquals(1, newProfile.getPackageEntries().size());
-        assertEquals(testPackage.getPackageName().getName(),
-                ((ProfileEntry)newProfile.getPackageEntries().toArray()[0])
-                .getName().getName());  
+
+        DataResult profilePackages = ProfileManager.listProfilePackages(newProfile.getId());
+        assertEquals(1, profilePackages.size());
     }
     
     public void testComparePackageProfile() throws Exception {

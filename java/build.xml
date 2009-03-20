@@ -365,8 +365,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	<mkdir dir="${report.dir}/apidocs" />
 	<mkdir dir="${report.dir}/apidocs/${template.dir}/" />	
 	 <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
-	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src"> 
-	      <fileset dir="code" > 
+	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" additionalparam="-quiet">
+ 	      <fileset dir="code" > 
 		
         	<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
 		<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
@@ -383,8 +383,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
             <pathelement location="build/classes" />
          </path>
 
-        <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private">
-              <fileset dir="code" >
+        <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private" additionalparam="-quiet">
+	     <fileset dir="code" >
                 <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
              </fileset>
             <excludepackage name="**/*" />
@@ -471,6 +471,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <formatter type="plain" />
       <formatter type="xml" toFile="${report.dir}/checkstyle_report_test.xml" />
     </checkstyle>
+     <antcall target="enforce" />
   </target>
 
     <target name="init-pack">

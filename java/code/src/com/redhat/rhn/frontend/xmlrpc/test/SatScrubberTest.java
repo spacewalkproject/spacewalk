@@ -50,9 +50,12 @@ public class SatScrubberTest extends RhnBaseTestCase {
     
     private User orgAdmin;
     private static Logger log = Logger.getLogger(SatScrubberTest.class);
-
     
-    public void testCleanupKickstarts() throws Exception {
+    public void testNothing() throws Exception {
+        // Test nothing.
+    }
+    
+    public void cleanupKickstarts() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List kickstarts = KickstartLister.
             getInstance().kickstartsInOrg(orgAdmin.getOrg(), null);
@@ -79,7 +82,7 @@ public class SatScrubberTest extends RhnBaseTestCase {
     }
     
 
-    public void testCleanupChannels() throws Exception {
+    public void cleanupChannels() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List channels = ChannelManager.allChannelsTree(orgAdmin);
         for (int i = 0; i < channels.size(); i++) {
@@ -95,7 +98,7 @@ public class SatScrubberTest extends RhnBaseTestCase {
     }
     
 
-    public void testCleanupUsers() throws Exception {
+    public void cleanupUsers() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List users = UserManager.usersInOrg(orgAdmin, null, Map.class);
         for (int i = 0; i < users.size(); i++) {
@@ -113,7 +116,7 @@ public class SatScrubberTest extends RhnBaseTestCase {
         commitAndCloseSession();
     }
     
-    public void testCleanupServers() throws Exception {
+    public void cleanupServers() throws Exception {
 
         List orgs = OrgFactory.lookupAllOrgs();
         int numdeleted = 0;
@@ -145,7 +148,7 @@ public class SatScrubberTest extends RhnBaseTestCase {
         log.debug("Done deleting [" + numdeleted + "] systems");
     }
 
-    public void testCleanupOrgs() throws Exception {
+    public void cleanupOrgs() throws Exception {
         // testOrg
         DataResult dr = TestUtils.runTestQuery("get_test_orgs", new HashMap());
         for (int i = 0; i < dr.size(); i++) {

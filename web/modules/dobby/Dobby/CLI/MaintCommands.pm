@@ -64,6 +64,7 @@ sub command_extend {
   my $file   = $f->{FILENAME};
   my $status = $f->{STATUS};
   my $bytes  = $f->{BYTES};
+  my $ftype  = $f->{FILETYPE};
 
   #Check here for available space
   my $df = df($d->data_dir, "1024");
@@ -80,7 +81,7 @@ sub command_extend {
   print "Extending $ts... ";
   my $fn = next_filename($cli, $file);
   my $size = $bytes / 1024;
-  $d->tablespace_extend($ts, $fn, "$size K");
+  $d->tablespace_extend($ts, $ftype, $fn, "$size K");
   print "done.\n";
 
 }

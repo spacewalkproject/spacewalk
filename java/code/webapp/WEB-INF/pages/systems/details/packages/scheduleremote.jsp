@@ -58,8 +58,8 @@
     </tr>
   </table>
   <html:hidden property="use_date" value="true" />
-  
-<html:hidden property="set_label" value="${param.set_label}" />
+
+<html:hidden property="session_set_label" value="${param.session_set_label}" />
 <html:hidden property="sid" value="${param.sid}" />
 <html:hidden property="mode" value="${param.mode}" />
 <html:hidden property="submitted" value="true" />

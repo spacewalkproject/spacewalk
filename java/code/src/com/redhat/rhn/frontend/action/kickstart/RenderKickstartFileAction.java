@@ -15,7 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
@@ -48,6 +48,7 @@ public class RenderKickstartFileAction extends Action {
         if (url == null) {
             url = (String) request.getAttribute("ksurl");
         }
+        
         if (log.isDebugEnabled()) {
             log.debug("ksurl = " + url + " param: " + request.getAttribute("ksurl"));
         }
@@ -58,14 +59,8 @@ public class RenderKickstartFileAction extends Action {
             if (params != null) {
                 String host = (String) params.get("host");
                 KickstartData ksdata = (KickstartData) params.get("ksdata");
-                KickstartSession session = (KickstartSession) params.get("session");
                 if (host != null && ksdata != null) {
-                    if (session != null) {
-                        fileContents = generateFile(host, ksdata, session);
-                    }
-                    else {
-                        fileContents = generateFile(host, ksdata);
-                    }
+                    fileContents = KickstartManager.renderKickstart(ksdata);
                 }
                 else {
                     log.error("No kickstart filecontents found for: " + url + 
@@ -82,16 +77,6 @@ public class RenderKickstartFileAction extends Action {
         renderOutput(response, fileContents);
         return null;
     }
-    
-    private String generateFile(String host, KickstartData ksdata) {
-        return ksdata.getFileData(host, null);
-    }
-
-    private String generateFile(String host, KickstartData ksdata, 
-            KickstartSession session) {
-        return ksdata.getFileData(host, session);
-    }
-
     
     private void renderOutput(HttpServletResponse response, String file) 
             throws IOException {

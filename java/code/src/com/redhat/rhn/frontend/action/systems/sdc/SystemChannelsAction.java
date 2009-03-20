@@ -195,7 +195,7 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         Channel newChannel = null;
         List<Channel> preservedChildChannels = new LinkedList<Channel>();
 
-        if (newBaseChannelId.longValue() != -1) {
+        if (newBaseChannelId != null && newBaseChannelId.longValue() != -1) {
             newChannel = ChannelManager.lookupByIdAndUser(
                 new Long(newBaseChannelId.longValue()), user);
 
@@ -301,10 +301,10 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         
         String[] childChannelIds = request.getParameterValues(CHILD_CHANNELS);
         
-        List channelIdsList = new LinkedList();
+        List<Long> channelIdsList = new LinkedList<Long>();
         if (childChannelIds != null) {
             for (int i = 0; i < childChannelIds.length; i++) {
-                channelIdsList.add(Integer.valueOf(childChannelIds[i]));
+                channelIdsList.add(Long.valueOf(childChannelIds[i]));
                 log.debug("Adding child id: " + channelIdsList.get(i));
             }
         }

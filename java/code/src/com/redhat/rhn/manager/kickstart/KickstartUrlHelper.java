@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -125,12 +126,14 @@ public class KickstartUrlHelper {
      */
     public String getKickstartFileUrlBase() {
         
-        StringBuffer urlBase = new StringBuffer();
+        StringBuilder urlBase = new StringBuilder();
         urlBase.append(protocol);
+        if (!protocol.endsWith("://")) {
+            urlBase.append("://");    
+        }
         urlBase.append(host);
         urlBase.append(KS_CFG + "/org/"); 
-        urlBase.append(ksData.getOrg().getId().toString()); 
-        
+        urlBase.append(ksData.getOrg().getId().toString());        
         return urlBase.toString();
     }
     
@@ -202,10 +205,19 @@ public class KickstartUrlHelper {
      * @return String url , cobbler style: http://@@http_server@@/$media_url 
      */
     public String getCobblerMediaUrl() {
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         url.append(protocol + host + "/$" + COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
+    }
+    
+    /**
+     * Return the repo URL to be used in the formatted
+     * @param repo the repo object
+     * @return the repo url.
+     */
+    public String getRepoUrl(RepoInfo repo) {
+        return getCobblerMediaUrl() + "/" + repo.getUrl();
     }
 
     /**
@@ -284,9 +296,11 @@ public class KickstartUrlHelper {
      */
     public static String getCobblerProfileUrl(KickstartData data) {
         Profile prof = Profile.lookupById(
-                CobblerXMLRPCHelper.getConnection("kickstart-url"), 
-                data.getCobblerId());      
+                CobblerXMLRPCHelper.getAutomatedConnection(), 
+                        data.getCobblerId());      
         return "http://" + Config.get().getCobblerHost() + COBBLER_URL_BASE_PATH + 
                     prof.getName();
     }
+    
+    
 }

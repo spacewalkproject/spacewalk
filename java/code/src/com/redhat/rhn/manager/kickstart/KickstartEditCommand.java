@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
@@ -36,6 +37,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -192,7 +194,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
                                                     Long treeId,
                                                     String url) {
 
-        KickstartWizardHelper ksHelper = new KickstartWizardHelper(user);
+
         
         if (!KickstartFactory.verifyTreeAssignment(channelId, orgId, treeId)) {
             ValidatorError ve = new ValidatorError("kickstart.software.notree");
@@ -200,8 +202,9 @@ public class KickstartEditCommand extends BaseKickstartCommand {
         }
         
         KickstartableTree tree = KickstartFactory.findTreeById(treeId, orgId);
-        
+        KickstartWizardHelper helper = new KickstartWizardHelper(getUser());
         if (tree != null) {
+
             this.ksdata.getKickstartDefaults().setKstree(tree);
             if (!ksdata.isRawData() && !StringUtils.isBlank(url)) {
                 KickstartCommand kcmd = this.ksdata.getCommand("url");
@@ -211,11 +214,6 @@ public class KickstartEditCommand extends BaseKickstartCommand {
                 // yum repo commands and re-add them for the new tree if necessary:
                 this.ksdata.removeCommand("repo", false);
                 this.ksdata.removeCommand("key", true);
-                
-                if (ksdata.isRhel5OrGreater()) {
-                    ksHelper.addRepoLocations(ksdata, url);
-                }
-
                 logger.debug("updateKickstartableTree(Long, String, String, Long)" +
                         " - end - return value=" + null);
             }
@@ -368,5 +366,24 @@ public class KickstartEditCommand extends BaseKickstartCommand {
             error = cmd.store();
         }
         return error;
+    }
+
+    /**
+     *  Updates the kickstart data with the repo name array passed in
+     * @param reposIn the names of the repos to be associated with this KS data.
+     */
+    public void updateRepos(String[] reposIn) {
+        if (ksdata.isRhel5OrGreater()) {
+            
+            Map<String, RepoInfo> repos = RepoInfo.getStandardRepos();
+            Set<RepoInfo> selected = new HashSet <RepoInfo>();
+            
+            for (int i = 0; i < reposIn.length; i++) {
+                selected.add(repos.get(reposIn[i]));
+            }
+            ksdata.setRepoInfos(selected);
+            KickstartWizardHelper ksHelper = new KickstartWizardHelper(user);
+            ksHelper.processSkipKey(ksdata);
+        }
     }
 }

@@ -81,7 +81,7 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
                     cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
             request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
                     KickstartManager.renderKickstart(data)));
-            request.setAttribute(KSURL, KickstartUrlHelper.getCobblerProfileUrl(data));
+            request.setAttribute(KSURL, urlHelper.getKickstartFileUrl());
         }
         else {
             request.setAttribute(INVALID_CHANNEL, "true");
@@ -96,9 +96,4 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
                 ctx.getRequiredParam(RequestContext.KICKSTART_ID),
                 ctx.getCurrentUser(), ctx.getRequest());
     }
-    
-    
-
-    
-        
 }

@@ -123,6 +123,10 @@ provide a required response, default answer is used.</para>
         <listitem>
            <para>Email to be used in SSL certificate.</para>
         </listitem>
+        <term>SSL_PASSWORD</term>
+        <listitem>
+           <para>Password to be used for SSL CA certificate.</para>
+        </listitem>
         <term>INSTALL_MONITORING</term>
         <listitem>
            <para>Y if monitoring should be installed. Any other value means that monitoring will not be installed.</para>

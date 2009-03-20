@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.channel.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -22,15 +23,16 @@ import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ProductName;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -343,5 +345,22 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
             size = size + rhbases.size();
         }
         assertEquals(channels.size(), size);
+    }
+    
+    public void testLookupPackageByFileName() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Channel channel = ChannelTestUtils.createTestChannel(user);
+        TestUtils.saveAndFlush(channel);
+        Package p = PackageManagerTest.addPackageToChannel("some-package", channel);
+        String fileName = "some-package-2.13.1-6.fc9.x86_64.rpm";
+        p.setPath("redhat/1/c7d/some-package/2.13.1-6.fc9/" +
+                "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
+                fileName);
+        TestUtils.saveAndFlush(p);
+        
+        Package lookedUp = ChannelFactory.lookupPackageByFilename(channel, 
+                fileName);
+        assertNotNull(lookedUp);
+        assertEquals(p.getId(), lookedUp.getId());
     }
 }

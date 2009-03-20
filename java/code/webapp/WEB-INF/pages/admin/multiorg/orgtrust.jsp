@@ -42,8 +42,7 @@
       <rl:selectablecolumn
          value="${current.selectionKey}"
          selected="${current.selected}" 
-         styleclass="first-column"
-         headerkey="org.trust.trust?"/> 
+         styleclass="first-column"/>
       <rl:column
          bound="false"
          sortable="true"

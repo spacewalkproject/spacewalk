@@ -529,11 +529,8 @@ public class KickstartBuilder {
         setAuth(cmd, ksdata);
         setMiscDefaults(cmd, ksdata);
         setPartitionScheme(cmd, ksdata);
-        
-        if (ksdata.isRhel5OrGreater()) {
-            cmd.addRepoLocations(ksdata, downloadUrl);
-        }
-
+        cmd.processSkipKey(ksdata);
+        cmd.processRepos(ksdata);
         if (ksdata.getPackageNames() == null) {
             ksdata.setPackageNames(new ArrayList<PackageName>());
         }

@@ -94,6 +94,10 @@
 		            <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
 		              <bean:message key="actions.jsp.failed"/></a>
 		         </c:if>
+		         <c:if test="${current.currentStatusAndActionId[0] == 'Picked Up'}">
+		            <a href="/network/systems/details/history/event.pxt?sid=${param.sid}&hid=${current.currentStatusAndActionId[1]}">
+		              <bean:message key="actions.jsp.inprogress"/></a>
+		         </c:if>		         
 		      </c:if>
 		      <c:if test="${empty current.status}">
 		            <bean:message key="affectedsystems.jsp.none"/>

@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.28
+Version: 0.5.34
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -33,7 +33,7 @@ Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
 Requires: jcommon
-Requires: jfreechart
+Requires: jfreechart >= 1.0.9
 Requires: jpam
 Requires: log4j
 Requires: redstone-xmlrpc
@@ -49,7 +49,7 @@ Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
-Requires: cobbler >= 1.4.2
+Requires: cobbler >= 1.4.3
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1.6.0
@@ -151,7 +151,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
-Requires: cobbler >= 1.4.2
+Requires: cobbler >= 1.4.3
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
@@ -233,6 +233,59 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Mar 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.34-1
+- ServerFactory - fix wording in method header
+- 486212 - api - added system.deleteCustomValues
+
+* Thu Mar 19 2009 Mike McCune <mmccune@gmail.com> 0.5.33-1
+- 474774 - adding jfreechart 1.0 version requires
+
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.31-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
+
+* Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.30-1
+- fixed iprange delete URLs weren't being correctly rendered
+- 480432 - fixed kickstart urls: .../rhn/kickstart/ks/cfg/org/1/org_default
+- 489792 - fixing incorrect api return types
+- 489775 - fixing listErrata api due to bad query
+- 481180 - update KickstartFormatter to use StringUtils on --interpreter check
+
+* Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.29-1
+- 489760 - used cheetah's #errorCatcher Echo to handle escaping in ks files.
+- 249459 - fixing issue where org trust page was busted
+- 488137 - refer to cobbler_api instead of cobbler_api_rw to support cobbler >= 1.6
+- update deprecated methods in ChannelSoftwareHandler to be more consistent
+- 484463 - added more cobbler bits to the kickstart formatter that were missing
+- 488830 - api - auth handler - remove the public doc for checkAuthToken
+- apidoc generation now ignores an individual call using @xmlrpc.ignore
+- added taskomatic task to regenerate deleted kickstart wizard files
+- Fixed the ks-setup.py script to function correctly w.r.t space05 changes
+- 481180 - do not include --interpreter in profile for scripts without scripting lang
+- fix indentations to make it more readable
+- Removed code that was getting ignored.
+- 489577 - fixing issue that caused taskomatic tracebacks when talking to cobbler
+- 489363 - add missing exception class...
+- 489363 - api - system.createPackageProfile did not include pkg arch in profile
+- 489426 - fixing cloning of kickstarts for regular and raw style
+- 489347 - fixing "File Location" field on OS tab to show the --url param
+- 483287 - Added ability to do a cobbler sync thru the UI
+- adding missing param, for channel name to show up in header
+- 483776 - fixing ISE (NPE) on clone errata page
+- 462079 - fixed issue where an auto-scheduled errata had name of  "null - null"
+- 467265 - fixing issue where errata list was sorting date incorrectly
+- fixing package delete to delete from a couple more tables
+- 489042 - api - org.setSystemEntitlements - supports setting base entitlements.
+- added list of supported entitlements to the api doc
+- 488999 - c.s.setUserSubscribable documented value as string while impl
+- expected a primitive boolean as input instead of Boolean
+- 488148 - test fixes related to bugzilla
+- 488148 - use pre-existing system record if there is one.
+- 489033 - correcting type of trustOrgId in org.trust.addTrust and removeTrust
+- 488990 - api - remove addTrust, removeTrust, listTrusts apis from org handler.
+- 488548 - api - org.migrateSystems - fix reactivationkeys, custom info and config
+- 488348 - use channel org_id to prevent returning RH channels in addition to custom
+- Fixed variable name typo.
+ 
 * Fri Mar 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.28-1
 - added ExcludeArch: ia64
 

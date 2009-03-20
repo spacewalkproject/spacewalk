@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.18
+Version:        0.5.23
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -25,7 +25,8 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler >= 1.4.2
+Requires:       cobbler >= 1.4.3
+Requires:       PyYAML
 Requires:       jabberd
 
 
@@ -90,8 +91,24 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Mar 10 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.18-1
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
+
+* Fri Mar 13 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.22-1
+- run setup_monitoring even for upgrades
+
+* Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.21-1
+- rebuild
+
+* Thu Mar 12 2009 Partha Aji <paji@redhat.com>
+- None - cobbler-setup now requires PyYAML. So adding it..
+
+* Thu Mar 12 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.20-1
+- 489350 - if scout already exist, dont create it again if db was not wiped
+
+* Tue Mar 10 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.19-1
 - 488092 - moved some routines to Setup.pm so they can be used from outside
+- call satcon_deploy with full path to Spacewalk::Setup
 
 * Wed Mar  4 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.17-1
 - ssl virtual host setup modifies existing ssl.conf

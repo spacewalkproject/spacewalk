@@ -272,8 +272,9 @@ class Procedure(sql_base.Procedure):
         except cx_Oracle.DatabaseError, e:
             if not hasattr(e, "args"):
                 raise sql_base.SQLError(self.name, args)
-            elif 20000 <= e[0] <= 20999: # error codes we know we raise as schema errors
-                raise apply(sql_base.SQLSchemaError, tuple(e.args))
+            elif 20000 <= e[0].code <= 20999: # error codes we know we raise as schema errors
+                
+               raise apply(sql_base.SQLSchemaError, [e[0].code, str(e[0])])
             raise apply(sql_base.SQLError, tuple(e.args))
         except cx_Oracle.NotSupportedError, error:
             raise apply(sql_base.SQLError, error.args)

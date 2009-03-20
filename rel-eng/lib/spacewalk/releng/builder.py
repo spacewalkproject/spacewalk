@@ -25,6 +25,9 @@ from spacewalk.releng.common import *
 DEFAULT_KOJI_OPTS = "build --nowait"
 DEFAULT_CVS_BUILD_DIR = "cvswork"
 
+# List of CVS files to protect when syncing git with a CVS module:
+CVS_PROTECT_FILES = ('branch', 'CVS', '.cvsignore', 'Makefile', 'sources')
+
 class Builder(object):
     """
     Parent builder class.
@@ -69,7 +72,6 @@ class Builder(object):
         temp_dir = "rpmbuild-%s" % self.project_name_and_sha1
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
-        self.patch_dir = self.rpmbuild_sourcedir
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
 
         # A copy of the git code from commit we're building:
@@ -110,6 +112,9 @@ class Builder(object):
 
         self.cvs_package_workdir = os.path.join(self.cvs_workdir,
                 self.project_name)
+
+        # When syncing files with CVS, only copy files with these extensions:
+        self.cvs_copy_extensions = (".spec", ".patch")
 
     def run(self, options):
         """
@@ -234,8 +239,7 @@ class Builder(object):
         # Get the list of all sources from the builder:
         self.tgz()
 
-        self._cvs_sync_spec()
-        self._cvs_sync_patches()
+        self._cvs_sync_files()
 
         # Important step here, ends up populating several important members
         # on the builder object so some of the below lines will not work
@@ -347,57 +351,78 @@ class Builder(object):
             output = run_command(cmd)
             debug(output)
 
-    def _cvs_sync_spec(self):
+    def _cvs_sync_files(self):
         """
-        Copy spec file and any required patches into CVS branches.
+        Copy files from git into each CVS branch and add them. Extra files
+        found in CVS will then be deleted.
 
-        TODO: Implement patch copying, if it turns out to be required. (not
-        sure if we actually need it yet)
+        A list of CVS safe files is used to protect critical files both from
+        being overwritten by a git file of the same name, as well as being
+        deleted after.
         """
+
+        # Build the list of all files we will copy from git to CVS.
+        debug("Searching for git files to copy to CVS:")
+        files_to_copy = []
+        for filename in os.listdir(self.rpmbuild_gitcopy):
+            if os.path.isdir(os.path.join(self.rpmbuild_gitcopy, filename)):
+                # skip it
+                continue
+            if filename in CVS_PROTECT_FILES:
+                debug("   skipping:  %s (protected file)" % filename)
+                continue
+
+            # Check if file ends with something this builder subclass wants
+            # to copy:
+            copy_it = False
+            for extension in self.cvs_copy_extensions:
+                if filename.endswith(extension):
+                    copy_it = True
+                    continue
+            if copy_it:
+                debug("   copying:   %s" % filename)
+                files_to_copy.append(filename)
+
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.project_name,
                     branch)
             os.chdir(branch_dir)
-            debug("Copying spec file: %s" % self.spec_file)
-            debug("  To: %s" % branch_dir)
-            run_command("cp %s %s" % (self.spec_file, branch_dir))
+            print("Syncing files with CVS branch [%s]" % branch)
+            for copy_me in files_to_copy:
+                source_path = os.path.join(self.rpmbuild_gitcopy,
+                        copy_me)
+                dest_path = os.path.join(branch_dir, copy_me)
 
-            # Will fail if the file is already tracked in CVS:
-            (status, output) = commands.getstatusoutput("cvs add %s" %
-                    self.spec_file_name)
-
-    def _cvs_sync_patches(self):
-        """
-        Copy any patches referenced in the spec file to the CVS branches and
-        cvs add them.
-        """
-        for branch in self.cvs_branches:
-            branch_dir = os.path.join(self.cvs_workdir, self.project_name,
-                    branch)
-            os.chdir(branch_dir)
-            (status, output) = commands.getstatusoutput("cat %s | grep ^Patch" %
-                    self.spec_file)
-            if status > 0:
-                # Grep failed, no patches found.
-                return
-            for patch_line in output.split("\n"):
-                patch_filename = patch_line.strip().split(" ")[1]
-                full_path = os.path.join(self.patch_dir,
-                        patch_filename)
-                debug("Copying patch to CVS: %s" % full_path)
-                debug("  To: %s" % branch_dir)
-                new_full_path = os.path.join(branch_dir, patch_filename)
+                # Check if file we're about to copy already exists in CVS so
+                # we know if we need to run 'cvs add' or not:
                 cvs_add = True
-                if os.path.exists(new_full_path):
+                if os.path.exists(dest_path):
                     cvs_add = False
-                run_command("cp %s %s" % (full_path, branch_dir))
+
+                cmd = "cp %s %s" % (source_path, dest_path)
+                run_command(cmd)
+
                 if cvs_add:
-                    commands.getstatusoutput("cvs add %s" %  patch_filename)
+                    print("   added: %s" % copy_me)
+                    commands.getstatusoutput("cvs add %s" %  copy_me)
+                else:
+                    print("   copied: %s" % copy_me)
+
+            # Now delete any extraneous files in the CVS branch.
+            for filename in os.listdir(branch_dir):
+                if filename not in CVS_PROTECT_FILES and \
+                        filename not in files_to_copy:
+                    print("   deleted: %s" % filename)
+                    # Can't delete via full path, must not chdir:
+                    run_command("cvs rm -Rf %s" % filename)
 
     def _cvs_user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """
         print("")
-        print("cvs diff for [%s]" % self.cvs_package_workdir)
+        text = "Running 'cvs diff' in: %s" % self.cvs_package_workdir
+        print("#" * len(text))
+        print(text)
+        print("#" * len(text))
         print("")
 
         os.chdir(self.cvs_package_workdir)
@@ -570,6 +595,18 @@ class NoTgzBuilder(Builder):
     Usually these packages have source tarballs checked directly into git.
     i.e. most of the packages in spec-tree.
     """
+    def __init__(self, name=None, version=None, tag=None, build_dir=None,
+            pkg_config=None, global_config=None, user_config=None, dist=None,
+            test=False, offline=False):
+
+        Builder.__init__(self, name=name, version=version, tag=tag,
+                build_dir=build_dir, pkg_config=pkg_config,
+                global_config=global_config, user_config=user_config, dist=dist,
+                test=test, offline=offline)
+
+        # When syncing files with CVS, copy everything from git:
+        self.cvs_copy_extensions = ("",)
+
     def tgz(self):
         """ Override parent behavior, we already have a tgz. """
         # TODO: Does it make sense to allow user to create a tgz for this type
@@ -640,7 +677,7 @@ class CvsBuilder(NoTgzBuilder):
         # Convert new sources to full paths right now, before we chdir:
         if options.cvs_new_sources is not None:
             for new_source in options.cvs_new_sources:
-                self.sources.append(os.path.abspath(new_source))
+                self.sources.append(os.path.abspath(os.path.expanduser(new_source)))
         debug("CvsBuilder sources: %s" % self.sources)
         NoTgzBuilder.run(self, options)
 
@@ -652,7 +689,9 @@ class CvsBuilder(NoTgzBuilder):
         self.srpm_location = rpms[0]
 
     def _rpm(self):
-        self._cvs_rpm_common(target="i386", all_branches=True)
+        # Lookup the architecture of the system for the correct make target:
+        arch = run_command("uname -i")
+        self._cvs_rpm_common(target=arch, all_branches=True)
 
     def _cvs_rpm_common(self, target, all_branches=False, dist=None, 
             reuse_cvs_checkout=False):
@@ -676,8 +715,9 @@ class CvsBuilder(NoTgzBuilder):
 
         # Copy latest spec so we build that version, even if it isn't the
         # latest actually committed to CVS:
-        self._cvs_sync_spec()
-        self._cvs_sync_patches()
+        self._cvs_sync_files()
+
+        self._cvs_upload_sources()
 
         # Use "make srpm" target to create our source RPM:
         os.chdir(self.cvs_package_workdir)
@@ -744,6 +784,9 @@ class SatelliteBuilder(NoTgzBuilder):
         self.patch_filename = None
         self.patch_file = None
 
+        # When syncing files with CVS, only copy files with these extensions:
+        self.cvs_copy_extensions = (".spec", ".patch")
+
     def tgz(self):
         """
         Override parent behavior, we need a tgz from the upstream spacewalk
@@ -784,6 +827,7 @@ class SatelliteBuilder(NoTgzBuilder):
         create_tgz(self.git_root, prefix, commit, relative_dir, 
                 self.rel_eng_dir, tgz_fullpath)
         self.ran_tgz = True
+        self.sources.append(tgz_fullpath)
 
         # If these are equal then the tag we're building was likely created in 
         # Spacewalk and thus we don't need to do any patching.
@@ -792,7 +836,6 @@ class SatelliteBuilder(NoTgzBuilder):
 
         self._generate_patches()
         self._insert_patches_into_spec_file()
-        self.sources.append(tgz_fullpath)
 
     def _generate_patches(self):
         """
@@ -801,7 +844,7 @@ class SatelliteBuilder(NoTgzBuilder):
         """
         self.patch_filename = "%s-to-%s-%s.patch" % (self.upstream_tag,
                 self.project_name, self.build_version)
-        self.patch_file = os.path.join(self.rpmbuild_sourcedir,
+        self.patch_file = os.path.join(self.rpmbuild_gitcopy,
                 self.patch_filename)
         os.chdir(os.path.join(self.git_root, self.relative_project_dir))
         print("Generating patch [%s]" % self.patch_filename)
@@ -811,6 +854,11 @@ class SatelliteBuilder(NoTgzBuilder):
         debug("Generating patch with: %s" % patch_command)
         output = run_command(patch_command)
         print(output)
+        # Creating two copies of the patch here in the temp build directories
+        # just out of laziness. Some builders need sources in SOURCES and
+        # others need them in the git copy. Being lazy here avoids one-off
+        # hacks and both copies get cleaned up anyhow.
+        run_command("cp %s %s" % (self.patch_file, self.rpmbuild_sourcedir))
 
     def _insert_patches_into_spec_file(self):
         """

@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.RepoInfo;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -180,7 +181,7 @@ public class KickstartFormatter {
      * @return String containing kickstart file
      */
     public String getFileData() {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(getHeader());
         buf.append(getCommands());
         
@@ -193,6 +194,12 @@ public class KickstartFormatter {
         buf.append(getPackageOptions());
         buf.append(NEWLINE);
         buf.append(getPackages());
+        buf.append(NEWLINE);
+        buf.append("%" + KickstartScript.TYPE_PRE);
+        buf.append(NEWLINE);
+        buf.append("$kickstart_start");
+        buf.append(NEWLINE);
+        addCobblerSnippet(buf, "pre_install_network_config");
         buf.append(NEWLINE);        
         buf.append(getPrePost(KickstartScript.TYPE_PRE));
         buf.append(NEWLINE);      
@@ -203,11 +210,22 @@ public class KickstartFormatter {
         buf.append(NEWLINE);
         buf.append(getPrePost(KickstartScript.TYPE_POST));
         buf.append(NEWLINE);
+        addCobblerSnippet(buf, "post_install_kernel_options");
+        addCobblerSnippet(buf, "post_install_network_config");
+        addCobblerSnippet(buf, "koan_environment");
+        buf.append("$kickstart_done");
+        buf.append(NEWLINE);
         String retval = buf.toString();
         log.debug("fileData.retval:");
         log.debug(retval);
         return retval;
     }
+
+    private void addCobblerSnippet(StringBuilder buf, String contents) {
+        String format = "$SNIPPET('%s')\n";
+        buf.append(String.format(format, contents));
+    }
+    
 
     /**
      * 
@@ -215,6 +233,7 @@ public class KickstartFormatter {
      */    
     private StringBuffer getHeader() {
         StringBuffer header = new StringBuffer();
+        header.append("#errorCatcher Echo").append(NEWLINE);
         header.append(HEADER);
         header.append(COMMENT);
         header.append("# Profile Label : " + this.ksdata.getLabel() + NEWLINE);
@@ -249,11 +268,9 @@ public class KickstartFormatter {
                 String argVal = adjustUrlHost(command);
                 commands.append(cname + SPACE + argVal + NEWLINE);
             }
-            else if (cname.matches("repo") && 
-                    command.getArguments().indexOf("--baseurl=/") >= 0) {
-                
-                StringBuffer finalBaseurl = adjustRepoHost(command);
-                commands.append(cname + SPACE + finalBaseurl.toString() + NEWLINE);
+            else if (cname.matches("repo")) {                
+                RepoInfo repo = RepoInfo.parse(command);
+                commands.append(repo.getFormattedCommand(ksdata) + NEWLINE);
             }
             else if ("custom".equals(cname)) {
                 commands.append(command.getArguments() + NEWLINE);
@@ -307,37 +324,6 @@ public class KickstartFormatter {
         }
         log.debug("returning url: " + argVal);
         return argVal;
-    }
-
-    /**
-     * Correct the repo command to include the most suitable hostname.
-     */
-    private StringBuffer adjustRepoHost(KickstartCommand command) {
-        String argVal = command.getArguments();
-        log.debug("Adjusting repo: " + argVal);
-        StringBuffer finalBaseurl = new StringBuffer("");
-        String args = command.getArguments();
-        for (String token : args.split("\\ ")) {
-            log.debug("   token = " + token);
-            if (!token.startsWith("--baseurl=")) {
-                if (finalBaseurl.length() > 0) {
-                    finalBaseurl.append(" ");
-                }
-                finalBaseurl.append(token);
-            }
-            else {
-                String location = token.substring("--baseurl=".length());
-                // Inject a host:
-                location = "http://" + ksHost + location;
-                log.debug("   fixed baseurl = " + location.toString());
-                if (finalBaseurl.length() > 0) {
-                    finalBaseurl.append(" ");
-                }
-                finalBaseurl.append("--baseurl=");
-                finalBaseurl.append(location);
-            }
-        }
-        return finalBaseurl;
     }
     
     /**
@@ -428,7 +414,7 @@ public class KickstartFormatter {
                             (typeIn.equals(KickstartScript.TYPE_POST) && 
                                     (kss.getChroot().equals("Y")))) {
                         retval.append(NEWLINE);
-                        if (kss.getInterpreter() != null) {
+                        if (!StringUtils.isEmpty(kss.getInterpreter())) {
                             retval.append("%" + typeIn + SPACE + INTERPRETER_OPT + SPACE +
                                     kss.getInterpreter() + NEWLINE);
                         }

@@ -47,7 +47,12 @@ class CertVersionMismatchError(Exception):
           return self.message
 
 class NoFreeEntitlementsError(Exception):
-    "No free entitlements available to activate this satellite"
+    def __init__(self, label, quantity):
+          self.label = label
+          self.quantity = quantity
+          self.message = 'You do not have enough unused \'' + self.label + '\' entitlements in the base org.' \
+            + ' Please un-entitle systems from this entitlement until there are at most ' + str(quantity) + ' used.'
+          self.args = [self.message]
 
 def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.
@@ -189,7 +194,7 @@ def set_slots_from_cert(cert):
             activate_system_entitlement(org_id, db_label, quantity)
         except rhnSQL.sql_base.SQLSchemaError, e:
             if e[0] == 20290:
-                raise NoFreeEntitlementsError()
+                raise NoFreeEntitlementsError(db_label, quantity)
             else:
                 raise
 

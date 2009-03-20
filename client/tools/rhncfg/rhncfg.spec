@@ -1,50 +1,51 @@
-%define rhnroot /usr/share/rhn
-%define rhnconf /etc/sysconfig/rhn
-%define client_caps_dir /etc/sysconfig/rhn/clientCaps.d
+%define rhnroot %{_datadir}/rhn
+%define rhnconf %{_sysconfdir}/sysconfig/rhn
+%define client_caps_dir %{rhnconf}/clientCaps.d
 
 Name: rhncfg
 Summary: Red Hat Network Configuration Client Libraries
-Group: RHN/Server
+Group:   Applications/System
 License: GPLv2
-Source0: %{name}-%{version}.tar.gz
-Version: 5.9.3
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 5.9.4
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: docbook-utils
 BuildRequires: python
 Requires: python
 Requires: rhnlib
-Provides: rhn-config-action
-Provides: rhn-config-client-package
-Provides: rhn-config-management-package
+Provides: rhn-config-action = %{version}
+Provides: rhn-config-client-package = %{version}
+Provides: rhn-config-management-package = %{version}
 
 %description 
 Red Hat Network Configuration Client Libraries
 
 %package client
 Summary: Red Hat Network Configuration Client
-Group: RHN/Server
-PreReq: %{name} = %{version}-%{release}
-Provides: rhn-config-action
-Provides: rhn-config-client-package
+Group:   Applications/System
+Requires: %{name} = %{version}-%{release}
+Provides: rhn-config-action = %{version}
+Provides: rhn-config-client-package = %{version}
 
 %description client
 Red Hat Network Configuration Client
 
 %package management
 Summary: Red Hat Network Configuration Management Client
-Group: RHN/Server
-PreReq: %{name} = %{version}-%{release}
-Provides: rhn-config-management-package
+Group:   Applications/System
+Requires: %{name} = %{version}-%{release}
+Provides: rhn-config-management-package = %{version}
 
 %description management
 Red Hat Network Configuration Management Client
 
 %package actions
 Summary: Red Hat Network Configuration Client Actions
-Group: RHN/Server
-PreReq: %{name} = %{version}-%{release}
+Group:   Applications/System
+Requires: %{name} = %{version}-%{release}
 Requires: %{name}-client
 
 # If this is rhel 4 or less we need up2date.
@@ -54,8 +55,8 @@ Requires: up2date
 Requires: rhn-client-tools
 %endif
 
-Provides: rhn-config-action
-Provides: rhn-config-client-package
+Provides: rhn-config-action = %{version}
+Provides: rhn-config-client-package = %{version}
 
 %description actions
 Red Hat Network Configuration Client Actions
@@ -76,32 +77,36 @@ make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{rhnroot}/config_common
+%doc LICENSE
 
 %files client
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{rhnroot}/config_client
-/usr/bin/rhncfg-client
+%{_bindir}/rhncfg-client
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-client.conf
 %{_mandir}/man8/rhncfg-client.8*
 
 %files management
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{rhnroot}/config_management
-/usr/bin/rhncfg-manager
+%{_bindir}/rhncfg-manager
 %attr(644,root,root) %config(noreplace) %{rhnconf}/rhncfg-manager.conf
 %{_mandir}/man8/rhncfg-manager.8*
 
 %files actions
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %{rhnroot}/actions/*
-/usr/bin/rhn-actions-control
-%{client_caps_dir}/*
+%{_bindir}/rhn-actions-control
+%config(noreplace) %{client_caps_dir}/*
 %{_mandir}/man8/rhn-actions-control.8*
 
 # $Id$
 %changelog
+* Tue Mar 17 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.4-1
+- Polish the spec according Fedora Packaging Guidelines
+
 * Wed Feb 18 2009 Pradeep Kilambi <pkilambi@redhat.com> 5.9.3-1
 - Applying patch for exclude files for rhncfg get call
 

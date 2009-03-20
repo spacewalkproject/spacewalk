@@ -153,11 +153,8 @@ public abstract class CobblerCommand {
             return label.replace(' ', '_');
         }
         String format = "%s--%s";
-        
-        String kickstartConfigDir = Config.get().getString("kickstart.cobbler.dir", 
-            "/var/lib/rhn/kickstarts/");
-        String fileName = String.format(format, label.replace(' ', '_'), org.getId(),
-                org.getName().replace(' ', '_')); 
+        String kickstartConfigDir = Config.get().getKickstartConfigDir();
+        String fileName = String.format(format, label.replace(' ', '_'), org.getId()); 
         String retval = kickstartConfigDir + fileName + ".cfg";
         return retval;         
     }
@@ -257,8 +254,7 @@ public abstract class CobblerCommand {
     
     protected CobblerConnection getCobblerConnection() {
         if (user == null) {
-            return CobblerXMLRPCHelper.getConnection(
-                    Config.get().getCobblerAutomatedUser());
+            return CobblerXMLRPCHelper.getAutomatedConnection();
         }
         else {
             return CobblerXMLRPCHelper.getConnection(user);

@@ -52,3 +52,10 @@ read_files_pattern(oracle_sqlplus_t, oracle_dir_t, oracle_common_file_t)
 allow oracle_db_t initrc_tmp_t:file { read ioctl };
 allow oracle_sqlplus_t initrc_tmp_t:file { read getattr ioctl };
 
+optional_policy(`
+	tunable_policy(`allow_ypbind',`
+		nis_use_ypbind_uncond(oracle_sqlplus_t)
+		nis_use_ypbind_uncond(oracle_lsnrctl_t)
+	')
+')
+

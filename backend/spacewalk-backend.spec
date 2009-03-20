@@ -7,13 +7,15 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.20
+Version: 0.5.25
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: python, rpm-python, spacewalk-config
+Requires: python, rpm-python
+# /etc/rhn is provided by spacewalk-proxy-common or by spacewalk-config
+Requires: /etc/rhn
 Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
 BuildRequires: /usr/bin/docbook2man
@@ -198,7 +200,7 @@ Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
-Requires: cobbler >= 1.4.2
+Requires: cobbler >= 1.4.3
 Obsoletes: rhns-satellite-tools < 5.3.0
 Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 Provides: rhns-satellite-tools = %{version}-%{release}
@@ -508,6 +510,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
 %{rhnroot}/satellite_tools/req_channels.py*
 %{rhnroot}/satellite_tools/satrm.py*
+%{rhnroot}/satellite_tools/rhn-entitlement-report.py*
 %{rhnroot}/satellite_tools/satsync.py*
 %{rhnroot}/satellite_tools/satCerts.py*
 %{rhnroot}/satellite_tools/satComputePkgHeaders.py*
@@ -558,6 +561,23 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.25-1
+- 468686 - restricts deactivated accounts from registering systems and managing systems. 
+- 485532 - Adding the overriding config values for apachec process sizelimit issue
+
+* Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
+- 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
+
+* Fri Mar 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.22-1
+- 484879 - warn if you are connection using ISS to parent which do not know ISS
+
+* Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.21-1
+- 483802 - remove conflicts between spacewalk-proxy-common and spacewalk-config
+- 209620 - satellite-debug creates world readable output
+- 479439 - adding better message when trying to downgrade entitelments
+- 481236 - making package downloads work for http
+- 485875 - fixing missing man page options and removed deprecated ones for satsync
+
 * Fri Mar 06 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.20-1
 - Add missing dependency on PyPAM.
 

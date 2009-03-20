@@ -1230,7 +1230,7 @@ public class PackageManager extends BaseManager {
         params.put("nameId", nameId);
         params.put("evrId", evrId);
 
-        if (archId != null) {
+        if (archId != 0) {
             params.put("archId", archId);
             m = ModeFactory.getMode(
                     "Package_queries", "guestimate_package_by_system_arch");

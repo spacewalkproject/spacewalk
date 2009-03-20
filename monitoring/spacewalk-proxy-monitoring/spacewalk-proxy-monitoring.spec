@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.4.2
+Version:      0.4.3
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -10,7 +10,6 @@ Group:        Applications/System
 BuildArch:    noarch
 Obsoletes:    rhns-proxy-monitoring < 5.3.0
 Provides:     rhns-proxy-monitoring
-Conflicts: rhnmd
 Requires: nocpulse-db-perl 
 Requires: eventReceivers 
 Requires: MessageQueue 
@@ -77,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Thu Mar 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
+- 489573 - rhnmd do not conflict with monitoring anymore
+
 * Mon Dec  8 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.2-1
 - fixed Obsoletes: rhns-proxy-monitoring
 

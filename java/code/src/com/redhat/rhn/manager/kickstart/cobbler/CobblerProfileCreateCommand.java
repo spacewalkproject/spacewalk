@@ -16,7 +16,6 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
@@ -63,8 +62,6 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
      */
     public ValidatorError store() {
         CobblerConnection con = getCobblerConnection();
-        
-        KickstartableTree tree = ksData.getTree();
         Distro distro =  getDistroForKickstart();
         
         if (distro == null) {
@@ -85,7 +82,6 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         updateCobblerFields(prof);
 
         invokeCobblerUpdate();
-        Map cProfile = getProfileMap();
         ksData.setCobblerId(prof.getUid());
         return null;
     }
