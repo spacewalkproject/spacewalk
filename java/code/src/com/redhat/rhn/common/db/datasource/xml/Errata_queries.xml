@@ -679,7 +679,7 @@ ORDER BY  E.update_date DESC, E.id
 
 <mode name="clonable_errata_list_all" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="org_id">
-  SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
+  SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
          NVL(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
@@ -699,14 +699,14 @@ ORDER BY  E.update_date DESC, E.id
                   WHERE C.org_id = :org_id
                     AND CC.id = C.id
                     AND CC.original_id = CE.channel_id)
-ORDER BY E.update_date DESC, E.id
+ORDER BY update_date DESC, E.id
   </query>
   <elaborator name="related_channels_owned_by_org"/>
 </mode>
 
 <mode name="clonable_errata_list_uncloned" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="org_id">
-  SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
+  SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
          NVL(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
@@ -736,14 +736,14 @@ ORDER BY E.update_date DESC, E.id
                                WHERE ET.org_id = :org_id
                                  AND EC2.id = ET.id
                                  AND EC2.original_id = E.id)), 0) = 0)
-ORDER BY E.update_date DESC, E.id
+ORDER BY update_date DESC, E.id
   </query>
   <elaborator name="related_channels_owned_by_org"/>
 </mode>
 
 <mode name="clonable_errata_for_channel_all" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="channel_id, org_id">
-  SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
+  SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
          NVL(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
@@ -764,14 +764,14 @@ ORDER BY E.update_date DESC, E.id
                   WHERE C.id = :channel_id
                     AND CC.id = C.id
                     AND CC.original_id = CE.channel_id)
-ORDER BY E.update_date DESC, E.id
+ORDER BY update_date DESC, E.id
   </query>
   <elaborator name="related_channels_owned_by_org"/>
 </mode>
 
 <mode name="clonable_errata_for_channel_uncloned" class="com.redhat.rhn.frontend.dto.ClonableErrataDto">
   <query params="channel_id, org_id">
-  SELECT E.id, E.advisory, E.advisory_type, E.advisory_name,
+  SELECT distinct E.id, E.advisory, E.advisory_type, E.advisory_name,
          E.synopsis, TO_CHAR(E.update_date, 'YYYY-MM-DD') AS update_date,
                   NVL(((SELECT 1
                                 FROM rhnErrata E2, rhnErrataCloned EC
@@ -802,7 +802,7 @@ ORDER BY E.update_date DESC, E.id
                                WHERE ET.org_id = :org_id
                                  AND EC2.id = ET.id
                                  AND EC2.original_id = E.id)), 0) = 0)
-ORDER BY E.update_date DESC, E.id
+ORDER BY update_date DESC, E.id
   </query>
   <elaborator name="related_channels_owned_by_org"/>
 </mode>
