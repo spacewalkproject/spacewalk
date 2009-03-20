@@ -17,12 +17,14 @@ package com.redhat.rhn.frontend.action.configuration.sdc;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.BaseSetListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 
 /**
@@ -58,6 +60,12 @@ public class FileListSetupAction extends BaseSetListAction {
         User user = rctxIn.getLoggedInUser();
         Server server = rctxIn.lookupAndBindServer();
         SdcHelper.ssmCheck(rctxIn.getRequest(), server.getId(), user);
+
+        if (!rctxIn.isSubmitted()) {
+            RhnSet set = getSetDecl().get(rctxIn.getLoggedInUser());
+            set.clear();
+            RhnSetManager.store(set);
+        }
     }
 
 }
