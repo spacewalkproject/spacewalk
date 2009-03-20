@@ -192,13 +192,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					SGM.server_group_id = :sgid
         ]]>
     </sql-query>
-<!-- PGPORT_1:NO Change -->
-    <sql-query name="ServerGroup.lookupInactiveServerIds">
-        <![CDATA[
-				SELECT S.id
-					FROM rhnServerGroupMembers SGM
-				  		inner join rhnServer S on SGM.server_id = s.id
-
     <sql-query name="ServerGroup.lookupInactiveServerIds">
 
 <!-- PGPORT_1:NO Change -->
@@ -207,3 +200,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					FROM rhnServerGroupMembers SGM
 				  		inner join rhnServer S on SGM.server_id = s.id
 				  		inner join rhnServerInfo SI on S.id = SI.server_id
+                WHERE
+                        SI.checkin < (sysdate - :threshold) AND
+                        SGM.server_group_id = :sgid        
+        ]]>
+    </sql-query>                   
+</hibernate-mapping>
