@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.34
+Version: 0.5.35
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -35,6 +35,7 @@ Requires: jasper5
 Requires: jcommon
 Requires: jfreechart >= 1.0.9
 Requires: jpam
+Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
@@ -82,7 +83,8 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jfreechart >= 0:0.9.21
+BuildRequires: jfreechart >= 0:1.0.9
+BuildRequires: jta
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
@@ -139,7 +141,7 @@ Requires: jakarta-commons-configuration
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
-Requires: jfreechart >= 0:0.9.21
+Requires: jfreechart >= 0:1.0.9
 Requires: jpam
 Requires: log4j
 Requires: oscache
@@ -233,6 +235,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.35-1
+- bring over jta from satellite build.
+- fix the jfreechart requires to be 0:1.0.9 everywhere
+
 * Thu Mar 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.34-1
 - ServerFactory - fix wording in method header
 - 486212 - api - added system.deleteCustomValues
