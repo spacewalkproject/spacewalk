@@ -121,10 +121,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     
     private Map getSystemMapByMac() {
         // Build up list of mac addrs
-        Iterator i = server.getNetworkInterfaces().iterator();
         List macs = new LinkedList();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
+        for (NetworkInterface n : server.getNetworkInterfaces()) {
             macs.add(n.getHwaddr().toLowerCase());
         }
 
@@ -236,11 +234,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     protected void processNetworkInterfaces(String handleIn, 
             String xmlRpcTokenIn,
             Server serverIn) {
-        Iterator i = serverIn.getNetworkInterfaces().iterator();
         Map inet = new HashMap();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
-            inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
+            if (!n.getHwaddr().equals("00:00:00:00:00:00")) {
+                    inet.put("macaddress-" + n.getName(), n.getHwaddr());
+            }
         }
         log.debug("Networks: " + inet);
         
