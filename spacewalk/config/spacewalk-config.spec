@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -96,7 +96,7 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
-* Fri Mar 20 2009 Miroslav Suchy <msuchy@redhat.com>
+* Fri Mar 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.7-1
 - edit the spec for Fedora
 
 * Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.6-1
