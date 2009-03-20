@@ -8,7 +8,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -93,6 +93,10 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Fri Mar 20 2009 Michael Mraka <michael.mraka@redhat.com> 10.2.0-25
+- 491320 - extended default size of SYSAUX
+- rebuilt in new build environment
+
 * Wed Feb  4 2009 Jan Pazdziora 10.2.0-24
 - 477812 - only run restorecon in create-db.sh if install-db.sh tells us so
 - 477812 - use -R (Jesus R.)
