@@ -1,7 +1,3 @@
-Source9999: version
-%define oracle_base_version     %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-%define release                 %(echo `awk '{ print $2 }' %{SOURCE9999}`)
-
 %define oracle_base /opt/apps/oracle
 %define oracle_home %{oracle_base}/web/product/%{oracle_base_version}/db_1
 %define oracle_admin %{oracle_base}/admin/%{oracle_base_version}
@@ -11,8 +7,8 @@ Source9999: version
 
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
-Version: %{oracle_base_version}
-Release: %{release}%{?dist}
+Version: 10.2.0
+Release: 24%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
