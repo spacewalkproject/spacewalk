@@ -96,6 +96,9 @@ export NLS_LANG=english.AL32UTF8
 EOF
 
 %changelog
+* Fri Mar 20 2009 Miroslav Suchy <msuchy@redhat.com>
+- edit the spec for Fedora
+
 * Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.6-1
 - 485532 - removing Apache2::SizeLimit instances and manage processes by requestlimit.
 
