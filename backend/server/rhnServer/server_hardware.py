@@ -160,6 +160,9 @@ def cleanse_ip_addr(ip_addr):
         return None
     # Make sure it's a string
     ip_addr = str(ip_addr)
+    # If the ipaddr is empty, jus return empty str
+    if not len(ip_addr):
+        return ''
     arr = ip_addr.split('.')
     # lstrip will remove all leading zeros; if multiple zeros are present, it
     # would remove too much, hence the or '0' here.
