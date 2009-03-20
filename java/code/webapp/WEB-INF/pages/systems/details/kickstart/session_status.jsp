@@ -11,7 +11,9 @@
     <style type="text/css">
 	    .details td, .details th { white-space: nowrap; }
     </style>
-    <script type="text/javascript" src="/javascript/rememberScroll.js"> </script>
+    <c:if test="${not failed and not complete}">
+	<script type="text/javascript" src="/javascript/rememberScroll.js"> </script>
+    </c:if>
 </head>
 <body>
 
