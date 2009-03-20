@@ -185,7 +185,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="errors.maxlength">
-<source>{0} cannot be greater than {1} characters.</source>
+<source>{0} cannot be greater than {1} characters (Note: double byte chars are not supported).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required length fields</context>
           <context context-type="paramnotes">Email cannot be greater than 4 characters</context>
