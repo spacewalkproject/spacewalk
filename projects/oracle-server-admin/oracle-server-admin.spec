@@ -1,7 +1,7 @@
 Summary: Oracle Database Server command-line admin scripts
 Name: oracle-server-admin
 Version: 0.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Source0: admin-wrapper.sh
 License: Oracle License
 Group: Oracle Server
@@ -41,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT
 %{oracle_admin}
 
 %changelog
+* Fri Mar 20 2009 Michael Mraka <michael.mraka@redhat.com> 0.1-12
+- rebuilt in new build environment
+
 * Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-11
 - config files moved to independent package
 
