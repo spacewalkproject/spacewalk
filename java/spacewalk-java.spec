@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.35
+Version: 0.5.36
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,7 +235,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.35-1
+* Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.36-1
 - bring over jta from satellite build.
 - fix the jfreechart requires to be 0:1.0.9 everywhere
 
