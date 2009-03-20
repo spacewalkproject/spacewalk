@@ -140,6 +140,7 @@
         <package>nocpulse-common</package>
         <package>nocpulse-db-perl</package>
         <package>jabberd-selinux</package>
+        <package>rhn-proxy-branding</package>
         <alias>proxy</alias>
       </method-call>
     </activity>

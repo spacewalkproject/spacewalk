@@ -124,6 +124,23 @@
         <package>Time-System</package>
         <package>tsdb</package>
         <package>tsdb_accessor_perl</package>
+        <package>spacewalk-proxy-html</package>
+        <package>spacewalk-ssl-cert-check</package>
+        <package>spacewalk-proxy-common</package>
+        <package>spacewalk-proxy-installer</package>
+        <package>spacewalk-proxy-docs</package>
+        <package>spacewalk-proxy-monitoring</package>
+        <package>spacewalk-backend</package>
+        <package>spacewalk-proxy-package-manager</package>
+        <package>spacewalk-certs-tools</package>
+        <package>spacewalk-proxy-broker</package>
+        <package>spacewalk-proxy-management</package>
+        <package>spacewalk-base-minimal</package>
+        <package>spacewalk-proxy-redirect</package>
+        <package>nocpulse-common</package>
+        <package>nocpulse-db-perl</package>
+        <package>jabberd-selinux</package>
+        <package>rhn-proxy-branding</package>
         <alias>proxy</alias>
       </method-call>
     </activity>
