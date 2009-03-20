@@ -310,8 +310,11 @@ def diff(params):
     diffs = {}
     for file in files:
         path = file['path']
-        if not os.path.isfile(path):
+        if not os.path.exists(path):
             missing_files.append(path)
+            continue
+        if os.path.isdir(path):
+            # We dont support dir diffs, ignore
             continue
 
         diff = fp.diff(file)
