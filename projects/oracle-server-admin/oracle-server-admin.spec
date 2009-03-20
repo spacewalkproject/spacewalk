@@ -1,8 +1,7 @@
 Summary: Oracle Database Server command-line admin scripts
 Name: oracle-server-admin
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 0.1
+Release: 11%{?dist}
 Source0: admin-wrapper.sh
 License: Oracle License
 Group: Oracle Server
