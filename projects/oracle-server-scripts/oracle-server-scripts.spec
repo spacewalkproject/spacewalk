@@ -1,4 +1,5 @@
 %define oracle_base /opt/apps/oracle
+%define oracle_base_version %{version}
 %define oracle_home %{oracle_base}/web/product/%{oracle_base_version}/db_1
 %define oracle_admin %{oracle_base}/admin/%{oracle_base_version}
 %define oracle_config %{oracle_base}/config/%{oracle_base_version}
