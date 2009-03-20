@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="package_detail" invisible="1" 
     formvar="pid" title-depth="1"  acl_mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
-  <rhn-tab name="package.jsp.menu.details" url="/rhn/systems/details/packages/PackageList.do">
+  <rhn-tab name="package.jsp.menu.details" url="/rhn/software/packages/Details.do">
     <rhn-tab name="package.jsp.menu.overview" url="/rhn/software/packages/Details.do"/>
     <rhn-tab name="package.jsp.menu.deps" url="/network/software/packages/dependencies.pxt"/>
     <rhn-tab name="package.jsp.menu.map" url="/network/software/packages/package_map.pxt" acl="package_type_capable(package_map)"/>
