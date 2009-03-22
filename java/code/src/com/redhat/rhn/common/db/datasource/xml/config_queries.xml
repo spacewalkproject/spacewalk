@@ -275,19 +275,28 @@ to the SDC View/Modify files page -->
     </elaborator>
 </mode>
 
-
-
 <mode name="config_managed_systems" class="com.redhat.rhn.frontend.dto.ConfigSystemDto">
   <query name="available_to_user_and_config_managed" params="user_id">
-SELECT  DISTINCT S.id,
-                 S.name
-    FROM  rhnServer S 
-    		inner join  rhnUserServerPerms USP  on S.id = USP.server_id
-    		inner join rhnClientCapability CC on S.id = CC.server_id 
-            inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
-   WHERE  USP.user_id = :user_id	AND
-   		  CCN.name LIKE 'configfiles%'
-ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+SELECT DISTINCT S.id,
+                S.name
+      FROM rhnServer S
+INNER JOIN rhnUserServerPerms USP on S.id = USP.server_id
+INNER JOIN rhnClientCapability CC on S.id = CC.server_id 
+INNER JOIN rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
+     WHERE USP.user_id = :user_id
+       AND CCN.name LIKE 'configfiles%'
+       AND S.id in (
+           SELECT SS.id
+             FROM rhnServer SS,
+                  rhnServerGroupMembers MM,
+                  rhnServerGroup GG,
+                  rhnServerGroupType TT
+            WHERE SS.id = MM.server_id
+              AND MM.server_group_id = GG.id
+              AND GG.group_type = TT.id
+              AND TT.label = 'provisioning_entitled'
+            )
+  ORDER BY UPPER(NVL(S.name, '(none)')), S.id
   </query>
   <elaborator>
 SELECT S.id, 
