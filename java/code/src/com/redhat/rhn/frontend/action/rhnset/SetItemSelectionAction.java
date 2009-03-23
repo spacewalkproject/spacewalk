@@ -69,6 +69,10 @@ public class SetItemSelectionAction extends RhnAction {
         String checked = req.getParameter(CHECKED);
         boolean isOn = checked.equals("on"); 
         
+        if (which == null) {
+            return null;
+        }
+
         if (SessionSetHelper.exists(req, setLabel)) {
             Set<String> set  = SessionSetHelper.lookupAndBind(req, setLabel);
 
