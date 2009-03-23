@@ -809,7 +809,7 @@ public class ChannelManager extends BaseManager {
                                 "api.channel.delete.haschild"));              
             }
             ChannelManager.queueChannelChange(label, 
-                    "java::deleteChannel", user.getLogin());  
+                    user.getLogin(), "java::deleteChannel");
             ChannelFactory.remove(toRemove);            
         }
     }

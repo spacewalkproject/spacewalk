@@ -309,19 +309,19 @@ public class ErrataFactory extends HibernateFactory {
         
         ChannelFactory.save(chan);
         
-        
         List chanList = new ArrayList();
         chanList.add(chan.getId());
         //ErrataCacheManager.updateErrataCacheForChannelsAsync(chanList, user.getOrg());
         ErrataCacheManager.insertCacheForChannelErrataAsync(chanList, errata);
         ChannelManager.refreshWithNewestPackages(chan, "web.errata_push");
-        return errata;   
         
+        // Mark the affected channel to have it's metadata evaluated, where necessary
+        // (RHEL5+, mostly)
+        ChannelManager.queueChannelChange(chan.getLabel(),
+            "java::publishErrataPackagesToChannel", user.getLogin());
         
+        return errata;
     }
-    
-    
-    
     
     /**
      * @param org Org performing the cloning
