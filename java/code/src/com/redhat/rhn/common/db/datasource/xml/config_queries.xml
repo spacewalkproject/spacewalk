@@ -286,13 +286,11 @@ INNER JOIN rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
      WHERE USP.user_id = :user_id
        AND CCN.name LIKE 'configfiles%'
        AND S.id in (
-           SELECT SS.id
-             FROM rhnServer SS,
-                  rhnServerGroupMembers MM,
+           SELECT MM.server_id
+             FROM rhnServerGroupMembers MM,
                   rhnServerGroup GG,
                   rhnServerGroupType TT
-            WHERE SS.id = MM.server_id
-              AND MM.server_group_id = GG.id
+            WHERE MM.server_group_id = GG.id
               AND GG.group_type = TT.id
               AND TT.label = 'provisioning_entitled'
             )
