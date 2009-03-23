@@ -9,8 +9,8 @@
 Summary: Next generation package handling tool
 Name: smartpm
 Source0: smartpm-%{version}.tar.gz
-Version: 0.1
-Release: 0
+Version: 0.2
+Release: 1
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
@@ -59,7 +59,7 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
-* Mon Mar 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.1-0
+* Mon Mar 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.2-1
 - Rebuild from Spacewalk git.
 
 * Mon Jun 23 2005 Joel Martin <jmartin@redhat.com> - 4.0.0-6
