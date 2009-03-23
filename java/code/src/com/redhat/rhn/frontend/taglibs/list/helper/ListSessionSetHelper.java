@@ -15,114 +15,130 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
 
 /**
+ * Used in creating web session backed actions that tie into the "new" list tag (i.e. in the
+ * http://rhn.redhat.com/tags/list taglib namespace).
+ * <p/>
+ * If the user selected items need to be more persistant than simply the session, use
+ * {@link ListRhnSetHelper} instead.
+ *
  * @author paji
- * ListSessionSetHelper.java
  * @version $Rev$
+ * @see ListRhnSetHelper
  */
 public class ListSessionSetHelper extends ListSetHelper {
-    private Set set;
-    private SessionSetHelper helper;
-    private String decl;
-    
+
+    /** Holds on to the user selected items. */
+    private Set<String> set;
+
     /**
-     * constructor
-     * @param inp listable
-     * @param req the servlet request
-     * @param params the parameter map for this request
-     * @param declPrefix the declaration prefix
-     *               needed to make this set declaration unique.
+     * Helper instance, keyed to the request at instantiation, used for working with
+     * the list itself.
      */
-    public ListSessionSetHelper(Listable inp, HttpServletRequest req, 
-                                            Map params, String declPrefix) {
+    private SessionSetHelper helper;
+
+    /** Effectively the name of the data set, used to keep different sets of data unique. */
+    private String decl;
+
+    /**
+     * Creates a new <code>ListSessionSetHelper</code> that will use the given prefix
+     * as the uniqueness indicator for tracking the set data.
+     * <p/>
+     * It is important that if the value chosen for the prefix is unique across all actions
+     * to prevent a conflict in storing user selected values.
+     *
+     * @param inp        listable
+     * @param req        the servlet request
+     * @param params     the parameter map for this request
+     * @param declPrefix the declaration prefix needed to make this set declaration unique
+     */
+    public ListSessionSetHelper(Listable inp, HttpServletRequest req,
+                                Map params, String declPrefix) {
         super(inp, req, params);
         setup(declPrefix);
-        
     }
 
-    
     /**
-     * constructor
-     * @param inp listable
-     * @param req the servlet request
+     * Creates a new <code>ListSessionSetHelper</code> that will attempt to generate
+     * its own unique name for the set combined with the values of the request parameters.
+     * <p/>
+     * Using a combination of a standard prefix (determined by the <code>Listable</code>
+     * parameter value) and parameters helps to scope this instance for a dynamic page.
+     * For instance, if the page is scoped to a particular channel, having the channel ID
+     * in this parameter map will allow the user to work with in the same section of two
+     * different channels without the selections in each list interfering with each other.
+     *
+     * @param inp    listable
+     * @param req    the servlet request
      * @param params the parameter map for this request
      */
     public ListSessionSetHelper(Listable inp, HttpServletRequest req, Map params) {
-        this (inp, req, params, inp.getClass().getName());
+        this(inp, req, params, inp.getClass().getName());
     }
 
 
     /**
-     * constructor
+     * Creates a new <code>ListSessionSetHelper</code> that will attempt to generate
+     * its own unique name for the set. This call is suitable when there are no request
+     * parameters of interest for the page.
+     *
      * @param inp listable
      * @param req the servlet request
      */
     public ListSessionSetHelper(Listable inp, HttpServletRequest req) {
         this(inp, req, Collections.EMPTY_MAP);
     }
-    
-    @Override
-    protected void clear() {
-        set.clear();
-    }
-    
-    /**
-     * Objliterates the set from the session
-     */
-    @Override
-    public void  destroy() {
-        SessionSetHelper.obliterate(getContext().getRequest(), getDecl()); 
-    }
 
-    @Override
-    protected void execute(List dataSet) {
-        helper.execute(set, getListName(), dataSet);
-    }
-    
-    private void setup(String prefix) {
-        RequestContext context = getContext();
-        helper = new SessionSetHelper(context.getRequest());
-        
-        if (StringUtils.isBlank(prefix)) {
-            prefix = getListable().getClass().getName();
-        }
-        decl =  prefix;
-        
-        Map params = getParamMap(); 
-        if (!params.isEmpty()) {
-            decl = decl + params.hashCode();
-        }
-        
-        set = SessionSetHelper.lookupAndBind(context.getRequest(),
-                    decl);
-
+    /** {@inheritDoc} */
+    public void destroy() {
+        SessionSetHelper.obliterate(getContext().getRequest(), getDecl());
     }
 
     /** {@inheritDoc} */
-    @Override
     public String getDecl() {
         return decl;
     }
-    
-    @Override
+
+    /** {@inheritDoc} */
+    public Collection getAddedKeys() {
+        Set preSelected = getPreSelected();
+        Collection result = CollectionUtils.subtract(preSelected, set);
+        return result;
+    }
+
+    /** {@inheritDoc} */
+    public Collection getRemovedKeys() {
+        Set preSelected = getPreSelected();
+        Collection result = CollectionUtils.subtract(set, preSelected);
+        return result;
+    }
+
+    /**
+     * Returns the set that was used to store user selected items. This is the actual set
+     * itself; a copy should be made before attempting to manipulate the contents.
+     *
+     * @return will not be <code>null</code>
+     */
+    public Set<String> getSet() {
+        return set;
+    }
+
+    /** {@inheritDoc} */
     protected Map getSelections() {
-        Map selections = new HashMap<Long, Long>();
+        Map<Long, Long> selections = new HashMap<Long, Long>();
         for (Object id : set) {
             Long item = Long.valueOf(id.toString());
             selections.put(item, item);
@@ -130,45 +146,59 @@ public class ListSessionSetHelper extends ListSetHelper {
         return selections;
     }
 
-    @Override
+    /** {@inheritDoc} */
     protected int size() {
         return set.size();
     }
 
-    @Override
+    /** {@inheritDoc} */
     protected void syncSelections(List dataSet) {
         helper.syncSelections(set, dataSet);
     }
 
-    @Override
+    /** {@inheritDoc} */
     protected void update() {
         helper.updateSet(set, getListName());
     }
-    /**
-     * @return returns the set assoctiated to this class   
-     */
-    public Set <String> getSet() {
-        return set;
-    }
-    
-    @Override
+
+    /** {@inheritDoc} */
     protected void add(Set c) {
         set.addAll(c);
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection getAddedKeys() {
-        return CollectionUtils.subtract(getPreSelected(), set);
+
+    /** {@inheritDoc} */
+    protected void clear() {
+        set.clear();
+    }
+
+    /** {@inheritDoc} */
+    protected void execute(List dataSet) {
+        helper.execute(set, getListName(), dataSet);
     }
 
     /**
-     * {@inheritDoc}
-     */    
-    @Override
-    public Collection getRemovedKeys() {
-        return CollectionUtils.subtract(set, getPreSelected());
-    }    
+     * Initializes this instance, determining the name of the set that will be used
+     * and instantiating it.
+     *
+     * @param prefix basis for the generation of a unique set name
+     */
+    private void setup(String prefix) {
+        RequestContext context = getContext();
+        helper = new SessionSetHelper(context.getRequest());
+
+        if (StringUtils.isBlank(prefix)) {
+            prefix = getListable().getClass().getName();
+        }
+        decl = prefix;
+
+        Map params = getParamMap();
+        if (!params.isEmpty()) {
+            decl = decl + params.hashCode();
+        }
+
+        set = SessionSetHelper.lookupAndBind(context.getRequest(),
+            decl);
+
+    }
+
 }

@@ -36,9 +36,13 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
  * the items selected in the page are stored. For more information, see
  * {@link #setup(RhnSetDecl)} and <a href="https://fedorahosted.org/spacewalk/wiki/ListTag">
  * the Spacewalk wiki.</a>
+ * <p/>
+ * If the user selected items should be stored in a session rather than the database,
+ * use {@link ListSessionSetHelper} instead.
  *
  * @author paji
  * @version $Rev$
+ * @see ListSessionSetHelper
  */
 public class ListRhnSetHelper extends ListSetHelper {
 
