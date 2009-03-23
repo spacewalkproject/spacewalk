@@ -345,7 +345,8 @@ public class ErrataCacheManager extends HibernateFactory {
             count = m.executeUpdate(params, pids);
         }
         if (log.isDebugEnabled()) {
-            log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " + count);
+            log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " + 
+                    count);
         }
 
     }
