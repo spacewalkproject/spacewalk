@@ -60,6 +60,9 @@ env %{__python} setup.py build
 %{python_sitearch}/rhn/actions/solarispkgs.py*
 
 %changelog
+* Mon Mar 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.1-0
+- Rebuild from Spacewalk git.
+
 * Mon Jun 23 2005 Joel Martin <jmartin@redhat.com> - 4.0.0-6
 - Fix Solaris patch db bug
 
