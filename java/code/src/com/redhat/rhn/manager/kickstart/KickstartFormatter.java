@@ -146,6 +146,7 @@ public class KickstartFormatter {
     //wregglej, 9/22/06 Temporary workarounds for a broken wget.
     private static final String CHDIR_OPT_RPMS = "cd /tmp/rhn_rpms/optional ";
     private static final String CHDIR_RPMS = "cd /tmp/rhn_rpms";
+    private static final String REDHAT_MGMT_SERVER = "$redhat_management_server";
 
     private boolean seenNoChroot = false;
     private KickstartData ksdata;
@@ -579,8 +580,8 @@ public class KickstartFormatter {
                     this.ksHost + "] indexof: " + 
                     this.ksHost.indexOf(XMLRPC_HOST));
         }
-        
-        String up2datehost = this.ksHost;
+
+        String up2datehost = REDHAT_MGMT_SERVER;
         //check if server going through RHN Proxy, if so, register through proxy instead
         if (this.session != null && 
                 this.session.getSystemRhnHost() != null &&
