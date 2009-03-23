@@ -9,9 +9,8 @@
 Summary: Next generation package handling tool
 Name: smartpm
 Source0: smartpm-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Version: 0.1
+Release: 0
 License: GPLv2
 Group: Applications/System
 URL: http://www.smartpm.org/
