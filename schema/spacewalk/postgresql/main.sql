@@ -448,6 +448,7 @@ create schema spacewalk;
 /* functions go here */
 \i procs/empty_blob.sql
 \i procs/create_first_org.sql
+\i procs/create_new_user.sql
 \i procs/sequence_nextval.sql
 \i procs/sequence_currval.sql
 \i procs/lookup_package_key_type.sql
