@@ -344,7 +344,9 @@ public class ErrataCacheManager extends HibernateFactory {
             "insert_new_cache_entries_by_packages");
             count = m.executeUpdate(params, pids);
         }
-        log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " + count);
+        if (log.isDebugEnabled()) {
+            log.debug("updateCacheForChannelErrata : " + "cache entries inserted: " + count);
+        }
 
     }
 
@@ -366,7 +368,9 @@ public class ErrataCacheManager extends HibernateFactory {
         Map params = new HashMap();
         params.put("channel_id", cid);
         count = m.executeUpdate(params, eids);
-        log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
+        if (log.isDebugEnabled()) {
+            log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
+        }
     }
     
     /**
@@ -385,7 +389,9 @@ public class ErrataCacheManager extends HibernateFactory {
         Map params = new HashMap();
         params.put("errata_id", eid);
         count = m.executeUpdate(params, pids);
-        log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
+        if (log.isDebugEnabled()) {
+            log.debug("updateCacheForChannelErrata : " + "cache entries deleted: " + count);
+        }
     }
     
 
@@ -404,8 +410,10 @@ public class ErrataCacheManager extends HibernateFactory {
         Map params = new HashMap();
         params.put("channel_id", cid);
         int count = m.executeUpdate(params);
-        log.debug("updateErrataAndPackageCacheForChannel : " + "package_cache deleted: " + 
-                count);
+        if (log.isDebugEnabled()) {
+            log.debug("updateErrataAndPackageCacheForChannel : " + 
+                    "package_cache deleted: " + count);
+        }
 
         // Insert into rhnServerNeededPackageCache
         m = ModeFactory.getWriteMode("ErrataCache_queries",
@@ -413,8 +421,10 @@ public class ErrataCacheManager extends HibernateFactory {
         params = new HashMap();
         params.put("channel_id", cid);
         count = m.executeUpdate(params);
-        log.debug("updateErrataAndPackageCacheForChannel : " + "package_cache inserted: " + 
-                count);
+        if (log.isDebugEnabled()) {
+            log.debug("updateErrataAndPackageCacheForChannel : " + 
+                    "package_cache inserted: " + count);
+        }
 
     }
 
@@ -431,8 +441,10 @@ public class ErrataCacheManager extends HibernateFactory {
         Map params = new HashMap();
         params.put("channel_id", cid);
         int count = m.executeUpdate(params, pids);
-        log.debug("delete_needed_cache_for_channel_packages : " + 
+        if (log.isDebugEnabled()) {
+            log.debug("delete_needed_cache_for_channel_packages : " + 
                 "package_cache deleted: " + count);
+        }
 
     }
     
