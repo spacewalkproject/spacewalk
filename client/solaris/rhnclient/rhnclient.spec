@@ -5,7 +5,6 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Source1: version
 Version: 0.2
 Release: 1
 License: GPLv2
