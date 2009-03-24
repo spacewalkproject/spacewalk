@@ -15,7 +15,7 @@
 
     <!-- Username/password to authenticate as -->
     <user>jabberd</user>          <!-- default: jabberd -->
-    <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>           <!-- default: secret -->
+    <pass>@@pass@@</pass>           <!-- default: secret -->
 
     <!-- File containing an SSL certificate and private key to use when
          setting up an encrypted channel with the router. From
@@ -121,7 +121,7 @@
          still be useful to allow clients to change their password. If
          you want this, add this attribute when you disable registration.
           -->
-    <id realm='' require-starttls='true' pemfile='/etc/pki/spacewalk/jabberd/server.pem'>@@jabberDOThostname@@</id>
+    <id realm='' register-enable='true' require-starttls='false' pemfile='/etc/pki/spacewalk/jabberd/server.pem'>@@jabberDOThostname@@</id>
     <!-- or
     <id realm='company.int'
         pemfile='/etc/pki/spacewalk/jabberd/server.pem'
@@ -321,7 +321,7 @@
     <path>/usr/lib/jabberd</path>
 
     <!-- Backend module to use -->
-    <module>pam</module>
+    <module>sqlite</module>
 
     <!-- Available authentication mechanisms -->
     <mechanisms>
