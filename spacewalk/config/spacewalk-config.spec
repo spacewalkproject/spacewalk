@@ -18,6 +18,8 @@ Requires(post): chkconfig
 Requires(preun): chkconfig
 # This is for /sbin/service
 Requires(preun): initscripts
+# this is so we can set the password consistently across all jabberd configs
+Requires(pre): jabberd
 
 %define prepdir %{_sysconfdir}/sysconfig/rhn-satellite-prep
 
@@ -95,7 +97,28 @@ export ORACLE_HOME=/opt/oracle
 export NLS_LANG=english.AL32UTF8
 EOF
 
+if [ "$1" -eq "1" ]; then
+        #replace default passwords, yes its kinda hackish 
+        export NEWPASS=$( dd if=/dev/urandom bs=20 count=1 2>/dev/null \
+                                | sha1sum | awk '{print $1}' )
+        pushd %{sysconfdir}/jabberd/
+        %{__sed} -i -f- %{sysconfdir}/jabberd/*.xml <<END
+s,<secret>.*</secret>,<secret>$NEWPASS</secret>,g
+END
+        %{__sed} -i -f- %{sysconfdir}/jabberd/*.xml <<END
+s,<pass>.*</pass>,<pass>$NEWPASS</pass>,g
+END
+        %{__sed} -i -f- %{_sysconfdir}/sysconfig/rhn-satellite-prep/etc/jabberd/*.xml <<END
+s,<pass>@@pass@@</pass>,<pass>$NEWPASS</pass>,g
+END
+
+fi
+
+
 %changelog
+* Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 
+- Requires(pre) jabberd so we can set the password in %%post
+
 * Fri Mar 20 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.7-1
 - edit the spec for Fedora
 
