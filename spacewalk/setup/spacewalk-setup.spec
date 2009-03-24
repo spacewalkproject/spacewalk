@@ -65,7 +65,7 @@ install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
 # jabberd ssl cert location
-install -d -m 755 %{buildroot}/%{_sysconfdir}/spacewalk/jabberd
+install -d -m 755 %{buildroot}/%{_sysconfdir}/pki/spacewalk/jabberd
 
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
@@ -90,8 +90,8 @@ rm -rf %{buildroot}
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
-%dir %{_sysconfdir}/spacewalk
-%dir %{_sysconfdir}/spacewalk/jabberd
+%dir %{_sysconfdir}/pki/spacewalk
+%dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
 * Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 
