@@ -101,11 +101,10 @@ if [ "$1" -eq "1" ]; then
         #replace default passwords, yes its kinda hackish 
         export NEWPASS=$( dd if=/dev/urandom bs=20 count=1 2>/dev/null \
                                 | sha1sum | awk '{print $1}' )
-        pushd %{sysconfdir}/jabberd/
-        %{__sed} -i -f- %{sysconfdir}/jabberd/*.xml <<END
+        %{__sed} -i -f- %{_sysconfdir}/jabberd/*.xml <<END
 s,<secret>.*</secret>,<secret>$NEWPASS</secret>,g
 END
-        %{__sed} -i -f- %{sysconfdir}/jabberd/*.xml <<END
+        %{__sed} -i -f- %{_sysconfdir}/jabberd/*.xml <<END
 s,<pass>.*</pass>,<pass>$NEWPASS</pass>,g
 END
         %{__sed} -i -f- %{_sysconfdir}/sysconfig/rhn-satellite-prep/etc/jabberd/*.xml <<END
