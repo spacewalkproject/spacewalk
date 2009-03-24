@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -56,6 +56,10 @@ fi
 %files
 
 %changelog
+* Tue Mar 24 2009 Jan Pazdziora 10.2-8
+- make the package noarch since we use wildcards in path
+- 491849 - losen the version specification of the Oracle InstantClient
+
 * Mon Feb  9 2009 Jan Pazdziora 10.2-7
 - add texrel_shlib_t to libsqlplus.so
 
