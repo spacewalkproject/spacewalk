@@ -37,6 +37,7 @@ use DateTime;
 use Sys::Hostname;
 use Getopt::Long;
 use Spacewalk::Setup;
+use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 
 use RHN::SatInstall;
 use RHN::SatCluster;
@@ -1120,6 +1121,14 @@ sub setup_monitoring {
 
   my $scout_shared_key = RHN::SatCluster->fetch_key($scout->recid);
   write_config({ monitoringDOTscout_shared_key => $scout_shared_key }, Spacewalk::Setup::DEFAULT_SATCON_DICT);
+
+  # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
+  # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
+  # here. This made it impossible for us to succesfully call `stty -echo`
+  # later in the code. Following two lines work around the problem.
+
+  my $flags = fcntl(STDIN, F_GETFD, 0);
+  fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
   
   return 1;
 }
