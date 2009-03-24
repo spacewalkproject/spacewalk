@@ -885,6 +885,16 @@ sub populate_initial_configs {
         $charset = $nls_database_paramaters{NLS_CHARACTERSET};
     }
 
+    # Define some db specific settings:
+    my $hibernate_dialect = "org.hibernate.dialect.Oracle9iDialect";
+    my $hibernate_driver = "oracle.jdbc.driver.OracleDriver";
+    my $hibernate_url = "jdbc:oracle:thin:@" . $answers->{"db-host"} . ":" . $answers->{"db-port"} . ":" . $answers->{"db-sid"};
+    if ($answers->{'db-backend'} eq 'postgresql') {
+        $hibernate_dialect = "org.hibernate.dialect.PostgreSQLDialect";
+        $hibernate_driver = "org.postgresql.Driver";
+        $hibernate_url = "jdbc:postgresql://" . $answers->{"db-host"} . ":" . $answers->{"db-port"} . "/" . $answers->{"db-sid"};
+    }
+
     my %config_opts =
     (
         mount_point => $answers->{'mount-point'} || '/var/satellite',
@@ -905,6 +915,9 @@ sub populate_initial_configs {
         db_sid => $answers->{'db-sid'},
         db_host => $answers->{'db-host'},
         db_port => $answers->{'db-port'},
+        hibernate_dialect => $hibernate_dialect,
+        hibernate_driver => $hibernate_driver,
+        hibernate_url => $hibernate_url,
         traceback_mail => $answers->{'admin-email'},
         jabberDOTusername => 'rhn-dispatcher-sat',
         jabberDOTpassword => 'rhn-dispatcher-' . random_password(6),
