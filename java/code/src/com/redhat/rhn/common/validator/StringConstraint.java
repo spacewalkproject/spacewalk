@@ -56,7 +56,7 @@ public class StringConstraint extends RequiredIfConstraint {
     
     private boolean lengthLessThan(String str, Number length) {
         try {
-            return str.getBytes("UTF8").length < length.intValue();    
+            return str.getBytes("UTF8").length <= length.intValue();    
         }
         catch (UnsupportedEncodingException use) {
             log.warn("Couldn;t convert to UTF8-> [" + str + "]");
@@ -89,7 +89,8 @@ public class StringConstraint extends RequiredIfConstraint {
         if (hasMaxLength()) {
             log.debug("HasMaxlength ..");
             if (!(lengthLessThan(strValue, getMaxLength()))) {
-                log.debug("Above max length: " + strValue.length() + " data: " + strValue);
+                log.debug("Above max length: " + strValue.length() + " data: " + strValue + 
+                        "max length: " + getMaxLength());
                 Object[] args = new Object[2];
                 args[0] = localizedIdentifier;                
                 args[1] = getMaxLength();

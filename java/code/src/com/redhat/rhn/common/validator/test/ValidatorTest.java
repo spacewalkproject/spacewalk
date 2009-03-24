@@ -79,6 +79,8 @@ public class ValidatorTest extends TestCase {
         assertNotNull(validator.isValid("stringField", to));
         to.setStringField("    ");
         assertNotNull(validator.isValid("stringField", to));
+        to.setTwoCharField("it");
+        assertNull(validator.isValid("twoCharField", to));
     }
     
     public void testASCIIString() throws Exception {
