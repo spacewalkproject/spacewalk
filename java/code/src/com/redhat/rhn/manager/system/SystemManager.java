@@ -1278,9 +1278,6 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("server_id", sid);
 
-        // freakin hibernate can't do a simple bulk delete statement unless
-        // it uses HQL!
-        ServerFactory.deproxify(server);
         executeWriteMode("Monitoring_queries",
                 "delete_probe_states_from_server", params);
         executeWriteMode("Monitoring_queries",
@@ -1289,6 +1286,11 @@ public class SystemManager extends BaseManager {
                 "delete_probes_from_server", params);
         executeWriteMode("Monitoring_queries",
                 "delete_sat_cluster_for_server", params);
+        
+        // freakin hibernate can't do a simple bulk delete statement unless
+        // it uses HQL!
+        server = (Server) HibernateFactory.reload(server);
+        ServerFactory.deproxify(server);
     }
     
     private static int executeWriteMode(String catalog, String mode, Map params) {
