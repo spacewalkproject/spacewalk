@@ -470,7 +470,7 @@ public class ErrataManager extends BaseManager {
                     oe.getId().longValue(), user.getOrg().getId(), null);
             for (Iterator chanItr = channels.iterator(); chanItr.hasNext();) {
                 Map chan = (Map)chanItr.next();
-                String lbl = chan.get("channel_label").toString();
+                String lbl = chan.get("label").toString();
                 ChannelManager.queueChannelChange(lbl, 
                         "java::deleteErrata", oe.getAdvisory());
             }
