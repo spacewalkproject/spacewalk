@@ -43,6 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
+%attr(755,root,root) %{_bindir}/rhn-sudo-ssl-tool
 %attr(755,root,root) %{_bindir}/rhn-ssl-tool
 %attr(755,root,root) %{_bindir}/rhn-bootstrap
 %doc %{_mandir}/man1/rhn-*.1*
