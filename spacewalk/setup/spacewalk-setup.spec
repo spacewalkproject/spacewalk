@@ -64,6 +64,9 @@ install -m 0644 share/ssl.conf.5 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
+# jabberd ssl cert location
+install -d -m 755 %{buildroot}/%{_sysconfdir}/spacewalk/jabberd
+
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
 install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
@@ -87,9 +90,13 @@ rm -rf %{buildroot}
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
-
+%dir %{_sysconfdir}/spacewalk
+%dir %{_sysconfdir}/spacewalk/jabberd
 
 %changelog
+* Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 
+- write jabberd server.pem to /etc/pki/spacewalk/jabberd
+
 * Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
 
