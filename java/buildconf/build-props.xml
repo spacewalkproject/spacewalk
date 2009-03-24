@@ -55,14 +55,15 @@
              commons-el commons-lang commons-logging commons-validator hibernate3
              mailapi smtp jasper5-compiler jasper5-runtime jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
-             bcprov bcpg jcommon stringtree-json
+             bcprov bcpg jcommon stringtree-json postgresql-jdbc
              jfreechart taglibs-core logdriver quartz
              commons-fileupload concurrent velocity" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap" />
+             regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap 
+             postgresql-jdbc" />
 
   <property name="build.jar.dependencies"
       value="ant ant-junit ant-contrib antlr 
@@ -95,7 +96,7 @@
              commons-el commons-lang commons-logging commons-validator hibernate3
              jasper5-compiler jasper5-runtime javamail jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
-             jcommon stringtree-json
+             jcommon stringtree-json postgresql-jdbc
              jfreechart taglibs-core quartz
              commons-fileupload concurrent" />
 
@@ -108,7 +109,7 @@
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
              oro oscache quartz sitemesh struts taglibs-core
-             taglibs-standard tanukiwrapper 
+             taglibs-standard tanukiwrapper  postgresql-jdbc
              xalan-j2 xerces-j2 xml-commons-apis" />
 
   <path id="bootjars">
