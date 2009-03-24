@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 #
-# Copyright (c) 2008 Red Hat, Inc.
+# Copyright (c) 2008,2009 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
@@ -603,7 +603,7 @@ sub setup_ssl_certs {
 
   Spacewalk::Setup::generate_server_pem(-ssl_dir => $answers->{'ssl-dir'},
 		      -system => $system_name,
-		      -out_file => '/etc/jabberd/server.pem');
+		      -out_file => '/etc/pki/spacewalk/jabberd/server.pem');
 
   store_ssl_cert(-ssl_dir => $answers->{'ssl-dir'});
 }

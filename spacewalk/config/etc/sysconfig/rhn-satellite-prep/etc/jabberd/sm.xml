@@ -2,14 +2,12 @@
 <sm>
   <!-- Our ID on the network. Users will have this as the domain part of
        their JID. If you want your server to be accessible from other
-       Jabber servers, this ID must be resolvable by DNS.s
-       (default: localhost) -->
+       Jabber servers, this ID must be FQDN resolvable by DNSes -->
   <id>@@jabberDOThostname@@</id>
 
-  <!-- The process ID file. comment this out if you don't need to know
-       to know the process ID from outside the process (eg for control
-       scripts) -->
-  <pidfile>/var/run/jabberd/jabberd-sm.pid</pidfile>
+  <!-- The process ID file. Comment this out if you don't need to know
+       the process ID from outside the process (eg for control scripts) -->
+  <pidfile>/var/lib/jabberd/pid/sm.pid</pidfile>
 
   <!-- Router connection configuration -->
   <router>
@@ -19,14 +17,19 @@
 
     <!-- Username/password to authenticate as -->
     <user>jabberd</user>          <!-- default: jabberd -->
-    <pass>secret</pass>           <!-- default: secret -->
+    <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>           <!-- default: secret -->
 
-    <!-- File containing a SSL certificate and private key to use when
-         setting up an encrypted channel with the router. If this is
-         commented out, or the file can't be read, no attempt will be
-         made to establish an encrypted channel with the router. -->
+    <!-- File containing an SSL certificate and private key to use when
+         setting up an encrypted channel with the router. From
+         SSL_CTX_use_certificate_chain_file(3): "The certificates must be
+         in PEM format and must be sorted starting with the subject's
+         certificate (actual client or server certificate), followed
+         by intermediate CA certificates if applicable, and ending
+         at the highest level (root) CA" (the latter one being optional).
+         If this is commented out, or the file can't be read, no attempt
+         will be made to establish an encrypted channel with the router. -->
     <!--
-    <pemfile>/etc/jabberd/server.pem</pemfile>
+    <pemfile>/etc/pki/spacewalk/jabberd/server.pem</pemfile>
     -->
 
     <!-- Router connection retry -->
@@ -59,20 +62,40 @@
 
     <!-- If logging to file, this is the filename of the logfile -->
     <!--
-    <file>/var/log/jabberd/sm.log</file>
+    <file>/var/lib/jabberd/log/sm.log</file>
     -->
   </log>
 
   <!-- Storage database configuration -->
   <storage>
+    <!-- Dynamic storage modules path -->
+    <path>/usr/lib/jabberd</path>
+
     <!-- By default, we use the MySQL driver for all storage -->
     <driver>db</driver>
 
     <!-- Its also possible to explicitly list alternate drivers for
          specific data types. -->
-    <!-- Store vcards in a PostgreSQL database instead -->
+
+    <!-- Store vcards in a ldapvcard database instead -->
     <!--
-    <driver type='vcard'>pgsql</driver>
+    <driver type='vcard'>ldapvcard</driver>
+    -->
+
+    <!-- Read mapping for group id <-> group name from ldap.
+         Used by mod_published_roster.
+         See ldapvcard section for options.
+         When resolving group id to group name, it searches for
+         groupsobjectclass objects at groupsdn base using group id
+         (in groupsidattr) as key and returns the first value of 
+         groupattr of first found entry.
+         E.g.. in general case, if group id is "some-dep", and groupsdn
+         is o=org, and class is jabberGroup, it searches for
+         (&(objectClass=jabberGroup)(cn=some-dep)) and returns value of
+         jabberPublishedItem attribute, which may contain textual description.
+         -->
+    <!--
+    <driver type='published-roster-groups'>ldapvcard</driver>
     -->
 
     <!-- MySQL driver configuration -->
@@ -86,7 +109,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>secret</pass>
+      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
 
       <!-- Transacation support. If this is commented out, transactions
            will be disabled. This might make database accesses faster,
@@ -100,6 +123,14 @@
 
     <!-- PostgreSQL driver configuration -->
     <pgsql>
+      <!-- PostgreSQL connection info.
+           For the rest of the options see
+           http://www.postgresql.org/docs/8.0/interactive/libpq.html -->
+      <conninfo>dbname=jabberd2 user=jabberd2 password=secret</conninfo>
+
+      <!-- Alternatively you may set connection settings separately.
+           These are used only in absence of 'conninfo' -->
+
       <!-- Database server host and port -->
       <host>localhost</host>
       <port>5432</port>
@@ -109,7 +140,7 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>secret</pass>
+      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
 
       <!-- Transacation support. If this is commented out, transactions
            will be disabled. This might make database accesses faster,
@@ -117,16 +148,134 @@
       <transactions/>
     </pgsql>
 
-    <!-- Berkeley DB driver configuration -->
+    <!-- Berkeley DB driver configuration.  This does not support roster
+         maxitems or offline userquota (because the mod_roster
+         implementation does not implement the 'count' callback). -->
     <db>
       <!-- Directory to store database files under -->
-      <path>/var/lib/jabberd</path>
+      <path>/var/lib/jabberd/db</path>
 
       <!-- Synchronize the database to disk after each write. If you
            disable this, database accesses may be faster, but data may
            be lost if jabberd crashes. -->
       <sync/>
     </db>
+
+    <!-- Oracle driver configuration -->
+    <oracle>
+      <!-- Database server host and port. -->
+      <host>localhost</host>
+      <port>1521</port>
+
+      <!-- Database name -->
+      <dbname>jabberd2</dbname>
+
+      <!-- Database username and password -->
+      <user>jabberd2</user>
+      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
+    </oracle>
+
+    <!-- SQLite driver configuration -->
+    <sqlite>
+      <!-- Database name -->
+      <dbname>/var/lib/jabberd/db/sqlite.db</dbname>
+
+      <!-- Transacation support. If this is commented out, transactions
+           will be disabled. This might make database accesses faster,
+           but data may be lost if jabberd crashes. -->
+      <transactions/>
+
+      <!-- SQLite busy-timeout in milliseconds. -->
+      <busy-timeout>2000</busy-timeout>
+    </sqlite>
+
+    <!-- Filesystem driver configuration -->
+    <fs>
+      <!-- Directory to store database files under. -->
+      <path>/var/lib/lib/jabberd2/fs</path>
+    </fs>
+
+    <!-- LDAPVCARD driver configuration -->
+    <ldapvcard>
+      <!-- LDAP server host and port (default: 389) -->
+      <uri>ldap://localhost/ ldaps://ldap.example.com/</uri>
+      
+      <!-- DN to bind as for searches. If unspecified, the searches
+           will be done anonymously. -->
+      <!--
+      <binddn>cn=Directory Manager</binddn>
+      <bindpw>secret</bindpw>
+      -->
+
+      <!-- see authreg.ldapfull int c2s.xml for description. -->
+      <!--
+      <type>ad</type>
+      -->
+
+      <!-- LDAP attribute that holds the user ID (default: uid) -->
+      <uidattr>uid</uidattr>
+      <objectclass>posixAccount</objectclass>
+      <pwattr>userPassword</pwattr>
+      <!-- if you use included jabberd.schema use this:
+      <uidattr>jid</uidattr>
+      <objectclass>jabberUser</objectclass>
+      <pwattr>jabberPassword</pwattr>
+      -->
+
+      <!-- see authreg.ldapfull int c2s.xml for description. -->
+      <!--
+      <validattr>valid</validattr>
+      -->
+
+      <!-- base DN of the tree. You should specify a DN for each
+           authentication realm declared in the <local/> section above,
+           by using the realm attribute. -->
+      <basedn>o=Example Corp.</basedn>
+
+      <!-- attribute that holds published group name or id,
+           jabberPublishedGroup if not set -->
+      <!--
+      <groupattr>jabberPublishedGroup</groupattr>
+      -->
+
+      <!-- boolean attribute that tells, publish or not this user
+           jabberPublishedItem by default -->
+      <!--
+      <publishedattr>jabberPublishedItem</publishedattr>
+      -->
+
+      <!-- If value specified, then keep cache of "published-roster"
+           database. Cache is renewed when kept more seconds than value
+           specified. Setting this value increases perfomance of publishing
+           roster. If not specified, then we don't keep cache. -->
+      <publishedcachettl>60</publishedcachettl>
+
+      <mapped-groups>
+        <!-- If turned on, then reading mapping of group ids to names with
+             LDAP will works. -->
+        <!--
+        <map-groups/>
+        -->
+
+        <!-- base for searches for group id to group name mappings -->
+        <basedn>ou=jabbergroups, o=Example Corp.</basedn>
+
+        <!-- what objectclass to search, jabberGroup by default -->
+        <!--
+        <objectclass>jabberGroup</objectclass>
+        -->
+
+        <!-- what attribute to search, cn by default -->
+        <!--
+        <idattr>cn</idattr>
+        -->
+
+        <!-- attribute with text group name, description by default -->
+        <!--
+        <nameattr>description</nameattr>
+        -->
+      </mapped-groups>
+    </ldapvcard>
   </storage>
 
   <!-- Access control information -->
@@ -134,14 +283,14 @@
     <!-- The JIDs listed here will get access to all restricted
          functions, regardless of restrictions further down -->
     <acl type='all'>
-      <jid>admin@localhost</jid>
+      <jid>admin@localhost.localdomain</jid>
     </acl>
 
     <!-- These JIDs can send broadcast messages (announce, motd) -->
     <!--
     <acl type='broadcast'>
-      <jid>nocstaff1@localhost</jid>
-      <jid>nocstaff2@localhost</jid>
+      <jid>nocstaff1@localhost.localdomain</jid>
+      <jid>nocstaff2@localhost.localdomain</jid>
     </acl>
     -->
 
@@ -149,14 +298,14 @@
          (help requestes and such) -->
     <!--
     <acl type='messages'>
-      <jid>support@localhost</jid>
+      <jid>support@localhost.localdomain</jid>
     </acl>
     -->
 
     <!-- These JIDs can discover active user/session information -->
     <!--
     <acl type='disco'>
-      <jid>webstatus@localhost</jid>
+      <jid>webstatus@localhost.localdomain</jid>
     </acl>
     -->
   </aci>
@@ -176,16 +325,21 @@
        this may cause strange behaviour. Make sure you know what you're
        doing. -->
   <modules>
+    <!-- Dynamic sm modules path -->
+    <path>/usr/lib/jabberd</path>
 
     <!-- sess-start. The modules in this chain are called when a session
          is first started (usually on request by c2s as part of the
          authentication process). This is normally used to load
          per-session data. -->
-    <chain id='sess-start'/>
+    <chain id='sess-start'>
+      <module>status</module>           <!-- record status information -->
+    </chain>
 
     <!-- sess-end. The modules in this chain are called just before a
          session is destroyed (after the client has disconnected). -->
     <chain id='sess-end'>
+      <module>status</module>           <!-- update status information -->
       <module>iq-last</module>          <!-- update logout time -->
     </chain>
 
@@ -195,12 +349,15 @@
          this is usually handled by the "deliver" module. -->
     <chain id='in-sess'>
       <module>validate</module>         <!-- validate packet type -->
+      <module>status</module>           <!-- update status information -->
       <module>privacy</module>          <!-- manage privacy lists -->
       <module>roster</module>           <!-- handle roster get/sets and s10ns -->
       <module>vacation</module>         <!-- manage vacation settings -->
       <module>iq-vcard</module>         <!-- store and retrieve the user's vcard -->
+      <module>iq-ping</module>          <!-- return the server ping -->
       <module>iq-private</module>       <!-- manage the user's private data store -->
       <module>disco</module>            <!-- respond to agents requests from sessions -->
+      <module>amp</module>              <!-- advanced message processing -->
       <module>offline</module>          <!-- if we're coming online for the first time, deliver queued messages -->
       <module>announce</module>         <!-- deliver motd -->
       <module>presence</module>         <!-- process and distribute presence updates -->
@@ -236,12 +393,16 @@
          session-manager-wide services (like service discovery). -->
     <chain id='pkt-sm'>
       <module>iq-last</module>          <!-- return the server uptime -->
+      <module>iq-ping</module>          <!-- return the server ping -->
       <module>iq-time</module>          <!-- return the current server time -->
       <module>iq-version</module>       <!-- return the server name and version -->
+      <module>amp</module>              <!-- advanced message processing -->
       <module>disco</module>            <!-- build the disco list; respond to disco queries -->
       <module>announce</module>         <!-- send broadcast messages (announce, motd, etc) -->
       <module>help</module>             <!-- resend sm messages to administrators -->
       <module>echo</module>             <!-- echo messages sent to /echo -->
+      <module>status</module>           <!-- track status information -->
+      <module>presence</module>         <!-- proces server presence subscriptions -->
     </chain>
 
     <!-- pkt-user. The modules in this chain are called when a packet
@@ -253,6 +414,7 @@
       <module>roster</module>           <!-- handle s10n responses -->
       <module>presence</module>         <!-- process and distribute incoming presence from external entities -->
       <module>iq-vcard</module>         <!-- grab user vcards -->
+      <module>amp</module>              <!-- advanced message processing -->
       <module>deliver</module>          <!-- deliver the packet to an active session if we can -->
       <module>vacation</module>         <!-- send vacation messages -->
       <module>offline</module>          <!-- save messages and s10ns for later -->
@@ -264,7 +426,7 @@
          special-purpose packet arrives from the router (eg domain
          advertisements). -->
     <chain id='pkt-router'>
-      <module>session</module>          <!-- take sessions offline their c2s disappears -->
+      <module>session</module>          <!-- take sessions offline if their c2s disappears -->
       <module>disco</module>            <!-- query new components for service information -->
     </chain>
 
@@ -274,6 +436,7 @@
     <chain id='user-load'>
       <module>active</module>           <!-- get active status -->
       <module>roster</module>           <!-- load the roster and trust list -->
+      <module>roster-publish</module>   <!-- load the published roster -->
       <module>privacy</module>          <!-- load privacy lists -->
       <module>disco-publish</module>    <!-- load published information -->
       <module>vacation</module>         <!-- load vacation settings -->
@@ -300,9 +463,19 @@
       <module>privacy</module>          <!-- delete privacy lists -->
       <module>roster</module>           <!-- delete roster -->
       <module>vacation</module>         <!-- delete vacation settings -->
+      <module>status</module>           <!-- delete status information -->
       <module>iq-last</module>          <!-- delete last logout time -->
       <module>iq-private</module>       <!-- delete private data -->
       <module>iq-vcard</module>         <!-- delete vcard -->
+    </chain>
+
+    <!-- disco-extend. The modules in this chain are called when a disco
+         info request is send to session manager. It implements XEP-0128
+	 Service Discovery Extensions mechanizm to add additional
+	 information to disco#info reply. -->
+    <chain id='disco-extend'>
+      <module>iq-version</module>       <!-- add XEP-xxxx Software Information -->
+      <module>help</module>             <!-- add XEP-0157 Contact Addresses -->
     </chain>
 
   </modules>
@@ -327,7 +500,7 @@
     <!-- Static service list.
 
          The discover module can discover disco-capable services
-         automatically as they come online. Most legacy services,
+         automatically as they come online. Most XEP-0114 components,
          however, will not support discovery. In order to get them to
          appear in disco/agents lists returned to the client, they
          should be listed here.
@@ -353,6 +526,29 @@
 
     </items>
 
+    <!-- Server information added to server discovery information
+         in http://jabber.org/network/serverinfo jabber:x:data form. (XEP-0157)
+
+         May contain many values per item -->
+    <!--
+    <serverinfo>
+      <admin-addresses>
+        <value>mailto:xmpp@localhost.localdomain</value>
+        <value>xmpp:admins@localhost.localdomain</value>
+      </admin-addresses>
+      <abuse-addresses>
+        <value>mailto:abuse@localhost.localdomain</value>
+        <value>xmpp:abuse@localhost.localdomain</value>
+      </abuse-addresses>
+      <feedback-addresses>
+        <value>http://example.org/feedback.php</value>
+      </feedback-addresses>
+      <sales-addresses/>
+      <security-addresses/>
+      <support-addresses/>
+    </serverinfo>
+    -->
+
   </discovery>
 
   <!-- User options -->
@@ -371,10 +567,153 @@
     <!-- Templates. If defined, the contents of these files will be
          stored in the users data store when they are created. -->
     <template>
+      <!-- Uncomment <publish> if you wish to forcely publish
+           roster template from ldap on each user login -->
+      <!--
+      <publish>
+      -->
+        <!-- If <check-remove-domain> given, then published contact checked
+               against sm user database and if user is unknown to sm, contact
+               will be deleted from user's roster (if it is in roster). -->
+        <!--
+        <check-remove-domain>jabber.example.com</check-remove-domain>
+        -->
+        <!-- Keep cache of "active" database specified number of seconds.
+             This will significantly speed up publishing of roster.
+             If unspecified or 0, no cache is used. -->
+        <active-cache-ttl>60</active-cache-ttl>
+        <!-- If <fix-subscriptions/> is not commented, set subscriptions of
+             user's contacts to subscriptions of corresponding published
+             contacts. As for now, "both". -->
+        <!--
+        <fix-subscriptions/>
+        -->
+        <!-- If <override-names/> is not commented, then displayed names of
+             contacts in user's roster will be updated accordingly to
+             published roster (if they differ). If commented, then user can
+             rename contacs in roster -->
+        <!--
+        <override-names/>
+        -->
+        <!-- when mapped-groups is on (<map-groups/> is uncommented, the actual
+             group names for published contacts are read from
+             published-roster-groups storage type, which in turn may be mapped
+             to ldapvcard driver. The key for searching is published user's
+             group, and returned value is used as group name. So you can assign
+             textual group IDs to users rather then group names.
+             group-cache-ttl keeps cache of mapping group id <-> group name for
+             specified number of seconds. If unspecified or 0, no cache is used.
+             -->
+        <!--
+        <mapped-groups/>
+          <map-groups/>
+          <group-cache-ttl>120</group-cache-ttl>
+        </mapped-groups>
+        -->
+        <!-- If <force-groups> is commented out, published roster's contact
+             added to user's roster only when user does not have this contact.
+             If <force-groups> is not commented out, then these checks performed
+             against roster item when publishing roster item that already in
+             user's roster:
+               If user already has added his roster's contact to group of
+               published contact, no changes are made with this group (note
+               that contact may be in more than one group).
+               If <prefix> given, then prefix of each group of user's compared
+               whith given prefix, and if it matches, user's contact removed from
+               matched group (see below).
+               Same for <suffix>.
+               After that, user's contact added to a group of published roster's
+               contact.
+             In other words, all groups of updated contact, that match prefix
+             or suffix, replaced with group of published contact.
+             This is done because there is no way to determine that group was
+             published or greated by user. -->
+        <!--
+        <force-groups>
+          <prefix>MyOrg.</prefix>
+          <suffix>(MyOrg)</suffix>
+        </force-groups>
+        -->
+      <!--
+      </publish>
+      -->
+
+      <!-- If you defined publish, you should comment <roster> -->
       <!--
       <roster>/etc/jabberd/templates/roster.xml</roster>
       -->
     </template>
   </user>
 
+  <!-- Advanced Message Processing module configuration -->
+  <amp>
+    <!-- You can disable some actions -->
+    <!--
+    <disableactions>
+      <drop/>
+      <error/>
+      <alert/>
+      <notify/>
+    </disableactions>
+    -->
+
+    <!-- You can disable some conditions -->
+    <!--
+    <disableconditions>
+      <expireat/>
+      <matchresource/>
+      <deliver/>
+    </disableconditions>
+    -->
+
+    <!-- You need to enable this if your server has offline storage disabled -->
+    <!--
+    <offlinestoragedisabled/>
+    -->
+  </amp>
+
+  <!-- Offline module configuration -->
+  <offline>
+    <!-- Do not store messages in offline store -->
+    <!--
+    <dropmessages/>
+    -->
+
+    <!-- Store headline messages in offline store -->
+    <!--
+    <storeheadlines/>
+    -->
+
+    <!-- Do not store subscription requests in offline store -->
+    <!--
+    <dropsubscriptions/>
+    -->
+
+    <!-- Offline storage message quota.
+         Specifies how many messages will be stored in user offline store -->
+    <!--
+    <userquota>500</userquota>
+    -->
+  </offline>
+
+  <!-- roster module configuration -->
+  <roster>
+    <!-- maximum items per user roster -->
+    <!--
+    <maxitems>100</maxitems>
+    -->
+  </roster>
+
+  <!-- status module configuration -->
+  <status>
+    <!-- presence service resource
+         disabled when commented out -->
+    <!--
+    <resource>webstatus</resource>
+    -->
+  </status>
+
 </sm>
+<!--
+  vim: syntax=xml
+-->
