@@ -55,6 +55,12 @@ public class ExceptionTranslator extends Translations {
         e.setStackTrace(cause.getStackTrace());
     }
 
+    /**
+     * Convert from PSQLException to some RuntimeException sub-class.
+     * 
+     * @param e Exception to translate.
+     * @return Translated RuntimeException with reference to the original.
+     */
     public static RuntimeException postgreSqlException(PSQLException e) {
         return new WrappedSQLException(e.getMessage(), e);
     }
