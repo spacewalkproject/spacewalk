@@ -34,9 +34,9 @@
         <dependency org="redhat" name="jaf" rev="1.0.2" />
         <dependency org="redhat" name="jasper5-compiler" rev="5.0.19" />
         <dependency org="redhat" name="jasper5-runtime" rev="5.0.19" />
-        <dependency org="redhat" name="jcommon" rev="0.9.7" />
+        <dependency org="redhat" name="jcommon" rev="1.0.12" />
         <dependency org="redhat" name="jdom" rev="1.0" />
-        <dependency org="redhat" name="jfreechart" rev="0.9.21" />
+        <dependency org="redhat" name="jfreechart" rev="1.0.9" />
         <dependency org="redhat" name="jmock" rev="1.2.0" />
         <dependency org="redhat" name="jmock-cglib" rev="1.2.0" />
         <dependency org="redhat" name="jpam" rev="0.4" />
