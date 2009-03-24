@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.channel;
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import java.util.Date;
@@ -31,7 +32,6 @@ import java.util.regex.Pattern;
  * @version $Rev$
  */
 public class NewChannelHelper {
-
     
     //required
     private String name;
@@ -39,7 +39,6 @@ public class NewChannelHelper {
     private ChannelArch arch;
     private String summary;
     private User user;
-
     
     //optional
     private Channel parent;
@@ -47,8 +46,6 @@ public class NewChannelHelper {
     private String gpgUrl;
     private String gpgFingerprint;
     private String description;
-    
-    
     
     /**
      * Creates a cloned channel based off the info contained within this object
@@ -102,7 +99,6 @@ public class NewChannelHelper {
         cloned.setOrg(user.getOrg());
         cloned.setBaseDir("/dev/null");  //this is how the perl code did it
         cloned.setOriginal(toClone);
-
         
         if (parent != null) {
            cloned.setParentChannel(parent); 
@@ -130,8 +126,21 @@ public class NewChannelHelper {
         }
                    
         //adopt the channel into the org's channelfamily
-        ChannelFamilyFactory.lookupByOrg(user.getOrg()).getChannels().add(cloned);
-        cloned.setChannelFamily(ChannelFamilyFactory.lookupByOrg(user.getOrg()));
+        ChannelFamily family = ChannelFamilyFactory.lookupByOrg(user.getOrg());
+        if (family == null) {
+            // In most scenarios, the channel family will not be null.  Changes
+            // were made to ensure that the family is created at org creation (486018)
+            // as well as during satellite-sync (446289); however, there is still
+            // an edge case where a customer may have an earlier Satellite (e.g. 511)
+            // with a configuration that doesn't have a channel family created yet,
+            // they upgrade to the version that has these improvements (e.g. 530) and
+            // then attempt to clone a channel (e.g. using API).  In that case,
+            // it is possible the family doesn't yet exist when this method is called.
+            OrgManager.createChannelFamily(user.getOrg());
+        }
+        family = ChannelFamilyFactory.lookupByOrg(user.getOrg());
+        family.getChannels().add(cloned);
+        cloned.setChannelFamily(family);
         
         // Mark the affected channel to have it's metadata evaluated, where necessary
         // (RHEL5+, mostly)
