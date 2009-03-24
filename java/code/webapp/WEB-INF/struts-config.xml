@@ -1746,34 +1746,18 @@
     <action path="/errata/Overview"
         scope="request"
         input="/WEB-INF/pages/errata/overview.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantSetupAction">
+        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
         <forward name="default"
             path="/WEB-INF/pages/errata/overview.jsp"/>
     </action>
     
-    <action path="/errata/OverviewSubmit"
-        scope="request"
-        input="/WEB-INF/pages/errata/overview.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
-        <forward name="default"
-            path="/errata/Overview.do" redirect="true"/>
-    </action>
-
-    <action path="/errata/RelevantErrata"
+   <action path="/errata/RelevantErrata"
         scope="request"
         input="/WEB-INF/pages/errata/relevant.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantSetupAction">
+        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
         <forward name="default"
                path="/WEB-INF/pages/errata/relevant.jsp" />  
     </action>
-
-     <action path="/errata/RelevantErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/relevant.jsp"
-         type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
-         <forward name="default"
-                  path="/errata/RelevantErrata.do" redirect="true"/>
-     </action>
 
     <action path="/errata/details/Details"
         scope="request"

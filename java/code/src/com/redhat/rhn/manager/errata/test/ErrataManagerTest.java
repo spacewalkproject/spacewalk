@@ -182,10 +182,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
         ErrataCacheManagerTest.createServerNeededPackageCache(user, 
                 ErrataFactory.ERRATA_TYPE_BUG);
-        PageControl pc = new PageControl();
-        pc.setStart(1);
-        pc.setPageSize(20);
-        DataResult errata = ErrataManager.relevantErrata(user, pc);
+        DataResult errata = ErrataManager.relevantErrata(user);
         assertNotNull(errata);
         assertTrue(errata.size() >= 1);
     }

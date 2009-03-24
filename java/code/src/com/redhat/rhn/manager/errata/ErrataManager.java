@@ -295,16 +295,15 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns the relevant errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return relevant errata.
      */
-    public static DataResult relevantErrata(User user, PageControl pc) {
+    public static DataResult relevantErrata(User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_errata");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
-        return makeDataResult(params, elabParams, pc, m);
+        return makeDataResult(params, elabParams, null, m);
     }
 
     /**

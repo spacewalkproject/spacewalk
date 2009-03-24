@@ -1,36 +1,41 @@
-<c:set var="pageList" value="${requestScope.pageList}" />
-<rhn:list pageList="${requestScope.pageList}" noDataText="erratalist.jsp.norelevanterrata"
-          legend="errata">
-  <rhn:listdisplay filterBy="erratalist.jsp.synopsis">
-    <rhn:column header="erratalist.jsp.type" style="text-align: left;">
-        <c:if test="${current.securityAdvisory}">
-            <img src="/img/wrh-security.gif" 
-                 alt="<bean:message key="erratalist.jsp.securityadvisory"/>" />
-        </c:if>
-        <c:if test="${current.bugFix}">
-            <img src="/img/wrh-bug.gif" 
-                 alt="<bean:message key="erratalist.jsp.bugadvisory"/>" />
-        </c:if>
-        <c:if test="${current.productEnhancement}">
-            <img src="/img/wrh-product.gif" 
-                 alt="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
-        </c:if>
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.advisory"
-                url="/rhn/errata/details/Details.do?eid=${current.id}"
-                sortProperty="advisory">
-      ${current.advisoryName}
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.synopsis" sortProperty="advisorySynopsis">
-      ${current.advisorySynopsis}
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.systems" style="text-align: center;"
-                url="/rhn/errata/details/SystemsAffected.do?eid=${current.id}"
-                sortProperty="affectedSystemCount">
-		${current.affectedSystemCount}
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.updated" style="text-align: center;">
-      ${current.updateDate}
-    </rhn:column>
-  </rhn:listdisplay>
-</rhn:list>
+<rl:listset name="groupSet" legend="errata"> 
+
+    <rl:list>
+
+        <rl:decorator name="PageSizeDecorator"/>
+        <rl:decorator name="ElaborationDecorator"/>
+
+        <rl:column headerkey="erratalist.jsp.type" styleclass="text-align: left;">
+            <c:if test="${current.securityAdvisory}">
+                <img src="/img/wrh-security.gif"
+                     alt="<bean:message key="erratalist.jsp.securityadvisory"/>"/>
+            </c:if>
+            <c:if test="${current.bugFix}">
+                <img src="/img/wrh-bug.gif"
+                     alt="<bean:message key="erratalist.jsp.bugadvisory"/>"/>
+            </c:if>
+            <c:if test="${current.productEnhancement}">
+                <img src="/img/wrh-product.gif"
+                     alt="<bean:message key="erratalist.jsp.productenhancementadvisory"/>"/>
+            </c:if>
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.advisory">
+            <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.synopsis"
+                   sortable="true"
+                   sortattr="advisorySynopsis"
+                   filterattr="advisorySynopsis">
+            ${current.advisorySynopsis}
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.systems"
+                   styleclass="text-align: center;">
+            <a href="/rhn/errata/details/SystemsAffected.do?eid=${current.id}">${current.affectedSystemCount}</a>
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.updated" styleclass="text-align: center;">
+            ${current.updateDate}
+        </rl:column>
+
+    </rl:list>
+
+</rl:listset>
