@@ -268,6 +268,22 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="Time-System" default="${session.have_package_Time_System}" acl="session_data_true(have_package_Time_System)" />
                 <widget type="literal" label="tsdb" default="${session.have_package_tsdb}" acl="session_data_true(have_package_tsdb)" />
                 <widget type="literal" label="tsdb_accessor_perl" default="${session.have_package_tsdb_accessor_perl}" acl="session_data_true(have_package_tsdb_accessor_perl)" />
+                <widget type="literal" label="spacewalk-proxy-html" default="${session.have_package_spacewalk_proxy_html}" acl="session_data_true(have_package_spacewalk_proxy_html)" />
+                <widget type="literal" label="spacewalk-ssl-cert-check" default="${session.have_package_spacewalk_ssl_cert_check}" acl="session_data_true(have_package_spacewalk_ssl_cert_check)" />
+                <widget type="literal" label="spacewalk-proxy-common" default="${session.have_package_spacewalk_proxy_common}" acl="session_data_true(have_package_spacewalk_proxy_common)" />
+                <widget type="literal" label="spacewalk-proxy-docs" default="${session.have_package_spacewalk_proxy_docs}" acl="session_data_true(have_package_spacewalk_proxy_docs)" />
+                <widget type="literal" label="spacewalk-proxy-monitoring" default="${session.have_package_spacewalk_proxy_monitoring}" acl="session_data_true(have_package_spacewalk_proxy_monitoring)" />
+                <widget type="literal" label="spacewalk-backend" default="${session.have_package_spacewalk_backend}" acl="session_data_true(have_package_spacewalk_backend)" />
+                <widget type="literal" label="spacewalk-proxy-package-manager" default="${session.have_package_spacewalk_proxy_package_manager}" acl="session_data_true(have_package_spacewalk_proxy_package_manager)" />
+                <widget type="literal" label="spacewalk-certs-tools" default="${session.have_package_spacewalk_certs_tools}" acl="session_data_true(have_package_spacewalk_certs_tools)" />
+                <widget type="literal" label="spacewalk-proxy-broker" default="${session.have_package_spacewalk_proxy_broker}" acl="session_data_true(have_package_spacewalk_proxy_broker)" />
+                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_spacewalk_proxy_management}" acl="session_data_true(have_package_spacewalk_proxy_management)" />
+                <widget type="literal" label="spacewalk-base-minimal" default="${session.have_package_spacewalk_base_minimal}" acl="session_data_true(have_package_spacewalk_base_minimal)" />
+                <widget type="literal" label="spacewalk-proxy-redirect" default="${session.have_package_spacewalk_proxy_redirect}" acl="session_data_true(have_package_spacewalk_proxy_redirect)" />
+                <widget type="literal" label="nocpulse-common" default="${session.have_package_nocpulse_common}" acl="session_data_true(have_package_nocpulse_common)" />
+                <widget type="literal" label="nocpulse-db-perl" default="${session.have_package_nocpulse_db_perl}" acl="session_data_true(have_package_nocpulse_db_perl)" />
+                <widget type="literal" label="jabberd-selinux" default="${session.have_package_jabberd_selinux}" acl="session_data_true(have_package_jabberd_selinux)" />
+                <widget type="literal" label="rhn-proxy-branding" default="${session.have_package_rhn_proxy_branding}" acl="session_data_true(have_package_rhn_proxy_branding)" 
 	</rhn-form>
     </collect-data>
 

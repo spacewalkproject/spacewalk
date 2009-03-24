@@ -280,6 +280,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="nocpulse-common" default="${session.have_package_nocpulse_common}" acl="session_data_true(have_package_nocpulse_common)" />
                 <widget type="literal" label="nocpulse-db-perl" default="${session.have_package_nocpulse_db_perl}" acl="session_data_true(have_package_nocpulse_db_perl)" />
                 <widget type="literal" label="jabberd-selinux" default="${session.have_package_jabberd_selinux}" acl="session_data_true(have_package_jabberd_selinux)" />
+                <widget type="literal" label="rhn-proxy-branding" default="${session.have_package_rhn_proxy_branding}" acl="session_data_true(have_package_rhn_proxy_branding)" />
                 <widget type="literal" label="httpd" default="${session.have_package_httpd}" acl="session_data_true(have_package_httpd)" />
                 <widget type="literal" label="mod_python" default="${session.have_package_mod_python}" acl="session_data_true(have_package_mod_python)" />
                 <widget type="literal" label="mod_ssl" default="${session.have_package_mod_ssl}" acl="session_data_true(have_package_mod_ssl)" />
