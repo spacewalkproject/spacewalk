@@ -898,7 +898,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestProxyServer(user, true);
         assertTrue(server.isProxy());
-        SystemManager.deactivateProxy(server);
+        server = SystemManager.deactivateProxy(server);
         ServerFactory.save(server);
         server = (Server) reload(server);
         assertFalse(server.isProxy());

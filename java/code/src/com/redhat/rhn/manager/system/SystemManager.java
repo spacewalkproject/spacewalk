@@ -1261,9 +1261,12 @@ public class SystemManager extends BaseManager {
     
     /**
      * Deactivates the given proxy.
+     * Make sure you either reload  the server after this call,,
+     * or use the returned Server object
      * @param server ProxyServer to be deactivated.
+     * @return deproxified server.
      */
-    public static void deactivateProxy(Server server) {
+    public static Server deactivateProxy(Server server) {
         Long sid = server.getId();
 
         Set channels = server.getChannels();
@@ -1287,10 +1290,13 @@ public class SystemManager extends BaseManager {
         executeWriteMode("Monitoring_queries",
                 "delete_sat_cluster_for_server", params);
         
-        // freakin hibernate can't do a simple bulk delete statement unless
-        // it uses HQL!
+        // At this point we have the deletes happening
+        // in write mode. So our server which is a hibernate
+        // object is NOT in sync and so we have to reload 
+        // for it to work....
         server = (Server) HibernateFactory.reload(server);
         ServerFactory.deproxify(server);
+        return server;
     }
     
     private static int executeWriteMode(String catalog, String mode, Map params) {
