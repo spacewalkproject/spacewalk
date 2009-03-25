@@ -13,12 +13,14 @@ BuildArch:    noarch
 #Requires:       perl-CGI-mp20
 
 # Monitoring packages
+#we need to be sure that nocpulse home is correct
+Requires(pre): nocpulse-common
+
 Requires:       nocpulse-db-perl
 Requires:       eventReceivers
 Requires:       MessageQueue
 Requires:       NOCpulsePlugins
 Requires:       NPalert
-Requires:       nocpulse-common
 Requires:       perl-NOCpulse-CLAC
 Requires:       perl-NOCpulse-Debug
 Requires:       perl-NOCpulse-Gritch
@@ -104,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com>
+- be sure that nocpulse home is correct
+
 * Wed Mar 18 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.3-1
 - 489573 - we do not conflict with rhnmd any more
 

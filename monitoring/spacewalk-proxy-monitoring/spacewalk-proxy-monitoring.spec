@@ -10,12 +10,14 @@ Group:        Applications/System
 BuildArch:    noarch
 Obsoletes:    rhns-proxy-monitoring < 5.3.0
 Provides:     rhns-proxy-monitoring
+#we need to be sure that nocpulse home is correct
+Requires(pre): nocpulse-common
+
 Requires: nocpulse-db-perl 
 Requires: eventReceivers 
 Requires: MessageQueue 
 Requires: NOCpulsePlugins 
 Requires: NPalert 
-Requires: nocpulse-common 
 Requires: perl-NOCpulse-CLAC 
 Requires: perl-NOCpulse-Debug 
 Requires: perl-NOCpulse-Gritch 
@@ -76,6 +78,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com>
+- be sure that nocpulse home is correct
+
 * Thu Mar 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
 - 489573 - rhnmd do not conflict with monitoring anymore
 

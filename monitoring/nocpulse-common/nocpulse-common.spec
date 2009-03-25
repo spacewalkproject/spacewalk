@@ -69,6 +69,13 @@ if [ $1 -eq 1 ] ; then
   /usr/bin/passwd -l %{package_name} >/dev/null
   exit 0
 fi
+# Old NOCpulse packages has home in /home/nocpulse.
+# We need to migrate them to new place.
+if getent passwd %{package_name} >/dev/null && [ -d /home/nocpulse ]; then
+  /usr/sbin/usermod -d %{_var}/lib/%{package_name} -m nocpulse
+  rm -rf %{_var}/lib/nocpulse/bin
+  rm -rf %{_var}/lib/nocpulse/var
+fi
 
 %post
 if [ ! -f %{identity} ]
@@ -94,6 +101,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com>
+- be sure that nocpulse home is correct after upgrade
+
 * Thu Mar  5 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.7-1
 - keep last 5 logs in logrotate
 
