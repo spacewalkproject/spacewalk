@@ -137,8 +137,8 @@ public class NewChannelHelper {
             // then attempt to clone a channel (e.g. using API).  In that case,
             // it is possible the family doesn't yet exist when this method is called.
             OrgManager.createChannelFamily(user.getOrg());
+            family = ChannelFamilyFactory.lookupByOrg(user.getOrg());
         }
-        family = ChannelFamilyFactory.lookupByOrg(user.getOrg());
         family.getChannels().add(cloned);
         cloned.setChannelFamily(family);
         
