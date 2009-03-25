@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.19
+Version: 0.5.20
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Mar 25 2009 Jan Pazdziora 0.5.20-1
+- 491687 - call wrapper around sudo invocations, to change SELinux domain
+
 * Fri Mar 20 2009 Mike McCune <mmccune@gmail.com> 0.5.19-1
 - space05 - bumping release footer/config for 0.5 release
 
