@@ -71,7 +71,15 @@ if ($out_file) {
   chmod(0600, $out_file); # rw by current user (probably root) only
 
   my ($uid, $gid) = lookup_user_ids('jabberd');
-  chown($uid, $gid, $out_file);
+
+  # some installs of jabber use jabberd user, while others use jabber
+  if (not $uid) {
+      ($uid, $gid) = lookup_user_ids('jabber');
+  }
+
+  if($uid) {
+      chown($uid, $gid, $out_file);
+  }
 }
 else {
   print @content;
