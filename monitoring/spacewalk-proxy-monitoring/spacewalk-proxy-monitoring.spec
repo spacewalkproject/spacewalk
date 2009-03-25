@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.4.3
+Version:      0.4.4
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -78,7 +78,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
-* Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com>
+* Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
 - be sure that nocpulse home is correct
 
 * Thu Mar 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.3-1
