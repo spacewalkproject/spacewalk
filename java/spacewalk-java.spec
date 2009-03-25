@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.36
+Version: 0.5.37
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,12 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.37-1
+- 491978 - fixing status reporting in webui for kickstarts.
+- Added resource bundle entries for admin/config/Cobbler.do
+- 467063 - Ported published and unpublished errata to new list tag to get new navigation features
+- 446269 - fixed issue where you could not remove a package from a system 
+
 * Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.36-1
 - bring over jta from satellite build.
 - fix the jfreechart requires to be 0:1.0.9 everywhere
