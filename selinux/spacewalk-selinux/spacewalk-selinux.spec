@@ -92,7 +92,8 @@ for selinuxvariant in %{selinux_variants}
 
 /usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn %{_bindir}/rhn-sudo-ssl-tool
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+    %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
@@ -108,7 +109,8 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t cobbler_port_t -p tcp 25152 || :
 fi
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn %{_bindir}/rhn-sudo-ssl-tool
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+    %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert
 
 %files
 %defattr(-,root,root,0755)

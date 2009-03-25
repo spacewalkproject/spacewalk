@@ -15,3 +15,4 @@
 /var/cache/rhn/satsync(/.*)? gen_context(system_u:object_r:var_t,s0)
 
 /usr/bin/rhn-sudo-ssl-tool gen_context(system_u:object_r:httpd_unconfined_script_exec_t,s0)
+/usr/bin/rhn-sudo-load-ssl-cert gen_context(system_u:object_r:httpd_unconfined_script_exec_t,s0)
