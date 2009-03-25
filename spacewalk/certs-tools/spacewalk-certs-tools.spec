@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.3
+Version: 0.5.4
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed Mar 25 2009 Jan Pazdziora 0.5.4-1
+- 491687 - wrapper around sudo /usr/bin/rhn-ssl-tool, to change SELinux domain
+
 * Fri Mar 13 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.3-1
 - put Provides to satisfy older Proxies
 
