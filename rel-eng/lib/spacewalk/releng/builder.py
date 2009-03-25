@@ -466,7 +466,7 @@ class Builder(object):
             branch_dir = os.path.join(self.cvs_workdir, self.project_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command("make build")
+            output = run_command("BUILD_FLAGS=--nowait make build")
             print(output)
 
     def _can_build_in_cvs(self):
