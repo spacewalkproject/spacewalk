@@ -49,6 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-config-tnsnames.pl
 %{_bindir}/rhn-populate-database.pl
 %{_bindir}/rhn-generate-pem.pl
+%{_bindir}/rhn-sudo-load-ssl-cert
 %{_bindir}/rhn-load-ssl-cert.pl
 %{_bindir}/rhn-deploy-ca-cert.pl
 %{_bindir}/rhn-install-ssl-cert.pl

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+/usr/bin/sudo /usr/bin/rhn-load-ssl-cert.pl "$@"
+
