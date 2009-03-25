@@ -14,45 +14,15 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.manager.errata.ErrataManager;
-
 /**
  * Loads the data for the relevant errata. This action is written to comply with the
  * "new" list tag.
  *
  * @version $Revision$
  */
-public class ErrataListRelevantAction extends RhnAction implements Listable {
+public class ErrataListRelevantAction extends ErrataListBaseAction {
 
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping actionMapping,
-                                 ActionForm actionForm,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response)
-        throws Exception {
-
-        ListHelper helper = new ListHelper(this, request);
-        helper.execute();
-
-        return actionMapping.findForward("default");
-    }
-
-    /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
-        DataResult result = ErrataManager.relevantErrata(user);
-        return result;
+    protected ErrataFilter getErrataFilter() {
+        return ErrataFilter.RELEVANT;
     }
 }

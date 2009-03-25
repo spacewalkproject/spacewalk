@@ -1730,18 +1730,10 @@
     <action path="/errata/AllErrata"
         scope="request"
         input="/WEB-INF/pages/errata/all.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListSetupAction">
+        type="com.redhat.rhn.frontend.action.errata.ErrataListAllAction">
         <forward name="default"
                path="/WEB-INF/pages/errata/all.jsp" />  
     </action>
-
-     <action path="/errata/AllErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/all.jsp"
-         type="com.redhat.rhn.frontend.action.errata.ErrataListAction">
-         <forward name="default"
-                  path="/errata/AllErrata.do" redirect="true"/>
-     </action>
 
     <action path="/errata/Overview"
         scope="request"

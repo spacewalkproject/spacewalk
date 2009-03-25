@@ -14,23 +14,12 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.manager.errata.ErrataManager;
-
 /**
- * ErrataListSetupAction
- * @version $Rev$
+ * @version $Revision$
  */
-public class ErrataListSetupAction extends BaseErrataListSetupAction {
-    
-    /**
-     * {@inheritDoc}
-     */
-    protected DataResult getDataResult(User user, PageControl pc) {
-        pc.setFilter(true);
-        pc.setFilterColumn("advisorySynopsis");
-        return ErrataManager.allErrata(user, pc);
+public class ErrataListAllAction extends ErrataListBaseAction {
+
+    protected ErrataFilter getErrataFilter() {
+        return ErrataFilter.ALL;
     }
 }

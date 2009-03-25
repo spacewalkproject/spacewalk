@@ -246,18 +246,18 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns all of the errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return all of the errata.
      */
-    public static DataResult allErrata(User user, PageControl pc) {
+    public static DataResult allErrata(User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "all_errata");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
-        return makeDataResult(params, elabParams, pc, m);
+        DataResult result = makeDataResult(params, elabParams, null, m);
+        return result;
     }
-    
+
     /**
      * Returns all of the errata in a channel
      * @param cid the channel id

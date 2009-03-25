@@ -170,10 +170,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     
     public void testAllErrataList() {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        PageControl pc = new PageControl();
-        pc.setStart(1);
-        pc.setPageSize(20);
-        DataResult errata = ErrataManager.allErrata(user, pc);
+        DataResult errata = ErrataManager.allErrata(user);
         assertNotNull(errata);
         assertTrue(errata.size() <= 20);
     }
