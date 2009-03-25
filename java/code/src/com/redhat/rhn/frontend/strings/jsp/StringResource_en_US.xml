@@ -8950,6 +8950,47 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
       </trans-unit>
 
+
+<!-- Cobbler stuff -->
+ 
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/Cobbler.do</context>
+        </context-group>
+        <trans-unit id="cobbler.jsp.toolbar">
+          <source>Spacewalk Configuration - Cobbler.</source>
+        </trans-unit>
+        <trans-unit id="Cobbler">
+          <source>Cobbler</source>
+        </trans-unit>
+        <trans-unit id="cobbler.jsp.header2">
+          <source>Run Cobbler Sync</source>
+        </trans-unit>        
+        
+        <trans-unit id="cobbler.jsp.sync">
+          <source>Run Cobbler Sync</source>
+        </trans-unit>
+		<trans-unit id="cobbler.jsp.synced">
+  		  <source>Cobbler Sync action was successfully executed. Look at /var/log/cobbler/*.log for more information</source>
+		</trans-unit>
+
+		<trans-unit id="cobbler.jsp.summary1">
+  		  <source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
+		</trans-unit>
+		<trans-unit id="cobbler.jsp.summary2">
+  		  <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+		</trans-unit>
+		<trans-unit id="cobbler.jsp.summary3">
+  		  <source>For more information refer to the 'cobbler' man page.</source>
+		</trans-unit>
+		<trans-unit id="update">
+		  <source>Update</source>
+		</trans-unit>
+		
+    </group>
+
+
+
     <!-- TNC -->
   <trans-unit id="tnc.jsp.tnc">
     <source>Terms And Conditions</source>
