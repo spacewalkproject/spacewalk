@@ -328,11 +328,10 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns all of the unpublished errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return all of the errata.
      */
-    public static DataResult unpublishedOwnedErrata(User user, PageControl pc) {
-        return ownedErrata(user, pc, "unpublished_owned_errata");
+    public static DataResult unpublishedOwnedErrata(User user) {
+        return ownedErrata(user, "unpublished_owned_errata");
     }
 
     /**
@@ -349,13 +348,12 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns all of the published errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return all of the errata.
      */
-    public static DataResult publishedOwnedErrata(User user, PageControl pc) {
-        return ownedErrata(user, pc, "published_owned_errata");
+    public static DataResult publishedOwnedErrata(User user) {
+        return ownedErrata(user, "published_owned_errata");
     }
-
+    
     /**
      * Returns all of the published errata.
      * @param user Currently logged in user.
@@ -412,6 +410,13 @@ public class ErrataManager extends BaseManager {
         DataResult dr = m.execute(params);
         dr.setTotalSize(dr.size());
         return dr;
+    }
+    
+    private static DataResult ownedErrata(User user, String mode) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", mode);
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        return makeDataResult(params, new HashMap(), null, m);
     }
     
     /**

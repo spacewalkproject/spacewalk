@@ -1,4 +1,5 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
@@ -25,11 +26,8 @@
     <bean:message key="erratalist.jsp.ownederratapagesummary"/>
 </div>
 <c:set var="pageList" value="${requestScope.pageList}" />
-<form method="post" name="rhn_list" action="/rhn/errata/manage/PublishedErrataSubmit.do">
-	<rhn:list pageList="${requestScope.pageList}" noDataText="erratalist.jsp.nopublishederrata"
-	          legend="errata">
-		<%@ include file="/WEB-INF/pages/common/fragments/errata/ownedlistdisplay.jspf" %>
-	</rhn:list>
-</form>
+
+<%@ include file="/WEB-INF/pages/common/fragments/errata/ownedlistdisplay.jspf" %>
+
 </body>
 </html:html>

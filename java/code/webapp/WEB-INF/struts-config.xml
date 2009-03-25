@@ -1814,48 +1814,26 @@
     <action path="/errata/manage/UnpublishedErrata"
         scope="request"
         input="/WEB-INF/pages/errata/unpublished.jsp"
-        type="com.redhat.rhn.frontend.action.errata.UnpublishedErrataSetupAction"
+        type="com.redhat.rhn.frontend.action.errata.UnpublishedErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
                path="/WEB-INF/pages/errata/unpublished.jsp" />  
+       <forward name="continue"
+                path="/errata/manage/UnpublishedDeleteConfirm.do" redirect="true"/>
     </action>
 
-     <action path="/errata/manage/UnpublishedErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/unpublished.jsp"
-         type="com.redhat.rhn.frontend.action.errata.UnpublishedErrataAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default"
-                  path="/errata/manage/UnpublishedErrata.do" redirect="true"/>
-         <forward name="delete"
-                  path="/errata/manage/UnpublishedDeleteConfirm.do" redirect="true"/>
-     </action>
-     
-     <action path="/errata/manage/PublishedErrata"
+    <action path="/errata/manage/PublishedErrata"
         scope="request"
         input="/WEB-INF/pages/errata/published.jsp"
-        type="com.redhat.rhn.frontend.action.errata.PublishedErrataSetupAction"
+        type="com.redhat.rhn.frontend.action.errata.PublishedErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
                path="/WEB-INF/pages/errata/published.jsp" />  
-     </action>
-
-     <action path="/errata/manage/PublishedErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/unpublished.jsp"
-         type="com.redhat.rhn.frontend.action.errata.PublishedErrataAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default"
-                  path="/errata/manage/PublishedErrata.do" redirect="true"/>
-         <forward name="delete"
-                  path="/errata/manage/PublishedDeleteConfirm.do" redirect="true"/>
-     </action>
+        <forward name="continue"
+                 path="/errata/manage/PublishedDeleteConfirm.do" redirect="true"/>
+    </action>
      
     <action path="/errata/manage/CloneErrata"
         scope="request"

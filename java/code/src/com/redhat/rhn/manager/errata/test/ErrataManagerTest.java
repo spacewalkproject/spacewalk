@@ -199,10 +199,7 @@ public class ErrataManagerTest extends RhnBaseTestCase {
     
     public void testUnpublishedErrata() {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        PageControl pc = new PageControl();
-        pc.setStart(1);
-        pc.setPageSize(20);
-        DataResult errata = ErrataManager.unpublishedOwnedErrata(user, pc);
+        DataResult errata = ErrataManager.unpublishedOwnedErrata(user);
         assertNotNull(errata);
         assertTrue(errata.size() <= 20);
     }
