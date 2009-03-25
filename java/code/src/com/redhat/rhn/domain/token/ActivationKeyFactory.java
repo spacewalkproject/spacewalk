@@ -28,8 +28,6 @@ import com.redhat.rhn.domain.user.User;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 import java.util.Iterator;
 import java.util.List;
