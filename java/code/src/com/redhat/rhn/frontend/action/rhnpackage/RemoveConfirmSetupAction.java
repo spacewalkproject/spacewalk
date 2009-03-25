@@ -31,7 +31,7 @@ import java.util.Map;
 public class RemoveConfirmSetupAction extends BaseSystemPackagesConfirmAction {
 
     private static final PackageListSetupAction DECL_ACTION = new PackageListSetupAction();
-    private static final String PACKAGE_REMOVE = "remove";
+    protected static final String PACKAGE_REMOVE = "remove";
 
     @Override
     protected String getRemoteMode() {

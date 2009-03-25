@@ -1244,4 +1244,30 @@ public class SystemManagerTest extends RhnBaseTestCase {
         assertEquals(0, sizeAfterDelete);
         
     }
+
+
+    public void testHasPackageAvailable() throws Exception {
+        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        Server server = ServerTestUtils.createTestSystem(admin);
+
+        Package pack = PackageTest.createTestPackage(admin.getOrg());
+        assertFalse(SystemManager.hasPackageAvailable(server,
+                pack.getPackageName().getId(), pack.getPackageArch().getId(),
+                pack.getPackageEvr().getId()));
+
+        assertFalse(SystemManager.hasPackageAvailable(server,
+                pack.getPackageName().getId(), null,
+                pack.getPackageEvr().getId()));
+
+        server.getBaseChannel().addPackage(pack);
+        TestUtils.saveAndFlush(pack);
+        assertTrue(SystemManager.hasPackageAvailable(server,
+                pack.getPackageName().getId(), pack.getPackageArch().getId(),
+                pack.getPackageEvr().getId()));
+        assertTrue(SystemManager.hasPackageAvailable(server,
+                pack.getPackageName().getId(), null,
+                pack.getPackageEvr().getId()));
+
+    }
+
 }

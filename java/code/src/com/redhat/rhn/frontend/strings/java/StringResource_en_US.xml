@@ -7978,6 +7978,12 @@ Follow this url to see the full list of inactive systems:
         <source>Label</source>
       </trans-unit>                  
 
+      <trans-unit id="package.remove.cant.rollback">
+        <source>One or more of the packages you have selected for removal below are not contained in
+			a software channel that this system is subscribed to.  If you choose to continue with the removal
+			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+      </trans-unit>
+
       <trans-unit id="list.filter.iprange">
         <source>Single Ip Address</source>
       </trans-unit> 

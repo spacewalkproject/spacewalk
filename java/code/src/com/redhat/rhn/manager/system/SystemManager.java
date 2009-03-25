@@ -2362,4 +2362,34 @@ public class SystemManager extends BaseManager {
 
         server.getNotes().clear();
     }
+
+    /**
+     * Is the package with nameId, archId, and evrId available in the
+     *  provided server's subscribed channels
+     * @param server the server
+     * @param nameId the name id
+     * @param archId the arch id
+     * @param evrId the evr id
+     * @return true if available, false otherwise
+     */
+    public static boolean hasPackageAvailable(Server server, Long nameId,
+                                            Long archId, Long evrId) {
+        Map params = new HashMap();
+        params.put("server_id", server.getId());
+        params.put("eid", evrId);
+        params.put("nid", nameId);
+
+        String mode = "has_package_available";
+        if (archId == null) {
+            mode = "has_package_available_no_arch";
+        }
+        else {
+            params.put("aid", archId);
+        }
+        SelectMode m =
+            ModeFactory.getMode("System_queries", mode);
+        DataResult toReturn = m.execute(params);
+        return toReturn.size() > 0;
+
+    }
 }

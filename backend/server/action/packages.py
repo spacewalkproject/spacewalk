@@ -70,11 +70,8 @@ def verify(serverId, actionId):
     return packages
 
 
-def update(serverId, actionId):
+def handle_action(serverId, actionId, packagesIn):
     log_debug(3, serverId, actionId)
-    h = rhnSQL.prepare(_packageStatement)
-    h.execute(serverid=serverId, actionid=actionId)
-    tmppackages = h.fetchall_dict()
 
     client_caps = rhnCapability.get_client_capabilities()
     log_debug(3,"Client Capabilities", client_caps)
@@ -83,12 +80,12 @@ def update(serverId, actionId):
         cap_info =  client_caps['packages.update']
         if cap_info['version'] > 1:
             multiarch = 1
-    if not tmppackages:
-        raise InvalidAction("invalid action %s for server %s" % 
+    if not packagesIn:
+        raise InvalidAction("Packages scheduled in action %s for server %s could not be found." %
             (actionId, serverId))
 
     packages = []
-    for package in tmppackages:
+    for package in packagesIn:
         # Fix the epoch
         if package['epoch'] is None:
             package['epoch'] = ""
@@ -106,8 +103,17 @@ def update(serverId, actionId):
     return packages
 
 
-# remove is exactly the same as update
-remove = update
+def remove(serverId, actionId):
+    h = rhnSQL.prepare(_packageStatement_remove)
+    h.execute(actionid=actionId)
+    tmppackages = h.fetchall_dict()
+    return handle_action(serverId, actionId, tmppackages)
+
+def update(serverId, actionId):
+    h = rhnSQL.prepare(_packageStatement_update)
+    h.execute(serverid=serverId, actionid=actionId)
+    tmppackages = h.fetchall_dict()
+    return handle_action(serverId, actionId, tmppackages)
 
 
 def refresh_list(serverId, actionId):
@@ -188,7 +194,7 @@ def runTransaction(server_id, action_id):
     return { 'packages' : result }
 
 # SQL statements -- used by update()
-_packageStatement = """
+_packageStatement_update = """
     select distinct
         pn.name name,
         pe.epoch epoch,
@@ -233,3 +239,44 @@ _packageStatement = """
         and p.id = cp.package_id
         and cp.channel_id = sc.channel_id
         and sc.server_id = :serverid"""
+
+_packageStatement_remove = """
+    select distinct
+        pn.name name,
+        pe.epoch epoch,
+        pe.version version,
+        pe.release release,
+        pa.label  arch
+    from rhnActionPackage ap,
+        rhnPackage p,
+        rhnPackageName pn,
+        rhnPackageEVR pe,
+        rhnPackageArch pa,
+        rhnChannelPackage cp
+    where ap.action_id = :actionid
+        and ap.evr_id is not null
+        and ap.evr_id = p.evr_id
+        and ap.evr_id = pe.id
+        and ap.name_id = p.name_id
+        and ap.name_id = pn.id
+        and ap.package_arch_id = pa.id(+)
+        and p.id = cp.package_id
+    union
+    select distinct
+        pn.name name,
+        null version,
+        null release,
+        null epoch,
+        pa.label arch
+    from rhnActionPackage ap,
+        rhnPackage p,
+        rhnPackageName pn,
+        rhnPackageArch pa,
+        rhnChannelPackage cp
+    where ap.action_id = :actionid
+        and ap.evr_id is null
+        and ap.name_id = p.name_id
+        and p.name_id = pn.id
+        and ap.package_arch_id = pa.id(+)
+        and p.id = cp.package_id"""
+

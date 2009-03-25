@@ -1474,5 +1474,32 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
     </query>
 </mode>
 
+<mode name="has_package_available">
+    <query params="server_id, nid, eid, aid">
+        SELECT P.id
+        from rhnPackage P inner join
+		 rhnChannelPackage CP on CP.package_id = P.id  inner join
+		 rhnServerChannel SC on SC.channel_id = CP.channel_id
+        where    SC.server_id = :server_id
+		AND  P.name_id = :nid
+		AND  P.package_arch_id = :aid
+		AND  P.evr_id = :eid
+    </query>
+</mode>
+
+<mode name="has_package_available_no_arch">
+    <query params="server_id, nid, eid">
+        SELECT P.id
+        from rhnPackage P inner join
+		 rhnChannelPackage CP on CP.package_id = P.id  inner join
+		 rhnServerChannel SC on SC.channel_id = CP.channel_id
+        where    SC.server_id = :server_id
+		AND  P.name_id = :nid
+		AND  P.evr_id = :eid
+    </query>
+</mode>
+
+
+
 </datasource_modes>
 
