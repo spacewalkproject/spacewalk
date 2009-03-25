@@ -29,13 +29,18 @@ import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 /**
- * AddressesAction Setup the Addresses on the Request so
- * the AddressTag will be able to render
+ * Base action for all pages that display an errata list. Subclasses simply implement
+ * the {@link #getErrataFilter()} method to indicate what data to return.
  *
  * @version $Rev$
  */
 public abstract class ErrataListBaseAction extends RhnAction implements Listable {
 
+    /**
+     * Indicates the specific erratum returned by a particular subclass. 
+     * 
+     * @return cannot be <code>null</code>
+     */
     protected abstract ErrataFilter getErrataFilter();
 
     /** {@inheritDoc} */
