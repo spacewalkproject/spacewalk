@@ -105,6 +105,11 @@ create index rhn_package_nid_id_idx
 	tablespace [[2m_tbs]]
 	nologging;
 
+create index rhn_package_path_idx
+       on rhnPackage(id, path)
+       tablespace [[2m_tbs]]
+       nologging;
+
 create or replace trigger
 rhn_package_mod_trig
 before insert or update on rhnPackage
