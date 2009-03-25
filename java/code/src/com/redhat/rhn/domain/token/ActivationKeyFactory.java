@@ -216,19 +216,12 @@ public class ActivationKeyFactory extends HibernateFactory {
      * @return ActivationKey associated with session
      */
     public static ActivationKey lookupByKickstartSession(KickstartSession sess) {
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ActivationKey) session.getNamedQuery("ActivationKey.findBySession")
-                                          .setEntity("session", sess)
-                                          //Retrieve from cache if there
-                                          .setCacheable(true)
-                                          .uniqueResult();
-        }
-        catch (HibernateException e) {
-            log.error("Hibernate exception: " + e.toString());
-        }
-        return null;
+        return (ActivationKey) HibernateFactory.getSession()
+                                      .getNamedQuery("ActivationKey.findBySession")
+                                      .setEntity("session", sess)
+                                      //Retrieve from cache if there
+                                      .setCacheable(true)
+                                      .uniqueResult();
     }
 
     /**
@@ -237,21 +230,12 @@ public class ActivationKeyFactory extends HibernateFactory {
      * @param server that is associated with ActivationKey
      * @return ActivationKey assocaited with session
      */
-    public static ActivationKey lookupByServer(Server server) {
+    public static List lookupByServer(Server server) {
         if (server == null) {
             return null;
         }
-        Session session = null;
-        try {
-            session = HibernateFactory.getSession();
-            return (ActivationKey) session.getNamedQuery("ActivationKey.findByServer")
-                                          .setEntity("server", server)
-                                          .uniqueResult();
-        }
-        catch (HibernateException e) {
-            log.error("Hibernate exception: " + e.toString());
-        }
-        return null;
+        return getSession().getNamedQuery("ActivationKey.findByServer").
+            setEntity("server", server).list();
     }
 
     /**

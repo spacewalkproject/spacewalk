@@ -302,7 +302,7 @@ public class DownloadFile extends DownloadAction {
                 }
                 else if (actualFile.exists()) {
                     log.debug("Looks like it is an actual file and it exists.");
-                    KickstartFactory.
+                    newState = KickstartFactory.
                         lookupSessionStateByLabel(KickstartSessionState.STARTED);
                     
                 }

@@ -75,10 +75,14 @@ public class ActivationKeyManager {
      * @param user needed for authentication
      * @return Returns the activation key for the server or null if one isn't found.
      */
-    public ActivationKey findByServer(Server server, User user) {
-        ActivationKey key = ActivationKeyFactory.lookupByServer(server);
-        validateCredentials(user, null, key);
-        return key;
+    public List findByServer(Server server, User user) {
+        List keys = ActivationKeyFactory.lookupByServer(server);
+        Iterator i = keys.iterator();
+        while (i.hasNext()) {
+            ActivationKey key = (ActivationKey) i.next();
+            validateCredentials(user, null, key);
+        }
+        return keys;
     }
     
     

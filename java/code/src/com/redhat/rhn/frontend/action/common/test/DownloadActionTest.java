@@ -26,6 +26,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.io.File;
+import java.util.Map;
 
 /**
  * TinyUrlActionTest
@@ -57,8 +58,12 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/boot.iso");
         actionPerform();
+        assertNull(getActualForward());
         assertEquals("application/octet-stream", getResponse().getContentType());
         assertNotNull(request.getAttribute("params"));
+        Map params = (Map) request.getAttribute("params");
+        String filename = (String) params.get("filename");
+        assertNotNull(filename);
     }
     
     public void testKSPackageDownload() throws Exception {
@@ -85,12 +90,18 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         KickstartSession ksession = 
             KickstartSessionTest.createKickstartSession(ksdata, user);
         TestUtils.saveAndFlush(ksession);
+        TestUtils.saveAndFlush(ksession);
         String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
 
         addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
                 tree.getLabel() + "/images/boot.iso");
         actionPerform();
+        assertNull(getActualForward());
         assertNotNull(request.getAttribute("params"));
+        Map params = (Map) request.getAttribute("params");
+        // //tmp/images/boot.iso
+        String filename = (String) params.get("filename");
+        assertNotNull(filename);
     }
 
     public void testDirHit() throws Exception {
@@ -100,6 +111,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         TestUtils.saveAndFlush(ksession);
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/");
         actionPerform();
+        assertNull(getActualForward());
         assertEquals("text/plain", getResponse().getContentType());
     }
 

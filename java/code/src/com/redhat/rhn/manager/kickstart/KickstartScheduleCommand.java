@@ -638,12 +638,17 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         log.debug("** ActivationType : Existing profile..");
         if (getTargetServer() != null) {
-            ActivationKey oldkey = 
+            List oldkeys = 
                 ActivationKeyFactory.lookupByServer(getTargetServer());
         
-            if (oldkey != null) {
-                log.debug("** Removing old token");
-                ActivationKeyFactory.removeKey(oldkey);
+            if (oldkeys != null) {
+                log.debug("** Removing old tokens");
+                Iterator i = oldkeys.iterator();
+                while (i.hasNext()) {
+                    log.debug("removing key.");
+                    ActivationKey oldkey =  (ActivationKey) i.next();
+                    ActivationKeyFactory.removeKey(oldkey);
+               }
             }
         }
         
