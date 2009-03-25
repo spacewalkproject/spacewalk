@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.24
+Version:        0.5.25
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed Mar 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.25-1
+- 491091 - don't match lines in ssl.conf that are commented out
+
 * Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 0.5.24-1
 - write jabberd server.pem to /etc/pki/spacewalk/jabberd
 
