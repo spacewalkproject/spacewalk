@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.12
+Version: 0.5.13
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Mar 25 2009 Jan Pazdziora 0.5.13-1
+- 491687 - wrapper around sudo rhn-load-ssl-cert.pl, to change SELinux domain
+
 * Fri Mar 13 2009 Jan Pazdziora 0.5.12-1
 - 486738 - change to root's home directory before running sqlplus
 
