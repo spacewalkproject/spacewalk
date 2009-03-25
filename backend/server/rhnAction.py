@@ -153,6 +153,7 @@ _query_schedule_server_packages_update_by_arch = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, package_arch_id, \
            parameter)
     values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, :arch_id, \
+            'upgrade')
 """)
 
 def schedule_server_packages_update_by_arch(server_id, package_arch_ids, org_id = None, prerequisite = None, action_name = "Package update"):
