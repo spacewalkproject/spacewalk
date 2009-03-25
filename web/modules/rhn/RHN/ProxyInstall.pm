@@ -117,7 +117,7 @@ sub generate_ssl_cert {
       PXT::Utils->untaint(\$opt);
     }
 
-    my $command = '/usr/bin/sudo /usr/bin/rhn-load-ssl-cert.pl ' . join(' ', @opts);
+    my $command = '/usr/bin/rhn-sudo-load-ssl-cert ' . join(' ', @opts);
 
     my ($ca_chain, $ca_rpm) = `$command`;
 
