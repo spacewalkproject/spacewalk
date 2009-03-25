@@ -22,8 +22,8 @@
 
 
 
-if [ -x /etc/init.d/rhn-database ]; then
-   DB_SERVICE="rhn-database"
+if [ -x /etc/init.d/oracle ]; then
+   DB_SERVICE="oracle"
 fi
 
 if [ -x /etc/init.d/oracle-xe ]; then
