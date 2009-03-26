@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if [ $# -lt 1 -o $# -gt 2 ]; then
+	echo "Usage: `basename $0` output-file [connect-string]"
+	exit
+fi
+
+CONNECT=$(grep default_db /etc/rhn/rhn.conf | awk '{split($0,a,"="); print a[2]}')
+[ -n "$2" ] && CONNECT=$2
+
+sqlplus $CONNECT >& /dev/null << EOS
+spool $1
+set echo on
+set serverout on
+set pagesize 2000 linesize 145
+column name_col_plus_show_param format a40 word wrap
+column value_col_plus_show_param format a90 word wrap
+
+select dbms_stats.get_param('METHOD_OPT') from dual;
+
+show parameter;
+
+declare
+  n number;
+begin
+  for i in (select * from user_tables order by table_name)
+    loop
+      execute immediate 'select count(*) from ' || i.table_name into n;
+      dbms_output.put_line(i.table_name || ': ' || n);
+    end loop;
+end;
+/
+
+quit;
+EOS

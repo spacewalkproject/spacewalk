@@ -87,6 +87,7 @@ mkdir -p $DIR/conf/rhn/sysconfig
 mkdir -p $DIR/httpd-logs
 mkdir -p $DIR/tomcat-logs
 mkdir -p $DIR/rhn-logs
+mkdir -p $DIR/db-stats
 
 echo "    * copying configuration information"
 cp -fapRd /etc/httpd/conf $DIR/conf/httpd
@@ -175,6 +176,9 @@ echo "    * querying schema version and database charactersets"
 
 echo "    * get diskspace available"
 df -h > $DIR/diskinfo
+
+echo "    * get database statistics"
+/usr/bin/rhn-db-stats $DIR/db-stats/db-stats.log
 
 echo "    * timestamping"
 echo "Spacewalk debug created on $(date)" > $DIR/timestamp
