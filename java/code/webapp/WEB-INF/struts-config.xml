@@ -992,9 +992,9 @@
     <exception type="com.redhat.rhn.common.security.PermissionException"
       path="/WEB-INF/pages/common/errors/permission.jsp" key="date"
       handler="com.redhat.rhn.common.errors.PermissionExceptionHandler"/>
-    <exception type="com.redhat.rhn.domain.user.service.UserServiceException"
-      path="/WEB-INF/pages/common/errors/service.jsp" key="date"
-      handler="com.redhat.rhn.common.errors.ServiceExceptionHandler"/>
+    <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException"
+      path="/WEB-INF/pages/common/errors/nosuchpkg.jsp" key="date"
+      handler="com.redhat.rhn.common.errors.NoSuchPackageExceptionHandler"/>
   </global-exceptions>
 
   <!-- 

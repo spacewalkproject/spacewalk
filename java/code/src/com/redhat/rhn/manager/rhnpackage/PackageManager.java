@@ -1210,7 +1210,12 @@ public class PackageManager extends BaseManager {
                 "Package_queries", "guestimate_package_by_channel");
 
         DataResult dr = m.execute(params);
-        return PackageFactory.lookupByIdAndOrg((Long) ((Map)dr.get(0)).get("id"), org);
+        if (dr != null && !dr.isEmpty()) {
+            return PackageFactory.lookupByIdAndOrg(
+                    (Long) ((Map)dr.get(0)).get("id"), org);
+        }
+
+        return null;
     }
     
     /**
@@ -1230,19 +1235,23 @@ public class PackageManager extends BaseManager {
         params.put("nameId", nameId);
         params.put("evrId", evrId);
 
-        if (archId != 0) {
+        if (archId != null && archId != 0) {
             params.put("archId", archId);
             m = ModeFactory.getMode(
                     "Package_queries", "guestimate_package_by_system_arch");
-            }
+        }
         else {
             m = ModeFactory.getMode(
                     "Package_queries", "guestimate_package_by_system");
         }
         
         DataResult dr = m.execute(params);
+        if (dr != null && !dr.isEmpty()) {
+            return PackageFactory.lookupByIdAndOrg(
+                    (Long) ((Map)dr.get(0)).get("id"), org);
+        }
         
-        return PackageFactory.lookupByIdAndOrg((Long) ((Map)dr.get(0)).get("id"), org);
+        return null;
     }
 
     /**
