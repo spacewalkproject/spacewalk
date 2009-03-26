@@ -47,10 +47,13 @@ default_or_input () {
 	#which is like: var_a = $var_b ? word
 	DEFAULT=${CURRENT_VALUE:-$DEFAULT}
 	echo -n "$MSG [$DEFAULT]: "
-	if [ "$INTERACTIVE" = "1" -a  -z "$CURRENT_VALUE" ]; then
+	if [ "$INTERACTIVE" = "1" -a  -z "`set | grep \"^$VARIABLE=\"`" ]; then
 		read INPUT
+	elif [ -z "`set | grep \"^$VARIABLE=\"`" ]; then
+		echo $DEFAULT
 	else
-		echo
+		eval "DEFAULT=\$$VARIABLE"
+		echo $DEFAULT
 	fi
 	if [ -z "$INPUT" ]; then
 		INPUT="$DEFAULT"
