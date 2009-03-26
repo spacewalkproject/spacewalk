@@ -20,6 +20,8 @@ import sys
 import commands
 import StringIO
 import shutil
+import subprocess
+import tempfile
 import textwrap
 
 from time import strftime
@@ -128,28 +130,37 @@ class VersionTagger(object):
                         (last_tag, "HEAD", ".")
                 output = run_command(patch_command)
 
-                print "No changelog entry found; adding the following for you:"
-                print
-
+                fd, name = tempfile.mkstemp()
+                os.write(fd, "# No changelog entry found; please edit the following\n")
                 header = "* %s %s <%s>\n" % (self.today, self.git_user,
                         self.git_email)
 
-                sys.stdout.write(header)
-                out_f.write(header)
+                os.write(fd, header)
 
                 for cmd_out in output.split("\n"):
-                    out_f.write("- ")
-                    out_f.write("\n  ".join(textwrap.wrap(cmd_out, 77)))
-                    out_f.write("\n")
+                    os.write(fd, "- ")
+                    os.write(fd, "\n  ".join(textwrap.wrap(cmd_out, 77)))
+                    os.write(fd, "\n")
 
-                    sys.stdout.write("- ")
-                    sys.stdout.write("\n  ".join(textwrap.wrap(cmd_out, 77)))
-                    sys.stdout.write("\n")
+                os.write(fd, "\n")
 
-                out_f.write("\n")
-                sys.stdout.write("\n")
+                editor = 'vi'
+                if os.environ.has_key("EDITOR"):
+                    editor = os.environ["EDITOR"]
 
-                found_match = True
+                subprocess.call([editor, name])
+
+                os.lseek(fd, 0, 0)
+                file = os.fdopen(fd)
+
+                for line in file.readlines():
+                    if not line.startswith("#"):
+                        out_f.write(line)
+
+                output = file.read()
+
+                file.close()
+                os.unlink(name)
 
         in_f.close()
         out_f.close()
