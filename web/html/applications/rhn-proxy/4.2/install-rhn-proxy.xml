@@ -34,7 +34,6 @@
         <package>jabberd</package>
         <package>jabberd-selinux</package>
         <package>libapreq2</package>
-        <package>libidn</package>
         <package>LongLegs</package>
         <package>MessageQueue</package>
         <package>mm</package>
@@ -175,7 +174,6 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="jabberd" default="${session.have_package_jabberd}" acl="session_data_true(have_package_jabberd)" />
                 <widget type="literal" label="jabberd-selinux" default="${session.have_package_jabberd_selinux}" acl="session_data_true(have_package_jabberd_selinux)" />
                 <widget type="literal" label="libapreq2" default="${session.have_package_libapreq2}" acl="session_data_true(have_package_libapreq2)" />
-                <widget type="literal" label="libidn" default="${session.have_package_libidn}" acl="session_data_true(have_package_libidn)" />
                 <widget type="literal" label="LongLegs" default="${session.have_package_LongLegs}" acl="session_data_true(have_package_LongLegs)" />
                 <widget type="literal" label="MessageQueue" default="${session.have_package_MessageQueue}" acl="session_data_true(have_package_MessageQueue)" />
                 <widget type="literal" label="mm" default="${session.have_package_mm}" acl="session_data_true(have_package_mm)" />
