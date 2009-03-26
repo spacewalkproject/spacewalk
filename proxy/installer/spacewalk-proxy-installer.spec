@@ -17,7 +17,6 @@ Requires: rhncfg-management
 Requires: rhncfg-actions
 Requires: glibc-common
 Requires: chkconfig
-Requires: httpd
 Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
@@ -85,6 +84,8 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Mar 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.22-1
 - 486125 - if some option is present in answer file, use it even if empty
+- remove dependency on httpd which conflict with older proxies, let
+  httpd be downloaded through spacewalk-proxy-management
 
 * Wed Mar 18 2009 Michael Mraka <michael.mraka@redhat.com> 0.5.21-1
 - 489669 - fixed non-interactive mode
