@@ -44,6 +44,7 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         to.setAsciiString("asciivalue");
         to.setUsernameString("usernamevalue");
         to.setPosixString("posixvalue");
+        to.setTwoCharField("12");
 
         assertTrue(
             ValidatorService.getInstance().validateObject(to, validator).isEmpty());
@@ -64,6 +65,7 @@ public class ValidatorServiceTest extends RhnBaseTestCase {
         to.setAsciiString("asciivalue");
         to.setUsernameString("usernamevalue");
         to.setPosixString("posixvalue");
+        to.setTwoCharField("12");
 
         assertTrue(
             ValidatorService.getInstance().validateObject(to).isEmpty());

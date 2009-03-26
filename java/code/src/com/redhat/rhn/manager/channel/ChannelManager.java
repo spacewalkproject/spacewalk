@@ -1711,10 +1711,21 @@ public class ChannelManager extends BaseManager {
      * @return Tools channel if found, null otherwise.
      */
     public static Channel getToolsChannel(Channel baseChannel, User user) {
+        if (log.isDebugEnabled()) {
+            log.debug("getToolsChannel, baseChannel: " + baseChannel.getLabel());
+        }
+        
         Iterator i = ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), baseChannel.getId()).iterator();
+        
+        if (log.isDebugEnabled()) {
+            log.debug("getToolsChannel, userAccessibleChildChannels: " + i.hasNext());
+        }
         while (i.hasNext()) {
             Channel child = (Channel) i.next();
+            if (log.isDebugEnabled()) {
+                log.debug("getToolsChannel, trying: " + child.getLabel());
+            }
             // First search for legacy kickstart package names:
             List kspackages = ChannelManager.
                 listLatestPackagesLike(child.getId(), 
