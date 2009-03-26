@@ -218,8 +218,20 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("save_system", handle, xmlRpcToken);
         
         Map cSystem = getSystemMapByMac();
+        // Virt system records have no mac/interfaces setup so we search on name
+        if (cSystem == null) {
+            cSystem = getSystemMapByName();
+        }
         server.setCobblerId((String)cSystem.get("uid"));
         return null;
+    }
+
+    private Map getSystemMapByName() {
+        List < String > args = new ArrayList();
+        args.add(getCobblerSystemRecordName());
+        args.add(xmlRpcToken);
+        Map retval = (Map) invokeXMLRPC("get_system", args);
+        return retval;
     }
 
     /**
