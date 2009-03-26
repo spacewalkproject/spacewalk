@@ -413,6 +413,9 @@ class TagModule(BaseCliModule):
                 action="store_true",
                 help="Use spec file version/release exactly as specified in spec file to tag package.")
 
+        self.parser.add_option("--no-auto-changelog", action="store_true",
+                default=False,
+                help="Don't automatically create a changelog entry for this tag if none is found")
 
     def main(self):
         BaseCliModule.main(self)
