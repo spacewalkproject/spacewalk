@@ -27,7 +27,7 @@ BASE_DIR=/tmp
 
 usage() {
     echo "Usage:"
-    echo "$0 [OPTIONS] <connect-string>"
+    echo "$0 [OPTIONS]"
     echo "Debug utility that packages log files and other information"
     echo
     echo "  OPTIONS:"
