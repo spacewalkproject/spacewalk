@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.5.7
+Version:    0.5.8
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.8-1
+- removing satellite-debug link
+
 * Wed Feb 18 2009 Brad Buckingham <bbuckingham@redhat.com> 0.5.7-1
 - adding rhn_docs.conf to enable configurable docs location
 
