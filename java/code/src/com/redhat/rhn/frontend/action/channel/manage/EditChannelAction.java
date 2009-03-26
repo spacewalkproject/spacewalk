@@ -128,6 +128,10 @@ public class EditChannelAction extends RhnAction implements Listable {
         // handler for private confirmation page
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
             makePrivate(form, errors, ctx);
+            if (errors.isEmpty()) {
+                createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
         }
         else if (ctx.hasParam("deny")) {
             deny(form, errors, ctx);
