@@ -235,6 +235,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed Mar 25 2009 Partha Aji <paji@redhat.com>
+- Added code to take advantage of cobbler 1.6 perf enhancements
+- if the customer has that installed.
 * Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.37-1
 - 491978 - fixing status reporting in webui for kickstarts.
 - Added resource bundle entries for admin/config/Cobbler.do
