@@ -4313,7 +4313,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/multiorg/orgcreate.jsp"/>
       <forward name="success"
-               path="/admin/multiorg/Organizations.do" redirect="true" />
+               path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
     </action>
     
     <action path="/admin/multiorg/OrgTrusts"

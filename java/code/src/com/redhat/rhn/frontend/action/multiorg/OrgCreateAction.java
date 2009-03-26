@@ -27,6 +27,7 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.action.user.UserActionHelper;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
@@ -125,7 +126,9 @@ public class OrgCreateAction extends RhnAction {
                     else {
                         createSuccessMessage(request, "org.create.success", 
                                 cmd.getNewOrg().getName());
-                        retval = mapping.findForward("success");
+                        retval = getStrutsDelegate().
+                                 forwardParam(mapping.findForward("success"),
+                                 RequestContext.ORG_ID, cmd.getNewOrg().getId().toString());
                     }
                 }
             }
