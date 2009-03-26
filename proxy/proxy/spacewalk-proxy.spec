@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -283,7 +283,7 @@ fi
 
 
 %changelog
-* Thu Mar 26 2009 Miroslav Suchý <msuchy@redhat.com>
+* Thu Mar 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.7-1
 - add dependency on httpd
 
 * Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
