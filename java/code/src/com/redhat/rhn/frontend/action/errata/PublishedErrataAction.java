@@ -49,6 +49,8 @@ public class PublishedErrataAction extends RhnAction implements Listable {
             return actionMapping.findForward("continue");
         }
 
+        // jdobies - CSC1052 Extra Credit: Wildcats
+
         return actionMapping.findForward("default");
     }
 
