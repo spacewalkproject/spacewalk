@@ -581,8 +581,11 @@ Would you like to enable Monitoring Proxy functionality on this system?
         <action-name>Remove conflicting proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in ${session.packages_list_proxy}; do
-rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+PACKAGES=`for package in ${session.packages_list_proxy}; do
+  rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+if [ -n "$PACKAGES" ]; then
+  rpm -e $PACKAGES
+fi
         </script>
       </run-script>
 
@@ -812,8 +815,11 @@ proxy will need to be reconfigured to use a different Satellite server.
         <action-name>Remove proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd MessageQueue mm NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-apache rhn-base-minimal rhn-modperl rhn-modpython rhn-modssl rhn-ssl-cert-check rhns rhns rhns-auth-daemon rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-broker rhns-proxy-docs rhns-proxy-docs rhns-proxy-management rhns-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-redirect rhns-proxy-tools rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl; do
+PACKAGES=`for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd MessageQueue mm NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-apache rhn-base-minimal rhn-modperl rhn-modpython rhn-modssl rhn-ssl-cert-check rhns rhns rhns-auth-daemon rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-broker rhns-proxy-docs rhns-proxy-docs rhns-proxy-management rhns-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-redirect rhns-proxy-tools rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl; do
 rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+if [ -n "$PACKAGES" ]; then
+  rpm -e $PACKAGES
+fi
         </script>
       </run-script>
 
