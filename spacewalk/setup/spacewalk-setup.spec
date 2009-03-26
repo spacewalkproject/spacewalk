@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.25
+Version:        0.5.26
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Thu Mar 26 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.26-1
+- update message at the end of upgrade setup
+
 * Wed Mar 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.25-1
 - 491091 - don't match lines in ssl.conf that are commented out
 
