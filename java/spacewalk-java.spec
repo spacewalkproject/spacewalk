@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.37
+Version: 0.5.38
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,7 +235,7 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Wed Mar 25 2009 Partha Aji <paji@redhat.com>
+* Wed Mar 25 2009 Partha Aji <paji@redhat.com> 0.5.38-1
 - Added code to take advantage of cobbler 1.6 perf enhancements
 - if the customer has that installed.
 * Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.37-1
