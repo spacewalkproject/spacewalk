@@ -145,7 +145,11 @@ Spacewalk::Setup::upgrade_stop_services(\%opts);
 Spacewalk::Setup::oracle_upgrade_start_db(\%opts);
 
 if ($opts{'upgrade'}) {
-  print Spacewalk::Setup::loc("Upgrade complete.\n");
+  print Spacewalk::Setup::loc("This portion of the $product_name upgrade process has successfully completed.\n");
+  if ($product_name =~ /Satellite/) {
+    print Spacewalk::Setup::loc("Please refer to appropriate upgrade document in /etc/sysconfig/rhn/satellite-upgrade\n");
+    print Spacewalk::Setup::loc("for any remaining steps in the process.\n");
+  }
 } else {
   print Spacewalk::Setup::loc("Installation complete.\n");
   print Spacewalk::Setup::loc("Visit https://%s to create the $product_name administrator account.\n", $answers{hostname});
