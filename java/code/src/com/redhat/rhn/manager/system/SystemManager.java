@@ -1371,7 +1371,6 @@ public class SystemManager extends BaseManager {
                 subscribeServerToChannel(null, server, proxyChannel);    
             }
         }
-        
     }
 
     /**
@@ -2390,6 +2389,18 @@ public class SystemManager extends BaseManager {
             ModeFactory.getMode("System_queries", mode);
         DataResult toReturn = m.execute(params);
         return toReturn.size() > 0;
+    }
 
+    /**
+     * Gets the list of proxies that the given system connects
+     * through in order to reach the server.
+     * @param sid The id of the server in question
+     * @return Returns a list of ServerPath objects.
+     */
+    public static DataResult getConnectionPath(Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries", "proxy_path_for_server");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        return m.execute(params);
     }
 }
