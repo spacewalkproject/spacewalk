@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.39
+Version: 0.5.40
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Mar 26 2009 Mike McCune <mmccune@gmail.com> 0.5.40-1
+- 492137 - fixing ISE for virt 
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.39-1
 - 484852 - user taken to meaningful error pages instead of ISEs.
 
