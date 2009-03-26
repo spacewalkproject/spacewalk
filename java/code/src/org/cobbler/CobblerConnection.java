@@ -40,7 +40,7 @@ public class CobblerConnection {
     private XmlRpcClient client;
     private String actualUrl;
     private static Logger log = Logger.getLogger(CobblerConnection.class);
-    
+    private Double version;
     private String token;
     
     protected CobblerConnection() {
@@ -178,8 +178,20 @@ public class CobblerConnection {
      * Gets the cobbler version
      * @return the cobbler version.
      */
-    public double getVersion() {
-        return (Double)invokeMethod("version");
+    private double getVersion() {
+        if (version == null) {
+            version = (Double)invokeMethod("version");
+        }
+        return version;
+    }
+    
+    /**
+     * a hack to check if the api version is > 1.6
+     * for some things are different after..
+     * @return true if the client connection is 1.6 or greater.
+     */
+    public boolean is16OrGreater() {
+        return getVersion() >= COBBLER_VERSION;
     }
 
     private String adjustUrl(String urlIn) {

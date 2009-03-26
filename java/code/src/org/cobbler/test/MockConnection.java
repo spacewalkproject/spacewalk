@@ -238,9 +238,16 @@ public class MockConnection extends CobblerConnection {
         log.debug("Unhandled xmlrpc call in MockConnection: " + name);
     }
     return "";
-}
-
-
+   }
+   
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public boolean is16OrGreater() {
+       return false;
+   }
+   
    private Map findByName(String name, List<Map> maps) {
        for (Map map : maps) {
            if (name.equals(map.get("name"))) {

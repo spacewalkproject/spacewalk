@@ -79,14 +79,7 @@ public class Profile extends CobblerObject {
      * @return the profile that maps to the name or null
      */
     public static Profile lookupByName(CobblerConnection client, String name) {
-        Map <String, Object> map = (Map<String, Object>)client.
-                                    invokeMethod("get_profile", name);
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        Profile profile = new Profile(client);
-        profile.dataMap = map;
-        return profile;
+        return handleLookup(client, lookupDataMapByName(client, name, "get_profile"));
     }
 
     /**
@@ -96,23 +89,18 @@ public class Profile extends CobblerObject {
      * @return the profile matching the given uid or null
      */
     public static Profile lookupById(CobblerConnection client, String id) {
-        List<Map<String, Object>> profiles = (List<Map<String, Object>>) 
-                                                client.invokeMethod("get_profiles");
-        if (id == null) {
-            return null;
-        }
-        
-        Profile profile = new Profile(client);
-        for (Map <String, Object> map : profiles) {
-            profile.dataMap = map;
-            if (id.equals(profile.getUid())) {
-                log.debug("Profile: " + profile);
-                return profile;
-            }
+        return handleLookup(client, lookupDataMapById(client, id, 
+                                        "find_profile", "get_profiles"));
+    }
+    
+    private static Profile handleLookup(CobblerConnection client, Map profileMap) {
+        if (profileMap != null) {
+            Profile profile = new Profile(client);
+            profile.dataMap = profileMap;
+            return profile;
         }
         return null;
-    }    
-
+    }
     /**
      * Returns a list of available profiles 
      * @param connection the cobbler connection
