@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.26
+Version: 0.5.27
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -562,6 +562,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Mar 26 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.27-1
+- 486526 - additional system files and db statistics included into spacewalk-debug archive
+
 * Wed Mar 25 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.26-1
 - 487621 - Fix segfaults rhnpush has been causing server-side on Fedora 10.
 - Fix Oracle exception handling in procedure calls.
