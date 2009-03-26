@@ -104,6 +104,8 @@ public class Config {
 
     public static final String DOWNLOAD_URL_LIFETIME = "download_url_lifetime";
     
+    public static final String NON_EXPIRABLE_PACKAGE_URLS = "non_expirable_package_urls";
+
     public static final String WEB_IS_MONITORING_SCOUT = "web.is_monitoring_scout";
 
     public static final String WEB_IS_MONITORING_BACKEND = "web.is_monitoring_backend";

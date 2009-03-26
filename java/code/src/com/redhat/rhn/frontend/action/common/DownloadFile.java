@@ -211,7 +211,10 @@ public class DownloadFile extends DownloadAction {
         params.put(FILENAME, filename);
         request.setAttribute(PARAMS, params);
         
-        if (Calendar.getInstance().getTimeInMillis() > expire) {
+        //If expire is at 0, then expiration is disabled for the download
+        //    we'll validate the SHA1 token to make sure someone didn't hack
+        //      it in the next step.
+        if (expire != 0 && Calendar.getInstance().getTimeInMillis() > expire) {
             log.error("File download url has expired: " + url); 
             return mapping.findForward("error");
         }
