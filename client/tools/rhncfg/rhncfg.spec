@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.4
+Version: 5.9.5
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.5-1
+- 430885 - gracefuly ignore dir diffs instead of treating them as missing files
+
 * Tue Mar 17 2009 Miroslav Suchy <msuchy@redhat.com> 5.9.4-1
 - Polish the spec according Fedora Packaging Guidelines
 
