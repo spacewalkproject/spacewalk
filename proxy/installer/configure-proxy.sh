@@ -41,10 +41,10 @@ default_or_input () {
 	local DEFAULT="$3"
 
 	local INPUT
-        local CURRENT_VALUE=$(eval "echo \$$VARIABLE")
-        #in following code is used not so common expansion
-        #var_a=${var_b:-word}
-        #which is like: var_a = $var_b ? word
+	local CURRENT_VALUE=$(eval "echo \$$VARIABLE")
+	#in following code is used not so common expansion
+	#var_a=${var_b:-word}
+	#which is like: var_a = $var_b ? word
 	DEFAULT=${CURRENT_VALUE:-$DEFAULT}
 	echo -n "$MSG [$DEFAULT]: "
 	if [ "$INTERACTIVE" = "1" -a  -z "$CURRENT_VALUE" ]; then
