@@ -93,6 +93,8 @@ SYSCONFIG_DIR=/etc/sysconfig/rhn
 RHNCONF_DIR=/etc/rhn
 HTTPDCONFD_DIR=/etc/httpd/conf.d
 HTMLPUB_DIR=/var/www/html/pub
+JABBERD_DIR=/etc/jabberd
+
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2`
 
@@ -205,8 +207,8 @@ fi
 # / 1024 is to get value in MB
 SQUID_SIZE=$(( `df -P /var/spool/squid | awk '{a=$4} END {print a}'` * 60 / 100 / 1024 ))
 
-sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > /etc/jabberd/c2s.xml
-sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > /etc/jabberd/sm.xml
+sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > $JABBERD_DIR/c2s.xml
+sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > $JABBERD_DIR/sm.xml
 sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
         < $DIR/squid.conf  > /etc/squid/squid.conf
 sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
@@ -294,7 +296,7 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 		$HTTPDCONFD_DIR/ssl.conf $RHNCONF_DIR/rhn.conf $RHNCONF_DIR/cluster.ini /etc/squid/squid.conf \
 		$HTTPDCONFD_DIR/cobbler-proxy.conf /etc/httpd/conf/httpd.conf $HTTPDCONFD_DIR/rhn_proxy.conf \
 		$HTTPDCONFD_DIR/proxy_broker.conf $HTTPDCONFD_DIR/proxy_redirect.conf \
-		/etc/jabberd/c2s.xml /etc/jabberd/sm.xml
+		$JABBERD_DIR/c2s.xml $JABBERD_DIR/sm.xml
 fi
 
 echo "Enabling Spacewalk Proxy."
