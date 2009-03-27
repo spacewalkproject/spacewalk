@@ -205,12 +205,11 @@ fi
 # / 1024 is to get value in MB
 SQUID_SIZE=$(( `df -P /var/spool/squid | awk '{a=$4} END {print a}'` * 60 / 100 / 1024 ))
 
-cat $DIR/c2s.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/c2s.xml
-cat $DIR/sm.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/sm.xml
-cat $DIR/squid.conf | sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
-        > /etc/squid/squid.conf
-cat $DIR/rhn.conf | \
-	sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
+sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > /etc/jabberd/c2s.xml
+sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > /etc/jabberd/sm.xml
+sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
+        < $DIR/squid.conf  > /etc/squid/squid.conf
+sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
 	    -e "s/\${session.http_proxy}/$HTTP_PROXY/g" \
 	    -e "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
 	    -e "s/\${session.http_proxy_password}/$HTTP_PASSWORD/g" \
@@ -218,13 +217,12 @@ cat $DIR/rhn.conf | \
 	    -e "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
 	    -e "s/\${session.use_ssl:0}/$USE_SSL/g" \
 	    -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
-	> $RHNCONF_DIR/rhn.conf
-cat $DIR/cluster.ini | \
-        sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
+        < $DIR/rhn.conf  > $RHNCONF_DIR/rhn.conf
+sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
             -e "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
             -e "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
             -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
-        > $RHNCONF_DIR/cluster.ini
+        < cat $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
 
 
 #Setup the cobbler stuff, needed to use koan through a proxy
@@ -281,10 +279,10 @@ echo "Installing SSL certificate for Apache and Jabberd:"
 rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
 
 mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
-cat $HTTPDCONFD_DIR/ssl.conf.bak | \
-	sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
+sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
 	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
-	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > $HTTPDCONFD_DIR/ssl.conf
+	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|"
+        < $HTTPDCONFD_DIR/ssl.conf.bak  > $HTTPDCONFD_DIR/ssl.conf
 
 
 CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
