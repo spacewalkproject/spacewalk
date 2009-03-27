@@ -92,6 +92,7 @@ fi
 SYSCONFIG_DIR=/etc/sysconfig/rhn
 RHNCONF_DIR=/etc/rhn
 HTTPDCONFD_DIR=/etc/httpd/conf.d
+HTMLPUB_DIR=/var/www/html/pub
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2`
 
@@ -262,9 +263,9 @@ if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
 	RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
 fi
 
-if [ ! -f /var/www/html/pub/$RPM_CA ] || [ ! -f /var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT ]; then
-	echo "Copying CA public certificate to /var/www/html/pub for distribution to clients:"
-	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA /var/www/html/pub/
+if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT ]; then
+	echo "Copying CA public certificate to $HTMLPUB_DIR for distribution to clients:"
+	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA $HTMLPUB_DIR/
 fi
 
 echo "Generating SSL key and public certificate:"
