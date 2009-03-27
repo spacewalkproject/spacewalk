@@ -221,11 +221,33 @@ sub system_debug {
       local *PROCESS_OUT;
       set_spinning_callback();
       my $pid = open3(gensym, \*PROCESS_OUT, \*PROCESS_OUT, @args);
-      while (<PROCESS_OUT>) {
-          print LOGFILE $_;
+      my ($vecin, $vecout) = ('', '');
+      vec($vecin, fileno(PROCESS_OUT), 1) = 1;
+      my $ret;
+      # Some programs that daemonize themselves do not close their stdout,
+      # so doing just while (<PROCESS_OUT>) would block forever. That's why
+      # we try to select'n'sysread, to have a chance to see if the child
+      # is ready to be reaped, even if we did not get eof.
+      while (1) {
+        if (select($vecout=$vecin, undef, undef, 10) > 0) {
+          my $buffer;
+          if (sysread(PROCESS_OUT, $buffer, 4096) > 0) {
+            print LOGFILE $buffer;
+            redo;
+          }
+        }
+        my $pidout = waitpid($pid, WNOHANG);
+        if ($pidout < 0) {
+          print LOGFILE "We've lost the child [@args] pid [$pid]\n";
+          $ret = -1;
+          last;
+        }
+        if ($pidout) {
+          $ret = $?;
+          last;
+        }
       }
-      waitpid($pid, 0);
-      my $ret = $?;
+      close PROCESS_OUT;
       close LOGFILE;
       alarm 0;
       return $ret;
