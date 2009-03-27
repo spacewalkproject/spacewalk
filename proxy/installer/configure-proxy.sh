@@ -91,6 +91,7 @@ if [ -f /usr/bin/yum ]; then
 fi
 SYSCONFIG_DIR=/etc/sysconfig/rhn
 RHNCONF_DIR=/etc/rhn
+HTTPDCONF_DIR=/etc/httpd/conf
 HTTPDCONFD_DIR=/etc/httpd/conf.d
 HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
@@ -281,8 +282,8 @@ echo "Installing SSL certificate for Apache and Jabberd:"
 rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
 
 mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
-sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
-	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
+sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile $HTTPDCONF_DIR/ssl.crt/server.crt|g" \
+	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile $HTTPDCONF_DIR/ssl.key/server.key|g" \
 	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|"
         < $HTTPDCONFD_DIR/ssl.conf.bak  > $HTTPDCONFD_DIR/ssl.conf
 
@@ -294,7 +295,7 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
 	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \
 		$HTTPDCONFD_DIR/ssl.conf $RHNCONF_DIR/rhn.conf $RHNCONF_DIR/cluster.ini /etc/squid/squid.conf \
-		$HTTPDCONFD_DIR/cobbler-proxy.conf /etc/httpd/conf/httpd.conf $HTTPDCONFD_DIR/rhn_proxy.conf \
+		$HTTPDCONFD_DIR/cobbler-proxy.conf $HTTPDCONF_DIR/httpd.conf $HTTPDCONFD_DIR/rhn_proxy.conf \
 		$HTTPDCONFD_DIR/proxy_broker.conf $HTTPDCONFD_DIR/proxy_redirect.conf \
 		$JABBERD_DIR/c2s.xml $JABBERD_DIR/sm.xml
 fi
