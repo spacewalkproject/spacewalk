@@ -8109,6 +8109,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="snapshots.entitlements">
         <source>Entitlements Updated</source>
      </trans-unit>
+     <trans-unit id="errata.updates.noncritical">
+        <source>Non-Critical</source>
+     </trans-unit>
      <trans-unit id="snapshots.configchannel">
         <source>Configuration Channels Updated</source>
      </trans-unit>

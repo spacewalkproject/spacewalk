@@ -137,7 +137,8 @@ public class SystemListHelper {
             //status = "critical";
             url.setAttribute("href",
                     "/rhn/systems/details/ErrataList.do?sid=" +
-                    next.getId());
+                    next.getId() + "&type=" +
+                    LocalizationService.getInstance().getMessage(ErrataSetupAction.SECUR));
             message = ls.getMessage("systemlist.jsp.critical");
             img.setAttribute("src", "/img/icon_crit_update.gif"); 
             img.setAttribute("title", message);

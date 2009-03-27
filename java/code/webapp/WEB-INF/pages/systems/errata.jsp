@@ -8,6 +8,15 @@
 <html>
 <head>
     <meta name="name" value="System Details" />
+<!-- disables the enter key from submitting the form -->
+    <script type="text/javascript" language="JavaScript">
+		function key(e) {
+		var pkey = e ? e.which : window.event.keyCode;
+		return pkey != 13;
+		}
+		document.onkeypress = key;
+		if (document.layers) document.captureEvents(Event.KEYPRESS);
+    </script>
 </head>
 <body>
 
@@ -28,7 +37,23 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
 <rl:listset name="errataListSet" legend="errata">
-	<rl:list dataset="pageList"
+
+	<br/>
+	<select name="type">
+		<c:forEach items="${combo}" var="item">
+			<option id="${item.id}"
+				<c:if test="${item.default}"> selected</c:if>
+				>  <bean:message key="${item.name}"/>
+			</option>
+		</c:forEach>
+	</select>
+	<html:submit property="show">
+		<bean:message key="system.errata.show"/>
+	</html:submit>
+	<br/>
+
+
+	<rl:list
          width="100%"        
          name="errataList"
          styleclass="list"
@@ -78,7 +103,8 @@
 		
 		  <rl:column headerkey="erratalist.jsp.synopsis" bound="false"
 		  	sortattr="advisorySynopsis"
-		  	sortable="true">
+			sortable="true"
+			filterattr="advisorySynopsis">
 		      ${current.advisorySynopsis}
 		  </rl:column>
 		

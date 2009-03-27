@@ -706,6 +706,31 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * Returns a list of errata relevant to a system
+     * @param user The user
+     * @param sid System Id
+     * @param types of errata types (strings) to include
+     * @return a list of ErrataOverviews
+     */
+    public static DataResult<ErrataOverview> relevantErrata(User user,
+                                               Long sid, List<String> types) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_system_by_types");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", sid);
+
+        Map elabParams = new HashMap();
+        elabParams.put("sid", sid);
+        elabParams.put("user_id", user.getId());
+
+        DataResult<ErrataOverview> dr =  m.execute(params, types);
+        dr.setElaborationParams(elabParams);
+        return dr;
+    }
+
+
+    /**
      * Returns a list of errata relevant to a system by type
      * @param user The user
      * @param sid System Id

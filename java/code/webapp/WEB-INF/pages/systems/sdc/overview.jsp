@@ -31,10 +31,10 @@
             </c:choose>
             
             <c:if test="${criticalErrataCount > 0}">
-                <bean:message key="sdc.details.overview.updates.critical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}" arg1="${criticalErrataCount}"/> &nbsp;&nbsp;
+                <bean:message key="sdc.details.overview.updates.critical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}&type=${rhn:localize('errata.create.securityadvisory')}" arg1="${criticalErrataCount}"/> &nbsp;&nbsp;
             </c:if>
             <c:if test="${nonCriticalErrataCount > 0}">
-                <bean:message key="sdc.details.overview.updates.noncritical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}" arg1="${nonCriticalErrataCount}"/> &nbsp;&nbsp;
+                <bean:message key="sdc.details.overview.updates.noncritical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}&type=${rhn:localize('errata.updates.noncritical')}" arg1="${nonCriticalErrataCount}"/> &nbsp;&nbsp;
             </c:if>
             <c:if test="${upgradablePackagesCount > 0}">
                 <bean:message key="sdc.details.overview.updates.packages" arg0="/rhn/systems/details/packages/UpgradableList.do?sid=${system.id}" arg1="${upgradablePackagesCount}"/>

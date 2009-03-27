@@ -21029,6 +21029,13 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
      </trans-unit>
+     <trans-unit id="system.errata.show">
+         <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+
   </body>
   </file>
 </xliff>

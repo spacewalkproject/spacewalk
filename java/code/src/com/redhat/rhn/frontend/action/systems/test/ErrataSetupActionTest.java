@@ -54,7 +54,6 @@ public class ErrataSetupActionTest extends RhnMockStrutsTestCase {
         }
         
         actionPerform();
-        assertNotNull(request.getAttribute("pageList"));
         assertNotNull(request.getAttribute("set"));
         assertNotNull(request.getAttribute("system"));
         
