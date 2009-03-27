@@ -91,6 +91,7 @@ if [ -f /usr/bin/yum ]; then
 fi
 SYSCONFIG_DIR=/etc/sysconfig/rhn
 RHNCONF_DIR=/etc/rhn
+HTTPDCONFD_DIR=/etc/httpd/conf.d
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2`
 
@@ -228,8 +229,8 @@ PROTO="http";
 if [ $USE_SSL -eq 1 ]; then
    PROTO="https"
 fi
-echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > /etc/httpd/conf.d/cobbler-proxy.conf
-echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> /etc/httpd/conf.d/cobbler-proxy.conf
+echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > $HTTPDCONFD_DIR/cobbler-proxy.conf
+echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
 
 # lets do SSL stuff
 SSL_BUILD_DIR="/root/ssl-build"
@@ -276,11 +277,11 @@ config_error $? "SSL key generation failed!"
 echo "Installing SSL certificate for Apache and Jabberd:"
 rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
 
-mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
-cat /etc/httpd/conf.d/ssl.conf.bak \
+mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
+cat $HTTPDCONFD_DIR/ssl.conf.bak \
 	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
 	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
-	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > /etc/httpd/conf.d/ssl.conf
+	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > $HTTPDCONFD_DIR/ssl.conf
 
 
 CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
@@ -289,9 +290,9 @@ POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
 	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \
-		/etc/httpd/conf.d/ssl.conf $RHNCONF_DIR/rhn.conf $RHNCONF_DIR/cluster.ini /etc/squid/squid.conf \
-		/etc/httpd/conf.d/cobbler-proxy.conf /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/rhn_proxy.conf \
-		/etc/httpd/conf.d/proxy_broker.conf /etc/httpd/conf.d/proxy_redirect.conf \
+		$HTTPDCONFD_DIR/ssl.conf $RHNCONF_DIR/rhn.conf $RHNCONF_DIR/cluster.ini /etc/squid/squid.conf \
+		$HTTPDCONFD_DIR/cobbler-proxy.conf /etc/httpd/conf/httpd.conf $HTTPDCONFD_DIR/rhn_proxy.conf \
+		$HTTPDCONFD_DIR/proxy_broker.conf $HTTPDCONFD_DIR/proxy_redirect.conf \
 		/etc/jabberd/c2s.xml /etc/jabberd/sm.xml
 fi
 
