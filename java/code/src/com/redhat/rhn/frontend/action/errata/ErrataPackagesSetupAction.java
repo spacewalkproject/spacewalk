@@ -14,20 +14,23 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.ErrataPackageFile;
+import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,17 +51,23 @@ public class ErrataPackagesSetupAction extends RhnAction {
         
         User user = requestContext.getLoggedInUser();
         Errata errata = requestContext.lookupErratum();
-        DataResult files = ErrataManager.packages(errata.getId(), user);
         
-        Iterator test = files.iterator();
-        while (test.hasNext()) { //remove from filename everything we won't display
-            ErrataPackageFile next = (ErrataPackageFile)test.next();
-            String filename = next.getFilename();
-            next.setFilename(filename.substring(filename.lastIndexOf("/") + 1));
+        List<ChannelOverview> chans = new ArrayList<ChannelOverview>();
+
+        for (Channel chan : errata.getChannels()) {
+            if (UserManager.verifyChannelSubscribable(user, chan)) {
+                ChannelOverview co = new ChannelOverview();
+                co.setName(chan.getName());
+                co.setId(chan.getId());
+                co.setPackages(ChannelManager.listErrataPackages(chan, errata));
+                chans.add(co);
+            }
         }
         
+        Collections.sort(chans);
+
         request.setAttribute("errata", errata);
-        request.setAttribute("files", files);
+        request.setAttribute("channels", chans);
         
         return strutsDelegate.forwardParams(mapping.findForward("default"),
                                        request.getParameterMap());

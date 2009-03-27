@@ -2404,6 +2404,20 @@ public class ChannelManager extends BaseManager {
         ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), ids);
     }
 
+    /**
+     * List packages that are contained in an errata and in a channel
+     * @param chan The channel
+     * @param errata the Errata
+     * @return A list of PackageDto that are in the channel and errata
+     */
+    public static List<PackageDto> listErrataPackages(Channel chan, Errata errata) {
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+        params.put("eid", errata.getId());
 
+        SelectMode mode = ModeFactory.getMode(
+                "Channel_queries", "channel_errata_packages");
+        return (List<PackageDto>) mode.execute(params);
+    }
 
 }
