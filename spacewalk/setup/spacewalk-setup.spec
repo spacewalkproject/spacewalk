@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.26
+Version:        0.5.27
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Mar 27 2009 Jan Pazdziora 0.5.27-1
+- 492194 - address spacewalk-setup hanging while Restarting services.
+
 * Thu Mar 26 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.26-1
 - update message at the end of upgrade setup
 
