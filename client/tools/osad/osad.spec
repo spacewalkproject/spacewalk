@@ -199,6 +199,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %config(noreplace) %{client_caps_dir}/*
 %attr(755,root,root) %{_initrddir}/osad
 %doc LICENSE
+%doc PYTHON-LICENSES.txt
 
 %files -n osa-dispatcher
 %defattr(-,root,root)
@@ -213,6 +214,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_osa-dispatcher.conf
 %attr(755,root,root) %{_initrddir}/osa-dispatcher
 %doc LICENSE
+%doc PYTHON-LICENSES.txt
 
 %if %{include_selinux_package}
 %files -n osa-dispatcher-selinux
@@ -223,6 +225,7 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 %doc LICENSE
+%doc PYTHON-LICENSES.txt
 %endif
 
 # $Id$

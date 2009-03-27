@@ -12,6 +12,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation. 
 #
+# Modified from Python 2.x to work with Python 1.5.x
 
 """Configuration file parser.
 
