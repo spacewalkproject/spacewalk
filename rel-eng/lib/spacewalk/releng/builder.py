@@ -419,14 +419,14 @@ class Builder(object):
     def _cvs_user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """
         print("")
-        text = "Running 'cvs diff' in: %s" % self.cvs_package_workdir
+        text = "Running 'cvs diff -u' in: %s" % self.cvs_package_workdir
         print("#" * len(text))
         print(text)
         print("#" * len(text))
         print("")
 
         os.chdir(self.cvs_package_workdir)
-        (status, output) = commands.getstatusoutput("cvs diff")
+        (status, output) = commands.getstatusoutput("cvs diff -u
         print(output)
 
         print("")
