@@ -140,7 +140,7 @@ ORDER BY  E.advisory_type DESC, E.update_date DESC,  E.id
   <query params="user_id, sid">
 SELECT COUNT(DISTINCT E.ID) AS COUNT
   FROM rhnErrata E,
-       rhnServerNeededPackageCache SNEC,
+       rhnServerNeededCache SNEC,
        rhnUserServerPerms USP
  WHERE USP.server_id = :sid
    AND   USP.user_id = :user_id
@@ -155,7 +155,7 @@ SELECT COUNT(DISTINCT E.ID) AS COUNT
   <query params="user_id, sid">
 SELECT COUNT(DISTINCT E.ID) AS COUNT
   FROM rhnErrata E,
-       rhnServerNeededPackageCache SNEC,
+       rhnServerNeededCache SNEC,
        rhnUserServerPerms USP
  WHERE USP.server_id = :sid
    AND   USP.user_id = :user_id
