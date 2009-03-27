@@ -15,21 +15,24 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
+import java.util.List;
 import com.redhat.rhn.frontend.struts.RequestContext;
 
-import java.util.List;
-
 /**
- * 
- * @author paji
- * Listable
- * @version  $Rev$
+ * Interface used to tie an action into ListTag 3.0 (known for a while as "new List Tag").
+ * This interface allows the List*Helper classes to interact with the action to retrieve
+ * the data to show on the page.
+ * <p/>
+ * See the Spacewalk wiki for more information on how to work with ListTag 3.0.
  */
 public interface Listable {
+
     /**
-     * The dataresult associated to a set
-     * @param context the request context 
-     * @return a List of Selectable or Identifiable objects
+     * Returns the data to display on the web page.
+     *
+     * @param context the request context; will not be <code>null</code>
+     * @return a List of {@link com.redhat.rhn.frontend.struts.Selectable} or
+     *         {@link com.redhat.rhn.domain.Identifiable} objects.
      */
     List getResult(RequestContext context);
 }
