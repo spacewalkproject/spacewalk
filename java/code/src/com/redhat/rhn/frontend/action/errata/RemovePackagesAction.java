@@ -17,8 +17,6 @@ package com.redhat.rhn.frontend.action.errata;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.errata.ErrataFactory;
-import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetElement;
@@ -92,23 +90,6 @@ public class RemovePackagesAction extends RhnSetAction {
                 //removed from the errata.
                 packagesRemoved++;
             }
-            
-            //We have to do this round about way of removing errata files
-            // otherwise we are modifying the set that we are working on
-            // I really *hate* errata files
-            List<ErrataFile> efsToRemove = new ArrayList<ErrataFile>();
-            for (ErrataFile ef : errata.getFiles()) {
-                    if (ef.getPackages().contains(pkg)) {
-                        efsToRemove.add(ef);
-                    }
-            }
-            for (ErrataFile ef : efsToRemove) {
-                errata.removeFile(ef.getId());
-                ef.getPackages().remove(pkg);
-                if (ef.getPackages().isEmpty()) {
-                    ErrataFactory.removeFile(ef);
-                }
-            }            
         }
         //Save the errata
         ErrataManager.storeErrata(errata);

@@ -31,8 +31,6 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
-import com.redhat.rhn.domain.errata.impl.PublishedErrataFile;
-import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -56,7 +54,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -912,51 +909,6 @@ public class ErrataManager extends BaseManager {
      */
     public static List lookupByOriginal(User user, Errata original) {
         return ErrataFactory.lookupByOriginal(user.getOrg(), original);
-    }
-
-    /** 
-     * Refresh the ErrataFiles associated with this Errata and the passed in Channel.
-     * @param channelIn to refresh errata files.
-     * @param errata of Errata you want to refresh.
-     */
-    public static void refreshErrataFiles(Channel channelIn, Errata errata) {
-        if (log.isDebugEnabled()) {
-            log.debug("files? " + (errata.getFiles() != null) + " packages: " + 
-                    (channelIn.getPackages() != null));
-        }
-        if (errata.getFiles() != null && channelIn.getPackages() != null) {
-            log.debug("This errata has files and the channel has packages.");
-            Set addedPackages = new HashSet();
-            Iterator i = errata.getFiles().iterator();
-            while (i.hasNext()) {
-                log.debug("loop 2.");
-                PublishedErrataFile ef = (PublishedErrataFile) i.next();
-                if (log.isDebugEnabled()) {
-                    log.debug("Working with ef: " + ef.getFileName() + 
-                            " id: " + ef.getId() + " cs: " + ef.getChecksum());
-                }
-                if (ef.getPackages() != null) {
-                    Iterator j = ef.getPackages().iterator();
-                    while (j.hasNext()) {
-                        Package p = (Package) j.next();
-                        if (log.isDebugEnabled()) {
-                            log.debug("Package: " + p.getPackageName().getName() + 
-                                    " arch: " + p.getPackageArch().getLabel());
-                            log.debug("added packages: " + addedPackages);
-                        }
-                        if (channelIn.getPackages().contains(p) && 
-                                !addedPackages.contains(p)) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("ChannelHasPackage, adding to ef");
-                            }
-                            ef.addChannel(channelIn);
-                            addedPackages.add(p);
-                        }
-                    }
-                }
-            }
-        }
-
     }
     
     /**

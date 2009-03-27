@@ -14,31 +14,28 @@
 
 <h2><bean:message key="packagelist.jsp.header.packages"/></h2>
     
-    <c:if test="${empty files}">
+
+
+    <c:forEach items="${channels}" var="current">
         <div class="page-summary">
-            <bean:message key="details.jsp.none"/>
+		<b><c:out value="${current.name}"/> </b>
+			<br/>
+
+			    <c:if test="${empty current.packages}">
+			        <div class="page-summary">
+			            <bean:message key="details.jsp.none"/>
+			        </div>
+			    </c:if>
+
+			 <c:forEach items="${current.packages}" var="pack">
+				<tt>${pack.md5sum}</tt>
+				<a href="/rhn/software/packages/Details.do?pid=${pack.id}">
+						<c:out value="${pack.name}"/>
+				</a>
+	            <br/>
+			</c:forEach>
+			<br/>
         </div>
-    </c:if>
-
-    <c:forEach items="${files}" var="current">
-        <div class="page-summary">
-
-            <c:if test="${previousChannel != current.channelName}">
-                <br/><b>${current.channelName}:</b> <br/>
-            </c:if>
-        
-            <tt>${current.md5sum}</tt>
-        
-            <c:if test="${not empty current.packageId}">
-                <a href="/rhn/software/packages/Details.do?pid=${current.packageId}">${current.filename}</a>
-            </c:if>
-            <c:if test="${empty current.packageId}">
-                ${current.filename}
-            </c:if>
-            <br/>
-
-        </div>
-        <c:set var="previousChannel" value="${current.channelName}" />
     </c:forEach>
 </body>
 </html>

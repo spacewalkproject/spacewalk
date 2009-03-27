@@ -21,7 +21,6 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
-import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 
 import org.apache.log4j.Logger;
@@ -63,7 +62,6 @@ public class CloneErrataAction
                 Errata published = PublishErrataHelper.cloneErrataFast(errata, 
                         msg.getUser().getOrg());
                 published.setChannels(channelSet);
-                ErrataManager.refreshErrataFiles(currChan, published);
                 
             }
             ErrataCacheManager.insertCacheForChannelErrata(cids, errata);

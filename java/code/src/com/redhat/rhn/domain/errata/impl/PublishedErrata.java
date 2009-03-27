@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.errata.impl;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.AbstractErrata;
-import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.domain.errata.Cve;
 
 import org.apache.log4j.Logger;
@@ -32,7 +31,7 @@ public class PublishedErrata extends AbstractErrata {
 
     private static Logger log = Logger.getLogger(PublishedErrata.class);
 
-    private Set channels;
+    private Set channels = new HashSet();
     private Set<Cve> cves = new HashSet<Cve>();
 
     /**
@@ -58,7 +57,6 @@ public class PublishedErrata extends AbstractErrata {
             this.channels = new HashSet();
         }
         channels.add(channelIn);
-        ErrataManager.refreshErrataFiles(channelIn, this);
     }
 
     /**
