@@ -209,19 +209,21 @@ cat $DIR/c2s.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/c2s.
 cat $DIR/sm.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/sm.xml
 cat $DIR/squid.conf | sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
         > /etc/squid/squid.conf
-cat $DIR/rhn.conf | sed "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
-	| sed "s/\${session.http_proxy}/$HTTP_PROXY/g" \
-	| sed "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
-	| sed "s/\${session.http_proxy_password}/$HTTP_PASSWORD/g" \
-	| sed "s/\${session.rhn_parent}/$RHN_PARENT/g" \
-	| sed "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
-	| sed "s/\${session.use_ssl:0}/$USE_SSL/g" \
-	| sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
+cat $DIR/rhn.conf | \
+	sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
+	    -e "s/\${session.http_proxy}/$HTTP_PROXY/g" \
+	    -e "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
+	    -e "s/\${session.http_proxy_password}/$HTTP_PASSWORD/g" \
+	    -e "s/\${session.rhn_parent}/$RHN_PARENT/g" \
+	    -e "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
+	    -e "s/\${session.use_ssl:0}/$USE_SSL/g" \
+	    -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
 	> $RHNCONF_DIR/rhn.conf
-cat $DIR/cluster.ini | sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
-        | sed "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
-        | sed "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
-        | sed "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
+cat $DIR/cluster.ini | \
+        sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
+            -e "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
+            -e "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
+            -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
         > $RHNCONF_DIR/cluster.ini
 
 
@@ -279,10 +281,10 @@ echo "Installing SSL certificate for Apache and Jabberd:"
 rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
 
 mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
-cat $HTTPDCONFD_DIR/ssl.conf.bak \
-	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
-	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
-	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > $HTTPDCONFD_DIR/ssl.conf
+cat $HTTPDCONFD_DIR/ssl.conf.bak | \
+	sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
+	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
+	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > $HTTPDCONFD_DIR/ssl.conf
 
 
 CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
