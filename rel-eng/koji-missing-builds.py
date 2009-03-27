@@ -74,7 +74,7 @@ for pkg in pkgfileList:
     pkginfo = fd.read()
     fd.close()
     pkginfo = pkginfo.split()
-    pkglist.append("%s-%s" % (pkg, pkginfo[0]))
+    pkglist.append("%s-%s" % (pkg, pkginfo[0].rstrip('-' + distsuffix)))
     gitnames.append(pkg)
 
 pkglist.sort()
