@@ -348,7 +348,7 @@ sub init_log_files {
     or die "Could not open '" . INSTALL_LOG_FILE .
         "': $!";
 
-  my $log_header = "$product_name installation log.\nCommand: "
+  my $log_header = "Installation log of $product_name\nCommand: "
     . $0 . " " . join(" ", @args) . "\n\n";
 
   print FH $log_header;
