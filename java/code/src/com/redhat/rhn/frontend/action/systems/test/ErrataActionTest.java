@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.test;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -56,7 +57,8 @@ public class ErrataActionTest extends RhnMockStrutsTestCase {
         String pathInfo = "/systems/details/ErrataList";
         setRequestPathInfo(pathInfo);
         addSubmitted();
-        addRequestParameter(RequestContext.DISPATCH, Boolean.toString(true));        
+        addRequestParameter(RequestContext.DISPATCH,
+                LocalizationService.getInstance().getMessage("errata.jsp.apply"));
 
         // Create System
         Server server = ServerFactoryTest.createTestServer(user, true);
