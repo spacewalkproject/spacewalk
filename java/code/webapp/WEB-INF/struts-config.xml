@@ -1847,22 +1847,6 @@
         <forward name="continue"
                  path="/errata/manage/CloneConfirm.do" redirect="true" />
     </action>
-
-	<action path="/errata/manage/CloneErrataSubmit"
-        scope="request"
-        name="cloneErrataForm"
-        input="/WEB-INF/pages/errata/cloneerrata.jsp"
-        parameter="dispatch"
-        type="com.redhat.rhn.frontend.action.errata.CloneErrataAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-                 path="/errata/manage/CloneErrata.do" redirect="true"/>
-        <forward name="error"
-                 path="/WEB-INF/pages/errata/cloneerrata.jsp" />
-        <forward name= "clone"
-                 path="/errata/manage/CloneConfirm.do" redirect="true" />
-    </action>
     
     <action path="/errata/manage/CloneConfirm"
             scope="request"
