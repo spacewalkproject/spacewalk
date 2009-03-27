@@ -89,15 +89,16 @@ if [ -f /usr/bin/yum ]; then
         # add -y for non-interactive installation
 	[ "$INTERACTIVE" = "0" ] && YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
 fi
+SYSCONFIG_DIR=/etc/sysconfig/rhn
 
-SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt /etc/sysconfig/rhn/systemid | cut -d- -f2`
+SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2`
 
 DIR=/usr/share/doc/proxy/conf-template
 HOSTNAME=`hostname`
 
 default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
 
-default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' /etc/sysconfig/rhn/up2date)
+default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' $SYSCONFIG_DIR/up2date)
 
 if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
    RHN_PARENT="xmlrpc.rhn.redhat.com"
@@ -112,7 +113,7 @@ default_or_input "Traceback email" TRACEBACK_EMAIL ''
 default_or_input "Use SSL" USE_SSL 'Y/n'
 USE_SSL=$(yes_no $USE_SSL)
 
-default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' /etc/sysconfig/rhn/up2date)
+default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
 if ! /sbin/runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by apache user.
