@@ -77,7 +77,13 @@ yes_no() {
 config_error () {
         if [ $1 -gt 0 ]; then
                 echo "$2 Installation interrupted."
-                /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --deactivate --non-interactive
+                /usr/bin/rhn-proxy-activate \
+                        --server="$RHN_PARENT" \
+                        --http-proxy="$HTTP_PROXY" \
+                        --http-proxy-username="$HTTP_USERNAME" \
+                        --http-proxy-password="$HTTP_PASSWORD" \
+                        --ca-cert="$CA_CHAIN" \
+                        --deactivate --non-interactive
                 exit $1
         fi
 }
@@ -159,7 +165,13 @@ default_or_input "Country code" SSL_COUNTRY ''
 default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 
 
-/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
+/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" \
+                            --http-proxy="$HTTP_PROXY" \
+                            --http-proxy-username="$HTTP_USERNAME" \
+                            --http-proxy-password="$HTTP_PASSWORD" \
+                            --ca-cert="$CA_CHAIN" \
+                            --version="$VERSION" \
+                            --non-interactive
 config_error $? "Proxy activation failed!"
 
 $YUM_OR_UPDATE spacewalk-proxy-management
@@ -249,9 +261,15 @@ fi
 
 if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
 	echo "Generating CA key and public certificate:"
-	/usr/bin/rhn-ssl-tool --gen-ca -q --dir="$SSL_BUILD_DIR" --set-common-name="$SSL_COMMON" \
-		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE" \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+	/usr/bin/rhn-ssl-tool --gen-ca -q \
+                --dir="$SSL_BUILD_DIR" \
+                --set-common-name="$SSL_COMMON" \
+                --set-country="$SSL_COUNTRY" \
+                --set-city="$SSL_CITY" \
+                --set-state="$SSL_STATE" \
+                --set-org="$SSL_ORG" \
+                --set-org-unit="$SSL_ORGUNIT" \
+                --set-email="$SSL_EMAIL" \
                 $RHNSSLTOOLPWD
 	config_error $? "CA certificate generation failed!"
 else
@@ -272,9 +290,15 @@ if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT
 fi
 
 echo "Generating SSL key and public certificate:"
-/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm --set-hostname "$HOSTNAME" --dir="$SSL_BUILD_DIR" \
-		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE"  \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm \
+                --set-hostname "$HOSTNAME" \
+                --dir="$SSL_BUILD_DIR" \
+                --set-country="$SSL_COUNTRY" \
+                --set-city="$SSL_CITY" \
+                --set-state="$SSL_STATE" \
+                --set-org="$SSL_ORG" \
+                --set-org-unit="$SSL_ORGUNIT" \
+                --set-email="$SSL_EMAIL" \
                 $RHNSSLTOOLPWD
 config_error $? "SSL key generation failed!"
 
@@ -292,12 +316,21 @@ CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
 default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POPULATE_CONFIG_CHANNEL 'Y/n'
 POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
-	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
-	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \
-		$HTTPDCONFD_DIR/ssl.conf $RHNCONF_DIR/rhn.conf $RHNCONF_DIR/cluster.ini /etc/squid/squid.conf \
-		$HTTPDCONFD_DIR/cobbler-proxy.conf $HTTPDCONF_DIR/httpd.conf $HTTPDCONFD_DIR/rhn_proxy.conf \
-		$HTTPDCONFD_DIR/proxy_broker.conf $HTTPDCONFD_DIR/proxy_redirect.conf \
-		$JABBERD_DIR/c2s.xml $JABBERD_DIR/sm.xml
+	rhncfg-manager create-channel --server-name "$RHN_PARENT" \
+                rhn_proxy_config_$SYSTEM_ID
+	rhncfg-manager update --server-name "$RHN_PARENT" \
+                --channel=rhn_proxy_config_$SYSTEM_ID \
+                $HTTPDCONFD_DIR/ssl.conf \
+                $RHNCONF_DIR/rhn.conf \
+                $RHNCONF_DIR/cluster.ini \
+                /etc/squid/squid.conf \
+                $HTTPDCONFD_DIR/cobbler-proxy.conf \
+                $HTTPDCONF_DIR/httpd.conf \
+                $HTTPDCONFD_DIR/rhn_proxy.conf \
+                $HTTPDCONFD_DIR/proxy_broker.conf \
+                $HTTPDCONFD_DIR/proxy_redirect.conf \
+                $JABBERD_DIR/c2s.xml \
+                $JABBERD_DIR/sm.xml
 fi
 
 echo "Enabling Spacewalk Proxy."
