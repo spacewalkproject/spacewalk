@@ -90,6 +90,7 @@ if [ -f /usr/bin/yum ]; then
 	[ "$INTERACTIVE" = "0" ] && YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
 fi
 SYSCONFIG_DIR=/etc/sysconfig/rhn
+RHNCONF_DIR=/etc/rhn
 
 SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2`
 
@@ -192,7 +193,7 @@ if [ $MONITORING -eq 0 ]; then
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-        MSG=$(echo -n "Your scout shared key (can be found on parent\nin /etc/rhn/cluster.ini as key scoutsharedkey)")
+        MSG=$(echo -n "Your scout shared key (can be found on parent\nin $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
         default_or_input "$MSG" SCOUT_SHARED_KEY ''
 fi
 
@@ -214,12 +215,12 @@ cat $DIR/rhn.conf | sed "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_
 	| sed "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
 	| sed "s/\${session.use_ssl:0}/$USE_SSL/g" \
 	| sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
-	> /etc/rhn/rhn.conf
+	> $RHNCONF_DIR/rhn.conf
 cat $DIR/cluster.ini | sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
         | sed "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
         | sed "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
         | sed "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
-        > /etc/rhn/cluster.ini
+        > $RHNCONF_DIR/cluster.ini
 
 
 #Setup the cobbler stuff, needed to use koan through a proxy
@@ -288,7 +289,7 @@ POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
 	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
 	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \
-		/etc/httpd/conf.d/ssl.conf /etc/rhn/rhn.conf /etc/rhn/cluster.ini /etc/squid/squid.conf \
+		/etc/httpd/conf.d/ssl.conf $RHNCONF_DIR/rhn.conf $RHNCONF_DIR/cluster.ini /etc/squid/squid.conf \
 		/etc/httpd/conf.d/cobbler-proxy.conf /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/rhn_proxy.conf \
 		/etc/httpd/conf.d/proxy_broker.conf /etc/httpd/conf.d/proxy_redirect.conf \
 		/etc/jabberd/c2s.xml /etc/jabberd/sm.xml
