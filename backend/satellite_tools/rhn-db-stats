@@ -5,7 +5,7 @@ if [ $# -lt 1 -o $# -gt 2 ]; then
 	exit
 fi
 
-CONNECT=$(grep default_db /etc/rhn/rhn.conf | awk '{split($0,a,"="); print a[2]}')
+CONNECT=$(awk '/default_db/ {split($0,a,"="); print a[2]}' /etc/rhn/rhn.conf)
 [ -n "$2" ] && CONNECT=$2
 
 sqlplus $CONNECT >& /dev/null << EOS
