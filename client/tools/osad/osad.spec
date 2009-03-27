@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.9
+Version: 5.9.10
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -230,6 +230,9 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 
 # $Id$
 %changelog
+* Fri Mar 27 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.10-1
+- added PYTHON-LICENSES.txt file
+
 * Mon Mar 16 2009 Jan Pazdziora 5.9.9-1
 - remove /usr/sbin/semanage: Port tcp/1290 already defined error
 - allow osa-dispatcher to use NIS
