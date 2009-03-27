@@ -426,7 +426,7 @@ class Builder(object):
         print("")
 
         os.chdir(self.cvs_package_workdir)
-        (status, output) = commands.getstatusoutput("cvs diff -u
+        (status, output) = commands.getstatusoutput("cvs diff -u")
         print(output)
 
         print("")
