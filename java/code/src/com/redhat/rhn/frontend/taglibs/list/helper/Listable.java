@@ -24,6 +24,8 @@ import com.redhat.rhn.frontend.struts.RequestContext;
  * the data to show on the page.
  * <p/>
  * See the Spacewalk wiki for more information on how to work with ListTag 3.0.
+ * 
+ * @version $Rev$
  */
 public interface Listable {
 
