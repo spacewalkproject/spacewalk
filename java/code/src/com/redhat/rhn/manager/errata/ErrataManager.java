@@ -396,22 +396,9 @@ public class ErrataManager extends BaseManager {
     /**
      * Helper method to get the unpublished/published errata
      * @param user Currently logged in user
-     * @param pc PageControl
      * @param mode Tells which mode (published/unpublished) we need to run
      * @return all of the errata
      */
-    private static DataResult ownedErrata(User user, PageControl pc, String mode) {
-        SelectMode m = ModeFactory.getMode("Errata_queries", mode);
-        Map params = new HashMap();
-        params.put("org_id", user.getOrg().getId());
-        if (pc != null) {
-            return makeDataResult(params, new HashMap(), pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
-    }
-    
     private static DataResult ownedErrata(User user, String mode) {
         SelectMode m = ModeFactory.getMode("Errata_queries", mode);
         Map params = new HashMap();
@@ -823,59 +810,55 @@ public class ErrataManager extends BaseManager {
     /**
      * Get List of all cloneable errata for an org
      * @param orgid org we want to lookup against
-     * @param pc page control to be used
      * @param showCloned whether we should show errata that have already been cloned
      * @return List of cloneableErrata
      */
-    public static DataResult clonableErrata(Long orgid, 
-                                            PageControl pc, 
+    public static DataResult clonableErrata(Long orgid,
                                             boolean showCloned) {
         SelectMode m;
-        
+
         if (showCloned) {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_list_all");
         }
         else {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_list_uncloned");
         }
-        
-        
+
+
         Map params = new HashMap();
         params.put("org_id", orgid);
-        return makeDataResult(params, params, pc, m);
+        return makeDataResult(params, params, null, m);
     }
-    
+
    /**
      * Get List of cloneable Errata for an org, from a particular channel
      * @param orgid org we want to lookup against
      * @param cid channelid
-     * @param pc page control to be used
      * @param showCloned whether we should show errata that have already been cloned
      * @return List of cloneableErrata
      */
-    public static DataResult clonableErrataForChannel(Long orgid, 
-                                                      Long cid, 
-                                                      PageControl pc, 
+    public static DataResult clonableErrataForChannel(Long orgid,
+                                                      Long cid,
                                                       boolean showCloned) {
         SelectMode m;
-        
+
         if (showCloned) {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_for_channel_all");
         }
         else {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_for_channel_uncloned");
         }
-        
+
         Map params = new HashMap();
         params.put("channel_id", cid);
         params.put("org_id", orgid);
-        return makeDataResult(params, params, pc, m);
+        return makeDataResult(params, params, null, m);
     }
-    
+
     /**
      * Get a list of channels applicable to the erratum
      * @param eid The id of the erratum
