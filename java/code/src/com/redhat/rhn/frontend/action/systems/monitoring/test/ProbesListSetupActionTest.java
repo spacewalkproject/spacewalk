@@ -85,7 +85,6 @@ public class ProbesListSetupActionTest extends RhnBaseTestCase {
         ah.setupClampListBounds();
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
-        assertNotNull(ah.getRequest().getAttribute("pageList"));
         DataResult dr = (DataResult) ah.getRequest().getAttribute("pageList");
         assertTrue(dr.size() == 0);
     }
