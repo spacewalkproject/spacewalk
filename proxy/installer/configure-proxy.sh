@@ -29,7 +29,7 @@ INTERACTIVE=1
 while [ $# -ge 1 ]; do
 	case $1 in
             --help | -h)  print_help;;
-            --answer-file=*) . `echo $1 | cut -d= -f2`;;
+            --answer-file=*) . $(echo $1 | cut -d= -f2);;
             --non-interactive) INTERACTIVE=0;;
     esac
     shift
@@ -103,10 +103,10 @@ HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
 
 
-SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2`
+SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2)
 
 DIR=/usr/share/doc/proxy/conf-template
-HOSTNAME=`hostname`
+HOSTNAME=$(hostname)
 
 default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
 
@@ -206,7 +206,7 @@ if [ $MONITORING -eq 0 ]; then
 	#and with cluster.ini
 	echo "Configuring monitoring."
         default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
-        RESOLVED_IP=`/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' '`
+        RESOLVED_IP=$(/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' ')
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
@@ -276,12 +276,12 @@ else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
 fi
 
-RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
 
 if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
 	echo "Generating distributable RPM for CA public certificate:"
         /usr/bin/rhn-ssl-tool --gen-ca -q --rpm-only --dir="$SSL_BUILD_DIR"
-	RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+	RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
 fi
 
 if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT ]; then
@@ -303,7 +303,7 @@ echo "Generating SSL key and public certificate:"
 config_error $? "SSL key generation failed!"
 
 echo "Installing SSL certificate for Apache and Jabberd:"
-rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
+rpm -Uv $(/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm)
 
 mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
 sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile $HTTPDCONF_DIR/ssl.crt/server.crt|g" \
