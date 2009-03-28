@@ -101,7 +101,7 @@ HTTPDCONF_DIR=/etc/httpd/conf
 HTTPDCONFD_DIR=/etc/httpd/conf.d
 HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
-
+SQUID_DIR=/etc/squid
 
 SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2)
 
@@ -223,7 +223,7 @@ SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100
 sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > $JABBERD_DIR/c2s.xml
 sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > $JABBERD_DIR/sm.xml
 sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
-        < $DIR/squid.conf  > /etc/squid/squid.conf
+        < $DIR/squid.conf  > $SQUID_DIR/squid.conf
 sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
 	    -e "s/\${session.http_proxy}/$HTTP_PROXY/g" \
 	    -e "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
@@ -323,7 +323,7 @@ if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
                 $HTTPDCONFD_DIR/ssl.conf \
                 $RHNCONF_DIR/rhn.conf \
                 $RHNCONF_DIR/cluster.ini \
-                /etc/squid/squid.conf \
+                $SQUID_DIR/squid.conf \
                 $HTTPDCONFD_DIR/cobbler-proxy.conf \
                 $HTTPDCONF_DIR/httpd.conf \
                 $HTTPDCONFD_DIR/rhn_proxy.conf \
