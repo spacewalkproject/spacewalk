@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.41
+Version: 0.5.42
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,17 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Mar 30 2009 Mike McCune <mmccune@gmail.com> 0.5.42-1
+- 144325 - converting system probe list to the new list tag, featuring all the bells and 
+  whistles the new list tag has to offer
+- 492478 - modifying the system applicable errata page so that you can filter on the 
+  type of errata you want to see, also linking a couple of critical errata li
+- 467063 - Port of clone errata functionality to new list tag
+- 492418 - adding missing channel title when creating new software channels
+- 492476 - fixing issue where critical  plus non-critical errata for a system (on the system details page) did not  total errata
+- 492146 - fixing issue where system icons are not clickable
+
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.41-1
 - 437359 - redirect org creation to the orgsystemsubscription page
 - 489007 - add system.getConnectionPath for listing proxies a server connected through
