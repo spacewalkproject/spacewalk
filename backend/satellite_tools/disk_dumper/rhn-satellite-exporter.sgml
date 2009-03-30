@@ -158,7 +158,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-p --print-configuration</term>
+        <term>-p, --print-configuration</term>
         <listitem>
             <para>Print the configuration and exit.</para>
         </listitem>
