@@ -115,6 +115,9 @@ fi
 
 
 %changelog
+* Mon Mar 30 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- 487618 - fixing jabberd to use mysql db by default instead of sqlite
+
 * Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 0.5.8-1
 - Requires(pre) jabberd so we can set the password in %%post
 
