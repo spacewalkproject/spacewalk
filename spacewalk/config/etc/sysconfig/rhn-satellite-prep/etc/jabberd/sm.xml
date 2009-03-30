@@ -71,8 +71,8 @@
     <!-- Dynamic storage modules path -->
     <path>/usr/lib/jabberd</path>
 
-    <!-- By default, we use the sqlite driver for all storage -->
-    <driver>sqlite</driver>
+    <!-- By default, we use the MySQL driver for all storage -->
+    <driver>db</driver>
 
     <!-- Its also possible to explicitly list alternate drivers for
          specific data types. -->

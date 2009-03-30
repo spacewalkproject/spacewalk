@@ -321,7 +321,7 @@
     <path>/usr/lib/jabberd</path>
 
     <!-- Backend module to use -->
-    <module>sqlite</module>
+    <module>db</module>
 
     <!-- Available authentication mechanisms -->
     <mechanisms>
