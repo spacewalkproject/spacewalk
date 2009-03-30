@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.8
+Version: 0.5.9
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -115,7 +115,7 @@ fi
 
 
 %changelog
-* Mon Mar 30 2009 Pradeep Kilambi <pkilambi@redhat.com>
+* Mon Mar 30 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.9-1
 - 487618 - fixing jabberd to use mysql db by default instead of sqlite
 
 * Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 0.5.8-1
