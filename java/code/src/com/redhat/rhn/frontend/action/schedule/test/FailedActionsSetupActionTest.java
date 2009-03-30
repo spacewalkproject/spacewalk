@@ -14,16 +14,67 @@
  */
 package com.redhat.rhn.frontend.action.schedule.test;
 
-import com.redhat.rhn.frontend.action.schedule.FailedActionsSetupAction;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.server.ServerAction;
+import com.redhat.rhn.domain.action.test.ActionFactoryTest;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.TestUtils;
 
 /**
  * FailedActionsSetupActionTest
  * @version $Rev$
  */
-public class FailedActionsSetupActionTest extends
-        ScheduledActionSetupActionTestCase {
+public class FailedActionsSetupActionTest extends RhnMockStrutsTestCase {
+
+
+    public void setUp() throws Exception {
+        super.setUp();
+        setRequestPathInfo("/schedule/FailedActions");
+    }
+
+
+
 
     public void testPerformExecute() throws Exception {
-        testPerformExecute(new FailedActionsSetupAction());
+
+
+        actionPerform();
+        verifyForwardPath("/WEB-INF/pages/schedule/failedactions.jsp");
+        Object test = request.getAttribute("dataset");
+        assertNotNull(test);
+
     }
+
+    public void testPerformSubmit() throws Exception {
+
+
+        Server server = ServerFactoryTest.createTestServer(user);
+
+        Action act = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
+        ServerAction sAction = ActionFactoryTest.createServerAction(server, act);
+        sAction.setStatus(ActionFactory.STATUS_FAILED);
+        TestUtils.saveAndFlush(sAction);
+
+
+        RhnSet set = RhnSetDecl.ACTIONS_FAILED.get(user);
+        set.addElement(act.getId());
+        RhnSetManager.store(set);
+
+        request.addParameter(RhnAction.SUBMITTED, "true");
+        request.addParameter("dispatch", "Archive Errata");
+        actionPerform();
+        verifyActionMessage("message.actionArchived");
+        verifyForwardPath("/schedule/FailedActions.do");
+
+
+    }
+
+
 }

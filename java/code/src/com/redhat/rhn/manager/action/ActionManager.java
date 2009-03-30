@@ -721,6 +721,7 @@ public class ActionManager extends BaseManager {
         }
         DataResult dr = m.execute(params);
         dr.setTotalSize(dr.size());
+        dr.setElaborationParams(params);
         return dr;
     }
     

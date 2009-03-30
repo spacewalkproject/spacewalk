@@ -14,15 +14,66 @@
  */
 package com.redhat.rhn.frontend.action.schedule.test;
 
-import com.redhat.rhn.frontend.action.schedule.PendingActionsSetupAction;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
+import com.redhat.rhn.domain.action.server.ServerAction;
+import com.redhat.rhn.domain.action.test.ActionFactoryTest;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.TestUtils;
 
 /**
  * PendingActionsSetupActionTest
  * @version $Rev$
  */
-public class PendingActionsSetupActionTest extends ScheduledActionSetupActionTestCase {
+public class PendingActionsSetupActionTest extends RhnMockStrutsTestCase {
+
+
+
+    public void setUp() throws Exception {
+        super.setUp();
+        setRequestPathInfo("/schedule/PendingActions");
+    }
+
+
+
     
     public void testPerformExecute() throws Exception {
-        testPerformExecute(new PendingActionsSetupAction());
+
+
+        actionPerform();
+        verifyForwardPath("/WEB-INF/pages/schedule/pendingactions.jsp");
+        Object test = request.getAttribute("dataset");
+        assertNotNull(test);
+
     }
+
+    public void testPerformSubmit() throws Exception {
+
+
+        Server server = ServerFactoryTest.createTestServer(user);
+
+        Action act = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
+        ServerAction sAction = ActionFactoryTest.createServerAction(server, act);
+        sAction.setStatus(ActionFactory.STATUS_QUEUED);
+        TestUtils.saveAndFlush(sAction);
+
+
+        RhnSet set = RhnSetDecl.ACTIONS_PENDING.get(user);
+        set.addElement(act.getId());
+        RhnSetManager.store(set);
+
+        request.addParameter(RhnAction.SUBMITTED, "true");
+        request.addParameter("dispatch", "Cancel Actions");
+        actionPerform();
+        verifyForwardPath("/schedule/PendingActionsDeleteConfirm.do");
+
+
+    }
+
 }

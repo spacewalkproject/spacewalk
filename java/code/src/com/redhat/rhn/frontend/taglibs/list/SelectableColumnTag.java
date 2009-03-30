@@ -35,7 +35,7 @@ public class SelectableColumnTag extends TagSupport {
     private String selectExpr;
     private String disabledExpr;
     private String styleClass;
-    private String width = "20px";
+    private String width;
     private String headerStyle;
     private String headerKey;
     private String listName;
@@ -283,6 +283,10 @@ public class SelectableColumnTag extends TagSupport {
             ListTagUtil.write(pageContext, " width=\"");
             ListTagUtil.write(pageContext, width);
             ListTagUtil.write(pageContext, "\"");
+        }
+        else {
+            ListTagUtil.write(pageContext, " class=\"thin-column list-checkbox-header\" ");
+
         }
         ListTagUtil.write(pageContext, ">");       
     }    

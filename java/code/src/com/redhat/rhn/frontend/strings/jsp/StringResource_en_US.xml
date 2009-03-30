@@ -2782,7 +2782,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.earliest">
-<source>Earliest</source>
+<source>Scheduled Time</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
@@ -2807,7 +2807,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.inprogress">
-<source>In Progress</source>
+<source>Pending</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>

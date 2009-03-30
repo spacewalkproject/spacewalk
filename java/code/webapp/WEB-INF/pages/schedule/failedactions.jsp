@@ -2,10 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
 
 <html:xhtml/>
 <html>
 <body>
+
+
 
   <html:messages id="message" message="true">
     <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
@@ -23,15 +27,26 @@
     </p>
   </div>
   
-<form method="post" name="rhn_list" action="/rhn/schedule/FailedActionsSubmit.do">
+	<br/>
 
-<rhn:list pageList="${requestScope.pageList}"
-          noDataText="failedactions.jsp.nogroups">
-          
-	<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay.jspf" %>
+
+	<rl:listset name="failedList">
+		<rl:list emptykey="failedactions.jsp.nogroups" styleclass="list">
+
+
+			<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
+
+
+		</rl:list>
+		<rhn:submitted/>
+		 <div align="right">
+		     <input type="submit"
+               name="dispatch"
+               value='<bean:message key="actions.jsp.archiveactions"/>'/>
+         </div>
+	</rl:listset>
+
+
 	
-</rhn:list>
-	
-</form>
 </body>
 </html>

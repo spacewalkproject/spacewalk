@@ -1565,36 +1565,20 @@
         type="com.redhat.rhn.frontend.action.schedule.PendingActionsSetupAction">
         <forward name="default"
             path="/WEB-INF/pages/schedule/pendingactions.jsp" />
+        <forward name="confirm"
+            path="/schedule/PendingActionsDeleteConfirm.do" redirect="true" />
     </action>
     
-    <action path="/schedule/PendingActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/pendingactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.PendingActionsAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <forward name="default"
-             path="/schedule/PendingActions.do" redirect="true"/>
-         <forward name="delete"
-             path="/schedule/PendingActionsDeleteConfirm.do" redirect="true"/>
-    </action>
      
     <action path="/schedule/PendingActionsDeleteConfirm"
          scope="request"
-         input="/WEB-INF/pages/schedule/pendingactions.jsp"
+         input="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp"
          type="com.redhat.rhn.frontend.action.schedule.PendingActionsDeleteConfirmAction">
          <forward name="default"
             path="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp" />
+         <forward name="success" path="/schedule/PendingActions.do" redirect="true"/>
     </action>
      
-    <action path="/schedule/PendingActionsDeleteConfirmSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp"
-         parameter="dispatch"
-         type="com.redhat.rhn.frontend.action.schedule.PendingActionsDeleteConfirmSubmitAction">
-         <forward name="default"
-             path="/schedule/PendingActions.do" />
-    </action>
      
     <action path="/schedule/FailedActions"
         scope="request"
@@ -1602,16 +1586,8 @@
         type="com.redhat.rhn.frontend.action.schedule.FailedActionsSetupAction">
         <forward name="default"
                path="/WEB-INF/pages/schedule/failedactions.jsp" />  
+        <forward name="archive" path="/schedule/FailedActions.do" redirect="true"/>
     </action>
-
-     <action path="/schedule/FailedActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/failedactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.FailedActionsAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/schedule/FailedActions.do" redirect="true"/>
-     </action>
 
     <action path="/schedule/CompletedActions"
         scope="request"
@@ -1619,17 +1595,10 @@
         type="com.redhat.rhn.frontend.action.schedule.CompletedActionsSetupAction">
         <forward name="default"
                path="/WEB-INF/pages/schedule/completedactions.jsp" />  
+		<forward name="archive" path="/schedule/CompletedActions.do" redirect="true"/>
     </action>
 
-     <action path="/schedule/CompletedActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/completedactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.CompletedActionsAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/schedule/CompletedActions.do" redirect="true"/>
-     </action>
-         
+
     <action path="/schedule/ArchivedActions"
         scope="request"
         input="/WEB-INF/pages/schedule/archivedactions.jsp"
@@ -1638,13 +1607,6 @@
                path="/WEB-INF/pages/schedule/archivedactions.jsp" />  
     </action>
 
-     <action path="/schedule/ArchivedActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/archivedactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.ArchivedActionsAction">
-         <forward name="default"
-                  path="/schedule/ArchivedActions.do" redirect="true"/>
-     </action>
    
      <action path="/schedule/PackageList"
         scope="request"
