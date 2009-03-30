@@ -5,7 +5,7 @@ Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.
 Source1: rhn_register.desktop
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.4.23
+Version: 0.4.24
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -205,7 +205,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
-* Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.23-1
+* Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.24-1
 - 490438 - add .desktop file, own allowed-actions dir
 
 * Mon Mar 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.22-1
