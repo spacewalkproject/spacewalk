@@ -362,5 +362,20 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
                 fileName);
         assertNotNull(lookedUp);
         assertEquals(p.getId(), lookedUp.getId());
+        
+        // Test in child channel.
+        Channel child = ChannelTestUtils.createChildChannel(user, channel);
+        Package cp = PackageManagerTest.addPackageToChannel("some-package-child", child);
+        String fileNameChild = "some-package-child-2.13.1-6.fc9.x86_64.rpm";
+        cp.setPath("redhat/1/c7d/some-package-child/2.13.1-6.fc9/" +
+                "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
+                fileNameChild);
+
+        Package lookedUpChild = ChannelFactory.lookupPackageByFilename(channel, 
+                fileNameChild);
+        assertNotNull(lookedUpChild);
+        assertEquals(cp.getId(), lookedUpChild.getId());
+        
+        
     }
 }
