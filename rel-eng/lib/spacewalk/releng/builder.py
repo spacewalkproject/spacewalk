@@ -268,10 +268,10 @@ class Builder(object):
         for koji_tag in koji_tags:
             # Lookup the disttag configured for this Koji tag:
             disttag = self.global_config.get(koji_tag, "disttag")
-            if self.global_config.has_option(koji_tag, "ignore_pkgs"):
+            if self.global_config.has_option(koji_tag, "blacklist"):
                 if self.project_name in self.global_config.get(koji_tag,
-                        "ignore_pkgs").strip().split(" "):
-                    print("WARNING: %s specified in ignore_pkgs for %s" % (
+                        "blacklist").strip().split(" "):
+                    print("WARNING: %s specified in blacklist for %s" % (
                         self.project_name, koji_tag))
                     print("WARNING: NOT submitting this srpm to koji.")
                     continue
