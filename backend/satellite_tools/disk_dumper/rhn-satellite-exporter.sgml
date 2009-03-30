@@ -224,7 +224,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--help</term>
+        <term>-h, --help</term>
         <listitem>
             <para>Show help message and exit.</para>
         </listitem>
