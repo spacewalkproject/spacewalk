@@ -79,7 +79,7 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 
-desktop-file-install --dir=${RPM_BUILD_ROOT}%{_desktopdir} --vendor=rhn %{SOURCE1}
+desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn %{SOURCE1}
 
 %find_lang %{name}
 
@@ -202,7 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/24x24/apps/up2date.png
 %{_datadir}/icons/hicolor/32x32/apps/up2date.png
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
-%{_desktopdir}/rhn_register.desktop
+%{_datadir}/applications/rhn_register.desktop
 
 %changelog
 * Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.23-1
