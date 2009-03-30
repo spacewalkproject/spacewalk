@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_sysconfdir}/sysconfig/rhn
 %dir %{_sysconfdir}/sysconfig/rhn/clientCaps.d
+%dir %{_sysconfdir}/sysconfig/rhn/allowed-actions
+%dir %{_sysconfdir}/sysconfig/rhn/allowed-actions/configfiles
+%dir %{_sysconfdir}/sysconfig/rhn/allowed-actions/script
 %config(noreplace) %{_sysconfdir}/sysconfig/rhn/up2date
 %config(noreplace) %{_sysconfdir}/logrotate.d/up2date
 %config(noreplace) %{_sysconfdir}/rpm/macros.up2date
@@ -203,7 +206,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com>
-- 490438 - add .desktop file
+- 490438 - add .desktop file, own allowed-actions dir
 
 * Mon Mar 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.22-1
 - use macros insted hardcoded paths
