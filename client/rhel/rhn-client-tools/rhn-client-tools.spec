@@ -2,6 +2,7 @@ Summary: Support programs and libraries for Red Hat Network or Spacewalk
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Source1: rhn_register.desktop
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
 Version: 0.4.22
@@ -25,6 +26,7 @@ Conflicts: up2date
 BuildRequires: python-devel
 BuildRequires: gettext
 BuildRequires: intltool
+BuildRequires: desktop-file-utils
 
 %description
 Red Hat Network Client Tools provides programs and libraries to allow your
@@ -77,7 +79,10 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 
+desktop-file-install --dir=${RPM_BUILD_ROOT}%{_desktopdir} --vendor=rhn %{SOURCE1}
+
 %find_lang %{name}
+
 
 
 %clean
@@ -194,8 +199,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/icons/hicolor/24x24/apps/up2date.png
 %{_datadir}/icons/hicolor/32x32/apps/up2date.png
 %{_datadir}/icons/hicolor/48x48/apps/up2date.png
+%{_desktopdir}/rhn_register.desktop
 
 %changelog
+* Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com>
+- 490438 - add .desktop file
+
 * Mon Mar 16 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.22-1
 - use macros insted hardcoded paths
 
