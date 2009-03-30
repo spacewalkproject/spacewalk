@@ -34,7 +34,8 @@
         <rl:column headerkey="erratalist.jsp.synopsis">
             ${current.synopsis}
         </rl:column>
-        <rl:column headerkey="erratalist.jsp.updated">
+        <rl:column headerkey="erratalist.jsp.updated"
+                   styleclass="last-column">
             ${current.updateDate}
         </rl:column>
 
