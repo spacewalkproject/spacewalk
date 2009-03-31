@@ -134,9 +134,17 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         else if (ctx.hasParam("deny")) {
             deny(form, errors, ctx);
+            if (errors.isEmpty()) {
+                createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
         }
         else if (ctx.hasParam("grant")) {
             grant(form, errors, ctx);
+            if (errors.isEmpty()) {
+                createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
         }
         if (!errors.isEmpty()) {
             request.setAttribute("channel_label", (String) form.get("label"));
@@ -206,7 +214,19 @@ public class EditChannelAction extends RhnAction implements Listable {
             ActionErrors errors,
             RequestContext ctx) {
         Channel c = edit(form, errors, ctx);
-        // now remove all of the orgs to the "rhnchanneltrust"
+        Long cid = c.getId();
+        Org org = c.getOrg();
+        // now remove all of the orgs to the "rhnchanneltrust" and unsubscribe systems
+        Set<Org> trustedOrgs = org.getTrustedOrgs();
+        for (Org o : trustedOrgs) {
+            DataResult<Map> dr =
+                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
+            for (Map item : dr) {
+                Long sid = (Long)item.get("id");
+                User user = ctx.getLoggedInUser();
+                SystemManager.unsubscribeServerFromChannel(user, sid, cid);
+            }
+        }
         c.getTrustedOrgs().clear();
         ChannelFactory.save(c);
         return c;
