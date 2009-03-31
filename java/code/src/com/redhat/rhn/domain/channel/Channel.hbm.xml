@@ -176,16 +176,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
-<<<<<<< HEAD:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
     <query name="Channel.findChannelIdsByLabels">
         <![CDATA[SELECT c.id
               FROM com.redhat.rhn.domain.channel.Channel c
              WHERE c.label in (:labels)]]>
     </query>
 
-     <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
-=======
->>>>>>> 5e147ad... PGPORT second set of query tagging updates:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
     <sql-query name="Channel.findBaseChannel">
         <![CDATA[SELECT {c.*} 
               FROM rhnChannel {c}, rhnChannelCloned c_1_, rhnServerChannel sc
@@ -199,8 +195,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Channel.channelsWithClonableErrata">
         <![CDATA[from com.redhat.rhn.domain.channel.ClonedChannel as c where c.org = :org]]>
     </query>
-
-<<<<<<< HEAD:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
 
     <query name="Channel.packageInChannelAndErrata">
         <![CDATA[
@@ -216,9 +210,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
 
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
-=======
->>>>>>> 5e147ad... PGPORT second set of query tagging updates:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
     <sql-query name="Channel.accessibleChildChannelIds">
         <![CDATA[SELECT {c.*}
   FROM rhnChannel c,
