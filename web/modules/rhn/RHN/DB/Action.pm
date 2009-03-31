@@ -53,7 +53,7 @@ sub script_server_results {
   my $dbh = RHN::DB->connect;
   my $query;
   my $sth;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT ASR.output,
        TO_CHAR(ASR.start_date, 'YYYY-MM-DD HH24:MI:SS') AS START_DATE,
@@ -84,7 +84,7 @@ sub is_type_of {
 
   my $query;
   my $sth;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT 1
   FROM DUAL
@@ -116,7 +116,7 @@ sub get_server_status {
 
   my $query;
   my $sth;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT  AST.name
   FROM  rhnActionStatus AST, rhnServerAction SA
@@ -169,7 +169,7 @@ sub associated_errata {
 
   my $query;
   my $sth;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT errata_id FROM rhnActionErrataUpdate WHERE action_id = ?
 EOQ
@@ -190,7 +190,7 @@ sub cancel_pending_for_system {
   my %params = validate(@_, {server_id => 1, transaction => 0});
 
   my $dbh = $params{transaction} || RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $sth = $dbh->prepare(<<EOQ);
 DECLARE
 
@@ -246,7 +246,7 @@ sub delete_set_from_action {
   my $dbh = RHN::DB->connect;
 
 
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 DECLARE
 
@@ -278,7 +278,7 @@ sub delete_system_from_action_set {
   my $set_name = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 DECLARE
 
@@ -316,7 +316,7 @@ sub archive_actions {
 
   my $dbh = RHN::DB->connect;
   my $sth;
- # PGPORT_1:NO Change #
+
   my $query =<<EOQ;
 UPDATE rhnAction
    SET archived = 1
@@ -449,7 +449,7 @@ sub get_top_of_action_chain {
 
 sub next_action_in_chain {
   my $self = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
 SELECT A.id
@@ -478,7 +478,7 @@ sub action_is_for_server {
 
   my $query;
   my $sth;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT  1
   FROM  rhnServerAction SA

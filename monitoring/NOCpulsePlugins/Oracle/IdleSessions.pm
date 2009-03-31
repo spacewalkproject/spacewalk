@@ -14,7 +14,7 @@ sub run {
     $params{ora_sid} = delete $params{sid_0};
 
     my $ora = $args{data_source_factory}->oracle(%params);
-    #PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
+
     my $row = $ora->fetch_first(q{select count(*) as COUNT 
 				  from v$session_wait a, v$session b
 				  where event = 'SQL*Net message from client'

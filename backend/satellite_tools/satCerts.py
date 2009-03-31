@@ -70,7 +70,7 @@ def get_all_orgs():
         raise NoOrgIdError("Unable to look up org_id")
     return rows
 
-#PGPORT_1:NO Change
+
 _queryLookupOrgId = rhnSQL.Statement("""
     SELECT id
       FROM web_customer
@@ -103,7 +103,7 @@ def create_first_org(owner):
         # Now create the first private channel family
         create_first_private_chan_family()
     return get_org_id()
-#PGPORT_1:NO Change
+
 _query_get_slot_types = rhnSQL.Statement("""
     select sg.group_type slot_type_id, sgt.label slot_name
       from rhnServerGroup sg,
@@ -111,7 +111,7 @@ _query_get_slot_types = rhnSQL.Statement("""
      where sg.org_id = :org_id
        and sg.group_type = sgt.id
 """)
-#PGPORT_1:NO Change
+
 _query_get_allorg_slot_types = rhnSQL.Statement("""
     select sg.org_id,sg.group_type as slot_type_id, 
            sgt.label as slot_name, sg.max_members, sg.current_members
@@ -298,7 +298,7 @@ def storeRhnCert(cert, check_generation=0, check_version=0):
         push_monitoring_configs(org_id)
 
     rhnSQL.commit()
-#PGPORT_1:NO Change
+
 _query_update_dates = rhnSQL.Statement("""
     UPDATE rhnSatelliteCert
        SET issued = :issued, expires = :expires
@@ -306,7 +306,7 @@ _query_update_dates = rhnSQL.Statement("""
            AND ((version is null and :version is null)
                 OR version = :version)
 """)
-#PGPORT_1:NO Change
+
 _query_latest_version = rhnSQL.Statement("""
     SELECT COALESCE(version, 0) as version, version as orig_version, cert,
         TO_CHAR(issued, 'YYYY-MM-DD HH24:MI:SS') as issued,
@@ -327,7 +327,7 @@ def retrieve_db_cert(label='rhn-satellite-cert'):
         return None
     row['cert'] = rhnSQL.read_lob(row['cert'])
     return row
-#PGPORT_1:NO Change
+
 _query_insert_cert = rhnSQL.Statement("""
     INSERT into rhnSatelliteCert 
            (label, version, cert, expires, issued)
@@ -335,18 +335,18 @@ _query_insert_cert = rhnSQL.Statement("""
             TO_DATE(:expires, 'YYYY-MM-DD HH24:MI:SS'), 
             TO_DATE(:issued, 'YYYY-MM-DD HH24:MI:SS'))
 """)
-#PGPORT_1:NO Change
+
 _query_update_web_customer = rhnSQL.Statement("""
     UPDATE web_customer
     SET name = :owner
     WHERE id = 1
 """)
-#PGPORT_1:NO Change
+
 _query_update_web_user = rhnSQL.Statement("""
     UPDATE web_user_personal_info
     SET company = :owner
 """)
-#PGPORT_1:NO Change
+
 _query_update_rhnchannelfamily = rhnSQL.Statement("""
     UPDATE rhnchannelfamily
     SET name = :owner
@@ -373,7 +373,7 @@ def push_monitoring_configs(org_id):
 
         print "Pushing scout configs to all monitoring scouts"
         
-#PGPORT_1:NO Change
+
 _query_get_sat_clusters = rhnSQL.Statement("""
     SELECT recid
       FROM rhn_Sat_Cluster
@@ -495,7 +495,7 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
             raise CaCertInsertionError(
                 "...the traceback: %s" % fetchTraceback())
 
-#PGPORT_1:NO Change
+
 _querySelectCryptoCertInfo = rhnSQL.Statement("""
     SELECT ck.id, ck.description, ckt.label as type_label, ck.key
       FROM rhnCryptoKeyType ckt,
@@ -505,7 +505,7 @@ _querySelectCryptoCertInfo = rhnSQL.Statement("""
        AND ck.description = :description
        AND ck.org_id = :org_id
 """)
-#PGPORT_1:NO Change
+
 _queryInsertCryptoCertInfo = rhnSQL.Statement("""
     INSERT into rhnCryptoKey
            (id, org_id, description, crypto_key_type_id, key)
@@ -527,7 +527,6 @@ def create_first_private_chan_family():
        Check to see if org has a channelfamily associated with it.
        If not, Create one.
        """
-#PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL)
        _query_create_chfam = """
           INSERT INTO  rhnChannelFamily
                  (id, name, label, org_id, product_url)

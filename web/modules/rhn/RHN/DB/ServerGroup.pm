@@ -82,7 +82,7 @@ sub commit {
 
   if ($self->id == -1) {
     my $dbh = RHN::DB->connect;
- # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
+
     my $sth = $dbh->prepare("SELECT rhn_server_group_id_seq.nextval FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
@@ -167,7 +167,7 @@ sub member_count {
   }
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $sqlstmt = sprintf <<EOT; 
 SELECT COUNT(server_id)
   FROM rhnServerGroupMembers SGM
@@ -202,9 +202,7 @@ sub remove {
   my $dbh = RHN::DB->connect;
 
 #  1.  Remove the user permissions to the group.
-#      First, so that user perms won't be regenerated twice
-# PGPORT_1:NO Change #
-
+#      First, so that user perms won't be regenerated twice.
   my $query = <<EOQ;
 DECLARE
   cursor uids is
@@ -231,7 +229,6 @@ EOQ
   $sth->execute_h(server_group_id => $group_id);
 
 #  3.  Remove the group itself
-#   # PGPORT_1:NO Change #
   $query = <<EOQ;
 DELETE FROM rhnServerGroup SG WHERE SG.id = ?
 EOQ
@@ -286,7 +283,7 @@ sub servers_in_groups {
   @columns = ('S.ID') unless @columns;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = sprintf <<EOQ, join(", ", @columns), join(", ", ("?") x @$groups);
 SELECT %s
 FROM rhnServerGroupMembers SGM, rhnServer S, rhnServerArch SA
@@ -326,7 +323,6 @@ sub groups_in_org_overview {
   my $query;
 
   if ($mode eq 'server') {
- # PGPORT_1:NO Change #
     $query = <<EOS;
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GO.GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS
   FROM   rhnVisServerGroupOverview GO, rhnServerGroupMembers SGM
@@ -338,7 +334,6 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 EOS
   }
   elsif ($mode eq 'user') {
- # PGPORT_1:NO Change #
     $query = <<EOS;
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GO.GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS
   FROM   rhnVisServerGroupOverview GO, rhnUserManagedServerGroups UMSG
@@ -349,7 +344,6 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
 EOS
   }
   elsif ($mode eq 'set') {
- # PGPORT_1:NO Change #
     $query = <<EOS;
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, MODIFIED, MAX_MEMBERS
   FROM   rhnVisServerGroupOverview, rhnSet RS
@@ -358,7 +352,6 @@ ORDER BY UPPER(GROUP_NAME), GROUP_ID
 EOS
   }
   else {
- # PGPORT_1:NO Change #
     $query = <<EOS;
 SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, MODIFIED, MAX_MEMBERS
   FROM   rhnVisServerGroupOverview
@@ -396,7 +389,6 @@ sub group_overview {
   $upper ||= 100000;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $query = <<EOQ;
 SELECT   SERVER_ID, SERVER_NAME, 0, GROUP_COUNT, MODIFIED
 FROM     rhnServerOverview
@@ -427,7 +419,6 @@ sub tri_state_server_group_list {
   my $org_id = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $query = <<EOS;
 SELECT  SGO.group_id, SGO.group_name
   FROM  rhnServerGroup SG, rhnServerGroupOverview SGO
@@ -453,7 +444,6 @@ sub server_group_list {
   my $org_id = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $query = <<EOQ;
   SELECT SG.name, SG.id
     FROM rhnServerGroup SG
@@ -480,9 +470,7 @@ sub servergroup_admin_overview {
   my $sgid = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_3:ORAFCE(NVL) # 
- my $sth = $dbh->prepare(<<EOS);
- 
+  my $sth = $dbh->prepare(<<EOS);
 SELECT wc.id, wc.login,
        NVL((SELECT MAX(1) FROM rhnUserManagedServerGroups USGP WHERE USGP.server_group_id = ? AND USGP.user_id = wc.id), 0)
   FROM web_contact wc
@@ -507,7 +495,7 @@ sub intersect_groups {
     my $sgid = shift(@groups);
     RHN::Set->copy_from_group($user_id, "system_list", $sgid);
   }
- # PGPORT_3:ORAFCE(NVL) #
+
   $sth = $dbh->prepare(<<EOQ);
 DELETE FROM rhnSet S
  WHERE S.user_id = $user_id
@@ -537,7 +525,7 @@ sub union_groups {
     my $sgid = shift(@groups);
     RHN::Set->copy_from_group($user_id, "system_list", $sgid);
   }
- # PGPORT_1:NO Change #
+
   $sth = $dbh->prepare(<<EOQ);
 INSERT INTO rhnSet (user_id, label, element)
      (SELECT :user_id, :set_label, SGM.server_id
@@ -562,7 +550,6 @@ sub members {
   }
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT server_id
   FROM rhnServerGroupMembers SGM
@@ -608,7 +595,6 @@ sub errata_counts {
   my $id = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT  SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA
   FROM  rhnServerGroupOverview
@@ -628,7 +614,6 @@ sub num_admins {
 
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT COUNT(DISTINCT user_id) NUM_ADMINS
   FROM rhnUserServerGroupPerms

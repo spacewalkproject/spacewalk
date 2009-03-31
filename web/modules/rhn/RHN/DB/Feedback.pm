@@ -103,7 +103,7 @@ sub commit {
 
   if ($self->id == -1) {
     my $dbh = RHN::DB->connect;
- # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
+
     my $sth = $dbh->prepare("SELECT rhn_user_feedback_id_seq.nextval FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
@@ -144,7 +144,7 @@ sub commit {
 sub set_type {
   my $self = shift;
   my $label = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT id FROM rhnUserFeedbackType WHERE label = ?');
   $sth->execute($label);
@@ -160,7 +160,7 @@ sub set_type {
 sub set_status {
   my $self = shift;
   my $label = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT id FROM rhnUserFeedbackStatus WHERE label = ?');
   $sth->execute($label);
@@ -176,7 +176,7 @@ sub set_status {
 sub get_status {
   my $self = shift;
   my $label = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT label FROM rhnUserFeedbackStatus WHERE id = :id');
   $sth->execute_h(id => $self->status);
@@ -212,7 +212,7 @@ sub feedback_overview {
   if ($mode) {
     $where = "   AND FBS.label = ?";
   }
- # PGPORT_3:ORAFCE(NVL),AS KEYWORD #
+
   my $query = <<EOQ;
 SELECT FB.id, U.id, U.login, FB.subject, FB.escalation_id, FBS.label, FBT.label, FB.created,
        NVL((SELECT max_members
@@ -279,7 +279,7 @@ sub faq_list {
 
   $where = 'WHERE FAQ.private != 1'
     unless $private;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
   SELECT FAQ.id, FAQ.subject, FAQ.modified, FAQ.details, FAQ.usage_count
     FROM rhnFAQ FAQ
@@ -335,7 +335,7 @@ sub faq_insert {
   $message = substr $message, 0, 4000;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 INSERT INTO
   rhnFAQ
@@ -372,7 +372,7 @@ sub faq_update {
   $private = ($private ? 1 : 0 );
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 UPDATE
   rhnFAQ
@@ -395,7 +395,7 @@ sub faq_increment_usage {
   my $faq_id = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 UPDATE rhnFAQ SET usage_count = usage_count + 1 WHERE id = ?
 EOQ
@@ -418,7 +418,7 @@ sub faq_delete {
   my $id = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 DELETE FROM
   rhnFAQ
@@ -447,7 +447,7 @@ sub lookup_id {
   my $dbh = RHN::DB->connect;
 
   ###  LOOKUP ID
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 SELECT
   UF.re_id, UF.subject 
@@ -509,7 +509,7 @@ sub _lookup_re_id {
 
 sub feedback_types {
   my $class = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT id, label, name FROM rhnUserFeedbackType ORDER BY id');
   $sth->execute;
@@ -524,7 +524,7 @@ sub feedback_types {
 
 sub feedback_statuses {
   my $class = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT id, label, name FROM rhnUserFeedbackStatus ORDER BY name, label');
   $sth->execute;

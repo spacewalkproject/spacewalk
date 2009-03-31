@@ -2,7 +2,6 @@
 
 <mode name="system_probes">
   <query params="sid">
-  <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
 SELECT P.recid AS ID,
        P.probe_type,
        P.customer_id AS ORG_ID,
@@ -36,7 +35,6 @@ SELECT P.recid AS ID,
 
 <mode name="command_groups">
   <query params="">
-<!-- PGPORT_1:NO Change -->
 SELECT GROUP_NAME AS COMMAND_GROUP_NAME,
        DESCRIPTION AS COMMAND_GROUP_LABEL
   FROM rhn_command_groups
@@ -47,7 +45,6 @@ ORDER BY UPPER(GROUP_NAME)
 
 <mode name="enabled_commands_for_group">
   <query params="command_group_label">
-<!-- PGPORT_1:NO Change -->
 SELECT recid AS ID,
        description AS COMMAND_NAME,
        name AS COMMAND_LABEL
@@ -60,7 +57,6 @@ ORDER BY UPPER(description)
 
 <mode name="parameters_for_command">
   <query params="command_id">
-<!-- PGPORT_1:NO Change -->
 SELECT command_id,
        param_name,
        param_type,
@@ -85,7 +81,6 @@ ORDER BY PARAM_TYPE, FIELD_ORDER
 
 <mode name="clusters_for_customer">
   <query params="customer_id">
-<!-- PGPORT_1:NO Change -->
 SELECT SC.recid AS SAT_CLUSTER_ID,
        SC.customer_id,
        SC.description,
@@ -110,7 +105,6 @@ ORDER BY UPPER(SC.description)
 
 <mode name="params_for_probe">
   <query params="probe_id, command_id">
-<!-- PGPORT_1:NO Change -->
 SELECT PPV.value,
        CP.param_name
   FROM rhn_probe_param_value PPV,
@@ -124,7 +118,6 @@ SELECT PPV.value,
 
 <mode name="probe_state_summary">
   <query params="org_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CSS.state,
        CSS.state_count
   FROM rhn_current_state_summaries CSS
@@ -136,7 +129,6 @@ ORDER BY UPPER(state)
 
 <mode name="probe_state_count_by_state_and_user">
   <query params="state, user_id">
-<!-- PGPORT_1:NO Change -->
 SELECT count(*) as STATE_COUNT
   FROM rhn_probe_state PS, 
        rhn_check_probe CP,
@@ -150,7 +142,6 @@ SELECT count(*) as STATE_COUNT
 
 <mode name="probe_state">
   <query params="probe_id">
-<!-- PGPORT_1:NO Change -->
 SELECT probe_id,
        scout_id,
        state,
@@ -163,7 +154,6 @@ SELECT probe_id,
 
 <mode name="probe_metrics">
   <query params="probe_id">
-<!-- PGPORT_1:NO Change -->
 SELECT   m.metric_id, 
          m.storage_unit_id, 
          m.description,
@@ -178,7 +168,6 @@ ORDER BY m.metric_id
 j
 <mode name="probe_metric">
   <query params="probe_id,metric_id">
-<!-- PGPORT_1:NO Change -->
 SELECT   m.metric_id, 
          m.storage_unit_id, 
          m.description,
@@ -193,7 +182,6 @@ AND      c.command_class = m.command_class
 
 <mode name="probe">
   <query params="probe_id">
-<!-- PGPORT_1:NO Change -->
 SELECT   probe_type,                        
          description,
          customer_id,                       
@@ -216,7 +204,6 @@ WHERE    recid = :probe_id
 
 <mode name="probes_for_contact_method">
   <query params="method_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT   CP.host_id system_id,
          P.recid probe_id,
          P.description probe_description,
@@ -236,7 +223,6 @@ ORDER BY S.name, S.id, P.description, P.recid
 
 <mode name="editable_config_macros">
   <query >
- <!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT   macro.name, 
          macro.definition,
          macro.environment,
@@ -255,7 +241,6 @@ AND      dbenv.environment = DECODE(macro.environment,
 
 <mode name="ok_system_probes">
   <query params="org_id, user_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id, 
         S.name system_name, 
         P.recid probe_id, 
@@ -277,7 +262,6 @@ ORDER BY system_name, probe_description
 
 <mode name="warning_system_probes">
   <query params="org_id, user_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id, 
         S.name system_name, 
         P.recid probe_id, 
@@ -299,7 +283,6 @@ ORDER BY system_name, probe_description
 
 <mode name="critical_system_probes">
   <query params="org_id, user_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id, 
         S.name system_name, 
         P.recid probe_id, 
@@ -321,7 +304,6 @@ ORDER BY system_name, probe_description
 
 <mode name="unknown_system_probes">
   <query params="org_id, user_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id, 
         S.name system_name, 
         P.recid probe_id, 
@@ -343,7 +325,6 @@ ORDER BY system_name, probe_description
 
 <mode name="pending_system_probes">
   <query params="org_id, user_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id, 
         S.name system_name, 
         P.recid probe_id, 
@@ -365,7 +346,6 @@ ORDER BY system_name, probe_description
 
 <mode name="all_system_probes">
   <query params="org_id, user_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id, 
         S.name system_name, 
         P.recid probe_id, 
@@ -387,7 +367,6 @@ ORDER BY system_name, probe_description
 
 <mode name="system_groups_probes">
   <query params="group_id">
- <!-- PGPORT_2:AS KEYWORD -->
 SELECT  S.id system_id,
         S.name system_name,
         P.recid probe_id,

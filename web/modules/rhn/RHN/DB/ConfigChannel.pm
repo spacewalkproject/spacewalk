@@ -92,7 +92,6 @@ sub lookup {
      push @exec_params, $attr{org_id}, $attr{label};
    }
    elsif ($attr{cfid}) {
- # PGPORT_1:NO Change #
      $query = $j->select_query("CC.id = (SELECT CF.config_channel_id FROM rhnConfigFile CF WHERE CF.id = ?)");
      push @exec_params, $attr{cfid};
    }
@@ -144,7 +143,7 @@ sub set_type {
   my $type = shift || '';
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 SELECT CCT.id, CCT.label, CCT.name
   FROM rhnConfigChannelType CCT
@@ -236,7 +235,7 @@ sub find_server_config_channel {
   my $class = shift;
   my $server_id = shift;
   my $type = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
 SELECT CC.id
@@ -275,7 +274,7 @@ sub add_server_config_channel {
     $cc->type_label($type_label);
     $cc->org_id($server->org_id);
     $dbh = $cc->commit($dbh);
- # PGPORT_1:NO Change #
+
     my $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnServerConfigChannel
@@ -299,7 +298,7 @@ EOQ
 sub lookup_channel_type {
   my $class = shift;
   my $label = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
 SELECT id
@@ -319,7 +318,7 @@ EOQ
 sub find_file_existence {
   my $self = shift;
   my $path = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
 SELECT CF.id
@@ -369,7 +368,7 @@ sub vivify_file_existence {
 
 sub find_overriding_system {
   my $self = shift;
- # PGPORT_1:NO Change #
+
   my $sth = RHN::DB->connect->prepare(<<EOS);
 SELECT SCC.server_id
   FROM rhnServerConfigChannel SCC,
@@ -433,7 +432,6 @@ sub lookup_latest_in_channel {
   my %query_params;
 
   if ($params{file_id}) {
- # PGPORT_1:NO Change #
     $query = <<EOQ;
 SELECT CF.latest_config_revision_id
   FROM rhnConfigFile CF
@@ -442,7 +440,6 @@ SELECT CF.latest_config_revision_id
 EOQ
   }
   elsif ($params{file_path}) {
- # PGPORT_1:NO Change #
     $query = <<EOQ;
 SELECT CF.latest_config_revision_id
   FROM rhnConfigFile CF,

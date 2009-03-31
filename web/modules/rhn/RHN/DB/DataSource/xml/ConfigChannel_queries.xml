@@ -2,7 +2,6 @@
 
 <mode name="comparison_to_snapshot">
   <query params="">
-<!-- PGPORT_1:NO Change -->
 SELECT 1 FROM DUAL
 <!-- dummy -->
   </query>
@@ -10,7 +9,6 @@ SELECT 1 FROM DUAL
 
 <mode name="namespaces_visible_to_org">
   <query params="org_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id,
        CC.org_id,
        CC.name,
@@ -26,7 +24,6 @@ SELECT CC.id,
 ORDER BY UPPER(CC.name)
   </query>
   <elaborator params="">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id AS ID,
        (SELECT count(config_file_id)
           FROM rhnConfigRevision CR,
@@ -39,7 +36,6 @@ SELECT CC.id AS ID,
  WHERE CC.id IN (%s)
   </elaborator>
   <elaborator params="user_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id AS ID,
        (SELECT count(SCC.server_id)
           FROM rhnServerConfigChannel SCC,
@@ -55,7 +51,6 @@ SELECT CC.id AS ID,
 
 <mode name="namespaces_visible_to_user">
   <query params="org_id, user_id">
- <!-- PGPORT_3:ORAFCE(NVL) -->
 SELECT CC.id,
        CC.org_id,
        CC.name,
@@ -79,7 +74,6 @@ GROUP BY CC.id, CC.org_id, CC.name, CC.label, CC.description, CC.created, CC.mod
 ORDER BY UPPER(CC.name)
   </query>
   <elaborator params="user_id">
- <!-- PGPORT_1:NO Change -->
 SELECT CC.id AS ID,
        (SELECT count(SCC.server_id)
           FROM rhnServerConfigChannel SCC,
@@ -95,7 +89,6 @@ SELECT CC.id AS ID,
 
 <mode name="rank_namespaces_for_system">
   <query params="sid">
- <!-- PGPORT_4:QUERY_REWRITE(ROWNUM),AS KEYWORD -->
 SELECT
    id,
    org_id,
@@ -133,7 +126,6 @@ ORDER BY CCT.priority, SCC.position
 
 <mode name="namespaces_for_system">
   <query params="sid">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id,
        CC.org_id,
        CC.name,
@@ -155,7 +147,6 @@ ORDER BY CCT.priority, SCC.position
 
 <mode name="namespaces_for_snapshot">
   <query params="ss_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id,
        CC.org_id,
        CC.name,
@@ -177,7 +168,6 @@ SELECT CC.id,
 
 <mode name="normal_namespaces_for_system">
   <query params="sid">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id,
        CC.org_id,
        CC.name,
@@ -200,7 +190,6 @@ ORDER BY CCT.priority, SCC.position
 
 <mode name="normal_namespaces_for_snapshot">
   <query params="ss_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id,
        CC.org_id,
        CC.name,
@@ -222,7 +211,6 @@ SELECT CC.id,
 
 <mode name="available_namespaces_for_system">
   <query params="sid, org_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id, CC.org_id, CC.name, CC.label, CC.description, CC.created, CC.modified
   FROM rhnConfigChannel CC
  WHERE CC.org_id = :org_id
@@ -233,7 +221,6 @@ ORDER BY UPPER(CC.name)
 
 <mode name="namespaces_with_filename">
   <query params="cfnid, org_id">
-<!-- PGPORT_1:NO Change -->
 SELECT CC.id, CC.name, CC.label, CR.revision AS revision, CR.id AS crid,
        (SELECT count(SCC.server_id) FROM rhnServerConfigChannel SCC WHERE SCC.config_channel_id = CC.id) AS SYSTEM_COUNT
   FROM rhnConfigChannel CC, rhnConfigRevision CR, rhnConfigFile CF

@@ -95,7 +95,6 @@ sub name_by_label {
   my $dbh = RHN::DB->connect;
   my $query;
   my $sth;
-#PGPORT_1:NO Change
   $query = <<EOQ;
 SELECT name FROM rhnProduct WHERE label = :product_label
 EOQ
@@ -117,7 +116,6 @@ sub product_line {
   my $dbh = RHN::DB->connect;
   my $query;
   my $sth;
-#PGPORT_1:NO Change
   $query = <<EOQ;
 SELECT PL.name
   FROM rhnProductLine PL,
@@ -149,7 +147,6 @@ sub products_by_line {
   my $dbh = RHN::DB->connect;
   my $query;
   my $sth;
-#PGPORT_4:QUERY_REWRITE(ORDER BY) 
   $query = <<EOQ;
 SELECT DISTINCT P.id, P.label, P.name,
        (SELECT MIN (rhn_channel.channel_priority(PC.channel_id))

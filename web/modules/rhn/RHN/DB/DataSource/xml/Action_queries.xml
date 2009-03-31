@@ -2,7 +2,6 @@
 
 <mode name="events_in_set">
   <query params="set_label, user_id, sid">
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(NVL) -->
 SELECT SA.action_id AS ID,
        AType.name || ' scheduled by ' || NVL(U.login, '(none)') AS SUMMARY,
        TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS SCHEDULED_FOR,
@@ -29,7 +28,6 @@ SELECT SA.action_id AS ID,
 
 <mode name="system_events_history">
   <query params="sid">
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),AS KEYWORD --> 
 SELECT EVENT_ID,
        TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED,
        TO_CHAR(PICKED_UP, 'YYYY-MM-DD HH24:MI:SS') PICKED_UP,
@@ -75,7 +73,6 @@ ORDER BY COMPLETED DESC, PICKED_UP DESC, CREATED DESC, EVENT_ID DESC
 
 <mode name="system_events_pending">
   <query params="sid">
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(NVL) -->
 SELECT SA.action_id AS ID,
                AType.name || ' scheduled by ' || NVL(U.login, '(none)') AS SUMMARY,
                TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS SCHEDULED_FOR,
@@ -102,8 +99,7 @@ ORDER BY SCHEDULED_FOR DESC, ID DESC
 
 
 <mode name="supported_system_history">
-  <query params="support_sid"> 
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN),ORAFCE(NVL),AS KEYWORD -->
+  <query params="support_sid">
 SELECT EVENT_ID, TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED, SUMMARY
   FROM (SELECT SH.id EVENT_ID,
                SH.summary SUMMARY,
@@ -130,7 +126,6 @@ ORDER BY CREATED DESC, EVENT_ID DESC
 </mode>
 
 <query name="action_overview_elab" params="user_id, org_id" multiple="t">
-<!-- PGPORT_1:NO Change -->
 SELECT UAO.id,
        UAO.action_status,
        UAO.tally
@@ -142,7 +137,6 @@ SELECT UAO.id,
 
 <mode name="pending_action_list">
   <query params="user_id, org_id">
- <!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
         UAO.type_name,
@@ -163,7 +157,6 @@ ORDER BY EARLIEST DESC
 
 <mode name="completed_action_list">
   <query params="user_id, org_id">
- <!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
         UAO.type_name,
@@ -184,7 +177,6 @@ ORDER BY EARLIEST DESC
 
 <mode name="failed_action_list">
   <query params="user_id, org_id">
- <!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
         UAO.type_name,
@@ -205,7 +197,6 @@ ORDER BY EARLIEST DESC
 
 <mode name="archived_action_list">
   <query params="user_id, org_id">
- <!-- PGPORT_3:ORAFCE(DECODE) -->
 SELECT  DISTINCT UAO.id AS ID,
         TO_CHAR(UAO.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS EARLIEST,
         UAO.type_name,
@@ -222,7 +213,6 @@ ORDER BY EARLIEST DESC
 
 <mode name="actions_for_system_named">
   <query params="sid, action_name">
-<!-- PGPORT_1:NO Change -->
 SELECT SA.action_id AS ID,
        TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS SCHEDULED_FOR,
        AType.label AS history_type,
@@ -245,7 +235,6 @@ ORDER BY A.created DESC, ID DESC
 
 <mode name="server_status">
   <query params="aid">
-<!-- PGPORT_1:NO Change -->
 SELECT SA.SERVER_ID AS ID,
        SA.STATUS AS STATUS_ID,
        SA.RESULT_CODE,

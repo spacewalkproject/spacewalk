@@ -535,7 +535,6 @@ sub setCaseNumber {
     $@ = $DBI::errstr ;  return undef }
 
 	# Prepare the statement handle
-	# #PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE
   my $sql_statement = sprintf<<EOSQL;
          SELECT MAX(case_num)
          FROM hd_problem

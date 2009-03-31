@@ -58,7 +58,7 @@ our $VERSION = (split(/s+/, q$Id$, 4))[2];
 # there is a better spot for right now... :/
 sub are_notifications_squelched {
   my $class = shift;
-#PGPORT_1:NO Change
+
   my $sql = q{
 SELECT recid
   FROM redirects
@@ -148,7 +148,7 @@ sub unsquelch_notifications {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
-#PGPORT_1:NO Change
+
   my $sql = q{
 DELETE FROM redirects
  WHERE redirect_type = 'BLACKHOLE'
@@ -208,7 +208,7 @@ sub update {
   my $login = shift;
 
   my $dbh = RHN::DB->connect;
-#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
+
   my $sql = q{
     UPDATE rhn_config_macro
     SET    definition = :definition,

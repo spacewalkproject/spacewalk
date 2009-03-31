@@ -189,7 +189,7 @@ class Channel(RPC_Base):
         
         set_clause = string.join(
             map(lambda x: "%s = :%s" % (x, x), fields), ', ')
-       # PGPORT_1:NO Change # 
+        
         h = rhnSQL.prepare("update rhnChannel set %s where id = :id" % set_clause)
         try:
             apply(h.execute, (), params)
@@ -213,7 +213,7 @@ class Channel(RPC_Base):
     def listChannel(self, username, password):
         log_debug(3)
         self._auth(username, password)
-         # PGPORT_1:NO Change #
+        
         h = rhnSQL.prepare("select label from rhnChannel")
         h.execute()
         ret = h.fetchall_dict() or []
@@ -227,14 +227,12 @@ class Channel(RPC_Base):
         
         h = None
         # Red Hat only:
-        # PGPORT_1:NO Change #
         if not orgId:
             h = rhnSQL.prepare("""select label
                                           from rhnChannel
                                           where org_id is 1""")
             h.execute()
         # any other org:
-        # PGPORT_1:NO Change #
         else:
             h = rhnSQL.prepare("""select label
                                           from rhnChannel
@@ -247,7 +245,6 @@ class Channel(RPC_Base):
         log_debug(3)
         
         # get channel family info for this channel
-        # PGPORT_2:AS KEYWORD #
         h = rhnSQL.prepare("""
         select cfm.channel_family_id, cf.label channel_family
           from rhnChannelFamilyMembers cfm,
@@ -269,7 +266,7 @@ class Channel(RPC_Base):
         log_debug(3)
         authobj = self._auth(username, password)
         authobj.isChannelAdmin()
-        # PGPORT_1:NO Change #
+
         h = rhnSQL.prepare("select * from rhnChannel where label = :label")
         h.execute(label=name)
         row = h.fetchone_dict()
@@ -286,7 +283,7 @@ class Channel(RPC_Base):
             name = int(name)
         except ValueError:
             return ''
-        # PGPORT_1:NO Change #
+
         h = rhnSQL.prepare("select * from rhnChannel where id = :channel_id")
         h.execute(channel_id = name)
         row = h.fetchone_dict()
@@ -303,7 +300,7 @@ class Channel(RPC_Base):
         if not authobj.isChannelAdmin():
             raise rhnFault(50, "Invalid user permissions",
                            explain=0)
-        # PGPORT_1:NO Change #
+        
         h = rhnSQL.prepare("select * from rhnChannelFamily where label = :label")
         h.execute(label=name)
         row = h.fetchone_dict()
@@ -319,7 +316,7 @@ class Channel(RPC_Base):
     def lookupChannelArch(self, label, username, password):
         log_debug(3)
         self._auth(username, password)
-        # PGPORT_1:NO Change #
+
         h = rhnSQL.prepare("select id from rhnChannelArch where label = :label")
         h.execute(label=label)
         row = h.fetchone_dict()
@@ -333,7 +330,6 @@ class Channel(RPC_Base):
         
         if not org_id:
             return ''
-        # PGPORT_1:NO Change #
         h = rhnSQL.prepare("""select org_id from web_contact 
         where login_uc = UPPER(:org_id)""")
         h.execute(org_id=org_id)
@@ -345,7 +341,7 @@ class Channel(RPC_Base):
             org_id = int(org_id)
         except ValueError:
             raise rhnFault(42, "Invalid org_id ",explain=0)
-        # PGPORT_1:NO Change #
+
         h = rhnSQL.prepare("""select id from web_customer where id = :org_id""")
         h.execute(org_id=org_id)
         row = h.fetchone_dict()
@@ -380,11 +376,11 @@ class Channel(RPC_Base):
         log_debug(3)
         authobj = self._auth(username, password)
         authobj.isChannelAdmin()
-        # PGPORT_1:NO Change #
+
         h = rhnSQL.prepare("""
             delete from rhnChannelFamilyMembers where channel_id = :channel_id""")
         h.execute(channel_id=channel_id)
-        # PGPORT_1:NO Change #
+        
         h = rhnSQL.prepare("""
             insert into rhnChannelFamilyMembers (channel_id, channel_family_id )
             values (:channel_id, :channel_family_id)
@@ -414,7 +410,7 @@ class Channel(RPC_Base):
             # Nothing to be done here, same channel family
             return 0
         log_debug(3, "  Migrating downloads")
-        # PGPORT_1:NO Change #
+        
         h = rhnSQL.prepare("""
             update rhnDownloads
                set channel_family_id = :new_channel_family_id
@@ -454,7 +450,7 @@ class Channel(RPC_Base):
         if kwargs.get('channel_arch_id') is None:
             # Missing stuff
             raise rhnFault(23, "Insufficient data, channel arch id missing to update dist", explain=0)
-            # PGPORT_1:NO Change #
+            
         h = rhnSQL.prepare("""
             insert into rhnDistChannelMap 
                 (channel_id, channel_arch_id, os, release)
@@ -473,7 +469,7 @@ class Channel(RPC_Base):
     def deleteDist(self, channel_id, username, password):
         log_debug(3)
         self._auth(username, password)
-        # PGPORT_1:NO Change #
+        
         h = rhnSQL.prepare("""
             delete from rhnDistChannelMap where channel_id = :channel_id
         """)
@@ -503,7 +499,6 @@ class Channel(RPC_Base):
         self._auth(username, password)
         #probably there is better way to write this query
         #but works for now.
-        # PGPORT_1:NO Change #
         h = rhnSQL.prepare("""
             insert into rhnChannelPermission
                (channel_id, role_id, user_id)
@@ -532,7 +527,6 @@ class Channel(RPC_Base):
         self._auth(username, password)
         #probably there is better way to write this query
         #but works for now.
-        # PGPORT_1:NO Change #
         h = rhnSQL.prepare("""
             delete from rhnchannelpermission
               where (channel_id, role_id, user_id) in

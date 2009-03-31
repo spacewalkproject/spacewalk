@@ -124,7 +124,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     						and parentChannel is null]]>
     </query>
     
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->    
+    
     <sql-query name="Channel.findCustomBaseChannels">
     	<![CDATA[SELECT {c.*}
     		       FROM rhnChannel {c},
@@ -155,7 +155,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     			from com.redhat.rhn.domain.channel.Channel as c where c.parentChannel = :parent
     						]]>						
     </query>        
- <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
+
     <sql-query name="Channel.findByIdAndUserId">
         <![CDATA[SELECT {c.*} 
               FROM rhnChannel {c},
@@ -165,7 +165,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
-     <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
+    
    <sql-query name="Channel.findByLabelAndUserId">
         <![CDATA[SELECT {c.*} 
               FROM rhnChannel {c},
@@ -176,6 +176,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
+<<<<<<< HEAD:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
     <query name="Channel.findChannelIdsByLabels">
         <![CDATA[SELECT c.id
               FROM com.redhat.rhn.domain.channel.Channel c
@@ -183,6 +184,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
 
      <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
+=======
+>>>>>>> 5e147ad... PGPORT second set of query tagging updates:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
     <sql-query name="Channel.findBaseChannel">
         <![CDATA[SELECT {c.*} 
               FROM rhnChannel {c}, rhnChannelCloned c_1_, rhnServerChannel sc
@@ -197,6 +200,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.channel.ClonedChannel as c where c.org = :org]]>
     </query>
 
+<<<<<<< HEAD:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
 
     <query name="Channel.packageInChannelAndErrata">
         <![CDATA[
@@ -213,6 +217,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
 
  <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
+=======
+>>>>>>> 5e147ad... PGPORT second set of query tagging updates:java/code/src/com/redhat/rhn/domain/channel/Channel.hbm.xml
     <sql-query name="Channel.accessibleChildChannelIds">
         <![CDATA[SELECT {c.*}
   FROM rhnChannel c,
@@ -222,7 +228,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
    AND c.id = c_1_.id (+) ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
-     <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
+    
    <sql-query name="Channel.accessibleChildChannels">
         <![CDATA[SELECT {c.*} 
   					FROM rhnChannel c,
@@ -232,12 +238,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   		           		AND c.id = c_1_.id (+)]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
-    <!-- PGPORT_1:NO Change -->
+    
     <sql-query name="Channel.availableEntitlements">
         <return-scalar type="long" column="entitlements"/>
         <![CDATA[select rhn_channel.available_chan_subscriptions(:channel_id, :org_id) as entitlements from dual]]>
     </sql-query>
-    <!-- PGPORT_1:NO Change -->
+    
     <sql-query name="Channel.verifyLabel">
         <return-scalar type="string" column="label"/>
         <![CDATA[select label from rhnChannel where label = :label]]>
@@ -245,10 +251,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     <sql-query name="Channel.verifyName">
         <return-scalar type="string" column="name"/>
-    <!-- PGPORT_1:NO Change -->
         <![CDATA[select name from rhnChannel where name = :name]]>
     </sql-query>
-    <!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN) -->
+    
     <sql-query name="Channel.kickstartableChannels">
         <![CDATA[SELECT {c.*} 
 				  FROM rhnChannel {c},
@@ -265,7 +270,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
-     <!-- PGPORT_1:NO Change -->
+    
     <sql-query name="Channel.latestPackage">
       <![CDATA[SELECT {p.*}
           FROM rhnPackage {p},
@@ -306,25 +311,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   
     <sql-query name="Channel.getServerIds">
         <return-scalar type="long" column="server_id"/>
- <!-- PGPORT_1:NO Change -->
         <![CDATA[select server_id from rhnServerChannel where channel_id = :cid]]>
     </sql-query>
 
 
     <sql-query name="Channel.getPackageCount">
         <return-scalar type="int" column="package_count"/>
- <!-- PGPORT_1:NO Change -->
         <![CDATA[select count(*) as package_count from rhnChannelPackage cp where cp.channel_id = :cid]]>
     </sql-query>
     
     <sql-query name="Channel.getPackageIdList">
         <return-scalar type="long" column="package_id"/>
- <!-- PGPORT_1:NO Change -->
         <![CDATA[select cp.package_id from rhnChannelPackage cp where cp.channel_id = :cid]]>
     </sql-query>    
 
     <sql-query name="Channel.lookupOriginalPackages">
-  <!-- PGPORT_4:QUERY_REWRITE(RANK OVER PARTITION CLAUSE) -->
         <![CDATA[
 		        SELECT OLDEST.id
 		  FROM  (SELECT P.*,
@@ -347,14 +348,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         ]]>
         <return-scalar column="id" type="long"/>
     </sql-query>
-    <!-- PGPORT_1:NO Change -->
+    
 	<query name="Channel.lookupOriginal">
     	<![CDATA[ select c.original
     			from com.redhat.rhn.domain.channel.ClonedChannel as c where c = :clone
     						]]>						
     </query>
     <query name="Channel.findChannelArchLabelsSyncdChannels">
-   <!-- PGPORT_1:NO Change -->
     	<![CDATA[select distinct c.channelArch.label from com.redhat.rhn.domain.channel.Channel as c]]>
     </query>
     

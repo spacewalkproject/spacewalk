@@ -21,16 +21,15 @@ from server import rhnSQL
 
 # the "exposed" functions
 __rhnexport__ = ['run']
-#PGPORT_1:NO Change
-_query_clear_output = rhnSQL.Statement("""
 
+_query_clear_output = rhnSQL.Statement("""
 delete from rhnServerActionScriptResult
  where server_id = :server_id
    and action_script_id = (
      select id from rhnActionScript where action_id = :action_id
    )
 """)
-#PGPORT_1:NO Change
+
 _query_initial_store = rhnSQL.Statement("""
 insert into rhnServerActionScriptResult (
     server_id,
@@ -49,7 +48,7 @@ select :server_id,
   from rhnActionScript ascript
  where ascript.action_id = :action_id
 """)
-#PGPORT_1:NO Change
+
 _query_get_output_row = rhnSQL.Statement("""
 select asr.output
   from rhnServerActionScriptResult asr,

@@ -40,7 +40,6 @@ sub lookup {
   my %params = validate(@_, {id => 1});
 
   my $dbh = RHN::DB->connect();
-  # PGPORT_2:AS KEYWORD #
   my $query = <<EOS;
 SELECT
        CR.*,
@@ -99,7 +98,6 @@ sub create_config_contents {
 
   my $dbh = RHN::DB->connect;
   my $sth;
- # PGPORT_1:NO Change #
   $sth = $dbh->prepare(<<EOS);
 INSERT INTO rhnConfigContent
   (id, md5sum, file_size, contents)
@@ -127,7 +125,7 @@ sub getFileTypeId {
         #default to file for now...
         $filetype = "file";
     }
- # PGPORT_1:NO Change #
+
     my $query = <<EOS;
 SELECT FT.id
   FROM rhnConfigFileType FT
@@ -177,7 +175,7 @@ EOS
   $sth->execute_h(cfid => $self->config_file_id, ccid => $ccid, ciid => $ciid, crid => \$crid,
 		  revision => $self->revision, delim_start => $self->delim_start, delim_end => $self->delim_end,
           filetype => $cftid);
- # PGPORT_1:NO Change #
+
   $dbh->do_h("UPDATE rhnConfigFile SET latest_config_revision_id = :crid WHERE id = :cfid",
 	     crid => $crid, cfid => $self->config_file_id);
 
@@ -192,7 +190,7 @@ sub commit_binary_flag {
   my $tx = shift;
 
   my $dbh = $tx || RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   $dbh->do_h("UPDATE rhnConfigContent SET is_binary = :flag WHERE id = :ccid",
 	     ccid => $self->config_content_id, flag => $self->is_binary ? 'Y' : 'N');
 
@@ -222,7 +220,7 @@ sub contents {
   if (@_) {
     return $self->set_contents(@_);
   }
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare("SELECT CCon.contents FROM rhnConfigContent CCon WHERE id = :ccid");
   $sth->execute_h(ccid => $self->config_content_id);
@@ -244,7 +242,6 @@ sub find_alternate_in_namespace {
   my $ccid = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT target_CFR.id AS id, target_CFR.revision
   FROM rhnConfigFile current_CF,
@@ -305,7 +302,6 @@ sub next_revision {
   my $self = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOS);
 SELECT MAX(CR.revision)
   FROM rhnConfigRevision CR,
@@ -326,7 +322,6 @@ sub lookup_action_data {
   my %params = validate(@_, {acrid => 1} );
 
   my $dbh = RHN::DB->connect;
- # PGPORT_4:QUERY_REWRITE(ANSI JOIN) #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT ACR.id,
        ACR.action_id,

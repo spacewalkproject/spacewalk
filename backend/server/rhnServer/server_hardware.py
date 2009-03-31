@@ -437,7 +437,7 @@ class NetIfaceInformation(Device):
         self._insert(inserts)
 
         return 0
-     #PGPORT_1:NO Change
+
     def _insert(self, params):
         q = """insert into rhnServerNetInterface
             (%s) values (%s)"""
@@ -447,7 +447,7 @@ class NetIfaceInformation(Device):
         bind_params = string.join(map(lambda x: ':' + x, columns), ", ")
         h = rhnSQL.prepare(q % (string.join(columns, ", "), bind_params))
         return self._dml(h, params)
-       #PGPORT_1:NO Change
+
     def _delete(self, params):
         q = """delete from rhnServerNetInterface
             where %s"""
@@ -458,7 +458,6 @@ class NetIfaceInformation(Device):
         return self._dml(h, params)
 
     def _update(self, params):
-#PGPORT_1:NO Change
         q = """update rhnServerNetInterface
             set %s
             where %s"""
@@ -485,7 +484,6 @@ class NetIfaceInformation(Device):
         return rowcount
             
     def reload(self, server_id):
-#PGPORT_1:NO Change
         h = rhnSQL.prepare("""
             select * 
             from rhnServerNetInterface 
@@ -684,7 +682,7 @@ class Hardware:
     def __load_from_db(self, db, DevClass, sysid):
         if not self.__hardware.has_key(DevClass):
             self.__hardware[DevClass] = []
-       #PGPORT_1:NO Change 
+        
         h = rhnSQL.prepare("select * from %s where server_id = :sysid" % db)
         h.execute(sysid = sysid)
         rows = h.fetchall_dict() or []

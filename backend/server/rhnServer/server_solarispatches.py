@@ -32,7 +32,7 @@ def get_package_id(pkg):
     Return the id or return None if the package is not found"""
 
     nvrea = get_nvrea(pkg)
-    #PGPORT_1:NO Change
+
     query = """SELECT id FROM rhnPackage
                WHERE name_id=LOOKUP_PACKAGE_NAME(:name)
                AND evr_id=LOOKUP_EVR(:epoch, :ver, :rel)
@@ -74,7 +74,7 @@ class SolarisPatches(object):
         """Clear the patched packages on a system from the database"""
 
         log_debug(4, sysid, "disposing of patched packages")
-#PGPORT_1:NO Change
+
         query = """DELETE FROM rhnSolarisPatchedPackage
                    WHERE server_id = :sysid"""
 
@@ -97,7 +97,7 @@ class SolarisPatches(object):
         """Record the patched packages on a system in the database"""
 
         log_debug(4, sysid, "saving patched packages")
-        # PGPORT_2:AS KEYWORD
+
         select = """SELECT SP.name_id nid, SP.evr_id eid, 
                     SP.package_arch_id aid
                     FROM rhnPackageNEVRA PN,
@@ -109,7 +109,7 @@ class SolarisPatches(object):
                     AND PN.name_id = SP.name_id
                     AND PN.evr_id = SP.evr_id
                     AND PN.package_arch_id = SP.package_arch_id"""
-        #PGPORT_1:NO Change
+
         insert = """INSERT INTO rhnSolarisPatchedPackage
                     (server_id, patch_id, package_nevra_id)
                     VALUES(:sysid, :pid, 

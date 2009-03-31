@@ -80,7 +80,7 @@ sub empty {
 
 sub _reload {
   my $self = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare("SELECT element, element_two FROM rhnSet WHERE user_id = ? AND label = ?");
 
@@ -106,7 +106,7 @@ sub add {
 sub immediate_add {
   my $self = shift;
   my @vals = @_;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare("INSERT INTO rhnSet (user_id, label, element, element_two) VALUES (?, ?, ?, ?)");
 
@@ -129,13 +129,12 @@ sub immediate_remove {
   my @vals = @_;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   for my $val (@vals) {
     if (ref $val) {
       my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ? AND element = ? AND element_two = ?");
       $sth->execute($self->uid, $self->label, $val->[0], $val->[1]);
     }
- # PGPORT_1:NO Change #
     else {
       my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ? AND element = ?");
       $sth->execute($self->uid, $self->label, $val);
@@ -173,10 +172,10 @@ sub commit {
 
   my $dbh = $transaction || RHN::DB->connect;
   my $lock_sth = RHN::User->lock_web_contact(-transaction => $dbh, -uid => $self->uid);
- # PGPORT_1:NO Change #
+
   my $sth = $dbh->prepare("DELETE FROM rhnSet WHERE user_id = ? AND label = ?");
   $sth->execute($self->uid, $self->label);
- # PGPORT_1:NO Change #
+
   $sth = $dbh->prepare("INSERT INTO rhnSet (user_id, label, element, element_two) VALUES (?, ?, ?, ?)");
   foreach my $val (keys %{$self->{contents}}) {
     my ($e1, $e2) = split /[|]/, $val;
@@ -198,7 +197,7 @@ sub remove_picked_up_for_action {
 
   my $dbh = RHN::DB->connect;
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 DELETE FROM
        rhnSet ST
@@ -231,7 +230,7 @@ sub remove_illegal_servers {
 
   my $dbh = RHN::DB->connect;
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 DELETE FROM
        rhnSet S
@@ -255,7 +254,7 @@ sub remove_unowned_servers {
 
   my $dbh = RHN::DB->connect;
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 DELETE FROM
        rhnSet S
@@ -280,7 +279,7 @@ sub copy_from_group {
   $sth->execute($uid, $name);
 
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 INSERT INTO rhnSet
   (user_id, label, element)
@@ -304,7 +303,7 @@ sub num_proxies_in_set {
 
   my $dbh = RHN::DB->connect;
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT COUNT(ST.element)
   FROM rhnProxyInfo PI,
@@ -327,7 +326,7 @@ sub num_satellites_in_set {
 
   my $dbh = RHN::DB->connect;
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 SELECT COUNT(ST.element)
   FROM rhnSatelliteInfo SI,
@@ -353,7 +352,7 @@ sub remove_scheduled_errata_for_system {
 
   my $dbh = RHN::DB->connect;
   my $query;
- # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 DELETE FROM
        rhnSet S
@@ -382,7 +381,7 @@ sub remove_users_with_role {
   my $role = shift;
 
   croak "No role param" unless $role;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $query =<<EOQ;
 DELETE FROM
@@ -407,7 +406,7 @@ EOQ
 
 sub remove_unowned_actions {
   my $self = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $query =<<EOQ;
 DELETE
@@ -430,7 +429,7 @@ sub remove_prereq_actions {
   my $self = shift;
   my $server_id = shift;
   die "no server_id" unless $server_id;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $query =<<EOQ;
 DELETE
