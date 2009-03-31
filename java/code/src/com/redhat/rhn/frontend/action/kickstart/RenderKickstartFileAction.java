@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 
 import org.apache.log4j.Logger;
@@ -66,7 +67,8 @@ public class RenderKickstartFileAction extends Action {
                     log.error("No kickstart filecontents found for: " + url + 
                             " params: " + params + " ksdata: " + ksdata);
                     // send 404 to the user since we don't have a kickstart profile match
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                    //response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                    throw new NoSuchKickstartException();
                 }
                 if (log.isDebugEnabled()) {
                     log.debug("fileContents: " + fileContents);

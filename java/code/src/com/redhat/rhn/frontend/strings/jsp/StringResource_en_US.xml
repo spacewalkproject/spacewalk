@@ -21035,6 +21035,13 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/systems/details/ErrataList.do</context>
         </context-group>
      </trans-unit>
+     <trans-unit id="unknown.kickstart">
+         <source>Kickstart Not Found</source>
+     </trans-unit>
+     <trans-unit id="unknown.kickstart.message">
+         <source>The requested kickstart file could not be found.
+         If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
+     </trans-unit>
 
   </body>
   </file>

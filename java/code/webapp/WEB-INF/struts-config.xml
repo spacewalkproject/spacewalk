@@ -995,6 +995,9 @@
     <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException"
       path="/WEB-INF/pages/common/errors/nosuchpkg.jsp" key="date"
       handler="com.redhat.rhn.common.errors.NoSuchPackageExceptionHandler"/>
+    <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException"
+      path="/WEB-INF/pages/common/errors/nosuchkickstart.jsp" key="date"
+      handler="com.redhat.rhn.common.errors.NoSuchKickstartExceptionHandler"/>
   </global-exceptions>
 
   <!-- 
