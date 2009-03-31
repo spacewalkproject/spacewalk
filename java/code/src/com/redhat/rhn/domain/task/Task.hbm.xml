@@ -18,19 +18,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
     
     <query name="Task.lookup">
-<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.task.Task as t 
                 where t.org = :org and t.name = :name and t.data = :data]]>
     </query>
 	
 	<query name="Task.lookupByOrgAndName">
-<!-- PGPORT_1:NO CHANGE -->
 		<![CDATA[from com.redhat.rhn.domain.task.Task as t
 		        where t.org = :org and t.name = :name]]>
 	</query>
 
     <query name="Task.deleteTaskQueue">
-<!-- PGPORT_1:NO CHANGE -->
 		<![CDATA[delete from com.redhat.rhn.domain.task.Task
             where org_id = :org_id and task_name = :name
             and task_data = :data and earliest = :earliest]]>

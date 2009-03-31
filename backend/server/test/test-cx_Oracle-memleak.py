@@ -42,7 +42,6 @@ def _line_value(line):
 
 dbh = cx_Oracle.Connection(sys.argv[1])
 h = dbh.cursor()
- # PGPORT_3:ORAFCE #
 h.execute('select 1 from dual')
 for i in range(10000):
     d = h.description

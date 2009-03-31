@@ -67,11 +67,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </class>
     
     <query name="ServerSnapshot.findForServer">
-<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s where s.server = :server and s.org = :org]]>
     </query>
     <query name="ServerSnapshot.findTags">
-<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[select l.tag
         	from com.redhat.rhn.domain.server.ServerSnapshotTagLink as l
         	where l.snapshot = :snap]]>

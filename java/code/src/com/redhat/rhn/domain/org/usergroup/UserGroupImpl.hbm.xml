@@ -25,11 +25,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             class="com.redhat.rhn.domain.role.RoleImpl" not-null="true" />
     </class>
     <query name="UserGroup.findById">
-<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug where ug.id = :id]]>
     </query>
     <query name="UserGroup.findByRole">
-<!-- PGPORT_1:NO CHANGE -->
     	<![CDATA[ select ug
     		from com.redhat.rhn.domain.org.usergroup.UserGroupImpl as ug 
     		where ug.role = :role ]]>

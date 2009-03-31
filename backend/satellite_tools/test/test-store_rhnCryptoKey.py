@@ -45,7 +45,6 @@ def deleteCertRow():
     if row:
         rhn_cryptokey_id = int(row['id'])
         print 'found a cert, nuking it! id:', rhn_cryptokey_id
-# PGPORT_1:NO Change
         h = rhnSQL.prepare('delete rhnCryptoKey where id=:rhn_cryptokey_id')
         h.execute(rhn_cryptokey_id=rhn_cryptokey_id)
         rhnSQL.commit()

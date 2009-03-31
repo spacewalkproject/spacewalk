@@ -28,7 +28,7 @@ __rhnexport__ = ['update',
                  'refresh_list',
                  'runTransaction',
                  'verify']
-# PGPORT_2:AS KEYWORD
+
 _query_action_verify_packages = rhnSQL.Statement("""
     select distinct
            pn.name name,
@@ -129,7 +129,6 @@ def runTransaction(server_id, action_id):
     log_debug(3, server_id, action_id)
 
     # Fetch package_delta_id
-# PGPORT_1:NO Change
     h = rhnSQL.prepare("""
         select package_delta_id
         from rhnActionPackageDelta
@@ -144,7 +143,6 @@ def runTransaction(server_id, action_id):
     package_delta_id = row['package_delta_id']
 
     # Fetch packages
-# PGPORT_2:AS KEYWORD
     h = rhnSQL.prepare("""
         select tro.label operation, pn.name, pe.version, pe.release, pe.epoch,
                pa.label package_arch
@@ -196,7 +194,6 @@ def runTransaction(server_id, action_id):
     return { 'packages' : result }
 
 # SQL statements -- used by update()
-# PGPORT_2:AS KEYWORD
 _packageStatement_update = """
     select distinct
         pn.name name,

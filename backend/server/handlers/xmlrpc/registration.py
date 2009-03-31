@@ -36,8 +36,6 @@ from server.rhnSQL import procedure
 from server.action.utils import ChannelPackage
 
 
-
-
 # verify that a hash has all the keys and those have actual values
 def hash_validate(data, *keylist):
     for k in keylist:
@@ -76,7 +74,6 @@ def ValidNumber(reg_num):
     reg_num = RegistrationNumber(reg_num)
     if not reg_num:
         return -1
-# PGPORT_1:NO Change
     h = rhnSQL.prepare("""
     select registered_flag flag from web_product_valid_numbers
     where reg_number = :regnum
@@ -535,8 +532,6 @@ class Registration(rhnHandler):
         # Return the server certificate file down to the client.
         return system_certificate
 
-                
-
 
     # Registers a new system to an org specified by a username, password, and
     # optionally an org id.
@@ -617,7 +612,6 @@ class Registration(rhnHandler):
         failures = []
         unknowns = []
 
-        
         # Build our return values.
         attempted_channels = []
         successful_channels = []
@@ -675,7 +669,6 @@ class Registration(rhnHandler):
                  'universal_activation_key' : universal_activation_key
                  }
 
-    
 
     # Registers a new system to an org specified by an activation key.
     #

@@ -47,9 +47,7 @@ my @desc = print_desc($tablename);
 sub print_desc {
   my $tablename = shift;
   my $dbh = RHN::DB->connect;
- # PGPORT_5:POSTGRES_VERSION_QUERY(all_tab_columns) #
   my $sth = $dbh->prepare(<<EOQ);
-
 
 SELECT column_name, data_type, data_length, nullable FROM all_tab_columns WHERE table_name = :tab_name ORDER BY column_id
 
@@ -165,5 +163,4 @@ sub string2file {
   print "Wrote: $filename\n";
 
 }
-#
 

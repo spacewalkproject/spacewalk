@@ -92,7 +92,6 @@ class TestServer:
             self.channel = misc_functions.create_channel( self.label, self.label, org_id = self.org_id )
 
             #Associate the channel family with the organization and set the maximum number of members it can have
-            # PGPORT_1:NO Change #
             _insert_channel_family = """
             INSERT INTO rhnPrivateChannelFamily( channel_family_id, org_id, max_members )
             VALUES ( :channel_family_id, :org_id, :max_members )"""
@@ -101,7 +100,6 @@ class TestServer:
             rhnSQL.commit() 
 
             #Associate the channel with the server
-            # PGPORT_1:NO Change #
             _insert_channel = "INSERT INTO rhnServerChannel( server_id, channel_id ) VALUES ( :server_id, :channel_id )"
             insert = rhnSQL.prepare( _insert_channel )
             insert.execute( server_id = self.testserver.getid(), channel_id = self.channel.get_id() )
@@ -180,7 +178,7 @@ class TestServer:
     def __setattr__(self, attr, value):
         return setattr( TestServer.__instance, attr, value )    
 
-  # PGPORT_1:NO Change #
+
 _query_action_lookup = rhnSQL.Statement("""
     select *
       from rhnServerAction

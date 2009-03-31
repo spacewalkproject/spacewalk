@@ -18,7 +18,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="expires" type="long" />
     </class>
     <query name="WebSession.deleteByUserId">
-<!-- PGPORT_1:NO CHANGE -->
         <![CDATA[delete  com.redhat.rhn.domain.session.WebSessionImpl  w where w.webUserId = :user_id]]>
     </query>    
 </hibernate-mapping>

@@ -143,7 +143,6 @@ class apacheHandler(apacheSession):
             # code gets executed, as the rhnFault error messages use the 
             # templates
             # If send_message_to_all, we don't have DB connectivity though
-# PGPORT_1:NO Change
             h = rhnSQL.prepare("select label, value from rhnTemplateString")
             h.execute()
             

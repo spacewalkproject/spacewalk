@@ -20,7 +20,7 @@ from DCOracle import Connect
 
 print os.getpid()
 dbh = Connect('rhnuser/rhnuser@webdev')
- # PGPORT_3:ORAFCE() #
+
 h = dbh.prepare("select 1 from dual")
 
 start = time.time()
