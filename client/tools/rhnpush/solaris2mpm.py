@@ -657,6 +657,8 @@ def provide_self(header):
         header['provides'] = []
     header['provides'].insert(0, dct)
 
+    if header.has_key('release'):
+        header['provides'].insert(1, { 'name' : dct['name'], 'flags' : 8, 'version' : "%s-%s" % (header['version'], header['release'])})
 
 def md5sum_for_stream(data_stream):
     """Calcualte the md5sum for a datastream and return it in a utf8 friendly
