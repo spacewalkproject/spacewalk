@@ -35,7 +35,7 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        setRequestPathInfo("/errata/manage/CloneErrataSubmit");
+        setRequestPathInfo("/errata/manage/CloneErrata");
         user.getOrg().getEntitlements().add(OrgFactory.getEntitlementEnterprise());
         user.getOrg().addRole(RoleFactory.CHANNEL_ADMIN);
     }
@@ -50,7 +50,7 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
         
         request.addParameter("dispatch", "Clone Errata");
         actionPerform();
-        verifyForwardPath("/errata/manage/CloneErrata.do");
+        verifyForwardPath("/WEB-INF/pages/errata/cloneerrata.jsp");
         verifyActionMessage("emptyselectionerror");
     }
     
