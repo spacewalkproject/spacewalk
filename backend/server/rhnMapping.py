@@ -19,7 +19,7 @@ from server import rhnSQL
 # and has a chance of hitting some channels
 def real_version(version):
     version = str(version)
-# PGPORT_1:No Change
+
     h = rhnSQL.prepare("""
     select canon_version
     from rhnRedHatCanonVersion rhcv
@@ -36,7 +36,6 @@ def check_package_arch(name):
     name = str(name)
     if name is None or len(name) == 0:
         return None
-# PGPORT_1:No Change
     h = rhnSQL.prepare("select id from rhnPackageArch where label = :label")
     h.execute(label=name)
     ret = h.fetchone_dict()
