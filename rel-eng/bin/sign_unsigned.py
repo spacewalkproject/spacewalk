@@ -710,9 +710,9 @@ class SignUnsigned(CliTool, KojiTool):
 
     def cmd_default(self):
         self.tweak_options()
-        clientcert = '/etc/pki/pkgsigner/pkgsigner.pem'
-        clientca = '/etc/pki/pkgsigner/spacewalk-upload-ca.cert'
-        serverca = '/etc/pki/pkgsigner/spacewalk-upload-ca.cert'
+        clientcert = os.path.join(os.path.expanduser('~'), ".spacewalk.cert")
+        clientca = os.path.join(os.path.expanduser('~'), ".spacewalk-ca.cert")
+        serverca = os.path.join(os.path.expanduser('~'), ".spacewalk-ca.cert")
         self.koji_session.ssl_login(clientcert, clientca, serverca) # NEEDSWORK
         self.print_msg("Getting rpm list from koji")
         if self.options.builds:
