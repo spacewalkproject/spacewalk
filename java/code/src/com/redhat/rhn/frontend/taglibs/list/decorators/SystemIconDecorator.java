@@ -49,7 +49,7 @@ public class SystemIconDecorator extends BaseListDecorator {
                 (HttpServletRequest)getCurrentList().getContext().getRequest());
         
         for (SystemOverview next : systems) {
-            SystemListHelper.setSystemStatusDisplay(context.getLoggedInUser(), next, false);
+            SystemListHelper.setSystemStatusDisplay(context.getLoggedInUser(), next, true);
         }
     }
 }

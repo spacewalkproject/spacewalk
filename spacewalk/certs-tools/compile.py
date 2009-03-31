@@ -13,6 +13,7 @@
 # granted to use or replicate Red Hat trademarks that are incorporated
 # in this software or its documentation.
 #
+#
 # python compiler. "Borrowed" from Python's py_compile module. As
 # opposed to the Python one, this script returns error codes when a
 # compile fails, so it can be used from Makefiles

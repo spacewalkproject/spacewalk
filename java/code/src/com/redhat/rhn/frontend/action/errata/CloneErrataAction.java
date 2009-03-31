@@ -14,106 +14,112 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.RhnSetAction;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import org.apache.commons.lang.BooleanUtils;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.util.LabelValueBean;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 /**
  * CloneErrataSubmitAction
+ *
  * @version $Rev$
  */
-public class CloneErrataAction extends RhnSetAction {
-    
-    /**
-     * Updates the set with the selected errata to clone
-     * and forwards the user to the clone errata page.
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request ServletRequest
-     * @param response ServletResponse
-     * @return The ActionForward to go to next.
-     */
-    public ActionForward cloneErrata(ActionMapping mapping,
-                                     ActionForm formIn,
-                                     HttpServletRequest request,
-                                     HttpServletResponse response) {
-        RhnSet set = updateSet(request);
-        Map params = makeParamMap(formIn, request);
-        
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
-        //if they chose no errata, return to the same page with a message
-        if (set.isEmpty()) {
-            ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
-                    new ActionMessage("errata.applynone"));
-            strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+public class CloneErrataAction extends RhnAction implements Listable {
+
+    public static final String ANY_CHANNEL = "any_channel";
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping actionMapping,
+                                 ActionForm actionForm,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response)
+        throws Exception {
+
+        ListRhnSetHelper helper =
+            new ListRhnSetHelper(this, request, RhnSetDecl.ERRATA_CLONE);
+        helper.execute();
+
+        ActionForward forward;
+        if (helper.isDispatched()) {
+            // Nothing to do when dispatched, there is a confirmation page displayed next
+            // that will do the actual work
+            forward = actionMapping.findForward("continue");
         }
-        
-        return mapping.findForward("clone");
+        else {
+            RequestContext context = new RequestContext(request);
+            populateChannelDropDown(context);
+
+            forward = actionMapping.findForward("default");
+        }
+
+        return forward;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA_CLONE;
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        Long orgId = user.getOrg().getId();
+
+        // Determine if a specific channel is being selected
+        String channel = context.getParam("channel", false);
+
+        // Determine whether or not to show already cloned errata
+        boolean showAlreadyCloned = context.getParam("showalreadycloned", false) != null;
+
+        DataResult result;
+
+        if (channel == null || channel.equals(ANY_CHANNEL)) {
+            result = ErrataManager.clonableErrata(orgId, showAlreadyCloned);
+        }
+        else {
+            // Example value of channel parameter:  channel_141
+            long channelId = Long.parseLong(channel.substring(8));
+
+            result = ErrataManager.clonableErrataForChannel(orgId,
+                channelId, showAlreadyCloned);
+        }
+
+        return result;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected DataResult getDataResult(User user, 
-                                       ActionForm formIn, 
-                                       HttpServletRequest request) {
-        RequestContext rctx = new RequestContext(request);
-        return CloneErrataActionHelper.getSubmittedDataResult(rctx, 
-                                                              (DynaActionForm) formIn, 
-                                                              null);
-    }
+    private void populateChannelDropDown(RequestContext rctx) {
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void processMethodKeys(Map map) {
-        map.put("cloneerrata.jsp.cloneerrata", "cloneErrata");
-    }
-    
-    protected boolean isShowCloned(DynaActionForm daForm) {
-        return BooleanUtils.toBoolean((Boolean) daForm.get("showalreadycloned"));
-    }
+        LocalizationService ls = LocalizationService.getInstance();
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
-                                   Map params) {
-        DynaActionForm daForm = (DynaActionForm) formIn;
-        params.put(RhnAction.SUBMITTED, daForm.get(RhnAction.SUBMITTED));
-        params.put(CloneErrataActionHelper.CHANNEL, 
-                   daForm.get(CloneErrataActionHelper.CHANNEL));
-        params.put(CloneErrataActionHelper.SHOW_ALREADY_CLONED, 
-                   daForm.get(CloneErrataActionHelper.SHOW_ALREADY_CLONED));
-    }
+        List<LabelValueBean> displayList = new ArrayList<LabelValueBean>();
+        displayList.add(new LabelValueBean(ls.getMessage("cloneerrata.anychannel"),
+            ANY_CHANNEL));
 
+        List channels = ChannelManager.
+            getChannelsWithClonableErrata(rctx.getCurrentUser().getOrg());
+
+        if (channels != null) {
+            for (Iterator i = channels.iterator(); i.hasNext();) {
+                Channel c = (Channel) i.next();
+                // /me wonders if this shouldn't be part of the query.
+                if ("rpm".equals(c.getChannelArch().getArchType().getLabel())) {
+                    displayList.add(new LabelValueBean(c.getName(),
+                        "channel_" + c.getId()));
+                }
+            }
+        }
+
+        rctx.getRequest().setAttribute("clonablechannels", displayList);
+    }
 }

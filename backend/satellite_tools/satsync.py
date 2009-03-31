@@ -2168,6 +2168,14 @@ def processCommandline():
         sys.exit(0)
 
 
+    if OPTIONS.orgid:
+        # verify if its a valid org
+        orgs = map(lambda a: a['id'], satCerts.get_all_orgs())
+        if int(OPTIONS.orgid) not in orgs:
+            msg = "ERROR: Unable to lookup Org Id %s" % OPTIONS.orgid
+            log2stderr(-1, msg, cleanYN=1)
+            sys.exit(27)
+
     # the action dictionary used throughout
     actionDict = {
         'blacklists'    : 0,
@@ -2327,7 +2335,8 @@ def processCommandline():
               "  23 - error: --rhn-cert requires --mount-point",
               "  24 - no such file",
               "  25 - no such directory",
-              "  26 - mount_point does not exist"]
+              "  26 - mount_point does not exist",
+              "  27 - No such org",]
         log(-1, msg, 1,1,sys.stderr)
         sys.exit(0) 
 

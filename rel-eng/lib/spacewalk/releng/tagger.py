@@ -19,6 +19,10 @@ import re
 import sys
 import commands
 import StringIO
+import shutil
+import subprocess
+import tempfile
+import textwrap
 
 from time import strftime
 
@@ -54,6 +58,8 @@ class VersionTagger(object):
         self.changelog_regex = re.compile('\\*\s%s\s%s(\s<%s>)?' % (self.today,
             self.git_user, self.git_email))
 
+        self._no_auto_changelog = False
+
     def run(self, options):
         """
         Perform the actions requested of the tagger.
@@ -63,6 +69,8 @@ class VersionTagger(object):
         """
         if options.tag_release:
             print("WARNING: --tag-release option no longer necessary, 'tito tag' will accomplish the same thing.")
+        if options.no_auto_changelog:
+            self._no_auto_changelog=True
         self._tag_release()
 
     def _tag_release(self):
@@ -92,13 +100,72 @@ class VersionTagger(object):
         f.close()
 
         if not found_changelog:
-            # TODO: Instead of dying here, we could try to add one automatically
-            # and generate the changelog entries from the first line of the git commit
-            # history for all commits since the last package version was tagged.
-            error_out("No changelog entry found: '* %s %s <%s>'" % (
-                self.today, self.git_user, self.git_email))
+            if self._no_auto_changelog:
+                error_out("No changelog entry found: '* %s %s <%s>'" % (
+                    self.today, self.git_user, self.git_email))
+            else:
+                self._make_changelog()
         else:
             debug("Found changelog entry.")
+
+    def _make_changelog(self):
+        """
+        Create a new changelog entry in the spec, with line items from git
+        """
+        in_f = open(self.spec_file, 'r')
+        out_f = open(self.spec_file + ".new", 'w')
+
+        found_changelog = False
+        for line in in_f.readlines():
+            out_f.write(line)
+
+            if not found_changelog and line.startswith("%changelog"):
+                found_changelog = True
+
+                old_version = get_latest_tagged_version(self.project_name)
+                last_tag = "%s-%s" % (self.project_name, old_version)
+                patch_command = \
+                        "git log --pretty=format:%%s\ \(%%ae\)" \
+                        " --relative %s..%s -- %s" % \
+                        (last_tag, "HEAD", ".")
+                output = run_command(patch_command)
+
+                fd, name = tempfile.mkstemp()
+                os.write(fd, "# No changelog entry found; please edit the following\n")
+                header = "* %s %s <%s>\n" % (self.today, self.git_user,
+                        self.git_email)
+
+                os.write(fd, header)
+
+                for cmd_out in output.split("\n"):
+                    os.write(fd, "- ")
+                    os.write(fd, "\n  ".join(textwrap.wrap(cmd_out, 77)))
+                    os.write(fd, "\n")
+
+                os.write(fd, "\n")
+
+                editor = 'vi'
+                if os.environ.has_key("EDITOR"):
+                    editor = os.environ["EDITOR"]
+
+                subprocess.call([editor, name])
+
+                os.lseek(fd, 0, 0)
+                file = os.fdopen(fd)
+
+                for line in file.readlines():
+                    if not line.startswith("#"):
+                        out_f.write(line)
+
+                output = file.read()
+
+                file.close()
+                os.unlink(name)
+
+        in_f.close()
+        out_f.close()
+
+        shutil.move(self.spec_file + ".new", self.spec_file)
 
     def _update_changelog(self, new_version):
         """

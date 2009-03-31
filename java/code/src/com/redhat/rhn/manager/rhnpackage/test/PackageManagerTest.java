@@ -24,12 +24,13 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageCapability;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
+import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
-import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageCapabilityTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageNameTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
@@ -37,7 +38,6 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.dto.UpgradablePackageListItem;
@@ -48,19 +48,19 @@ import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
+import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
-import com.redhat.rhn.testing.ServerTestUtils;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * PackageManagerTest
@@ -93,6 +93,37 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         }
     }
     
+    public void testGuestimateChannelInvalidPackage() {
+        // guestimatePackageByChannel should return null if it
+        // can't find a package, not throw an exception.
+        try {
+            assertNull(PackageManager.guestimatePackageByChannel(
+                    10000L, 100L, 100L, null));
+        }
+        catch (Exception e) {
+            fail("method should return null");
+        }
+    }
+
+    public void testGuestimateHandlesNullArchId() throws Exception {
+        PackageListItem pli = PackageListItem.parse("10000|1000");
+        assertNull(pli.getIdThree());
+        assertNull(PackageManager.guestimatePackageBySystem(10000L, 100L, 100L,
+                pli.getIdThree(), null));
+    }
+
+    public void testGuestimateInvalidPackage() throws Exception {
+        // guestimatePackageBySystem should return null if it
+        // can't find a package, not throw an exception.
+        try {
+            assertNull(PackageManager.guestimatePackageBySystem(10000L, 100L, 100L,
+                    0L, null));
+        }
+        catch (Exception e) {
+            fail("method should return null");
+        }
+    }
+
     public void testUpgradable() throws Exception {
         Map info = ErrataCacheManagerTest.
             createServerNeededPackageCache(user, ErrataFactory.ERRATA_TYPE_BUG);

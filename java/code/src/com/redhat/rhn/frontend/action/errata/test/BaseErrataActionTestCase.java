@@ -14,17 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.errata.test;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.RhnSetAction;
-import com.redhat.rhn.frontend.action.errata.PublishedErrataAction;
-import com.redhat.rhn.frontend.action.errata.UnpublishedErrataAction;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.struts.action.ActionForward;
 
@@ -33,25 +29,6 @@ import org.apache.struts.action.ActionForward;
  * @version $Rev$
  */
 public abstract class BaseErrataActionTestCase extends RhnBaseTestCase {
-    
-    public void testGetDataResult() throws Exception {
-        Long oid = UserTestUtils.createOrg("testOrg");
-        User user = UserTestUtils.createUser("testUser", oid);
-        Errata e = createErrata(user);
-        
-        DataResult dr;
-        if (getAction() instanceof UnpublishedErrataAction) {
-            dr = ((UnpublishedErrataAction)getAction())
-                    .getDataResult(user, null, null);
-        }
-        else {
-            dr = ((PublishedErrataAction)getAction())
-                    .getDataResult(user, null, null);
-        }
-        
-        assertNotNull(e.getAdvisory());
-        assertTrue(e.getAdvisory().startsWith("JAVA Test"));
-    }
     
     /**
      * Make sure when the delete button is hit we go to the proper

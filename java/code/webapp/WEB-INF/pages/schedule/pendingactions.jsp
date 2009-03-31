@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <html:xhtml/>
 <html>
@@ -23,44 +24,26 @@
     </p>
   </div>
   
-<form method="post" name="rhn_list" action="/rhn/schedule/PendingActionsSubmit.do">
+<br/>
 
-<rhn:list pageList="${requestScope.pageList}"
-          noDataText="pendingactions.jsp.nogroups">
+	<rl:listset name="pendingList">
 
-  <rhn:listdisplay set="${requestScope.set}" button="actions.jsp.cancelactions">
-    <rhn:set value="${current.id}" disabled="${not current.selectable}"/>
-    <rhn:column header="actions.jsp.action"
-                url="ActionDetails.do?aid=${current.id}">
-        ${current.actionName}
-    </rhn:column>
-    <rhn:column header="actions.jsp.earliest" nowrap="true">
-        ${current.earliest}
-    </rhn:column>
-    <rhn:column header="actions.jsp.succeeded"
-                style="text-align: center;"
-                url="CompletedSystems.do?aid=${current.id}"
-                renderUrl="${current.completed != 0}">
-        ${current.completed}
-    </rhn:column>
-    <rhn:column header="actions.jsp.failed"
-                style="text-align: center;"
-                url="FailedSystems.do?aid=${current.id}"
-                renderUrl="${current.failed != 0}">
-        ${current.failed}
-    </rhn:column>
-    <rhn:column header="actions.jsp.inprogress"
-                style="text-align: center;"
-                url="InProgressSystems.do?aid=${current.id}"
-                renderUrl="${current.inProgress != 0}">
-        ${current.inProgress}
-    </rhn:column>
-    <rhn:column header="actions.jsp.total" style="text-align: center;">
-        ${current.tally}
-    </rhn:column>
-  </rhn:listdisplay>
-</rhn:list>
+		<rl:list emptykey="pendingactions.jsp.nogroups" styleclass="list">
+
+
+			<%@ include file="/WEB-INF/pages/common/fragments/scheduledactions/listdisplay-new.jspf" %>
+
+
+		</rl:list>
+		<rhn:submitted/>
+		 <div align="right">
+		     <input type="submit"
+               name="dispatch"
+               value='<bean:message key="actions.jsp.cancelactions"/>'/>
+         </div>
+	</rl:listset>
 	
-</form>
+
+
 </body>
 </html>

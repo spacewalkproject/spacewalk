@@ -1069,6 +1069,21 @@ SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
     </query>
 </mode>
 
+<mode name="latest_package_equal_in_tree">
+    <query params="cid, name">
+SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
+  FROM rhnPackageName PN inner join
+		rhnChannelNewestPackage CP on CP.name_id = PN.id inner join
+		rhnChannel C on C.id = Cp.channel_id  inner join
+		rhnPackage P on P.id = CP.package_id inner join
+		rhnPackageEvr EVR on P.evr_id = EVR.id
+ WHERE ( C.id = :cid or C.parent_channel = :cid)
+   AND PN.name = :name
+   order by EVR.evr DESC
+    </query>
+</mode>
+
+
 <mode name="latest_package_like">
     <query params="cid, name">
 <!-- PGPORT_1:NO Change  -->

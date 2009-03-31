@@ -14,15 +14,17 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
-import com.redhat.rhn.common.db.datasource.ParameterValueNotFoundException;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
@@ -41,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class PackageDetailsAction extends RhnAction {
-   
+
     private final String PACKAGE_NAME = "package_name";
     
     /** {@inheritDoc} */
@@ -51,104 +53,92 @@ public class PackageDetailsAction extends RhnAction {
             HttpServletResponse response) {
 
         RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
-        
-        Package pack;
-        long pid;
-        long archId = 0;
-        
+        User user = requestContext.getLoggedInUser();
+
         //If this is an easy one and we have the pid
         if (request.getParameter("pid") != null) {
-            pid = requestContext.getRequiredParam("pid");
-            pack = PackageFactory.lookupByIdAndUser(pid, user);
+            long pid = requestContext.getRequiredParam("pid");
+            Package pkg = PackageFactory.lookupByIdAndUser(pid, user);
+
+            // show permission error if pid is invalid like we did before
+            if (pkg == null) {
+                throw new PermissionException("Invalid pid");
+            }
+
+            if (pkg instanceof Patch) {
+                request.setAttribute("type", "patch");
+                request.setAttribute(PACKAGE_NAME, pkg.getPackageName().getName());
+                request.setAttribute("readme_url",
+                        DownloadManager.getPatchReadmeDownloadPath(
+                                (Patch) pkg, user));
+            }
+            else if (pkg instanceof PatchSet) {
+                request.setAttribute("type", "patchset");
+                request.setAttribute(PACKAGE_NAME, pkg.getNameEvra());
+                request.setAttribute("readme_url",
+                        DownloadManager.getPatchSetReadmeDownloadPath(
+                                (PatchSet) pkg, user));
+            }
+            else {
+                request.setAttribute("type", "rpm");
+                request.setAttribute(PACKAGE_NAME, pkg.getFile());
+            }
+
+            if (DownloadManager.isFileAvailable(pkg.getPath())) {
+                request.setAttribute("url",
+                        DownloadManager.getPackageDownloadPath(pkg, user));
+            }
+
+            if (DownloadManager.isFileAvailable(pkg.getSourcePath())) {
+                request.setAttribute("srpm_url",
+                        DownloadManager.getPackageSourceDownloadPath(pkg, user));
+            }
+
+            request.setAttribute("pack", pkg);
+            request.setAttribute("description",
+                    pkg.getDescription().replace("\n", "<BR>\n"));
+            request.setAttribute("packArches",
+                    PackageFactory.findPackagesWithDifferentArch(pkg));
+            request.setAttribute("pid", pid);
+
+            return mapping.findForward("default");
         }
         else { //we have to guess
             PackageListItem item = PackageListItem.parse(request.getParameter("id_combo"));
+            Package pkg;
             long nameId = item.getIdOne();
             long evrId = item.getIdTwo();
+            long archId = 0;
             if (item.getIdThree() != null) {
                 archId = item.getIdThree();
             }
            
-            String cidParam = request.getParameter("cid");
-            String sidParam = request.getParameter("sid");
-            if (cidParam != null) {
-                pack = PackageManager.guestimatePackageByChannel(
-                   Long.parseLong(cidParam), nameId, evrId, user.getOrg());   
+            Long cid = requestContext.getParamAsLong("cid");
+            Long sid = requestContext.getParamAsLong("sid");
+            if (cid != null) {
+                pkg = PackageManager.guestimatePackageByChannel(
+                   cid, nameId, evrId, user.getOrg());
                 
             }
-            else if (sidParam != null) {
-                pack = PackageManager.guestimatePackageBySystem(
-                   Long.parseLong(sidParam), nameId, evrId, archId, user.getOrg());
+            else if (sid != null) {
+                pkg = PackageManager.guestimatePackageBySystem(
+                   sid, nameId, evrId, archId, user.getOrg());
                 
             }
             else {
-              throw new ParameterValueNotFoundException("pid, cid, or sid");   
+                throw new BadParameterException("pid, cid, or sid");
+            }
+
+            // show permission error if pid is invalid like we did before
+            if (pkg == null) {
+                throw new NoSuchPackageException();
             }
             
             Map params = new HashMap();
-            params.put("pid", pack.getId());
+            params.put("pid", pkg.getId());
             return getStrutsDelegate().forwardParams(mapping.findForward("package"),
                     params);
-            
         }
-        
-        
-
-        request.setAttribute("pack", pack);
-        
-
-        String desc = pack.getDescription();
-        request.setAttribute("description", desc.replace("\n", "<BR>\n"));
-        
-        
-        
-        if (pack instanceof Patch) {
-            request.setAttribute("type", "patch");
-            request.setAttribute(PACKAGE_NAME, pack.getPackageName().getName());
-            request.setAttribute("readme_url", DownloadManager.getPatchReadmeDownloadPath(
-                    (Patch) pack, user));
-            
-        }
-        else if (pack instanceof PatchSet) {
-            request.setAttribute("type", "patchset");
-            request.setAttribute(PACKAGE_NAME, pack.getNameEvra());
-            
-            request.setAttribute("readme_url", 
-                    DownloadManager.getPatchSetReadmeDownloadPath(
-                            (PatchSet) pack, user));            
-        }
-        else {
-            request.setAttribute("type", "rpm");
-            request.setAttribute(PACKAGE_NAME, pack.getFile());
-        }
-        
-        
-        
-        request.setAttribute("packArches", 
-                PackageFactory.findPackagesWithDifferentArch(pack));
-        
-        if (DownloadManager.isFileAvailable(pack.getPath())) {
-            request.setAttribute("url", DownloadManager.getPackageDownloadPath(pack, user));
-        }
-        
-        if (DownloadManager.isFileAvailable(pack.getSourcePath())) {
-            request.setAttribute("srpm_url", 
-                    DownloadManager.getPackageSourceDownloadPath(pack, user));
-        }        
-        
-                
-        
-        request.setAttribute("pid", pid);
-        
-        
-        
-        return mapping.findForward("default");
-
     }
-    
-    
-
-    
-    
 }
+

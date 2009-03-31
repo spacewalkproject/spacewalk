@@ -185,7 +185,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="errors.maxlength">
-<source>{0} cannot be greater than {1} characters.</source>
+<source>{0} cannot be greater than {1} characters (Note: double byte chars are not supported).</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page that has required length fields</context>
           <context context-type="paramnotes">Email cannot be greater than 4 characters</context>
@@ -2782,7 +2782,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.earliest">
-<source>Earliest</source>
+<source>Scheduled Time</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
@@ -2807,7 +2807,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="actions.jsp.inprogress">
-<source>In Progress</source>
+<source>Pending</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/CompletedActions</context>
           <context context-type="sourcefile">/rhn/schedule/FailedActions</context>
@@ -8949,6 +8949,47 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
       </trans-unit>
+
+
+<!-- Cobbler stuff -->
+ 
+      <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/config/Cobbler.do</context>
+        </context-group>
+        <trans-unit id="cobbler.jsp.toolbar">
+          <source>Spacewalk Configuration - Cobbler.</source>
+        </trans-unit>
+        <trans-unit id="Cobbler">
+          <source>Cobbler</source>
+        </trans-unit>
+        <trans-unit id="cobbler.jsp.header2">
+          <source>Run Cobbler Sync</source>
+        </trans-unit>        
+        
+        <trans-unit id="cobbler.jsp.sync">
+          <source>Run Cobbler Sync</source>
+        </trans-unit>
+		<trans-unit id="cobbler.jsp.synced">
+  		  <source>Cobbler Sync action was successfully executed. Look at /var/log/cobbler/*.log for more information</source>
+		</trans-unit>
+
+		<trans-unit id="cobbler.jsp.summary1">
+  		  <source>Setup your @@PRODUCT_NAME@@ Cobbler settings below.</source>
+		</trans-unit>
+		<trans-unit id="cobbler.jsp.summary2">
+  		  <source>Cobbler sync is used to repair or rebuild the contents /tftpboot or /var/www/cobbler when manual modification of cobbler has occured.</source>
+		</trans-unit>
+		<trans-unit id="cobbler.jsp.summary3">
+  		  <source>For more information refer to the 'cobbler' man page.</source>
+		</trans-unit>
+		<trans-unit id="update">
+		  <source>Update</source>
+		</trans-unit>
+		
+    </group>
+
+
 
     <!-- TNC -->
   <trans-unit id="tnc.jsp.tnc">
@@ -16746,7 +16787,7 @@ The Distribution Label field should contain only letters, numbers, hyphens, peri
 
 The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-&lt;p&gt;The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the kernel and initrd required for kickstarting a system. From within the specified tree path, a kernel should be available at &quot;./images/pxeboot/vmlinuz&quot; and an initrd image should be available at &quot;./images/pxeboot/initrd.img&quot;. For instance, you can create a tree by mounting engarchive and specifying: &quot;/mnt/engarchive/released/RHEL-5-Server/U3/i386/os&quot; if you wanted to create a RHEL 5 tree.&lt;/p&gt;
+&lt;p&gt;The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the kernel and initrd required for kickstarting a system. From within the specified tree path, a kernel should be available at &quot;./images/pxeboot/vmlinuz&quot; and an initrd image should be available at &quot;./images/pxeboot/initrd.img&quot;. For instance, if you have media located on the @@PRODUCT_NAME@@ server at: &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; you would specify that path as your Tree Path value which would check for a kernel and initrd here: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;
 </source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
@@ -20976,6 +21017,25 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
         </context-group>
      </trans-unit>
+     <trans-unit id="unknown.package">
+         <source>Unknown Package</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">any package page</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="unknown.package.msg">
+         <source>Unfortunately, you have requested information about a package we do not have in our database. Most likely, this is a custom package you have installed by hand, or is from a distribution not supported by Red Hat Network.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/errata/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+     <trans-unit id="system.errata.show">
+         <source>Show</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/ErrataList.do</context>
+        </context-group>
+     </trans-unit>
+
   </body>
   </file>
 </xliff>

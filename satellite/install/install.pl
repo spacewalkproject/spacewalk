@@ -960,8 +960,9 @@ sub install_rhn_packages {
 
 sub get_product_name {
   my $composeinfo_file = ".composeinfo";
-  my $productName = "RHN Satellite";
-  my $productVersion, my $productSection;
+  my $productName = "RHN Satellite", my $treeName;
+  my $productVersion;
+  my $productSection, my $treeSection;
 
   open(CINFO, $composeinfo_file) || return $productName;
 
@@ -970,6 +971,7 @@ sub get_product_name {
 
     if ($line =~ /^\[(.+)\]$/) {
       $productSection = ($1 eq "product");
+      $treeSection = ($1 eq "tree");
     }
 
     if ($productSection) {
@@ -982,11 +984,20 @@ sub get_product_name {
       }
 
     }
+
+    if ($treeSection) {
+
+      if ($line =~ /^name\s*=\s*(.+)$/) {
+        $treeName = $1;
+      }
+    }
   }
   close(CINFO);
 
-  if (defined $productVersion) { return "$productName $productVersion"; }
-  else { return "$productName"; }
+  if (defined $productVersion) { $productName .= " $productVersion"; }
+  if (defined $treeName) { $productName .= "\n($treeName)"; }
+  
+  return "$productName";
 }
 
 

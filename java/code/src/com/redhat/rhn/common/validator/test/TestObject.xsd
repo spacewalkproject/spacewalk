@@ -15,6 +15,13 @@
     </simpleType> 
   </attribute>   
 
+	<attribute name="twoCharField">
+		<simpleType baseType="string">
+		  <maxLength value="2"/>
+		  <isRequired value="false"/>
+		</simpleType>
+	</attribute>
+
   <attribute name="dateField"> 
     <simpleType baseType="date"/>
   </attribute> 
@@ -75,5 +82,7 @@
       <posix/>
     </simpleType> 
   </attribute>
+  
+  
 	
 </schema>

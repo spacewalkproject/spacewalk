@@ -36,6 +36,7 @@
 import os
 import sys
 import glob
+import pwd
 import time
 import string
 import shutil
@@ -939,7 +940,6 @@ def genServerRpm_dependencies(d):
     except FailedFileDependencyException:
         gen_jabberd_cert(d)
 
-
 def genServerRpm(d, verbosity=0):
     """ generates server's SSL key set RPM """
 
@@ -1014,6 +1014,19 @@ def genServerRpm(d, verbosity=0):
 Best practices suggests that this RPM should only be installed on the web
 server with this hostname: %s
 """ % d['--set-hostname']
+
+    # Determine which jabberd user exists:
+    jabberd_user = None
+    possible_jabberd_users = ['jabberd', 'jabber']
+    for juser_attempt in possible_jabberd_users:
+        try:
+            pwd.getpwnam(juser_attempt)
+            jabberd_user = juser_attempt
+        except:
+            # user doesn't exist, try the next
+            pass
+    if jabberd_user is None:
+        raise Exception("No jabber/jabberd user on system")
     
     ## build the server RPM
     args = (os.path.join(CERT_PATH, 'gen-rpm.sh') + " "
@@ -1022,7 +1035,7 @@ server with this hostname: %s
             "/etc/httpd/conf/ssl.key/server.key:0600=%s "
             "/etc/httpd/conf/ssl.csr/server.csr=%s "
             "/etc/httpd/conf/ssl.crt/server.crt=%s "
-            "/etc/jabberd/server.pem:0600,jabberd,jabberd=%s"
+            "/etc/pki/spacewalk/jabberd/server.pem:0600,%s,%s=%s"
             % (repr(server_rpm_name), ver, rel, repr(d['--rpm-packager']),
                repr(d['--rpm-vendor']),
                repr(SERVER_RPM_SUMMARY), repr(description),
@@ -1030,6 +1043,8 @@ server with this hostname: %s
                repr(cleanupAbsPath(server_key)),
                repr(cleanupAbsPath(server_cert_req)),
                repr(cleanupAbsPath(server_cert)),
+               jabberd_user,
+               jabberd_user,
                repr(cleanupAbsPath(jabberd_ssl_cert)),
                ))
     serverRpmName = "%s-%s-%s" % (server_rpm, ver, rel)

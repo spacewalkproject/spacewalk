@@ -33,7 +33,6 @@
         <package>httpd-suexec</package>
         <package>jabberd</package>
         <package>libapreq2</package>
-        <package>libidn</package>
         <package>LongLegs</package>
         <package>MessageQueue</package>
         <package>mm</package>
@@ -174,7 +173,6 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="httpd-suexec" default="${session.have_package_httpd_suexec}" acl="session_data_true(have_package_httpd_suexec)" />
                 <widget type="literal" label="jabberd" default="${session.have_package_jabberd}" acl="session_data_true(have_package_jabberd)" />
                 <widget type="literal" label="libapreq2" default="${session.have_package_libapreq2}" acl="session_data_true(have_package_libapreq2)" />
-                <widget type="literal" label="libidn" default="${session.have_package_libidn}" acl="session_data_true(have_package_libidn)" />
                 <widget type="literal" label="LongLegs" default="${session.have_package_LongLegs}" acl="session_data_true(have_package_LongLegs)" />
                 <widget type="literal" label="MessageQueue" default="${session.have_package_MessageQueue}" acl="session_data_true(have_package_MessageQueue)" />
                 <widget type="literal" label="mm" default="${session.have_package_mm}" acl="session_data_true(have_package_mm)" />
@@ -564,8 +562,11 @@ Would you like to enable Monitoring Proxy functionality on this system?
         <action-name>Remove conflicting proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in ${session.packages_list_proxy}; do
-rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+PACKAGES=`for package in ${session.packages_list_proxy}; do
+  rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+if [ -n "$PACKAGES" ]; then
+  rpm -e $PACKAGES
+fi
         </script>
       </run-script>
 
@@ -795,8 +796,11 @@ proxy will need to be reconfigured to use a different Satellite server.
         <action-name>Remove proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd jabberd jabberd MessageQueue mm NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-apache rhn-base-minimal rhn-base-minimal rhn-base-minimal rhn-modperl rhn-modpython rhn-modssl rhn-ssl-cert-check rhns rhns rhns rhns-auth-daemon rhns-auth-daemon rhns-auth-daemon rhns-certs-tools rhns-certs-tools rhns-certs-tools rhns-proxy-broker rhns-proxy-broker rhns-proxy-broker rhns-proxy-docs rhns-proxy-docs rhns-proxy-docs rhns-proxy-management rhns-proxy-management rhns-proxy-management rhns-proxy-monitoring rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-package-manager rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-redirect rhns-proxy-redirect rhns-proxy-tools rhns-proxy-tools rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl; do
+PACKAGES=`for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd jabberd jabberd MessageQueue mm NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-apache rhn-base-minimal rhn-base-minimal rhn-base-minimal rhn-modperl rhn-modpython rhn-modssl rhn-ssl-cert-check rhns rhns rhns rhns-auth-daemon rhns-auth-daemon rhns-auth-daemon rhns-certs-tools rhns-certs-tools rhns-certs-tools rhns-proxy-broker rhns-proxy-broker rhns-proxy-broker rhns-proxy-docs rhns-proxy-docs rhns-proxy-docs rhns-proxy-management rhns-proxy-management rhns-proxy-management rhns-proxy-monitoring rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-package-manager rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-redirect rhns-proxy-redirect rhns-proxy-tools rhns-proxy-tools rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl; do
 rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+if [ -n "$PACKAGES" ]; then
+  rpm -e $PACKAGES
+fi
         </script>
       </run-script>
 

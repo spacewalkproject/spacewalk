@@ -103,7 +103,7 @@ A tool that exports satellite content into a directory in an XML format. That co
 <RefSect1><Title>Options</Title>
 <variablelist>
     <varlistentry>
-        <term>-d --dir</term>
+        <term>-dDIR, --dir=DIR</term>
         <listitem>
             <para>Place the exported information into this directory.</para>
         </listitem>
@@ -158,7 +158,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>-p --print-configuration</term>
+        <term>-p, --print-configuration</term>
         <listitem>
             <para>Print the configuration and exit.</para>
         </listitem>
@@ -224,7 +224,7 @@ A tool that exports satellite content into a directory in an XML format. That co
         </listitem>
     </varlistentry>
     <varlistentry>
-        <term>--help</term>
+        <term>-h, --help</term>
         <listitem>
             <para>Show help message and exit.</para>
         </listitem>

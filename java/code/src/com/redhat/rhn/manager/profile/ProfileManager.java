@@ -1211,7 +1211,7 @@ public class ProfileManager extends BaseManager {
         if (e1 != null) {
             epoch1 = Integer.parseInt(e1);
         }
-        if (e1 != null) {
+        if (e2 != null) {
             epoch2 = Integer.parseInt(e2);
         }
 

@@ -4,11 +4,12 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.5.6
+Version: 0.5.7
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
 BuildArch: noarch
+Requires: httpd
 
 %define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
@@ -29,6 +30,7 @@ Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
 Requires: jabberd
+Requires: httpd
 Requires: sos
 Requires(preun): initscripts
 Obsoletes: rhns-proxy < 5.3.0
@@ -48,6 +50,7 @@ Requires: squid
 Requires: spacewalk-certs-tools
 Requires: spacewalk-proxy-package-manager
 Requires: spacewalk-ssl-cert-check
+Requires: httpd
 Requires: mod_ssl
 Requires: mod_python
 Requires(post): %{name}-common
@@ -72,6 +75,7 @@ server.
 Group:   Applications/Internet
 Summary: The SSL Redirect component for the Spacewalk Proxy Server
 Requires: spacewalk-proxy-broker = %{version}-%{release}
+Requires: httpd
 Obsoletes: rhns-proxy-redirect < 5.3.0
 
 %description redirect
@@ -279,6 +283,9 @@ fi
 
 
 %changelog
+* Thu Mar 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.7-1
+- add dependency on httpd
+
 * Thu Jan 29 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.6-1
 - 482831 - support redirect to Akamai
 

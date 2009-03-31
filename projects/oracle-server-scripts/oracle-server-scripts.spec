@@ -1,4 +1,5 @@
 %define oracle_base /opt/apps/oracle
+%define oracle_base_version %{version}
 %define oracle_home %{oracle_base}/web/product/%{oracle_base_version}/db_1
 %define oracle_admin %{oracle_base}/admin/%{oracle_base_version}
 %define oracle_config %{oracle_base}/config/%{oracle_base_version}
@@ -8,7 +9,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 25%{?dist}
+Release: 26%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -93,6 +94,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 10.2.0-26
+- define oracle_base_version
+
 * Fri Mar 20 2009 Michael Mraka <michael.mraka@redhat.com> 10.2.0-25
 - 491320 - extended default size of SYSAUX
 - rebuilt in new build environment

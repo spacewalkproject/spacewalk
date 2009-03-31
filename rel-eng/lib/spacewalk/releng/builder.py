@@ -268,12 +268,21 @@ class Builder(object):
         for koji_tag in koji_tags:
             # Lookup the disttag configured for this Koji tag:
             disttag = self.global_config.get(koji_tag, "disttag")
-            if self.global_config.has_option(koji_tag, "ignore_pkgs"):
-                if self.project_name in self.global_config.get(koji_tag,
-                        "ignore_pkgs").strip().split(" "):
-                    print("WARNING: %s specified in ignore_pkgs for %s" % (
+            if self.global_config.has_option(koji_tag, "whitelist"):
+                # whitelist implies only those packages can be built to the
+                # tag,regardless if blacklist is also defined.
+                if self.project_name not in self.global_config.get(koji_tag,
+                        "whitelist").strip().split(" "):
+                    print("WARNING: %s not specified in whitelist for %s" % (
                         self.project_name, koji_tag))
-                    print("WARNING: NOT submitting this srpm to koji.")
+                    print("   Package *NOT* submitted to Koji.")
+                    continue
+            elif self.global_config.has_option(koji_tag, "blacklist"):
+                if self.project_name in self.global_config.get(koji_tag,
+                        "blacklist").strip().split(" "):
+                    print("WARNING: %s specified in blacklist for %s" % (
+                        self.project_name, koji_tag))
+                    print("   Package *NOT* submitted to Koji.")
                     continue
 
             # Getting tricky here, normally Builder's are only used to
@@ -419,14 +428,14 @@ class Builder(object):
     def _cvs_user_confirm_commit(self):
         """ Prompt user if they wish to proceed with commit. """
         print("")
-        text = "Running 'cvs diff' in: %s" % self.cvs_package_workdir
+        text = "Running 'cvs diff -u' in: %s" % self.cvs_package_workdir
         print("#" * len(text))
         print(text)
         print("#" * len(text))
         print("")
 
         os.chdir(self.cvs_package_workdir)
-        (status, output) = commands.getstatusoutput("cvs diff")
+        (status, output) = commands.getstatusoutput("cvs diff -u")
         print(output)
 
         print("")
@@ -466,7 +475,7 @@ class Builder(object):
             branch_dir = os.path.join(self.cvs_workdir, self.project_name,
                     branch)
             os.chdir(branch_dir)
-            output = run_command("make build")
+            output = run_command("BUILD_FLAGS=--nowait make build")
             print(output)
 
     def _can_build_in_cvs(self):

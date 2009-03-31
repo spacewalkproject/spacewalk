@@ -38,7 +38,7 @@ EXTRA_DIRS = $(MANDIR)/man$(MANSECT) $(BINDIR) $(PUB_BOOTSTRAP_DIR)
 # now include some Macros
 include Makefile.defs
 
-BINFILES = rhn-ssl-tool rhn-bootstrap
+BINFILES = rhn-sudo-ssl-tool rhn-ssl-tool rhn-bootstrap
 
 install :: $(addsuffix .inst,$(BINFILES)) $(MANS) $(PREFIX)/$(MANDIR)
 	$(INSTALL_DATA) $(MANS) $(PREFIX)$(MANDIR)/man$(MANSECT)

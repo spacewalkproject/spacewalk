@@ -37,6 +37,7 @@ PERL_SCRIPTS = rhn-config-satellite.pl \
                rhn-populate-database.pl \
                rhn-generate-pem.pl \
                rhn-load-ssl-cert.pl \
+               rhn-sudo-load-ssl-cert \
                validate-sat-cert.pl
 
 SBIN_SCRIPTS = rhn-sat-restart-silent rhn-satellite

@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.34
+Version: 0.5.44
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -35,6 +35,7 @@ Requires: jasper5
 Requires: jcommon
 Requires: jfreechart >= 1.0.9
 Requires: jpam
+Requires: jta
 Requires: log4j
 Requires: redstone-xmlrpc
 Requires: oscache
@@ -83,7 +84,8 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jfreechart >= 0:0.9.21
+BuildRequires: jfreechart >= 0:1.0.9
+BuildRequires: jta
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
@@ -141,7 +143,7 @@ Requires: jakarta-commons-configuration
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
-Requires: jfreechart >= 0:0.9.21
+Requires: jfreechart >= 0:1.0.9
 Requires: jpam
 Requires: log4j
 Requires: oscache
@@ -235,6 +237,48 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Mar 30 2009 Mike McCune <mmccune@gmail.com> 0.5.44-1
+- 472595 - ported query forgot to check child channels
+- 144325 - converting system probe list to the new list tag, featuring all the bells and 
+  whistles the new list tag has to offer
+- 492478 - modifying the system applicable errata page so that you can filter on the 
+  type of errata you want to see, also linking a couple of critical errata li
+- 467063 - Port of clone errata functionality to new list tag
+- 492418 - adding missing channel title when creating new software channels
+- 492476 - fixing issue where critical  plus non-critical errata for a system (on the system details page) did not  total errata
+- 492146 - fixing issue where system icons are not clickable
+
+
+* Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.41-1
+- 437359 - redirect org creation to the orgsystemsubscription page
+- 489007 - add system.getConnectionPath for listing proxies a server connected through
+- 489736 - generate non-expiring kickstart package download url
+- 489736 - download_url_lifetime of 0 disables expiration server wide
+- 489736 - can disable expiration by package name by non_expirable_package_urls
+- 489486 - added updated message when changing channel access from public to private
+- Adding support for comps info to be added to repomd.xml.
+- Updated documentation
+
+* Thu Mar 26 2009 Mike McCune <mmccune@gmail.com> 0.5.40-1
+- 492137 - fixing ISE for virt 
+
+* Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.39-1
+- 484852 - user taken to meaningful error pages instead of ISEs.
+
+* Wed Mar 25 2009 Partha Aji <paji@redhat.com> 0.5.38-1
+- Added code to take advantage of cobbler 1.6 perf enhancements
+- if the customer has that installed.
+
+* Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.37-1
+- 491978 - fixing status reporting in webui for kickstarts.
+- Added resource bundle entries for admin/config/Cobbler.do
+- 467063 - Ported published and unpublished errata to new list tag to get new navigation features
+- 446269 - fixed issue where you could not remove a package from a system 
+
+* Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.36-1
+- bring over jta from satellite build.
+- fix the jfreechart requires to be 0:1.0.9 everywhere
+
 * Thu Mar 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.34-1
 - ServerFactory - fix wording in method header
 - 486212 - api - added system.deleteCustomValues

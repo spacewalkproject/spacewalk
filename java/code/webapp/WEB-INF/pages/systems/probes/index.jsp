@@ -4,6 +4,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <html:xhtml/>
 <html>
@@ -31,26 +32,64 @@
     </p>
   </div>
 
-<rhn:list pageList="${requestScope.pageList}" noDataText="probes.index.jsp.noprobes" legend="probes-list">
-  <rhn:listdisplay set="${requestScope.set}" exportColumns="id,description,stateString,stateOutputString" 
-        hiddenvars="${requestScope.newset}">
-    <%@ include file="/WEB-INF/pages/common/fragments/probes/probe-state-column.jspf" %>
-    <rhn:column header="probes.index.jsp.description" nowrap="nowrap">
-      <a href="ProbeDetails.do?probe_id=${current.id}&sid=${system.id}">${current.description}</A>
-    </rhn:column>
-    <rhn:column header="probes.index.jsp.status" sortProperty="stateOutputString">  
-      ${current.stateOutputString}
-    </rhn:column>
-    <rhn:column header="probes.index.jsp.type">
-        <c:if test="${current.isSuiteProbe}">
-          <a title='<bean:message key="probes.index.jsp.suiteedit"/>' href="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${current.probeSuiteId}&probe_id=${current.id}"><bean:message key="probes.index.jsp.suite"/></a>
-        </c:if>
-        <c:if test="${not current.isSuiteProbe}">
-          <a title='<bean:message key="probes.index.jsp.systemedit"/>' href="ProbeEdit.do?probe_id=${current.id}&sid=${system.id}"><bean:message key="probes.index.jsp.system"/></a>
-        </c:if>
-    </rhn:column>
- </rhn:listdisplay>
-</rhn:list>
+
+<rl:listset name="probeSet">
+
+<rl:list emptykey="probes.index.jsp.noprobes"
+		alphabarcolumn="description"
+		styleclass="list"
+		>
+			<rl:decorator name="PageSizeDecorator"/>
+                <rl:decorator name="ElaborationDecorator"/>
+
+            <%@ include file="/WEB-INF/pages/common/fragments/probes/probe-state-column-new.jspf" %>
+
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="probes.index.jsp.description"
+                           sortattr="description"
+                           defaultsort="asc"
+                           filterattr="description"
+                           >
+                        <a href="ProbeDetails.do?probe_id=${current.id}&sid=${system.id}">${current.description}</a>
+                </rl:column>
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="probes.index.jsp.status"
+                           sortattr="stateOutputString">
+                        ${current.stateOutputString}
+                </rl:column>
+
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="probes.index.jsp.type"
+                           styleclass="last-column"
+                           >
+				        <c:if test="${current.isSuiteProbe}">
+				          <a title='<bean:message key="probes.index.jsp.suiteedit"/>' href="/rhn/monitoring/config/ProbeSuiteProbeEdit.do?suite_id=${current.probeSuiteId}&probe_id=${current.id}"><bean:message key="probes.index.jsp.suite"/></a>
+				        </c:if>
+				        <c:if test="${not current.isSuiteProbe}">
+				          <a title='<bean:message key="probes.index.jsp.systemedit"/>' href="ProbeEdit.do?probe_id=${current.id}&sid=${system.id}"><bean:message key="probes.index.jsp.system"/></a>
+				        </c:if>
+                </rl:column>
+
+
+
+</rl:list>
+    <input type="hidden" name="sid" value="${sid}" />
+ <rl:csv  exportColumns="id,description,stateString,stateOutputString"/>
+</rl:listset>
+
+
+
+
+
+
+
+
+
 
            
 </body>

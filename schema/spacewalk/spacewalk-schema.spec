@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.19
+Version:        0.5.20
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.20-1
+-  472595 - forgot the index in the table definition.  was in the upgrade area only
+
 * Thu Mar 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.19-1
 - 487316 - disallows multiple eus channels to be considered the most recent
 - 472595 - fixes for kickstart performance, start porting ks downloads to java

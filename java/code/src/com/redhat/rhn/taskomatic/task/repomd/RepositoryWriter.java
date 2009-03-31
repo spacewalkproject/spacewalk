@@ -27,12 +27,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 
 /**
  * 
@@ -207,12 +211,20 @@ public class RepositoryWriter {
      * @return repomd index for given channel
      */
     private RepomdIndexData loadCompsFile(Channel channel) {
+        String relativeFilename;
+        String compsMount = Config.get().getString(Config.MOUNT_POINT);
+ 
         if (channel.getComps() == null) {
-            return null;
+            relativeFilename = getCompsFilePath(channel);
+            if (relativeFilename == null) {
+                return null;
+            }
+        }
+        else {
+            relativeFilename = channel.getComps().getRelativeFilename();
         }
 
-        File compsFile = new File(mountPoint +
-                channel.getComps().getRelativeFilename());
+        File compsFile = new File(compsMount + relativeFilename);
         FileInputStream stream;
         try {
             stream = new FileInputStream(compsFile);
@@ -244,6 +256,58 @@ public class RepositoryWriter {
 
         return new RepomdIndexData(StringUtil.getHexString(digestStream
                 .getMessageDigest().digest()), null, timeStamp);
+    }
+
+    /**
+     * TODO: This static comps paths should go away once 
+     * we can get the paths directly from hosted through 
+     * satellite-sync and only limit to supporting cloned.
+     * @param channel channel object
+     * @return compsPath comps file path
+    */
+    public String getCompsFilePath(Channel channel) {
+        String compsPath = null;
+
+        Map<String, String> compsMapping = new HashMap<String, String>();
+        String rootClientPath = "/rhn/kickstart/ks-rhel-x86_64-client-5";
+        String rootServerPath = "/rhn/kickstart/ks-rhel-x86_64-server-5";
+        compsMapping.put("rhel-x86_64-client-5", 
+              rootClientPath + "/Client/repodata/comps-rhel5-client-core.xml");
+        compsMapping.put("rhel-x86_64-client-vt-5",
+              rootClientPath + "/VT/repodata/comps-rhel5-vt.xml");
+        compsMapping.put("rhel-x86_64-client-workstation-5",
+              rootClientPath + "/Workstation/repodata/comps-rhel5-client-workstation.xml");
+        compsMapping.put("rhel-x86_64-server-5", 
+              rootServerPath + "/Server/repodata/comps-rhel5-server-core.xml");
+        compsMapping.put("rhel-x86_64-server-vt-5",
+              rootServerPath + "/VT/repodata/comps-rhel5-vt.xml");
+        compsMapping.put("rhel-x86_64-server-cluster-5",
+              rootServerPath + "/Cluster/repodata/comps-rhel5-cluster.xml");
+        compsMapping.put("rhel-x86_64-server-cluster-storage-5",
+              rootServerPath + "/ClusterStorage/repodata/comps-rhel5-cluster-st.xml");
+
+        String[] arches = {"i386", "ia64", "s390x", "ppc"};
+        Map<String, String> newCompsmap = new HashMap<String, String>();
+        for (String k : compsMapping.keySet()) {
+            for (String arch : arches) {
+                newCompsmap.put(k.replace("x86_64", arch), 
+                    compsMapping.get(k).replace("x86_64", arch));
+            }
+        }
+        compsMapping.putAll(newCompsmap);
+ 
+        if (compsMapping.containsKey(channel.getLabel())) {
+            compsPath = compsMapping.get(channel.getLabel());
+        }
+        else if (channel.isCloned()) {
+            // If its a cloned channel see if we can get the comps
+            // from the original channel.
+            ClonedChannel clonedCh = (ClonedChannel) channel;
+            Channel origChannel = clonedCh.getOriginal();
+            compsPath = compsMapping.get(origChannel.getLabel());
+        }
+
+        return compsPath;
     }
 
     /**

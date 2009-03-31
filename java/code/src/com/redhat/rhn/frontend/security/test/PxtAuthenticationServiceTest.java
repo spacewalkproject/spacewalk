@@ -108,8 +108,7 @@ public class PxtAuthenticationServiceTest extends AuthenticationServiceTest {
                 isA(HttpServletRequest.class)).will(returnValue(false));
         
         mockRequest.stubs().method("getRequestURI").will(returnValue("/rhn/Login"));
-        
-        runValidateSucceedsTest();
+        assertTrue(service.validate(getRequest(), getResponse()));
     }
     
     public final void testValidateSucceeds() {

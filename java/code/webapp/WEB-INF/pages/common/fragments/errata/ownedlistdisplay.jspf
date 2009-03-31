@@ -1,31 +1,52 @@
+<rl:listset name="groupSet" legend="errata">
 
-  <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
-                   button="erratalist.jsp.deleteerrata" filterBy="erratalist.jsp.synopsis">
-    <rhn:set value="${current.id}" />
-    <rhn:column header="erratalist.jsp.type">
-        <c:if test="${current.securityAdvisory}">
-            <img src="/img/wrh-security.gif"
-                 alt="<bean:message key='erratalist.jsp.securityadvisory'/>"
-                 title="<bean:message key='erratalist.jsp.securityadvisory'/>" />
-        </c:if>
-        <c:if test="${current.bugFix}">
-            <img src="/img/wrh-bug.gif"
-                 alt="<bean:message key='erratalist.jsp.bugadvisory'/>"
-                 title="<bean:message key='erratalist.jsp.bugadvisory'/>" />
-        </c:if>
-        <c:if test="${current.productEnhancement}">
-            <img src="/img/wrh-product.gif"
-                 alt="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"
-                 title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>" />
-        </c:if>
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.advisory">
-      <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisoryName}</a>
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.synopsis">
-      ${current.synopsis}
-    </rhn:column>
-    <rhn:column header="erratalist.jsp.updated">
-      ${current.updateDate}
-    </rhn:column>
-  </rhn:listdisplay>
+    <rl:list emptykey="erratalist.jsp.deleteerrata">
+
+        <rl:decorator name="PageSizeDecorator"/>
+        <rl:decorator name="SelectableDecorator"/>
+        
+        <rl:selectablecolumn value="${current.selectionKey}"
+                             selected="${current.selected}"
+                             disabled="${not current.selectable}"
+                             styleclass="first-column"/>
+        
+        <rl:column headerkey="erratalist.jsp.type">
+            <c:if test="${current.securityAdvisory}">
+                <img src="/img/wrh-security.gif"
+                     alt="<bean:message key='erratalist.jsp.securityadvisory'/>"
+                     title="<bean:message key='erratalist.jsp.securityadvisory'/>"/>
+            </c:if>
+            <c:if test="${current.bugFix}">
+                <img src="/img/wrh-bug.gif"
+                     alt="<bean:message key='erratalist.jsp.bugadvisory'/>"
+                     title="<bean:message key='erratalist.jsp.bugadvisory'/>"/>
+            </c:if>
+            <c:if test="${current.productEnhancement}">
+                <img src="/img/wrh-product.gif"
+                     alt="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"
+                     title="<bean:message key='erratalist.jsp.productenhancementadvisory'/>"/>
+            </c:if>
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.advisory"
+                   filterattr="advisorySynopsis">
+            <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisoryName}</a>
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.synopsis">
+            ${current.synopsis}
+        </rl:column>
+        <rl:column headerkey="erratalist.jsp.updated"
+                   styleclass="last-column">
+            ${current.updateDate}
+        </rl:column>
+
+    </rl:list>
+    
+    <div align="right">
+        <rhn:submitted/>
+        <hr/>
+        <input type="submit"
+               name="dispatch"
+               value='<bean:message key="erratalist.jsp.deleteerrata"/>'/>
+    </div>
+    
+</rl:listset>

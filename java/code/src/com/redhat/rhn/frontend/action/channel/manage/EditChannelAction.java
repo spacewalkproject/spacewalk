@@ -93,7 +93,6 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
         }
         else if (ctx.hasParam("edit_button")) {
-            //params.put("cid", ctx.getParam("cid", true));
             String sharing = (String) form.get("org_sharing");
             
             if (hasSharingChanged(form, ctx) && ("private".equals(sharing) ||
@@ -128,6 +127,10 @@ public class EditChannelAction extends RhnAction implements Listable {
         // handler for private confirmation page
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
             makePrivate(form, errors, ctx);
+            if (errors.isEmpty()) {
+                createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
         }
         else if (ctx.hasParam("deny")) {
             deny(form, errors, ctx);
@@ -137,7 +140,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         if (!errors.isEmpty()) {
             request.setAttribute("channel_label", (String) form.get("label"));
-            request.setAttribute("channel_name", (String) form.get("name"));
+            request.setAttribute("channel_name", (String) form.getString("name"));
             request.setAttribute("channel_arch", (String) form.get("arch_name"));
             request.setAttribute("channel_arch_label", (String) form.get("arch"));
             addErrors(request, errors);
@@ -427,7 +430,9 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         else {
             // default settings
-            request.setAttribute("channel_name", "");
+            String channelName = LocalizationService.getInstance()
+              .getMessage("frontend.actions.channels.manager.create");
+            request.setAttribute("channel_name", channelName);
             form.set("org_sharing", "private");
             form.set("per_user_subscriptions", "all");
         }

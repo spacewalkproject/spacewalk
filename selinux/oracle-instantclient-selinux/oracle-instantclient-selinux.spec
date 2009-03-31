@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -12,6 +12,7 @@ License:	GPLv2+
 # make srpm TAG=%{name}-%{version}-%{release}
 URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:	noarch
 
 Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
@@ -32,35 +33,33 @@ install -d $RPM_BUILD_ROOT/%{rhnroot}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%ifarch x86_64 s390x
-%define clientdir client64
-%else
-%define clientdir client
-%endif
-
 %define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libsqlplus.so
 
 %post
-/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/bin/sqlplus'
+/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 for i in %used_libs ; do
-	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/lib/'${i//./\\.}
-	/usr/bin/execstack -c /usr/lib/oracle/10.2.0.4/%{clientdir}/lib/$i
+	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
+	/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/$i
 done
-/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/%{clientdir} || :
+/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
 %postun
 if [ $1 -eq 0 ]; then
-	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/bin/sqlplus'
+	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 	for i in %used_libs ; do
-		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/%{clientdir}/lib/'${i//./\\.}
-		/usr/bin/execstack -s /usr/lib/oracle/10.2.0.4/%{clientdir}/lib/$i
+		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
+		/usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/$i
 	done
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/%{clientdir} || :
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
 %files
 
 %changelog
+* Tue Mar 24 2009 Jan Pazdziora 10.2-8
+- make the package noarch since we use wildcards in path
+- 491849 - losen the version specification of the Oracle InstantClient
+
 * Mon Feb  9 2009 Jan Pazdziora 10.2-7
 - add texrel_shlib_t to libsqlplus.so
 

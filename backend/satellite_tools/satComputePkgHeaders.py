@@ -55,7 +55,7 @@ sys.modules["_apache"] = sys.modules["__main__"]
 
 
 from server import rhnSQL
-from server import rhnPackageUpload
+from common import rhn_rpm
 
 options_table = [
     Option("-v", "--verbose",       action="count", 
@@ -205,7 +205,7 @@ class Runner:
                 continue
 
             try:
-                (header_start, header_end) = rhnPackageUpload.get_header_byte_range(p_file); 
+                (header_start, header_end) = rhn_rpm.get_header_byte_range(p_file);
             except Exception, e:
                 print "Error reading header size from file %s: %s" % (path, e)
 

@@ -28,7 +28,13 @@ import java.util.List;
 
 /**
  * 
- * TestDoclet
+ * EnforcementDoclet
+ * 
+ * This doclet checks to make sure that we do not have any non static or final member 
+ * variables in our Actions
+ * 
+ * Exceptions can be added in initializeExceptions()
+ * 
  * @version $Rev$
  */
 public class EnforcementDoclet {

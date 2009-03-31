@@ -989,11 +989,11 @@ public class ErrataHandler extends BaseHandler {
         for (Iterator itr = channelsLabels.iterator(); itr.hasNext();) {
             String  channelLabel = (String) itr.next();
             Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel, user);  
-            ChannelManager.verifyChannelAdmin(user, channel.getId());
             if (channel == null) {
                 throw new InvalidChannelLabelException();
             }
             else {
+                ChannelManager.verifyChannelAdmin(user, channel.getId());
                 resolvedList.add(channel);
             }
         } 

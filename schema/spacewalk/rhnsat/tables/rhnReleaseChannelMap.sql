@@ -39,3 +39,8 @@ create index rhn_rcm_prod_ver_rel_caid_idx
 	tablespace [[64k_tbs]]
   ;
 
+alter table rhnReleaseChannelMap
+add constraint rhn_rcm_pva_def_uniq
+unique (product, version, channel_arch_id, is_default)
+;
+

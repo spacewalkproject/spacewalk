@@ -566,3 +566,8 @@ tr.alphaResult td.sortedCol {
 .csv-download a {
 	font-weight:		bold;
 }
+
+
+.list-fat-column-50 {
+	width: 50%;
+}

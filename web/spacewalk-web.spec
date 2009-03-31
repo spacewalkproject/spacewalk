@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.18
+Version: 0.5.23
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -318,6 +318,24 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.23-1
+- 489736 - generate non-expiring kickstart package download url
+- 489736 - download_url_lifetime of 0 disables expiration server wide
+- 489736 - can disable experiation by package name by non_expirable_package_urls
+
+* Thu Mar 26 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.22-1
+- 491667 - do not fail if none of the packages are installed
+- code cleanup - remove 3.6 and 3.7 proxy installer (EOL)
+- 491670 - add rhn-proxy-branding to list of package to remove in 5.3
+- 491670 - add conflicting package from older proxy versions
+- remove libidn from conflictin packages from proxy installer
+
+* Wed Mar 25 2009 Jan Pazdziora 0.5.20-1
+- 491687 - call wrapper around sudo invocations, to change SELinux domain
+
+* Fri Mar 20 2009 Mike McCune <mmccune@gmail.com> 0.5.19-1
+- space05 - bumping release footer/config for 0.5 release
+
 * Thu Mar 19 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.18-1
 - 472595 - fixes for kickstart performance, start of porting ks downloads to java
 - 490726 - minor updates to about.pxt

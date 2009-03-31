@@ -279,7 +279,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
         pli.setVersion("2.4.22");
         pli.setEpoch(null);
         a.add(pli);
-
         
         List b = new ArrayList();
         pli = new PackageListItem();
@@ -315,7 +314,6 @@ public class ProfileManagerTest extends RhnBaseTestCase {
         pli.setVersion("2.4.22");
         pli.setEpoch(null);
         b.add(pli);
-
         
         List a = new ArrayList();
         pli = new PackageListItem();
@@ -339,6 +337,55 @@ public class ProfileManagerTest extends RhnBaseTestCase {
         assertEquals("kernel-2.4.21-27.EL", pm.getOther().getEvr());
     }
     
+    public void testDifferingEpochsofSamePackage() {
+        // this test will perform a package comparison between 2 packages where
+        // the epochs in those packages vary, including null values
+
+        String[] pkg1Epochs = {null, "0", null, "0"};
+        String[] pkg2Epochs = {null, null, "0", "0"};
+
+        List<PackageListItem> a = new ArrayList<PackageListItem>();
+        PackageListItem pli1 = new PackageListItem();
+        pli1.setIdCombo("500000341|000000");
+        pli1.setEvrId(new Long(000000));
+        pli1.setName("kernel");
+        pli1.setRelease("27.EL-bretm");
+        pli1.setNameId(new Long(500000341));
+        pli1.setEvr("kernel-2.4.22-27.EL-bretm");
+        pli1.setVersion("2.4.22");
+
+        List<PackageListItem> b = new ArrayList<PackageListItem>();
+        PackageListItem pli2 = new PackageListItem();
+        pli2.setIdCombo("500000341|258204");
+        pli2.setEvrId(new Long(258204));
+        pli2.setName("kernel");
+        pli2.setRelease("27.EL");
+        pli2.setNameId(new Long(500000341));
+        pli2.setEvr("kernel-2.4.21-27.EL");
+        pli2.setVersion("2.4.21");
+
+        for (int i = 0; i < pkg1Epochs.length; i++) {
+            pli1.setEpoch(pkg1Epochs[i]);
+            pli2.setEpoch(pkg2Epochs[i]);
+
+            a.clear();
+            a.add(pli1);
+            b.clear();
+            b.add(pli2);
+
+            List diff = ProfileManager.comparePackageLists(
+                new DataResult(a), new DataResult(b), "foo");
+            assertEquals(1, diff.size());
+            PackageMetadata pm = (PackageMetadata) diff.get(0);
+            assertNotNull(pm);
+            assertEquals(PackageMetadata.KEY_OTHER_NEWER, pm.getComparisonAsInt());
+            assertEquals("kernel-2.4.22-27.EL-bretm", pm.getOther().getEvr());
+            assertEquals(pkg1Epochs[i], pm.getOther().getEpoch());
+            assertEquals("kernel-2.4.21-27.EL", pm.getSystem().getEvr());
+            assertEquals(pkg2Epochs[i], pm.getSystem().getEpoch());
+        }
+    }
+
     public static PackageListItem createItem(String evrString, int nameId) {
         PackageListItem pli = new PackageListItem();
         String[] evr = StringUtils.split(evrString, "-");

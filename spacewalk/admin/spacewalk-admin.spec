@@ -2,7 +2,7 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: spacewalk-admin
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.5.12
+Version: 0.5.15
 Release: 1%{?dist}
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 License: GPLv2
@@ -49,6 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-config-tnsnames.pl
 %{_bindir}/rhn-populate-database.pl
 %{_bindir}/rhn-generate-pem.pl
+%{_bindir}/rhn-sudo-load-ssl-cert
 %{_bindir}/rhn-load-ssl-cert.pl
 %{_bindir}/rhn-deploy-ca-cert.pl
 %{_bindir}/rhn-install-ssl-cert.pl
@@ -57,6 +58,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Mar 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.15-1
+- rhn-satellite restarts oracle service rather than rhn-database
+
+* Wed Mar 25 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.14-1
+- some jabberd installs use jabberd, while others use jabber, check for both.
+
+* Wed Mar 25 2009 Jan Pazdziora 0.5.13-1
+- 491687 - wrapper around sudo rhn-load-ssl-cert.pl, to change SELinux domain
+
 * Fri Mar 13 2009 Jan Pazdziora 0.5.12-1
 - 486738 - change to root's home directory before running sqlplus
 

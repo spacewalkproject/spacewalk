@@ -18,6 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 
 import org.apache.log4j.Logger;
 
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +54,26 @@ public class StringConstraint extends RequiredIfConstraint {
         super(identifierIn);
     }
     
+    private boolean lengthLessThan(String str, Number length) {
+        try {
+            return str.getBytes("UTF8").length <= length.intValue();    
+        }
+        catch (UnsupportedEncodingException use) {
+            log.warn("Couldn;t convert to UTF8-> [" + str + "]");
+            return str.length() < length.intValue();    
+        }
+    }
+    
+    private boolean lengthGreaterThan(String str, Number length) {
+        try {
+            return str.getBytes("UTF8").length >= length.intValue();    
+        }
+        catch (UnsupportedEncodingException use) {
+            log.warn("Couldn;t convert to UTF8-> [" + str + "]");
+            return str.length() >= length.intValue();    
+        }
+    }    
+    
     /** {@inheritDoc} */
     public ValidatorError checkConstraint(Object value) {
 
@@ -67,8 +88,9 @@ public class StringConstraint extends RequiredIfConstraint {
         // Validate String length
         if (hasMaxLength()) {
             log.debug("HasMaxlength ..");
-            if (strValue.length() > getMaxLength().doubleValue()) {
-                log.debug("Above max length: " + strValue.length() + " data: " + strValue);
+            if (!(lengthLessThan(strValue, getMaxLength()))) {
+                log.debug("Above max length: " + strValue.length() + " data: " + strValue + 
+                        "max length: " + getMaxLength());
                 Object[] args = new Object[2];
                 args[0] = localizedIdentifier;                
                 args[1] = getMaxLength();
@@ -83,7 +105,7 @@ public class StringConstraint extends RequiredIfConstraint {
                 args[0] = localizedIdentifier;
                 return new ValidatorError("errors.required", args);
             }
-            if (strValue.length() < getMinLength().doubleValue()) {
+            if (!(lengthGreaterThan(strValue, getMinLength()))) {
                 log.debug("Below min length: " + strValue.length() + " data: " + strValue);
                 Object[] args = new Object[2];
                 args[0] = localizedIdentifier;

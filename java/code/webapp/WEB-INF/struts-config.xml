@@ -992,9 +992,9 @@
     <exception type="com.redhat.rhn.common.security.PermissionException"
       path="/WEB-INF/pages/common/errors/permission.jsp" key="date"
       handler="com.redhat.rhn.common.errors.PermissionExceptionHandler"/>
-    <exception type="com.redhat.rhn.domain.user.service.UserServiceException"
-      path="/WEB-INF/pages/common/errors/service.jsp" key="date"
-      handler="com.redhat.rhn.common.errors.ServiceExceptionHandler"/>
+    <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException"
+      path="/WEB-INF/pages/common/errors/nosuchpkg.jsp" key="date"
+      handler="com.redhat.rhn.common.errors.NoSuchPackageExceptionHandler"/>
   </global-exceptions>
 
   <!-- 
@@ -1565,36 +1565,20 @@
         type="com.redhat.rhn.frontend.action.schedule.PendingActionsSetupAction">
         <forward name="default"
             path="/WEB-INF/pages/schedule/pendingactions.jsp" />
+        <forward name="confirm"
+            path="/schedule/PendingActionsDeleteConfirm.do" redirect="true" />
     </action>
     
-    <action path="/schedule/PendingActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/pendingactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.PendingActionsAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <forward name="default"
-             path="/schedule/PendingActions.do" redirect="true"/>
-         <forward name="delete"
-             path="/schedule/PendingActionsDeleteConfirm.do" redirect="true"/>
-    </action>
      
     <action path="/schedule/PendingActionsDeleteConfirm"
          scope="request"
-         input="/WEB-INF/pages/schedule/pendingactions.jsp"
+         input="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp"
          type="com.redhat.rhn.frontend.action.schedule.PendingActionsDeleteConfirmAction">
          <forward name="default"
             path="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp" />
+         <forward name="success" path="/schedule/PendingActions.do" redirect="true"/>
     </action>
      
-    <action path="/schedule/PendingActionsDeleteConfirmSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/pendingactionsconfirm.jsp"
-         parameter="dispatch"
-         type="com.redhat.rhn.frontend.action.schedule.PendingActionsDeleteConfirmSubmitAction">
-         <forward name="default"
-             path="/schedule/PendingActions.do" />
-    </action>
      
     <action path="/schedule/FailedActions"
         scope="request"
@@ -1602,16 +1586,8 @@
         type="com.redhat.rhn.frontend.action.schedule.FailedActionsSetupAction">
         <forward name="default"
                path="/WEB-INF/pages/schedule/failedactions.jsp" />  
+        <forward name="archive" path="/schedule/FailedActions.do" redirect="true"/>
     </action>
-
-     <action path="/schedule/FailedActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/failedactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.FailedActionsAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/schedule/FailedActions.do" redirect="true"/>
-     </action>
 
     <action path="/schedule/CompletedActions"
         scope="request"
@@ -1619,17 +1595,10 @@
         type="com.redhat.rhn.frontend.action.schedule.CompletedActionsSetupAction">
         <forward name="default"
                path="/WEB-INF/pages/schedule/completedactions.jsp" />  
+		<forward name="archive" path="/schedule/CompletedActions.do" redirect="true"/>
     </action>
 
-     <action path="/schedule/CompletedActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/completedactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.CompletedActionsAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/schedule/CompletedActions.do" redirect="true"/>
-     </action>
-         
+
     <action path="/schedule/ArchivedActions"
         scope="request"
         input="/WEB-INF/pages/schedule/archivedactions.jsp"
@@ -1638,13 +1607,6 @@
                path="/WEB-INF/pages/schedule/archivedactions.jsp" />  
     </action>
 
-     <action path="/schedule/ArchivedActionsSubmit"
-         scope="request"
-         input="/WEB-INF/pages/schedule/archivedactions.jsp"
-         type="com.redhat.rhn.frontend.action.schedule.ArchivedActionsAction">
-         <forward name="default"
-                  path="/schedule/ArchivedActions.do" redirect="true"/>
-     </action>
    
      <action path="/schedule/PackageList"
         scope="request"
@@ -1730,50 +1692,26 @@
     <action path="/errata/AllErrata"
         scope="request"
         input="/WEB-INF/pages/errata/all.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListSetupAction">
+        type="com.redhat.rhn.frontend.action.errata.ErrataListAllAction">
         <forward name="default"
                path="/WEB-INF/pages/errata/all.jsp" />  
     </action>
 
-     <action path="/errata/AllErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/all.jsp"
-         type="com.redhat.rhn.frontend.action.errata.ErrataListAction">
-         <forward name="default"
-                  path="/errata/AllErrata.do" redirect="true"/>
-     </action>
-
     <action path="/errata/Overview"
-        scope="request"
-        input="/WEB-INF/pages/errata/overview.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantSetupAction">
-        <forward name="default"
-            path="/WEB-INF/pages/errata/overview.jsp"/>
-    </action>
-    
-    <action path="/errata/OverviewSubmit"
         scope="request"
         input="/WEB-INF/pages/errata/overview.jsp"
         type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
         <forward name="default"
-            path="/errata/Overview.do" redirect="true"/>
+            path="/WEB-INF/pages/errata/overview.jsp"/>
     </action>
-
-    <action path="/errata/RelevantErrata"
+    
+   <action path="/errata/RelevantErrata"
         scope="request"
         input="/WEB-INF/pages/errata/relevant.jsp"
-        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantSetupAction">
+        type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
         <forward name="default"
                path="/WEB-INF/pages/errata/relevant.jsp" />  
     </action>
-
-     <action path="/errata/RelevantErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/relevant.jsp"
-         type="com.redhat.rhn.frontend.action.errata.ErrataListRelevantAction">
-         <forward name="default"
-                  path="/errata/RelevantErrata.do" redirect="true"/>
-     </action>
 
     <action path="/errata/details/Details"
         scope="request"
@@ -1838,75 +1776,37 @@
     <action path="/errata/manage/UnpublishedErrata"
         scope="request"
         input="/WEB-INF/pages/errata/unpublished.jsp"
-        type="com.redhat.rhn.frontend.action.errata.UnpublishedErrataSetupAction"
+        type="com.redhat.rhn.frontend.action.errata.UnpublishedErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
                path="/WEB-INF/pages/errata/unpublished.jsp" />  
+       <forward name="continue"
+                path="/errata/manage/UnpublishedDeleteConfirm.do" redirect="true"/>
     </action>
 
-     <action path="/errata/manage/UnpublishedErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/unpublished.jsp"
-         type="com.redhat.rhn.frontend.action.errata.UnpublishedErrataAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default"
-                  path="/errata/manage/UnpublishedErrata.do" redirect="true"/>
-         <forward name="delete"
-                  path="/errata/manage/UnpublishedDeleteConfirm.do" redirect="true"/>
-     </action>
-     
-     <action path="/errata/manage/PublishedErrata"
+    <action path="/errata/manage/PublishedErrata"
         scope="request"
         input="/WEB-INF/pages/errata/published.jsp"
-        type="com.redhat.rhn.frontend.action.errata.PublishedErrataSetupAction"
+        type="com.redhat.rhn.frontend.action.errata.PublishedErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
                path="/WEB-INF/pages/errata/published.jsp" />  
-     </action>
-
-     <action path="/errata/manage/PublishedErrataSubmit"
-         scope="request"
-         input="/WEB-INF/pages/errata/unpublished.jsp"
-         type="com.redhat.rhn.frontend.action.errata.PublishedErrataAction"
-         parameter="dispatch"
-         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-         <set-property property="acls" value="user_role(channel_admin)"/>
-         <forward name="default"
-                  path="/errata/manage/PublishedErrata.do" redirect="true"/>
-         <forward name="delete"
-                  path="/errata/manage/PublishedDeleteConfirm.do" redirect="true"/>
-     </action>
+        <forward name="continue"
+                 path="/errata/manage/PublishedDeleteConfirm.do" redirect="true"/>
+    </action>
      
     <action path="/errata/manage/CloneErrata"
         scope="request"
         name="cloneErrataForm"
         input="/WEB-INF/pages/errata/cloneerrata.jsp"
-        type="com.redhat.rhn.frontend.action.errata.CloneErrataSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/errata/cloneerrata.jsp" />
-        <forward name="error"
-                 path="/WEB-INF/pages/errata/cloneerrata.jsp" />
-    </action>
-    
-	<action path="/errata/manage/CloneErrataSubmit"
-        scope="request"
-        name="cloneErrataForm"
-        input="/WEB-INF/pages/errata/cloneerrata.jsp"
-        parameter="dispatch"
         type="com.redhat.rhn.frontend.action.errata.CloneErrataAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-                 path="/errata/manage/CloneErrata.do" redirect="true"/>
-        <forward name="error"
                  path="/WEB-INF/pages/errata/cloneerrata.jsp" />
-        <forward name= "clone"
+        <forward name="continue"
                  path="/errata/manage/CloneConfirm.do" redirect="true" />
     </action>
     
@@ -4359,7 +4259,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/admin/multiorg/orgcreate.jsp"/>
       <forward name="success"
-               path="/admin/multiorg/Organizations.do" redirect="true" />
+               path="/admin/multiorg/OrgSystemSubscriptions.do" redirect="true" />
     </action>
     
     <action path="/admin/multiorg/OrgTrusts"

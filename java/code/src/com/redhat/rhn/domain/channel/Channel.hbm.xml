@@ -294,8 +294,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
           FROM rhnPackage {p}
              left join rhnSolarisPatchSet P_2_ on p.id = P_2_.package_id
              left join rhnSolarisPatch P_1_ on p.id = P_1_.package_id,
-             rhnChannelPackage CP
-             WHERE CP.channel_id = :channel_id
+             rhnChannelPackage CP,
+             rhnChannel C
+             WHERE (C.id = :channel_id OR C.parent_channel = :channel_id)
+               AND (CP.channel_id = C.id  OR CP.channel_id = C.parent_channel)
                AND CP.package_id = P.id
                AND P.path LIKE :pathlike               
         ]]>

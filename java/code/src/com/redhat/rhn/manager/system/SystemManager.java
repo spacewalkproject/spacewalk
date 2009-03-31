@@ -706,6 +706,31 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * Returns a list of errata relevant to a system
+     * @param user The user
+     * @param sid System Id
+     * @param types of errata types (strings) to include
+     * @return a list of ErrataOverviews
+     */
+    public static DataResult<ErrataOverview> relevantErrata(User user,
+                                               Long sid, List<String> types) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_system_by_types");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", sid);
+
+        Map elabParams = new HashMap();
+        elabParams.put("sid", sid);
+        elabParams.put("user_id", user.getId());
+
+        DataResult<ErrataOverview> dr =  m.execute(params, types);
+        dr.setElaborationParams(elabParams);
+        return dr;
+    }
+
+
+    /**
      * Returns a list of errata relevant to a system by type
      * @param user The user
      * @param sid System Id
@@ -1261,9 +1286,12 @@ public class SystemManager extends BaseManager {
     
     /**
      * Deactivates the given proxy.
+     * Make sure you either reload  the server after this call,,
+     * or use the returned Server object
      * @param server ProxyServer to be deactivated.
+     * @return deproxified server.
      */
-    public static void deactivateProxy(Server server) {
+    public static Server deactivateProxy(Server server) {
         Long sid = server.getId();
 
         Set channels = server.getChannels();
@@ -1278,9 +1306,6 @@ public class SystemManager extends BaseManager {
         Map params = new HashMap();
         params.put("server_id", sid);
 
-        // freakin hibernate can't do a simple bulk delete statement unless
-        // it uses HQL!
-        ServerFactory.deproxify(server);
         executeWriteMode("Monitoring_queries",
                 "delete_probe_states_from_server", params);
         executeWriteMode("Monitoring_queries",
@@ -1289,6 +1314,14 @@ public class SystemManager extends BaseManager {
                 "delete_probes_from_server", params);
         executeWriteMode("Monitoring_queries",
                 "delete_sat_cluster_for_server", params);
+        
+        // At this point we have the deletes happening
+        // in write mode. So our server which is a hibernate
+        // object is NOT in sync and so we have to reload 
+        // for it to work....
+        server = (Server) HibernateFactory.reload(server);
+        ServerFactory.deproxify(server);
+        return server;
     }
     
     private static int executeWriteMode(String catalog, String mode, Map params) {
@@ -1363,7 +1396,6 @@ public class SystemManager extends BaseManager {
                 subscribeServerToChannel(null, server, proxyChannel);    
             }
         }
-        
     }
 
     /**
@@ -2353,5 +2385,47 @@ public class SystemManager extends BaseManager {
         }
 
         server.getNotes().clear();
+    }
+
+    /**
+     * Is the package with nameId, archId, and evrId available in the
+     *  provided server's subscribed channels
+     * @param server the server
+     * @param nameId the name id
+     * @param archId the arch id
+     * @param evrId the evr id
+     * @return true if available, false otherwise
+     */
+    public static boolean hasPackageAvailable(Server server, Long nameId,
+                                            Long archId, Long evrId) {
+        Map params = new HashMap();
+        params.put("server_id", server.getId());
+        params.put("eid", evrId);
+        params.put("nid", nameId);
+
+        String mode = "has_package_available";
+        if (archId == null) {
+            mode = "has_package_available_no_arch";
+        }
+        else {
+            params.put("aid", archId);
+        }
+        SelectMode m =
+            ModeFactory.getMode("System_queries", mode);
+        DataResult toReturn = m.execute(params);
+        return toReturn.size() > 0;
+    }
+
+    /**
+     * Gets the list of proxies that the given system connects
+     * through in order to reach the server.
+     * @param sid The id of the server in question
+     * @return Returns a list of ServerPath objects.
+     */
+    public static DataResult getConnectionPath(Long sid) {
+        SelectMode m = ModeFactory.getMode("System_queries", "proxy_path_for_server");
+        Map params = new HashMap();
+        params.put("sid", sid);
+        return m.execute(params);
     }
 }

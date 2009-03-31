@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.5.2
+Version:        0.5.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -34,6 +34,7 @@ Requires:       spacewalk-config
 Requires:       spacewalk-admin
 Requires:       spacewalk-backend
 Requires:       spacewalk-backend-server
+Requires:       spacewalk-certs-tools
 Requires:       oracle-instantclient-selinux
 
 %description
@@ -91,7 +92,8 @@ for selinuxvariant in %{selinux_variants}
 
 /usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+    %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
@@ -107,7 +109,8 @@ if [ $1 -eq 0 ]; then
   /usr/sbin/semanage port -d -t cobbler_port_t -p tcp 25152 || :
 fi
 
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+    %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert
 
 %files
 %defattr(-,root,root,0755)
@@ -116,6 +119,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Mar 25 2009 Jan Pazdziora 0.5.3-1
+- 491687 - label the sudo wrappers with httpd_unconfined_script_exec_t
+
 * Mon Feb  9 2009 Jan Pazdziora 0.5.2-1
 - spacewalk-selinux: allow satidmap.pl to do network connections
 

@@ -1764,6 +1764,12 @@ public class ChannelSoftwareHandler extends BaseHandler {
         mergeTo.getPackages().addAll(differentPackages);
         ChannelFactory.save(mergeTo);
         ChannelManager.refreshWithNewestPackages(mergeTo, "api");
+
+        // Mark the affected channel to have it's metadata evaluated, where necessary
+        // (RHEL5+, mostly)
+        ChannelManager.queueChannelChange(mergeTo.getLabel(), "java::mergePackages",
+            loggedInUser.getLogin());
+
         return differentPackages.toArray();
     }
 

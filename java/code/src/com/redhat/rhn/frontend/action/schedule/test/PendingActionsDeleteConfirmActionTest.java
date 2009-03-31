@@ -51,33 +51,8 @@ public class PendingActionsDeleteConfirmActionTest extends RhnMockStrutsTestCase
         addDispatchCall("actions.jsp.confirmcancelactions");
         setRequestPathInfo("/schedule/PendingActionsDeleteConfirm");
         actionPerform();
-        verifyNoActionMessages();
-    }
-
-    
-    public void testDeleteActions() throws Exception {
-        Action a = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
-        Server server = ServerFactoryTest.createTestServer(user, true);
-        ServerAction saction = ServerActionTest.createServerAction(server, a);
-        saction.setStatus(ActionFactory.STATUS_QUEUED);
-        
-        Action b = ActionFactoryTest.createAction(user, ActionFactory.TYPE_ERRATA);
-        ServerAction saction2 = ServerActionTest.createServerAction(server, b);
-        saction2.setStatus(ActionFactory.STATUS_QUEUED);
-        
-        ActionFactory.save(a);
-        ActionFactory.save(b);
-        
-        RhnSet set = RhnSetDecl.ACTIONS_PENDING.get(user);
-        set.addElement(a.getId());
-        set.addElement(b.getId());
-        RhnSetManager.store(set);
-        
-        set = RhnSetDecl.ACTIONS_PENDING.get(user);
-        addDispatchCall("actions.jsp.confirmcancelactions");
-        setRequestPathInfo("/schedule/PendingActionsDeleteConfirmSubmit");
-        actionPerform();
         verifyActionMessage("message.actionsCancelled");
     }
+
 
 }

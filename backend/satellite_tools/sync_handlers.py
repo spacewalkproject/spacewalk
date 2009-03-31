@@ -22,7 +22,6 @@ import string
 from server import rhnSQL
 from server.importlib import channelImport, packageImport, errataImport, \
     kickstartImport, importLib
-from satCerts import get_all_orgs, NoOrgIdError
 import diskImportLib
 import xmlSource
 import syncCache
@@ -184,8 +183,6 @@ def import_channels(channels, orgid=None):
     collection = ChannelCollection()
     batch = []
 
-    orgs = get_all_orgs()
- 
     for c in channels:
         try:
             timestamp = collection.get_channel_timestamp(c)
@@ -195,15 +192,15 @@ def import_channels(channels, orgid=None):
         if c_obj is None:
             raise Exception, "Channel not found in cache: %s" % c
 
-        if orgid is not None and c_obj['org_id'] is not None:
+        # Check to see if we're asked to sync to an orgid,
+        # make sure the org from the export is not null org,
+        # finally if the orgs differ so we might wanna use
+        # requested org's channel-family. 
+        if orgid is not None and c_obj['org_id'] is not None and \
+            c_obj['org_id'] != orgid:
             c_obj['org_id'] = orgid
-            if c_obj['org_id'] not in orgs:
-                raise NoOrgIdError("Error: Unable to lookup Org Id %s " \
-                                    % c_obj['org_id'])
             for family in c_obj['families']:
-                if str(c_obj['org_id']) != \
-                   family['label'].split('-')[-1]:
-                    family['label'] = 'private-channel-family-' + str(c_obj['org_id'])
+                family['label'] = 'private-channel-family-' + c_obj['org_id']
 
         batch.append(c_obj)
 

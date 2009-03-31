@@ -32,14 +32,16 @@
         <package>httpd</package>
         <package>httpd-suexec</package>
         <package>jabberd</package>
+        <package>jabberd-selinux</package>
         <package>libapreq2</package>
-        <package>libidn</package>
         <package>LongLegs</package>
         <package>MessageQueue</package>
         <package>mm</package>
         <package>mod_perl</package>
         <package>mod_python</package>
         <package>mod_ssl</package>
+        <package>nocpulse-common</package>
+        <package>nocpulse-db-perl</package>
         <package>NOCpulsePlugins</package>
         <package>NPalert</package>
         <package>np-config</package>
@@ -57,8 +59,8 @@
         <package>perl-Crypt-DES</package>
         <package>perl-Crypt-GeneratePassword</package>
         <package>perl-Crypt-SSLeay</package>
-        <package>perl-DateTime</package>
         <package>perl-DateTime-Locale</package>
+        <package>perl-DateTime</package>
         <package>perl-DateTime-TimeZone</package>
         <package>perl-DBD-Oracle</package>
         <package>perl-Devel-Symdump</package>
@@ -96,9 +98,10 @@
         <package>rhn-modperl</package>
         <package>rhn-modpython</package>
         <package>rhn-modssl</package>
-        <package>rhns</package>
+        <package>rhn-proxy-branding</package>
         <package>rhns-auth-daemon</package>
         <package>rhns-certs-tools</package>
+        <package>rhns</package>
         <package>rhns-proxy-broker</package>
         <package>rhns-proxy-docs</package>
         <package>rhns-proxy-management</package>
@@ -117,33 +120,29 @@
         <package>SatConfig-generator</package>
         <package>SatConfig-installer</package>
         <package>SatConfig-spread</package>
-        <package>scdb</package>
         <package>scdb_accessor_perl</package>
+        <package>scdb</package>
         <package>SNMPAlerts</package>
+        <package>spacewalk-backend</package>
+        <package>spacewalk-base-minimal</package>
+        <package>spacewalk-certs-tools</package>
+        <package>spacewalk-proxy-broker</package>
+        <package>spacewalk-proxy-common</package>
+        <package>spacewalk-proxy-docs</package>
+        <package>spacewalk-proxy-html</package>
+        <package>spacewalk-proxy-installer</package>
+        <package>spacewalk-proxy-management</package>
+        <package>spacewalk-proxy-monitoring</package>
+        <package>spacewalk-proxy-package-manager</package>
+        <package>spacewalk-proxy-redirect</package>
+        <package>spacewalk-ssl-cert-check</package>
         <package>SputLite-client</package>
         <package>SputLite-server</package>
         <package>ssl_bridge</package>
         <package>status_log_acceptor</package>
         <package>Time-System</package>
-        <package>tsdb</package>
         <package>tsdb_accessor_perl</package>
-        <package>spacewalk-proxy-html</package>
-        <package>spacewalk-ssl-cert-check</package>
-        <package>spacewalk-proxy-common</package>
-        <package>spacewalk-proxy-installer</package>
-        <package>spacewalk-proxy-docs</package>
-        <package>spacewalk-proxy-monitoring</package>
-        <package>spacewalk-backend</package>
-        <package>spacewalk-proxy-package-manager</package>
-        <package>spacewalk-certs-tools</package>
-        <package>spacewalk-proxy-broker</package>
-        <package>spacewalk-proxy-management</package>
-        <package>spacewalk-base-minimal</package>
-        <package>spacewalk-proxy-redirect</package>
-        <package>nocpulse-common</package>
-        <package>nocpulse-db-perl</package>
-        <package>jabberd-selinux</package>
-        <package>rhn-proxy-branding</package>
+        <package>tsdb</package>
         <alias>proxy</alias>
       </method-call>
     </activity>
@@ -166,21 +165,23 @@ Would you like to enable Monitoring Proxy functionality on this system?
 	</header>
 
       <rhn-form name="Remove Conflicting Packages" label="remove_packages">
-               <widget type="literal" label="bdb_perl" default="${session.have_package_bdb_perl}" acl="session_data_true(have_package_bdb_perl)" />
+                <widget type="literal" label="bdb_perl" default="${session.have_package_bdb_perl}" acl="session_data_true(have_package_bdb_perl)" />
                 <widget type="literal" label="ConfigPusher-general" default="${session.have_package_ConfigPusher_general}" acl="session_data_true(have_package_ConfigPusher_general)" />
                 <widget type="literal" label="eventReceivers" default="${session.have_package_eventReceivers}" acl="session_data_true(have_package_eventReceivers)" />
                 <widget type="literal" label="FcntlLock" default="${session.have_package_FcntlLock}" acl="session_data_true(have_package_FcntlLock)" />
                 <widget type="literal" label="httpd" default="${session.have_package_httpd}" acl="session_data_true(have_package_httpd)" />
                 <widget type="literal" label="httpd-suexec" default="${session.have_package_httpd_suexec}" acl="session_data_true(have_package_httpd_suexec)" />
                 <widget type="literal" label="jabberd" default="${session.have_package_jabberd}" acl="session_data_true(have_package_jabberd)" />
+                <widget type="literal" label="jabberd-selinux" default="${session.have_package_jabberd_selinux}" acl="session_data_true(have_package_jabberd_selinux)" />
                 <widget type="literal" label="libapreq2" default="${session.have_package_libapreq2}" acl="session_data_true(have_package_libapreq2)" />
-                <widget type="literal" label="libidn" default="${session.have_package_libidn}" acl="session_data_true(have_package_libidn)" />
                 <widget type="literal" label="LongLegs" default="${session.have_package_LongLegs}" acl="session_data_true(have_package_LongLegs)" />
                 <widget type="literal" label="MessageQueue" default="${session.have_package_MessageQueue}" acl="session_data_true(have_package_MessageQueue)" />
                 <widget type="literal" label="mm" default="${session.have_package_mm}" acl="session_data_true(have_package_mm)" />
                 <widget type="literal" label="mod_perl" default="${session.have_package_mod_perl}" acl="session_data_true(have_package_mod_perl)" />
                 <widget type="literal" label="mod_python" default="${session.have_package_mod_python}" acl="session_data_true(have_package_mod_python)" />
                 <widget type="literal" label="mod_ssl" default="${session.have_package_mod_ssl}" acl="session_data_true(have_package_mod_ssl)" />
+                <widget type="literal" label="nocpulse-common" default="${session.have_package_nocpulse_common}" acl="session_data_true(have_package_nocpulse_common)" />
+                <widget type="literal" label="nocpulse-db-perl" default="${session.have_package_nocpulse_db_perl}" acl="session_data_true(have_package_nocpulse_db_perl)" />
                 <widget type="literal" label="NOCpulsePlugins" default="${session.have_package_NOCpulsePlugins}" acl="session_data_true(have_package_NOCpulsePlugins)" />
                 <widget type="literal" label="NPalert" default="${session.have_package_NPalert}" acl="session_data_true(have_package_NPalert)" />
                 <widget type="literal" label="np-config" default="${session.have_package_np_config}" acl="session_data_true(have_package_np_config)" />
@@ -237,9 +238,10 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="rhn-modperl" default="${session.have_package_rhn_modperl}" acl="session_data_true(have_package_rhn_modperl)" />
                 <widget type="literal" label="rhn-modpython" default="${session.have_package_rhn_modpython}" acl="session_data_true(have_package_rhn_modpython)" />
                 <widget type="literal" label="rhn-modssl" default="${session.have_package_rhn_modssl}" acl="session_data_true(have_package_rhn_modssl)" />
-                <widget type="literal" label="rhns" default="${session.have_package_rhns}" acl="session_data_true(have_package_rhns)" />
+                <widget type="literal" label="rhn-proxy-branding" default="${session.have_package_rhn_proxy_branding}" acl="session_data_true(have_package_rhn_proxy_branding)" />
                 <widget type="literal" label="rhns-auth-daemon" default="${session.have_package_rhns_auth_daemon}" acl="session_data_true(have_package_rhns_auth_daemon)" />
                 <widget type="literal" label="rhns-certs-tools" default="${session.have_package_rhns_certs_tools}" acl="session_data_true(have_package_rhns_certs_tools)" />
+                <widget type="literal" label="rhns" default="${session.have_package_rhns}" acl="session_data_true(have_package_rhns)" />
                 <widget type="literal" label="rhns-proxy-broker" default="${session.have_package_rhns_proxy_broker}" acl="session_data_true(have_package_rhns_proxy_broker)" />
                 <widget type="literal" label="rhns-proxy-docs" default="${session.have_package_rhns_proxy_docs}" acl="session_data_true(have_package_rhns_proxy_docs)" />
                 <widget type="literal" label="rhns-proxy-management" default="${session.have_package_rhns_proxy_management}" acl="session_data_true(have_package_rhns_proxy_management)" />
@@ -258,16 +260,29 @@ Would you like to enable Monitoring Proxy functionality on this system?
                 <widget type="literal" label="SatConfig-generator" default="${session.have_package_SatConfig_generator}" acl="session_data_true(have_package_SatConfig_generator)" />
                 <widget type="literal" label="SatConfig-installer" default="${session.have_package_SatConfig_installer}" acl="session_data_true(have_package_SatConfig_installer)" />
                 <widget type="literal" label="SatConfig-spread" default="${session.have_package_SatConfig_spread}" acl="session_data_true(have_package_SatConfig_spread)" />
-                <widget type="literal" label="scdb" default="${session.have_package_scdb}" acl="session_data_true(have_package_scdb)" />
                 <widget type="literal" label="scdb_accessor_perl" default="${session.have_package_scdb_accessor_perl}" acl="session_data_true(have_package_scdb_accessor_perl)" />
+                <widget type="literal" label="scdb" default="${session.have_package_scdb}" acl="session_data_true(have_package_scdb)" />
                 <widget type="literal" label="SNMPAlerts" default="${session.have_package_SNMPAlerts}" acl="session_data_true(have_package_SNMPAlerts)" />
+                <widget type="literal" label="spacewalk-backend" default="${session.have_package_spacewalk_backend}" acl="session_data_true(have_package_spacewalk_backend)" />
+                <widget type="literal" label="spacewalk-base-minimal" default="${session.have_package_spacewalk_base_minimal}" acl="session_data_true(have_package_spacewalk_base_minimal)" />
+                <widget type="literal" label="spacewalk-certs-tools" default="${session.have_package_spacewalk_certs_tools}" acl="session_data_true(have_package_spacewalk_certs_tools)" />
+                <widget type="literal" label="spacewalk-proxy-broker" default="${session.have_package_spacewalk_proxy_broker}" acl="session_data_true(have_package_spacewalk_proxy_broker)" />
+                <widget type="literal" label="spacewalk-proxy-common" default="${session.have_package_spacewalk_proxy_common}" acl="session_data_true(have_package_spacewalk_proxy_common)" />
+                <widget type="literal" label="spacewalk-proxy-docs" default="${session.have_package_spacewalk_proxy_docs}" acl="session_data_true(have_package_spacewalk_proxy_docs)" />
+                <widget type="literal" label="spacewalk-proxy-html" default="${session.have_package_spacewalk_proxy_html}" acl="session_data_true(have_package_spacewalk_proxy_html)" />
+                <widget type="literal" label="spacewalk-proxy-installer" default="${session.have_package_spacewalk_installer}" acl="session_data_true(have_package_spacewalk_proxy_installer)" />
+                <widget type="literal" label="spacewalk-proxy-management" default="${session.have_package_spacewalk_proxy_management}" acl="session_data_true(have_package_spacewalk_proxy_management)" />
+                <widget type="literal" label="spacewalk-proxy-monitoring" default="${session.have_package_spacewalk_proxy_monitoring}" acl="session_data_true(have_package_spacewalk_proxy_monitoring)" />
+                <widget type="literal" label="spacewalk-proxy-package-manager" default="${session.have_package_spacewalk_proxy_package_manager}" acl="session_data_true(have_package_spacewalk_proxy_package_manager)" />
+                <widget type="literal" label="spacewalk-proxy-redirect" default="${session.have_package_spacewalk_proxy_redirect}" acl="session_data_true(have_package_spacewalk_proxy_redirect)" />
+                <widget type="literal" label="spacewalk-ssl-cert-check" default="${session.have_package_spacewalk_ssl_cert_check}" acl="session_data_true(have_package_spacewalk_ssl_cert_check)" />
                 <widget type="literal" label="SputLite-client" default="${session.have_package_SputLite_client}" acl="session_data_true(have_package_SputLite_client)" />
                 <widget type="literal" label="SputLite-server" default="${session.have_package_SputLite_server}" acl="session_data_true(have_package_SputLite_server)" />
                 <widget type="literal" label="ssl_bridge" default="${session.have_package_ssl_bridge}" acl="session_data_true(have_package_ssl_bridge)" />
                 <widget type="literal" label="status_log_acceptor" default="${session.have_package_status_log_acceptor}" acl="session_data_true(have_package_status_log_acceptor)" />
                 <widget type="literal" label="Time-System" default="${session.have_package_Time_System}" acl="session_data_true(have_package_Time_System)" />
-                <widget type="literal" label="tsdb" default="${session.have_package_tsdb}" acl="session_data_true(have_package_tsdb)" />
                 <widget type="literal" label="tsdb_accessor_perl" default="${session.have_package_tsdb_accessor_perl}" acl="session_data_true(have_package_tsdb_accessor_perl)" />
+                <widget type="literal" label="tsdb" default="${session.have_package_tsdb}" acl="session_data_true(have_package_tsdb)" />
 	</rhn-form>
     </collect-data>
 
@@ -559,8 +574,11 @@ Would you like to enable Monitoring Proxy functionality on this system?
         <action-name>Remove conflicting proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in ${session.packages_list_proxy}; do
-rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+PACKAGES=`for package in ${session.packages_list_proxy}; do
+  rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+if [ -n "$PACKAGES" ]; then
+  rpm -e $PACKAGES
+fi
         </script>
       </run-script>
 
@@ -789,8 +807,11 @@ proxy will need to be reconfigured to use a different Satellite server.
         <action-name>Remove proxy packages</action-name>
         <script>
 #!/bin/sh
-rpm -e `for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd libapreq2 MessageQueue mm mod_perl NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-libapreq2 perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-base-minimal rhn-ssl-cert-check rhns rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-docs rhns-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl httpd mod_python mod_ssl mod_ssl httpd-suexec; do
+PACKAGES=`for package in bdb_perl ConfigPusher-general eventReceivers FcntlLock jabberd libapreq2 MessageQueue mm mod_perl NOCpulsePlugins np-config NPalert NPusers nslogs oracle-devel oracle_perl perl-Apache-Admin-Config perl-Apache-DBI perl-BerkeleyDB perl-BSD-Resource perl-Class-MethodMaker perl-Class-Singleton perl-Config-IniFiles perl-Crypt-DES perl-Crypt-GeneratePassword perl-Crypt-SSLeay perl-DateTime perl-DateTime-Locale perl-DateTime-TimeZone perl-DBD-Oracle perl-Devel-Symdump perl-Error perl-FreezeThaw perl-HTML-TableExtract perl-IO-Capture perl-IO-Socket-SSL perl-IO-stringy perl-libapreq2 perl-Mail-Alias perl-MailTools perl-MIME-tools perl-Net-SNMP perl-Network-IPv4Addr perl-Net_SSLeay perl-NOCpulse-CLAC perl-NOCpulse-Debug perl-NOCpulse-Gritch perl-NOCpulse-Object perl-NOCpulse-OracleDB perl-NOCpulse-PersistentConnection perl-NOCpulse-Probe perl-NOCpulse-ProcessPool perl-NOCpulse-Scheduler perl-NOCpulse-SetID perl-NOCpulse-Utils perl-Params-Validate perl-TimeDate perl-XML-Generator ProgAGoGo python-sgmlop rhn-base-minimal rhn-ssl-cert-check rhns rhns-auth-daemon rhns-certs-tools rhns-proxy-broker rhns-proxy-docs rhns-proxy-management rhns-proxy-monitoring rhns-proxy-package-manager rhns-proxy-redirect rhns-proxy-tools SatConfig-ApacheDepot SatConfig-bootstrap SatConfig-bootstrap-server SatConfig-cluster SatConfig-dbsynch SatConfig-general SatConfig-generator SatConfig-installer SatConfig-spread scdb scdb_accessor_perl SNMPAlerts SputLite-client SputLite-server ssl_bridge status_log_acceptor Time-System tsdb tsdb_accessor_perl httpd mod_python mod_ssl httpd-suexec; do
 rpm -q $package >/dev/null &amp;&amp; echo $package; done`
+if [ -n "$PACKAGES" ]; then
+  rpm -e $PACKAGES
+fi
         </script>
       </run-script>
 

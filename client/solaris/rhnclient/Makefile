@@ -74,9 +74,6 @@ DESTPID_DIR	= $(DESTPREFIX)/var/run/
 PID_FILE	= $(DESTPID_DIR)/rhnsd.pid
 
 
-# Handy defines 
-VERSION         = $(shell echo `awk '{ print $$1 }' version`)
-
 # Compilation stuff
 CC		= gcc
 DEFINES		= -DRHN_SYSID=\"$(RHN_SYSID)\" -DRHN_CHECK=\"$(DEST_RHN_CHECK_PATH)\" -DPATH_RHNDPID=\"$(PID_FILE)\"

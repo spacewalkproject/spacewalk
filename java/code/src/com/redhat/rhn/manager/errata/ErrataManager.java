@@ -246,18 +246,18 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns all of the errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return all of the errata.
      */
-    public static DataResult allErrata(User user, PageControl pc) {
+    public static DataResult allErrata(User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "all_errata");
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
-        return makeDataResult(params, elabParams, pc, m);
+        DataResult result = makeDataResult(params, elabParams, null, m);
+        return result;
     }
-    
+
     /**
      * Returns all of the errata in a channel
      * @param cid the channel id
@@ -295,16 +295,15 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns the relevant errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return relevant errata.
      */
-    public static DataResult relevantErrata(User user, PageControl pc) {
+    public static DataResult relevantErrata(User user) {
         SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_errata");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         Map elabParams = new HashMap();
         elabParams.put("user_id", user.getId());
-        return makeDataResult(params, elabParams, pc, m);
+        return makeDataResult(params, elabParams, null, m);
     }
 
     /**
@@ -329,11 +328,10 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns all of the unpublished errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return all of the errata.
      */
-    public static DataResult unpublishedOwnedErrata(User user, PageControl pc) {
-        return ownedErrata(user, pc, "unpublished_owned_errata");
+    public static DataResult unpublishedOwnedErrata(User user) {
+        return ownedErrata(user, "unpublished_owned_errata");
     }
 
     /**
@@ -350,13 +348,12 @@ public class ErrataManager extends BaseManager {
     /**
      * Returns all of the published errata.
      * @param user Currently logged in user.
-     * @param pc PageControl
      * @return all of the errata.
      */
-    public static DataResult publishedOwnedErrata(User user, PageControl pc) {
-        return ownedErrata(user, pc, "published_owned_errata");
+    public static DataResult publishedOwnedErrata(User user) {
+        return ownedErrata(user, "published_owned_errata");
     }
-
+    
     /**
      * Returns all of the published errata.
      * @param user Currently logged in user.
@@ -399,20 +396,14 @@ public class ErrataManager extends BaseManager {
     /**
      * Helper method to get the unpublished/published errata
      * @param user Currently logged in user
-     * @param pc PageControl
      * @param mode Tells which mode (published/unpublished) we need to run
      * @return all of the errata
      */
-    private static DataResult ownedErrata(User user, PageControl pc, String mode) {
+    private static DataResult ownedErrata(User user, String mode) {
         SelectMode m = ModeFactory.getMode("Errata_queries", mode);
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
-        if (pc != null) {
-            return makeDataResult(params, new HashMap(), pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        return dr;
+        return makeDataResult(params, new HashMap(), null, m);
     }
     
     /**
@@ -471,7 +462,7 @@ public class ErrataManager extends BaseManager {
                     oe.getId().longValue(), user.getOrg().getId(), null);
             for (Iterator chanItr = channels.iterator(); chanItr.hasNext();) {
                 Map chan = (Map)chanItr.next();
-                String lbl = chan.get("channel_label").toString();
+                String lbl = chan.get("label").toString();
                 ChannelManager.queueChannelChange(lbl, 
                         "java::deleteErrata", oe.getAdvisory());
             }
@@ -819,59 +810,55 @@ public class ErrataManager extends BaseManager {
     /**
      * Get List of all cloneable errata for an org
      * @param orgid org we want to lookup against
-     * @param pc page control to be used
      * @param showCloned whether we should show errata that have already been cloned
      * @return List of cloneableErrata
      */
-    public static DataResult clonableErrata(Long orgid, 
-                                            PageControl pc, 
+    public static DataResult clonableErrata(Long orgid,
                                             boolean showCloned) {
         SelectMode m;
-        
+
         if (showCloned) {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_list_all");
         }
         else {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_list_uncloned");
         }
-        
-        
+
+
         Map params = new HashMap();
         params.put("org_id", orgid);
-        return makeDataResult(params, params, pc, m);
+        return makeDataResult(params, params, null, m);
     }
-    
+
    /**
      * Get List of cloneable Errata for an org, from a particular channel
      * @param orgid org we want to lookup against
      * @param cid channelid
-     * @param pc page control to be used
      * @param showCloned whether we should show errata that have already been cloned
      * @return List of cloneableErrata
      */
-    public static DataResult clonableErrataForChannel(Long orgid, 
-                                                      Long cid, 
-                                                      PageControl pc, 
+    public static DataResult clonableErrataForChannel(Long orgid,
+                                                      Long cid,
                                                       boolean showCloned) {
         SelectMode m;
-        
+
         if (showCloned) {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_for_channel_all");
         }
         else {
-            m = ModeFactory.getMode("Errata_queries", 
+            m = ModeFactory.getMode("Errata_queries",
                                     "clonable_errata_for_channel_uncloned");
         }
-        
+
         Map params = new HashMap();
         params.put("channel_id", cid);
         params.put("org_id", orgid);
-        return makeDataResult(params, params, pc, m);
+        return makeDataResult(params, params, null, m);
     }
-    
+
     /**
      * Get a list of channels applicable to the erratum
      * @param eid The id of the erratum

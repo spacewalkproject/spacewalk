@@ -97,13 +97,15 @@ public class KickstartFormatter {
         NEWLINE;
     public static final String[] UPDATE_PKG_NAMES =         
     {"pyOpenSSL", "rhnlib", "libxml2-python"};
+    public static final String[] FRESH_PKG_NAMES_RHEL5 =
+    {"rhn-setup",  "yum-rhn-plugin", "rhnsd", "rhn-client-tools", "rhnlib", "rhn-check"};
     public static final String[] FRESH_PKG_NAMES_RHEL34 = 
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
     {"rhn_register", "up2date", "rhn_register-gnome", "up2date-gnome"};
     private static final String UPDATE_OPT_PATH = "/tmp/rhn_rpms/optional/";
     private static final String UPDATE_CMD = "rpm -Uvh --replacepkgs --replacefiles ";
-    private static final String FRESH_CMD = "rpm -Fvh /tmp/rhn_rpms/*rpm";
+    private static final String FRESH_CMD = "rpm -Uvh /tmp/rhn_rpms/*rpm";
     private static final String IMPORT_RHN_KEY5 = 
         "rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release";
     private static final String IMPORT_RHN_KEY34 = 
@@ -144,6 +146,7 @@ public class KickstartFormatter {
     //wregglej, 9/22/06 Temporary workarounds for a broken wget.
     private static final String CHDIR_OPT_RPMS = "cd /tmp/rhn_rpms/optional ";
     private static final String CHDIR_RPMS = "cd /tmp/rhn_rpms";
+    private static final String REDHAT_MGMT_SERVER = "$redhat_management_server";
 
     private boolean seenNoChroot = false;
     private KickstartData ksdata;
@@ -577,8 +580,8 @@ public class KickstartFormatter {
                     this.ksHost + "] indexof: " + 
                     this.ksHost.indexOf(XMLRPC_HOST));
         }
-        
-        String up2datehost = this.ksHost;
+
+        String up2datehost = REDHAT_MGMT_SERVER;
         //check if server going through RHN Proxy, if so, register through proxy instead
         if (this.session != null && 
                 this.session.getSystemRhnHost() != null &&
@@ -773,8 +776,8 @@ public class KickstartFormatter {
     private String getSHA1PackagePath(Package p) {
         String retval = null;
         if (p != null) {
-            retval = "http://" + this.ksHost + DownloadManager.getPackageDownloadPath(
-                    p, user);
+            retval = "http://" + this.ksHost +
+                DownloadManager.getPackageDownloadPathNoExpiration(p, user);
         }            
         return retval;
     }
@@ -802,9 +805,12 @@ public class KickstartFormatter {
             else if (ksdata.isRhel3() || ksdata.isRhel4()) {
                 pkglist = FRESH_PKG_NAMES_RHEL34;
             }
+            else {
+                pkglist = FRESH_PKG_NAMES_RHEL5;
+            }
             HashSet retval = new HashSet();
             for (int i = 0; i < pkglist.length; i++) {
-                Long packageId = ChannelManager.getLatestPackageEqual(c.getId(),
+                Long packageId = ChannelManager.getLatestPackageEqualInTree(c.getId(),
                         pkglist[i]);
                 if (packageId != null) {
                     Package p = PackageFactory.lookupByIdAndUser(packageId, user);

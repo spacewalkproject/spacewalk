@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.23
+Version:        0.5.27
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -65,6 +65,9 @@ install -m 0644 share/ssl.conf.5 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
+# jabberd ssl cert location
+install -d -m 755 %{buildroot}/%{_sysconfdir}/pki/spacewalk/jabberd
+
 # Oracle specific stuff, possible candidate for sub-package down the road:
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
 install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
@@ -88,9 +91,22 @@ rm -rf %{buildroot}
 %{_bindir}/cobbler-setup
 %{_mandir}/man[13]/*.[13]*
 %{_datadir}/spacewalk/*
-
+%dir %{_sysconfdir}/pki/spacewalk
+%dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Mar 27 2009 Jan Pazdziora 0.5.27-1
+- 492194 - address spacewalk-setup hanging while Restarting services.
+
+* Thu Mar 26 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.26-1
+- update message at the end of upgrade setup
+
+* Wed Mar 25 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.25-1
+- 491091 - don't match lines in ssl.conf that are commented out
+
+* Tue Mar 24 2009 Dennis Gilmore <dennis@ausil.us> 0.5.24-1
+- write jabberd server.pem to /etc/pki/spacewalk/jabberd
+
 * Wed Mar 18 2009 Mike McCune <mmccune@gmail.com> 0.5.23-1
 - 486186 - Update spacewalk spec files to require cobbler >= 1.4.3
 

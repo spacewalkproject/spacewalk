@@ -63,14 +63,7 @@ public class SystemRecord extends CobblerObject {
      * @return the system that maps to the name or null
      */
     public static SystemRecord lookupByName(CobblerConnection client, String name) {
-        Map <String, Object> map = (Map<String, Object>)client.
-                                    invokeMethod("get_system", name);
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        SystemRecord sys = new SystemRecord(client);
-        sys.dataMap = map;
-        return sys;
+        return handleLookup(client, lookupDataMapByName(client, name, "get_system"));
     }
 
     /**
@@ -80,22 +73,19 @@ public class SystemRecord extends CobblerObject {
      * @return the system record matching the given uid or null
      */
     public static SystemRecord lookupById(CobblerConnection client, String id) {
-        List<Map<String, Object>> systems = (List<Map<String, Object>>) 
-                                                client.invokeMethod("get_systems");
-        if (id == null) {
-            return null;
-        }
-        
-        SystemRecord sys = new SystemRecord(client);
-        for (Map <String, Object> map : systems) {
-            sys.dataMap = map;
-            if (id.equals(sys.getUid())) {
-                return sys;
-            }
+        return handleLookup(client, 
+                    lookupDataMapById(client, id, "find_system", "get_systems"));
+    }    
+
+    private static SystemRecord handleLookup(CobblerConnection client, Map sysMap) {
+        if (sysMap != null) {
+            SystemRecord sys = new SystemRecord(client);
+            sys.dataMap = sysMap;
+            return sys;
         }
         return null;
     }    
-
+    
     /**
      * Returns a list of available systems 
      * @param connection the cobbler connection
@@ -104,7 +94,7 @@ public class SystemRecord extends CobblerObject {
     public static List<SystemRecord> list(CobblerConnection connection) {
         List <SystemRecord> systems = new LinkedList<SystemRecord>();
         List <Map<String, Object >> cSystems = (List <Map<String, Object >>) 
-                                        connection.invokeMethod("get_profiles");
+                                        connection.invokeMethod("get_systems");
         
         for (Map<String, Object> sysMap : cSystems) {
             SystemRecord sys = new SystemRecord(connection);

@@ -121,10 +121,8 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     
     private Map getSystemMapByMac() {
         // Build up list of mac addrs
-        Iterator i = server.getNetworkInterfaces().iterator();
         List macs = new LinkedList();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
+        for (NetworkInterface n : server.getNetworkInterfaces()) {
             macs.add(n.getHwaddr().toLowerCase());
         }
 
@@ -220,8 +218,20 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         invokeXMLRPC("save_system", handle, xmlRpcToken);
         
         Map cSystem = getSystemMapByMac();
+        // Virt system records have no mac/interfaces setup so we search on name
+        if (cSystem == null) {
+            cSystem = getSystemMapByName();
+        }
         server.setCobblerId((String)cSystem.get("uid"));
         return null;
+    }
+
+    private Map getSystemMapByName() {
+        List < String > args = new ArrayList();
+        args.add(getCobblerSystemRecordName());
+        args.add(xmlRpcToken);
+        Map retval = (Map) invokeXMLRPC("get_system", args);
+        return retval;
     }
 
     /**
@@ -236,11 +246,11 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     protected void processNetworkInterfaces(String handleIn, 
             String xmlRpcTokenIn,
             Server serverIn) {
-        Iterator i = serverIn.getNetworkInterfaces().iterator();
         Map inet = new HashMap();
-        while (i.hasNext()) {
-            NetworkInterface n = (NetworkInterface) i.next();
-            inet.put("macaddress-" + n.getName(), n.getHwaddr());
+        for (NetworkInterface n : serverIn.getNetworkInterfaces()) {
+            if (!n.getHwaddr().equals("00:00:00:00:00:00")) {
+                    inet.put("macaddress-" + n.getName(), n.getHwaddr());
+            }
         }
         log.debug("Networks: " + inet);
         

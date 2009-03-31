@@ -809,7 +809,7 @@ public class ChannelManager extends BaseManager {
                                 "api.channel.delete.haschild"));              
             }
             ChannelManager.queueChannelChange(label, 
-                    "java::deleteChannel", user.getLogin());  
+                    user.getLogin(), "java::deleteChannel");
             ChannelFactory.remove(toRemove);            
         }
     }
@@ -1283,6 +1283,29 @@ public class ChannelManager extends BaseManager {
     }
     
     /**
+     * Get the id of latest packages located in the channel tree
+     * where channelId is a parent
+     *
+     * @param channelId to lookup package against
+     * @param packageName to check
+     * @return List containing Maps of "CP.package_id, CP.name_id, CP.evr_id"
+     */
+    public static Long getLatestPackageEqualInTree(Long channelId, String packageName) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+            "latest_package_equal_in_tree");
+        Map params = new HashMap();
+        params.put("cid", channelId);
+        params.put("name", packageName);
+        List results = m.execute(params);
+        if (results != null && results.size() > 0) {
+            Map row = (Map) results.get(0);
+            return (Long) row.get("package_id");
+        }
+        return null;
+    }
+
+
+    /**
      * List the latest packages equal in the passed in Channel and name
      * 
      * @param channelId to lookup package against
@@ -1688,10 +1711,21 @@ public class ChannelManager extends BaseManager {
      * @return Tools channel if found, null otherwise.
      */
     public static Channel getToolsChannel(Channel baseChannel, User user) {
+        if (log.isDebugEnabled()) {
+            log.debug("getToolsChannel, baseChannel: " + baseChannel.getLabel());
+        }
+        
         Iterator i = ChannelManager.userAccessibleChildChannels(
                 user.getOrg().getId(), baseChannel.getId()).iterator();
+        
+        if (log.isDebugEnabled()) {
+            log.debug("getToolsChannel, userAccessibleChildChannels: " + i.hasNext());
+        }
         while (i.hasNext()) {
             Channel child = (Channel) i.next();
+            if (log.isDebugEnabled()) {
+                log.debug("getToolsChannel, trying: " + child.getLabel());
+            }
             // First search for legacy kickstart package names:
             List kspackages = ChannelManager.
                 listLatestPackagesLike(child.getId(), 

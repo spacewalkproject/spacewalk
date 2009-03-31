@@ -275,7 +275,7 @@ class Procedure(sql_base.Procedure):
             elif 20000 <= e[0].code <= 20999: # error codes we know we raise as schema errors
                 
                raise apply(sql_base.SQLSchemaError, [e[0].code, str(e[0])])
-            raise apply(sql_base.SQLError, tuple(e.args))
+            raise apply(sql_base.SQLError, [e[0].code, str(e[0])])
         except cx_Oracle.NotSupportedError, error:
             raise apply(sql_base.SQLError, error.args)
         return retval

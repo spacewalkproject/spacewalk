@@ -34,6 +34,23 @@ public class TestObject {
     private String asciiString;
     private String usernameString;
     private String posixString;
+    private String twoCharField;
+
+    
+    /**
+     * @return the twoCharField
+     */
+    public String getTwoCharField() {
+        return twoCharField;
+    }
+
+    
+    /**
+     * @param twoCharFieldIn the twoCharField to set
+     */
+    public void setTwoCharField(String twoCharFieldIn) {
+        this.twoCharField = twoCharFieldIn;
+    }
 
     public String getSecondStringField() {
         return secondStringField;

@@ -49,6 +49,63 @@ public abstract class CobblerObject {
     protected Map<String, Object> dataMap = new HashMap<String, Object>();
     protected CobblerConnection client;    
 
+    /**
+     * Helper method used by all cobbler objects to 
+     * return a version of themselves by UID
+     * @see org.cobbler.Distro.lookupById for example usage..
+     * 
+     * @param client the Cobbler Connection
+     * @param id the UID of the distro/profile/system record
+     * @param findMethod the find xmlrpc method, eg: find_distro
+     * @param listMethod the list xmlrpc method, eg: get_distros
+     * @return true if the cobbler object was found. 
+     */
+    protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
+                             String id, String findMethod, String listMethod) {
+        if (id == null) {
+            return null;
+        }
+        if (client.is16OrGreater()) {
+            Map<String, String> criteria  = new HashMap<String, String>();
+            criteria.put(UID, id);
+            List<Map<String, Object>> objects = (List<Map<String, Object>>)
+            client.invokeTokenMethod(findMethod, criteria);
+            if (!objects.isEmpty()) {
+                return objects.get(0);
+            }
+            return null;
+        }
+        List<Map<String, Object>> cobblerObjects = (List<Map<String, Object>>) 
+                                                client.invokeMethod(listMethod);
+        for (Map <String, Object> map : cobblerObjects) {
+            
+            if (id.equals(map.get(UID))) {
+                return map;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Helper method used by all cobbler objects to 
+     * return a Map of themselves by name.
+     * @see org.cobbler.Distro.lookupByName for example usage..
+     * @param client  the Cobbler Connection
+     * @param name the name of the cobbler object
+     * @param lookupMethod the name of the xmlrpc
+     *                       method to lookup: eg get_profile for profile 
+     * @return the Cobbler Object Data Map or null
+     */
+    protected static Map <String, Object> lookupDataMapByName(CobblerConnection client, 
+                                    String name, String lookupMethod) {
+        Map <String, Object> map = (Map<String, Object>)client.
+                                        invokeMethod(lookupMethod, name);
+        if (map == null || map.isEmpty()) {
+            return null;
+        }
+        return map;
+    }
+    
     protected abstract void invokeModify(String key, Object value);
     protected abstract void invokeSave();
     protected abstract boolean invokeRemove();

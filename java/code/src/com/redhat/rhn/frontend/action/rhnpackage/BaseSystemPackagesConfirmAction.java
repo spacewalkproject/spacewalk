@@ -26,6 +26,7 @@ import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -80,6 +81,27 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
 
         Server server = requestContext.lookupAndBindServer();
         
+        /*
+         * If we are removing a package that is not in a channel the server is
+         *  subscribed to, then the rollback will not work, lets give the user
+         *  a message telling them that.
+         */
+        if (this.getRemoteMode().equals(RemoveConfirmSetupAction.PACKAGE_REMOVE) &&
+                                server.hasEntitlement(EntitlementManager.PROVISIONING)) {
+            for (PackageListItem item : items) {
+                Map<String, Long> map = item.getKeyMap();
+                if (!SystemManager.hasPackageAvailable(server, map.get("name_id"),
+                                            map.get("arch_id"), map.get("evr_id"))) {
+                    ActionMessages msgs = new ActionMessages();
+                    msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                          new ActionMessage("package.remove.cant.rollback"));
+                     getStrutsDelegate().saveMessages(request, msgs);
+                     break;
+                }
+
+            }
+        }
+
         DynaActionForm dynaForm = (DynaActionForm) formIn;
         DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
                 "date", DatePicker.YEAR_RANGE_POSITIVE);

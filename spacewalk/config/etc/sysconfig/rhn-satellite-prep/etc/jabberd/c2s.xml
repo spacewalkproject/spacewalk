@@ -3,10 +3,9 @@
   <!-- Our ID on the network (default: c2s) -->
   <id>c2s</id>
 
-  <!-- The process ID file. comment this out if you don't need to know
-       to know the process ID from outside the process (eg for control
-       scripts) -->
-  <pidfile>/var/run/jabberd/jabberd-c2s.pid</pidfile>
+  <!-- The process ID file. Comment this out if you don't need to know
+       the process ID from outside the process (eg for control scripts) -->
+  <pidfile>/var/lib/jabberd/pid/c2s.pid</pidfile>
 
   <!-- Router connection configuration -->
   <router>
@@ -16,14 +15,19 @@
 
     <!-- Username/password to authenticate as -->
     <user>jabberd</user>          <!-- default: jabberd -->
-    <pass>secret</pass>           <!-- default: secret -->
+    <pass>@@pass@@</pass>           <!-- default: secret -->
 
-    <!-- File containing a SSL certificate and private key to use when
-         setting up an encrypted channel with the router. If this is
-         commented out, or the file can't be read, no attempt will be
-         made to establish an encrypted channel with the router. -->
+    <!-- File containing an SSL certificate and private key to use when
+         setting up an encrypted channel with the router. From
+         SSL_CTX_use_certificate_chain_file(3): "The certificates must be
+         in PEM format and must be sorted starting with the subject's
+         certificate (actual client or server certificate), followed
+         by intermediate CA certificates if applicable, and ending
+         at the highest level (root) CA" (the latter one being optional).
+         If this is commented out, or the file can't be read, no attempt
+         will be made to establish an encrypted channel with the router. -->
     <!--
-    <pemfile>/etc/jabberd/server.pem</pemfile>
+    <pemfile>/etc/pki/spacewalk/jabberd/server.pem</pemfile>
     -->
 
     <!-- Router connection retry -->
@@ -56,7 +60,7 @@
 
     <!-- If logging to file, this is the filename of the logfile -->
     <!--
-    <file>/var/log/jabberd/c2s.log</file>
+    <file>/var/lib/jabberd/log/c2s.log</file>
     -->
   </log>
 
@@ -66,16 +70,70 @@
          ID (host) that the session manager thinks it is. You can
          specify more than one to support virtual hosts, as long as you
          have additional session manager instances on the network to
-         handle those hosts. The realm attribute specifies the auth/reg
-         or SASL authentication realm for the host. If the attribute is
-         not specified, the realm will be selected by the SASL
-         mechanism, or will be the same as the ID itself. Be aware that
-         users are assigned to a realm, not a host, so two hosts in the
-         same realm will have the same users.
-         If no realm is specified, it will be set to be the same as the
-         ID. -->
-    <id>@@jabberDOThostname@@</id>
-    <!-- <id realm='company'>localhost</id> -->
+         handle those hosts.
+
+         You may leave the content of the <id/> empty to setup default
+         virtual host setup, that will be used for all present but not
+         configured otherwise SM domains.
+
+         realm
+         attribute specifies the auth/reg or SASL authentication realm
+         for the host. If the attribute is not specified, the realm will
+         be selected by the SASL mechanism, or will be the same as the ID
+         itself. Be aware that users are assigned to a realm, not a host,
+         so two hosts in the same realm will have the same users. If no
+         realm is specified, it will be set to be the same as the ID.
+         If empty "" realm is specified, the PAM backend wil authenticate
+         using plain usernames, not JIDs.
+
+         pemfile
+         attribute specifies the file containing a SSL certificate and
+         private key for client connections. If this is non existant,
+         clients will not be offered the STARTTLS stream extension
+         From SSL_CTX_use_certificate_chain_file(3):
+         "The certificates must be in PEM format and must be sorted
+         starting with the subject's certificate (actual client or server
+         certificate), followed by intermediate CA certificates if
+         applicable, and ending at the highest level (root) CA"
+         (the latter one being optional).
+
+         verify-mode
+         SSL verify mode - see SSL_CTX_set_verify(3), mode parameter
+
+         require-starttls
+         If this is enabled, clients must do STARTTLS
+         before they can authenticate. Until the stream is encrypted,
+         all packets will be dropped.
+
+         register-enable
+         Remove this attribute to disable account registrations.
+
+         instructions
+         Human-readable instructions to be returned to client when
+         registration is requested.
+
+         register-oob
+         URL to be attached as an alternative, out-of-band registration
+         method. Usually web-based http:// URL.
+
+         password-change
+         Password change only. When registration is disabled, it may
+         still be useful to allow clients to change their password. If
+         you want this, add this attribute when you disable registration.
+          -->
+    <id realm='' register-enable='true' require-starttls='false' pemfile='/etc/pki/spacewalk/jabberd/server.pem'>@@jabberDOThostname@@</id>
+    <!-- or
+    <id realm='company.int'
+        pemfile='/etc/pki/spacewalk/jabberd/server.pem'
+        verify-mode='7'
+        require-starttls='true'
+        register-enable='true'
+        instructions='Enter a username and password to register with this server.'
+        register-oob='http://example.org/register'
+        password-change='true'
+    >example.net</id> -->
+    <!-- or the default host
+    <id password-change='true' /> -->
 
     <!-- IP address to bind to (default: 0.0.0.0) -->
     <ip>0.0.0.0</ip>
@@ -84,18 +142,6 @@
          server (default: 5222) -->
     <port>5222</port>
 
-    <!-- File containing a SSL certificate and private key for client
-         connections. If this is commented out, clients will not be
-         offered the STARTTLS stream extension -->
-    <pemfile>/etc/jabberd/server.pem</pemfile>
-
-    <!-- Require STARTTLS. If this is enabled, clients must do STARTTLS
-         before they can authenticate. Until the stream is encrypted,
-         all packets will be dropped. -->
-    <!--
-    <require-starttls/>
-    -->
-
     <!-- Older versions of jabberd support encrypted client connections
          via an additional listening socket on port 5223. If you want
          this (required to allow pre-STARTTLS clients to do SSL),
@@ -103,15 +149,53 @@
     <!--
     <ssl-port>5223</ssl-port>
     -->
+
+    <!-- File containing an SSL certificate and private key for client
+         connections. From SSL_CTX_use_certificate_chain_file(3):
+         "The certificates must be in PEM format and must be sorted
+         starting with the subject's certificate (actual client or server
+         certificate), followed by intermediate CA certificates if
+         applicable, and ending at the highest level (root) CA"
+         (the latter one being optional).
+
+         Note: This certificate is ONLY used for old style SSL
+         connections on port 5223 (pre-STARTTLS).  If you want to
+         use STARTTLS over the standard XMPP port 5222 then you
+         MUST specify the pemfile in the 'id' tag above. -->
+    <!--
+    <pemfile>/etc/pki/spacewalk/jabberd/server.pem</pemfile>
+    -->
+
+    <!-- SSL verify mode - see SSL_CTX_set_verify(3), mode parameter -->
+    <!--
+    <verify-mode>7</verify-mode>
+    -->
+
+    <!-- Forward incoming HTTP clients to a real HTTP server -->
+    <!--
+    <httpforward>http://www.jabber.org/</httpforward>
+    -->
   </local>
 
   <!-- Input/output settings -->
   <io>
-    <!-- Maximum number of file descriptors. Note that the number of
-         possible connections will be slightly less than this, because
-         c2s itself can use up five on its own, and auth/reg modules may
-         need a few also. If the supply of file descriptors is
-         exhausted, new incoming connections will be denied.
+    <!-- Maximum number of file descriptors. This value sets an upper
+         limit on the number of users who may be logged in to this
+         server at a given time. Each user consumers one file
+         descriptor.
+
+         Note that the number of possible connections will be slightly
+         less than this, because c2s itself can use up five on its own,
+         and auth/reg modules may need a few also. If the supply of
+         file descriptors is exhausted, new incoming connections will
+         be denied.
+
+         Also note that this value only affects how many file descriptors
+         jabberd is able to handle internally. You may also need to
+         tell your operating system to allow jabberd to use more file
+         descriptors. On Linux this can be done using ulimit -n or by
+         changing the value of /proc/sys/fd/file-max.
+
          (default: 1024) -->
     <max_fds>1024</max_fds>
 
@@ -126,6 +210,15 @@
            Default Y is 1, default Z is 5. set X to 0 to disable. -->
       <bytes>0</bytes>
 
+      <!-- Maximum number of stanzas per second - if more than X stanzas
+           are sent in Y seconds, connection is throttled for Z seconds.
+           The format is:
+
+             <stanzas seconds='Y' throttle='Z'>X</stanzas>
+
+           Default Y 1, default Z is 5. Set X to 0 to disable -->
+      <stanzas>1000</stanzas>
+
       <!-- Maximum connects per second - if more than X connects are
            attempted from a single IP in Y seconds, that IP is throttled
            for Z seconds. The format is:
@@ -134,7 +227,20 @@
 
            Default Y is 5, default Z is 5. set X to 0 to disable. -->
       <connects>0</connects>
+
+      <!-- Maximum stanza size - if more than given number of bytes
+           are read in one incoming stanza, the stream is closed
+	   with policy-violation error.
+
+           Set to 0 to disable.
+           Values less than 16384 might not work. -->
+      <stanzasize>65535</stanzasize>
     </limits>
+
+    <!-- Enable XEP-0138: Stream Compression -->
+    <!--
+    <compression/>
+    -->
 
     <!-- IP-based access controls. If a connection IP matches an allow
          rule, the connection will be accepted. If a connecting IP
@@ -177,7 +283,7 @@
            the following checks applied.
 
            0 disables all checks.                       (default: 0) -->
-      <interval>60</interval>
+      <interval>0</interval>
 
       <!-- Idle connection checks.
 
@@ -195,35 +301,27 @@
            disconnected without us knowing about it.
 
            0 disables keepalives.                       (default: 0) -->
-      <keepalive>60</keepalive>
+      <keepalive>0</keepalive>
 
     </check>
 
   </io>
 
+  <!-- Statistics -->
+  <stats>
+    <!-- file containing count of packets that went through -->
+    <!--
+    <packet>/var/lib/jabberd/stats/c2s.packets</packet>
+    -->
+  </stats>
+
   <!-- Authentication/registration database configuration -->
   <authreg>
+    <!-- Dynamic authreg modules path -->
+    <path>/usr/lib/jabberd</path>
+
     <!-- Backend module to use -->
     <module>db</module>
-
-    <!-- Registration configuration -->
-    <register>
-      <!-- Account registration is enabled by default (provided the
-           auth/reg module in use supports it). Comment this out to
-           disable. -->
-      <enable/>
-
-      <!-- Human-readable instructions to be returned to client when
-           registration is requested. -->
-      <instructions>Enter a username and password to register with this server.</instructions>
-
-      <!-- Password change only. When registration is disabled, it may
-           still be useful to allow clients to change their password. If
-           you want this, uncomment this when you disable registration. -->
-      <!--
-      <password/>
-      -->
-    </register>
 
     <!-- Available authentication mechanisms -->
     <mechanisms>
@@ -232,14 +330,10 @@
            Comment out any that you don't want to be offered to clients.
            Note that if the auth/reg module does not support one of
            these mechanisms, then it will not be offered regardless of
-           whether or not it is enabled here.
-
-           Similarly, if <zerok/> is disabled, then zero-knowledge data
-           will not be created when a user is registered. -->
+           whether or not it is enabled here. -->
       <traditional>
         <plain/>
         <digest/>
-        <zerok/>
       </traditional>
 
       <!-- SASL authentication mechanisms. Comment out any that you
@@ -251,10 +345,28 @@
         <digest-md5/>
         <!--
         <anonymous/>
+        <gssapi/>
         -->
       </sasl>
 
     </mechanisms>
+
+    <!-- Additional mechanisms that are also available when the
+         connection is encrypted. Ie. when START-TLS had been
+         negotiated, or user connected on SSL-wrapped port. -->
+    <ssl-mechanisms>
+
+      <!-- it's advisable that you disable plain in the above
+           <mechanisms/> section -->
+      <traditional>
+        <plain/>
+      </traditional>
+
+      <sasl>
+        <plain/>
+      </sasl>
+
+    </ssl-mechanisms>
 
     <!-- MySQL module configuration -->
     <mysql>
@@ -267,11 +379,32 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>secret</pass>
+      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
+
+      <!-- Passwords in DB may be stored in plain or hashed format -->
+      <!-- NOTE: If you are using hashed passwords, the only auth
+                 method that will work is PLAIN.
+                 Make sure that you disabled others in 'mechanisms'
+                 sections of the config file. -->
+      <password_type>
+        <!-- only one may be enabled here -->
+        <plaintext/>
+        <!-- use crypt(3)ed passwords
+        <crypt/>
+        -->
+      </password_type>
     </mysql>
 
     <!-- PostgreSQL module configuration -->
     <pgsql>
+      <!-- PostgreSQL connection info.
+           For the rest of the options see
+           http://www.postgresql.org/docs/8.0/interactive/libpq.html -->
+      <conninfo>dbname=jabberd2 user=jabberd2 password=secret</conninfo>
+
+      <!-- Alternatively you may set connection settings separately.
+           These are used only in absence of 'conninfo' -->
+
       <!-- Database server host and port -->
       <host>localhost</host>
       <port>5432</port>
@@ -281,13 +414,41 @@
 
       <!-- Database username and password -->
       <user>jabberd2</user>
-      <pass>secret</pass>
+      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
     </pgsql>
+
+    <!-- Oracle driver configuration -->
+    <oracle>
+      <!-- Database server host and port. -->
+      <host>localhost</host>
+      <port>1521</port>
+
+      <!-- Database name -->
+      <dbname>jabberd2</dbname>
+
+      <!-- Database username and password -->
+      <user>jabberd2</user>
+      <pass>45296ce7aeb79751a83413fca6af2612e95a2fb6</pass>
+    </oracle>
+
+    <!-- SQLite driver configuration -->
+    <sqlite>
+      <!-- Database name -->
+      <dbname>/var/lib/jabberd/db/sqlite.db</dbname>
+
+      <!-- Transacation support. If this is commented out, transactions
+           will be disabled. This might make database accesses faster,
+           but data may be lost if jabberd crashes. -->
+      <transactions/>
+
+      <!-- SQLite busy-timeout in milliseconds. -->
+      <busy-timeout>2000</busy-timeout>
+    </sqlite>
 
     <!-- Berkeley DB module configuration -->
     <db>
       <!-- Directory to store database files under -->
-      <path>/var/lib/jabberd</path>
+      <path>/var/lib/jabberd/db</path>
 
       <!-- Synchronize the database to disk after each write. If you
            disable this, database accesses may be faster, but data may
@@ -295,7 +456,57 @@
       <sync/>
     </db>
 
+    <!-- LDAPFULL module configuration -->
+    <ldapfull>
+      <!-- LDAP server host and port (default: 389) -->
+      <uri>ldap://localhost/ ldaps://ldap.example.com/</uri>
+      
+      <!-- DN to bind as for searches. If unspecified, the searches
+           will be done anonymously. -->
+      <!--
+      <binddn>cn=Directory Manager</binddn>
+      <bindpw>secret</bindpw>
+      -->
+
+      <!-- Type of LDAP server. Currently "ad" for active directory and "ldap"
+           for other ldap servers. If not specified, then it is ldap. -->
+      <!--
+      <type>ad</type>
+      -->
+
+      <!-- LDAP attribute that holds the user ID (default: uid) -->
+      <uidattr>uid</uidattr>
+      <objectclass>posixAccount</objectclass>
+      <pwattr>userPassword</pwattr>
+      <!-- if you use included jabberd.schema use this:
+      <uidattr>jid</uidattr>
+      <objectclass>jabberUser</objectclass>
+      <pwattr>jabberPassword</pwattr>
+      -->
+
+      <!-- Attribute that holds jabber account status. Must be TRUE for AD,
+           and 1 for other LDAP server.
+           If not specified, then it will not be used. -->
+      <!--
+      <validattr>valid</validattr>
+      -->
+      <fulluid/>
+      <!-- If pwscheme is not defined, then passwords are stored in clear
+           text and digest authentication may be done.
+           If passwords are hashed, then you cannot use digest authentication
+           and should use plain text authentication.
+           For now, sha, ssha and plain may be specified -->
+      <!-- <pwscheme>ssha</pwscheme> -->
+
+      <!-- base DN of the tree. You should specify a DN for each
+           authentication realm declared in the <local/> section above,
+           by using the realm attribute. -->
+      <basedn realm='company'>o=Company.com</basedn>
+      <basedn>o=Example Corp.</basedn>
+    </ldapfull>
+
     <!-- LDAP module configuration -->
+    <!-- Remember that you need to use PLAIN auth with LDAP backend -->
     <ldap>
       <!-- LDAP server host and port (default: 389) -->
       <host>ldap.example.com</host>
@@ -330,12 +541,37 @@
       <!-- LDAP attribute that holds the user ID (default: uid) -->
       <uidattr>uid</uidattr>
 
+      <!-- Enable the append-realm element if you want to append
+           realm value (usernam@realm) to the uidattr value
+      <append-realm/>
+      -->
+
+      <!-- Alternatively to <uidattr/> and <append-realm/> you may
+           specify full LDAP search <query/> that will be used to
+           get user objects from directory.
+
+           The following replacements take place:
+           %u  is replaced by user login name
+           %r  is replaced by user login realm
+
+           When <query/> is specified, <uidattr/> and <append-realm/>
+           are unused and take no effect. -->
+      <!--
+      <query>(&amp;(mail=%u@%r)(objectClass=inetOrgPerson))</query>
+      -->
+
       <!-- base DN of the tree. You should specify a DN for each
            authentication realm declared in the <local/> section above,
            by using the realm attribute. -->
       <basedn realm='company'>o=Company.com</basedn>
       <basedn>o=Example Corp.</basedn>
     </ldap>
+    <!-- if you want to configure more than one LDAP server
+         create ldap1, ldap2 etc. sections
+    <ldap1>
+
+    </ldap1>
+    -->
 
     <!-- Pipe module configuration -->
     <pipe>
@@ -346,3 +582,6 @@
   </authreg>
 
 </c2s>
+<!--
+  vim: syntax=xml
+-->

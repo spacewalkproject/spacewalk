@@ -14,24 +14,27 @@
  */
 package com.redhat.rhn.frontend.action.schedule.test;
 
-import com.redhat.rhn.frontend.action.schedule.ArchivedActionsSetupAction;
-import com.redhat.rhn.testing.ActionHelper;
-import com.redhat.rhn.testing.RhnBaseTestCase;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
  * ArchivedActionsSetupTest
  * @version $Rev$
  */
-public class ArchivedActionsSetupTest extends RhnBaseTestCase {
+public class ArchivedActionsSetupTest extends RhnMockStrutsTestCase {
 
-    public void testArchive() throws Exception {
-        ArchivedActionsSetupAction action = new ArchivedActionsSetupAction();
-        ActionHelper sah = new ActionHelper();
-        sah.setUpAction(action);
-        sah.setupClampListBounds();
-        sah.executeAction();
-        assertNotNull(sah.getRequest().getAttribute("pageList"));
-        assertNotNull(sah.getRequest().getAttribute("user"));
+    public void setUp() throws Exception {
+        super.setUp();
+        setRequestPathInfo("/schedule/ArchivedActions");
+    }
+
+
+    public void testPerformExecute() throws Exception {
+
         
+        actionPerform();
+        verifyForwardPath("/WEB-INF/pages/schedule/archivedactions.jsp");
+        Object test = request.getAttribute("dataset");
+        assertNotNull(test);
+
     }
 }

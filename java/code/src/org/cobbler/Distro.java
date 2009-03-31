@@ -66,14 +66,7 @@ public class Distro extends CobblerObject {
      * @return the distro that maps to the name or null
      */
     public static Distro lookupByName(CobblerConnection client, String name) {
-        Map <String, Object> map = (Map<String, Object>)client.
-                                    invokeMethod("get_distro", name);
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        Distro distro = new Distro(client);
-        distro.dataMap = map;
-        return distro;
+        return handleLookup(client, lookupDataMapByName(client, name, "get_distro"));
     }
 
     /**
@@ -83,21 +76,19 @@ public class Distro extends CobblerObject {
      * @return the distro matching the UID
      */
     public static Distro lookupById(CobblerConnection client, String id) {
-        if (id == null) {
-            return null;
-        }
-        List<Map<String, Object>> distros = (List<Map<String, Object>>) 
-                                                client.invokeMethod("get_distros");
-        Distro distro = new Distro(client);
-        for (Map <String, Object> map : distros) {
-            distro.dataMap = map;
-            if (id.equals(distro.getUid())) {
-                return distro;
-            }
+        return handleLookup(client, lookupDataMapById(client, 
+                                        id, "find_distro", "get_distros"));
+    }
+    
+    private static Distro handleLookup(CobblerConnection client, Map distroMap) {
+        if (distroMap != null) {
+            Distro distro = new Distro(client);
+            distro.dataMap = distroMap;
+            return distro;
         }
         return null;
     }    
-
+    
     /**
      * Returns a list of available Distros 
      * @param connection the cobbler connection

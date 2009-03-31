@@ -52,6 +52,8 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.NonUniqueObjectException;
 
+import java.util.List;
+
 /**
  * ActivationKeyTest
  * @version $Rev$
@@ -86,13 +88,15 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         assertEquals(e.getLabel(), t2.getLabel());
         
         // test out ActivationKeyManager.findByServer while we're here...
-        ActivationKey k4 = ActivationKeyManager.getInstance().findByServer(server, user);
+        ActivationKey k4 = (ActivationKey) ActivationKeyManager.
+            getInstance().findByServer(server, user).iterator().next();
         assertNotNull(k4);
         assertEquals(key, k4.getKey());
 
         
         try {
-            k3 = ActivationKeyManager.getInstance().findByServer(null, user);
+            k3 = (ActivationKey) ActivationKeyManager.getInstance().
+                findByServer(null, user).iterator().next();
             String msg = "Permission check failed :(.." +
                             " Activation key should not have existed" +
                             " for a server of 'null' id. An exception " +
@@ -106,7 +110,8 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         User user1 = UserTestUtils.findNewUser("testuser", "testorg");
         Server server2 = ServerFactoryTest.createTestServer(user1);
         try {
-            k3 = ActivationKeyManager.getInstance().findByServer(server2, user1);
+            k3 = (ActivationKey) ActivationKeyManager.getInstance().
+                findByServer(server2, user1).iterator().next();
             String msg = "Permission check failed :(.." +
                             " Activation key should not have existed" +
                                 " for a server of the associated id. An exception " +
@@ -195,8 +200,11 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
     public void testLookupByServer() throws Exception {
         ActivationKey k = createTestActivationKey(user);
         Server s = k.getServer();
-        
-        assertNotNull(ActivationKeyFactory.lookupByServer(s));
+        createTestActivationKey(user, s);
+        createTestActivationKey(user, s);
+        createTestActivationKey(user, s);
+        List keys = ActivationKeyFactory.lookupByServer(s);
+        assertTrue(keys.size() == 4);
     }
 
     public void testCreateNewKeys() throws Exception {

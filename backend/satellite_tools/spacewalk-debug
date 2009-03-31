@@ -27,7 +27,7 @@ BASE_DIR=/tmp
 
 usage() {
     echo "Usage:"
-    echo "$0 [OPTIONS] <connect-string>"
+    echo "$0 [OPTIONS]"
     echo "Debug utility that packages log files and other information"
     echo
     echo "  OPTIONS:"
@@ -87,6 +87,7 @@ mkdir -p $DIR/conf/rhn/sysconfig
 mkdir -p $DIR/httpd-logs
 mkdir -p $DIR/tomcat-logs
 mkdir -p $DIR/rhn-logs
+mkdir -p $DIR/db-stats
 
 echo "    * copying configuration information"
 cp -fapRd /etc/httpd/conf $DIR/conf/httpd
@@ -147,6 +148,24 @@ if [ -d /root/ssl-build ] ; then
     cp -fa /root/ssl-build/* $DIR/ssl-build 2> /dev/null
 fi
 
+# /etc/sudoers
+if [ -f /etc/sudoers ] ; then
+	echo "    * copying /etc/sudoers"
+	cp -fa /etc/sudoers $DIR/conf
+fi
+
+# /etc/passwd
+if [ -f /etc/passwd ] ; then
+	echo "    * copying apache, oracle, tomcat, nocpulse entries from /etc/passwd"
+	egrep "apache|tomcat|oracle|nocpulse" /etc/passwd > $DIR/conf/passwd
+fi
+
+# /etc/group
+if [ -f /etc/group ] ; then
+	echo "    * copying apache, oracle, tomcat, nocpulse entries from /etc/group"
+	egrep "apache|tomcat|oracle|nocpulse" /etc/group > $DIR/conf/group
+fi
+
 echo "    * querying RPM database (versioning of Spacewalk, etc.)"
 rpm -qa --last > $DIR/rpm-manifest
 rpm -qa | sort > $DIR/rpm-manifest-clean
@@ -157,6 +176,9 @@ echo "    * querying schema version and database charactersets"
 
 echo "    * get diskspace available"
 df -h > $DIR/diskinfo
+
+echo "    * get database statistics"
+/usr/bin/rhn-db-stats $DIR/db-stats/db-stats.log
 
 echo "    * timestamping"
 echo "Spacewalk debug created on $(date)" > $DIR/timestamp

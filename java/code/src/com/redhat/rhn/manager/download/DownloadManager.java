@@ -52,10 +52,32 @@ public class DownloadManager extends BaseManager {
      * @return the path/url
      */
     public static String getPackageDownloadPath(Package pack, User user) {
+
+        //If the package is on our list of non-expiring packages, then generate
+        //   a non-expiring URL
+        List packs = Config.get().getList(Config.NON_EXPIRABLE_PACKAGE_URLS);
+        if (packs != null && packs.contains(pack.getPackageName().getName())) {
+            return getNonExpiringDownloadPath(pack.getId(), pack.getFile(), user,
+                    DownloadManager.DOWNLOAD_TYPE_PACKAGE);
+        }
         return getDownloadPath(pack.getId(), pack.getFile(), user, 
                 DownloadManager.DOWNLOAD_TYPE_PACKAGE);
     }
     
+    /**
+     * Get a download path (part of the url) that is used to download a package.
+     *  The url will be in the form of
+     *  /download/SHA1_TOKEN/0/userId/packId/filename.rpm
+     *  The url will NOT expire and should generally only be used
+     * @param pack the package
+     * @param user the user
+     * @return the path/url
+     */
+    public static String getPackageDownloadPathNoExpiration(Package pack, User user) {
+        return getNonExpiringDownloadPath(pack.getId(), pack.getFile(), user,
+                DownloadManager.DOWNLOAD_TYPE_PACKAGE);
+    }
+
     
     /**
      * Get a download path that is used to download a srpm.
@@ -107,14 +129,29 @@ public class DownloadManager extends BaseManager {
     
     private static String getDownloadPath(Long fileId, String filename, 
             User user, String type) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, Config.get().getInt(Config.DOWNLOAD_URL_LIFETIME));
+        Long time = 0L;
+        if (Config.get().getInt(Config.DOWNLOAD_URL_LIFETIME) > 0) {
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MINUTE, Config.get().getInt(Config.DOWNLOAD_URL_LIFETIME));
+            time = cal.getTimeInMillis();
+        }
+
         return "/download/" + type + "/" + getFileSHA1Token(fileId,  
-                filename, user, cal.getTimeInMillis(), type) + "/" + 
-                cal.getTimeInMillis() + "/" + user.getId() + "/" + fileId + "/" + 
+                filename, user, time, type) + "/" +
+                time + "/" + user.getId() + "/" + fileId + "/" +
                 filename;
     }
     
+    private static String getNonExpiringDownloadPath(Long fileId, String filename,
+            User user, String type) {
+        Long time = 0L;
+        return "/download/" + type + "/" + getFileSHA1Token(fileId,
+                filename, user, time, type) + "/" +
+                time + "/" + user.getId() + "/" + fileId + "/" +
+                filename;
+
+    }
+
     /**
      * get the Hmac SHA1 token use in constructing a package download url
      *      also useful if verifying a package download url

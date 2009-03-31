@@ -1,0 +1,28 @@
+<%-- this is the same as probe-state-column.jspf, but is used for the new list tag --%>
+
+        <rl:column sortable="false"
+                           bound="false"
+                   headerkey="probedetails.jsp.state"
+                   headerclass="thin-column"
+                   styleclass="first-column">
+        <c:if test="${current.stateString == 'UNKNOWN'}">
+          <img src="/img/rhn-mon-unknown.gif" title="<bean:message key='monitoring.status.unknown'/>"
+               alt="<bean:message key='monitoring.status.unknown'/>"/>
+        </c:if>
+        <c:if test="${current.stateString == 'OK'}">
+          <img src="/img/rhn-mon-ok.gif" title="<bean:message key='monitoring.status.ok'/>"
+               alt="<bean:message key='monitoring.status.ok'/>"/>
+        </c:if>
+        <c:if test="${current.stateString == 'WARNING'}">
+          <img src="/img/rhn-mon-warning.gif" title="<bean:message key='monitoring.status.warn'/>"
+               alt="<bean:message key='monitoring.status.warn'/>"/>
+        </c:if>
+        <c:if test="${current.stateString == 'PENDING'}">
+          <img src="/img/rhn-mon-pending.gif" title="<bean:message key='monitoring.status.pending'/>"
+               alt="<bean:message key='monitoring.status.pending'/>"/>
+        </c:if>
+        <c:if test="${current.stateString == 'CRITICAL'}">
+          <img src="/img/rhn-mon-down.gif" title="<bean:message key='monitoring.status.critical'/>"
+               alt="<bean:message key='monitoring.status.critical'/>"/>
+        </c:if>
+   </rl:column>

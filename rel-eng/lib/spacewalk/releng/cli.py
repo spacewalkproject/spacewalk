@@ -37,7 +37,7 @@ from spacewalk.releng.common import find_git_root, run_command, \
         check_tag_exists, get_latest_tagged_version
 
 BUILD_PROPS_FILENAME = "build.py.props"
-GLOBAL_BUILD_PROPS_FILENAME = "global.build.py.props"
+GLOBAL_BUILD_PROPS_FILENAME = "tito.props"
 GLOBALCONFIG_SECTION = "globalconfig"
 DEFAULT_BUILDER = "default_builder"
 DEFAULT_TAGGER = "default_tagger"
@@ -175,6 +175,12 @@ class BaseCliModule(object):
         """
         rel_eng_dir = os.path.join(find_git_root(), "rel-eng")
         filename = os.path.join(rel_eng_dir, GLOBAL_BUILD_PROPS_FILENAME)
+        if not os.path.exists(filename):
+            # HACK: Try the old filename location, pre-tito rename:
+            filename = os.path.join(rel_eng_dir, "global.build.py.props")
+            if not os.path.exists(filename):
+                error_out("Unable to locate branch configuration: %s" %
+                        filename)
         config = ConfigParser.ConfigParser()
         config.read(filename)
 
@@ -413,6 +419,9 @@ class TagModule(BaseCliModule):
                 action="store_true",
                 help="Use spec file version/release exactly as specified in spec file to tag package.")
 
+        self.parser.add_option("--no-auto-changelog", action="store_true",
+                default=False,
+                help="Don't automatically create a changelog entry for this tag if none is found")
 
     def main(self):
         BaseCliModule.main(self)

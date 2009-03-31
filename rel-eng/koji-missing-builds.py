@@ -42,8 +42,8 @@ distsuffix = ''
 tag = args[0]
 disttag = distmap[tag.split('-')[1]]
 pkgstoignore = []
-if config.has_section(tag) and config.has_option(tag, 'ignore_pkgs'):
-    pkgstoignore = config.get(tag, 'ignore_pkgs').split(' ')
+if config.has_section(tag) and config.has_option(tag, 'blacklist'):
+    pkgstoignore = config.get(tag, 'blacklist').split(' ')
 
 if opts.brew:
     mysession = koji.ClientSession("http://brewhub.devel.redhat.com/brewhub")
@@ -74,7 +74,7 @@ for pkg in pkgfileList:
     pkginfo = fd.read()
     fd.close()
     pkginfo = pkginfo.split()
-    pkglist.append("%s-%s" % (pkg, pkginfo[0]))
+    pkglist.append("%s-%s" % (pkg, pkginfo[0].rstrip('-' + distsuffix)))
     gitnames.append(pkg)
 
 pkglist.sort()

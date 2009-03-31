@@ -241,7 +241,7 @@ sub generate_ca_cert {
     push @opts, qq(--$name=$params{$name});
   }
 
-  my @command = ('/usr/bin/sudo', '/usr/bin/rhn-ssl-tool', @opts);
+  my @command = ('/usr/bin/rhn-sudo-ssl-tool', @opts);
 
   my $ret = system(@command);
 
@@ -278,7 +278,7 @@ sub generate_server_cert {
     push @opts, qq(--$name=$params{$name});
   }
 
-  my @command = ('/usr/bin/sudo', '/usr/bin/rhn-ssl-tool',  @opts, '-q');
+  my @command = ('/usr/bin/rhn-sudo-ssl-tool',  @opts, '-q');
 
   my $ret = system(@command);
 

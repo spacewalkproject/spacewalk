@@ -14,16 +14,17 @@
  */
 package com.redhat.rhn.frontend.action.schedule;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.action.ActionManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,27 +33,31 @@ import javax.servlet.http.HttpServletResponse;
  * ArchivedActionsSetupAction
  * @version $Rev$
  */
-public class ArchivedActionsSetupAction extends RhnListAction {
+public class ArchivedActionsSetupAction extends RhnAction implements Listable {
     
-    /** {@inheritDoc} */
+    /**
+     *
+     * {@inheritDoc}
+     */
     public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-
-        RequestContext requestContext = new RequestContext(request);
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         
-        User user = requestContext.getLoggedInUser();                
-        PageControl pc = new PageControl();
-        pc.setFilterColumn("earliest");
+        RequestContext context = new RequestContext(request);
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
 
-        clampListBounds(pc, request, user);
-
-        DataResult dr = ActionManager.archivedActions(user, pc);
-        
-        request.setAttribute("pageList", dr);
-        request.setAttribute("user", user);
-        
         return mapping.findForward("default");
     }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        return ActionManager.archivedActions(context.getCurrentUser(), null);
+    }
+
+
 }

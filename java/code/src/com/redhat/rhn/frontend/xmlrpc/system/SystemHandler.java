@@ -85,6 +85,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ActivationKeyDto;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
@@ -3766,6 +3767,36 @@ public class SystemHandler extends BaseHandler {
             returnList.add(key.getToken());
         }
         return returnList;
+    }
+
+    /**
+     * Get the list of proxies that the given system connects
+     * through in order to reach the server.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id of the system in question
+     * @return Returns an array of maps representing the proxies the system is connected
+     * through
+     * @throws FaultException A FaultException is thrown if the server corresponding to
+     * sid cannot be found.
+     *
+     * @xmlrpc.doc Get the list of proxies that the given system connects
+     * through in order to reach the server.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ServerPathSerializer
+     *      #array_end()
+     */
+    public Object[] getConnectionPath(String sessionKey, Integer sid)
+        throws FaultException {
+
+        // Get the logged in user and server
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, sid);
+
+        DataResult<ServerPath> dr = SystemManager.getConnectionPath(server.getId());
+        return dr.toArray();
     }
 
     private Channel lookupChannelByLabel(Org org, String label)

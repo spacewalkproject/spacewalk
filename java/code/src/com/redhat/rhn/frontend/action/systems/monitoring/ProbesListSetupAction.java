@@ -14,34 +14,59 @@
  */
 package com.redhat.rhn.frontend.action.systems.monitoring;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ProbesListSetupAction
  * @version $Rev: 59372 $
  */
-public class ProbesListSetupAction extends BaseListAction {
-    
-    protected DataResult getDataResult(RequestContext rctx, PageControl pc) {
-        DataResult dr;
-        Server server = rctx.lookupAndBindServer();
-        // Null page control, we dont paginate this list.
-        dr = MonitoringManager.getInstance().
-            probesForSystem(rctx.getCurrentUser(), server, null);
-        return dr;
-    }
+public class ProbesListSetupAction extends RhnAction implements Listable {
 
     /**
+     *
      * {@inheritDoc}
      */
-    protected void processRequestAttributes(RequestContext rctx) {
-        super.processRequestAttributes(rctx);
-        rctx.lookupAndBindServer();
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        ListHelper helper = new ListHelper(this, request);
+        helper.execute();
+
+        RequestContext requestContext = new RequestContext(request);
+        Server server = requestContext.lookupAndBindServer();
+
+        request.setAttribute("sid", server.getId());
+        return mapping.findForward("default");
     }
+
+
+
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext rctx) {
+        Server server = rctx.lookupAndBindServer();
+        return MonitoringManager.getInstance().
+            probesForSystem(rctx.getCurrentUser(), server, null);
+    }
+
 }
 

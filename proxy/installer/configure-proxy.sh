@@ -29,7 +29,7 @@ INTERACTIVE=1
 while [ $# -ge 1 ]; do
 	case $1 in
             --help | -h)  print_help;;
-            --answer-file=*) . `echo $1 | cut -d= -f2`;;
+            --answer-file=*) . $(echo $1 | cut -d= -f2);;
             --non-interactive) INTERACTIVE=0;;
     esac
     shift
@@ -41,16 +41,21 @@ default_or_input () {
 	local DEFAULT="$3"
 
 	local INPUT
-        local CURRENT_VALUE=$(eval "echo \$$VARIABLE")
-        #in following code is used not so common expansion
-        #var_a=${var_b:-word}
-        #which is like: var_a = $var_b ? word
+	local CURRENT_VALUE=$(eval "echo \$$VARIABLE")
+	#in following code is used not so common expansion
+	#var_a=${var_b:-word}
+	#which is like: var_a = $var_b ? word
 	DEFAULT=${CURRENT_VALUE:-$DEFAULT}
+	local VARIABLE_ISSET=$(set | grep "^$VARIABLE=")
+
 	echo -n "$MSG [$DEFAULT]: "
-	if [ "$INTERACTIVE" = "1" -a  -z "$CURRENT_VALUE" ]; then
+	if [ "$INTERACTIVE" = "1" -a  -z "$VARIABLE_ISSET" ]; then
 		read INPUT
+	elif [ -z "$VARIABLE_ISSET" ]; then
+		echo $DEFAULT
 	else
-		echo
+		eval "DEFAULT=\$$VARIABLE"
+		echo $DEFAULT
 	fi
 	if [ -z "$INPUT" ]; then
 		INPUT="$DEFAULT"
@@ -72,7 +77,13 @@ yes_no() {
 config_error () {
         if [ $1 -gt 0 ]; then
                 echo "$2 Installation interrupted."
-                /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --deactivate --non-interactive
+                /usr/bin/rhn-proxy-activate \
+                        --server="$RHN_PARENT" \
+                        --http-proxy="$HTTP_PROXY" \
+                        --http-proxy-username="$HTTP_USERNAME" \
+                        --http-proxy-password="$HTTP_PASSWORD" \
+                        --ca-cert="$CA_CHAIN" \
+                        --deactivate --non-interactive
                 exit $1
         fi
 }
@@ -84,15 +95,22 @@ if [ -f /usr/bin/yum ]; then
         # add -y for non-interactive installation
 	[ "$INTERACTIVE" = "0" ] && YUM_OR_UPDATE="$YUM_OR_UPDATE -y"
 fi
+SYSCONFIG_DIR=/etc/sysconfig/rhn
+RHNCONF_DIR=/etc/rhn
+HTTPDCONF_DIR=/etc/httpd/conf
+HTTPDCONFD_DIR=/etc/httpd/conf.d
+HTMLPUB_DIR=/var/www/html/pub
+JABBERD_DIR=/etc/jabberd
+SQUID_DIR=/etc/squid
 
-SYSTEM_ID=`/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt /etc/sysconfig/rhn/systemid | cut -d- -f2`
+SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2)
 
 DIR=/usr/share/doc/proxy/conf-template
-HOSTNAME=`hostname`
+HOSTNAME=$(hostname)
 
 default_or_input "Proxy version to activate" VERSION $(rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2)
 
-default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' /etc/sysconfig/rhn/up2date)
+default_or_input "RHN Parent" RHN_PARENT $(awk -F= '/serverURL=/ {split($2, a, "/")} END { print a[3]}' $SYSCONFIG_DIR/up2date)
 
 if [ "$RHN_PARENT" == "rhn.redhat.com" ]; then
    RHN_PARENT="xmlrpc.rhn.redhat.com"
@@ -107,10 +125,10 @@ default_or_input "Traceback email" TRACEBACK_EMAIL ''
 default_or_input "Use SSL" USE_SSL 'Y/n'
 USE_SSL=$(yes_no $USE_SSL)
 
-default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' /etc/sysconfig/rhn/up2date)
+default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
-if ! /sbin/runuser apache -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
-	echo Error: File $CA_CHAIN is not readable by apache user.
+if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
+	echo Error: File $CA_CHAIN is not readable by nobody user.
 	exit 1
 fi
 
@@ -147,7 +165,13 @@ default_or_input "Country code" SSL_COUNTRY ''
 default_or_input "Email" SSL_EMAIL "$TRACEBACK_EMAIL"
 
 
-/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
+/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" \
+                            --http-proxy="$HTTP_PROXY" \
+                            --http-proxy-username="$HTTP_USERNAME" \
+                            --http-proxy-password="$HTTP_PASSWORD" \
+                            --ca-cert="$CA_CHAIN" \
+                            --version="$VERSION" \
+                            --non-interactive
 config_error $? "Proxy activation failed!"
 
 $YUM_OR_UPDATE spacewalk-proxy-management
@@ -182,11 +206,11 @@ if [ $MONITORING -eq 0 ]; then
 	#and with cluster.ini
 	echo "Configuring monitoring."
         default_or_input "Monitoring parent" MONITORING_PARENT "$RHN_PARENT"
-        RESOLVED_IP=`/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' '`
+        RESOLVED_IP=$(/usr/bin/getent hosts $RHN_PARENT | cut -f1 -d' ')
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-        MSG=$(echo -n "Your scout shared key (can be found on parent\nin /etc/rhn/cluster.ini as key scoutsharedkey)")
+        MSG=$(echo -n "Your scout shared key (can be found on parent\nin $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
         default_or_input "$MSG" SCOUT_SHARED_KEY ''
 fi
 
@@ -194,26 +218,26 @@ fi
 # df -P give free space in kB
 # * 60 / 100 is 60% of that space
 # / 1024 is to get value in MB
-SQUID_SIZE=$(( `df -P /var/spool/squid | awk '{a=$4} END {print a}'` * 60 / 100 / 1024 ))
+SQUID_SIZE=$(df -P /var/spool/squid | awk '{a=$4} END {printf("%d", a * 60 / 100 / 1024)}')
 
-cat $DIR/c2s.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/c2s.xml
-cat $DIR/sm.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/sm.xml
-cat $DIR/squid.conf | sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
-        > /etc/squid/squid.conf
-cat $DIR/rhn.conf | sed "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
-	| sed "s/\${session.http_proxy}/$HTTP_PROXY/g" \
-	| sed "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
-	| sed "s/\${session.http_proxy_password}/$HTTP_PASSWORD/g" \
-	| sed "s/\${session.rhn_parent}/$RHN_PARENT/g" \
-	| sed "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
-	| sed "s/\${session.use_ssl:0}/$USE_SSL/g" \
-	| sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
-	> /etc/rhn/rhn.conf
-cat $DIR/cluster.ini | sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
-        | sed "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
-        | sed "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
-        | sed "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
-        > /etc/rhn/cluster.ini
+sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/c2s.xml  > $JABBERD_DIR/c2s.xml
+sed "s/\${session.hostname\}/$HOSTNAME/g"  < $DIR/sm.xml   > $JABBERD_DIR/sm.xml
+sed "s|cache_dir ufs /var/spool/squid 15000 16 256|cache_dir ufs /var/spool/squid $SQUID_SIZE 16 256|g" \
+        < $DIR/squid.conf  > $SQUID_DIR/squid.conf
+sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
+	    -e "s/\${session.http_proxy}/$HTTP_PROXY/g" \
+	    -e "s/\${session.http_proxy_username}/$HTTP_USERNAME/g" \
+	    -e "s/\${session.http_proxy_password}/$HTTP_PASSWORD/g" \
+	    -e "s/\${session.rhn_parent}/$RHN_PARENT/g" \
+	    -e "s/\${session.traceback_mail}/$TRACEBACK_EMAIL/g" \
+	    -e "s/\${session.use_ssl:0}/$USE_SSL/g" \
+	    -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
+        < $DIR/rhn.conf  > $RHNCONF_DIR/rhn.conf
+sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
+            -e "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
+            -e "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
+            -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
+        < cat $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
 
 
 #Setup the cobbler stuff, needed to use koan through a proxy
@@ -221,8 +245,8 @@ PROTO="http";
 if [ $USE_SSL -eq 1 ]; then
    PROTO="https"
 fi
-echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > /etc/httpd/conf.d/cobbler-proxy.conf
-echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> /etc/httpd/conf.d/cobbler-proxy.conf
+echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > $HTTPDCONFD_DIR/cobbler-proxy.conf
+echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
 
 # lets do SSL stuff
 SSL_BUILD_DIR="/root/ssl-build"
@@ -237,55 +261,76 @@ fi
 
 if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
 	echo "Generating CA key and public certificate:"
-	/usr/bin/rhn-ssl-tool --gen-ca -q --dir="$SSL_BUILD_DIR" --set-common-name="$SSL_COMMON" \
-		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE" \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+	/usr/bin/rhn-ssl-tool --gen-ca -q \
+                --dir="$SSL_BUILD_DIR" \
+                --set-common-name="$SSL_COMMON" \
+                --set-country="$SSL_COUNTRY" \
+                --set-city="$SSL_CITY" \
+                --set-state="$SSL_STATE" \
+                --set-org="$SSL_ORG" \
+                --set-org-unit="$SSL_ORGUNIT" \
+                --set-email="$SSL_EMAIL" \
                 $RHNSSLTOOLPWD
 	config_error $? "CA certificate generation failed!"
 else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
 fi
 
-RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
 
 if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
 	echo "Generating distributable RPM for CA public certificate:"
         /usr/bin/rhn-ssl-tool --gen-ca -q --rpm-only --dir="$SSL_BUILD_DIR"
-	RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+	RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
 fi
 
-if [ ! -f /var/www/html/pub/$RPM_CA ] || [ ! -f /var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT ]; then
-	echo "Copying CA public certificate to /var/www/html/pub for distribution to clients:"
-	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA /var/www/html/pub/
+if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT ]; then
+	echo "Copying CA public certificate to $HTMLPUB_DIR for distribution to clients:"
+	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA $HTMLPUB_DIR/
 fi
 
 echo "Generating SSL key and public certificate:"
-/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm --set-hostname "$HOSTNAME" --dir="$SSL_BUILD_DIR" \
-		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE"  \
-		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL" \
+/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm \
+                --set-hostname "$HOSTNAME" \
+                --dir="$SSL_BUILD_DIR" \
+                --set-country="$SSL_COUNTRY" \
+                --set-city="$SSL_CITY" \
+                --set-state="$SSL_STATE" \
+                --set-org="$SSL_ORG" \
+                --set-org-unit="$SSL_ORGUNIT" \
+                --set-email="$SSL_EMAIL" \
                 $RHNSSLTOOLPWD
 config_error $? "SSL key generation failed!"
 
 echo "Installing SSL certificate for Apache and Jabberd:"
-rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
+rpm -Uv $(/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm)
 
-mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
-cat /etc/httpd/conf.d/ssl.conf.bak \
-	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
-	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
-	| sed  "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" > /etc/httpd/conf.d/ssl.conf
+mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
+sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile $HTTPDCONF_DIR/ssl.crt/server.crt|g" \
+	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile $HTTPDCONF_DIR/ssl.key/server.key|g" \
+	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|"
+        < $HTTPDCONFD_DIR/ssl.conf.bak  > $HTTPDCONFD_DIR/ssl.conf
 
 
 CHANNEL_LABEL="rhn_proxy_config_$SYSTEM_ID"
 default_or_input "Create and populate configuration channel $CHANNEL_LABEL?" POPULATE_CONFIG_CHANNEL 'Y/n'
 POPULATE_CONFIG_CHANNEL=$(yes_no $POPULATE_CONFIG_CHANNEL)
 if [ "$POPULATE_CONFIG_CHANNEL" = "1" ]; then
-	rhncfg-manager create-channel --server-name "$RHN_PARENT" rhn_proxy_config_$SYSTEM_ID
-	rhncfg-manager update --server-name "$RHN_PARENT" --channel=rhn_proxy_config_$SYSTEM_ID \
-		/etc/httpd/conf.d/ssl.conf /etc/rhn/rhn.conf /etc/rhn/cluster.ini /etc/squid/squid.conf \
-		/etc/httpd/conf.d/cobbler-proxy.conf /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/rhn_proxy.conf \
-		/etc/httpd/conf.d/proxy_broker.conf /etc/httpd/conf.d/proxy_redirect.conf \
-		/etc/jabberd/c2s.xml /etc/jabberd/sm.xml
+	rhncfg-manager create-channel --server-name "$RHN_PARENT" \
+                rhn_proxy_config_$SYSTEM_ID
+	rhncfg-manager update --server-name "$RHN_PARENT" \
+                --channel=rhn_proxy_config_$SYSTEM_ID \
+                $HTTPDCONFD_DIR/ssl.conf \
+                $RHNCONF_DIR/rhn.conf \
+                $RHNCONF_DIR/cluster.ini \
+                $SQUID_DIR/squid.conf \
+                $HTTPDCONFD_DIR/cobbler-proxy.conf \
+                $HTTPDCONF_DIR/httpd.conf \
+                $HTTPDCONFD_DIR/rhn_proxy.conf \
+                $HTTPDCONFD_DIR/proxy_broker.conf \
+                $HTTPDCONFD_DIR/proxy_redirect.conf \
+                $JABBERD_DIR/c2s.xml \
+                $JABBERD_DIR/sm.xml
 fi
 
 echo "Enabling Spacewalk Proxy."

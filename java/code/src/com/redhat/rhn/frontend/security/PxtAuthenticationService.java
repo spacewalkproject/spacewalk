@@ -91,13 +91,18 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
      * {@inheritDoc}
      */
     public boolean validate(HttpServletRequest request, HttpServletResponse response) {
-        
+        //is authentication needed (i.e. is our session valid, and does the url
+        //  we are hitting require auth)
         if (isAuthenticationRequired(request)) {
             invalidate(request, response);
             return false;
         }
-        
-        pxtDelegate.refreshPxtSession(request, response);
+        //if we are authenticated, and our URL requires auth, refresh
+        //   The session.  If the url doesn't require auth
+        //   Don't refresh it, because that may invalidate our old session
+        if (requestURIRequiresAuthentication(request)) {
+            pxtDelegate.refreshPxtSession(request, response);
+        }
         return true;
     }
     

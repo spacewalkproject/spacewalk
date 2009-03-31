@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.25
+Version: 0.5.28
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -505,6 +505,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
 %attr(755,root,root) %{_bindir}/migrate-system-profile
+%attr(755,root,root) %{_bindir}/rhn-db-stats
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
@@ -561,6 +562,20 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Mar 30 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.28-1
+- 485698 - rhn-satellite-exporter manual page fixes
+
+* Thu Mar 26 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.27-1
+- 486526 - additional system files and db statistics included into spacewalk-debug archive
+
+* Wed Mar 25 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.26-1
+- 487621 - Fix segfaults rhnpush has been causing server-side on Fedora 10.
+- Fix Oracle exception handling in procedure calls.
+- 485529 - Fix to handle empty or missing ip_addr on a disabled interface.
+- 482830 - Fix rpm fetch to include the xml-dump-version in httpd headers during GET requests.
+- 483811 - Fix orgid based sync logic.
+- 480252 - Raise meaningful exception instead of traceback on Oracle column size error.
+
 * Thu Mar 19 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.25-1
 - 468686 - restricts deactivated accounts from registering systems and managing systems. 
 - 485532 - Adding the overriding config values for apachec process sizelimit issue

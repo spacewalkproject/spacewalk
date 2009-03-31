@@ -14,96 +14,49 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.common.RhnSetAction;
-import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.manager.errata.ErrataManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-
-import java.util.Map;
-
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionForm;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.common.db.datasource.DataResult;
 
-/**
- * ActionsAction
- * @version $Rev$
- */
-public class UnpublishedErrataAction extends RhnSetAction {
-    
-    /**
-     * Archives the actions.
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request ServletRequest
-     * @param response ServletResponse
-     * @return The ActionForward to go to next.
-     */
-    public ActionForward deleteErrata(ActionMapping mapping,
-                                       ActionForm formIn,
-                                       HttpServletRequest request,
-                                       HttpServletResponse response) {
+/** @version $Revision$ */
+public class UnpublishedErrataAction extends RhnAction implements Listable {
 
-        RhnSet set = updateSet(request);
-        Map params = makeParamMap(formIn, request);
-        
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
-        
-        //if they chose no errata, return to the same page with a message
-        if (set.isEmpty()) {
-            ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
-                    new ActionMessage("errata.applynone"));
-            strutsDelegate.saveMessages(request, msg);
-            return strutsDelegate.forwardParams(mapping.findForward("default"), params);
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping actionMapping,
+                                 ActionForm actionForm,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response)
+        throws Exception {
+
+        ListRhnSetHelper helper =
+            new ListRhnSetHelper(this, request, RhnSetDecl.ERRATA_TO_DELETE);
+        helper.execute();
+
+        if (helper.isDispatched()) {
+            // Nothing to do when dispatched, there is a confirmation page displayed next
+            // that will do the actual work
+            return actionMapping.findForward("continue");
         }
-        
-        return strutsDelegate.forwardParams(mapping.findForward("delete"), params);
-    }
-    
-    /**
-     * Method that returns the correct data result for a 
-     * particular scheduled action.
-     * @param user The user in question
-     * @param formIn form that was sent in on the request
-     * @param request HttpServletRequest
-     * @return Returns the DataResult for the page.
-     */
-    public DataResult getDataResult(User user, 
-                                    ActionForm formIn, 
-                                    HttpServletRequest request) {
-        return ErrataManager.unpublishedOwnedErrata(user, null);
+
+        return actionMapping.findForward("default");
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void processMethodKeys(Map map) {
-        map.put("erratalist.jsp.deleteerrata", "deleteErrata");        
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processParamMap(ActionForm formIn, 
-                                   HttpServletRequest request, 
-                                   Map params) {
-        // no-op
-        
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA_TO_DELETE;
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        DataResult result = ErrataManager.unpublishedOwnedErrata(user);
+        return result;
     }
 }
+

@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
 
 <html:xhtml/>
 <html>
@@ -19,44 +21,93 @@
     </p>
   </div>
   
-<form method="post" name="rhn_list" action="/rhn/schedule/ArchivedActionsSubmit.do">
+  <br/>
 
-<rhn:list pageList="${requestScope.pageList}"
-          noDataText="archivedactions.jsp.nogroups">
-          
-  <rhn:listdisplay>
-    <rhn:column header="actions.jsp.action"
-                url="ActionDetails.do?aid=${current.id}">
-        ${current.actionName}
-    </rhn:column>
-    <rhn:column header="actions.jsp.earliest">
-        ${current.earliest}
-    </rhn:column>
-    <rhn:column header="actions.jsp.succeeded"
-                style="text-align: center;"
-                url="CompletedSystems.do?aid=${current.id}"
-                renderUrl="${current.completed != 0}">
-        ${current.completed}
-    </rhn:column>
-    <rhn:column header="actions.jsp.failed"
-                style="text-align: center;"
-                url="FailedSystems.do?aid=${current.id}"
-                renderUrl="${current.failed != 0}">
-        ${current.failed}
-    </rhn:column>
-    <rhn:column header="actions.jsp.inprogress"
-                style="text-align: center;"
-                url="InProgressSystems.do?aid=${current.id}"
-                renderUrl="${current.inProgress != 0}">
-        ${current.inProgress}
-    </rhn:column>
-    <rhn:column header="actions.jsp.total" style="text-align: center;">
-        ${current.tally}
-    </rhn:column>
-  </rhn:listdisplay>
+	<rl:listset name="failedList">
+		<rl:list emptykey="archivedactions.jsp.nogroups" styleclass="list">
+
+
+			    <rl:decorator name="PageSizeDecorator"/>
+                <rl:decorator name="ElaborationDecorator"/>
+
+
+
+
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="actions.jsp.action"
+                           sortattr="actionName"
+                           defaultsort="asc"
+                           styleclass="first-column list-fat-column-50"
+                           filterattr="actionName">
+				<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.actionName}</a>
+                </rl:column>
+
+
+                <rl:column sortable="true"
+                                   bound="false"
+                           headerkey="actions.jsp.earliest"
+                           sortattr="earliest" >
+                        <c:out value="${current.earliest}" />
+                </rl:column>
+
+
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="actions.jsp.succeeded"
+                            >
+                        <c:if test="${current.completed != 0}">
+				<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.completed}</a>
+                        </c:if>
+                        <c:if test="${current.completed == 0}">
+				${current.completed}
+                        </c:if>
+                </rl:column>
+
+
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="actions.jsp.failed"
+                           >
+                        <c:if test="${current.failed != 0}">
+				<a href="/rhn/schedule/FailedSystems.do?aid=${current.id}">${current.failed}</a>
+                        </c:if>
+                        <c:if test="${current.failed == 0}">
+				${current.failed}
+                        </c:if>
+                </rl:column>
+
+
+
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="actions.jsp.inprogress"
+                           >
+                        <c:if test="${current.inProgress != 0}">
+				<a href="/rhn/schedule/InProgressSystems.do?aid=${current.id}">${current.inProgress}</a>
+                        </c:if>
+                        <c:if test="${current.inProgress == 0}">
+				${current.inProgress}
+                        </c:if>
+                </rl:column>
+
+
+                <rl:column sortable="false"
+                                   bound="false"
+                           headerkey="actions.jsp.total"
+                           styleclass="last-column">
+				${current.tally}
+                </rl:column>
+
+
+
+
+		</rl:list>
+		<rhn:submitted/>
+	</rl:listset>
+
+
   
-</rhn:list>
-	
-</form>
 </body>
 </html>

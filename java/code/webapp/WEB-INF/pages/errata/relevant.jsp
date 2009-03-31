@@ -1,4 +1,5 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
@@ -18,8 +19,8 @@
  helpUrl="/rhn/help/reference/en/s2-sm-applicable-errata.jsp">
   <bean:message key="erratalist.jsp.relevanterrata"/>
 </rhn:toolbar>
-<form method="POST" name="rhn_list" action="/rhn/errata/RelevantErrataSubmit.do">
+
 <%@ include file="/WEB-INF/pages/common/fragments/errata/relevant-errata-list.jspf" %>
-</form>
+
 </body>
 </html>

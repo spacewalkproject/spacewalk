@@ -14,31 +14,15 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.frontend.action.BaseFilterAction;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
- * ErrataListRelevantAction
- * @version $Rev$
+ * Loads the data for the relevant errata. This action is written to comply with the
+ * "new" list tag.
+ *
+ * @version $Revision$
  */
-public class ErrataListRelevantAction extends BaseFilterAction {
+public class ErrataListRelevantAction extends ErrataListBaseAction {
 
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        Map params = makeParamMap(request);
-        processFilterParameters(params, request);
-        
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"), params);
+    protected ErrataFilter getErrataFilter() {
+        return ErrataFilter.RELEVANT;
     }
 }

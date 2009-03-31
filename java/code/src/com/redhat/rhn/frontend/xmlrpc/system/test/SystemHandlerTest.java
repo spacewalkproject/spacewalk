@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.xmlrpc.system.test;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.action.Action;
@@ -76,6 +78,7 @@ import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
 import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
+import com.redhat.rhn.frontend.dto.ServerPath;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
@@ -2163,5 +2166,51 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
 
         keys = handler.listActivationKeys(adminKey, server.getId().intValue());
         assertEquals(1, keys.size());
+    }
+
+    public void testGetConnectionPath() throws Exception {
+
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+
+        // check the initial state of the connection path for the server
+        Object[] results = handler.getConnectionPath(adminKey,
+                new Integer(server.getId().intValue()));
+
+        assertEquals(0, results.length);
+
+        // create 2 dummy servers to represent proxys and add them to the
+        // server's 'server path'
+        Server proxy1 = ServerFactoryTest.createTestServer(admin, true);
+        Server proxy2 = ServerFactoryTest.createTestServer(admin, true);
+
+        Long position1 = new Long(0);
+        Long position2 = new Long(1);
+
+        WriteMode m = ModeFactory.getWriteMode("test_queries",
+            "insert_into_rhnServerPath");
+        Map params = new HashMap();
+        params.put("server_id", server.getId());
+        params.put("proxy_server_id", proxy1.getId());
+        params.put("proxy_hostname", proxy1.getName());
+        params.put("position", position1);
+        m.executeUpdate(params);
+
+        params.clear();
+        params.put("server_id", server.getId());
+        params.put("proxy_server_id", proxy2.getId());
+        params.put("proxy_hostname", proxy2.getName());
+        params.put("position", position2);
+        m.executeUpdate(params);
+
+        // execute test...
+        results = handler.getConnectionPath(adminKey,
+                new Integer(server.getId().intValue()));
+
+        assertEquals(2, results.length);
+        assertEquals(proxy1.getId(), ((ServerPath) results[0]).getId());
+        assertEquals(proxy1.getName(), ((ServerPath) results[0]).getHostname());
+
+        assertEquals(proxy2.getId(), ((ServerPath) results[1]).getId());
+        assertEquals(proxy2.getName(), ((ServerPath) results[1]).getHostname());
     }
 }

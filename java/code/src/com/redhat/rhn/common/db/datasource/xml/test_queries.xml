@@ -240,6 +240,13 @@ SELECT u.created as CREATED
        GROUP BY owner 
 </query>
 
+<write-mode name="insert_into_rhnServerPath">
+  <query params="server_id, proxy_server_id, proxy_hostname, position">
+    INSERT INTO rhnServerPath(SERVER_ID, PROXY_SERVER_ID, HOSTNAME, POSITION)
+        VALUES(:server_id, :proxy_server_id, :proxy_hostname, :position)
+  </query>
+</write-mode>
+
 <write-mode name="insert_into_rhnServerNeededPackageCache">
   <query params="errata_id, server_id, package_id">
     INSERT INTO rhnServerNeededCache(ERRATA_ID, SERVER_ID, PACKAGE_ID)
@@ -268,8 +275,6 @@ SELECT u.created as CREATED
   </query>
 </write-mode>
 
-    
-    
 <write-mode name="insert_into_time_series">
   <query params="oid, entry_time, data">
   INSERT INTO TIME_SERIES(O_ID, ENTRY_TIME, DATA) 

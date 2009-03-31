@@ -50,8 +50,8 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
         
         request.addParameter("dispatch", "Clone Errata");
         actionPerform();
-        verifyForwardPath("/errata/manage/CloneErrata.do?channel=");
-        verifyActionMessage("errata.applynone");
+        verifyForwardPath("/errata/manage/CloneErrata.do");
+        verifyActionMessage("emptyselectionerror");
     }
     
     public void testNonEmptySet() throws Exception {
@@ -76,6 +76,6 @@ public class CloneErrataActionTest extends RhnMockStrutsTestCase {
         request.addParameter("dispatch", "Clone Errata");
         
         actionPerform();
-        verifyForward("clone");
+        verifyForward("default");
     }
 }

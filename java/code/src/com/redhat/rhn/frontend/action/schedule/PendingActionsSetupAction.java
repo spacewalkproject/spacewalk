@@ -14,30 +14,48 @@
  */
 package com.redhat.rhn.frontend.action.schedule;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * PendingActionsSetupAction class.
  * @version $Rev$
  */
-public class PendingActionsSetupAction extends ScheduledActionSetupAction {
-
-    /**
-     * {@inheritDoc}
-     */
-    protected DataResult getDataResult(User user, PageControl pc) {
-        return ActionManager.pendingActions(user, pc);
-    }
+public class PendingActionsSetupAction extends BaseScheduledListAction {
 
     /**
      * {@inheritDoc}
      */
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.ACTIONS_PENDING;
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        return ActionManager.pendingActions(context.getCurrentUser(), null);
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    protected ActionForward handleSubmit(ActionMapping mapping,
+            ActionForm formIn, HttpServletRequest request,
+            HttpServletResponse response) {
+        return mapping.findForward("confirm");
     }
     
 }

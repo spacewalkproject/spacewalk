@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=rhn_register
+GenericName=Registering for software updated
+Comment=Register to Spacewalk/Satellite/Red Hat Network.
+Exec=rhn_register
+Icon=up2date
+Terminal=false
+Type=Application
+Categories=Settings;

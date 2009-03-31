@@ -11,7 +11,7 @@
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
+<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
              deletionUrl="/network/software/channels/manage/delete_confirm.pxt?cid=${param.cid}"
              deletionAcl="user_role(channel_admin); formvar_exists(cid)"
              deletionType="software.channel">

@@ -5,9 +5,8 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Version: 0.3
+Release: 1
 License: GPLv2
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -66,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Mon Mar 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.3-1
+- Rebuild from spacewalk.git.
+
 * Fri Jul 01 2005 Joel Martin <jmartin@redhat.com> 4.0.0-8
 - Allow building on Solaris systems without getopt.h. Use local
   getopt.h on Solaris. 
