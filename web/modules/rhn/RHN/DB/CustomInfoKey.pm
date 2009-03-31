@@ -1,4 +1,4 @@
-
+#
 # Copyright (c) 2008 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
@@ -59,7 +59,7 @@ sub delete_key {
   my %params = validate(@_, {key_id => 1, user_id => 1, transaction => 0});
   my $key_id = $params{key_id};
   my $dbh = $params{transaction} || RHN::DB->connect();
-#PGPORT_1:NO Change
+
   my $sth = $dbh->prepare(<<EOQ);
 DECLARE
 BEGIN
@@ -97,7 +97,7 @@ sub commit {
 
   if ($self->id == -1) {
     my $dbh = $transaction || RHN::DB->connect;
-#PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL)
+
     my $sth = $dbh->prepare("SELECT rhn_cdatakey_id_seq.nextval FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;

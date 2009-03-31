@@ -144,7 +144,7 @@ sub country_selectbox {
   $current ||= $default || '';
 
   my $dbh = RHN::DB->connect;
-#PGPORT_4:QUERY_REWRITE(ANSI JOIN) ,NVL
+
   my $sql = "SELECT vc.code, nvl(short_name_tl, short_name)
                FROM valid_countries vc, valid_countries_tl tl
                where tl.lang (+) = ? and tl.code (+)= vc.code
@@ -346,7 +346,7 @@ sub prefix_selectbox {
   my ($class, $formvar, $default) = @_;
 
   my $dbh = RHN::DB->connect;
-#PGPORT_1:NO Change
+
   my $sql = "SELECT text FROM web_user_prefix WHERE text <> '.' AND text <> ' ' ORDER BY text";
 
   my $sth = $dbh->prepare($sql);

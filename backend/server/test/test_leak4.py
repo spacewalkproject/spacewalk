@@ -21,7 +21,6 @@ print 'PID', os.getpid()
 db = connect('rhnuser/rhnuser@webdev')
 
 #c = db.prepare("select 1, 'z', 2, 3, 4, 't' from dual")
-#PGPORT_3:ORAFCE(DUAL)
 c = db.prepare("select 1 from dual")
 #c = db.prepare("select 1, 2 from dual")
 

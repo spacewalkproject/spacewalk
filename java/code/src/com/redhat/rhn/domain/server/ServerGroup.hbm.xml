@@ -68,7 +68,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>
     
     <sql-query name="ServerGroup.lookupByTypeLabelAndOrg2">
- <!-- PGPORT_1:NO Change -->
         <![CDATA[ select {sg.*}
 					from rhnServerGroup SG
 					 where SG.group_type = (select id from rhnServerGroupType where label = :label)
@@ -82,7 +81,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                  and s.org = :org
             ]]>
     </query>
-<!-- PGPORT_1:NO Change -->
+
     <sql-query name="ServerGroup.lookupAdministeredServerGroups">
         <![CDATA[ select {sg.*}
 					from rhnServerGroup SG,
@@ -95,7 +94,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
 
     <sql-query name="ServerGroup.lookupAdministrators">
-<!-- PGPORT_1:NO Change -->
         <![CDATA[ select {wc.*}
 					from WEB_CONTACT wc	
 					inner join rhnUserManagedServerGroups umsg on wc.id = umsg.user_id
@@ -108,7 +106,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     
     <sql-query name="ServerGroup.lookupGroupsWithNoAssocAdmins">
-<!-- PGPORT_1:NO Change -->
         <![CDATA[ select {sg.*}
 					from rhnServerGroup SG
 	                where
@@ -129,7 +126,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
     
     <sql-query name="ServerGroup.lookupServerIds">
-<!-- PGPORT_1:NO Change -->
         <![CDATA[ select s.id
 					from rhnServer s 
 					inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
@@ -138,7 +134,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	               	and s.org_id = :org_id
 	           ]]>
     </sql-query> 
-<!-- PGPORT_1:NO Change -->
+
     <sql-query name="ServerGroup.lookupCurrentMembersValue">
         <![CDATA[ select Current_Members from rhnServerGroup 
         			where id = :sgid
@@ -146,7 +142,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 
     <sql-query name="ServerGroup.lookupEntitlementGroups">
-<!-- PGPORT_1:NO Change -->
         <![CDATA[select {sg.*}
 						from rhnServerGroup sg	
 						inner join rhnServerGroupMembers sgm on sg.id = sgm.server_group_id  
@@ -159,7 +154,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
 
     <sql-query name="ServerGroup.lookupManagedGroups">
-<!-- PGPORT_1:NO Change -->
         <![CDATA[select {sg.*}
 						from rhnServerGroup sg	
 						inner join rhnServerGroupMembers sgm on sg.id = sgm.server_group_id  
@@ -180,7 +174,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.ManagedServerGroup as s where
         			 s.org = :org and (s.groupType is null)]]>
     </query>
-    <!-- PGPORT_1:NO Change -->
+    
     <sql-query name="ServerGroup.lookupActiveServerIds">
         <![CDATA[
 				SELECT S.id
@@ -192,17 +186,16 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					SGM.server_group_id = :sgid
         ]]>
     </sql-query>
-    <sql-query name="ServerGroup.lookupInactiveServerIds">
 
-<!-- PGPORT_1:NO Change -->
+    <sql-query name="ServerGroup.lookupInactiveServerIds">
         <![CDATA[
 				SELECT S.id
 					FROM rhnServerGroupMembers SGM
 				  		inner join rhnServer S on SGM.server_id = s.id
 				  		inner join rhnServerInfo SI on S.id = SI.server_id
-                WHERE
-                        SI.checkin < (sysdate - :threshold) AND
-                        SGM.server_group_id = :sgid        
+				 WHERE
+					SI.checkin < (sysdate - :threshold) AND
+					SGM.server_group_id = :sgid        
         ]]>
-    </sql-query>                   
+    </sql-query>                	
 </hibernate-mapping>

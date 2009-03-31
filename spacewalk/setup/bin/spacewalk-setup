@@ -317,7 +317,6 @@ sub valid_cert_countries {
   my $answers = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
- # PGPORT_4:DONE:QUERY_REWRITE(ANSI JOIN) #
   # NOTE: Removed a nvl on TL.short_name_tl and VC.short_name here,
   # short_name_tl was always NULL.
   my $sth = $dbh->prepare(<<EOQ);
@@ -1047,7 +1046,6 @@ sub final_db_config {
   my $answers = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT TS.value
   FROM rhnTemplateString TS
@@ -1058,7 +1056,6 @@ EOQ
   my ($current_hostname) = $sth->fetchrow();
 
   unless ($current_hostname) {
- # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
     $sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnTemplateString
@@ -1172,8 +1169,6 @@ sub update_monitoring_environment {
       # BZ 226915 we cannot use db_name from %answers - it contains instance name
       # we want real db name
       ($db_name) = $dbh->selectrow_array(q|SELECT UPPER(sys_context('userenv', 'db_name')) FROM dual|);
- # PGPORT_1:NO Change #
-  }
 
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
@@ -1200,7 +1195,6 @@ sub update_monitoring_config {
   my $mon_config = shift;
 
   my $dbh = Spacewalk::Setup::get_dbh($answers);
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = ?,

@@ -188,7 +188,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="Package.findByPackageName">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.Package as p where p.packageName = :packageName]]>
     </query>
-<!-- PGPORT_1:NO Change -->    
+    
     <query name="Package.searchByIdAndArches">
             <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary
                        from com.redhat.rhn.domain.rhnpackage.Package as p,
@@ -198,7 +198,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         and p in elements(c.packages)
                       ]]>
     </query>
-    <!-- PGPORT_1:NO Change -->
+    
     <query name="Package.searchById">
             <![CDATA[select distinct p.packageName.id, p.packageName.name, p.summary
                        from com.redhat.rhn.domain.rhnpackage.Package as p,
@@ -209,7 +209,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                         and p IN elements (c.packages)
                       ]]>
     </query>
-    <!-- PGPORT_1:NO Change -->
+    
     <query name="Package.listOrphans">
     	<![CDATA[ select p
     		from com.redhat.rhn.domain.rhnpackage.Package as p
@@ -230,7 +230,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 			(p.org is null or p.org = :org)
     	]]>
     </query>
-    <!-- PGPORT_1:NO Change -->
+    
     <sql-query name="Package.lookupFromSet">
         <![CDATA[SELECT {p.*}
 			from rhnPackage p

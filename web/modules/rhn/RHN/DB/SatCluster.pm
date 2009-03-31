@@ -146,7 +146,6 @@ sub create_new {
 
   # Fetch two IDs from RHN_COMMAND_TARGET_RECID_SEQ to act 
   # as the sat_cluster recid and sat_node recid
-  #PGPORTED_5:POSTGRES_VERSION_QUERY(NEXTVAL),DUAL
   $sql = q{
     SELECT sequence_nextval('RHN_COMMAND_TARGET_RECID_SEQ')
     FROM   dual
@@ -161,7 +160,6 @@ sub create_new {
   }
 
   # Next, create RHN_COMMAND_TARGET records
-  #PGPORT_1:NO Change
   $sql = q{
     INSERT INTO rhn_command_target (recid, target_type, customer_id)
     VALUES (?, ?, ?)
@@ -174,7 +172,6 @@ sub create_new {
 
 
   # Then create the RHN_SAT_CLUSTER record
-  #PGPORTED_1:NO Change
   $sql = q{
     INSERT INTO rhn_sat_cluster (
       RECID,
@@ -211,7 +208,6 @@ sub create_new {
   my $scout_shared_key = generate_shared_key();
 
   # Finally, create the RHN_SAT_NODE record.
-  #PGPORTED_1:NO Change
   $sql = q{
     INSERT INTO rhn_sat_node (
       RECID,

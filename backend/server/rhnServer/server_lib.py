@@ -138,14 +138,12 @@ def getServerID(server, fields = []):
     # ugliness is over
 
     # Now build the search
-   #PGPORT_1:NO Change
     if type(search_id) == type(0):
         h = rhnSQL.prepare("""
         select s.id %s from rhnServer s %s
         where s.id = :p1 %s
         """ % (xfields, archdb, archjoin))
     else: # string
-       # PGPORT_2:AS KEYWORD
         h = rhnSQL.prepare("""
         select s.id %s from rhnServer s %s
         where s.digital_server_id = :p1 %s
@@ -171,7 +169,6 @@ def getServerSecret(server):
 # create the initial server groups for a new server
 def __create_server_group(group_label, org_id, maxnum = ''):
     # Add this new server to the pending group
-     # PGPORT_2:AS KEYWORD
     h = rhnSQL.prepare("""
     select sg.id, sg.current_members
     from rhnServerGroup sg
@@ -183,7 +180,6 @@ def __create_server_group(group_label, org_id, maxnum = ''):
     data = h.fetchone_dict()
     if not data:
         # create the requested group
-        #PGPORT_1:NO Change
         ret_id = rhnSQL.Sequence("rhn_server_group_id_seq")()
         h = rhnSQL.prepare("""
         insert into rhnServerGroup
@@ -224,7 +220,6 @@ def join_server_group(server_id, server_group_id):
 # groups and channels
 def create_server_setup(server_id, org_id):
     # create the rhnServerInfo record
-   #PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
     h = rhnSQL.prepare("""
     insert into rhnServerInfo (server_id, checkin, checkin_counter)
                        values (:server_id, sysdate, :checkin_counter)
@@ -244,7 +239,6 @@ def create_server_setup(server_id, org_id):
 # abuse error for it
 def __special_server(server_id):
     # if a proxy or a satellite we don't enforce this. thanks chip.
-    #PGPORT_1:NO Change
     h = rhnSQL.prepare("""
     select 1 from rhnProxyInfo where server_id = :server_id
     union
@@ -259,7 +253,6 @@ def __special_server(server_id):
 
 # checkin - update the last checkin time
 #         - check for abuse of service.
-#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)
 def checkin(server_id, commit=1, check_for_abuse=1):
     log_debug(3, server_id)
     h = rhnSQL.prepare("""
@@ -274,7 +267,6 @@ def checkin(server_id, commit=1, check_for_abuse=1):
     if not CFG.ABUSE_CHECK or not check_for_abuse:
         return 1
     # now check for abusers
-   #PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE),As keyword
     h = rhnSQL.prepare("""
     select s.name, si.checkin_counter - ((sysdate - s.created) * 100) ticks
     from rhnServer s, rhnServerInfo si
@@ -302,7 +294,6 @@ def set_qos(server_id):
     pass
 
 # set_qos - sets some Quality of Service params for users 
-#PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE),As keyword
 def set_qos_dummy(server_id):
     log_debug(3, server_id)
 
@@ -338,7 +329,7 @@ def throttle(server):
     if not os.path.exists(throttlefile):
         # We don't throttle anybody
         return
-#PGPORT_3:ORAFCE(DUAL),SYSDATE
+
     # from this point on, normal throttle
     h = rhnSQL.prepare("select rhn_bel.is_org_paid(:org_id) as paid, sysdate from dual")
     h.execute(org_id = server['org_id'])
@@ -400,7 +391,7 @@ def dbiDate2timestamp(dateobj):
 def snapshot_server(server_id, reason):
     if CFG.ENABLE_SNAPSHOTS:
        return rhnSQL.Procedure("rhn_server.snapshot_server")(server_id, reason)
-#PGPORT_1:NO Change
+
 
 def check_entitlement(server_id):
     h = rhnSQL.prepare("""select server_id, label from rhnServerEntitlementView where server_id = :server_id""")

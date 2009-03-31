@@ -14,20 +14,18 @@ class ExceptionsTest(unittest.TestCase):
     def setUp(self):
         rhnSQL.initDB(DB)
         self._cleanup()
-       #PGPORT_4:QUERY_REWRITE(data type) 
+
         rhnSQL.execute("create table misatestlob (id int, val blob)")
         rhnSQL.execute("create sequence misatestlob_id_seq")
     
 
     def _cleanup(self):
         try:
-           #PGPORT_1:NO Change
             rhnSQL.execute("drop table misatestlob")
         except rhnSQL.SQLStatementPrepareError:
             pass
         
         try:
-           #PGPORT_1:NO Change
             rhnSQL.execute("drop sequence misatestlob_id_seq")
         except rhnSQL.SQLStatementPrepareError:
             pass
@@ -42,12 +40,11 @@ class ExceptionsTest(unittest.TestCase):
 
     def test_lobs(self):
         new_id = rhnSQL.Sequence('misatestlob_id_seq').next()
-        #PGPORT_1:NO Change
         h = rhnSQL.prepare("""
             insert into misatestlob (id, val) values (:id, empty_blob())
         """)
         h.execute(id=new_id)
-        #PGPORT_1:NO Change
+
         h = rhnSQL.prepare("""
             select val from misatestlob where id = :id for update of val
         """)
@@ -60,7 +57,7 @@ class ExceptionsTest(unittest.TestCase):
             s = s + chr(i)
         lob.write(s)
         rhnSQL.commit()
-       #PGPORT_1:NO Change
+
         h = rhnSQL.prepare("""
             select val from misatestlob where id = :id
         """)

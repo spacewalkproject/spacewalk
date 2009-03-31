@@ -998,7 +998,6 @@ my $val = $q->param("val_field$_");
   }
 
   #execute the newly constructed sql statement
-  # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
 my $sql1 = "
     $select1
     $from1

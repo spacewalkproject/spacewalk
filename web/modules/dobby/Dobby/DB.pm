@@ -103,7 +103,6 @@ sub tablespaces {
   my $ts = shift;
 
   my $dbh = $self->sysdba_connect;
-#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
   my $sth = $dbh->prepare(<<EOS);
 select tablespace_name NAME, contents TYPE from dba_tablespaces
 EOS
@@ -117,7 +116,7 @@ sub tablespace_datafiles {
   my $ts = shift;
 
   my $dbh = $self->sysdba_connect;
-#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG),As keyword
+
   my $sth = $dbh->prepare(<<EOS);
 select file_name FILENAME, status STATUS, bytes BYTES,
        'DATAFILE' filetype

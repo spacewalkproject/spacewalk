@@ -2,7 +2,6 @@
 
 <write-mode name="delete_set">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE
       FROM  rhnSet
      WHERE  user_id = :user_id
@@ -12,7 +11,6 @@
 
 <write-mode name="add_to_set_el3">
    <query params="user_id, label, el_one, el_two, el_three">
-<!-- PGPORT_1:NO Change -->
      INSERT
        INTO rhnSet (user_id, label, element, element_two, element_three)
      VALUES (:user_id, :label, :el_one, :el_two, :el_three)
@@ -21,7 +19,6 @@
 
 <write-mode name="add_to_set_el2">
   <query params="user_id, label, el_one, el_two">
-<!-- PGPORT_1:NO Change -->
     INSERT
       INTO rhnSet (user_id, label, element, element_two)
     VALUES (:user_id, :label, :el_one, :el_two)
@@ -30,7 +27,6 @@
 
 <write-mode name="add_to_set_el1">
   <query params="user_id, label, el_one">
-<!-- PGPORT_1:NO Change -->
     INSERT
       INTO rhnSet (user_id, label, element)
     VALUES (:user_id, :label, :el_one)
@@ -39,7 +35,6 @@
 
 <write-mode name="delete_from_set_el3">
   <query params="user_id, label, el_one, el_two, el_three">
-<!-- PGPORT_1:NO Change -->
     DELETE
       FROM rhnSet
      WHERE user_id = :user_id
@@ -52,7 +47,6 @@
 
 <write-mode name="delete_from_set_el2">
   <query params="user_id, label, el_one, el_two">
-<!-- PGPORT_1:NO Change -->
     DELETE
       FROM rhnSet
      WHERE user_id = :user_id
@@ -64,7 +58,6 @@
 
 <write-mode name="delete_from_set_el1">
   <query params="user_id, label, el_one">
-<!-- PGPORT_1:NO Change -->
     DELETE
       FROM rhnSet
      WHERE user_id = :user_id
@@ -76,7 +69,6 @@
 
 <mode name="lookup_set" class="com.redhat.rhn.domain.rhnset.RhnSetElement">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
 SELECT  user_id, label, element, element_two, element_three
   FROM  rhnSet S
  WHERE  S.user_id = :user_id
@@ -86,7 +78,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_illegal_servers">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE user_id = :user_id
        AND label = :label
@@ -101,7 +92,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_illegal_errata">
   <query params="user_id, label, org_id">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE user_id = :user_id
        AND label = :label
@@ -114,7 +104,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_unowned_servers">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
       AND S.label = :label
@@ -127,7 +116,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_unowned_virtual_servers">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
       AND S.label = :label
@@ -142,7 +130,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_unowned_probes">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -155,7 +142,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_unowned_actions">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -175,7 +161,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_unowned_channels">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
       AND S.label = :label
@@ -187,7 +172,6 @@ SELECT  user_id, label, element, element_two, element_three
 
 <write-mode name="remove_unowned_errata">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
 DELETE
   FROM rhnSet S
  WHERE rowid IN(SELECT s.rowid
@@ -214,7 +198,6 @@ DELETE
 
 <write-mode name="remove_nonrhn_unowned_errata">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
 DELETE
   FROM rhnSet S
  WHERE rowid IN(SELECT s.rowid
@@ -241,7 +224,6 @@ DELETE
 
 <write-mode name="remove_unowned_system_profiles">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -254,7 +236,6 @@ DELETE
 
 <write-mode name="remove_unowned_packages">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
 DELETE
   FROM rhnSet
  WHERE rowid IN(SELECT s.rowid
@@ -283,7 +264,6 @@ DELETE
 
 <write-mode name ="remove_unowned_kickstart_scripts">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
 DELETE 
   FROM rhnSet
  WHERE 1=1
@@ -301,7 +281,6 @@ DELETE
 
 <write-mode name="remove_unowned_users">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -315,7 +294,6 @@ DELETE
 
 <write-mode name="remove_unowned_system_groups">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
 DELETE
   FROM rhnSet S
  WHERE S.user_id = :user_id
@@ -349,7 +327,6 @@ DELETE
 
 <write-mode name="remove_unowned_filters">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -364,7 +341,6 @@ DELETE
 
 <write-mode name="remove_unowned_suites">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -379,7 +355,6 @@ DELETE
 
 <write-mode name="remove_unowned_activation_keys">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -393,7 +368,6 @@ DELETE
 
 <write-mode name="remove_unowned_gpgssl_keys">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
     DELETE FROM rhnSet S
      WHERE S.user_id = :user_id
        AND S.label = :label
@@ -407,7 +381,6 @@ DELETE
 
 <write-mode name="remove_unowned_file_list">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
      DELETE FROM rhnSet S
       WHERE S.user_id = :user_id
         AND S.label = :label
@@ -421,7 +394,6 @@ DELETE
 
 <write-mode name="remove_unowned_package_profiles">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
      DELETE FROM rhnSet S
       WHERE S.user_id = :user_id
         AND S.label = :label
@@ -435,7 +407,6 @@ DELETE
 
 <write-mode name="remove_inaccessible_config_revs">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
      DELETE FROM rhnSet S
       WHERE S.user_id = :user_id
         AND S.label = :label
@@ -445,7 +416,6 @@ DELETE
 
 <write-mode name="remove_inaccessible_config_files">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
      DELETE FROM rhnSet S
       WHERE S.user_id = :user_id
         AND S.label = :label
@@ -455,7 +425,6 @@ DELETE
 
 <write-mode name="remove_inaccessible_config_channels">
   <query params="user_id, label">
-<!-- PGPORT_1:NO Change -->
      DELETE FROM rhnSet S
       WHERE S.user_id = :user_id
         AND S.label = :label

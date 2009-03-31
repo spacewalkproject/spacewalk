@@ -175,7 +175,6 @@ sub commit {
     my $dbh = RHN::DB->connect;
 
     # Get the next recid from the sequence and set it as the id for this instance.
-    # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
     my $sth = $dbh->prepare("SELECT " . $self->get_sequence . ".nextval FROM DUAL");
     $sth->execute;
     my ($pk_value) = $sth->fetchrow;
@@ -206,13 +205,11 @@ sub commit {
     $query = get_table->update_query(get_table->methods_to_columns(@modified));
     $query .= get_table_alias . ".$pk_upper = ?";
     # adjust the query to update last_update_date
-    # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
     $query =~ s/SET (.*) WHERE/SET $1, $table_alias\.last_update_date = SYSDATE WHERE/;
   }
   else {
     $query = get_table->insert_query(get_table->methods_to_columns(@modified));
     # adjust the query to update last_update_date
-    # PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE) #
     $query =~ s/\((.*)\) VALUES \((.*)\)/\($1, $table_alias\.last_update_date\) VALUES \($2, SYSDATE\)/;
   }
   
@@ -304,7 +301,7 @@ sub delete {
 
   my $dbh = RHN::DB->connect;
   my ($sth, $query);
-  # PGPORT_1:NO Change #
+
   $query = <<EOQ;
 DELETE FROM rhn_contact_methods
       WHERE recid = :method_id
@@ -328,7 +325,7 @@ sub has_probe_dependencies {
 
   my $dbh = RHN::DB->connect;
   my ($sth, $query);
- # PGPORT_3:ORAFCE(DECODE) #
+
   $query = <<EOQ;
 SELECT decode(count(*),0,0,1)
   FROM     rhn_probe P, rhn_contact_group_members CGM
@@ -365,7 +362,6 @@ sub get_method_type_info {
                       );
 
   my $dbh = RHN::DB->connect;
-  # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 SELECT recid as method_type_id, 
        notification_format_id as method_format_id, 

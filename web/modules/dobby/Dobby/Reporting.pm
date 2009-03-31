@@ -23,7 +23,7 @@ sub tablespace_overview {
   my $dobby = shift;
 
   my $dbh = $dobby->sysdba_connect;
-#PGPORT_4:QUERY_REWRITE(ANSI JOIN) ,POSTGRES_VERSION_QUERY(CATALOG),orafce(NVL),orafce(AS) 
+
   my $query = <<EOQ;
 SELECT DT.tablespace_name NAME, DT.extent_management,
        nvl(DFS.bytes,0) FREE_BYTES, nvl(DTS.bytes,0) TOTAL_BYTES,
@@ -52,7 +52,7 @@ sub table_size_overview {
   my $dobby = shift;
 
   my $dbh = $dobby->sysdba_connect;
-#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
+
   my $query = <<EOQ;
 SELECT de.segment_name AS NAME, SUM(de.bytes) AS TOTAL_BYTES
   FROM dba_tables dt, dba_extents de
@@ -72,7 +72,7 @@ sub segadv_recomendations {
   my $dobby = shift;
 
   my $dbh = $dobby->connect;
-#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
+
   my $query = <<EOQ;
 SELECT tbs.segment_space_management, rec.*
   FROM TABLE(DBMS_SPACE.ASA_RECOMMENDATIONS()) rec,

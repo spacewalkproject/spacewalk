@@ -45,9 +45,7 @@ sub find_org_by_user {
 #    $where_clause = "S.name = ?";
 #  }
 
-#PGPORT_1:NO Change
   $query = <<EOQ;
-
 SELECT  WC.org_id, WC.login, WC.id, PI.email
   FROM  web_user_personal_info PI, web_contact WC
  WHERE  (WC.login_uc LIKE UPPER(?) OR PI.email LIKE UPPER(?))
@@ -96,7 +94,7 @@ sub find_org_by_server_name {
   else {
     $where_clause = "S.name = ?";
   }
-#PGPORT_1:NO Change
+
   $query = <<EOQ;
 SELECT  O.id, O.name, S.id, S.name
   FROM  web_customer O, rhnServer S

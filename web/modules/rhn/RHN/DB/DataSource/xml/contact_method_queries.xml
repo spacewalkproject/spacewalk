@@ -6,7 +6,6 @@
 -->
 <mode name="users_contact_methods">
   <query params="user_id">
-<!--#PGPORT_3:ORAFCE(Decode),AS KEYWORD-->
 SELECT  CM.recid recid,
         CM.method_name method_name,
         DECODE( MT.method_type_name,
@@ -25,7 +24,6 @@ ORDER BY CM.method_name
 -->
 <mode name="orgs_contact_method_tree">
   <query params="org_id">
-<!--#PGPORT_4:QUERY_REWRITE(ANSI JOIN),DECODE,aS KEYWORD-->
 SELECT WC.id contact_id,
        WC.login contact_login,
        CM.recid method_id,
@@ -49,7 +47,6 @@ ORDER BY WC.login, CM.method_name
 -->
 <mode name="contact_groups">
   <query params="method_id">
-<!--#PGPORT_1:NO Change-->
 SELECT CG.recid, 
        CG.contact_group_name,
        CG.customer_id,

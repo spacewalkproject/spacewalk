@@ -22,7 +22,7 @@ class ExecutemanyTest(unittest.TestCase):
         self.table_name = "misatest_%d" % os.getpid()
         rhnSQL.initDB(DB)
         self._cleanup()
-       #PGPORT_4:QUERY_REWRITE(data-type) 
+
         rhnSQL.execute("create table %s (id int, val varchar2(10))" %
             self.table_name)
     
@@ -45,7 +45,6 @@ class ExecutemanyTest(unittest.TestCase):
         verifies the param types; passing a string and an Int takes it one
         step further)
         """
-       #PGPORT_1:NO Change
         h = rhnSQL.prepare("""
             insert into %s (id, val) values (:id, :val)
         """ % self.table_name)
@@ -54,7 +53,7 @@ class ExecutemanyTest(unittest.TestCase):
             'val'   : ['', 3],
         }
         apply(h.executemany, (), params)
-       #PGPORT_1:NO Change
+
         h = rhnSQL.prepare("select id, val from %s" % self.table_name)
         h.execute()
         rows = h.fetchall_dict()

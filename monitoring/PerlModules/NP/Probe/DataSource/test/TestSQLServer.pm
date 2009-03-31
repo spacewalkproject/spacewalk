@@ -69,7 +69,7 @@ sub test_sql {
     $self->assert($ss->connected, "Cannot connect to SQLServer: ", $ss->errors);
 
     my $result;
-#PGPORT_1:NO Change
+
     $result = $ss->fetch_first('select count(*) as num_users from sysusers');
     $self->assert(ref($result) eq 'HASH', "Sysusers count results not hash: ", ref($result));
     my $count = $result->{'num_users'};
@@ -92,7 +92,7 @@ sub test_sql {
     $self->assert($name eq 'guest', "Wrong name for first row: $name");
     $name = $result->[1]->{'name'};
     $self->assert($name eq 'public', "Wrong name for second row: $name");
-#PGPORT_1:NO Change
+
     try {
         $result = $ss->fetch('select foo from no_such_table, another_bad_one',
                               ['no_such_table', 'another_bad_one']);

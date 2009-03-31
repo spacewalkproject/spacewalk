@@ -39,7 +39,6 @@ sub insert {
   my $value = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOS);
 INSERT INTO $self->{table_name}
   (o_id, entry_time, data)
@@ -60,7 +59,6 @@ sub insert_list {
   my $list = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOS);
 INSERT INTO $self->{table_name}
   (o_id, entry_time, data)
@@ -88,7 +86,6 @@ sub fetch {
   my $get_initial = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOS);
 SELECT entry_time, data
   FROM $self->{table_name}
@@ -132,7 +129,7 @@ sub last {
     $before_clause = "   AND entry_time < :before";
     push @params, (before => $before);
   }
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
 SELECT entry_time, data
@@ -156,7 +153,6 @@ sub delete {
   my $key = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOS);
 DELETE FROM $self->{table_name}
       WHERE o_id = :o_id
@@ -174,7 +170,7 @@ EOS
 sub size {
   my $self = shift;
   my $oid = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
 SELECT COUNT(*)

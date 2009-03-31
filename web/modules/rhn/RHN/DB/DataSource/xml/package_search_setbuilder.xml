@@ -2,7 +2,6 @@
 
 <mode name="simple_package_search">
   <query params="org_id, search_string">
-  <!-- PGPORT_3:ORAFCE(INSTR) -->
 SELECT DISTINCT PN.id
   FROM rhnPackageName PN,
        rhnPackage P,
@@ -20,7 +19,6 @@ SELECT DISTINCT PN.id
 
 <mode name="simple_package_search_smart">
   <query params="org_id, search_string">
- <!-- PGPORT_3:ORAFCE(INSTR) -->
 SELECT DISTINCT PN.id
   FROM rhnPackageName PN,
        rhnPackage P,
@@ -39,7 +37,6 @@ SELECT DISTINCT PN.id
 
 <mode name="simple_package_search_clabel">
   <query params="org_id, search_string, channel_label">
- <!-- PGPORT_3:ORAFCE(INSTR) -->
 SELECT DISTINCT PN.id
   FROM rhnPackageName PN,
        rhnPackage P,
@@ -57,7 +54,6 @@ SELECT DISTINCT PN.id
 
 <mode name="package_search_by_name">
   <query params="org_id, search_string">
- <!-- PGPORT_3:ORAFCE(INSTR) -->
 SELECT DISTINCT PN.id
   FROM rhnPackageName PN,
        rhnPackage P,
@@ -74,7 +70,6 @@ SELECT DISTINCT PN.id
 
 <mode name="package_search_by_name_smart">
   <query params="org_id, search_string">
- <!-- PGPORT_3:ORAFCE(INSTR) -->
 SELECT DISTINCT PN.id
   FROM rhnPackageName PN,
        rhnPackage P,
@@ -91,7 +86,6 @@ SELECT DISTINCT PN.id
 
 <mode name="package_search_by_name_clabel">
   <query params="org_id, search_string, channel_label">
- <!-- PGPORT_3:ORAFCE(INSTR) -->
 SELECT DISTINCT PN.id
   FROM rhnPackageName PN,
        rhnPackage P,

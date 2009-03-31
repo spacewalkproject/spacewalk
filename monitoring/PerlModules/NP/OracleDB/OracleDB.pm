@@ -255,7 +255,7 @@ sub desc {
   if ($self->desc_cache()) {
     return $DESC{uc($tablename)} if (exists($DESC{uc($tablename)}));
   }
-#PGPORT_5:POSTGRES_VERSION_QUERY(CATALOG)
+
   my $sql = "SELECT   LOWER(t.column_name),t.data_type,
                       t.data_precision,t.nullable
              FROM     all_tab_columns t, all_synonyms s
@@ -296,7 +296,6 @@ sub TableOp {
 
     $self->dprint(3, "\tInserting into table\n");
     my $cols   = join(',', @$colref);
-#PGPORT_1:NO Change
     $sql_statement = sprintf<<EOSQL, join(', ', @$whereclauses);
     INSERT INTO $table ($cols)
     VALUES (%s)

@@ -2,7 +2,6 @@
 
 <mode name="simple_errata_search">
   <query params="org_id, search_string">
-<!--#PGPORT_3:ORAFCE(INSTR)-->
 SELECT E.id
   FROM rhnErrata E,
        rhnChannelErrata CE,
@@ -17,7 +16,6 @@ SELECT E.id
 
 <mode name="errata_search_by_advisory">
   <query params="user_id, search_string">
-<!--#PGPORT_3:ORAFCE(INSTR)-->
 SELECT E.id
   FROM rhnErrata E,
        rhnChannelErrata CE,
@@ -31,7 +29,6 @@ SELECT E.id
 
 <mode name="errata_search_by_package_name">
   <query params="user_id, search_string">
-<!--#PGPORT_3:ORAFCE(INSTR)-->
 SELECT E.id
   FROM rhnErrata E,
        rhnPackageName PN,

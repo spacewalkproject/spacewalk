@@ -40,7 +40,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 where p.id = :id and org_id=:org_id]]>
     </query>
     <sql-query name="Profile.compatibleWithServer">
-<!--#PGPORT_1:NO Change-->
         <![CDATA[SELECT DISTINCT {p.*}
   FROM rhnServer S,
        rhnServerProfile P
@@ -60,7 +59,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return alias="p" class="com.redhat.rhn.domain.rhnpackage.profile.Profile" />
     </sql-query>
     <sql-query name="Profile.findByNameAndOrgId">
-<!--#PGPORT_1:NO Change-->
         <![CDATA[SELECT {p.*}
          FROM rhnServerProfile P
         WHERE P.name = :name

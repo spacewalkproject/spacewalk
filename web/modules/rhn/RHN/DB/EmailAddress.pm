@@ -115,7 +115,7 @@ sub commit {
   my $self = shift;
   my $dbh = shift || RHN::DB->connect;
   my $mode = 'update';
- # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
+
   if ($self->id == -1) {
     my $sth = $dbh->prepare("SELECT rhn_eaddress_id_seq.nextval FROM DUAL");
     $sth->execute;
@@ -169,7 +169,7 @@ sub state {
   my $self = shift;
   return $self->mail_state_label if not @_;
   my $new_label = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare('SELECT id FROM rhnEmailAddressState WHERE label = :label');
   $sth->execute_h(label => $new_label);
@@ -186,7 +186,7 @@ sub email_address_states {
   my $class = shift;
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 SELECT label
   FROM rhnEmailAddressState
@@ -208,7 +208,7 @@ sub delete_self {
   my $self = shift;
   my %params = validate(@_, {-transaction => 0});
   my $dbh = $params{-transaction} || RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 DELETE
   FROM rhnEmailAddress
@@ -225,7 +225,7 @@ sub delete_other_addresses {
   my $self = shift;
   my %params = validate(@_, {-transaction => 0});
   my $dbh = $params{-transaction} || RHN::DB->connect;
- # PGPORT_1:NO Change #
+
   my $query = <<EOQ;
 DELETE
   FROM rhnEmailAddress
@@ -280,7 +280,7 @@ sub reset_email {
 sub log_sent_email {
   my $class = shift;
   my %params = validate(@_, {-reason => 1, -address => 1, -user_id => 1});
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOS);
 INSERT INTO rhnEmailAddressLog

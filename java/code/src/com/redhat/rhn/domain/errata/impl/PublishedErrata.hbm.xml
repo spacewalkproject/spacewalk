@@ -106,7 +106,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <query name="PublishedErrata.findByAdvisory">
         <![CDATA[from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                  where e.advisory = :advisory]]>
-<!-- PGPORT_1:NO Change -->
     </query>
     <query name="PublishedErrata.lookupSortedByChannel">
         <![CDATA[select e
@@ -116,7 +115,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 	order by e.issueDate 
                 ]]>    
     </query>
-<!-- PGPORT_1:NO Change -->
     <query name="PublishedErrata.lookupByChannelBetweenDates">
         <![CDATA[select e 
                    from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
@@ -127,14 +125,13 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                   order by e.issueDate
                 ]]>
     </query>
-<!-- PGPORT_1:NO Change -->
     <query name="PublishedErrata.searchById">
         <![CDATA[select distinct e.id, e.advisory, e.advisoryName, e.advisoryType, e.synopsis, e.updateDate, e.issueDate
         		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                 where e.id IN (:eids)
                 ]]>    
     </query>
-<!-- PGPORT_1:NO Change -->
+
     <sql-query name="PublishedErrata.searchByPackageIds">
         <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName, e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,
                         e.update_date as updateDate, e.issue_date as issueDate, pn.name
@@ -156,7 +153,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar column="issueDate" type="timestamp" />
         <return-scalar column="name" type="string" />
     </sql-query>
-<!-- PGPORT_1:NO Change -->
+
   	<sql-query name="PublishedErrata.lookupFromSet">
         <![CDATA[SELECT {e.*}
 			from rhnErrata e left join 

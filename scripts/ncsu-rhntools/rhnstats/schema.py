@@ -1,4 +1,3 @@
-#PGPORT_1:NO Change
 INITDB = """
 
 create table CLIENTS (

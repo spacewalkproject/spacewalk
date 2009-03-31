@@ -205,7 +205,7 @@ sub lookup {
 
 sub lookup_session_data {
   my $self = shift;
- # PGPORT_1:NO Change #
+
   my $dbh = RHN::DB->connect;
   my $sth = $dbh->prepare(<<EOQ);
 SELECT AISD.key, AISD.value, AISD.extra_data
@@ -244,7 +244,7 @@ sub commit {
 
   unless ($self->get_id) {
     my $seq = $self->sequence;
- # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
+
     my $sth = $dbh->prepare("SELECT $seq.nextval FROM DUAL");
     $sth->execute;
     my ($id) = $sth->fetchrow;
@@ -292,7 +292,7 @@ sub commit_session_data {
 
   my $dbh = RHN::DB->connect;
   my %data = $self->get_session_data();
- # PGPORT_1:NO Change #
+
   my $sth = $dbh->prepare(<<EOQ);
 DELETE
   FROM rhnAppInstallSessionData AISD
@@ -300,14 +300,14 @@ DELETE
 EOQ
 
   $sth->execute_h(session_id => $self->get_id);
- # PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
+
   my $val_sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnAppInstallSessionData
        (id, session_id, key, value)
 VALUES (rhn_appinst_sdata_id_seq.nextval, :session_id, :key, :value)
 EOQ
-# PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL) #
+
   my $dat_sth = $dbh->prepare(<<EOQ);
 INSERT
   INTO rhnAppInstallSessionData
@@ -340,7 +340,6 @@ sub clear_session {
 			  });
 
   my $dbh = RHN::DB->connect;
- # PGPORT_1:NO Change #
   my $sth = $dbh->prepare(<<EOQ);
 DELETE
   FROM rhnAppInstallSession AIS
