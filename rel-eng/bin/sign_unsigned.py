@@ -8,7 +8,7 @@
 import base64
 try:
     import koji
-else:
+except:
     import brew as koji
 import md5
 import os
