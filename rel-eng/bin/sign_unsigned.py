@@ -6,7 +6,10 @@
 # Copyright (c) 2009 Red Hat
 
 import base64
-import koji
+try:
+    import koji
+else:
+    import brew as koji
 import md5
 import os
 import os.path
