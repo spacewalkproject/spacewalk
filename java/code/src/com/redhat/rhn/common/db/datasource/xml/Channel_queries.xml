@@ -2,7 +2,6 @@
 
 <write-mode name="remove_org_channel_setting">
   <query params="org_id, cid, label">
-<!-- # PGPORT_1:NO Change # -->
 DELETE
   FROM rhnOrgChannelSettings OCS
  WHERE OCS.org_id = :org_id
@@ -13,7 +12,6 @@ DELETE
 
 <write-mode name="add_channel_package">
   <query params="pid, cid">
-<!-- # PGPORT_1:NO Change # -->
   INSERT INTO rhnChannelPackage (channel_id, package_id)
   VALUES (:cid, :pid)  
   </query>
@@ -21,7 +19,6 @@ DELETE
 
 <write-mode name="add_org_channel_setting">
   <query params="org_id, cid, label">
-<!-- # PGPORT_1:NO Change # -->
 INSERT
   INTO rhnOrgChannelSettings
        (org_id, channel_id, setting_id)
@@ -31,7 +28,6 @@ VALUES (:org_id, :cid, (SELECT id FROM rhnOrgChannelSettingsType WHERE label = :
 
 <write-mode name="grant_channel_permission">
   <query params="user_id, cid, role_label">
-<!-- # PGPORT_1:NO Change # -->
 INSERT INTO rhnChannelPermission (channel_id, user_id, role_id)
 VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :role_label))
   </query>
@@ -39,7 +35,6 @@ VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :
 
 <write-mode name="revoke_channel_permission">
   <query params="user_id, cid, role_label">
-<!-- # PGPORT_1:NO Change # -->
 DELETE
   FROM rhnChannelPermission CP
  WHERE CP.user_id = :user_id
@@ -73,7 +68,6 @@ DELETE
 
 <write-mode name="request_repo_regen">
   <query params="label, client, reason">
-<!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)  -->
 INSERT 
   INTO rhnRepoRegenQueue
         (id, channel_label, client, reason, force, bypass_filters, next_action, created, modified)
@@ -84,7 +78,6 @@ VALUES (rhn_repo_regen_queue_id_seq.nextval,
 
 <mode name="org_pkg_channels">
   <query params="org_id, pid">
-<!-- # PGPORT_1:NO Change # -->
 SELECT C.label AS label,
        C.name AS name,
        NVL(C2.label, ' ') AS parent_label
@@ -103,7 +96,6 @@ ORDER BY UPPER(C.name)
 
 <mode name="org_pkg_channel_ids">
   <query params="org_id, pid">
-<!-- # PGPORT_1:NO Change # -->
 SELECT C.id AS channel_id
   FROM rhnChannel C2,
        rhnChannel C,
@@ -122,7 +114,6 @@ ORDER BY UPPER(C.name)
 <mode name="channels_owned_by_org"
     class="com.redhat.rhn.frontend.dto.ChannelOverview">
     <query params="org_id">
-<!-- # PGPORT_1:NO Change # -->
   SELECT C.id, C.name, CC.original_id
     FROM rhnChannel C left join 
     rhnChannelCloned CC on C.id = CC.id
@@ -133,7 +124,6 @@ ORDER BY C.org_id, C.name
 
 <mode name="relevant_packages_for_channel_unpublished">
     <query params="eid, cid">
-<!-- # PGPORT_1:NO Change # -->
 SELECT DISTINCT P1.name_id
   FROM rhnChannel C,
        rhnChannelPackage CP,
@@ -152,7 +142,6 @@ SELECT DISTINCT P1.name_id
 
 <mode name="relevant_packages_for_channel_published">
     <query params="eid, cid">
-<!-- # PGPORT_1:NO Change # -->
 SELECT DISTINCT P1.name_id
   FROM rhnChannel C,
        rhnChannelPackage CP,
@@ -171,7 +160,6 @@ SELECT DISTINCT P1.name_id
 
 <mode name="system_channels">
   <query params="sid">
-<!-- PGPORT_4:QUERY_REWRITE(ORDER BY)-->
 SELECT 
        C.label as label,
        C.name as name
@@ -186,7 +174,6 @@ ORDER BY C.parent_channel NULLS LAST, UPPER(C.name)
 
 <mode name="channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
   <query params="channel_label, download_type, org_id">
-<!-- PGPORT_1:NO Change -->
 SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
   FROM rhnDownloads RD,
        rhnDownloadType DT,
@@ -207,7 +194,6 @@ ORDER BY MIN(ordering)
 
 <mode name="channel_downloads_by_type" class="com.redhat.rhn.frontend.dto.ISOImage">
   <query params="channel_label, download_type, org_id" >
-<!-- PGPORT_1:NO Change -->
 SELECT RD.name AS DOWNLOAD_NAME,
        RF.path AS DOWNLOAD_PATH,
        RF.md5sum AS DOWNLOAD_CHECKSUM,
@@ -241,7 +227,6 @@ SELECT FL.file_id id, FL.location LOCATIONS
 
 <mode name="satellite_channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
   <query params="channel_label, download_type, org_id">
-<!-- PGPORT_1:NO Change -->
 SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
   FROM rhnDownloads RD,
        rhnDownloadType DT,
@@ -265,7 +250,6 @@ ORDER BY MIN(ordering)
 
 <mode name="satellite_channel_downloads_by_type" class="com.redhat.rhn.frontend.dto.ISOImage">
   <query params="org_id, channel_label, download_type">
-<!-- PGPORT_1: NO Change-->
 SELECT DISTINCT RF.id AS ID,
        RD.name AS DOWNLOAD_NAME,
        RF.path AS DOWNLOAD_PATH,
@@ -291,7 +275,6 @@ SELECT DISTINCT RF.id AS ID,
 ORDER BY RD.ordering
   </query>
   <elaborator multiple="t">
-<!-- PGPORT_2: AS KEYWORD-->
 SELECT FL.file_id id, L.label LOCATIONS
   FROM rhnFileLocation FL,
        rhnLocation L
@@ -302,7 +285,6 @@ SELECT FL.file_id id, L.label LOCATIONS
 
 <mode name="user_subscribe_perms" class="com.redhat.rhn.frontend.dto.ChannelPerms">
   <query params="user_id, org_id">
-<!-- PGPORT_3: DECODE-->
 SELECT AC.channel_id AS ID,
        AC.channel_name AS NAME, 
        rhn_channel.user_role_check(AC.channel_id, :user_id, 'subscribe') AS HAS_PERM,
@@ -320,7 +302,6 @@ ORDER BY UPPER(AC.channel_name)
 
 <mode name="user_manage_perms" class="com.redhat.rhn.frontend.dto.ChannelPerms">
   <query params="user_id, org_id">
-<!-- PGPORT_1: NO Change -->
 SELECT C.id AS ID,
        C.name AS NAME, 
        rhn_channel.user_role_check(C.id, :user_id, 'manage') AS HAS_PERM
@@ -340,7 +321,6 @@ ORDER BY UPPER(C.name)
 
 <mode name="channel_entitlements" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id">
-<!-- PGPORT_1:NO Change  -->
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.org_id = :org_id
@@ -350,7 +330,6 @@ SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.ha
 
 <mode name="channel_entitlements_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="">
-<!-- PGPORT_1:NO Change  -->
 SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  ORDER BY CFO.name DESC
@@ -359,7 +338,6 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 <mode name="channel_entitlements_for_all_m_orgs" class="com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto">
   <query params="">
-<!-- PGPORT_1:NO Change  -->
 SELECT MAX(cfo.id) as id,
 		cfo.label,
        cfo.name,
@@ -380,7 +358,6 @@ ORDER by cfo.name DESC
 
 <mode name="channel_entitlement" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id, entitlement_id">
-<!-- PGPORT_1:NO Change  -->
 SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.org_id = :org_id
@@ -391,7 +368,6 @@ SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.ha
 
 <mode name="channel_entitlement_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="entitlement_id">
-<!-- PGPORT_1:NO Change  -->
 SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
   FROM rhnChannelFamilyOverview CFO
  WHERE CFO.id = :entitlement_id
@@ -402,7 +378,6 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 <mode name="all_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id">
-<!-- PGPORT_1:NO Change  -->
 	select Distinct C.id, 
 		   C.name, 
 		   C.label as channel_label,
@@ -424,7 +399,6 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 <mode name="shared_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
    <query params="user_id">
-<!-- PGPORT_1:NO Change  -->
    select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
@@ -446,7 +420,6 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 <mode name="popular_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id, server_count">
-<!-- PGPORT_1:NO Change  -->
    select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
@@ -474,8 +447,7 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 
 <mode name="retired_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id">
-<!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)  -->   
-select Distinct C.id, 
+   select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
          C.label as channel_label,
@@ -499,8 +471,6 @@ select Distinct C.id,
 
 <mode name="redhat_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id">
-
-<!-- PGPORT_1:NO Change  -->
 	select Distinct C.id, 
 		   C.name, 
 		   C.parent_channel as parent_id,
@@ -520,7 +490,6 @@ select Distinct C.id,
 
 <mode name="my_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id, org_id">
-<!-- PGPORT_1:NO Change  -->
 	select Distinct C.id, 
 		   C.name, 
 		   C.parent_channel as parent_id,
@@ -540,7 +509,6 @@ select Distinct C.id,
 
 <mode name="trust_channel_consume" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="org_id, org_id2, user_id">
-<!-- PGPORT_1:NO Change  -->
 	SELECT DISTINCT V.id, 
 	       V.name, 
                V.parent_channel as parent_id,
@@ -560,8 +528,6 @@ select Distinct C.id,
 
 <mode name="protected_trust_channel" class="com.redhat.rhn.frontend.dto.OrgChannelDto">
      <query params="org_id, cid">
-
-<!-- PGPORT_3:ORAFCE(NVL)  -->
 SELECT wc.id, wc.name,
        NVL((SELECT 1
         FROM rhnchanneltrust rct
@@ -583,7 +549,6 @@ AND    wc.id  = rto.org_trust_id
 
 <mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id, family_id">
-<!-- PGPORT_1:NO Change  -->
 SELECT DISTINCT C.name NAME,
        C.id ID,
        C.parent_channel as parent_id,
@@ -614,7 +579,6 @@ SELECT DISTINCT C.name NAME,
 
 <mode name="channels_with_downloads_tree_full" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-<!-- PGPORT_1:NO Change  -->
 SELECT  UACh.channel_name NAME,
         UACh.channel_id ID,
         UACh.channel_depth DEPTH,
@@ -642,7 +606,6 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channels_with_downloads_tree_supported" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-<!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)  -->
 SELECT  UACh.channel_name NAME,
         UACh.channel_id ID,
         UACh.channel_depth DEPTH,
@@ -671,7 +634,6 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channels_with_downloads_tree_retired" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id">
-<!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)  -->
 SELECT  UACh.channel_name NAME,
         UACh.channel_id ID,
         UACh.channel_depth DEPTH,
@@ -700,9 +662,6 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_
 
 <mode name="channel_tree_ssm_install">
   <query params="org_id, user_id">
-
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
   FROM  rhnAvailableChannels ACh
  WHERE  ACh.org_id = :org_id
@@ -726,8 +685,6 @@ ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_sel
 
 <mode name="all_channels_tree">
   <query params="user_id">
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  UACh.channel_name NAME,
         UACh.channel_id ID,
         UACh.channel_depth AS DEPTH,
@@ -755,8 +712,6 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_s
 
 
 <query name="visible_server_count" params="user_id, org_id">
-<!-- PGPORT_1:NO Change  -->
-
   SELECT SC.channel_id AS ID, count(SC.server_id) as system_count
     FROM rhnServerChannel SC,
          rhnServer S
@@ -769,8 +724,6 @@ GROUP BY SC.channel_id
 
 <mode name="subscribable_base_channels_for_system">
   <query params="org_id, server_id">
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  C.id, C.label, C.name
   FROM  rhnChannel C, rhnServerChannelArchCompat SCAC, rhnServer S
  WHERE  C.parent_channel IS NULL
@@ -784,8 +737,6 @@ SELECT  C.id, C.label, C.name
 <mode name="base_channels_for_org"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
   <query params="org_id">
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
   FROM  rhnChannel C
  WHERE  C.parent_channel IS NULL
@@ -802,8 +753,6 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 <mode name="base_eus_channels_by_version_release_server_arch"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
   <query params="product_name_label, version, release, server_arch, user_id, org_id">
-<!-- PGPORT_1:NO Change  -->
-
         select unique c.id,
                c.label,
                c.name,
@@ -834,8 +783,6 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 <mode name="base_eus_channels_by_version_release_channel_arch"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
   <query params="product_name_label, version, release, channel_arch_id, user_id, org_id">
-<!-- PGPORT_1:NO Change  -->
-
         select unique c.id,
                c.label,
                c.name,
@@ -861,8 +808,6 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 <mode name="base_eus_channels_by_version_channel_arch"
      class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
   <query params="product_name_label, version, channel_arch_id, user_id, org_id">
-<!-- PGPORT_1:NO Change  -->
-
         select unique c.id,
                c.label,
                c.name,
@@ -887,8 +832,6 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
 
 <mode name="subscribable_channels">
   <query params="server_id, user_id, base_channel_id">
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  DISTINCT C.id,
                  C.label,
                  C.name,
@@ -912,8 +855,6 @@ SELECT  DISTINCT C.id,
 
 <mode name="affected_by_errata" class="com.redhat.rhn.domain.channel.Channel">
   <query params="eid, org_id">
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  DISTINCT C.id, C.name
   FROM  rhnAvailableChannels AC, rhnChannel C, rhnChannelErrata CE
  WHERE  CE.errata_id = :eid
@@ -926,8 +867,6 @@ SELECT  DISTINCT C.id, C.name
 
 <mode name="child_channel_candidate">
   <query params="label, sid">
-<!-- PGPORT_1:NO Change  -->
-
 SELECT  1
   FROM  rhnChannel C, rhnChannelFamilyMembers CFM, rhnChannelFamily CF
  WHERE  CF.label = :label
@@ -943,8 +882,6 @@ SELECT  1
 
 <mode name="org_errata_channels">
   <query params="org_id, eid">
-<!-- PGPORT_4:QUERY_REWRITE(ANSI JOIN)  -->
-
 SELECT C.id as channel_id,
        C.id as id,
        C.label as label,
@@ -971,14 +908,12 @@ ORDER BY UPPER(C.name)
    
 <write-mode name="flag_server_channels_changed">
    <query params="server_id">
-<!-- PGPORT_5:POSTGRES_VERSION_QUERY(SYSDATE)  -->      
-UPDATE rhnServer SET channels_changed = sysdate WHERE id = :server_id
+      UPDATE rhnServer SET channels_changed = sysdate WHERE id = :server_id
    </query>
 </write-mode>
    
 <write-mode name="log_channel_history">
    <query params="server_id, channel_id, channel_label, message">
-<!-- PGPORT_1:NO Change  -->
        INSERT INTO rhnServerHistory (id, server_id, summary, details) (
                 SELECT  rhn_event_id_seq.nextval,
                         :server_id,
@@ -1004,7 +939,6 @@ UPDATE rhnServer SET channels_changed = sysdate WHERE id = :server_id
 
 <mode name="is_package_in_channel" class="com.redhat.rhn.frontend.dto.BooleanWrapper">
     <query params="cid, evr_id, name_id">
-<!-- PGPORT_1:NO Change  -->
 SELECT 1 as bool
   FROM rhnChannelPackage CP, rhnPackage P
  WHERE CP.channel_id = :cid
@@ -1016,7 +950,6 @@ SELECT 1 as bool
 
 <mode name="families_for_org_without_permissions" class="com.redhat.rhn.frontend.dto.ChannelOverview">
   <query params="org_id">
-<!-- PGPORT_1:NO Change  -->
   SELECT  CF.id
     FROM  rhnChannelFamily CF
    WHERE  CF.org_id = :org_id
@@ -1031,7 +964,6 @@ ORDER BY  CF.id
 
 <write-mode name="insert_family_perms">
   <query params="org_id, id">
-<!-- PGPORT_1:NO Change  -->
 INSERT INTO  rhnPrivateChannelFamily
              (channel_family_id, org_id, max_members, current_members)
      VALUES  (:id, :org_id, NULL, 0)
@@ -1042,7 +974,6 @@ INSERT INTO  rhnPrivateChannelFamily
 <!-- And negative logic SUCKS! -->
 <mode name="is_not_globally_subscribable">
     <query params="org_id, cid, label">
-<!-- PGPORT_1:NO Change  -->
         SELECT 1 as setting
   FROM rhnOrgChannelSettings OCS, rhnOrgChannelSettingsType OCST
  WHERE OCS.org_id = :org_id
@@ -1060,7 +991,6 @@ INSERT INTO  rhnPrivateChannelFamily
 
 <mode name="latest_package_equal">
     <query params="cid, name">
-<!-- PGPORT_1:NO Change  -->
 SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
   FROM rhnPackageName PN, rhnChannelNewestPackage CP
  WHERE CP.channel_id = :cid
@@ -1086,7 +1016,6 @@ SELECT CP.package_id, CP.name_id, CP.evr_id, CP.package_arch_id
 
 <mode name="latest_package_like">
     <query params="cid, name">
-<!-- PGPORT_1:NO Change  -->
 SELECT CP.package_id, CP.name_id, CP.evr_id
   FROM rhnPackageName PN, rhnChannelNewestPackage CP
  WHERE CP.channel_id = :cid
@@ -1097,7 +1026,6 @@ SELECT CP.package_id, CP.name_id, CP.evr_id
 
 <mode name="channel_with_package">
     <query params="parent, package">
-<!-- PGPORT_1:NO Change  -->
 SELECT  DISTINCT C.id
   FROM  rhnChannel C, rhnChannelPackage CP, rhnPackage P, rhnPackageName PN
  WHERE  C.parent_channel = :parent
@@ -1110,7 +1038,6 @@ SELECT  DISTINCT C.id
 
 <mode name="channels_with_package">
     <query params="package">
-<!-- PGPORT_1:NO Change  -->
 SELECT  DISTINCT CP.channel_id as id
   FROM  rhnChannelPackage CP 
   inner join  rhnPackage P on CP.package_id = P.id 
@@ -1128,7 +1055,6 @@ SELECT  DISTINCT CP.channel_id as id
     
 <mode name="children_in_set" class="com.redhat.rhn.frontend.dto.ChildChannelDto">
   <query params="user_id">
-<!-- PGPORT_2:AS KEYWORD  -->
 select distinct id, name, label, 1 subscribable, parent_id  from (
 select 	c.id,
 		c.name,
@@ -1186,7 +1112,6 @@ where	st.user_id = :user_id
   
 <mode name="base_channels_in_set" class="com.redhat.rhn.frontend.dto.SystemsPerChannelDto">
   <query params="user_id">
-<!-- PGPORT_1:NO Change  -->
   SELECT  C.id, C.name, COUNT(C.id) system_count
   FROM  rhnChannel C,
         rhnServerChannel SC,
