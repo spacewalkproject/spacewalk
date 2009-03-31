@@ -36,7 +36,7 @@ def schedule_action(action_type, action_name=None, delta_time=0,
         'scheduler'         : scheduler,
         'prerequisite'      : prerequisite,
     }
-#PGPORT_1:no change
+
     h = rhnSQL.prepare("""
         insert into rhnAction 
                (id, org_id, action_type, name, scheduler, earliest_action, prerequisite)
@@ -51,7 +51,6 @@ def schedule_action(action_type, action_name=None, delta_time=0,
 def schedule_server_action(server_id, action_type, action_name=None,
         delta_time=0, scheduler=None, org_id=None, prerequisite=None):
     if not org_id:
-#PGPORT_1:no change
         h = rhnSQL.prepare("select org_id from rhnServer where id = :id")
         h.execute(id=server_id)
         row = h.fetchone_dict()
@@ -69,7 +68,6 @@ def schedule_server_action(server_id, action_type, action_name=None,
 
 
     # Insert an action as Queued
-#PGPORT_1:no change
     h = rhnSQL.prepare("""
         insert into rhnServerAction (server_id, action_id, status)
         values (:server_id, :action_id, 0)
@@ -81,7 +79,6 @@ def schedule_server_action(server_id, action_type, action_name=None,
 def update_server_action(server_id, action_id, status, result_code=None,
             result_message=""):
     log_debug(4, server_id, action_id, status, result_code, result_message)
-#PGPORT_5:current_timestamp
     h = rhnSQL.prepare("""
     update rhnServerAction
         set status = :status,
@@ -95,7 +92,7 @@ def update_server_action(server_id, action_id, status, result_code=None,
               status=status, result_code=result_code,
               result_message=result_message[:1024])
 
-#PGPORT_1:no change
+
 _query_lookup_action = rhnSQL.Statement("""
     select sa.action_id, sa.status
       from rhnServerAction sa,
@@ -130,10 +127,10 @@ def invalidate_action(server_id, action_id):
             status=3, result_code=-100, result_message="Prerequisite failed")
 
     return a_ids
-#PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL)
+
 _query_schedule_server_packages_update = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, parameter)
-    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, 'uggrade')
+    values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, 'upgrade')
 """)
 
 def schedule_server_packages_update(server_id, package_ids, org_id = None,
@@ -148,12 +145,12 @@ def schedule_server_packages_update(server_id, package_ids, org_id = None,
         'action_id' : [action_id] * len(package_ids),
         'name_id'   : package_ids,
     })
-#PGPORT_5:POSTGRES_VERSION_QUERY(NEXTVAL)
+
 _query_schedule_server_packages_update_by_arch = rhnSQL.Statement("""
     insert into rhnActionPackage (id, action_id, name_id, package_arch_id, \
            parameter)
     values (sequence_nextval('rhn_act_p_id_seq'), :action_id, :name_id, :arch_id, \
-            'upgrade')
+           'upgrade')
 """)
 
 def schedule_server_packages_update_by_arch(server_id, package_arch_ids, org_id = None, prerequisite = None, action_name = "Package update"):
