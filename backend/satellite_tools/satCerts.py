@@ -102,6 +102,7 @@ def create_first_org(owner):
         p(owner, pword)
         # Now create the first private channel family
         create_first_private_chan_family()
+        verify_family_permissions()
     return get_org_id()
 
 _query_get_slot_types = rhnSQL.Statement("""
@@ -553,6 +554,37 @@ def create_first_private_chan_family():
        h.execute(name="Private Channel Family 1", \
                  label="private-channel-family-1", \
                  org=1, url="First Org Created")
+
+
+def verify_family_permissions():
+    """
+     Verify channel family permissions for first org
+    """
+    _query_lookup_cfid = """
+        SELECT  CF.id
+          FROM  rhnChannelFamily CF
+         WHERE  CF.org_id = :orgid
+        AND NOT  EXISTS (
+                   SELECT  1
+                     FROM  rhnChannelFamilyPermissions CFP
+                    WHERE  CFP.org_id = CF.org_id
+                      AND  CFP.channel_family_id = CF.id)
+        ORDER BY  CF.id
+    """
+
+    h = rhnSQL.prepare(_query_lookup_cfid)
+    cfid = h.execute(orgid = 1)
+    if not cfid:
+        return
+
+    _query_create_priv_chfam = """
+        INSERT INTO  rhnPrivateChannelFamily
+            (channel_family_id, org_id, max_members, current_members)
+        VALUES  (:id, :org_id, NULL, 0)
+    """
+    
+    h = rhnSQL.prepare(_query_create_priv_chfam)
+    h.execute(id=cfid['id'], org_id=1)
 
 
 if __name__ == '__main__':
