@@ -182,13 +182,18 @@ public class ErrataHandler extends BaseHandler {
      *      #struct("erratum")
      *          #prop("string", "issue_date")
      *          #prop("string", "update_date")
-     *          #prop("string", "last_modified_date")
-     *          #prop("string", "description")
+     *          #prop_desc("string", "last_modified_date", "This date is only included for
+     *          published erratum and it represents the last time the erratum was 
+     *          modified.")
      *          #prop("string", "synopsis")
+     *          #prop("int", "release")
+     *          #prop("string", "type")
+     *          #prop("string", "product")
      *          #prop("string", "topic")
+     *          #prop("string", "description")
      *          #prop("string", "references")
      *          #prop("string", "notes")
-     *          #prop("string", "type")
+     *          #prop("string", "solution")
      *     #struct_end()
      */
     public Map getDetails(String sessionKey, String advisoryName) throws FaultException {
@@ -200,7 +205,6 @@ public class ErrataHandler extends BaseHandler {
         
         Map errataMap = new HashMap();
               
-
         if (errata.getIssueDate() != null) {
             errataMap.put("issue_date", 
                           LocalizationService.getInstance()
@@ -214,6 +218,13 @@ public class ErrataHandler extends BaseHandler {
         if (errata.getLastModified() != null) {
             errataMap.put("last_modified_date", errata.getLastModified().toString());
         }
+        if (errata.getAdvisoryRel() != null) {
+            errataMap.put("release", errata.getAdvisoryRel());
+        }
+        errataMap.put("product", 
+                StringUtils.defaultString(errata.getProduct()));
+        errataMap.put("solution", 
+                StringUtils.defaultString(errata.getSolution()));
         errataMap.put("description", 
                       StringUtils.defaultString(errata.getDescription()));
         errataMap.put("synopsis", 
@@ -226,6 +237,7 @@ public class ErrataHandler extends BaseHandler {
                       StringUtils.defaultString(errata.getNotes()));
         errataMap.put("type", 
                       StringUtils.defaultString(errata.getAdvisoryType()));
+        
      
         return errataMap;
     }
