@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.tree;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -77,8 +78,20 @@ public abstract class BaseTreeAction extends BaseEditAction {
         
     }
 
-    protected void processCommandSetters(PersistOperation operation, DynaActionForm form) {
+    protected ValidatorError processCommandSetters(PersistOperation operation, 
+                                                            DynaActionForm form) {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
+        
+        String label = form.getString(LABEL);
+            if (label != bte.getTree().getLabel()) {
+            KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
+                    label, bte.getUser().getOrg());
+            if (tree != null) {
+                return new ValidatorError("distribution.tree.exists", tree.getLabel());
+            }
+        }
+        
+        
         bte.setBasePath(form.getString(BASE_PATH));
         Long channelId = (Long) form.get(CHANNEL_ID);
         Channel c = ChannelFactory.lookupByIdAndUser(channelId, operation.getUser());
@@ -87,6 +100,7 @@ public abstract class BaseTreeAction extends BaseEditAction {
         KickstartInstallType type = KickstartFactory.
             lookupKickstartInstallTypeByLabel(form.getString(INSTALL_TYPE));
         bte.setInstallType(type);
+        return null;
         
     }
     
