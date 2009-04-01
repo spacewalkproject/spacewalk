@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Wed Apr  1 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves: 485880 - missing help and man options for rhnpush - new build
+
 * Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.6-1
 - 485880 - adding missing man page options to rhnpush
 - Fix tab in rhnpush.py.
