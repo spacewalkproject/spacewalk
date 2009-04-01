@@ -170,13 +170,4 @@ AND      sg.max_members > 0
   </query>
 </callable-mode>
 
-<write-mode name="create_chan_family">
-  <query params="org_id, name, label, url">
-INSERT INTO  rhnChannelFamily
-             (id, name, label, org_id, product_url)
-     VALUES  (rhn_channel_family_id_seq.nextval, :name, :label, :org_id, :url)
-  </query>
-</write-mode>
-
-
 </datasource_modes>

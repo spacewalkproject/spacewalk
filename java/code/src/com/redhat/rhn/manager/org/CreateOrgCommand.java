@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.org;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.org.Org;
@@ -168,7 +169,7 @@ public class CreateOrgCommand {
                 createCryptoKey.store();
             }
             
-            OrgManager.createChannelFamily(createdOrg);
+            ChannelFamilyFactory.lookupOrCreatePrivateFamily(createdOrg);
             
             return null;
         }
