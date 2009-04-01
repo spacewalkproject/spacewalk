@@ -475,6 +475,37 @@ sub get_db_population_errors {
   return @errors;
 }
 
+sub generate_server_pem {
+  my $class = shift;
+  my %params = validate(@_, { ssl_dir => 1,
+			      system => 1,
+			      out_file => 0 });
+
+  my @opts;
+
+  push @opts, '--ssl-dir=' . File::Spec->catfile($params{ssl_dir}, $params{system});
+
+  if ($params{out_file}) {
+    push @opts, '--out-file=' . $params{out_file};
+  }
+  my $opts = join(' ', @opts);
+
+  my $content;
+
+  open(FH, "/usr/bin/sudo /usr/bin/rhn-generate-pem.pl $opts |")
+    or throw "(satinstall:generate_pem_error) Could not generate server.pem file: $OS_ERROR";
+
+  my @content = <FH>;
+
+  close(FH);
+
+  if (not $params{out_file}) {
+    $content = join('', @content);
+  }
+
+  return $content;
+}
+
 sub is_rpm_installed {
   my $class = shift;
   my $rpmname = shift;
