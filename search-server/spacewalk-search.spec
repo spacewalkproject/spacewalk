@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.9
+Version: 0.5.10
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -75,6 +75,7 @@ install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT/%{_prefix}/share/r
 # using install -m does not preserve the symlinks
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
+install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/rhn-search
 install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
 install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/rhnsearchd
@@ -108,6 +109,12 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Tue Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
+- 487424 - defined logrotate for rhn_search.log
+
+* Thu Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com>
+- 487424 - define logrotate for rhn_search.log
+
 * Thu Feb 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.9-1
 - systems query changed to no longer require anything more than rhnServer.
 
