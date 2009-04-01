@@ -66,6 +66,24 @@ use constant DB_POP_LOG_SIZE => 154000;
 # Some utility functions to do the configuration steps needed for the
 # satellite install.
 
+sub generate_satcon_dict {
+  my $class = shift;
+  my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
+			      tree => { default => DEFAULT_RHN_SATCON_TREE },
+			    });
+
+  my $ret = system("/usr/bin/sudo", "/usr/bin/satcon-build-dictionary.pl",
+		   "--tree=" . $params{tree},
+		   "--target=" . $params{conf_file});
+
+  if ($ret) {
+    throw 'There was a problem building the satcon dictionary.  '
+      . 'See the webserver error log for details.';
+  }
+
+  return;
+}
+
 sub satcon_deploy {
   my $class = shift;
   my %params = validate(@_, { conf_file => { default => DEFAULT_SATCON_DICT },
