@@ -36,8 +36,6 @@ if selinuxenabled && semodule -l | grep '^oracle-rhnsat\b' ; then
 	RUNRESTORECON=--run-restorecon
 fi
 
-usermod -G oracle,dba,apache oracle
-
 ORACLE_ADMIN_DIR=/opt/apps/oracle/admin/10.2.0
 export ORACLE_ADMIN_DIR
 
