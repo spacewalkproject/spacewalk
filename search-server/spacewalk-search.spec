@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.9
+Version: 0.5.10
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -109,6 +109,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Tue Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
+- 487424 - defined logrotate for rhn_search.log
+
 * Thu Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com>
 - 487424 - define logrotate for rhn_search.log
 
