@@ -556,7 +556,7 @@ def create_first_private_chan_family():
                  org=1, url="First Org Created")
 
 
-def verify_family_permissions():
+def verify_family_permissions(orgid=1):
     """
      Verify channel family permissions for first org
     """
@@ -573,7 +573,7 @@ def verify_family_permissions():
     """
 
     h = rhnSQL.prepare(_query_lookup_cfid)
-    cfid = h.execute(orgid = 1)
+    cfid = h.execute(orgid = orgid)
     if not cfid:
         return
 
@@ -584,7 +584,7 @@ def verify_family_permissions():
     """
     
     h = rhnSQL.prepare(_query_create_priv_chfam)
-    h.execute(id=cfid['id'], org_id=1)
+    h.execute(id=cfid['id'], org_id=orgid)
 
 
 if __name__ == '__main__':
