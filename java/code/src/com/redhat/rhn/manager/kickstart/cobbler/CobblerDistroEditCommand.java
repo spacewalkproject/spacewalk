@@ -48,7 +48,10 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
         
         Distro d = Distro.lookupById(
                 CobblerXMLRPCHelper.getConnection(user.getLogin()), tree.getCobblerId());
-        d.setName(makeCobblerName(tree));
+        String newName = makeCobblerName(tree);
+        if (!d.getName().equals(newName)) {
+            d.setName(newName);
+        }
         updateCobblerFields();
         return null;
     }
