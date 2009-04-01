@@ -23,7 +23,6 @@ import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorException;
@@ -455,20 +454,4 @@ public class OrgManager extends BaseManager {
         }
         return dtos;
     }
-    
-    
-    /**
-     * Creates a channel family for a channel.  Should only be used upon org creation
-     * @param org the org to create a channel family for.
-     */
-    public static void createChannelFamily(Org org) {
-        WriteMode m = ModeFactory.getWriteMode("Org_queries", "create_chan_family");
-        Map params = new HashMap();
-        params.put("org_id", org.getId());
-        params.put("label", "private-channel-family-" + org.getId());
-        params.put("name", "Private Channel Family " + org.getId());
-        params.put("url", "Org Creation");
-        m.executeUpdate(params);        
-    }
-
 }
