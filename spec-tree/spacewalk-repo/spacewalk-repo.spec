@@ -1,6 +1,6 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
-Version: 0.4
+Version: 0.6
 Release: 1%{?dist}
 License: GPL
 Group: Development
@@ -25,15 +25,15 @@ mkdir -p $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 # some sane default value
-%define reposubdir      rhel/5Server
+%define reposubdir      RHEL/5
 # redefine on fedora
-%{?fedora: %define reposubdir      fedora/%{fedora}}
+%{?fedora: %define reposubdir      Fedora/%{fedora}}
 
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/os/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk
 enabled=1
 gpgcheck=1
@@ -47,6 +47,12 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
+* Tue Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6-1
+- 
+
+* Thu Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com>
+- building new version to point to 0.5 repo
+
 * Thu Jan 15 2009 Jan Pazdziora 0.4-1
 - building new version to point to 0.4 repo
 
