@@ -145,6 +145,8 @@ ORDER BY KSIPR.min
      AND KSS.kickstart_id = KSD.id
      AND KSS.state_id = KSST.id
      AND KSST.label = 'created'
+     and ( KSS.client_ip is not null or KSS.old_server_id is not null)
+     order by last_modified desc 
   </query>
 </mode>
 
