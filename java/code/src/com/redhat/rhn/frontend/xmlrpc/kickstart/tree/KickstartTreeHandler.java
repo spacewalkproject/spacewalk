@@ -174,6 +174,7 @@ public class KickstartTreeHandler extends BaseHandler {
         if (op.getTree() == null) {
             throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
         }
+        op.setDeleteProfiles(Boolean.TRUE);
         ValidatorError ve = op.store();
         if (ve != null) {
             throw new InvalidKickstartTreeException(ve.getKey());

@@ -16,10 +16,13 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart.tree.test;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -33,6 +36,7 @@ import java.util.List;
 public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     
     private KickstartTreeHandler handler = new KickstartTreeHandler();
+    private KickstartHandler ksHandler = new KickstartHandler();
         
     public void testListKickstartableTrees() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
@@ -103,6 +107,33 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         assertNull(KickstartFactory.lookupKickstartTreeByLabel(label, admin.getOrg()));
     }
 
+    public void testDeleteTreeAndProfiles() throws Exception {
+
+        KickstartData ks  = KickstartDataTest.createKickstartWithProfile(admin);
+        KickstartableTree testTree = ks.getKickstartDefaults().getKstree();
+        Channel channel = testTree.getChannel();
+
+        // verify our setup... should have 1 tree and 1 profile associated w/it
+        List ksTrees = handler.list(adminKey, channel.getLabel());
+        List ksProfiles = ksHandler.listKickstarts(adminKey);
+        assertNotNull(ksTrees);
+        assertNotNull(ksProfiles);
+        assertEquals(1, ksTrees.size());
+        assertEquals(1, ksProfiles.size());
+
+        // execute test...
+        int result = handler.deleteTreeAndProfiles(adminKey, testTree.getLabel());
+        assertEquals(1, result);
+
+        // verify that both the tree and associated profile no longer exist
+        ksTrees = handler.list(adminKey, channel.getLabel());
+        ksProfiles = ksHandler.listKickstarts(adminKey);
+        assertNotNull(ksTrees);
+        assertNotNull(ksProfiles);
+        assertEquals(0, ksTrees.size());
+        assertEquals(0, ksProfiles.size());        
+    }
+    
     public void testListTreeTypes() throws Exception {
         List types = handler.listInstallTypes(adminKey);
         assertNotNull(types);
