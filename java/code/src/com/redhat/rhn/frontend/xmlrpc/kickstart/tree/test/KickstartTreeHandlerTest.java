@@ -118,8 +118,8 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         List ksProfiles = ksHandler.listKickstarts(adminKey);
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
-        assertEquals(1, ksTrees.size());
-        assertEquals(1, ksProfiles.size());
+        Integer numKsTrees = ksTrees.size();
+        Integer numKsProfiles = ksProfiles.size();
 
         // execute test...
         int result = handler.deleteTreeAndProfiles(adminKey, testTree.getLabel());
@@ -130,8 +130,8 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         ksProfiles = ksHandler.listKickstarts(adminKey);
         assertNotNull(ksTrees);
         assertNotNull(ksProfiles);
-        assertEquals(0, ksTrees.size());
-        assertEquals(0, ksProfiles.size());        
+        assertEquals(numKsTrees - 1, ksTrees.size());
+        assertTrue(ksProfiles.size() < numKsProfiles);        
     }
     
     public void testListTreeTypes() throws Exception {
