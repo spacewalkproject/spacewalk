@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
@@ -455,14 +456,6 @@ public class ErrataManager extends BaseManager {
         //
         for (Iterator erratas = dr.iterator(); erratas.hasNext();) {
             OwnedErrata oe = (OwnedErrata) erratas.next();
-            DataResult channels = ErrataManager.applicableChannels(
-                    oe.getId().longValue(), user.getOrg().getId(), null);
-            for (Iterator chanItr = channels.iterator(); chanItr.hasNext();) {
-                Map chan = (Map)chanItr.next();
-                String lbl = chan.get("label").toString();
-                ChannelManager.queueChannelChange(lbl, 
-                        "java::deleteErrata", oe.getAdvisory());
-            }
             deleteErratum(user, new Long(oe.getId().longValue()));
         }   
         
@@ -488,6 +481,30 @@ public class ErrataManager extends BaseManager {
      * @param errataId The erratum for deletion
      */
     public static void deleteErratum(User user, Long errataId) {
+
+        Errata errata = ErrataManager.lookupErrata(errataId, user);
+        if (errata != null) {
+            if (errata.isPublished()) {
+                // If this is a published errata, we should remove the packages in the
+                // channels associated with the errata
+                //
+                // In addition, for each of the channels associated with the errata, 
+                // mark them as 'metadata may have changed'
+                Set<Package> errataPacks = errata.getPackages();
+                Set<Channel> errataChans = errata.getChannels();
+                for (Channel chan : errataChans) {
+                    for (Package pack : errataPacks) {
+                        if (chan.getPackages().contains(pack)) {
+                            chan.getPackages().remove(pack);
+                        }
+                    }
+
+                    ChannelManager.queueChannelChange(chan.getLabel(), 
+                        "java::deleteErrata", errata.getAdvisory());
+                }
+            }
+        }
+
         List modes = new LinkedList();
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deletePaidErrataTempCache"));
         modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataFile"));
@@ -511,9 +528,7 @@ public class ErrataManager extends BaseManager {
                     mode.executeUpdate(errataParams);
                     break;
             }
-            
         }
-        
     }
     
     /**

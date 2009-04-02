@@ -14,9 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
-import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
-import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.struts.StrutsDelegateFactory;
@@ -31,7 +29,6 @@ import org.apache.struts.actions.LookupDispatchAction;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,19 +83,6 @@ public class DeleteErratumAction extends LookupDispatchAction {
         RequestContext requestContext = new RequestContext(request);
         
         Errata errata = requestContext.lookupErratum();
-        
-        //remove the packages in the channels associated with the errata
-        Set<Package> errataPacks = errata.getPackages();
-
-        Set<Channel> errataChans = errata.getChannels();
-        for (Channel chan : errataChans) {
-            for (Package pack : errataPacks) {
-                if (chan.getPackages().contains(pack)) {
-                    chan.getPackages().remove(pack);
-                }
-            }
-        }
-
         ErrataManager.deleteErratum(requestContext.getLoggedInUser(), errata.getId());
         
         ActionMessages msgs = new ActionMessages();
