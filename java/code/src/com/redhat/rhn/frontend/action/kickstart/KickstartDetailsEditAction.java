@@ -28,6 +28,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -113,9 +114,10 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
 
         setupCobblerFormValues(ctx, form, cmd.getKickstartData());
         
-
+        KickstartWizardHelper wizardHelper = new 
+                            KickstartWizardHelper(ctx.getLoggedInUser()); 
         // Lookup the kickstart virtualization types and pre-select the current one:
-        List types = KickstartFactory.lookupVirtualizationTypes();
+        List types = wizardHelper.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES, types);
         form.set(VIRTUALIZATION_TYPE_LABEL, cmd.getVirtualizationType().getLabel());
         

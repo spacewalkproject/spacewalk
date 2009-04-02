@@ -11709,6 +11709,27 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      </trans-unit>
+     
+     <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
+        </context-group>
+        <trans-unit id="kickstart.jsp.virt-type.para_host">
+          <source>Para-Virtualized Host</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.qemu">
+          <source>None Or KVM Virtualized Guest</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.xenfv">
+          <source>XEN Fully-Virtualized Guest</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.xenpv">
+          <source>XEN Para-Virtualized Guest</source>
+        </trans-unit>                        
+     </group>
+     
+     
+     
     <!-- Activation Keys -->
      <group>
        <context-group name="ctx">

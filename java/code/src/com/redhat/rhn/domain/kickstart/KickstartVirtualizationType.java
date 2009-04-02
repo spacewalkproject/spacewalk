@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -42,6 +44,35 @@ public class KickstartVirtualizationType
     private Date created;
     private Date modified;
 
+    /**
+     * @return the Kickstart Virtualization type associated to xen para virt 
+     */
+    public static KickstartVirtualizationType xenPV() {
+        return KickstartFactory.lookupKickstartVirtualizationTypeByLabel(XEN_PARAVIRT);
+    }
+
+    /**
+     * @return the Kickstart Virtualization type associated to xen full virt 
+     */    
+    public static KickstartVirtualizationType xenFV() {
+        return KickstartFactory.lookupKickstartVirtualizationTypeByLabel(XEN_FULLYVIRT);
+    }
+    
+    /**
+     * Note this is presently used for default virt type also..
+     * @return the Kickstart Virtualization type associated to kvm guest 
+     */    
+    public static KickstartVirtualizationType kvmGuest() {
+        return KickstartFactory.lookupKickstartVirtualizationTypeByLabel(KVM_FULLYVIRT);
+    }
+    
+    /**
+     * @return the Kickstart Virtualization type associated to para host 
+     */    
+    public static KickstartVirtualizationType paraHost() {
+        return KickstartFactory.lookupKickstartVirtualizationTypeByLabel(PARA_HOST);
+    }
+    
     /** 
      * Getter for id 
      * @return Long to get
@@ -134,7 +165,17 @@ public class KickstartVirtualizationType
                 castOther.getId()).append(this.getLabel(),
                 castOther.getLabel()).isEquals();
     }
-
+    /**
+     * Returns a i18nized name of the passed in virt type. 
+     * Mainly used for display purposes 
+     * @return the i18nized name..
+     */
+    public String getFormattedName() {
+        LocalizationService ls = LocalizationService.getInstance();
+        String messageId = "kickstart.jsp.virt-type." + getLabel();
+        return ls.getMessage(messageId);
+    }
+    
     /**
      * {@inheritDoc}
      */
