@@ -42,7 +42,7 @@
             <th><bean:message key="kickstartdetails.jsp.virtualization_type" /></th>
             <td colspan="2" align="left">
               <html:select property="virtualizationTypeLabel">
-                <html:optionsCollection property="virtualizationTypes" label="name" value="label" />
+                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label" />
               </html:select><br/>
               <span class="small-text"><bean:message key="kickstartdetails.jsp.virtTypeChangeWarning" arg0="${ksdata.id}"/></span>
             </td>
