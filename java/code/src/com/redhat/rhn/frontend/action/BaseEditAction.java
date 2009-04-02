@@ -58,8 +58,12 @@ public abstract class BaseEditAction extends RhnAction {
                 getStrutsDelegate().saveMessages(request, errors);
             } 
             else {
-                processCommandSetters(opr, form);
-                ValidatorError verrors = opr.store();
+                ValidatorError verrors = processCommandSetters(opr, form);
+                
+                if (verrors == null) {
+                    verrors = opr.store();
+                }
+                
                 if (verrors != null) {
                     ActionErrors storeErrors = 
                         RhnValidationHelper.validatorErrorToActionErrors(verrors);
@@ -107,8 +111,9 @@ public abstract class BaseEditAction extends RhnAction {
      * object for storage.  This is used on the submit type of request.
      * @param opr to process setters on.
      * @param form web form containing values
+     * @return TODO
      */
-    protected abstract void processCommandSetters(PersistOperation opr, 
+    protected abstract ValidatorError processCommandSetters(PersistOperation opr, 
             DynaActionForm form);
     
     

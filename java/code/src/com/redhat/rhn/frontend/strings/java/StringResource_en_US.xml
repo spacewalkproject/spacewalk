@@ -8076,6 +8076,9 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
       </trans-unit>
+     <trans-unit id="distribution.tree.exists">
+        <source>A distribution already exists with the name '{0}'.  Please select another name.</source>
+     </trans-unit>      
      <trans-unit id="api.channel.delete.redhat">
         <source>Red Hat Channels cannot be deleted, only custom channels can.</source>
       </trans-unit>    

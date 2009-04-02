@@ -61,5 +61,6 @@ public class TreeEditOperation extends BaseTreeEditOperation {
     protected CobblerCommand getCobblerCommand() {
         return new CobblerDistroEditCommand(this.tree, this.user);
     }
+    
 
 }

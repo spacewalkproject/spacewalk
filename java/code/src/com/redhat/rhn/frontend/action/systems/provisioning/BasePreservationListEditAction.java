@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.systems.provisioning;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.action.BaseEditAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.PersistOperation;
@@ -41,10 +42,12 @@ public abstract class BasePreservationListEditAction extends BaseEditAction {
         rctx.getRequest().setAttribute(FILE_LIST, bopr.getFileList());
     }
 
-    protected void processCommandSetters(PersistOperation opr, DynaActionForm form) {
+    protected ValidatorError processCommandSetters(PersistOperation opr, 
+                                                        DynaActionForm form) {
         BaseFileListEditCommand bopr = (BaseFileListEditCommand) opr;
         bopr.setLabel(form.getString(LABEL));
         bopr.updateFiles(form.getString(FILES_STRING));
+        return null;
     }
 
     protected void processFormValues(PersistOperation opr, DynaActionForm form) {
