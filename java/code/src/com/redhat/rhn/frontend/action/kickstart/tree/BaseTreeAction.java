@@ -83,7 +83,7 @@ public abstract class BaseTreeAction extends BaseEditAction {
         BaseTreeEditOperation bte = (BaseTreeEditOperation) operation;
         
         String label = form.getString(LABEL);
-            if (label != bte.getTree().getLabel()) {
+        if (!label.equals(bte.getTree().getLabel())) {
             KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                     label, bte.getUser().getOrg());
             if (tree != null) {
