@@ -33,7 +33,7 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 cat >>$RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/spacewalk.repo <<REPO
 [spacewalk]
 name=Spacewalk
-baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/
+baseurl=http://spacewalk.redhat.com/yum/%{version}/%{reposubdir}/\$basearch/os/
 gpgkey=http://spacewalk.redhat.com/yum/RPM-GPG-KEY-spacewalk
 enabled=1
 gpgcheck=1
