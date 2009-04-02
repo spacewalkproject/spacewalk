@@ -543,6 +543,16 @@ def create_first_private_chan_family():
        Check to see if org has a channelfamily associated with it.
        If not, Create one.
        """
+       _lookup_chfam = """
+          SELECT 1 from rhnChannelFamily
+           WHERE label='private-channel-family-1'
+       """
+       h = rhnSQL.prepare(_lookup_chfam)
+       row = h.execute()
+       # some extra check for upgrades
+       if row:
+           # Already exists, move on
+           return
        _query_create_chfam = """
           INSERT INTO  rhnChannelFamily
                  (id, name, label, org_id, product_url)
@@ -550,10 +560,14 @@ def create_first_private_chan_family():
 
        """
        h = rhnSQL.prepare(_query_create_chfam)
-       h.execute(name="Private Channel Family 1", \
-                 label="private-channel-family-1", \
-                 org=1, url="First Org Created")
-
+       try:
+           h.execute(name='Private Channel Family 1', \
+                     label='private-channel-family-1', \
+                     org=1, url='First Org Created')
+       except rhnSQL.SQLError, e:
+           # if we're here that means we're voilating something
+           raise e
+           
 
 if __name__ == '__main__':
     from common import initCFG, CFG
