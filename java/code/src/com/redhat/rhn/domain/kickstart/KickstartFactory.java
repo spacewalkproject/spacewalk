@@ -1030,8 +1030,7 @@ public class KickstartFactory extends HibernateFactory {
     public static List<KickstartableTree> listUnsyncedKickstartTrees() {
         String query = "KickstartableTree.getUnsyncedKickstartTrees";
         Session session = HibernateFactory.getSession();
-        return (List<KickstartableTree>) session.getNamedQuery(query)
-            .setCacheable(true).list();           
+        return (List<KickstartableTree>) session.getNamedQuery(query).list();
     }
     
     
