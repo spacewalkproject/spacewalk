@@ -426,6 +426,11 @@ class TagModule(BaseCliModule):
     def main(self):
         BaseCliModule.main(self)
 
+        if self.global_config.has_option(GLOBALCONFIG_SECTION,
+                "block_tagging"):
+            debug("block_tagging defined in tito.props")
+            error_out("Tagging has been disabled in this git branch.")
+
         build_dir = lookup_build_dir(self.user_config)
         package_name = get_project_name(tag=None)
 
