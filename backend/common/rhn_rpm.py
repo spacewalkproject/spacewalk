@@ -268,10 +268,19 @@ def get_package_header(filename=None, file=None, fd=None):
         if hdr is None:
             raise InvalidPackageError
     else:
-        header_start, header_end = \
-                get_header_byte_range(os.fdopen(os.dup(file_desc)))
-        os.lseek(file_desc, header_start, 0)
-        hdr, offset = rpm.readHeaderFromFD(file_desc)
+        try:
+            header_start, header_end = \
+                    get_header_byte_range(os.fdopen(os.dup(file_desc)))
+            os.lseek(file_desc, header_start, 0)
+            hdr, offset = rpm.readHeaderFromFD(file_desc)
+        except AttributeError:
+            # RHEL-4 and older, do the old way
+            ts = RPMReadOnlyTransaction()
+            nomd5 = getattr(rpm, 'RPMVSF_NOMD5')
+            needpayload = getattr(rpm, 'RPMVSF_NEEDPAYLOAD')
+            ts.pushVSFlags(~(nomd5 | needpayload))
+            hdr = RPMReadOnlyTransaction().hdrFromFdno(file_desc)
+            ts.popVSFlags()
         if hdr is None:
             raise InvalidPackageError
         is_source = hdr[getattr(rpm, 'RPMTAG_SOURCEPACKAGE')]
