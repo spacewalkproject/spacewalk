@@ -204,7 +204,7 @@ rm -rf $RPM_BUILD_ROOT
 # This adds the proper /etc/rc*.d links for the script
 /sbin/chkconfig --add taskomatic
 
-%preun
+%preun -n spacewalk-taskomatic
 if [ $1 = 0 ] ; then
    /sbin/service taskomatic stop >/dev/null 2>&1
    /sbin/chkconfig --del taskomatic
