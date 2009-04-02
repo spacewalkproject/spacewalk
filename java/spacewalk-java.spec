@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,32 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Apr 02 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 481130 - Move preun scriptlet to taskomatic subpackage. (dgoodwin@redhat.com)
+- 487393 - fixed issue where list count was wrong on provisioning page
+  (jsherril@redhat.com)
+- 493111 - api - errata.delete added & fixed add/removePackages & setDetails to
+  only modify custom errata (bbuckingham@redhat.com)
+- 493421 - api - kickstart.tree.deleteTreeAndProfiles fixed to delete
+  associated profiles (bbuckingham@redhat.com)
+- 487688 - adding text during ks tree creation to explain more detail of what
+  is needed (jsherril@redhat.com)
+- 462593 - fixing issue where creating or renaming a profile with a name that
+  already exists would give ISE (jsherril@redhat.com)
+- 492903 - api - channel.software.create - updates so that new channels will
+  show on Channel tab (bbuckingham@redhat.com)
+- 492980 - api - errata.getDetails - add release, product and solution to
+  return and clarify last_modified_date in docs (bbuckingham@redhat.com)
+- 458838 - adding new files for kickstart exception 404 (jsherril@redhat.com)
+- 490987 - fixed issue where errata files werent being refreshed, by removing
+  the need for errata files (jsherril@redhat.com)
+- 458838 - changing kickstart download 404s to have a descriptive message
+  (jsherril@redhat.com)
+- removed jasper5* from run time dependencies and made them build time
+  instead. (paji@redhat.com)
+- 489532 - unsubscribe multiorg shared channel when moving access from public
+  to protected with deny selection (shughes@redhat.com)
+
 * Mon Mar 30 2009 Mike McCune <mmccune@gmail.com> 0.5.44-1
 - 472595 - ported query forgot to check child channels
 - 144325 - converting system probe list to the new list tag, featuring all the bells and 
