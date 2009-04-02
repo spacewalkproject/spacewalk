@@ -57,7 +57,6 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         super.setUp();
         user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
     }
-    
 
     public void testGetDetails() throws Exception {
         Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
@@ -91,7 +90,6 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
             // we expect this test to fail
             assertTrue(true);
         }
-
     }
 
     public void testSetDetails() throws Exception {
@@ -349,9 +347,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         chanPack.setPackageName(errataPack.getPackageName());
         chanPack.setPackageEvr(evr);
         
-        
         channel.addPackage(chanPack);
-        
         
         Errata toClone = ErrataFactoryTest.createTestPublishedErrata(
                 admin.getOrg().getId());
@@ -373,7 +369,6 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Channel sameChannel = ((Channel)channels.toArray()[0]);
         assertEquals(channel, sameChannel);
         
-        
         Set packs = sameChannel.getPackages();
         assertEquals(packs.size(), 2);
         
@@ -381,14 +376,12 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
        assertTrue(packs.contains(chanPack));
         
     }
- 
     
     public void testCreate() throws Exception {
         
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
         
         Map errataInfo = new HashMap();
-        
         
         String advisoryName = TestUtils.randomString();
         populateErrataInfo(errataInfo);
@@ -410,6 +403,30 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
     }
 
+    public void testDelete() throws Exception {
+        Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        Errata check = ErrataManager.lookupErrata(errata.getId(), user);
+        assertTrue(check.getAdvisory().equals(errata.getAdvisory()));
+        assertTrue(check.getId().equals(errata.getId()));
+
+        // delete a published erratum
+        int result = handler.delete(adminKey, errata.getAdvisory());
+        assertEquals(1, result);
+        errata = (Errata) TestUtils.reload(errata);
+        assertNull(errata);
+        
+        errata = ErrataFactoryTest.createTestUnpublishedErrata(user.getOrg().getId());
+        check = ErrataManager.lookupErrata(errata.getId(), user);
+        assertTrue(check.getAdvisory().equals(errata.getAdvisory()));
+        assertTrue(check.getId().equals(errata.getId()));
+
+        // delete an unpublished erratum
+        result = handler.delete(adminKey, errata.getAdvisory());
+        assertEquals(1, result);
+        errata = (Errata) TestUtils.reload(errata);
+        assertNull(errata);
+    }
+    
     private void populateErrataInfo(Map errataInfo) {
         errataInfo.put("synopsis", TestUtils.randomString());
         errataInfo.put("advisory_release", new Integer(2));
@@ -454,7 +471,6 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
 
         Map errataInfo = new HashMap();
 
-
         String advisoryName = TestUtils.randomString();
         populateErrataInfo(errataInfo);
         errataInfo.put("advisory_name", advisoryName);
@@ -481,7 +497,6 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         Channel channel = ChannelFactoryTest.createBaseChannel(admin);
 
         Map errataInfo = new HashMap();
-
 
         String advisoryName = TestUtils.randomString();
         populateErrataInfo(errataInfo);
@@ -516,9 +531,7 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         
     }
     
-    
     public void testListByDate() throws Exception {
-       
         
        Calendar cal = Calendar.getInstance();
        Date earlyDate = cal.getTime();
@@ -546,5 +559,4 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
        assertEquals(array[0], earlyErrata);
        assertEquals(array[1], laterErrata);
     }
-    
 }
