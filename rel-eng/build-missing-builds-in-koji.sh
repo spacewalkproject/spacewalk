@@ -7,7 +7,7 @@ pushd `pwd`
 cd `dirname $0`/..
 
 for tag in 0 1; do
-  rel-eng/koji-missing-builds.py ${TAGS[$tag]} | \
+  rel-eng/koji-missing-builds.py --no-extra ${TAGS[$tag]} | \
     grep -v oracle-server-admin | \
     grep -v oracle-server-scripts | \
 	  awk '!/buildsys-macros/ {
