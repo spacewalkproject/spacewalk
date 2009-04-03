@@ -115,18 +115,14 @@ public class CobblerConnection {
      * @return Object returned.
      */
     private Object invokeMethod(String procedureName, List args) {
-        log.debug("procedure: " + procedureName + " Orig ags: " + args);
+        log.debug("procedure: " + procedureName + " ags: " + args);
         Object retval;
         try {
-            log.debug("args array: " + args);
             retval = client.invoke(procedureName, args);
         } 
         catch (Exception e) {
             throw new XmlRpcException("XmlRpcException calling cobbler.", e);
         } 
-        if (retval instanceof String) {
-            retval = retval + "\n";
-        }
         return retval;
     }
 
