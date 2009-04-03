@@ -1883,7 +1883,7 @@
          <forward name="default"
                   path="/WEB-INF/pages/errata/delete.jsp" />
          <forward name="deleted"
-                  path="/errata/manage/PublishedErrata.do" />
+                  path="/errata/manage/PublishedErrata.do" redirect="true" />
      </action>
      
      <action path="/errata/manage/Create" 
