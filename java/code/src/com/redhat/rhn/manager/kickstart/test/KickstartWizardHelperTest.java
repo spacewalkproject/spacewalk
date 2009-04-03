@@ -43,18 +43,7 @@ public class KickstartWizardHelperTest extends BaseTestCaseWithUser {
         }
         assertTrue(found);
         found = false;
-        
-        Config.get().setString(Config.PRODUCT_NAME, "Satellite");
-        types = helper.getVirtualizationTypes();
-        assertFalse(Config.get().isSpacewalk());
-        for (int i = 0; i < types.size(); i++) {
-            KickstartVirtualizationType type = (KickstartVirtualizationType) types.get(i);
-            if (type.getLabel().equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
-                found = true;
-            }
-        }
-        assertFalse(found);
-        
+                
         Config.get().setString(Config.PRODUCT_NAME, origConfig);
     }
     
