@@ -51,6 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Apr 01 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.7-1
 - new build for 485880 (pkilambi@redhat.com)
+- 241221 - add release of the package (if it exists) to Provides (Jan P.)
 
 * Wed Apr  1 2009 Pradeep Kilambi <pkilambi@redhat.com>
 - Resolves: 485880 - missing help and man options for rhnpush - new build
