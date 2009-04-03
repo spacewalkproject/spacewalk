@@ -71,9 +71,6 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
         catch (XmlRpcException e) {
             throw new RuntimeException("XmlRpcException calling cobbler.", e);
         } 
-        if (retval instanceof String) {
-            retval = retval + "\n";
-        }
         return retval;
     }
     
