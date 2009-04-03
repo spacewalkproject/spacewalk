@@ -6,6 +6,9 @@ pushd `pwd`
 
 cd `dirname $0`/..
 
+# say python to be nice to pipe
+export PYTHONUNBUFFERED=1
+
 for tag in 0 1; do
   rel-eng/koji-missing-builds.py --no-extra ${TAGS[$tag]} | \
     grep -v oracle-server-admin | \
