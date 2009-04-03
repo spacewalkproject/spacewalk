@@ -71,6 +71,9 @@ class Builder(object):
 
         temp_dir = "rpmbuild-%s" % self.project_name_and_sha1
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
+        if os.path.exists(self.rpmbuild_dir):
+            print("WARNING: rpmbuild directory already exists, removing...")
+            run_command("rm -rf self.rpmbuild_dir")
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
 
@@ -916,8 +919,7 @@ class SatelliteBuilder(NoTgzBuilder):
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
             self.patch_filename))
-        lines.insert(patch_apply_index, "%%patch%s -p1 -b .%s\n" % (patch_number,
-            self.patch_filename[0:-len(".patch")]))
+        lines.insert(patch_apply_index, "%%patch%s -p1\n" % (patch_number))
         f.close()
 
         # Now write out the modified lines to the spec file copy:
