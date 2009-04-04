@@ -79,30 +79,13 @@ public class DeleteIndexes {
         return deleteDirectory(dir);
     }
 
-    protected static boolean deleteQuery(DatabaseManager databaseManager,
-            String queryName) {
+    protected static void deleteQuery(DatabaseManager databaseManager,
+            String queryName) throws SQLException {
         WriteQuery query = null;
-        try {
-            log.info("Running query: " + queryName);
-            query = databaseManager.getWriterQuery(queryName);
-            query.delete(null);
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        finally {
-            try {
-                if (query != null) {
-                    query.close();
-                }
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        return true;
+        log.info("Running query: " + queryName);
+        query = databaseManager.getWriterQuery(queryName);
+        query.delete(null);
+        query.close();
     }
 
     /**
@@ -132,16 +115,24 @@ public class DeleteIndexes {
             indexes.add(new IndexInfo("deleteLastServerCustomInfo",
                     indexWorkDir + File.separator + "serverCustomInfo"));
             for (IndexInfo info : indexes) {
-                if (!deleteQuery(databaseManager, info.getQueryName())) {
-                    log.warn("Failed to run query: " + info.getQueryName());
-                }
+                deleteQuery(databaseManager, info.getQueryName());
                 if (!deleteIndexPath(info.getDirPath())) {
                     log.warn("Failed to delete index for " + info.getDirPath());
                 }
             }
         }
+        catch (SQLException e) {
+            log.error("Caught Exception: ", e);
+            if (e.getErrorCode() == 17002) {
+                log.error("Unable to establish database connection.");
+                log.error("Ensure database is available and connection details are " +
+                        "correct, then retry");
+            }
+            System.exit(1);
+        }
         catch (IOException e) {
-            e.printStackTrace();
+            log.error("Caught Exception: ", e);
+            System.exit(1);
         }
         log.info("Index files have been deleted and database has been cleaned up, " +
             "ready to reindex");
