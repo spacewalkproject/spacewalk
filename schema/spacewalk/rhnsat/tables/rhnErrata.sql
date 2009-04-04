@@ -85,6 +85,17 @@ create unique index rhn_errata_advisory_name_uq
 	tablespace [[64k_tbs]]
   ;
 
+create index rhn_errata_udate_index
+	on rhnErrata( update_date )
+	tablespace [[64k_tbs]]
+  ;
+	
+create index rhn_errata_syn_index
+	on rhnErrata( synopsis )
+	tablespace [[64k_tbs]]
+  ;
+	
+
 --
 -- Revision 1.22  2004/11/01 21:47:41  pjones
 -- bugzilla: none -- rhnErrata's triggers need other tables now
