@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -62,26 +62,26 @@ Spacewalk Server.
 %install
 rm -fr ${RPM_BUILD_ROOT}
 ant -Djar.version=%{version} install
-install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/indexes
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
 install -d -m 755 $RPM_BUILD_ROOT/etc/init.d
-install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
-install -d -m 755 $RPM_BUILD_ROOT/%{_var}/log/rhn/search
-install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/nutch
-
-install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib/
+install -d -m 755 $RPM_BUILD_ROOT%{_bindir}
+install -d -m 755 $RPM_BUILD_ROOT%{_var}/log/rhn/search
+install -d -m 755 $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/nutch
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
+install -p -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/
 # using install -m does not preserve the symlinks
 cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -p -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
-install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/rhn-search
-install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
-install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
-ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/rhnsearchd
-install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search.conf
-install -p -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
+install -p -m 644 src/config/etc/logrotate.d/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/rhn-search
+install -p -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
+install -p -m 755 src/config/rhn-search $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT%{_bindir}/rhnsearchd
+install -p -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search.conf
+install -p -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/spacewalk-search.jar
 
 %clean
@@ -110,7 +110,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+* Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- install logrotate.d directory
+- remove / after RPM_BUILD_ROOT it's not needed
 - search requires doc-indexes, sw-doc-indexes provides doc-indexes (jesusr@redhat.com)
 - 492624 - "rhn-search cleanindex" checks db connection is up (jmatthew@redhat.com)
 - bump Versions to 0.6.0 (jesusr@redhat.com)
