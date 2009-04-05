@@ -108,6 +108,7 @@ fi
 %attr(755, root, root) %{_bindir}/rhnsearchd
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search.conf
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
+%{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
 * Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
