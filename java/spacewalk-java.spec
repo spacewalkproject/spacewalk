@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,22 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Sun Apr 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- 470991 - remove unused jar files from taskomatic_daemon.conf (jesusr@redhat.com)
+- 437547 - include instructions for regenerating indexes (jmatthew@redhat.com)
+- 483611 - Remove search links from YourRhn tasks module (jmatthew@redhat.com)
+- 480060 - improve performance of All and Relevant (mmccune@gmail.com)
+- 494066 - removed the trailing \n from strings returned from cobbler. (mmccune@gmail.com)
+- 489792 - listErrata api docuementation corrected (jsherril@redhat.com)
+- 484659 - taskmoatic no longer throws cobbler errors on restart (jsherril@redhat.com)
+- 221637 - Removed no-op channels from SSM subscribe config channels (jason.dobies@redhat.com)
+- 490866 - distros now properly synced after sat-sync (jsherril@redhat.com)
+- 493173 - add redirect in struts config for errata/manage/Delete (bbuckingham@redhat.com)
+- 487418 - Added a 'None' option to the available virt type (paji@redhat.com)
+- 493187 - Changed empty list message to be a variable and set in calling pages specific to need (published v. unpublished) (jason.dobies@redhat.com)
+- fix junit assertion error in testDeleteTreeAndProfiles (bbuckingham@redhat.com)
+- 485317 - phantom kickstart sessions no longer show up on kickstart overview (jsherril@redhat.com)
+
 * Thu Apr 02 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - 481130 - Move preun scriptlet to taskomatic subpackage. (dgoodwin@redhat.com)
 - 487393 - fixed issue where list count was wrong on provisioning page
