@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -110,6 +110,11 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- search requires doc-indexes, sw-doc-indexes provides doc-indexes (jesusr@redhat.com)
+- 492624 - "rhn-search cleanindex" checks db connection is up (jmatthew@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Tue Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.10-1
 - 487424 - defined logrotate for rhn_search.log
 
