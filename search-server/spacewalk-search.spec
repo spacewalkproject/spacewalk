@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -111,6 +111,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Sun Apr 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 487424 - add logrotate to %%files section (jesusr@redhat.com)
+
 * Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
 - install logrotate.d directory
 - remove / after RPM_BUILD_ROOT it's not needed
