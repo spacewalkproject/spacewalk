@@ -89,22 +89,6 @@ def getServer(options, handler):
 
     return s
 
-
-def chmod_chown_systemid():
-    path = "/etc/sysconfig/rhn/systemid"
-
-    if getSystemId() is None:
-        sys.stderr.write("ERROR: RHN Proxy does not appear to be registered\n")
-        sys.exit(1)
-
-    # systemid needs to be accessible by apache
-    apacheGID = pwd.getpwnam('apache')[3]
-
-    # chmod 0640 ...; chown root.apache ...
-    os.chmod(path, 0640)
-    os.chown(path, 0, apacheGID)
-
-
 def _getProtocolError(e, hostname=''):
     """
         10      connection issues?
@@ -522,9 +506,6 @@ def main():
     resolveHostnamePort(options.http_proxy)
     if not options.http_proxy:
         resolveHostnamePort(options.server)
-
-    # fix permissions on systemid
-    chmod_chown_systemid()
 
     # snag the apiVersion
     apiVersion = getAPIVersion(options)
