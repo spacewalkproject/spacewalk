@@ -242,7 +242,7 @@ sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
             -e "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
             -e "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
             -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
-        < cat $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
+        < $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
 
 # systemid need to be readable by apache/proxy
 chown root:apache $SYSCONFIG_DIR/systemid
