@@ -92,7 +92,7 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
                         CobblerXMLRPCHelper.getAutomatedConnection(), 
                         tree.getCobblerXenDistroName());
                 if (distro != null) {
-                    tree.setCobblerId(distro.getUid());
+                    tree.setCobblerXenId(distro.getUid());
                 }
                 else {
                     err = createDistro(tree, true);
