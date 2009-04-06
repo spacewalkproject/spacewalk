@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -82,6 +82,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon Apr 06 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
+- 494290 - change ownership after apache is installed (msuchy@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Mon Mar 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.25-1
 - 492871 - do not depend on apache user when it not yet available
 
