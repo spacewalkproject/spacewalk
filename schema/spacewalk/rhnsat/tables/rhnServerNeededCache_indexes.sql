@@ -18,21 +18,24 @@
 
 create index rhn_snc_pid_idx
 	on rhnServerNeededCache(package_id)
+	noparallel
 	tablespace [[128m_tbs]]
 	nologging;
 
 create index rhn_snc_sid_idx
 	on rhnServerNeededCache(server_id)
+	noparallel
 	tablespace [[128m_tbs]]
 	nologging;
 
 create index rhn_snc_eid_idx
 	on rhnServerNeededCache(errata_id)
+	noparallel
 	tablespace [[128m_tbs]]
 	nologging;
 
 create index rhn_snc_speid_idx
         on rhnServerNeededCache(server_id, package_id, errata_id)
-        parallel
+        noparallel
         tablespace [[128m_tbs]]
         nologging;
