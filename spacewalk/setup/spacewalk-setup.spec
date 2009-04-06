@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -94,6 +94,14 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Apr 06 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
+- replace snail with worm (msuchy@redhat.com)
+- 391771 - removing usermod from install-db.sh, we should do it in %pre of some
+  rpm. (jpazdziora@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- 469413 - included build number to the installation log file
+  (tlestach@redhat.com)
+
 * Fri Mar 27 2009 Jan Pazdziora 0.5.27-1
 - 492194 - address spacewalk-setup hanging while Restarting services.
 
