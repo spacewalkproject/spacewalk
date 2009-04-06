@@ -16,7 +16,6 @@
                                    bound="false"
                            headerkey="actions.jsp.action" 
                            sortattr="actionName"
-                           defaultsort="asc"  
                            filterattr="actionName"
                            styleclass="list-fat-column-50">
                         	<a href="/rhn/schedule/CompletedSystems.do?aid=${current.id}">${current.actionName}</a>
@@ -27,6 +26,7 @@
                                    bound="false"
                            headerkey="actions.jsp.earliest" 
                            sortattr="earliest" 
+                            defaultsort="desc"  
                            >
                         <c:out value="${current.earliest}" />
                 </rl:column>     
