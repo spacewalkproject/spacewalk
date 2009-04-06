@@ -215,7 +215,8 @@ if [ $MONITORING -eq 0 ]; then
         default_or_input "Monitoring parent IP" MONITORING_PARENT_IP "$RESOLVED_IP"
         default_or_input "Enable monitoring scout" ENABLE_SCOUT "Y/n"
         ENABLE_SCOUT=$(yes_no $ENABLE_SCOUT)
-        MSG=$(echo -n "Your scout shared key (can be found on parent\nin $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
+        MSG=$(echo -n "Your scout shared key (can be found on parent
+in $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
         default_or_input "$MSG" SCOUT_SHARED_KEY ''
 fi
 
@@ -318,7 +319,7 @@ if [ -e $HTTPDCONFD_DIR/ssl.conf ]; then
 fi
 sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile $HTTPDCONF_DIR/ssl.crt/server.crt|g" \
 	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile $HTTPDCONF_DIR/ssl.key/server.key|g" \
-	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|"
+	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|" \
         < $HTTPDCONFD_DIR/ssl.conf.bak  > $HTTPDCONFD_DIR/ssl.conf
 
 
