@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.44
+Version: 0.5.45
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Apr 06 2009 Mike McCune <mmccune@gmail.com> 0.5.45-1
+- 494066 - removing the trailing \n from returned strings from cobbler.
+
 * Mon Mar 30 2009 Mike McCune <mmccune@gmail.com> 0.5.44-1
 - 472595 - ported query forgot to check child channels
 - 144325 - converting system probe list to the new list tag, featuring all the bells and 
