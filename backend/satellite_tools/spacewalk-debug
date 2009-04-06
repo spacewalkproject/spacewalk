@@ -180,6 +180,12 @@ df -h > $DIR/diskinfo
 echo "    * get database statistics"
 /usr/bin/rhn-db-stats $DIR/database/db-stats.log
 
+# alert.log
+if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
+	echo "    * copying alert_rhnsat.log"
+	cp -fa /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log $DIR/database/
+fi
+
 echo "    * timestamping"
 echo "Spacewalk debug created on $(date)" > $DIR/timestamp
 
