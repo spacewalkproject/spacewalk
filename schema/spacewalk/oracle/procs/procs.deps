@@ -1,0 +1,133 @@
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Dependencies for stored procedures/functions objects
+# in this (namespace) directory.
+#
+# See: ../../README for details.
+# No TABS, PLEASE!
+#
+
+path = . tables views packages class types
+
+buildPackageSenseMap            :: rhnPackageSenseMap
+create_first_org                :: rhnUserGroupType rhnUserGroup
+create_new_org                  :: web_customer rhnUserGroupType rhnUserGroup
+create_new_user                 :: web_contact web_user_contact_permission \
+                                   web_user_personal_info web_user_site_info \
+                                   rhnUserInfo
+create_pxt_session              :: PXTSessions
+delete_server                   :: rhn_channel.pks rhn_config.pks \
+                                   rhn_config.pks rhn_server.pks rhn_entitlements.pks \
+                                   rhn_server.pks \
+                                   rhnSet rhnServer web_contact \
+                                   rhnConfigChannel rhnConfigChannelType \
+                                   rhnServerConfigChannel rhnServerGroupMembers \
+                                   rhnServerPreserveFileList rhnFileList \
+                                   rhnKickstartSession rhnActionConfigChannel \
+                                   rhnActionConfigRevision rhnClientCapability \
+                                   rhnActionPackageRemovalFailure rhnCpu \
+                                   rhnChannelFamilyLicenseConsent rhnDevice \
+                                   rhnProxyInfo rhnRam rhnRegToken \
+                                   rhnSNPServerQueue rhnSatelliteChannelFamily \
+                                   rhnSatelliteInfo rhnServerAction \
+                                   rhnServerAction rhnServerActionPackageResult \
+                                   rhnServerActionScriptResult rhnServerChannel \
+                                   rhnServerActionVerifyResult rhnServerDMI \
+                                   rhnServerActionVerifyMissing \
+                                   rhnServerConfigChannel rhnServerMessage \
+                                   rhnServerCustomDataValue rhnServerEvent \
+                                   rhnServerHistory rhnServerInfo rhnServerLock \
+                                   rhnServerInstallInfo rhnServerLocation \
+                                   rhnServerNeededErrataCache \
+                                   rhnServerNeededPackageCache rhnServerNetwork \
+                                   rhnServerNotes rhnServerPackage rhnSnapshot \
+                                   rhnServerTokenRegs rhnSnapshotTag \
+                                   rhnTransaction rhnUserServerPrefs \
+                                   rhnServerPath rhnServerPath \
+                                   rhn_check_probe rhn_interface_monitoring \
+                                   rhnServerNetInterface rhn_host_probe \
+                                   rhn_probe_state rhn_sat_cluster \
+                                   rhn_sat_node rhn_probe \
+                                   rhn_server_monitoring_info \
+                                   rhnServerEntitlementView
+delete_server_bulk              :: delete_server
+does_user_have_role             :: rhnUserGroup rhnUserGroupMembers rhnUserGroupType
+entitlement_run_me              :: rhn_ep rhnDaemonState
+entitle_order                   :: rhn_ep
+is_user_applicant               :: rhnUserGroupType web_contact rhnUserGroup \
+                                   rhnUserGroupMembers
+lookup_arch_type                :: data/rhnArchType rhn_exception.pks
+lookup_channel_arch             :: rhn_exception.pks data/rhnException rhnChannelArch \
+                                   data/rhnChannelArch
+lookup_client_capability        :: rhnClientCapabilityName
+lookup_config_file_info         :: rhnConfigFileInfo
+lookup_cf_state                 :: rhnConfigFileState
+lookup_cve                      :: rhnCVE
+lookup_erratafile_type          :: rhnErrataFileType data/rhnErrataFileType
+lookup_evr                      :: rhnPackageEVR
+lookup_feature_type             :: rhnFeature
+lookup_first_matching_cf        :: rhnConfigFile rhnConfigChannel \
+                                   rhnServerConfigChannel lookup_cf_state \
+                                   rhnConfigFileName
+lookup_functions                :: lookup_evr lookup_package_name \
+                                   lookup_package_nevra \
+                                   lookup_source_name lookup_channel_arch \
+                                   lookup_server_arch lookup_package_arch \
+                                   lookup_package_capability \
+                                   lookup_erratafile_type \
+                                   lookup_snapshot_invalid_reason \
+                                   lookup_tag_name lookup_sg_type \
+                                   lookup_tag lookup_arch_type
+lookup_package_arch             :: rhn_exception.pks data/rhnException rhnPackageArch \
+                                   data/rhnPackageArch
+lookup_package_capability       :: rhnPackageCapability
+lookup_package_name             :: rhnPackageName
+lookup_package_provider         :: rhnPackageProvider
+lookup_package_key_type         :: rhnPackageKeyType
+lookup_package_nevra            :: rhnPackageNEVRA
+lookup_server_arch              :: rhn_exception.pks data/rhnException rhnServerArch \
+                                   data/rhnServerArch
+lookup_sg_type                  :: rhnServerGroupType
+lookup_snapshot_invalid_reason  :: rhnSnapshotInvalidReason
+lookup_source_name              :: rhnSourceRPM
+lookup_tag                      :: rhnTag lookup_tag_name
+lookup_tag_name                 :: rhnTagName
+lookup_transaction_package      :: rhnTransactionOperation lookup_package_name \
+                                   lookup_evr lookup_package_arch \
+                                   rhnTransactionPackage rhn_exception.pks
+lookup_virt_sub_level           :: rhnVirtSubLevel                                
+name_join                       :: user_group_name_t
+new_user_postop                 :: web_contact rhnUserGroupType rhnUserGroup \
+                                   rhnUserGroupMembers
+prune_user_group                :: rhnUserGroupMembers rhn_user
+pxt_session_cleanup             :: PXTSessions
+queue_errata                    :: rhnSNPErrataQueue
+queue_server                    :: rhnServerNeededPackageCache rhnTaskQueue \
+                                   rhnServerNeededPackageView rhnServer \
+                                   rhnServerNeededErrataCache rhnServerNeededView
+rhn_cache_delete                :: rhnCacheTimestamps rhnCache
+rhn_cache_set                   :: rhnCacheKey rhnCache rhnCacheTimestamps
+rhn_cache_update_accessed       :: rhnCacheKey rhnCache rhnCacheTimestamps
+
+rhn_install_org_satellites      :: rhn_command_queue_instances rhn_ll_netsaint \
+                                   rhn_sat_cluster web_customer \
+                                   rhn_prepare_install rhn_install_satellite
+rhn_install_satellite           :: rhn_command_queue_instances rhn_sat_cluster \
+                                   rhn_command_queue_execs
+rhn_prepare_install             :: rhn_command_queue_instances
+rhn_synch_probe_state           :: rhn_probe_state rhn_deployed_probe \
+                                   rhn_current_state_summaries \
+                                   rhn_multi_scout_threshold rhn_satellite_state \
+                                   rhn_current_state_summaries
+set_ks_session_history_message  :: rhnKickstartSessionState \
+                                   rhnKickstartSessionHistory
+truncateCacheQueue              :: rhnOrgErrataCacheQueue
+

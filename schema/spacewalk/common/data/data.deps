@@ -1,0 +1,63 @@
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Dependencies for data (insert) objects in this (namespace) directory.
+# See: ../../README for details.
+# No TABS, PLEASE!
+#
+
+path = . tables procs
+
+rhnChannelArch                   :: lookup_arch_type
+rhnChannelPackageArchCompat      :: data/rhnChannelArch \
+                                    data/rhnPackageArch lookup_functions
+rhnServerServerGroupArchCompat   :: lookup_functions
+rhnDemoEntitlementStopDate       :: rhnDemoEntitlementStopDate
+rhnPackageArch                   :: lookup_arch_type
+rhnPackageKey                    :: rhnPackageKey \
+                                    rhnPackageProvider \
+                                    lookup_package_provider \
+                                    lookup_package_key_type \
+                                    data/rhnPackageKeyType \
+                                    data/rhnPackageProvider
+rhnPackageProvider               :: rhnPackageProvider 
+rhnPackageKeyType                :: rhnPackageKeyType
+rhnServerArch                    :: lookup_arch_type
+rhnServerGroupTypeFeature        :: data/rhnFeature \
+                                    data/rhnServerGroupType \
+                                    lookup_sg_type \
+                                    lookup_feature_type 
+rhnSGTypeBaseAddonCompat         :: data/rhnServerGroupType
+rhnSGTypeVirtSubLevel            :: lookup_virt_sub_level \
+                                    data/rhnServerGroupType \
+                                    data/rhnVirtSubLevel
+rhn_command                      :: data/rhn_command_groups \
+                                    data/rhn_command_class \
+                                    data/rhn_command_requirements
+rhn_command_parameter            :: data/rhn_semantic_data_type \
+                                    data/rhn_widget \
+                                    data/rhn_command \
+                                    data/rhn_semantic_data_type
+rhn_command_param_threshold      :: data/rhn_command \
+                                    data/rhn_metrics \
+                                    data/rhn_threshold_type
+rhn_config_macro                 :: data/rhn_environment
+rhn_config_parameter             :: data/rhn_config_group \
+                                    data/rhn_config_security_type
+rhn_db_environment               :: data/rhn_environment
+rhn_metrics                      :: data/rhn_command_class data/rhn_units
+rhn_os_commands_xref             :: data/rhn_command data/rhn_os
+rhn_schedule_days                :: data/rhn_schedules
+rhn_schedules                    :: data/rhn_schedule_types
+rhn_units                        :: data/rhn_quanta
+rhnErrataFile                    :: lookup_functions
+rhnErrataFileTmp                 :: lookup_functions
+rhnVersionInfo                   :: lookup_functions
+

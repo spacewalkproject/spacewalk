@@ -1,7 +1,0 @@
-# Dependencies for objects in the rhn/class directory
-#
-#
-
-all ::
-
-evr_t	:: rpm

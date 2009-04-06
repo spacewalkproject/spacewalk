@@ -1,0 +1,88 @@
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Dependencies for packages objects in this (namespace) directory.
+# See: ../../README for details.
+# No TABS, PLEASE!
+#
+
+path = . tables views procs
+
+rhn_bel.pkb             :: rhnEmailAddressState rhnEmailAddress \
+                           rhn_exception.pks rhnChannelFamilyPermissions \
+                           rhnServerGroup rhnPaidOrgs
+rhn_cache.pkb           :: rhnUserServerPerms rhnUserServerPermsDupes \
+                           rhnUserServerGroupPerms rhnUserGroupType \
+                           rhnUserGroupMembers rhnServerGroup rhnUserGroup
+rhn_channel.pkb         :: rhnChannel rhn_exception.pks rhnServer rhnServerChannel \
+                           rhnChannelFamilyPermissions rhn_set.pks queue_server \
+                           rhnChannelFamilyMembers rhnChannelFamilyServers \
+                           rhnChannelNewestPackage rhnChannelNewestPackageView \
+                           rhnPublicChannelFamily rhnOrgChannelFamilyPermissions \
+                           rhnChannelPackage rhnChannelErrata rhnSnapshotChannel \
+                           rhnServerUuid rhnChannelPermissions rhnServerEntitlementView \
+                           rhnChannelFamilyServerPhysical rhnSharedChannelView
+rhn_channel.pks         :: rhnChannel rhnOrgChannelFamilyPermissions \
+                           rhnServerChannel
+rhn_config.pkb          :: rhnSnapshot rhnSnapshotConfigRevision lookup_functions \
+                           rhnConfigRevision rhnConfigRevision rhnConfigFile \
+                           rhnConfigChannel rhnConfigContent rhn_quota.pks \
+                           rhnConfigFileState
+rhn_config_channel.pkb  :: rhnConfigChannelType rhnConfigChannel \
+                           rhnServerConfigChannel rhnConfigRevision rhnConfigFile \
+                           rhnConfigFileName
+rhn_entitlements.pkb    :: rhnServerGroupType rhnServerGroup rhnServerGroupMembers \
+                           rhnServer rhnOrgEntitlements rhnUserGroupType \
+                           rhnOrgEntitlementType rhnUserGroupMembers \
+                           rhnUserGroup rhnChannelFamilyMembers rhnServerChannel \
+                           rhnOrgChannelFamilyPermissions \
+                           rhnServerServerGroupArchCompat rhnPrivateChannelFamily \
+                           rhnServerEntitlementPhysical
+rhn_entitlements.pks    :: rhnServerGroupType
+rhn_exception.pkb       :: rhnException
+rhn_exception.pks       :: rhnException
+rhn_external_api.pkb    :: rh_product web_contact xxrh_eproxy_api
+rhn_ep.pkb              :: rhn_bel.pks rhn_channel.pks rhn_entitlements.pks rhn_exception.pks \
+                           rhn_quota web_contact web_customer rh_product \
+                           web_user_order web_user_order_line \
+                           web_customer_product web_cp_service_line \
+                           rhnServiceServerGroupMap rhnServerGroupType \
+                           rhnServiceUserGroupMap rhnUserGroupType \
+                           rhnChannelFamily rhnServiceChannelFamilyMap \
+                           rhnUserGroup rhnServiceLineUserGroups \
+                           rhnServerGroup rhnServiceLineServerGroups \
+                           rhnPrivateChannelFamily rhnServiceLineChannelView \
+                           rhnDaemonState rhnChannelFamilyMembers \
+                           rhnEntitlementQueue
+rhn_org.pkb             :: rhn_entitlements.pks \
+                           rhn_exception.pks rhn_server.pks delete_server \
+                           rhnServer rhnServerGroupType rhnServerGroup \
+                           rhn_redirects.pks \
+                           rhn_contact_methods rhn_command_queue_sessions \
+                           rhn_check_suites rhn_command_target rhn_schedules \
+                           rhn_contact_groups rhn_notification_formats \
+                           rhn_probe rhn_redirects rhn_sat_cluster \
+                           web_contact web_customer
+rhn_org.pks             :: rhnServerGroupType rhnServerGroup
+rhn_package.pkb         :: rhnChannel rhnChannelPackage
+rhn_package.pks         :: rhnChannel rhnChannelPackage
+rhn_qos.pkb             :: rhnChannelFamily rhnOrgChannelFamilyPermissions \
+                           rhnServerGroupType rhnServerGroup
+rhn_quota.pkb           :: rhnConfigContent rhnConfigRevision rhnConfigFile \
+                           rhnConfigChannel rhnOrgQuota rhn_config.pks
+rhn_server.pkb          :: rhnServerChannel rhnConfigFileName \
+                           rhnServerGroupMembers rhnServerPackage rhnServer \
+                           rhnServerCustomDataValue rhnCustomDataKey \
+                           rhnUserManagedServerGroups rhnServerEntitlementVirtual \
+                           rhnSatelliteInfo rhnProxyInfo \
+                           lookup_functions lookup_first_matching_cf \
+                           set_ks_session_history_message
+rhn_set.pkb             :: rhnSet
+rhn_set.pks             :: rhnSet

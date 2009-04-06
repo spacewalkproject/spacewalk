@@ -1,0 +1,35 @@
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Dependencies for trigger objects in this (namespace) directory.
+# See: ../../README for details.
+# No TABS, PLEASE!
+#
+
+path = tables procs packages
+
+rhnChannel                 :: rhnChannel lookup_functions rhnSnapshot rhnChannelTrust
+rhnChannelPackage          :: rhnChannelPackage rhnSnapshot rhnChannel \
+                              lookup_functions rhnSnapshotChannel
+rhnConfigChannel           :: rhnConfigChannel rhnSnapshotConfigChannel \
+                              rhnSnapshot lookup_functions
+rhnConfigRevision          :: rhnConfigRevision rhnSnapshotConfigRevision \
+                              rhnSnapshot lookup_functions rhn_quota.pks \
+                              rhnConfigContent rhnConfigChannel rhnConfigFile \
+                              rhnOrgQuota rhn_exception.pks
+rhnErrata                  :: rhnChannel rhnChannelErrata
+rhnKickstartSession        :: rhnKickstartSession rhnKickstartSessionHistory
+rhnOrgState                :: rhn_bel.pks
+rhnServerGroup             :: rhnUserGroup rhnUserGroupType rhn_exception \
+                              lookup_functions rhnSnapshot rhnServerGroup \
+                              rhnSnapshotServerGroup
+rhnSnapshotConfigChannel   :: rhnSnapshot rhnConfigChannel
+rhnUserInfo                :: rhnTimezone rhn_contact_methods
+web_contact                :: web_contact
