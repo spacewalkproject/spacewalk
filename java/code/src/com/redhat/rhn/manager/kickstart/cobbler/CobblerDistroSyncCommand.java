@@ -70,17 +70,35 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
     public ValidatorError syncNullDistros() {
         List errors = new LinkedList();
         List<KickstartableTree> unSynced = KickstartFactory.listUnsyncedKickstartTrees();
+        String err;
         for (KickstartableTree tree : unSynced) {
-            log.debug("syncing null distro " + tree.getLabel());
-            String err = createDistro(tree, false);
-            if (err != null) {
-                errors.add(err);
+            Distro distro = Distro.lookupByName(
+                    CobblerXMLRPCHelper.getAutomatedConnection(), 
+                    tree.getCobblerDistroName());
+            if (distro != null) {
+                tree.setCobblerId(distro.getUid());
             }
-                        
-            if (tree.doesParaVirt() && tree.getCobblerXenId() == null) {
-                err = createDistro(tree, true);
+            else {
+                log.debug("syncing null distro " + tree.getLabel());            
+                err = createDistro(tree, false);
                 if (err != null) {
                     errors.add(err);
+                }
+            }
+            
+            //Now do virt            
+            if (tree.doesParaVirt() && tree.getCobblerXenId() == null) {
+                distro = Distro.lookupByName(
+                        CobblerXMLRPCHelper.getAutomatedConnection(), 
+                        tree.getCobblerXenDistroName());
+                if (distro != null) {
+                    tree.setCobblerId(distro.getUid());
+                }
+                else {
+                    err = createDistro(tree, true);
+                    if (err != null) {
+                        errors.add(err);
+                    }
                 }
             }               
 
@@ -166,7 +184,10 @@ public class CobblerDistroSyncCommand extends CobblerCommand {
         ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE, 
                 helper.getKickstartMediaPath());
         
+        
+        
         if (!xen) {
+            
             log.debug("tree in spacewalk but not in cobbler. " +
                     "creating non-xenpv distro in cobbler : " + tree.getLabel());
             
