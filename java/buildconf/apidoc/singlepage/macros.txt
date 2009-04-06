@@ -1,0 +1,74 @@
+
+#set($date="dateTime.iso8601")
+
+#macro( serializer $serializer )
+      <li>  $serializer </li>
+#end
+#macro( prop $type $value )
+	<li> $type "$value"</li>
+#end
+#macro( prop_desc $type $value $desc )
+    <li> $type "$value" - $desc </li>
+#end
+#macro(prop_array $key $type $desc)
+    <li>array "$key"
+        <ul>
+            <li>$type $desc</li>
+        </ul>
+    </li>
+#end
+#macro(prop_array_begin $key)
+    <li>array "$key"
+        <ul>
+            <li>
+#end
+#macro(prop_array_end)
+           </li>
+        </ul>
+    </li>
+#end
+#macro( struct $type )	 
+	     struct - $type
+	<ul>
+#end
+#macro( struct_end )
+	</ul>
+#end
+#macro( array)
+array:
+  <ul>
+   <li>
+#end
+#macro(array_end)
+</li></ul>
+#end
+#macro(array_single $type $desc)
+array:
+<ul>
+    <li>$type - $desc</li>
+</ul>
+#end
+#macro(options)
+	<ul>
+#end
+#macro(item $item)
+	<li>$item</li>
+#end
+#macro(item_desc $item, $desc)
+	<li>$item - $desc</li>
+#end
+#macro(options_end)
+	</ul>
+#end
+#macro(param $type $value)
+    $type $value
+#end
+#macro(param_desc $type $value $desc)
+    $type $value - $desc
+#end
+#macro(session_key)
+    #param("string", "sessionKey")
+#end
+#macro(return_int_success)
+    int - 1 on success, exception thrown otherwise.
+#end

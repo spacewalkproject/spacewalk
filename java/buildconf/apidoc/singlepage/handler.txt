@@ -1,0 +1,56 @@
+
+
+
+
+<a name="$handler.name" ><h2>$handler.name</h2></a>  <h5><a href="#top">(Return to Handler List)</a></h5>
+
+
+<div class="rounded-box">
+<h3>Available methods</h3>
+<ul class="apidoc">
+
+#foreach( $call in $handler.calls )
+<li><a href="#$handler.name-$call.name"/>$call.name</a></li>
+#end
+</ul>
+</div>
+<h3>Description</h3>
+$handler.desc
+<p>
+</p>
+<p><strong>Namespace</strong>:
+$handler.name
+</p>
+<hr />
+#foreach( $call in $handler.calls )
+
+#if($call.deprecated)
+<h3 class="deprecated"><a name="$handler.name-$call.name" href="#$handler.name">Method: $call.name</a></h3>
+#else
+<h3> <a name="$handler.name-$call.name" href="#$handler.name">Method: $call.name</a></h3>
+#end
+Description:<br />
+$call.doc
+<p />
+
+
+#if($call.deprecated)
+Deprecated as of version - $call.deprecatedVersion <p />
+#end
+
+
+Parameters:<br />
+<ul>
+#foreach( $param in $call.params)
+<li>$param</li>
+#end
+</ul>
+<p />
+Returns:
+<code><ul><li>
+$call.returnDoc
+</li></ul>
+</code>
+<p />
+<hr />
+#end
