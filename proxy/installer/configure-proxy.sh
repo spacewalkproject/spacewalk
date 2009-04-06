@@ -313,7 +313,9 @@ config_error $? "SSL key generation failed!"
 echo "Installing SSL certificate for Apache and Jabberd:"
 rpm -Uv $(/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm)
 
-mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
+if [ -e $HTTPDCONFD_DIR/ssl.conf ]; then
+	mv $HTTPDCONFD_DIR/ssl.conf $HTTPDCONFD_DIR/ssl.conf.bak
+fi
 sed -e "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile $HTTPDCONF_DIR/ssl.crt/server.crt|g" \
 	    -e "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile $HTTPDCONF_DIR/ssl.key/server.key|g" \
 	    -e "s|</VirtualHost>|SSLProxyEngine on\n</VirtualHost>|"
