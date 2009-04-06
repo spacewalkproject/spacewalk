@@ -103,6 +103,11 @@ HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
 
+if [ -r $SYSCONFIG_DIR/systemid ]; then
+	echo ERROR: RHN Proxy does not appear to be registered
+	exit 2
+fi
+
 SYSTEM_ID=$(/usr/bin/xsltproc /usr/share/rhn/get_system_id.xslt $SYSCONFIG_DIR/systemid | cut -d- -f2)
 
 DIR=/usr/share/doc/proxy/conf-template
@@ -239,6 +244,9 @@ sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
             -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
         < cat $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
 
+# systemid need to be readable by apache/proxy
+chown root:apache $SYSCONFIG_DIR/systemid
+chmod 0640 $SYSCONFIG_DIR/systemid
 
 #Setup the cobbler stuff, needed to use koan through a proxy
 PROTO="http";
