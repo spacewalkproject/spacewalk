@@ -103,7 +103,7 @@ HTMLPUB_DIR=/var/www/html/pub
 JABBERD_DIR=/etc/jabberd
 SQUID_DIR=/etc/squid
 
-if [ -r $SYSCONFIG_DIR/systemid ]; then
+if [ ! -r $SYSCONFIG_DIR/systemid ]; then
 	echo ERROR: RHN Proxy does not appear to be registered
 	exit 2
 fi
