@@ -131,6 +131,16 @@
                                 </rhn:highlight>
                               </rl:column>
                 </c:when>
+                <c:when test="${view_mode == 'systemsearch_checkin'}">
+                    <rl:column bound="false" headerkey="${view_mode}" >
+                        ${current.checkin}
+                    </rl:column>
+                </c:when>
+                <c:when test="${view_mode == 'systemsearch_registered'}">
+                    <rl:column bound="false" headerkey="${view_mode}" >
+                        ${current.registered}
+                    </rl:column>
+                </c:when>
                 <%--We aren't able to determine what matchingField is from SearchServer yet,
                 it could be 1 of 3 values,
                 will display all 3 vendor-version-release --%>
@@ -164,7 +174,7 @@
         </rl:list>
         <rl:csv dataset="pageList"
                 name="searchResults"
-                exportColumns="id,serverName,dmiBiosVendor,dmiBiosVersion,dmiBiosRelease,description,entitlementLevel"/>
+                exportColumns="id,serverName,description,entitlementLevel"/>
 
     </rl:listset>
     </c:if>

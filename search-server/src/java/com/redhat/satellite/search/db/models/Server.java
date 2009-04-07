@@ -612,7 +612,7 @@ public class Server extends GenericRecord {
     public void setCheckin(Date checkinIn) {
         if (checkinIn != null) {
             this.checkin = DateTools.dateToString(checkinIn,
-                DateTools.Resolution.DAY);
+                DateTools.Resolution.MINUTE);
         }
         else {
             this.checkin = null;
@@ -632,7 +632,7 @@ public class Server extends GenericRecord {
     public void setRegistered(Date registeredIn) {
         if (registeredIn != null) {
             this.registered = DateTools.dateToString(registeredIn,
-                DateTools.Resolution.DAY);
+                DateTools.Resolution.MINUTE);
         }
         else {
             this.registered = null;
