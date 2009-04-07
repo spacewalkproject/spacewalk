@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -112,6 +112,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Tue Apr 07 2009 Jan Pazdziora 0.6.1-1
+- 489554 - fix AVC denial of httpd_sys_script_t (upload_results.cgi)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Mon Mar 16 2009 Jan Pazdziora 0.5.6-1
 - donatudit sys_tty_config
 - 487221 - allow monitoring to use NIS
