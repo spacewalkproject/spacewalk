@@ -195,7 +195,8 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <query params="orgA, orgB">
         SELECT s.id, 
                      s.org_id,
-                     s.name
+                     s.name,
+                     c.id as cid
             FROM rhnServer s,
                       rhnChannel c,
                       rhnServerChannel sc
@@ -206,7 +207,8 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
         UNION
         SELECT s.id,
                      s.org_id,
-                     s.name
+                     s.name,
+                     c.id as cid
             FROM rhnServer s,
                       rhnChannel c,
                       rhnServerChannel sc
