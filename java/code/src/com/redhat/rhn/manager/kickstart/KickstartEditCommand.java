@@ -27,7 +27,6 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -353,19 +352,6 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     // private string to concat "ks-" + Channel.label
     private String getBaseLabel(Channel c) {
         return "ks-" + c.getLabel();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ValidatorError store() {
-        ValidatorError error = super.store();
-        if (error == null) {
-            CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
-            error = cmd.store();
-        }
-        return error;
     }
 
     /**

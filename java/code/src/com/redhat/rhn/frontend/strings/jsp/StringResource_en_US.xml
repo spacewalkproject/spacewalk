@@ -9235,6 +9235,13 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>    
 
+    <trans-unit id="kickstart.jsp.error.template_generation">
+        <source>There are errors in your kickstart template. Please check the &lt;a href=&quot;{0}&quot;&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart Details</context>
+        </context-group>
+    </trans-unit>
+
     <trans-unit id="kickstartdetails.jsp.kernel_options">
         <source>Kernel Options</source>
         <context-group name="ctx">

@@ -77,4 +77,17 @@ public abstract class ValidationMessage {
           }
           return ls.getPlainText(key, values);
       }
+     
+      /**
+       * Returns the internationalized 
+       * message associated to this error
+       * @return the i18ned message
+       */
+      public String getLocalizedMessage() {
+          LocalizationService ls = LocalizationService.getInstance();
+          if (values == null || values.length == 0) {
+              return ls.getMessage(key);
+          }
+          return ls.getMessage(key, values);         
+      }
 }
