@@ -90,7 +90,7 @@ public class Profile extends CobblerObject {
      */
     public static Profile lookupById(CobblerConnection client, String id) {
         return handleLookup(client, lookupDataMapById(client, id, 
-                                        "find_profile", "get_profiles"));
+                                        "find_profile"));
     }
     
     private static Profile handleLookup(CobblerConnection client, Map profileMap) {

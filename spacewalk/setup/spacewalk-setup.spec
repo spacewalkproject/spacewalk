@@ -24,7 +24,7 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler >= 1.4.3
+Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
 Requires:       jabberd
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+ * Mon Apr  6 2009 Partha Aji <paji@redhat.com> 0.6.1-1
+ - moved the cobbler requirement to 1.6.3 or greater as required by sat. 
+
 * Mon Apr 06 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
 - replace snail with worm (msuchy@redhat.com)
 - 391771 - removing usermod from install-db.sh, we should do it in %pre of some

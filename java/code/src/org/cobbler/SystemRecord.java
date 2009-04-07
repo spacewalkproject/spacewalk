@@ -73,8 +73,7 @@ public class SystemRecord extends CobblerObject {
      * @return the system record matching the given uid or null
      */
     public static SystemRecord lookupById(CobblerConnection client, String id) {
-        return handleLookup(client, 
-                    lookupDataMapById(client, id, "find_system", "get_systems"));
+        return handleLookup(client, lookupDataMapById(client, id, "find_system"));
     }    
 
     private static SystemRecord handleLookup(CobblerConnection client, Map sysMap) {

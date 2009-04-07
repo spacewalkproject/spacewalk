@@ -239,15 +239,7 @@ public class MockConnection extends CobblerConnection {
     }
     return "";
    }
-   
-   /**
-    * {@inheritDoc}
-    */
-   @Override
-   public boolean is16OrGreater() {
-       return false;
-   }
-   
+
    private Map findByName(String name, List<Map> maps) {
        for (Map map : maps) {
            if (name.equals(map.get("name"))) {
