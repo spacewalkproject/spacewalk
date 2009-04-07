@@ -14,10 +14,16 @@
  */
 package com.redhat.rhn.common.util.download;
 
+
+
+import org.jfree.io.IOUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -38,18 +44,18 @@ public class DownloadUtils {
      * @return the text downloaded
      */
     public static String downloadUrl(String url) {
-        StringBuffer toReturn = new StringBuffer();
         URL u;
         InputStream is = null;
+        StringBuilder toReturn = new StringBuilder();
         try {
            u = new URL(url);
-           is = u.openStream();      
-           BufferedReader br = new BufferedReader(new InputStreamReader(is));
-           
-           String s;          
-           while ((s = br.readLine()) != null) {
-               toReturn.append(s + "\n");
+           HttpURLConnection conn = (HttpURLConnection)u.openConnection();
+           if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+               throw new DownloadException(url, 
+                               toString(conn.getErrorStream()), 
+                               conn.getResponseCode());
            }
+           toReturn.append(toString(conn.getInputStream()));
         } 
         catch (MalformedURLException mue) {
             toReturn.append(mue.getLocalizedMessage());
@@ -68,5 +74,12 @@ public class DownloadUtils {
            }
         }
         return toReturn.toString();
+    }
+    
+    private static String toString(InputStream stream) throws IOException {
+        StringWriter writer = new StringWriter();
+        IOUtils.getInstance().copyWriter(
+                new BufferedReader(new InputStreamReader(stream)), writer);
+        return writer.toString();
     }
 }
