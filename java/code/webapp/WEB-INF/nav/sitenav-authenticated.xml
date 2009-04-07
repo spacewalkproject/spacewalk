@@ -128,7 +128,7 @@
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning)">
+  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)">
     <rhn-tab-directory>/rhn/configuration</rhn-tab-directory>
     <rhn-tab name="common.nav.overview" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)" />
     <rhn-tab name="config.nav.channels" url="/rhn/configuration/GlobalConfigChannelList.do" acl="user_role(config_admin)" />
