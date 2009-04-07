@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
@@ -61,7 +62,13 @@ public class RenderKickstartFileAction extends Action {
                 String host = (String) params.get("host");
                 KickstartData ksdata = (KickstartData) params.get("ksdata");
                 if (host != null && ksdata != null) {
-                    fileContents = KickstartManager.renderKickstart(ksdata);
+                    try {
+                        fileContents = KickstartManager.
+                                    getInstance().renderKickstart(ksdata);    
+                    }
+                    catch (DownloadException de) {
+                        fileContents = de.getContent();
+                    }
                 }
                 else {
                     log.error("No kickstart filecontents found for: " + url + 

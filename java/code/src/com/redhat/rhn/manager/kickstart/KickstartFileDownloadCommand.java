@@ -50,15 +50,6 @@ public class KickstartFileDownloadCommand extends BaseKickstartCommand {
             "Kickstart File Download");
         }
     }
-    
-    /**
-     * 
-     * @return string contents of kickstart file
-     */
-    public String getFileData() {
-        return KickstartManager.renderKickstart(this.getKickstartData());
-    }
-              
     /**
      * Get the URL to the org_default for this Org.  Looks like this:
      * 

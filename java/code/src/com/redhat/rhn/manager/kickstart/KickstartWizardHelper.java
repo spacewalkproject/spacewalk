@@ -194,9 +194,6 @@ public class KickstartWizardHelper {
             if (ksdata.getCommand("url") != null) {
                 ksdata.getCommand("url").setCreated(new Date());
             }
-            if (ksdata.getCommand("url") != null) {
-                ksdata.getCommand("url").setCreated(new Date());
-            }
         }
 
         ksdata.getKickstartDefaults().setCreated(new Date());
@@ -220,7 +217,7 @@ public class KickstartWizardHelper {
         cmd.store();
         log.debug("store() - done.");
     }
-    
+
     /**
      * Adds the vt repo to this ks data
      * @param ksdata the data to which the repos have to be processed

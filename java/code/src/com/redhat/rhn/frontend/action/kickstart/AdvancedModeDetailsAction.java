@@ -106,7 +106,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
         try {
             validateInput(form, context);
             User user  = context.getLoggedInUser();
-            KickstartHelper helper = new KickstartHelper(context.getRequest());
             KickstartWizardHelper cmd = new KickstartWizardHelper(user);
             KickstartableTree tree = cmd.getKickstartableTree(
                                         (Long)form.get(KSTREE_ID_PARAM));
@@ -128,7 +127,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
             
-                        
             KickstartDetailsEditAction.processCobblerFormValues(ks, form, 
                     context.getLoggedInUser());
             
@@ -140,6 +138,13 @@ public class AdvancedModeDetailsAction extends RhnAction {
             RhnValidationHelper.setFailedValidation(context.getRequest());
             getStrutsDelegate().saveMessages(context.getRequest(), ve.getResult());
             setup(context, form);
+            if (!isCreateMode(context.getRequest())) {
+                KickstartRawData ks = getKsData(context);
+                return getStrutsDelegate().forwardParam(mapping.
+                                    findForward(RhnHelper.DEFAULT_FORWARD),
+                        RequestContext.KICKSTART_ID,
+                        ks.getId().toString());                
+            }
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
     }
@@ -163,9 +168,11 @@ public class AdvancedModeDetailsAction extends RhnAction {
             KickstartDetailsEditAction.setupCobblerFormValues(context, form, data);
             
             form.set(ORG_DEFAULT, data.isOrgDefault());
-            form.set(ACTIVE, data.isActive());            
-        }
+            form.set(ACTIVE, data.isActive());
+            KickstartDetailsEditAction.checkKickstartFile(context, getStrutsDelegate());
+         }
     }
+ 
     
     private void loadVirtualizationTypes(KickstartWizardHelper cmd, DynaActionForm form,
             RequestContext context) {
@@ -248,9 +255,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
          if (distro == null) {
              ValidatorException.raiseException("kickstart.cobbler.profile.invalidvirt"); 
          }
-         
-         
-         
    }
     
     private String getData(RequestContext context, DynaActionForm form) {
@@ -276,5 +280,4 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private String getSuccessKey() {
         return "kickstart.details.success";
     }
-
 }
