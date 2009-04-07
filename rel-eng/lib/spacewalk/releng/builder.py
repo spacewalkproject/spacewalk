@@ -909,11 +909,16 @@ class SatelliteBuilder(NoTgzBuilder):
                 patch_insert_index = array_index + 1
                 patch_number = int(match.group(1)) + 1
 
-            if line.startswith("%setup"):
+            if line.startswith("%prep"):
+                # We'll apply patch right after prep if there's no %setup line
+                patch_apply_index = array_index + 2
+            elif line.startswith("%setup"):
                 patch_apply_index = array_index + 2 # already added a line
 
             array_index += 1
         
+        debug("patch_insert_index = %s" % patch_insert_index)
+        debug("patch_apply_index = %s" % patch_apply_index)
         if patch_insert_index == 0 or patch_apply_index == 0:
             error_out("Unable to insert PatchX or %patchX lines in spec file")
 
