@@ -7857,6 +7857,15 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="entitlementLevel">
       	<source>Entitlement Level</source>
       </trans-unit>
+      <trans-unit id="serverName">
+        <source>Server Name</source>
+      </trans-unit>
+      <trans-unit id="matchingField">
+        <source>Matching Field Name</source>
+      </trans-unit>
+      <trans-unit id="matchingFieldValue">
+        <source>Matching Field Value</source>
+      </trans-unit>
       <trans-unit id="listtag.note">
           <source>Note:</source>
       </trans-unit>
