@@ -172,9 +172,9 @@
                         ${current.entitlementLevel}
             </rl:column>
         </rl:list>
-        <rl:csv dataset="pageList"
+        <rl:csv dataset="searchResults"
                 name="searchResults"
-                exportColumns="id,serverName,description,entitlementLevel"/>
+                exportColumns="id,serverName,lookupMatchingField,entitlementLevel"/>
 
     </rl:listset>
     </c:if>
