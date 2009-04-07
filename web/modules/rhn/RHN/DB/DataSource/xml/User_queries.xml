@@ -1,16 +1,5 @@
 <datasource_modes>
 
-<mode name="feedback_user_list">
-  <query params="org_id">
-    SELECT USER_ID AS ID, USER_LOGIN, USER_FIRST_NAME, USER_LAST_NAME,
-           USER_MODIFIED, SERVER_COUNT, SERVER_GROUP_COUNT, ROLE_NAMES,
-           (SELECT COUNT(FB.id) FROM rhnUserFeedback FB WHERE FB.user_id = UIOO.user_id) FEEDBACK_COUNT
-      FROM rhnUsersInOrgOverview UIOO
-     WHERE ORG_ID = :org_id
-  ORDER BY UPPER(USER_LAST_NAME), UPPER(USER_FIRST_NAME), USER_ID
-  </query>
-</mode>
-
 <mode name="group_admins">
   <query params="sgid, org_id">
 SELECT wc.id AS ID,

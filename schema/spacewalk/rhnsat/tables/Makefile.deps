@@ -118,8 +118,6 @@ rhnErrataRelationship	:: rhnRelationshipType rhnErrata
 rhnErrataRelationshipTmp :: rhnRelationshipType rhnErrataTmp rhnErrata
 rhnErrataTmp		:: web_customer
 
-rhnFAQ			:: rhnFAQClass
-rhnFAQ_satdata		:: rhnFAQClass_data
 rhnFile			:: web_customer
 rhnFileLocation		  	:: rhnFile
 
@@ -270,7 +268,6 @@ rhnTransactionElement	:: rhnTransactionPackage rhnTransaction
 rhnTransactionPackage	:: rhnTransactionOperation rhnPackageArch \
 			   rhnPackageEVR rhnPackageName
 
-rhnUserFeedback		:: web_contact
 rhnUserGroupMembers	:: web_contact rhnUserGroup
 rhnUserGroup		:: web_customer rhnUserGroupType
 rhnUserInfo		:: web_contact rhnTimezone
