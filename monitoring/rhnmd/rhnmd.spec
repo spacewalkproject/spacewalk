@@ -5,7 +5,7 @@ Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.3.0
+Version:   5.3.1
 Release:   1%{?dist}
 License:   GPLv2
 Group:     System Environment/Daemons
@@ -65,7 +65,7 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
-* Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com>
+* Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.1-1
 - authorized_keys should be owned by nocpulse
 - bump up version to 5.3.0
 
