@@ -12,7 +12,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
 
-
 	<property name="reason" column="reason" type="string" length="4000"/>
     <property name="created" column="created" type="timestamp"
         insert="false" update="false"/>
@@ -60,19 +59,81 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
              <key column="snapshot_id"/>
              <many-to-many class="com.redhat.rhn.domain.rhnpackage.PackageNevra"
                 column="nevra_id"/>
-        </set>                  
-        
-        
+        </set>
 
     </class>
-    
-    <query name="ServerSnapshot.findForServer">
-        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s where s.server = :server and s.org = :org]]>
+
+    <query name="ServerSnapshot.findById">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s
+                where s.id = :snapId]]>
     </query>
+
+    <query name="ServerSnapshot.findForServer">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s
+                where s.server = :server and
+                      s.org = :org
+             order by s.id desc]]>
+    </query>
+
+    <query name="ServerSnapshot.findAfterDate">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s
+                where s.server = :server and
+                      s.org = :org and
+                      s.created >= :start_date
+             order by s.id desc]]>
+    </query>
+
+    <query name="ServerSnapshot.findBetweenDates">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s
+                where s.server = :server and
+                      s.org = :org and
+                      s.created >= :start_date and
+                      s.created <= :end_date
+             order by s.id desc]]>
+    </query>
+
     <query name="ServerSnapshot.findTags">
         <![CDATA[select l.tag
-        	from com.redhat.rhn.domain.server.ServerSnapshotTagLink as l
-        	where l.snapshot = :snap]]>
-    </query>    
-    
+		       from com.redhat.rhn.domain.server.ServerSnapshotTagLink as l
+		      where l.snapshot = :snap]]>
+    </query>
+
+    <query name="ServerSnapshot.deleteForServer">
+        <![CDATA[delete from com.redhat.rhn.domain.server.ServerSnapshot as s
+                  where s.server = :server and s.org = :org]]>
+    </query>
+
+    <query name="ServerSnapshot.deleteForServerAfterDate">
+        <![CDATA[delete from com.redhat.rhn.domain.server.ServerSnapshot as s
+                  where s.server = :server and
+                        s.org = :org and
+                        s.created >= :start_date]]>
+    </query>
+
+    <query name="ServerSnapshot.deleteForServerBetweenDates">
+        <![CDATA[delete from com.redhat.rhn.domain.server.ServerSnapshot as s
+                  where s.server = :server and
+                        s.org = :org and
+                        s.created >= :start_date and
+                        s.created <= :end_date]]>
+    </query>
+
+    <query name="ServerSnapshot.delete">
+        <![CDATA[delete from com.redhat.rhn.domain.server.ServerSnapshot as s
+                  where s.org = :org]]>
+    </query>
+
+    <query name="ServerSnapshot.deleteAfterDate">
+        <![CDATA[delete from com.redhat.rhn.domain.server.ServerSnapshot as s
+                  where s.org = :org and
+                        s.created >= :start_date]]>
+    </query>
+
+    <query name="ServerSnapshot.deleteBetweenDates">
+        <![CDATA[delete from com.redhat.rhn.domain.server.ServerSnapshot as s
+                  where s.org = :org and
+                        s.created >= :start_date and
+                        s.created <= :end_date]]>
+    </query>
+
 </hibernate-mapping>
