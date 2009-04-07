@@ -190,7 +190,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ErrataEditor.pm
 %{perl_vendorlib}/RHN/ErrataMailer.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
-%{perl_vendorlib}/RHN/Feedback.pm
 %{perl_vendorlib}/RHN/FileList.pm
 %{perl_vendorlib}/RHN/Form.pm
 %{perl_vendorlib}/RHN/Form/

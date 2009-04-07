@@ -593,7 +593,7 @@ sub forgot_password_cb {
     my $letter = new RHN::Postal;
     $letter->template("forgot_password.xml");
     $letter->set_tag('email-address' => $email);
-    $letter->set_tag('helpful-email-address' => PXT::Config->get('satellite') ? "your satellite administrator" : "customerservice\@redhat.com");
+    $letter->set_tag('helpful-email-address' => PXT::Config->get('satellite') ?  "your satellite administrator" : "dev-null\@redhat.com");
     $letter->set_tag('username' => $username);
     $letter->set_tag('password' => $password);
     $letter->render;
@@ -629,7 +629,7 @@ sub forgot_accounts_cb {
   my $letter = new RHN::Postal;
   $letter->template("forgot_accounts.xml");
   $letter->set_tag('email-address' => $email);
-  $letter->set_tag('helpful-email-address' => PXT::Config->get('satellite') ? "your satellite administrator" : "customerservice\@redhat.com");
+  $letter->set_tag('helpful-email-address' => PXT::Config->get('satellite') ?  "your satellite administrator" : "dev-null\@redhat.com");
   $letter->set_tag('account-list' => join("\n", map { "  " . $_->login } @users));
   $letter->set_header("X-RHN-Info" => "account_list");
   $letter->render;

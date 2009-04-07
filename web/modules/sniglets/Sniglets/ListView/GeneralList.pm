@@ -97,10 +97,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "faq_list",
 			   -datasource => RHN::DataSource::General->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "support_feedback",
-			   -datasource => RHN::DataSource::General->new,
-			   -provider => \&feedback_provider);
-
   Sniglets::ListView::List->add_mode(-mode => "user_emailaddress_log",
 			   -datasource => RHN::DataSource::General->new,
 			   -provider => \&emailaddress_provider);
@@ -273,68 +269,6 @@ sub purchase_history_provider {
 }
 
 my @allowed_sort_columns = qw/FB.created BASIC_SLOTS ENTERPRISE_SLOTS/;
-
-sub feedback_provider {
-  my $self = shift;
-  my $pxt = shift;
-
-  my $sort_column = $pxt->dirty_param('sort_column') || 'FB.created';
-  my $sort_order = $pxt->dirty_param('sort_order') || 'DESC';
-
-  if ($sort_order ne 'DESC') {
-    $sort_order = '';
-  }
-
-  throw "Bad sort column: '$sort_column'"
-    unless grep { $_ eq $sort_column} @allowed_sort_columns;
-
-  my $ds = $self->datasource;
-
-  my %params = $self->lookup_params($pxt, $ds->required_params);
-
-  %params = $ds->parse_params($ds->get_query_params, %params);
-  my $query_body = $ds->get_query_body();
-
-  $query_body .= "\nORDER BY $sort_column $sort_order\n";
-  my $data = $ds->run_query(-body => $query_body, -params => \%params);
-
-  $data = $self->filter_data($data);
-  my $alphabar = $self->init_alphabar($data);
-
-  my $all_ids = [ map { $_->{ID} } @{$data} ];
-  $self->all_ids($all_ids);
-
-  $data = $ds->slice_data($data, $self->lower, $self->upper);
-  $data = $ds->elaborate($data, %params);
-
-  foreach my $row (@$data) {
-    Sniglets::ListView::List::escape_row($row);
-  }
-
-  my %ret =
-    (data => $data,
-     all_ids => $all_ids,
-     alphabar => $alphabar);
-
-  foreach my $row (@{$ret{data}}) {
-    $row->{ENTITLEMENT_TYPE} = 'Free';
-
-    if ($row->{BASIC_SLOTS} > 1) {
-      $row->{ENTITLEMENT_TYPE} = "Update Service&#160;(" . ($row->{BASIC_SLOTS} - 1) . ")";
-    }
-
-    if ($row->{ENTERPRISE_SLOTS} > 0) {
-      $row->{ENTITLEMENT_TYPE} = "Management Service&#160;(" . $row->{ENTERPRISE_SLOTS} . ")";
-      $row->{ENTITLEMENT_TYPE} .= "<br />" . "Update Service&#160;(" . ($row->{BASIC_SLOTS} - 1) . ")"
-	if ($row->{BASIC_SLOTS} > 1);
-    }
-  }
-
-  $pxt->session->set('feedback_lower', $self->lower);
-  $pxt->session->set('feedback_upper', $self->upper);
-
-  return (%ret);
-}
 
 sub kickstarts_for_org_provider {
   my $self = shift;

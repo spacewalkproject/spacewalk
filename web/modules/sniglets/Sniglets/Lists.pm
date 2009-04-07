@@ -55,8 +55,6 @@ sub register_tags {
   $pxt->register_tag('rhn-system-name', \&system_name, -5);
   $pxt->register_tag('rhn-time-period-selector', \&time_selector);
 
-  $pxt->register_tag('rhn-feedback-sort' => \&feedback_sort);
-
   $pxt->register_tag('rhn-list-legend' => \&list_legend, 200);
 }
 
@@ -354,30 +352,6 @@ my @sort_orders = ( { value => 'DESC',
 		    { value => 'ASCENDING',
 		      label => 'Ascending', },
 		    );
-
-sub feedback_sort {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sort_column = $pxt->dirty_param('sort_column') || 'FB.created';
-  my $sort_order = $pxt->dirty_param('sort_order') || 'DESC';
-
-  my %subst;
-
-  $subst{column_select} = PXT::HTML->select(-name => 'sort_column',
-					    -size => 1,
-					    -options => [ map { [ $_->{label},
-								  $_->{value},
-								  $_->{value} eq $sort_column ] } @sort_columns ] );
-
-  $subst{order_select} = PXT::HTML->select(-name => 'sort_order',
-					    -size => 1,
-					    -options => [ map { [ $_->{label},
-  								  $_->{value},
-								  $_->{value} eq $sort_order ] } @sort_orders ] );
-
-  return PXT::Utils->perform_substitutions($params{__block__}, \%subst);
-}
 
 my $time_slots = [
 		  { label => '5 Minutes',

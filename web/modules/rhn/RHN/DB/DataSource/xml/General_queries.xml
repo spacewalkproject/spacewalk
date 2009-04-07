@@ -175,42 +175,6 @@ ORDER BY X.start_date_active DESC, X.order_id DESC, X.product_item_code
   </query>
 </mode>
 
-<mode name="faq_list">
-  <query params="">
-  SELECT  FAQ.id, FAQ.subject,
-          TO_CHAR(FAQ.modified, 'YYYY-MM-DD') AS modified_date,
-          FAQ.modified, FAQ.usage_count,
-          NVL((SELECT FC.name FROM rhnFAQClass FC WHERE FC.id = FAQ.class_id), 'none') as class
-    FROM  rhnFAQ FAQ
-ORDER BY  FAQ.usage_count DESC, FAQ.subject
-  </query>
-</mode>
-
-<mode name="support_feedback">
-  <query params="">
-SELECT FB.id, U.id AS SENDER_ID, U.login AS SENDER_LOGIN, FB.subject,
-       FBS.label AS STATUS, FBT.label AS TYPE, TO_CHAR(FB.created, 'YYYY-MM-DD') CREATED,
-       NVL((SELECT max_members
-              FROM rhnServerGroup SG
-             WHERE SG.org_id = U.org_id
-               AND SG.group_type = (SELECT id FROM rhnServerGroupType
-                                     WHERE label = 'sw_mgr_entitled')), 0) BASIC_SLOTS,
-       NVL((SELECT max_members
-              FROM rhnServerGroup SG
-             WHERE SG.org_id = U.org_id
-               AND SG.group_type = (SELECT id FROM rhnServerGroupType
-                                     WHERE label = 'enterprise_entitled')), 0) ENTERPRISE_SLOTS
-  FROM rhnUser U,
-       rhnUserFeedbackType FBT,
-       rhnUserFeedbackStatus FBS,
-       rhnUserFeedback FB
- WHERE U.id = FB.user_id
-   AND FBT.id = FB.type
-   AND FBS.id = FB.status
-   AND FBS.label = 'new'
-  </query>
-</mode>
-
 <mode name="user_emailaddress_log">
   <query params="support_uid">
 SELECT EAL.user_id, WC.login, EAL.address, EAL.reason, TO_CHAR(EAL.created, 'YYYY-MM-DD HH24:MI:SS') as created
@@ -227,63 +191,6 @@ ORDER BY EAL.created DESC
    FROM rhnTemplateString TS, rhnTemplateCategory TC
   WHERE TC.id = TS.category_id
 ORDER BY TC.label, TS.label
-  </query>
-</mode>
-
-<mode name="faq_lookup">
-  <query params="faq_id">
-SELECT F.id, F.subject, F.details, F.private, F.usage_count,
-       FC.name AS class_name, FC.label AS class_label
-  FROM rhnFAQ F, rhnFAQClass FC
- WHERE F.id = :faq_id
-   AND FC.id = F.class_id
-  </query>
-</mode>
-
-<mode name="faq_classes">
-  <query params="">
-SELECT FC.id, FC.name, FC.label, FC.ordering,
-       (SELECT count(id) FROM rhnFAQ WHERE class_id = FC.id) AS FAQ_COUNT   
-  FROM rhnFAQClass FC
-ORDER BY FC.ordering
-  </query>
-</mode>
-
-<mode name="faqs_by_class">
-  <query params="">
-SELECT FC.id, FC.name AS CLASS_NAME, FC.label AS CLASS_LABEL, FC.ordering
-  FROM rhnFAQClass FC
-ORDER BY FC.ordering
-  </query>
-  <elaborator params="" multiple="t">
-SELECT F.class_id AS ID, F.id AS FAQ_ID, F.subject, F.details, F.private, F.created,
-       F.modified, F.usage_count
-  FROM rhnFAQ F
- WHERE F.class_id IN (%s)
-ORDER BY  F.id
-  </elaborator>
-</mode>
-
-<mode name="faqs_in_class">
-  <query params="class, private">
-  SELECT F.id, F.subject, F.details, F.private, F.created,
-         F.modified, F.usage_count, FC.label AS CLASS
-    FROM rhnFAQClass FC, rhnFAQ F
-   WHERE FC.label = :class
-     AND F.private = :private
-     AND F.class_id = FC.id
-ORDER BY F.usage_count DESC, F.subject
-  </query>
-</mode>
-
-<mode name="all_faqs">
-  <query params="private">
-  SELECT F.id, F.subject, F.details, F.private, F.created,
-         F.modified, F.usage_count, FC.label AS CLASS
-    FROM rhnFAQClass FC, rhnFAQ F
-   WHERE F.private = :private
-     AND FC.id = F.class_id
-ORDER BY F.usage_count DESC, F.subject
   </query>
 </mode>
 

@@ -60,12 +60,5 @@
   PerlHandler PXT::ApacheHandler
 </Files>
 
-<Files faq>
-  ForceType text/pxt
-  SetHandler perl-script
-  PerlModule PXT::ApacheHandler
-  PerlHandler PXT::ApacheHandler
-</Files>
-
 PerlSetVar pxt_make_vile off
 
