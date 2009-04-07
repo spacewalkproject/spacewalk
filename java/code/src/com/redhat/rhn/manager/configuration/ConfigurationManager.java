@@ -76,7 +76,7 @@ public class ConfigurationManager extends BaseManager {
     private static Logger log = Logger
             .getLogger(ConfigurationManager.class);
     
-    private static ConfigurationManager instance = new ConfigurationManager();
+    private static final ConfigurationManager INSTANCE = new ConfigurationManager();
     
     // Used as keys into the Map returned by a file-content-validation error
     // see validateContent()
@@ -107,7 +107,7 @@ public class ConfigurationManager extends BaseManager {
      * @return the static object of this class.
      */
     public static ConfigurationManager getInstance() {
-        return instance;
+        return INSTANCE;
     }
     
     /**
