@@ -65,6 +65,10 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Apr 07 2009 Devan Goodwin <dgoodwin@redhat.com> 5.3.0-1
+- bump up version to 5.3 (msuchy@redhat.com)
+- authorized_keys should be owned by nocpulse (msuchy@redhat.com)
+
 * Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com>
 - authorized_keys should be owned by nocpulse
 - bump up version to 5.3.0
