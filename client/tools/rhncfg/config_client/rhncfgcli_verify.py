@@ -152,10 +152,14 @@ class Handler(handler_base.HandlerBase):
         if not stat_err:
             #check for group differences
             dst_gid = dst_stat[stat.ST_GID]
-            dst_group = grp.getgrgid(dst_gid)[0]
+            try:
+                dst_group = grp.getgrgid(dst_gid)[0]
+            except KeyError:
+                # Orphan GID with no name,return unknown
+                dst_group = "unknown(GID %d)" % (dst_gid,)
         else:
             dst_group = "missing"
-        
+
         #group_status gets displayed with the verbose option.
         group_status = group_report % (src_group, dst_group)
         
