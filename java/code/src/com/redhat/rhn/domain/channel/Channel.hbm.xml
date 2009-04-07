@@ -20,7 +20,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="GPGKeyId" type="string" column="gpg_key_id"/>
         <property name="GPGKeyFp" type="string" column="gpg_key_fp"/>
         <property name="label" type="string" column="label"/>
-        <property name="lastModified" type="date" column="last_modified"/>
+        <property name="lastModified" type="timestamp" column="last_modified"/>
         <property name="name" type="string" column="name"/>
         <property name="summary" type="string" column="summary"/>        
         <property name="access" type="string" column="channel_access"/>
