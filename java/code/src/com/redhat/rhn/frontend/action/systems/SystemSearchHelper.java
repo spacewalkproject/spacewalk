@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import redstone.xmlrpc.XmlRpcClient;
 import redstone.xmlrpc.XmlRpcFault;
@@ -196,7 +197,7 @@ public class SystemSearchHelper {
         if ("system_list".equals(whereToSearch)) {
             serverIds = filterOutIdsNotInSSM(user, serverIds);
         }
-        DataResult retval = processResultMap(user, serverIds);
+        DataResult retval = processResultMap(user, serverIds, viewMode);
         return retval;
     }
 
@@ -233,11 +234,8 @@ public class SystemSearchHelper {
             buf.append(s);
             buf.append(" ");
         }
-
         String terms = buf.toString().trim();
-        String query;
-        String index;
-
+        String query, index;
         if (NAME_AND_DESCRIPTION.equals(mode)) {
             query = "name:(" + terms + ") description:(" + terms + ")";
             index = SERVER_INDEX;
@@ -257,18 +255,22 @@ public class SystemSearchHelper {
         }
         else if (CHECKIN.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
-            Calendar startDate = Calendar.getInstance();
+            // Lucene uses GMT for indexing
+            Calendar startDate = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             startDate.add(Calendar.DATE, -1 * numDays);
             query = "checkin:[\"" + formatDateString(new Date(0)) +
-            "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
+                    "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
             index = SERVER_INDEX;
         }
         else if (REGISTERED.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
-            Calendar startDate = Calendar.getInstance();
+            // Lucene uses GMT for indexing
+            Calendar startDate = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
             startDate.add(Calendar.DATE, -1 * numDays);
             query = "registered:[\"" + formatDateString(startDate.getTime()) +
-            "\" TO \"" + formatDateString(Calendar.getInstance().getTime()) + "\"]";
+                "\" TO \"" + formatDateString(
+                Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTime()) +
+                "\"]";
             index = SERVER_INDEX;
         }
         else if (CPU_MODEL.equals(mode)) {
@@ -367,7 +369,6 @@ public class SystemSearchHelper {
         else {
             throw new ValidatorException("Mode: " + mode + " not supported.");
         }
-
         Map<String, String> retval = new HashMap<String, String>();
         retval.put("query", query);
         retval.put("index", index);
@@ -468,6 +469,7 @@ public class SystemSearchHelper {
                 matchingField = "id";
             }
             serverItem.put("matchingField", matchingField);
+            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for system id: " + result.get("id") +
                         " new map = " + serverItem);
@@ -494,6 +496,7 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
+            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", hwdevice id: " + result.get("id") + " new map = " +
@@ -521,6 +524,7 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
+            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", snapshotID: " + result.get("snapshotId") + " new map = " +
@@ -548,6 +552,11 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("value");
             }
             serverItem.put("matchingField", matchingField);
+            String matchingFieldValue = (String)result.get("matchingFieldValue");
+            if (matchingFieldValue.length() == 0) {
+                matchingFieldValue = (String)result.get("value");
+            }
+            serverItem.put("matchingFieldValue", matchingFieldValue);
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", customValueID: " + result.get("id") + " new map = " +
@@ -558,7 +567,8 @@ public class SystemSearchHelper {
         return serverIds;
     }
 
-    protected static DataResult processResultMap(User userIn, Map serverIds) {
+    protected static DataResult processResultMap(User userIn, Map serverIds,
+            String viewMode) {
         DataResult<SystemSearchResult> serverList =
             UserManager.visibleSystemsAsDtoFromList(userIn,
                     new ArrayList(serverIds.keySet()));
@@ -589,12 +599,29 @@ public class SystemSearchHelper {
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
-        SearchResultNameComparator nameComparator =
-            new SearchResultNameComparator(serverIds);
-        Collections.sort(serverList, nameComparator);
-        SearchResultScoreComparator scoreComparator =
-            new SearchResultScoreComparator(serverIds);
-        Collections.sort(serverList, scoreComparator);
+        /** RangeQueries return a constant score of 1.0 for anything that matches.
+         * Therefore we need to do more work to understand how to best sort results.
+         * Sorting will be done based on value for 'matchingFieldValue', this is a best
+         * guess from the search server of what field in the document most influenced
+         * the result.
+         * */
+        if (CHECKIN.equals(viewMode) || REGISTERED.equals(viewMode) ||
+                CPU_MHZ_LT.equals(viewMode) || CPU_MHZ_GT.equals(viewMode) ||
+                NUM_CPUS_LT.equals(viewMode) || NUM_CPUS_GT.equals(viewMode) ||
+                RAM_LT.equals(viewMode) || RAM_GT.equals(viewMode)) {
+            SearchResultMatchedFieldComparator comparator =
+                new SearchResultMatchedFieldComparator(serverIds);
+            Collections.sort(serverList, comparator);
+        }
+        else {
+            SearchResultNameComparator nameComparator =
+                new SearchResultNameComparator(serverIds);
+            Collections.sort(serverList, nameComparator);
+            SearchResultScoreComparator scoreComparator =
+                new SearchResultScoreComparator(serverIds);
+            Collections.sort(serverList, scoreComparator);
+        }
+
         if (log.isDebugEnabled()) {
             log.debug("sorted server data = " + serverList);
         }
@@ -681,7 +708,7 @@ public class SystemSearchHelper {
     }
     
     protected static String formatDateString(Date d) {
-        String dateFormat = "MM/dd/yyyy";
+        String dateFormat = "yyyyMMddHHmm";
         java.text.SimpleDateFormat sdf =
               new java.text.SimpleDateFormat(dateFormat);
         return sdf.format(d);
@@ -800,4 +827,46 @@ public class SystemSearchHelper {
             return score2.compareTo(score1);
      }
    }
+    /**
+     *
+     * Compares search results by 'matchingFieldValue'
+     *
+     */
+    public static class SearchResultMatchedFieldComparator implements Comparator {
+        protected Map results;
+        protected SearchResultMatchedFieldComparator() {
+        }
+        /**
+         * @param resultsIn map of server related info to use for comparisons
+         */
+        public SearchResultMatchedFieldComparator(Map resultsIn) {
+            this.results = resultsIn;
+        }
+        /**
+         * @param o1 systemOverview11
+         * @param o2 systemOverview2
+         * @return comparison info based on matchingFieldValue
+         */
+        public int compare(Object o1, Object o2) {
+            SystemOverview sys1 = (SystemOverview)o1;
+            SystemOverview sys2 = (SystemOverview)o2;
+            Long serverId1 = sys1.getId();
+            Long serverId2 = sys2.getId();
+            if (results == null) {
+                return 0;
+            }
+            Map sMap1 = (Map)results.get(serverId1);
+            Map sMap2 = (Map)results.get(serverId2);
+            if ((sMap1 == null) || (sMap2 == null)) {
+                return 0;
+            }
+            if ((!sMap1.containsKey("matchingFieldValue")) ||
+                    (!sMap2.containsKey("matchingFieldValue"))) {
+                return 0;
+            }
+            String val1 = (String)sMap1.get("matchingFieldValue");
+            String val2 = (String)sMap2.get("matchingFieldValue");
+            return val2.compareTo(val1);
+        }
+    }
 }

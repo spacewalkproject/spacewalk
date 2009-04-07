@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
@@ -362,7 +363,7 @@ public class IndexManager {
         else {
             qp = new NGramQueryParser("name", analyzer);
         }
-        
+        qp.setDateResolution(DateTools.Resolution.MINUTE);
         return qp;
     }
     
@@ -436,9 +437,11 @@ public class IndexManager {
                 Iterator<Term> iter = queryTerms.iterator();
                 if (iter.hasNext()) {
                     Term t = iter.next();
+                    String val = doc.getField(t.field()).stringValue();
                     log.info("For hit[" + x + "] setting matchingField to '" +
-                            t.field() + "'");
+                            t.field() + "' with it's value set to " + val);
                     pr.setMatchingField(t.field());
+                    pr.setMatchingFieldValue(val);
                 }
                 else {
                     log.info("hit[" + x + "] odd queryTerms iterator doesn't " + 
@@ -449,8 +452,10 @@ public class IndexManager {
             else {
                 String field = getFirstFieldName(query);
                 pr.setMatchingField(field);
+                pr.setMatchingFieldValue(doc.getField(field).stringValue());
                 log.info("hit[" + x + "] matchingField is being set to: <" + 
-                        pr.getMatchingField() + "> based on passed in query field.");
+                        pr.getMatchingField() + "> based on passed in query field.  " +
+                        "matchingFieldValue = " + pr.getMatchingFieldValue());
             }
             if (pr != null) {
                 retval.add(pr);

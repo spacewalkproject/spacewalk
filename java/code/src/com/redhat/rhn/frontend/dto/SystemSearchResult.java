@@ -430,7 +430,10 @@ public class SystemSearchResult extends SystemOverview {
      * @return days ago this system checked in with server
      */
     public Long getCheckin() {
-        return getLastCheckinDaysAgo();
+        long now = Calendar.getInstance().getTime().getTime();
+        long reg = getLastCheckinDate().getTime();
+        long diff = now - reg;
+        return diff / (1000 * 60 * 60 * 24);
     }
 
     /**
