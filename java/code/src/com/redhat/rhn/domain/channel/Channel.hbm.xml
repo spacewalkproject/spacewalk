@@ -213,11 +213,21 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
     <sql-query name="Channel.accessibleChildChannelIds">
         <![CDATA[SELECT {c.*}
-  FROM rhnChannel c,
-       rhnChannelCloned c_1_            
- WHERE parent_channel = :cid
-   AND rhn_channel.get_org_access(c.id, :org_id) = 1
-   AND c.id = c_1_.id (+) ]]>
+  FROM   rhnChannel c,
+         rhnChannelCloned c_1_
+ WHERE   parent_channel = :cid
+     AND rhn_channel.get_org_access(c.id, :org_id) = 1
+     AND c.id = c_1_.id (+)
+ UNION
+ SELECT {c.*}
+ FROM    rhnChannel c,
+         rhnSharedChannelView sc,
+         rhnChannelCloned c_1_
+ WHERE   sc.parent_channel = :cid
+ AND     sc.org_trust_id = :org_id
+ AND     sc.id = c.id
+ AND     c.id = c_1_.id (+)
+    ]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
