@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %config(noreplace) %{_sysconfdir}/pam.d/rhnmd
-%config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
+%config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
 %config(noreplace) %{_sysconfdir}/%{np_name}/*
@@ -65,6 +65,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com>
+- authorized_keys should be owned by nocpulse
+
 * Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 5.1.7-1
 - 489573 - remove generating keys and leave it on nocpulse-common
 
