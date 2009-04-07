@@ -29,6 +29,7 @@ import org.apache.log4j.Logger;
 public class SystemSearchResult extends SystemOverview {
     
     private String matchingField;
+    private String matchingFieldValue;
     private String hostname;
     private String description;
     private String runningKernel;
@@ -60,6 +61,9 @@ public class SystemSearchResult extends SystemOverview {
     /**
      * This method will look up the value of "matchingField" it will then
      * return the value of the variable name which matches it.
+     * NOTE:  This method requires that the result has been elaborated, or else data
+     * is potentially missing.  As an alternate you can use "getMatchingFieldValue" to
+     * use the data returned from search server.
      * @return String of the matching field value
      */
     public String getLookupMatchingField() {
@@ -119,6 +123,29 @@ public class SystemSearchResult extends SystemOverview {
         this.matchingField = matchingFieldIn.toString();
     }
 
+    /**
+     * @return returns the data in the field
+     * that was searched on
+     */
+    public String getMatchingFieldValue() {
+        return matchingFieldValue;
+    }
+
+    /**
+     * @param matchingFieldValueIn The matchingFieldValue to set.
+     */
+    public void setMatchingFieldValue(String matchingFieldValueIn) {
+        this.matchingFieldValue = matchingFieldValueIn;
+    }
+
+    /**
+     * Takes care of cases where the DB will be returning numerical
+     * instead of varchar vlues
+     * @param matchingFieldValueIn matchingFieldValue to set
+     */
+    public void setMatchingFieldValue(Long matchingFieldValueIn) {
+        this.matchingFieldValue = matchingFieldValueIn.toString();
+    }
     /**
      * @return the hostname
      */

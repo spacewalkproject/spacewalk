@@ -174,7 +174,7 @@
         </rl:list>
         <rl:csv dataset="searchResults"
                 name="searchResults"
-                exportColumns="id,serverName,lookupMatchingField,entitlementLevel"/>
+                exportColumns="id,serverName,matchingField,matchingFieldValue,entitlementLevel"/>
 
     </rl:listset>
     </c:if>
