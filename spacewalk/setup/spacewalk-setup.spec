@@ -24,7 +24,7 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler >= 1.4.3
+Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
 Requires:       jabberd
 
@@ -94,6 +94,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Mon Apr  6 2009 Partha Aji <paji@redhat.com> 0.5.28-1
+- moved the cobbler requirement to 1.6.3 or greater as required by sat.
+
 * Fri Mar 27 2009 Jan Pazdziora 0.5.27-1
 - 492194 - address spacewalk-setup hanging while Restarting services.
 

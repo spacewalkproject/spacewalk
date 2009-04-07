@@ -77,7 +77,7 @@ public class Distro extends CobblerObject {
      */
     public static Distro lookupById(CobblerConnection client, String id) {
         return handleLookup(client, lookupDataMapById(client, 
-                                        id, "find_distro", "get_distros"));
+                                        id, "find_distro"));
     }
     
     private static Distro handleLookup(CobblerConnection client, Map distroMap) {

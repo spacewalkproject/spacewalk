@@ -19,12 +19,10 @@ import org.apache.log4j.Logger;
 
 import java.net.MalformedURLException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
-import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * 
@@ -36,11 +34,9 @@ import redstone.xmlrpc.XmlRpcFault;
  * @version $Rev$
  */
 public class CobblerConnection {
-    private static final double COBBLER_VERSION = 1.6;
     private XmlRpcClient client;
     private String actualUrl;
     private static Logger log = Logger.getLogger(CobblerConnection.class);
-    private Double version;
     private String token;
     
     protected CobblerConnection() {
@@ -55,7 +51,7 @@ public class CobblerConnection {
     
     public CobblerConnection(String url) {
         try {
-            actualUrl = adjustUrl(url);
+            actualUrl = url + "/cobbler_api";
             client = new XmlRpcClient(actualUrl, false);
         }
         catch (MalformedURLException e) {
@@ -115,7 +111,7 @@ public class CobblerConnection {
      * @return Object returned.
      */
     private Object invokeMethod(String procedureName, List args) {
-        log.debug("procedure: " + procedureName + " ags: " + args);
+        log.debug("procedure: " + procedureName + " args: " + args);
         Object retval;
         try {
             retval = client.invoke(procedureName, args);
@@ -168,46 +164,5 @@ public class CobblerConnection {
      */
     public String getUrl() {
         return actualUrl;
-    }
-    
-    /**
-     * Gets the cobbler version
-     * @return the cobbler version.
-     */
-    private double getVersion() {
-        if (version == null) {
-            version = (Double)invokeMethod("version");
-        }
-        return version;
-    }
-    
-    /**
-     * a hack to check if the api version is > 1.6
-     * for some things are different after..
-     * @return true if the client connection is 1.6 or greater.
-     */
-    public boolean is16OrGreater() {
-        return getVersion() >= COBBLER_VERSION;
-    }
-
-    private String adjustUrl(String urlIn) {
-        String url = urlIn + "/cobbler_api";
-        try {
-            XmlRpcClient baseClient = new XmlRpcClient(url, false);
-            Double result = (Double)baseClient.invoke("version", Collections.EMPTY_LIST);
-            if (result >= COBBLER_VERSION) {
-                return url;
-            }
-            return url + "_rw";
-        }
-        catch (MalformedURLException e) {
-            throw new XmlRpcException(e);
-        }
-        catch (redstone.xmlrpc.XmlRpcException e) {
-            throw new XmlRpcException(e);
-        }
-        catch (XmlRpcFault e) {
-            throw new XmlRpcException(e); 
-        }        
     }
 }
