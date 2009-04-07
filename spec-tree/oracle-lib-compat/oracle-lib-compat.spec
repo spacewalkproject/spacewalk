@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -79,6 +79,9 @@ ldconfig
 
 
 %changelog
+* Tue Apr 07 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-20
+- specified exact version of instantclient
+
 * Mon Mar 02 2009 Devan Goodwin <dgoodwin@redhat.com> 10.2-19
 - Version bump to allow fresh dist-cvs tags.
 
