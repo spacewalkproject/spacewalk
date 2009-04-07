@@ -43,7 +43,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
@@ -62,7 +61,6 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerHistoryEvent;
-import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.server.Note;
@@ -2085,74 +2083,6 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertTrue(contains);
     }
     
-    
-    private ServerSnapshot generateSnapshot(Server server) {
-        ServerSnapshot snap = new ServerSnapshot();
-        snap.setServer(server);
-        snap.setOrg(server.getOrg());
-        snap.setReason("blah");
-        return snap;
-    }
-    
-    
-    public void testListSnapshots() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        ServerSnapshot snap = generateSnapshot(server);
-        ServerGroup grp = ServerGroupTestUtils.createEntitled(server.getOrg());
-        snap.addGroup(grp);
-        
-        TestUtils.saveAndFlush(snap);        
-        List<ServerSnapshot> list = handler.listSnapshots(adminKey, 
-                server.getId().intValue());
-        assertContains(list, snap);
-        assertContains(snap.getGroups(), grp);
-        
-    }
-    
-    public  void testListSnapshotPackages() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        ServerSnapshot snap = generateSnapshot(server);
-        Package pack = PackageTest.createTestPackage();
-        PackageNevra packN = new PackageNevra();
-        packN.setArch(pack.getPackageArch());
-        packN.setEvr(pack.getPackageEvr());
-        packN.setName(pack.getPackageName());
-        snap.getPackages().add(packN);
-        TestUtils.saveAndFlush(packN);
-        TestUtils.saveAndFlush(snap);    
-        Set<PackageNevra> list = handler.listSnapshotPackages(adminKey, 
-                snap.getId().intValue());
-         assertContains(list, packN);        
-    }
-    
-    public void testdeleteSnapshot() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        ServerSnapshot snap = generateSnapshot(server);
-        TestUtils.saveAndFlush(snap);       
-        
-        handler.deleteSnapshot(adminKey, snap.getId().intValue());
-        List<ServerSnapshot> list = handler.listSnapshots(adminKey, 
-                server.getId().intValue());
-        assertTrue(list.size() == 0);
-        
-    }
-    
-    public void testdeleteSnapshots() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        ServerSnapshot snap = generateSnapshot(server);
-        generateSnapshot(server);
-        generateSnapshot(server);
-        generateSnapshot(server);
-        generateSnapshot(server);
-        TestUtils.saveAndFlush(snap);       
-        
-        handler.deleteSnapshots(adminKey, server.getId().intValue());
-        List<ServerSnapshot> list = handler.listSnapshots(adminKey, 
-                server.getId().intValue());
-        assertTrue(list.size() == 0);
-        
-    }
-
     public void testListActivationKeys() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
 

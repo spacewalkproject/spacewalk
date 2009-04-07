@@ -153,8 +153,8 @@ public class MigrationManager extends BaseManager {
         ErrataCacheManager.deleteNeededPackageCache(server.getId());
         
         // Remove snapshots
-        List<ServerSnapshot> snapshots = ServerFactory.listSnapshotsForServer(
-                server, server.getOrg());
+        List<ServerSnapshot> snapshots = ServerFactory.listSnapshots(
+                server.getOrg(), server, null, null);
         for (ServerSnapshot snapshot : snapshots) {
             ServerFactory.deleteSnapshot(snapshot);
         }

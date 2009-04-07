@@ -53,7 +53,6 @@ import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.NoBaseChannelFoundException;
-import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -63,7 +62,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageNevra;
 import com.redhat.rhn.domain.rhnpackage.profile.DuplicateProfileNameException;
 import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
@@ -78,7 +76,6 @@ import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
-import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -482,6 +479,28 @@ public class SystemHandler extends BaseHandler {
         }
     
         return returnList.toArray();
+    }
+
+    /**
+     * Gets a list of all systems visible to user
+     * @param sessionKey The sessionKey containing the logged in user
+     * @return Returns an array of maps representing all systems visible to user
+     *
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key
+     *
+     * @xmlrpc.doc Returns a list of all servers visible to the user.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $SystemOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listSystems(String sessionKey) throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        DataResult<SystemOverview> dr = SystemManager.systemList(loggedInUser, null);
+        dr.elaborate();
+        return dr.toArray();
     }
 
     /**
@@ -3630,118 +3649,6 @@ public class SystemHandler extends BaseHandler {
         return scheduleGuestAction(sessionKey, sid, state, null);
     }
     
-    /**
-     * List the snapshots for a given system
-     * @param sessionKey key
-     * @param sid system id
-     * @return list of server snapshots
-     * 
-     * @xmlrpc.doc List the snapshots for a given system
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.returntype
-     *  #array()
-     *      $ServerSnapshotSerializer
-     *  #array_end()
-     */
-    public List<ServerSnapshot> listSnapshots(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = lookupServer(loggedInUser, sid);
-        return ServerFactory.listSnapshotsForServer(server, server.getOrg());
-    }
-    
-    
-    private ServerSnapshot lookupSnapshot(User user, Integer snapId) {
-        ServerSnapshot snap = ServerFactory.lookupSnapshotById(snapId);
-        if  (snap == null) {
-            //TODO throw exception
-        }
-        lookupServer(user, snap.getServer().getId().intValue());
-        return snap;
-    }
-    
-    /**
-     * list the packages for a given snapshot
-     * @param sessionKey key
-     * @param snapId snapshot id
-     * @return Set of packageNEvra objects
-     * 
-     * @xmlrpc.doc List the packages associated with a snapshot.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param("int", "snapId")
-     * @xmlrpc.returntype
-     *      #array()
-     *         $PackageNevraSerializer
-     *     #array_end()
-     */
-    public Set<PackageNevra> listSnapshotPackages(String sessionKey, Integer snapId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
-        return snap.getPackages();
-        
-    }
-    
-    /**
-     * list the config files for a given snapshot
-     * @param sessionKey key
-     * @param snapId snapshot id
-     * @return Set of ConfigRevision objects
-     * 
-     * @xmlrpc.doc List the config files associated with a snapshot.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param("int", "snapId")
-     * @xmlrpc.returntype
-     *      #array()
-     *         $ConfigRevisionSerializer
-     *     #array_end()
-     */    
-    public Set<ConfigRevision> listSnapshotConfigFiles(String sessionKey, Integer snapId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
-        return snap.getConfigRevisions();
-    }
-    
-    /**
-     * Deletes a snapshot
-     * @param sessionKey key
-     * @param snapId id of snapshot
-     * @return 1 on success
-     * 
-     * @xmlrpc.doc  Deletes a snapshot with the given snapshot id
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("int", "snapshotId", "Id of snapshot to delete")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int deleteSnapshot(String sessionKey, Integer snapId) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        ServerSnapshot snap = lookupSnapshot(loggedInUser, snapId);
-        ServerFactory.deleteSnapshot(snap);        
-        return 1;
-    }
-    
-    /**
-     * Deletes all snapshots for a server
-     * @param sessionKey key
-     * @param sid system id
-     * @return 1 on success
-     * 
-     * @xmlrpc.doc  Deletes all snapshots of a given server
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("int", "sid", "system id of system to delete 
-     *          snapshots for")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int deleteSnapshots(String sessionKey, Integer sid) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = lookupServer(loggedInUser, sid);
-        List<ServerSnapshot> snaps = ServerFactory.listSnapshotsForServer(server, 
-             loggedInUser.getOrg());
-        for (ServerSnapshot snap : snaps) {
-            ServerFactory.deleteSnapshot(snap);
-        }      
-        return 1;
-    }
-
     /**
      * List the activation keys the system was registered with.
      * @param sessionKey session
