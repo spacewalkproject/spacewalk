@@ -66,7 +66,6 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.ObjectNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
