@@ -128,3 +128,4 @@ optional_policy(`
 	')
 ')
 
+netutils_domtrans_ping(spacewalk_monitoring_t)
