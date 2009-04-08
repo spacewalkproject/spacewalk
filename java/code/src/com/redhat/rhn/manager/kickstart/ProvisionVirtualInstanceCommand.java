@@ -160,7 +160,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
             Server serverIn, KickstartData ksdataIn, String mediaPath, String tokenList) {
         return new CobblerVirtualSystemCommand(userIn, serverIn,
-                ksdataIn, mediaPath, tokenList);
+                ksdataIn, mediaPath, tokenList, guestName);
     }
     
     @Override
