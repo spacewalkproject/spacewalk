@@ -963,6 +963,9 @@ def _normalize_arch(arch):
     elif arch == "noarch":
         arch = "noarch"
 
+    elif arch == "sparcv9":
+        arch = "sparc"
+
     # bug 170722, check that the arch is something sane
     if __debug__: assert arch in ("i386", "sparc", "noarch"), "Unknown arch %s" % arch
 
