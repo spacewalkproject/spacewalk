@@ -45,6 +45,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sid system id
      * @param dateDetails map containing optional start/end date
      * @return list of server snapshots
+     * @since 10.1
      *
      * @xmlrpc.doc List snapshots for a given system.
      * A user may optionally provide a start and end date to narrow the snapshots that
@@ -98,6 +99,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sessionKey key
      * @param snapId snapshot id
      * @return Set of packageNEvra objects
+     * @since 10.1
      *
      * @xmlrpc.doc List the packages associated with a snapshot.
      * @xmlrpc.param #session_key()
@@ -119,6 +121,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sessionKey key
      * @param snapId snapshot id
      * @return Set of ConfigRevision objects
+     * @since 10.1
      *
      * @xmlrpc.doc List the config files associated with a snapshot.
      * @xmlrpc.param #session_key()
@@ -139,6 +142,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sessionKey key
      * @param dateDetails map containing optional start/end Date objects.
      * @return 1 on success
+     * @since 10.1
      *
      * @xmlrpc.doc  Deletes all snapshots across multiple systems based on the given date
      * criteria.  For example,
@@ -187,6 +191,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sid system id
      * @param dateDetails map containing optional start/end Date objects.
      * @return 1 on success
+     * @since 10.1
      *
      * @xmlrpc.doc  Deletes all snapshots for a given system based on the date
      * criteria.  For example,
@@ -237,6 +242,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sessionKey key
      * @param snapId id of snapshot
      * @return 1 on success
+     * @since 10.1
      *
      * @xmlrpc.doc  Deletes a snapshot with the given snapshot id
      * @xmlrpc.param #session_key()

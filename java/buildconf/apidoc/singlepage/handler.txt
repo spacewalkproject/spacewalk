@@ -1,24 +1,20 @@
-<html>
-<head>
-<meta http-equiv="cache-control" content="no-cache" />
 
-</head>
-<body>
-<div class="toolbar-h1">
-<br />
 
-</div>
-<span class="small-text">( <a href="../index.html">Return to API Overview</a> )</span>
+
+
+<a name="$handler.name" ><h2>$handler.name</h2></a>  <h5><a href="#top">(Return to Handler List)</a></h5>
+
+
 <div class="rounded-box">
-<h2><a name="top">Available methods</a></h2>
+<h3>Available methods</h3>
 <ul class="apidoc">
 
 #foreach( $call in $handler.calls )
-<li><a href="#$call.name"/>$call.name</a></li>
+<li><a href="#$handler.name-$call.name"/>$call.name</a></li>
 #end
 </ul>
 </div>
-<h2>Description</h2>
+<h3>Description</h3>
 $handler.desc
 <p>
 </p>
@@ -29,9 +25,9 @@ $handler.name
 #foreach( $call in $handler.calls )
 
 #if($call.deprecated)
-<h3 class="deprecated"><a name="$call.name" href="#top">Method: $call.name</a></h3>
+<h3 class="deprecated"><a name="$handler.name-$call.name" href="#$handler.name">Method: $call.name</a></h3>
 #else
-<h3> <a name="$call.name" href="#top">Method: $call.name</a></h3>
+<h3> <a name="$handler.name-$call.name" href="#$handler.name">Method: $call.name</a></h3>
 #end
 Description:<br />
 $call.doc
@@ -61,6 +57,3 @@ Available since: $call.sinceVersion <p />
 #end
 <hr />
 #end
-</body>
-Generated on $current_date
-</html>
