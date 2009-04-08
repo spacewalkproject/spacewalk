@@ -94,7 +94,7 @@ public class ApiCall implements Comparable<ApiCall> {
 
     /**
      * sets the since version
-     * @param sinceVersion  the version
+     * @param sinceVersionIn  the version
      */
     public void setSinceVersion(String sinceVersionIn) {
         this.sinceVersion = sinceVersionIn;

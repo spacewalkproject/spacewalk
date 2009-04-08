@@ -114,7 +114,7 @@ public class ApiDoclet {
                         }
                         
                         if (method.tags(SINCE).length > 0) {
-				call.setSinceAvailable(true);
+                            call.setSinceAvailable(true);
                             call.setSinceVersion(getFirst(
                                     method.tags(SINCE)).text());
                         }
