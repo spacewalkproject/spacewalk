@@ -145,7 +145,6 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         cmd.setServerProfileId((Long) form.get("targetProfile"));
         cmd.setProfileId((Long) form.get("targetProfile"));
         
-        
         cmd.setGuestName(form.getString(GUEST_NAME));
         
         
@@ -217,7 +216,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
         ActionErrors errors = new ActionErrors();
         String name = form.getString(GUEST_NAME);
         
-        if (name.length() != 0 && name.length() < MIN_NAME_SIZE) {
+        if (name.length() < MIN_NAME_SIZE) {
             errors.add(ActionErrors.GLOBAL_MESSAGE, new ActionMessage(
                     "frontend.actions.systems.virt.invalidguestnamelength", 
                     (MIN_NAME_SIZE)));
