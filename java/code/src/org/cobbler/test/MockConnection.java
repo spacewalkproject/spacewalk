@@ -106,6 +106,9 @@ public class MockConnection extends CobblerConnection {
     if ("get_profiles".equals(name)) {
         return profiles;
     }
+    else if ("find_profile".equals(name)) {
+        return find((Map)args[0], profiles);
+    }    
     else if (name.equals("modify_profile")) {
         log.debug("PROFILE: Modify  w/ handle" + args[0] + ", set " + args[1] +
                 "to " + args[2]);
@@ -147,6 +150,9 @@ public class MockConnection extends CobblerConnection {
         return key;
     }
     //distros
+    else if ("find_distro".equals(name)) {
+        return find((Map)args[0], distros);
+    }
     else if ("get_distros".equals(name)) {
         return distros;
     }
@@ -197,6 +203,9 @@ public class MockConnection extends CobblerConnection {
         return key;
     }
     //System
+    else if ("find_system".equals(name)) {
+        return find((Map)args[0], systems);
+    }
     else if ("get_systems".equals(name)) {
         return systems;
     }
@@ -249,6 +258,23 @@ public class MockConnection extends CobblerConnection {
        return null;
    }
 
+   
+   private List<Map<String, Object>> find(Map <String, Object> criteria, List<Map> maps) {
+       List<Map<String, Object>> ret = new LinkedList<Map<String, Object>>();
+       for (Map map : maps) {
+           int matched = 0;
+           for (String key : criteria.keySet()) {
+               if (!criteria.get(key).equals(map.get(key))) {
+                   break;
+               }
+               matched++;    
+           }
+           if (matched == criteria.size()) {
+               ret.add(map);
+           }
+       }
+       return ret;
+   }   
 
    private String random() {
        return RandomStringUtils.randomAlphabetic(10);
