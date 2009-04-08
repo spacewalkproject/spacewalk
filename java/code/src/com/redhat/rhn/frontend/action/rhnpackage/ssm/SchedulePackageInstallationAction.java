@@ -30,7 +30,6 @@ import org.apache.struts.action.DynaActionForm;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
@@ -144,20 +143,18 @@ public class SchedulePackageInstallationAction extends RhnListAction implements 
         Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm) formIn,
             "date", DatePicker.YEAR_RANGE_POSITIVE);
 
-        // An action must be created for each server in the SSM
-        // that subscribes to the channel.
+        // Create one action for all servers to which the packages are installed
         List<EssentialServerDto> servers = getResult(context);
-        for (EssentialServerDto serverDto : servers) {
-
-            Long sid = serverDto.getId();
-
+        List<Server> actionServers = new ArrayList<Server>(servers.size());
+        for (EssentialServerDto dto : servers) {
+            Long sid = dto.getId();
             Server server = SystemManager.lookupByIdAndUser(sid, user);
-
-            PackageAction packageAction =
-                ActionManager.schedulePackageInstall(user, server,
-                                                    packageListData, earliest);
+            actionServers.add(server);
         }
-
+        
+        ActionManager.schedulePackageInstall(user, actionServers,
+            packageListData, earliest);
+        
         // Remove the packages from session
         SessionSetHelper.obliterate(request, packagesDecl);
 

@@ -223,8 +223,8 @@ public class EnableConfigHelper {
             return true;  //This particular system didn't need any packages
         }
         
-        ActionManager.schedulePackageAction(user, current, packages,
-                ActionFactory.TYPE_PACKAGES_UPDATE, earliest);
+        ActionManager.schedulePackageAction(user, packages,
+            ActionFactory.TYPE_PACKAGES_UPDATE, earliest, current);
         
         return true;
         
