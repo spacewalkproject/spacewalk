@@ -101,6 +101,11 @@ public class MatchingField {
     }
     
     protected String getFirstFieldName(String queryIn) {
+        // remove first parenthesis, this shows up when you do a
+        // Query.toString(), package searches generally have this
+        if (queryIn.startsWith("(")) {
+            queryIn = queryIn.substring(1);
+        }
         StringTokenizer tokens = new StringTokenizer(queryIn, ":");
         return tokens.nextToken();
     }
