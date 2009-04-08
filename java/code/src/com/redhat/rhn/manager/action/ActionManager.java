@@ -79,6 +79,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * ActionManager - the singleton class used to provide Business Operations
@@ -95,6 +96,14 @@ public class ActionManager extends BaseManager {
     // remove when doing a package sync.  Never remove running kernel
     // for instance.
     public static final String[] PACKAGES_NOT_REMOVABLE = {"kernel"};
+
+    /**
+     * This was extracted to a constant from the
+     * {@link #scheduleAction(User, Server, ActionType, String, Date)} method. At the time
+     * it was in there, there was a comment "hmm 10?". Not sure what the hesitation is
+     * but I wanted to retain that comment with regard to this value. 
+     */
+    private static final Long REMAINING_TRIES = 10L;
     
     private ActionManager() {
     }
@@ -845,8 +854,8 @@ public class ActionManager extends BaseManager {
      */
     public static PackageAction schedulePackageRefresh(User scheduler, Server server, 
             Date earliest) {
-        PackageAction pa = (PackageAction) schedulePackageAction(scheduler, 
-                server, (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest);
+        PackageAction pa = (PackageAction) schedulePackageAction(scheduler,
+            (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest, server);
         storeAction(pa);
         return pa;
     }
@@ -1021,12 +1030,12 @@ public class ActionManager extends BaseManager {
     public static PackageAction schedulePackageRemoval(User scheduler,
             Server srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
+            return (PackageAction) schedulePackageAction(scheduler, pkgs,
+                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction, srvr);
         }
         else {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
+            return (PackageAction) schedulePackageAction(scheduler, pkgs,
+                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction, srvr);
         }
     }
     
@@ -1069,13 +1078,53 @@ public class ActionManager extends BaseManager {
     public static PackageAction schedulePackageInstall(User scheduler,
             Server srvr, List pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction);
+            return (PackageAction) schedulePackageAction(scheduler, pkgs,
+                ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction, srvr);
         }
         else {
-            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs, 
-                    ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction);
+            return (PackageAction) schedulePackageAction(scheduler, pkgs,
+                ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction, srvr);
         }
+    }
+    
+    /**
+     * Schedules one or more package installation actions on one or more servers.
+     * @param scheduler      user scheduling the action.
+     * @param servers        servers for which the packages should be installed
+     * @param pkgs           set of packages to be removed.
+     * @param earliestAction date of earliest action to be executed
+     */
+    public static void schedulePackageInstall(User scheduler,
+            List<Server> servers, List pkgs, Date earliestAction) {
+        
+        // Different handling for package installs on solaris v. rhel, so split out
+        // the servers first in case the list is mixed.
+        List<Server> rhelServers = new ArrayList<Server>();
+        List<Server> solarisServers = new ArrayList<Server>();
+        
+        for (Server server : servers) {
+            if (server.isSolaris()) {
+                solarisServers.add(server);
+            }
+            else {
+                rhelServers.add(server);
+            }
+        }
+        
+        // Since the solaris v. rhel distinction results in a different action type,
+        // we'll end up with 2 actions created if the server list is mixed
+        if (!rhelServers.isEmpty()) {
+            Server[] s = rhelServers.toArray(new Server[rhelServers.size()]);
+            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_PACKAGES_UPDATE,
+                earliestAction, s);
+        }
+        
+        if (!solarisServers.isEmpty()) {
+            Server[] s =  solarisServers.toArray(new Server[solarisServers.size()]);
+            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_SOLARISPKGS_INSTALL,
+                earliestAction, s);
+        }
+        
     }
     
     /**
@@ -1122,8 +1171,9 @@ public class ActionManager extends BaseManager {
      */
     public static PackageAction schedulePackageVerify(User scheduler,
             Server srvr, List<Map<String, Long>> pkgs, Date earliest) {
-        return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_PACKAGES_VERIFY, earliest);
+        return (PackageAction) schedulePackageAction(scheduler, pkgs,
+            ActionFactory.TYPE_PACKAGES_VERIFY, earliest, srvr
+        );
     }    
     /**
      * Schedules one or more package installation actions for the given server.
@@ -1170,23 +1220,50 @@ public class ActionManager extends BaseManager {
                 timeout, script);
     }
     
+    private static Action scheduleAction(User scheduler, ActionType type, String name,
+                                         Date earliestAction, Server... servers) {
+        
+        Action action = createScheduledAction(scheduler, type, name, earliestAction);
+        
+        for (Server server : servers) {
+            ServerAction sa = new ServerAction();
+            sa.setStatus(ActionFactory.STATUS_QUEUED);
+            sa.setRemainingTries(REMAINING_TRIES);
+            sa.setServer(server);
+            
+            action.addServerAction(sa);
+            sa.setParentAction(action);
+        }
+        
+        return action;
+    }
+    
     private static Action scheduleAction(User scheduler, Server srvr,
             ActionType type, String name, Date earliestAction) {
+        
+        Action action = createScheduledAction(scheduler, type, name, earliestAction);
 
         ServerAction sa = new ServerAction();
         sa.setStatus(ActionFactory.STATUS_QUEUED);
-        sa.setRemainingTries(new Long(10)); // hmm 10?
+        sa.setRemainingTries(REMAINING_TRIES);
         sa.setServer(srvr);
+        
+        action.addServerAction(sa);
+        sa.setParentAction(action);
+        
+        return action;
+    }
+
+    private static Action createScheduledAction(User scheduler, ActionType type,
+                                                String name, Date earliestAction) {
         Action pa = ActionFactory.createAction(type);
         pa.setName(name);
         pa.setOrg(scheduler.getOrg());
         pa.setSchedulerUser(scheduler);
-        pa.addServerAction(sa);
-        sa.setParentAction(pa);
         pa.setEarliestAction(earliestAction);
         return pa;
     }
-    
+
     /**
      * Schedule a KickstartAction against a system
      * @param ksdata KickstartData to associate with this Action
@@ -1412,16 +1489,19 @@ public class ActionManager extends BaseManager {
      * Schedules a package action of the given type for the given server with the
      * packages given as a list.
      * @param scheduler The user scheduling the action.
-     * @param srvr The server that this action is for.
      * @param pkgs A list of maps containing keys 'name_id', 'evr_id' and 
      *             optional 'arch_id' with Long values.
      * @param type The type of the package action.  One of the static types found in
      *             ActionFactory
      * @param earliestAction The earliest time that this action could happen.
+     * @param servers The server(s) that this action is for.
      * @return The action that has been scheduled.
      */
     public static Action schedulePackageAction(User scheduler,
-            Server srvr, List pkgs, ActionType type, Date earliestAction) {
+                                               List pkgs,
+                                               ActionType type,
+                                               Date earliestAction,
+                                               Server... servers) {
 
         String name = "";
         if (type.equals(ActionFactory.TYPE_PACKAGES_REMOVE) ||
@@ -1439,7 +1519,7 @@ public class ActionManager extends BaseManager {
             name = "Package Synchronization";
         }
 
-        Action action = scheduleAction(scheduler, srvr, type, name, earliestAction);
+        Action action = scheduleAction(scheduler, type, name, earliestAction, servers);
         ActionFactory.save(action);
         
         if (pkgs != null) {
@@ -1503,8 +1583,8 @@ public class ActionManager extends BaseManager {
             // bugzilla: 191000, we forgot to populate the damn LinkedList :(
             packages.add(row);
         }
-        return schedulePackageAction(scheduler, srvr, 
-                packages, type, earliestAction);
+        return schedulePackageAction(scheduler, packages, type, earliestAction, srvr
+        );
     }
 
     
