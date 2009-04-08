@@ -1040,6 +1040,46 @@ public class ActionManager extends BaseManager {
     }
     
     /**
+     * Schedules one or more package removal actions on one or more servers.
+     * 
+     * @param scheduler      user scheduling the action.
+     * @param servers        servers from which to remove the packages
+     * @param pkgs           list of packages to be removed.
+     * @param earliestAction date of earliest action to be executed
+     */
+    public static void schedulePackageRemoval(User scheduler,
+            List<Server> servers, List<Map<String, Long>> pkgs, Date earliestAction) {
+
+        // Different handling for package removal on solaris v. rhel, so split out
+        // the servers first in case the list is mixed.
+        List<Server> rhelServers = new ArrayList<Server>();
+        List<Server> solarisServers = new ArrayList<Server>();
+        
+        for (Server server : servers) {
+            if (server.isSolaris()) {
+                solarisServers.add(server);
+            }
+            else {
+                rhelServers.add(server);
+            }
+        }
+        
+        // Since the solaris v. rhel distinction results in a different action type,
+        // we'll end up with 2 actions created if the server list is mixed
+        if (!rhelServers.isEmpty()) {
+            Server[] s = rhelServers.toArray(new Server[rhelServers.size()]);
+            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_PACKAGES_REMOVE,
+                earliestAction, s);
+        }
+        
+        if (!solarisServers.isEmpty()) {
+            Server[] s =  solarisServers.toArray(new Server[solarisServers.size()]);
+            schedulePackageAction(scheduler, pkgs, ActionFactory.TYPE_SOLARISPKGS_REMOVE,
+                earliestAction, s);
+        }
+            }
+    
+    /**
      * Schedules one or more package upgrade actions for the given server.
      * Note: package upgrade = package install
      * @param scheduler User scheduling the action.
