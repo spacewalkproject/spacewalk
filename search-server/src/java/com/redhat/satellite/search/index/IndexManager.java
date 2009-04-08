@@ -75,6 +75,7 @@ public class IndexManager {
     private int min_ngram;
     private int max_ngram;
     private boolean filterDocResults = false;
+    private boolean explainResults = false;
     private AnalyzerFactory nutchAnalyzerFactory;
     // Name conflict with our Configuration class and Hadoop's
     private org.apache.hadoop.conf.Configuration nutchConf;
@@ -101,6 +102,7 @@ public class IndexManager {
         max_ngram = config.getInt("search.max_ngram", 5);
         initDocLocaleLookup();
         filterDocResults = config.getBoolean("search.doc.limit_results");
+        explainResults = config.getBoolean("search.log.explain.results");
         initDocSummary();
     }
 
@@ -139,7 +141,6 @@ public class IndexManager {
             Hits hits = searcher.search(q);
             if (log.isDebugEnabled()) {
                 log.debug(hits.length() + " results were found.");
-                //debugDisplay(indexName, hits, searcher, q);
             }
             Set<Term> queryTerms = null;
             try {
@@ -152,6 +153,9 @@ public class IndexManager {
                 throw new QueryParseException(e);
             }
             retval = processHits(indexName, hits, queryTerms, query, lang);
+            if (explainResults) {
+                debugExplainResults(indexName, hits, searcher, q, queryTerms);
+            }
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -556,16 +560,10 @@ public class IndexManager {
         return count;
     }
 
-    private void printExplanationDetails(Explanation ex) {
-        log.debug("Explanation.getDescription() = " + ex.getDescription());
-        log.debug("Explanation.getValue() = " + ex.getValue());
-        for (Explanation detail : ex.getDetails()) {
-            printExplanationDetails(detail);
-        }
-    }
-    private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
-            Query q)
+    private void debugExplainResults(String indexName, Hits hits, IndexSearcher searcher,
+            Query q, Set<Term> queryTerms)
         throws IOException {
+        log.debug("Parsed Query is " + q.toString());
         log.debug("Looking at index:  " + indexName);
         for (int i = 0; i < hits.length(); i++) {
             if ((i < 10)) {
@@ -575,21 +573,11 @@ public class IndexManager {
                 log.debug("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
                         ">: " + doc);
                 log.debug("Explanation: " + ex);
-                log.debug("Explanation.getDescription() = " + ex.getDescription());
-                log.debug("Explanation.getValue() = " + ex.getValue());
-                printExplanationDetails(ex);
-                String data = ex.toString();
-                String matcher = "(field=";
-                int startLoc = data.indexOf(matcher);
-                if (startLoc < 0) {
-                    return;
-                }
-                int endLoc = data.indexOf(",", startLoc + matcher.length());
-                if (endLoc < 0) {
-                    return;
-                }
-                String fieldName = data.substring(startLoc + matcher.length(), endLoc);
-                log.debug("Guessing that matched fieldName is " + fieldName);
+                MatchingField match = new MatchingField(q.toString(), doc, queryTerms);
+                String fieldName = match.getFieldName();
+                String fieldValue = match.getFieldValue();
+                log.debug("Guessing that matched fieldName is " + fieldName + " = " +
+                        fieldValue);
             }
         }
     }
