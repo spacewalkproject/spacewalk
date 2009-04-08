@@ -106,7 +106,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         profileName = nameIn;
     }    
   
-    private String getSystemHandleByMAC() {
+    private String lookupExisting() {
         Map sysmap = getSystemMapByMac();
         if (sysmap != null) {
             log.debug("getSystemHandleByMAC.found match.");
@@ -162,7 +162,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public ValidatorError store() {
         String handle = null;
         // First lookup by MAC addr
-        handle = getSystemHandleByMAC();
+        handle = lookupExisting();
         if (handle == null) {
             // Next try by name
             try {
