@@ -90,9 +90,11 @@ public class NGramQueryParser extends QueryParser {
             String part2,
             boolean inclusive) throws ParseException {
         if (isDate(part1) && isDate(part2)) {
-            log.info("Detected passed in terms are dates, creating " +
+            if (log.isDebugEnabled()) {
+                log.debug("Detected passed in terms are dates, creating " +
                     "ConstantScoreRangeQuery(" + field + ", " + part1 + ", " +
                     part2 + ", " + inclusive + ", " + inclusive);
+            }
             return new ConstantScoreRangeQuery(field, part1, part2, inclusive,
                     inclusive);
         }
@@ -105,11 +107,11 @@ public class NGramQueryParser extends QueryParser {
         if (matcher1.matches() && matcher2.matches()) {
             newPart1 = NumberTools.longToString(Long.parseLong(part1));
             newPart2 = NumberTools.longToString(Long.parseLong(part2));
-            log.info("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
+            if (log.isDebugEnabled()) {
+                log.debug("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
                     newPart1 + ", Converted " + part2 + " to " + newPart2);
+            }
         } 
-        log.info("Passing terms down to super.getRangeQuery(" + field + ", " +
-                newPart1 + ", " + newPart2 + ", " + inclusive + ")");
         return super.getRangeQuery(field, newPart1, newPart2, inclusive);
     }
 }

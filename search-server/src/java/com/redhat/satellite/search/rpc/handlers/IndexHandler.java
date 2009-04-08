@@ -107,12 +107,15 @@ public class IndexHandler {
             return hits;
         }
         catch (IndexingException e) {
+            log.error("Caught exception: ", e);
             throw new XmlRpcFault(INDEX_ERROR, e.getMessage());
         }
         catch (QueryParseException e) {
+            log.error("Caught exception: ", e);
             throw new XmlRpcFault(QUERY_ERROR, e.getMessage());
         }
         catch (SQLException e) {
+            log.error("Caught exception: ", e);
             throw new XmlRpcFault(DB_ERROR, e.getMessage());
         }
     }

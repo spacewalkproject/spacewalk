@@ -55,12 +55,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 /**
  * Indexing workhorse class
@@ -433,29 +431,16 @@ public class IndexManager {
              * for this match.  Later implementation should use "Explanation" to determine
              * field, for now we will simply grab one term and return it's field.
              */
-            if (queryTerms.size() > 0) {
-                Iterator<Term> iter = queryTerms.iterator();
-                if (iter.hasNext()) {
-                    Term t = iter.next();
-                    String val = doc.getField(t.field()).stringValue();
-                    log.info("For hit[" + x + "] setting matchingField to '" +
-                            t.field() + "' with it's value set to " + val);
-                    pr.setMatchingField(t.field());
-                    pr.setMatchingFieldValue(val);
-                }
-                else {
-                    log.info("hit[" + x + "] odd queryTerms iterator doesn't " + 
-                            "have a first element, matchingField is left as: <" +
-                            pr.getMatchingField() + ">");
-                }
-            }
-            else {
-                String field = getFirstFieldName(query);
-                pr.setMatchingField(field);
-                pr.setMatchingFieldValue(doc.getField(field).stringValue());
+            try {
+                MatchingField match = new MatchingField(query, doc, queryTerms);
+                pr.setMatchingField(match.getFieldName());
+                pr.setMatchingFieldValue(match.getFieldValue());
                 log.info("hit[" + x + "] matchingField is being set to: <" + 
-                        pr.getMatchingField() + "> based on passed in query field.  " +
-                        "matchingFieldValue = " + pr.getMatchingFieldValue());
+                    pr.getMatchingField() + "> based on passed in query field.  " +
+                    "matchingFieldValue = " + pr.getMatchingFieldValue());
+            }
+            catch (Exception e) {
+                log.error("Caught exception: ", e);
             }
             if (pr != null) {
                 retval.add(pr);
@@ -571,11 +556,6 @@ public class IndexManager {
         return count;
     }
 
-    private String getFirstFieldName(String query) {
-        StringTokenizer tokens = new StringTokenizer(query, ":");
-        return tokens.nextToken();
-    }
-    
     private void printExplanationDetails(Explanation ex) {
         log.debug("Explanation.getDescription() = " + ex.getDescription());
         log.debug("Explanation.getValue() = " + ex.getValue());

@@ -435,6 +435,7 @@ public class SystemSearchHelper {
                     Map serverInfo = new HashMap();
                     serverInfo.put("score", result.get("score"));
                     serverInfo.put("matchingField", "packageName");
+                    serverInfo.put("matchingFieldValue", pkg.getNameEvra());
                     serverInfo.put("packageName", pkg.getNameEvra());
                     serverMaps.put(s, serverInfo);
                     if (log.isDebugEnabled()) {
@@ -594,6 +595,9 @@ public class SystemSearchHelper {
             }
             if (details.containsKey("score")) {
                 sr.setScore((Double)details.get("score"));
+            }
+            if (details.containsKey("matchingFieldValue")) {
+                sr.setMatchingFieldValue((String)details.get("matchingFieldValue"));
             }
         }
         if (log.isDebugEnabled()) {
