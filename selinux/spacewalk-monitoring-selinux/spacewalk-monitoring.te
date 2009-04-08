@@ -14,6 +14,7 @@ require {
 	type http_port_t;
 	type httpd_t;
 	type httpd_sys_script_t;
+	type port_t;
 }
 
 type spacewalk_monitoring_t;
@@ -130,3 +131,4 @@ optional_policy(`
 
 netutils_domtrans_ping(spacewalk_monitoring_t)
 ssh_exec(spacewalk_monitoring_t)
+allow spacewalk_monitoring_t port_t:tcp_socket name_connect;
