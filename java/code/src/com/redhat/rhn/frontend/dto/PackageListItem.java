@@ -552,4 +552,27 @@ public class PackageListItem extends IdComboDto {
         }
         return builder.toString();
     }
+
+    /** {@inheritDoc} */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PackageListItem)) {
+            return false;
+        }
+
+        PackageListItem that = (PackageListItem) o;
+
+        if (idCombo != null ? !idCombo.equals(that.idCombo) : that.idCombo != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    public int hashCode() {
+        return idCombo != null ? idCombo.hashCode() : 0;
+    }
 }

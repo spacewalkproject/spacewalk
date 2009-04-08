@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForward;
@@ -145,7 +146,25 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
         
         int numPackages = 0;
                                        
-        // Loop over each server that will have packages upgraded
+        /* 443500 - The following was changed to be able to stuff all of the package
+           removals into a single action. The schedule package removal page will display
+           a fine grained mapping of server to package removed (taking into account to
+           only show packages that exist on the server).
+           
+           However, there is no issue in requesting a client delete a package it doesn't
+           have. So when we create the action, populate it with all packages and for
+           every server to which any package removal applies. This will let us keep all
+           of the removals coupled under a single scheduled action and won't cause an
+           issue on the client when the scheduled removals are picked up.
+        
+           jdobies, Apr 8, 2009
+         */
+        
+        // The package collection is a set to prevent duplciates when keeping a running
+        // total of all packages selected
+        Set<PackageListItem> allPackages = new HashSet<PackageListItem>();
+        List<Server> allServers = new ArrayList<Server>(result.size());
+        
         for (Iterator it = result.iterator(); it.hasNext();) {
         
             // Add action for each package found in the elaborator
@@ -154,26 +173,28 @@ public class SchedulePackageRemoveAction extends RhnListAction implements Listab
             // Load the server
             Long sid = (Long)data.get("id");              
             Server server = SystemManager.lookupByIdAndUser(sid, user);
-
+            allServers.add(server);
+            
             // Get the packages out of the elaborator
             List elabList = (List) data.get("elaborator0");
             numPackages += elabList.size();
             
-            List<PackageListItem> items = new ArrayList<PackageListItem>(elabList.size());
             for (Iterator elabIt = elabList.iterator(); elabIt.hasNext();) {
                 Map elabData = (Map) elabIt.next();
                 String idCombo = (String) elabData.get("id_combo");
                 PackageListItem item = PackageListItem.parse(idCombo);
-                items.add(item);
+                allPackages.add(item);
             }
-            
-            // Convert to list of maps
-            List<Map<String, Long>> packageListData = PackageListItem.toKeyMaps(items);
-            
-            // Create the action
-            ActionManager.schedulePackageRemoval(user, server, packageListData, earliest);
         }
 
+        // Convert to list of maps
+        List<PackageListItem> allPackagesList = new ArrayList<PackageListItem>(allPackages);
+        List<Map<String, Long>> packageListData =
+            PackageListItem.toKeyMaps(allPackagesList);
+            
+        // Create the action
+        ActionManager.schedulePackageRemoval(user, allServers, packageListData, earliest);
+        
         // Remove the packages from session and the DB
         SessionSetHelper.obliterate(request, request.getParameter("packagesDecl"));
 
