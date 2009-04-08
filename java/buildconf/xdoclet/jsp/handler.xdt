@@ -85,6 +85,9 @@ void
 </code>
 </XDtMethod:ifDoesntHaveMethodTag>
 <p />
+<XDtMethod:ifHasMethodTag tagName="since">
+Available since: <XDtMethod:methodTagValue tagName="since" /><p />
+</XDtMethod:ifHasMethodTag>
 <XDtMethod:ifHasMethodTag tagName="xmlrpc.usage">
 Usage:<br />
 <pre>
