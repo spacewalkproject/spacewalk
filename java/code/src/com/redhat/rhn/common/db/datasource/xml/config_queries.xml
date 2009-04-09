@@ -283,17 +283,10 @@ SELECT DISTINCT S.id,
 INNER JOIN rhnUserServerPerms USP on S.id = USP.server_id
 INNER JOIN rhnClientCapability CC on S.id = CC.server_id 
 INNER JOIN rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
+INNER JOIN rhnServerFeaturesView SFV on SFV.server_id = s.id
      WHERE USP.user_id = :user_id
        AND CCN.name LIKE 'configfiles%'
-       AND S.id in (
-           SELECT MM.server_id
-             FROM rhnServerGroupMembers MM,
-                  rhnServerGroup GG,
-                  rhnServerGroupType TT
-            WHERE MM.server_group_id = GG.id
-              AND GG.group_type = TT.id
-              AND TT.label = 'provisioning_entitled'
-            )
+       AND SFV.label = 'ftr_config'
   ORDER BY UPPER(NVL(S.name, '(none)')), S.id
   </query>
   <elaborator>
@@ -354,8 +347,12 @@ SELECT S.id,
      AND  NOT EXISTS
      		 (select 1 FROM  rhnClientCapability CC
             		inner join  rhnClientCapabilityName CCN on CC.capability_name_id = CCN.id
-            		where CC.server_id = S.id and CCN.name LIKE 'configfiles%')
-ORDER BY  S.name
+            		inner join rhnServerFeaturesView SFV on SFV.server_id = CC.server_id
+            		where 
+            			CC.server_id = S.id and 
+            			CCN.name LIKE 'configfiles%' AND 
+            			SFV.label = 'ftr_config')
+	ORDER BY  S.name
   </query>
   <elaborator name="non_managed_elaborator" />
 </mode>
