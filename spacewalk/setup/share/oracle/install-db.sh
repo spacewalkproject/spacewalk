@@ -23,6 +23,33 @@ set -x
 # exit if anything fails
 set -e
 
+DB_NAME="rhnsat"
+DB_USER="rhnsat"
+DB_PASSWORD="rhnsat"
+
+if [ ${#} -gt 0 ]; then
+   while [ -n "$1" ] ; do
+       case $1 in
+       -d | --db | --database )
+           shift
+           DB_NAME=$1
+           ;;
+       -u | --user* )
+           shift
+           DB_USER=$1
+           ;;
+       -p | --password )
+           shift
+           DB_PASSWORD=$1
+           ;;
+       * )
+           exit -1
+           ;;
+       esac
+       shift
+   done
+fi
+
 # set oracle environment to embedded server
 ORAENV_ASK=NO
 ORACLE_SID=embedded
@@ -39,7 +66,7 @@ fi
 ORACLE_ADMIN_DIR=/opt/apps/oracle/admin/10.2.0
 export ORACLE_ADMIN_DIR
 
-/sbin/runuser - oracle -c "$ORACLE_ADMIN_DIR/create-db.sh --db rhnsat --user rhnsat --password rhnsat --datadir /rhnsat/data/rhnsat --admindir /rhnsat/admin/rhnsat --template $ORACLE_ADMIN_DIR/embedded-createdb.tmpl $RUNRESTORECON"
+/sbin/runuser - oracle -c "$ORACLE_ADMIN_DIR/create-db.sh --db $DB_NAME --user $DB_USER --password $DB_PASSWORD --datadir /rhnsat/data/rhnsat --admindir /rhnsat/admin/rhnsat --template $ORACLE_ADMIN_DIR/embedded-createdb.tmpl $RUNRESTORECON"
 
 LISTFILE=$ORACLE_HOME/network/admin/listener.ora
 
@@ -52,9 +79,9 @@ LISTENER=
 SID_LIST_LISTENER=
   (SID_LIST=
     (SID_DESC=
-      (GLOBAL_DBNAME=rhnsat.world)
+      (GLOBAL_DBNAME=$DB_NAME.world)
       (ORACLE_HOME=$ORACLE_HOME)
-      (SID_NAME=rhnsat))
+      (SID_NAME=$DB_NAME))
   )
 EOF
 
