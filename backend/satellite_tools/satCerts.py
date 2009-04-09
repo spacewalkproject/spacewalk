@@ -172,13 +172,16 @@ def set_slots_from_cert(cert):
         if not quantity:
             quantity = 0
 
-        slot_type_id = slot_table[db_label]['id']
+        slot_type_id = None
+        if slot_table.has_key(db_label):
+            slot_type_id = slot_table[db_label]['id']
 
         # Take it out of extra_slots
-        if extra_slots.has_key(slot_type_id):
+        if slot_type_id and extra_slots.has_key(slot_type_id):
             del extra_slots[slot_type_id]
 
-        if sys_ent_total_max.has_key(db_label):
+        if sys_ent_total_max.has_key(db_label) and \
+             sys_ent_total_max[db_label] is not None:
 	     # Do the math only if the slot already exists
              if sys_ent_total_max[db_label] > int(quantity):
 	         # If cert count is lower than existing db slot
