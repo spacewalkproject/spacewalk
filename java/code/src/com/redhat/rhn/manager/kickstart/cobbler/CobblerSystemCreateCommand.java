@@ -106,7 +106,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         profileName = nameIn;
     }    
   
-    private String lookupExisting() {
+    protected String lookupExisting() {
         Map sysmap = getSystemMapByMac();
         if (sysmap != null) {
             log.debug("getSystemHandleByMAC.found match.");
