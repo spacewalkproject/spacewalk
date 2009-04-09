@@ -707,9 +707,17 @@ sub need_oracle_9i_10g_upgrade {
 
 sub oracle_setup_embedded_db {
     my $opts = shift;
+    my $answers = shift;
 
     if (not is_embedded_db()) {
         return 0;
+    } else {
+        $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
+        $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
+        $answers->{'db-sid'} = 'rhnsat' if not defined $answers->{'db-sid'};
+        $answers->{'db-host'} = 'localhost';
+        $answers->{'db-port'} = 1521;
+        $answers->{'db-protocol'} = 'TCP';
     }
 
     # create DB_SERVICE entry in /etc/sysconfig/rhn-satellite
@@ -782,7 +790,8 @@ EOQ
 		-log_file_size => DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh" ]);
+		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh", "--db", $answers->{'db-sid'},
+                        "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
 
     print loc("** Database: Installation complete.\n");
 
@@ -800,17 +809,7 @@ sub oracle_setup_db_connection {
     my $connected;
 
     while (not $connected) {
-        if (is_embedded_db()) {
-            $answers->{'db-user'} = 'rhnsat';
-            $answers->{'db-password'} = 'rhnsat';
-            $answers->{'db-sid'} = 'rhnsat';
-            $answers->{'db-host'} = 'localhost';
-            $answers->{'db-port'} = 1521;
-            $answers->{'db-protocol'} = 'TCP';
-        }
-        else {
-            oracle_get_database_answers($opts, $answers);
-        }
+        oracle_get_database_answers($opts, $answers);
 
         my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
 
