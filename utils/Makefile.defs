@@ -1,0 +1,86 @@
+# Common pathnames and programs for the RHN project
+#
+# $Id$
+
+# if not defined, definit as a noop
+TOP		?= .
+
+# global defines which control this build and where we deploy files
+ROOT		?= /usr/share/rhn
+export ROOT
+
+PREFIX		?=
+export PREFIX
+
+# Compilation stuff
+CC		= gcc
+PYTHON_INCLUDE	= -I/usr/include/python$(PythonVersion)
+CFLAGS		= -Wall -O2 -fomit-frame-pointer $(PYTHON_INCLUDE) -fPIC
+SOFLAGS		= -shared -fPIC
+
+# Installation stuff
+INSTALL		= /usr/bin/install -c --verbose
+INSTALL_BIN	= $(INSTALL) -m 755
+INSTALL_DATA	= $(INSTALL) -m 664
+INSTALL_DIR	= $(INSTALL) -m 755 -d
+
+# This is for the subdir part
+PYFILES		= $(addsuffix .py,$(FILES))
+PYCFILES	= $(addsuffix .pyc,$(FILES))
+PYOFILES	= $(addsuffix .pyo,$(FILES))
+
+# what do we need to install and where
+INSTALL_FILES	+= $(PYFILES) $(PYCFILES)
+INSTALL_DEST	?= $(ROOT)/$(SUBDIR)
+
+DIRS		+= $(addprefix $(PREFIX), \
+			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST))
+
+all :: $(INSTALL_FILES)
+
+install :: all $(DIRS) $(INSTALL_FILES)
+	@$(foreach f,$(INSTALL_FILES), \
+		$(INSTALL_DATA) $(f) $(PREFIX)$(INSTALL_DEST)/$(f) ; )
+
+$(DIRS):
+	$(INSTALL_DIR) $@
+
+clean ::
+	@rm -fv *~ *.pyc *.pyo .??*~
+	@rm -fv .\#*
+	@rm -fv core
+
+# default compile rules
+%.pyc : %.py
+	python $(TOP)/compile.py $< $@
+#%.pyo : %.py
+#	python -OO $(TOP)/compile.py $< $@
+
+# useful macro
+descend-subdirs = @$(foreach d,$(SUBDIRS), $(MAKE) -C $(d) $@ || exit 1; )
+
+# subdirs are treated at the end
+all install clean:: $(SUBDIRS)
+	$(descend-subdirs)
+
+
+# extra toy targets
+# Python checker support
+PYTHONPATH      = $(TOP)
+PYCHECKER       = pychecker
+PYCHECKEROPTS   = --maxreturns 10 --maxbranches 15
+DBCHECKER       = db-checker.py
+DBCHECKEROPTS   =
+DB              = user/pass@instance
+
+pychecker :: $(PYFILES)
+	@PYTHONPATH=$(PYTHONPATH) $(PYCHECKER) $(PYCHECKEROPTS) $(PYFILES) || :
+	$(descend-subdirs)
+
+db-checker :: $(PYFILES)
+	@PYTHONPATH=$(PYTHONPATH) $(TOP)/$(DBCHECKER) $(DBCHECKEROPTS) --db $(DB) $(PYFILES) || :
+	$(descend-subdirs)
+
+graphviz ::
+	@PYTHONPATH=$(PYTHONPATH) $(PYCHECKER) -Z $(PYCHECKEROPTS) $(PYFILES) || exit 0
+

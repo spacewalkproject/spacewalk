@@ -4,10 +4,10 @@
 
 NAME := spacewalk-utils
 
-include ../rel-eng/Makefile
+SUBDIR  = utils
 
-FILES	= systemSnapshot
-SCRIPTS = system-snapshot
+FILES	= __init__ systemSnapshot
+SCRIPTS = sw-system-snapshot
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 
@@ -19,11 +19,7 @@ MANDIR	?= /usr/man
 
 EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR)
 
-# reuse some common variables (e.g. ROOT) - rather than create a new
-# Makefile.defs for the spacewalk-utils, we will use the one defined for
-# the backend, since it already has the logic needed.
-TOP = ../backend
-include $(TOP)/Makefile.defs
+include Makefile.defs
 
 # install scripts
 all :: $(SCRIPTS)
