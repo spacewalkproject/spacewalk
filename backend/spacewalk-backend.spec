@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.31
+Version: 0.5.32
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -562,7 +562,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Thu Apr 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.31-1
+* Thu Apr 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.32-1
 - Resolves - 494593 - schedule repodata gen for updated channels comparing the right timestamp
 
 * Thu Apr 02 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.31-1
