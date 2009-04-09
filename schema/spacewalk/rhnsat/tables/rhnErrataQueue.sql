@@ -24,6 +24,11 @@ rhnErrataQueue
 				constraint rhn_equeue_eid_fk
 					references rhnErrata(id)
 					on delete cascade,
+        channel_id              number
+                                constraint rhn_equeue_cid_nn not null
+                                constraint rhn_equeue_cid_fk
+                                references rhnChannel(id)
+                                on delete cascade,
 	next_action		date,
 	created			date default(sysdate)
 				constraint rhn_equeue_created_nn not null,
@@ -37,9 +42,6 @@ create index rhn_equeue_eid_idx
 	on rhnErrataQueue ( errata_id )
 	tablespace [[4m_tbs]]
   ;
-	
-alter table rhnErrataQueue add constraint rhn_equeue_eoid_uq
-	unique ( errata_id );
 
 create index rhn_equeue_na_eid_idx
 	on rhnErrataQueue ( next_action, errata_id )
