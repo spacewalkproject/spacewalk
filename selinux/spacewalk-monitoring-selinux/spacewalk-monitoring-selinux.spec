@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -112,6 +112,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Apr 09 2009 Jan Pazdziora 0.6.2-1
+- 489576 - address SELinux issues related to monitoring probes
+- other SELinux-monitoring fixes.
+
 * Tue Apr 07 2009 Jan Pazdziora 0.6.1-1
 - 489554 - fix AVC denial of httpd_sys_script_t (upload_results.cgi)
 - bump Versions to 0.6.0 (jesusr@redhat.com)
