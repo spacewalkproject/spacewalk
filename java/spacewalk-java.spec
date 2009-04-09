@@ -235,6 +235,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Apr 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.32-1
+- Resolves - 494593 - schedule repodata gen for updated channels comparing the r
+ight timestamp
+
 * Mon Apr 06 2009 Mike McCune <mmccune@gmail.com> 0.5.45-1
 - 494066 - removing the trailing \n from returned strings from cobbler.
 
