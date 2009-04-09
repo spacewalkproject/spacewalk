@@ -179,6 +179,7 @@ public class BaseSetHelper {
                 break;
             }
         }
+        storeSet(set);
     }
 
 
