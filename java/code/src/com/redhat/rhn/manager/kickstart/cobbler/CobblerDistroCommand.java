@@ -79,11 +79,6 @@ public class CobblerDistroCommand extends CobblerCommand {
         Distro nonXen = Distro.lookupById(con, tree.getCobblerId());
         Distro xen = Distro.lookupById(con, tree.getCobblerXenId());
 
-        nonXen.setKernel(tree.getKernelPath());
-        xen.setKernel(tree.getKernelXenPath());
-
-        nonXen.setInitrd(tree.getInitrdPath());
-        xen.setInitrd(tree.getInitrdXenPath());
 
         Map ksmeta = new HashMap();
         KickstartUrlHelper helper = new KickstartUrlHelper(this.tree);
@@ -92,8 +87,17 @@ public class CobblerDistroCommand extends CobblerCommand {
         if (tree.getOrgId() != null) {
             ksmeta.put("org", tree.getOrg().getId());
         }
-        nonXen.setKsMeta(ksmeta);
-        xen.setKsMeta(ksmeta);
+
+        if (xen != null) {
+            xen.setKernel(tree.getKernelXenPath());
+            xen.setInitrd(tree.getInitrdXenPath());
+            xen.setKsMeta(ksmeta);
+        }
+        if (nonXen != null) {
+            nonXen.setInitrd(tree.getInitrdPath());
+            nonXen.setKernel(tree.getKernelPath());
+            nonXen.setKsMeta(ksmeta);
+        }
     }
 
 
