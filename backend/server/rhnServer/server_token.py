@@ -18,6 +18,7 @@
 import string
 
 from cStringIO import StringIO
+from sets import Set
 
 from common import rhnFlags
 from common import rhnFault, rhnException, log_error, log_debug
@@ -132,7 +133,10 @@ def token_channels(server, server_arch, tokens_obj):
     # attempt to subscribe all non-base channels associated with this
     # token
     subscribe_channel = rhnSQL.Procedure("rhn_channel.subscribe_server")
-
+    # Use a set here to ensure uniqueness of the
+    # channel family ids used in the loop below.
+    channel_family_ids = Set()
+	
     for c in filter(lambda a: a["parent_channel"], chash.values()):
         # make sure this channel has the right parent
         if str(c["parent_channel"]) != str(sbc["id"]):
@@ -144,13 +148,32 @@ def token_channels(server, server_arch, tokens_obj):
             # don't run the EC yet
             # XXX: test return code when this one will start returning
             # a status
-            subscribe_channel(server_id, c["id"], 0)
+            subscribe_channel(server_id, c["id"], 0, None, 0)
+            child = rhnChannel.Channel()
+            child.load_by_id(c["id"])
+            child._load_channel_families()
+            cfamid = child._channel_families[0]
+            channel_family_ids.add(cfamid)
         except rhnSQL.SQLError, e:
             log_error("Failed channel subscription", server_id,
                       c["id"], c["label"], c["name"])
             ret.append("FAILED to subscribe to channel '%s'" % c["name"])
         else:
             ret.append("Subscribed to channel '%s'" % c["name"])
+
+    log_debug(5, "cf ids: %s" % str(channel_family_ids))
+    log_debug(5, "Server org_id: %s" % str(server['org_id']))
+    #rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val)
+    update_family_counts = rhnSQL.Procedure("rhn_channel.update_family_counts")
+    for famid in channel_family_ids:
+        # Update the channel family counts separately at the end here
+        # instead of in the loop above.  If you have an activation key
+        # with lots of custom child channels you can end up repeatedly
+        # updating the same channel family counts over and over and over
+        # even thou you really only need todo it once.  
+        log_debug(5, "calling update fam counts: %s" % famid)
+        update_family_counts(famid, server['org_id'])
+        
     return ret
 
 _query_token_server_groups = rhnSQL.Statement("""
