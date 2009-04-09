@@ -11642,7 +11642,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </context-group>
      </trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
-       <source>Kickstart Profile Label</source>
+       <source>Label</source>
        <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
