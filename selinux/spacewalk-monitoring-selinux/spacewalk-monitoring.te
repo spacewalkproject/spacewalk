@@ -135,6 +135,7 @@ allow spacewalk_monitoring_t port_t:tcp_socket name_connect;
 allow ifconfig_t spacewalk_monitoring_var_lib_t:file append;
 
 create_files_pattern(httpd_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)
+create_lnk_files_pattern(httpd_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)
 
 allow spacewalk_monitoring_t httpd_t:process signull;
 
