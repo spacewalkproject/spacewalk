@@ -132,3 +132,4 @@ optional_policy(`
 netutils_domtrans_ping(spacewalk_monitoring_t)
 ssh_exec(spacewalk_monitoring_t)
 allow spacewalk_monitoring_t port_t:tcp_socket name_connect;
+allow ifconfig_t spacewalk_monitoring_var_lib_t:file write;
