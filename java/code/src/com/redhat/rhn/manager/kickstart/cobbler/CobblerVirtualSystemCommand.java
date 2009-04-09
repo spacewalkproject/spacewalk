@@ -14,18 +14,17 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.user.User;
+
 import org.apache.log4j.Logger;
 import org.cobbler.SystemRecord;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
 
 
 /**
@@ -46,6 +45,7 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      * Constructor
      * @param serverIn to create in cobbler
      * @param cobblerProfileName to use
+     * @param guestNameIn the guest name to create
      */
     public CobblerVirtualSystemCommand(Server serverIn,
             String cobblerProfileName, String guestNameIn) {
@@ -60,10 +60,12 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
      * @param ksDataIn profile to associate with with server.
      * @param mediaPathIn mediaPath to override in the server profile.
      * @param activationKeysIn to add to the system record.  Used when the system
+     * @param guestNameIn the guest name to create
      * re-registers to Spacewalk
      */
     public CobblerVirtualSystemCommand(User userIn, Server serverIn, 
-            KickstartData ksDataIn, String mediaPathIn, String activationKeysIn, String guestNameIn) {
+            KickstartData ksDataIn, String mediaPathIn,
+                            String activationKeysIn, String guestNameIn) {
         super(userIn, serverIn, ksDataIn, mediaPathIn, activationKeysIn);
         guestName = guestNameIn;
     }
@@ -102,12 +104,12 @@ public class CobblerVirtualSystemCommand extends CobblerSystemCreateCommand {
     }
 
 
-    private String lookupExisting() {
+    protected String lookupExisting() {
         log.debug("lookupExisting called.");
 
         SystemRecord rec = SystemRecord.lookupByName(
                 CobblerXMLRPCHelper.getConnection(user), getCobblerSystemRecordName());
-        if (rec == null){
+        if (rec == null) {
             return null;
         }
         else {
