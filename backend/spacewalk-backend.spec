@@ -562,6 +562,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Apr 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.31-1
+- Resolves - 494593 - schedule repodata gen for updated channels comparing the right timestamp
+
 * Thu Apr 02 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.31-1
 - adding some additional checks before creating first org info
   (pkilambi@redhat.com)
