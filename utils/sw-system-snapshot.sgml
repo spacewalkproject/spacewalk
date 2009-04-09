@@ -5,21 +5,21 @@
 <refentry>
 
 <RefMeta>
-<RefEntryTitle>snapshot</RefEntryTitle><manvolnum>8</manvolnum>
+<RefEntryTitle>sw-system-snapshot</RefEntryTitle><manvolnum>8</manvolnum>
 <RefMiscInfo>Version 1.0</RefMiscInfo>
 </RefMeta>
 
 <RefNameDiv>
-<RefName><command>snapshot</command></RefName>
+<RefName><command>sw-system-snapshot</command></RefName>
 <RefPurpose>
-List or delete system snapshots from the RHN Satellite server.
+List or delete system snapshots from the management server.
 </RefPurpose>
 </RefNameDiv>
 
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>snapshot</command>
+        <command>sw-system-snapshot</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -68,7 +68,7 @@ List or delete system snapshots from the RHN Satellite server.
 
 <RefSect1><Title>Description</Title>
     <para>
-        <emphasis>snapshot</emphasis> is used to list or delete system snapshots.
+        <emphasis>sw-system-snapshot</emphasis> is used to list or delete system snapshots.
     </para>
 </RefSect1>
 
@@ -149,15 +149,15 @@ List or delete system snapshots from the RHN Satellite server.
 
 <RefSect1><Title>Examples</Title>
 <simplelist>
-<member><command>snapshot --list --all</command></member>
-<member><command>snapshot --list --all --start-date=20090403000000</command></member>
-<member><command>snapshot --list --system-id=1000010022</command></member>
-<member><command>snapshot --list --system-id=1000010022 --start-date=20090101000000 --end-date=20091231000000</command></member>
-<member><command>snapshot --delete --all</command></member>
-<member><command>snapshot --delete --all --start-date=20090403000000</command></member>
-<member><command>snapshot --delete --system-id=1000010022</command></member>
-<member><command>snapshot --delete --system-id=1000010022 --start-date=20090101000000 --end-date=20091231000000</command></member>
-<member><command>snapshot --delete --system-id=1000010022 --system-id=1000010033</command></member>
+<member><command>sw-system-snapshot --list --all</command></member>
+<member><command>sw-system-snapshot --list --all --start-date=20090403000000</command></member>
+<member><command>sw-system-snapshot --list --system-id=1000010022</command></member>
+<member><command>sw-system-snapshot --list --system-id=1000010022 --start-date=20090101000000 --end-date=20091231000000</command></member>
+<member><command>sw-system-snapshot --delete --all</command></member>
+<member><command>sw-system-snapshot --delete --all --start-date=20090403000000</command></member>
+<member><command>sw-system-snapshot --delete --system-id=1000010022</command></member>
+<member><command>sw-system-snapshot --delete --system-id=1000010022 --start-date=20090101000000 --end-date=20091231000000</command></member>
+<member><command>sw-system-snapshot --delete --system-id=1000010022 --system-id=1000010033</command></member>
 </simplelist>
 </RefSect1>
 

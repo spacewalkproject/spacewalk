@@ -45,7 +45,7 @@ if _LIBPATH not in sys.path:
 
 try:
     # NOTE: importing
-    from contrib import systemSnapshot
+    from utils import systemSnapshot
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError, e:

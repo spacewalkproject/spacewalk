@@ -44,9 +44,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%attr(755,root,root) %{_bindir}/system-snapshot
+%attr(755,root,root) %{_bindir}/sw-system-snapshot
+%dir %{rhnroot}/utils
+%{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
-%{_mandir}/man8/system-snapshot-.8*
+%{_mandir}/man8/sw-system-snapshot.8*
 
 
 %changelog
