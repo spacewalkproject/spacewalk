@@ -239,11 +239,13 @@ sed -e "s|\${session.ca_chain:/usr/share/rhn/RHNS-CA-CERT}|$CA_CHAIN|g" \
 	    -e "s/\${session.use_ssl:0}/$USE_SSL/g" \
 	    -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
         < $DIR/rhn.conf  > $RHNCONF_DIR/rhn.conf
-sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
+if [ $MONITORING -eq 0 ]; then
+	sed -e "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOUT/g" \
             -e "s/\${session.rhn_monitoring_parent_ip}/$MONITORING_PARENT_IP/g" \
             -e "s/\${session.rhn_monitoring_parent}/$MONITORING_PARENT/g" \
             -e "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
         < $DIR/cluster.ini  > $RHNCONF_DIR/cluster.ini
+fi
 
 # systemid need to be readable by apache/proxy
 chown root:apache $SYSCONFIG_DIR/systemid
