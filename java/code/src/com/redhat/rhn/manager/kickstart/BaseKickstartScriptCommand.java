@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
@@ -75,6 +76,13 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
             throw new RuntimeException("UnsupportedEncodingException" +
                     " while trying to set Pre script", e);
 
+        }
+        
+        if (StringUtils.isBlank(language)) {
+            language = null;
+        }
+        else {
+            language = language.trim();
         }
         
         this.script.setInterpreter(language);
