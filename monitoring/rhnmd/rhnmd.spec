@@ -79,7 +79,7 @@ fi
 - 479541, 483867 - replaced runuser with /sbin/runuser
 
 * Tue Jan 13 2009 Milan Zazrivec 5.1.4-1
-- bz #479830 - %post error when installing rhnmd-5.1.2-1 on RHEL-5
+- bz #479830 - %%post error when installing rhnmd-5.1.2-1 on RHEL-5
 - package should create nocpulse user instead of rhnmd
 
 * Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 5.1.2-1
