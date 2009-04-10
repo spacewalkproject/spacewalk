@@ -417,7 +417,7 @@ public class KickstartFormatter {
                             (typeIn.equals(KickstartScript.TYPE_POST) && 
                                     (kss.getChroot().equals("Y")))) {
                         retval.append(NEWLINE);
-                        if (!StringUtils.isEmpty(kss.getInterpreter())) {
+                        if (!StringUtils.isBlank(kss.getInterpreter())) {
                             retval.append("%" + typeIn + SPACE + INTERPRETER_OPT + SPACE +
                                     kss.getInterpreter() + NEWLINE);
                         }
@@ -463,7 +463,7 @@ public class KickstartFormatter {
                         kss.getChroot().equals("N")) {
                     // Put a blank line in between the scripts
                     retval.append(NEWLINE);
-                    if (kss.getInterpreter() != null) {
+                    if (!StringUtils.isBlank(kss.getInterpreter())) {
                         retval.append("%" + KickstartScript.TYPE_POST + SPACE + 
                                 NOCHROOT  + SPACE + kss.getInterpreter() + NEWLINE);
                     }
