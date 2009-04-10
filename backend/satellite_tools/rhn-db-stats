@@ -31,5 +31,23 @@ begin
 end;
 /
 
+column label format a30
+column name format a25
+column epoch format a10
+column version format a10
+column release format a10
+
+select
+	rvi.label, rvi.created, rvi.modified,
+	rpn.name,
+	rpe.epoch, rpe.version, rpe.release
+from
+	rhnVersionInfo rvi,
+	rhnPackageName rpn,
+	rhnPackageEvr rpe
+where
+	rvi.evr_id = rpe.id and
+	rvi.name_id = rpn.id;
+
 quit;
 EOS
