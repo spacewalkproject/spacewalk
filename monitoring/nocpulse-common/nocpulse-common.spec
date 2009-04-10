@@ -76,6 +76,8 @@ if getent passwd %{package_name} >/dev/null && [ -d /home/nocpulse ]; then
   rm -rf %{_var}/lib/nocpulse/bin
   rm -rf %{_var}/lib/nocpulse/var
 fi
+# if user already exist (rhnmd create it too) add nocpulse to apache group
+getent group apache | grep nocpulse >/dev/null || usermod -G apache nocpulse
 
 %post
 if [ ! -f %{identity} ]
