@@ -90,7 +90,6 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         KickstartSession ksession = 
             KickstartSessionTest.createKickstartSession(ksdata, user);
         TestUtils.saveAndFlush(ksession);
-        TestUtils.saveAndFlush(ksession);
         String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
 
         addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
@@ -102,6 +101,33 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         // //tmp/images/boot.iso
         String filename = (String) params.get("filename");
         assertNotNull(filename);
+    }
+    
+    public void testKSSessionAndPackageCount() throws Exception {
+        Package p = PackageManagerTest.addPackageToChannel("some-package", 
+                tree.getChannel());
+        String fileName = "some-package-2.13.1-6.fc9.x86_64.rpm";
+        p.setPath("redhat/1/c7d/some-package/2.13.1-6.fc9/" +
+                "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
+                fileName);
+        TestUtils.saveAndFlush(p);
+        
+        KickstartSession ksession = 
+            KickstartSessionTest.createKickstartSession(ksdata, user);
+        TestUtils.saveAndFlush(ksession);
+        String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
+
+        addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
+                tree.getLabel() +  "/Server/" + fileName);
+
+        actionPerform();
+        assertNotNull(request.getAttribute("params"));
+        assertEquals(1, ksession.getPackageFetchCount().longValue());
+        
+        request.setHeader("Range", "333");
+        actionPerform();
+        assertEquals(1, ksession.getPackageFetchCount().longValue());
+        
     }
 
     public void testDirHit() throws Exception {

@@ -317,20 +317,6 @@ public class DownloadFile extends DownloadAction {
                 
             }
             
-            // Update kickstart session
-            if (ksession != null) {
-                ksession.setState(newState);
-                if (ksession.getPackageFetchCount() == null) {
-                    ksession.setPackageFetchCount(new Long(0));
-                }
-                if (ksession.getState().getLabel().equals(
-                        KickstartSessionState.IN_PROGRESS)) {
-                    ksession.setPackageFetchCount(
-                            ksession.getPackageFetchCount().longValue() + 1);
-                    ksession.setLastFileRequest(path);
-                }
-                KickstartFactory.saveKickstartSession(ksession);
-            }
             if (log.isDebugEnabled()) {
                 log.debug("Final path before returning getStreamForBinary(): " + diskPath);
             }
@@ -351,6 +337,22 @@ public class DownloadFile extends DownloadAction {
                 log.debug("range detected.  serving chunk of file");
                 String range = request.getHeader("Range");
                 return manualServeByteRange(request, response, diskPath, range);
+            }
+            // Update kickstart session
+            if (ksession != null) {
+                ksession.setState(newState);
+                if (ksession.getPackageFetchCount() == null) {
+                    ksession.setPackageFetchCount(new Long(0));
+                }
+                if (ksession.getState().getLabel().equals(
+                        KickstartSessionState.IN_PROGRESS)) {
+                    log.debug("Incrementing counter.");
+                    ksession.setPackageFetchCount(
+                            ksession.getPackageFetchCount().longValue() + 1);
+                    ksession.setLastFileRequest(path);
+                }
+                log.debug("Saving session.");
+                KickstartFactory.saveKickstartSession(ksession);
             }
             log.debug("returning getStreamForBinary");
             return getStreamForBinary(diskPath);
