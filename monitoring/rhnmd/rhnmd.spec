@@ -1,5 +1,5 @@
 %define np_name nocpulse
-%define identity %{_var}/lib/%{np_name}/.ssh/ssh_host_dsa_key
+%define identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
 
 Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
@@ -11,7 +11,6 @@ License:   GPLv2
 Group:     System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
-Requires:  nocpulse-common
 BuildRequires: pam-devel gcc
 
 %description
@@ -23,9 +22,6 @@ scout and the monitored host.
 
 %build
 gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
-
-%post
-/sbin/chkconfig --add rhnmd
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -45,12 +41,37 @@ install -m 0755 rhnmd-wrap $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd-wrap
 install -m 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
 install -m 0755 librhnmdwrap.so $RPM_BUILD_ROOT%{_libdir}/librhnmdwrap.so
 
+%pre
+if [ $1 -eq 1 ] ; then
+  getent group %{np_name} >/dev/null || groupadd -r %{np_name}
+  getent passwd %{np_name} >/dev/null || \
+  useradd -r -g %{np_name} -d %{_var}/lib/%{np_name} -c "NOCpulse user" %{np_name}
+  /usr/bin/passwd -l %{np_name} >/dev/null
+  exit 0
+fi
+# Old NOCpulse packages has home in /home/nocpulse.
+# We need to migrate them to new place.
+if getent passwd %{np_name} >/dev/null && [ -d /home/nocpulse ]; then
+  /usr/sbin/usermod -d %{_var}/lib/%{np_name} -m nocpulse
+  rm -rf %{_var}/lib/nocpulse/bin
+  rm -rf %{_var}/lib/nocpulse/var
+fi
+
+%post
+if [ ! -f %{identity} ]
+then
+    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
+fi
+/sbin/chkconfig --add rhnmd
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root,root,-)
 %config(noreplace) %{_sysconfdir}/pam.d/rhnmd
+%dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}
+%dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
 %config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
