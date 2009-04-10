@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.8
+Version:      2.1.9
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -103,6 +103,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.9-1
+- 494538 - remove the dependecy of rhnmd on nocpulse-common
+
 * Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.8-1
 - be sure that nocpulse home is correct after upgrade
 
