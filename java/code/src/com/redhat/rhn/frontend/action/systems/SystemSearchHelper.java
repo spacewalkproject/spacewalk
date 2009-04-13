@@ -487,6 +487,17 @@ public class SystemSearchHelper {
         Map serverIds = new HashMap();
         for (Object obj : searchResults) {
             Map result = (Map)obj;
+            Long sysId = Long.valueOf((String)result.get("serverId"));
+            if (serverIds.containsKey(sysId)) {
+                Map priorResult = (Map)serverIds.get(sysId);
+                Double priorScore = (Double)priorResult.get("score");
+                Double thisScore = (Double)result.get("score");
+                if (priorScore >= thisScore) {
+                    // We only want to capture the best match of a hwdevice for each system
+                    continue;
+                }
+            }
+
             Map serverItem = new HashMap();
             serverItem.put("rank", result.get("rank"));
             serverItem.put("score", result.get("score"));
@@ -503,7 +514,7 @@ public class SystemSearchHelper {
                         ", hwdevice id: " + result.get("id") + " new map = " +
                         serverItem);
             }
-            serverIds.put(Long.valueOf((String)result.get("serverId")), serverItem);
+            serverIds.put(sysId, serverItem);
         }
         return serverIds;
     }
