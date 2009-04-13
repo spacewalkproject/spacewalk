@@ -13,28 +13,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-#
-# The (.dep) file grammar is as follows:
-#
-# path : 'path' '=' nslist
-#
-# nslist :  namespace
-#   | nslist \s namespace
-#   | nslist ',' namespace
-#
-# entry : qname '::' deplist
-#
-# qname : [namespace/]basename[.ext]
-#
-# deplist : dependency 
-#   | deplist \s dependency
-#   | deplist ',' dependency
-#
-# dependency : qname
-#
 
 import sys, os, re
 from getopt import getopt, GetoptError
+
+verbose = False
 
 #
 # CLASSES
@@ -200,7 +183,7 @@ class DepTab:
         result = ([],[])
         for key in keyset:
             if key in history:
-                print 'circular dependency:%s' % history
+                print 'circular (alias) reference:%s' % history
                 continue
             alias = self.aliases.get(key)
             if alias is None:
@@ -306,12 +289,9 @@ class Writer:
 class Oracle(Writer):
     
     def write(self, sorted, output):
-        ln = 1
         self.start(output)
         for p in sorted:
             entry = '@%s' % p
-            print '%d %s' % (ln, entry)
-            ln += 1
             output.write('\n')
             output.write(entry)
 
@@ -319,12 +299,9 @@ class Oracle(Writer):
 class Postgres(Writer):
 
     def write(self, sorted, output):
-        ln = 1
         self.start(output)
         for p in sorted:
             entry = '\\i %s' % p
-            print '%d %s' % (ln, entry)
-            ln += 1
             output.write('\n')
             output.write(entry)
 
@@ -406,18 +383,11 @@ class DepList:
 # FUNCTIONS
 #
 
-def generate(path, reader, writer, output):
+def generate(path, reader, writer, output, directories):
     os.chdir(path)
     out = open(output, 'w')
     ds = []
-    for fn in ('class', 
-               'types', 
-               'tables',  
-               'procs',
-               'packages',
-               'views', 
-               'triggers',
-               'data',):
+    for fn in directories:
         if os.path.isdir(fn):
             ds.append(fn)
     reader.read(ds)
@@ -439,8 +409,13 @@ def generate(path, reader, writer, output):
     print '_____________________________________________________'
     for unf in unfound:
         print '"%s" @%s' % unf
-    print '\n\nFILES (%d):' % len(sorted)
-    print '_____________________________________________________'
+    if verbose:
+        ln = 1
+        print '\n\nFILES (%d):' % len(sorted)
+        print '_____________________________________________________'
+        for p in sorted:
+            print '%d %s' % (ln, p)
+            ln += 1
     writer.write(sorted, out)
     out.close() 
     
@@ -450,6 +425,8 @@ def usage():
     s.append(' Options:')
     s.append('  -h, --help')
     s.append('      Show usage information.')
+    s.append('  -v, --verbose')
+    s.append('      Show extra processing information.')
     s.append('  -s, --style')
     s.append('      The output style (oracle|postres ).')
     s.append('  -o, --output')
@@ -460,12 +437,14 @@ def usage():
 
 def main(argv):
     path = '.'
+    global verbose
     reader = Reader()
     writer = Oracle()             
     output = 'main.sql'
-    flags = 'hd:o:s:'
+    flags = 'vhd:o:s:'
     keywords = [
         '--help',
+        '--verbose',
         '--directory',
         '--output',
         '--style',
@@ -476,6 +455,9 @@ def main(argv):
             if opt in ('-h', '--help'):
                 usage()
                 sys.exit(0)
+            if opt in ('-v', '--verbose'):
+                verbose = True
+                continue
             if opt in ('-o', '--output'):
                 output = arg
                 continue
@@ -490,7 +472,7 @@ def main(argv):
                     writer = Postgres()
                     continue
                 raise Exception('style "%s" not valid' % arg)
-        generate(path, reader, writer, output)          
+        generate(path, reader, writer, output, args)          
     except GetoptError, e:
         print e
         usage()

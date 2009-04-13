@@ -19,9 +19,9 @@
 #
 #   dogchow - A common DDL -> postgres DDL generator installed via rpm
 #             installed via (yum install dogchow) from fedora extras.
-#   genmain.py - A tool used to process the .deps files to produce
-#                the main.sql.  It will inject the contents of a file
-#                named "start.sql" at the beginning if it exits.
+#   genmain - A tool used to process the .deps files to produce
+#             the main.sql.  It will inject the contents of a file
+#             named "start.sql" at the beginning if it exits.
 #
 # The build steps are as follows:
 #
@@ -35,31 +35,32 @@ ifndef SQLUSER
 SQLUSER := spacewalk
 endif
 
-DOGCHOW := dogchow -H ../header.txt -s postgres -O best
-GENMAIN := ../../util/genmain.py -s postgres
+DOGCHOW := dogchow -FH ../header.txt -s postgres -O best
+DIRS    := class types tables procs packages views triggers data
+GENMAIN := ../../util/genmain -s postgres $(DIRS)
 
-main: clean tables views data
+main : clean tables views data
 	$(GENMAIN)
 
-tables: FORCE
+tables : FORCE
 	mkdir -p tables/common
 	cp ../common/tables/*.deps tables/common
 	$(DOGCHOW) -o tables/common ../common/tables/*.sql
 
-views: FORCE
+views : FORCE
 	mkdir views/common
 	cp ../common/views/*.deps views/common
 	cp ../common/views/*.sql views/common
 
-data: FORCE
+data : FORCE
 	mkdir -p data/common
 	cp ../common/data/*.deps data/common
 	$(DOGCHOW) -o data/common ../common/data/*.sql
 
-install: main
+install : main
 	psql -d $(SQLUSER) -f main.sql -v ON_ERROR_STOP=
 
-clean: FORCE
+clean : FORCE
 	rm -f main.sql
 	rm -rf */common
 
