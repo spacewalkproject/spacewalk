@@ -135,7 +135,7 @@
    <input type="hidden" name="submitted" value="true" />
   </html:form>
 
-  <c:if test="${search_string != null && search_string != ''}">
+  <c:if test="${(search_string != null && search_string != '') || param.optionIssueDateSearch != null }">
   <hr />
 
   <c:set var="pageList" value="${requestScope.pageList}" />
