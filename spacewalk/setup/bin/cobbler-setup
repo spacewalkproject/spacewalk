@@ -6,6 +6,8 @@ import shutil
 from os.path import exists, join, dirname, basename, isdir, isfile
 from os import system
 import sys
+import re
+
 sys.path.append('/usr/share/rhn')
 import common
 
@@ -47,8 +49,11 @@ def main():
     gen_template(MODULES_TEMPLATE, answers, TEMP_MODULES)
     copy(TEMP_SETTINGS, SETTINGS)
     copy(TEMP_MODULES, MODULES)
+    m = re.compile(r"^cobbler\.host\s*=\s*", re.MULTILINE)
 
-    system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
+    conf_lines = open(common.rhnConfig._CONFIG_FILE).read()
+    if not m.search(conf_lines):
+        system ("echo 'cobbler.host = %s' >> %s " % (answers['server'],
                                         common.rhnConfig._CONFIG_FILE))
     
 if __name__=="__main__":
