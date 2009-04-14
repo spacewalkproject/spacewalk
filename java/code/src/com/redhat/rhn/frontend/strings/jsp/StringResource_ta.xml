@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>குறிப்பு: இந்தப் பெட்டி சரி பார்க்கப்பட்டால் மேலே கடவுச்சொல் புலங்கள் தேவையில்லை;. எப்படியிருந்தாலும் நீங்கள் கடவுச்சொல்லை உள்ளிட்டிருந்தால், அது அந்தப் பயனரின் PAM நம்பகத்தன்மை கணக்கு செயலிழக்கபட்டால் தான் பணி செய்யவும்.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>LDAP, Kerberos மற்றும் பிற பிணையம் சார்ந்த நம்பகமான கணினிகளுக்கு எதிராக உங்கள் சேட்டிலைட்டை நிறுவ வேண்டுமென்றால்,&lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt; குறிப்பு கையேட்டிற்கு&lt;/a&gt; சென்று எவ்வாறு PAMஐ நிறுவ வேண்டும் என்பதை பார்க்கவும்.</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>LDAP, Kerberos மற்றும் பிற பிணையம் சார்ந்த நம்பகமான கணினிகளுக்கு எதிராக உங்கள் சேட்டிலைட்டை நிறுவ வேண்டுமென்றால்,&lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt; குறிப்பு கையேட்டிற்கு&lt;/a&gt; சென்று எவ்வாறு PAMஐ நிறுவ வேண்டும் என்பதை பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6608,8 +6608,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>எந்த பொது விசை அல்லது ssl சான்றிதழும் குறிப்பிடப்படவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>இந்த விசைகள்/சான்றிதழ்களை நிறுவ உங்கள் கிக்ஸ்டார்ட் விவரக்குறிப்பில் அவற்றை குறிப்பிட வேண்டும்  கணினிக்கு கையெழுத்திட்ட தொகுப்புகளை நிறுவ சரியான விசைகள் வேண்டும் மற்றும் RHN  பதிலாள் சேவையகம் அல்லது RHN சேட்டிலைட் சேவையகத்தால் கிக்ஸ்டார்ட் செய்ய சரியான சான்றிதழ் வேண்டும். கூடுதல் விவரங்களுக்கு &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN குறிப்பு கையேட்டினை&lt;/a&gt;பார்க்கவும்.</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>இந்த விசைகள்/சான்றிதழ்களை நிறுவ உங்கள் கிக்ஸ்டார்ட் விவரக்குறிப்பில் அவற்றை குறிப்பிட வேண்டும்  கணினிக்கு கையெழுத்திட்ட தொகுப்புகளை நிறுவ சரியான விசைகள் வேண்டும் மற்றும் RHN  பதிலாள் சேவையகம் அல்லது RHN சேட்டிலைட் சேவையகத்தால் கிக்ஸ்டார்ட் செய்ய சரியான சான்றிதழ் வேண்டும். கூடுதல் விவரங்களுக்கு &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN குறிப்பு கையேட்டினை&lt;/a&gt;பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6684,8 +6684,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>கோப்பு பாதுகாப்பு</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>ஒரு குறிப்பிட்ட கிக்ஸ்டார்ட்டின் போது கணினியில் மறு சேமிக்கப்படும் கோப்புகளின் பட்டியல் கோப்பு பாதுகாப்பு பட்டியல்கள் ஆகும்.  நீங்கள் ஒரு கோப்பு பாதுகாப்பு பட்டியலை கிக்ஸ்டார்ட் விவரக்குறிப்பில் குறிப்பிடலாம்.  மேலும் கூடுதல் விவரங்களுக்கு &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new"&gt;RHN குறிப்பு கையேட்டினை&lt;/a&gt;பார்க்கவும்.  பின்வரும் கோப்பு பாதுகாப்பு பட்டியல்கள் உங்கள் நிறுவனத்தில் பயன்படுத்த உருவாக்கப்பட்டதாகும்:</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>ஒரு குறிப்பிட்ட கிக்ஸ்டார்ட்டின் போது கணினியில் மறு சேமிக்கப்படும் கோப்புகளின் பட்டியல் கோப்பு பாதுகாப்பு பட்டியல்கள் ஆகும்.  நீங்கள் ஒரு கோப்பு பாதுகாப்பு பட்டியலை கிக்ஸ்டார்ட் விவரக்குறிப்பில் குறிப்பிடலாம்.  மேலும் கூடுதல் விவரங்களுக்கு &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new"&gt;RHN குறிப்பு கையேட்டினை&lt;/a&gt;பார்க்கவும்.  பின்வரும் கோப்பு பாதுகாப்பு பட்டியல்கள் உங்கள் நிறுவனத்தில் பயன்படுத்த உருவாக்கப்பட்டதாகும்:</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6776,8 +6776,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>கிக்ஸ்டார்ட் கோப்பு பாதுகாப்பு பட்டியலை உருவாக்கவும்</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>இங்கு பட்டியலிடப்பட்ட ஏதாவது கோப்புகள் அல்லது அடைவுகள் கிக்ஸ்டார்ட் பின்பற்றி சேமிக்கப்படும்.&lt;br/&gt;ஒவ்வொரு பட்டியலும் மொத்தம் &lt;strong&gt;1 எம்பி&lt;/strong&gt; அளவினை கொண்டிருக்கும்.  மேலும் விவரங்களுக்கு &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt; RHN குறிப்பு கையேட்டினை&lt;/a&gt; பார்க்கவும்.</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>இங்கு பட்டியலிடப்பட்ட ஏதாவது கோப்புகள் அல்லது அடைவுகள் கிக்ஸ்டார்ட் பின்பற்றி சேமிக்கப்படும்.&lt;br/&gt;ஒவ்வொரு பட்டியலும் மொத்தம் &lt;strong&gt;1 எம்பி&lt;/strong&gt; அளவினை கொண்டிருக்கும்.  மேலும் விவரங்களுக்கு &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt; RHN குறிப்பு கையேட்டினை&lt;/a&gt; பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

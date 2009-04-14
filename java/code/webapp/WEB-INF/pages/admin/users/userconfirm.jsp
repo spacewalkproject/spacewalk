@@ -16,7 +16,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
- helpUrl="/rhn/help/reference/en/s1-sm-users.jsp">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp">
   <bean:message key="userconfirm.jsp.header" />
 </rhn:toolbar>
 

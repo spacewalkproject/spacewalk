@@ -4430,8 +4430,8 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>O sistema já possui o serviço {0}.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>Como você adicionou o serviço de Virtualização ao sistema, nós também tomamos algumas providências para assegurar que seu sistema será capaz de gerenciar os convidados virtuais de uma melhor forma. Consulte &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;aqui&lt;/a&gt; para mais informações.</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>Como você adicionou o serviço de Virtualização ao sistema, nós também tomamos algumas providências para assegurar que seu sistema será capaz de gerenciar os convidados virtuais de uma melhor forma. Consulte &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;aqui&lt;/a&gt; para mais informações.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

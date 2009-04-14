@@ -18,7 +18,7 @@
 
 <c:if test="${account_type == 'into_org'}" >
   <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="user.common.userAlt"
-       helpUrl="/rhn/help/reference/en/s1-sm-users.jsp">
+       helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp">
   <bean:message key="usercreate.toolbar" />
   </rhn:toolbar>
 </c:if>

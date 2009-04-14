@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>উল্লেখ্য: এই বাক্সের মধ্যে চেক চিহ্ন দেওয়া হলে উপরোক্ত পাসওয়ার্ডে ক্ষেত্রে কোনো মান লেখার প্রয়েজন নেই; তথাপি পাসওয়ার্ড উল্লেখ করা হলে বর্তমান ব্যবহারকারীর অ্যাকাউন্টের জন্য PAM পরিচয়প্রমাণ ব্যবস্থা নিষ্ক্রিয় করা হলে এটি প্রয়োগ করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>Satellite-টি LDAP, kerberos এবং অন্যান্য নেটওয়ার্ক-ভিত্তিক অনুমোদন ব্যবস্থার সাহায্যে অনুমোদনের উদ্দেশ্যে প্রস্তুত করতে অনুগ্রহ করে &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt;-এ PAM স্থাপনার নির্দেশাবলী পড়ুন।</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>Satellite-টি LDAP, kerberos এবং অন্যান্য নেটওয়ার্ক-ভিত্তিক অনুমোদন ব্যবস্থার সাহায্যে অনুমোদনের উদ্দেশ্যে প্রস্তুত করতে অনুগ্রহ করে &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt;-এ PAM স্থাপনার নির্দেশাবলী পড়ুন।</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6609,8 +6609,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>কোনো সার্বজনীন-কি অথবা ssl certs উল্লিখিত নয়।</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>আপনি এই সমস্ত কি এবং/অথবা সার্টিফিকেটগুলি আপনার kickstart প্রোফাইলের মধ্যে উল্লেখ করতে পারেন যার ফলে kickstart-র সময় সিস্টেমের মধ্যে এই সমস্ত কি/সার্টিফিকেট ইনস্টল করা হবে। সিস্টেমে স্বাক্ষরিত প্যাকেজ ইনস্টল করার জন্য সঠিক কি উপস্থিত থাকা আবশ্যক। RHN Proxy Server অথবা RHN Satellite Server-র সাহায্যে সিস্টেম kickstart করার জন্য সঠিক সার্টিফিকেট থাকা আবশ্যক। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt; পড়ুন।</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>আপনি এই সমস্ত কি এবং/অথবা সার্টিফিকেটগুলি আপনার kickstart প্রোফাইলের মধ্যে উল্লেখ করতে পারেন যার ফলে kickstart-র সময় সিস্টেমের মধ্যে এই সমস্ত কি/সার্টিফিকেট ইনস্টল করা হবে। সিস্টেমে স্বাক্ষরিত প্যাকেজ ইনস্টল করার জন্য সঠিক কি উপস্থিত থাকা আবশ্যক। RHN Proxy Server অথবা RHN Satellite Server-র সাহায্যে সিস্টেম kickstart করার জন্য সঠিক সার্টিফিকেট থাকা আবশ্যক। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt; পড়ুন।</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6685,8 +6685,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ফাইল সংরক্ষণ</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>কোনো kickstart কর্ম সমাপনের পরে পুনরায় স্থাপনের উদ্দেশ্যে চিহ্নিত ফাইলগুলির নাম ফাইল সংরক্ষণ তালিকায় উল্লিখিত হয়। Kickstart প্রোফাইলের মধ্যে ফাইল সংরক্ষণ তালিকা উল্লেখ করা যাবে। এই বিষয়ে অধিক জানতে &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন। আপনার প্রতিষ্ঠানের জন্য নিম্নলিখিত ফাইল সংরক্ষণ তালিকা নির্মিত হয়েছে :</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>কোনো kickstart কর্ম সমাপনের পরে পুনরায় স্থাপনের উদ্দেশ্যে চিহ্নিত ফাইলগুলির নাম ফাইল সংরক্ষণ তালিকায় উল্লিখিত হয়। Kickstart প্রোফাইলের মধ্যে ফাইল সংরক্ষণ তালিকা উল্লেখ করা যাবে। এই বিষয়ে অধিক জানতে &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন। আপনার প্রতিষ্ঠানের জন্য নিম্নলিখিত ফাইল সংরক্ষণ তালিকা নির্মিত হয়েছে :</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6777,8 +6777,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Kickstart-র ফাইল সংরক্ষণের তালিকা নির্মাণ করুন</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>এই তালিকায় উপস্থিত সমস্ত ফাইল ও ডিরেক্টরি kickstart সমাপনের পরে অপরিবর্তিত রাখা হবে। প্রতিটি ফাইল অথবা ডিরেক্টরি উল্লেখ করার জন্য পৃথক পংক্তি ব্যবহার করুন।&lt;br/&gt;তালিকার সর্বোচ্চ মাপ &lt;strong&gt;১ মেগাবাইট&lt;/strong&gt;-র মধ্যে সীমিত রাখা আবশ্যক। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন।</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>এই তালিকায় উপস্থিত সমস্ত ফাইল ও ডিরেক্টরি kickstart সমাপনের পরে অপরিবর্তিত রাখা হবে। প্রতিটি ফাইল অথবা ডিরেক্টরি উল্লেখ করার জন্য পৃথক পংক্তি ব্যবহার করুন।&lt;br/&gt;তালিকার সর্বোচ্চ মাপ &lt;strong&gt;১ মেগাবাইট&lt;/strong&gt;-র মধ্যে সীমিত রাখা আবশ্যক। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN রেফারেন্স গাইড&lt;/a&gt; পড়ুন।</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

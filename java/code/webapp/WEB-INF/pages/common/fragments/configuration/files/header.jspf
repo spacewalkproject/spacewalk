@@ -16,7 +16,7 @@
      greater possibility of typos, set a whole bunch of strings up that will be
      common among different structured toolbars
 --%>
-<c:set var="helpUrl" scope="request" value="/rhn/help/reference/en/configuration-files-local.jsp" />
+<c:set var="helpUrl" scope="request" value="/rhn/help/reference/en-US/configuration-files-local.jsp" />
 <c:set var="downloadUrl" scope="request" value="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${file.id}" />
 <c:set var="deleteUrl" scope="request" value="/rhn/configuration/file/DeleteRevision.do?crid=${revision.id}&amp;cfid=${file.id}" />
 <c:set var="fileImg" scope="request" value="/img/file-config.png" />

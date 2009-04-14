@@ -9,7 +9,7 @@
 </head>
 <body>
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
- helpUrl="/rhn/help/reference/en/s1-sm-your-rhn.jsp">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp">
  <bean:message key="email_sent.jsp.title"/>
 </rhn:toolbar>
 <div class="page-summary">

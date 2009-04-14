@@ -4432,8 +4432,8 @@ Follow this url to see the full list of inactive systems:
 				<target>이미 시스템에 {0}개의 인타이틀먼트가 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>시스템에 가상화 인타이틀먼트를 추가하신 이후, 시스템이 가상 게스트를 보다 효과적으로 관리할 수 있는 지를 확인하기 위해 몇 가지 추가적인 단게를 실행하였습니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;여기&lt;/a&gt;를 참조하시기 바랍니다. </target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>시스템에 가상화 인타이틀먼트를 추가하신 이후, 시스템이 가상 게스트를 보다 효과적으로 관리할 수 있는 지를 확인하기 위해 몇 가지 추가적인 단게를 실행하였습니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;여기&lt;/a&gt;를 참조하시기 바랍니다. </target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

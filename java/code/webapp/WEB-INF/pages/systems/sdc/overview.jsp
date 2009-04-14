@@ -17,7 +17,7 @@
         </c:when>
 
         <c:when test="${systemInactive}">
-          <img src="/img/icon_checkin.gif"/> <bean:message key="sdc.details.overview.inactive" arg0="/rhn/help/reference/en/s2-sm-system-list.jsp"/>
+          <img src="/img/icon_checkin.gif"/> <bean:message key="sdc.details.overview.inactive" arg0="/rhn/help/reference/en-US/s2-sm-system-list.jsp"/>
         </c:when>
           
         <c:when test="${hasUpdates}">
@@ -52,10 +52,10 @@
           <div class="systeminfo-left">
             <c:choose>
               <c:when test="${probeList[0].state == 'CRITICAL'}">
-                <img src="/img/rhn-mon-down.gif"/>  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en/s1-sm-monitor.jsp"/>
+                <img src="/img/rhn-mon-down.gif"/>  <bean:message key="sdc.details.overview.probes.critical" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
               </c:when>
               <c:otherwise>
-                <img src="/img/rhn-mon-warning.gif"/>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en/s1-sm-monitor.jsp"/>
+                <img src="/img/rhn-mon-warning.gif"/>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
               </c:otherwise>
             </c:choose>
           </div>

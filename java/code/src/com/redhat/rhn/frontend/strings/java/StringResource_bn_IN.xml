@@ -4433,8 +4433,8 @@ Follow this url to see the full list of inactive systems:
 				<target>সিস্টেমটির মধ্যে {0} এনটাইটেলমেন্ট উপস্থিত রয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>সিস্টেমে Virtualization এনটাইটেলমেন্ট স্থাপন করার ফলে সিস্টেম দ্বারা ভার্চুয়াল গেস্ট পরিচালনা কর্মে সহায়তার জন্য অতিরিক্ত কিছু কর্ম সঞ্চালিত হয়েছে। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;এইখানে দেখুন&lt;/a&gt; দেখুন।</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>সিস্টেমে Virtualization এনটাইটেলমেন্ট স্থাপন করার ফলে সিস্টেম দ্বারা ভার্চুয়াল গেস্ট পরিচালনা কর্মে সহায়তার জন্য অতিরিক্ত কিছু কর্ম সঞ্চালিত হয়েছে। অধিক বিবরণের জন্য &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;এইখানে দেখুন&lt;/a&gt; দেখুন।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

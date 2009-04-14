@@ -16,7 +16,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en/s1-sm-systems.jsp">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp">
   <bean:message key="systemlist.jsp.header"/>
 </rhn:toolbar>
 

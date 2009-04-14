@@ -18,7 +18,7 @@
 <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
 	creationUrl="ProbeSuiteProbeCreate.do?suite_id=${probeSuite.id}"
 	creationType="probe"
-	helpUrl="/rhn/help/reference/en/s2-sm-monitor-psuites.jsp">
+	helpUrl="/rhn/help/reference/en-US/s2-sm-monitor-psuites.jsp">
 	<bean:message key="probes.jsp.header1" arg0="${probeSuite.suiteName}" />
 </rhn:toolbar>
 

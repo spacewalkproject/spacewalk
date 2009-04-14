@@ -32,7 +32,7 @@
   </html:messages>
 
   <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif"
-               helpUrl="/rhn/help/reference/en/s2-sm-errata-search.jsp"
+               helpUrl="/rhn/help/reference/en-US/s2-sm-errata-search.jsp"
                imgAlt="search.alt.img">
     <bean:message key="erratasearch.jsp.toolbar"/>
   </rhn:toolbar> 

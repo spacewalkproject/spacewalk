@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>알림: 이 상자가 선택된 경우 위 암호란은 필수 입력 사항은 아닙니다. 그러나 이 사용자 계정을 위한 PAM 인증 기능이 비활성화될 경우 사용될 암호를 입력하실 수 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>satellite에 LDAP, kerberos 및 기타 다른 네트워크 기반 인증 시스템을 설정하시려면, &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;참조 가이드&lt;/a&gt;로 가셔서 PAM 설정 방법에 대한 정보를 읽어보시기 바랍니다.</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>satellite에 LDAP, kerberos 및 기타 다른 네트워크 기반 인증 시스템을 설정하시려면, &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;참조 가이드&lt;/a&gt;로 가셔서 PAM 설정 방법에 대한 정보를 읽어보시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6604,8 +6604,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>정의된 공개키나 ssl 인증서가 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>킥스타트 과정에서 시스템에 설치할 키 또는 인증서를 킥스타트 프로파일에 지정하실 수 있습니다. 시스템에 서명된 패키지를 설치하고, RHN Proxy 서버나 RHN Satellite 서버를 통해 시스템을 킥스타트하기 위해서는 올바른 키와 인증서가 필요합니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 참조 가이드&lt;/a&gt;를 살펴보시기 바랍니다. </target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>킥스타트 과정에서 시스템에 설치할 키 또는 인증서를 킥스타트 프로파일에 지정하실 수 있습니다. 시스템에 서명된 패키지를 설치하고, RHN Proxy 서버나 RHN Satellite 서버를 통해 시스템을 킥스타트하기 위해서는 올바른 키와 인증서가 필요합니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 참조 가이드&lt;/a&gt;를 살펴보시기 바랍니다. </target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6680,8 +6680,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>파일 보관 </target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>파일 보관 목록이란 특정 킥스타트시 시스템에 복구될 파일 목록을 말합니다.  킥스타트 프로파일에서 파일 보관 목록을 보실 수 있습니다.  보다 자세한 정보는 &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 참조 가이드&lt;/a&gt;를 읽어보시기 바랍니다. 조직에서 사용할 수 있도록 다음과 같은 파일 보관 목록이 생성되었습니다:      </target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>파일 보관 목록이란 특정 킥스타트시 시스템에 복구될 파일 목록을 말합니다.  킥스타트 프로파일에서 파일 보관 목록을 보실 수 있습니다.  보다 자세한 정보는 &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 참조 가이드&lt;/a&gt;를 읽어보시기 바랍니다. 조직에서 사용할 수 있도록 다음과 같은 파일 보관 목록이 생성되었습니다:      </target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6772,8 +6772,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>킥스타트 파일 보관 목록 생성 </target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>이곳에 입력된 파일이나 디렉토리는 킥스타트를 마친 후 보관됩니다. 한줄당 한개의 파 또는과 디렉토가 나열됩니다. &lt;br/&gt;각 목록의 최대 용량은 &lt;strong&gt;1 MB&lt;/strong&gt;로 제한되어 있습니다. 보다 자세한 사항은&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt; RHN 참조 가이드&lt;/a&gt;를 참조하시기 바랍니다.     </target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>이곳에 입력된 파일이나 디렉토리는 킥스타트를 마친 후 보관됩니다. 한줄당 한개의 파 또는과 디렉토가 나열됩니다. &lt;br/&gt;각 목록의 최대 용량은 &lt;strong&gt;1 MB&lt;/strong&gt;로 제한되어 있습니다. 보다 자세한 사항은&lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt; RHN 참조 가이드&lt;/a&gt;를 참조하시기 바랍니다.     </target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

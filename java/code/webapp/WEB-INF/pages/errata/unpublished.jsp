@@ -14,7 +14,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif" imgAlt="errata.common.errataAlt"
- helpUrl="/rhn/help/channel-mgmt/en/channel-mgmt-Manage_Errata-Unpublished_Errata.jsp"
+ helpUrl="/rhn/help/channel-mgmt/en-US/channel-mgmt-Manage_Errata-Unpublished_Errata.jsp"
  creationUrl="/rhn/errata/manage/Create.do"
  creationType="erratum">
   <bean:message key="erratalist.jsp.erratamgmt"/>

@@ -14,7 +14,7 @@
 
   <rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
   			   imgAlt="actions.jsp.imgAlt"
-               helpUrl="/rhn/help/reference/en/s2-sm-action-pend.jsp">
+               helpUrl="/rhn/help/reference/en-US/s2-sm-action-pend.jsp">
     <bean:message key="pendingactions.jsp.pending_actions"/>
   </rhn:toolbar>
 

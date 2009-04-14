@@ -300,7 +300,7 @@ public class SystemDetailsEditAction extends RhnAction {
                             log.debug("adding virt msg");
                             createSuccessMessage(request,
                                     "system.entitle.addedvirtualization",
-                                    "/rhn/help/reference/en/ch-virtualization.jsp");
+                                    "/rhn/help/reference/en-US/ch-virtualization.jsp");
                         }
                     }
                 }

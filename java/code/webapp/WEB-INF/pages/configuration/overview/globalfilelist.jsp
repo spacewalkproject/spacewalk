@@ -15,7 +15,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-config_files.gif" imgAlt="config.common.filesAlt"
- helpUrl="/rhn/help/reference/en/configuration-files.jsp#configuration-files-central">
+ helpUrl="/rhn/help/reference/en-US/configuration-files.jsp#configuration-files-central">
   <bean:message key="globalfilelist.jsp.toolbar"/>
 </rhn:toolbar>
 

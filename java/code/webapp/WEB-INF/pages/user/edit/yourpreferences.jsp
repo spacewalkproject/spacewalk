@@ -13,7 +13,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-preferences.gif"
- helpUrl="/rhn/help/reference/en/s2-sm-your-rhn-prefs.jsp"
+ helpUrl="/rhn/help/reference/en-US/s2-sm-your-rhn-prefs.jsp"
  imgAlt="preferences.jsp.alt">
 <bean:message key="Your Preferences"/>
 </rhn:toolbar>

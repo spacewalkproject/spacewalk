@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>Замечание: Поля пароля не являются обязательными, когда этот флажок установлен; но вы можете ввести пароль, который будет работать, только когда PAM аутентификация для этого пользователя отключена.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>Если вы хотите настроить Satellite таким образом, чтобы осуществлять аутентификацию c помощью LDAP, Kerberos и других сетевых систем аутентификации, обратитесь к &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;справочному руководству&lt;/a&gt; за инструкциями по настройке PAM.</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>Если вы хотите настроить Satellite таким образом, чтобы осуществлять аутентификацию c помощью LDAP, Kerberos и других сетевых систем аутентификации, обратитесь к &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;справочному руководству&lt;/a&gt; за инструкциями по настройке PAM.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6599,8 +6599,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Не заданы открытые ключи или сертификаты ssl.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>Вы можете ссылаться на эти ключи и сертификаты в профиле кикстарта с целью их установки в процессе выполнения кикстарта. Система использует ключи для установки подписанных пакетов, а сертификат для выполнения кикстарта сервером RHN Proxy или RHN Satellite.  За дальнейшей информацией обратитесь к &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;Справочному руководству RHN&lt;/a&gt;.</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>Вы можете ссылаться на эти ключи и сертификаты в профиле кикстарта с целью их установки в процессе выполнения кикстарта. Система использует ключи для установки подписанных пакетов, а сертификат для выполнения кикстарта сервером RHN Proxy или RHN Satellite.  За дальнейшей информацией обратитесь к &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;Справочному руководству RHN&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6675,8 +6675,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Восстановление файлов</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>Списки восстановления файлов содержат файлы, которые будут восстановлены при кикстарте. Список может быть указан в профиле кикстарта. За дальнейшей информацией обратитесь к &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Справочному руководству RHN&lt;/a&gt;. Ниже приведены списки восстановления файлов, созданные для вашей организации:</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>Списки восстановления файлов содержат файлы, которые будут восстановлены при кикстарте. Список может быть указан в профиле кикстарта. За дальнейшей информацией обратитесь к &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Справочному руководству RHN&lt;/a&gt;. Ниже приведены списки восстановления файлов, созданные для вашей организации:</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6767,8 +6767,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Создать список восстановления файлов кикстарта</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>Все перечисленные файлы и каталоги будут сохранены при кикстарте. Укажите один файл или каталог на строку.&lt;br/&gt;Максимальный размер списков &amp;mdash; &lt;strong&gt;1Мб&lt;/strong&gt;. За дальнейшей информацией обратитесь к &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Справочному руководству RHN&lt;/a&gt;.</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>Все перечисленные файлы и каталоги будут сохранены при кикстарте. Укажите один файл или каталог на строку.&lt;br/&gt;Максимальный размер списков &amp;mdash; &lt;strong&gt;1Мб&lt;/strong&gt;. За дальнейшей информацией обратитесь к &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Справочному руководству RHN&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

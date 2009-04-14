@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>નોંધ: જ્યારે આ બોક્સ ચકાસાયેલ હોય ત્યારે ઉપરના પાસવર્ડ ક્ષેત્રો જરૂરી નથી; તેમછતાં પણ તમે           પાસવર્ડ ભરી શકશો કે જે જ્યારે આ વપરાશકર્તા ખાતા માટે PAM સત્તાધિકરણ નિષ્ક્રિય કરેલ હોય ત્યારે જ માત્ર           કામ કરશે.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>જો તમે તમારા સેટેલાઈટને LDAP, kerberos, અને અન્ય નેટવર્ક-આધારિત સત્તાધિકરણ સિસ્ટમો વિરુદ્ધ સત્તાધિકારીત કરવા માટે સુયોજિત કરવા માંગો, તો મહેરબાની કરીને કેવી રીતે PAM સુયોજિત કરવું તેના સૂચનો માટે &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;સંદર્ભ માર્ગદર્શન&lt;/a&gt; ની મુલાકાત લો.</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>જો તમે તમારા સેટેલાઈટને LDAP, kerberos, અને અન્ય નેટવર્ક-આધારિત સત્તાધિકરણ સિસ્ટમો વિરુદ્ધ સત્તાધિકારીત કરવા માટે સુયોજિત કરવા માંગો, તો મહેરબાની કરીને કેવી રીતે PAM સુયોજિત કરવું તેના સૂચનો માટે &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;સંદર્ભ માર્ગદર્શન&lt;/a&gt; ની મુલાકાત લો.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6609,8 +6609,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>કોઈ જાહેર કીઓ અથવા ssl પ્રમાણપત્રો વ્યાખ્યાયિત નથી</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>તમે કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમો પર તે કીઓ/પ્રમાણપત્રો સ્થાપિત કરવા માટે તમારી કિકસ્ટાર્ટ રૂપરેખામાં તે કીઓ અને/અથવા પ્રમાણપત્રોનો સંદર્ભ લઈ શકો છો.  સહી થયેલ પેકેજો સ્થાપિત કરવા માટે સિસ્ટમને યોગ્ય કીઓની જરૂર રહેશે, અને RHN પ્રોક્સી સર્વર અથવા RHN સેટેલાઈટ સર્વર દ્વારા કિકસ્ટાર્ટ થાય તેવા યોગ્ય પ્રમાણપત્રની જરૂર રહેશે.  વધુ જાણકારી માટે, &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>તમે કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમો પર તે કીઓ/પ્રમાણપત્રો સ્થાપિત કરવા માટે તમારી કિકસ્ટાર્ટ રૂપરેખામાં તે કીઓ અને/અથવા પ્રમાણપત્રોનો સંદર્ભ લઈ શકો છો.  સહી થયેલ પેકેજો સ્થાપિત કરવા માટે સિસ્ટમને યોગ્ય કીઓની જરૂર રહેશે, અને RHN પ્રોક્સી સર્વર અથવા RHN સેટેલાઈટ સર્વર દ્વારા કિકસ્ટાર્ટ થાય તેવા યોગ્ય પ્રમાણપત્રની જરૂર રહેશે.  વધુ જાણકારી માટે, &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6685,8 +6685,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ફાઈલ સાચવણી</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>ફાઈલ સાચવણી યાદીઓ ફાઈલોની યાદીઓ છે કે જેઓ ચોક્કસ કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમમાં પુનઃસંગ્રહિત થશે.  તમે કિકસ્ટાર્ટ રૂપરેખામાં ફાઈલ બચાવ યાદીનો સંદર્ભ આપી શકો છો.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; નો સંદર્ભ લો.  નીચેની ફાઈલ બચાવ યાદીઓ તમારી સંસ્થા દ્વારા વપરાશ માટે બનાવાયેલ છે:</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>ફાઈલ સાચવણી યાદીઓ ફાઈલોની યાદીઓ છે કે જેઓ ચોક્કસ કિકસ્ટાર્ટ દરમ્યાન સિસ્ટમમાં પુનઃસંગ્રહિત થશે.  તમે કિકસ્ટાર્ટ રૂપરેખામાં ફાઈલ બચાવ યાદીનો સંદર્ભ આપી શકો છો.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; નો સંદર્ભ લો.  નીચેની ફાઈલ બચાવ યાદીઓ તમારી સંસ્થા દ્વારા વપરાશ માટે બનાવાયેલ છે:</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6777,8 +6777,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>કિકસ્ટાર્ટ ફાઈલ સાચવણી યાદી બનાવો</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>અંહિ યાદી થયેલ કોઈપણ ફાઈલો અથવા ડિરેક્ટરીઓ કિકસ્ટાર્ટને અનુસરીને સચવાશે. એક લીટી પ્રતિ ફાઈલો અથવા ડિરેક્ટરીઓની યાદી કરો.&lt;br/&gt;દરેક યાદી એ &lt;strong&gt;1 MB&lt;/strong&gt; ના કુલ માપમાં મર્યાદિત છે. વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ.</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>અંહિ યાદી થયેલ કોઈપણ ફાઈલો અથવા ડિરેક્ટરીઓ કિકસ્ટાર્ટને અનુસરીને સચવાશે. એક લીટી પ્રતિ ફાઈલો અથવા ડિરેક્ટરીઓની યાદી કરો.&lt;br/&gt;દરેક યાદી એ &lt;strong&gt;1 MB&lt;/strong&gt; ના કુલ માપમાં મર્યાદિત છે. વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN સંદર્ભ માર્ગદર્શન&lt;/a&gt; જુઓ.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

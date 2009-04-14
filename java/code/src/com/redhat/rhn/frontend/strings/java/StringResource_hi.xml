@@ -4433,8 +4433,8 @@ Follow this url to see the full list of inactive systems:
 				<target>सिस्टम के पास पहले से {0} एंटाइटेलमेंट है.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>चूंकि आपने सिस्टम में वर्चुअलाइजेशन एंटाइटेलमेंट सिस्टम में दिया है हमने भी कुछ अतिरिक्त चरण किया है यह सुनिश्चित करने के लिये आपका सिस्टम वर्चुअल अतिथि को बेहतर तरीके से प्रबंधित करने में समर्थ होगा. ज्यादा सूचना के लिये &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;यहां&lt;/a&gt; देखें.</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>चूंकि आपने सिस्टम में वर्चुअलाइजेशन एंटाइटेलमेंट सिस्टम में दिया है हमने भी कुछ अतिरिक्त चरण किया है यह सुनिश्चित करने के लिये आपका सिस्टम वर्चुअल अतिथि को बेहतर तरीके से प्रबंधित करने में समर्थ होगा. ज्यादा सूचना के लिये &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;यहां&lt;/a&gt; देखें.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

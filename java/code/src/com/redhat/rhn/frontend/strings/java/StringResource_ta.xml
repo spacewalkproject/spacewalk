@@ -4432,8 +4432,8 @@ Follow this url to see the full list of inactive systems:
 				<target>கணினி ஏற்கனவே {0} உரிமத்தைக் கொண்டிருக்கிறது.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>நீங்கள் ஒரு மெய்நிகராக்க உரிமத்தை கணினிக்கு சேர்த்து, நாம் மெய்நிகர் விருந்தினர்களை அது மேலாண்மை செய்கிறதா என்பதை உறுதிப்படுத்த வேண்டும். மேலும் தகவலுக்கு &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;இங்கு&lt;/a&gt; பார்க்கவும்.</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>நீங்கள் ஒரு மெய்நிகராக்க உரிமத்தை கணினிக்கு சேர்த்து, நாம் மெய்நிகர் விருந்தினர்களை அது மேலாண்மை செய்கிறதா என்பதை உறுதிப்படுத்த வேண்டும். மேலும் தகவலுக்கு &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;இங்கு&lt;/a&gt; பார்க்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

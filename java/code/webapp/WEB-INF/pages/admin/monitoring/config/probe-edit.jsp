@@ -23,7 +23,7 @@ function refreshNotifFields() {
 </script>
 
   <rhn:toolbar base="h1" img="/img/rhn-config_management.gif"
-               helpUrl="/rhn/help/reference/en/s2-sm-monitor-psuites.jsp">
+               helpUrl="/rhn/help/reference/en-US/s2-sm-monitor-psuites.jsp">
     <bean:message key="probe-edit.jsp.header1" arg0="${probe.description}" arg1="${probeSuite.suiteName}" />
   </rhn:toolbar>
 

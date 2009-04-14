@@ -13,7 +13,7 @@
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif" 
 			imgAlt="activation-keys.common.alt"
-			helpUrl="/rhn/help/reference/en/s2-sm-systems-activation-keys.jsp"
+			helpUrl="/rhn/help/reference/en-US/s2-sm-systems-activation-keys.jsp"
 			>
   <bean:message key ="activation-key.jsp.create"/>
 </rhn:toolbar>
