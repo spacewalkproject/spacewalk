@@ -2129,6 +2129,7 @@ def processCommandline():
         CFG.set("ISS_PARENT", None)
     else:
         CFG.set("ISS_PARENT", OPTIONS.iss_parent or CFG.ISS_PARENT)
+        CFG.set("ISS_CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
     CFG.set("HTTP_PROXY", OPTIONS.http_proxy or CFG.HTTP_PROXY)
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
