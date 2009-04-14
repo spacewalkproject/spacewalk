@@ -8958,7 +8958,7 @@ Please note that some manual configuration of these scripts may still be require
           <context context-type="sourcefile">/rhn/admin/config/Cobbler.do</context>
         </context-group>
         <trans-unit id="cobbler.jsp.toolbar">
-          <source>Spacewalk Configuration - Cobbler.</source>
+          <source>@@PRODUCT_NAME@@ Configuration - Cobbler.</source>
         </trans-unit>
         <trans-unit id="Cobbler">
           <source>Cobbler</source>
