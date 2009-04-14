@@ -177,7 +177,7 @@ class Runner:
         except xmlWireSource.rpclib.Fault, e:
             if CFG.ISS_PARENT:  
                 # we met old satellite who do not know ISS
-                log(-1, ['', messages.iss_not_available % e.faultString], )
+                log(-1, ['', messages.iss_not_available ], )
                 sys.exit(26)
             else:
                 log(-1, ['', messages.syncer_error % e.faultString], )
