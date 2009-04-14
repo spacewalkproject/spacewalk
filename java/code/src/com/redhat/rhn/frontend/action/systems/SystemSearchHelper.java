@@ -255,8 +255,8 @@ public class SystemSearchHelper {
         }
         else if (CHECKIN.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
-            // Lucene uses GMT for indexing
-            Calendar startDate = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+            Calendar startDate = Calendar.getInstance();
+            // SearchRange:  [EPOCH - TargetDate]
             startDate.add(Calendar.DATE, -1 * numDays);
             query = "checkin:[\"" + formatDateString(new Date(0)) +
                     "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
@@ -264,13 +264,13 @@ public class SystemSearchHelper {
         }
         else if (REGISTERED.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
-            // Lucene uses GMT for indexing
-            Calendar startDate = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-            startDate.add(Calendar.DATE, -1 * numDays);
-            query = "registered:[\"" + formatDateString(startDate.getTime()) +
+            Calendar startDate = Calendar.getInstance();
+            // SearchRange:  [TargetDate - NOW]
+            startDate.add(Calendar.DATE, (-1 * numDays) - 1);
+            query = "registered:{\"" + formatDateString(startDate.getTime()) +
                 "\" TO \"" + formatDateString(
-                Calendar.getInstance(TimeZone.getTimeZone("GMT")).getTime()) +
-                "\"]";
+                Calendar.getInstance().getTime()) +
+                "\"}";
             index = SERVER_INDEX;
         }
         else if (CPU_MODEL.equals(mode)) {
@@ -614,18 +614,25 @@ public class SystemSearchHelper {
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
+
         /** RangeQueries return a constant score of 1.0 for anything that matches.
          * Therefore we need to do more work to understand how to best sort results.
          * Sorting will be done based on value for 'matchingFieldValue', this is a best
          * guess from the search server of what field in the document most influenced
          * the result.
          * */
-        if (CHECKIN.equals(viewMode) || REGISTERED.equals(viewMode) ||
-                CPU_MHZ_LT.equals(viewMode) || CPU_MHZ_GT.equals(viewMode) ||
-                NUM_CPUS_LT.equals(viewMode) || NUM_CPUS_GT.equals(viewMode) ||
-                RAM_LT.equals(viewMode) || RAM_GT.equals(viewMode)) {
+        if (REGISTERED.equals(viewMode) || CPU_MHZ_GT.equals(viewMode) ||
+                NUM_CPUS_GT.equals(viewMode) || RAM_GT.equals(viewMode)) {
+            // We want to sort Low to High
             SearchResultMatchedFieldComparator comparator =
                 new SearchResultMatchedFieldComparator(serverIds);
+            Collections.sort(serverList, comparator);
+        }
+        else if (CHECKIN.equals(viewMode) || CPU_MHZ_LT.equals(viewMode) ||
+                NUM_CPUS_LT.equals(viewMode) || RAM_LT.equals(viewMode)) {
+            // We want to sort High to Low
+            SearchResultMatchedFieldComparator comparator =
+                new SearchResultMatchedFieldComparator(serverIds, false);
             Collections.sort(serverList, comparator);
         }
         else {
@@ -636,7 +643,6 @@ public class SystemSearchHelper {
                 new SearchResultScoreComparator(serverIds);
             Collections.sort(serverList, scoreComparator);
         }
-
         if (log.isDebugEnabled()) {
             log.debug("sorted server data = " + serverList);
         }
@@ -726,6 +732,8 @@ public class SystemSearchHelper {
         String dateFormat = "yyyyMMddHHmm";
         java.text.SimpleDateFormat sdf =
               new java.text.SimpleDateFormat(dateFormat);
+        // Lucene uses GMT for indexing
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(d);
     }
 
@@ -849,6 +857,8 @@ public class SystemSearchHelper {
      */
     public static class SearchResultMatchedFieldComparator implements Comparator {
         protected Map results;
+        protected boolean sortLowToHigh;
+
         protected SearchResultMatchedFieldComparator() {
         }
         /**
@@ -856,6 +866,15 @@ public class SystemSearchHelper {
          */
         public SearchResultMatchedFieldComparator(Map resultsIn) {
             this.results = resultsIn;
+            this.sortLowToHigh = true;
+        }
+        /**
+         * @param resultsIn map of server related info to use for comparisons
+         * @param sortLowToHighIn sort order boolean
+         */
+        public SearchResultMatchedFieldComparator(Map resultsIn, boolean sortLowToHighIn) {
+            this.results = resultsIn;
+            this.sortLowToHigh = sortLowToHighIn;
         }
         /**
          * @param o1 systemOverview11
@@ -881,7 +900,39 @@ public class SystemSearchHelper {
             }
             String val1 = (String)sMap1.get("matchingFieldValue");
             String val2 = (String)sMap2.get("matchingFieldValue");
-            return val2.compareTo(val1);
+            try {
+                Long lng1 = Long.parseLong(val1);
+                Long lng2 = Long.parseLong(val2);
+                if (sortLowToHigh) {
+                    return lng1.compareTo(lng2);
+                }
+                else {
+                    return lng2.compareTo(lng1);
+                }
+            }
+            catch (NumberFormatException e) {
+                // String isn't a Long so continue;
+            }
+            try {
+                Double doub1 = Double.parseDouble(val1);
+                Double doub2 = Double.parseDouble(val2);
+                if (sortLowToHigh) {
+                    return doub1.compareTo(doub2);
+                }
+                else {
+                    return doub2.compareTo(doub1);
+                }
+            }
+            catch (NumberFormatException e) {
+                // String isn't a Double so continue;
+            }
+            // Fallback to standard string sort
+            if (sortLowToHigh) {
+                return val1.compareTo(val2);
+            }
+            else {
+                return val2.compareTo(val1);
+            }
         }
     }
 }
