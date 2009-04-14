@@ -18,7 +18,7 @@
 <rhn-channel-details>
 
     <div class="page-summary">
-      <p>Are you sure you wish to delete this channel?  Packages in the channel will be removed from the channel, but will remain on the server.  You will be given the option to delete them after the channel has been deleted.  Errata related to the channel will no longer be related to the channel, and may be orphaned.  If the channel has child channels, it cannot be deleted; the child channels must be deleted first.
+        <p>Are you sure you wish to delete this channel?  Packages in the channel will be removed from the channel, but will remain on the server.  You will be given the option to delete them after the channel has been deleted.  Errata related to the channel will no longer be related to the channel, and may be orphaned.  If the channel has child channels, it cannot be deleted; the child channels must be deleted first. If the channel has kickstart distributions associated to it, it cannot be deleted; the kickstart distributions must be dissociated from the channel or deleted first.
      </p>
     </div>
 
