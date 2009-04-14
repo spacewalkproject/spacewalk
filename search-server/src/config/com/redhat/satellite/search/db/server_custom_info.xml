@@ -9,15 +9,17 @@
         resultClass="com.redhat.satellite.search.db.models.ServerCustomInfo">
 
             SELECT
-                rscdv.key_id as id,
+                rscdv.key_id as keyId,
                 rscdv.server_id as serverId,
                 rscdv.value as value,
                 rscdv.created_by as createdBy,
                 rscdv.last_modified_by as lastModifiedBy,
+                rcdk.label as label,
                 TO_CHAR(rscdv.created, 'YYYY-MM-DD HH24-MI-SS') as created,
                 TO_CHAR(rscdv.modified, 'YYYY-MM-DD HH24-MI-SS') as modified
             FROM rhnServerCustomDataValue rscdv
-            WHERE rscdv.key_id > #id# OR rscdv.modified > #last_modified#
+              INNER JOIN rhnCustomDataKey rcdk on rcdk.id = rscdv.key_id
+            WHERE rscdv.modified > #last_modified#
             ORDER by rscdv.key_id ASC
     </select>
 
@@ -40,7 +42,7 @@
             resultClass="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='server_custom_info'
     </select>
-    <select id="queryAllServerCustomInfoIds" resultClass="Long">
-        SELECT key_id from rhnServerCustomDataValue
+    <select id="queryAllServerCustomInfoIds" resultClass="com.redhat.satellite.search.db.models.ServerCustomInfo">
+        SELECT server_id as serverId, key_id as keyId from rhnServerCustomDataValue
     </select>
 </sqlMap>
