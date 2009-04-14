@@ -106,6 +106,7 @@ fi
 %attr(755, root, root) %{_prefix}/share/rhn/search/indexes
 %attr(755, root, root) %{_sysconfdir}/init.d/rhn-search
 %attr(755, root, root) %{_bindir}/rhnsearchd
+%dir %{_sysconfdir}/rhn/search/
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search.conf
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 %{_sysconfdir}/logrotate.d/rhn-search
