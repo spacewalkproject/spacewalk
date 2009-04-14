@@ -39,9 +39,6 @@ mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
 
-ln -s ../../../httpd/conf/ssl.key/server.key $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/private/server.key
-ln -s ../../../httpd/conf/ssl.crt/server.crt $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs/server.crt
-
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      --exclude=etc/tomcat5 \
      --exclude=etc/jabberd \
@@ -68,8 +65,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/cluster.ini
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/private/server.key
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/certs/server.crt
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
