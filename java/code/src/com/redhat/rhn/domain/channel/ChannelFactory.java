@@ -517,7 +517,6 @@ public class ChannelFactory extends HibernateFactory {
     public static List<Channel> listCustomBaseChannels(User user) {
         Map params = new HashMap();
         params.put("user_id", user.getId());
-        params.put("org_id", user.getOrg().getId());
         return singleton.listObjectsByNamedQuery(
                 "Channel.findCustomBaseChannels", params);
     }
