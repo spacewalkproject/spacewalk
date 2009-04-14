@@ -111,7 +111,6 @@ public class Server extends BaseDomainHelper implements Identifiable {
     public ProxyInfo getProxyInfo() {
         return proxyInfo;
     }
-
     
     /**
      * the proxy information to set
@@ -123,13 +122,29 @@ public class Server extends BaseDomainHelper implements Identifiable {
 
     /**
      * Retrieves the local override channel associated with this system.
-     * @return the Local Override Channel or NULL if theres none created yet
-     *              in rhnServerConfigChannel 
+     * @return the Local Override Channel or create one if none exists
      */
     public ConfigChannel getLocalOverride() {
         return  findLocal(ConfigChannelType.local());
     }
     
+    /**
+     * Retrieves the local override channel associated with this system.
+     * @return the Local Override Channel or NULL if there's none created yet
+     */
+    public ConfigChannel getLocalOverrideNoCreate() {
+        ensureConfigManageable();
+        ConfigChannel channel = null;
+        for (Iterator itr = localChannels.iterator(); itr.hasNext();) {
+            ConfigChannel ch = (ConfigChannel) itr.next();
+            if (ch.getConfigChannelType().equals(ConfigChannelType.local())) {
+                channel = ch;
+                break;
+            }
+        }
+        return channel;
+    }
+
     /**
      * 
      * @param ch Override channel to set
@@ -165,7 +180,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private ConfigChannel findLocal(ConfigChannelType cct) {
         
         assert localChannels.size() <= 2 : "More than two local override  channels" +
-                                "Associted with this server." +
+                                "Associated with this server." +
                                 "There should be NO more than Two" +
                                     " Override Channels associated";
         ensureConfigManageable();
@@ -192,13 +207,29 @@ public class Server extends BaseDomainHelper implements Identifiable {
     
     /**
      * Retrieves the sandbox override channel associated with this system.
-     * @return the Sandbox Override Channel or NULL if theres none created yet
-     *              in rhnServerConfigChannel 
+     * @return the Sandbox Override Channel or create one if none exists
      */
     public ConfigChannel getSandboxOverride() {
         return findLocal(ConfigChannelType.sandbox());
     }
     
+    /**
+     * Retrieves the sandbox override channel associated with this system.
+     * @return the Sandbox Override Channel or NULL if there's none created yet
+     */
+    public ConfigChannel getSandboxOverrideNoCreate() {
+        ensureConfigManageable();
+        ConfigChannel channel = null;
+        for (Iterator itr = localChannels.iterator(); itr.hasNext();) {
+            ConfigChannel ch = (ConfigChannel) itr.next();
+            if (ch.getConfigChannelType().equals(ConfigChannelType.sandbox())) {
+                channel = ch;
+                break;
+            }
+        }
+        return channel;
+    }
+
     /**
      * 
      * @param ch sets the sandbox override channel

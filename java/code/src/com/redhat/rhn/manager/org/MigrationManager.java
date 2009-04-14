@@ -210,15 +210,15 @@ public class MigrationManager extends BaseManager {
         // if the server has any "Locally-Managed" config files associated with it, then
         // a config channel was created for them... that channel needs to be moved to
         // the new org...
-        if (server.getLocalOverride() != null) {
-            server.getLocalOverride().setOrg(toOrg);
+        if (server.getLocalOverrideNoCreate() != null) {
+            server.getLocalOverrideNoCreate().setOrg(toOrg);
         }
 
         // if the server has any "Local Sandbox" config files associated with it, then
         // a config channel was created for them... that channel needs to be moved to
         // the new org...
-        if (server.getSandboxOverride() != null) {
-            server.getSandboxOverride().setOrg(toOrg);
+        if (server.getSandboxOverrideNoCreate() != null) {
+            server.getSandboxOverrideNoCreate().setOrg(toOrg);
         }
 
         // Move the server
