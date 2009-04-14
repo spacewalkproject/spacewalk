@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -110,6 +110,13 @@ fi
 
 
 %changelog
+* Tue Apr 14 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- config: Remove duplicate symlinks to httpd crt and key. (dgoodwin@redhat.com)
+- 491668 - update Spacewalk Apache conf to support .htaccess
+  (bbuckingham@redhat.com)
+- 487563 - adding enable_snapshots config value to default rhn.conf as per docs
+  (jsherril@redhat.com)
+
 * Mon Mar 30 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.9-1
 - 487618 - fixing jabberd to use mysql db by default instead of sqlite
 
