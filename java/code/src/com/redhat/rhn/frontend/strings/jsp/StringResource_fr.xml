@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>Remarque&amp;nbsp;: Les champs de mot de passe ci-dessus ne sont pas requis lorsque cette case est sélectionnée&amp;nbsp;; cependant, vous pouvez saisir un mot de passe qui fonctionnera uniquement lorsque l'authentification PAM pour le compte de cet utilisateur est désactivée.</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>Si vous souhaitez configurer votre satellite de façon à authentifier par LDAP, kerberos et d'autres systèmes d'authentification basés sur le réseau, consultez le &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;guide de référence&lt;/a&gt; pour obtenir des instructions sur la manière de configurer PAM.</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>Si vous souhaitez configurer votre satellite de façon à authentifier par LDAP, kerberos et d'autres systèmes d'authentification basés sur le réseau, consultez le &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;guide de référence&lt;/a&gt; pour obtenir des instructions sur la manière de configurer PAM.</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6605,8 +6605,8 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 				<target>Aucune clé publique ou certificat ssl définis.</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>Vous pouvez faire référence à ces clés et/ou ces certificats dans vos profils kickstart afin de les installer sur les systèmes durant un kickstart. Un système aura besoin des bonnes clés pour installer des paquetages signés et du bon certificat pour pouvoir être lancé avec kickstart par un serveur Proxy RHN ou un serveur Satellite RHN. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>Vous pouvez faire référence à ces clés et/ou ces certificats dans vos profils kickstart afin de les installer sur les systèmes durant un kickstart. Un système aura besoin des bonnes clés pour installer des paquetages signés et du bon certificat pour pouvoir être lancé avec kickstart par un serveur Proxy RHN ou un serveur Satellite RHN. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6681,8 +6681,8 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 				<target>Conservation de fichiers</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>Les listes de conservation de fichiers sont des listes de fichiers qui seront restaurées sur un système lors d'un kickstart particulier. Vous pouvez faire référence à une liste de conservation de fichiers dans un profil kickstart. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;. Les listes suivantes ont été créées pour votre organisation&amp;nbsp;:</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>Les listes de conservation de fichiers sont des listes de fichiers qui seront restaurées sur un système lors d'un kickstart particulier. Vous pouvez faire référence à une liste de conservation de fichiers dans un profil kickstart. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;. Les listes suivantes ont été créées pour votre organisation&amp;nbsp;:</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6773,8 +6773,8 @@ Veuillez noter qu'une configuration manuelle de ces scripts peut toujours être 
 				<target>Créer une liste de conservation de fichiers kickstart</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>Tout fichier ou répertoire listé ici sera conservé après le kickstart. Ajoutez les fichiers ou les répertoires un par ligne.&lt;br/&gt;Chaque liste est limitée à une taille totale de &lt;strong&gt;1 Mo&lt;/strong&gt;. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;.</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>Tout fichier ou répertoire listé ici sera conservé après le kickstart. Ajoutez les fichiers ou les répertoires un par ligne.&lt;br/&gt;Chaque liste est limitée à une taille totale de &lt;strong&gt;1 Mo&lt;/strong&gt;. Pour davantage d'informations, consultez le &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;Guide de référence de RHN&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

@@ -43,7 +43,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-your_rhn.gif" imgAlt="yourrhn.jsp.toolbar.img.alt"
-             helpUrl="/rhn/help/reference/en/s1-sm-your-rhn.jsp">
+             helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp">
   <bean:message key="yourrhn.jsp.toolbar"/>
 </rhn:toolbar>
 

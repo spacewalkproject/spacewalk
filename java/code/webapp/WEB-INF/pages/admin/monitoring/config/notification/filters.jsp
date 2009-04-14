@@ -16,7 +16,7 @@
   <rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif"
 	           creationUrl="FilterCreate.do"
                creationType="filter"
-               helpUrl="/rhn/help/reference/en/s2-sm-monitor-notif.jsp">
+               helpUrl="/rhn/help/reference/en-US/s2-sm-monitor-notif.jsp">
     <bean:message key="filters.jsp.header1"/>
   </rhn:toolbar>
 

@@ -10,7 +10,7 @@
  <c:if test="${errata.securityAdvisory}">
      <rhn:toolbar base="h1" img="/img/rhn-icon-security.gif"
      						imgAlt="errata-legend.jsp.security"
-     						helpUrl="/rhn/help/reference/en/s2-sm-all-errata.jsp#s3-sm-errata-details">
+						helpUrl="/rhn/help/reference/en-US/s2-sm-all-errata.jsp#s3-sm-errata-details">
 	   <c:if test="${empty errata}">
 	 	 <decorator:getProperty property="meta.name" />
        </c:if>
@@ -22,7 +22,7 @@
  <c:if test="${errata.bugFix}">
      <rhn:toolbar base="h1" img="/img/rhn-icon-bug.gif" 
      						imgAlt="errata-legend.jsp.bugfix"
-     						helpUrl="/rhn/help/reference/en/s1-sm-errata.jsp">
+						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">
 	 	 <decorator:getProperty property="meta.name" />
        </c:if>
@@ -34,7 +34,7 @@
  <c:if test="${errata.productEnhancement}">
      <rhn:toolbar base="h1" img="/img/rhn-icon-enhancement.gif"
      						imgAlt="errata-legend.jsp.enhancement"
-     						helpUrl="/rhn/help/reference/en/s1-sm-errata.jsp">
+						helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp">
 	   <c:if test="${empty errata}">
 	 	 <decorator:getProperty property="meta.name" />
        </c:if>

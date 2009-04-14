@@ -4435,8 +4435,8 @@ Follow this url to see the full list of inactive systems:
 				<target>ਸਿਸਟਮ ਉੱਪਰ ਪਹਿਲਾਂ ਹੀ {0} ਇੰਟਾਈਟਲਮੈਂਟ ਹਨ।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>ਜਦੋਂ ਤੁਸੀਂ ਸਿਸਟਮ ਉੱਪਰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਇੰਟਾਈਟਲਮੈਂਟ ਸ਼ਾਮਿਲ ਕੀਤਾ ਹੈ, ਅਸੀਂ ਕੁਝ ਵਾਧੂ ਸਹੂਲਤਾਂ ਲਾਗੂ ਕੀਤੀਆਂ ਹਨ ਤਾਂ ਕਿ ਤੁਹਾਡਾ ਸਿਸਟਮ ਵਰਚੁਅਲ ਗਿਸਟਾਂ ਦਾ ਪਰਬੰਧਨ ਕਰ ਸਕੇ।  ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;ਏਥੇ&lt;/a&gt; ਵੇਖੋ।</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>ਜਦੋਂ ਤੁਸੀਂ ਸਿਸਟਮ ਉੱਪਰ ਵਰਚੁਅਲਾਈਜੇਸ਼ਨ ਇੰਟਾਈਟਲਮੈਂਟ ਸ਼ਾਮਿਲ ਕੀਤਾ ਹੈ, ਅਸੀਂ ਕੁਝ ਵਾਧੂ ਸਹੂਲਤਾਂ ਲਾਗੂ ਕੀਤੀਆਂ ਹਨ ਤਾਂ ਕਿ ਤੁਹਾਡਾ ਸਿਸਟਮ ਵਰਚੁਅਲ ਗਿਸਟਾਂ ਦਾ ਪਰਬੰਧਨ ਕਰ ਸਕੇ।  ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;ਏਥੇ&lt;/a&gt; ਵੇਖੋ।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

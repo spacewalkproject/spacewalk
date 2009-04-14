@@ -187,13 +187,13 @@ sub render_help_link {
 
   if ($satellite_only) {
     return '' unless PXT::Config->get('satellite');
-    $url_prefix = '/rhn/help/satellite/en/';
+    $url_prefix = '/rhn/help/satellite/en-US/';
   }
   elsif ($guide ne 'reference') {
-    $url_prefix = "/rhn/help/$guide/en/";
+    $url_prefix = "/rhn/help/$guide/en-US/";
   }
   else {
-    $url_prefix = '/rhn/help/reference/en/';
+    $url_prefix = '/rhn/help/reference/en-US/';
   }
 
   my $url = $url_prefix . $href;

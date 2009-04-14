@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>注意：当这个框被选择时，上面的口令项并不需要；但是，当这个用户帐号的 PAM 验证被禁用的时候，您可以填写一个口令来使这个口令起作用。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>如果您需要配置您的 satellite 来进行 LDAP、kerberos 和其它基于网络的验证，请访问&lt;a href="/rhn/help/satellite/rhn410/en/s1-maintenance-pam-auth.jsp"&gt;《参考指南》&lt;/a&gt;来获得如何设置 PAM 的信息。</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>如果您需要配置您的 satellite 来进行 LDAP、kerberos 和其它基于网络的验证，请访问&lt;a href="/rhn/help/satellite/rhn410/en-US/s1-maintenance-pam-auth.jsp"&gt;《参考指南》&lt;/a&gt;来获得如何设置 PAM 的信息。</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6609,8 +6609,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>没有定义的公共密钥或 ssl 证书。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>您可以参考这些在您的 kickstart 侧写中的密钥和/或者证书，以便在 kickstart 过程中安装那些密钥/证书。系统需要正确的密钥来安装签注的软件包，还需要正确的证书才能通过 RHN 代理服务器或者 RHN Satellite 服务器进行 kickstart。有关详情请参考&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 参考指南&lt;/a&gt;。</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>您可以参考这些在您的 kickstart 侧写中的密钥和/或者证书，以便在 kickstart 过程中安装那些密钥/证书。系统需要正确的密钥来安装签注的软件包，还需要正确的证书才能通过 RHN 代理服务器或者 RHN Satellite 服务器进行 kickstart。有关详情请参考&lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 参考指南&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6685,8 +6685,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>文件保留</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>文件保留列表中所列出的文件会在进行一个特定的 kickstart 时被恢复到系统上。您可以在 kickstart 配置档案中指定一个文件保留列表。有关详情请参考 &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 参考指南&lt;/a&gt;。以下的文件保留列表已经被您所在的机构创建使用：</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>文件保留列表中所列出的文件会在进行一个特定的 kickstart 时被恢复到系统上。您可以在 kickstart 配置档案中指定一个文件保留列表。有关详情请参考 &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 参考指南&lt;/a&gt;。以下的文件保留列表已经被您所在的机构创建使用：</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6777,8 +6777,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>创建 kickstart 文件保留列表</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>这里列出的文件和目录会在 kickstart 时被保留。每行只列出一个文件或目录。&lt;br/&gt;每个列表的最大为 &lt;strong&gt;1 MB&lt;/strong&gt;。有关详情请参阅 &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 参考指南&lt;/a&gt;。</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>这里列出的文件和目录会在 kickstart 时被保留。每行只列出一个文件或目录。&lt;br/&gt;每个列表的最大为 &lt;strong&gt;1 MB&lt;/strong&gt;。有关详情请参阅 &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 参考指南&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

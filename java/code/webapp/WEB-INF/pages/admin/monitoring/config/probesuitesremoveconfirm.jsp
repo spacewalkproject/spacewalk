@@ -13,7 +13,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif"
-               helpUrl="/rhn/help/reference/en/s2-sm-monitor-psuites.jsp">
+               helpUrl="/rhn/help/reference/en-US/s2-sm-monitor-psuites.jsp">
     <bean:message key="probesuitesremoveconfirm.jsp.header1"/>
 </rhn:toolbar>
 

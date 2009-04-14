@@ -1685,8 +1685,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>注意：當勾選本方塊時，以上密碼欄並非必填；然而您還是可以填入密碼，這指在本使用者帳號的 PAM 認證功能停用運作。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.jsp.pam.reference">
-				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
-				<target>如果您想要將衛星伺服器設為透過 LDAP、kerberos、與其它網路認證系統來進行認證，請參閱《&lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt; 參考指南&lt;/a&gt;》，以獲得設定 PAM 的相關指示。</target>
+				<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+				<target>如果您想要將衛星伺服器設為透過 LDAP、kerberos、與其它網路認證系統來進行認證，請參閱《&lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt; 參考指南&lt;/a&gt;》，以獲得設定 PAM 的相關指示。</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.header">
 				<source>User Details</source>
@@ -6588,8 +6588,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>未定義公開金鑰或 SSL 認證。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>您可以在 kickstart 設定檔中，參照這些金鑰與（或）認證，好在 kickstart 過程中，安裝這些金鑰 / 認證。系統需要正確的金鑰，來安裝經過數位簽章的套件，並修正透過 RHN 代理伺服器或 RHN 衛星伺服器來安裝的 kickstart 認證。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an RHN Proxy Server or RHN Satellite Server.  For more information, see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>您可以在 kickstart 設定檔中，參照這些金鑰與（或）認證，好在 kickstart 過程中，安裝這些金鑰 / 認證。系統需要正確的金鑰，來安裝經過數位簽章的套件，並修正透過 RHN 代理伺服器或 RHN 衛星伺服器來安裝的 kickstart 認證。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6664,8 +6664,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>保留檔案</target>
 			</trans-unit>
 			<trans-unit id="preservation_list.jsp.summary">
-				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
-				<target>檔案保留清單列出了在使用特定 kickstart 安裝系統時，需要保留的檔案。您可以讓 kickstart 設定檔參考一份檔案保留清單。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。以下檔案保留清單已經建立，好讓您的組織使用：</target>
+				<source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+				<target>檔案保留清單列出了在使用特定 kickstart 安裝系統時，需要保留的檔案。您可以讓 kickstart 設定檔參考一份檔案保留清單。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。以下檔案保留清單已經建立，好讓您的組織使用：</target>
 			</trans-unit>
 			<trans-unit id="preservationlistdeleteconfirm.jsp.summary">
 				<source>Are you sure you want to delete the selected File List(s)?  &lt;strong&gt;WARNING: Deleting the selected File List(s) will delete all its associated files.&lt;/strong&gt;</source>
@@ -6756,8 +6756,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>建立 kickstart 檔案保留清單</target>
 			</trans-unit>
 			<trans-unit id="preservation_edit.jsp.summary">
-				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
-				<target>本處列出的所有檔案或目錄都會在 kickstart 之後被保留。每一行代表一個檔案或目錄。&lt;br/&gt;每個清單的大小限制為&lt;strong&gt;1 MB&lt;/strong&gt;。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。</target>
+				<source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;.</source>
+				<target>本處列出的所有檔案或目錄都會在 kickstart 之後被保留。每一行代表一個檔案或目錄。&lt;br/&gt;每個清單的大小限制為&lt;strong&gt;1 MB&lt;/strong&gt;。欲知更多詳情，請參閱《&lt;a href="/rhn/help/reference/en-US/s3-sm-system-kick-preserve.jsp" target="_new" &gt;RHN 參考指南&lt;/a&gt;》。</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.summary1">
 				<source>You can modify the software this kickstart profile will deploy below.</source>

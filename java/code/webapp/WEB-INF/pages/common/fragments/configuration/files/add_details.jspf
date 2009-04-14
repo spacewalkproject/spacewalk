@@ -34,7 +34,7 @@
     </rhn:require>
     <br />
     
-    <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en/s1-sm-configuration.jsp"/></span>
+    <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp"/></span>
 </tr>
 </c:if>
 </table>

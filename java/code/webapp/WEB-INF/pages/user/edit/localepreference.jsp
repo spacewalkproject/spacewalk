@@ -10,7 +10,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-preferences.gif"
- helpUrl="/rhn/help/reference/en/s2-yourrhn-locale.jsp">
+ helpUrl="/rhn/help/reference/en-US/s2-yourrhn-locale.jsp">
 <bean:message key="Locale Preferences"/>
 </rhn:toolbar>
 <html:errors />

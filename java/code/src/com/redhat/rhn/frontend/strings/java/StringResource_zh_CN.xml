@@ -4433,7 +4433,7 @@ Follow this url to see the full list of inactive systems:
 				<target>系统已经具有 {0} 权利。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
 				<target>在你添加了虚拟化权利后，我们也执行了某些额外的步骤来确保你的系统能够更好地管理虚拟化客户机。更多信息请参考&lt;a href="/help/reference/s1-sm-systems.jsp"&gt;这里&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">

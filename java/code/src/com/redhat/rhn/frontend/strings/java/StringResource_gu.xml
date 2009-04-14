@@ -4433,8 +4433,8 @@ Follow this url to see the full list of inactive systems:
 				<target>સિસ્ટમ પાસે પહેલાથી જ {0} ઉમેદવારી છે.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>તમે સિસ્ટમમાં વર્ચ્યુઅલાઈઝેશન ઉમેદવારી ઉમેરેલી હોવાથી અમે તમારી સિસ્ટમ વર્ચ્યુઅલ મહેમાનો વધુ સારી રીતે વ્યવસ્થાપિત કરવા માટે સક્ષમ છે કે નહિં તેના માટે અમુક વધારાનાં પગલાંઓ પણ ભર્યા છે.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;અંહિ&lt;/a&gt; જુઓ.</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>તમે સિસ્ટમમાં વર્ચ્યુઅલાઈઝેશન ઉમેદવારી ઉમેરેલી હોવાથી અમે તમારી સિસ્ટમ વર્ચ્યુઅલ મહેમાનો વધુ સારી રીતે વ્યવસ્થાપિત કરવા માટે સક્ષમ છે કે નહિં તેના માટે અમુક વધારાનાં પગલાંઓ પણ ભર્યા છે.  વધુ જાણકારી માટે &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;અંહિ&lt;/a&gt; જુઓ.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

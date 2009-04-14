@@ -12,7 +12,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/user/user-header.jspf" %>
 
-<rhn:toolbar base="h2" helpUrl="/rhn/help/reference/en/s2-sm-user-active.jsp">
+<rhn:toolbar base="h2" helpUrl="/rhn/help/reference/en-US/s2-sm-user-active.jsp">
     <bean:message key="yourchangeemail.jsp.title" />
 </rhn:toolbar> 
 

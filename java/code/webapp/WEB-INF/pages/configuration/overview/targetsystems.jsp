@@ -17,7 +17,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en/config-systems.jsp#config-systems-target">
+ helpUrl="/rhn/help/reference/en-US/config-systems.jsp#config-systems-target">
   <bean:message key="targetsystems.jsp.toolbar" />
 </rhn:toolbar>
 

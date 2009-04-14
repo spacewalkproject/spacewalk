@@ -4435,8 +4435,8 @@ Folgen Sie dieser URL f&amp;uuml;r die vollst&amp;auml;ndige Liste nicht aktiver
 				<target>Das System besitzt bereits die {0} Berechtigung.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>Da Sie dem System eine Virtualisierungsberechtigung hinzugef&amp;uuml;gt haben, haben wir zus&amp;auml;tzlich eine paar extra Schritte durchgef&amp;uuml;hrt, um sicherzustellen, dass Ihr System in der Lage ist, virtuelle G&amp;auml;ste besser zu verwalten.  Mehr Informationen hierzu finden Sie &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;hier&lt;/a&gt;.</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
+				<target>Da Sie dem System eine Virtualisierungsberechtigung hinzugef&amp;uuml;gt haben, haben wir zus&amp;auml;tzlich eine paar extra Schritte durchgef&amp;uuml;hrt, um sicherzustellen, dass Ihr System in der Lage ist, virtuelle G&amp;auml;ste besser zu verwalten.  Mehr Informationen hierzu finden Sie &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;hier&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>

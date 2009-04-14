@@ -16,7 +16,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en/s2-sm-system-list.jsp#s3-sm-system-list-proxy">
+ helpUrl="/rhn/help/reference/en-US/s2-sm-system-list.jsp#s3-sm-system-list-proxy">
   <bean:message key="proxylist.jsp.header"/>
 </rhn:toolbar>
 

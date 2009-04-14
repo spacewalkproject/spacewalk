@@ -1,7 +1,7 @@
 
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-packages.gif" imgAlt="package.jsp.alt"> 
- 	<c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en/s2-sm-channel-list.jsp" target="_new" class="help-title"><img src="/img/rhn-icon-help.gif" alt="Help Icon" /></a>
+	<c:out value="${package_name}" escapeXml="true"/><a href="/rhn/help/reference/en-US/s2-sm-channel-list.jsp" target="_new" class="help-title"><img src="/img/rhn-icon-help.gif" alt="Help Icon" /></a>
 </rhn:toolbar>
 
 
