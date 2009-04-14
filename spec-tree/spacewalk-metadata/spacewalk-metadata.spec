@@ -33,8 +33,6 @@ Requires: perl-Class-ErrorHandler
 Requires: perl-Class-Loader
 Requires: perl-Class-Singleton
 Requires: perl-Convert-ASCII-Armour
-Requires: perl-Convert-ASN1
-Requires: perl-Convert-PEM
 Requires: perl-Crypt-Blowfish
 Requires: perl-Crypt-CAST5_PP
 Requires: perl-Crypt-CBC
