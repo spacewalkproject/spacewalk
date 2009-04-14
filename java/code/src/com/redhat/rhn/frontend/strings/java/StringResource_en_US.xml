@@ -1792,7 +1792,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
 <trans-unit id="kickstart.invalidchannel.message">
-       <source>This kickstart profile uses a base channel that is missing packages. In order for all kickstart functionality to work correctly, the following packages should be present in this kickstart's base channel: {0}.</source>
+       <source>The following packages are not available in any of the channels associated to this kickstart profile: {0}.</source>
 <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 
