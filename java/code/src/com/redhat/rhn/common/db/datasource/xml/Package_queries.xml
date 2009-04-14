@@ -756,7 +756,6 @@ SELECT  pn.id AS id,
           WHERE  SOP.server_id = :sid
             AND  SOP.package_name_id = SP.name_id
             AND  SOP.package_evr_id = PE.id
-            AND  SP.package_arch_id IS NOT NULL
        GROUP BY  SOP.package_name_id, SP.package_arch_id
          ) full_list
  WHERE  full_list.name_id = PN.id
