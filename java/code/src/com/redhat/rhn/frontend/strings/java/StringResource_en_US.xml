@@ -348,7 +348,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Channel Management">
+      <trans-unit id="Software Channel Entitlements">
 <source>Software Channel Entitlements</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
