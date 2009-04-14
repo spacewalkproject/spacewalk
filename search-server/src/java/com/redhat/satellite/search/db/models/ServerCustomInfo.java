@@ -20,13 +20,44 @@ package com.redhat.satellite.search.db.models;
  * @version $Rev$
  */
 public class ServerCustomInfo extends GenericRecord {
+    private long keyId;
     private long serverId;
+    private String label;
     private String value;
     private long createdBy;
     private long lastModifiedBy;
     private String created;
     private String modified;
 
+    /**
+     *
+     * @param serverIdIn server id
+     * @param keyIdIn key id
+     * @return string based on server id and key id
+     */
+    public static String makeUniqId(long serverIdIn, long keyIdIn) {
+        return serverIdIn + "-" + keyIdIn;
+    }
+
+    /**
+     *
+     * @return uniqId
+     */
+    public String getUniqId() {
+        return makeUniqId(serverId, keyId);
+    }
+    /**
+     * @return the keyId
+     */
+    public long getKeyId() {
+        return keyId;
+    }
+    /**
+     * @param keyIdIn the keyId to set
+     */
+    public void setKeyId(long keyIdIn) {
+        this.keyId = keyIdIn;
+    }
     /**
      * @return the serverId
      */
@@ -62,6 +93,18 @@ public class ServerCustomInfo extends GenericRecord {
      */
     public void setModified(String modifiedIn) {
         this.modified = modifiedIn;
+    }
+    /**
+     * @return the label
+     */
+    public String getLabel() {
+        return label;
+    }
+    /**
+     * @param labelIn the label to set
+     */
+    public void setLabel(String labelIn) {
+        this.label = labelIn;
     }
     /**
      * @return the value

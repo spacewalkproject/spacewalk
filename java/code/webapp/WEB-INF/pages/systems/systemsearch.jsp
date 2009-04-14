@@ -158,11 +158,10 @@
                         </rhn:highlight>
                     </rl:column>
                 </c:when>
-
                 <c:otherwise>
                   <rl:column bound="false" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">
-                        ${current.lookupMatchingField}
+                        ${current.matchingFieldValue}
                    </rhn:highlight>
                   </rl:column>
                 </c:otherwise>

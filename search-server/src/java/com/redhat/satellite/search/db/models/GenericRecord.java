@@ -19,7 +19,7 @@ package com.redhat.satellite.search.db.models;
  * @version $Rev$
  */
 public abstract class GenericRecord {
-    protected long id;
+    protected long id = 0;
     /**
      * @return the id
      */
