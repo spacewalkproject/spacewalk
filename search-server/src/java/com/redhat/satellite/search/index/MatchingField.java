@@ -100,7 +100,14 @@ public class MatchingField {
         return value;
     }
     
-    protected String getFirstFieldName(String queryIn) {
+    /**
+     *
+     * @param queryIn
+     * @return first term in query, which is a good guess as to being the most
+     * important term in the query.
+     *
+     * */
+    public static String getFirstFieldName(String queryIn) {
         // remove first parenthesis, this shows up when you do a
         // Query.toString(), package searches generally have this
         if (queryIn.startsWith("(")) {

@@ -72,6 +72,8 @@ public class IndexManager {
     private int maxHits;
     private double score_threshold;
     private double system_score_threshold;
+    private double errata_score_threshold;
+    private double errata_advisory_score_threshold;
     private int min_ngram;
     private int max_ngram;
     private boolean filterDocResults = false;
@@ -98,6 +100,9 @@ public class IndexManager {
         }
         score_threshold = config.getDouble("search.score_threshold", .30);
         system_score_threshold = config.getDouble("search.system_score_threshold", .30);
+        errata_score_threshold = config.getDouble("search.errata_score_threshold", .30);
+        errata_advisory_score_threshold =
+            config.getDouble("search.errata.advisory_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
         initDocLocaleLookup();
@@ -402,7 +407,7 @@ public class IndexManager {
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
-            if (!isScoreAcceptable(indexName, hits, x)) {
+            if (!isScoreAcceptable(indexName, hits, x, query)) {
                 break;
             }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
@@ -460,12 +465,15 @@ public class IndexManager {
      * @param indexName
      * @param hits
      * @param x
+     * @param query
      * @return  true - score is acceptable
      *          false - score is NOT acceptable
      * @throws IOException
      */
-    private boolean isScoreAcceptable(String indexName, Hits hits, int x)
+    private boolean isScoreAcceptable(String indexName, Hits hits, int x, String queryIn)
         throws IOException {
+        String guessMainQueryTerm = MatchingField.getFirstFieldName(queryIn);
+
         if ((indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) &&
                 (!filterDocResults)) {
             return true;
@@ -488,6 +496,32 @@ public class IndexManager {
                             "system_score_threshold = " + system_score_threshold);
                 }
                 return false;
+            }
+        }
+        else if (indexName.compareTo(BuilderFactory.ERRATA_TYPE) == 0) {
+            if (guessMainQueryTerm.compareTo("advisoryName") == 0) {
+                if (hits.score(x) < errata_advisory_score_threshold) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("hits.score(" + x + ") is " + hits.score(x));
+                        log.debug("Filtering out search results from " + x + " to " +
+                            hits.length() + ", due to their score being below " +
+                            "errata_advisory_score_threshold = " +
+                            errata_advisory_score_threshold);
+                    }
+                    return false;
+                }
+            }
+            else {
+                if (hits.score(x) < errata_score_threshold) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("hits.score(" + x + ") is " + hits.score(x));
+                        log.debug("Filtering out search results from " + x + " to " +
+                            hits.length() + ", due to their score being below " +
+                            "errata_score_threshold = " +
+                            errata_score_threshold);
+                    }
+                    return false;
+                }
             }
         }
         else if (((hits.score(x) < score_threshold) && (x > 10)) ||
