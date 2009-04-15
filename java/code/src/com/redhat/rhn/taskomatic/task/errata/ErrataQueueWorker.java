@@ -49,10 +49,12 @@ class ErrataQueueWorker implements QueueWorker {
     
     private Logger logger;
     private Long errataId;
+    private Long channelId;
     private Long orgId;
     private TaskQueue parentQueue;
     
     ErrataQueueWorker(Map row, Logger parentLogger) {
+        channelId = (Long) row.get("channel_id");
         errataId = (Long) row.get("errata_id");
         orgId = (Long) row.get("org_id");
         logger = parentLogger;
@@ -95,6 +97,7 @@ class ErrataQueueWorker implements QueueWorker {
             Map params = new HashMap();
             params.put("errata_id", errataId);
             params.put("minutes", new Long(0));
+            params.put("channel_id", channelId);
             int rowsUpdated = marker.executeUpdate(params);
             if (logger.isDebugEnabled()) {
                 logger.debug("inserted " + rowsUpdated + 
