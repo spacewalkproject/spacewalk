@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -82,6 +82,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
+- 495194 - install cluster.ini only if monitoring is enabled
+  (msuchy@redhat.com)
+- 469060 - do not try to deactivate if we are not proxy (msuchy@redhat.com)
+
 * Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
 - fix various errors in configure-proxy.sh
 
