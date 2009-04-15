@@ -564,7 +564,7 @@ sub potential_for_cloned_channel_cb {
     $transaction->nested_commit;
 
     $pxt->push_message(site_info => $_) foreach (@messages);
-    $pxt->redirect("/network/software/channels/manage/errata/index.pxt?cid=${cid}");
+    $pxt->redirect("/rhn/channels/manage/errata/Errata.do?cid=${cid}");
   }
 
   return 1;
