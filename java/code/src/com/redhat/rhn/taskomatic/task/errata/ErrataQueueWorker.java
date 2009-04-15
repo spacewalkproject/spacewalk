@@ -175,8 +175,11 @@ class ErrataQueueWorker implements QueueWorker {
                 Long serverId = (Long) row.get("server_id");
                 Long tmp = (Long) row.get("org_id");
                 Long convertedOrgId = new Long(tmp.longValue());
-                if (orgId == null || !convertedOrgId.equals(orgId)) {
+                if (orgId == null) {
                     org = OrgFactory.lookupById(convertedOrgId);
+                }
+                else {
+                    org = OrgFactory.lookupById(orgId);
                 }
                 Long convertedServerId = new Long(serverId.longValue());
                 Server server = ServerFactory.lookupById(convertedServerId);
