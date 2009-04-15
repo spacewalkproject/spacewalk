@@ -108,6 +108,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 helper.setListName(getListName());
                 // ignore the return
                 helper.execute();
+                request.setAttribute("channel_name", (String) form.getString("name"));
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(sharing), params);
             }
