@@ -583,9 +583,9 @@ def verify_family_permissions(orgid=1):
          WHERE  CF.org_id = :orgid
         AND NOT  EXISTS (
                    SELECT  1
-                     FROM  rhnChannelFamilyPermissions CFP
-                    WHERE  CFP.org_id = CF.org_id
-                      AND  CFP.channel_family_id = CF.id)
+                     FROM  rhnPrivateChannelFamily PCF
+                    WHERE  PCF.org_id = CF.org_id
+                      AND  PCF.channel_family_id = CF.id)
         ORDER BY  CF.id
     """
 
