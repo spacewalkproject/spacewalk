@@ -41,6 +41,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ServerPath;
@@ -673,7 +674,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         // Create a new activation key for the target system.
 
-        createKickstartActivationKey(this.user,
+        ActivationKey key = createKickstartActivationKey(this.user,
                                      this.ksdata, 
                                      getTargetServer(),
                                      this.kickstartSession,
@@ -893,25 +894,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ActivationKeyFactory.save(key);
         
-        // We are swapping base channels.  In this case 
-        // we only add the ksdata's base channel and the tools
-        // channel to the key.
-        if (server == null || (!server.getBaseChannel().getId().equals(
-                ksdata.getTree().getChannel().getId()))) {
-            log.debug("** We are switching base channels or server is null.  " +
-                    "Use base channel from Kickstart Tree: " + 
-                    ksdata.getTree().getChannel().getLabel());
-            log.debug("*** Channel ID: " + ksdata.getTree().getChannel().getId());
-            key.addChannel(ksdata.getTree().getChannel());
-        }
-        else {
-            log.debug("** We are keeping same base channel.  keeping channels");
-            // Add the System's channels to the key
-            Iterator i = server.getChannels().iterator();
-            while (i.hasNext()) {
-                key.addChannel((Channel) i.next());
-            }
-        }
+
         // Add child channels to the key
         if (ksdata.getChildChannels() != null && ksdata.getChildChannels().size() > 0) {
             Iterator i = ksdata.getChildChannels().iterator();
@@ -931,6 +914,24 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (toolsChannel != null) {
             key.addChannel(toolsChannel);
         }
+
+        //fix for bugzilla 450954
+        // We set the reactivation key's base channel to whatever
+        //   an activation key's is set to (assuming there is one)
+        Channel chan = null;
+        for (Token token : ksdata.getDefaultRegTokens()) {
+            if (token.getBaseChannel() != null) {
+                chan = token.getBaseChannel();
+                break;
+            }
+        }
+        if (chan != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Setting reactivation key's base chan to " + chan.getLabel());
+            }
+            key.setBaseChannel(chan);
+        }
+
         log.debug("** Saving new token");
         ActivationKeyFactory.save(key);
         log.debug("** Saved new token: " + key.getId());

@@ -394,7 +394,7 @@ public class KickstartData {
      * Getter for defaultRegTokens
      * @return Returns the pacakageLists.
      */
-    public Set getDefaultRegTokens() {
+    public Set<Token> getDefaultRegTokens() {
         return defaultRegTokens;
     }
 
