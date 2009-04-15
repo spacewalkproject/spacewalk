@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,26 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 495133 - fixing errata mailer such that mails are only sent for a particular
+  channel that was changed (jsherril@redhat.com)
+- fix ORA-00955 when creating RHN_SNC_SPEID_IDX (mzazrivec@redhat.com)
+- 149695 - Including channel_id as part of rhnErrataQueue table so that
+  taskomatic can send errata notifications based on channel_id instead of
+  sending to everyone subscribed to the channel. The changes include db change
+  to rhnErrataQueue table and backend change to satellite-sync's errata import.
+  (pkilambi@redhat.com)
+- 485870 - only recalculate the channel family counts once per family.
+  (mmccune@gmail.com)
+- 494475,460136 - remove faq & feedback code which used customerservice emails.
+  (jesusr@redhat.com)
+- fixing some index mixups, nologging was left off the base schema for a few
+  indexes for 0.5 (jsherril@redhat.com)
+- 480060 - schema changes to support errata list enhancements.  Simple
+  (mmccune@gmail.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- adding missing index for errata cache\ (jsherril@redhat.com)
+
 * Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.20-1
 -  472595 - forgot the index in the table definition.  was in the upgrade area only
 
