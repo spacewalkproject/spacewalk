@@ -177,7 +177,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
                      * expects.  We are using the lucene score for this result to
                      * gauge this.
                      */
-                    if (score > 0.95) {
+                    if (score > 0.85) {
                         try {
                             response.sendRedirect(
                                     "/rhn/systems/details/Overview.do?sid=" +

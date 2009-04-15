@@ -50,7 +50,10 @@ public class ErrataTest extends RhnBaseTestCase {
     
     public void testNotificationQueue() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Channel c = ChannelFactoryTest.createBaseChannel(user);
         Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
+        e.addChannel(c);
+        ErrataManager.storeErrata(e);
         Long id = e.getId(); //get id for later
         e.addNotification(new Date()); //add one
         e.addNotification(new Date()); //add another

@@ -1088,5 +1088,25 @@ SELECT  1
   </query>
 </mode>
 
+<write-mode name="insert_errata_notification">
+  <query params="eid, cid, datetime">
+  insert into rhnErrataQueue (channel_id, errata_id, next_action) values (:cid, :eid, :datetime) 
+  </query>
+</write-mode>
+
+<write-mode name="clear_errata_notification">
+  <query params="eid">
+   delete from rhnErrataQueue where errata_id = :eid
+  </query>
+</write-mode>
+
+<mode name="list_errata_notification">
+  <query params="eid">
+ SELECT errata_id, channel_id, next_action
+ 	from rhnErrataQueue where errata_id = :eid
+  </query>
+</mode>
+
+
 
 </datasource_modes>

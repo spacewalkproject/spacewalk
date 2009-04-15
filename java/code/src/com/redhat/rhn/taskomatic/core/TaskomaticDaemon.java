@@ -86,7 +86,7 @@ public class TaskomaticDaemon  extends BaseDaemon {
         //   let sleep until it is up
         while (!isTomcatUp()) {
             try {
-                log.info("Taskomatic is not up yet, sleep 4 seconds");
+                log.info("Tomcat is not up yet, sleeping 4 seconds");
                 Thread.sleep(4000);
             }
             catch (Exception e) {

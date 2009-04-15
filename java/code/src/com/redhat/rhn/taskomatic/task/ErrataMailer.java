@@ -81,14 +81,15 @@ public class ErrataMailer extends SingleThreadedTestableTask {
                     Map row = (Map) iter.next();
                     Long errataId = (Long) row.get("errata_id");
                     Long orgId = (Long) row.get("org_id");
-                    markErrataDone(errataId, orgId);
+                    Long channelId = (Long) row.get("channel_id");
+                    markErrataDone(errataId, orgId, channelId);
                     if (!hasProcessedErrata(orgId, errataId, erratas)) {
                         if (logger.isDebugEnabled()) {
                             logger.debug("Processing errata " + errataId + 
                                     " for org " + orgId);
                         }
                         try {
-                            sendEmails(errataId, orgId);
+                            sendEmails(errataId, orgId, channelId);
                             if (logger.isDebugEnabled()) {
                                 logger.debug("Finished errata " + errataId + 
                                         " for org " + orgId);
@@ -151,23 +152,25 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         return retval;
     }
     
-    private void markErrataDone(Long errataId, Long orgId) throws Exception {
+    private void markErrataDone(Long errataId, Long orgId, Long channelId)
+                                                            throws Exception {
         WriteMode marker = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_MARK_ERRATA_DONE);
         Map params = new HashMap();
         params.put("org_id", orgId);
         params.put("errata_id", errataId);
+        params.put("channel_id", channelId);
         int rowsUpdated = marker.executeUpdate(params);
         if (logger.isDebugEnabled()) {
             logger.debug("Marked " + rowsUpdated + " rows complete");
         }
     }
     
-    private void sendEmails(Long errataId, Long orgId) throws Exception {
+    private void sendEmails(Long errataId, Long orgId, Long channelId) throws Exception {
         Session session = HibernateFactory.getSession();
         Errata errata = (Errata) session.load(PublishedErrata.class, 
                 new Long(errataId.longValue()));
-        populateWorkQueue(errataId, orgId);
+        populateWorkQueue(errataId, orgId, channelId);
         List users = findTargetUsers();
         if (users == null || users.size() == 0) {
             if (logger.isDebugEnabled()) {
@@ -220,13 +223,14 @@ public class ErrataMailer extends SingleThreadedTestableTask {
         return mode.execute(Collections.EMPTY_MAP);
     }
     
-    private void populateWorkQueue(Long errataId, Long orgId) 
+    private void populateWorkQueue(Long errataId, Long orgId, Long channelId)
             throws Exception {
         WriteMode queueWriter = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
                 TaskConstants.TASK_QUERY_ERRATAMAILER_FILL_WORK_QUEUE);
         Map params = new HashMap();
         params.put("errata_id", errataId);
         params.put("org_id", orgId);
+        params.put("channel_id", channelId);
         int workItemsFound = queueWriter.executeUpdate(params);
         if (logger.isDebugEnabled()) {
             logger.debug("Queuing " + workItemsFound +  " rows of work");

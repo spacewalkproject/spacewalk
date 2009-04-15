@@ -3,7 +3,7 @@
 <!-- threshold must be in minutes -->
 <mode name="errataqueue_find_candidates">
   <query>
-SELECT eq.errata_id, E.org_id
+SELECT eq.errata_id, E.org_id, EQ.channel_id
   FROM rhnErrataQueue EQ,
        rhnErrata E
    WHERE E.id = EQ.errata_id
@@ -102,12 +102,12 @@ GROUP BY AT.name, AStat.name, E.advisory_name, E.synopsis
 </mode>
 
 <write-mode name="errataqueue_enqueue_sat_errata">
-   <query params="errata_id,minutes">
+   <query params="errata_id,minutes, channel_id">
 INSERT
   INTO rhnErrataNotificationQueue
-       (errata_id, org_id, next_action)
+       (errata_id, org_id, next_action, channel_id)
 SELECT DISTINCT
-       :errata_id, wc.id, sysdate + :minutes / 1440
+       :errata_id, wc.id, sysdate + :minutes / 1440, :channel_id
   FROM web_customer wc,
        rhnChannelErrata CE
  WHERE CE.errata_id = :errata_id
@@ -437,7 +437,7 @@ AND CC.confchan_type_id =
 <!-- threshold must be in minutes -->
 <mode name="erratamailer_find_errata">
    <query params="threshold">
-SELECT enq.errata_id, enq.org_id
+SELECT enq.errata_id, enq.org_id, enq.channel_id
   FROM rhnErrataNotificationQueue ENQ
  WHERE (enq.next_action &lt; sysdate + :threshold/1440)
 ORDER BY next_action DESC
@@ -445,21 +445,23 @@ ORDER BY next_action DESC
 </mode>
 
 <write-mode name="erratamailer_mark_errata_done">
-   <query params="errata_id,org_id">
+   <query params="errata_id,org_id, channel_id">
       UPDATE rhnErrataNotificationQueue 
       SET next_action = NULL 
-      WHERE errata_id = :errata_id AND org_id = :org_id
+      WHERE errata_id = :errata_id AND org_id = :org_id and channel_id = :channel_id
    </query>
 </write-mode>
 
 <write-mode name="erratamailer_fill_work_queue">
-   <query params="errata_id,org_id">
+   <query params="errata_id,org_id, channel_id">
   INSERT INTO rhnPaidErrataTempCache
     (user_id, server_id, errata_id)
-  SELECT DISTINCT user_id, server_id, :errata_id
-    FROM rhnPrivateErrataMail
-   WHERE errata_id = :errata_id
-     AND org_id = :org_id
+  SELECT DISTINCT PEM.user_id, PEM.server_id, :errata_id
+    FROM rhnPrivateErrataMail PEM, rhnServerChannel SC
+   WHERE PEM.server_id = SC.server_id
+	 AND SC.channel_id = :channel_id
+	 AND PEM.errata_id = :errata_id
+     AND PEM.org_id = :org_id
    </query>
 </write-mode>
 

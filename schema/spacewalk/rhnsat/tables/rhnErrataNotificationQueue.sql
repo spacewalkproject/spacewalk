@@ -30,6 +30,11 @@ rhnErrataNotificationQueue
                                 	references web_customer(id)
 					on delete cascade,
 	next_action		date default(sysdate),
+        channel_id              number
+                                constraint rhn_enqueue_nn NOT NULL
+				constraint rhn_enqueue_cid_fk
+					references rhnChannel(id)
+					on delete cascade,
 	created			date default(sysdate)
 				constraint rhn_enqueue_created_nn not null,
 	modified		date default(sysdate)
