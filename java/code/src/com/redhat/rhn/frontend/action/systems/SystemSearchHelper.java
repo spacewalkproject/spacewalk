@@ -388,8 +388,10 @@ public class SystemSearchHelper {
         // this is our main result Map which we will return, it's keys
         // represent the list of server Ids this search yielded
         Map serverMaps = new HashMap();
-        for (Object obj : searchResults) {
-            Map result = (Map)obj;
+        log.info("Entering getResultMapFromPackagesIndex() searchResults.size() = " +
+                searchResults.size());
+        for (int index = 0; index < searchResults.size(); index++) {
+            Map result = (Map)searchResults.get(index);
             Map pkgItem = new HashMap();
             pkgItem.put("rank", result.get("rank"));
             pkgItem.put("score", result.get("score"));
@@ -397,23 +399,33 @@ public class SystemSearchHelper {
             pkgItem.put("pkgId", result.get("id"));
             
             /** 
-             * Dropping results which have a weak score
+             * Ensure we process at least the first result.
+             * Remeber, first result might be a group of packages with the same
+             * name but different archs, we want to process the whole group.
+             * Therefore for cases of low score quality, we'll set min_score
+             * to the score of the first hit, this will allow the first group
+             * of similarly scored results to be processed, all further results will
+             * be dropped.
+             * For case of a high scoring result, PACKAGE_SCORE_THRESHOLD still
+             * limits the results returned.
              */
-            if ((Double)result.get("score") < PACKAGE_SCORE_THRESHOLD) {
+            Double currentScore = (Double)result.get("score");
+            Double minScore = PACKAGE_SCORE_THRESHOLD;
+            if (index == 0) {
+                if (currentScore <= PACKAGE_SCORE_THRESHOLD) {
+                    minScore = currentScore;
+                }
+            }
+            log.info("Iteration " + index + ", Name = " + result.get("name") +
+                    ", Score = " + currentScore);
+            if (currentScore < minScore) {
                 log.info("SystemSearchHelper.getResultMapFromPackagesIndex() " +
                         " skipping result<" + result.get("name") + "> score = " +
                         result.get("score") + " it is below threshold: " +
-                        PACKAGE_SCORE_THRESHOLD);
+                        minScore);
                 continue;
             }
             Long pkgId = Long.valueOf((String)result.get("id"));
-            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
-            if (pkg == null) {
-                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
-                        " problem when looking up package id <" + pkgId + 
-                        " PackageFactory.lookupByIdAndUser returned null.");
-                continue;
-            }
             List<Long> serverIds = null;
             if (INSTALLED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByInstalledPackageId(user, pkgId);
@@ -421,6 +433,19 @@ public class SystemSearchHelper {
             if (NEEDED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByNeededPackageId(user, pkgId);
             }
+            if (serverIds.size() < 1) {
+                continue;
+            }
+            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
+            if (pkg == null) {
+                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                        " problem when looking up package id <" + pkgId +
+                        " PackageFactory.lookupByIdAndUser returned null.");
+                continue;
+            }
+            log.info("Package " + pkg.getNameEvra() + ", id = " + pkgId + ", score = " +
+                    currentScore + ", serverIds associated with package = " +
+                    serverIds.size());
             for (Long s : serverIds) {
                 if (serverMaps.containsKey(s)) {
                     Map m = (Map)serverMaps.get(s);
@@ -657,8 +682,6 @@ public class SystemSearchHelper {
                     ") got back null.");
             return null;
         }
-        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
-                " SystemManager.listSystemsWithPackage(" + pkgId + ")"); 
         for (SystemOverview so : data) {
             serverIds.add(so.getId());
         }
@@ -673,8 +696,6 @@ public class SystemSearchHelper {
                     ") got back null.");
             return null;
         }
-        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
-                " SystemManager.listSystemsWithNeededPackage(" + pkgId + ")"); 
         for (SystemOverview so : data) {
             serverIds.add(so.getId());
         }
