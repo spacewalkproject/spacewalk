@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -94,6 +94,16 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- Added syntax check to the setup to add cobbler.host to rhn.conf if it's
+  not present (paji@redhat.com)
+- 208440 - call install-db.sh with custom creation parameters
+  (mzazrivec@redhat.com)
+- 208440 - install-db.sh: support for creating embedded db with custom
+  parameters (mzazrivec@redhat.com)
+- Removing the last bastions of conditional cobbler 1.4 code 
+  (paji@redhat.com)
+
  * Mon Apr  6 2009 Partha Aji <paji@redhat.com> 0.6.1-1
  - moved the cobbler requirement to 1.6.3 or greater as required by sat. 
 
