@@ -26,7 +26,7 @@
       <rhn-tab-url>/rhn/channels/manage/errata/ConfirmErrataAdd.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Clone" acl="channel_is_clone();user_role(channel_admin);"  node-id="clone_channel_errata">
-      <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt</rhn-tab-url>
+      <rhn-tab-url>/network/software/channels/manage/errata/clone.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions</rhn-tab-url>
       <rhn-tab-url>/network/software/channels/manage/errata/clone_confirm.pxt</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
