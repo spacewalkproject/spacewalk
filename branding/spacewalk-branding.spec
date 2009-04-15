@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.6.0
+Version:    0.6.1
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,11 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 494475,460136 - remove faq & feedback code which used customer service emails.
+  (jesusr@redhat.com)
+- 443132 - Converted action lists to new list tag. (jsherril@redhat.com)
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.8-1
 - removing satellite-debug link
 
