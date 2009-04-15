@@ -1097,6 +1097,48 @@ public class ErrataManager extends BaseManager {
        CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
        MessageQueue.publish(eve);
    }
+   
+   /**
+    * Send errata notifications for a particular errata and channel
+    * @param e the errata to send notifications about
+    * @param chan the channel with which to decide which systems 
+    *       and users to send errata for
+    * @param date  the date
+    */
+   public static void addErrataNotification(Errata e, Channel chan, Date date) {
+       Map params = new HashMap();
+       params.put("cid", chan.getId());
+       params.put("eid", e.getId());
+       java.sql.Date newDate = new java.sql.Date(date.getTime());
+       params.put("datetime", newDate);
+       WriteMode m = ModeFactory.getWriteMode(
+               "Errata_queries",  "insert_errata_notification");
+       m.executeUpdate(params);
+   }
+   
+   /**
+    * Delete all errata notifications for an errata
+    * @param e the errata to clear notifications for
+    */
+   public static void clearErrataNotifications(Errata e) {
+       Map params = new HashMap();
+       params.put("eid", e.getId());
+       WriteMode m = ModeFactory.getWriteMode(
+               "Errata_queries",  "clear_errata_notification");
+       m.executeUpdate(params);
+   }
+   
+   /**
+    * List queued errata notifications
+    * @param e the errata
+    * @return list of maps
+    */
+   public static List listErrataNotifications(Errata e) {
+       Map params = new HashMap();
+       params.put("eid", e.getId());
+       SelectMode m = ModeFactory.getMode("Errata_queries", "list_errata_notification");
+       return m.execute(params);       
+   }
 
     
 }
