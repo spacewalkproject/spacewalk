@@ -15,6 +15,10 @@
 
 create schema rhn_config;
 
+
+-- setup search_path so that these functions are created in appropriate schema.
+update pg_settings set setting = 'rhn_config,' || setting where name = 'search_path';
+
 Create or replace function prune_org_configs
 (
     org_id_in in numeric,
@@ -89,3 +93,5 @@ as $$
 begin
 end;
 $$ LANGUAGE 'plpgsql';
+
+update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_config')+1) ) where name = 'search_path';

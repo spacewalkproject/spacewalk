@@ -1,4 +1,3 @@
--- create schema rhn_channel_config;
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_channel_config,' || setting where name = 'search_path';  
