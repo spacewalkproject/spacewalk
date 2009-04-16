@@ -29,7 +29,7 @@ CREATE TABLE rhn_contact_groups
                                     CHECK (ack_wait < 20160), 
     rotate_first            CHAR(1) NOT NULL 
                                 CONSTRAINT rhn_cntgp_rotate_f_ck
-                                    CHECK (rotate_first in ( 0 , 1 )), 
+                                    CHECK (rotate_first in ( '0' , '1' )), 
     last_update_user        VARCHAR2(40) NOT NULL, 
     last_update_date        DATE NOT NULL, 
     notification_format_id  NUMBER 
