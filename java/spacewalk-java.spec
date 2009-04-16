@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,105 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- remove Proxy Release Notes link and unused Developer's area. (jesusr@redhat.com)
+- 487209 - enhanced system search for hardware devices (jmatthew@redhat.com)
+- 450954 - changing reprovisioning to allow reactivation with an activation key
+  of a conflicting base channel (jsherril@redhat.com)
+- 487185 - Fixed system-search by needed package (jmatthew@redhat.com)
+- 494920 - fixing ISE when cloning errata, after channel was cloned
+  (jsherril@redhat.com)
+- Fix null pointer in scheduleAutoUpdates(). (jortel@redhat.com)
+- SystemSearch lowering threshold of a single match to cause a redirect to SDC.
+  (jmatthew@redhat.com)
+- 495133 - changing send notifications button to populate channel id as well
+  (jsherril@redhat.com)
+- 495133 - fixing errata mailer such that mails are only sent for a particular
+  channel that was changed (jsherril@redhat.com)
+- 495065 - channel name appears on private/protected confirm page
+  (jesusr@redhat.com)
+- 492906 - Fixed spacewalk reference in cobbler config (paji@redhat.com)
+- 491130 - improved a kickstart edit page message a little more..
+  (paji@redhat.com)
+- 491130 - improved a kickstart edit page message.. (paji@redhat.com)
+- 494673 - update system migration to support null config channels
+  (bbuckingham@redhat.com)
+- Clarifying that search must be restarted after running cleanindex
+  (jmatthew@redhat.com)
+- 487158 - SystemSearch fixed search by customInfo (jmatthew@redhat.com)
+- 458205 - Fixed KS Ipranges URL (paji@redhat.com)
+- 495786 - fixing issue where some updates were being ignored for RHEL 4
+  systems (jsherril@redhat.com)
+- 487192 - Fixed system search, search by registration (jmatthew@redhat.com)
+- 490904 - change all references to /rhn/help/*/en/ -> /rhn/help/*/en-US/
+  (jesusr@redhat.com)
+- fix duplicate string resource entry (jesusr@redhat.com)
+- 480674 - allow shared channels to appear in act. keys creation
+  (jesusr@redhat.com)
+- 495585 - fixing Errata Search by Issue Date (jmatthew@redhat.com)
+- SystemSearch fix hwdevice result gathering.  Keep highest scoring match per
+  system-id (jmatthew@redhat.com)
+- 488603 - Fix to deal with blank space interpreter for post scripts
+  (paji@redhat.com)
+- 234449 - moved block of code to only count real downloads (mmccune@gmail.com)
+- 488603 - KickstartFileFormat fix, to deal with blank space interpreter
+  (paji@redhat.com)
+- 492902 - Fixed 2 queries for Config Target Systems page (paji@redhat.com)
+- 486029 - being more consistent with the kickstart label  string
+  (jsherril@redhat.com)
+- 493163 - fixing ise on update distro page with RHEL 4 distros
+  (jsherril@redhat.com)
+- 494884 - sub class needs to have protected method to behave as desired
+  (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 493647 - Fix for unselect all malfunction... (paji@redhat.com)
+- 443500 - Refactored SSM remove packages to only create a single action for
+  all servers/packages selected. (jason.dobies@redhat.com)
+- 494914 - fix to create a network interface for cobbler system records on
+  guest provisioning (jsherril@redhat.com)
+- 493718 - minor syntax message change for private channel access
+  (shughes@redhat.com)
+- 493110 - Changed package installation through SSM to only create one action
+  (jason.dobies@redhat.com)
+- 494686 - changing it such that you have to provide a virt guest name, not
+  letting koan make one (jsherril@redhat.com)
+- Fixed the cobbler MockConnection to work with find_* calls (paji@redhat.com)
+- api doclet - enhanced to support a 'since' tag, tagged snapshot apis and
+  bumped api version (bbuckingham@redhat.com)
+- 487566 - fix broken junit in ServerFactoryTest (bbuckingham@redhat.com)
+- 442439 - internationalize strings for system search csv export
+  (jmatthew@redhat.com)
+- 442439 - enhancing csv for systemsearch (jmatthew@redhat.com)
+- 494593 - fixing the repofile compare to use the right type for java date
+  object obtained through hibernate (pkilambi@redhat.com)
+- Updated documentation (jason.dobies@redhat.com)
+- 493744 - Added configuration admin ACL to configuration tab
+  (jason.dobies@redhat.com)
+- 487566 - api/script - initial commit of snapshot script and mods to snapshot
+  apis (bbuckingham@redhat.com)
+- bumping the protocol version on exporter (pkilambi@redhat.com)
+- 492206-Fix for Kickstart Profile Template parse error. (paji@redhat.com)
+- 492206-Fix for Kickstart Profile Template parse error. (paji@redhat.com)
+- 484435 - add union to query to allow shared child channel subscription access
+  (shughes@redhat.com)
+- 442439 - system search CSV update to dataset name (jmatthew@redhat.com)
+- Removing the last bastions of 1.4 code.. Where logic went like if cobbler
+  version < 1.6 do one set else do other wise... (paji@redhat.com)
+- Made the configuraiton manager instance static final instead of just static..
+  Made no sense for it to be static... (paji@redhat.com)
+- 494409 - unsubscribe affected systems after trust removal
+  (shughes@redhat.com)
+- 494475,460136 - remove faq & feedback code which used customerservice emails.
+  (jesusr@redhat.com)
+- 487189 -  System Search fixed search by checkin (jmatthew@redhat.com)
+- fixing small NPE possibility (jsherril@redhat.com)
+- 492949 - setting cobblerXenId appropriately (jsherril@redhat.com)
+- 492949 - having CobblerSync task, reuse existing distros if they already
+  exist (by name) (jsherril@redhat.com)
+- adding single page doclet supporting macros (jsherril@redhat.com)
+- 443132 - couple of small fixes for the revamped action pages
+  (jsherril@redhat.com)
+
 * Sun Apr 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
 - 470991 - remove unused jar files from taskomatic_daemon.conf (jesusr@redhat.com)
 - 437547 - include instructions for regenerating indexes (jmatthew@redhat.com)
