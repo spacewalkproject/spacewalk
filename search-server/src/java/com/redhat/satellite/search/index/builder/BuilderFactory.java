@@ -33,7 +33,7 @@ public class BuilderFactory {
      */
     private BuilderFactory() {
     }
-    
+
     /**
      * Returns a Builder suitable for building the wanted type. Invalid types
      * will throw an UnsupportedOperationException.

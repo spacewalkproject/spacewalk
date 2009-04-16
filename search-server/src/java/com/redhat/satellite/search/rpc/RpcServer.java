@@ -18,6 +18,7 @@ package com.redhat.satellite.search.rpc;
 import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.db.DatabaseManager;
 import com.redhat.satellite.search.index.IndexManager;
+import com.redhat.satellite.search.scheduler.ScheduleManager;
 
 import org.picocontainer.Startable;
 
@@ -50,6 +51,7 @@ public class RpcServer implements Startable {
     private ServerSocket socket;
     private IndexManager indexManager;
     private DatabaseManager databaseManager;
+    private ScheduleManager scheduleManager;
     
     /**
      * Constructor
@@ -62,7 +64,8 @@ public class RpcServer implements Startable {
      *             if config contains bad rpc_address
      */
     public RpcServer(Configuration config, IndexManager idxManager, 
-            DatabaseManager dbManager) throws UnknownHostException {
+            DatabaseManager dbManager, ScheduleManager schedMgr) throws
+                UnknownHostException {
         listenPort = config.getInt("search.rpc_port", 2828);
         String addr = config.getString("search.rpc_address", "127.0.0.1");
         if (addr != null) {
@@ -75,6 +78,7 @@ public class RpcServer implements Startable {
         }
         indexManager = idxManager;
         databaseManager = dbManager;
+        scheduleManager = schedMgr;
     }
 
     /**
@@ -127,8 +131,9 @@ public class RpcServer implements Startable {
         try {
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             Class klass = cl.loadClass(className);
-            Class[] paramTypes = { IndexManager.class, DatabaseManager.class };
-            Object[] params = { indexManager, databaseManager };
+            Class[] paramTypes = { IndexManager.class, DatabaseManager.class,
+                    ScheduleManager.class };
+            Object[] params = { indexManager, databaseManager, scheduleManager};
             Constructor c = klass.getConstructor(paramTypes);
             return c.newInstance(params);
         }
