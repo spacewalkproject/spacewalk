@@ -20937,7 +20937,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="confirmprotected.jsp.confirmmsg">
         <source>Are you sure you want to set this channel's access policy to
-        being a &lt;strong&gt;protected&lt;/strong&gt;channel, note that the
+        being a &lt;strong&gt;protected&lt;/strong&gt; channel, note that the
         organizations below have systems that subscribe to this channel.
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
