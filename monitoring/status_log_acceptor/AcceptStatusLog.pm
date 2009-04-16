@@ -8,6 +8,7 @@ use CGI;
 use NOCpulse::Config;
 use LWP::UserAgent;
 use vars qw($timeout %KeyToId);
+use Apache2::RequestRec;
 
 $timeout = 2; 
 %KeyToId;  # Global cache - See bug #133581 for details and notes
