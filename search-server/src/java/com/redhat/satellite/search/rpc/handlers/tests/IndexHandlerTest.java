@@ -49,7 +49,9 @@ public class IndexHandlerTest extends BaseTestCase {
             container.getComponentInstance(DatabaseManager.class);
         IndexManager idx = (IndexManager)
             container.getComponentInstance(IndexManager.class);
-        IndexHandler handler = new IndexHandler(idx, db);
+        ScheduleManager schedMgr = (ScheduleManager)
+            container.getComponentInstance(ScheduleManager.class);
+        IndexHandler handler = new IndexHandler(idx, db, schedMgr);
         handler.search(252437, "package", "description:package", "en");
         List results = handler.search(252437, "package", "kernel*", "en");
         log.info("kernel results 1: " + results);

@@ -48,7 +48,9 @@ public class DatabaseHandlerTest extends BaseTestCase {
             container.getComponentInstance(DatabaseManager.class);
         IndexManager idx = (IndexManager)
             container.getComponentInstance(IndexManager.class);
-        DatabaseHandler handler = new DatabaseHandler(idx, db);
+        ScheduleManager schedMgr = (ScheduleManager)
+        container.getComponentInstance(ScheduleManager.class);
+        DatabaseHandler handler = new DatabaseHandler(idx, db, schedMgr);
         String searchNamespace = "errata";
         String searchString = "listErrataByIssueDateRange:(2004-10-20, 2010-10-30)";
         log.info("Calling hander.search(1, " + searchNamespace + ", " + searchString + ")");

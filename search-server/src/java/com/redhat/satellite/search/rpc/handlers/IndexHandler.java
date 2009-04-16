@@ -21,6 +21,7 @@ import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.IndexingException;
 import com.redhat.satellite.search.index.Result;
 import com.redhat.satellite.search.index.QueryParseException;
+import com.redhat.satellite.search.scheduler.ScheduleManager;
 
 import org.apache.log4j.Logger;
 
@@ -55,7 +56,8 @@ public class IndexHandler {
      * @param idxManager
      *            Search engine interface
      */
-    public IndexHandler(IndexManager idxManager, DatabaseManager dbMgr) {
+    public IndexHandler(IndexManager idxManager, DatabaseManager dbMgr,
+            ScheduleManager schedMgr) {
         indexManager = idxManager;
         databaseManager = dbMgr;
     }

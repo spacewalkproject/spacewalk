@@ -20,6 +20,7 @@ import com.redhat.satellite.search.db.Query;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.Result;
 import com.redhat.satellite.search.index.QueryParseException;
+import com.redhat.satellite.search.scheduler.ScheduleManager;
 
 import com.ibatis.sqlmap.client.SqlMapException;
 
@@ -55,8 +56,11 @@ public class DatabaseHandler {
      * with RpcServer constructing us.
      * @param dbMgr DatabaseManager
      * Will perform database queries
+     * @param schedManager ScheduleManager unused param, needed for interface compatibility
+     * with RpcServer constructing us.
      */
-    public DatabaseHandler(IndexManager idxManager, DatabaseManager dbMgr) {
+    public DatabaseHandler(IndexManager idxManager, DatabaseManager dbMgr,
+            ScheduleManager schedManager) {
         databaseManager = dbMgr;
     }
 

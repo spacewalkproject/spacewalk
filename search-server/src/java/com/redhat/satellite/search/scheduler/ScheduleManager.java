@@ -17,6 +17,7 @@ package com.redhat.satellite.search.scheduler;
 
 import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.db.DatabaseManager;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.scheduler.tasks.IndexErrataTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexPackagesTask;
@@ -46,12 +47,25 @@ import java.util.Date;
  * @version $Rev $
  */
 public class ScheduleManager implements Startable {
-    
     private static Logger log = Logger.getLogger(ScheduleManager.class);
     private Scheduler scheduler;
     private DatabaseManager databaseManager;
     private IndexManager indexManager;
     
+    private JobDetail pkgDetail;
+    private JobDetail errataDetail;
+    private JobDetail systemDetail;
+    private JobDetail hwDeviceDetail;
+    private JobDetail snapshotTagDetail;
+    private JobDetail serverCustomInfoDetail;
+
+    private Trigger pkgTrigger;
+    private Trigger errataTrigger;
+    private Trigger systemTrigger;
+    private Trigger hwDeviceTrigger;
+    private Trigger snapshotTagTrigger;
+    private Trigger serverCustomInfoTrigger;
+    private final String updateIndexGroupName = "updateIndex";
     /**
      * Constructor
      * @param dbmgr allows ScheduleManager to access the database.
@@ -85,31 +99,31 @@ public class ScheduleManager implements Startable {
                 interval = 100;
                 mode = 0;
             }
-            Trigger pkgTrigger = createTrigger("packages", "index", mode,
-                    interval);
-            Trigger errataTrigger = createTrigger("errata", "index", mode,
-                    interval);
-            Trigger systemTrigger = createTrigger("systems", "index", mode,
-                    interval);
-            Trigger hwDeviceTrigger = createTrigger("hwdevice", "index", mode,
-                    interval);
-            Trigger snapshotTagTrigger = createTrigger("snapshotTag", "index",
-                    mode, interval);
-            Trigger serverCustomInfoTrigger = createTrigger("serverCustomInfo", "index",
-                    mode, interval);
-            
-            JobDetail pkgDetail = new JobDetail("packages", "index",
-                    IndexPackagesTask.class);
-            JobDetail errataDetail = new JobDetail("errata", "index",
-                    IndexErrataTask.class);
-            JobDetail systemDetail = new JobDetail("systems", "index",
-                    IndexSystemsTask.class);
-            JobDetail hwDeviceDetail = new JobDetail("hwdevice", "index",
-                    IndexHardwareDevicesTask.class);
-            JobDetail snapshotTagDetail = new JobDetail("snapshotTag", "index",
-                    IndexSnapshotTagsTask.class);
-            JobDetail serverCustomInfoDetail = new JobDetail("serverCustomInfo", "index",
-                    IndexServerCustomInfoTask.class);
+            pkgTrigger = createTrigger(BuilderFactory.PACKAGES_TYPE,
+                    updateIndexGroupName, mode, interval);
+            errataTrigger = createTrigger(BuilderFactory.ERRATA_TYPE,
+                    updateIndexGroupName, mode, interval);
+            systemTrigger = createTrigger(BuilderFactory.SERVER_TYPE,
+                    updateIndexGroupName, mode, interval);
+            hwDeviceTrigger = createTrigger(BuilderFactory.HARDWARE_DEVICE_TYPE,
+                    updateIndexGroupName, mode, interval);
+            snapshotTagTrigger = createTrigger(BuilderFactory.SNAPSHOT_TAG_TYPE,
+                    updateIndexGroupName, mode, interval);
+            serverCustomInfoTrigger = createTrigger(BuilderFactory.SERVER_CUSTOM_INFO_TYPE,
+                    updateIndexGroupName, mode, interval);
+
+            pkgDetail = new JobDetail(BuilderFactory.PACKAGES_TYPE,
+                    updateIndexGroupName, IndexPackagesTask.class);
+            errataDetail = new JobDetail(BuilderFactory.ERRATA_TYPE,
+                    updateIndexGroupName, IndexErrataTask.class);
+            systemDetail = new JobDetail(BuilderFactory.SERVER_TYPE,
+                    updateIndexGroupName, IndexSystemsTask.class);
+            hwDeviceDetail = new JobDetail(BuilderFactory.HARDWARE_DEVICE_TYPE,
+                    updateIndexGroupName, IndexHardwareDevicesTask.class);
+            snapshotTagDetail = new JobDetail(BuilderFactory.SNAPSHOT_TAG_TYPE,
+                    updateIndexGroupName, IndexSnapshotTagsTask.class);
+            serverCustomInfoDetail = new JobDetail(BuilderFactory.SERVER_CUSTOM_INFO_TYPE,
+                    updateIndexGroupName, IndexServerCustomInfoTask.class);
 
             JobDataMap jobData = new JobDataMap();
             jobData.put("indexManager", indexManager);
@@ -147,5 +161,65 @@ public class ScheduleManager implements Startable {
         catch (SchedulerException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean isSupported(String indexName) {
+        if (BuilderFactory.ERRATA_TYPE.compareTo(indexName) == 0) {
+            return true;
+        }
+        else if (BuilderFactory.PACKAGES_TYPE.compareTo(indexName) == 0) {
+            return true;
+        }
+        else if (BuilderFactory.SERVER_TYPE.compareTo(indexName) == 0) {
+            return true;
+        }
+        else if (BuilderFactory.HARDWARE_DEVICE_TYPE.compareTo(indexName) == 0) {
+            return true;
+        }
+        else if (BuilderFactory.SNAPSHOT_TAG_TYPE.compareTo(indexName) == 0) {
+            return true;
+        }
+        else if (BuilderFactory.SERVER_CUSTOM_INFO_TYPE.compareTo(indexName) == 0) {
+            return true;
+        }
+        else if (BuilderFactory.DOCS_TYPE.compareTo(indexName) == 0) {
+            log.info("Index updates for " + BuilderFactory.DOCS_TYPE +
+                    " are not supported.");
+            return false;
+        }
+        log.info("Unknown index: " + indexName);
+        return false;
+    }
+
+
+    /**
+     * Will create/schedule a trigger for the passed in indexName.
+     * Note: Only one trigger per indexName is allowed, if subsequent calls
+     * are made before the current trigger finishes completion, this request
+     * will be dropped.
+     * @param indexName
+     * @return
+     */
+    public boolean triggerIndexTask(String indexName) {
+        if (!isSupported(indexName)) {
+            log.info(indexName + " is not a supported for scheduler modifications.");
+            return false;
+        }
+        // Define a Trigger that will fire "now" and associate it with the existing job
+        Trigger trigger = new SimpleTrigger("immediateTrigger-" + indexName,
+                "group1", new Date());
+        trigger.setJobName(indexName);
+        trigger.setJobGroup(updateIndexGroupName);
+        try {
+            // Schedule the trigger
+            log.info("Scheduling trigger: " + trigger);
+            scheduler.scheduleJob(trigger);
+        }
+        catch (SchedulerException e) {
+            log.warn("Scheduling trigger: " + trigger + " failed.");
+            log.warn("Exception was caught: ",  e);
+            return false;
+        }
+        return true;
     }
 }
