@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,20 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- remove Proxy Release Notes link and unused Developer's area. (jesusr@redhat.com)
+- 494714 - fixing 404 after cloning channel with selective errata (jsherril@redhat.com)
+- 484294 - can't delete channel with distros (paji@redhat.com)
+- 495722 - fixing issue where /ty/TOKEn wasnt being rendered properly (jsherril@redhat.com)
+- 490904 - change all references to /rhn/help/*/en/ -> /rhn/help/*/en-US/ (jesusr@redhat.com)
+- api doclet - enhanced to support a 'since' tag, tagged snapshot apis and
+  bumped api version (bbuckingham@redhat.com)
+- 494475,460136 - remove faq & feedback code which used customerservice emails. (jesusr@redhat.com)
+- Revert "484702 - remove dead function generate_server_pem from RHN::SatInstall." (mzazrivec@redhat.com)
+- Revert "484703 - remove dead function generate_satcon_dict from RHN::SatInstall." (mzazrivec@redhat.com)
+- Revert "484705 - remove dead function satcon_deploy from RHN::SatInstall." (mzazrivec@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.23-1
 - 489736 - generate non-expiring kickstart package download url
 - 489736 - download_url_lifetime of 0 disables expiration server wide
