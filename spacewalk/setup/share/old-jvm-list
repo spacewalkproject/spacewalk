@@ -5,3 +5,5 @@ java-1.5.0-ibm-devel
 java-1.5.0-sun
 java-1.5.0-sun-devel
 java-epoch-bridge
+bouncycastle
+bouncycastle-jdk1.5
