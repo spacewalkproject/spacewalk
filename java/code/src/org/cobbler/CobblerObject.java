@@ -330,8 +330,9 @@ public abstract class CobblerObject {
      */
     public void setName(String nameIn) {
         invokeRename(nameIn);
-        modify(NAME, nameIn);
         dataMap.put(NAME, nameIn);
+        handle = null;
+        handle = getHandle();
         reload();
     }
     
