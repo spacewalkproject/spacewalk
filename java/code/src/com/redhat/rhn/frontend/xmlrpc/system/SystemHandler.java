@@ -841,7 +841,7 @@ public class SystemHandler extends BaseHandler {
     public int isNvreInstalled(String sessionKey, Integer sid, String name,
                        String version, String release) throws FaultException {
         //Set epoch to an empty string
-        return isNvreInstalled(sessionKey, sid, name, version, release, "");
+        return isNvreInstalled(sessionKey, sid, name, version, release, null);
     }
     
     /**
@@ -900,7 +900,9 @@ public class SystemHandler extends BaseHandler {
             
             //Check epoch
             String pkgEpoch = StringUtils.trim((String) pkg.get("epoch"));
-            if (!pkgEpoch.equals(StringUtils.trim(epoch))) {
+            // If epoch is null, we arrived here from the isNvreInstalled(...n,v,r) method;
+            // therefore, just skip the comparison
+            if ((epoch != null) && !pkgEpoch.equals(StringUtils.trim(epoch))) {
                 continue;
             }
             
