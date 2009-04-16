@@ -55,7 +55,6 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
         if (prof != null) {
             if (!cobName.equals(prof.getName())) {
                 prof.setName(makeCobblerName(ksData));
-                prof.save();
             }
             updateCobblerFields(prof);
         }
