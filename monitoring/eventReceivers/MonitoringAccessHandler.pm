@@ -8,6 +8,7 @@ use strict;
 use warnings;
 use Apache2::Const ':common';
 use NOCpulse::CF_DB;
+use Apache2::RequestRec;
 
 # Get the valid ip addresses for satellites/proxies allowed
 # to talk to this satellite
