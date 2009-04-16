@@ -121,7 +121,7 @@ public class SnapshotHandler extends BaseHandler {
      * @param sessionKey key
      * @param snapId snapshot id
      * @return Set of ConfigRevision objects
-     * @since 10.1
+     * @since 10.2
      *
      * @xmlrpc.doc List the config files associated with a snapshot.
      * @xmlrpc.param #session_key()

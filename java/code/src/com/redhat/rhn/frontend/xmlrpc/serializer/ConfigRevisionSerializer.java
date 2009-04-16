@@ -20,6 +20,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.text.DecimalFormat;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -45,7 +46,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc($date, "modified","Last Modified Date")
  *   #prop_desc("string", "owner","File Owner")
  *   #prop_desc("string", "group","File Group")
- *   #prop_desc("int", "permissions","File Group")
+ *   #prop_desc("int", "permissions","File Permissions (Deprecated)")
+ *   #prop_desc("string", "permissions_mode", "File Permissions")
  *   #prop_desc("boolean", "binary", "true/false , Present for files only.")
  *   #prop_desc("string", "md5", "File's md5 signature. Present for files only.")
  *   #prop_desc("string", "macro-start-delimiter",
@@ -61,6 +63,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
     public static final String OWNER = "owner";
     public static final String GROUP = "group";
     public static final String PERMISSIONS = "permissions";
+    public static final String PERMISSIONS_MODE = "permissions_mode";
     public static final String MACRO_START = "macro-start-delimiter";
     public static final String MACRO_END = "macro-end-delimiter";
     public static final String BINARY = "binary";
@@ -101,6 +104,9 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         helper.add(OWNER, rev.getConfigInfo().getUsername());
         helper.add(GROUP, rev.getConfigInfo().getGroupname());
         helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());
+        helper.add(PERMISSIONS_MODE, new DecimalFormat("000").format(
+            rev.getConfigInfo().getFilemode().longValue()));
+
         if (!rev.isDirectory()) {
             if (!rev.getConfigContent().isBinary()) {
                 helper.add(CONTENTS, rev.getConfigContent().getContentsString());    

@@ -223,6 +223,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * for file paths -  'data' will hold values for-> 
      *  contents, owner, group, permissions, macro-start-delimiter, macro-end-delimiter 
      * @return returns the new created or updated config revision..
+     * @since 10.2
      * 
      * @xmlrpc.doc Create a new file or directory with the given path, or 
      * update an existing path.
@@ -271,6 +272,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @param channelLabel the channel label
      * @param paths a list of paths to examine.
      * @return a list containing the latest config revisions of the requested paths.
+     * @since 10.2
      * 
      * @xmlrpc.doc Given a list of paths and a channel, returns details about 
      * the latest revisions of the paths.

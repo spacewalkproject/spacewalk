@@ -110,18 +110,19 @@ public class ServerConfigHandler extends BaseHandler {
      * @param commitToLocal true if we want to commit the file to 
      * the server's local channel false if we want to commit it to sandbox.
      * @return returns the new created or updated config revision..
+     * @since 10.2
      * 
      * @xmlrpc.doc Create a new file (text or binary) or directory with the given path, or 
      * update an existing path on a server.
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param("int","serverId")
+     * @xmlrpc.param #param_desc("string","path",
+     *                          "the configuration file/directory path")
      * @xmlrpc.param #param( "boolean", "isDir")
      *      #options()
      *          #item_desc ("True", "if the path is a directory")
      *          #item_desc ("False", "if the path is a file")
      *      #options_end()
-     * @xmlrpc.param #param_desc("string","path",
-     *                          "the configuration file/directory path") 
      * @xmlrpc.param 
      *   #struct("path info")
      *      #prop_desc("string","contents",
@@ -177,6 +178,7 @@ public class ServerConfigHandler extends BaseHandler {
      * @param searchLocal true look at local overrides, false 
      *              to look at sandbox overrides 
      * @return a list containing the latest config revisions of the requested paths.
+     * @since 10.2
      * 
      * @xmlrpc.doc Given a list of paths and a server, returns details about 
      * the latest revisions of the paths.
