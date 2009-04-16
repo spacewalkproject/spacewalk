@@ -50,10 +50,10 @@ declare
     command_instance_id rhn_command_queue_instances.recid%type;
 
 begin
-    rhn_prepare_install(username, command_instance_id, 1);
+    execute rhn_prepare_install(username, command_instance_id, 1);
 
     for satellite in satellite_cursor loop
-        rhn_install_satellite(command_instance_id, satellite.recid);
+        execute rhn_install_satellite(command_instance_id, satellite.recid);
     end loop;
 end 
 $$
