@@ -23,14 +23,14 @@ declare
 	l_id numeric;
 begin
 	select
-		sequence_nextval( 'pxt_id_seq' ) into id
+		sequence_nextval( 'pxt_id_seq' ) into l_id
 	from
 		dual;
 
 	insert into PXTSessions (id, value, expires, web_user_id)
 	values (l_id, p_value, p_expires, p_web_user_id);
 
-	return id;
+	return l_id;
 end;
 $$ language plpgsql;
 

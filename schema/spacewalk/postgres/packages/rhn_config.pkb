@@ -52,7 +52,7 @@ $$ LANGUAGE 'plpgsql';
                                	delim_start_in varchar(10) := '{@';
 	            	delim_end_in varchar(10) := '@}';
                  config_file_type_id_in numeric := 1;
-org record;
+                 org record;
 
 	begin
       
@@ -66,14 +66,13 @@ org record;
 			)
 			returning id into retval;
 
-		for org in select cc.org_id as id from rhnConfigChannel cc,
-					rhnConfigFile cf
-			where cf.id = config_file_id_in
-				and cf.config_channel_id = cc.id
-                           loop
-			rhn_quota.update_org_quota(org.id);
-                          null;
-		end loop;
+		for org in select cc.org_id as id
+                           from rhnConfigChannel cc, rhnConfigFile cf
+                           where cf.id = config_file_id_in
+                                 and cf.config_channel_id = cc.id
+                loop
+                        perform rhn_quota.update_org_quota(org.id);
+                end loop;
 
 		return retval;
 	end ;
@@ -106,18 +105,17 @@ snapshot record;
 			from rhnConfigRevision
 			where config_content_id = config_content_id_in;
 	begin
-		for snapshot in select scr.snapshot_id as id
-			from rhnSnapshot s,
-					rhnSnapshotConfigRevision scr
-			where scr.config_revision_id = config_revision_id_in
-					and scr.snapshot_id = s.id
-					and s.invalid is null
- loop
-			update		rhnSnapshot s
-				set		s.invalid = 
-							lookup_snapshot_invalid_reason('cr_removed');
-				where	s.id = snapshot.id;
-		end loop;
+                for snapshot in select scr.snapshot_id as id
+                        from rhnSnapshot s,
+                             rhnSnapshotConfigRevision scr
+                        where scr.config_revision_id = config_revision_id_in
+                              and scr.snapshot_id = s.id
+                              and s.invalid is null
+                loop
+                    update rhnSnapshot s
+                        set s.invalid = lookup_snapshot_invalid_reason('cr_removed')
+                        where s.id = snapshot.id;
+                end loop;
 
 		if org_id_in < 0 then
 			select cr.config_content_id, cc.org_id
@@ -179,7 +177,7 @@ loop
 			end if;
 
 		end if;
-		rhn_quota.update_org_quota(oid);
+		perform rhn_quota.update_org_quota(oid);
 
 	end ;
 $$ LANGUAGE 'plpgsql';
@@ -248,11 +246,11 @@ revision record;
 				and cf.config_channel_id = cc.id
 				and cr.config_file_id = cf.id
 		
- loop
-			delete_revision(revision.id, revision.org_id);
+                loop
+			perform delete_revision(revision.id, revision.org_id);
 			org_id := revision.org_id;
 		end loop;
-		rhn_quota.update_org_quota(org_id);
+		perform rhn_quota.update_org_quota(org_id);
 		delete from rhnConfigFile where id = config_file_id_in;
 	end;
 $$ LANGUAGE 'plpgsql';
@@ -297,16 +295,13 @@ declare
 		select id
 			from rhnConfigFile
 			where config_channel_id = config_channel_id_in
- loop
-	delete_file(config_file.id);
-null;
+                loop
+                    perform delete_file(config_file.id);
 		end loop;
 		delete from rhnConfigChannel where id = config_channel_id_in;
 
 end;
 $$ LANGUAGE 'plpgsql';
-/
-show errors
 
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_config')+1) ) where name = 'search_path';
 

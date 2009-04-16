@@ -6,7 +6,6 @@ update pg_settings set setting = 'rhn_exception,' || setting where name = 'searc
 CREATE OR REPLACE FUNCTION is_org_paid (org_id_in IN NUMERIC)
 RETURNS NUMERIC
 AS $$
-$$
 BEGIN
     RETURN 0;
 END;
