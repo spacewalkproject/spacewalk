@@ -44,6 +44,7 @@ tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      --exclude=etc/jabberd \
      | tar -C $RPM_BUILD_ROOT -xvf -
 
+echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -59,12 +60,12 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
-%dir %{_sysconfdir}/rhn
+%attr(0750,root,apache) %dir %{_sysconfdir}/rhn
 %dir %{_sysconfdir}/rhn/satellite-httpd
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/cluster.ini
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
+%attr(0640,root,apache) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
