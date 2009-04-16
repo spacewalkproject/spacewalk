@@ -245,12 +245,6 @@
     </rhn-tab>
     
   </rhn-tab>
-  <rhn-tab name="Developer's Area" url="/dev/index.pxt" acl="is(development_environment)"
-           active-image="tab-dev-selected.gif"
-           inactive-image="tab-dev.gif">
-    <rhn-tab name="Magic Entitler" url="/dev/entitle.pxt" />
-    <rhn-tab name="Session Tracer" url="/dev/trace.pxt" />
-  </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
     <rhn-tab name="Reference Guide" url="/rhn/help/dispatcher/reference_guide">
@@ -267,9 +261,6 @@
     </rhn-tab>
     <rhn-tab name="Channel Management" url="/rhn/help/dispatcher/channel_mgmt_guide">
       <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
-    </rhn-tab>
-    <rhn-tab name="Proxy Release Notes" url="/rhn/help/dispatcher/proxy_release_notes">
-      <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Release Notes" url="/rhn/help/dispatcher/release_notes">
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
