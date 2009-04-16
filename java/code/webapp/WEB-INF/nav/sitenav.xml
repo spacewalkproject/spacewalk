@@ -9,9 +9,6 @@
     <rhn-tab name="About Spacewalk" url="/help/about.pxt" />
     <rhn-tab name="Help Desk" url="/rhn/help/index.do" />
     <rhn-tab name="Lookup Login/Password" url="/help/forgot_password.pxt" />
-    <rhn-tab name="Proxy Release Notes" url="/rhn/help/dispatcher/proxy_release_notes">
-      <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
-    </rhn-tab>
     <rhn-tab name="Release Notes" url="/rhn/help/dispatcher/release_notes">
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
     </rhn-tab>

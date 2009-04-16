@@ -219,12 +219,6 @@
     <rhn-tab name="Task Engine Status" url="/internal/satellite/task_engine/index.pxt" acl="user_role(satellite_admin)">
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Developer's Area" url="/dev/index.pxt" acl="global_config(development_environment)"
-           active-image="tab-dev-selected.gif"
-           inactive-image="tab-dev.gif">
-    <rhn-tab name="Magic Entitler" url="/dev/entitle.pxt" />
-    <rhn-tab name="Session Tracer" url="/dev/trace.pxt" />
-  </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/help</rhn-tab-directory>
     <rhn-tab name="Reference Guide" url="https://www.redhat.com/docs/manuals/satellite">
@@ -241,9 +235,6 @@
     </rhn-tab>
     <rhn-tab name="Channel Management" url="https://www.redhat.com/docs/manuals/satellite" >
         <rhn-tab-directory>/rhn/help/channel-mgmt/</rhn-tab-directory>
-    </rhn-tab>
-    <rhn-tab name="Proxy Release Notes" url="https://www.redhat.com/docs/manuals/satellite" >
-        <rhn-tab-directory>/rhn/help/release-notes/proxy/</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Release Notes" url="https://www.redhat.com/docs/manuals/satellite" >
         <rhn-tab-directory>/rhn/help/release-notes/satellite/</rhn-tab-directory>
