@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ fi
 
 
 %changelog
+* Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 485355 - change perms of /etc/rhn/rhn.conf & /etc/rhn dir
+
 * Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
 - 495722 - fixing issue where /ty/TOKEn wasnt being rendered properly
   (jsherril@redhat.com)
