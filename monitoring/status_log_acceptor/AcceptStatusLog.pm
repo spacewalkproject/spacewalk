@@ -160,7 +160,7 @@ sub clusterIdFromKey
 			$KeyToId{$key} = $id;
 			return $id;
 		} else {
-			return "NULL";
+			return;
 		}
 	}
 }
