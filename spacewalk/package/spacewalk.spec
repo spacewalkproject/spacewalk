@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -92,6 +92,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Fri Feb 27 2009 Miroslav Suchy <msuchy@redhat.com> 0.5.4-1
 - require ISS packages
 
