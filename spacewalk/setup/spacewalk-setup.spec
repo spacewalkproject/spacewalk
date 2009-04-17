@@ -63,6 +63,8 @@ install -m 0644 share/ssl.conf.4 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.5 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
+install -m 0755 share/upgrade/* %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
 # jabberd ssl cert location
