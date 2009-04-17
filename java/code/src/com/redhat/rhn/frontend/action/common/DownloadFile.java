@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.download.UnknownDownloadTypeException;
 
@@ -84,9 +85,9 @@ public class DownloadFile extends DownloadAction {
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         
-        String url = request.getParameter("url");
+        String url = RhnHelper.getParameterWithSpecialCharacters(request, "url");
         if (log.isDebugEnabled()) {
-            log.debug("url : " + url);
+            log.debug("url : [" + url + "]");
         }
         if (url.startsWith("/ks/dist")) {
             if (log.isDebugEnabled()) {
