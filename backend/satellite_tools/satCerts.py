@@ -50,8 +50,8 @@ class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
           self.label = label
           self.quantity = quantity
-          self.message = 'You do not have enough unused \'' + self.label + '\' entitlements in the base org.' \
-            + ' Please un-entitle systems from this entitlement until there are at most ' + str(quantity) + ' used.'
+          self.message = \
+          "Error: You do not have enough unused %s entitlements in the base org. There can only be atmost %s used based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
           self.args = [self.message]
 
 def get_all_orgs():
