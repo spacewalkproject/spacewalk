@@ -186,6 +186,7 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
+install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
