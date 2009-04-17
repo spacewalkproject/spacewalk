@@ -16,10 +16,12 @@ package com.redhat.rhn.frontend.action.channel.manage;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -35,6 +37,7 @@ import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -413,6 +416,9 @@ public class EditChannelAction extends RhnAction implements Listable {
         if (cid != null) {
             Channel c = ChannelManager.lookupByIdAndUser(cid,
                                                          ctx.getLoggedInUser());
+            if (!UserManager.verifyChannelAdmin(ctx.getLoggedInUser(), c)) {
+                throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+            }
 
             form.set("name", c.getName());
             form.set("summary", c.getSummary());
