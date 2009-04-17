@@ -1374,10 +1374,30 @@ sub verify_permission_function_helper {
   return 1;
 }
 
+#
+# Multiorg II support
+# see if we have shared access
+#
+sub verify_shared_user_role {
+  my $self = shift;
+  my $uid = shift;
+  my @ids = @_;
+
+  my $dbh = RHN::DB->connect;
+  for my $id (@ids) {
+    next unless $id;
+
+    my $val = $dbh->call_function('rhn_channel.shared_user_role_check', $id, $uid, 'subscribe');
+
+    return 0 unless $val;
+  }
+  return 1;
+}
+
 sub verify_channel_access {
   my $self = shift;
 
-  return $self->verify_permission_function_helper('rhn_channel.get_org_access', $self->org_id, @_);
+  return $self->verify_permission_function_helper('rhn_channel.get_org_access', $self->org_id, @_) || $self->verify_shared_user_role($self->id, @_);
 }
 
 sub verify_cfam_access {
