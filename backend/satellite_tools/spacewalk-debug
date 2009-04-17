@@ -83,11 +83,15 @@ echo "Warning: this may take some time..."
 
 mkdir -p $DIR/conf/httpd
 mkdir -p $DIR/conf/tomcat
+mkdir -p $DIR/conf/cobbler
 mkdir -p $DIR/conf/rhn/sysconfig
 mkdir -p $DIR/httpd-logs
 mkdir -p $DIR/tomcat-logs
+mkdir -p $DIR/cobbler-logs
 mkdir -p $DIR/rhn-logs
+mkdir -p $DIR/kickstarts
 mkdir -p $DIR/database
+mkdir -p $DIR/cobbler-lib
 
 echo "    * copying configuration information"
 cp -fapRd /etc/httpd/conf $DIR/conf/httpd
@@ -121,6 +125,24 @@ fi
 #entitlement report
 if [ -e /usr/share/rhn/satellite_tools/rhn-entitlement-report.py ]; then
    python /usr/share/rhn/satellite_tools/rhn-entitlement-report.py &> $DIR/entitlement-report
+fi
+
+#cobbler stuff
+echo "    * copying cobbler files"
+if [ -d /etc/cobbler ]; then
+    cp -fapRd /etc/cobbler/* $DIR/conf/cobbler
+fi
+if [ -d /var/log/cobbler ]; then
+   cp -fpRd /var/log/cobbler/* $DIR/cobbler-logs
+fi
+if [ -d /var/lib/cobbler ]; then
+   cp -fpRd /var/lib/cobbler/snippets $DIR/cobbler-lib/
+   cp -fpRd /var/lib/cobbler/config $DIR/cobbler-lib/
+   cp -fpRd /var/lib/cobbler/kickstarts $DIR/cobbler-lib/
+   cp -fpRd /var/lib/cobbler/triggers $DIR/cobbler-lib/
+fi
+if [ -d /var/lib/rhn/kickstarts ]; then
+   cp -fpRd /var/lib/rhn/kickstarts/* $DIR/kickstarts/
 fi
 
 # general monitoring moc logs
