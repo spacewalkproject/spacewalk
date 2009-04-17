@@ -52,5 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Apr 07 2009 Brad Buckingham <bbuckingham@redhat.com>
+* Fri Apr 17 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Adding migrate system profile tool to utils package
+
+* Tue Apr 07 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.1-1
 -

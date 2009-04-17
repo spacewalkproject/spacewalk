@@ -504,7 +504,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
-%attr(755,root,root) %{_bindir}/migrate-system-profile
 %attr(755,root,root) %{_bindir}/rhn-db-stats
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
@@ -521,7 +520,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
-%{rhnroot}/satellite_tools/migrateSystemProfile.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
@@ -539,7 +537,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
-%{_mandir}/man8/migrate-system-profile.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
@@ -562,6 +559,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 17 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- move the migrate systems script to utils package
+
 * Mon Mar 30 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.28-1
 - 485698 - rhn-satellite-exporter manual page fixes
 

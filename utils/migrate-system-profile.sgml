@@ -19,7 +19,7 @@ Migrate a system between organizations on the RHN Satellite server .
 <RefSynopsisDiv>
 <Synopsis>
     <cmdsynopsis>
-        <command>migrate-system-profile</command> 
+        <command>migrate-system-profile</command>
         <arg>options <replaceable>...</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -44,7 +44,7 @@ Migrate a system between organizations on the RHN Satellite server .
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-v</arg><arg> --verbose </arg>
-    </cmdsynopsis>   
+    </cmdsynopsis>
     <cmdsynopsis>
         <arg>-h</arg><arg>--help</arg>
     </cmdsynopsis>

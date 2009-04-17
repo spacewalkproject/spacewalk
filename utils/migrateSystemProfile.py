@@ -8,7 +8,7 @@ server and its history from source org to the destination org.
 Copyright (c) 2008 Red Hat, Inc.  Distributed under GPL.
 Author: Pradeep Kilambi <pkilambi@redhat.com>
 
-# $Id: migrateSystemProfile.py 
+# $Id: migrateSystemProfile.py
 """
 
 import os
@@ -28,15 +28,15 @@ client = None
 DEBUG = 0
 
 options_table = [
-    Option("-v", "--verbose",       action="count", 
+    Option("-v", "--verbose",       action="count",
         help="Increase verbosity"),
-    Option("-u", "--username",       action="store", 
+    Option("-u", "--username",       action="store",
         help="Satellite/Org Admin username"),
-    Option("-p", "--password",       action="store", 
+    Option("-p", "--password",       action="store",
         help="Satellite/Org Admin password"),
-    Option("--satellite",       action="store", 
+    Option("--satellite",       action="store",
         help="Satellite server to run migration"),
-    Option("--systemId",               action="append", 
+    Option("--systemId",               action="append",
         help="client system to migrate"),
     Option("--to-org-id",          action="store",
         help="Destination Org ID"),
@@ -84,12 +84,12 @@ def main():
             to_org_id = options.to_org_id or None
 
         migrate_data = [[options.systemId, to_org_id]]
-    
+
     username, password = getUsernamePassword(options.username, \
                             options.password)
-    
+
     sessionKey = login(username, password)
-    
+
     if not migrate_data:
         sys.stderr.write("Nothing to migrate. Exiting.. \n")
         sys.exit(1)
@@ -104,14 +104,14 @@ def main():
         except Exception, e:
             raise
             #sys.stderr.write(e.msg)
-    
+
     if DEBUG: print "Migration Completed successfully"
     logout(sessionKey)
 
 def login(username, password):
     """
      Authenticate Session call
-    """ 
+    """
     try:
         sessionkey = client.auth.login(username, password)
     except xmlrpclib.Fault, e:
@@ -192,7 +192,7 @@ def lookup_server(key, from_org_id):
     for row in rows:
         print " %s   %s " % (row['id'], row['name'])
     print "--------------------------------------------"
-    
+
     return rows
 
 def read_csv_file(csv_file):
