@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -111,6 +111,18 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.4-1
+- Search server adding a xmlrpc call that will allow updates to be triggered
+  immediately (jmatthew@redhat.com)
+- 487209 - enhanced system search for hardware devices (jmatthew@redhat.com)
+- 495921 -  Limit results returned from Errata Search by Advisory
+  (jmatthew@redhat.com)
+- 487158 - SystemSearch fixed search by customInfo (jmatthew@redhat.com)
+- Search Server adding a debug option to print out explanation of searches
+  (jmatthew@redhat.com)
+- 442439 - enhancing csv for systemsearch (jmatthew@redhat.com)
+- 487189 -  System Search fixed search by checkin (jmatthew@redhat.com)
+
 * Sun Apr 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - 487424 - add logrotate to %%files section (jesusr@redhat.com)
 
