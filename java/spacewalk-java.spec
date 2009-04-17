@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -237,6 +237,20 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.4-1
+- 495789 - changing the way apis are logged to fall back to RootAppender if
+  there is an error (jsherril@redhat.com)
+- logrotate (jsherril@redhat.com)
+- 496161 - fixing broken system group links (jsherril@redhat.com)
+- 495789 - enabling api logging by default (jsherril@redhat.com)
+- 494649 - fix resource bundle text for changing channel to protected
+  (bbuckingham@redhat.com)
+- 496003 - api - fix system.isNvreInstalled(n,v,r) to properly handle packages
+  that have an epoch (bbuckingham@redhat.com)
+- 494450 - api - add permissions_mode to ConfigRevisionSerializer & fix doc on
+  system.config.createOrUpdatePath (bbuckingham@redhat.com)
+- 493163 - fixing ISE when renaming distros and profiles (jsherril@redhat.com)
+
 * Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - remove Proxy Release Notes link and unused Developer's area. (jesusr@redhat.com)
 - 487209 - enhanced system search for hardware devices (jmatthew@redhat.com)
