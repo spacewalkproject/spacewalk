@@ -250,13 +250,12 @@ class Reader:
         try:
             A = a.rsplit('.', 1)
             B = b.rsplit('.', 1)
+            BC = cmp(A[0], B[0])
+            if BC:
+                return BC
             IA = self.EXT.index(A[1])
             IB = self.EXT.index(B[1])
-            if IA < IB:
-                return -1
-            if IA > IB:
-                return 1
-            return cmp(A[0], B[0])
+            return cmp(IA, IB)
         except:
             return 0
 
@@ -270,7 +269,7 @@ class Reader:
                 if parts[1] in extensions:
                     path = self.path(n[0], fn)
                     files.append((fn, path))
-        return files
+        return files        
 
 
 class Writer:
