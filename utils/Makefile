@@ -6,8 +6,8 @@ NAME := spacewalk-utils
 
 SUBDIR  = utils
 
-FILES	= __init__ systemSnapshot
-SCRIPTS = sw-system-snapshot
+FILES	= __init__ systemSnapshot migrateSystemProfile
+SCRIPTS = sw-system-snapshot migrate-system-profile
 
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
 
