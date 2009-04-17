@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.0
+Version: 0.6.1
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -559,6 +559,52 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 439042 - fixing the not enough entitlements error to more descriptive.
+  (pkilambi@redhat.com)
+- 495928 - adding cobbler collection to spacewalk-debug (jsherril@redhat.com)
+- moving migrate-system-profile to spacewalk-utils package
+  (pkilambi@redhat.com)
+- 492903 - fix the query to include the privatechannelfamily org into
+  rhnprivatecahnnelfamily (pkilambi@redhat.com)
+- 495396 - let the commandline ca-cert option override the cert when using in
+  conjunction with iss (pkilambi@redhat.com)
+- 494982 - fixing the error message to not take extra strings cusing parse
+  errors (pkilambi@redhat.com)
+- 486526 - display the created and modified information in ISO format.
+  (jpazdziora@redhat.com)
+- 486526 - add history of schema upgrades to spacewalk-debug
+  (mzazrivec@redhat.com)
+- 149695 - Including channel_id as part of rhnErrataQueue table so that
+  taskomatic can send errata notifications based on channel_id instead of
+  sending to everyone subscribed to the channel. The changes include db change
+  to rhnErrataQueue table and backend change to satellite-sync's errata import.
+  (pkilambi@redhat.com)
+- 485870 - only recalculate the channel family counts once per family.
+  (mmccune@gmail.com)
+- 488062 - fixing the activation to be more careful in checking the integrity
+  of variables before assigning slots (pkilambi@redhat.com)
+- 494968 - typo in config comment (pkilambi@redhat.com)
+- 494593 - fixing the repofile compare to use the right type for java date
+  object obtained through hibernate (pkilambi@redhat.com)
+- bumping the protocol version on exporter (pkilambi@redhat.com)
+- 491668 - update Spacewalk Apache conf to support .htaccess
+  (bbuckingham@redhat.com)
+- 486526 - store alert.log into the database/ directory.
+  (jpazdziora@redhat.com)
+- 486526 - renaming directory for database-related stuff, we will want to store
+  alert.log here as well. (jpazdziora@redhat.com)
+- check the attr instead of try catch (pkilambi@redhat.com)
+- 493583 - fixing the rhnpush to call old rpm libraries for RHEL-4
+  (pkilambi@redhat.com)
+- adding some additional checks before creating first org info
+  (pkilambi@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- minor default args clean up (pkilambi@redhat.com)
+- Fixing the first org creation to check for ChannelFamily existance and create
+  row if missing so the channel shows up in channels tab on sync
+  (pkilambi@redhat.com)
+
 * Fri Apr 17 2009 Pradeep Kilambi <pkilambi@redhat.com>
 - move the migrate systems script to utils package
 
