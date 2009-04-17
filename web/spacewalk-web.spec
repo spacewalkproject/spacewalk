@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- 496161 - removing find a system box from system group details page
+  (jsherril@redhat.com)
+- 476248 - add correct lang to proxy install guide url (jesusr@redhat.com)
+- 494450 - api - add permissions_mode to ConfigRevisionSerializer & fix doc on
+  system.config.createOrUpdatePath (bbuckingham@redhat.com)
+
 * Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
 - remove Proxy Release Notes link and unused Developer's area. (jesusr@redhat.com)
 - 494714 - fixing 404 after cloning channel with selective errata (jsherril@redhat.com)
