@@ -112,4 +112,32 @@ public class RhnHelper {
                                                             getStrutsDelegate();
             delegate.saveMessages(request, msg);
     }
+    
+    /** 
+     * If you need to a request parameter that may contain +++ 
+     * or other special characters that fails to fetch properly using
+     * request.getParameter() you can use this method.
+     * 
+     * @param request to fetch from
+     * @param name of parameter to fetch
+     * @return String value from request, null if not found.
+     */
+    public static String getParameterWithSpecialCharacters(HttpServletRequest request, 
+            String name) {
+        String queryString = request.getQueryString();
+        if (StringUtils.isEmpty(queryString)) {
+            return null;
+        }
+        String[] pairs = StringUtils.split(queryString, "&");
+        for (int i = 0; i < pairs.length; i++) {
+            String[] param = StringUtils.split(pairs[i], "=");
+            String iname = param[0];
+            if (StringUtils.equals(name, iname) && param.length > 1) {
+                String value = param[1];
+                return value;
+            }
+        }
+        
+        return null;
+    }
 }
