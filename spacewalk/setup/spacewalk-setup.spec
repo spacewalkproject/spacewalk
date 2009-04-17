@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.2
+Version:        0.6.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -97,6 +97,16 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
+- 493466 - perl scripts from rhn-upgrade moved to spacewalk-setup
+  (mzazrivec@redhat.com)
+- 493466 - add scripts from rhn-upgrade to spacewalk-setup
+  (mzazrivec@redhat.com)
+- 466577 - add bouncycastle* to the list of obsoleted java packages
+  (mzazrivec@redhat.com)
+- 466577 - list of jvms from older Satellites (mzazrivec@redhat.com)
+- 466577 - support for removing old jvms during upgrade (mzazrivec@redhat.com)
+
 * Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
 - Added syntax check to the setup to add cobbler.host to rhn.conf if it's
   not present (paji@redhat.com)
