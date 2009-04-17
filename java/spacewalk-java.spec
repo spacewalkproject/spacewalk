@@ -191,6 +191,7 @@ install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rh
 install -m 644 conf/default/rhn_taskomatic_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 install -m 644 conf/default/rhn_taskomatic.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_taskomatic.conf
 install -m 644 conf/default/rhn_org_quartz.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+install -m 755 conf/logrotate/rhn_web_api $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d/rhn_web_api
 install -m 755 scripts/taskomatic $RPM_BUILD_ROOT/%{_initrddir}
 install -m 644 build/webapp/rhnjava/WEB-INF/lib/rhn.jar $RPM_BUILD_ROOT/%{_datadir}/rhn/lib
 install -m 644 build/classes/log4j.properties $RPM_BUILD_ROOT/%{_datadir}/rhn/classes/log4j.properties
@@ -229,6 +230,7 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
+%config %{_sysconfdir}/logrotate.d/rhn_web_api
 
 %files lib
 %attr(644, root, root) %{_datadir}/rhn/classes/log4j.properties
