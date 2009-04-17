@@ -43,7 +43,7 @@
 					sortattr="serverCount"
 					styleclass="last-column">
 					
-						<c:out value="<a href=\"/network/systems/groups/system_list.pxt?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
+						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
 	    </rl:column>
 	    
 

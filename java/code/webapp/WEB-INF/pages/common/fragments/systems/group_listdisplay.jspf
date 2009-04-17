@@ -77,7 +77,7 @@
 		        		<c:out value="${current.serverCount}" />
 		        	</c:when>
 		        	<c:otherwise>
-						<c:out value="<a href=\"/network/systems/groups/system_list.pxt?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
+						<c:out value="<a href=\"/rhn/groups/ListRemoveSystems.do?sgid=${current.id}\">${current.serverCount}</a>" escapeXml="false" />
 		        	</c:otherwise>
 		        </c:choose>   
 		</rl:column>			
