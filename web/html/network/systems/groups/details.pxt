@@ -23,7 +23,7 @@
 
 
 <br />
-<pxt-form method="POST" action="/network/systems/groups/system_list.pxt">
+<pxt-form method="POST" action="/rhn/groups/ListRemoveSystems.do">
 <table class="details">
   <tr>
     <th>Admins:</th>

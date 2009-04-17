@@ -245,9 +245,6 @@ sub admin_server_group_edit_form {
     if($subs{member_count} > 1) {
       $subs{systems_area} .= <<EOH;
 <p>
-Find a system:
-<input type="text" name="filter_value" value="" maxlength="128" size="20" />
-<input type="image" name="filter_list" src="/img/button-go.gif" alt="Filter" />
 
 <input type="hidden" name="formvars" value="sgid" />
 <input type="hidden" name="pxt:trap" value="rhn:system_list_cb" />
