@@ -24,22 +24,35 @@
 
     <br/>
 
-    <html:form action="/errata/manage/CloneErrata" method="GET">
-        <bean:message key="cloneerrata.jsp.viewapplicableerrata"/>:
-        <html:select property="channel">
-            <html:options collection="clonablechannels" property="value"
-                          labelProperty="label"/>
-        </html:select>
-        <html:submit>
-            <bean:message key="cloneerrata.jsp.view"/>
-        </html:submit>
-        <br/>
-        <html:checkbox property="showalreadycloned" value="1"/> <bean:message
-            key="cloneerrata.jsp.showclonederrata"/>
-    </html:form>
 
     <rl:listset name="groupList" legend="errata">
 
+        <p>
+            <bean:message key="cloneerrata.jsp.viewapplicableerrata"/>:
+            <select name="channel">
+                <c:forEach items="${clonablechannels}" var="option">
+                    <option value="<c:out value="${option.value}"/>"
+                        <c:if test="${option.value == param.channel}">selected="1"</c:if>>
+                        <c:out value="${option.label}"/>
+                    </option>
+                </c:forEach>
+            </select>
+            <html:submit>
+                <bean:message key="cloneerrata.jsp.view"/>
+            </html:submit>
+            <br/>
+            
+            <c:if test="${param.showalreadycloned == 1}">
+                <input type="checkbox" name="showalreadycloned" value="1" checked>
+            </c:if>
+            <c:if test="${param.showalreadycloned != 1}">
+                <input type="checkbox" name="showalreadycloned" value="1">
+            </c:if>
+                
+            <bean:message key="cloneerrata.jsp.showclonederrata"/>
+            
+        </p>
+        
         <rl:list emptykey="cloneerrata.jsp.noerrata">
 
             <rl:decorator name="PageSizeDecorator"/>
