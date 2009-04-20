@@ -2,6 +2,7 @@
 %define cobprofdir      %{_localstatedir}/lib/rhn/kickstarts
 %define cobprofdirup    %{_localstatedir}/lib/rhn/kickstarts/upload
 %define cobprofdirwiz   %{_localstatedir}/lib/rhn/kickstarts/wizard
+%define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
@@ -10,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.4
+Version: 0.6.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -50,7 +51,7 @@ Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
-Requires: cobbler >= 1.4.3
+Requires: cobbler >= 1.6.3
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel >= 1.6.0
@@ -153,7 +154,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
-Requires: cobbler >= 1.4.3
+Requires: cobbler >= 1.6.3
 Obsoletes: taskomatic < 5.3.0
 Obsoletes: taskomatic-sat < 5.3.0
 Provides: taskomatic = %{version}-%{release}
@@ -186,6 +187,8 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/classes
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdir}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirup}
 install -d -m 755 $RPM_BUILD_ROOT/%{cobprofdirwiz}
+install -d -m 755 $RPM_BUILD_ROOT/%{cobdirsnippets}
+
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/logrotate.d
 install -m 755 conf/rhn.xml $RPM_BUILD_ROOT/%{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 install -m 644 conf/default/rhn_hibernate.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default/rhn_hibernate.conf
@@ -199,8 +202,15 @@ install -m 644 build/classes/log4j.properties $RPM_BUILD_ROOT/%{_datadir}/rhn/cl
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 ln -s -f %{_javadir}/ojdbc14.jar $RPM_BUILD_ROOT%{jardir}/ojdbc14.jar
 
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%postun
+rm -f /var/lib/cobbler/snippets/spacewalk
+
+%post
+ln -s -f %{cobdirsnippets} /var/lib/cobbler/snippets/spacewalk 
 
 %post -n spacewalk-taskomatic
 # This adds the proper /etc/rc*.d links for the script
@@ -218,6 +228,7 @@ fi
 %dir %{cobprofdir}
 %dir %{cobprofdirup}
 %dir %{cobprofdirwiz}
+%dir %{cobdirsnippets}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 
@@ -238,6 +249,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon Apr 20 2009 Partha Aji <paji@redhat.com> 0.6.5-1
+- 495946 - Got a workable edition of cobbler snippets.
+
 * Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.4-1
 - 495789 - changing the way apis are logged to fall back to RootAppender if
   there is an error (jsherril@redhat.com)

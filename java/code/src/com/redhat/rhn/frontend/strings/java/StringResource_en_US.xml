@@ -1932,35 +1932,35 @@ available for this kickstart profile to function properly.
       </trans-unit>      
 
      <trans-unit id="cobblersnippet.update.success">
-        <source>Snippet updated.</source>
+        <source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Kickstart/Cobbler/CobblerSnippetCreate</context>
+          <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="cobblersnippet.create.success">    
-        <source>Cobbler Snippet created successfully.</source>
+        <source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyDelete</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="cobblersnippet.delete.success">    
-        <source>Cobbler Snippet successfully.</source>
+        <source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyDelete</context>
         </context-group>
       </trans-unit>
 
       <trans-unit id="cobbler.snippet.couldnotdelete.message">
-       <source>An error occurred when attempting to delete this snippet.</source>
+       <source>An error occurred when attempting to delete the snippet located at &lt;strong&gt;{0}&lt;/strong&gt;.</source>
          <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 
        </trans-unit> 	 
 
       <trans-unit id="cobbler.snippet.filenameexists.message">
-       <source>The requested Cobbler snippet filename already exists.</source>
+       <source>Cobbler snippet with the file name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
          <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 
@@ -1973,7 +1973,7 @@ available for this kickstart profile to function properly.
          </context-group> 	 
        </trans-unit> 	 
 
-      <trans-unit id="toolbar.delete.CobblerSnippetDelete">
+      <trans-unit id="toolbar.delete.snippets">
 <source>delete snippet</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit</context>

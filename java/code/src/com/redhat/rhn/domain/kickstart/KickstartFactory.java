@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
@@ -29,10 +30,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -378,31 +375,11 @@ public class KickstartFactory extends HibernateFactory {
         else {
             log.debug("No ks meta for this profile.");
         }
-        try {
-            String path = ksdataIn.getCobblerFileName();
-            if (p != null && p.getKickstart() != null) { 
-                path = p.getKickstart();
-            }
-            File ksfile = new File(path);
-            if (ksfile.exists()) {
-                log.debug("file exists, deleting");
-                ksfile.delete();
-            }
-            ksfile.createNewFile();
-            Writer output = new BufferedWriter(new FileWriter(ksfile));
-            try {
-              output.write(fileData);
-            }
-            finally {
-              output.close();
-            }
-            log.debug("done writing file.");
-        } 
-        catch (Exception e) {
-            log.error("Error trying to write KS file to disk: [" + 
-                    ksdataIn.getLabel() + "]", e);
-            throw new RuntimeException(e);
+        String path = ksdataIn.getCobblerFileName();
+        if (p != null && p.getKickstart() != null) { 
+            path = p.getKickstart();
         }
+        FileUtils.writeStringToFile(fileData, path);
     } 
     
     /**

@@ -172,6 +172,8 @@ public class Config {
     public static final String DEFAULT_PAGE_SIZE = "web.default_page_size";
 
     public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir"; 
+    public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
+    private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
     /**
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.
@@ -756,5 +758,18 @@ public class Config {
     public String getKickstartConfigDir() {
         return Config.get().getString(KICKSTART_COBBLER_DIR,
                                             "/var/lib/rhn/kickstarts/");
+    }
+    
+    /**
+     * Returns the directory which hosts all the 
+     * org specific cobbler snippets files.. 
+     * All the snippet files that have been generated
+     * by spacewalk will be at
+     * /var/lib/cobbler/snippets 
+     *
+     * @return the dir which has the kickstarts cobbler snippets
+     */
+    public String getCobblerSnippetsDir() {
+        return Config.get().getString(COBBLER_SNIPPETS_DIR, DEFAULT_COBBLER_SNIPPET_DIR);
     }
 }

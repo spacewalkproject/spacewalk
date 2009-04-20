@@ -1,0 +1,138 @@
+/**
+ * Copyright (c) 2009 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ *
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation.
+ */
+package com.redhat.rhn.frontend.action.kickstart.cobbler;
+
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
+import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+ * CobblerSnippetDetailsAction
+ * @version $Rev$
+ */
+public class CobblerSnippetDetailsAction extends RhnAction {
+    private static final Logger LOG = 
+                Logger.getLogger(CobblerSnippetDetailsAction.class);
+    public static final String PREFIX = "prefix";
+    public static final String NAME = "name";
+    public static final String CONTENTS = "contents";
+    public static final String CREATE_MODE = "create_mode";
+    
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                  ActionForm formIn,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+        DynaActionForm form = (DynaActionForm) formIn;
+        RequestContext ctx = new RequestContext(request);
+        
+        request.setAttribute(mapping.getParameter(), Boolean.TRUE);
+        
+        if (ctx.isSubmitted()) {
+            try {
+                CobblerSnippet snip = submit(request, form);
+                if (isCreateMode(request)) {
+                    createSuccessMessage(request, 
+                            "cobblersnippet.create.success", snip.getName());
+                }
+                else {
+                    createSuccessMessage(request, 
+                            "cobblersnippet.update.success", snip.getName());
+                }
+                
+                request.removeAttribute(CREATE_MODE);
+                setupSnippet(request, form, snip);
+                return getStrutsDelegate().forwardParam(mapping.findForward("success"),
+                                    NAME, snip.getName());
+            }
+            catch (ValidatorException ve) {
+                getStrutsDelegate().saveMessages(request, ve.getResult());
+                RhnValidationHelper.setFailedValidation(request);
+            }
+        }
+        setup(request, form);    
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    
+    private boolean isCreateMode(HttpServletRequest request) {
+        return Boolean.TRUE.equals(request.getAttribute(CREATE_MODE));
+    }
+    
+    
+    private void setup(HttpServletRequest request, DynaActionForm form) {
+        RequestContext context = new RequestContext(request);
+        if (isCreateMode(request)) {
+            request.setAttribute(PREFIX, CobblerSnippet.getPrefixFor(
+                            context.getLoggedInUser().getOrg()));
+        }
+        else {
+            CobblerSnippet snip = getSnippet(request);
+            setupSnippet(request, form, snip);
+        }
+    }
+
+    /**
+     * Helper method to get a cobbler snippet.. This code is in this 
+     * action because we need it to throw a "BadParameterException" 
+     * if the set up complains... Also it gets info from the request object
+     * so this is the right place...
+     * @param request  the request
+     * @return the cobbler snippet parameter "name"
+     */
+    public static CobblerSnippet getSnippet(HttpServletRequest request) {
+        RequestContext context = new RequestContext(request);
+        try {
+            String name = context.getParam(NAME, true);
+            return  CobblerSnippet.loadEditable(name, 
+                        context.getLoggedInUser().getOrg());
+        }
+        catch (ValidatorException ve) {
+            LOG.error(ve);
+            throw new BadParameterException(
+                    "The parameter " + NAME + " is required.");
+        }        
+    }
+
+    private void setupSnippet(HttpServletRequest request, DynaActionForm form,
+            CobblerSnippet snip) {
+        request.setAttribute(PREFIX, snip.getPrefix());
+        form.set(NAME, snip.getName());
+        form.set(CONTENTS, snip.getContents());
+    }
+    
+    private CobblerSnippet submit(HttpServletRequest request, DynaActionForm form) {
+        RequestContext context = new RequestContext(request);
+        return CobblerSnippet.createOrUpdate(
+                isCreateMode(request),
+                form.getString(NAME),
+                form.getString(CONTENTS), 
+                context.getLoggedInUser().getOrg());
+    }
+}
