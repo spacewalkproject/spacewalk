@@ -35,6 +35,7 @@ class="navPipe">|</span><a href="/rhn/Logout.do"><span>Sign Out</span></a>
 
       <option value="packages">Packages</option>
       <option value="errata">Errata</option>
+      <option value="docs">Documentation</option>
       </select><input type="text" name="search_string" maxlength="40"
 size="20" />
 
