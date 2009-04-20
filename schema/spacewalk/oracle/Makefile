@@ -46,12 +46,20 @@ ifndef SQLUSER
 SQLUSER := spacewalk/spacewalk@xe
 endif
 
-DOGCHOW := dogchow -FH ../header.txt -s oracle -M $(TBS)
+DOGCHOW := dogchow -FH ../header.txt -s oracle
 DIRS    := class types tables procs packages views triggers data
 GENMAIN := ../../util/genmain -s oracle  $(DIRS)
+REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
+TMPMAIN := /tmp/main.sql
+
 
 main : clean tables views data
 	$(GENMAIN)
+
+devel : clean tables views data
+	$(GENMAIN)
+	$(REPLTBS) main.sql > $(TMPMAIN)
+	cp $(TMPMAIN) main.sql
 
 tables : FORCE
 	mkdir -p tables/common

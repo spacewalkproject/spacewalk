@@ -42,6 +42,9 @@ GENMAIN := ../../util/genmain -s postgres $(DIRS)
 main : clean tables views data
 	$(GENMAIN)
 
+devel: clean tables views data
+	$(GENMAIN)
+
 tables : FORCE
 	mkdir -p tables/common
 	cp ../common/tables/*.deps tables/common

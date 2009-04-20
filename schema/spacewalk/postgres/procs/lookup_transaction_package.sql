@@ -95,6 +95,7 @@ BEGIN
         as f(retcode numeric);
 
         RETURN ret_val;
-END; $$ language plpgsql
+END;
+$$ language plpgsql;
 
 

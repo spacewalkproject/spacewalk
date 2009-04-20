@@ -274,8 +274,25 @@ class Reader:
 
 class Writer:
     
+    comment = """
+\n--------------------------------------------------------------------------------
+-- Source: %s
+--------------------------------------------------------------------------------\n
+    """
+    
+    def __init__(self, aggregated=True):
+        self.aggregated = aggregated
+    
     def write(self, sorted, output):
-        raise Exception('not-implemented')
+        self.start(output)
+        for p in sorted:
+            f = open(p)
+            output.write(self.comment % p)
+            for line in f.readlines():
+                if line.startswith('--'):
+                    continue
+                output.write(line)
+            f.close()
     
     def start(self, output):
         if os.path.exists('start.sql'):
@@ -288,6 +305,9 @@ class Writer:
 class Oracle(Writer):
     
     def write(self, sorted, output):
+        if self.aggregated:
+            Writer.write(self, sorted, output)
+            return
         self.start(output)
         for p in sorted:
             entry = '@%s' % p
@@ -298,6 +318,9 @@ class Oracle(Writer):
 class Postgres(Writer):
 
     def write(self, sorted, output):
+        if self.aggregated:
+            Writer.write(self, sorted, output)
+            return
         self.start(output)
         for p in sorted:
             entry = '\\i %s' % p
@@ -393,27 +416,23 @@ def generate(path, reader, writer, output, directories):
     sorted = reader.sort()
     overrides = reader.overrides
     print '\nOVERRIDES (%d):' % len(overrides)
-    print '_____________________________________________________'
     for entry in overrides:
-        print '"%s" overridden by "%s"' % entry
+        print '\t"%s" overridden by "%s"' % entry
     unused = \
         [x for x in reader.deptab.content if x.hits == 0]
     print '\nUNUSED RULES (%d):' % len(unused)
-    print '_____________________________________________________'
     for entry in unused:
         if entry.hits == 0:
-            print '%s @%s' % (entry.subject,entry.info)
+            print '\t%s @%s' % (entry.subject,entry.info)
     unfound = reader.deplist.unfound
     print '\nUNFOUND (rule) REFERENCES (%d):' % len(unfound)
-    print '_____________________________________________________'
     for unf in unfound:
-        print '"%s" @%s' % unf
+        print '\t"%s" @%s' % unf
     if verbose:
         ln = 1
         print '\n\nFILES (%d):' % len(sorted)
-        print '_____________________________________________________'
         for p in sorted:
-            print '%d %s' % (ln, p)
+            print '\t%d %s' % (ln, p)
             ln += 1
     writer.write(sorted, out)
     out.close() 
