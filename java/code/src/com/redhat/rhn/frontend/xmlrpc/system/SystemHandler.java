@@ -166,6 +166,8 @@ public class SystemHandler extends BaseHandler {
         ActivationKey key = ActivationKeyManager.getInstance().
                     createNewReActivationKey(loggedInUser, server, note);
 
+        key.setUsageLimit(new Long(1));
+
         // Return the "key" for this activation key :-/
         return key.getKey();
     }
