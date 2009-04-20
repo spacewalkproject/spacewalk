@@ -29,12 +29,12 @@ import org.apache.log4j.varia.FallbackErrorHandler;
  * FailbackAppender
  * @version $Rev$
  */
-public class FailbackAppender extends FileAppender {
+public class FallbackAppender extends FileAppender {
 
     /**
      * Constructor
      */
-    public FailbackAppender() {
+    public FallbackAppender() {
         ErrorHandler fb = new FallbackErrorHandler();
         this.setErrorHandler(fb);
         fb.setAppender(this);
