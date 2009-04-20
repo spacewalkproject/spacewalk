@@ -34,6 +34,7 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
     private File path;
     private Org org;
     
+    
     /**
      * Method to return the main cobbler snippets dir
      * (i.e. /var/lib/cobbler/snippets) .. Reason this is
@@ -41,8 +42,9 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      * changeable for unit tests..
      * @return the cobbler snippets dir
      */
-    public static String getCobblerSnippetsDir() {
-        return Config.get().getCobblerSnippetsDir();
+    public static File getCobblerSnippetsDir() {
+        File fl = new File(Config.get().getCobblerSnippetsDir());
+        return fl;
     }
 
     /**
@@ -53,12 +55,8 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      * changeable for unit tests..
      * @return the spacewalk snippets dir
      */
-    public static String getSpacewalkSnippetsDir() {
-        String snipDir = getCobblerSnippetsDir();
-        if (snipDir.endsWith("/")) {
-            return getCobblerSnippetsDir() + "spacewalk";   
-        }
-        return getCobblerSnippetsDir() + "/spacewalk";
+    public static File getSpacewalkSnippetsDir() {
+        return new File(getCobblerSnippetsDir(), "spacewalk");
     }
     
     /**
@@ -219,9 +217,9 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      */
     public static String getPrefixFor(Org org) {
         if (org == null) {
-            return getCobblerSnippetsDir();
+            return getCobblerSnippetsDir().getAbsolutePath();
         }
-        return getSpacewalkSnippetsDir() + "/" + org.getId();
+        return getSpacewalkSnippetsDir().getAbsolutePath() + "/" + org.getId();
     }
 
     private static void validateFileName(String name) {
@@ -241,8 +239,10 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
     }
     
     private static boolean isCommonPath(File path) {
-        return !path.getAbsolutePath().startsWith(getSpacewalkSnippetsDir()) && 
-                    path.getAbsolutePath().startsWith(getCobblerSnippetsDir()); 
+        return !path.getAbsolutePath().startsWith(
+                        getSpacewalkSnippetsDir().getAbsolutePath()) && 
+                    path.getAbsolutePath().
+                            startsWith(getCobblerSnippetsDir().getAbsolutePath()); 
     }
     
     private void verifyEditable() {

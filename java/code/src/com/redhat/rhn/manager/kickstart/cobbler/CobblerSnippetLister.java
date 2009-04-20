@@ -56,7 +56,8 @@ public class CobblerSnippetLister extends BaseManager {
     private void loadReadOnlySnippets(File path, 
                     List<CobblerSnippet> snippetFiles) {
         if (path.exists() && !path.isHidden()) {
-            final String spacewalkSnippetsDir = CobblerSnippet.getSpacewalkSnippetsDir();
+            final String spacewalkSnippetsDir = CobblerSnippet.
+                        getSpacewalkSnippetsDir().getAbsolutePath();
             if (!path.getAbsolutePath().startsWith(spacewalkSnippetsDir)) {
                 if (path.isDirectory()) {
                     String[] children = path.list();
@@ -83,7 +84,7 @@ public class CobblerSnippetLister extends BaseManager {
         }
         
         List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
-        loadReadOnlySnippets(new File(CobblerSnippet.getCobblerSnippetsDir()),
+        loadReadOnlySnippets(CobblerSnippet.getCobblerSnippetsDir(),
                                                             snippetFiles);
         File spacewalkDir = new File(CobblerSnippet.getPrefixFor(user.getOrg()));
         
