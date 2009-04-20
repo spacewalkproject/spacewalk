@@ -539,7 +539,7 @@ SELECT  DISTINCT SP.server_id id,
         rhnPackageArch PA
  WHERE  SP.server_id IN (%s)
    AND  SP.name_id = PN.id
-   AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
+   AND  PN.id || '|' || PE.id || '|' || PA.id IN (SELECT element || '|' || element_two || '|' || element_three FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
    AND  SP.evr_id = PE.id
    AND  SP.package_arch_id = PA.id
    </elaborator>
