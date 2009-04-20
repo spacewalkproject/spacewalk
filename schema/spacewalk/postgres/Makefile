@@ -37,10 +37,11 @@ endif
 
 DOGCHOW := dogchow -FH ../header.txt -s postgres -O best
 DIRS    := class types tables procs packages views triggers data
-GENMAIN := ../../util/genmain -s postgres $(DIRS)
+GENMAIN := ../genmain -s postgres $(DIRS)
 
 main : clean tables views data
 	$(GENMAIN)
+	cp main.sql ../postgres.sql
 
 devel: clean tables views data
 	$(GENMAIN)

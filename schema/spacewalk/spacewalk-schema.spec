@@ -15,7 +15,6 @@ Obsoletes:      rhn-satellite-schema <= 5.1.0
 
 
 %define rhnroot /etc/sysconfig/rhn/
-%define universe universe.satellite.sql
 
 %description
 rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
@@ -26,16 +25,14 @@ Oracle tablespace name conversions have NOT been applied.
 %setup -q
 
 %build
-make -f Makefile.schema \
-  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=%{version} RELEASE=%{release} \
-  all
+make -f Makefile.schema
 pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
-
+install -m 0755 -d oracle.sql $RPM_BUILD_ROOT%{rhnroot}
+install -m 0755 -d postgres.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade

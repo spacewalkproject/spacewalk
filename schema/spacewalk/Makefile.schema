@@ -1,195 +1,27 @@
-# This file includes the sql file handling rules and functions needed
-# to generate various universe.sql files
 #
-# $Id$
+# Process the .pre files
+# Then, build the oracle and postgres schemas
+#
 
-# safety rule in case we're included before any other universes are defined
-UNIVERSE?= no-universe
+PRE_FILES  := $(shell find . -name \*.pre)
+POST_FILES := $(addsuffix .sql,$(basename $(PRE_FILES)))
 
-all :: $(UNIVERSE) 
-all :: $(if $(filter-out satellite, $(SCHEMA)), $(UNIVERSE)-synonyms)
+all : $(POST_FILES) oracle postgres
 
-# eliminate empty lines and comments from sql file
-define print-sql-file
-{ \
-    echo "select '$(1)' sql_file from dual;" ; \
-    echo "-- SQL relevant contents from file $(1)" ; \
-    cat $(1) | sed -e 's/^[[:space:]]*--.*$$//' | awk '/^[ \t]*$$/ { next; } { print; }' ; \
-    echo ; \
-} >> $(UNIVERSE).tmp
-endef
+oracle postgres : FORCE
+	$(MAKE) -C $@ -f Makefile
 
-define print-syn-file
-{ \
-    echo "select '$(1)' sql_file from dual;" ; \
-    echo "-- SQL relevant contents from file $(1)" ; \
-    cat $(1) | sed -e 's/^[[:space:]]*--.*$$//' | awk '/^[ \t]*$$/ { next; } { print; }' ; \
-    echo ; \
-} >> $(UNIVERSE)-synonyms.tmp
-endef
+clean : FORCE
+	echo rm -f $(POST_FILES)
 
-# check if we need to include a SQL file
-check-sql-file = $(shell egrep -i \
-	'^--[[:space:]]*EXCLUDE:[[:space:]]*(all|$(SCHEMA))' \
-	$(file) >/dev/null 2>&1 || echo $(file))
-
-# how to get sql files
-define get-sql-files
-$(wildcard $(TOP)/rhnsat/synonyms/*.sql) \
-$(wildcard $(TOP)/rhnsat/types/*.sql) \
-$(wildcard $(TOP)/rhnsat/tables/*.sql) \
-$(wildcard $(TOP)/rhnsat/class/*.sql) \
-$(wildcard $(TOP)/rhnsat/views/*.sql) \
-$(wildcard $(TOP)/rhnsat/procs/*.sql)
-endef
-# how do we get the package files
-define get-package-headers
-$(wildcard $(TOP)/rhnsat/packages/*.pks)
-endef
-define get-package-bodies
-$(wildcard $(TOP)/rhnsat/packages/*.pkb)
-endef
-# how to get the files that need preprocessing
-define get-pre-files
-$(wildcard $(TOP)/rhnsat/tables/*.pre)
-endef
-
-# LIST SQL FILES
-# 
-# XXX: this makes the Makefile initialization take a long time, but
-# optimizing it would only make this Makefile even more complex
-ALL_SQL_FILES	:= $(get-sql-files)
-SQL_FILES	:= $(filter-out %_synonyms.sql, $(ALL_SQL_FILES))
-SQL_FILES	:= $(foreach file,$(SQL_FILES),$(check-sql-file))
-SQL_OBJECTS	:= $(basename $(notdir $(SQL_FILES)))
-SYN_FILES	:= $(filter %_synonyms.sql, $(ALL_SQL_FILES))
-SYN_FILES	:= $(foreach file,$(SYN_FILES),$(check-sql-file))
-SYN_OBJECTS	:= $(basename $(notdir $(SYN_FILES)))
-# packages are a little bit special
-ALL_PKG_HEADERS := $(get-package-headers)
-PKG_HEADERS	:= $(foreach file,$(ALL_PKG_HEADERS), $(check-sql-file))
-PKG_HEAD_TMP	:= $(basename $(notdir $(PKG_HEADERS)))
-PKG_HEADER_OBJS := $(sort $(foreach file,$(PKG_HEAD_TMP),$(file)_HEAD))
-ALL_PKG_BODIES	:= $(get-package-bodies)
-PKG_BODIES	:= $(foreach file,$(ALL_PKG_BODIES),$(check-sql-file))
-PKG_BODY_OBJS	:= $(sort $(basename $(notdir $(PKG_BODIES))))
-# SQL files that need preprocessing are nasty and special
-# PRE_OBJECTS are e.g. "rhnVersionInfo_data", but we generate
-# rhnVersionInfo.sql from the .pre; this is we can have a .sql file
-# to give to the upgrade scripts
-ALL_PRE_FILES	:= $(get-pre-files)
-PRE_FILES_TMP	:= $(addsuffix .sql,$(basename $(ALL_PRE_FILES)))
-PRE_FILES	:= $(foreach file,$(PRE_FILES_TMP),$(check-sql-file))
-PRE_OBJECTS	:= $(basename $(notdir $(PRE_FILES)))
-
-# Now the main targets
-no-universe ::
-	@echo "Apparently you don't know what you're doing..."
-	@exit -1
-
-$(UNIVERSE) :: $(TOP)/rhnsat/start.sql $(PKG_HEADER_OBJS) $(SQL_OBJECTS) $(PKG_BODY_OBJS) $(PRE_OBJECTS) $(TOP)/rhnsat/quit.sql
-	@mv $(UNIVERSE).tmp $(UNIVERSE)
-	@echo "$@ finished building"
-
-$(UNIVERSE)-synonyms :: syn_start $(SYN_OBJECTS) syn_end
-	@mv $(UNIVERSE)-synonyms.tmp $(UNIVERSE)-synonyms
-	@echo "$@ finished building"
-
-clean ::
-	@rm -fv $(UNIVERSE) $(UNIVERSE).tmp .build/*.sql
-	@rm -fv $(UNIVERSE)-synonyms $(UNIVERSE)-synonyms.tmp
-	@rm -fv $(PRE_FILES_TMP)
-
-# DEPENDENCIES - import them all
-include $(TOP)/rhnsat/synonyms/Makefile.deps
-include $(TOP)/rhnsat/types/Makefile.deps
-include $(TOP)/rhnsat/tables/Makefile.deps
-include $(TOP)/rhnsat/class/Makefile.deps
-include $(TOP)/rhnsat/views/Makefile.deps
-include $(TOP)/rhnsat/procs/Makefile.deps
-include $(TOP)/rhnsat/packages/Makefile.deps
-
-# STATIC PATTERN RULES
-# -- they rule
-
-# We have to have the SQL objects rules before the file rules...
-$(filter %_data, $(SQL_OBJECTS))	:: %_data	 : %
-$(filter %_satdata, $(SQL_OBJECTS))	:: %_satdata	 : %
-$(filter %_grants, $(SQL_OBJECTS))	:: %_grants	 : %
-$(filter %_indexes, $(SQL_OBJECTS))     :: %_indexes     : %
-$(filter %_triggers, $(SQL_OBJECTS))    :: %_triggers    : %
-$(filter %_sequences, $(SQL_OBJECTS))   :: %_sequences   : %
-$(filter %_constraints, $(SQL_OBJECTS)) :: %_constraints : %
-
-$(filter %_synonyms, $(SYN_OBJECTS))	:: %_synonyms	 : 
-
-# Just like above, but for the PRE ones.  Add as needed.
-$(filter %_data, $(PRE_OBJECTS))	:: %_data	 : %
-$(filter %_satdata, $(PRE_OBJECTS))	:: %_satdata	 : %
-
-# Cardinal rule that links an object to its file - one of these rules
-# will match one of the objects needed to build the target
-$(basename $(notdir $(filter $(TOP)/rhnsat/synonyms/%,$(SQL_FILES)))) :: % : $(TOP)/rhnsat/synonyms/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/types/%,$(SQL_FILES)))) :: % : $(TOP)/rhnsat/types/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/tables/%,$(SQL_FILES)))) :: % : $(TOP)/rhnsat/tables/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/views/%, $(SQL_FILES)))) :: % : $(TOP)/rhnsat/views/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/class/%, $(SQL_FILES)))) :: % : $(TOP)/rhnsat/class/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/procs/%, $(SQL_FILES)))) :: % : $(TOP)/rhnsat/procs/%.sql
-
-$(basename $(notdir $(filter $(TOP)/rhnsat/synonyms/%, $(SYN_FILES)))) :: % : $(TOP)/rhnsat/synonyms/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/types/%, $(SYN_FILES)))) :: % : $(TOP)/rhnsat/types/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/tables/%, $(SYN_FILES)))) :: % : $(TOP)/rhnsat/tables/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/views/%, $(SYN_FILES)))) :: % : $(TOP)/rhnsat/views/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/class/%, $(SYN_FILES)))) :: % : $(TOP)/rhnsat/class/%.sql
-$(basename $(notdir $(filter $(TOP)/rhnsat/procs/%, $(SYN_FILES)))) :: % : $(TOP)/rhnsat/procs/%.sql
-
-$(PKG_HEADER_OBJS) :: %_HEAD : $(TOP)/rhnsat/packages/%.pks
-
-$(PKG_BODY_OBJS) :: % : $(TOP)/rhnsat/packages/%.pks $(TOP)/rhnsat/packages/%.pkb
-
-# for .pre files, generate a .sql from the .pre, then satisfy the dep with
-# the .sql
-$(PRE_FILES) :: %.sql : %.pre
+%.sql : %.pre
 	@{ \
-		echo "select '$(1)' sql_file from dual;" ; \
-		echo "-- preprocessed SQL contents from $(1)" ; \
-		cpp	-D SCHEMA_NAME=\'$(SCHEMA)\' \
-			-D SCHEMA_VERSION=\'$(VERSION)\' \
-			-D SCHEMA_RELEASE=\'$(RELEASE)\' \
-			-P -o - $< ; \
+		cpp -D SCHEMA_NAME=\'$(SCHEMA)\' \
+		-D SCHEMA_VERSION=\'$(VERSION)\' \
+		-D SCHEMA_RELEASE=\'$(RELEASE)\' \
+		-P -o - $< ; \
 		echo ; \
 	} > $@
 
-$(basename $(notdir $(filter $(TOP)/rhnsat/tables/%, $(PRE_FILES)))) :: % : $(TOP)/rhnsat/tables/%.sql
+FORCE:
 
-# this makes sure the package definitions are always built before
-# their bodies
-$(filter %.pkb, $(PKG_BODIES)) :: %.pkb : %.pks
-
-# the king rule for SQL files...
-$(TOP)/rhnsat/start.sql $(PKG_HEADERS) $(SQL_FILES) $(PKG_BODIES) $(PRE_FILES) $(TOP)/rhnsat/quit.sql ::
-	@echo $@
-	@$(call print-sql-file,$@)
-
-# syn files get their own rule, or else we need to make print-sql-file take a "which file" arg
-syn_start :
-	@echo $@
-	@$(call print-syn-file,$(TOP)/rhnsat/start.sql)
-
-syn_end :
-	@echo $@
-	@$(call print-syn-file,$(TOP)/rhnsat/quit.sql)
-
-$(SYN_FILES) ::
-	@echo $@
-	@$(call print-syn-file,$@)
-
-# just to be pedantic
-.PHONY:: all clean no-universe
-
-# objects are not real targets
-.PHONY:: $(SQL_OBJECTS) $(PKG_HEADER_OBJS) $(PKG_BODY_OBJS) $(PRE_OBJECTS) $(SYN_OBJECTS)
-# make sure we declare ALL SQL files as phony targets so we can raise
-# dependency errors if somebody gets overzealous excluding files from
-# a certain target
-.PHONY:: $(ALL_SQL_FILES) $(ALL_PKG_HEADERS) $(ALL_PKG_BODIES) $(ALL_PRE_FILES)

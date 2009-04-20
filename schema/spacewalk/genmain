@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the (LGPL) GNU Lesser General Public License as
-# published by the Free Software Foundation; either version 3 of the 
+# published by the Free Software Foundation; either version 3 of the
 # License, or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -24,7 +24,7 @@ verbose = False
 #
 
 class Name:
-    
+
     @classmethod
     def qualify(cls, nss, fn):
         names = []
@@ -39,7 +39,7 @@ class Name:
                 name = '%s/%s' % (ns, bn)
                 names.append(name)
         return tuple(names)
-    
+
     @classmethod
     def basenames(cls, fn):
         names = [fn]
@@ -53,18 +53,18 @@ class Name:
     @classmethod
     def qualified(cls, name):
         return ( '/' in name )
-    
+
     @classmethod
     def unqualified(cls, name):
         return ( not cls.qualified(name) )
-    
-    
+
+
 class DepTab:
-    
+
     class Options(object):
         def __setitem__(self, k, v):
             setattr(self, k, v)
-    
+
     class Entry:
         def __init__(self, tab, info, subject):
             self.tab = tab
@@ -72,11 +72,11 @@ class DepTab:
             self.subject = subject
             self.deps = ()
             self.hits = 0
-            
+
         def __iter__(self):
             expanded = self.expanded([])
             return iter(expanded)
-        
+
         def expanded(self, history):
             deps = []
             for keyset in self.deps:
@@ -85,8 +85,8 @@ class DepTab:
                     deps.append(tuple(keyset))
                 deps += expanded
             return deps
-            
-            
+
+
         def __repr__(self):
             s = []
             s.append(self.subject)
@@ -96,15 +96,15 @@ class DepTab:
             s.append(self.info)
             s.append('/%d' % self.hits)
             return ''.join(s)
-        
+
     pattern = re.compile('[,\s]+')
-            
+
     def __init__(self):
         self.content = []
         self.index = {}
         self.options = self.Options()
         self.aliases = None
-        
+
     def read(self, ns, path):
         fp = open(path)
         self.options.path = (ns,)
@@ -132,7 +132,7 @@ class DepTab:
             for key in Name.qualify(ns, subject):
                 self.index[key] = entry
         fp.close()
-        
+
     def setoption(self, ns, line):
         parts = line.split('=', 1)
         if len(parts) == 2:
@@ -146,10 +146,10 @@ class DepTab:
                 self.options[tag] = values
                 return True
         return False
-    
+
     def values(self, line):
         return self.pattern.split(line.strip())
-    
+
     def lines(self, fp):
         ln = 0
         lines = []
@@ -165,9 +165,9 @@ class DepTab:
                 joined = ' '.join((last, line))
                 lines.append((ln, joined))
             else:
-                lines.append((ln, line)) 
+                lines.append((ln, line))
         return lines
-    
+
     def find(self, ns, fn):
         result = ()
         for key in Name.qualify(ns, fn):
@@ -178,7 +178,7 @@ class DepTab:
             result = entry
             break
         return result
-    
+
     def expand(self, keyset, history):
         result = ([],[])
         for key in keyset:
@@ -196,7 +196,7 @@ class DepTab:
         if len(result[1]):
             result = ([], result[1])
         return result
-            
+
     def findaliases(self):
         self.aliases = {}
         for s,e in self.index.items():
@@ -205,31 +205,31 @@ class DepTab:
         return self
 
 class Reader:
-    
+
     EXT = ['sql', 'pks', 'pkb']
-    
+
     def __init__(self):
         self.deptab = DepTab()
         self.deplist = DepList()
         self.overrides = []
-        
+
     def read(self, directories):
         self.opendeptabs(directories)
         self.getfiles(directories)
         self.deptab.findaliases()
         return self
-        
+
     def sort(self):
         sorted = self.deplist.sort()
         return [x[2] for x in sorted]
-        
+
 
     def opendeptabs(self, directories):
         for d in directories:
             for fn, path in self.files(d, ('deps',)):
                 self.deptab.read(d, path)
         return self
-        
+
     def getfiles(self, directories):
         for d in directories:
             for fn, path in self.files(d, self.EXT):
@@ -242,10 +242,10 @@ class Reader:
                 pk = found[2]
                 self.overrides.append((path, pk))
         return self
-    
+
     def path(self, d, fn):
         return '%s/%s' % (d, fn)
-        
+
     def fsort(self, a, b):
         try:
             A = a.rsplit('.', 1)
@@ -269,20 +269,20 @@ class Reader:
                 if parts[1] in extensions:
                     path = self.path(n[0], fn)
                     files.append((fn, path))
-        return files        
+        return files
 
 
 class Writer:
-    
+
     comment = """
 \n--------------------------------------------------------------------------------
 -- Source: %s
---------------------------------------------------------------------------------\n
+--------------------------------------------------------------------------------
     """
-    
+
     def __init__(self, aggregated=True):
         self.aggregated = aggregated
-    
+
     def write(self, sorted, output):
         self.start(output)
         for p in sorted:
@@ -293,7 +293,7 @@ class Writer:
                     continue
                 output.write(line)
             f.close()
-    
+
     def start(self, output):
         if os.path.exists('start.sql'):
             f = open('start.sql')
@@ -303,7 +303,7 @@ class Writer:
 
 
 class Oracle(Writer):
-    
+
     def write(self, sorted, output):
         if self.aggregated:
             Writer.write(self, sorted, output)
@@ -328,7 +328,7 @@ class Postgres(Writer):
             output.write(entry)
 
 
-    
+
 class DepList:
 
     def __init__(self):
@@ -336,13 +336,13 @@ class DepList:
         self.unsorted = []
         self.index = {}
         self.reset()
-        
+
     def reset(self):
         self.stack = []
         self.pushed = set()
         self.sorted = []
         self.unfound = []
-        
+
     def add(self, keys, deps, *payload):
         item = [keys, deps]
         item += payload
@@ -351,12 +351,12 @@ class DepList:
         for key in keys:
             self.index[key] = item
         return self
-        
+
     def sort(self):
         self.reset()
         for item in self.unsorted:
             popped = []
-            self.push(item)            
+            self.push(item)
             while len(self.stack):
                 try:
                     top = self.top()
@@ -374,7 +374,7 @@ class DepList:
                 self.sorted.append(p)
         self.unsorted = self.sorted
         return self.sorted
-    
+
     def find(self, key):
         if not isinstance(key, (tuple,list)):
             key = (key,)
@@ -386,21 +386,21 @@ class DepList:
 
     def top(self):
         return self.stack[-1]
-    
+
     def push(self, item):
         if item in self.pushed:
             return
         frame = (item, iter(item[1]))
         self.stack.append(frame)
         self.pushed.add(item)
-    
+
     def pop(self):
         try:
             frame = self.stack.pop()
             return frame[0]
         except:
             pass
-    
+
 #
 # FUNCTIONS
 #
@@ -435,8 +435,8 @@ def generate(path, reader, writer, output, directories):
             print '\t%d %s' % (ln, p)
             ln += 1
     writer.write(sorted, out)
-    out.close() 
-    
+    out.close()
+
 def usage():
     s = []
     s.append('Usage mkmain: [OPTIONS]')
@@ -457,7 +457,7 @@ def main(argv):
     path = '.'
     global verbose
     reader = Reader()
-    writer = Oracle()             
+    writer = Oracle()
     output = 'main.sql'
     flags = 'vhd:o:s:'
     keywords = [
@@ -467,7 +467,7 @@ def main(argv):
         '--output',
         '--style',
     ]
-    try:          
+    try:
         opts, args = getopt(argv, flags, keywords)
         for opt, arg in opts:
             if opt in ('-h', '--help'):
@@ -490,7 +490,7 @@ def main(argv):
                     writer = Postgres()
                     continue
                 raise Exception('style "%s" not valid' % arg)
-        generate(path, reader, writer, output, args)          
+        generate(path, reader, writer, output, args)
     except GetoptError, e:
         print e
         usage()
@@ -498,4 +498,4 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
-    
+

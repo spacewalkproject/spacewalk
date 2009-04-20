@@ -48,13 +48,14 @@ endif
 
 DOGCHOW := dogchow -FH ../header.txt -s oracle
 DIRS    := class types tables procs packages views triggers data
-GENMAIN := ../../util/genmain -s oracle  $(DIRS)
+GENMAIN := ../genmain -s oracle  $(DIRS)
 REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
 TMPMAIN := /tmp/main.sql
 
 
 main : clean tables views data
 	$(GENMAIN)
+	cp main.sql ../oracle.sql
 
 devel : clean tables views data
 	$(GENMAIN)
