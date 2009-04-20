@@ -10,22 +10,17 @@
  *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
 package com.redhat.rhn.common;
 
 import com.redhat.rhn.frontend.xmlrpc.LoggingInvocationProcessor;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Appender;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.ErrorHandler;
 import org.apache.log4j.varia.FallbackErrorHandler;
-
-import java.io.File;
-import java.util.logging.LogManager;
 
 /**
  * Simple api log appender that falls back to the RootAppender (console)
