@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.5
+Version: 	  2.208.6
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plugins
 URL:          https://fedorahosted.org/spacewalk
@@ -60,6 +60,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Apr 16 2009 Tomas Lestach <tlestach@redhat.com> 2.208.6-1
+- 449919 - fixing SNMP uptime information
+
 * Thu Feb  5 2009 Miroslav Suchý <msuchy@redhat.com> 2.208.5-1
 - 474279 - rewrite TNSping probe
 
