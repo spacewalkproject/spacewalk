@@ -344,6 +344,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @param sessionKey The current user's session key
      * @param key The activation key to be modified
      * @return Map representation of the activation key
+     * @since 10.2
      * 
      * @xmlrpc.doc Lookup an activation key's details.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -619,6 +620,9 @@ public class ActivationKeyHandler extends BaseHandler {
      * @param key The activation key to act upon
      * @param packageNames List of package names to be added to this activation key
      * @return 1 on success, exception thrown otherwise.
+     * @deprecated being replaced by addPackages(string sessionKey, string key,
+     * array[packages])
+     * @since 10.2
      * 
      * @xmlrpc.doc Add packages to an activation key using package name only.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -648,6 +652,9 @@ public class ActivationKeyHandler extends BaseHandler {
      * @param key The activation key to act upon
      * @param packageNames List of package names to be removed from this activation key
      * @return 1 on success, exception thrown otherwise
+     * @deprecated being replaced by removePackages(string sessionKey, string key,
+     * array[packages])
+     * @since 10.2
      * 
      * @xmlrpc.doc Remove package names from an activation key.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -766,6 +773,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * Return a list of activation key structs that are visible to the requesting user.
      * @param sessionKey The current user's session key
      * @return List of map representations of activation keys
+     * @since 10.2
      *
      * @xmlrpc.doc List activation keys that are visible to the 
      * user.
