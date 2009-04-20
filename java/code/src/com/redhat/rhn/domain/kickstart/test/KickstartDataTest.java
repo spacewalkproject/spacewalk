@@ -88,6 +88,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
         Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/");
+        Config.get().setString(Config.COBBLER_SNIPPETS_DIR, "/tmp/");
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
         createKickstartDirs();
@@ -99,7 +100,9 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
                                                  "/" + KickstartData.WIZARD_DIR));
         createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
-                                        "/" + KickstartData.RAW_DIR));        
+                                        "/" + KickstartData.RAW_DIR));
+        createDirIfNotExists(new File(Config.get().getCobblerSnippetsDir() +
+                                "/" + "spacewalk"));
     }
     
     private static void createDirIfNotExists(File dir) throws IOException {

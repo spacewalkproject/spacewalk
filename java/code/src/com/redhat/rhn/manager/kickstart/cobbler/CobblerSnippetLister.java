@@ -14,14 +14,17 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
 
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,13 +36,8 @@ public class CobblerSnippetLister extends BaseManager {
     /**
      * Logger for this class
      */
-    private static Logger logger = Logger.getLogger(CobblerSnippetLister.class);
-
-    private static CobblerSnippetLister instance = new CobblerSnippetLister();
-    private static String globalSnippetDir = "/var/lib/cobbler/snippets";
-
-    private List<CobblerSnippet> snippetFiles = new ArrayList<CobblerSnippet>();
-
+    private static final Logger LOG = Logger.getLogger(CobblerSnippetLister.class);
+    private static final CobblerSnippetLister INSTANCE = new CobblerSnippetLister();
     /**
      * Default constructor
      */
@@ -52,39 +50,51 @@ public class CobblerSnippetLister extends BaseManager {
      * @return CobblerSnippetLister instance
      */
     public static CobblerSnippetLister getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
-    private void recurseDirectory(File path) {
-        CobblerSnippet snippy = new CobblerSnippet();
-        if (path.isDirectory() && !path.isHidden()) {
-            String[] children = path.list();
-            Arrays.sort(children);
-            for (int i = 0; i < children.length; i++) {
-                recurseDirectory(new File(path, children[i]));
-            }
-        }
-        else {
-            if (!path.isHidden() && path.exists()) {
-                snippy.setName(path.toString().substring(26));
-                snippy.setContents(null);
-                snippetFiles.add(snippy);
+    private void loadReadOnlySnippets(File path, 
+                    List<CobblerSnippet> snippetFiles) {
+        if (path.exists() && !path.isHidden()) {
+            final String spacewalkSnippetsDir = CobblerSnippet.getSpacewalkSnippetsDir();
+            if (!path.getAbsolutePath().startsWith(spacewalkSnippetsDir)) {
+                if (path.isDirectory()) {
+                    String[] children = path.list();
+                    Arrays.sort(children);
+                    for (int i = 0; i < children.length; i++) {
+                        loadReadOnlySnippets(new File(path, children[i]), snippetFiles);
+                    }
+                }
+                else {
+                    snippetFiles.add(CobblerSnippet.loadReadOnly(path));    
+                }
             }
         }
     }
-
     /**
-     * Get the list of snippets 
-     * List
-     * @return List of snippets
+     * Returns a list of snippets accessible to this user
+     * @param user the user has to be atleast a 
+     * config admin to be able to access snippets. 
+     * @return the snippets accessible to the user.
      */
-    public List listSnippets() {
-        String processPath = globalSnippetDir;
-        File f = new File(processPath);
-
-        snippetFiles.clear();
-        recurseDirectory(f);
-
+    public List<CobblerSnippet> listSnippets(User user) {
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(RoleFactory.CONFIG_ADMIN);
+        }
+        
+        List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
+        loadReadOnlySnippets(new File(CobblerSnippet.getCobblerSnippetsDir()),
+                                                            snippetFiles);
+        File spacewalkDir = new File(CobblerSnippet.getPrefixFor(user.getOrg()));
+        
+        if (spacewalkDir.exists() && spacewalkDir.isDirectory()) {
+            for (File file : spacewalkDir.listFiles()) {
+                if (!file.isHidden() && file.isFile()) {
+                    snippetFiles.add(CobblerSnippet.loadEditable(file.getName(),
+                                                            user.getOrg()));
+                }
+            }
+        }
         return snippetFiles;
     }
 

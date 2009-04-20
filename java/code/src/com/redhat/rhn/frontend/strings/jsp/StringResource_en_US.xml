@@ -10410,7 +10410,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.tip1">
-        <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; Avoid spaces in the snippet name.&lt;/span&gt;</source>
+        <source>Avoid spaces in the snippet name.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
         </context-group>

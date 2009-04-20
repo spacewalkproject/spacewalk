@@ -796,7 +796,6 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="name" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
-            <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
         <form-bean name="cobblerSnippetDeleteForm"
@@ -4886,7 +4885,7 @@
         input="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(org_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"/>
     </action>
@@ -4895,35 +4894,52 @@
         scope="request"
         validate="false"
         name="cobblerSnippetsForm"
+        parameter="create_mode"
         input="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetCreateAction">
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
         <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetList.do"
-                 redirect="true"
+                 path="/kickstart/cobbler/CobblerSnippetEdit.do"
                  />
     </action>
     
     <action path="/kickstart/cobbler/CobblerSnippetEdit"
         scope="request"
         name="cobblerSnippetsForm"
-        input="/WEB-INF/pages/kickstart/cobbler/snippetedit.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetEditAction">
+        input="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"
+        parameter="edit_mode"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/snippetedit.jsp"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
         <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetList.do"/>
+                 path="/kickstart/cobbler/CobblerSnippetEdit.do"/>
     </action>
 
+    <action path="/kickstart/cobbler/CobblerSnippetView"
+        scope="request"
+        name="cobblerSnippetsForm"
+        input="/WEB-INF/pages/kickstart/cobbler/snippetview.jsp"
+        parameter="view_mode"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetViewAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetview.jsp"/>
+    </action>
 
     <action path="/kickstart/cobbler/CobblerSnippetDelete"
         scope="request"
-        name="cobblerSnippetDeleteForm"
         input="/WEB-INF/pages/kickstart/cobbler/cobblersnippetdeleteconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDeleteAction">
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDeleteAction"
+         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/cobblersnippetdeleteconfirm.jsp"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/deleteconfirm.jsp"/>
         <forward name="success"
                  path="/kickstart/cobbler/CobblerSnippetList.do"/>
     </action>

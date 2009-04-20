@@ -40,9 +40,10 @@ public class CobblerSnippetListSetupAction extends RhnAction {
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         
-        RequestContext requestContext = new RequestContext(request);
+        RequestContext context = new RequestContext(request);
         
-        List<CobblerSnippet> result = CobblerSnippetLister.getInstance().listSnippets();
+        List<CobblerSnippet> result = CobblerSnippetLister.getInstance().
+                                        listSnippets(context.getLoggedInUser());
 
         request.setAttribute("pageList", result);
         request.setAttribute("parentUrl", request.getRequestURI());
