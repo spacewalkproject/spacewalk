@@ -1,7 +1,10 @@
 #
 # Process the .pre files
 # Then, build the oracle and postgres schemas
-#
+# Expected Args:
+#   SCHEMA
+#   VERSION
+#   RELEASE
 
 PRE_FILES  := $(shell find . -name \*.pre)
 POST_FILES := $(addsuffix .sql,$(basename $(PRE_FILES)))
