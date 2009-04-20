@@ -4,7 +4,7 @@
 --
 
 DELETE FROM rhnVersionInfo
-WHERE label = 'schema' and 
+WHERE label = 'schema' and
       name_id = lookup_package_name(SCHEMA_NAME);
 
 INSERT INTO rhnVersionInfo
