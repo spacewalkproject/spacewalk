@@ -31,8 +31,8 @@ pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 %install
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
-install -m 0755 -d oracle.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0755 -d postgres.sql $RPM_BUILD_ROOT%{rhnroot}
+install -m 0644 oracle.sql $RPM_BUILD_ROOT%{rhnroot}
+install -m 0644 postgres.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
