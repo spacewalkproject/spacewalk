@@ -102,7 +102,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                                                  "/" + KickstartData.WIZARD_DIR));
         createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
                                         "/" + KickstartData.RAW_DIR));
-        createDirIfNotExists(new File(CobblerSnippet.getSpacewalkSnippetsDir()));
+        createDirIfNotExists(CobblerSnippet.getSpacewalkSnippetsDir());
     }
     
     private static void createDirIfNotExists(File dir) throws IOException {
