@@ -34,6 +34,7 @@ import com.redhat.rhn.domain.kickstart.KickstartPreserveFileList;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.org.Org;
@@ -87,8 +88,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public static void setupTestConfiguration() throws IOException {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
-        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/");
-        Config.get().setString(Config.COBBLER_SNIPPETS_DIR, "/tmp/");
+        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/kickstart");
+        Config.get().setString(Config.COBBLER_SNIPPETS_DIR, "/tmp/kickstart/snippets");
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
         createKickstartDirs();
@@ -101,8 +102,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
                                                  "/" + KickstartData.WIZARD_DIR));
         createDirIfNotExists(new File(Config.get().getKickstartConfigDir() +
                                         "/" + KickstartData.RAW_DIR));
-        createDirIfNotExists(new File(Config.get().getCobblerSnippetsDir() +
-                                "/" + "spacewalk"));
+        createDirIfNotExists(new File(CobblerSnippet.getSpacewalkSnippetsDir()));
     }
     
     private static void createDirIfNotExists(File dir) throws IOException {
