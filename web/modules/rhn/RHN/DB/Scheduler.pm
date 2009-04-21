@@ -1953,7 +1953,7 @@ SELECT DISTINCT S.id, :action_id, :status
    AND ST.user_id = :user_id
    AND ST.label = :set_label
    AND USP.server_id = ST.element
--- AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
    AND USP.server_id = CC.server_id
    AND CC.capability_name_id = CCN.id
 --   AND CCN.name = 'script.run'
