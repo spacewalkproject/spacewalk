@@ -132,9 +132,9 @@ if (not defined $default_tablespace_data
 my $default_tablespace = $default_tablespace_data->[0][0];
 
 mkdir "/var/log/spacewalk", 0755;
-mkdir "/var/log/spacewalk/schema-upgrade", 0755;
-if (not -e "/var/log/spacewalk/schema-upgrade") {
-	die "Failed to create log directory [/var/log/spacewalk/schema-upgrade]: $!\n";
+mkdir $SCHEMA_UPGRADE_LOGDIR, 0755;
+if (not -e $SCHEMA_UPGRADE_LOGDIR) {
+	die "Failed to create log directory [$SCHEMA_UPGRADE_LOGDIR]: $!\n";
 }
 
 my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
@@ -143,7 +143,7 @@ my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
 
 my $start = $start_schema_norm;
 my $in = <<EOF;
-	spool /var/log/spacewalk/schema-upgrade/$stamp-begin.log append
+	spool $SCHEMA_UPGRADE_LOGDIR/$stamp-begin.log append
 	whenever sqlerror exit sql.sqlcode
 
 	update rhnVersionInfo
@@ -192,7 +192,7 @@ EOF
 }
 
 $in .= <<EOF;
-	spool /var/log/spacewalk/schema-upgrade/$stamp-end.log append
+	spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
 	whenever sqlerror exit sql.sqlcode
 
 	insert into rhnVersionInfo
@@ -226,7 +226,7 @@ print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
 system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
 if ($?) {
-	die "Upgrade failed, please see log in [/var/log/spacewalk/schema-upgrade/].\n";
+	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
 }
 
 print "The database schema was upgraded to version [$target_schema].\n";
