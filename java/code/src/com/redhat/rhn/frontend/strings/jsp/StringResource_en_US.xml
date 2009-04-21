@@ -905,14 +905,8 @@
           <context context-type="sourcefile">/rhn/Relogin</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="relogin.jsp.relogintext">
-<source>To access purchasing, account or profile information, or to continue an expired session, please sign in below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Relogin</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="login.jsp.redhatlogin">
-<source>@@PRODUCT_NAME@@ Login / Email: </source>
+<source>@@PRODUCT_NAME@@ Login: </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
