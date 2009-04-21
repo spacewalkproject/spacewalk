@@ -43,7 +43,8 @@ if (not @$schema_versions) {
 	die "No existing schema version info found in rhnVersionInfo.\n";
 }
 if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
-	and $schema_versions->[0][0] ne 'spacewalk-schema') {
+	and $schema_versions->[0][0] ne 'spacewalk-schema'
+	and $schema_versions->[0][0] ne 'satellite-schema') {
 	die "Unknown schema name [$schema_versions->[0][0]] found.\n";
 }
 
