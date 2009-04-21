@@ -225,8 +225,7 @@ if (not @ARGV or $ARGV[0] ne '-y') {
 
 print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
-system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
-if ($?) {
+if (not run_query(\%options, "\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
 	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
 }
 
