@@ -798,13 +798,6 @@
             <form-property name="contents" type="java.lang.String" />
         </form-bean>
 
-        <form-bean name="cobblerSnippetDeleteForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="name"  type="java.lang.String"/>
-            <form-property name="contents"  type="java.lang.String"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
         <form-bean name="systemEntitlementsForm"
 		   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
 	    <form-property name="addOnEntitlement" type="java.lang.String"/>
@@ -4895,29 +4888,27 @@
         validate="false"
         name="cobblerSnippetsForm"
         parameter="create_mode"
-        input="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
         <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetEdit.do"
+                 path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"
                  />
     </action>
     
     <action path="/kickstart/cobbler/CobblerSnippetEdit"
         scope="request"
         name="cobblerSnippetsForm"
-        input="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"
         parameter="edit_mode"
         type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
-        <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetEdit.do"/>
+        <forward name="success" 
+                 path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"/>
     </action>
 
     <action path="/kickstart/cobbler/CobblerSnippetView"

@@ -83,6 +83,9 @@
       </rhn-tab>
       <rhn-tab name="Cobbler Snippets" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CobblerSnippetList.do" >
         <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetEdit.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetCreate.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetDelete.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetView.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
