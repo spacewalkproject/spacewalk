@@ -32,14 +32,25 @@
 <bean:message key="snippetcreate.jsp.summary"/>
 
 <h2><bean:message key="snippetcreate.jsp.header2"/></h2>
+<c:choose>
+	<c:when test="${empty requestScope.create_mode}">
+		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetEdit"/>
+	</c:when>
+	<c:otherwise> 
+		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetCreate"/>
+	</c:otherwise>
+</c:choose>
+
 
 <div>
-    <html:form action="/kickstart/cobbler/CobblerSnippetCreate" enctype="multipart/form-data">
+    <html:form action="${url}" enctype="multipart/form-data">
     <rhn:submitted/>
+    <c:if  test = "${empty requestScope.create_mode}">
+    	<html:hidden property="name" value="${cobblerSnippetsForm.map.name}"/>
+    </c:if>
     <table class="details">
 	<c:if  test = "${not empty requestScope.create_mode}">
     <tr>
-
         <th>
             <bean:message key="snippetcreate.jsp.name"/><span class="required-form-field">*</span>
         </th>
