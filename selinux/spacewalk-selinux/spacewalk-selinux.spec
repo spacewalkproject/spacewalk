@@ -8,7 +8,7 @@
 
 Name:           spacewalk-selinux
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -119,6 +119,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Tue Apr 21 2009 Jan Pazdziora 0.6.0-2
+- 495869 - mark /var/log/spacewalk as oracle_sqlplus_log_t
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Wed Mar 25 2009 Jan Pazdziora 0.5.3-1
 - 491687 - label the sudo wrappers with httpd_unconfined_script_exec_t
 
