@@ -7384,14 +7384,14 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.channelsprovided">
-          <source>Channels Provided</source>
+          <source>Channels Provided to your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>     
              
        <trans-unit id="orgtrustdetails.jsp.channelsconsumed">
-          <source>Channels Consumed</source>
+          <source>Channels Consumed from your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
@@ -7412,14 +7412,14 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
-          <source>Systems Migrated to Your org</source>
+          <source>Systems Migrated to Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
-          <source>Systems Migrated from Your org</source>
+          <source>Systems Migrated from Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
