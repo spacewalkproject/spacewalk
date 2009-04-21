@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.6.1
+Version:    0.6.2
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- 496321 - add Documentation as a search option on perl pages (jesusr@redhat.com)
+
 * Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - 494475,460136 - remove faq & feedback code which used customer service emails.
   (jesusr@redhat.com)
