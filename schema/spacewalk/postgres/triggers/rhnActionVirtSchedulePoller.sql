@@ -10,5 +10,4 @@ create trigger
 rhn_avsp_mod_trig
 before insert or update on rhnActionVirtSchedulePoller
 for each row
-execute procedure rhn_avsp_mod_trig_fun()
-
+execute procedure rhn_avsp_mod_trig_fun();

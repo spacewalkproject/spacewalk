@@ -10,5 +10,4 @@ create trigger
 rhn_actionks_xenguest_mod_trig
 before insert or update on rhnActionKickstartGuest
 for each row
-execute procedure rhn_actionks_xenguest_mod_trig_fun()
-
+execute procedure rhn_actionks_xenguest_mod_trig_fun();
