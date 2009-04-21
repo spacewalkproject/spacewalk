@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.2
+Version:      3.26.3
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 URL:          https://fedorahosted.org/spacewalk
@@ -66,6 +66,9 @@ install -m 755 queuetool $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 3.26.3-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 3.26.2-1
 - 467441 - fix namespace
 
