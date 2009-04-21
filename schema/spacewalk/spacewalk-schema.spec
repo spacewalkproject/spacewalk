@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Tue Apr 21 2009 Jan Pazdziora 0.6.2-1
+- spacewalk-schema-upgrade: other stability and code cleanup changes
+- 495869 - label the /var/log/spacewalk/schema-upgrade based on the SELinux
+  policy
+- set noparallel if index rhn_snc_speid_idx exists (mzazrivec@redhat.com)
+- spacewalk-schema-upgrade: for upgrades from Satellite 5.3.0 up, the starting
+  schema name is satellite-schema
+- 487319 - restore text input for SNMP Community String field
+  (mzazrivec@redhat.com)
+- 487319 - text input for "SNMP Community String" field (mzazrivec@redhat.com)
+
 * Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - 495133 - fixing errata mailer such that mails are only sent for a particular
   channel that was changed (jsherril@redhat.com)
