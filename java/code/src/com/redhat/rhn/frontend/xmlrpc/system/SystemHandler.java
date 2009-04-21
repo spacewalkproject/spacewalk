@@ -1635,6 +1635,7 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id of the server you are wanting to lookup 
      * @return Returns an array of maps representing a system
+     * @since 10.3
      * 
      * @xmlrpc.doc List all system events for given server. This is *all* events for the 
      * server since it was registered.  This may require the caller to
