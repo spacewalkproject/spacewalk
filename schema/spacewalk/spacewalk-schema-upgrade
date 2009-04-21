@@ -229,6 +229,23 @@ if (not run_query(\%options, "\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
 	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
 }
 
+my $new_schema_versions = run_query(\%options, <<EOF);
+	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
+	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
+	where rhnVersionInfo.label = 'schema'
+		and rhnVersionInfo.name_id = rhnPackageName.id
+		and rhnVersionInfo.evr_id = PE.id;
+EOF
+if (not @$new_schema_versions) {
+	die "Upgrade seems to have run OK yet new schema version is not in rhnVersionInfo.\n";
+}
+if ($new_schema_versions->[0][0] ne $target_schema) {
+	die <<EOF;
+Upgrade seems to have run OK yet new schema version is
+[$new_schema_versions->[0][0]], not [$target_schema].
+EOF
+}
+
 print "The database schema was upgraded to version [$target_schema].\n";
 
 sub run_query {
