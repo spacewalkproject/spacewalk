@@ -30,7 +30,8 @@ rhnActionKickstart
 					on delete cascade,
 	append_string		varchar2(1024),
 	kickstart_host		varchar2(256),
-    static_device           varchar2(32),
+        static_device           varchar2(32),
+        cobbler_system_name             varchar2(256),
 	created			date default(sysdate)
 				constraint rhn_actionks_creat_nn not null,
 	modified		date default(sysdate)

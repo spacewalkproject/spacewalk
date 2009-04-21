@@ -6,7 +6,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     <class name="com.redhat.rhn.domain.action.kickstart.KickstartGuestActionDetails" 
         table="rhnActionKickstartGuest" >
 
-		<id name="kickstartId" type="long" column="id">
+		<id name="id" type="long" column="id">
 			<meta attribute="scope-set">protected</meta>
 			<generator class="sequence">
                 <param name="sequence">RHN_ACTIONKS_ID_SEQ</param>
