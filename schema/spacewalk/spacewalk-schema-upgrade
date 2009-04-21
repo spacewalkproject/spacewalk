@@ -242,8 +242,9 @@ set colsep ":"
 set trimout on
 set heading off
 set wrap off
+whenever oserror exit failure
+whenever sqlerror exit sql.sqlcode
 EOF
-	print $wfh "whenever sqlerror exit sql.sqlcode\n";
 	print $wfh $command;
 	print $wfh "\n";
 	close $wfh;
