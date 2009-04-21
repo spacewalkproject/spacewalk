@@ -225,7 +225,8 @@ if (not @ARGV or $ARGV[0] ne '-y') {
 
 print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
-if (not run_query(\%options, "\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
+if (not run_query({ default_db => $options{default_db}, no_query => 1 },
+		"\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
 	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
 }
 
@@ -250,15 +251,20 @@ print "The database schema was upgraded to version [$target_schema].\n";
 
 sub run_query {
 	my ($options, $command) = @_;
+	my @silent = ( '-S' ) unless $options->{no_query};
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
-		'sqlplus', '-S', $options->{default_db}) or return;
-	print $wfh <<EOF;
+		'sqlplus', @silent, $options->{default_db}) or return;
+	if (not $options->{no_query}) {
+		print $wfh <<EOF;
 set linesize 4000
 set pagesize 0
 set colsep ":"
 set trimout on
 set heading off
 set wrap off
+EOF
+	}
+	print $wfh <<EOF;
 whenever oserror exit failure
 whenever sqlerror exit sql.sqlcode
 EOF
