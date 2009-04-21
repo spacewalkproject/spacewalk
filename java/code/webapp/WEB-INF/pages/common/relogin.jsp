@@ -16,10 +16,7 @@
 </html:messages>
 <c:if test="${requestScope.hasExpired != 'true'}">
      <h1><bean:message key="relogin.jsp.pleasesignin"/></h1>
-     
-     <!-- rhn-upsell-login / -->
-     <p><bean:message key="relogin.jsp.relogintext"/></p>
-          
+               
   <div class="clearBox">
   <div class="clearBoxInner">
   <div class="clearBoxBody">

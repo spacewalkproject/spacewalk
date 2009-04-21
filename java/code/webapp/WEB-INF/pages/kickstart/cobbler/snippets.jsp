@@ -33,7 +33,7 @@
          name="keysList"
          styleclass="list"
          emptykey="cobbler.snippet.jsp.nosnippets"
-         alphabarcolumn="name">
+         alphabarcolumn="displayPath">
 
         <rl:decorator name="PageSizeDecorator"/>
 
@@ -42,10 +42,28 @@
                    sortable="true"
                    headerkey="cobbler.snippet.name"
                    styleclass="first-column"
-                   sortattr="name">
-                <c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetEdit.do?name=${current.name}\">/var/lib/cobbler/snippet/${current.name}</a>" escapeXml="false" />
+                   sortattr= "displayPath"
+                   filterattr="displayPath">
+              <c:choose>
+              	<c:when test = "${current.editable}">
+              		<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetEdit.do?name=${current.name}\">${current.displayPath}</a>" escapeXml="false" />
+              	</c:when>
+              	<c:otherwise>
+	              	<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetView.do?path=${current.displayPath}\">${current.displayPath}</a>" escapeXml="false" />
+              	</c:otherwise>      
+                
+              </c:choose>
         </rl:column>
-
+            <rl:column headerkey="kickstart.distro.sw_managed.jsp"  styleclass="last-column">
+            	<c:choose>
+                    <c:when test="${not current.editable}">
+                    	<img src="/img/rhn-listicon-error.gif">
+                    </c:when>
+					<c:otherwise>
+						<img src="/img/rhn-listicon-checked.gif">
+                	</c:otherwise>
+                </c:choose>
+            </rl:column>
       </rl:list>
      </rl:listset>
 

@@ -43,7 +43,8 @@ if (not @$schema_versions) {
 	die "No existing schema version info found in rhnVersionInfo.\n";
 }
 if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
-	and $schema_versions->[0][0] ne 'spacewalk-schema') {
+	and $schema_versions->[0][0] ne 'spacewalk-schema'
+	and $schema_versions->[0][0] ne 'satellite-schema') {
 	die "Unknown schema name [$schema_versions->[0][0]] found.\n";
 }
 
@@ -131,10 +132,11 @@ if (not defined $default_tablespace_data
 my $default_tablespace = $default_tablespace_data->[0][0];
 
 mkdir "/var/log/spacewalk", 0755;
-mkdir "/var/log/spacewalk/schema-upgrade", 0755;
-if (not -e "/var/log/spacewalk/schema-upgrade") {
-	die "Failed to create log directory [/var/log/spacewalk/schema-upgrade]: $!\n";
+mkdir $SCHEMA_UPGRADE_LOGDIR, 0755;
+if (not -e $SCHEMA_UPGRADE_LOGDIR) {
+	die "Failed to create log directory [$SCHEMA_UPGRADE_LOGDIR]: $!\n";
 }
+system("/sbin/restorecon $SCHEMA_UPGRADE_LOGDIR 2>&1 > /dev/null");
 
 my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
 my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
@@ -142,7 +144,7 @@ my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
 
 my $start = $start_schema_norm;
 my $in = <<EOF;
-	spool /var/log/spacewalk/schema-upgrade/$stamp-begin.log append
+	spool $SCHEMA_UPGRADE_LOGDIR/$stamp-begin.log append
 	whenever sqlerror exit sql.sqlcode
 
 	update rhnVersionInfo
@@ -191,7 +193,7 @@ EOF
 }
 
 $in .= <<EOF;
-	spool /var/log/spacewalk/schema-upgrade/$stamp-end.log append
+	spool $SCHEMA_UPGRADE_LOGDIR/$stamp-end.log append
 	whenever sqlerror exit sql.sqlcode
 
 	insert into rhnVersionInfo
@@ -223,18 +225,37 @@ if (not @ARGV or $ARGV[0] ne '-y') {
 
 print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
-system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
-if ($?) {
-	die "Upgrade failed, please see log in [/var/log/spacewalk/schema-upgrade/].\n";
+if (not run_query({ default_db => $options{default_db}, no_query => 1 },
+		"\@$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql")) {
+	die "Upgrade failed, please see log in [$SCHEMA_UPGRADE_LOGDIR/].\n";
+}
+
+my $new_schema_versions = run_query(\%options, <<EOF);
+	select rhnPackageName.name || '-' || PE.evr.as_vre_simple()
+	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
+	where rhnVersionInfo.label = 'schema'
+		and rhnVersionInfo.name_id = rhnPackageName.id
+		and rhnVersionInfo.evr_id = PE.id;
+EOF
+if (not @$new_schema_versions) {
+	die "Upgrade seems to have run OK yet new schema version is not in rhnVersionInfo.\n";
+}
+if ($new_schema_versions->[0][0] ne $target_schema) {
+	die <<EOF;
+Upgrade seems to have run OK yet new schema version is
+[$new_schema_versions->[0][0]], not [$target_schema].
+EOF
 }
 
 print "The database schema was upgraded to version [$target_schema].\n";
 
 sub run_query {
 	my ($options, $command) = @_;
+	my @silent = ( '-S' ) unless $options->{no_query};
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
-		'sqlplus', '-S', $options->{default_db}) or return;
-	print $wfh <<EOF;
+		'sqlplus', @silent, $options->{default_db}) or return;
+	if (not $options->{no_query}) {
+		print $wfh <<EOF;
 set linesize 4000
 set pagesize 0
 set colsep ":"
@@ -242,7 +263,11 @@ set trimout on
 set heading off
 set wrap off
 EOF
-	print $wfh "whenever sqlerror exit sql.sqlcode\n";
+	}
+	print $wfh <<EOF;
+whenever oserror exit failure
+whenever sqlerror exit sql.sqlcode
+EOF
 	print $wfh $command;
 	print $wfh "\n";
 	close $wfh;

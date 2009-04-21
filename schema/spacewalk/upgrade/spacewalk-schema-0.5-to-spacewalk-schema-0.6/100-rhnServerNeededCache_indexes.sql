@@ -12,7 +12,7 @@ begin
 		nologging';
 exception
 	when name_used then
-		null;
+		alter index rhn_snc_speid_idx noparallel;
 end;
 /
 

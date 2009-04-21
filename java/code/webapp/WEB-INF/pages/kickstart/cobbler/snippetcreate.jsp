@@ -15,45 +15,69 @@
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
 
+<c:choose>
+	<c:when test = "${not empty requestScope.create_mode}">
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
   <bean:message key="snippetcreate.jsp.toolbar"/>
 </rhn:toolbar>
-
+	</c:when>
+	<c:otherwise>
+<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img"
+		               deletionUrl="CobblerSnippetDelete.do?name=${cobblerSnippetsForm.map.name}"
+               deletionType="snippets">
+	${requestScope.prefix}/${cobblerSnippetsForm.map.name}
+</rhn:toolbar>
+	</c:otherwise>
+</c:choose>	
 <bean:message key="snippetcreate.jsp.summary"/>
 
 <h2><bean:message key="snippetcreate.jsp.header2"/></h2>
+<c:choose>
+	<c:when test="${empty requestScope.create_mode}">
+		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetEdit"/>
+	</c:when>
+	<c:otherwise> 
+		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetCreate"/>
+	</c:otherwise>
+</c:choose>
+
 
 <div>
-    <html:form action="/kickstart/cobbler/CobblerSnippetCreate" enctype="multipart/form-data">
-    <html:hidden property="submitted" value="true"/>
-    <html:hidden property="snippet_path" value="snippet"/>
+    <html:form action="${url}" enctype="multipart/form-data">
+    <rhn:submitted/>
+    <c:if  test = "${empty requestScope.create_mode}">
+    	<html:hidden property="name" value="${cobblerSnippetsForm.map.name}"/>
+    </c:if>
     <table class="details">
-     <tr>
+	<c:if  test = "${not empty requestScope.create_mode}">
+    <tr>
         <th>
             <bean:message key="snippetcreate.jsp.name"/><span class="required-form-field">*</span>
-            </br>
-            <bean:message key="snippetcreate.jsp.tip1"/>
         </th>
         <td>
-            /var/lib/cobbler/snippets/<html:text property="name" maxlength="40" size="20" />
+        		${requestScope.prefix}/<html:text property="name" maxlength="40" size="20" /><br/>
+            	<rhn:tooltip key="snippetcreate.jsp.tip1"/>
         </td>
      </tr>
+     </c:if>
     <tr>    
         <th>
-            <bean:message key="snippetcreate.jsp.contents"/>
-                <span class="required-form-field">*</span>
+            <bean:message key="snippetcreate.jsp.contents"/><span class="required-form-field">*</span>
         </th>
-            <td>
-            <textarea name="contents" rows="24" cols="80" id="contents"><bean:write name="cobblerSnippetsForm" property="contents" /></textarea><br />
+        <td>
+         	<html:textarea property="contents" rows="24" cols="80" styleId="contents"/>
         </td>
     </tr>
     </table>
-    <hr /><table align="right">
+    <hr />
+
+    <table align="right">
     	  <tr>
       		<td></td>
       		<td align="right"><html:submit><bean:message key="snippetcreate.jsp.submit"/></html:submit></td>
     	  </tr>
-          </table>
+	</table>
+
     </html:form>
 </div>
 

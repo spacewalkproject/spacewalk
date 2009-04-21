@@ -579,6 +579,11 @@ class Server(ServerWrapper):
         else: # if we want to commit, commit all pending changes
             if commit:
                 rhnSQL.commit()
+                try:
+                    search = SearchNotify()
+                    search.notify()
+                except Exception, e:
+                    log_error("Exception caught from SearchNotify.notify().", e)
         return 0
 
     # Reload the current configuration from database using a server id.

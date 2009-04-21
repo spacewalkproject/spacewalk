@@ -16,51 +16,49 @@ package com.redhat.rhn.frontend.action.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
+import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
- * CobblerSnippetDeleteAction 
- * @version $Rev: 1 $
+ * CobblerSnippetDetailsAction
+ * @version $Rev$
  */
-public class CobblerSnippetDeleteAction extends RhnAction {
+public class CobblerSnippetViewAction extends RhnAction {
+    private static final Logger LOG = 
+            Logger.getLogger(CobblerSnippetViewAction.class);
+    public static final String PATH = "path";
+    public static final String DATA = "data";
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                   ActionForm formIn,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
-        RequestContext context = new RequestContext(request);
-        CobblerSnippet snip = CobblerSnippetDetailsAction.getSnippet(request);
-        request.setAttribute(CobblerSnippetDetailsAction.NAME, snip.getName());
-        request.setAttribute(CobblerSnippetDetailsAction.PREFIX, snip.getPrefix());
-
-        if (context.isSubmitted()) {
-            try {
-                snip.delete();
-                createSuccessMessage(request, 
-                            "cobblersnippet.delete.success", snip.getName());
-                return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                        CobblerSnippetDetailsAction.NAME, snip.getName());
-            }
-            catch (ValidatorException ve) {
-                getStrutsDelegate().saveMessages(request, ve.getResult());
-                RhnValidationHelper.setFailedValidation(request);
-            }
+        RequestContext ctx = new RequestContext(request);
+        try {
+            CobblerSnippet snip = CobblerSnippet.loadReadOnly(
+                    new File(ctx.getParam(PATH, true)));
+            request.setAttribute(PATH, snip.getDisplayPath());
+            request.setAttribute(DATA, snip.getContents());
+            return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
-        else {
-            request.setAttribute(CobblerSnippetDetailsAction.CONTENTS,
-                                                        snip.getContents());
+        catch (ValidatorException ve) {
+            LOG.error(ve);
+            throw new BadParameterException(
+                    "The parameter " + PATH + " is required.");
         }
-        
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
+
 }

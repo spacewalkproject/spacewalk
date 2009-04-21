@@ -905,14 +905,8 @@
           <context context-type="sourcefile">/rhn/Relogin</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="relogin.jsp.relogintext">
-<source>To access purchasing, account or profile information, or to continue an expired session, please sign in below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Relogin</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="login.jsp.redhatlogin">
-<source>@@PRODUCT_NAME@@ Login / Email: </source>
+<source>@@PRODUCT_NAME@@ Login: </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
@@ -7390,14 +7384,14 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.channelsprovided">
-          <source>Channels Provided</source>
+          <source>Channels Provided to your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>     
              
        <trans-unit id="orgtrustdetails.jsp.channelsconsumed">
-          <source>Channels Consumed</source>
+          <source>Channels Consumed from your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
@@ -7418,14 +7412,14 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
-          <source>Systems Migrated to Your org</source>
+          <source>Systems Migrated to Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
-          <source>Systems Migrated from Your org</source>
+          <source>Systems Migrated from Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
@@ -10410,7 +10404,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.tip1">
-        <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; Avoid spaces in the snippet name.&lt;/span&gt;</source>
+        <source>Avoid spaces in the snippet name.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
         </context-group>

@@ -24,6 +24,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.kickstart.KickstartAction;
+import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -50,6 +51,7 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.BaseSystemOperation;
@@ -57,6 +59,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
 
 import java.util.Collections;
 import java.util.Date;
@@ -567,14 +570,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 storeActivationKeyInfo();
             }
         }
-        Action kickstartAction =
-            (Action) this.scheduleKickstartAction(packageAction);
+        Action kickstartAction = this.scheduleKickstartAction(packageAction);
         ActionFactory.save(packageAction);
-        ActionFactory.save(kickstartAction);
         this.kickstartActionId = kickstartAction.getId();
         log.debug("** Created ksaction: " + kickstartAction.getId());
         
         scheduleRebootAction(kickstartAction);
+
         if (!cobblerOnly) {
             // Setup Cobbler system profile
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
@@ -601,6 +603,22 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 return cobblerError;
             }            
         }
+
+
+        SystemRecord rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(
+                this.getUser().getLogin()), this.getServer().getCobblerId());
+
+        //This is a really really crappy way of doing this, but i don't want to restructure
+        //      the actions too much at this point :/
+        if (kickstartAction instanceof KickstartAction) {
+            ((KickstartAction) kickstartAction).getKickstartActionDetails().
+                                                    setCobblerSystemName(rec.getName());
+        }
+        else if (kickstartAction instanceof KickstartGuestAction) {
+            ((KickstartGuestAction) kickstartAction).getKickstartGuestActionDetails().
+                                                       setCobblerSystemName(rec.getName());
+        }
+        ActionFactory.save(kickstartAction);
 
         log.debug("** Done scheduling kickstart session");
         return null;
@@ -785,7 +803,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             ksAction.setPrerequisite(prereqAction.getId());
         }
         ksAction.getKickstartActionDetails().setStaticDevice(this.getStaticDevice());
-        return (Action) ksAction;
+        return ksAction;
     }
 
     /**
