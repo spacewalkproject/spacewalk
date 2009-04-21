@@ -88,7 +88,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public static void setupTestConfiguration() throws IOException {
         Config.get().setString(CobblerXMLRPCHelper.class.getName(),
                 MockXMLRPCInvoker.class.getName());
-        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/kickstart");
+        Config.get().setString(Config.KICKSTART_COBBLER_DIR, "/tmp/kickstart/");
         Config.get().setString(Config.COBBLER_SNIPPETS_DIR, "/tmp/kickstart/snippets");
         Config.get().setString(CobblerConnection.class.getName(),
                 MockConnection.class.getName());
