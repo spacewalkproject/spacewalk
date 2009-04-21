@@ -2091,7 +2091,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-            path="/errata/manage/ListPackages.do" redirect="true"/>
+            path="/errata/manage/ListPackages.do" />
         <forward name="confirm"
             path="/errata/manage/RemovePackages.do" redirect="true"/>
     </action>
