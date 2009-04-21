@@ -135,6 +135,7 @@ mkdir "/var/log/spacewalk/schema-upgrade", 0755;
 if (not -e "/var/log/spacewalk/schema-upgrade") {
 	die "Failed to create log directory [/var/log/spacewalk/schema-upgrade]: $!\n";
 }
+system("/sbin/restorecon $SCHEMA_UPGRADE_LOGDIR 2>&1 > /dev/null");
 
 my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
 my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
