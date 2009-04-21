@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.6.0
+Version:      0.6.1
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -106,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
 - be sure that nocpulse home is correct
 
