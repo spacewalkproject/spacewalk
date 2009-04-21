@@ -14,11 +14,6 @@
  */
 package com.redhat.rhn.domain.action.kickstart;
 
-import com.redhat.rhn.domain.action.ActionChild;
-import com.redhat.rhn.domain.common.FileList;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * KickstartGuestActionDetails - java representation of the rhnActionKickstart table
