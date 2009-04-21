@@ -2,6 +2,7 @@ create or replace function rhn_conffile_fail_mod_trig_fun() returns trigger as
 $$
 begin
         new.modified := current_timestamp;
+        return new;
 end;
 $$ language plpgsql;
 

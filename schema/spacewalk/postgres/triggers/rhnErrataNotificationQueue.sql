@@ -1,4 +1,4 @@
-create or replace rhn_enqueue_mod_trig_fun() returns trigger as
+create or replace function rhn_enqueue_mod_trig_fun() returns trigger as
 $$
 begin
 	new.modified := current_timestamp;

@@ -73,7 +73,7 @@ $$
 declare
 	ret_val int;
 begin
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT lookup_package_nevra_autonomous ('
 	||COALESCE(name_id_in::varchar,'null')||','
 	||COALESCE(evr_id_in::varchar, 'null')||','
@@ -97,7 +97,7 @@ $$
 declare
 	ret_val int;
 begin
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT lookup_package_nevra_autonomous ('
 	||COALESCE(name_id_in::varchar,'null')||','
 	||COALESCE(evr_id_in::varchar, 'null')||','

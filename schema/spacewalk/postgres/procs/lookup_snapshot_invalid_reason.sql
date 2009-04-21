@@ -48,7 +48,7 @@ DECLARE
 	ret_val NUMERIC;
 BEGIN
 
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'select lookup_snapshot_invalid_reason('
 	||COALESCE(label_in::varchar,'null')||')')
 	as f(retcode numeric);

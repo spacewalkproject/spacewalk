@@ -24,7 +24,6 @@ $$
 begin
 	new.modified := current_timestamp;
 	return new;
-	
 end;
 $$ language plpgsql;
 

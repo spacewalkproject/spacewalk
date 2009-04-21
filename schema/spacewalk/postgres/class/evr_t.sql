@@ -19,6 +19,11 @@ create type evr_t as (
         release         varchar(512)
 );
 
+create or replace function evr_t(e varchar, v varchar, r varchar)
+returns evr_t as $$
+select row($1,$2,$3)::evr_t
+$$ language sql;
+
 create or replace function evr_t_compare( a evr_t, b evr_t )
 returns int as $$
 begin
@@ -159,4 +164,3 @@ create aggregate max (
   stype=evr_t,
   initcond='(0,0,0)'
 );
-

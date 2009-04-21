@@ -1,4 +1,4 @@
-create schema rhn_exception;
+-- create schema rhn_exception;
 
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_exception,' || setting where name = 'search_path';

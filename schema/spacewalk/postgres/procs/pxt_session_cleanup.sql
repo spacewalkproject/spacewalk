@@ -80,7 +80,7 @@ $$
 DECLARE
         ret_val numeric;
 BEGIN
-        SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+        SELECT retcode into ret_val from dblink('dbname='||current_database(),
         'SELECT pxt_session_cleanup_autonomous('
         ||COALESCE(bound_in::numeric,'null')||','
         ||COALESCE(commit_interval::numeric,'null')||','

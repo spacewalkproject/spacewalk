@@ -1,4 +1,4 @@
-create or replace rhn_efilec_mod_trig_fun() returns trigger as
+create or replace function rhn_efilec_mod_trig_fun() returns trigger as
 $$
 begin
 	new.modified := current_timestamp;

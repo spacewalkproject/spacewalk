@@ -50,7 +50,7 @@ DECLARE
         
         ret_val     NUMERIC;
 BEGIN
-        SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+        SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT LOOKUP_TAG_AUTONOMOUS('
 	||COALESCE(org_id_in::numeric,'null')||','
 	||COALESCE(name_id,'null')||')')

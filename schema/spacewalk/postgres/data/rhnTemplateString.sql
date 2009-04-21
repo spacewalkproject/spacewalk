@@ -14,23 +14,23 @@
 --
 -- data for rhnTemplateString
 
-SET SQLBLANKLINES ON
-SET SCAN OFF
+INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
+     VALUES (nextval('rhn_template_str_id_seq'),
+             (SELECT TC.id 
+                FROM rhnTemplateCategory TC
+	       WHERE TC.label = 'email_strings'),
+	     'email_footer',
+             '-' || '-the Spacewalk Team',
+             'Footer for Spacewalk e-mail');
 
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
      VALUES (nextval('rhn_template_str_id_seq'),
              (SELECT TC.id 
                 FROM rhnTemplateCategory TC
 	       WHERE TC.label = 'email_strings'),
-	     'email_footer', '-' || '-the Spacewalk Team', 'Footer for Spacewalk e-mail');
-
-INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
-     VALUES (nextval('rhn_template_str_id_seq'),
-             (SELECT TC.id 
-                FROM rhnTemplateCategory TC
-	       WHERE TC.label = 'email_strings'),
-	     'email_account_info', '
+	     'email_account_info',
+ '
 Account Information:
   Your Spacewalk login:         <login />
-  Your Spacewalk email address: <email-address />', 'Account info lines for Spacewalk e-mail');
-
+  Your Spacewalk email address: <email-address />',
+ 'Account info lines for Spacewalk e-mail');

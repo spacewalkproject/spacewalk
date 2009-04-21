@@ -27,7 +27,6 @@ returns void as
 $$
 begin
   raise exception 'Stub called, must be replace by .pkb';
-  return 0;
 end;
 $$ language plpgsql;
 

@@ -52,10 +52,10 @@ $$
 DECLARE
 	ret_val	NUMERIC;
 BEGIN
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT LOOKUP_PACKAGE_NAME_AUTONOMOUS ('
-	||COALESCE(name_in::varchar,'null')||','
-	||COALESCE(0::numeric,'null')||')')
+	||quote_nullable(name_in)||','
+	||quote_nullable(ignore_null)||')')
 	as f(retcode numeric);
 
 	return ret_val;
@@ -69,14 +69,12 @@ $$
 DECLARE
 	ret_val	NUMERIC;
 BEGIN
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
         'SELECT LOOKUP_PACKAGE_NAME_AUTONOMOUS ('
-        ||COALESCE(name_in::varchar,'null')||','
-        ||COALESCE(0::numeric,'null')||')')
+        ||quote_nullable(name_in)||',0)')
         as f(retcode numeric);
 
 	return ret_val;
 END;
 $$ LANGUAGE PLPGSQL;
-
 

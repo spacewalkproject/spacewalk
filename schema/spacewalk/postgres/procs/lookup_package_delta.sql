@@ -48,7 +48,7 @@ $$
 DECLARE
 	ret_val NUMERIC;
 BEGIN
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT LOOKUP_PACKAGE_DELTA('
 	||COALESCE(n_in::varchar,'null')||')')
 	as f(retcode numeric);

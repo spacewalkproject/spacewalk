@@ -1,5 +1,5 @@
---create schema
-create schema rpm;
+-- create schema rpm;
+
 --update pg_setting
 update pg_settings set setting = 'rpm,' || setting where name = 'search_path';
 

@@ -10,5 +10,4 @@ create trigger
 rhn_actioncfr_mod_trig
 before insert or update on rhnActionConfigRevisionResult
 for each row
-execute procedure rhnActionConfigRevisionResult();
-
+execute procedure rhn_actioncfr_mod_trig_fun();

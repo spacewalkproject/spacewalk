@@ -49,7 +49,7 @@ $$
 DECLARE
 	ret_val NUMERIC;
 BEGIN
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT LOOKUP_SOURCE_NAME('
 	||COALESCE(name_in,'null')||')')
 	as f(retcode numeric);

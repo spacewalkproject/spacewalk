@@ -35,6 +35,8 @@ begin
                         from rhnChannelComps x
                         where x.channel_id = new.id
                 );
+
+        return new;
 end;
 $$
 language plpgsql;

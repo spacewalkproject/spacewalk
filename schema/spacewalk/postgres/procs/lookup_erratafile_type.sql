@@ -24,7 +24,7 @@ declare
 	ret_val numeric;
 begin
 
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'select lookup_erratafile_type_autonomous('||coalesce(label_in::varchar,'null')||')')
 	as f (retcode numeric);
 end;

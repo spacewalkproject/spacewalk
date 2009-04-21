@@ -23,13 +23,12 @@ $$
 DECLARE
 	ret_val numeric;
 BEGIN
-	SELECT rectcode into ret_val from dblink('dbname='||current_database(),
+	SELECT retcode into ret_val from dblink('dbname='||current_database(),
 	'SELECT LOOKUP_EVR_AUTONOMOUS('
-	||COALESCE(e_in::varchar,'null')||','
-	||COALESCE(v_in::varchar,'null')||','
-	||COALESCE(r_in::varchar,'null')||')')
+	||quote_nullable(e_in)||','
+	||quote_nullable(v_in)||','
+	||quote_nullable(r_in)||')')
 	as f (retcode numeric);
-
 
 	return ret_val;
 END;

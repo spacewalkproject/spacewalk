@@ -20,6 +20,8 @@ begin
                         new.completion_time := current_timestamp;
                 end if;
         end if;
+
+        return new;
 end;
 $$ language plpgsql;
 
