@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.9
+Version:      2.1.10
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -103,6 +103,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Apr 22 2009 Jan Pazdziora 2.1.10-1
+- 497064 - do not inherit crond's stdin
+
 * Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.9-1
 - 494538 - remove the dependecy of rhnmd on nocpulse-common
 
