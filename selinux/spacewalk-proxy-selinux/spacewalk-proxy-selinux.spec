@@ -7,7 +7,7 @@
 %define modulename spacewalk-proxy
 
 Name:           spacewalk-proxy-selinux
-Version:        0.6.0
+Version:        0.6.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Proxy
 
@@ -110,5 +110,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- Make spacewalk-proxy-selinux buildable with tito. (dgoodwin@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Tue Jan 20 2009 Jan Pazdziora 0.5.1-1
 - the initial release, based on spacewalk-selinux
