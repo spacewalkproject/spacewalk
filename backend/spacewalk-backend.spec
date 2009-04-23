@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.1
+Version: 0.6.2
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -559,6 +559,14 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- 494976 - adding cobbler systme record name usage to reprovisioning
+  (jsherril@redhat.com)
+- 443500 - Changed logic to determine packages to remove to include the
+  server's current package information. (jason.dobies@redhat.com)
+- When a new system is registered it will notify search service
+  (jmatthew@redhat.com)
+
 * Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
 - 439042 - fixing the not enough entitlements error to more descriptive.
   (pkilambi@redhat.com)
