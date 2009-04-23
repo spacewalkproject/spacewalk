@@ -75,8 +75,8 @@ public class UserHandler extends BaseHandler {
      * will be a significant change to refactor that). For more information, see
      * bugzilla 469957. 
      */
-    private static final Map<Object, String> USER_EDITABLE_DETAILS =
-        new HashMap<Object, String>();
+    private static final Map<String, String> USER_EDITABLE_DETAILS =
+        new HashMap<String, String>();
     static {
         USER_EDITABLE_DETAILS.put("first_name", "first_names");
         USER_EDITABLE_DETAILS.put("first_names", "first_names");
@@ -245,6 +245,9 @@ public class UserHandler extends BaseHandler {
      */
     public int setDetails(String sessionKey, String login, Map details) 
         throws FaultException {
+
+        validateMap(USER_EDITABLE_DETAILS.keySet(), details);
+
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         

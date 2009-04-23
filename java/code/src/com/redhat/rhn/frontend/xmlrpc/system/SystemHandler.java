@@ -2859,6 +2859,7 @@ public class SystemHandler extends BaseHandler {
      *                      (enterprise_entitled or sw_mgr_entitled)")
      *           #prop_desc("boolean", "auto_errata_update", "True if system has 
      *                          auto errata updates enabled")
+     *           #prop_desc("string", "description", "System description")
      *           #prop_desc("string", "address1", "System's address line 1.")
      *           #prop_desc("string", "address2", "System's address line 2.")
      *           #prop("string", "city")
@@ -2872,6 +2873,23 @@ public class SystemHandler extends BaseHandler {
      *  @xmlrpc.returntype #return_int_success()
      */
     public Integer setDetails(String sessionKey, Integer serverId, Map details) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("profile_name");
+        validKeys.add("base_entitlement");
+        validKeys.add("auto_errata_update");
+        validKeys.add("address1");
+        validKeys.add("address2");
+        validKeys.add("city");
+        validKeys.add("state");
+        validKeys.add("country");
+        validKeys.add("building");
+        validKeys.add("room");
+        validKeys.add("rack");
+        validKeys.add("description");
+        validateMap(validKeys, details);
+
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
