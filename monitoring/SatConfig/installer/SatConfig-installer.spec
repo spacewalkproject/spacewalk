@@ -3,7 +3,7 @@ Name:         SatConfig-installer
 Summary:      Satellite Configuration System - command line installer
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      3.24.4
+Version:      3.24.5
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -41,6 +41,9 @@ install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 3.24.5-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.4-1
 - fix missing semicolon 
 
