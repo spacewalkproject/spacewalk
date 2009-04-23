@@ -286,6 +286,33 @@ public class ErrataHandler extends BaseHandler {
      */
     public Integer setDetails(String sessionKey, String advisoryName, Map details) {
 
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("synopsis");
+        validKeys.add("advisory_name");
+        validKeys.add("advisory_release");
+        validKeys.add("advisory_type");
+        validKeys.add("product");
+        validKeys.add("topic");
+        validKeys.add("description");
+        validKeys.add("references");
+        validKeys.add("notes");
+        validKeys.add("solution");
+        validKeys.add("bugs");
+        validKeys.add("keywords");
+        validateMap(validKeys, details);
+
+        validKeys.clear();
+        validKeys.add("id");
+        validKeys.add("summary");
+        if (details.containsKey("bugs")) {
+            for (Map<String, Object> bugMap :
+                 (ArrayList<Map<String, Object>>) details.get("bugs")) {
+
+                validateMap(validKeys, bugMap);
+            }
+        }
+
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
@@ -884,6 +911,28 @@ public class ErrataHandler extends BaseHandler {
     public Errata create(String sessionKey, Map errataInfo,
             List bugs, List keywords, List packageIds, boolean publish, 
             List channelLabels) throws InvalidChannelRoleException {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("synopsis");
+        validKeys.add("advisory_name");
+        validKeys.add("advisory_release");
+        validKeys.add("advisory_type");
+        validKeys.add("product");
+        validKeys.add("topic");
+        validKeys.add("description");
+        validKeys.add("references");
+        validKeys.add("notes");
+        validKeys.add("solution");
+        validateMap(validKeys, errataInfo);
+
+        validKeys.clear();
+        validKeys.add("id");
+        validKeys.add("summary");
+        for (Map<String, Object> bugMap : (ArrayList<Map<String, Object>>) bugs) {
+            validateMap(validKeys, bugMap);
+        }
+
         User loggedInUser = getLoggedInUser(sessionKey);
         
         //Don't want them to publish an errata without any channels, 

@@ -17,9 +17,11 @@ package com.redhat.rhn.frontend.xmlrpc.system.config;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -155,6 +157,17 @@ public class ServerConfigHandler extends BaseHandler {
                                             boolean isDir,
                                             Map<String, Object> data,
                                             boolean commitToLocal) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("contents");
+        validKeys.add("owner");
+        validKeys.add("group");
+        validKeys.add("permissions");
+        validKeys.add("macro-start-delimiter");
+        validKeys.add("macro-end-delimiter");
+        validateMap(validKeys, data);
+
         User user = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(user, sid);

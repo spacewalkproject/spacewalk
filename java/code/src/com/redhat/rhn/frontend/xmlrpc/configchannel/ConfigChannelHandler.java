@@ -258,6 +258,17 @@ public class ConfigChannelHandler extends BaseHandler {
                                                 String path,
                                                 boolean isDir,
                                                 Map<String, Object> data) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("contents");
+        validKeys.add("owner");
+        validKeys.add("group");
+        validKeys.add("permissions");
+        validKeys.add("macro-start-delimiter");
+        validKeys.add("macro-end-delimiter");
+        validateMap(validKeys, data);
+
         User user = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = helper.lookupGlobal(user, channelLabel);

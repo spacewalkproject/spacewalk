@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.system.provisioning.snapshot;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,6 +27,7 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerSnapshot;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidArgsException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSnapshotException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchSystemException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
@@ -73,6 +75,8 @@ public class SnapshotHandler extends BaseHandler {
      */
     public List<ServerSnapshot> listSnapshots(String sessionKey, Integer sid,
         Map dateDetails) {
+
+        validateDateKeys(dateDetails);
 
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
@@ -165,6 +169,8 @@ public class SnapshotHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int deleteSnapshots(String sessionKey, Map dateDetails) {
+        validateDateKeys(dateDetails);
+
         User loggedInUser = getLoggedInUser(sessionKey);
 
         Date startDate = null;
@@ -216,6 +222,8 @@ public class SnapshotHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int deleteSnapshots(String sessionKey, Integer sid, Map dateDetails) {
+        validateDateKeys(dateDetails);
+
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
 
@@ -277,5 +285,13 @@ public class SnapshotHandler extends BaseHandler {
         }
         lookupServer(user, snap.getServer().getId().intValue());
         return snap;
+    }
+
+    private void validateDateKeys(Map map) throws InvalidArgsException {
+        // confirm that map contains only valid keys
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("startDate");
+        validKeys.add("endDate");
+        validateMap(validKeys, map);
     }
 }
