@@ -476,7 +476,7 @@ public class ActivationKeyManager {
             //we know its the channel we want if it has the rhncfg package in it.
             Long bcid = key.getBaseChannel().getId();
             log.debug("found basechannel: " + bcid);
-            Long cid = ChannelManager.findChildChannelWithPackage(bcid, 
+            Long cid = ChannelManager.findChildChannelWithPackage(key.getOrg(), bcid,
                     packageName);
             if (cid == null) { // Didnt find it ..
                 log.debug("didnt find a child channel with the package.");
