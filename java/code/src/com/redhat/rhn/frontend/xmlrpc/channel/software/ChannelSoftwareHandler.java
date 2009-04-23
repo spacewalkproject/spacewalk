@@ -1506,6 +1506,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
     public int clone(String sessionKey, String originalLabel, Map channelDetails, 
             Boolean originalState) {
 
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("name");
+        validKeys.add("label");
+        validKeys.add("summary");
+        validKeys.add("parent_label");
+        validKeys.add("arch_label");
+        validKeys.add("gpg_url");
+        validKeys.add("gpg_id");
+        validKeys.add("gpg_fingerprint");
+        validKeys.add("description");
+        validateMap(validKeys, channelDetails);
+
         User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);
         

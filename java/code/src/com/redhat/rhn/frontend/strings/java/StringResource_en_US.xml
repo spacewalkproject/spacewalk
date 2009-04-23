@@ -7585,6 +7585,10 @@ Follow this url to see the full list of inactive systems:
           <source>Unkown</source>
       </trans-unit>
 
+	  <trans-unit id="api.invalidargs">
+          <source>Invalid argument(s): {0}</source>
+      </trans-unit>
+
 	  <trans-unit id="api.action.nosuchaction">
           <source>No such action: {0}</source>
       </trans-unit>

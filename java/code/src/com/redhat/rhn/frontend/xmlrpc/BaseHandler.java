@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -312,6 +314,33 @@ public class BaseHandler implements XmlRpcInvocationHandler {
             if (ent == null || ent.isBase()) {
                 throw new InvalidEntitlementException();
             }
+        }
+    }
+
+    /**
+     * Validate that the keys provided in the map provided
+     * by the user are valid.
+     * @param validKeys Set of keys that are valid for this request
+     * @param map The map to validate
+     */
+    protected void validateMap(Set<String> validKeys, Map map) {
+        String errors = null;
+        for (Iterator it = map.keySet().iterator(); it.hasNext();) {
+            String key = (String) it.next();
+
+            if (!validKeys.contains(key)) {
+                // user passed an invalid key...
+                if (errors == null) {
+                    errors = new String(key);
+                }
+                else {
+                    errors += ", " + key;
+                }
+            }
+        }
+        if (errors != null) {
+            // at least one invalid key was found...
+            throw new InvalidArgsException(errors);
         }
     }
 }
