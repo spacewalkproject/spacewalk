@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.2
+Version:        0.6.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 494976 - adding cobbler systme record name usage to reprovisioning (jsherril@redhat.com)
+
 * Tue Apr 21 2009 Jan Pazdziora 0.6.2-1
 - spacewalk-schema-upgrade: other stability and code cleanup changes
 - 495869 - label the /var/log/spacewalk/schema-upgrade based on the SELinux
