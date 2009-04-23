@@ -1355,15 +1355,19 @@ public class ChannelManager extends BaseManager {
      * Finds the id of a child channel with the given parent channel id that contains
      * a package with the given name.  Will only find one child channel even if there are
      * many that qualify.
+     * @param org Organization of the current user.
      * @param parent The id of the parent channel
      * @param packageName The exact name of the package sought for.
      * @return The id of a single child channel found or null if nothing found. 
      */
-    public static Long findChildChannelWithPackage(Long parent, String packageName) {
+    public static Long findChildChannelWithPackage(Org org, Long parent, String
+            packageName) {
+
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_with_package");
         Map params = new HashMap();
         params.put("parent", parent);
         params.put("package", packageName);
+        params.put("org_id", org.getId());
         
         //whittle down until we have the piece we want.
         DataResult dr = m.execute(params);
@@ -1421,7 +1425,7 @@ public class ChannelManager extends BaseManager {
         //we know its the channel we want if it has the rhncfg package in it.
         Long bcid = current.getBaseChannel().getId();
         log.debug("found basechannel: " + bcid);
-        Long cid = ChannelManager.findChildChannelWithPackage(bcid, 
+        Long cid = ChannelManager.findChildChannelWithPackage(user.getOrg(), bcid,
                 packageName);
         if (cid == null) { // Didnt find it ..
             log.debug("didnt find a child channel with the package.");

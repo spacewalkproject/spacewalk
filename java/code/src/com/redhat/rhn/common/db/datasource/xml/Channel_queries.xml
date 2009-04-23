@@ -1025,14 +1025,17 @@ SELECT CP.package_id, CP.name_id, CP.evr_id
 </mode>
 
 <mode name="channel_with_package">
-    <query params="parent, package">
+    <query params="parent, package, org_id">
 SELECT  DISTINCT C.id
-  FROM  rhnChannel C, rhnChannelPackage CP, rhnPackage P, rhnPackageName PN
+ FROM  rhnChannel C, rhnChannelPackage CP, rhnPackage P, rhnPackageName PN
  WHERE  C.parent_channel = :parent
    AND  C.id = CP.channel_id
    AND  CP.package_id = P.id
    AND  P.name_id = PN.id
    AND  PN.name = :package
+   AND  (C.org_id = :org_id OR C.org_id IS NULL OR EXISTS (
+        SELECT 1 FROM rhnSharedChannelView SCV
+        WHERE SCV.id = C.id AND SCV.org_trust_id = :org_id))
     </query>
 </mode>
 
