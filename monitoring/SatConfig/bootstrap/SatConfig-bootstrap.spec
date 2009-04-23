@@ -1,5 +1,5 @@
 Name:         SatConfig-bootstrap
-Version:      1.11.2
+Version:      1.11.3
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - satellite id installer
 URL:          https://fedorahosted.org/spacewalk
@@ -38,6 +38,9 @@ install -m 755 npBootstrap.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 1.11.3-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.11.2-1
 - 467441 - fix namespace
 
