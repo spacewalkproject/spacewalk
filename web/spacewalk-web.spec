@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,13 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 485020 - errata clone names consistent in perl/java (jsherril@redhat.com)
+- 474567 - Stop running commands on SSM systems that don't have provisioning. (dgoodwin@redhat.com)
+- 436851 - Removed dead references (jason.dobies@redhat.com)
+- 496710 - system.listSystemEvents - convert dates in return to use Date (bbuckingham@redhat.com)
+- 496214 - Fix About links in Perl sitenav. (dgoodwin@redhat.com)
+
 * Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
 - 496161 - removing find a system box from system group details page
   (jsherril@redhat.com)
