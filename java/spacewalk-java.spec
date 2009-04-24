@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.6
+Version: 0.6.7
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -249,6 +249,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.7-1
+- 496080 - Fix channel with package lookup to filter on org.
+  (dgoodwin@redhat.com)
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
 - 496719 - generate error for invalid keys in input maps (bbuckingham@redhat.com)
 - 494976 - adding missing file (jsherril@redhat.com)
