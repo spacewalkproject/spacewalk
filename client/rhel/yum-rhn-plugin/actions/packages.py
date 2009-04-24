@@ -212,6 +212,8 @@ class YumAction(yum.YumBase):
                     }
             if len(pkgtup) > 4:
                 pkgkeys['arch'] = pkgtup[4]
+            else:
+                pkgtup.append('')
             if action == 'u':
                 self.update(**pkgkeys)
             elif action == 'i':
@@ -226,9 +228,20 @@ class YumAction(yum.YumBase):
 
  
 def _yum_package_tup(package_tup):
-    """ Create a yum-style package tuple from an rhn package tuple. """
-    return (package_tup[0], '', package_tup[3], package_tup[1], package_tup[2])
-
+    """ Create a yum-style package tuple from an rhn package tuple. 
+        Allowed styles: n, n.a, n-v-r, n-e:v-r.a, n-v, n-v-r.a, 
+                        e:n-v-r.a
+        Choose from the above styles to be compatible with yum.parsePackage
+    """
+    n, v, r, e, a = package_tup[:]
+    if not e:
+        # set epoch to 0 as yum expects
+        e = '0'
+    if not a:
+        pkginfo = '%s-%s-%s' % (n, v, r)
+    else:
+        pkginfo = '%s-%s:%s-%s.%s' % (n, e, v, r, a)
+    return (pkginfo,)
 
 def remove(package_list):
     """We have been told that we should remove packages"""
@@ -257,7 +270,7 @@ def update(package_list):
 def __make_transaction(package_list, action):
     """
     Build transaction Data like runTransaction would expect.
-    This is a list of ((n,v,r,e), m) where m is either e, i, or u
+    This is a list of ((n,v,r,e,a), m) where m is either e, i, or u
     """
 
     transaction_data = {}
@@ -316,8 +329,25 @@ def _run_yum_action(command):
         try:
             yum_base.doLock(YUM_PID_FILE)
 
-            command.execute(yum_base) 
-            yum_base.buildTransaction()
+            # Accumulate transaction data
+            command.execute(yum_base)
+            # depSolving stage
+            (result, resultmsgs) = yum_base.buildTransaction()
+            if result == 1:
+                # Fatal Error
+                for msg in resultmsgs:
+                    log.log_debug('Error: %s' % msg)
+                raise yum.Errors.DepError, resultmsgs 
+            elif result == 0 or 2:
+                # Continue on
+                pass
+            else:
+                # Unknown Error
+                for msg in resultmsgs:
+                    log.log_debug('Error: %s' % msg)
+                raise yum.Errors.YumBaseError, resultmsgs
+                
+            log.log_debug("Dependencies Resolved")
             yum_base.doTransaction()
     
         finally:
