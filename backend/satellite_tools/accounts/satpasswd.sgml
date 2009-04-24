@@ -1,0 +1,63 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY RHNSAT "Satellite User Password Reset Tool" >
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>satpasswd</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>satpasswd</command></RefName>
+<RefPurpose>
+Change a user's password on the management server.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>satpasswd</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg><replaceable>USER</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg><arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>satpasswd</emphasis> is used to change a user's password on the management server.  This password is used for accessing the user's account using the Web User Interface.  Due to the nature of the command, access to it is restricted to the root user.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term><replaceable>USER</replaceable></term>
+        <listitem>
+            <para>The login of the user being changed.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>G.R. Keech<email>rkeech@redhat.com</email></member>
+    <member>Brad Buckingham<email>bbuckingham@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>
