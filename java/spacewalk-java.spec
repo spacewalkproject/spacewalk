@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.7
+Version: 0.6.8
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -249,6 +249,18 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Fri Apr 24 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
+- removing some debug statements (jsherril@redhat.com)
+- 495961 - greatly improving performance of add errata page (jsherril@redhat.com)
+- Removed outdated @version requirement (jason.dobies@redhat.com)
+- 497119 - support to remove child channel subscriptions from orgs that have
+  systems subscribed when denied access to protected channel (shughes@redhat.com)
+- 495846 - Oops, missed a file (jason.dobies@redhat.com)
+- 495847 - New ListTag 3 functionality to add selected servers to SSM.
+  (jason.dobies@redhat.com)
+- 497538 - remove shared child channel subscriptions when removing subscription
+  from parent (shughes@redhat.com)
+
 * Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.7-1
 - 496080 - Fix channel with package lookup to filter on org.
   (dgoodwin@redhat.com)
