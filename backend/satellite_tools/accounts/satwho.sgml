@@ -1,0 +1,39 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY RHNSAT "Satellite User Tool" >
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>satwho</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>satwho</command></RefName>
+<RefPurpose>
+List the login names of users on the management server.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>satwho</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>satwho</emphasis> lists the login names for users on the management server.  These login names are used for logging in to the Web User Interface.  Due to the nature of the command, access to it is restricted to the root user.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>G.R. Keech<email>rkeech@redhat.com</email></member>
+    <member>Brad Buckingham<email>bbuckingham@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

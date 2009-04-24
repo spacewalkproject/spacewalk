@@ -1,0 +1,7 @@
+This is a small set of tools for working with Satellite user accounts. Included are the following scripts:
+
+1.   satwho.   Lists all the satellite users.
+
+2.   satpasswd.  Sets a password for a satellite user.  Especially good if you've locked yourself out of your satellite admin account ;-)
+
+3.   md5crypt.   A re-write of grub-md5-crypt that accepts --stdin; used by satpasswd.

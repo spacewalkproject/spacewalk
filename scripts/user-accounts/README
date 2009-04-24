@@ -1,9 +1,0 @@
-NOTICE: The use of the satwho and satpasswd scripts is only for the use with RHN Satellite and external database. It is not permitted to use these scripts within RHN Satellite and an embedded database. We encourage embedded database customers to contact Red Hat Global Support (https://www.redhat.com/apps/support/) for assistance with any issues you may be having with your Satellite. 
-
-This is a small set of tools for working with Satellite user accounts. Included are the following scripts:
-
-1.   satwho.   Lists all the satellite users.
-
-2.   satpasswd.  Sets a password for a satellite user.  Especially good if you've locked yourself out of your satellite admin account ;-)
-
-3.   md5crypt.   A re-write of grub-md5-crypt that accepts --stdin; used by satpasswd.

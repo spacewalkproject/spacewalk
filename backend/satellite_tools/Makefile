@@ -6,7 +6,7 @@ TOP	= ..
 
 # Specific stuff
 SUBDIR	= satellite_tools
-SUBDIRS = exporter disk_dumper
+SUBDIRS = exporter disk_dumper accounts
 FILES	= __init__ connection diskImportLib messages \
             progress_bar req_channels satCerts satrm satsync syncCache \
             sync_handlers rhn-entitlement-report\

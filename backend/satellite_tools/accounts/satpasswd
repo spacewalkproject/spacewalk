@@ -8,8 +8,8 @@
 # Satellite and an external database.  It is not permitted to use this
 # script within RHN Satellite and an embedded database.
 
-SQLPLUS=/opt/oracle/bin/sqlplus
-SATWHO=/usr/local/bin/satwho
+SQLPLUS=/usr/bin/sqlplus
+SATWHO=/usr/bin/satwho
 MD5=/usr/bin/openssl
 MD5ARGS="passwd -1 -stdin"
 CREDENTIALS="rhnsat/rhnsat@rhnsat"
@@ -22,7 +22,6 @@ Usage: $PROG user [OPTION]
 Change the password of a satellite user.
 
   -h, --help              print this message and exit
-  -v, --version           print the version information and exit
 EOF
 }
 #==================================================================
@@ -57,12 +56,6 @@ for option in "$@"; do
 	exit 0
 	;;
 
-    -v | --version)
-	echo "$PROG version not set"
-	shift
-	exit 0
-	;;
-
     --stdin)
 	STDIN=TRUE
 	VARCOUNT=$(( $VARCOUNT - 1 ))
@@ -82,7 +75,7 @@ for option in "$@"; do
 	   exit 1
         fi
         ;;
-        
+
     esac
 done
 
