@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      && /usr/sbin/semodule -s ${selinuxvariant} -i \
+        /usr/share/selinux/${selinuxvariant}/spacewalk.pp || :
+  done
+
+/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
+
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+    /usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
+
+/usr/sbin/setsebool -P httpd_enable_cgi 1
+/usr/sbin/setsebool -P httpd_can_network_connect 1
+
