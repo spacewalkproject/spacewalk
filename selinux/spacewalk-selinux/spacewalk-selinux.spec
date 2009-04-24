@@ -7,8 +7,8 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.0
-Release:        2%{?dist}
+Version:        0.6.1
+Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
 Group:          System Environment/Base
@@ -104,6 +104,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Fri Apr 24 2009 Jan Pazdziora 0.6.1-1
+- move the %post SELinux activation to /usr/sbin/spacewalk-selinux-enable
+- use src.rpm packaging with single Source0
+
 * Tue Apr 21 2009 Jan Pazdziora 0.6.0-2
 - 495869 - mark /var/log/spacewalk as oracle_sqlplus_log_t
 - bump Versions to 0.6.0 (jesusr@redhat.com)
