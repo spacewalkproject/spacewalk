@@ -226,6 +226,8 @@ class YumAction(yum.YumBase):
             else:
                 assert False, "Unknown package transaction action."
 
+# global module level reference to YumAction
+yum_base = YumAction()
  
 def _yum_package_tup(package_tup):
     """ Create a yum-style package tuple from an rhn package tuple. 
@@ -320,15 +322,12 @@ def _run_yum_action(command):
     so we can apply different operations to yum_base.
     """
 
-    yum_base = YumAction()
-
     # TODO: Note to future programmers:
     # When this is running on python 2.5,
     # use the unified try/except/finally
     try:
         try:
             yum_base.doLock(YUM_PID_FILE)
-
             # Accumulate transaction data
             command.execute(yum_base)
             # depSolving stage
