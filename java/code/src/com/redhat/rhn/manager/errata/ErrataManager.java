@@ -1111,7 +1111,7 @@ public class ErrataManager extends BaseManager {
     */
    public static void publishErrataToChannelAsync(Channel chan, 
            Collection<Long> errataIds, User user) {
-       Logger.getLogger(ErrataManager.class).error("Publishing");
+       Logger.getLogger(ErrataManager.class).debug("Publishing");
        CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
        MessageQueue.publish(eve);
    }
@@ -1126,7 +1126,7 @@ public class ErrataManager extends BaseManager {
     */
    public static void publishErrataToChannel(Channel chan,
            Collection<Long> errataIds, User user) {
-       Logger.getLogger(ErrataManager.class).error("Publishing");
+       Logger.getLogger(ErrataManager.class).debug("Publishing");
        CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
        CloneErrataAction event = new CloneErrataAction();
        event.doExecute(eve);
