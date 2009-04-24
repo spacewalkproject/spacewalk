@@ -50,7 +50,6 @@ do
     mv %{modulename}.pp %{modulename}.pp.${selinuxvariant}
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
-cd -
 
 %install
 rm -rf %{buildroot}
@@ -62,11 +61,10 @@ for selinuxvariant in %{selinux_variants}
     install -p -m 644 %{modulename}.pp.${selinuxvariant} \
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
   done
-cd -
 
 # Install SELinux interfaces
 install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
-install -p -m 644 %{name}-%{version}/%{modulename}.if \
+install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
