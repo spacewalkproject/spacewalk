@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -565,7 +565,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Fri Apr 24 2009 Brad Buckingham <bbuckingham@redhat.com> 
+* Fri Apr 24 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.3-1
 - 309601 - adding satpasswd, satwho and md5crypt to spacewalk-backend-tools
 
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
