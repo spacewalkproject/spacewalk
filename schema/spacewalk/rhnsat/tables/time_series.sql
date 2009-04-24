@@ -32,3 +32,10 @@ create index time_series_oid_entry_idx
     on time_series(o_id, entry_time)
     tablespace [[64k_tbs]]
   ;
+
+create index time_series_probe_id_idx
+on time_series(SUBSTR(O_ID, INSTR(O_ID, '-') + 1,
+ (INSTR(O_ID, '-', INSTR(O_ID, '-') + 1) - INSTR(O_ID, '-')) - 1
+ ))
+tablespace [[64k_tbs]]
+nologging;
