@@ -2454,6 +2454,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">Any page with a List View</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Add to SSM">
+        <source>Add Selected to SSM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page with a List View</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Clear SSM">
+        <source>Remove existing servers from the SSM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page with a List View</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="systemsadmined.jsp.access">
 <source>Access Granted Through</source>
         <context-group name="ctx">
