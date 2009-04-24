@@ -59,7 +59,7 @@ class RegisterKsCli(rhncli.RhnCli):
         self.optparser.add_option("--use-eus-channel", action="store_true",
             help=_("Subscribe this system to the EUS channel tied to the system's redhat-release")),
         self.optparser.add_option("--contactinfo", action="store_true",
-            default=False, help=_("Read contact info from stdin")),
+            default=False, help=_("[Deprecated] Read contact info from stdin")),
         self.optparser.add_option("--nohardware", action="store_true",
             default=False, help=_("Do not probe or upload any hardware info")),
         self.optparser.add_option("--nopackages", action="store_true",
@@ -160,17 +160,7 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.sendPackages(systemId, packageList)
 
         if self.options.contactinfo:
-            contactinfo = RegisterKsCli.__readContactInfo()
-            
-            # collect oemInfo 
-            oemInfo = rhnreg.getOemInfo()
-            
-            if rhnreg.cfg['supportsUpdateContactInfo']:
-                if self.options.username and self.options.password:
-                    rhnreg.updateContactInfo(self.options.username,
-                        self.options.password, oemInfo)
-            else:
-                rhnreg.registerProduct(systemId, contactinfo, oemInfo)
+            print _("Warning: --contactinfo option has been deprecated. Please login to the server web user Interface and update your contactinfo. ")
 
         # write out the new id
         if isinstance(systemId, unicode):
@@ -192,46 +182,6 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.startRhnsd()
 
         RegisterKsCli.__runRhnCheck()
-
-    @staticmethod
-    def __readContactInfo():
-        productInfo = [
-            "reg_num",
-            "title",
-            "first_name",
-            "last_name",
-            "company",
-            "position",
-            "address1",
-            "address2",
-            "city",
-            "state",
-            "zip",
-            "country",
-            "phone",
-            "fax",
-            "contact_email",
-            "contact_mail",
-            "contact_phone",
-            "contact_fax",
-            "contact_special",
-            "contact_newsletter"]
-        
-        # read a file from standard in or filename if specified
-        L = sys.stdin.readlines()
-
-        # parse it and build a dict
-        info = {}
-        for i in L:
-            (key, value) = i.split(':')
-            info[key] = value.strip()
-
-        #cleanse the hash for just the values we care about
-        for i in info.keys():
-            if i not in productInfo:
-                del info[i]
-
-        return info
 
     @staticmethod
     def __generateProfileName(hardwareList):
