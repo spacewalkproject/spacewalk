@@ -10,7 +10,7 @@ Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-Requires: rhnlib >= 2.1
+Requires: rhnlib >= 2.2.7
 Requires: yum-rhn-plugin >= 0.5.3-30
 Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
@@ -205,6 +205,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri Apr 24 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves: #487754 - rhn-client-tools depends on cdn enabled rhnlib package
+
 * Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.24-1
 - 490438 - add .desktop file, own allowed-actions dir
 
