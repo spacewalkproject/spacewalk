@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
@@ -337,4 +338,27 @@ public class SsmManager {
         return changes;
     }
 
+    /**
+     * Adds the selected server IDs to the SSM RhnSet.
+     * 
+     * @param user      cannot be <code>null</code>
+     * @param serverIds cannot be <code>null</code>
+     */
+    @SuppressWarnings("unchecked")
+    public static void addServersToSsm(User user, String[] serverIds) {
+        RhnSet set = RhnSetDecl.SYSTEMS.get(user);
+        set.addAll(Arrays.asList(serverIds));
+        RhnSetManager.store(set);
+    }
+
+    /**
+     * Clears the list of servers in the SSM.
+     * 
+     * @param user cannot be <code>null</code>
+     */
+    public static void clearSsm(User user) {
+        RhnSet set = RhnSetDecl.SYSTEMS.get(user);
+        set.clear();
+        RhnSetManager.store(set);
+    }
 }
