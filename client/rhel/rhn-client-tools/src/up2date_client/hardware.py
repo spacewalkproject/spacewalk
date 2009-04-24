@@ -790,13 +790,23 @@ def read_dmi():
         system = product + " " + version
         dmidict["system"] = system
 
+    is_pv_guest = 0
+    # check to see if this a PV Guest
+    if os.access("/dev/xvc0", os.R_OK):
+        is_pv_guest = 1
+
     # BaseBoard Information
     # bz#432426 To Do: try to avoid system calls and probing hardware to
-    # get baseboard and chassis information 
-    f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
-    vendor = f.readline().strip()
-    f.close()
-    dmidict["board"] = vendor
+    # get baseboard and chassis information
+    if not is_pv_guest:
+        # only probe dmidecode if its not a PV xen guest.
+        # As PV guests will *never* be provided SMBIOS data.
+        f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
+        vendor = f.readline().strip()
+        f.close()
+        dmidict["board"] = vendor
+    else:
+        dmidict["board"] = ''
     
 
     # Bios Information    
@@ -813,18 +823,22 @@ def read_dmi():
     # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
     asset = ""
-    
-    f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
-    chassis_serial = f.readline().strip()
-    f.close()
+    if not is_pv_guest:
+        # only probe dmidecode if its not a PV xen guest.
+        # As PV guests will *never* be provided SMBIOS data.
+        f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
+        chassis_serial = f.readline().strip()
+        f.close()
      
-    f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
-    chassis_tag = f.readline().strip()
-    f.close()
+        f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
+        chassis_tag = f.readline().strip()
+        f.close()
     
-    f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
-    board_serial = f.readline().strip()
-    f.close()
+        f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
+        board_serial = f.readline().strip()
+        f.close()
+    else:
+        chassis_serial = chassis_tag = board_serial = ''
     
     system_serial = get_device_property(computer, "smbios.system.serial")
     
