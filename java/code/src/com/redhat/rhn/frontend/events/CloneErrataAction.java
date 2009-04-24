@@ -66,13 +66,13 @@ public class CloneErrataAction
                 List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
                                                                 msg.getUser(), errata);
                 if (clones.size() == 0) {
-                    log.fatal("Cloning errata!");
+                    log.debug("Cloning errata");
                     Errata published = PublishErrataHelper.cloneErrataFast(errata,
                             msg.getUser().getOrg());
                     published.setChannels(channelSet);
                 }
                 else {
-                    log.fatal("Re-publishing clone");
+                    log.debug("Re-publishing clone");
                     ErrataManager.publish(clones.get(0), cids, msg.getUser());
                 }
 

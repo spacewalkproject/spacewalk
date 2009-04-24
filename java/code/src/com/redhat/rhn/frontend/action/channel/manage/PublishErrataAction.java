@@ -69,7 +69,10 @@ public class PublishErrataAction extends RhnListAction {
         RhnSet  packageSet = RhnSetDecl.setForChannelPackages(currentChan).get(user);
         Set<Long> packageIds = packageSet.getElementValues();
         
-        Logger.getLogger(this.getClass()).error("Set in Publish: "  +  packageSet.size());
+        Logger log = Logger.getLogger(this.getClass());
+        if (log.isDebugEnabled()) {
+            log.debug("Set in Publish: "  +  packageSet.size());
+        }
         
         Set<Long> errataIds = RhnSetDecl.setForChannelErrata(currentChan).get(
                 user).getElementValues();
@@ -77,7 +80,7 @@ public class PublishErrataAction extends RhnListAction {
         ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
         
         //ErrataManager.publishErrataToChannel(currentChan, errataIds, user);
-
+        
  
         List<Long> pidList = new ArrayList<Long>();
         pidList.addAll(packageIds);
