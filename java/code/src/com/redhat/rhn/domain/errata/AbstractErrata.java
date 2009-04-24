@@ -24,6 +24,8 @@ import com.redhat.rhn.frontend.struts.Selectable;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -621,5 +623,35 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      */
     public String getSelectionKey() {
         return String.valueOf(getId());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AbstractErrata)) {
+            return false;
+        }
+        AbstractErrata e = (AbstractErrata) obj;
+        EqualsBuilder eb = new EqualsBuilder();
+        eb.append(this.getAdvisory(), e.getAdvisory());
+        eb.append(this.getAdvisoryName(), e.getAdvisoryName());
+        eb.append(this.getAdvisoryRel(), e.getAdvisoryRel());
+        eb.append(this.getAdvisorySynopsis(), e.getAdvisorySynopsis());
+        eb.append(this.getOrg(), e.getOrg());
+        return eb.isEquals();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        HashCodeBuilder eb = new HashCodeBuilder();
+        eb.append(this.getAdvisory());
+        eb.append(this.getAdvisoryName());
+        eb.append(this.getAdvisoryRel());
+        eb.append(this.getAdvisorySynopsis());
+        eb.append(this.getOrg());
+        return eb.hashCode();
     }
 }

@@ -39,6 +39,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
+import com.redhat.rhn.frontend.events.CloneErrataAction;
 import com.redhat.rhn.frontend.events.CloneErrataEvent;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
@@ -131,7 +132,7 @@ public class ErrataManager extends BaseManager {
      * @param user who is publishing errata
      * @return Returns a published errata.
      */
-    public static Errata publish(Errata unpublished, Set channelIds, User user) {
+    public static Errata publish(Errata unpublished, Collection channelIds, User user) {
         //pass on to the factory
         Errata retval = ErrataFactory.publish(unpublished);
         log.debug("publish - errata published");
@@ -162,7 +163,8 @@ public class ErrataManager extends BaseManager {
      * @param user who is adding channels to errata
      * @return Errata that is reloaded from the DB.
      */
-    public static Errata addChannelsToErrata(Errata errata, Set channelIds, User user) {
+    public static Errata addChannelsToErrata(Errata errata,
+                        Collection channelIds, User user) {
         log.debug("addChannelsToErrata");
         Iterator itr = channelIds.iterator();
         
@@ -918,6 +920,8 @@ public class ErrataManager extends BaseManager {
     
     /**
      * Lookup all the clones of a particular errata
+     *      looks up unpublished first, and then if none of those
+     *      exist, it looks up published ones
      * @param user User that is performing the cloning operation
      * @param original Original errata that the clones are clones of
      * @return list of clones of the errata
@@ -927,26 +931,40 @@ public class ErrataManager extends BaseManager {
     }
     
     /**
+     * Lookup all the clones of a particular errata
+     * @param user User that is performing the cloning operation
+     * @param original Original errata that the clones are clones of
+     * @return list of clones of the errata
+     */
+    public static List lookupPublishedByOriginal(User user, Errata original) {
+        return ErrataFactory.lookupPublishedByOriginal(user.getOrg(), original);
+    }
+
+
+
+    /**
      * Lookup packages that are associated with errata in the RhnSet "errata_list"
-     * @param packageAssoc  whether or not to filter packages by what's in the 
-     *              provided channel
-     * @param customChan the custom channel to check for associations with
+     * @param srcChan the source channel to find the package associations with
+     * @param destChan if srcChan is not available, we will match package associations
+     *      based on packages in the destChan
      * @param user the user doing the query
      * @param set the set label
      * @return List of packages
      */
     public static DataResult<PackageOverview> lookupPacksFromErrataSet(
-            boolean packageAssoc, Channel customChan, User user, String set) {
+            Channel srcChan, Channel destChan, User user, String set) {
         String mode;
         Map params = new HashMap();
         params.put("uid", user.getId());
         params.put("set", set);
-        if (packageAssoc) {
+
+        if (srcChan != null) {
             mode = "find_packages_for_errata_set_with_assoc";
-            params.put("custom_cid", customChan.getId());
+            params.put("src_cid", srcChan.getId());
         }
         else {
-            mode = "find_packages_for_errata_set"; 
+            mode = "find_packages_for_errata_set_no_chan";
+            params.put("dest_cid", destChan.getId());
         }
         SelectMode m = ModeFactory.getMode(
                 "Errata_queries", mode);
@@ -1098,6 +1116,22 @@ public class ErrataManager extends BaseManager {
        MessageQueue.publish(eve);
    }
    
+
+   /**
+    * Publish errata to a channel asynchronisly (cloning as necessary),
+    *   does not do any package push
+    * @param chan the channel
+    * @param errataIds list of errata ids
+    * @param user the user doing the push
+    */
+   public static void publishErrataToChannel(Channel chan,
+           Collection<Long> errataIds, User user) {
+       Logger.getLogger(ErrataManager.class).error("Publishing");
+       CloneErrataEvent eve = new CloneErrataEvent(chan, errataIds, user);
+       CloneErrataAction event = new CloneErrataAction();
+       event.doExecute(eve);
+   }
+
    /**
     * Send errata notifications for a particular errata and channel
     * @param e the errata to send notifications about

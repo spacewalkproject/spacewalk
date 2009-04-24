@@ -111,6 +111,11 @@ public class AddRedHatErrataAction extends RhnListAction {
         //Set initail strings
         selectedChannelStr = request.getParameter(SELECTED_CHANNEL_OLD);
         selectedVersionStr = request.getParameter(SELECTED_VERSION_OLD);
+        if (selectedVersionStr == null) {
+            selectedVersionStr = versionList.get(0).getVersion();
+        }
+
+
         //If the channel submit button was clicked
         if (requestContext.wasDispatched(CHANNEL_SUBMIT)) {
           selectedChannelStr = request.getParameter(SELECTED_CHANNEL);
@@ -136,33 +141,12 @@ public class AddRedHatErrataAction extends RhnListAction {
                 original != null) {
             selectedChannel = original;
             selectedChannelStr = selectedChannel.getId().toString();
-            selectedVersionStr = findVersionFromChannel(selectedChannel);
-        }
-        
-        
-        
-        request.setAttribute(SELECTED_CHANNEL, selectedChannelStr);
-        request.setAttribute(SELECTED_VERSION, selectedVersionStr);
-        
-        
-        if (requestContext.isSubmitted() && request.getParameter(CHECKED) == null)  {
-            checked = false;
-        }
-        
-        
-        request.setAttribute(CHECKED, checked);
-        
-        
-        if (requestContext.wasDispatched(SUBMITTED)) {
-            Map params = new HashMap();
-            params.put(CID, request.getParameter(CID));
-            params.put(CHECKED, request.getParameter(CHECKED));
-            return getStrutsDelegate().forwardParams(mapping.findForward("submit"), 
-                    params); 
+            String tmp = findVersionFromChannel(selectedChannel);
+            if (tmp != null) {
+                selectedVersionStr = tmp;
+            }
         }
 
-        
-        
         
         if (selectedVersionStr != null) {
             //set selected version based off version selected
@@ -179,10 +163,35 @@ public class AddRedHatErrataAction extends RhnListAction {
             if (channelSet != null) {
                 sortChannelsAndChildify(channelSet, channelList, user, selectedChannelStr);
                 request.setAttribute(CHANNEL_LIST, channelList);
-            }             
+            }
+            if (channelList.size() > 0) {
+                selectedChannelStr = channelList.get(0).getId().toString();
+            }
+
         }
 
+
+
+
+        if (requestContext.isSubmitted() && request.getParameter(CHECKED) == null)  {
+            checked = false;
+        }
+
+
+        request.setAttribute(CHECKED, checked);
+        request.setAttribute(SELECTED_CHANNEL, selectedChannelStr);
+        request.setAttribute(SELECTED_VERSION, selectedVersionStr);
         
+        if (requestContext.wasDispatched(SUBMITTED)) {
+            Map params = new HashMap();
+            params.put(CID, request.getParameter(CID));
+            params.put(SELECTED_CHANNEL, selectedChannelStr);
+            params.put(CHECKED, request.getParameter(CHECKED));
+            return getStrutsDelegate().forwardParams(mapping.findForward("submit"),
+                    params);
+        }
+
+
         //If we clicked on the channel selection, clear the set
         if (requestContext.wasDispatched(CHANNEL_SUBMIT) ||
                 requestContext.wasDispatched(VERSION_SUBMIT) ||
@@ -202,9 +211,6 @@ public class AddRedHatErrataAction extends RhnListAction {
         RhnListSetHelper helper = new RhnListSetHelper(request);        
         RhnSet set =  getSetDecl(currentChan).get(user);
         
-        
-
-                         
         
         DataResult dr = getData(request, selectedChannel, currentChan, channelList, 
                 checked, user);

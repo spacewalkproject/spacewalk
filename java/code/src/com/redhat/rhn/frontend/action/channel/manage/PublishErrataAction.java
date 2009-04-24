@@ -76,6 +76,8 @@ public class PublishErrataAction extends RhnListAction {
         
         ErrataManager.publishErrataToChannelAsync(currentChan, errataIds, user);
         
+        //ErrataManager.publishErrataToChannel(currentChan, errataIds, user);
+
  
         List<Long> pidList = new ArrayList<Long>();
         pidList.addAll(packageIds);

@@ -775,10 +775,7 @@ public class ErrataFactory extends HibernateFactory {
                               .setParameter("org", org).list();
             
             if (retval == null) {
-                retval = (List) session.
-                getNamedQuery("PublishedClonedErrata.findByOriginal")
-                .setParameter("original", original)
-                .setParameter("org", org).list();
+                retval = lookupPublishedByOriginal(org, original);
             }
                               
         }
@@ -789,6 +786,30 @@ public class ErrataFactory extends HibernateFactory {
         return retval;
     }
     
+    /**
+     * Lookup all the clones of a particular errata
+     * @param org Org that the clones belongs to
+     * @param original Original errata that the clones are clones of
+     * @return list of clones of the errata
+     */
+    public static List lookupPublishedByOriginal(Org org, Errata original) {
+        Session session = null;
+        List retval = null;
+
+        try {
+            session = HibernateFactory.getSession();
+            retval = (List) session.getNamedQuery("PublishedClonedErrata.findByOriginal")
+                .setParameter("original", original)
+                .setParameter("org", org).list();
+        }
+        catch (HibernateException e) {
+            throw new
+                HibernateRuntimeException("Error looking up errata by original errata");
+        }
+        return retval;
+    }
+
+
     /**
      * Insert or Update a Errata.
      * @param errataIn Errata to be stored in database.

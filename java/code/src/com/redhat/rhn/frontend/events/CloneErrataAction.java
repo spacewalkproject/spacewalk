@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.impl.PublishedClonedErrata;
 import com.redhat.rhn.frontend.action.channel.manage.PublishErrataHelper;
+import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 
 import org.apache.log4j.Logger;
@@ -44,6 +45,8 @@ public class CloneErrataAction
      * {@inheritDoc}
      */
     public void doExecute(EventMessage msgIn) {
+
+
         CloneErrataEvent msg = (CloneErrataEvent) msgIn;
         Channel currChan = msg.getChan();
         Collection<Long> list = msg.getErrata();
@@ -51,6 +54,7 @@ public class CloneErrataAction
         cids.add(currChan.getId());
         
         for (Long eid : list) {
+
             Errata errata = ErrataFactory.lookupById(eid);
             if (errata instanceof PublishedClonedErrata) {
                 errata.addChannel(currChan);
@@ -59,13 +63,22 @@ public class CloneErrataAction
                 Set<Channel> channelSet = new HashSet<Channel>();
                 channelSet.add(currChan);
                 
-                Errata published = PublishErrataHelper.cloneErrataFast(errata, 
-                        msg.getUser().getOrg());
-                published.setChannels(channelSet);
+                List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+                                                                msg.getUser(), errata);
+                if (clones.size() == 0) {
+                    log.fatal("Cloning errata!");
+                    Errata published = PublishErrataHelper.cloneErrataFast(errata,
+                            msg.getUser().getOrg());
+                    published.setChannels(channelSet);
+                }
+                else {
+                    log.fatal("Re-publishing clone");
+                    ErrataManager.publish(clones.get(0), cids, msg.getUser());
+                }
+
                 
             }
             ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
-            
         }
         handleTransactions();
     }
