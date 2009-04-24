@@ -76,7 +76,7 @@ sub appinstall_start {
  
   if ($version) {
     my $condensed_version = condensed_proxy_version($pxt, $version);
-    $subst{"link"} = "/rhn/help/proxy/rhn${condensed_version}/en/s1-installation-install-config.jsp";
+    $subst{"link"} = "/rhn/help/proxy/rhn${condensed_version}/en-US/s1-installation-install-config.jsp";
   } else {
     $subst{"link"} = "s1-installation-install-config.html";
   }
