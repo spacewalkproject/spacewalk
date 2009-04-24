@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Apr 24 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- 485981 - fix web proxy installer help links (bbuckingham@redhat.com)
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - 485020 - errata clone names consistent in perl/java (jsherril@redhat.com)
 - 474567 - Stop running commands on SSM systems that don't have provisioning. (dgoodwin@redhat.com)
