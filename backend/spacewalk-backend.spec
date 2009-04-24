@@ -565,6 +565,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Apr 24 2009 Brad Buckingham <bbuckingham@redhat.com> 
+- 309601 - adding satpasswd, satwho and md5crypt to spacewalk-backend-tools
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
 - 494976 - adding cobbler systme record name usage to reprovisioning
   (jsherril@redhat.com)
