@@ -1267,7 +1267,7 @@ public class SystemManager extends BaseManager {
         in.put("server_id", server.getId());
         in.put("channel_id", channel.getId());        
         m.execute(in, new HashMap());
-        if (Config.get().getInt("web.channel_sub.flushmode", 0) == 1) {
+
             /*
              * This is f-ing hokey, but we need to be sure to refresh the 
              * server object since we modified it outside of hibernate :-/
@@ -1280,8 +1280,7 @@ public class SystemManager extends BaseManager {
                 HibernateFactory.getSession().refresh(server);
                 return server;
             }
-        }        
-        return server;        
+
     }
     
     /**
@@ -2232,6 +2231,22 @@ public class SystemManager extends BaseManager {
         return m.execute(params);
     }
     
+    /**
+     * List of distinct servers subscribed to shared channels via org trust.
+     * @param orgA The first org in the trust.
+     * @param orgB The second org in the trust.
+     * @return (system.id)
+     */
+    public static DataResult sidsInOrgTrust(long orgA, long orgB) {
+        SelectMode m =
+            ModeFactory.getMode("System_queries",
+                    "sids_subscribed_by_orgtrust");
+        Map params = new HashMap();
+        params.put("orgA", orgA);
+        params.put("orgB", orgB);
+        return m.execute(params);
+    }
+
     /**
      * gets the number of systems subscribed to a channel
      * @param user the user checking

@@ -219,6 +219,20 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
     </query>
 </mode>
 
+<mode name="sids_subscribed_by_orgtrust">
+  <query params="orgA, orgB">
+        SELECT DISTINCT s.id
+            FROM rhnServer s,
+                      rhnChannel c,
+                      rhnServerChannel sc
+         WHERE c.id = sc.channel_id AND
+                      s.id = sc.server_id AND
+                      c.org_id = :orgA AND
+                      s.org_id = :orgB
+    </query>
+</mode>
+
+
 <mode name="systems_subscribed_to_channel_size">
   <query params="org_id, cid, user_id">
 SELECT 
