@@ -16,9 +16,7 @@ License:        GPLv2+
 # This src.rpm is cannonical upstream. You can obtain it using
 #      git clone git://git.fedorahosted.org/git/spacewalk.git/
 URL:            http://fedorahosted.org/spacewalk
-Source1:        %{modulename}.if
-Source2:        %{modulename}.te
-Source3:        %{modulename}.fc
+Source0:        Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  checkpolicy, selinux-policy-devel, hardlink
@@ -41,13 +39,10 @@ Requires:       oracle-instantclient-selinux
 SELinux policy module supporting Spacewalk Server.
 
 %prep
-rm -rf %{name}-%{version}
-mkdir -p %{name}-%{version}
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{name}-%{version}
+%setup -q
 
 %build
 # Build SELinux policy modules
-cd %{name}-%{version}
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
@@ -61,7 +56,6 @@ cd -
 rm -rf %{buildroot}
 
 # Install SELinux policy modules
-cd %{name}-%{version}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
