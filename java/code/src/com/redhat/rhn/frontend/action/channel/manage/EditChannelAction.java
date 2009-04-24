@@ -14,6 +14,24 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -22,6 +40,8 @@ import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -38,23 +58,6 @@ import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -214,26 +217,71 @@ public class EditChannelAction extends RhnAction implements Listable {
                 (String) form.get("gpg_key_fingerprint"));
     }
     
-    private Channel deny(DynaActionForm form,
-            ActionErrors errors,
+    /**
+     *
+     * @param form form to check
+     * @param errors errors to report
+     * @param ctx context
+     * @return Channel
+     */
+    private Channel deny(DynaActionForm form, ActionErrors errors,
             RequestContext ctx) {
+
         Channel c = edit(form, errors, ctx);
-        Long cid = c.getId();
-        Org org = c.getOrg();
-        // now remove all of the orgs to the "rhnchanneltrust" and unsubscribe systems
-        Set<Org> trustedOrgs = org.getTrustedOrgs();
-        for (Org o : trustedOrgs) {
-            DataResult<Map> dr =
-                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
-            for (Map item : dr) {
-                Long sid = (Long)item.get("id");
-                User user = ctx.getLoggedInUser();
-                SystemManager.unsubscribeServerFromChannel(user, sid, cid);
-            }
-        }
+        User user = ctx.getLoggedInUser();
+
+        unsubscribeOrgsFromChannel(user, c, Channel.PROTECTED);
+        c = (Channel) ChannelFactory.reload(c);
+
         c.getTrustedOrgs().clear();
         ChannelFactory.save(c);
         return c;
+    }
+
+    /**
+     *
+     * @param user User that owns parent channel
+     * @param channelIn base channel to unsubscribe from.
+     */
+    private void unsubscribeOrgsFromChannel(User user, Channel channelIn, String accessIn) {
+        Long cid = channelIn.getId();
+        Org org = channelIn.getOrg();
+
+        // find trusted orgs
+        Set<Org> trustedOrgs = org.getTrustedOrgs();
+        for (Org o : trustedOrgs) {
+            // find systems subscribed in org Trust
+            DataResult<Map> dr = SystemManager.sidsInOrgTrust(
+                    org.getId(), o.getId());
+
+            for (Map item : dr) {
+                Long sid = (Long) item.get("id");
+                Server s = ServerFactory.lookupById(sid);
+                if (s.isSubscribed(channelIn)) {
+                    // check if this is a base custom channel
+                    if (channelIn.getParentChannel() == null) {
+                        // unsubscribe children first if subscribed
+                        List<Channel> children = channelIn
+                                .getAccessibleChildrenFor(user);
+                        Iterator<Channel> i = children.iterator();
+                        while (i.hasNext()) {
+                            Channel child = (Channel) i.next();
+                            if (s.isSubscribed(child)) {
+                                // unsubscribe server from child channel
+
+                                child.getTrustedOrgs().remove(o);
+                                child.setAccess(accessIn);
+                                ChannelFactory.save(child);
+                                s = SystemManager.
+                                unsubscribeServerFromChannel(s, child, true);
+                            }
+                        }
+                    }
+                    // unsubscribe server from channel
+                    s = SystemManager.unsubscribeServerFromChannel(s, channelIn, true);
+                }
+            }
+        }
     }
     
     private Channel grant(DynaActionForm form,
@@ -251,20 +299,11 @@ public class EditChannelAction extends RhnAction implements Listable {
     private Channel makePrivate(DynaActionForm form,
                                 ActionErrors errors,
                                 RequestContext ctx) {
-        // need to unsubscribe all systems from the trusted orgs from this
-        // channel
+
+        User user = ctx.getLoggedInUser();
         Long cid = ctx.getParamAsLong("cid");
-        Org org = ctx.getLoggedInUser().getOrg();
-        Set<Org> trustedorgs = org.getTrustedOrgs();
-        for (Org o : trustedorgs) {
-            DataResult<Map> dr =
-                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
-            for (Map item : dr) {
-                Long sid = (Long)item.get("id");
-                User user = ctx.getLoggedInUser();
-                SystemManager.unsubscribeServerFromChannel(user, sid, cid);
-            }
-        }
+        Channel channel = ChannelFactory.lookupById(cid);
+        unsubscribeOrgsFromChannel(user, channel, Channel.PRIVATE);
         return edit(form, errors, ctx);
     }
 
@@ -525,7 +564,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         List<OrgTrust> trusts = new ArrayList<OrgTrust>();
         for (Org o : trustedorgs) {
             DataResult<Map> dr =
-                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
+                SystemManager.sidsInOrgTrust(org.getId(), o.getId());
             OrgTrust trust = new OrgTrust(o);
             if (!dr.isEmpty()) {
                 for (Map m : dr) {

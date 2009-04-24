@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.multiorg;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,7 @@ import org.apache.struts.action.ActionMapping;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -137,7 +139,28 @@ public class OrgChannelListAction extends DispatchedAction {
         for (Map<String, Object> m : myList) {
             Long sid = (Long)m.get("id");
             Server s = SystemManager.lookupByIdAndUser(sid, u);
-            SystemManager.unsubscribeServerFromChannel(s, c);
+            if (s.isSubscribed(c)) {
+                // check if this is a base custom channel
+                if (c.getParentChannel() == null) {
+                    // unsubscribe children first if subscribed
+                    List<Channel> children = c
+                            .getAccessibleChildrenFor(u);
+                    Iterator<Channel> i = children.iterator();
+                    while (i.hasNext()) {
+                        Channel child = (Channel) i.next();
+                        if (s.isSubscribed(child)) {
+                            // unsubscribe server from child channel
+
+                            child.getTrustedOrgs().remove(orgIn);
+                            ChannelFactory.save(child);
+                            s = SystemManager.
+                            unsubscribeServerFromChannel(s, child, true);
+                        }
+                    }
+                }
+                // unsubscribe server from channel
+                s = SystemManager.unsubscribeServerFromChannel(s, c, true);
+            }
         }
     }
     
