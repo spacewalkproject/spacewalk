@@ -39,8 +39,7 @@ rhn_enabled = True
 
 COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
-import M2Crypto.SSL.Connection
-from M2Crypto.SSL import SSLError
+from M2Crypto.SSL import SSLError, Connection
 
 def bypass_m2crypto_ssl_connection_check(*args, **kw):
     """This needs to return True, it's used to bypass a check in 
@@ -68,7 +67,7 @@ def init_hook(conduit):
     #when the SSL Cert "commonName" did not match the name used to connect to the host.
     #This functionality was different than RHEL4, desire was to bypass the check to 
     #maintain the functionality in RHEL4 
-    setattr(M2Crypto.SSL.Connection, "clientPostConnectionCheck", bypass_m2crypto_ssl_connection_check)
+    setattr(Connection, "clientPostConnectionCheck", bypass_m2crypto_ssl_connection_check)
 
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
