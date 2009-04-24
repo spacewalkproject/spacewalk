@@ -231,7 +231,6 @@ public class EditChannelAction extends RhnAction implements Listable {
         User user = ctx.getLoggedInUser();
 
         unsubscribeOrgsFromChannel(user, c, Channel.PROTECTED);
-        c = (Channel) ChannelFactory.reload(c);
 
         c.getTrustedOrgs().clear();
         ChannelFactory.save(c);
@@ -278,6 +277,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                         }
                     }
                     // unsubscribe server from channel
+                    ChannelFactory.save(channelIn);
                     s = SystemManager.unsubscribeServerFromChannel(s, channelIn, true);
                 }
             }
