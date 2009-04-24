@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.6.3
+Version:        0.6.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -52,6 +52,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Fri Apr 24 2009 Jan Pazdziora 0.6.4-1
+- 497477 - add function based index on time_series for faster probe_id lookups,
+  use hint in delete to use it
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - 494976 - adding cobbler systme record name usage to reprovisioning (jsherril@redhat.com)
 
