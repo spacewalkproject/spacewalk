@@ -419,11 +419,11 @@ is
             WHERE o_id IN (SELECT probe_id
                              FROM rhn_check_probe
                             WHERE host_id = server_id_in);
-           DELETE
+           DELETE /*+index(time_series time_series_probe_id_idx)*/
              FROM time_series
             WHERE SUBSTR(o_id, INSTR(o_id, '-') + 1, 
                         (INSTR(o_id, '-', INSTR(o_id, '-') + 1) - INSTR(o_id, '-')) - 1)
-              IN (SELECT probe_id
+              IN (SELECT to_char(probe_id)
                     FROM rhn_check_probe
                    WHERE host_id = server_id_in);
            DELETE
