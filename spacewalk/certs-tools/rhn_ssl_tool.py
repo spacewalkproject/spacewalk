@@ -1026,8 +1026,16 @@ server with this hostname: %s
             # user doesn't exist, try the next
             pass
     if jabberd_user is None:
-        raise Exception("No jabber/jabberd user on system")
+        print ("WARNING: No jabber/jabberd user on system, skipping " +
+                "jabberd.pem generation.")
     
+    jabberd_cert_string = ""
+    if jabberd_user is not None:
+        jabberd_cert_string = \
+            "/etc/pki/spacewalk/jabberd/server.pem:0600,%s,%s=%s" % \
+            (jabberd_user, jabberd_user, repr(cleanupAbsPath(jabberd_ssl_cert)))
+
+
     ## build the server RPM
     args = (os.path.join(CERT_PATH, 'gen-rpm.sh') + " "
             "--name %s --version %s --release %s --packager %s --vendor %s "
@@ -1035,7 +1043,7 @@ server with this hostname: %s
             "/etc/httpd/conf/ssl.key/server.key:0600=%s "
             "/etc/httpd/conf/ssl.csr/server.csr=%s "
             "/etc/httpd/conf/ssl.crt/server.crt=%s "
-            "/etc/pki/spacewalk/jabberd/server.pem:0600,%s,%s=%s"
+            "%s"
             % (repr(server_rpm_name), ver, rel, repr(d['--rpm-packager']),
                repr(d['--rpm-vendor']),
                repr(SERVER_RPM_SUMMARY), repr(description),
@@ -1043,9 +1051,7 @@ server with this hostname: %s
                repr(cleanupAbsPath(server_key)),
                repr(cleanupAbsPath(server_cert_req)),
                repr(cleanupAbsPath(server_cert)),
-               jabberd_user,
-               jabberd_user,
-               repr(cleanupAbsPath(jabberd_ssl_cert)),
+               jabberd_cert_string
                ))
     serverRpmName = "%s-%s-%s" % (server_rpm, ver, rel)
 
