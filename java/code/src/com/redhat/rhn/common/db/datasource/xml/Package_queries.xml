@@ -1626,7 +1626,6 @@ SELECT distinct P.id AS ID,
  				P2.evr_id = PE.id and
  				P2.package_arch_id = PA.id
  		) 
-
   </query>
     <elaborator name="package_details" />
 </mode>

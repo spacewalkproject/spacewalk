@@ -51,7 +51,6 @@
 
 
   <select name="selected_version">
-   		<option value="null" >All Red Hat Versions</option>	
    		<c:forEach var="option" items="${version_list}">
    					<option value="${option.version}" <c:if test="${option.selected eq true}">selected = "selected"</c:if>>${option.name}</option>	
 		</c:forEach>  	
@@ -73,7 +72,6 @@
 	   		
 			  <tr> <th width="10%">Channel:</th><td width="40%">
 			  <select name="selected_channel">
-			  		<option value="null" >All ${selected_version_name} Channels</option>
 				    <optgroup>
 			   		<c:forEach var="option" items="${channel_list}">
 			   			<c:choose>
