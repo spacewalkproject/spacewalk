@@ -40,6 +40,7 @@ rhn_enabled = True
 COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
 import M2Crypto.SSL.Connection
+from M2Crypto.SSL import SSLError
 
 def bypass_m2crypto_ssl_connection_check(*args, **kw):
     """This needs to return True, it's used to bypass a check in 
@@ -305,6 +306,8 @@ class RhnRepo(YumRepository):
             raise yum.Errors.RepoError, \
                 "failed to retrieve %s from %s\nerror was %s" % (relative,
                 self.id, e)
+        except SSLError, e:
+            raise yum.Errors.RepoError(str(e))
     _YumRepository__get = _getFile
 
     # This code is copied from yum, we should get the original code to
