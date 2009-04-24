@@ -26,7 +26,7 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/semanage
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/semanage, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/semanage
 Requires:       spacewalk-config
 Requires:       spacewalk-admin
@@ -70,25 +70,17 @@ install -p -m 644 %{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+# Install spacewalk-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
+
 %clean
 rm -rf %{buildroot}
 
 %post
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-      && /usr/sbin/semodule -s ${selinuxvariant} -i \
-        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
-  done
-
-/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
-
-/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl %{_sbindir}/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
-    %{_bindir}/rhn-sudo-ssl-tool %{_bindir}/rhn-sudo-load-ssl-cert
-
-/usr/sbin/setsebool -P httpd_enable_cgi 1
-/usr/sbin/setsebool -P httpd_can_network_connect 1
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
 %postun
 # Clean up after package removal
@@ -109,6 +101,7 @@ fi
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
 * Wed Mar 25 2009 Jan Pazdziora 0.5.3-1
