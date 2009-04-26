@@ -18,14 +18,16 @@
                imgAlt="info.alt.img">
   <bean:message key="snippets.jsp.toolbar"/>
 </rhn:toolbar>
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/snippet_tabs.xml"
+                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 
-<div>
-    <bean:message key="snippets.jsp.summary"/>
-</div>
+<p><bean:message key="snippets.jsp.summary"/></p>
 
-<hr>
-<div>
-    <form method="post" name="rhn_list" action="/rhn/kickstart/cobbler/CobblerSnippetList.do">
+<c:if test="${not empty requestScope.default}">
+	<p>Note:<bean:message key="snippets.jsp.note.default"/></p>
+</c:if>
+
+
 
  <rl:listset name="keySet">
   <rl:list dataset="pageList"
@@ -33,7 +35,7 @@
          name="keysList"
          styleclass="list"
          emptykey="cobbler.snippet.jsp.nosnippets"
-         alphabarcolumn="displayPath">
+         alphabarcolumn="name">
 
         <rl:decorator name="PageSizeDecorator"/>
 
@@ -42,33 +44,26 @@
                    sortable="true"
                    headerkey="cobbler.snippet.name"
                    styleclass="first-column"
-                   sortattr= "displayPath"
-                   filterattr="displayPath">
+                   sortattr= "name"
+                   filterattr="name">
               <c:choose>
               	<c:when test = "${current.editable}">
-              		<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetEdit.do?name=${current.name}\">${current.displayPath}</a>" escapeXml="false" />
+              		<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetEdit.do?name=${current.name}\">${current.name}</a>" escapeXml="false" />
               	</c:when>
               	<c:otherwise>
-	              	<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetView.do?path=${current.displayPath}\">${current.displayPath}</a>" escapeXml="false" />
+	              	<c:out value="<a href=\"/rhn/kickstart/cobbler/CobblerSnippetView.do?path=${current.displayPath}\">${current.name}</a>" escapeXml="false" />
               	</c:otherwise>      
                 
               </c:choose>
         </rl:column>
-            <rl:column headerkey="kickstart.distro.sw_managed.jsp"  styleclass="last-column">
-            	<c:choose>
-                    <c:when test="${not current.editable}">
-                    	<img src="/img/rhn-listicon-error.gif">
-                    </c:when>
-					<c:otherwise>
-						<img src="/img/rhn-listicon-checked.gif">
-                	</c:otherwise>
-                </c:choose>
+            <rl:column headerkey="cobbler.snippet.macro"  styleclass="last-column">
+            	<c:out value="${current.fragment}"/>
             </rl:column>
       </rl:list>
      </rl:listset>
-
-</div>
-
+	
+		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
+    
 </body>
 </html>
 

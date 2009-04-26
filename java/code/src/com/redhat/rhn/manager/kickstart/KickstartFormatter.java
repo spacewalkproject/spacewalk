@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
+import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -225,8 +226,9 @@ public class KickstartFormatter {
     }
 
     private void addCobblerSnippet(StringBuilder buf, String contents) {
-        String format = "$SNIPPET('%s')\n";
-        buf.append(String.format(format, contents));
+        CobblerSnippet.makeFragment(contents);
+        buf.append(CobblerSnippet.makeFragment(contents));
+        buf.append(NEWLINE);
     }
     
 

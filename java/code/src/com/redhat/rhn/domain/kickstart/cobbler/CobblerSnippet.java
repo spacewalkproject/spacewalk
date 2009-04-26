@@ -207,7 +207,25 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
     public String getPrefix() {
         return path.getParent();
     }
-
+    
+    /**
+     * The actual cobbler fragment associated to this snippet
+     * @return cobbler code fragment
+     */
+    public String getFragment() {
+        String snipPath = getDisplayPath().substring(
+                    getCobblerSnippetsDir().getPath().length() + 1);
+        return makeFragment(snipPath);
+    }
+    
+    /**
+     * Returns a Cobbler snippet fragment with the given path 
+     * @param path the path to make a snippet of
+     * @return the snippet fragment
+     */
+    public static String makeFragment(String path) {
+        return String.format("$SNIPPET('%s')", path);
+    }    
     /**
      * Returns the name of the dir that should be hosting scripts
      * for the snippet. This is useful for example while
