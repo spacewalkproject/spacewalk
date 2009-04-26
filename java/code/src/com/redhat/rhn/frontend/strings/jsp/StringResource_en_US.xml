@@ -10870,6 +10870,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
     </trans-unit>
 
+
+    <trans-unit id="snippetcreate.jsp.contents.header">
+        <source>Kickstart Snippet Contents</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
+        </context-group>
+    </trans-unit>
+
+
     <trans-unit id="snippetcreate.jsp.tip1">
         <source>Avoid spaces in the snippet name.</source>
         <context-group name="ctx">

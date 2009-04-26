@@ -29,7 +29,6 @@
 </rhn:toolbar>
 	</c:otherwise>
 </c:choose>	
-<bean:message key="snippetcreate.jsp.summary"/>
 
 <h2><bean:message key="snippetcreate.jsp.header2"/></h2>
 <c:choose>
@@ -48,18 +47,24 @@
     <c:if  test = "${empty requestScope.create_mode}">
     	<html:hidden property="name" value="${cobblerSnippetsForm.map.name}"/>
     </c:if>
+    <c:if  test = "${not empty requestScope.create_mode}">
     <table class="details">
-	<c:if  test = "${not empty requestScope.create_mode}">
+
     <tr>
         <th>
-            <bean:message key="snippetcreate.jsp.name"/><span class="required-form-field">*</span>
+            <bean:message key="cobbler.snippet.name"/><span class="required-form-field">*</span>
         </th>
         <td>
-        		${requestScope.prefix}/<html:text property="name" maxlength="40" size="20" /><br/>
+        		<html:text property="name" maxlength="40" size="20" /><br/>
             	<rhn:tooltip key="snippetcreate.jsp.tip1"/>
         </td>
      </tr>
-     </c:if>
+
+    </table>
+    </c:if>
+    <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
+    
+    <table  class="details"> 
     <tr>    
         <th>
             <bean:message key="snippetcreate.jsp.contents"/><span class="required-form-field">*</span>
@@ -69,6 +74,7 @@
         </td>
     </tr>
     </table>
+    
     <hr />
 
     <table align="right">
