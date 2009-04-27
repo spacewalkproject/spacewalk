@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      && /usr/sbin/semodule -s ${selinuxvariant} -i \
+        /usr/share/selinux/${selinuxvariant}/jabber.pp || :
+  done
+
+/usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 > /dev/null 2>&1 || :
+
+rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
+/sbin/restorecon -ri /var/run/jabberd || :
+
