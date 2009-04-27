@@ -64,7 +64,7 @@ public class ToolTipTag extends TagSupport {
     public int doStartTag() throws JspException {
         LocalizationService ls = LocalizationService.getInstance();
         HtmlTag strong = new HtmlTag("strong");
-        strong.addBody(ls.getMessage("Tip") + ": ");
+        strong.addBody(ls.getMessage(geTypeKey()) + ": ");
 
         JspWriter writer = pageContext.getOut();
         try {
@@ -79,6 +79,10 @@ public class ToolTipTag extends TagSupport {
             throw new JspException(e);
         }        
         
+    }
+    
+    protected String geTypeKey() {
+        return "Tip"; 
     }
     
     /**

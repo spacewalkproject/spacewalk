@@ -16,6 +16,7 @@
 package com.redhat.rhn.domain.kickstart.cobbler;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.org.Org;
@@ -72,17 +73,42 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      * @param org the org of the editable snippet.
      * @return the newly Created or updated cobbler snippet..
      */
-    public static final CobblerSnippet createOrUpdate(boolean create, 
+    public static CobblerSnippet createOrUpdate(boolean create, 
                                     String name, String contents, Org org) {
         CobblerSnippet snip = loadEditable(name, org);
         
-        if (create && snip.path.exists()) {
-            ValidatorException.raiseException("cobbler.snippet.filenameexists.message");
+        if (create) {
+            validateNonExistence(snip.path);
         }
         snip.writeContents(contents);
         return snip;
     }    
 
+    /**
+     * Renames cobbler snippet to a new name.. 
+     * @param name the name fo the new cobbler snippet
+     */
+    public void rename(String name) {
+        verifyEditable();
+        if (!getName().equals(name)) {
+            CobblerSnippet snip = loadEditable(name, org);
+            validateNonExistence(snip.path);
+            if (path.exists() && !path.renameTo(snip.path)) {
+                ValidatorException.raiseException("cobbler.snippet.rename-error",
+                                getName(), name);
+            }
+            path = snip.path;
+        }
+    }
+    
+    private static void validateNonExistence(File path) {
+        if (path.exists()) {
+            ValidatorException.
+                    raiseException("cobbler.snippet.filenameexists.message",
+                            path.getName());
+        }
+    }
+    
     private CobblerSnippet() {
     }
     
@@ -127,6 +153,15 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      */
     public String getDisplayPath() {
         return getPath().getAbsolutePath();
+    }
+    
+    /**
+     *  Returns the org associated to this snippet 
+     *  or null if none is associated 
+     * @return the org or null
+     */
+    public Org getOrg() {
+        return org;
     }
     
     /** 
@@ -174,7 +209,7 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
         verifyEditable();
         if (!path.exists() || !path.delete()) {
             ValidatorException.raiseException("cobbler.snippet.couldnotdelete.message",
-                                                                    getDisplayPath());
+                                                                    getName());
         }
     }
     
@@ -207,7 +242,17 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
     public String getPrefix() {
         return path.getParent();
     }
-    
+
+    /**
+     * Returns the display name used by the UI
+     * Seems like a useful method reused in different places
+     * in the UI thought this would be a good place..
+     * @return the display name
+     */
+    public String getDisplayName() {
+        LocalizationService ls = LocalizationService.getInstance();
+        return ls.getMessage("cobbler.snippet.header.name", getName());
+    }
     /**
      * The actual cobbler fragment associated to this snippet
      * @return cobbler code fragment

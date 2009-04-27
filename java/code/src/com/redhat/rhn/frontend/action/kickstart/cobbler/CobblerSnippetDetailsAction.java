@@ -41,8 +41,11 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                 Logger.getLogger(CobblerSnippetDetailsAction.class);
     public static final String PREFIX = "prefix";
     public static final String NAME = "name";
+    public static final String OLD_NAME = "oldName";
+    public static final String ORG = "org";
     public static final String CONTENTS = "contents";
     public static final String CREATE_MODE = "create_mode";
+    public static final String SNIPPET = "snippet";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -124,15 +127,32 @@ public class CobblerSnippetDetailsAction extends RhnAction {
             CobblerSnippet snip) {
         request.setAttribute(PREFIX, snip.getPrefix());
         form.set(NAME, snip.getName());
+        form.set(OLD_NAME, snip.getName());
         form.set(CONTENTS, snip.getContents());
+        bindSnippet(request, snip);
+        request.setAttribute(ORG, snip.getOrg().getName());
+    }
+
+    /**
+     * Method to bind the cobbler snippet to a request
+     * @param request the servlet request
+     * @param snip the snippet to bind
+     */
+    public static void bindSnippet(HttpServletRequest request, CobblerSnippet snip) {
+        request.setAttribute(SNIPPET, snip);        
     }
     
     private CobblerSnippet submit(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
-        return CobblerSnippet.createOrUpdate(
+        CobblerSnippet snip = CobblerSnippet.createOrUpdate(
                 isCreateMode(request),
                 form.getString(NAME),
                 form.getString(CONTENTS), 
                 context.getLoggedInUser().getOrg());
+        if (!isCreateMode(request) &&  
+                !form.getString(NAME).equals(form.getString(OLD_NAME))) {
+            snip.rename(form.getString(NAME));
+        }
+        return snip;
     }
 }

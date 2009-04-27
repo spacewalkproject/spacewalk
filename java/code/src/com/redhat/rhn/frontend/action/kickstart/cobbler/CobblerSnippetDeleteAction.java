@@ -59,6 +59,7 @@ public class CobblerSnippetDeleteAction extends RhnAction {
         else {
             request.setAttribute(CobblerSnippetDetailsAction.CONTENTS,
                                                         snip.getContents());
+            CobblerSnippetDetailsAction.bindSnippet(request, snip);
         }
         
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);

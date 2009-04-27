@@ -795,6 +795,7 @@
         <form-bean name="cobblerSnippetsForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="name" type="java.lang.String" />
+            <form-property name="oldName" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
         </form-bean>
 
@@ -4915,7 +4916,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetdetails.jsp"/>
         <forward name="success"
                  path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"
                  />
@@ -4929,7 +4930,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetdetails.jsp"/>
         <forward name="success" 
                  path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"/>
     </action>

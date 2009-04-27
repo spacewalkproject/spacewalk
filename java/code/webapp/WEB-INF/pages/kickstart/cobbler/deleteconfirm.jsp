@@ -13,22 +13,21 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="kickstarts.alt.img">
-	${requestScope.prefix}/${requestScope.name}
+	<c:out value="${requestScope.snippet.displayName}"/>
 </rhn:toolbar>
-
-<bean:message key="snippetdelete.jsp.summary"/>
-
-<h2><bean:message key="snippetdelete.jsp.header2"/></h2>
-
+<h2><bean:message key="cobbler.snippet.delete"/></h2>
+<p><bean:message key="snippetdelete.jsp.summary"/></p>
+<p><rhn:warning key= "snippetdelete.jsp.warning"/></p>
 <div>
 	<form method="post" action="/rhn/kickstart/cobbler/CobblerSnippetDelete.do">
+<h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>	
     <table class="details">
     <tr>    
         <th>
          <bean:message key="snippetcreate.jsp.contents"/>
         </th>
         <td>
-   			<pre style="overflow: scroll; width: 800px; height: 800px">${contents}</pre>
+   			<pre style="overflow: scroll; width: 600px; height: 200px">${contents}</pre>
        </td>
     </tr>
     </table>

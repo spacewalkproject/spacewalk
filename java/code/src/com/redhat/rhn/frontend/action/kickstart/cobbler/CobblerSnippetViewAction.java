@@ -52,6 +52,7 @@ public class CobblerSnippetViewAction extends RhnAction {
                     new File(ctx.getParam(PATH, true)));
             request.setAttribute(PATH, snip.getDisplayPath());
             request.setAttribute(DATA, snip.getContents());
+            CobblerSnippetDetailsAction.bindSnippet(request, snip);
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
         }
         catch (ValidatorException ve) {

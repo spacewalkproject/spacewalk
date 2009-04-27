@@ -16,25 +16,54 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
-  ${path}
+  ${requestScope.snippet.displayName}
 </rhn:toolbar>
-
-<bean:message key="snippetcreate.jsp.summary"/>
 
 <h2><bean:message key="snippetcreate.jsp.header2"/></h2>
 
 <div>
     <table class="details">
-    <tr>    
+    <tr>
         <th>
-         <bean:message key="snippetcreate.jsp.contents"/>
+            <bean:message key="cobbler.snippet.path"/>:
         </th>
         <td>
-   			<pre style="overflow: scroll; width: 800px; height: 800px">${data}</pre>
+        		<c:out value="${requestScope.snippet.displayPath}"/> <br/>
+    				<rhn:tooltip key="cobbler.snippet.path.tip"/>
+        </td>
+     </tr>
+     <tr>
+        <th>
+            <bean:message key="cobbler.snippet.macro"/>:
+        </th>
+        <td>
+        		<c:out value="${requestScope.snippet.fragment}"/> <br/>
+        		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
+        </td>
+     </tr>
+    
+     <tr>
+        <th>
+            <bean:message key="cobbler.snippet.type"/>:
+        </th>
+        <td>
+				<bean:message key="cobbler.snippet.default"/><br/>
+            <rhn:tooltip key ="cobbler.snippet.default.tip"/>	
+        </td>
+     </tr>     
+     </table>
+    <h2><bean:message key="snippetcreate.jsp.contents.header"/></h2>
+    
+    <table  class="details"> 
+    <tr>    
+        <th>
+            <bean:message key="snippetcreate.jsp.contents"/><span class="required-form-field">*</span>
+        </th>    
+        <td>
+   			<pre style="overflow: scroll; width: 600px; height: 200px">${data}</pre>
        </td>
     </tr>
     </table>
-    <hr />
 </div>
 
 </body>

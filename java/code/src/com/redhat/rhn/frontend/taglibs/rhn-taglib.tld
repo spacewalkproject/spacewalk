@@ -90,6 +90,17 @@
         </attribute>
     </tag>
 
+    <tag>
+        <name>warning</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.WarningTag</tag-class> 
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>key</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
 
     <tag>
         <name>noscript</name>
