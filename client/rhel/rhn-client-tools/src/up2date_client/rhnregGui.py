@@ -274,7 +274,7 @@ class ChooseServerPage:
         """
         status = callAndFilterExceptions(
                 self._chooseServerPageApply,
-                [up2dateErrors.SSLCertificateVerifyFailedError],
+                [up2dateErrors.SSLCertificateVerifyFailedError, up2dateErrors.SSLCertificateFileNotFound],
                 _("There was an error while applying your choice.")
         )
         if status is False:
@@ -309,18 +309,6 @@ class ChooseServerPage:
                 up2dateConfig.set('serverURL', customServer)
             serverType = 'satellite'    
             
-        try:
-            rhnreg.privacyText()
-        except:
-            if(serverType) == "satellite":
-                up2dateConfig.set('sslCACert',
-                                  '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
-            else:
-                up2dateConfig.set('sslCACert',
-                                  '/usr/share/rhn/RHNS-CA-CERT')
-                
-        # TODO Only save the config if they changed the setting
-        up2dateConfig.save()
         
         NEED_SERVER_MESSAGE = _("You will not be able to successfully register "
                                 "this system without contacting a Red Hat Network server.")
@@ -331,6 +319,9 @@ class ChooseServerPage:
             rhnreg.privacyText()
             setArrowCursor()
         except up2dateErrors.SSLCertificateVerifyFailedError:
+            setArrowCursor()
+            raise
+        except up2dateErrors.SSLCertificateFileNotFound:
             setArrowCursor()
             raise
         except up2dateErrors.CommunicationError:
@@ -1294,8 +1285,8 @@ class ProvideCertificatePage:
                     errorWindow(rhnreg_constants.SSL_CERT_EXPIRED)
                 else:
                     errorWindow(rhnreg_constants.SSL_CERT_ERROR_MSG % (certFile, server_url))
-                return ERROR_WAS_HANDLED
 
+                return ERROR_WAS_HANDLED
             except OpenSSL.SSL.Error:
                 # TODO Modify rhnlib to raise a unique exception for the not a 
                 # cert file case.

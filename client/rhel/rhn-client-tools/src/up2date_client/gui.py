@@ -222,7 +222,8 @@ class Gui(rhnregGui.StartPage, rhnregGui.ChooseServerPage, rhnregGui.LoginPage,
             ret = self.chooseServerPageApply()
             if ret is False: # Everything is ok
                 self.druid.set_page(self.loginPage)
-        except up2dateErrors.SSLCertificateVerifyFailedError:
+        except (up2dateErrors.SSLCertificateVerifyFailedError,\
+                up2dateErrors.SSLCertificateFileNotFound):
             self.druid.set_page(self.provideCertificatePage)
         return True
     
