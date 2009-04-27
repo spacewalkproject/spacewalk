@@ -52,8 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Apr 17 2009 Pradeep Kilambi <pkilambi@redhat.com>
+
+* Mon Apr 27 2009 Brad Buckingham <bbuckingham@redhat.com>
 - Adding migrate system profile tool to utils package
 
 * Tue Apr 07 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.1-1
--
+- Initial spec created to include sw-system-snapshot package
