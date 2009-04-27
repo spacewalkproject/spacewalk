@@ -179,31 +179,20 @@ class ErrataQueueWorker implements QueueWorker {
                     org = OrgFactory.lookupById(convertedOrgId);
                 }
                 Long convertedServerId = new Long(serverId.longValue());
-                Server server = ServerFactory.lookupById(convertedServerId);
-                if (server == null) {
-                    logger.error("Server " + serverId + " not found. " + 
-                       "Aboring auto-errata processing");
-                    return;
-                }
                 // Only schedule an Auto Update if the server supports the 
                 // feature.  We originally calculated this in the driving
                 // query but it wasn't performant.
-                if (SystemManager.serverHasFeature(convertedServerId, 
-                        "ftr_auto_errata_updates") && org.isPayingCustomer() &&
-                        server.getAutoUpdate() != null && 
-                        server.getAutoUpdate().equalsIgnoreCase("y")) {
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("Scheduling auto update for Errata: " +
-                                errata.getId() + ", Server: " + convertedServerId + 
-                                ", Org: " + convertedOrgId);
-                    }
-                    ErrataAction errataAction = ActionManager.
-                        createErrataAction(org, errata);
-                    ActionManager.addServerToAction(convertedServerId, errataAction);
-                    ActionManager.storeAction(errataAction);
-                    HibernateFactory.commitTransaction();
-                    HibernateFactory.closeSession();
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Scheduling auto update for Errata: " +
+                            errata.getId() + ", Server: " + convertedServerId + 
+                            ", Org: " + convertedOrgId);
                 }
+                ErrataAction errataAction = ActionManager.
+                    createErrataAction(org, errata);
+                ActionManager.addServerToAction(convertedServerId, errataAction);
+                ActionManager.storeAction(errataAction);
+                HibernateFactory.commitTransaction();
+                HibernateFactory.closeSession();
             }
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();
