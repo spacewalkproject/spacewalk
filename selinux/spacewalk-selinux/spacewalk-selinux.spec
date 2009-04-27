@@ -107,6 +107,7 @@ fi
 * Fri Apr 24 2009 Jan Pazdziora 0.6.1-1
 - move the %post SELinux activation to /usr/sbin/spacewalk-selinux-enable
 - use src.rpm packaging with single Source0
+- tagged as 0.5.4-1 for Satellite 5.3.0
 
 * Tue Apr 21 2009 Jan Pazdziora 0.6.0-2
 - 495869 - mark /var/log/spacewalk as oracle_sqlplus_log_t
