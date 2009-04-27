@@ -154,10 +154,10 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
         }
         if (!errors.isEmpty()) {
-            request.setAttribute("channel_label", (String) form.get("label"));
-            request.setAttribute("channel_name", (String) form.getString("name"));
-            request.setAttribute("channel_arch", (String) form.get("arch_name"));
-            request.setAttribute("channel_arch_label", (String) form.get("arch"));
+            request.setAttribute("channel_label", form.get("label"));
+            request.setAttribute("channel_name", form.getString("name"));
+            request.setAttribute("channel_arch", form.get("arch_name"));
+            request.setAttribute("channel_arch_label", form.get("arch"));
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(
@@ -180,7 +180,7 @@ public class EditChannelAction extends RhnAction implements Listable {
     private boolean hasSharingChanged(DynaActionForm form, RequestContext ctx) {
         Long cid = ctx.getParamAsLong("cid");
         Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getLoggedInUser());
-        return !c.getAccess().equals((String) form.get("org_sharing"));
+        return !c.getAccess().equals(form.get("org_sharing"));
     }
     
     /**
@@ -193,28 +193,28 @@ public class EditChannelAction extends RhnAction implements Listable {
      */
     private void formToAttributes(HttpServletRequest request,
                                   DynaActionForm form) {
-        request.setAttribute("name", (String) form.get("name"));
-        request.setAttribute("label", (String) form.get("label"));
-        request.setAttribute("parent", (String) form.get("parent"));
-        request.setAttribute("arch", (String) form.get("arch"));
-        request.setAttribute("arch_name", (String) form.get("arch_name"));
-        request.setAttribute("summary", (String) form.get("summary"));
-        request.setAttribute("description", (String) form.get("description"));
+        request.setAttribute("name", form.get("name"));
+        request.setAttribute("label", form.get("label"));
+        request.setAttribute("parent", form.get("parent"));
+        request.setAttribute("arch", form.get("arch"));
+        request.setAttribute("arch_name", form.get("arch_name"));
+        request.setAttribute("summary", form.get("summary"));
+        request.setAttribute("description", form.get("description"));
         request.setAttribute("maintainer_name",
-                (String) form.get("maintainer_name"));
+                form.get("maintainer_name"));
         request.setAttribute("maintainer_email",
-                (String) form.get("maintainer_email"));
+                form.get("maintainer_email"));
         request.setAttribute("maintainer_phone",
-                (String) form.get("maintainer_phone"));
+                form.get("maintainer_phone"));
         request.setAttribute("support_policy",
-                (String) form.get("support_policy"));
+                form.get("support_policy"));
         request.setAttribute("per_user_subscriptions",
-                (String) form.get("per_user_subscriptions"));
-        request.setAttribute("org_sharing", (String) form.get("org_sharing"));
-        request.setAttribute("gpg_key_url", (String) form.get("gpg_key_url"));
-        request.setAttribute("gpg_key_id", (String) form.get("gpg_key_id"));
+                form.get("per_user_subscriptions"));
+        request.setAttribute("org_sharing", form.get("org_sharing"));
+        request.setAttribute("gpg_key_url", form.get("gpg_key_url"));
+        request.setAttribute("gpg_key_id", form.get("gpg_key_id"));
         request.setAttribute("gpg_key_fingerprint",
-                (String) form.get("gpg_key_fingerprint"));
+                form.get("gpg_key_fingerprint"));
     }
     
     /**
@@ -361,12 +361,12 @@ public class EditChannelAction extends RhnAction implements Listable {
                     new ActionMessage("edit.channel.invalidgpgurl"));
         }
         catch (InvalidChannelNameException ferengi) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannelname"));
+            handleChannelNameException(errors, ferengi);
+
         }
         catch (InvalidChannelLabelException q) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannellabel"));
+            handleChannelLabelException(errors, q);
+
         }
         catch (IllegalArgumentException iae) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -432,12 +432,10 @@ public class EditChannelAction extends RhnAction implements Listable {
                     new ActionMessage("edit.channel.invalidgpgurl"));
         }
         catch (InvalidChannelNameException ferengi) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannelname"));
+            handleChannelNameException(errors, ferengi);
         }
         catch (InvalidChannelLabelException q) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannellabel"));
+            handleChannelLabelException(errors, q);
         }
         catch (IllegalArgumentException iae) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -447,6 +445,78 @@ public class EditChannelAction extends RhnAction implements Listable {
         return cid;
     }
     
+    private void handleChannelNameException(ActionErrors errors,
+                                            InvalidChannelNameException ferengi) {
+        switch (ferengi.getReason()) {
+            case IS_MISSING:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.missing"));
+                break;
+            
+            case REGEX_FAILS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.regex"));
+                break;
+            
+            case RHN_CHANNEL_BAD_PERMISSIONS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.redhat"));
+                break;
+            
+            case TOO_SHORT:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.minlength",
+                            CreateChannelCommand.CHANNEL_NAME_MIN_LENGTH));
+                break;
+            
+            case NAME_IN_USE:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.nameinuse",
+                            ferengi.getName()));
+                break;
+            
+            default:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname"));
+        }
+    }
+    
+    private void handleChannelLabelException(ActionErrors errors,
+                                             InvalidChannelLabelException q) {
+        switch (q.getReason()) {
+            case IS_MISSING:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.missing"));
+                break;
+            
+            case REGEX_FAILS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.regex"));
+                break;
+
+            case RHN_CHANNEL_BAD_PERMISSIONS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.redhat"));
+                break;
+
+            case TOO_SHORT:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.minlength",
+                        CreateChannelCommand.CHANNEL_LABEL_MIN_LENGTH));
+                break;
+            
+            case LABEL_IN_USE:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.labelinuse",
+                        q.getLabel()));
+                break;
+            
+            default:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel"));
+        }
+    }
+
     private void setupForm(HttpServletRequest request, DynaActionForm form) {
         RequestContext ctx = new RequestContext(request);
         prepDropdowns(ctx);
