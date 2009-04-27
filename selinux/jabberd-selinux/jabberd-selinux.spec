@@ -14,9 +14,7 @@ Summary:        SELinux policy module supporting jabberd
 Group:          System Environment/Base
 License:        GPLv2+
 URL:            http://fedorahosted.org/spacewalk
-Source1:        %{modulename}.if
-Source2:        %{modulename}.te
-Source3:        %{modulename}.fc
+Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  checkpolicy, selinux-policy-devel, hardlink
@@ -34,13 +32,10 @@ Requires:       jabberd
 SELinux policy module supporting jabberd.
 
 %prep
-rm -rf %{name}-%{version}
-mkdir -p %{name}-%{version}
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{name}-%{version}
+%setup -q
 
 %build
 # Build SELinux policy modules
-cd %{name}-%{version}
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
@@ -48,24 +43,21 @@ do
     mv %{modulename}.pp %{modulename}.pp.${selinuxvariant}
     make NAME=${selinuxvariant} -f /usr/share/selinux/devel/Makefile clean
 done
-cd -
 
 %install
 rm -rf %{buildroot}
 
 # Install SELinux policy modules
-cd %{name}-%{version}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
     install -p -m 644 %{modulename}.pp.${selinuxvariant} \
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
   done
-cd -
 
 # Install SELinux interfaces
 install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
-install -p -m 644 %{name}-%{version}/%{modulename}.if \
+install -p -m 644 %{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
@@ -105,7 +97,7 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 
 %files
 %defattr(-,root,root,0755)
-%doc %{name}-%{version}/%{modulename}.fc %{name}-%{version}/%{modulename}.if %{name}-%{version}/%{modulename}.te
+%doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
