@@ -11,7 +11,7 @@
 
   <rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
   			   imgAlt="actions.jsp.imgAlt"
-               helpUrl="/rhn/help/reference/en-US/s2-sm-action-arch.jsp">
+               helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-arch">
     <bean:message key="archivedactions.jsp.archived_actions"/>
   </rhn:toolbar>
 

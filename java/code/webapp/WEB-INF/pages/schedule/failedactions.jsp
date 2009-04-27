@@ -17,7 +17,7 @@
   
   <rhn:toolbar base="h1" img="/img/rhn-icon-schedule_computer.gif"
   			   imgAlt="actions.jsp.imgAlt"
-               helpUrl="/rhn/help/reference/en-US/s2-sm-action-fail.jsp">
+               helpUrl="/rhn/help/reference/en-US/s1-sm-actions.jsp#s2-sm-action-fail">
     <bean:message key="failedactions.jsp.failed_actions"/>
   </rhn:toolbar>
 

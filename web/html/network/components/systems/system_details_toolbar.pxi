@@ -7,7 +7,7 @@
 <!-- Regular system -->
 <rhn-require acl="not system_is_virtual_host(); not system_is_virtual()">
   <rhn-toolbar base="h1" img="/img/rhn-icon-system.gif" 
-      alt="system" help-url="s2-sm-system-list.jsp#s3-sm-system-details" 
+      alt="system" help-url="s1-sm-systems.jsp#s3-sm-system-details"
           deletion-url="/network/systems/details/delete_confirm.pxt?sid={formvar:sid}" 
               deletion-type="system">
         <rhn-server-name />
@@ -16,7 +16,7 @@
 <!-- virtual host -->
 <rhn-require acl="system_is_virtual_host()">
   <rhn-toolbar base="h1" img="/img/virt-host.png" 
-      alt="system" help-url="s2-sm-system-list.jsp#s3-sm-system-details" 
+      alt="system" help-url="s1-sm-systems.jsp#s3-sm-system-details"
           deletion-url="/network/systems/details/delete_confirm.pxt?sid={formvar:sid}" 
               deletion-type="system">
         <rhn-server-name />
@@ -25,7 +25,7 @@
 <!-- virtual guest -->
 <rhn-require acl="system_is_virtual()">
   <rhn-toolbar base="h1" img="/img/virt-guest.png" 
-      alt="system" help-url="s2-sm-system-list.jsp#s3-sm-system-details" 
+      alt="system" help-url="s1-sm-systems.jsp#s3-sm-system-details"
           deletion-url="/network/systems/details/delete_confirm.pxt?sid={formvar:sid}" 
               deletion-type="system">
         <rhn-server-name />

@@ -9,7 +9,7 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-    <h1>Erratum: <rhn-errata-advisory /> <rhn-help guide="channel-mgmt" href="channel-mgmt-Custom_Errata_Management-Manage_Errata.jsp" /></h1>
+    <h1>Erratum: <rhn-errata-advisory /> <rhn-help guide="channel-mgmt" href="channel-mgmt-Custom_Errata_Management.jsp" /></h1>
 
 <rhn-errata-details>
 <rhn-channel-details>

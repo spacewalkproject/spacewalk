@@ -16,7 +16,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-errata.gif" imgAlt="errata.common.errataAlt"
- helpUrl="/rhn/help/reference/en-US/s2-sm-all-errata.jsp">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s2-sm-all-errata">
   <bean:message key="erratalist.jsp.allerrata"/>
 </rhn:toolbar>
 

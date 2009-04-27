@@ -8,7 +8,7 @@
 
     <h1>
       <img src="/img/rhn-icon-system_group.gif" alt="system group" />
-      Create System Group <rhn-help href="s2-sm-system-group-list.jsp#s3-sm-system-group-creation" />
+      Create System Group <rhn-help href="s1-sm-systems.jsp#s3-sm-system-group-creation" />
     </h1>
 
   <p>Create a system group using the form provided.  Note that the group will be empty until systems are joined to it.

@@ -13,7 +13,7 @@
 
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
-                 helpUrl="/rhn/help/reference/en-US/s2-sm-your-rhn-account.jsp#s3-sm-your-rhn-email"
+                 helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account"
                  imgAlt="users.jsp.imgAlt">
     <bean:message key="yourchangeemail.jsp.title"/>
 </rhn:toolbar>
