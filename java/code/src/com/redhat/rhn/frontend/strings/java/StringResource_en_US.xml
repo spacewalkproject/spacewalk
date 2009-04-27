@@ -8149,6 +8149,9 @@ for more detailed errors.  If you don't resolve the errors the kickstart
 tree will not be usable for kickstarting.
         </source>
      </trans-unit>
+     <trans-unit id="errata.delete.msg">
+        <source>Successfully deleted {0} errata.</source>
+     </trans-unit>
     </body>
   </file>
 </xliff>

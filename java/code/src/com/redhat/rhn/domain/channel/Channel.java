@@ -14,27 +14,28 @@
  */
 package com.redhat.rhn.domain.channel;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Channel
@@ -397,10 +398,13 @@ public class Channel extends BaseDomainHelper implements Comparable {
 
     /**
      * Removes a single package from the channel
+     * @param user the user doing the remove
      * @param packageIn The package to remove
      */
-    public void removePackage(Package packageIn) {
-        packages.remove(packageIn);
+    public void removePackage(Package packageIn, User user) {
+            List<Long> list = new ArrayList<Long>();
+            list.add(packageIn.getId());
+            ChannelManager.removePackages(this, list, user);
     }
 
     /**

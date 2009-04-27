@@ -121,7 +121,7 @@ public class ChannelEditor {
                     channel.addPackage(pkg);
                 }
                 else {
-                    channel.removePackage(pkg);
+                    channel.removePackage(pkg, user);
                 }
             }
             else {

@@ -1051,7 +1051,7 @@ public class ErrataHandler extends BaseHandler {
             throw new InvalidErrataException(errata.getAdvisoryName());
         }
 
-        ErrataManager.deleteErratum(loggedInUser, errata.getId());
+        ErrataManager.deleteErratum(loggedInUser, errata);
         return 1;
     }
 

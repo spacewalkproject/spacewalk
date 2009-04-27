@@ -931,9 +931,24 @@ ORDER BY  E.update_date DESC
   </query>
 </write-mode>
 
+<write-mode name="deletePaidErrataTempCacheBulk">
+  <query params="set, uid">
+ delete from rhnPaidErrataTempCache where errata_id in
+	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
+  </query>
+</write-mode>
+
+
 <write-mode name="deleteErrataFile">
   <query params="errata_id">
  delete from rhnErrataFile where errata_id = :errata_id
+  </query>
+</write-mode>
+
+<write-mode name="deleteErrataFileBulk">
+  <query params="set, uid">
+ delete from rhnErrataFile where errata_id in
+	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
   </query>
 </write-mode>
 
@@ -943,15 +958,36 @@ ORDER BY  E.update_date DESC
   </query>
 </write-mode>
 
+<write-mode name="deleteErrataPackageBulk">
+  <query params="set, uid">
+ delete from rhnErrataPackage where errata_id in
+	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
+  </query>
+</write-mode>
+
 <write-mode name="deleteErrataTmp">
   <query params="errata_id">
  delete from rhnErrataTmp where id = :errata_id
   </query>
 </write-mode>
 
+<write-mode name="deleteErrataTmpBulk">
+  <query params="set, uid">
+ delete from rhnErrataTmp where id in
+	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
+  </query>
+</write-mode>
+
 <write-mode name="deleteErrata">
   <query params="errata_id, org_id">
  delete from rhnErrata where id = :errata_id and org_id = :org_id
+  </query>
+</write-mode>
+
+<write-mode name="deleteErrataBulk">
+  <query params="org_id, set, uid">
+ delete from rhnErrata where org_id = :org_id and id in
+	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
   </query>
 </write-mode>
 
@@ -964,7 +1000,38 @@ delete from rhnServerNeededCache
   </query>
 </write-mode>
 
+<write-mode name="deleteServerErrataPackageCacheBulk">
+  <query params="org_id, set, uid">
+delete from rhnServerNeededCache
+  where server_id in (select id from rhnServer where org_id = :org_id)
+  and errata_id in
+	(select element from rhnSet S where S.label = :set and S.user_id = :uid)
+  </query>
+</write-mode>
 
+
+<write-mode name="deleteChannelErrataPackagesBulk">
+  <query params="set, uid">
+   delete from rhnChannelPackage where (package_id, channel_id) in(
+		select CP.package_id, CP. channel_id
+			from rhnChannelPackage CP inner join
+			rhnChannelErrata CE on CE.channel_id = CP.channel_id inner join
+			rhnErrataPackage EP on EP.package_id = CP.package_id
+		    where
+			  CE.errata_id = EP.errata_id and
+			  CE.errata_id in
+			  (select element from rhnSet S where S.label = :set and S.user_id = :uid))
+  </query>
+</write-mode>
+
+<mode name="errata_channel_id_label" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="uid, label">
+	select distinct c.id, c.label
+	  from rhnChannel c inner join
+			rhnChannelErrata ec on ec.channel_id = c.id
+	  where ec.errata_id in (select element from rhnSet S where S.label = :label and S.user_id = :uid)
+  </query>
+</mode>
 
 <callable-mode name="remove_errata_by_org">
   <query params="eid, oid">

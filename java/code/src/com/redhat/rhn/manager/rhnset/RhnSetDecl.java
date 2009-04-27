@@ -77,6 +77,10 @@ public class RhnSetDecl {
     public static final RhnSetDecl ERRATA_TO_DELETE = make("errata_to_delete",
             SetCleanup.UNOWNED_ERRATA);
 
+    // set of errata by errata_id; needs new cleanup
+    public static final RhnSetDecl ERRATA_TO_DELETE_BULK = make("errata_to_delete_bulk",
+            SetCleanup.UNOWNED_ERRATA);
+
     // set of file list: needs new cleanup
     public static final RhnSetDecl FILE_LISTS = make("file_lists",
             SetCleanup.UNOWNED_FILE_LIST);

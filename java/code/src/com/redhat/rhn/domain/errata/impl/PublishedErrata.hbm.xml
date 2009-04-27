@@ -160,4 +160,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
          ]]>
         <return alias="e" class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />
     </sql-query>
+
+
 </hibernate-mapping>
