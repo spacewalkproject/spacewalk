@@ -24,7 +24,7 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       jabberd
 
@@ -63,22 +63,17 @@ install -p -m 644 %{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+# Install jabberd-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
+
 %clean
 rm -rf %{buildroot}
 
 %post
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-      && /usr/sbin/semodule -s ${selinuxvariant} -i \
-        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
-  done
-
-/usr/sbin/semanage port -a -t jabber_interserver_port_t -p tcp 5347 > /dev/null 2>&1 || :
-
-rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
-/sbin/restorecon -ri /var/run/jabberd || :
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
 %postun
 # Clean up after package removal
@@ -100,6 +95,7 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 1.4.1-1
