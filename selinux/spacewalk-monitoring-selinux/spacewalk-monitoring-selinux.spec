@@ -28,7 +28,7 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       spacewalk-selinux
 Requires:       SatConfig-general
@@ -69,20 +69,17 @@ install -p -m 644 %{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+# Install spacewalk-monitoring-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 %{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
+
 %clean
 rm -rf %{buildroot}
 
 %post
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-      && /usr/sbin/semodule -s ${selinuxvariant} -i \
-        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
-  done
-
-/sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
-/sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
 %postun
 # Clean up after package removal
@@ -102,6 +99,7 @@ fi
 %doc %{modulename}.fc %{modulename}.if %{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
 * Thu Apr 09 2009 Jan Pazdziora 0.6.2-1

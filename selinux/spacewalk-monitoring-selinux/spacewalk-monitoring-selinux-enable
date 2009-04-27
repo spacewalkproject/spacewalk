@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+      && /usr/sbin/semodule -s ${selinuxvariant} -i \
+        /usr/share/selinux/${selinuxvariant}/spacewalk-monitoring.pp || :
+  done
+
+/sbin/restorecon -rv /etc/rc.d/np.d /etc/notification /var/lib/nocpulse /var/lib/notification /var/log/nocpulse
+/sbin/restorecon -rvi /var/log/SysVStep.* /var/run/SysVStep.*
+
