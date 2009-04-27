@@ -21,39 +21,71 @@ package com.redhat.rhn.frontend.xmlrpc;
 import com.redhat.rhn.FaultException;
 
 /**
- * invalid channel name
- * <p>
-
- *
- * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
+ * Exception indicating the user attempted to create/rename a channel with an invalid
+ * channel name.
  */
-public class InvalidChannelNameException extends FaultException  {
+public class InvalidChannelNameException extends FaultException {
 
+    /**
+     * Name the user attempted to give the channel.
+     */
+    private String name;
+    
+    /**
+     * Indicates why the channel name is invalid. 
+     */
+    private Reason reason;
 
-    /////////////////////////
-    // Constructors
-    /////////////////////////
-        /**
-     * Constructor
+    /**
+     * Creates a new indication of a channel name issue that does not specify the reason
+     * for the error.
+     * <p/> 
+     * Ideally, this won't be used frequently. This was kept in to support current uses
+     * that don't fit into the idea of validating if a name can be used in a channel
+     * creation/edit. 
      */
     public InvalidChannelNameException() {
-        super(1200 , "invalidChannelName" , "Invalid channel name");
-        // begin member variable initialization
+        super(1200, "invalidChannelName", "Invalid channel name");
     }
-
-        /**
-     * Constructor
-     * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
-     * unknown.)
+    
+    /**
+     * Creates a new indication that a given channel name is invalid.
+     *  
+     * @param nameIn   name the user attempted to give the channel
+     * @param reasonIn flag indicating why the channel name is invalid; cannot be
+     *                 <code>null</code>
      */
-    public InvalidChannelNameException(Throwable cause) {
-        super(1200 , "invalidChannelName" , "Invalid channel name" , cause);
-        // begin member variable initialization
+    public InvalidChannelNameException(String nameIn, Reason reasonIn) {
+        super(1200, "invalidChannelName", "Invalid channel name");
+
+        this.name = nameIn;
+        this.reason = reasonIn;
     }
 
-    /////////////////////////
-    // Getters/Setters
-    /////////////////////////
+    /**
+     * @return invalid name that caused this exception; may be <code>null</code>
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return flag indicating what made the name returned from {@link #getName()}
+     *         invalid; may be <code>null</code>
+     */
+    public Reason getReason() {
+        return reason;
+    }
+
+    /**
+     * Flags indicating the different reasons that may have caused a channel name to be
+     * invalid.
+     */
+    public enum Reason {
+        REGEX_FAILS,
+        TOO_SHORT,
+        IS_MISSING,
+        NAME_IN_USE,
+        RHN_CHANNEL_BAD_PERMISSIONS
+    }
 }

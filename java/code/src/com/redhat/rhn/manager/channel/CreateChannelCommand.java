@@ -34,6 +34,21 @@ import java.util.regex.Pattern;
  * @version $Rev$
  */
 public class CreateChannelCommand {
+
+    public static final int CHANNEL_NAME_MIN_LENGTH = 6;
+    public static final int CHANNEL_LABEL_MIN_LENGTH = 6;
+
+    protected static final String CHANNEL_NAME_REGEX =
+        "^[a-zA-Z\\d][\\w\\d\\s\\-\\.\\'\\(\\)\\/\\_]*$";
+    protected static final String CHANNEL_LABEL_REGEX =
+        "^[a-z\\d][a-z\\d\\-\\.\\_]*$";
+
+    // we ignore case with the red hat regex
+    protected static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
+    protected static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";
+    protected static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
+    protected static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
+    protected static final String WEB_CHANNEL_CREATED = "web.channel_created";
     
     protected User user;
     protected String label;
@@ -51,17 +66,6 @@ public class CreateChannelCommand {
     protected String maintainerPhone;
     protected String supportPolicy;
     protected String access = Channel.PRIVATE;
-    
-    protected static final String CHANNEL_NAME_REGEX =
-        "^[a-zA-Z\\d][\\w\\d\\s\\-\\.\\'\\(\\)\\/\\_]*$";
-    protected static final String CHANNEL_LABEL_REGEX =
-        "^[a-z\\d][a-z\\d\\-\\.\\_]*$";
-    // we ignore case with the red hat regex
-    protected static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
-    protected static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";
-    protected static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
-    protected static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
-    protected static final String WEB_CHANNEL_CREATED = "web.channel_created";
     
     /**
      * default constructor.
@@ -218,11 +222,13 @@ public class CreateChannelCommand {
         verifyGpgInformation();
         
         if (ChannelFactory.doesChannelNameExist(name)) {
-            throw new InvalidChannelNameException();
+            throw new InvalidChannelNameException(name,
+                InvalidChannelNameException.Reason.NAME_IN_USE);
         }
         
         if (ChannelFactory.doesChannelLabelExist(label)) {
-            throw new InvalidChannelLabelException();
+            throw new InvalidChannelLabelException(label,
+                InvalidChannelLabelException.Reason.LABEL_IN_USE);
         }
         
         ChannelArch ca = ChannelFactory.findArchByLabel(archLabel);
@@ -315,21 +321,31 @@ public class CreateChannelCommand {
     protected void verifyChannelName(String cname) throws InvalidChannelNameException {
         if (user == null) {
             // can never be too careful
-            throw new IllegalArgumentException("Required param is null");
+            throw new IllegalArgumentException("Required param [user] is null");
         }
         
-        if (cname == null || 
-                !Pattern.compile(CHANNEL_NAME_REGEX).matcher(cname).find() ||
-                cname.length() < 6) {
-            throw new InvalidChannelNameException();
+        if (cname == null || cname.trim().length() == 0) {
+            throw new InvalidChannelNameException(cname,
+                InvalidChannelNameException.Reason.IS_MISSING);
+        }
+
+        if (!Pattern.compile(CHANNEL_NAME_REGEX).matcher(cname).find()) {
+            throw new InvalidChannelNameException(cname,
+                InvalidChannelNameException.Reason.REGEX_FAILS);
+        }
+
+        if (cname.length() < CHANNEL_NAME_MIN_LENGTH) {
+            throw new InvalidChannelNameException(cname,
+                InvalidChannelNameException.Reason.TOO_SHORT);
         }
         
         // the perl code used to ignore case with a /i at the end of
         // the regex, so we toLowerCase() the channel name to make it
         // work the same.
         if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
-                Pattern.compile(REDHAT_REGEX).matcher(cname.toLowerCase()).find()) {
-            throw new InvalidChannelNameException();
+            Pattern.compile(REDHAT_REGEX).matcher(cname.toLowerCase()).find()) {
+            throw new InvalidChannelNameException(cname,
+                InvalidChannelNameException.Reason.RHN_CHANNEL_BAD_PERMISSIONS);
         }
     }
     
@@ -340,18 +356,28 @@ public class CreateChannelCommand {
             throw new IllegalArgumentException("Required param is null");
         }
         
-        if (clabel == null || 
-                !Pattern.compile(CHANNEL_LABEL_REGEX).matcher(clabel).find() ||
-                clabel.length() < 6) {
-            throw new InvalidChannelLabelException();
+        if (clabel == null || clabel.trim().length() == 0) {
+            throw new InvalidChannelLabelException(clabel,
+                InvalidChannelLabelException.Reason.IS_MISSING);
+        }
+
+        if (!Pattern.compile(CHANNEL_LABEL_REGEX).matcher(clabel).find()) {
+            throw new InvalidChannelLabelException(clabel,
+                InvalidChannelLabelException.Reason.REGEX_FAILS);
+        }
+
+        if (clabel.length() < CHANNEL_LABEL_MIN_LENGTH) {
+            throw new InvalidChannelLabelException(clabel,
+                InvalidChannelLabelException.Reason.TOO_SHORT);
         }
         
         // the perl code used to ignore case with a /i at the end of
         // the regex, so we toLowerCase() the channel name to make it
         // work the same.
         if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
-                Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase()).find()) {
-            throw new InvalidChannelLabelException();
+            Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase()).find()) {
+            throw new InvalidChannelLabelException(clabel,
+                InvalidChannelLabelException.Reason.RHN_CHANNEL_BAD_PERMISSIONS);
         }
     }
     

@@ -8069,18 +8069,81 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
       </trans-unit>
+
       <trans-unit id="edit.channel.invalidchannelname">
         <source>Invalid Channel Name</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.missing">
+         <source>Channel name must be specified</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.regex">
+         <source>Invalid channel name, please see the format described below</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.redhat">
+         <source>Red Hat channels require admin privileges</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.minlength">
+         <source>Channel name must be at least {0} characters long</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname.nameinuse">
+         <source>The channel name '{0}' is already in use, please enter a different name</source>
+         <context-group name="ctx">
+           <context context-type="sourcefile">/channels/manage/Edit</context>
+         </context-group>
+      </trans-unit>
+
       <trans-unit id="edit.channel.invalidchannellabel">
         <source>Invalid Channel Label</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.missing">
+        <source>Channel label must be specified</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.regex">
+        <source>Invalid channel label, please see the format described below</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.redhat">
+        <source>Red Hat channels require admin privileges</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.minlength">
+        <source>Channel label must be at least {0} characters long</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel.labelinuse">
+        <source>The channel label '{0}' is already in use, please enter a different name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="edit.channel.invalidchannelsummary">
         <source>Invalid Channel Summary</source>
         <context-group name="ctx">

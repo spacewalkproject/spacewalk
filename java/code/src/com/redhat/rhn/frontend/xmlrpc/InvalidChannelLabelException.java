@@ -21,39 +21,71 @@ package com.redhat.rhn.frontend.xmlrpc;
 import com.redhat.rhn.FaultException;
 
 /**
- * invalid channel label
- * <p>
-
- *
- * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
+ * Exception indicating the user attempted to create/rename a channel with an invalid
+ * channel label.
  */
-public class InvalidChannelLabelException extends FaultException  {
+public class InvalidChannelLabelException extends FaultException {
 
-
-    /////////////////////////
-    // Constructors
-    /////////////////////////
     /**
-     * Constructor
+     * Label the user attempted to give the channel.
+     */
+    private String label;
+
+    /**
+     * Indicates why the channel label is invalid.
+     */
+    private Reason reason;
+
+    /**
+     * Creates a new indication of a channel label issue that does not specify the reason
+     * for the error.
+     * <p/> 
+     * Ideally, this won't be used frequently. This was kept in to support current uses
+     * that don't fit into the idea of validating if a label can be used in a channel
+     * creation/edit. 
      */
     public InvalidChannelLabelException() {
-        super(1201 , "invalidChannelLabel" , "Invalid channel label");
-        // begin member variable initialization
+        super(1201, "invalidChannelLabel", "Invalid channel label");
+    }
+    
+    /**
+     * Creates a new indication that a given channel name is invalid and 
+     *  
+     * @param labelIn  label the user attempted to give the channel
+     * @param reasonIn flag indicating why the channel name is invalid; cannot be
+     *                 <code>null</code>
+     */
+    public InvalidChannelLabelException(String labelIn, Reason reasonIn) {
+        super(1201, "invalidChannelLabel", "Invalid channel label");
+
+        this.label = labelIn;
+        this.reason = reasonIn;
     }
 
     /**
-     * Constructor
-     * @param cause the cause (which is saved for later retrieval
-     * by the Throwable.getCause() method). (A null value is 
-     * permitted, and indicates that the cause is nonexistent or 
-     * unknown.)
+     * @return invalid label that caused this exception; may be <code>null</code>
      */
-    public InvalidChannelLabelException(Throwable cause) {
-        super(1201 , "invalidChannelLabel" , "Invalid channel label" , cause);
-        // begin member variable initialization
+    public String getLabel() {
+        return label;
     }
 
-    /////////////////////////
-    // Getters/Setters
-    /////////////////////////
+    /**
+     * @return flag indicating what made the label returned from {@link #getLabel()}
+     *         invalid; may be <code>null</code>
+     */
+    public Reason getReason() {
+        return reason;
+    }
+
+    /**
+     * Flags indicating the different reasons that may have caused a channel label to be
+     * invalid.
+     */
+    public enum Reason {
+        REGEX_FAILS,
+        TOO_SHORT,
+        IS_MISSING,
+        LABEL_IN_USE,
+        RHN_CHANNEL_BAD_PERMISSIONS
+    }
 }
