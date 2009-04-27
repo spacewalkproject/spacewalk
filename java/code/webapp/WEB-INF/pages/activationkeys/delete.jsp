@@ -12,7 +12,7 @@
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-keyring.gif" 
 			imgAlt="activation-keys.common.alt"
-			helpUrl="/rhn/help/reference/en-US/s2-sm-systems-activation-keys.jsp"
+			helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-systems-activation-keys"
 			>
   <bean:message key ="activation-key.jsp.delete.title"/>	
 </rhn:toolbar>

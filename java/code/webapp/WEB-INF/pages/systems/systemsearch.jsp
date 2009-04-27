@@ -12,7 +12,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif"
-                       helpUrl="/rhn/help/reference/en-US/s2-sm-system-search.jsp"
+                       helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-search"
                        imgAlt="search.alt.img">
   <bean:message key="systemsearch.jsp.toolbar"/>
 </rhn:toolbar>

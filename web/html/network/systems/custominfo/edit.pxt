@@ -8,7 +8,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 <pxt-formvar>
-  <rhn-toolbar base="h1" img="/img/rhn-icon-keyring.gif" help-url="s2-sm-system-cust-info.jsp" deletion-type="key" deletion-url="delete.pxt?cikid={formvar:cikid}" acl_mixins="RHN::Access::CustomInfo" deletion-acl="can_delete_custominfokey({formvar:cikid})">
+  <rhn-toolbar base="h1" img="/img/rhn-icon-keyring.gif" help-url="s1-sm-systems.jsp#s2-sm-system-cust-info" deletion-type="key" deletion-url="delete.pxt?cikid={formvar:cikid}" acl_mixins="RHN::Access::CustomInfo" deletion-acl="can_delete_custominfokey({formvar:cikid})">
     <rhn-unless-var formvar="cikid">Create</rhn-unless-var>
     <rhn-if-var formvar="cikid">Edit</rhn-if-var>
     Custom Info Key

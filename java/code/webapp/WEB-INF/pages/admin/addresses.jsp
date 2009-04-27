@@ -15,7 +15,7 @@
 </html:messages>
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif"
  imgAlt="users.jsp.imgAlt"
- helpUrl="/rhn/help/reference/en-US/s2-sm-your-rhn-account.jsp#s3-sm-your-rhn-address">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-your-rhn.jsp#s2-sm-your-rhn-account">
     <bean:message key="Addresses" />
 </rhn:toolbar>
 

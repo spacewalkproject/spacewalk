@@ -6,7 +6,7 @@
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
 <pxt-formvar>
-    <rhn-toolbar base="h1" img="/img/monitoring_icon.gif" help-url="s2-sm-monitor-scout.jsp" deletion-url="/network/systems/details/delete_confirm.pxt?scout_id={formvar:sid}" deletion-type="scout">
+    <rhn-toolbar base="h1" img="/img/monitoring_icon.gif" help-url="s1-sm-monitor.jsp#s2-sm-monitor-scout" deletion-url="/network/systems/details/delete_confirm.pxt?scout_id={formvar:sid}" deletion-type="scout">
      Scout Public Key Page
     </rhn-toolbar>
 </pxt-formvar>

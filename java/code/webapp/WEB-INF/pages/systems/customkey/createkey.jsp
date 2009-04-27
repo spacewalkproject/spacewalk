@@ -28,7 +28,7 @@
 	<img src="/img/rhn-icon-keyring.gif" alt="" />
        <bean:message key="system.jsp.customkey.createtitle"/>
 
-	<a href="/rhn/help/reference/en-US/s2-sm-system-cust-info.jsp"
+	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-cust-info"
 		target="_new" class="help-title">
 		<img src="/img/rhn-icon-help.gif" alt="Help Icon" />
 	</a>

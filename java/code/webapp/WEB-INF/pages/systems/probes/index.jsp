@@ -20,7 +20,7 @@
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" helpUrl="/rhn/help/reference/en-US/s2-sm-system-list.jsp#s4-sm-system-details-probes"
+<rhn:toolbar base="h2" img="/img/rhn-icon-system.gif" helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s4-sm-system-details-probes"
     creationUrl="/rhn/systems/details/probes/ProbeCreate.do?sid=${system.id}" 
     creationType="probe" >
 <bean:message key="probes.index.jsp.toolbar"/>
