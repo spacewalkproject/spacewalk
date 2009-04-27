@@ -590,7 +590,8 @@ def verify_family_permissions(orgid=1):
     """
 
     h = rhnSQL.prepare(_query_lookup_cfid)
-    cfid = h.execute(orgid = orgid)
+    h.execute(orgid = orgid)
+    cfid = h.fetchone_dict()
     if not cfid:
         return
 
