@@ -7,7 +7,7 @@
 %define modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.1
+Version:        1.4.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
@@ -98,6 +98,11 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Apr 27 2009 Jan Pazdziora 1.4.3-1
+- move the %post SELinux activation to /usr/sbin/jabberd-selinux-enable
+- use src.rpm packaging with single Source0
+- bump version up to 1.4.3, to allow 1.4.2 to be used by Satellite 5.3.0
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 1.4.1-1
 - Make jabberd-selinux buildable with tito. (dgoodwin@redhat.com)
 
