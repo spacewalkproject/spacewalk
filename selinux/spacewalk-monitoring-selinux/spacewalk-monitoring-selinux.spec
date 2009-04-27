@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.2
+Version:        0.6.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -102,6 +102,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Apr 27 2009 Jan Pazdziora <jpazdziora@redhat.com> 0.6.3-1
+- move the %post SELinux activation to /usr/sbin/spacewalk-monitoring-selinux-enable
+- use src.rpm packaging with single Source0
+
 * Thu Apr 09 2009 Jan Pazdziora 0.6.2-1
 - 489576 - address SELinux issues related to monitoring probes
 - other SELinux-monitoring fixes.
