@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -2378,6 +2379,37 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Remove packages from a channel very quickly
+     * @param chan the channel
+     * @param packageIds list of package ids
+     * @param user the user doing the removing
+     */
+    public static void removePackages(Channel chan, List<Long> packageIds, User user) {
+
+        if (!UserManager.verifyChannelAdmin(user, chan)) {
+            StringBuffer msg = new StringBuffer("User: ");
+            msg.append(user.getLogin());
+            msg.append(" does not have channel admin access to channel: ");
+            msg.append(chan.getLabel());
+
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException(msg.toString());
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.channel"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.channel"));
+            throw pex;
+        }
+
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "remove_packages");
+        m.executeUpdate(params, packageIds);
+
+        HibernateFactory.getSession().refresh(chan);
+
+    }
+
+    /**
      * Remove a set of erratas from a channel
      *      and remove associated packages
      * @param chan The channel to remove from
@@ -2406,6 +2438,7 @@ public class ChannelManager extends BaseManager {
         ChannelManager.refreshWithNewestPackages(chan, "Remove errata");
         ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), pids);
         ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), ids);
+        ChannelFactory.getSession().refresh(chan);
     }
 
     /**

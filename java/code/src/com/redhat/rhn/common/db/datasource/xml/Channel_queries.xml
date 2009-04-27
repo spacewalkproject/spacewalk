@@ -54,6 +54,16 @@ DELETE
 </write-mode>
 
 
+<write-mode name="remove_packages">
+  <query params="cid">
+DELETE
+  FROM rhnChannelPackage CP
+  where CP.channel_id = :cid
+  and  CP.package_id in (%s)
+  </query>
+</write-mode>
+
+
 <write-mode name="remove_errata_packages">
   <query params="cid">
 DELETE

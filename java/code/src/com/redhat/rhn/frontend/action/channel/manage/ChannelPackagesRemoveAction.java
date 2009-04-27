@@ -112,7 +112,7 @@ public class ChannelPackagesRemoveAction extends RhnAction {
 
     private void removePackages(User user, Channel chan, RhnSet set) {
         for (Long id : set.getElementValues()) {
-            chan.removePackage(PackageFactory.lookupByIdAndUser(id, user));
+            chan.removePackage(PackageFactory.lookupByIdAndUser(id, user), user);
         }
         List<Long> packList = new ArrayList<Long>();
         packList.addAll(set.getElementValues());

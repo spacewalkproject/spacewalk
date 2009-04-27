@@ -31,11 +31,10 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.ErrataFile;
 import com.redhat.rhn.domain.errata.ErrataFileType;
-import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.RhnSetFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.OwnedErrata;
 import com.redhat.rhn.frontend.dto.PackageOverview;
@@ -46,6 +45,7 @@ import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -447,90 +447,92 @@ public class ErrataManager extends BaseManager {
     }
     
     /**
-     * @param user
-     * @param dr
+     * Delete multiple errata
+     * @param user the user deleting
+     * @param The list of errata ids
      */
-    private static void deleteErrata(User user, DataResult dr) {
+    private static void deleteErrata(User user, List<OwnedErrata> erratas) {
         
-        // 
-        // Foreach errata, find all the channels its in and mark them
-        // as "metadata may have changed,", and then delete the errata
-        //
-        for (Iterator erratas = dr.iterator(); erratas.hasNext();) {
-            OwnedErrata oe = (OwnedErrata) erratas.next();
-            deleteErratum(user, new Long(oe.getId().longValue()));
+
+        RhnSet bulk = RhnSetDecl.ERRATA_TO_DELETE_BULK.get(user);
+        bulk.clear();
+
+        for (OwnedErrata oe : erratas) {
+            bulk.add(oe.getId());
         }   
+        RhnSetManager.store(bulk);
+
+        List eList = new ArrayList();
+        eList.addAll(bulk.getElementValues());
+        List<ChannelOverview> cList = listChannelForErrataFromSet(bulk);
+
+
+        List<WriteMode> modes = new LinkedList<WriteMode>();
+        modes.add(ModeFactory.getWriteMode("Errata_queries",
+                                "deleteChannelErrataPackagesBulk"));
+        modes.add(ModeFactory.getWriteMode("Errata_queries",
+                                    "deletePaidErrataTempCacheBulk"));
+        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataFileBulk"));
+        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataPackageBulk"));
+        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataTmpBulk"));
+        modes.add(ModeFactory.getWriteMode("Errata_queries",
+                "deleteServerErrataPackageCacheBulk"));
+        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataBulk"));
         
-        /* 
-         * We remove only from the set only what the user has actually 
-         * selected for deletion 
-         */
-        RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
         
-        Iterator i = dr.iterator();
+        Map errataParams = new HashMap();
+        Map errataOrgParams = new HashMap();
+        errataOrgParams.put("org_id", user.getOrg().getId());
+
+        errataParams.put("uid", user.getId());
+        errataOrgParams.put("uid", user.getId());
+        errataParams.put("set", bulk.getLabel());
+        errataOrgParams.put("set", bulk.getLabel());
+
+        for (WriteMode mode : modes) {
+            if (mode.getArity() == 2) {
+                mode.executeUpdate(errataParams);
+            }
+            else {
+                mode.executeUpdate(errataOrgParams);
+            }
+        }
+
+        bulk.clear();
+        RhnSetManager.store(bulk);
         
-        while (i.hasNext()) {
-            OwnedErrata e = (OwnedErrata) i.next();
-            set.removeElement(new Long(e.getId().longValue()));
+        for (ChannelOverview chan : cList) {
+             ChannelManager.queueChannelChange(chan.getLabel(),
+                                            "java::deleteErrata", "errata deletion");
         }
         
-        RhnSetFactory.save(set);
     }
     
     /**
      * Deletes a single erratum
      * @param user doing the deleting
-     * @param errataId The erratum for deletion
+     * @param errata The erratum for deletion
      */
-    public static void deleteErratum(User user, Long errataId) {
+    public static void deleteErratum(User user, Errata errata) {
+        List<OwnedErrata> eids = new ArrayList<OwnedErrata>();
+        OwnedErrata oErrata = new OwnedErrata();
+        oErrata.setId(errata.getId());
+        oErrata.setAdvisory(errata.getAdvisory());
+        eids.add(oErrata);
+        deleteErrata(user, eids);
+    }
 
-        Errata errata = ErrataManager.lookupErrata(errataId, user);
-        if (errata != null) {
-            if (errata.isPublished()) {
-                // If this is a published errata, we should remove the packages in the
-                // channels associated with the errata
-                //
-                // In addition, for each of the channels associated with the errata, 
-                // mark them as 'metadata may have changed'
-                Set<Package> errataPacks = errata.getPackages();
-                Set<Channel> errataChans = errata.getChannels();
-                for (Channel chan : errataChans) {
-                    for (Package pack : errataPacks) {
-                        if (chan.getPackages().contains(pack)) {
-                            chan.getPackages().remove(pack);
-                        }
-                    }
-
-                    ChannelManager.queueChannelChange(chan.getLabel(), 
-                        "java::deleteErrata", errata.getAdvisory());
-                }
-            }
-        }
-
-        List modes = new LinkedList();
-        modes.add(ModeFactory.getWriteMode("Errata_queries", "deletePaidErrataTempCache"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataFile"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataPackage"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrataTmp"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries", 
-                "deleteServerErrataPackageCache"));
-        modes.add(ModeFactory.getWriteMode("Errata_queries", "deleteErrata"));
-        Map errataParams = new HashMap();
-        Map errataOrgParams = new HashMap();
-        errataOrgParams.put("org_id", user.getOrg().getId());
-        errataParams.put("errata_id", errataId);
-        errataOrgParams.put("errata_id", errataId);
-        for (Iterator writes = modes.iterator(); writes.hasNext();) {
-            WriteMode mode = (WriteMode) writes.next();
-            switch(mode.getArity()) {
-                case 2:
-                    mode.executeUpdate(errataOrgParams);
-                    break;
-                default:
-                    mode.executeUpdate(errataParams);
-                    break;
-            }
-        }
+    /**
+     * Get a list of channel ids, and labels that a list of errata belongs to.
+     * @param set the set of errata ids to retrieve channels for
+     * @return list of Channel OVerview Objects
+     */
+    protected static List<ChannelOverview> listChannelForErrataFromSet(RhnSet set) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "errata_channel_id_label");
+        Map map = new HashMap();
+        map.put("label", set.getLabel());
+        map.put("uid", set.getUserId());
+        return m.execute(map);
     }
     
     /**

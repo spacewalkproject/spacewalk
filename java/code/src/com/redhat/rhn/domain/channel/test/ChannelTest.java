@@ -43,6 +43,18 @@ public class ChannelTest extends BaseTestCaseWithUser {
     
     private static Logger log = Logger.getLogger(ChannelTest.class);
 
+
+    public void testRemovePackage() throws Exception {
+        Channel c = ChannelFactoryTest.createTestChannel(user);
+        Package p = PackageTest.createTestPackage();
+        c.addPackage(p);
+        ChannelFactory.save(c);
+        c.removePackage(p, user);
+        assertTrue(c.getPackageCount() == 0);
+        assertTrue(c.getPackages().isEmpty());
+
+    }
+
     public void testChannel() throws Exception {
         Channel c = ChannelFactoryTest.createTestChannel(user);
         //add an errata

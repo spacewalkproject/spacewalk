@@ -14,13 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.errata;
 
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +46,17 @@ public abstract class BaseDeleteErrataAction extends RhnAction {
         User user = rctx.getLoggedInUser();         
 
         deleteErrata(user);
+        RhnSet set = RhnSetDecl.ERRATA_TO_DELETE.get(user);
+
+        ActionMessages msgs = new ActionMessages();
+        msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("errata.delete.msg", set.size()));
+        getStrutsDelegate().saveMessages(request, msgs);
+
+        set.clear();
+        RhnSetManager.store(set);
+
+
 
         return mapping.findForward("default");
     }
