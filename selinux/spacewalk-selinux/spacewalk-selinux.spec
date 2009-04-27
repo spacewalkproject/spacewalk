@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.5.3
+Version:        0.5.4
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -104,6 +104,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Apr 27 2009 Jan Pazdziora 0.5.4-1
+- move the %post SELinux activation to /usr/sbin/spacewalk-selinux-enable
+- use src.rpm packaging with single Source0
+- 495869 - mark /var/log/spacewalk as oracle_sqlplus_log_t
+
 * Wed Mar 25 2009 Jan Pazdziora 0.5.3-1
 - 491687 - label the sudo wrappers with httpd_unconfined_script_exec_t
 
