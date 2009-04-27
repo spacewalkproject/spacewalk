@@ -7,8 +7,8 @@
 %define modulename jabber
 
 Name:           jabberd-selinux
-Version:        1.4.0
-Release:        6%{?dist}
+Version:        1.4.2
+Release:        1%{?dist}
 Summary:        SELinux policy module supporting jabberd
 
 Group:          System Environment/Base
@@ -98,6 +98,11 @@ rpm -ql jabberd | xargs -n 1 /sbin/restorecon -ri {} || :
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon Apr 27 2009 Jan Pazdziora 1.4.2-1
+- move the %post SELinux activation to /usr/sbin/jabberd-selinux-enable
+- use src.rpm packaging with single Source0
+- Make jabberd-selinux buildable with tito. (dgoodwin@redhat.com)
+
 * Thu Mar 12 2009 Jan Pazdziora 1.4.0-6
 - 485396 - silence semanage output altogether
 
