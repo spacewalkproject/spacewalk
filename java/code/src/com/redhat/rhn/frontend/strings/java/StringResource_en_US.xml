@@ -1947,14 +1947,22 @@ available for this kickstart profile to function properly.
       </trans-unit>
 
       <trans-unit id="cobbler.snippet.couldnotdelete.message">
-       <source>An error occurred when attempting to delete the snippet located at &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+       <source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+         <context-group name="ctx"> 	 
+           <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
+         </context-group> 	 
+       </trans-unit>
+       
+
+      <trans-unit id="cobbler.snippet.rename-error">
+       <source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
          <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 
        </trans-unit> 	 
 
       <trans-unit id="cobbler.snippet.filenameexists.message">
-       <source>Cobbler snippet with the file name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+       <source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
          <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 

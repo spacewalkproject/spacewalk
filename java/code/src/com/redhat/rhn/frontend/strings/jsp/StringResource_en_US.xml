@@ -10824,107 +10824,107 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     <trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
         <source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
     </trans-unit>    
-    
 	</group>    
     
-
+    <!--Cobbler Create/Edit/View/Delete pages -->
+    <group>
+		<context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetView.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetDelete.do</context>
+        </context-group>
+    <trans-unit id="snippetcreate.jsp.warning.tip">
+        <source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.path">
+        <source>File Path</source>
+    </trans-unit>
+	<trans-unit id="cobbler.snippet.path.tip">
+        <source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.header.name">
+        <source>Kickstart Snippet: {0}</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.type">
+        <source>Snippet Type</source>
+    </trans-unit>    
+    <trans-unit id="cobbler.snippet.custom">
+        <source>Custom</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.custom.tip">
+        <source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.default">
+        <source>Default</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.default.tip">
+        <source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+    </trans-unit>    
+    
     <trans-unit id="snippetedit.jsp.header2">
         <source>Edit Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.toolbar">
         <source>Create New Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.summary">
         <source>Snippets can be shared between Kickstart Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.name">
         <source>Name</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.contents">
         <source>Contents</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
 
     <trans-unit id="snippetcreate.jsp.contents.header">
         <source>Kickstart Snippet Contents</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
 
     <trans-unit id="snippetcreate.jsp.tip1">
         <source>Avoid spaces in the snippet name.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.submit">
         <source>Update Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
     </trans-unit>
 
 
    <trans-unit id="snippetdelete.jsp.toolbar">
         <source>Delete Snippet Confirmation</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-        </context-group>
     </trans-unit>
 
    <trans-unit id="snippetdelete.jsp.header2">
         <source>Deleting Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-        </context-group>
     </trans-unit>
 
      <trans-unit id="snippetdelete.jsp.summary">
-        <source>Are you sure you want to delete this Snippet permanently?&lt;p&gt;&lt;strong&gt;If so please click the button once.&lt;/strong&gt;&lt;/p&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-        </context-group>
+        <source>Are you sure you want to delete this Snippet permanently?</source>
     </trans-unit>
+     <trans-unit id="snippetdelete.jsp.warning">
+        <source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.delete">
+        <source>Confirm Snippet Delete</source>
+	</trans-unit>
 
     <trans-unit id="snippetdelete.jsp.deletesnippet">
 <source>Delete Snippet</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-      </context-group>
-    </trans-unit>    
-
-    
-
-    <trans-unit id="yourrhn.jsp.bullet.alttag">
+    </trans-unit>       
+    </group>
+ 
+     <trans-unit id="yourrhn.jsp.bullet.alttag">
         <source>Bullet Item</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn</context>
