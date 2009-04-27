@@ -154,6 +154,10 @@ SELECT DISTINCT
                        WHERE CE.errata_id = :errata_id
                          AND SC.channel_id = CE.channel_id
                          AND SC.server_id = S.id)
+ AND EXISTS 
+   (SELECT 1 FROM rhnServerFeaturesView SFV WHERE 
+    SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')
+ AND s.auto_update IS NOT NULL AND UPPER(s.auto_update) = 'Y'                         
 ORDER BY S.org_id
   </query>
 </mode>
