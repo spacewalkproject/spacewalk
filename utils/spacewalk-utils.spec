@@ -1,7 +1,7 @@
 %define rhnroot %{_prefix}/share/rhn
 
 Name:		spacewalk-utils
-Version:	0.6.1
+Version:	0.6.2
 Release:	1%{?dist}
 Summary:	Utilities that may be run against a Spacewalk server.
 
@@ -53,7 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 
-* Mon Apr 27 2009 Brad Buckingham <bbuckingham@redhat.com>
+* Mon Apr 27 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.2-1
 - Adding migrate system profile tool to utils package
 
 * Tue Apr 07 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.1-1
