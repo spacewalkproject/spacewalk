@@ -28,6 +28,7 @@ URL:             http://www.stl.gtri.gatech.edu/rmyers/oracle-selinux/
 Source1:         %{modulename}.if
 Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
+Source4:         oracle-nofcontext-selinux-enable
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
@@ -48,7 +49,7 @@ Group:           System Environment/Base
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Conflicts:       oracle-selinux
 
@@ -59,7 +60,7 @@ Oracle RDBMS, without specifying any file contexts.
 %prep
 rm -rf SELinux
 mkdir -p SELinux
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} SELinux
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} SELinux
 
 # Make file contexts relative to oracle_base
 perl -pi -e 's#%{default_oracle_base}#%{oracle_base}#g' SELinux/%{modulename}.fc
@@ -106,6 +107,10 @@ install -p -m 644 SELinux/%{modulename}-nofcontext.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+# Install oracle-nofcontext-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 SELinux/oracle-nofcontext-selinux-enable %{buildroot}%{_sbindir}/oracle-nofcontext-selinux-enable
+
 %clean
 rm -rf %{buildroot}
 
@@ -128,16 +133,9 @@ test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || 
 /sbin/restorecon -R -v /var/tmp || :
 
 %post -n oracle-nofcontext-selinux
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -i \
-      %{_datadir}/selinux/${selinuxvariant}/%{modulename}-nofcontext.pp &> /dev/null || :
-  done
-
-# add an oracle port if it does not already exist
-SEPORT_STATUS=`semanage port -l | grep -c ^oracle`
-test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || :
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
 %postun
 # Clean up after package removal
@@ -184,6 +182,7 @@ fi
 %doc SELinux/%{modulename}-nofcontext.fc SELinux/%{modulename}-nofcontext.if SELinux/%{modulename}-nofcontext.te
 %{_datadir}/selinux/*/%{modulename}-nofcontext.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}-nofcontext.if
+%attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
 * Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1-23.6

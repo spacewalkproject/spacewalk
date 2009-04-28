@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -i \
+      /usr/share/selinux/${selinuxvariant}/oracle-nofcontext.pp &> /dev/null || :
+  done
+
+# add an oracle port if it does not already exist
+SEPORT_STATUS=`semanage port -l | grep -c ^oracle`
+test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || :
+
