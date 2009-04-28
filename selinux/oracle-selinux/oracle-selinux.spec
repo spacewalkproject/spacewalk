@@ -1,6 +1,3 @@
-#
-# $Id: oracle-selinux.spec 1559 2008-04-17 21:47:08Z rm153 $
-#
 
 #
 # change oracle_base in case of non-standard installation path
