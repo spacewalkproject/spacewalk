@@ -208,6 +208,12 @@ if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
 	cp -fa /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log $DIR/database/
 fi
 
+if [ -d /var/log/spacewalk/schema-upgrade ] ; then
+	echo "    * copying schema upgrade logs"
+	mkdir -p $DIR/schema-upgrade-logs
+	cp -pr /var/log/spacewalk/schema-upgrade/* $DIR/schema-upgrade-logs
+fi
+
 echo "    * timestamping"
 echo "Spacewalk debug created on $(date)" > $DIR/timestamp
 
