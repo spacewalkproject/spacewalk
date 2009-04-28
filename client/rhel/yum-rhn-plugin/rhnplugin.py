@@ -34,6 +34,7 @@ __revision__ = "$Rev$"
 
 requires_api_version = '2.5'
 plugin_type = TYPE_CORE
+pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
 
 rhn_enabled = True
 
@@ -128,11 +129,15 @@ def init_hook(conduit):
         conduit.error(0, _("This system is not subscribed to any channels.") + 
             "\n" + CHANNELS_DISABLED)
         return
+    except up2dateErrors.NoSystemIdError:
+        conduit.error(0, _("This system may not be a registered to RHN. SystemId could not be acquired.\n") +
+                          RHN_DISABLED)
+        return
     except up2dateErrors.RhnServerException, e:
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
             "\n" + str(e))
         return
-   
+
     repos = conduit.getRepos()
     cachedir = conduit.getConf().cachedir
     default_gpgcheck = conduit.getConf().gpgcheck
@@ -182,6 +187,9 @@ def formReposForClean(conduit):
             repo.enable()
             if not repos.findRepos(repo.id):
                 repos.add(repo)
+   # cleanup cached login info
+    if os.path.exists(pcklAuthFileName):
+        os.unlink(pcklAuthFileName)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
