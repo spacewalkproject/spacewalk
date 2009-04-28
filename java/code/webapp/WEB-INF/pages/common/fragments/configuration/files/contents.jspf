@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 <h2><bean:message key="filedetails.contents.jspf.header2" /></h2>
 
 <c:choose>
@@ -22,7 +23,7 @@
 			arg3="${revbytes}"/>
       </c:when>
       <c:otherwise >
-		<html:textarea property="contents" rows="20" cols="80" /><br />
+		<html:textarea property="contents" rows="20" cols="80" styleId="contents"/><br />
 		<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
       </c:otherwise>
     </c:choose>
