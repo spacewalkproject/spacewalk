@@ -67,7 +67,22 @@ rm -Rf $RPM_BUILD_ROOT
 
 #/etc/satname needs to be created on the proxy box, with the contents of '1'       
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
+mkdir -p $RPM_BUILD_ROOT/%{_sbindir}
+mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
+
+ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
+
 install satname $RPM_BUILD_ROOT%{_sysconfdir}/satname
+install MonitoringScout $RPM_BUILD_ROOT%{_initrddir}
+
+%post
+/sbin/chkconfig --add MonitoringScout
+
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service MonitoringScout stop >/dev/null 2>&1
+    /sbin/chkconfig --del MonitoringScout
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -75,6 +90,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %config %{_sysconfdir}/satname
+%{_initrddir}/*
+%{_sbindir}/*
 %doc README
 
 %changelog
