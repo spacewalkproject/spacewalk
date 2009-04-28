@@ -1,4 +1,5 @@
 <!-- create file to channel  -->
+<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
 	<html:hidden property="submitted" value="true"/>
 	<html:hidden property="binary"/>
 	<table class="details">
@@ -56,7 +57,7 @@
 		<tr>
 		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
 		  <td>
-		  	<html:textarea property="contents" rows="20" cols="80" /><br />
+		  	<html:textarea property="contents" rows="20" cols="80" styleId="contents"/><br />
 			<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
 		  </td>
 		</tr>
