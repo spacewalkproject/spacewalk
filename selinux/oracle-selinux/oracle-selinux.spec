@@ -20,7 +20,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         23.6%{?obtag}%{?dist}%{?repo}
+Release:         23.7%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -185,6 +185,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/oracle-nofcontext-selinux-enable
 
 %changelog
+* Tue Apr 28 2009 Jan Pazdziora 0.1-23.7
+- move the %post SELinux activation of -nofcontext package to
+  /usr/sbin/oracle-nofcontext-selinux-enable
+
 * Thu Mar 12 2009 jesus m. rodriguez <jesusr@redhat.com> 0.1-23.6
 - oracle-selinux: allow unconfined_r to run oracle_sqlplus_t.
 
