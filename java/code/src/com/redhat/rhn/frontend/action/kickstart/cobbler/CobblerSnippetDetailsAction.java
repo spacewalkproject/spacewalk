@@ -23,6 +23,7 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -58,25 +59,33 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         request.setAttribute(mapping.getParameter(), Boolean.TRUE);
         
         if (ctx.isSubmitted()) {
-            try {
-                CobblerSnippet snip = submit(request, form);
-                if (isCreateMode(request)) {
-                    createSuccessMessage(request, 
-                            "cobblersnippet.create.success", snip.getName());
-                }
-                else {
-                    createSuccessMessage(request, 
-                            "cobblersnippet.update.success", snip.getName());
-                }
-                
-                request.removeAttribute(CREATE_MODE);
-                setupSnippet(request, form, snip);
-                return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                                    NAME, snip.getName());
-            }
-            catch (ValidatorException ve) {
-                getStrutsDelegate().saveMessages(request, ve.getResult());
+            ActionErrors errors = RhnValidationHelper.validateDynaActionForm(
+                    this, form);
+            if (!errors.isEmpty()) {
+                getStrutsDelegate().saveMessages(request, errors);
                 RhnValidationHelper.setFailedValidation(request);
+            }
+            else {
+                try {
+                    CobblerSnippet snip = submit(request, form);
+                    if (isCreateMode(request)) {
+                        createSuccessMessage(request, 
+                                "cobblersnippet.create.success", snip.getName());
+                    }
+                    else {
+                        createSuccessMessage(request, 
+                                "cobblersnippet.update.success", snip.getName());
+                    }
+                    
+                    request.removeAttribute(CREATE_MODE);
+                    setupSnippet(request, form, snip);
+                    return getStrutsDelegate().forwardParam(mapping.findForward("success"),
+                                        NAME, snip.getName());
+                }
+                catch (ValidatorException ve) {
+                    getStrutsDelegate().saveMessages(request, ve.getResult());
+                    RhnValidationHelper.setFailedValidation(request);
+                }                
             }
         }
         setup(request, form);    

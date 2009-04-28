@@ -21,6 +21,7 @@ import com.redhat.rhn.common.util.FileUtils;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.org.Org;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.File;
@@ -75,11 +76,12 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      */
     public static CobblerSnippet createOrUpdate(boolean create, 
                                     String name, String contents, Org org) {
-        CobblerSnippet snip = loadEditable(name, org);
         
+        CobblerSnippet snip = loadEditable(name, org);
         if (create) {
             validateNonExistence(snip.path);
         }
+
         snip.writeContents(contents);
         return snip;
     }    
@@ -193,6 +195,7 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
      */
     public void writeContents(String contents) {
         verifyEditable();
+
         if (!path.exists()) {
             path.getParentFile().mkdirs();
         }
@@ -289,7 +292,7 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
         // only [a-zA-Z_0-9] and '.' and '-' are valid filename characters
         Pattern p = Pattern.compile("^[\\w\\.\\-_]+$");
         Matcher m = p.matcher(name);
-        if (!m.matches()) {
+        if (StringUtils.isBlank(name) || !m.matches()) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }
     }
