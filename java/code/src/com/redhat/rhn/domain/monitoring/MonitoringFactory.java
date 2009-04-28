@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.domain.monitoring;
 
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.monitoring.command.Command;
 import com.redhat.rhn.domain.monitoring.command.CommandGroup;
@@ -66,9 +68,16 @@ public class MonitoringFactory extends HibernateFactory {
             TemplateProbe t = (TemplateProbe) probeIn;
             t.getProbeSuite().removeProbe(t);
         }
+
+        // remove relevant entries for probe from time_series table
+        WriteMode m = ModeFactory.getWriteMode("Monitoring_queries", "delete_time_series_for_probe");
+        Map params = new HashMap();
+        params.put("probe_id", probeIn.getId());
+        m.executeUpdate(params);
+
         singleton.removeObject(probeIn);
     }
-    
+
     /**
      * Lookup a ServerProbe from the DB by its id
      * @param probeId id of the probe we are looking up
