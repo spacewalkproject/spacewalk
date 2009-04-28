@@ -1949,10 +1949,9 @@ available for this kickstart profile to function properly.
       <trans-unit id="cobbler.snippet.couldnotdelete.message">
        <source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
          <context-group name="ctx"> 	 
-           <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
+           <context context-type="sourcefile">Cobbler Snippet Delete Confirm pages.</context> 	 
          </context-group> 	 
        </trans-unit>
-       
 
       <trans-unit id="cobbler.snippet.rename-error">
        <source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
