@@ -1246,27 +1246,8 @@ class ProvideCertificatePage:
             else: # Satellite
                 destinationName = '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT'
             if certFile != destinationName:
-                if os.path.exists(destinationName):
-                    i = 1
-                    backupName = destinationName + '.save' + str(i)
-                    while os.path.exists(backupName):
-                        i = i + 1
-                        backupName = destinationName + '.save' + str(i)
-                    os.rename(destinationName, backupName)
-                # We need to make sure file is owned by root and 644 before we put 
-                # the certificate in it, so there isn't a security race condition 
-                # where it can be tinkered with before it's owner and permissions 
-                # are made safe.
-                destination = open(destinationName, 'w')
-                destination.close()
-                os.chown(destinationName, 0, -1)
-                os.chmod(destinationName, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP 
-                        | stat.S_IROTH)
-                source = open(certFile, 'r')
-                destination = open(destinationName, 'w')
-                destination.write(source.read())
-                source.close()
-                destination.close()
+                if os.path.exists(certFile):
+                    destinationName = certFile
             up2dateConfig.set('sslCACert', destinationName)
             up2dateConfig.save()
             # Take the new cert for a spin
