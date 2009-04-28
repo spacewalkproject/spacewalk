@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ include file="/WEB-INF/pages/common/fragments/editarea.jspf" %>
   <html:form styleId="wizard-form" method="post" 
   action="${param.url}"
   enctype="multipart/form-data">
@@ -78,7 +79,7 @@
 		<tr>
 		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
 		  <td>
-		  	<html:textarea property="contents" rows="20" cols="80" /><br/>
+		  	<html:textarea property="contents" rows="20" cols="80" styleId="contents" /><br/>
 		  	<rhn:tooltip><bean:message key="kickstart.advanced.filedetails.jsp.tip.edit"
 		  					arg0 = "${rhn:localize('kickstart.advanced.jsp.uploadtab')}"
 		  					arg1 = "${rhn:localize(requestScope.uploadKey)}"
