@@ -16,7 +16,6 @@ package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.action.Action;
-import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.common.CommonFactory;
 import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.org.Org;
@@ -446,12 +445,9 @@ public class KickstartSession {
      */
     public void markFailed(String messageIn) {
         if (this.action != null) {
-            Long parentId = this.action.getPrerequisite().getId();
             Action parentAction = this.action;
-            
-            while (parentId != null) {
-                parentAction = ActionFactory.lookupById(parentId);
-                parentId = parentAction.getPrerequisite().getId();
+            while (parentAction.getPrerequisite() != null) {
+                parentAction = this.action.getPrerequisite();
             }
             if (this.currentServer() != null) {
                 ActionManager.
