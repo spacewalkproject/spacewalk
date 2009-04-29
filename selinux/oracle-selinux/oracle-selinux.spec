@@ -134,7 +134,7 @@ test ${SEPORT_STATUS} -lt 1 && semanage port -a -t oracle_port_t -p tcp 1521 || 
 
 %post -n oracle-nofcontext-selinux
 if /usr/sbin/selinuxenabled ; then
-   %{_sbindir}/%{name}-enable
+   %{_sbindir}/oracle-nofcontext-selinux-enable
 fi
 
 %postun
