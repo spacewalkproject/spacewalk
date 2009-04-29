@@ -18,6 +18,7 @@ use strict;
 package Sniglets::Header;
 use Data::Dumper;
 use PXT::Utils;
+use RHN::Org;
 
 sub register_tags {
   my $class = shift;
@@ -31,14 +32,23 @@ sub display_login {
   my %params = @_;
   my $login = '';
   my $custnum = '';
+  my $org = '';
+  my $org_name = '';
+  my $org_id = '';
 
   if ($pxt->user) {
     my $body = $params{__block__} || '';
     if ($pxt->user()) {
       $login = PXT::Utils->escapeHTML($pxt->user->login);
+
+      $org = RHN::Org->lookup(-id => $pxt->user->org->id);
+      $org_name = $org->name;
+      $org_id = $org->id;
     }
 
+    $body =~ s/\[org\]/$org_name/g;
     $body =~ s/\[login\]/$login/g;
+    $body =~ s/\[oid\]/$org_id/g;
     return $body;
   }
   else {

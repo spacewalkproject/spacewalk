@@ -1323,7 +1323,13 @@
         </context-group>
       </trans-unit>
       <trans-unit id="header.jsp.loggedin">
-<source>Logged In:</source>
+<source>User:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">./includes/header.jsp</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.jsp.org">
+<source>Organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
