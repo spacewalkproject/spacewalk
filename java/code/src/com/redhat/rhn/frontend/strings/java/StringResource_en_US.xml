@@ -8182,7 +8182,7 @@ Follow this url to see the full list of inactive systems:
         <source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
      </trans-unit>
      <trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
-        <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a differnt distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+        <source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
      </trans-unit>
      <trans-unit id="snapshots.childchannel">
         <source>Child Channels Updated</source>
