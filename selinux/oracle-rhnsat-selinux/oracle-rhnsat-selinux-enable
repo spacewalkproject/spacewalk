@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -i \
+      /usr/share/selinux/${selinuxvariant}/oracle-rhnsat.pp &> /dev/null || :
+  done
+
+# Fix up oracle-server-arch files
+rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
+
+# Fix up database files
+/sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
+

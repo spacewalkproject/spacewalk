@@ -13,6 +13,7 @@ License:         GPLv2+
 Source1:         %{modulename}.if
 Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
+Source4:         %{name}-enable
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
@@ -20,7 +21,7 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-server >= 10.2.0.3
 Requires:         oracle-nofcontext-selinux
@@ -31,7 +32,7 @@ SELinux policy module supporting Satellite embedded Oracle server.
 %prep
 rm -rf %{name}-%{version}
 mkdir -p %{name}-%{version}
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{name}-%{version}
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{name}-%{version}
 
 %build
 # Build SELinux policy modules
@@ -66,22 +67,17 @@ install -p -m 644 %{name}-%{version}/%{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+# Install oracle-rhnsat-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 %{name}-%{version}/%{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
+
 %clean
 rm -rf %{buildroot}
 
 %post
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -i \
-      %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
-  done
-
-# Fix up oracle-server-arch files
-rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Riv
-
-# Fix up database files
-/sbin/restorecon -rvi /rhnsat /var/tmp/.oracle || :
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
 %postun
 # Clean up after package removal
@@ -104,6 +100,7 @@ fi
 %doc %{name}-%{version}/%{modulename}.fc %{name}-%{version}/%{modulename}.if %{name}-%{version}/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
 * Mon Mar 16 2009 Jan Pazdziora 10.2-10
