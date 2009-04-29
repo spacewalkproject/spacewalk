@@ -18,7 +18,7 @@
 
 
 CREATE OR REPLACE FUNCTION
-LOOKUP_TAG_NAME_AUTONOMOUS(name_in IN VARCHAR)
+LOOKUP_TAG_NAME(name_in IN VARCHAR)
 RETURNS NUMERIC
 AS
 $$
@@ -35,28 +35,5 @@ BEGIN
          END IF;
 
         RETURN name_id;
-
 END;
 $$ LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_TAG_NAME(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-	ret_val NUMERIC;
-BEGIN
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT LOOKUP_TAG_NAME_AUTONOMOUS('
-	||COALESCE(name_in,'null')||')')
-	as f(retcode numeric);
-
-               
-            RETURN ret_val;
-END;
-$$ LANGUAGE PLPGSQL;
-
-
-

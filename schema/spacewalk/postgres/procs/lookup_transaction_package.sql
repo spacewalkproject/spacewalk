@@ -16,29 +16,27 @@
 --
 --
 
-
-CREATE OR REPLACE FUNCTION LOOKUP_TRANSACTION_PACKAGE_AUTONOMOUS(o_in IN VARCHAR, n_in IN VARCHAR,
+CREATE OR REPLACE FUNCTION
+LOOKUP_TRANSACTION_PACKAGE(o_in IN VARCHAR, n_in IN VARCHAR,
     e_in IN VARCHAR, v_in IN VARCHAR, r_in IN VARCHAR, a_in IN VARCHAR)
 RETURNS NUMERIC
 AS
 $$
 DECLARE
-       o_id        NUMERIC;
+        o_id        NUMERIC;
         n_id        NUMERIC;
         e_id        NUMERIC;
         p_arch_id   NUMERIC;
         tp_id       NUMERIC;
 BEGIN
-        BEGIN
-            SELECT id
-              INTO o_id
-              FROM rhnTransactionOperation
-             WHERE label = o_in;
+        SELECT id
+          INTO o_id
+          FROM rhnTransactionOperation
+          WHERE label = o_in;
+
         IF NOT FOUND THEN
 		PERFORM rhn_exception.raise_exception('invalid_transaction_operation');
 	END IF;
-                           
-        END;
 
         SELECT LOOKUP_PACKAGE_NAME(n_in)
           INTO n_id;
@@ -50,8 +48,7 @@ BEGIN
         IF a_in IS NOT NULL
         THEN
                 SELECT LOOKUP_PACKAGE_ARCH(a_in)
-                  INTO p_arch_id
-                  FROM dual;
+                  INTO p_arch_id;
         END IF;
 
         SELECT id
@@ -61,7 +58,6 @@ BEGIN
            AND name_id = n_id
            AND evr_id = e_id
            AND (package_arch_id = p_arch_id OR (p_arch_id IS NULL AND package_arch_id IS NULL));
-        
 
         IF NOT FOUND THEN
 		INSERT INTO rhnTransactionPackage
@@ -73,29 +69,3 @@ BEGIN
 END;
 $$
 LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION LOOKUP_TRANSACTION_PACKAGE(o_in IN VARCHAR, n_in IN VARCHAR,
-    e_in IN VARCHAR, v_in IN VARCHAR, r_in IN VARCHAR, a_in IN VARCHAR)
-RETURNS NUMERIC
-AS $$
-DECLARE
-             ret_val         NUMERIC;
-BEGIN
-
-        select retcode into ret_val
-        from dblink('dbname='||current_database(),
-        'select LOOKUP_TRANSACTION_PACKAGE_AUTONOMOUS('||coalesce(name_in::varchar,'null')||','
-        ||COALESCE(o_in::varchar,'null')||','
-        ||COALESCE(n_invarchar,'null')||','
-        ||COALESCE(e_in::varchar,'null')||','
-        ||COALESCE(v_in::varchar,'null')||','
-        ||COALESCE(r_in::varchar,'null')||','
-        ||COALESCE(a_in::varchar,'null')||')')
-        as f(retcode numeric);
-
-        RETURN ret_val;
-END;
-$$ language plpgsql;
-
-

@@ -17,8 +17,10 @@
 --
 
 
-CREATE OR REPLACE FUNCTION LOOKUP_PACKAGE_CAPABILITY_AUTONOMOUS(name_in IN VARCHAR, version_in IN VARCHAR)
-RETURNs NUMERIC
+CREATE OR REPLACE FUNCTION
+LOOKUP_PACKAGE_CAPABILITY(name_in IN VARCHAR,
+    version_in IN VARCHAR DEFAULT NULL)
+RETURNS NUMERIC
 AS
 $$
 DECLARE
@@ -47,22 +49,3 @@ BEGIN
 END;
 $$
 LANGUAGE PLPGSQL;
-
-
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_CAPABILITY(name_in IN VARCHAR,version_in IN VARCHAR)
-RETURNS NUMERIC
-AS $$
-DECLARE
-             ret_val         NUMERIC;
-BEGIN
-
-        select retcode into ret_val
-        from dblink('dbname='||current_database(),
-        'select LOOKUP_PACKAGE_CAPABILITY_AUTONOMOUS('||coalesce(name_in::varchar,'null')||','
-        ||coalesce(version_in::varchar,'null')||')')
-        as f(retcode numeric);
-
-        RETURN ret_val;
-END; $$ language plpgsql;

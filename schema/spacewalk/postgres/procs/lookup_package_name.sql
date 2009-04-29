@@ -18,7 +18,7 @@
 
 
 CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_NAME_AUTONOMOUS(name_in IN VARCHAR, ignore_null in NUMERIC)
+LOOKUP_PACKAGE_NAME(name_in IN VARCHAR, ignore_null in NUMERIC DEFAULT 0)
 RETURNS NUMERIC
 AS
 $$
@@ -41,40 +41,5 @@ BEGIN
          END IF;
 
         RETURN name_id;
-
 END;
 $$ LANGUAGE PLPGSQL;
-
-CREATE OR REPLACE FUNCTION LOOKUP_PACKAGE_NAME(name_in VARCHAR,ignore_null in NUMERIC)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-	ret_val	NUMERIC;
-BEGIN
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT LOOKUP_PACKAGE_NAME_AUTONOMOUS ('
-	||quote_nullable(name_in)||','
-	||quote_nullable(ignore_null)||')')
-	as f(retcode numeric);
-
-	return ret_val;
-END;
-$$ LANGUAGE PLPGSQL;
-
-CREATE OR REPLACE FUNCTION LOOKUP_PACKAGE_NAME(name_in VARCHAR)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-	ret_val	NUMERIC;
-BEGIN
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-        'SELECT LOOKUP_PACKAGE_NAME_AUTONOMOUS ('
-        ||quote_nullable(name_in)||',0)')
-        as f(retcode numeric);
-
-	return ret_val;
-END;
-$$ LANGUAGE PLPGSQL;
-

@@ -17,7 +17,7 @@
 --
 
 CREATE OR REPLACE FUNCTION
-LOOKUP_SOURCE_NAME_AUTONOMOUS(name_in IN VARCHAR)
+LOOKUP_SOURCE_NAME(name_in IN VARCHAR)
 RETURNS NUMERIC
 AS
 $$
@@ -33,30 +33,7 @@ BEGIN
 		source_id := currval('(rhn_sourcerpm_id_seq');
 	END IF;
         
-
         RETURN source_id;
 END;
 $$
 LANGUAGE PLPGSQL;
-
-
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_SOURCE_NAME(name_in IN VARCHAR)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-	ret_val NUMERIC;
-BEGIN
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT LOOKUP_SOURCE_NAME('
-	||COALESCE(name_in,'null')||')')
-	as f(retcode numeric);
-
-	return ret_val;
-END;
-$$ LANGUAGE PLPGSQL;
-
-
-

@@ -7,27 +7,33 @@
 -- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 -- along with this software; if not, see
 -- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
--- 
+--
 -- Red Hat trademarks are not licensed under GPLv2. No permission is
 -- granted to use or replicate Red Hat trademarks that are incorporated
--- in this software or its documentation. 
+-- in this software or its documentation.
 --
 --
 --
 --
+
 CREATE OR REPLACE FUNCTION
 LOOKUP_CVE(name_in IN VARCHAR)
 RETURNS NUMERIC
 AS $$
 DECLARE
-             ret_val         NUMERIC;
+        name_id         NUMERIC;
 BEGIN
+        SELECT id
+          INTO name_id
+          FROM rhnCve
+         WHERE name = name_in;
+		
+        IF NOT FOUND THEN
+		            INSERT INTO rhnCve (id, name) VALUES (nextval('rhn_cve_id_seq'), name_in);
+		            name_id := currval('rhn_cve_id_seq');
 
-	select retcode into ret_val
-	from dblink('dbname='||current_database(),
-	'select lookup_cve_autonomous('||coalesce(name_in::varchar,'null')||')')
-	as f(retcode numeric);
-        
-        RETURN ret_val;
-END;
-$$ language plpgsql;
+        END IF;
+
+        RETURN name_id;
+END; $$ language plpgsql;
+

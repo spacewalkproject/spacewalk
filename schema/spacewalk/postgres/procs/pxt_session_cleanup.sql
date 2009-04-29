@@ -16,81 +16,41 @@
 --
 --
 
+--
+-- TODO: look closer at usage of this.  Probably we should get rid of the
+-- looping and do the delete in a single command.  Oracle's problems with
+-- large transactions are not relevant to Postgres.
+--
 
-create or replace function pxt_session_cleanup_autonomous
-   (bound_in in numeric, commit_interval in numeric ,
-batch_size in numeric , sessions_deleted in numeric)
-
+create or replace function pxt_session_cleanup
+   (bound_in in numeric, commit_interval in numeric default 100,
+    batch_size in numeric default 50000, sessions_deleted in numeric default 0)
 returns numeric
 as
 $$
 declare
-   
    sessions cursor (bound_val  numeric) for
    select rowid from PXTSessions
    where expires < bound_val;
 
    counter numeric := 0;
-
-   sessions_curs_rowid numeric;
-
-   sessions_deleted_tmp numeric :=0;
-   commit_interval_tmp numeric := 100;
-   batch_size_tmp numeric := 50000;
-   
-
 begin
 
-   open sessions(bound_in);
+   for session in sessions (bound_in) loop
 
-   loop
-	fetch sessions into sessions_curs_rowid;
-	exit when not found;
-
-	delete from PXTSessions where rowid = sessions_curs_rowid;
-
+      delete from PXTSessions where rowid = session.rowid;
+      
        counter := counter + 1;
-       if mod(counter, commit_interval_tmp) = 0 then
-          commit;
-       end if;
 
-      if counter >= batch_size_tmp then
-         commit;
-         sessions_deleted_tmp := counter;
+       -- commit_interval is ignored
 
-         return sessions_deleted_tmp;
+      if counter >= batch_size then 
+         return counter;
       end if;
-	
-   end loop;
-   
-   --sessions_deleted := counter;
-	
-   return counter;
 
+   end loop;  
+
+   return counter;
 end;
 $$
 language plpgsql;
-
-
-CREATE OR REPLACE FUNCTION pxt_session_cleanup(bound_in in numeric, commit_interval in numeric ,
-batch_size in numeric , sessions_deleted in numeric)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-        ret_val numeric;
-BEGIN
-        SELECT retcode into ret_val from dblink('dbname='||current_database(),
-        'SELECT pxt_session_cleanup_autonomous('
-        ||COALESCE(bound_in::numeric,'null')||','
-        ||COALESCE(commit_interval::numeric,'null')||','
-        ||COALESCE(batch_size::numeric,'null')||
-        ||COALESCE(sessions_deleted::numeric,'null')||')')
-        as f (retcode numeric);
-
-
-        return ret_val;
-END;
-$$ LANGUAGE PLPGSQL;
-
-

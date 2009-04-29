@@ -17,7 +17,7 @@
 --
 
 CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_DELTA_AUTONOMOUS(n_in IN VARCHAR)
+LOOKUP_PACKAGE_DELTA(n_in IN VARCHAR)
 RETURNS NUMERIC
 AS
 $$
@@ -28,8 +28,6 @@ BEGIN
           FROM rhnPackageDelta
          WHERE label = n_in;
 
-        RETURN name_id;
-
 	IF NOT FOUND THEN
 		INSERT INTO rhnPackageDelta (id, label) VALUES (nextval('rhn_packagedelta_id_seq'), n_in);
 		name_id := currval('rhn_packagedelta_id_seq');
@@ -38,26 +36,3 @@ BEGIN
         RETURN name_id;
 END;
 $$ LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_PACKAGE_DELTA(n_in IN VARCHAR)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-	ret_val NUMERIC;
-BEGIN
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT LOOKUP_PACKAGE_DELTA('
-	||COALESCE(n_in::varchar,'null')||')')
-	as f(retcode numeric);
-	
-	return ret_val;
-
-END;
-$$
-LANGUAGE PLPGSQL;
-
-
-

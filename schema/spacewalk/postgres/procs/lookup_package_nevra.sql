@@ -19,11 +19,11 @@
 
 
 create or replace function
-lookup_package_nevra_autonomous(
+lookup_package_nevra(
         name_id_in in varchar,
         evr_id_in in varchar,
         package_arch_id_in in varchar,
-        ignore_null_name in numeric 
+        ignore_null_name in numeric default 0
 ) returns numeric
 AS
 $$
@@ -37,13 +37,11 @@ BEGIN
         select  id
         into    nevra_id
         from    rhnPackageNEVRA
-        where   1=1
-                and name_id = name_id_in
+        where   name_id = name_id_in
                 and evr_id = evr_id_in
                 and (package_arch_id = package_arch_id_in or
                         (package_arch_id is null
                          and package_arch_id_in is null));
-
 
         IF NOT FOUND THEN
 		insert into rhnPackageNEVRA
@@ -57,55 +55,4 @@ BEGIN
 
         return nevra_id;
 end;
-$$ LANGUAGE PLPGSQL STABLE;
-
-
-
-create or replace function
-lookup_package_nevra(
-        name_id_in in varchar,
-        evr_id_in in varchar,
-        package_arch_id_in in varchar,
-        ignore_null_name in numeric 
-) returns numeric
-as
-$$
-declare
-	ret_val int;
-begin
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT lookup_package_nevra_autonomous ('
-	||COALESCE(name_id_in::varchar,'null')||','
-	||COALESCE(evr_id_in::varchar, 'null')||','
-	||COALESCE(package_arch_id_in::varchar,'null')||','
-	||COALESCE(0,'null')||')')
-	as f(retcode numeric);
-
-	return ret_val;
-end;
-$$ language plpgsql;
-
-
-create or replace function
-lookup_package_nevra(
-        name_id_in in varchar,
-        evr_id_in in varchar,
-        package_arch_id_in in varchar
-) returns numeric
-as
-$$
-declare
-	ret_val int;
-begin
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT lookup_package_nevra_autonomous ('
-	||COALESCE(name_id_in::varchar,'null')||','
-	||COALESCE(evr_id_in::varchar, 'null')||','
-	||COALESCE(package_arch_id_in::varchar,'null')||','
-	||COALESCE(0,'null')||')')
-	as f(retcode numeric);
-
-	return ret_val;
-end;
-$$ language plpgsql;
-
+$$ LANGUAGE PLPGSQL;

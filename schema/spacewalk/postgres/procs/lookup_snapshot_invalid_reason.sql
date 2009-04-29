@@ -18,7 +18,7 @@
 
 
 CREATE OR REPLACE FUNCTION
-lookup_snapshot_invalid_reason_autonomous(label_in IN VARCHAR)
+lookup_snapshot_invalid_reason(label_in IN VARCHAR)
 RETURNS NUMERIC
 AS
 $$
@@ -34,25 +34,6 @@ BEGIN
 		PERFORM rhn_exception.raise_exception('invalid_snapshot_invalid_reason');
          END IF;
 
-            
-END;
-$$ LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION
-lookup_snapshot_invalid_reason(label_in IN VARCHAR)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-	ret_val NUMERIC;
-BEGIN
-
-	SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'select lookup_snapshot_invalid_reason('
-	||COALESCE(label_in::varchar,'null')||')')
-	as f(retcode numeric);
-	
-	return ret_val;
+	RETURN snapshot_invalid_reason_id;
 END;
 $$ LANGUAGE PLPGSQL;

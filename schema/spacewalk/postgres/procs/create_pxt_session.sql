@@ -17,15 +17,12 @@
 --
 
 create or replace function
-create_pxt_session_autonomous(p_web_user_id in numeric, p_expires in numeric, p_value in varchar)
+create_pxt_session(p_web_user_id in numeric, p_expires in numeric, p_value in varchar)
 returns numeric as $$
 declare
 	l_id numeric;
 begin
-	select
-		sequence_nextval( 'pxt_id_seq' ) into l_id
-	from
-		dual;
+	select nextval( 'pxt_id_seq' ) into l_id;
 
 	insert into PXTSessions (id, value, expires, web_user_id)
 	values (l_id, p_value, p_expires, p_web_user_id);
@@ -33,24 +30,3 @@ begin
 	return l_id;
 end;
 $$ language plpgsql;
-
-create or replace function
-create_pxt_session(web_user_id in numeric, expires in numeric, value in varchar)
-returns numeric as $$
-declare
-	ret numeric;
-begin
-	select retcode
-	into ret
-	from dblink( 'dbname='||current_database(),
-			'select create_pxt_session_autonomous( '
-			|| coalesce( web_user_id::varchar, 'null' ) || ', '
-			|| coalesce( expires::varchar, 'null' ) || ', '
-			|| coalesce( quote_literal( value ), 'null' ) ||
-			')' )
-			as f( retcode int );
-
-	return ret;
-end;
-$$ language plpgsql;
-

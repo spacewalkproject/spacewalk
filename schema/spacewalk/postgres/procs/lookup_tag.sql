@@ -18,11 +18,10 @@
 
 
 CREATE OR REPLACE FUNCTION
-LOOKUP_TAG_AUTONOMOUS(org_id_in IN NUMERIC, name_in IN NUMERIC)
+LOOKUP_TAG(org_id_in IN NUMERIC, name_in IN VARCHAR)
 RETURNS NUMERIC
 as $$
 DECLARE
-       
         tag_id     NUMERIC;
 BEGIN
         select id into tag_id
@@ -36,29 +35,5 @@ BEGIN
            END IF;
 
         RETURN tag_id;
-
 END; $$
 LANGUAGE PLPGSQL;
-
-
-CREATE OR REPLACE FUNCTION
-LOOKUP_TAG(org_id_in IN NUMERIC, name_in IN VARCHAR)
-RETURNS NUMERIC
-AS
-$$
-DECLARE
-        
-        ret_val     NUMERIC;
-BEGIN
-        SELECT retcode into ret_val from dblink('dbname='||current_database(),
-	'SELECT LOOKUP_TAG_AUTONOMOUS('
-	||COALESCE(org_id_in::numeric,'null')||','
-	||COALESCE(name_id,'null')||')')
-	as f(retcode numeric);
-
-        RETURN ret_val;
-
-END;
-$$
-LANGUAGE PLPGSQL;
-

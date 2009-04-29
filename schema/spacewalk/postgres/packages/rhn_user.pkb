@@ -89,7 +89,7 @@ $$ language plpgsql;
 	-- paid users often don't have verified email addresses, so
 	-- try to find an address that is useful to us.
 create or replace
-	function find_mailable_address_autonomous(user_id_in in numeric)
+	function find_mailable_address(user_id_in in numeric)
 	returns varchar as $$
         declare
 		retval rhnEmailAddress.address%TYPE;
@@ -160,24 +160,6 @@ create or replace
 		end loop;
 		return null;
 	end;
-$$ language plpgsql;
-
-create or replace
-	function find_mailable_address(user_id_in in numeric)
-	returns varchar as $$
-        declare
-		retval rhnEmailAddress.address%TYPE;
-        begin
-            select retcode
-            into retval
-            from dblink( 'dbname=' || current_database(),
-                         'select find_mailable_address_autonomous('
-                         || coalesce( user_id_in::varchar, 'null' )
-                         || ')' )
-                        as f( retcode numeric );
-
-            return retval;
-        end;
 $$ language plpgsql;
 
 create or replace
