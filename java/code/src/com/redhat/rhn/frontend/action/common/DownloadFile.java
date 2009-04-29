@@ -232,8 +232,7 @@ public class DownloadFile extends DownloadAction {
 
     @Override
     protected StreamInfo getStreamInfo(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-        throws Exception {
+            HttpServletRequest request, HttpServletResponse response) throws Exception {
         
         String path = "";
         Map params = (Map) request.getAttribute(PARAMS);
@@ -363,8 +362,7 @@ public class DownloadFile extends DownloadAction {
              SimpleDateFormat formatter = new SimpleDateFormat(
              "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
              formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-             String fdate = formatter.format(mtime);
-             response.addHeader("last-modified", fdate);
+             response.addHeader("last-modified", formatter.format(mtime));
              response.addHeader("Content-Length", String.valueOf(actualFile.length()));
              log.debug("added last-modified and content-length values");
             return getStreamForBinary(diskPath);
