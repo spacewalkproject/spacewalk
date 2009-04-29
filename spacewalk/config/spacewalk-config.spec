@@ -20,6 +20,8 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 # this is so we can set the password consistently across all jabberd configs
 Requires(pre): jabberd
+# We need package httpd to be able to assign group apache in files section
+Requires: httpd
 
 %define prepdir %{_sysconfdir}/sysconfig/rhn-satellite-prep
 
