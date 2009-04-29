@@ -58,6 +58,7 @@ import com.redhat.rhn.manager.system.BaseSystemOperation;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.SystemRecord;
 
@@ -577,6 +578,11 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         
         scheduleRebootAction(kickstartAction);
 
+        String host = this.getKickstartServerName();
+        if (!StringUtils.isEmpty(this.getProxyHost())) {
+            host = this.getProxyHost();
+        }
+
         if (!cobblerOnly) {
             // Setup Cobbler system profile
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
@@ -589,6 +595,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                         ksdata, uhelper.
                         getKickstartMediaPath(kickstartSession),
                         tokenList);
+            cmd.setKickstartHost(host);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -598,6 +605,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             CobblerSystemCreateCommand cmd = 
                 new CobblerSystemCreateCommand(user, 
                         server, cobblerProfileLabel);
+            cmd.setKickstartHost(host);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -790,6 +798,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (!isCobblerOnly()) {
             fileList = ksdata.getPreserveFileLists(); 
         }
+        String server = this.getKickstartServerName();
+        if (this.getProxyHost() != null) {
+            server = this.getProxyHost();
+        }
         KickstartAction ksAction =
             (KickstartAction) 
                 ActionManager.scheduleKickstartAction(fileList,
@@ -797,7 +809,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                       this.getHostServer(),
                                                       this.getScheduleDate(),
                                                       this.getExtraOptions(),
-                                                      this.getKickstartServerName());
+                                                      server);
 
         if (prereqAction != null) {
             ksAction.setPrerequisite(prereqAction.getId());

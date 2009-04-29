@@ -256,6 +256,10 @@ if [ $USE_SSL -eq 1 ]; then
 fi
 echo "ProxyPass /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" > $HTTPDCONFD_DIR/cobbler-proxy.conf
 echo "ProxyPassReverse /cobbler_api $PROTO://$RHN_PARENT/cobbler_api" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
+echo "ProxyPass /cblr $PROTO://$RHN_PARENT/cblr" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
+echo "ProxyPassReverse /cblr $PROTO://$RHN_PARENT/cblr" >> $HTTPDCONFD_DIR/cobbler-proxy.conf
+
+
 
 # lets do SSL stuff
 SSL_BUILD_DIR="/root/ssl-build"

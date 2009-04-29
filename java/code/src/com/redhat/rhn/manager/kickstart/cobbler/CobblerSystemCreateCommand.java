@@ -48,6 +48,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String mediaPath;
     private String profileName;
     private String activationKeys;
+    private String kickstartHost;
     
     /**
      * Constructor
@@ -210,11 +211,21 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 "have a redhat_management_key set ");
         }
         else {
-            args = new Object[]{handle, "redhat_management_key", 
-                    this.activationKeys, xmlRpcToken};
+            invokeXMLRPC("modify_system", handle, "redhat_management_key",
+                                            this.activationKeys, xmlRpcToken);
         }
 
-        invokeXMLRPC("modify_system", Arrays.asList(args));
+
+        if (!StringUtils.isEmpty(getKickstartHost())) {
+            invokeXMLRPC("modify_system", handle, "server",
+                                getKickstartHost(), xmlRpcToken);
+        }
+        else {
+            invokeXMLRPC("modify_system", handle, "server",
+                    "", xmlRpcToken);
+        }
+
+
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
@@ -277,6 +288,22 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public Server getServer() {
         return server;
+    }
+
+
+    /**
+     * @return Returns the kickstartHost.
+     */
+    public String getKickstartHost() {
+        return kickstartHost;
+    }
+
+
+    /**
+     * @param kickstartHostIn The kickstartHost to set.
+     */
+    public void setKickstartHost(String kickstartHostIn) {
+        this.kickstartHost = kickstartHostIn;
     }
   
 }
