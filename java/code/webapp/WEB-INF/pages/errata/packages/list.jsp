@@ -38,6 +38,7 @@
       
   </rhn:listdisplay>
 </rhn:list>
+<rhn:submitted/>
 <input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />
 </form>
   
