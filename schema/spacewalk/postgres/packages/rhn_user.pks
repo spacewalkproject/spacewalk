@@ -46,15 +46,6 @@ begin
 end;
 $$ language plpgsql;
 
-create or replace function find_mailable_address_autonomous(user_id_in in numeric)
-returns varchar
-as $$
-begin
-  raise exception 'Stub called, must be replace by .pkb';
-  return null;
-end;
-$$ language plpgsql;
-
 create or replace function find_mailable_address(user_id_in in numeric)
 returns varchar
 as $$
