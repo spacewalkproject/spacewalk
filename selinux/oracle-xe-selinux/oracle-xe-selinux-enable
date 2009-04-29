@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+  do
+    /usr/sbin/semodule -s ${selinuxvariant} -i \
+      /usr/share/selinux/${selinuxvariant}/oracle-xe.pp &> /dev/null || :
+  done
+
+/usr/sbin/semanage port -a -t oracle_port_t -p tcp 9000 || :
+
+# Relabel oracle-xe-univ's files
+rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+
+# Create the extra directories if they do not exist yet, so that they
+# can be restorecon'ed
+mkdir -p %extra_restorecon
+mkdir -p %extra_subdirs
+chown oracle:dba %extra_subdirs
+
+# Fix up additional directories, not owned by oracle-xe-univ
+/sbin/restorecon -Rivv %extra_restorecon
+
+/sbin/ldconfig
