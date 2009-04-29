@@ -14,7 +14,7 @@ URL:		http://fedorahosted.org/spacewalk
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 
-Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires:	oracle-instantclient-basic
 Requires:	oracle-nofcontext-selinux
@@ -26,22 +26,32 @@ SELinux support for Oracle Instant Client.
 
 %build
 
+%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libsqlplus.so
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
+install -d %{buildroot}%{_sbindir}
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
+#!/bin/bash
 
-%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libsqlplus.so
-
-%post
 /usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
 	/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/$i
 done
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+
+EOS
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
 %postun
 if [ $1 -eq 0 ]; then
@@ -54,6 +64,7 @@ if [ $1 -eq 0 ]; then
 fi
 
 %files
+%attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
 * Tue Mar 24 2009 Jan Pazdziora 10.2-8
