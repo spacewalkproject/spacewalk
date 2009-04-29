@@ -180,7 +180,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 from    rhnChannel c
                 where   c.id = channel_id_in
             );
-            UPDATE rhnServer SET channels_changed = current_date WHERE id = server_id_in;
+            UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
             INSERT INTO rhnServerChannel (server_id, channel_id) VALUES (server_id_in, channel_id_in);
 
             perform rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
@@ -616,7 +616,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
           where   c.id = channel_id_in
       );
 
-        UPDATE rhnServer SET channels_changed = current_date WHERE id = server_id_in;
+        UPDATE rhnServer SET channels_changed = current_timestamp WHERE id = server_id_in;
    end if;
         
    DELETE FROM rhnServerChannel WHERE server_id = server_id_in AND channel_id = channel_id_in;
@@ -1077,7 +1077,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
     declare
          channel_name varchar(64);
          priority numeric;
-         end_of_life_val date;
+         end_of_life_val timestamptz;
          org_id_val numeric;
     BEGIN
 
@@ -1222,16 +1222,16 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
                 insert into rhnChannelNewestPackageAudit (channel_id, caller)
                     values (channel_id_in, caller_in);
                 update rhnChannel 
-                    set last_modified = greatest(current_date, last_modified + 1/86400)
+                    set last_modified = greatest(current_timestamp, last_modified + interval '1 second')
                     where id = channel_id_in; 
         end$$ language plpgsql;
 
    create or replace function update_channel ( channel_id_in in numeric, invalidate_ss in numeric default 0, 
-                              date_to_use in date default current_date ) returns void
+                              date_to_use in timestamptz default current_timestamp ) returns void
    as $$
    declare
-   channel_last_modified date;
-   last_modified_value date;
+   channel_last_modified timestamptz;
+   last_modified_value timestamptz;
 
    snapshots cursor for
    select  snapshot_id id
@@ -1264,7 +1264,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
 
    end$$ language plpgsql;
 
-   create or replace function update_channels_by_package ( package_id_in in numeric, date_to_use in date default current_date ) returns void
+   create or replace function update_channels_by_package ( package_id_in in numeric, date_to_use in timestamptz default current_timestamp ) returns void
    as $$
    declare
    channels cursor for
@@ -1282,7 +1282,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
    end$$ language plpgsql;
 
    
-   create or replace function update_channels_by_errata ( errata_id_in numeric, date_to_use in date default current_date ) returns void
+   create or replace function update_channels_by_errata ( errata_id_in numeric, date_to_use in timestamptz default current_timestamp ) returns void
    as $$
    declare
    channels cursor for

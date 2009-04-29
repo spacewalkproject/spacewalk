@@ -4,20 +4,20 @@ create schema rhn_date_manip;
 update pg_settings set setting = 'rhn_date_manip,' || setting where name = 'search_path';
 
 create or replace function get_reporting_period_start()
-returns date
+returns timestamptz
 as $$
 begin
   raise exception 'Stub called, must be replace by .pkb';
-  return current_date;
+  return current_timestamp;
 end;
 $$ language 'plpgsql';
 
 create or replace function get_reporting_period_end()
-returns date as
+returns timestamptz as
 $$
 begin
   raise exception 'Stub called, must be replace by .pkb';
-  return current_date;
+  return current_timestamp;
 end;
 $$ language 'plpgsql';
 

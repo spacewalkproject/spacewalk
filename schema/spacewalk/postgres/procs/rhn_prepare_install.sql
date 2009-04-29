@@ -55,8 +55,7 @@ begin
         command_instance_id,
         install_command,
         null, /* no notes */
-        -- TODO: verify the results of below date arithmetic
-        current_timestamp + ((stale_after_minutes :: real/(60*24))||' minutes')::interval,
+        current_timestamp + stale_after_minutes * '1 minute'::interval,
         null, /* no notification email */
         max_execution_time_seconds,
         current_timestamp,
