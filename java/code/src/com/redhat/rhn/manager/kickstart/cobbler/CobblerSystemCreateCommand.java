@@ -25,6 +25,7 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -232,6 +233,10 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         if (!StringUtils.isBlank(mediaPath)) {
             ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                                                     this.mediaPath);            
+        }
+        if (!StringUtils.isBlank(getKickstartHost())) {
+            ksmeta.put(SystemRecord.REDHAT_MGMT_SERVER,
+                    getKickstartHost());
         }
 
         args = new Object[]{handle, "ksmeta", 

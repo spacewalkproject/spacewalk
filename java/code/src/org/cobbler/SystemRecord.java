@@ -36,6 +36,8 @@ public class SystemRecord extends CobblerObject {
     private static final String VIRT_RAM = "virt_ram";
     private static final String NETBOOT_ENABLED = "netboot_enabled";
 
+    public static final String REDHAT_MGMT_SERVER = "redhat_management_server";
+
     private SystemRecord(CobblerConnection clientIn) {
         client = clientIn;
     }
