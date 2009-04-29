@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -113,6 +113,9 @@ fi
 
 
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 0.6.4-1
+- Require httpd, we need the apache group for %files
+
 * Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
 - 485355 - change perms of /etc/rhn/rhn.conf & /etc/rhn dir
 
