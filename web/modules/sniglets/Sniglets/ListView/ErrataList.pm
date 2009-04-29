@@ -328,7 +328,7 @@ sub clonable_errata_list_provider {
   foreach my $row (@{$data}) {
     $row->{RELATED_CHANNELS} =
       join "<br />\n",
-	map { PXT::HTML->link('/network/software/channels/manage/index.pxt?cid=' . $_->{CHANNEL_ID},
+	map { PXT::HTML->link('/rhn/channels/manage/Manage.do?cid=' . $_->{CHANNEL_ID},
 			      $_->{CHANNEL_NAME}) } @{$row->{__data__} };
     $row->{CLONED} = $row->{ALREADY_CLONED} ? 'Yes' : 'No';
   }

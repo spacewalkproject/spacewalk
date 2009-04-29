@@ -94,7 +94,7 @@
     <input type="hidden" name="cid" value="{channel_id}" />
     <input type="hidden" name="pxt:trap" value="rhn:channel_delete_cb" />
     <input type="hidden" name="servers_link" value="/rhn/channels/ChannelSubscribers.do" />
-    <input type="hidden" name="redirect_to" value="/network/software/channels/manage/index.pxt" />
+    <input type="hidden" name="redirect_to" value="/rhn/channels/manage/Manage.do" />
     <input type="hidden" name="orphaned_packages_redirect" value="/rhn/software/manage/packages/PackageList.do" />
 </div>
 </pxt-form>

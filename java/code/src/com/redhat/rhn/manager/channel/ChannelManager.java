@@ -496,6 +496,22 @@ public class ChannelManager extends BaseManager {
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
+
+    /**
+     * Returns a list of channels owned by the user.
+     *
+     * @param user cannot be <code>null</code>
+     * @return list of maps containing the channel data
+     */
+    public static DataResult ownedChannelsTree(User user) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "owned_channels_tree");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+
+        DataResult dr = makeDataResult(params, params, null, m);
+        return dr;
+    }
     
     /**
      * Returns a list of ChannelTreeNodes containing shared channels

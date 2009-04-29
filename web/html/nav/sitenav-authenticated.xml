@@ -105,7 +105,7 @@
     </rhn-tab>
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
-      <rhn-tab-url>/network/software/channels/manage/index.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/Manage.do</rhn-tab-url>
       <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)"  node-id="manage_packages">
         <rhn-tab-directory>/rhn/software/manage/packages</rhn-tab-directory>
         <rhn-tab-url>/rhn/software/manage/packages/PackageList.do</rhn-tab-url>

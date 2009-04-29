@@ -720,6 +720,25 @@ ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_s
   <elaborator name="visible_server_count"/>
 </mode>
 
+<mode name="owned_channels_tree">
+  <query params="user_id">
+SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
+       (SELECT COUNT (cp.package_id)
+          FROM rhnchannelpackage cp
+         WHERE cp.channel_id = CTV.id) AS package_count,
+       CTV.parent_or_self_label, CTV.label AS channel_label
+  FROM rhnchannel C, rhnChannelTreeView CTV
+ WHERE CTV.id = C.ID
+   AND (rhn_channel.user_role_check(C.id, :user_id, 'manage') = 1
+        OR EXISTS (
+              SELECT 1
+                FROM rhnChannel C2
+               WHERE C2.parent_channel = C.ID
+                 AND rhn_channel.user_role_check(C2.id, :user_id, 'manage') = 1))
+ORDER BY rhn_channel.channel_priority(CTV.parent_or_self_id), CTV.parent_or_self_id, CTV.depth, UPPER(CTV.name)
+  </query>
+</mode>
+
 
 <query name="visible_server_count" params="user_id, org_id">
   SELECT SC.channel_id AS ID, count(SC.server_id) as system_count

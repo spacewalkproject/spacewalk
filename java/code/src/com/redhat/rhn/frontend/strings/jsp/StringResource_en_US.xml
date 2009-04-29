@@ -11537,6 +11537,25 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
       </trans-unit>
 
+      <trans-unit id="channels.manage.jsp.toolbar">
+        <source>Software Channel Management</source>
+      </trans-unit>
+
+      <trans-unit id="channels.manage.jsp.header1">
+        <source>The following software channels are owned by your organization.</source>
+      </trans-unit>
+
+      <trans-unit id="channels.manage.jsp.header2">
+        <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
+      </trans-unit>
+
+      <trans-unit id="toolbar.create.channel">
+        <source>create new channel</source>
+      </trans-unit>
+
+      <trans-unit id="toolbar.clone.channel">
+        <source>clone channel</source>
+      </trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>
