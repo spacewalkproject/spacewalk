@@ -17,16 +17,16 @@
 #   
 # It uses the following tools:
 #
-#   dogchow - A common DDL -> postgres DDL generator installed via rpm
-#             installed via (yum install dogchow) from fedora extras.
-#   genmain - A tool used to process the .deps files to produce
-#             the main.sql.  It will inject the contents of a file
-#             named "start.sql" at the beginning if it exits.
+#   cameleon - A common DDL -> postgres DDL generator installed via rpm
+#              installed via (yum install cameleon) from fedora extras.
+#   genmain -  A tool used to process the .deps files to produce
+#              the main.sql.  It will inject the contents of a file
+#              named "start.sql" at the beginning if it exits.
 #
 # The build steps are as follows:
 #
-#   - Populate tables/common from ../common/tables using dogchow.
-#   - Populate data/common from ../data/tables using dogchow.
+#   - Populate tables/common from ../common/tables using cameleon.
+#   - Populate data/common from ../data/tables using cameleon.
 #   - Populate views/common from ../views/tables
 #   - Generate the main.sql using genmain.py.
 #
@@ -35,7 +35,7 @@ ifndef SQLUSER
 SQLUSER := spacewalk
 endif
 
-DOGCHOW := dogchow -FH ../header.txt -s postgres -O best
+CAMELEON := cameleon -F -H ../header.txt -s postgres -O best
 DIRS    := class types tables procs packages views triggers data
 GENMAIN := ../genmain -s postgres $(DIRS)
 
@@ -49,7 +49,7 @@ devel: clean tables views data
 tables : FORCE
 	mkdir -p tables/common
 	cp ../common/tables/*.deps tables/common
-	$(DOGCHOW) -o tables/common ../common/tables/*.sql
+	$(CAMELEON) -o tables/common ../common/tables/*.sql
 
 views : FORCE
 	mkdir views/common
@@ -59,7 +59,7 @@ views : FORCE
 data : FORCE
 	mkdir -p data/common
 	cp ../common/data/*.deps data/common
-	$(DOGCHOW) -o data/common ../common/data/*.sql
+	$(CAMELEON) -o data/common ../common/data/*.sql
 
 install : main
 	psql -d $(SQLUSER) -f main.sql -v ON_ERROR_STOP=

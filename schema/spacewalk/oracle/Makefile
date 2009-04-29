@@ -25,16 +25,16 @@
 #   
 # It uses the following tools:
 #
-#   dogchow - A common DDL -> oracle DDL generator installed via rpm
-#             installed via (yum install dogchow) from fedora extras.
+#   cameleon - A common DDL -> oracle DDL generator installed via rpm
+#             installed via (yum install cameleon) from fedora extras.
 #   genmain - A tool used to process the .deps files to produce
 #             the main.sql.  It will inject the contents of a file
 #             named "start.sql" at the beginning if it exits.
 #
 # The build steps are as follows:
 #
-#   - Populate tables/common from ../common/tables using dogchow.
-#   - Populate data/common from ../data/tables using dogchow.
+#   - Populate tables/common from ../common/tables using cameleon.
+#   - Populate data/common from ../data/tables using cameleon.
 #   - Populate views/common from ../views/tables
 #   - Generate the main.sql using genmain.py.
 #
@@ -46,11 +46,11 @@ ifndef SQLUSER
 SQLUSER := spacewalk/spacewalk@xe
 endif
 
-DOGCHOW := dogchow -FH ../header.txt -s oracle
-DIRS    := class types tables procs packages views triggers data
-GENMAIN := ../genmain -s oracle  $(DIRS)
-REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
-TMPMAIN := /tmp/main.sql
+CAMELEON := cameleon -F -H ../header.txt -s oracle
+DIRS     := class types tables procs packages views triggers data
+GENMAIN  := ../genmain -s oracle  $(DIRS)
+REPLTBS  := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
+TMPMAIN  := /tmp/main.sql
 
 
 main : clean tables views data
@@ -65,7 +65,7 @@ devel : clean tables views data
 tables : FORCE
 	mkdir -p tables/common
 	cp ../common/tables/*.deps tables/common
-	$(DOGCHOW) -o tables/common ../common/tables/*.sql
+	$(CAMELEON) -o tables/common ../common/tables/*.sql
 
 views : FORCE
 	mkdir views/common
@@ -75,7 +75,7 @@ views : FORCE
 data : FORCE
 	mkdir -p data/common
 	cp ../common/data/*.deps data/common
-	$(DOGCHOW) -o data/common ../common/data/*.sql
+	$(CAMELEON) -o data/common ../common/data/*.sql
 
 install : main
 	sqlplus $(SQLUSER) @main
