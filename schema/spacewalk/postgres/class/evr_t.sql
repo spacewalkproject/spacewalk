@@ -130,7 +130,7 @@ create or replace function evr_t_as_vre( a evr_t ) returns varchar as $$
 begin
   return a.version || '-' || a.release || ':' || a.epoch;
 end;
-$$ language plpgsql; -- TODO: Can this be made IMMUTABLE STRICT?
+$$ language plpgsql immutable strict;
 
 create or replace function evr_t_as_vre_simple( a evr_t ) returns varchar as $$
 declare
@@ -143,9 +143,9 @@ begin
   end if;
   return vre_out;
 end;
-$$ language plpgsql; -- TODO: Can this be made IMMUTABLE STRICT?
+$$ language plpgsql immutable strict;
 
-create or replace function evr_t_max(a evr_t, b evr_t)
+create or replace function evr_t_larger(a evr_t, b evr_t)
 returns evr_t
 as $$
 begin
@@ -156,10 +156,10 @@ begin
     return b;
   end if;
 end;
-$$ language plpgsql;
+$$ language plpgsql immutable strict;
 
 create aggregate max (
-  sfunc=evr_t_max,
+  sfunc=evr_t_larger,
   basetype=evr_t,
   stype=evr_t,
   initcond='(0,0,0)'
