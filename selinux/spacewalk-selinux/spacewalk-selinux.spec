@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.1
+Version:        0.6.2
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -104,6 +104,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 0.6.2-1
+- fix type (double Source0)
+- amend %changelog
+
 * Fri Apr 24 2009 Jan Pazdziora 0.6.1-1
 - move the %post SELinux activation to /usr/sbin/spacewalk-selinux-enable
 - use src.rpm packaging with single Source0
