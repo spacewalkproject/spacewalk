@@ -61,10 +61,20 @@ public class RenderKickstartFileAction extends Action {
             if (params != null) {
                 String host = (String) params.get("host");
                 KickstartData ksdata = (KickstartData) params.get("ksdata");
+                if (log.isDebugEnabled()) {
+                    log.debug("execute.host: " + host);
+                    log.debug("execute.ksdata: " + ksdata);
+                }
                 if (host != null && ksdata != null) {
                     try {
-                        fileContents = KickstartManager.
-                                    getInstance().renderKickstart(ksdata);    
+                        if (helper.isProxyRequest()) {
+                            fileContents = KickstartManager.
+                                getInstance().renderKickstart(host, ksdata);    
+                        }
+                        else {
+                            fileContents = KickstartManager.
+                                getInstance().renderKickstart(ksdata);    
+                        }
                     }
                     catch (DownloadException de) {
                         fileContents = de.getContent();
