@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         9%{?dist}
+Release:         10%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -128,6 +128,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 10.2-10
+- move the %post SELinux activation to /usr/sbin/oracle-xe-enable
+
 * Tue Feb 10 2009 Jan Pazdziora 10.2-9
 - added textrel_shlib_t to libdbcfg10.so
 
