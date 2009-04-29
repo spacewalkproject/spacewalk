@@ -185,7 +185,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         KickstartGuestAction ksAction = (KickstartGuestAction)
             ActionManager.scheduleKickstartGuestAction(this, sessionId);
     
-        ksAction.setPrerequisite(prereqAction.getId());
+        ksAction.setPrerequisite(prereqAction);
         ActionFactory.save(ksAction);
     
         return (Action) ksAction;
