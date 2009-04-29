@@ -329,12 +329,10 @@ public class ErrataFactory extends HibernateFactory {
      * @return clone of e
      */
     public static Errata createClone(Org org, Errata e) {
-        UnpublishedClonedErrata clone = new UnpublishedClonedErrata();
 
-        copyDetails(clone, e);
        
-        String baseClonedAdvisoryName = "CL" + clone.getAdvisoryName().substring(3);
-        String baseClonedAdvisory = "CL" + clone.getAdvisory().substring(3);
+        String baseClonedAdvisoryName = "CL" + e.getAdvisoryName().substring(3);
+        String baseClonedAdvisory = "CL" + e.getAdvisory().substring(3);
         String clonedAdvisory = baseClonedAdvisory;
         String clonedAdvisoryName = baseClonedAdvisoryName;
         boolean unusedNameFound = false;
@@ -353,6 +351,10 @@ public class ErrataFactory extends HibernateFactory {
             }
         }
                 
+        UnpublishedClonedErrata clone = new UnpublishedClonedErrata();
+
+        copyDetails(clone, e);
+
         clone.setAdvisoryName(clonedAdvisoryName);
         clone.setAdvisory(clonedAdvisory);
         clone.setOriginal(e);

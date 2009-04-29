@@ -58,7 +58,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
     private Boolean locallyModified;
     private Date lastModified;
     private Org org;
-    private Set bugs;
+    private Set bugs = new HashSet();
     private Set files;
     private Set keywords;
     protected Set packages;
@@ -372,7 +372,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * {@inheritDoc}
      */
     public void removeBug(Long bugId) {
-        Iterator itr = bugs.iterator();
+        Iterator itr = getBugs().iterator();
         Bug deleteme = null; // the bug to delete
         while (itr.hasNext()) {
             Bug bug = (Bug) itr.next();
@@ -381,7 +381,7 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
                 break;
             }
         }
-        bugs.remove(deleteme);
+        getBugs().remove(deleteme);
         ErrataFactory.removeBug(deleteme);
     }
 
@@ -390,11 +390,8 @@ public abstract class AbstractErrata extends BaseDomainHelper implements
      * @param bugIn The bug to add
      */
     public void addBug(Bug bugIn) {
-        if (this.bugs == null) {
-            this.bugs = new HashSet();
-        }
         // add bug to bugs
-        bugs.add(bugIn);
+        this.getBugs().add(bugIn);
         // set errata for bugIn
         bugIn.setErrata(this);
     }
