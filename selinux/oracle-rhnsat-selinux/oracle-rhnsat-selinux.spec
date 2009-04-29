@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         10%{?dist}
+Release:         11%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -103,6 +103,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 10.2-11
+- move the %post SELinux activation to /usr/sbin/oracle-rhnsat-enable
+
 * Mon Mar 16 2009 Jan Pazdziora 10.2-10
 - 489377 - allow sqlplus and lsnrctl to use NIS
 
