@@ -24,8 +24,7 @@ create or replace function is_org_paid
 )
 returns numeric as $$
 begin
-    raise exception 'Stub called, must be replace by .pkb';
-    return 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 
@@ -35,8 +34,7 @@ create or replace function lookup_email_state
 )
 returns numeric as $$
 begin
-    raise exception 'Stub called, must be replace by .pkb';
-	return 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ language plpgsql;
 

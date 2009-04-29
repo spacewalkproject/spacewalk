@@ -7,8 +7,7 @@ create or replace function get_reporting_period_start()
 returns timestamptz
 as $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
-  return current_timestamp;
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language 'plpgsql';
 
@@ -16,8 +15,7 @@ create or replace function get_reporting_period_end()
 returns timestamptz as
 $$
 begin
-  raise exception 'Stub called, must be replace by .pkb';
-  return current_timestamp;
+  raise exception 'Stub called, must be replaced by .pkb';
 end;
 $$ language 'plpgsql';
 

@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION is_org_paid (org_id_in IN NUMERIC)
 RETURNS NUMERIC
 AS $$
 BEGIN
-    RETURN 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ LANGUAGE PLPGSQL;
 
@@ -15,6 +15,7 @@ CREATE OR REPLACE FUNCTION raise_exception(exception_label_in IN VARCHAR)
 RETURNS VOID
 AS $$
 BEGIN
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ LANGUAGE PLPGSQL;
 
@@ -22,6 +23,7 @@ CREATE OR REPLACE FUNCTION raise_exception_val(exception_label_in IN VARCHAR,val
 RETURNS VOID
 AS $$
 BEGIN
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ LANGUAGE PLPGSQL;
 

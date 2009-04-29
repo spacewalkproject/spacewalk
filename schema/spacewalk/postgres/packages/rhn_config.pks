@@ -27,7 +27,7 @@ Create or replace function prune_org_configs
 returns numeric
 as $$    
 begin
-    return 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 
@@ -39,6 +39,7 @@ create or replace function delete_revision
 returns void
 as $$
 begin
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 
@@ -49,7 +50,7 @@ create or replace function get_latest_revision
 returns numeric
 as $$
 begin
-    return 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 
@@ -61,7 +62,7 @@ create or replace function insert_file
 returns numeric
 as $$
 begin
-    return 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 
@@ -69,6 +70,7 @@ create or replace function delete_file(config_file_id_in in numeric)
 returns void
 as $$
 begin
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 
@@ -83,7 +85,7 @@ create or replace function insert_channel
 returns numeric
 as $$
 begin
-    return 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 
@@ -91,6 +93,7 @@ create or replace function delete_channel(config_channel_id_in in numeric)
 returns void
 as $$
 begin
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 end;
 $$ LANGUAGE 'plpgsql';
 

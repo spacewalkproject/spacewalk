@@ -23,7 +23,7 @@ CREATE OR REPLACE FUNCTION isdigit(ch CHAR)
 RETURNS BOOLEAN
 AS $$
 BEGIN
-  RETURN FALSE;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END ;
 $$ language 'plpgsql';
 
@@ -31,7 +31,7 @@ CREATE OR REPLACE FUNCTION isalpha(ch CHAR)
 RETURNS BOOLEAN
 AS $$
 BEGIN
-  RETURN FALSE;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language 'plpgsql';
 
@@ -39,7 +39,7 @@ CREATE OR REPLACE FUNCTION isalphanum(ch CHAR)
 RETURNS BOOLEAN
 AS $$ 
 BEGIN
-  RETURN FALSE;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language 'plpgsql';
 
@@ -47,7 +47,7 @@ CREATE OR REPLACE FUNCTION rpmstrcmp (string1 IN VARCHAR, string2 IN VARCHAR)
 RETURNS NUMERIC
 AS $$
 BEGIN
-  RETURN 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END ;
 $$ language 'plpgsql';
 
@@ -57,8 +57,7 @@ CREATE OR REPLACE FUNCTION vercmp(
 RETURNS NUMERIC
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
-  RETURN 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language 'plpgsql';
 
@@ -66,8 +65,7 @@ CREATE OR REPLACE FUNCTION vercmpCounter()
 RETURNS NUMERIC
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
-  RETURN 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language 'plpgsql';
 
