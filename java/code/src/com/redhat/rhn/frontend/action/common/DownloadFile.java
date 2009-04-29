@@ -356,6 +356,17 @@ public class DownloadFile extends DownloadAction {
                 KickstartFactory.saveKickstartSession(ksession);
             }
             log.debug("returning getStreamForBinary");
+
+             File actualFile = new File(diskPath);
+
+             Date mtime = new Date(actualFile.lastModified());
+             SimpleDateFormat formatter = new SimpleDateFormat(
+             "EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
+             formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+             String fdate = formatter.format(mtime);
+             response.addHeader("last-modified", fdate);
+             response.addHeader("Content-Length", String.valueOf(actualFile.length()));
+             log.debug("added last-modified and content-length values");
             return getStreamForBinary(diskPath);
         }
         else {
