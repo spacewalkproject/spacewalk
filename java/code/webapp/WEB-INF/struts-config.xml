@@ -6207,7 +6207,7 @@
       <forward name="success" path="/channels/ChannelDetail.do" redirect="true" />
    </action>         
 
-  <action path="/channels/manage/ChannelPackages"
+   <action path="/channels/manage/ChannelPackages"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -6215,6 +6215,13 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/listremovepackages.jsp" />
       </action>
 
+   <action path="/channels/manage/Manage"
+           scope="request"
+           type="com.redhat.rhn.frontend.action.channel.manage.ManageChannelsAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/manage.jsp"/> 
+   </action>
+     
    <action path="/channels/manage/Edit"
            scope="request"
            name="channelEditForm"
