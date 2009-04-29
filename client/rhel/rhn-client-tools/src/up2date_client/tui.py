@@ -357,6 +357,7 @@ class InfoWindow:
                                       [(NEXT, "next"),
                                        (BACK, "back"),
                                        (CANCEL, "cancel")])
+
         # Hosted
         else:
             label = snack.TextboxReflowed(size[0]-10,HOSTED_LOGIN_PROMPT)
@@ -802,7 +803,7 @@ class OSReleaseWindow:
 
         if self.all_updates_button.selected() or later_release:
 	    CONFIRM_OS_ALL = _("Your system will be subscribed to the base"
-                               " software channel to receives all available"
+                               " software channel to receive all available"
                                " updates.")
             msgbox = snack.ButtonChoiceWindow(self.screen, title,
                                   CONFIRM_OS_ALL, buttons =[OK, CANCEL])
@@ -1119,6 +1120,7 @@ class FinishWindow:
             # reg_info dict contains: 'system_id', 'channels', 
             # 'failed_channels', 'slots', 'failed_slots'
             log.log_debug('other is %s' % str(self.tui.other))
+
             reg_info = rhnreg.registerSystem2(tui.userName, tui.password,
                                              tui.profileName, 
                                              other = self.tui.other)
@@ -1183,6 +1185,18 @@ class FinishWindow:
                     FatalErrorWindow(self.screen, _("Problem registering personal information"))
 
         self.setScale(3, 5)
+
+        # send smbios info to the server
+        smbiosData = hardware.get_hal_smbios()
+        try:
+            rhnreg.sendSmbiosInfo(self.systemId, smbiosData)
+        except AttributeError:
+            # Method Not Implemented, continue
+            pass
+        except:
+            log.log_exception(*sys.exc_info())
+            FatalErrorWindow(self.screen,
+                                 _("Problem sending smbios info:\n"))
 
         # maybe upload hardware profile
         if tui.includeHardware:

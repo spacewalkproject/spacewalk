@@ -870,6 +870,16 @@ def get_hal_system_and_smbios():
 
     return system_and_smbios
 
+def get_hal_smbios():
+    computer = get_hal_computer()
+
+    props = computer.GetAllProperties()
+    smbios = {}
+    for key in props:
+        if key.startswith('smbios'):
+            smbios[str(key)] = props[str(key)]
+    return smbios
+
 # this one reads it all
 def Hardware():
     allhw = []

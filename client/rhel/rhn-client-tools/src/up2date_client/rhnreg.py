@@ -623,7 +623,11 @@ def sendHardware(systemId, hardwareList):
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
     s.registration.add_packages(systemId, packageList)
-   
+
+def sendSmbiosInfo(systemId, smbiosData):
+    s = rhnserver.RhnServer()
+    s.registration.add_smbios_info(systemId, smbiosData)
+ 
 def sendVirtInfo(systemId):
     if support is not None:
         support.refresh()

@@ -151,7 +151,17 @@ class RegisterKsCli(rhncli.RhnCli):
                 up2dateErrors.CommunicationError), e:
             print "%s" % e.errmsg
             sys.exit(1)
-            
+
+        # send smbios info to the server 
+        smbiosData = hardware.get_hal_smbios()
+        try:
+            rhnreg.sendSmbiosInfo(systemId, smbiosData)
+        except AttributeError:
+            # Method Not Implemented, continue
+            pass
+        except:
+            print _("Problem sending smbios information.")
+ 
         # collect hardware info, inluding hostname
         if not self.options.nohardware:
             rhnreg.sendHardware(systemId, hardwareList)
