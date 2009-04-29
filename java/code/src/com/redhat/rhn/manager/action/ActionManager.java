@@ -887,7 +887,7 @@ public class ActionManager extends BaseManager {
             Action hwrefresh = 
                 scheduleHardwareRefreshAction(scheduler, server, earliest);
             ActionFactory.save(hwrefresh);
-            action.setPrerequisite(hwrefresh.getId());
+            action.setPrerequisite(hwrefresh);
         }
         
         ActionFactory.save(action);

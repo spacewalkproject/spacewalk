@@ -41,7 +41,7 @@ public class Action extends BaseDomainHelper implements Serializable {
     private Long archived;
     private Date created;
     private Date modified;
-    private Long prerequisite;
+    private Action prerequisite;
     private ActionType actionType;
     
     private Set serverActions;
@@ -219,7 +219,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * Getter for prerequisite 
      * @return Long to get
     */
-    public Long getPrerequisite() {
+    public Action getPrerequisite() {
         return this.prerequisite;
     }
 
@@ -227,7 +227,7 @@ public class Action extends BaseDomainHelper implements Serializable {
      * Setter for prerequisite 
      * @param prerequisiteIn to set
     */
-    public void setPrerequisite(Long prerequisiteIn) {
+    public void setPrerequisite(Action prerequisiteIn) {
         this.prerequisite = prerequisiteIn;
     }
 

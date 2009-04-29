@@ -446,12 +446,12 @@ public class KickstartSession {
      */
     public void markFailed(String messageIn) {
         if (this.action != null) {
-            Long parentId = this.action.getPrerequisite();
+            Long parentId = this.action.getPrerequisite().getId();
             Action parentAction = this.action;
             
             while (parentId != null) {
                 parentAction = ActionFactory.lookupById(parentId);
-                parentId = parentAction.getPrerequisite();
+                parentId = parentAction.getPrerequisite().getId();
             }
             if (this.currentServer() != null) {
                 ActionManager.

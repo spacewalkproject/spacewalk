@@ -573,6 +573,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
         Action kickstartAction = this.scheduleKickstartAction(packageAction);
         ActionFactory.save(packageAction);
+        
+        
         this.kickstartActionId = kickstartAction.getId();
         log.debug("** Created ksaction: " + kickstartAction.getId());
         
@@ -812,7 +814,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                       server);
 
         if (prereqAction != null) {
-            ksAction.setPrerequisite(prereqAction.getId());
+            ksAction.setPrerequisite(prereqAction);
         }
         ksAction.getKickstartActionDetails().setStaticDevice(this.getStaticDevice());
         return ksAction;
@@ -830,7 +832,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         Action rebootAction = ActionManager.scheduleRebootAction(this.getUser(), 
                 this.getHostServer(), this.getScheduleDate());
         log.debug("** Created rebootAction");
-        rebootAction.setPrerequisite(prereqAction.getId());
+        rebootAction.setPrerequisite(prereqAction);
         rebootAction.setEarliestAction(this.getScheduleDate());
         rebootAction.setOrg(this.getUser().getOrg());
         rebootAction.setName(rebootAction.getActionType().getName());

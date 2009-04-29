@@ -238,7 +238,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         
         Action parent = createActionWithServerActions(user, 1);
         Action child = createActionWithServerActions(user, 1);
-        child.setPrerequisite(parent.getId());
+        child.setPrerequisite(parent);
         List actionList = createActionList(user, new Action [] {parent});
         
         assertServerActionCount(parent, 1);
@@ -270,7 +270,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         
         Action parent = createActionWithServerActions(user, 1);
         Action child = createActionWithServerActions(user, 1);
-        child.setPrerequisite(parent.getId());
+        child.setPrerequisite(parent);
         List actionList = createActionList(user, new Action [] {child});
         
         try {
@@ -290,12 +290,12 @@ public class ActionManagerTest extends RhnBaseTestCase {
         Action parent1 = createActionWithServerActions(user, 3);
         for (int i = 0; i < 9; i++) {
             Action child = createActionWithServerActions(user, 2);
-            child.setPrerequisite(parent1.getId());
+            child.setPrerequisite(parent1);
         }
         Action parent2 = createActionWithServerActions(user, 3);
         for (int i = 0; i < 9; i++) {
             Action child = createActionWithServerActions(user, 2);
-            child.setPrerequisite(parent2.getId());
+            child.setPrerequisite(parent2);
         }
         assertServerActionCount(user, 42);
         
