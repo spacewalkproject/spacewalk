@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.8
+Version: 0.6.9
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -249,6 +249,49 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu Apr 30 2009 Tomas Lestach <tlestach@redhat.com> 0.6.9-1
+- 454876 - not setting cookie domain (tlestach@redhat.com)
+- 497458 - fixing ISE with errata cloning (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 219179 - setting redhat_management_server for the system records like we do
+  for server (jsherril@redhat.com)
+- 480011 - Added organization to the top header near the username.
+  (jason.dobies@redhat.com)
+- 497867 - fixed bug in logic after changing hibernate mappings
+  (jsherril@redhat.com)
+- 497917 - fixing issue where select all did not work on errata list/remove
+  packages (jsherril@redhat.com)
+- 497867 - fixing reboots taking place even if provisioning fails
+  (jsherril@redhat.com)
+- checkstyle fix (jsherril@redhat.com)
+- 219179 - fixed some issues related to reprovisioning through proxy
+  (jsherril@redhat.com)
+- 481578 - Ported manage software channels page from perl to java
+  (jason.dobies@redhat.com)
+- 498208 - cobbler webui string correction (shughes@redhat.com)
+- 461704 - clean time_series when deleting a monitoring probe
+  (mzazrivec@redhat.com)
+- 497925 - we search and replace the cobbler host with proxy
+  (mmccune@gmail.com)
+- Added code to ensure name is required .... (paji@redhat.com)
+- 497872 - skip 'fake' interfaces when looking up system records.
+  (mmccune@gmail.com)
+- Updated the Kickstart Advanced mode page to include edit area instead of the
+  standard text area for uploading kicktstart information.. (paji@redhat.com)
+- 497964 - Made the config file create and file details page use edit area..
+  Fancy editor... (paji@redhat.com)
+- 444221 - Updated the Create/Modify and the delete snippets pages based on
+  Mizmo's suggestions (paji@redhat.com)
+- 489902 - fix help links to work with rhn-il8n-guides (bbuckingham@redhat.com)
+- Checkstyle fixes (jason.dobies@redhat.com)
+- 494627 - Added more fine grained error messages for invalid channel data.
+  (jason.dobies@redhat.com)
+- 485849 - merging RELEASE-5.1 bug into spacewalk (mmccune@gmail.com)
+- 496259 - greatly improved errata deletion time (jsherril@redhat.com)
+- 444221 - Cobbler Snippet Create page redesign (paji@redhat.com)
+- 444221 - Initial improvement on Cobbler Snippets List page based on the bug..
+  (paji@redhat.com)
+
 * Fri Apr 24 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.8-1
 - removing some debug statements (jsherril@redhat.com)
 - 495961 - greatly improving performance of add errata page (jsherril@redhat.com)
