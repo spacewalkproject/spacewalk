@@ -25,23 +25,15 @@ update pg_settings set setting = 'rhn_bel,' || setting where name = 'search_path
 
 create or replace function is_org_paid (org_id_in in numeric) returns numeric as
 $$
-declare
-      paids cursor for
+   begin
+      if exists(
          select   1
          from  rhnPaidOrgs
-         where org_id = org_id_in;
-
-     paids_curs_1 numeric;
-   begin
-
-     open paids;
-     loop
-	fetch paids into paids_curs_1;
-	exit when not found;
+         where org_id = org_id_in ) then
 	return 1;
-     end loop;
-   
-            return 0;
+      else
+	return 0;
+      end if;
    end;
 $$ language plpgsql;
 

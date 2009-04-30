@@ -31,13 +31,8 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
               AND SGT.label = group_label_in
               AND SG.org_id = org_id_in;
 
-    
-        server_group       record; --server_group_by_label%ROWTYPE;
-
-        
+        server_group       record;
     BEGIN
-
-    
         OPEN server_group_by_label(org_id_in, group_label_in);
         FETCH server_group_by_label INTO server_group;
         CLOSE server_group_by_label;
@@ -47,9 +42,7 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
     $$
     LANGUAGE PLPGSQL;
 
-
-
-    create or replace function delete_org (
+create or replace function delete_org (
         org_id_in in numeric
     ) returns void
     as
@@ -60,35 +53,25 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
         from web_contact
         where org_id = org_id_in;
 
-        user_curs_id	numeric;
-
         servers cursor (org_id_in numeric) for
         select  id
         from    rhnServer
         where   org_id = org_id_in;
-
-        servers_curs_id	numeric;
 
         config_channels cursor for
         select id
         from rhnConfigChannel
         where org_id = org_id_in;
 
-        conf_channel_curs_id	numeric;
-
         custom_channels cursor for
         select  id
         from    rhnChannel
         where   org_id = org_id_in;
 
-        cust_channel_curs_id	numeric;
-
         errata cursor for
         select  id
         from    rhnErrata
         where   org_id = org_id_in;
-
-        errata_curs_id	numeric;
 
     begin
 
@@ -97,57 +80,33 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
         end if;
 
         -- Delete all users.
-        open users;
-        loop
-		fetch users into user_curs_id;
-		exit when not found;
-		perform rhn_org.delete_user(user_curs_id, 1);
+        for u in users loop
+            perform rhn_org.delete_user(u.id, 1);
         end loop;
-        close users;
-        
 
         -- Delete all servers.
-        open servers(org_id_in);
-        loop
-		fetch servers into servers_curs_id;
-		exit when not found;
-		perform delete_server(servers_curs_id);
+        for s in servers(org_id_in) loop
+            perform delete_server(s.id);
         end loop;
-        close servers;
-        
+
         -- Delete all config channels.
-	open config_channels;
-	loop
-		fetch config_channels into conf_channel_curs_id;
-		exit when not found;
-		perform rhn_config.delete_channel(conf_channel_curs_id);	
-	end loop;
-	close config_channels;
-        
+        for c in config_channels loop
+            perform rhn_config.delete_channel(c.id);
+        end loop;
 
         -- Delete all custom channels.
-        open custom_channels;
-        loop
-		fetch custom_channels into cust_channel_curs_id;
-		exit when not found;
-		delete from rhnServerChannel where channel_id = cust_channel_curs_id;
+        for cc in custom_channels loop
+          delete from rhnServerChannel where channel_id = cc.id;
           delete from rhnServerProfilePackage where server_profile_id in (
-            select id from rhnServerProfile where base_channel = cust_channel_curs_id
+            select id from rhnServerProfile where base_channel = cc.id
           );
-          delete from rhnServerProfile where base_channel = cust_channel_curs_id;
-		
+          delete from rhnServerProfile where base_channel = cc.id;
         end loop;
-        close custom_channels;
-        
-        -- Delete all errata packages
-	open errata;
-	loop
-		fetch errata into errata_curs_id;
-		exit when not found;
-		delete from rhnErrataPackage where errata_id = errata_curs_id;
-	end loop;
-        close errata;
-        
+
+        -- Delete all errata packages 
+        for e in errata loop
+            delete from rhnErrataPackage where errata_id = e.id;
+        end loop;
 
         -- Give the org's entitlements back to the main org.
         perform rhn_entitlements.remove_org_entitlements(org_id_in);
@@ -175,9 +134,7 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
     $$
     language plpgsql;
 
-    -- ////////////////////////////////////////////////////////
-
-                create or replace function delete_user(user_id_in in numeric, deleting_org in numeric) returns void 
+create or replace function delete_user(user_id_in in numeric, deleting_org in numeric default 0) returns void 
         as
         $$
         declare
@@ -191,11 +148,8 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
                                 and ug.group_type = ugt.id
                                 and ugt.label = 'org_admin';
 
-                 iadmin_curs_counter	numeric;
-
-                                
                 servergroups_needing_admins cursor for
-                        select  usgp.server_group_id    
+                        select  usgp.server_group_id
                         from    rhnUserServerGroupPerms usgp
                         where   1=1
                                 and usgp.user_id = user_id_in
@@ -206,23 +160,17 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
                                                 and sq_usgp.server_group_id = usgp.server_group_id
                                                 and     sq_usgp.user_id != user_id_in
                                 );
-
-		sg_curs_id	numeric;
                                 
                 messages cursor for
                         select  message_id
                         from    rhnUserMessage
                         where   user_id = user_id_in;
-
-		msg_curs_id	numeric;
 		
                 users                   numeric;
                 our_org_id              numeric;
                 other_users             numeric;
                 other_org_admin numeric;
-
-                
-        other_user_id  numeric;
+                other_user_id  numeric;
         begin
                 select  wc.org_id
                 into    our_org_id
@@ -230,87 +178,63 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
                 where   id = user_id_in;
 
                 -- find any other users
-                begin
-                        select  id, 1
-                        into    other_user_id, other_users
-                        from    web_contact
-                        where   1=1
-                                and org_id = our_org_id
-                                and id != user_id_in
-                                and rownum = 1;
-                exception
-                        when division_by_zero then
-                                other_users := 0;
-                end;
+                select  id, 1
+                into    other_user_id, other_users
+                from    web_contact
+                where   1=1
+                        and org_id = our_org_id
+                        and id != user_id_in
+                limit 1;
+
+                if not found then
+                   other_users := 0;
+                end if;
 
                 -- now do org admin stuff
                 if other_users != 0 then
-			open is_admin;
-                        --for ignore in is_admin loop
-                        loop
-				fetch is_admin into iadmin_curs_counter;
-				exit when not found;
-                                begin
-                                        select  new_ugm.user_id
-                                        into    other_org_admin
-                                        from    rhnUserGroupMembers     new_ugm,
-                                                        rhnUserGroupType        ugt,
-                                                        rhnUserGroup            ug,
-                                                        rhnUserGroupMembers     ugm
-                                        where   ugm.user_id = user_id_in
-                                                and ugm.user_group_id = ug.id
-                                                and ug.group_type = ugt.id
-                                                and ugt.label = 'org_admin'
-                                                and ug.id = new_ugm.user_group_id
-                                                and new_ugm.user_id != user_id_in
-                                                and rownum = 1;
-                                if not found then 
+                        for ignore in is_admin loop
+                            select  new_ugm.user_id
+                            into    other_org_admin
+                            from    rhnUserGroupMembers     new_ugm,
+                                            rhnUserGroupType        ugt,
+                                            rhnUserGroup            ug,
+                                            rhnUserGroupMembers     ugm
+                            where   ugm.user_id = user_id_in
+                                    and ugm.user_group_id = ug.id
+                                    and ug.group_type = ugt.id
+                                    and ugt.label = 'org_admin'
+                                    and ug.id = new_ugm.user_group_id
+                                    and new_ugm.user_id != user_id_in
+                            limit 1;
+
+                            if not found then 
+                                -- If we're deleting the org, we don't want
+                                -- to raise the exception.
+                                if deleting_org = 0 then
+                                    perform rhn_exception.raise_exception('cannot_delete_user');
                                 end if;
-                                
-                                        --end if;
-                        -- If we're deleting the org, we don't want to raise
-                        -- the exception.
-                        if deleting_org = 0 then
-                                                perform rhn_exception.raise_exception('cannot_delete_user');
-                        end if;
-                                end;
-				open servergroups_needing_admins;
-				loop
-					fetch servergroups_needing_admins into sg_curs_id;
-					exit when not found;
-                                --for sg in servergroups_needing_admins loop
-                                        perform rhn_user.add_servergroup_perm(other_org_admin,sg_curs_id);
-                                end loop;
+                            end if;
 
-                                close servergroups_needing_admins;
+                            for sg in servergroups_needing_admins loop
+                                perform rhn_user.add_servergroup_perm(other_org_admin,sg.server_group_id);
+                            end loop;
                         end loop;
-
-                        close is_admin;
                 end if;
 
                 -- and now things for every user
-                open messages;
-                loop
-			fetch messages into msg_curs_id;
-			exit when not found;
-                --for message in messages loop
+		for message in messages loop
                         delete
                                 from    rhnUserMessage
                                 where   user_id = user_id_in
-                                        and message_id = msg_curs_id;
-                        begin
-                                select  1
-                                into    users
+                                        and message_id = message.id;
+
+                                if exists(select  1
                                 from    rhnUserMessage
-                                where   message_id = msg_curs_id
-                                        and rownum = 1;
-                                delete
+                                where   message_id = message.id) then
+                                    delete
                                         from    rhnMessage
-                                        where   id = msgs_curs_id;
-                        if not founf then 
-                                null;
-                        end if;        
-                        end;
+                                        where   id = message.id;
+                                end if;
                 end loop;
 
                 
@@ -337,7 +261,7 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
                 delete from rhnAppInstallSession where user_id = user_id_in;
                 if other_users != 0 then
                         update          rhnRegToken
-                                set             user_id = nvl(other_org_admin, other_user_id)
+                                set             user_id = coalesce(other_org_admin, other_user_id)
                                 where   org_id = our_org_id
                                         and user_id = user_id_in;
                         begin
@@ -363,5 +287,3 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
 
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_org')+1) ) where name = 'search_path';
-
-

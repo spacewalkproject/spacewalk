@@ -64,6 +64,8 @@ begin
 end;
 $$ language plpgsql;
 
+	-- this means a server got added or removed, so we
+	-- can't key off of a server anywhere.
 create or replace function update_perms_for_server_group(
                 server_group_id_in in numeric
         ) returns void 
@@ -72,7 +74,7 @@ $$
 declare
        users cursor for
         -- org admins aren't affected, so don't test for them
-       select  usgp.user_id
+       select  usgp.user_id as id
        from    rhnUserServerGroupPerms usgp
        where   usgp.server_group_id = server_group_id_in
        and not exists (
@@ -87,21 +89,12 @@ declare
                 and ug.org_id = sg.org_id
                 and ugm.user_group_id = ug.id
         );
-
-        users_curs_uid	numeric;
 begin
-	open users;
-	loop
-		fetch users into users_curs_uid;
-		exit when not found;
-		perform update_perms_for_user(users_curs_uid);
+	for u in users loop
+		perform update_perms_for_user(u.id);
 	end loop;
-	
 end;
 $$ language plpgsql;
 
-
-
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_cache')+1) ) where name = 'search_path';
-

@@ -24,10 +24,9 @@ create or replace function recompute_org_quota_used (
         ) returns numeric as
         $$
         declare
-                retval numeric := 0;
+                retval numeric;
         begin
-                begin
-                        select  NVL(sum(a.file_size),0)
+                        select  COALESCE(sum(a.file_size),0)
                         into    retval
                         from    (
                                 select  distinct content.id, content.file_size
@@ -40,10 +39,6 @@ create or replace function recompute_org_quota_used (
                                         and cf.id = cr.config_file_id
                                         and cr.config_content_id = content.id
                                 ) a;
-                exception
-                        when others then
-                                null;
-                end;
 
                 return retval;
 end;
@@ -87,16 +82,18 @@ create or replace function set_org_quota_total (
                 from    rhnOrgQuota oq
                 where   oq.org_id = org_id_in;
 
+                if not found  then
+                        insert into rhnOrgQuota ( org_id, total )
+                                values (org_id_in, total_in);
+                        return;
+		end if;
+
                 perform rhn_config.prune_org_configs(org_id_in, available);
 
                 update          rhnOrgQuota
                         set             total = total_in
                         where   org_id = org_id_in;
         
-                if not found  then
-                        insert into rhnOrgQuota ( org_id, total )
-                                values (org_id_in, total_in);
-		end if;
                 -- right now, we completely ignore failure in setting the total to a
                 -- lower number than is subscribed, because we have no prune.  prune
                 -- will be in the next version, sometime in the not too distant future,

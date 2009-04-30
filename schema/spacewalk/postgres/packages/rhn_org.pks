@@ -22,8 +22,7 @@ CREATE OR REPLACE FUNCTION find_server_group_by_type(org_id_in NUMERIC, group_la
 RETURNS NUMERIC
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
-  RETURN 0;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ LANGUAGE PLPGSQL;
 
@@ -31,16 +30,16 @@ CREATE OR REPLACE FUNCTION delete_org (org_id_in in numeric)
 RETURNS VOID
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language plpgsql;
 
 
-CREATE OR REPLACE FUNCTION delete_user(user_id_in in numeric, deleting_org in numeric)
+CREATE OR REPLACE FUNCTION delete_user(user_id_in in numeric, deleting_org in numeric default 0)
 RETURNS VOID 
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language plpgsql;
 

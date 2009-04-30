@@ -21,24 +21,22 @@ create or replace FUNCTION canonical_name
 (
   name_in IN VARCHAR,
   evr_in IN EVR_T,
-  arch_in IN VARCHAR(400)
+  arch_in IN VARCHAR DEFAULT NULL
 )
 RETURNS VARCHAR
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
-  RETURN NULL;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$
 language 'plpgsql';
 
 
-create or replace FUNCTION channel_occupancy_string(package_id_in IN NUMERIC, separator_in VARCHAR) 
+create or replace FUNCTION channel_occupancy_string(package_id_in IN NUMERIC, separator_in VARCHAR DEFAULT ', ')
 RETURNS VARCHAR
 AS $$
 BEGIN
-  RAISE EXCEPTION 'Stub called, must be replace by .pkb';
-  RETURN NULL;
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
 END;
 $$ language 'plpgsql';
 

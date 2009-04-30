@@ -59,12 +59,12 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	 where S.id = server_id_in
 	   and not exists (select 1 from rhnSatelliteInfo SI where SI.server_id = S.id)
 	   and not exists (select 1 from rhnProxyInfo PI where PI.server_id = S.id);
+
+        if not found then
+	    return 0;
+        end if;
 	   
 	return 1;
-    exception
-    	when no_data_found
-	    then
-	    return 0;
     end$$ language plpgsql;
 	        
     create or replace function set_custom_value(
@@ -77,7 +77,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     declare
     	key_id_val numeric;
     begin
-    	select CDK.id into key_id_val
+    	select CDK.id into strict key_id_val
 	  from rhnCustomDataKey CDK,
 	       rhnServer S
 	 where S.id = server_id_in
@@ -144,18 +144,17 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	      AND user_id = set_uid_in
 	loop
 	    if rhn_server.system_service_level(server.element, 'provisioning') = 1 then
-	    	begin
 	    	    select max(id) into snapshot_id
 	    	    from rhnSnapshot
 	    	    where server_id = server.element;
-	    	exception
-	    	    when NO_DATA_FOUND then
+
+	    	    if snapshot_id is null then
 		    	perform rhn_server.snapshot_server(server.element, 'tagging system:  ' || tagname_in);
 			
 			select max(id) into snapshot_id
 			from rhnSnapshot
 			where server_id = server.element;
-		end;
+		    end if;
 		 
 		-- now have a snapshot_id to work with...
 		begin
@@ -279,6 +278,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		where	sgm.server_id = server_id_in
 	);
         locked := 0;
+        <<iloop>>
         while true loop
             begin
                 insert into rhnPackageNEVRA (id, name_id, evr_id, package_arch_id)
@@ -293,7 +293,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
                                         and (nevra.package_arch_id = sp.package_arch_id
                                             or (nevra.package_arch_id is null
                                                 and sp.package_arch_id is null)));
-                exit;
+                exit iloop;
             exception when unique_violation then
                 if locked = 1 then
                     raise;
@@ -341,7 +341,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	-- (an array instead of a table maybe?  who knows...)
 	-- but I've got code to do this handy that I can look at ;)
     	chained_actions cursor is
-                with r(id, prerequisite) as (
+                with recursive r(id, prerequisite) as (
 			select	id, prerequisite
 			from	rhnAction
 			where id = action_id_in
@@ -420,6 +420,10 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	   and s.id = server_id_in
 	   and wc.id = user_id_in;
 
+        if not found then
+          return 0;
+        end if;
+
 	-- okay, so they're in the same org.  if we have an org admin, they get a free pass
     	if rhn_user.check_role(user_id_in, 'org_admin') = 1
 	then
@@ -431,14 +435,13 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 	       rhnUserServerGroupPerms USG
 	 where SGM.server_group_id = USG.server_group_id
 	   and SGM.server_id = server_id_in
-	   and USG.user_id = user_id_in
-	   and rownum = 1;
+	   and USG.user_id = user_id_in;
+
+        if not found then
+          return 0;
+        end if;
 	   
 	return 1;
-    exception
-    	when no_data_found
-	    then
-	    return 0;
     end$$ language plpgsql;
 
     -- *******************************************************************
@@ -448,8 +451,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
     -- Called by: insert_into_servergroup, delete_from_servergroup
     -- *******************************************************************
     create or replace function can_server_consume_virt_slot(server_id_in in numeric,
-                                           group_type_in in
-                                           rhnServerGroupType.label%TYPE)
+                                           group_type_in in varchar)
     returns numeric                                           
     as $$
     declare
@@ -499,10 +501,10 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		prov_available numeric;
 		prov_upgrade numeric;
 		prov_sgid numeric;
-		group_label rhnServerGroupType.label%TYPE;
+		group_label varchar;
 		group_type numeric;
 	begin
-		-- frist, group_type = null, because it's easy...
+		-- first, group_type = null, because it's easy...
 
 		-- this will rowlock the servergroup we're trying to change;
 		-- we probably need to lock the other one, but I think the chances
@@ -511,7 +513,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 		into	group_type, org_id, used_slots, max_slots
 		from	rhnServerGroup sg
 		where	sg.id = server_group_id_in
-		for update of sg.current_members;
+		for update of sg;
 
 		if group_type is null then
 			if used_slots >= max_slots then
@@ -548,7 +550,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
                            'virtualization_host',
                            'virtualization_host_platform') then
 			if used_slots >= max_slots and 
-               (can_server_consume_virt_slot(server_id_in, group_label) != 1) 
+               (rhn_server.can_server_consume_virt_slot(server_id_in, group_label) != 1) 
                then
 				perform rhn_exception.raise_exception('servergroup_max_members');
 			end if;
@@ -561,7 +563,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 
             -- Only update current members if the system in consuming a 
             -- physical slot.
-            if can_server_consume_virt_slot(server_id_in, group_label) = 0 then
+            if rhn_server.can_server_consume_virt_slot(server_id_in, group_label) = 0 then
                 update rhnServerGroup
                 set current_members = current_members + 1
                 where id = server_group_id_in;
@@ -648,10 +650,9 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 
 		oid numeric;
 		mgmt_sgid numeric;
-		label rhnServerGroupType.label%TYPE;
+		label varchar;
 		group_type numeric;
 	begin
-		begin
 			select	sg.group_type, sg.org_id
 			into	group_type,	oid
 			from	rhnServerGroupMembers	sgm,
@@ -659,11 +660,11 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 			where	sg.id = server_group_id_in
 				and sg.id = sgm.server_group_id
 				and sgm.server_id = server_id_in
-			for update of sg.current_members;
-		exception
-			when no_data_found then
+			for update of sg;
+
+			if not found then
 				perform rhn_exception.raise_exception('server_not_in_group');
-		end;
+			end if;
 
 		-- do group_type is null first
 		if group_type is null then

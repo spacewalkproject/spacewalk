@@ -1,9 +1,9 @@
 
 -- setup search_path so that these functions are created in appropriate schema.
-update pg_settings set setting = 'rhn_channel_config,' || setting where name = 'search_path';  
+update pg_settings set setting = 'rhn_config_channel,' || setting where name = 'search_path';  
 
 CREATE OR REPLACE FUNCTION action_diff_revision_status(action_config_revision_id_in numeric)
-RETURNS VARCHAR(255)
+RETURNS VARCHAR
         -- result_is_null obviously wants NVL2, but stupid 8.1.7.3.0 doesn't
         -- have that.  Or case.  So we're using union, instead.
    AS $$
@@ -41,7 +41,7 @@ BEGIN
 END; 
 $$ LANGUAGE plpgsql;
 
-Create or replace FUNCTION get_user_chan_access(config_channel_id_in IN NUMERIC, user_id_in IN NUMERIC)
+CREATE OR REPLACE FUNCTION get_user_chan_access(config_channel_id_in IN NUMERIC, user_id_in IN NUMERIC)
     RETURNS NUMERIC as $$
     Declare
         server_id NUMERIC;
@@ -50,19 +50,16 @@ Create or replace FUNCTION get_user_chan_access(config_channel_id_in IN NUMERIC,
         any_visible_servers_subscribed NUMERIC;
     BEGIN
 
-        org_matches := 0;
-        BEGIN
           SELECT 1 INTO org_matches
             FROM rhnConfigChannel CC,
                  web_contact WC
            WHERE WC.id = user_id_in
              AND CC.id = config_channel_id_in
              AND WC.org_id = CC.org_id;
-        --EXCEPTION
-          if noT found then
+
+          IF NOT FOUND THEN
             RETURN 0;
-          end if;
-        END;
+          END IF;
 
         global_channel := 'unknown';
         SELECT CCT.label INTO global_channel
@@ -70,13 +67,12 @@ Create or replace FUNCTION get_user_chan_access(config_channel_id_in IN NUMERIC,
                rhnConfigChannelType CCT
          WHERE CC.id = config_channel_id_in
            AND CCT.id = CC.confchan_type_id;
+
         IF (rhn_user.check_role_implied(user_id_in, 'config_admin') = 1) AND (global_channel = 'normal')
         THEN
             RETURN 1;
         END IF;
 
-        any_visible_servers_subscribed := 0;
-        BEGIN
           SELECT 1 INTO any_visible_servers_subscribed
             FROM DUAL
            WHERE EXISTS (
@@ -87,11 +83,10 @@ Create or replace FUNCTION get_user_chan_access(config_channel_id_in IN NUMERIC,
                 AND USPD.server_id = SCC.server_id
                 AND SCC.config_channel_id = config_channel_id_in
            );
-        --EXCEPTION
-          if not  found 
+
+          IF NOT FOUND 
             THEN RETURN 0;
-         end if;
-        END;
+          END IF;
 
         RETURN any_visible_servers_subscribed;
 
@@ -103,36 +98,35 @@ CREATE OR REPLACE FUNCTION get_user_revision_access(config_revision_id_in IN NUM
     DECLARE
         config_channel_id NUMERIC;
      BEGIN
-     BEGIN
+
         SELECT CF.config_channel_id INTO config_channel_id
           FROM rhnConfigFile CF,
                rhnConfigRevision CR
          WHERE CF.id = CR.config_file_id
            AND CR.id = config_revision_id_in;
+
           if not found then
            RETURN 0;
           end if;
-    END;
 
         RETURN rhn_config_channel.get_user_chan_access(config_channel_id, user_id_in);
     END;
     $$ language 'plpgsql';
 
 
-    Create or replace FUNCTION get_user_file_access(config_file_id_in IN NUMERIC, user_id_in IN NUMERIC)
+    CREATE OR REPLACE FUNCTION get_user_file_access(config_file_id_in IN NUMERIC, user_id_in IN NUMERIC)
     RETURNS NUMERIC as $$
     declare
         config_channel_id NUMERIC;
     BEGIN
 
-    BEGIN
         SELECT CF.config_channel_id INTO config_channel_id
           FROM rhnConfigFile CF
          WHERE CF.id = config_file_id_in;
-        if not found then
-        RETURN 0;
-        end if;
-    END;
+
+        IF NOT FOUND THEN
+          RETURN 0;
+        END IF;
 
         RETURN rhn_config_channel.get_user_chan_access(config_channel_id, user_id_in);
     END ;

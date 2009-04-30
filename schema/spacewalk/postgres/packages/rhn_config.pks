@@ -19,12 +19,27 @@ create schema rhn_config;
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_config,' || setting where name = 'search_path';
 
-Create or replace function prune_org_configs
+create or replace function prune_org_configs
 (
     org_id_in in numeric,
     total_in in numeric
 )
-returns numeric
+returns void
+as $$    
+begin
+  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
+end;
+$$ LANGUAGE 'plpgsql';
+
+create or replace function insert_revision (
+		revision_in in numeric,
+		config_file_id_in in numeric,
+		config_content_id_in in numeric,
+		config_info_id_in in numeric,
+		delim_start_in in varchar default '{@',
+		delim_end_in in varchar default '@}',
+		config_file_type_id_in numeric default 1
+	) returns numeric
 as $$    
 begin
   RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
@@ -34,7 +49,7 @@ $$ LANGUAGE 'plpgsql';
 create or replace function delete_revision
 (
     config_revision_id_in in numeric,
-    org_id_in in numeric 
+    org_id_in in numeric default -1
 )
 returns void
 as $$

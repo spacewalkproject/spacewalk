@@ -274,9 +274,9 @@ create or replace
 					rhnUserGroupMembers	ugm,
 					rhnUserGroup		ug
 			where	1=1
-				and ugr.id = user_group_id_in
+				and ug.id = user_group_id_in
 				and ugm.user_group_id = user_group_id_in
-				and ugr.group_type = ugt.id
+				and ug.group_type = ugt.id
 				and ugm.user_id = user_id_in
                  loop
 			delete from rhnUserGroupMembers

@@ -3,8 +3,7 @@ create schema rhn_exception;
 -- setup search_path so that these functions are created in appropriate schema.
 update pg_settings set setting = 'rhn_exception,' || setting where name = 'search_path';
 
-CREATE OR REPLACE FUNCTION is_org_paid (org_id_in IN NUMERIC)
-RETURNS NUMERIC
+CREATE OR REPLACE FUNCTION lookup_exception(exception_label_in IN VARCHAR, exception_id_out OUT NUMERIC, exception_message_out OUT VARCHAR)
 AS $$
 BEGIN
   RAISE EXCEPTION 'Stub called, must be replaced by .pkb';

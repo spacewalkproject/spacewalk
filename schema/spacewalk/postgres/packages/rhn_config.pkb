@@ -20,16 +20,15 @@
 update pg_settings set setting = 'rhn_config,' || setting where name = 'search_path';
 
 
-Create or replace function prune_org_configs (
+	-- just a stub for now
+create or replace function prune_org_configs (
 		org_id_in in numeric,
 		total_in in numeric
 	)
-returns numeric
+returns void
 as $$	
 begin
-		null;
-return 0;
-	end;
+end;
 $$ LANGUAGE 'plpgsql';
 
 
@@ -37,10 +36,10 @@ $$ LANGUAGE 'plpgsql';
 		revision_in in numeric,
 		config_file_id_in in numeric,
 		config_content_id_in in numeric,
-		config_info_id_in in numeric
---		delim_start_in in varchar := '{@',
---		delim_end_in in varchar := '@}',
---      config_file_type_id_in in numeric := 1
+		config_info_id_in in numeric,
+		delim_start_in in varchar default '{@',
+		delim_end_in in varchar default '@}',
+		config_file_type_id_in in numeric default 1
 	) returns numeric as $$
                declare
 		retval numeric;
@@ -49,11 +48,6 @@ $$ LANGUAGE 'plpgsql';
 					rhnConfigFile cf
 			where cf.id = config_file_id_in
 				and cf.config_channel_id = cc.id;
-                               	delim_start_in varchar(10) := '{@';
-	            	delim_end_in varchar(10) := '@}';
-                 config_file_type_id_in numeric := 1;
-                 org record;
-
 	begin
       
 		insert into rhnConfigRevision(id, revision, config_file_id,
@@ -66,28 +60,18 @@ $$ LANGUAGE 'plpgsql';
 			)
 			returning id into retval;
 
-		for org in select cc.org_id as id
-                           from rhnConfigChannel cc, rhnConfigFile cf
-                           where cf.id = config_file_id_in
-                                 and cf.config_channel_id = cc.id
-                loop
+		for org in affected_orgs loop
                         perform rhn_quota.update_org_quota(org.id);
                 end loop;
 
 		return retval;
-	end ;
-            $$ language 'plpgsql';
-
---------------------------------------------------------------------
+	end$$ language 'plpgsql';
 
 	create or replace function delete_revision (
 		config_revision_id_in in numeric,
-		org_id_in in numeric 
+		org_id_in in numeric default -1
 	) returns void as $$
-declare
-org_id_in numeric = 1;
-other_revision record;
-snapshot record;
+	declare
 		cfid numeric;
 		ccid numeric;
 		oid numeric;
@@ -105,13 +89,7 @@ snapshot record;
 			from rhnConfigRevision
 			where config_content_id = config_content_id_in;
 	begin
-                for snapshot in select scr.snapshot_id as id
-                        from rhnSnapshot s,
-                             rhnSnapshotConfigRevision scr
-                        where scr.config_revision_id = config_revision_id_in
-                              and scr.snapshot_id = s.id
-                              and s.invalid is null
-                loop
+                for snapshot in snapshots loop
                     update rhnSnapshot s
                         set s.invalid = lookup_snapshot_invalid_reason('cr_removed')
                         where s.id = snapshot.id;
@@ -141,11 +119,7 @@ snapshot record;
 
 		-- now prune away content if there aren't any other revisions pointing
 		-- at it
---		for other_revision in other_revisions(ccid) loop
-open other_revisions(ccid);
-fetch other_revisions into other_revision;
-exit when not found;
-loop
+		for other_revision in other_revisions(ccid) loop
 			others := 1;
 			exit;
 		end loop;
@@ -181,7 +155,6 @@ loop
 
 	end ;
 $$ LANGUAGE 'plpgsql';
------------------------------------------------------------
 
 	create or replace function get_latest_revision (
 		config_file_id_in in numeric
@@ -193,15 +166,14 @@ $$ LANGUAGE 'plpgsql';
 		for revision1 in 
 			select cr.id 
 			from rhnConfigRevision cr
-			where cr.config_file_id = config_file_id_in order by revision desc
+			where cr.config_file_id = config_file_id_in
+			order by revision desc
 		loop
-		return revision1.id;
-	end loop;
-	return null;
+			return revision1.id;
+		end loop;
+		return null;
 end;
 $$ LANGUAGE 'plpgsql';
-
--------------------------------------------------------------------
 
 	create or replace function insert_file (
 		config_channel_id_in in numeric,
@@ -227,7 +199,7 @@ $$ LANGUAGE 'plpgsql';
 		return retval;
 	end;
 $$ LANGUAGE 'plpgsql';
---------------------------------------------------
+
 	create or replace function delete_file (
 		config_file_id_in in numeric
 	) returns void as $$
@@ -246,14 +218,14 @@ revision record;
 				and cr.config_file_id = cf.id
 		
                 loop
-			perform delete_revision(revision.id, revision.org_id);
+			perform rh_config.delete_revision(revision.id, revision.org_id);
 			org_id := revision.org_id;
 		end loop;
 		perform rhn_quota.update_org_quota(org_id);
 		delete from rhnConfigFile where id = config_file_id_in;
 	end;
 $$ LANGUAGE 'plpgsql';
-------------------------------------------------
+
 	create or replace function insert_channel (
 		org_id_in in numeric,
 		type_in in varchar,
@@ -282,7 +254,7 @@ declare
 		return retval;
 	end;
 $$ LANGUAGE 'plpgsql';
---------------------------------------------
+
 	create or replace function delete_channel (
 		config_channel_id_in in numeric
 	) returns void as $$
@@ -294,7 +266,7 @@ declare
 			from rhnConfigFile
 			where config_channel_id = config_channel_id_in
                 loop
-                    perform delete_file(config_file.id);
+                    perform rhn_config.delete_file(config_file.id);
 		end loop;
 		delete from rhnConfigChannel where id = config_channel_id_in;
 
@@ -302,39 +274,3 @@ end;
 $$ LANGUAGE 'plpgsql';
 
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rhn_config')+1) ) where name = 'search_path';
-
---
---
--- Revision 1.9  2005/02/16 14:03:35  jslagle
--- bz #148844
--- Changed insert_revision function to take a config_file_type_id instead of label
---
--- Revision 1.8  2005/02/15 02:42:59  jslagle
--- bz #147860
--- insert_revision function now takes a rhnConfigFileType label as a parameter instead of an id
---
--- Revision 1.7  2005/02/14 22:45:23  jslagle
--- bz#147860
--- Update rhn_config package body and specification for additional column to rhnConfigRevision
---
--- Revision 1.6  2004/10/11 14:02:53  pjones
--- bugzilla: 133169 -- somehow, we just never update the quota in this case.
--- Amazingly, I thought this worked _and_ QA passed it...
---
--- Revision 1.5  2004/01/09 17:39:45  pjones
--- bugzilla: 113029 -- need to do functions for deleting rhnConfigChannel,
--- too, or we can't prune rhnConfigFile when we do.
---
--- Revision 1.4  2004/01/08 19:46:31  pjones
--- bugzilla: 113029 -- insert/delete for rhnConfigFile and rhnConfigRevision
---
--- Revision 1.3  2004/01/08 00:30:10  pjones
--- bugzilla: 113029 -- more deletion of config files and revisions
---
--- Revision 1.2  2004/01/08 00:03:37  pjones
--- bugzilla: 113029 -- rhn_config.delete_revision() and delete trigger on
--- rhnConfigFile
---
--- Revision 1.1  2003/12/19 22:07:30  pjones
--- bugzilla: 112392 -- quota support for config files
---

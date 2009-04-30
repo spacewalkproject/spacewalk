@@ -6,15 +6,15 @@ update pg_settings set setting = 'rhn_package,' || setting where name = 'search_
    
 
 create or replace FUNCTION canonical_name(name_in IN VARCHAR, evr_in IN EVR_T,
-                            arch_in IN VARCHAR(400))
-    RETURNs VARCHAR as $$
+                            arch_in IN VARCHAR DEFAULT NULL)
+    RETURNS VARCHAR as $$
     declare
         name_out     VARCHAR(256);
      
     BEGIN
-        name_out := name_in || '-' ||evr_t_as_vre_simple(evr_in);
+        name_out := name_in || '-' || evr_t_as_vre_simple(evr_in);
         
-        IF arch_in IS NOT NULL
+        IF arch_in <> ''
         THEN
             name_out := name_out || '-' || arch_in;
         END IF;
@@ -24,28 +24,20 @@ create or replace FUNCTION canonical_name(name_in IN VARCHAR, evr_in IN EVR_T,
     $$ language 'plpgsql';
 
 
-create or replace FUNCTION channel_occupancy_string(package_id_in IN NUMERIC, separator_in VARCHAR) 
+create or replace FUNCTION channel_occupancy_string(package_id_in IN NUMERIC, separator_in VARCHAR DEFAULT ', ')
     RETURNS VARCHAR as $$
     declare
         list_out    VARCHAR(4000);
-         channel_occupancy_cursor CURSOR (package_id_in  NUMeric) for
+         channel_occupancy_cursor CURSOR (package_id_in  numeric) for
     SELECT C.id AS channel_id, C.name AS channel_name
       FROM rhnChannel C,
            rhnChannelPackage CP
      WHERE C.id = CP.channel_id
        AND CP.package_id = package_id_in
      ORDER BY C.name DESC;
-     channel  record;
-    separator_in varchar := ', ';
- 
     BEGIN
-
-        --FOR channel IN channel_occupancy_cursor(package_id_in)
-       open channel_occupancy_cursor(package_id_in);
- LOOP
-fetch channel_occupancy_cursor into channel;
-exit when not found; 
-       
+        FOR channel IN channel_occupancy_cursor(package_id_in)
+        LOOP
             IF list_out IS NULL
             THEN
                 list_out := channel.channel_name;

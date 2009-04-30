@@ -187,9 +187,15 @@ as $$
       where label = type_label_in;
 
       if array_upper(previous_ent, 1) = 0 then
-         if (is_base_in = 'Y' and rhn_entitlements.find_compatible_sg (server_id_in, type_label_in, sgid)) then
-            -- rhn_server.insert_into_servergroup (server_id_in, sgid);
-            return 1;
+         if is_base_in = 'Y' then
+            sgid := rhn_entitlements.find_compatible_sg (server_id_in, type_label_in);
+            if sgid is not null then
+              -- rhn_server.insert_into_servergroup (server_id_in, sgid);
+              return 1;
+            else
+              -- rhn_exception.raise_exception ('invalid_base_entitlement');
+              return 0;
+            end if;
          else
             -- rhn_exception.raise_exception ('invalid_base_entitlement');
             return 0;
@@ -224,7 +230,8 @@ as $$
          -- this for loop verifies the validity of the addon path
          for addon_servergroup in addon_servergroups  (previous_ent[i], type_label_in) loop
             -- find an appropriate sgid for the addon and entitle the server
-            if rhn_entitlements.find_compatible_sg (server_id_in, type_label_in, sgid) then
+            sgid := rhn_entitlements.find_compatible_sg (server_id_in, type_label_in);
+            if sgid is not null then
                -- rhn_server.insert_into_servergroup (server_id_in, sgid);
                return 1;
             else
@@ -252,22 +259,24 @@ as $$
 
    begin
 
-      begin
-         select is_base into type_label_in_is_base
-         from rhnServerGroupType
-         where label = type_label_in;
-      exception
-         when no_data_found then
-            perform rhn_exception.raise_exception ( 'invalid_entitlement' );
-      end;
+       select is_base into type_label_in_is_base
+       from rhnServerGroupType
+       where label = type_label_in;
+
+       if not found then
+          perform rhn_exception.raise_exception ( 'invalid_entitlement' );
+       end if;
 
       if type_label_in_is_base = 'N' then
          perform rhn_exception.raise_exception ( 'invalid_entitlement' );
-      elsif rhn_entitlements.find_compatible_sg ( server_id_in, 
-                                                  type_label_in, sgid ) then
-         return 1;
       else
-         return 0;
+         sgid := rhn_entitlements.find_compatible_sg ( server_id_in,
+                                                       type_label_in );
+         if sgid is not null then
+           return 1;
+         else
+           return 0;
+         end if;
       end if;
 
    end$$
@@ -321,15 +330,14 @@ as $$
 
     begin
 
-          begin
-          select 1 into is_virt
-            from rhnServerEntitlementView
-           where server_id = server_id_in
-             and label in ('virtualization_host', 'virtualization_host_platform');
-      exception
-            when no_data_found then
-              is_virt := 0;
-          end;
+      select 1 into is_virt
+        from rhnServerEntitlementView
+        where server_id = server_id_in
+          and label in ('virtualization_host', 'virtualization_host_platform');
+
+      if not found then
+          is_virt := 0;
+      end if;
       
       if is_virt = 0 and (type_label_in = 'virtualization_host' or
                           type_label_in = 'virtualization_host_platform') then
@@ -337,12 +345,11 @@ as $$
         is_virt := 1;
       end if;
 
-
-
       if rhn_entitlements.can_entitle_server(server_id_in, 
                                              type_label_in) = 1 then
-         if rhn_entitlements.find_compatible_sg (server_id_in, 
-                                                 type_label_in, sgid) then
+         sgid := rhn_entitlements.find_compatible_sg (server_id_in,
+                                                      type_label_in);
+         if sgid is not null then
             insert into rhnServerHistory ( id, server_id, summary, details )
             values ( nextval('rhn_event_id_seq'), server_id_in,
                      'added system entitlement ',
@@ -381,22 +388,17 @@ as $$
       type_is_base char;
       is_virt numeric := 0;
     begin
-      begin
-
-
       -- would be nice if there were a virt attribute of entitlement types, not have to specify 2 different ones...
-        begin
-          select 1 into is_virt
-            from rhnServerEntitlementView
-           where server_id = server_id_in
-             and label in ('virtualization_host', 'virtualization_host_platform');
-        exception
-          when no_data_found then
+        select 1 into is_virt
+          from rhnServerEntitlementView
+          where server_id = server_id_in
+            and label in ('virtualization_host', 'virtualization_host_platform');
+        if not found then
             is_virt := 0;
-        end;
+        end if;
 
         select  sg.id, sgt.is_base
-        into    group_id, type_is_base
+        into group_id, type_is_base
         from    rhnServerGroupType sgt,
             rhnServerGroup sg,
                 rhnServerGroupMembers sgm,
@@ -408,9 +410,13 @@ as $$
             and sgt.label = type_label_in
             and sgt.id = sg.group_type;
 
+        if not found then
+          perform rhn_exception.raise_exception('invalid_server_group_member');
+        end if;
+
       if ( type_is_base = 'Y' ) then
          -- unentitle_server should handle everything, don't really need to do anything else special here
-         perform unentitle_server ( server_id_in );
+         perform rhn_entitlements.unentitle_server ( server_id_in );
       else
 
          insert into rhnServerHistory ( id, server_id, summary, details )
@@ -436,8 +442,8 @@ as $$
                             WHERE host_id = server_id_in);
            DELETE
              FROM time_series
-            WHERE SUBSTR(o_id, INSTR(o_id, '-') + 1, 
-                        (INSTR(o_id, '-', INSTR(o_id, '-') + 1) - INSTR(o_id, '-')) - 1)
+            WHERE substring(o_id FROM position('-' IN o_id) + 1
+                            FOR position('-' IN substring(o_id FROM position('-' IN o_id) + 1)) - 1)
               IN (SELECT probe_id
                     FROM rhn_check_probe
                    WHERE host_id = server_id_in);
@@ -452,11 +458,6 @@ as $$
            perform rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
          end if;
       end if;
-
-        exception
-        when no_data_found then
-                perform rhn_exception.raise_exception('invalid_server_group_member');   
-      end;
 
     end$$
 language plpgsql;
@@ -482,15 +483,14 @@ as $$
 
    begin
 
-      begin
-        select 1 into is_virt
-          from rhnServerEntitlementView
-         where server_id = server_id_in
-           and label in ('virtualization_host', 'virtualization_host_platform');
-      exception
-        when no_data_found then
+      select 1 into is_virt
+        from rhnServerEntitlementView
+        where server_id = server_id_in
+         and label in ('virtualization_host', 'virtualization_host_platform');
+
+      if not found then
           is_virt := 0;
-      end;
+      end if;
 
       for servergroup in servergroups loop
 
@@ -1038,7 +1038,6 @@ as $$
         group_type numeric;
     begin
 
-        begin
             select max_members
             into prev_ent_count
             from rhnServerGroupType sgt,
@@ -1046,13 +1045,12 @@ as $$
             where sg.org_id = from_org_id_in
               and sg.group_type = sgt.id
               and sgt.label = group_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 perform rhn_exception.raise_exception(
                               'not_enough_entitlements_in_base_org');
-        end;
+            end if;
 
-        begin
             select max_members
             into to_org_prev_ent_count
             from rhnServerGroupType sgt,
@@ -1060,21 +1058,20 @@ as $$
             where sg.org_id = to_org_id_in
               and sg.group_type = sgt.id
               and sgt.label = group_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 to_org_prev_ent_count := 0;
-        end;
+            end if;
     
-        begin
             select id
             into group_type
             from rhnServerGroupType
             where label = group_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 perform rhn_exception.raise_exception(
                               'invalid_server_group');
-        end;
+            end if;
 
         new_ent_count := prev_ent_count - quantity_in;
     
@@ -1101,25 +1098,25 @@ as $$
         -- Create or delete the entries in rhnOrgEntitlementType
         if group_label_in = 'enterprise_entitled' then 
             if new_quantity > 0 then
-                perform set_customer_enterprise(to_org_id_in);
+                perform rhn_entitlements.set_customer_enterprise(to_org_id_in);
             else
-                perform unset_customer_enterprise(to_org_id_in);
+                perform rhn_entitlements.unset_customer_enterprise(to_org_id_in);
             end if;
         end if;
 
         if group_label_in = 'provisioning_entitled' then
             if new_quantity > 0 then
-                perform set_customer_provisioning(to_org_id_in);
+                perform rhn_entitlements.set_customer_provisioning(to_org_id_in);
             else
-                perform unset_customer_provisioning(to_org_id_in);
+                perform rhn_entitlements.unset_customer_provisioning(to_org_id_in);
             end if;
         end if;
 
         if group_label_in = 'monitoring_entitled' then
             if new_quantity > 0 then
-                perform set_customer_monitoring(to_org_id_in);
+                perform rhn_entitlements.set_customer_monitoring(to_org_id_in);
             else
-                perform unset_customer_monitoring(to_org_id_in);
+                perform rhn_entitlements.unset_customer_monitoring(to_org_id_in);
             end if;
         end if;
 
@@ -1150,7 +1147,6 @@ as $$
         cfam_id       numeric;
     begin
 
-        begin
             select max_members
             into prev_ent_count
             from rhnChannelFamily cf,
@@ -1158,13 +1154,12 @@ as $$
             where pcf.org_id = from_org_id_in
               and pcf.channel_family_id = cf.id
               and cf.label = channel_family_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 perform rhn_exception.raise_exception(
                               'not_enough_entitlements_in_base_org');
-        end;
+            end if;
     
-        begin
             select max_members
             into to_org_prev_ent_count
             from rhnChannelFamily cf,
@@ -1172,22 +1167,20 @@ as $$
             where pcf.org_id = to_org_id_in
               and pcf.channel_family_id = cf.id
               and cf.label = channel_family_label_in;
-        exception
-            when NO_DATA_FOUND then
-                to_org_prev_ent_count := 0;
-        end;
-    
 
-        begin
+            if not found then
+                to_org_prev_ent_count := 0;
+            end if;
+
             select id
             into cfam_id
             from rhnChannelFamily
             where label = channel_family_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 perform rhn_exception.raise_exception(
                               'invalid_channel_family');
-        end;                              
+            end if;
 
         new_ent_count := prev_ent_count - quantity_in;
     
@@ -1238,7 +1231,7 @@ as $$
 
         -- Fetch the current entitlement count for the org
         -- into prev_ent_count
-        begin
+
             select current_members
             into prev_ent_count
             from rhnServerGroupType sgt,
@@ -1246,21 +1239,20 @@ as $$
             where sg.group_type = sgt.id
               and sgt.label = group_label_in
               and sg.org_id = org_id_in;
-        exception
-            when NO_DATA_FOUND then
-                prev_ent_count := 0;
-        end;
 
-        begin
+            if not found then
+                prev_ent_count := 0;
+            end if;
+
             select id
             into group_type
             from rhnServerGroupType
             where label = group_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 perform rhn_exception.raise_exception(
                               'invalid_server_group');
-        end;
+            end if;
 
         -- If we're setting the total entitlemnt count to a lower value,
         -- and that value is less than the allocated count in this org,
@@ -1306,7 +1298,6 @@ as $$
 
         -- Fetch the current entitlement count for the org
         -- into prev_ent_count
-        begin
             select current_members
             into prev_ent_count
             from rhnChannelFamily cf,
@@ -1314,21 +1305,20 @@ as $$
             where pcf.org_id = org_id_in
               and pcf.channel_family_id = cf.id
               and cf.label = channel_family_label_in;
-        exception
-            when NO_DATA_FOUND then
-                prev_ent_count := 0;
-        end;
 
-        begin
+            if not found then
+                prev_ent_count := 0;
+            end if;
+
             select id
             into cfam_id
             from rhnChannelFamily
             where label = channel_family_label_in;
-        exception
-            when NO_DATA_FOUND then
+
+            if not found then
                 perform rhn_exception.raise_exception(
                               'invalid_channel_family');
-        end;                              
+            end if;
 
         -- If we're setting the total entitlemnt count to a lower value,
         -- and that value is less than the count in that one org,
@@ -1368,6 +1358,20 @@ as $$
             where   1=1
                 and rug.org_id = customer_id_in
                 and rug.group_type = group_type_in;
+
+            if not found then
+                insert into rhnUserGroup (
+                        id, name, description, max_members, current_members,
+                        group_type, org_id, created, modified
+                    ) (
+                        select  nextval('rhn_user_group_id_seq'), name, name,
+                                quantity, 0, id, customer_id_in,
+                                current_timestamp, current_timestamp
+                        from    rhnUserGroupType
+                        where   id = group_type_in
+                );
+            end if;
+
         elsif type_in = 'S' then
             select  rsg.id
             into    group_id
@@ -1375,6 +1379,19 @@ as $$
             where   1=1
                 and rsg.org_id = customer_id_in
                 and rsg.group_type = group_type_in;
+
+            if not found then
+                insert into rhnServerGroup (
+                        id, name, description, max_members, current_members,
+                        group_type, org_id, created, modified
+                    ) (
+                        select  nextval('rhn_server_group_id_seq'), name, name,
+                                quantity, 0, id, customer_id_in,
+                                current_timestamp, current_timestamp
+                        from    rhnServerGroupType
+                        where   id = group_type_in
+                );
+            end if;
         end if;
 
         perform rhn_entitlements.prune_group(
@@ -1382,31 +1399,6 @@ as $$
             type_in,
             quantity
         );
-    exception
-        when no_data_found then
-            if type_in = 'U' then
-                insert into rhnUserGroup (
-                        id, name, description, max_members, current_members,
-                        group_type, org_id, created, modified
-                    ) (
-                        select  nextval('rhn_user_group_id_seq'), name, name,
-                                quantity, 0, id, customer_id_in,
-                                sysdate, sysdate
-                        from    rhnUserGroupType
-                        where   id = group_type_in
-                );
-            elsif type_in = 'S' then
-                insert into rhnServerGroup (
-                        id, name, description, max_members, current_members,
-                        group_type, org_id, created, modified
-                    ) (
-                        select  nextval('rhn_server_group_id_seq'), name, name,
-                                quantity, 0, id, customer_id_in,
-                                sysdate, sysdate
-                        from    rhnServerGroupType
-                        where   id = group_type_in
-                );
-            end if;
     end$$
 language plpgsql;
 
