@@ -229,11 +229,11 @@ public class KickstartUrlHelper {
      * 
      * To be filled out by cobbler.  not spacewalk.
      * 
-     * @return String url , cobbler style: http://@@http_server@@$media_url 
+     * @return String url , cobbler style: http://@@http_server@@/$media_url 
      */
     public String getCobblerMediaUrl() {
         StringBuilder url = new StringBuilder();
-        url.append(protocol + host + "$" + COBBLER_MEDIA_VARIABLE);
+        url.append(protocol + host + "/$" + COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
     }
