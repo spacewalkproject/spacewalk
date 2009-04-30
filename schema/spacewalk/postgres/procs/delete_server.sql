@@ -104,7 +104,7 @@ begin
         end loop;
 
         -- filelists
-        /* MFA
+        /* TODO
 
         select  spfl.file_list_id id bulk collect into filelistsid_c
           from  rhnServerPreserveFileList spfl
@@ -290,7 +290,7 @@ begin
     -- and any probes that were using this Server as a Proxy Scout.
 
 
-     /*
+     /* TODO
 
      SELECT CP.probe_id bulk collect into probesid_c
        FROM rhn_check_probe CP

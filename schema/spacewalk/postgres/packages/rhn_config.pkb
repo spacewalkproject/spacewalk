@@ -210,9 +210,8 @@ $$ LANGUAGE 'plpgsql';
 		declare
 		retval numeric;
 	begin
-		select nextval (rhn_conffile_id_seq)
-		into retval
-		from dual;
+		select nextval('rhn_conffile_id_seq')
+		into retval;
 
 		insert into rhnConfigFile(id, config_channel_id, config_file_name_id, 
 				state_id
@@ -266,8 +265,7 @@ declare
 		retval numeric;
 	begin
 		select nextval ('rhn_confchan_id_seq')
-		into retval
-		from dual;
+		into retval;
 
 		insert into rhnConfigChannel(id, org_id, confchan_type_id,
 				name, label, description

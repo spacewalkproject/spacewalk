@@ -36,7 +36,7 @@ declare
     max_execution_time_seconds numeric := 10 * 60;
 
 begin
-    select rhn_command_q_inst_recid_seq.nextval
+    select nextval('rhn_command_q_inst_recid_seq')
     into command_instance_id;
     
 

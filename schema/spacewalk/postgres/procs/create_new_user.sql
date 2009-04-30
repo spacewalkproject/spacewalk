@@ -80,7 +80,7 @@ begin
         first_names_ol, last_name_ol)
     values
         (user_id_tmp, prefix_in, first_names_in, last_name_in, genqual_in,
-        parent_company_in, company_in, title_in, phone_in, fax_in, email_in, pin_in,
+        parent_company_in, company_in, title_in, phone_in, fax_in, email_in, pin_in :: numeric,
         first_names_ol_in, last_name_ol_in);
 
     if address1_in != '.' then
@@ -90,7 +90,7 @@ begin
             city, state, zip, country, phone, fax, type,
             alt_first_names, alt_last_name)
         values
-            (web_user_site_info_id_seq.nextval, user_id_tmp, email_in,
+            (nextval('web_user_site_info_id_seq'), user_id_tmp, email_in,
             address1_in, address2_in, address3_in,
             city_in, state_in, zip_in, country_in, phone_in, fax_in, 'M',
             alt_first_names_in, alt_last_name_in);

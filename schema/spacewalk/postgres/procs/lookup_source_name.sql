@@ -29,8 +29,8 @@ BEGIN
         where   name = name_in;
 
 	IF NOT FOUND THEN
-		insert into rhnSourceRPM(id, name) values (nextval('(rhn_sourcerpm_id_seq'), name_in);
-		source_id := currval('(rhn_sourcerpm_id_seq');
+		insert into rhnSourceRPM(id, name) values (nextval('rhn_sourcerpm_id_seq'), name_in);
+		source_id := currval('rhn_sourcerpm_id_seq');
 	END IF;
         
         RETURN source_id;

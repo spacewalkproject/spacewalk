@@ -44,7 +44,7 @@ END;
 $$ language 'plpgsql';
 
 CREATE OR REPLACE FUNCTION rpmstrcmp (string1 IN VARCHAR, string2 IN VARCHAR)
-RETURNS NUMERIC
+RETURNS INTEGER
 AS $$
 BEGIN
   RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
@@ -54,15 +54,7 @@ $$ language 'plpgsql';
 CREATE OR REPLACE FUNCTION vercmp(
         e1 VARCHAR, v1 VARCHAR, r1 VARCHAR, 
         e2 VARCHAR, v2 VARCHAR, r2 VARCHAR)
-RETURNS NUMERIC
-AS $$
-BEGIN
-  RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
-END;
-$$ language 'plpgsql';
-
-CREATE OR REPLACE FUNCTION vercmpCounter()
-RETURNS NUMERIC
+RETURNS INTEGER
 AS $$
 BEGIN
   RAISE EXCEPTION 'Stub called, must be replaced by .pkb';
@@ -71,4 +63,3 @@ $$ language 'plpgsql';
 
 -- restore the original setting
 update pg_settings set setting = overlay( setting placing '' from 1 for (length('rpm')+1) ) where name = 'search_path';
-

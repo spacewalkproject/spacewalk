@@ -37,10 +37,10 @@ begin
                 and ugm.user_group_id = ug.id
                 and ugt.label = role_in
                 and ugt.id = ug.group_type;
-        return org_admin;
 
         if not found then 
 		return 0;
 	end if;
+        return org_admin;
 end; $$ language plpgsql;
 

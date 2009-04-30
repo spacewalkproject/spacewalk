@@ -27,8 +27,6 @@ BEGIN
           FROM rhnChannelArch
          WHERE label = label_in;
 
-        RETURN channel_arch_id;
-
 	IF NOT FOUND THEN 
 		perform rhn_exception.raise_exception('channel_arch_not_found');
 	END IF;

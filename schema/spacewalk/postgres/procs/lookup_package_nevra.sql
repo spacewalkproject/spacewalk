@@ -20,9 +20,9 @@
 
 create or replace function
 lookup_package_nevra(
-        name_id_in in varchar,
-        evr_id_in in varchar,
-        package_arch_id_in in varchar,
+        name_id_in in numeric,
+        evr_id_in in numeric,
+        package_arch_id_in in numeric,
         ignore_null_name in numeric default 0
 ) returns numeric
 AS

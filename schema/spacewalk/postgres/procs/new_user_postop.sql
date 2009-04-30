@@ -25,11 +25,11 @@ declare
     org_id_val          numeric;
     admin_group_val     numeric;
 begin
-    select org_id into org_id_val
+    select org_id into strict org_id_val
       from web_contact
      where id = user_id_in;
 
-    select id into admin_group_val
+    select id into strict admin_group_val
       from rhnUserGroup
      where org_id = org_id_val
        and group_type = (
@@ -76,41 +76,4 @@ begin
 
     commit;
 end;
-/
-show errors
 */
-
-create or replace function new_user_postop
-(
-    user_id_in IN numeric
-)
-returns void
-as $$
-declare
-    org_id_val          numeric;
-    admin_group_val     numeric;
-begin
-    select org_id into org_id_val
-      from web_contact
-     where id = user_id_in;
-
-    select id into admin_group_val
-      from rhnUserGroup
-     where org_id = org_id_val
-       and group_type = (
-                select  id
-                from    rhnUserGroupType
-                where   label = 'org_admin'
-           );
-
-    insert into rhnUserGroupMembers
-        (user_group_id, user_id)
-    values
-        (admin_group_val, user_id_in);
-
-    insert into rhnUserInfo
-        (user_id)
-    values
-        (user_id_in);
-end;
-$$ language plpgsql;

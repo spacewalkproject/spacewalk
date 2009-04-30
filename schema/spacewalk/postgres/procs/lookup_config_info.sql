@@ -18,7 +18,7 @@ lookup_config_info
 (
     username_in     in varchar,
     groupname_in    in varchar,
-    filemode_in     in varchar
+    filemode_in     in numeric
 )
 returns numeric
 as

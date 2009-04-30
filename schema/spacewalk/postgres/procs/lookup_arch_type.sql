@@ -32,6 +32,4 @@ begin
 
 	return arch_type_id;
 end;
-$$ language plpgsql
-stable;
-
+$$ language plpgsql;

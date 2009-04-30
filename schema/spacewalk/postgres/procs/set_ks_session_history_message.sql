@@ -61,7 +61,7 @@ begin
                 insert into rhnKickstartSessionHistory (
                                 id, kickstart_session_id, state_id, message
                         ) values (
-                                rhn_ks_sessionhist_id_seq.nextval,
+                                nextval('rhn_ks_sessionhist_id_seq'),
                                 kickstart_session_id_in,
                                 id_states_cursor,
                                 message_in

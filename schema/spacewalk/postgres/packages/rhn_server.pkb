@@ -258,7 +258,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
 			and cf.id = lookup_first_matching_cf(scc.server_id, cfn.path);
 	locked integer;
     begin
-    	select rhn_snapshot_id_seq.nextval into snapshot_id_v from dual;
+    	select nextval('rhn_snapshot_id_seq') into snapshot_id_v;
 
 	insert into rhnSnapshot (id, org_id, server_id, reason) (
 		select	snapshot_id_v,
@@ -282,7 +282,7 @@ update pg_settings set setting = 'rhn_server,' || setting where name = 'search_p
         while true loop
             begin
                 insert into rhnPackageNEVRA (id, name_id, evr_id, package_arch_id)
-                select rhn_pkgnevra_id_seq.nextval, sp.name_id, sp.evr_id, sp.package_arch_id
+                select nextval('rhn_pkgnevra_id_seq'), sp.name_id, sp.evr_id, sp.package_arch_id
                 from rhnServerPackage sp
                 where sp.server_id = server_id_in
                         and not exists

@@ -173,7 +173,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
             END IF;
         
             insert into rhnServerHistory (id,server_id,summary,details) (
-                select  rhn_event_id_seq.nextval,
+                select  nextval('rhn_event_id_seq'),
                         server_id_in,
                         'subscribed to channel ' || SUBSTR(c.label, 0, 106),
                         c.label
@@ -608,7 +608,7 @@ update pg_settings set setting = 'rhn_channel,' || setting where name = 'search_
    if deleting_server = 0 then 
 
       insert into rhnServerHistory (id,server_id,summary,details) (
-          select  rhn_event_id_seq.nextval,
+          select  nextval('rhn_event_id_seq'),
                 server_id_in,
              'unsubscribed from channel ' || SUBSTR(c.label, 0, 106),
              c.label

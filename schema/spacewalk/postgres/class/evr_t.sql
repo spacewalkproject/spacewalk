@@ -128,7 +128,7 @@ default for type evr_t using btree as
 
 create or replace function evr_t_as_vre( a evr_t ) returns varchar as $$
 begin
-  return a.version || '-' || a.release || ':' || a.epoch;
+  return a.version || '-' || a.release || ':' || coalesce(a.epoch, '');
 end;
 $$ language plpgsql immutable strict;
 

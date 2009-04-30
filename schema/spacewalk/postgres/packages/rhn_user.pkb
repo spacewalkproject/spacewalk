@@ -150,7 +150,7 @@ create or replace
 						id, address,
 						user_id, state_id
 					) (
-						select	rhn_eaddress_id_seq.nextval, addr.address,
+						select	nextval('rhn_eaddress_id_seq'), addr.address,
 								user_id_in, eas.id
 						from	rhnEmailAddressState eas
 						where	eas.label = 'unverified'

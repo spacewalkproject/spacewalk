@@ -15,13 +15,25 @@
 --
 --
 
-create or replace function web_contact_mod_trig_fun() returns trigger
+create or replace function web_contact_ins_trig_fun() returns trigger
 as
 $$
 begin
         new.modified := current_timestamp;
         new.login_uc := UPPER(new.login);
-        IF new.password <> old.password THEN
+
+        return new;
+end;
+$$
+language plpgsql;
+
+create or replace function web_contact_upd_trig_fun() returns trigger
+as
+$$
+begin
+        new.modified := current_timestamp;
+        new.login_uc := UPPER(new.login);
+        IF new.password IS DISTINCT FROM old.password THEN
                 new.old_password := old.password;
         END IF;
 
@@ -32,9 +44,13 @@ language plpgsql;
 
 
 create trigger
-web_contact_mod_trig
-before insert or update on web_contact
+web_contact_ins_trig
+before insert on web_contact
 for each row
-execute procedure web_contact_mod_trig_fun();
+execute procedure web_contact_ins_trig_fun();
 
-
+create trigger
+web_contact_upd_trig
+before update on web_contact
+for each row
+execute procedure web_contact_upd_trig_fun();

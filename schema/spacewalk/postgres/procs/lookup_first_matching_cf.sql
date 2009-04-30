@@ -43,7 +43,7 @@ begin
                                 -- We don't need to test latest any more,
                                 -- because we're not looking for a revision at
                                 -- all, just the file with the right path
-                                select  cf.id --cfid
+                                select  cf.id as cfid
                                 from    rhnConfigFile           cf,
                                         rhnConfigFileName       cfn,
                                         rhnConfigChannel        cc,
@@ -59,10 +59,6 @@ begin
                         ) a
 
                  LIMIT 1;
-
-	IF not found then
-		null;
-	end if;
         
         return retval;
 end;
