@@ -34,6 +34,8 @@
 </p>       
 
 <rl:listset name="orgChannelProtectionSet">
+    <html:hidden property="cid" value="${param.cid}"/>
+
 	<!-- Start of Files list -->
 	<rl:list dataset="dataset"
 	         name="list"
