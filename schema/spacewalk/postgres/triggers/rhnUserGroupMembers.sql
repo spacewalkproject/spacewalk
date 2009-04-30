@@ -96,7 +96,7 @@ begin
         set current_members = current_members - 1
         where id = old.user_group_id;
 
-        return new;
+        return old;
 end;
 $$
 language plpgsql;
@@ -132,8 +132,6 @@ begin
                 UPDATE web_contact SET password = old_password WHERE id = old.user_id;
             END IF;
         END IF;
-
-        RETURN NEW;
 end;
 $$ LANGUAGE PLPGSQL;
 

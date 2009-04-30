@@ -23,14 +23,14 @@ $$
 begin
         if tg_op='INSERT' or tg_op='UPDATE' then
                 new.modified := current_timestamp;
+	        return new;
         end if;
         if tg_op='DELETE' then
                 update rhnErrata
                 set rhnErrata.last_modified = current_timestamp
                 where rhnErrata.id in ( old.errata_id );
+	        return old;
         end if;
-
-        return new;
 end;
 $$ language plpgsql;
 

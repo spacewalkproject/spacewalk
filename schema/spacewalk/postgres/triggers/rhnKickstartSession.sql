@@ -38,7 +38,7 @@ create or replace function rhn_ks_session_history_trigger_fun() returns trigger
 as
 $$
 begin
-        if tg_op ='INSERT'  or (tg_op='UPDATE' and new.state_id != old.state_id) then
+        if tg_op ='INSERT' then
                 insert into rhnKickstartSessionHistory (
                                 id, kickstart_session_id, action_id, state_id
                         ) values (
@@ -48,10 +48,18 @@ begin
                                 new.state_id
                         );
         end if;
-
-        return new;
-
- 
+        if tg_op ='UPDATE' then
+          if new.state_id is distinct from old.state_id then
+                insert into rhnKickstartSessionHistory (
+                                id, kickstart_session_id, action_id, state_id
+                        ) values (
+                                nextval('rhn_ks_sessionhist_id_seq'),
+                                new.id,
+                                new.action_id,
+                                new.state_id
+                        );
+          end if;
+        end if;
 end;
 $$ language plpgsql;
 

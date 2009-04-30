@@ -1,12 +1,6 @@
 create or replace function rhn_cmeth_val_trig_fun() returns trigger as
 $$
-declare
-	msg  varchar(200);
-	--missing_data exception;
 begin
-	
-	msg :='missing or invalid data for contact_methods table';
-
     if new.method_type_id = 1 then
 
     --- pager fields pager_email,pager_split_long_messages should be not null
@@ -31,13 +25,7 @@ begin
         end if;
     end if;
 
-
-
-    if not found then
-	perform rhn_exception.raise_exception(msg);
-    end if;
-
- 	return new;
+    return new;
 end;
 $$ language plpgsql;
 

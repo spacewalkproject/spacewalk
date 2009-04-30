@@ -35,18 +35,13 @@ execute procedure rhn_confchan_mod_trig_fun();
 create or replace function rhn_confchan_del_trig_fun() returns trigger as
 $$
 declare
-        snapshots cursor is
-                select  snapshot_id as id
-                from    rhnSnapshotConfigChannel
-                where   config_channel_id = old.id;
-
         snapshot_curs_id numeric;
 begin
-	open snapshots;
+        for snapshot_curs_id in
+                select  snapshot_id as id
+                from    rhnSnapshotConfigChannel
+                where   config_channel_id = old.id
 	loop
-		fetch snapshots into snapshot_curs_id;
-		exit when not found;
-
 		update rhnSnapshot
                         set invalid = lookup_snapshot_invalid_reason('cc_removed')
                         where id = snapshot_curs_id;
@@ -56,7 +51,7 @@ begin
 		
 	end loop;
 
-	return new;
+	return old;
 	        
 end;
 $$ language plpgsql;
@@ -66,5 +61,5 @@ create trigger
 rhn_confchan_del_trig
 before delete on rhnConfigChannel
 for each row
-execute procedure rhn_confchan_mod_trig_fun();
+execute procedure rhn_confchan_del_trig_fun();
 

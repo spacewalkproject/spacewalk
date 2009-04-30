@@ -79,20 +79,13 @@ create or replace function rhn_confrevision_del_trig_fun() returns trigger
 as
 $$
 declare
-        snapshots cursor for
-                select  snapshot_id
-                from    rhnSnapshotConfigRevision
-                where   config_revision_id = old.id;
-
          snapshot_curs_id	numeric;
 begin
-
-	open snapshots;
-
+        for snapshot_curs_id in
+                select  snapshot_id
+                from    rhnSnapshotConfigRevision
+                where   config_revision_id = old.id
 	loop
-		fetch snapshots into snapshot_curs_id;
-		exit when not found;
-
 		update rhnSnapshot
                         set invalid = lookup_snapshot_invalid_reason('cr_removed')
                         where id = snapshot_curs_id;
@@ -102,7 +95,7 @@ begin
                                
 	end loop;
 	
-        return new;
+        return old;
 end;
 $$ language plpgsql;
 

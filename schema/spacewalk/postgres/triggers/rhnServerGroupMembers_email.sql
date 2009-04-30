@@ -47,7 +47,6 @@ create or replace function rhn_sg_member_email_del_trig_fun() returns trigger as
 $$
 begin
         perform rhn_email.add_for_server(old.server_id);
-        return new;
 end;
 $$
 language plpgsql;

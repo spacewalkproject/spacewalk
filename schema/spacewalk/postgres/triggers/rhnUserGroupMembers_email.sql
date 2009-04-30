@@ -45,8 +45,6 @@ as
 $$
 begin
         perform rhn_email.add_for_user(old.user_id);
-
-        return new;
 end;
 $$ language plpgsql;
 

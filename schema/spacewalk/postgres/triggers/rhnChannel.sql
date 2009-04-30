@@ -19,19 +19,19 @@
 create or replace function rhn_channel_mod_trig_fun() returns trigger as
 $$
 begin
-	new.modified := current_timestamp;
+	new.last_modified := current_timestamp;
 	-- this is a really bad way of saying "if all we''re
         -- changing is the date"
         if tg_op='UPDATE' then
-                if (old.id != new.id) or
-                  (old.parent_channel != new.parent_channel) or
-                  (old.org_id != new.org_id) or
-                  (old.channel_arch_id != new.channel_arch_id) or
-                  (old.label != new.label) or
-                  (old.basedir != new.basedir) or
-                  (old.name != new.name) or
-                  (old.summary != new.summary) or
-                  (old.description != new.description) then
+                if (old.id is distinct from new.id) or
+                  (old.parent_channel is distinct from new.parent_channel) or
+                  (old.org_id is distinct from new.org_id) or
+                  (old.channel_arch_id is distinct from new.channel_arch_id) or
+                  (old.label is distinct from new.label) or
+                  (old.basedir is distinct from new.basedir) or
+                  (old.name is distinct from new.name) or
+                  (old.summary is distinct from new.summary) or
+                  (old.description is distinct from new.description) then
                         new.modified := current_timestamp;
                 end if;
         end if;
@@ -52,27 +52,22 @@ execute procedure rhn_channel_mod_trig_fun();
 create or replace function rhn_channel_del_trig_fun() returns trigger as
 $$
 declare
-        snapshots cursor for
-                select  snapshot_id
-                from    rhnSnapshotChannel
-                where   channel_id = old.id;
         snapshot_curs_id	numeric;
 begin
-	open snapshots;
+        for snapshot_curs_id in
+                select  snapshot_id
+                from    rhnSnapshotChannel
+                where   channel_id = old.id
 	loop
-		fetch snapshots into snapshot_curs_id;
-		EXIT WHEN not found;
 		update rhnSnapshot
                         set invalid = lookup_snapshot_invalid_reason('channel_removed')
                         where id = snapshot_curs_id;
                 delete from rhnSnapshotChannel
                         where snapshot_id = snapshot_curs_id
                                 and channel_id = old.id;
-		
-		
 	end loop;
 
-	return new;
+	return old;
 	
 end;
 $$ language plpgsql;
@@ -88,14 +83,11 @@ execute procedure rhn_channel_del_trig_fun();
 create or replace function rhn_channel_access_trig_fun() returns trigger as
 $$
 begin
-	if old.channel_access = 'protected' and
-      new.channel_access != 'protected'
+   if old.channel_access = 'protected' and
+      new.channel_access is distinct from 'protected'
    then
       delete from rhnChannelTrust where channel_id = old.id;
    end if;
-
-	return new;
-	
 end;
 $$ language plpgsql;
 

@@ -73,19 +73,13 @@ create or replace function rhn_sg_del_trig_fun() returns trigger
 as
 $$
 declare
-		snapshots cursor for
+        snapshot_curs_id	numeric;
+begin
+	for snapshot_curs_id in
                 select  snapshot_id
                 from    rhnSnapshotServerGroup
-                where   server_group_id = old.id;
-
-                snapshot_curs_id	numeric;
-begin
-
-	open snapshots;
+                where   server_group_id = old.id
 	loop
-		fetch snapshots into snapshot_curs_id;
-		exit when not found;
-
 		update rhnSnapshot
                         set invalid = lookup_snapshot_invalid_reason('sg_removed')
                         where id = snapshot_curs_id;
@@ -95,18 +89,13 @@ begin
 		
 	end loop;
 
-	return new;
-
+	return old;
  end;
  $$
  language plpgsql;
- 
-
 
 create trigger
 rhn_sg_del_trig
 before delete on rhnServerGroup
 for each row
 execute procedure rhn_sg_del_trig_fun();
-
-

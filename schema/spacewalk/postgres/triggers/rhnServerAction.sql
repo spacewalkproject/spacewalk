@@ -6,7 +6,7 @@ begin
         new.modified := current_timestamp;
         handle_status := 0;
         if TG_OP = 'UPDATE' then
-                if new.status != old.status then
+                if new.status is distinct from old.status then
                         handle_status := 1;
                 end if;
         else

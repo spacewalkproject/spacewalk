@@ -5,9 +5,17 @@ $$
 begin
         new.modified := current_timestamp;
 
-        if new.last_modified = old.last_modified then
+        if tg_op='UPDATE' then
+          if new.last_modified = old.last_modified or
+             new.last_modified is null then
 		new.last_modified := current_timestamp;
+          end if;
+        else
+          if new.last_modified is null then
+		new.last_modified := current_timestamp;
+          end if;
         end if;
+
         return new;
 end;
 $$ language plpgsql;
