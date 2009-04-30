@@ -20,6 +20,8 @@ Requires: chkconfig
 Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
+Obsoletes: proxy-installer < 5.3.0
+Provides: proxy-installer = 5.3.0
 
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
 
@@ -82,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Thu Apr 30 2009 Miroslav Suchý <msuchy@redhat.com>
+- 498267 - obsolete proxy-installer
+
 * Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
 - 495194 - install cluster.ini only if monitoring is enabled
   (msuchy@redhat.com)
