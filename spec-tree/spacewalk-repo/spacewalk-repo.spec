@@ -7,7 +7,7 @@ Group: Development
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd web
+# cd spec-tree/spacewalk-repo
 # make test-srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
