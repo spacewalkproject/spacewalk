@@ -755,7 +755,7 @@ public class ChannelFactory extends HibernateFactory {
      */
     public static List<Channel> listAllBaseChannels(Org org) {
         Map params = new HashMap();
-        params.put("org", org);
+        params.put("org_id", org.getId());
         return singleton.listObjectsByNamedQuery(
                 "Channel.findAllBaseChannels", params);
     }
