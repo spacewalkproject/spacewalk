@@ -209,6 +209,7 @@ if [ -f /rhnsat/admin/rhnsat/bdump/alert_rhnsat.log ] ; then
 fi
 
 ls /rhnsat/admin/rhnsat/bdump/*.trc 2>/dev/null | xargs -I file cp -fa file $DIR/database
+ls /rhnsat/admin/rhnsat/logs/*.log 2>/dev/null | xargs -I file cp -fa file $DIR/database
 
 if [ -d /var/log/spacewalk/schema-upgrade ] ; then
 	echo "    * copying schema upgrade logs"
