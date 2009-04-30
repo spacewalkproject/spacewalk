@@ -29,34 +29,33 @@ begin
     set state = 'PENDING',
         output = 'Awaiting update'
     where last_check < (
-        select (
-            current_timestamp - greatest(15 / 60 / 24,
-            ((3 * rhn_deployed_probe.check_interval_minutes) / 60 / 24)))
+        select
+            current_timestamp - interval '1 minute' * greatest(15,
+            (3 * rhn_deployed_probe.check_interval_minutes))
         from rhn_deployed_probe
         where rhn_deployed_probe.recid = rhn_probe_state.probe_id
     );
 
-    
-    update rhn_multi_scout_threshold
-    set scout_warning_threshold = (select
-            decode(scout_warning_threshold_is_all,0,
-                scout_warning_threshold,count(scout_id))
-        from rhn_probe_state p, rhn_multi_scout_threshold t
+    update rhn_multi_scout_threshold t
+    set scout_warning_threshold = (
+        select
+            case scout_warning_threshold_is_all
+              when '0' then scout_warning_threshold
+              else count(scout_id) end
+        from rhn_probe_state p
         where t.probe_id=p.probe_id
           and state in ('OK', 'WARNING', 'CRITICAL')
-             group by t.probe_id
-) , 
-
-
-    scout_critical_threshold=(
-    select
-            decode(scout_crit_threshold_is_all,0,
-                scout_critical_threshold,count(scout_id))
-        from rhn_probe_state p, rhn_multi_scout_threshold t
+        group by t.probe_id
+    ),
+        scout_critical_threshold = (
+        select
+            case scout_crit_threshold_is_all
+              when '0' then scout_critical_threshold
+              else count(scout_id) end
+        from rhn_probe_state p
         where t.probe_id=p.probe_id
           and state in ('OK', 'WARNING', 'CRITICAL')
-             group by t.probe_id
-        
+        group by t.probe_id
     );
 end;
 $$

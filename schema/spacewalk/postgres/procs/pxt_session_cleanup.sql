@@ -30,7 +30,7 @@ as
 $$
 declare
    sessions cursor (bound_val  numeric) for
-   select rowid from PXTSessions
+   select ctid from PXTSessions
    where expires < bound_val;
 
    counter numeric := 0;
@@ -38,7 +38,7 @@ begin
 
    for session in sessions (bound_in) loop
 
-      delete from PXTSessions where rowid = session.rowid;
+      delete from PXTSessions where ctid = session.ctid;
       
        counter := counter + 1;
 

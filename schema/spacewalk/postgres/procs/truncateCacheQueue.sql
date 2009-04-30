@@ -19,7 +19,7 @@
 create or replace function truncateCacheQueue() returns void as
 $$
 begin
-  execute 'Truncate Table rhnOrgErrataCacheQueue';
+  Truncate Table rhnOrgErrataCacheQueue;
 end;
 $$ language plpgsql;
 

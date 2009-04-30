@@ -22,16 +22,14 @@
 
 
 CREATE OR REPLACE FUNCTION
-queue_server(server_id_in IN NUMERIC, immediate_in IN NUMERIC)
+queue_server(server_id_in IN NUMERIC, immediate_in IN NUMERIC DEFAULT 1)
 RETURNS VOID
 AS
 $$
 DECLARE
     org_id_tmp NUMERIC;
-    immediate_in_tmp NUMERIC;
 BEGIN
-	immediate_in_tmp := immediate_in;
-    IF immediate_in_tmp > 0
+    IF immediate_in > 0
     THEN
         DELETE FROM rhnServerNeededCache WHERE server_id = server_id_in;
         INSERT INTO rhnServerNeededCache
@@ -40,7 +38,8 @@ BEGIN
               WHERE server_id = server_id_in);
 
     ELSE
-          SELECT org_id INTO org_id_tmp FROM rhnServer WHERE id = server_id_in;
+          SELECT org_id INTO STRICT org_id_tmp
+          FROM rhnServer WHERE id = server_id_in;
 
           INSERT
             INTO rhnTaskQueue

@@ -44,20 +44,16 @@ declare
                 id_history_items_curs numeric;
                 
 begin
-	open states;
+	for id_states_curs in states
         loop
-        fetch states into id_states_curs;
-        exit when not found;
-		open history_items(id_states_curs);
+		for id_history_items_curs in history_items(id_states_curs)
                 loop
-			fetch  history_items into id_history_items_curs;
-			exit when not found;
                         update rhnKickstartSessionHistory
                                 set message = message_in
                                 where id = id_history_items;
                         return;
                 end loop;
-                close history_items;
+
                 insert into rhnKickstartSessionHistory (
                                 id, kickstart_session_id, state_id, message
                         ) values (

@@ -16,11 +16,23 @@
 --
 --
 
-
-create or replace function rhn_errata_mod_trig_fun() returns trigger
+create or replace function rhn_errata_ins_trig_fun() returns trigger
 as
 $$
+begin
+     if ( new.last_modified is null ) then
+        new.last_modified := current_timestamp;
+     end if;
 
+     new.modified := current_timestamp;
+
+     return new;
+end;
+$$ language plpgsql;
+
+create or replace function rhn_errata_upd_trig_fun() returns trigger
+as
+$$
 begin
      if ( new.last_modified = old.last_modified ) or
         ( new.last_modified is null )  then
@@ -35,7 +47,13 @@ $$ language plpgsql;
 
 
 create trigger
-rhn_errata_mod_trig
-before insert or update on rhnErrata
+rhn_errata_ins_trig
+before insert on rhnErrata
 for each row
-execute procedure rhn_errata_mod_trig_fun();
+execute procedure rhn_errata_ins_trig_fun();
+
+create trigger
+rhn_errata_upd_trig
+before update on rhnErrata
+for each row
+execute procedure rhn_errata_upd_trig_fun();
