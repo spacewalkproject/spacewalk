@@ -143,8 +143,11 @@ abstract class ListSetHelper extends ListHelper {
         if (request.getParameter(RequestContext.DISPATCH) != null) {
             // if its one of the Dispatch actions handle it..            
             update();
-            
-            if (size() > 0) {
+
+            // We can consider the request dispatched (in other words valid) if the
+            // user selected something or we explicitly indicated that we allow no
+            // selections
+            if (size() > 0 || ignoreEmptySelection) {
                 dispatched = true;
                 return;
             }

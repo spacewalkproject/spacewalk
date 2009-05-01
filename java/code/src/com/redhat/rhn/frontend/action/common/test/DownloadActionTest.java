@@ -57,6 +57,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
     public void testKsDownload() throws Exception {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/boot.iso");
+        request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/images/boot.iso");
         actionPerform();
         assertNull(getActualForward());
         assertEquals("application/octet-stream", getResponse().getContentType());
@@ -77,6 +78,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         TestUtils.saveAndFlush(p);
         
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/Server/" + fileName);
+        request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/Server/" + fileName);
         actionPerform();
         // assertEquals("/kickstart/DownloadFile.do", getActualForward());
         assertNotNull(request.getAttribute("params"));
@@ -94,6 +96,9 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
 
         addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
                 tree.getLabel() + "/images/boot.iso");
+        request.setQueryString("url=/ks/dist/session/" + encodedSession + "/" +
+                tree.getLabel() + "/images/boot.iso");
+
         actionPerform();
         assertNull(getActualForward());
         assertNotNull(request.getAttribute("params"));
@@ -119,6 +124,8 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
 
         addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
                 tree.getLabel() +  "/Server/" + fileName);
+        request.setQueryString("url=/ks/dist/session/" + encodedSession + "/" +
+                tree.getLabel() +  "/Server/" + fileName);
 
         actionPerform();
         assertNotNull(request.getAttribute("params"));
@@ -136,6 +143,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
             KickstartSessionTest.createKickstartSession(ksdata, user);
         TestUtils.saveAndFlush(ksession);
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/");
+        request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/images/");
         actionPerform();
         assertNull(getActualForward());
         assertEquals("text/plain", getResponse().getContentType());

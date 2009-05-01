@@ -349,10 +349,10 @@ SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth AS DEPTH,
           WHERE CF.id = CFM.channel_family_id
             AND CFM.channel_id = ACh.channel_id) CHANNEL_FAMILY_LABEL,
         (SELECT COUNT(C2.id)
-           FROM rhnChannel C2
+           FROM rhnSharedChannelView C2
           WHERE C2.parent_channel = C.id) CHILDREN, ACh.parent_or_self_label, ACh.channel_label,
         AT.label PACKAGING_TYPE
-  FROM  rhnArchType AT, rhnChannelArch CA, rhnChannel C, rhnAvailableChannels ACh
+  FROM  rhnArchType AT, rhnChannelArch CA, rhnSharedChannelView C, rhnAvailableChannels ACh
  WHERE  ACh.org_id = :org_id
    AND  C.id = ACh.channel_id
    AND  CA.id = C.channel_arch_id

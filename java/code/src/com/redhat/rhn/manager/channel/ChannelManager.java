@@ -144,7 +144,7 @@ public class ChannelManager extends BaseManager {
      * @param label   the label
      */
     public static void refreshWithNewestPackages(Channel channel, String label) {
-        ChannelFactory.refreshNewestPackageCache(channel, label);
+        refreshWithNewestPackages(channel.getId(), label);
     }
 
     /**
@@ -156,7 +156,11 @@ public class ChannelManager extends BaseManager {
      * @param label     the label
      */
     public static void refreshWithNewestPackages(Long channelId, String label) {
-        ChannelFactory.refreshNewestPackageCache(channelId, label);
+        Channel chan = ChannelFactory.lookupById(channelId);
+         ChannelFactory.refreshNewestPackageCache(channelId, label);
+         if (chan != null) {
+             ChannelManager.queueChannelChange(chan.getLabel(), label, label);
+         }
     }
     
     /**

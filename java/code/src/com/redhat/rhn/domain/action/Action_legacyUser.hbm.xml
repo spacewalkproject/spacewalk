@@ -412,7 +412,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     
     <query name="Action.findDependentActions"><![CDATA[
-   		from Action a where a.prerequisite in (:action_ids)
+		from Action a where a.prerequisite.id in (:action_ids)
     ]]></query>
     
    <sql-query name="Action.findLastActionByServerIdAndActionTypeIdAndUserId">                 
