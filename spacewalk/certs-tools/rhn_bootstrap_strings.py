@@ -116,6 +116,14 @@ ALLOW_REMOTE_COMMANDS=%s
 
 FULLY_UPDATE_THIS_BOX=%s
 
+# Set if you want to specify profilename for client systems.
+# NOTE: Make sure it's set correctly if any external command is used.
+#
+# ex. PROFILENAME="foo.example.com"  # For specific clinet system
+#     PROFILENAME=`hostname -s`      # Short hostname
+#     PROFILENAME=`hostname -f`      # FQDN
+PROFILENAME=""   # Empty by default to let it be set automatically.
+
 #
 # -----------------------------------------------------------------------------
 # DO NOT EDIT BEYOND THIS POINT -----------------------------------------------
@@ -348,7 +356,12 @@ if [ $REGISTER_THIS_BOX -eq 1 ] ; then
         [ -f /etc/sysconfig/rhn/allowed-actions/configfiles/all ] || files="$files /etc/sysconfig/rhn/allowed-actions/configfiles/all"
         [ -n "$files" ] && touch  $files
     fi
-    /usr/sbin/rhnreg_ks --force --activationkey "$ACTIVATION_KEYS"
+    if [ -z "$PROFILENAME" ] ; then
+        profilename_opt=""
+    else
+        profilename_opt="--profilename=$PROFILENAME"
+    fi
+    /usr/sbin/rhnreg_ks --force --activationkey "$ACTIVATION_KEYS" $profilename_opt
     [ -n "$files" ] && rm -f $files
     [ -n "$directories" ] && rmdir $(echo $directories | rev)
     echo
