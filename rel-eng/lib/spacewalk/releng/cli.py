@@ -528,7 +528,8 @@ class ReportModule(BaseCliModule):
                 f = open(os.path.join(package_metadata_dir, md_file))
                 (version, relative_dir) = f.readline().strip().split(" ")
                 project_dir = os.path.join(git_root, relative_dir)
-                self._print_diff(global_config, md_file, version, project_dir)
+                self._print_diff(global_config, md_file, version, project_dir,
+                        relative_dir)
 
     def _print_log(self, global_config, package_name, version, project_dir):
         """
@@ -548,13 +549,14 @@ class ReportModule(BaseCliModule):
         except:
             print("%s no longer exists" % project_dir)
 
-    def _print_diff(self, global_config, package_name, version, project_dir):
+    def _print_diff(self, global_config, package_name, version,
+            full_project_dir, relative_project_dir):
         """
         Print a diff between the most recent package tag and HEAD, if
         necessary.
         """
         last_tag = "%s-%s" % (package_name, version)
-        os.chdir(project_dir)
+        os.chdir(full_project_dir)
         patch_command = "git diff --relative %s..%s" % \
                 (last_tag, "HEAD")
         output = run_command(patch_command)
@@ -564,10 +566,11 @@ class ReportModule(BaseCliModule):
         if linecount == 1:
             return
 
+        name_and_version = "%s   %s" % (package_name, relative_project_dir)
         # Otherwise, print out info on the diff for this package:
-        print("#" * len(package_name))
-        print(package_name)
-        print("#" * len(package_name))
+        print("#" * len(name_and_version))
+        print(name_and_version)
+        print("#" * len(name_and_version))
         print("")
         print patch_command
         print("")
