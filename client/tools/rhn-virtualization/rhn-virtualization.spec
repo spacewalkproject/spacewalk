@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        0.5.1
+Version:        0.6.0
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -162,6 +162,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri May 01 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.0-1
+- Bump version up for 0.6.
+
 * Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.1-1
 - wrap long description lines (msuchy@redhat.com)
 - point URL to fedorahosted.org (msuchy@redhat.com)
