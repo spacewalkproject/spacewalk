@@ -10,7 +10,7 @@ License:        GPLv2
 URL:            https://fedorahosted.org/spacewalk
 Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 
-Version:        0.5.0
+Version:        0.5.2
 Release:        1%{?dist}
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -162,6 +162,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Fri May 01 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.2-1
+- wrap long description lines (msuchy@redhat.com)
+- point URL to fedorahosted.org (msuchy@redhat.com)
+- properly use macros (msuchy@redhat.com)
+- cron file should be marked as config file (msuchy@redhat.com)
+- summary should not end with dot. Adding note about Spacewalk to description
+  as well (msuchy@redhat.com)
+- add LICENSE file (msuchy@redhat.com)
+
 * Mon Feb 23 2009 Miroslav Suchy <msuchy@redhat.com>
 - add LICENSE file
 - remove rpmlint warnings
