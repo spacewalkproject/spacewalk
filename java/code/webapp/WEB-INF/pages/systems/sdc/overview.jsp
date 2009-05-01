@@ -47,7 +47,6 @@
       </c:choose>
       </div>
       </div>
-
       <c:if test="${probeListEmpty != 'true'}">
         <div class="systeminfo">
           <div class="systeminfo-left">
@@ -58,8 +57,9 @@
               <c:otherwise>
                 <img src="/img/rhn-mon-warning.gif"/>  <bean:message key="sdc.details.overview.probes.warning" arg0="/rhn/help/reference/en-US/s1-sm-monitor.jsp"/>
               </c:otherwise>
-            <br/>
             </c:choose>
+          </div>
+          <div clas="systeminfo-right">
             <c:forEach items="${probeList}" var="probe">
               <c:choose>
                 <c:when test="${probe.state == 'CRITICAL'}">
@@ -69,12 +69,11 @@
                   <img src="/img/rhn-mini_icon-warning.gif"/>
                 </c:otherwise>
               </c:choose>
-            <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
+        <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
       </c:forEach>
           </div>
         </div>
       </c:if>
-
   <div style="clear: both; width: 45%; float: left;">
     <h2><bean:message key="sdc.details.overview.systeminfo"/></h2>
     <table class="details">
