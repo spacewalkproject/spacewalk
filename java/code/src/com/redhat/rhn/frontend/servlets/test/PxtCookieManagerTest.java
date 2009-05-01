@@ -156,14 +156,6 @@ public class PxtCookieManagerTest extends MockObjectTestCase {
         assertEquals(expected, pxtCookie.getValue());
     }
     
-    public final void testCreatePxtCookieSetsDomain() {
-        String expected = host + "." + domain;
-        
-        Cookie pxtCookie = manager.createPxtCookie(pxtSessionId, getRequest(), TIMEOUT);
-        
-        assertEquals(expected, pxtCookie.getDomain());
-    }
-    
     public final void testCreatePxtCookieSetsPath() {
         String expected = "/";
         
