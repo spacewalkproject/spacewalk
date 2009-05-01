@@ -35,11 +35,7 @@ rhnServerOverview                :: rhnUserServerPerms \
                                     rhn_entitlements.pks
 rhnUserChannelFamilyPerms        :: rhnPrivateChannelFamily \
                                     rhnPublicChannelFamily web_contact
-rhnUserTypeArray                 :: web_contact rhnUserTypeBase \
-                                    user_group_name_t user_group_label_t \
-                                    user_group_id_t
-rhnUserTypeCommaView             :: rhnUserTypeArray name_join label_join \
-                                    id_join
+rhnUserTypeCommaView             :: web_contact rhnUserTypeBase
 rhnVisServerGroupOverviewLite    :: rhnVisibleServerGroup rhnServerGroupMembers \
                                     rhnUserManagedServerGroups \
                                     rhnServerGroupOVLiteHelper
