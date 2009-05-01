@@ -17,7 +17,6 @@
 -- This deletes a server.  All codepaths which delete servers should hit this
 -- or delete_server_bulk()
 
-
 create or replace
 function delete_server (
         server_id_in in numeric
@@ -30,11 +29,6 @@ declare
                 from    rhnServerGroupMembers sgm
                 where   sgm.server_id = server_id_in;
 
-        servergroups_curs_server_id numeric;
-        servergroups_curs_server_group_id numeric;
-        
-
-                
          configchannels cursor for
                 select  cc.id
                 from    rhnConfigChannel cc,
@@ -50,117 +44,45 @@ declare
                                 ('local_override','server_import')
                         and cct.id = cc.confchan_type_id;
 
-        configchannels_curs_id numeric;
-
-                        
-        --type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
-        -- filelistsid_c filelistsid_t;
-
-        -- type probesid_t is table of rhn_check_probe.probe_id%type;
-        -- probesid_c probesid_t;
-
-
-        probe_curs cursor for SELECT CP.probe_id 
-       FROM rhn_check_probe CP
-      WHERE CP.host_id = server_id_in
-         OR CP.sat_cluster_id in
-    (SELECT SN.sat_cluster_id
-       FROM rhn_sat_node SN
-      WHERE SN.server_id = server_id_in);
-
-      probe_curs_probe_id numeric;
-
-
-      server_p_list cursor for select  spfl.file_list_id
-          from  rhnServerPreserveFileList spfl
-         where  spfl.server_id = server_id_in
-                        and not exists (
-                                select  1
-                                from    rhnServerPreserveFileList
-                                where   file_list_id = spfl.file_list_id
-                                        and server_id != server_id_in
-                                union
-                                select  1
-                                from    rhnKickstartPreserveFileList
-                                where   file_list_id = spfl.file_list_id
-                        );
-
-    server_p_list_curs_f_list_id numeric; 
-
-    is_virt numeric := 0;
+    is_virt boolean;
 begin
         perform rhn_channel.delete_server_channels(server_id_in);
         -- rhn_channel.clear_subscriptions(server_id_in);
 
-        open server_p_list;
-
-        loop
-		fetch server_p_list into server_p_list_curs_f_list_id;
-		if server_p_list_curs_f_list_id is null then
-			exit;
-		end if;
-
-		delete from rhnFileList where id = server_p_list_curs_f_list_id;
-        end loop;
-
         -- filelists
-        /* TODO
+        delete from rhnFileList where id in (
+	select	spfl.file_list_id
+	  from	rhnServerPreserveFileList spfl
+	 where	spfl.server_id = server_id_in
+			and not exists (
+				select	1
+				from	rhnServerPreserveFileList
+				where	file_list_id = spfl.file_list_id
+					and server_id != server_id_in
+				union all
+				select	1
+				from	rhnKickstartPreserveFileList
+				where	file_list_id = spfl.file_list_id
+			)
+        );
 
-        select  spfl.file_list_id id bulk collect into filelistsid_c
-          from  rhnServerPreserveFileList spfl
-         where  spfl.server_id = server_id_in
-                        and not exists (
-                                select  1
-                                from    rhnServerPreserveFileList
-                                where   file_list_id = spfl.file_list_id
-                                        and server_id != server_id_in
-                                union
-                                select  1
-                                from    rhnKickstartPreserveFileList
-                                where   file_list_id = spfl.file_list_id
-                        );
-
-
-
-                        
-        if filelistsid_c.first is not null then
-            forall i in filelistsid_c.first..filelistsid_c.last
-                delete from rhnFileList where id = filelistsid_c(i);
-        end if;
-
-        */
-
-	open configchannels;
-
-	loop
-		fetch configchannels into configchannels_curs_id;
-		exit when not found;
+	for configchannel in configchannels loop
 		perform rhn_config.delete_channel(configchannel.id);
-		
 	end loop;
-	
-        
 
-      select count(1) into is_virt
+      is_virt := exists (
+       select 1
         from rhnServerEntitlementView
        where server_id = server_id_in
          and label in ('virtualization_host', 'virtualization_host_platform')
-         --and rownum <= 1;
-         limit 1;
+      );
 
-         open servergroups;
+	for sgm in servergroups loop
+		perform rhn_server.delete_from_servergroup(
+			sgm.server_id, sgm.server_group_id);
+	end loop;
 
-         loop
-		fetch servergroups into servergroups_curs_server_id, servergroups_curs_server_group_id;
-		exit when not found;
-			
-		perform rhn_server.delete_from_servergroup(servergroups_curs_server_id, servergroups_curs_server_group_id);
-		
-         end loop;
-
-        
-
-    if is_virt = 1 then
+    if is_virt then
         perform rhn_entitlements.repoll_virt_guest_entitlements(server_id_in);
     end if;
 
@@ -193,11 +115,11 @@ begin
     -- uuid, this guest must have been re-registered, so we can clean
     -- this data up.
 
-        delete from rhnVirtualInstance
+        delete from rhnVirtualInstance vi
               where (host_system_id = server_id_in and virtual_system_id is null)
                  or (virtual_system_id = server_id_in and host_system_id is null)
-                 or (rhnVirtualInstance.virtual_system_id = server_id_in and rhnVirtualInstance.modified < (select max(vi2.modified)
-                    from rhnVirtualInstance vi2 where vi2.uuid = rhnVirtualInstance.uuid));
+                 or (vi.virtual_system_id = server_id_in and vi.modified < (select max(vi2.modified)
+                    from rhnVirtualInstance vi2 where vi2.uuid = vi.uuid));
 
         -- this is merge of two single updates:
         --  update ... set host_system_id = null where host_system_id = server_id_in;
@@ -286,38 +208,28 @@ begin
 
         delete from rhnAppInstallSession where server_id = server_id_in;
         delete from rhnServerUuid where server_id = server_id_in;
+
     -- We delete all the probes running directly against this system
     -- and any probes that were using this Server as a Proxy Scout.
-
-
-     /* TODO
-
-     SELECT CP.probe_id bulk collect into probesid_c
-       FROM rhn_check_probe CP
+    DELETE FROM rhn_probe_state PS WHERE PS.probe_id IN (
+     SELECT CP.probe_id
+       FROM rhn_check_probe CP  
       WHERE CP.host_id = server_id_in
          OR CP.sat_cluster_id in
     (SELECT SN.sat_cluster_id
        FROM rhn_sat_node SN
-      WHERE SN.server_id = server_id_in);
+      WHERE SN.server_id = server_id_in)
+    );
 
-    if probesid_c.first is not null then
-        FORALL i IN probesid_c.first..probesid_c.last
-            DELETE FROM rhn_probe_state PS WHERE PS.probe_id = probesid_c(i);
-        FORALL i IN probesid_c.first..probesid_c.last
-            DELETE FROM rhn_probe P  WHERE P.recid = probesid_c(i);
-    end if;
-
-    */
-
-    open probe_curs;
-
-    loop
-	fetch probe_curs into probe_curs_probe_id;
-	exit when not found;
-
-	DELETE FROM rhn_probe_state WHERE probe_id = probe_curs_probe_id;
-	DELETE FROM rhn_probe   WHERE recid = probe_curs_probe_id;
-    end loop;
+    DELETE FROM rhn_probe P  WHERE P.recid IN (
+     SELECT CP.probe_id
+       FROM rhn_check_probe CP  
+      WHERE CP.host_id = server_id_in
+         OR CP.sat_cluster_id in
+    (SELECT SN.sat_cluster_id
+       FROM rhn_sat_node SN
+      WHERE SN.server_id = server_id_in)
+    );
 
         delete from rhn_check_probe where host_id = server_id_in;
         delete from rhn_host_probe where host_id = server_id_in;
