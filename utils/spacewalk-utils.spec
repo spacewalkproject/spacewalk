@@ -45,10 +45,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %attr(755,root,root) %{_bindir}/sw-system-snapshot
+%attr(755,root,root) %{_bindir}/migrate-system-profile
 %dir %{rhnroot}/utils
 %{rhnroot}/utils/__init__.py*
 %{rhnroot}/utils/systemSnapshot.py*
+%{rhnroot}/utils/migrateSystemProfile.py*
 %{_mandir}/man8/sw-system-snapshot.8*
+%{_mandir}/man8/migrate-system-profile.8*
 
 
 %changelog
