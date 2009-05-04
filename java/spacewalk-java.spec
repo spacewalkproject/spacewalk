@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.10
+Version: 0.6.11
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -246,6 +246,24 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Mon May 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
+- remove our requirement on commons-configuration (jesusr@redhat.com)
+- 498455 - fixing tooltip for guests alter channel subscription page
+  (jsherril@redhat.com)
+- fixing junit breakage for ChannelFactoryTest (shughes@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- fixing unit test by fixing bad hibernate mapping (jsherril@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- changing junit tests to use joust (jsherril@redhat.com)
+- fixing unit test (jsherril@redhat.com)
+- 497122 - Fixed error message where no selected organizations would appear as
+  a selection error. (jason.dobies@redhat.com)
+- 498441 - fixing issue where removing package from a channel didnt regenerate
+  repo cache (jsherril@redhat.com)
+- 498275 - api - system.obtainReactivationKey updated to replace existing key
+  (bbuckingham@redhat.com)
+
 * Thu Apr 30 2009 Tomas Lestach <tlestach@redhat.com> 0.6.10-1
 - 454876 - not setting cookie domain (tlestach@redhat.com)
 - 497458 - fixing ISE with errata cloning (jsherril@redhat.com)
