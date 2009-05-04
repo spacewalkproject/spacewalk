@@ -21,7 +21,6 @@
         <archive path="/usr/share/java-1.4.2/mockobjects.jar" javadoc="http://mockobjects.sourceforge.net/javadoc/1.4/" source="/rhn-java/code/libsrc/mockobjects-0.09-jdk1.4-j2ee1.3-src.jar"/>
         <archive path="/usr/share/java/commons-lang.jar" source="/rhn-java/code/libsrc/commons-lang-2.0-src.jar"/>
         <archive path="/usr/share/java/commons-digester.jar" source="/rhn-java/code/libsrc/commons-digester-1.6-src.jar"/>
-        <archive path="/usr/share/java/commons-configuration.jar" source="/rhn-java/code/libsrc/commons-configuration-1.0-src.jar"/>
         <archive path="/usr/share/java/ant/ant-junit.jar"/>
         <archive path="/usr/share/java/mockobjects-jdk1.4-j2ee1.3.jar" javadoc="http://mockobjects.sourceforge.net/javadoc/1.4/" source="/rhn-java/code/libsrc/mockobjects-0.09-jdk1.4-j2ee1.3-src.jar"/>
         <archive path="/usr/share/java/marquee-minml.jar"/>

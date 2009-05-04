@@ -5,7 +5,7 @@
 %define cobdirsnippets  %{_localstatedir}/lib/rhn/kickstarts/snippets
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis commons-collections
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
@@ -28,7 +28,6 @@ Requires: java >= 0:1.6.0
 Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
-Requires: jakarta-commons-configuration
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
@@ -71,7 +70,6 @@ BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
 BuildRequires: ehcache
-BuildRequires: jakarta-commons-configuration
 BuildRequires: dom4j
 BuildRequires: hibernate3
 BuildRequires: jakarta-commons-cli
@@ -138,7 +136,6 @@ Requires: java-devel >= 0:1.6.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
-Requires: jakarta-commons-configuration
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
