@@ -8204,8 +8204,7 @@ Follow this url to see the full list of inactive systems:
 The following is a list of errors gathered while Spacewalk attempts to 
 syncronize kickstart distributions from Spacewalk to Cobbler.  These 
 errors must be corrected for the distributions to be available for 
-kickstarting systems kickstart distributions failed to sync from 
-Spacewalk to Cobbler:
+kickstarting systems:
 
 {0}
 
