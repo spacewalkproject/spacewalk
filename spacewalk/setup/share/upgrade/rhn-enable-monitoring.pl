@@ -126,8 +126,6 @@ RHN::SatInstall->update_monitoring_config(\%mon_config);
 my $dbname = $mon_config{RHN_DB_NAME};
 RHN::SatInstall->update_monitoring_environment($dbname);
 
-RHN::SatInstall->enable_notification_cron();
-
 print "Restarting satellite services\n";
 RHN::SatInstall->restart_satellite(-delay => 1);
 
