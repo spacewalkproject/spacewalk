@@ -260,7 +260,7 @@ _packageStatement_remove = """
         and sp.server_id = :serverid
         and sp.name_id = ap.name_id
         and sp.evr_id = ap.evr_id
-        and sp.package_arch_id = ap.package_arch_id
+        and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)
     union
     select distinct
         pn.name name,
@@ -276,5 +276,5 @@ _packageStatement_remove = """
         and ap.evr_id is null
         and ap.package_arch_id = pa.id(+)
         and sp.server_id = :serverid
-        and sp.package_arch_id = ap.package_arch_id"""
+        and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)"""
 
