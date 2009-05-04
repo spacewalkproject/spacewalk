@@ -20,6 +20,8 @@ Requires: chkconfig
 Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
+Obsoletes: proxy-installer < 5.3.0
+Provides: proxy-installer = 5.3.0
 
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
 
