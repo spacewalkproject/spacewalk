@@ -51,7 +51,7 @@
 
   <property name="common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
-             commons-collections commons-configuration commons-digester commons-discovery
+             commons-collections commons-digester commons-discovery
              commons-el commons-lang commons-logging commons-validator hibernate3
              mailapi smtp jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
@@ -91,7 +91,7 @@
 
   <property name="install.common.jar.dependencies"
       value="bcel cglib commons-beanutils commons-cli commons-codec
-             commons-collections commons-configuration commons-digester commons-discovery
+             commons-collections commons-digester commons-discovery
              commons-el commons-lang commons-logging commons-validator hibernate3
              jasper5-compiler jasper5-runtime javamail jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
@@ -101,7 +101,7 @@
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel c3p0 cglib
-             commons-collections commons-beanutils commons-cli commons-codec commons-configuration
+             commons-collections commons-beanutils commons-cli commons-codec
              commons-digester commons-discovery commons-el
              commons-fileupload commons-lang commons-logging
              commons-validator concurrent dom4j hibernate3 jta
