@@ -69,7 +69,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, system_reco
         (xa, xb, tb) = sys.exc_info()
         try:
             getattr(e,"from_koan")
-            error_messages['from_koan'] = str(e)[1:-1]
+            error_messages['koan'] = str(e)[1:-1]
             print str(e)[1:-1] # nice exception, no traceback needed
         except:
             print xa
@@ -123,7 +123,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         (xa, xb, tb) = sys.exc_info()
         try:
             getattr(e,"from_koan")
-            error_messages['from_koan'] = str(e)[1:-1]
+            error_messages['koan'] = str(e)[1:-1]
             print str(e)[1:-1] # nice exception, no traceback needed
         except:
             print xa
