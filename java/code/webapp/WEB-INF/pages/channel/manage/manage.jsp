@@ -30,7 +30,7 @@
 
 <rl:listset name="groupSet">
 
-    <rl:list emptykey="foo">
+    <rl:list emptykey="channels.overview.nochannels">
 
         <rl:decorator name="PageSizeDecorator"/>
 
