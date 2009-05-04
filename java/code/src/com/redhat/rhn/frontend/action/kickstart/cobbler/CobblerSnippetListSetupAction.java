@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart.cobbler;
 
+import com.redhat.rhn.common.util.DynamicComparator;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
@@ -25,6 +26,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +41,8 @@ public class CobblerSnippetListSetupAction extends RhnAction {
     private static final String CUSTOM = "custom";
     private static final String ALL = "all";
     
+    private static final DynamicComparator NAME_COMPARATOR = 
+                new DynamicComparator("name", true); 
     /**
      * ${@inheritDoc}
      */
@@ -62,7 +66,7 @@ public class CobblerSnippetListSetupAction extends RhnAction {
             throw new BadParameterException("Invalid mapping parameter passed!! [" +
                                                     mapping.getParameter() + "]");
         }
-
+        Collections.sort(result, NAME_COMPARATOR);
         request.setAttribute("pageList", result);
         request.setAttribute("parentUrl", request.getRequestURI());
         return mapping.findForward("default");

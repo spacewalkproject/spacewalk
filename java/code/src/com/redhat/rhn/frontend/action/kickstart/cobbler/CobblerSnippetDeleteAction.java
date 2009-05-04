@@ -39,7 +39,7 @@ public class CobblerSnippetDeleteAction extends RhnAction {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        CobblerSnippet snip = CobblerSnippetDetailsAction.getSnippet(request);
+        CobblerSnippet snip = CobblerSnippetDetailsAction.getSnippet(request, false);
         request.setAttribute(CobblerSnippetDetailsAction.NAME, snip.getName());
         request.setAttribute(CobblerSnippetDetailsAction.PREFIX, snip.getPrefix());
 
@@ -48,8 +48,7 @@ public class CobblerSnippetDeleteAction extends RhnAction {
                 snip.delete();
                 createSuccessMessage(request, 
                             "cobblersnippet.delete.success", snip.getName());
-                return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                        CobblerSnippetDetailsAction.NAME, snip.getName());
+                return mapping.findForward("success");
             }
             catch (ValidatorException ve) {
                 getStrutsDelegate().saveMessages(request, ve.getResult());

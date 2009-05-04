@@ -198,11 +198,15 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
        <trans-unit id="Disabled">
          <source>Disabled</source>
      </trans-unit>
-
-       <trans-unit id="Tip">
+     <trans-unit id="Tip">
          <source>Tip</source>
      </trans-unit>
-    
+     <trans-unit id="Note">
+         <source>Note</source>
+     </trans-unit>
+     <trans-unit id="Warning">
+         <source>Warning</source>
+     </trans-unit>     
     </group>
 
       <trans-unit id="About Spacewalk">
@@ -1926,21 +1930,21 @@ available for this kickstart profile to function properly.
       </trans-unit>      
 
      <trans-unit id="cobblersnippet.update.success">
-        <source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+        <source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="cobblersnippet.create.success">    
-        <source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+        <source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyDelete</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="cobblersnippet.delete.success">    
-        <source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+        <source>Kickstart snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/keys/CryptoKeyDelete</context>
         </context-group>
@@ -1949,7 +1953,7 @@ available for this kickstart profile to function properly.
       <trans-unit id="cobbler.snippet.couldnotdelete.message">
        <source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
          <context-group name="ctx"> 	 
-           <context context-type="sourcefile">Cobbler Snippet Delete Confirm pages.</context> 	 
+           <context context-type="sourcefile">Kickstart snippet Delete Confirm pages.</context> 	 
          </context-group> 	 
        </trans-unit>
 
@@ -1961,14 +1965,14 @@ available for this kickstart profile to function properly.
        </trans-unit> 	 
 
       <trans-unit id="cobbler.snippet.filenameexists.message">
-       <source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+       <source>Kickstart snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
          <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 
        </trans-unit> 	 
 
       <trans-unit id="cobbler.snippet.invalidfilename.message">
-       <source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+       <source>The requested kickstart snippet filename is not valid. The kickstart snippet file name cannot contain slash (/) or  begin with a period(.)</source>
          <context-group name="ctx"> 	 
            <context context-type="sourcefile">Kickstart Profile Details pages.</context> 	 
          </context-group> 	 

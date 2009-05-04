@@ -518,6 +518,13 @@ ul.widespace li{
   list-style: none;
 }
 
+.file-display {
+ overflow: auto;
+ max-width: 600px;
+ max-height: 200px;
+ padding: 7px 5px;
+}
+
 div.page-summary {
   margin: 0 2%;
   cursor: text;
