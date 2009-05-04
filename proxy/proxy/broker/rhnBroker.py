@@ -143,9 +143,6 @@ class BrokerHandler(SharedHandler):
 
         _oto = rhnFlags.get('outputTransportOptions')
 
-        # tell parent that we can follow redirects, even if client is not able to
-        _oto['X-RHN-Transport-Capability'] = "follow-redirects=3"
-
         # No reason to put Host: in the header, the connection object will
         # do that for us
 
