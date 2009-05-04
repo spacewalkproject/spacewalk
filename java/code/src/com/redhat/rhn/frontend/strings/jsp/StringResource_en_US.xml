@@ -10809,11 +10809,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     </trans-unit>
 
     <trans-unit id="snippets.jsp.summary">
-        <source>Use Kickstart Snippets to store common blocks of code that can be shared across multiple Kickstart profiles in @@PRODUCT_NAME@@. When you create a Kickstart Snippet, all Kickstart profiles including that snippet will be updated accordingly.</source>
+        <source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
     </trans-unit>
 
     <trans-unit id="snippets.jsp.note.default">
-        <source>default kickstart snippets are not editable.</source>
+        <source>Default kickstart snippets are not editable.</source>
     </trans-unit>
     <trans-unit id="toolbar.create.snippets">
         <source>create new snippet</source>
@@ -10825,10 +10825,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Snippet Macro</source>
     </trans-unit>    
     <trans-unit id="cobbler.snippet.jsp.nosnippets">
-        <source>No Cobbler snippets found.</source>
+        <source>No kickstart snippets found.</source>
     </trans-unit>
     <trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
-        <source>Copy and paste the snippet macro into your Kickstart profiles to make the full snippet appear in that Kickstart profile.</source>
+        <source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
     </trans-unit>    
 	</group>    
     
@@ -10859,13 +10859,13 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>Custom</source>
     </trans-unit>
     <trans-unit id="cobbler.snippet.custom.tip">
-        <source>Custom Kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+        <source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
     </trans-unit>
     <trans-unit id="cobbler.snippet.default">
         <source>Default</source>
     </trans-unit>
     <trans-unit id="cobbler.snippet.default.tip">
-        <source>Default Kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+        <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
     </trans-unit>    
     
     <trans-unit id="snippetedit.jsp.header2">
@@ -10877,13 +10877,15 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between Kickstart Profiles</source>
+        <source>Snippets can be shared between kickstart profiles</source>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.header2">
         <source>Create Snippet</source>
     </trans-unit>
-
+    <trans-unit id="snippetdetails.jsp.header2">
+        <source>Snippet Details</source>
+    </trans-unit>
     <trans-unit id="snippetcreate.jsp.name">
         <source>Name</source>
     </trans-unit>
@@ -10899,13 +10901,16 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
 
     <trans-unit id="snippetcreate.jsp.tip1">
-        <source>Avoid spaces in the snippet name.</source>
+        <source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
     </trans-unit>
 
     <trans-unit id="snippetcreate.jsp.submit">
+        <source>Create Snippet</source>
+    </trans-unit>
+    
+    <trans-unit id="snippetupdate.jsp.submit">
         <source>Update Snippet</source>
     </trans-unit>
-
 
    <trans-unit id="snippetdelete.jsp.toolbar">
         <source>Delete Snippet Confirmation</source>
@@ -10916,10 +10921,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
     </trans-unit>
 
      <trans-unit id="snippetdelete.jsp.summary">
-        <source>Are you sure you want to delete this Snippet permanently?</source>
+        <source>Are you sure you want to delete this snippet permanently?</source>
     </trans-unit>
      <trans-unit id="snippetdelete.jsp.warning">
-        <source>Deleting this snippet will affect any kickstart profiles that refere to it. It may break kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+        <source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
     </trans-unit>
     <trans-unit id="cobbler.snippet.delete">
         <source>Confirm Snippet Delete</source>

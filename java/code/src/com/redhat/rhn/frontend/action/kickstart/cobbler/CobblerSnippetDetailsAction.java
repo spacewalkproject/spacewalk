@@ -105,7 +105,7 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                             context.getLoggedInUser().getOrg()));
         }
         else {
-            CobblerSnippet snip = getSnippet(request);
+            CobblerSnippet snip = getSnippet(request, isCreateMode(request));
             setupSnippet(request, form, snip);
         }
     }
@@ -116,12 +116,20 @@ public class CobblerSnippetDetailsAction extends RhnAction {
      * if the set up complains... Also it gets info from the request object
      * so this is the right place...
      * @param request  the request
+     * @param createMode true if this snippet was just created..
      * @return the cobbler snippet parameter "name"
      */
-    public static CobblerSnippet getSnippet(HttpServletRequest request) {
+    public static CobblerSnippet getSnippet(HttpServletRequest request,
+                                            boolean createMode) {
         RequestContext context = new RequestContext(request);
         try {
-            String name = context.getParam(NAME, true);
+            String name;
+            if (!createMode && RhnValidationHelper.getFailedValidation(request)) {
+                name = context.getParam(OLD_NAME, true);
+            }
+            else {
+                name = context.getParam(NAME, true);
+            }
             return  CobblerSnippet.loadEditable(name, 
                         context.getLoggedInUser().getOrg());
         }
@@ -153,9 +161,13 @@ public class CobblerSnippetDetailsAction extends RhnAction {
     
     private CobblerSnippet submit(HttpServletRequest request, DynaActionForm form) {
         RequestContext context = new RequestContext(request);
+        String name = isCreateMode(request) ? 
+                    form.getString(NAME) : form.getString(OLD_NAME);
+        
+        
         CobblerSnippet snip = CobblerSnippet.createOrUpdate(
                 isCreateMode(request),
-                form.getString(NAME),
+                name,
                 form.getString(CONTENTS), 
                 context.getLoggedInUser().getOrg());
         if (!isCreateMode(request) &&  

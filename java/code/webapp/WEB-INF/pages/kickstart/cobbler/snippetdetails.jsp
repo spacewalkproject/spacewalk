@@ -20,6 +20,7 @@
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img">
   <bean:message key="snippetcreate.jsp.toolbar"/>
 </rhn:toolbar>
+<h2><bean:message key="snippetcreate.jsp.header2"/></h2>
 	</c:when>
 	<c:otherwise>
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif" imgAlt="info.alt.img"
@@ -27,10 +28,11 @@
                deletionType="snippets">
 	<c:out value="${requestScope.snippet.displayName}"/>
 </rhn:toolbar>
+<h2><bean:message key="snippetdetails.jsp.header2"/></h2>
 	</c:otherwise>
 </c:choose>	
 
-<h2><bean:message key="snippetcreate.jsp.header2"/></h2>
+
 <c:choose>
 	<c:when test="${empty requestScope.create_mode}">
 		<c:set var="url" value ="/kickstart/cobbler/CobblerSnippetEdit"/>
@@ -50,8 +52,8 @@
             <bean:message key="cobbler.snippet.name"/><span class="required-form-field">*</span>
         </th>
         <td>
-        		<html:text property="name"/><br/>
-            	<rhn:tooltip key="snippetcreate.jsp.tip1"/><br/>
+        		<html:text property="name"/>
+            	<rhn:tooltip key="snippetcreate.jsp.tip1"/>
             <c:if  test = "${empty requestScope.create_mode}">	
             	<rhn:warning key="snippetcreate.jsp.warning.tip"/>
             	<html:hidden property="oldName"/>
@@ -64,7 +66,7 @@
             <bean:message key="cobbler.snippet.path"/>:
         </th>
         <td>
-        		<c:out value="${requestScope.snippet.displayPath}"/> <br/>
+        		<c:out value="${requestScope.snippet.displayPath}"/><br/>
     				<rhn:tooltip key="cobbler.snippet.path.tip"/>
         </td>
      </tr>
@@ -73,7 +75,7 @@
             <bean:message key="cobbler.snippet.macro"/>:
         </th>
         <td>
-        		<c:out value="${requestScope.snippet.fragment}"/> <br/>
+        		<p><c:out value="${requestScope.snippet.fragment}"/></p>
         		<rhn:tooltip key="cobbler.snippet.copy-paste-snippet-tip"/>
         </td>
      </tr>
@@ -94,7 +96,7 @@
     <table  class="details"> 
     <tr>    
         <th>
-            <bean:message key="snippetcreate.jsp.contents"/>
+            <bean:message key="snippetcreate.jsp.contents"/><span class="required-form-field">*</span>
         </th>
         <td>
          	<html:textarea property="contents" rows="24" cols="80" styleId="contents"/>
@@ -107,7 +109,14 @@
     <table align="right">
     	  <tr>
       		<td></td>
-      		<td align="right"><html:submit><bean:message key="snippetcreate.jsp.submit"/></html:submit></td>
+      		<c:choose>
+      		<c:when test = "${empty requestScope.create_mode}">
+      			<td align="right"><html:submit><bean:message key="snippetupdate.jsp.submit"/></html:submit></td>
+      		</c:when>
+      		<c:otherwise>
+      			<td align="right"><html:submit><bean:message key="snippetcreate.jsp.submit"/></html:submit></td>
+      		</c:otherwise>
+      		</c:choose>
     	  </tr>
 	</table>
 

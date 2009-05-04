@@ -4955,8 +4955,8 @@
          <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/deleteconfirm.jsp"/>
-        <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetList.do"/>
+        <forward name="success" redirect = "true"
+                 path="/kickstart/cobbler/CustomSnippetList.do"/>
     </action>
 
    <action path="/keys/CryptoKeysList"

@@ -19,7 +19,7 @@
   ${requestScope.snippet.displayName}
 </rhn:toolbar>
 
-<h2><bean:message key="snippetcreate.jsp.header2"/></h2>
+<h2><bean:message key="snippetdetails.jsp.header2"/></h2>
 
 <div>
     <table class="details">
@@ -57,10 +57,10 @@
     <table  class="details"> 
     <tr>    
         <th>
-            <bean:message key="snippetcreate.jsp.contents"/><span class="required-form-field">*</span>
+            <bean:message key="snippetcreate.jsp.contents"/>
         </th>    
         <td>
-   			<pre style="overflow: scroll; width: 600px; height: 200px">${data}</pre>
+   			<pre  class="file-display">${data}</pre>
        </td>
     </tr>
     </table>

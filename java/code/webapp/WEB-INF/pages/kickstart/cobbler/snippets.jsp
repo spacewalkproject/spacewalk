@@ -20,13 +20,12 @@
 </rhn:toolbar>
 <rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/snippet_tabs.xml"
                 renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-
+<div class="page-summary">
 <p><bean:message key="snippets.jsp.summary"/></p>
-
 <c:if test="${not empty requestScope.default}">
-	<p>Note:<bean:message key="snippets.jsp.note.default"/></p>
+	<rhn:note key = "snippets.jsp.note.default"/>
 </c:if>
-
+</div>
 
 
  <rl:listset name="keySet">

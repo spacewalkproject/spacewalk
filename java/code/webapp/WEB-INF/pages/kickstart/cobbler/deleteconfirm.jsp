@@ -27,7 +27,7 @@
          <bean:message key="snippetcreate.jsp.contents"/>
         </th>
         <td>
-   			<pre style="overflow: scroll; width: 600px; height: 200px">${contents}</pre>
+   			<pre  class="file-display">${contents}</pre>
        </td>
     </tr>
     </table>

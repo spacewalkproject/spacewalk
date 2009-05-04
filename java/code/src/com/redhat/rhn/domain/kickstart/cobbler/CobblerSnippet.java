@@ -25,8 +25,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.io.File;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * CobblerSnippet - Class representation of a Cobbler snippet
@@ -35,8 +33,7 @@ import java.util.regex.Pattern;
 public class CobblerSnippet implements Comparable<CobblerSnippet> {
     private File path;
     private Org org;
-    
-    
+
     /**
      * Method to return the main cobbler snippets dir
      * (i.e. /var/lib/cobbler/snippets) .. Reason this is
@@ -289,10 +286,8 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
     }
 
     private static void validateFileName(String name) {
-        // only [a-zA-Z_0-9] and '.' and '-' are valid filename characters
-        Pattern p = Pattern.compile("^[\\w\\.\\-_]+$");
-        Matcher m = p.matcher(name);
-        if (StringUtils.isBlank(name) || !m.matches()) {
+        // file names can have no slashes can be anything else though..
+        if (StringUtils.isBlank(name) || name.contains("/") || name.startsWith(".")) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }
     }
