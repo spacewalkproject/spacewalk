@@ -656,7 +656,7 @@ SELECT  distinct pn.name AS NAME,
                       FROM rhnServerPackage SP
                      WHERE SP.server_id = :sid
                        AND SP.name_id = full_list.name_id
-                       AND SP.package_arch_id = full_list.arch_id)
+                       AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
 ORDER BY  UPPER(pn.name)
   </query>
 </mode>
