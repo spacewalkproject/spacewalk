@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
     <h2><bean:message key="sdc.details.overview.systemstatus"/></h2>
       <div class="systeminfo">
-      <div class="systeminfo-left">
+      <div class="systeminfo-full">
       <c:choose>
 
         <c:when test="${unentitled}">
@@ -29,6 +29,8 @@
                     <img src="/img/rhn-listicon-alert.gif"/>
                 </c:otherwise>
             </c:choose>
+
+            &nbsp; <bean:message key="sdc.details.overview.updatesavailable" /> &nbsp;&nbsp;
             
             <c:if test="${criticalErrataCount > 0}">
                 <bean:message key="sdc.details.overview.updates.critical" arg0="/rhn/systems/details/ErrataList.do?sid=${system.id}&type=${rhn:localize('errata.create.securityadvisory')}" arg1="${criticalErrataCount}"/> &nbsp;&nbsp;
@@ -46,6 +48,7 @@
         </c:otherwise>
       </c:choose>
       </div>
+      <div class="systeminfo-clear" />
       </div>
       <c:if test="${probeListEmpty != 'true'}">
         <div class="systeminfo">
@@ -59,7 +62,7 @@
               </c:otherwise>
             </c:choose>
           </div>
-          <div clas="systeminfo-right">
+          <div class="systeminfo-right">
             <c:forEach items="${probeList}" var="probe">
               <c:choose>
                 <c:when test="${probe.state == 'CRITICAL'}">
@@ -69,9 +72,10 @@
                   <img src="/img/rhn-mini_icon-warning.gif"/>
                 </c:otherwise>
               </c:choose>
-        <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
-      </c:forEach>
+              <a href="/rhn/systems/details/probes/ProbeDetails.do?sid=${system.id}&probe_id=${probe.id}">${probe.description}</a><br/>
+            </c:forEach>
           </div>
+          <div class="systeminfo-clear" />
         </div>
       </c:if>
   <div style="clear: both; width: 45%; float: left;">

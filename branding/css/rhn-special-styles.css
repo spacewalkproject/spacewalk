@@ -478,8 +478,25 @@ div.rounded-box h2 {
 
 .systeminfo {
     background: #eeeeee;
-    height: 60px;
     -moz-border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.systeminfo-clear {
+    clear: both;
+    /** the rest is for older browsers **/
+    height:               1px;
+    line-height:          1px;
+    font-size:            1px;
+    margin-top:           -1px;
+}
+
+.systeminfo-full {
+    width: 90%;
+    margin-top: 8px;
+    vertical-align: top;
+    float: left;
+    margin-left: 8px
 }
 
 .systeminfo-left {
@@ -501,7 +518,6 @@ div.systeminfo-left img {
     vertical-align: middle;
     float: right;
     background-image: url(/img/rhn-bar-background.gif);
-    height: 50px;
 }
 
 /** Fancy bar for complex/multiple submit buttons for a page's form. used on the system entitlements page, will be used on virt guest list **/
