@@ -105,7 +105,12 @@ public class CobblerSnippetDetailsAction extends RhnAction {
                             context.getLoggedInUser().getOrg()));
         }
         else {
-            CobblerSnippet snip = getSnippet(request, isCreateMode(request));
+            String param = NAME;
+            if (!isCreateMode(request) && RhnValidationHelper.
+                                        getFailedValidation(request)) {
+                param = OLD_NAME;
+            }
+            CobblerSnippet snip = loadEditableSnippet(request, param);
             setupSnippet(request, form, snip);
         }
     }
@@ -116,20 +121,14 @@ public class CobblerSnippetDetailsAction extends RhnAction {
      * if the set up complains... Also it gets info from the request object
      * so this is the right place...
      * @param request  the request
-     * @param createMode true if this snippet was just created..
+     * @param lookupParam the parameter to which the snippet name is bound.. 
      * @return the cobbler snippet parameter "name"
      */
-    public static CobblerSnippet getSnippet(HttpServletRequest request,
-                                            boolean createMode) {
+    private static CobblerSnippet loadEditableSnippet(HttpServletRequest request, 
+                                    String lookupParam) {
         RequestContext context = new RequestContext(request);
         try {
-            String name;
-            if (!createMode && RhnValidationHelper.getFailedValidation(request)) {
-                name = context.getParam(OLD_NAME, true);
-            }
-            else {
-                name = context.getParam(NAME, true);
-            }
+            String name = context.getParam(lookupParam, true);
             return  CobblerSnippet.loadEditable(name, 
                         context.getLoggedInUser().getOrg());
         }
@@ -140,6 +139,19 @@ public class CobblerSnippetDetailsAction extends RhnAction {
         }        
     }
 
+    
+    /**
+     * Helper method to get a cobbler snippet.. This code is in this 
+     * action because we need it to throw a "BadParameterException" 
+     * if the set up complains... Also it gets info from the request object
+     * so this is the right place...
+     * @param request  the request
+     * @return the cobbler snippet parameter "name"
+     */
+    static CobblerSnippet loadEditableSnippet(HttpServletRequest request) {
+        return loadEditableSnippet(request, NAME);
+    }
+    
     private void setupSnippet(HttpServletRequest request, DynaActionForm form,
             CobblerSnippet snip) {
         request.setAttribute(PREFIX, snip.getPrefix());
