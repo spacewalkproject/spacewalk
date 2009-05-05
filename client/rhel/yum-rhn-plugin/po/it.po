@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"POT-Creation-Date: 2009-05-05 17:39-0400\n"
 "PO-Revision-Date: 2006-11-29 04:23+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
@@ -16,42 +16,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../rhnplugin.py:35
+#: ../rhnplugin.py:41
 msgid "There was an error communicating with RHN."
 msgstr "Si è verificato un errore durante la comunicazione con RHN."
 
-#: ../rhnplugin.py:48
+#: ../rhnplugin.py:63
 msgid "RHN support will be disabled."
 msgstr "Il supporto di RHN verrà disabilitato."
 
-#: ../rhnplugin.py:56
+#. If non-root notify user RHN repo not accessible
+#: ../rhnplugin.py:75
+msgid ""
+"*Note* Red Hat Network repositories are not listed below. You must run this "
+"command as root to access RHN repositories."
+msgstr ""
+
+#: ../rhnplugin.py:89
 msgid "There was an error parsing the RHN proxy settings."
 msgstr ""
 "Si è verificato un errore durante l'analizzazione delle impostazioni di RHN "
 "proxy."
 
-#: ../rhnplugin.py:67
+#: ../rhnplugin.py:100
+msgid "Cleaning"
+msgstr ""
+
+#: ../rhnplugin.py:106
 msgid "Either --version, or no commands entered"
 msgstr "--version, o nessun comando inserito"
 
-#: ../rhnplugin.py:80
+#: ../rhnplugin.py:120
 msgid "This system is not registered with RHN."
 msgstr "Questo sistema non risulta registrato con RHN."
 
-#: ../rhnplugin.py:85
+#: ../rhnplugin.py:125
 msgid "RHN channel support will be disabled."
 msgstr "Il supporto del canale di RHN verrà disabilitato."
 
-#: ../rhnplugin.py:89
+#: ../rhnplugin.py:129
 msgid "This system is not subscribed to any channels."
 msgstr "Questo sistema non è registrato su alcun canale."
 
-#: ../rhnplugin.py:123
+#: ../rhnplugin.py:133
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+
+#: ../rhnplugin.py:202
 msgid "Package profile information could not be sent."
 msgstr "Impossibile inviare le informazioni sul profilo del pacchetto."
 
-#: ../rhnplugin.py:190
+#. This is compensating for hosted/satellite returning back an error
+#. message instructing RHEL5 clients to run "up2date --register"
+#. bz: 438175
+#: ../rhnplugin.py:209
+msgid "Error Message:"
+msgstr ""
+
+#: ../rhnplugin.py:210
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../rhnplugin.py:286
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "Informazioni di login necessarie mancanti per RHN: %s"
-

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the yum-rhn-plugin package.
 # Magnus Larsson <fedoratrans@gmail.com>, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: yum-rhn-plugin VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"POT-Creation-Date: 2009-05-05 17:39-0400\n"
 "PO-Revision-Date: 2006-10-28 14:00-0400\n"
 "Last-Translator: Magnus Larsson <fedoratrans@gmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -17,39 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../rhnplugin.py:35
+#: ../rhnplugin.py:41
 msgid "There was an error communicating with RHN."
 msgstr "Det uppstod ett fel vid kommunikaton med RHN."
 
-#: ../rhnplugin.py:48
+#: ../rhnplugin.py:63
 msgid "RHN support will be disabled."
 msgstr "Stöd för RHN kommer inaktiveras."
 
-#: ../rhnplugin.py:56
+#. If non-root notify user RHN repo not accessible
+#: ../rhnplugin.py:75
+msgid ""
+"*Note* Red Hat Network repositories are not listed below. You must run this "
+"command as root to access RHN repositories."
+msgstr ""
+
+#: ../rhnplugin.py:89
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "Det uppstod ett fel vid inläsning av proxyinställningarna för RHN."
 
-#: ../rhnplugin.py:67
+#: ../rhnplugin.py:100
+msgid "Cleaning"
+msgstr ""
+
+#: ../rhnplugin.py:106
 msgid "Either --version, or no commands entered"
 msgstr "Antingen --version eller inga kommandon angivna"
 
-#: ../rhnplugin.py:80
+#: ../rhnplugin.py:120
 msgid "This system is not registered with RHN."
 msgstr "Detta system är inte registrerat med RHN."
 
-#: ../rhnplugin.py:85
+#: ../rhnplugin.py:125
 msgid "RHN channel support will be disabled."
 msgstr "Stöd för RHN-kanaler kommer inaktiveras."
 
-#: ../rhnplugin.py:89
+#: ../rhnplugin.py:129
 msgid "This system is not subscribed to any channels."
 msgstr "Detta system prenumererar inte på några kanaler."
 
-#: ../rhnplugin.py:123
+#: ../rhnplugin.py:133
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+
+#: ../rhnplugin.py:202
 msgid "Package profile information could not be sent."
 msgstr "Paketprofilinformation kunde inte skickas."
 
-#: ../rhnplugin.py:190
+#. This is compensating for hosted/satellite returning back an error
+#. message instructing RHEL5 clients to run "up2date --register"
+#. bz: 438175
+#: ../rhnplugin.py:209
+msgid "Error Message:"
+msgstr ""
+
+#: ../rhnplugin.py:210
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../rhnplugin.py:286
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr ""

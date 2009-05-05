@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"POT-Creation-Date: 2009-05-05 17:39-0400\n"
 "PO-Revision-Date: 2006-11-29 10:42+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -15,43 +15,70 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 
-#: ../rhnplugin.py:35
+#: ../rhnplugin.py:41
 msgid "There was an error communicating with RHN."
 msgstr "RHN સાથે સંપર્કવ્યવહાર કરવામાં ભૂલ હતી."
 
-#: ../rhnplugin.py:48
+#: ../rhnplugin.py:63
 msgid "RHN support will be disabled."
 msgstr "RHN આધાર નિષ્ક્રિય કરવામાં આવશે."
 
-#: ../rhnplugin.py:56
+#. If non-root notify user RHN repo not accessible
+#: ../rhnplugin.py:75
+msgid ""
+"*Note* Red Hat Network repositories are not listed below. You must run this "
+"command as root to access RHN repositories."
+msgstr ""
+
+#: ../rhnplugin.py:89
 msgid "There was an error parsing the RHN proxy settings."
 msgstr "RHN પ્રોક્સી સુયોજનોનું પદચ્છેદન કરવામાં ભૂલ હતી."
 
-#: ../rhnplugin.py:67
+#: ../rhnplugin.py:100
+msgid "Cleaning"
+msgstr ""
+
+#: ../rhnplugin.py:106
 msgid "Either --version, or no commands entered"
 msgstr "ક્યાં તો --version, દાખલ કરો અથવા કોઈ આદેશો દાખલ કરો નહિં"
 
-#: ../rhnplugin.py:80
+#: ../rhnplugin.py:120
 msgid "This system is not registered with RHN."
 msgstr "આ સિસ્ટમ RHN સાથે રજીસ્ટર થયેલ નથી."
 
-#: ../rhnplugin.py:85
+#: ../rhnplugin.py:125
 msgid "RHN channel support will be disabled."
 msgstr "RHN ચેનલ આધાર નિષ્ક્રિય કરવામાં આવશે."
 
-#: ../rhnplugin.py:89
+#: ../rhnplugin.py:129
 msgid "This system is not subscribed to any channels."
 msgstr "આ સિસ્ટમની કોઈ ચેનલોમાં ઉમેદવારી નોંધાયેલ નથી."
 
-#: ../rhnplugin.py:123
+#: ../rhnplugin.py:133
+msgid ""
+"This system may not be a registered to RHN. SystemId could not be acquired.\n"
+msgstr ""
+
+#: ../rhnplugin.py:202
 msgid "Package profile information could not be sent."
 msgstr "પેકેજ રૂપરેખા જાણકારી મોકલી શક્યા નહિં."
 
-#: ../rhnplugin.py:190
+#. This is compensating for hosted/satellite returning back an error
+#. message instructing RHEL5 clients to run "up2date --register"
+#. bz: 438175
+#: ../rhnplugin.py:209
+msgid "Error Message:"
+msgstr ""
+
+#: ../rhnplugin.py:210
+msgid "Please run rhn_register as root on this client"
+msgstr ""
+
+#: ../rhnplugin.py:286
 #, python-format
 msgid "Missing required login information for RHN: %s"
 msgstr "RHN માટેની ગુમ થયેલ પ્રવેશ જાણકારી: %s"
-
