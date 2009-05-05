@@ -37,6 +37,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private byte[] data;
     private Date created;
     private Date modified;
+    private Boolean raw;
     
     private KickstartData ksdata;
     
@@ -251,6 +252,22 @@ public class KickstartScript implements Comparable<KickstartScript> {
         else {
             return before;
         }                
+    }
+
+
+    /**
+     * @return Returns the raw.
+     */
+    public Boolean getRaw() {
+        return raw;
+    }
+
+
+    /**
+     * @param rawIn The raw to set.
+     */
+    public void setRaw(Boolean rawIn) {
+        this.raw = rawIn;
     }
 
 }

@@ -10686,6 +10686,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
 
+      <trans-unit id="kickstart.script.template">
+        <source>Template</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartOverview.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="kickstart.script.template.tip">
+        <source>Enable this to enable templating on this script using cobbler.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartOverview.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="kickstart.script.tip3">
         <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
         <context-group name="ctx">

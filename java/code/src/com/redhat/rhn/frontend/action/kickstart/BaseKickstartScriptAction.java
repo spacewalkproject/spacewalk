@@ -40,6 +40,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
     public static final String TYPE = "type";
     public static final String TYPES = "types";
     public static final String NOCHROOT = "nochroot";
+    public static final String TEMPLATE = "template";
     
     
     /**
@@ -50,6 +51,12 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
             BaseKickstartCommand cmd) {
         String chroot = "Y";
         Boolean b = new Boolean(true);
+
+        Boolean template = false;
+        if (form.get(TEMPLATE) != null) {
+            template = (Boolean) form.get(TEMPLATE);
+        }
+
         BaseKickstartScriptCommand kssc = (BaseKickstartScriptCommand) cmd;
         
         if (b.equals((Boolean)form.get(NOCHROOT))) {
@@ -69,7 +76,8 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
         kssc.setScript(form.getString(LANGUAGE), 
                 scriptValue, 
                 form.getString(TYPE),
-                chroot);
+                chroot,
+                template);
         return null;
     }
 
@@ -95,6 +103,7 @@ public abstract class BaseKickstartScriptAction extends BaseKickstartEditAction 
         form.set(LANGUAGE, kssc.getLanguage());
         form.set(TYPE, kssc.getType());
         form.set(NOCHROOT, kssc.getNoChrootVal());
+        form.set(TEMPLATE, !kssc.getScript().getRaw());
     }
 
     /**

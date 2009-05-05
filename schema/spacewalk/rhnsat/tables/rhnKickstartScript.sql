@@ -38,6 +38,9 @@ rhnKickstartScript
 				constraint rhn_ksscript_chroot_nn not null
 				constraint rhn_ksscript_chroot_ck
 					check (chroot in ('Y','N')),
+        raw_script              char(1) default('Y')
+                                constraint rhn_ksscript_raw_nn not null
+                                        check (raw_script in ('Y','N')),
 	interpreter		varchar2(80),
 	data			blob,
 	created			date default (sysdate)
