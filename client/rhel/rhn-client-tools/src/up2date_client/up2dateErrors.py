@@ -549,4 +549,10 @@ class InsuffMgmntEntsError(RhnServerException):
         term = "Explanation:"
         loc = msg.rindex(term) + len(term)
         return msg[:loc] + newExpln 
-    
+
+class NoSystemIdError(Error):
+    def __init__(self, msg):
+        self.errmsg = msg
+
+    def __repr__(self):
+        return self.errmsg
