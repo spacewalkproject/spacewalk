@@ -293,10 +293,14 @@ class Server:
             self._transport.clear_headers()
             for k, v in self._headers.items():
                 self._transport.set_header(k, v)
-            
+
+            rpc_version = __version__
+            if len(__version__.split()) > 1:
+                rpc_version = __version__.split()[1]
+ 
             self._transport.add_header("X-Info",
                 'RPC Processor (C) Red Hat, Inc (version %s)' % 
-                __version__.split()[1])
+                rpc_version)
             # identify the capability set of this client to the server
             self._transport.set_header("X-Client-Version", 1)
             
