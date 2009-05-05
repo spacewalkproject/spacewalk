@@ -318,7 +318,7 @@ public class KickstartBuilder {
             type = KickstartScript.TYPE_POST;
         }
         
-        scriptCommand.setScript(interpreter, buf.toString(), type, chroot);
+        scriptCommand.setScript(interpreter, buf.toString(), type, chroot, false);
         scriptCommand.store();
 
     }

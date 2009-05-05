@@ -52,7 +52,7 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
         assertNotNull(cmd.getKickstartData().getScripts());
         KickstartScript kss = cmd.getScript(); 
         assertNotNull(kss.getScriptType());
-        cmd.setScript(language, contents, KickstartScript.TYPE_PRE, chroot);
+        cmd.setScript(language, contents, KickstartScript.TYPE_PRE, chroot, false);
         cmd.store();
         ksdata = (KickstartData) reload(ksdata);
         assertEquals(contents, cmd.getContents());
@@ -67,7 +67,7 @@ public class KickstartScriptCommandTest extends BaseKickstartCommandTestCase {
         String chroot = "Y";
         KickstartScriptEditCommand cmd = 
             new KickstartScriptEditCommand(ksdata.getId(), kss.getId(), user);
-        cmd.setScript(language, contents, KickstartScript.TYPE_PRE, chroot);
+        cmd.setScript(language, contents, KickstartScript.TYPE_PRE, chroot, true);
         cmd.store();
         ksdata = (KickstartData) reload(ksdata);
         assertEquals(contents, cmd.getContents());
