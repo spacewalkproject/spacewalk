@@ -286,7 +286,8 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
     }
 
     private static void validateFileName(String name) {
-        // file names can have no slashes can be anything else though..
+        // file names can have no slashes/ can't be blan or 
+        // can't start with a period (for it'll mean its hidden)
         if (StringUtils.isBlank(name) || name.contains("/") || name.startsWith(".")) {
             ValidatorException.raiseException("cobbler.snippet.invalidfilename.message");
         }

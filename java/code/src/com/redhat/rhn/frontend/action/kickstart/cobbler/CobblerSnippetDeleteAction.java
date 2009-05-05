@@ -39,7 +39,7 @@ public class CobblerSnippetDeleteAction extends RhnAction {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        CobblerSnippet snip = CobblerSnippetDetailsAction.getSnippet(request, false);
+        CobblerSnippet snip = CobblerSnippetDetailsAction.loadEditableSnippet(request);
         request.setAttribute(CobblerSnippetDetailsAction.NAME, snip.getName());
         request.setAttribute(CobblerSnippetDetailsAction.PREFIX, snip.getPrefix());
 
