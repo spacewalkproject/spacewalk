@@ -30,7 +30,6 @@ Requires:       selinux-policy >= %{selinux_policyver}
 %endif
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
-Requires:       spacewalk-selinux
 Requires:       SatConfig-general
 Requires:       NPalert
 
