@@ -73,6 +73,7 @@ BuildRequires: ehcache
 BuildRequires: dom4j
 BuildRequires: hibernate3
 BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
