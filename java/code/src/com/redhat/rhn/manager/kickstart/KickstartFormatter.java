@@ -53,6 +53,8 @@ public class KickstartFormatter {
     
     private static Logger log = Logger.getLogger(KickstartFormatter.class);
     
+    private static final String RAW_START = "#raw";
+    private static final String RAW_END = "#end raw";
     private static final String NEWLINE = "\n";
     private static final String SPACE = " ";
     private static final String WHITESPACE = "\\s";
@@ -419,6 +421,9 @@ public class KickstartFormatter {
                             (typeIn.equals(KickstartScript.TYPE_POST) && 
                                     (kss.getChroot().equals("Y")))) {
                         retval.append(NEWLINE);
+                        if (kss.getRaw()) {
+                            retval.append(RAW_START + NEWLINE);
+                        }
                         if (!StringUtils.isBlank(kss.getInterpreter())) {
                             retval.append("%" + typeIn + SPACE + INTERPRETER_OPT + SPACE +
                                     kss.getInterpreter() + NEWLINE);
@@ -442,6 +447,9 @@ public class KickstartFormatter {
                         if (typeIn.equals(KickstartScript.TYPE_PRE) &&
                                 ksdata.getPreLog()) {
                             retval.append(END_PRE);
+                        }
+                        if (kss.getRaw()) {
+                            retval.append(RAW_END + NEWLINE);
                         }
                     }                    
                 } // end script type and chroot = y

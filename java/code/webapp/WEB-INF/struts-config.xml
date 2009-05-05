@@ -627,6 +627,7 @@
             <form-property name="contents" type="java.lang.String" />
             <form-property name="type" type="java.lang.String" />
             <form-property name="nochroot" type="java.lang.Boolean" />
+            <form-property name="template" type="java.lang.Boolean" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
