@@ -30,6 +30,10 @@ def main():
                     if f != "rhn.jar" and f.endswith(".jar") and not f in src_entries:
                         src_entries[f] = os.path.join(dr,f)
     entries = {}
+    entries['tools.jar'] = classpath_entry % "/usr/lib/jvm/java/lib/tools.jar"
+    entries['ant-junit.jar'] = classpath_entry % "/usr/share/java/ant/ant-junit.jar"
+    entries['ant.jar'] = classpath_entry % "/usr/share/java/ant.jar"
+
     for dr in argv[1].split(":"):
         if dr.strip():
             if os.path.isdir(dr):
