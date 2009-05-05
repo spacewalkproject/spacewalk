@@ -117,7 +117,8 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ks.setData(DATA);        
         ks.setPosition(new Long(1));
         ks.setScriptType(KickstartScript.TYPE_PRE);        
-        ks.setKsdata(k);        
+        ks.setKsdata(k);
+        ks.setRaw(true);
         return ks;        
     }
     
@@ -128,7 +129,8 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ks.setPosition(new Long(2));
         ks.setData(DATA);        
         ks.setScriptType(KickstartScript.TYPE_POST);
-        ks.setKsdata(k);        
+        ks.setKsdata(k);
+        ks.setRaw(true);
         return ks;        
     }
     
@@ -140,6 +142,7 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ks.setPosition(new Long(3));
         ks.setScriptType(KickstartScript.TYPE_POST);
         ks.setKsdata(k);
+        ks.setRaw(true);
         return ks;        
     }
     
@@ -150,6 +153,7 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ks.setPosition(new Long(4));
         ks.setScriptType(KickstartScript.TYPE_PRE);
         ks.setKsdata(k);
+        ks.setRaw(true);
         return ks;        
     }
     
@@ -160,6 +164,7 @@ public class KickstartScriptTest extends BaseTestCaseWithUser {
         ks.setPosition(new Long(5));
         ks.setScriptType(KickstartScript.TYPE_POST);       
         ks.setKsdata(k);
+        ks.setRaw(true);
         return ks;        
     }    
 
