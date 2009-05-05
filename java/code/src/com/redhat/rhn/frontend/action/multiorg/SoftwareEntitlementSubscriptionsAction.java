@@ -124,7 +124,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction {
             User user, Org satelliteOrg, ChannelFamily cf) {
         
         List<OrgSoftwareEntitlementDto> entitlementUsage = 
-                        ChannelManager.listEntitlementsForAllOrgs(cf, user);
+                        ChannelManager.listEntitlementsForAllOrgsWithEmptyOrgs(cf, user);
         for (Iterator <OrgSoftwareEntitlementDto> itr = 
                                         entitlementUsage.iterator(); itr.hasNext();) {
             OrgSoftwareEntitlementDto dto = itr.next();

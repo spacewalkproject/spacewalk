@@ -295,12 +295,15 @@ public class ChannelManager extends BaseManager {
     }
     
     /**
-     * Given a channel family, this method  returns
-     *  entitlement information on a per org basis.
-     * @param cf the channel family
+     * Given a channel family, this method returns entitlement information on a per org
+     * basis. If a particular org does not have any entitlements in the family, it
+     * will <strong>not</strong> be listed.
+     * 
+     * @param cf   the channel family
      * @param user the user needed for access privilege
-     * @return the lists the entitlement information  for the given channel family
-     *          for all orgs.
+     * @return the lists the entitlement information for the given channel family
+     *         for all orgs that have <strong>at least one entitlement on the
+     *         family.</strong> 
      */
     public static List<OrgSoftwareEntitlementDto> 
                     listEntitlementsForAllOrgs(ChannelFamily cf, User user) {
@@ -342,6 +345,66 @@ public class ChannelManager extends BaseManager {
                 }                
                 OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto(org, 
                   co.getCurrentMembers(), co.getMaxMembers(), maxPossibleAllocation);
+                ret.add(seDto);
+            }
+        }
+        
+        return ret;
+    }
+    
+    /**
+     * Given a channel family, this method returns entitlement information on a per org
+     * basis. This call will return all organizations, even if it does not have any
+     * entitlements on the family.
+     * 
+     * @param cf   the channel family
+     * @param user the user needed for access privilege
+     * @return lists the entitlement information for the given channel family for
+     *         all orgs.
+     */
+    public static List<OrgSoftwareEntitlementDto> 
+                    listEntitlementsForAllOrgsWithEmptyOrgs(ChannelFamily cf, User user) {
+        List <OrgSoftwareEntitlementDto> ret = 
+                            new LinkedList<OrgSoftwareEntitlementDto>();
+        
+        List<ChannelOverview> entitlementUsage = ChannelManager.getEntitlementForAllOrgs(
+                cf.getId());
+        
+        // Create a mapping of org ID's to the channel overview returned, we'll need this
+        // when iterating the list of all orgs shortly:
+        Map<Long, ChannelOverview> orgEntitlementUsage = 
+            new HashMap<Long, ChannelOverview>();
+        for (ChannelOverview o : entitlementUsage) {
+            orgEntitlementUsage.put(o.getOrgId(), o);
+        }        
+        Org satelliteOrg = OrgFactory.getSatelliteOrg();
+        ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
+                                            satelliteOrg.getId(),
+                                            cf.getId());
+        if (satelliteOrgOverview == null) {
+            throw new RuntimeException("Satellite org does not" +
+                                "appear to have been allocated entitlement:" +
+                                cf.getId());
+        }
+        
+        List<Org> allOrgs = OrgManager.allOrgs(user);
+        for (Org org : allOrgs) {
+            if (orgEntitlementUsage.containsKey(org.getId())) {
+                ChannelOverview co = orgEntitlementUsage.get(org.getId());
+
+                Long maxPossibleAllocation = null;
+                if (co.getMaxMembers() != null && 
+                        satelliteOrgOverview.getFreeMembers() != null) {
+                        maxPossibleAllocation = co.getMaxMembers() + 
+                            satelliteOrgOverview.getFreeMembers();
+                }                
+                OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto(org, 
+                  co.getCurrentMembers(), co.getMaxMembers(), maxPossibleAllocation);
+                ret.add(seDto);
+            }
+            else {
+                OrgSoftwareEntitlementDto seDto =
+                    new OrgSoftwareEntitlementDto(org, 0L, 0L, null);
                 ret.add(seDto);
             }
         }
