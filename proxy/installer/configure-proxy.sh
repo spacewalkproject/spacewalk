@@ -132,6 +132,15 @@ USE_SSL=$(yes_no $USE_SSL)
 
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
+if [ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && ! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
+	cat <<CA_KEYS
+Please do copy your CA key and public certificate from $RHN_PARENT to 
+/root/ssl-build directory. You may want to execute this command:
+ scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT}' /root/ssl-build
+CA_KEYS
+	exit 1
+fi
+
 if ! /sbin/runuser nobody -s /bin/sh --command="[ -r $CA_CHAIN ]" ; then
 	echo Error: File $CA_CHAIN is not readable by nobody user.
 	exit 1
@@ -299,7 +308,8 @@ if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
 	RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
 fi
 
-if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT ]; then
+if [ ! -f $HTMLPUB_DIR/$RPM_CA ] || [ ! -f $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT ] || \
+    ! diff $HTMLPUB_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT &>/dev/null; then
 	echo "Copying CA public certificate to $HTMLPUB_DIR for distribution to clients:"
 	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA $HTMLPUB_DIR/
 fi
