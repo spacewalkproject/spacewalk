@@ -872,27 +872,50 @@ def get_hal_system_and_smbios():
 
 def get_hal_smbios():
     computer = get_hal_computer()
-
-    props = computer.GetAllProperties()
+    try:
+        props = computer.GetAllProperties()
+    except:
+        log = up2dateLog.initLog()
+        msg = "Error reading smbios information: %s\n" % (sys.exc_type)
+        log.log_debug(msg)
+        return
     smbios = {}
     for key in props:
         if key.startswith('smbios'):
             smbios[str(key)] = props[str(key)]
     return smbios
 
+def check_hal_dbus_status():
+    # check if hal and messagebus are running, if not warn the user
+    import commands
+    hal_status, msg = commands.getstatusoutput('/etc/init.d/haldaemon status')
+    dbus_status, msg = commands.getstatusoutput('/etc/init.d/messagebus status')
+    return hal_status, dbus_status
+
 # this one reads it all
 def Hardware():
+    hal_status, dbus_status = check_hal_dbus_status()
+    hwdaemon = 1
+    if hal_status or dbus_status:
+        # if status != 0 haldaemon or messagebus service not running. 
+        # set flag and dont try probing hardware and DMI info
+        # and warn the user.
+        log = up2dateLog.initLog()
+        msg = "Warning: haldaemon or messagebus service not running. Cannot probe hardware and DMI information.\n"
+        log.log_me(msg)
+        hwdaemon = 0
     allhw = []
 
-    try:
-        ret = read_hal()
-        if ret: 
-            allhw = ret
-    except:
-        # bz253596 : Logging Dbus Error messages instead of printing on stdout
-        log = up2dateLog.initLog()
-        msg = "Error reading hardware information: %s\n" % (sys.exc_type)
-        log.log_me(msg)
+    if hwdaemon:
+        try:
+            ret = read_hal()
+            if ret: 
+                allhw = ret
+        except:
+            # bz253596 : Logging Dbus Error messages instead of printing on stdout
+            log = up2dateLog.initLog()
+            msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+            log.log_me(msg)
         
     # all others return individual arrays
 
@@ -921,16 +944,17 @@ def Hardware():
     # really anything useful we could do at this point
     # and its been trouble prone enough 
 
-    # minimal DMI info
-    try:
-        ret = read_dmi()
-        if ret:
-            allhw.append(ret)
-    except:
-        # bz253596 : Logging Dbus Error messages instead of printing on stdout
-        log = up2dateLog.initLog()
-        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
-        log.log_me(msg)
+    if hwdaemon:
+        # minimal DMI info
+        try:
+            ret = read_dmi()
+            if ret:
+                allhw.append(ret)
+        except:
+            # bz253596 : Logging Dbus Error messages instead of printing on stdout
+            log = up2dateLog.initLog()
+            msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+            log.log_me(msg)
         
     try:
         ret = read_installinfo()
