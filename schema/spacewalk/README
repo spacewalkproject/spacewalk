@@ -43,10 +43,10 @@ POSTGRES:
 TOOLS
 -------------------------------------------------------------------------------
 
-dogchow - Used to translate the common DDL to oracle|postgres specific
-          DDL.
+cameleon - Used to translate the common DDL to oracle|postgres specific
+           DDL and upgrade scripts.
 
-util/genmain.py - Used to generate the main.sql based on .deps files.
+genmain.py - Used to generate the main.sql based on .deps files.
 
 
 DEPENDENCY FILES (.deps)

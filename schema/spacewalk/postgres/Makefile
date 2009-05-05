@@ -14,58 +14,47 @@
 #
 #   SQLUSER - The psql connect information.
 #             (default: spacewalk).
-#   
+#
 # It uses the following tools:
 #
-#   cameleon - A common DDL -> postgres DDL generator installed via rpm
-#              installed via (yum install cameleon) from fedora extras.
-#   genmain -  A tool used to process the .deps files to produce
+#   blend    - A tool used to process the .deps files to produce
 #              the main.sql.  It will inject the contents of a file
 #              named "start.sql" at the beginning if it exits.
-#
-# The build steps are as follows:
-#
-#   - Populate tables/common from ../common/tables using cameleon.
-#   - Populate data/common from ../data/tables using cameleon.
-#   - Populate views/common from ../views/tables
-#   - Generate the main.sql using genmain.py.
 #
 
 ifndef SQLUSER
 SQLUSER := spacewalk
 endif
 
-CAMELEON := cameleon -F -H ../header.txt -s postgres -O best
 DIRS    := class types tables procs packages views triggers data
-GENMAIN := ../genmain -s postgres $(DIRS)
+BLEND   := ../blend -as postgres
+MKFILES := $(shell find . -mindepth 2 -name Makefile)
 
-main : clean tables views data
-	$(GENMAIN)
-	cp main.sql ../postgres.sql
 
-devel: clean tables views data
-	$(GENMAIN)
+main : tables views data upgrade
+	$(BLEND) $(DIRS)
+
+devel : main
+	$(BLEND) $(DIRS)
+	$(REPLTBS) main.sql > devel.sql
 
 tables : FORCE
-	mkdir -p tables/common
-	cp ../common/tables/*.deps tables/common
-	$(CAMELEON) -o tables/common ../common/tables/*.sql
-
-views : FORCE
-	mkdir views/common
-	cp ../common/views/*.deps views/common
-	cp ../common/views/*.sql views/common
+	$(MAKE) -C $@/common
 
 data : FORCE
-	mkdir -p data/common
-	cp ../common/data/*.deps data/common
-	$(CAMELEON) -o data/common ../common/data/*.sql
+	$(MAKE) -C $@/common
+
+views : FORCE
+	$(MAKE) -C $@/common
+
+upgrade : FORCE
+	$(MAKE) -C $@
 
 install : main
-	psql -d $(SQLUSER) -f main.sql -v ON_ERROR_STOP=
+	sqlplus $(SQLUSER) @main
 
 clean : FORCE
-	rm -f main.sql
-	rm -rf */common
+	@rm -f main.sql
+	@$(foreach m, $(MKFILES), $(MAKE) -C $(dir $(m)) $@;)
 
 FORCE:

@@ -18,6 +18,7 @@ import sys, os, re
 from getopt import getopt, GetoptError
 
 verbose = False
+aggregated = False
 
 #
 # CLASSES
@@ -246,10 +247,29 @@ class Reader:
     def path(self, d, fn):
         return '%s/%s' % (d, fn)
 
+    def files(self, d, extensions):
+        files = []
+        for fn, dir in self.flattened(d):
+            parts = fn.rsplit('.', 1)
+            if len(parts) != 2:
+                continue
+            if parts[1] in extensions:
+                path = self.path(dir, fn)
+                files.append((fn, path))
+        return files
+
+    def flattened(self, d):
+        files = []
+        for n in os.walk(d):
+            for f in n[2]:
+                files.append((f, n[0]))
+        files = sorted(files, self.fsort)
+        return files
+
     def fsort(self, a, b):
         try:
-            A = a.rsplit('.', 1)
-            B = b.rsplit('.', 1)
+            A = a[0].rsplit('.', 1)
+            B = b[0].rsplit('.', 1)
             BC = cmp(A[0], B[0])
             if BC:
                 return BC
@@ -258,19 +278,6 @@ class Reader:
             return cmp(IA, IB)
         except:
             return 0
-
-    def files(self, d, extensions):
-        files = []
-        for n in sorted(os.walk(d)):
-            for fn in sorted(n[2], self.fsort):
-                parts = fn.rsplit('.', 1)
-                if len(parts) != 2:
-                    continue
-                if parts[1] in extensions:
-                    path = self.path(n[0], fn)
-                    files.append((fn, path))
-        return files
-
 
 class Writer:
 
@@ -286,13 +293,22 @@ class Writer:
     def write(self, sorted, output):
         self.start(output)
         for p in sorted:
-            f = open(p)
-            output.write(self.comment % p)
-            for line in f.readlines():
-                if line.startswith('--'):
-                    continue
-                output.write(line)
-            f.close()
+            self.copy(p, output)
+
+    def copy(self, path, output):
+        f = open(path)
+        output.write(self.comment % path)
+        for line in f.readlines():
+            if line.startswith('--'):
+                continue
+            if line.startswith('@'):
+                self.copy(line[1:].strip(), output)
+                continue
+            if line.startswith('\i'):
+                self.copy(line[2:].strip(), output)
+                continue
+            output.write(line)
+        f.close()
 
     def start(self, output):
         if os.path.exists('start.sql'):
@@ -445,27 +461,30 @@ def usage():
     s.append('      Show usage information.')
     s.append('  -v, --verbose')
     s.append('      Show extra processing information.')
+    s.append('  -a, --aggregated')
+    s.append('      Aggregate the contents vs. reference by includes')
     s.append('  -s, --style')
     s.append('      The output style (oracle|postres ).')
     s.append('  -o, --output')
-    s.append('      The output file path.')
+    s.append('      The output file.')
     s.append('  -d, --directory')
     s.append('      The working directory to process.')
     print '\n'.join(s)
 
 def main(argv):
     path = '.'
-    global verbose
+    global verbose, aggregated
     reader = Reader()
     writer = Oracle()
     output = 'main.sql'
-    flags = 'vhd:o:s:'
+    flags = 'vhad:o:s:'
     keywords = [
         '--help',
         '--verbose',
         '--directory',
         '--output',
-        '--style',
+        '--style'
+        '--aggregated',
     ]
     try:
         opts, args = getopt(argv, flags, keywords)
@@ -475,6 +494,9 @@ def main(argv):
                 sys.exit(0)
             if opt in ('-v', '--verbose'):
                 verbose = True
+                continue
+            if opt in ('-a', '--aggregated'):
+                aggregated = True
                 continue
             if opt in ('-o', '--output'):
                 output = arg
@@ -490,6 +512,7 @@ def main(argv):
                     writer = Postgres()
                     continue
                 raise Exception('style "%s" not valid' % arg)
+        writer.aggregated = aggregated
         generate(path, reader, writer, output, args)
     except GetoptError, e:
         print e
