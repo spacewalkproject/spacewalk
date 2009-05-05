@@ -196,7 +196,7 @@ public class ChannelFamily extends BaseDomainHelper {
             Iterator i = this.privateChannelFamilies.iterator();
             while (i.hasNext()) {
                 PrivateChannelFamily pcf = (PrivateChannelFamily) i.next();
-                if (pcf.getOrg().equals(orgIn)) {
+                if (pcf.getOrg().getId().equals(orgIn.getId())) {
                     retval = pcf.getMaxMembers();
                 }
             }
