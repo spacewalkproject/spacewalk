@@ -315,6 +315,8 @@ class RhnRepo(YumRepository):
                 self.id, e)
         except SSLError, e:
             raise yum.Errors.RepoError(str(e))
+        except up2dateErrors.InvalidRedirectionError, e:
+            raise up2dateErrors.InvalidRedirectionError(e)
     _YumRepository__get = _getFile
 
     # This code is copied from yum, we should get the original code to

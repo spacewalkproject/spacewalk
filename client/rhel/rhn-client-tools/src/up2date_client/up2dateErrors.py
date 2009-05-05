@@ -556,3 +556,11 @@ class NoSystemIdError(Error):
 
     def __repr__(self):
         return self.errmsg
+
+class InvalidRedirectionError(Error):
+    """ Raise when redirect requests could'nt return a package"""
+    def __init__(self, msg ):
+        self.errmsg = msg
+
+    def __repr__(self):
+        return self.errmsg
