@@ -282,26 +282,21 @@ class Server:
     def _request(self, methodname, params):
         # call a method on the remote server
         # the loop is used to handle redirections
-        num = 0
         redirect_response = 0
-                
+        retry = 0        
         while 1:
-            if num >= MAX_REDIRECTIONS:
-                raise InvalidRedirectionError("Too many redirects")
-            num = num + 1
+            if retry >= MAX_REDIRECTIONS:
+                raise InvalidRedirectionError(
+                      "Unable to fetch requested Package")
 
             # Clear the transport headers first
             self._transport.clear_headers()
             for k, v in self._headers.items():
                 self._transport.set_header(k, v)
-
-            rpc_version = __version__
-            if len(__version__.split()) > 1:
-                rpc_version = __version__.split()[1]
-
+            
             self._transport.add_header("X-Info",
                 'RPC Processor (C) Red Hat, Inc (version %s)' % 
-                rpc_version)
+                __version__.split()[1])
             # identify the capability set of this client to the server
             self._transport.set_header("X-Client-Version", 1)
             
@@ -309,7 +304,7 @@ class Server:
                 # Advertise that we follow redirects
                 #changing the version from 1 to 2 to support backward compatibility
                 self._transport.add_header("X-RHN-Transport-Capability",
-                    "follow-redirects=2")
+                    "follow-redirects=3")
 
             if redirect_response:
                 self._transport.add_header('X-RHN-Redirect', '0')
@@ -319,8 +314,16 @@ class Server:
             request = self._req_body(params, methodname)
 
             try:
-                response = self._transport.request(self._host, self._handler,
-                    request, verbose=self._verbose)
+                if self._redirected: 
+                    type, uri = urllib.splittype(self._redirected)
+                    self._redirected = None
+ 
+                    host, handler = urllib.splithost(uri) 
+                    response = self._transport.request(host, handler, 
+                        request, verbose=self._verbose) 
+                else:    
+                    response = self._transport.request(self._host, \
+                                self._handler, request, verbose=self._verbose)
                 save_response = self._transport.response_status
             except xmlrpclib.ProtocolError, pe:
                 if self.use_handler_path:
@@ -333,12 +336,15 @@ class Server:
            
             if save_response == 200:
                 break
-            elif save_response not in [200,302]:
-                self._redirected = self._uri
-                self.use_handler_path = 1
-            else:
+            elif save_response in (301, 302):
                 self._redirected = self._transport.redirected()
                 self.use_handler_path = 0
+                redirect_response = 1
+            else:
+                # Retry pkg fetch
+                 retry = retry + 1
+                 self.use_handler_path = 1
+                 continue
                                 
             if self._verbose:
                 print "%s redirected to %s" % (self._uri, self._redirected)
@@ -369,7 +375,7 @@ class Server:
                     raise InvalidRedirectionError("Redirects not allowed")
                 else:
                     redirect_response = 1
-                    num = 0
+
                     # 
                     # Create a new transport for the redirected service and 
                     # set up the parameters on the new transport
