@@ -105,6 +105,10 @@ def getChannels(force=None, label_whitelist=None):
     if not selected_channels and not force:
         selected_channels = rhnChannelList()
         s = rhnserver.RhnServer()
+
+        if not up2dateAuth.getSystemId():
+            raise up2dateErrors.NoSystemIdError(_("Unable to Locate SystemId"))
+
         up2dateChannels = s.up2date.listChannels(up2dateAuth.getSystemId())
 
         for chan in up2dateChannels:
