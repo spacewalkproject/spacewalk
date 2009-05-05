@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.11
+Version: 0.6.12
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -73,6 +73,7 @@ BuildRequires: ehcache
 BuildRequires: dom4j
 BuildRequires: hibernate3
 BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
 BuildRequires: jakarta-commons-collections
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
@@ -246,7 +247,8 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
-* Mon May 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.11-1
+* Mon May 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.12-1
+- add BuildRequires for jakarta-commons-codec (jesusr@redhat.com)
 - remove our requirement on commons-configuration (jesusr@redhat.com)
 - 498455 - fixing tooltip for guests alter channel subscription page
   (jsherril@redhat.com)
