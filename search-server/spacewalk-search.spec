@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.5
+Version: 0.6.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -112,6 +112,9 @@ fi
 %{_sysconfdir}/logrotate.d/rhn-search
 
 %changelog
+* Tue May 05 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
+- cleanup ScheduleManager, fix potential null pointer, added a testcase.
+
 * Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
 - Add /etc/rhn/search/ %dir directive in search spec. (dgoodwin@redhat.com)
 
