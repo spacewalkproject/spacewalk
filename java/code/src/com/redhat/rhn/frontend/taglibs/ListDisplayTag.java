@@ -591,9 +591,10 @@ public class ListDisplayTag extends BodyTagSupport {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
-        out.println("<p><a href=\"" + page + "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" + 
+        out.println("<div class=\"csv-download\"><a href=\"" + page + 
+              "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" + 
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
-              "</a></p>");
+              "</a></div>");
     }
     
     /**
