@@ -21,6 +21,7 @@ import os
 import sys
 sys.path.append("/usr/share/rhn/up2date_client/")
 sys.path.append("/usr/share/rhn")
+import rhnreg
 import rhnregGui
 import up2dateErrors
 from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
@@ -45,6 +46,8 @@ class RhnProvideCertificateWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.Provi
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.ProvideCertificatePage.__init__(self)
+        if rhnreg.registered():
+            self.skipme = True
     
     def _getVbox(self):
         return self.provideCertificatePageVbox()

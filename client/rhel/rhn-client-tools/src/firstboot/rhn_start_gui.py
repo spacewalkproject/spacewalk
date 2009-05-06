@@ -45,6 +45,9 @@ class RhnStartWindow(RhnRegisterFirstbootGuiWindow):
         self.start_page = None
 
     def _getVbox(self):
+        if rhnreg.registered():
+            self.start_page = KsRegisteredPage()
+            return self.start_page.startPageVbox()
         if self.parent.checkNetwork():
             self.start_page = rhnregGui.StartPage(firstboot=True)
         else:
@@ -59,6 +62,20 @@ class RhnStartWindow(RhnRegisterFirstbootGuiWindow):
                 self.parent.setPage("rhn_start_gui") 
             else:
                 self.parent.setPage("rhn_finish_gui")
+        return True
+
+class KsRegisteredPage:
+
+    def __init__(self):
+        gladefile = "/usr/share/rhn/up2date_client/rh_register.glade"
+        ksRegisteredXml = gtk.glade.XML(gladefile, "ksRegisteredFirstbootVbox",
+              domain="rhn-client-tools")
+        self.vbox = ksRegisteredXml.get_widget('ksRegisteredFirstbootVbox')
+
+    def startPageVbox(self):
+        return self.vbox
+
+    def startPageRegisterNow(self):
         return True
 
 
