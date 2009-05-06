@@ -1,0 +1,35 @@
+log4j.appender.RootAppender=org.apache.log4j.ConsoleAppender
+log4j.appender.RootAppender.layout=org.apache.log4j.PatternLayout
+log4j.appender.RootAppender.layout.ConversionPattern=%d [%t] %-5p %c - %m%n
+log4j.rootLogger=WARN,RootAppender
+
+
+## Hibernate logging
+#log4j.appender.HibernateAppender=org.apache.log4j.FileAppender
+#log4j.appender.HibernateAppender.file=/var/log/rhn/rhn_web_hibernate.log
+#log4j.appender.HibernateAppender.layout=org.apache.log4j.PatternLayout
+#log4j.appender.HibernateAppender.layout.ConversionPattern=[%d] %-5p - %m%n
+#log4j.additivity.org.hibernate=false
+#log4j.additivity.net.rkbloom.logdriver=false
+
+# these are here to avoid spewing the logs when DEBUG is
+# turned on.  There are times DEBUG is useful to have without
+# seeing all of the acl and l10n stuff.
+log4j.logger.com.redhat.rhn.common.localization.LocalizationService=WARN,RootAppender
+log4j.logger.com.redhat.rhn.common.security.acl=WARN,RootAppender
+
+# NOTE:
+# this should shut up hibernate until this gets fixed upstream.
+log4j.logger.org.hibernate.engine.loading.LoadContexts=ERROR
+
+# Turn this up to DEBUG to get detailed logging info
+log4j.logger.com.redhat.rhn.taskomatic.SchedulerKernel=INFO
+#log4j.logger.org.hibernate.SQL=debug,HibernateAppender
+#log4j.logger.org.hibernate=debug,HibernateAppender
+#log4j.logger.net.rkbloom.logdriver.LogPreparedStatement=DEBUG
+#log4j.logger.net.rkbloom.logdriver.LogStatement=DEBUG
+#log4j.logger.net.rkbloom.logdriver.LogCallableStatement=DEBUG
+#log4j.logger.net.rkbloom.logdriver.LogConnection=DEBUG,HibernateAppender
+
+# General debug for everything.  Very noisy
+#log4j.logger.com.redhat.rhn=DEBUG
