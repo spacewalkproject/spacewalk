@@ -15,6 +15,8 @@ Obsoletes:      rhn-satellite-schema <= 5.1.0
 
 
 %define rhnroot /etc/sysconfig/rhn/
+%define oracle %{rhnroot}/oracle
+%define postgres %{rhnroot}/postgres
 
 %description
 rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
@@ -31,12 +33,15 @@ pod2man spacewalk-schema-upgrade spacewalk-schema-upgrade.1
 %install
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 oracle.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 postgres.sql $RPM_BUILD_ROOT%{rhnroot}
+install -m 0755 -d $RPM_BUILD_ROOT%{oracle}
+install -m 0755 -d $RPM_BUILD_ROOT%{postgres}
+install -m 0644 oracle/main.sql $RPM_BUILD_ROOT%{oracle}
+install -m 0644 postgres/main.sql $RPM_BUILD_ROOT%{postgres}
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
-tar cf - -C upgrade . | tar xf - -C $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
+cp oracle/upgrade/*.sql $RPM_BUILD_ROOT%{oracle}
+cp oracle/postgres/*.sql $RPM_BUILD_ROOT%{postgres}
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -p spacewalk-schema-upgrade.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
@@ -45,7 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%{rhnroot}/*
+%{oracle}/*
+%{postgres}/*
 %{_bindir}/%{name}-upgrade
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
