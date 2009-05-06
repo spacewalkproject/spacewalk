@@ -51,20 +51,7 @@ public class ScheduleManager implements Startable {
     private Scheduler scheduler;
     private DatabaseManager databaseManager;
     private IndexManager indexManager;
-    
-    private JobDetail pkgDetail;
-    private JobDetail errataDetail;
-    private JobDetail systemDetail;
-    private JobDetail hwDeviceDetail;
-    private JobDetail snapshotTagDetail;
-    private JobDetail serverCustomInfoDetail;
 
-    private Trigger pkgTrigger;
-    private Trigger errataTrigger;
-    private Trigger systemTrigger;
-    private Trigger hwDeviceTrigger;
-    private Trigger snapshotTagTrigger;
-    private Trigger serverCustomInfoTrigger;
     private final String updateIndexGroupName = "updateIndex";
     /**
      * Constructor
@@ -74,6 +61,22 @@ public class ScheduleManager implements Startable {
     public ScheduleManager(DatabaseManager dbmgr, IndexManager idxmgr) {
         databaseManager = dbmgr;
         indexManager = idxmgr;
+        try {
+            scheduler = StdSchedulerFactory.getDefaultScheduler();
+        }
+        catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    private void scheduleJob(Scheduler sched, String name,
+            int mode, long interval, Class task, JobDataMap data)
+        throws SchedulerException {
+        
+        Trigger t = createTrigger(name, updateIndexGroupName, mode, interval);
+        JobDetail d = new JobDetail(name, updateIndexGroupName, task);
+        d.setJobDataMap(data);
+        sched.scheduleJob(d, t);
     }
     
     private Trigger createTrigger(String name, String group, int mode,
@@ -91,7 +94,7 @@ public class ScheduleManager implements Startable {
     public void start() {
         try {
             Configuration config = new Configuration();
-            scheduler = StdSchedulerFactory.getDefaultScheduler();
+            
             long interval = config.getInt("search.schedule.interval", 300000);
             log.info("ScheduleManager task interval is set to " + interval);
             int mode = SimpleTrigger.REPEAT_INDEFINITELY;
@@ -99,50 +102,35 @@ public class ScheduleManager implements Startable {
                 interval = 100;
                 mode = 0;
             }
-            pkgTrigger = createTrigger(BuilderFactory.PACKAGES_TYPE,
-                    updateIndexGroupName, mode, interval);
-            errataTrigger = createTrigger(BuilderFactory.ERRATA_TYPE,
-                    updateIndexGroupName, mode, interval);
-            systemTrigger = createTrigger(BuilderFactory.SERVER_TYPE,
-                    updateIndexGroupName, mode, interval);
-            hwDeviceTrigger = createTrigger(BuilderFactory.HARDWARE_DEVICE_TYPE,
-                    updateIndexGroupName, mode, interval);
-            snapshotTagTrigger = createTrigger(BuilderFactory.SNAPSHOT_TAG_TYPE,
-                    updateIndexGroupName, mode, interval);
-            serverCustomInfoTrigger = createTrigger(BuilderFactory.SERVER_CUSTOM_INFO_TYPE,
-                    updateIndexGroupName, mode, interval);
-
-            pkgDetail = new JobDetail(BuilderFactory.PACKAGES_TYPE,
-                    updateIndexGroupName, IndexPackagesTask.class);
-            errataDetail = new JobDetail(BuilderFactory.ERRATA_TYPE,
-                    updateIndexGroupName, IndexErrataTask.class);
-            systemDetail = new JobDetail(BuilderFactory.SERVER_TYPE,
-                    updateIndexGroupName, IndexSystemsTask.class);
-            hwDeviceDetail = new JobDetail(BuilderFactory.HARDWARE_DEVICE_TYPE,
-                    updateIndexGroupName, IndexHardwareDevicesTask.class);
-            snapshotTagDetail = new JobDetail(BuilderFactory.SNAPSHOT_TAG_TYPE,
-                    updateIndexGroupName, IndexSnapshotTagsTask.class);
-            serverCustomInfoDetail = new JobDetail(BuilderFactory.SERVER_CUSTOM_INFO_TYPE,
-                    updateIndexGroupName, IndexServerCustomInfoTask.class);
-
+            
             JobDataMap jobData = new JobDataMap();
             jobData.put("indexManager", indexManager);
             jobData.put("databaseManager", databaseManager);
             jobData.put("configuration", new Configuration());
             
-            pkgDetail.setJobDataMap(jobData);
-            errataDetail.setJobDataMap(jobData);
-            systemDetail.setJobDataMap(jobData);
-            hwDeviceDetail.setJobDataMap(jobData);
-            snapshotTagDetail.setJobDataMap(jobData);
-            serverCustomInfoDetail.setJobDataMap(jobData);
+            scheduleJob(scheduler, BuilderFactory.PACKAGES_TYPE,
+                    mode, interval,
+                    IndexPackagesTask.class, jobData);
+            
+            scheduleJob(scheduler, BuilderFactory.ERRATA_TYPE,
+                    mode, interval,
+                    IndexErrataTask.class, jobData);
+            
+            scheduleJob(scheduler, BuilderFactory.SERVER_TYPE,
+                    mode, interval,
+                    IndexSystemsTask.class, jobData);
 
-            scheduler.scheduleJob(pkgDetail, pkgTrigger);
-            scheduler.scheduleJob(errataDetail, errataTrigger);
-            scheduler.scheduleJob(systemDetail, systemTrigger);
-            scheduler.scheduleJob(hwDeviceDetail, hwDeviceTrigger);
-            scheduler.scheduleJob(snapshotTagDetail, snapshotTagTrigger);
-            scheduler.scheduleJob(serverCustomInfoDetail, serverCustomInfoTrigger);
+            scheduleJob(scheduler, BuilderFactory.HARDWARE_DEVICE_TYPE,
+                    mode, interval,
+                    IndexHardwareDevicesTask.class, jobData);
+
+            scheduleJob(scheduler, BuilderFactory.SNAPSHOT_TAG_TYPE,
+                    mode, interval,
+                    IndexSnapshotTagsTask.class, jobData);
+
+            scheduleJob(scheduler, BuilderFactory.SERVER_CUSTOM_INFO_TYPE,
+                    mode, interval,
+                    IndexServerCustomInfoTask.class, jobData);
 
             scheduler.start();
         }
@@ -164,25 +152,15 @@ public class ScheduleManager implements Startable {
     }
 
     private boolean isSupported(String indexName) {
-        if (BuilderFactory.ERRATA_TYPE.compareTo(indexName) == 0) {
+        if (BuilderFactory.ERRATA_TYPE.equals(indexName) ||
+             BuilderFactory.HARDWARE_DEVICE_TYPE.equals(indexName) ||
+             BuilderFactory.PACKAGES_TYPE.equals(indexName) ||
+             BuilderFactory.SERVER_CUSTOM_INFO_TYPE.equals(indexName) ||
+             BuilderFactory.SERVER_TYPE.equals(indexName) ||
+             BuilderFactory.SNAPSHOT_TAG_TYPE.equals(indexName)) {
             return true;
         }
-        else if (BuilderFactory.PACKAGES_TYPE.compareTo(indexName) == 0) {
-            return true;
-        }
-        else if (BuilderFactory.SERVER_TYPE.compareTo(indexName) == 0) {
-            return true;
-        }
-        else if (BuilderFactory.HARDWARE_DEVICE_TYPE.compareTo(indexName) == 0) {
-            return true;
-        }
-        else if (BuilderFactory.SNAPSHOT_TAG_TYPE.compareTo(indexName) == 0) {
-            return true;
-        }
-        else if (BuilderFactory.SERVER_CUSTOM_INFO_TYPE.compareTo(indexName) == 0) {
-            return true;
-        }
-        else if (BuilderFactory.DOCS_TYPE.compareTo(indexName) == 0) {
+        else if (BuilderFactory.DOCS_TYPE.equals(indexName)) {
             log.info("Index updates for " + BuilderFactory.DOCS_TYPE +
                     " are not supported.");
             return false;
@@ -190,7 +168,6 @@ public class ScheduleManager implements Startable {
         log.info("Unknown index: " + indexName);
         return false;
     }
-
 
     /**
      * Will create/schedule a trigger for the passed in indexName.
