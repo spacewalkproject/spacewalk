@@ -123,6 +123,19 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
             return KickstartScript.TYPE_PRE;
         }
     }
+    
+    /**
+     * gets whether the script is raw or not.
+     * @return true or false
+     */
+    public boolean getRaw() {
+        if (this.script != null) {
+            return this.script.getRaw();
+        }
+        else {
+            return true;
+        }
+    }
 
     /**
      * @return Boolean value that determines whether 

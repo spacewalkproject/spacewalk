@@ -1226,7 +1226,7 @@ public class KickstartData {
             while (i.hasNext()) {
                 KickstartScript kss = (KickstartScript) i.next();
                 KickstartScript ksscloned = kss.deepCopy(cloned);
-                cloned.addScript(ksscloned);
+                cloned.addScript(ksscloned);   
             }
         }
 
