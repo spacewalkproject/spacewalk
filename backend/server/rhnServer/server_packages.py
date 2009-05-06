@@ -317,8 +317,8 @@ def update_errata_cache(server_id):
 
 
     # Delete unneeded packages
-    non_null_errata = filter(lambda x: x[1] is not None, deleted_packages)
-    null_errata = filter(lambda x: x[1] is None, deleted_packages)
+    non_null_errata = filter(lambda x: x[0] is not None, deleted_packages)
+    null_errata = filter(lambda x: x[0] is None, deleted_packages)
 
     changed = 0
 
