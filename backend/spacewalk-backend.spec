@@ -562,6 +562,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed May 06 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves - 496655 - resolves the packagelist refresh issue for custom channels
+
 * Thu Apr 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.32-1
 - Resolves - 494593 - schedule repodata gen for updated channels comparing the right timestamp
 
