@@ -175,7 +175,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             // unsubscribe from channel
             try {
                 SystemManager.unsubscribeServerFromChannel(loggedInUser, 
-                        serverIn, channel, true);
+                        serverIn, channel, false);
             }
             catch (PermissionException e) {
                 //convert to FaultException
