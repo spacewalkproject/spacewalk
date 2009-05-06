@@ -115,6 +115,22 @@ ORDER BY wc.name
   </query>
 </mode>
 
+<!-- Returns the highest amount of available entitlements that may be given out for the
+     given label. This query will take into account the maximum number of entitlements for
+     the label and then subtract out the currently allocated entitlements.
+-->
+<mode name="get_available_entitlements_for_label">
+   <query params="label">
+SELECT (sg.max_members) - (sg.current_members) as upper
+       FROM rhnServerGroup sg, rhnServerGroupType sgt
+       WHERE 1=1
+       AND sg.group_type = sgt.id
+       AND sg.org_ID = 1
+       AND sgt.label = :label
+   </query>
+</mode>
+
+
 <mode name="get_sat_entitlement_usage">
   <query params="label">
 SELECT   SUM(sg.max_members) as total,
