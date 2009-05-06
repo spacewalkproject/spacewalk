@@ -14,13 +14,12 @@ SUBDIR  := $(notdir $(shell cd ../; pwd))
 SOURCES := $(notdir $(wildcard $(COMMON)/$(SUBDIR)/*))
 
 
-all : $(SOURCES)
+all : clean $(SOURCES)
 
 %.sql %.deps :
-	cp $(COMMON)/$(SUBDIR)/$@ .
+	ln -s $(COMMON)/$(SUBDIR)/$@ .
 
 clean :
-	@rm -f *.sql
-	@rm -f *.deps
+	@find . -type l -delete
 
 FORCE:
