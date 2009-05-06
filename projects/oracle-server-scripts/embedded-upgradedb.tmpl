@@ -46,6 +46,8 @@ startup restrict
 select sysdate, 'Recompiling packages' message from dual;
 @?/rdbms/admin/utlrp.sql
 
+whenever sqlerror exit failure
+set serveroutput on
 -- perform migration of DICTIONARY to LOCAL managed tablespaces
 begin
   for t in (select tablespace_name from dba_tablespaces
@@ -66,6 +68,7 @@ begin
     execute immediate 'alter tablespace ' || t.tablespace_name || ' online';
   end loop;
 end;
+/
 
 -- restart the instance to reinitialize the system parameters
 shutdown immediate
