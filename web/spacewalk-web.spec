@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.4
+Version: 0.6.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -317,6 +317,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
+- make webui proxy installer aware of new packages spacewalk-monitoring-selinux
+- make webui proxy installer aware of new packages oracle-instantclient-selinux, oracle-nofcontext-selinux
+- 493428 - make webui installer aware of new package - spacewalk-proxy-selinux
+- 492588 - changed query to use rhnSharedChannelView to support shared channels in activation keys
+- 480011 - Added organization to the top header near the username.
+- 481578 - Ported manage software channels page from perl to java
+- 489902 - fix help links to work with rhn-il8n-guides
+
 * Fri Apr 24 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
 - 485981 - fix web proxy installer help links (bbuckingham@redhat.com)
 
