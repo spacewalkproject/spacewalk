@@ -198,7 +198,8 @@ fi
 rpm -q spacewalk-proxy-monitoring >/dev/null
 MONITORING=$?
 if [ $MONITORING -ne 0 ]; then
-        echo "You do not have monitoring installed. Do you want to install it?"
+        echo "You do not have monitoring installed."
+		echo "Do you want to install monitoring scout?"
 
         default_or_input "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'." INSTALL_MONITORING 'Y/n'
         INSTALL_MONITORING=$(yes_no $INSTALL_MONITORING)
