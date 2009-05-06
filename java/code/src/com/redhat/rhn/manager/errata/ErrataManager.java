@@ -164,7 +164,7 @@ public class ErrataManager extends BaseManager {
      * @return Errata that is reloaded from the DB.
      */
     public static Errata addChannelsToErrata(Errata errata,
-                        Collection channelIds, User user) {
+                        Collection<Long> channelIds, User user) {
         log.debug("addChannelsToErrata");
         Iterator itr = channelIds.iterator();
         
@@ -176,6 +176,14 @@ public class ErrataManager extends BaseManager {
             }
         }
         
+        //if we're publishing the errata but not pushing packages
+        //  We need to add cache entries for ones that are already in the channel
+        //  and associated to the errata
+        List<Long> list = new ArrayList<Long>();
+        list.addAll(channelIds);
+        ErrataCacheManager.insertCacheForChannelErrata(list, errata);
+
+
         //Save the errata
         log.debug("addChannelsToErrata - storing errata");
         storeErrata(errata);
