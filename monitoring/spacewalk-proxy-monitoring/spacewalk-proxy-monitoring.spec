@@ -39,13 +39,20 @@ Requires: SatConfig-generator
 Requires: SatConfig-installer 
 Requires: SatConfig-spread 
 Requires: scdb 
-Requires: SNMPAlerts 
+Requires: SNMPAlerts
 Requires: SputLite-client 
 Requires: SputLite-server 
 Requires: ssl_bridge 
 Requires: status_log_acceptor 
 Requires: tsdb 
 Requires: mod_perl
+if 0%{?rhel} == 4
+#for rhel4 we have no selinux policy, everything else should have
+%else
+Requires: spacewalk-monitoring-selinux
+Requires: oracle-instantclient-selinux
+Requires: oracle-nofcontext-selinux
+%endif
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description

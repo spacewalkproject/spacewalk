@@ -47,6 +47,13 @@ Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
+if 0%{?rhel} == 4
+#for rhel4 we have no selinux policy, everything else should have
+%else
+Requires: spacewalk-monitoring-selinux
+Requires: oracle-instantclient-selinux 
+Requires: oracle-nofcontext-selinux
+%endif
 
 Requires(post): chkconfig
 Requires(preun): chkconfig
