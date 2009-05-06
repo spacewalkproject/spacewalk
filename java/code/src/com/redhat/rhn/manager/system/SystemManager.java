@@ -1316,9 +1316,9 @@ public class SystemManager extends BaseManager {
         
         // At this point we have the deletes happening
         // in write mode. So our server which is a hibernate
-        // object is NOT in sync and so we have to reload 
+        // object is NOT in sync and so we have to refresh 
         // for it to work....
-        server = (Server) HibernateFactory.reload(server);
+        HibernateFactory.getSession().refresh(server);
         ServerFactory.deproxify(server);
         return server;
     }
