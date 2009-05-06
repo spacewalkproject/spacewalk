@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.6.1
+Version:      0.6.2
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -47,7 +47,7 @@ Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
-if 0%{?rhel} == 4
+%if 0%{?rhel} == 4
 #for rhel4 we have no selinux policy, everything else should have
 %else
 Requires: spacewalk-monitoring-selinux
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
+- monitoring should require selinux modules
+
 * Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
 - bump Versions to 0.6.0 (jesusr@redhat.com)
 
