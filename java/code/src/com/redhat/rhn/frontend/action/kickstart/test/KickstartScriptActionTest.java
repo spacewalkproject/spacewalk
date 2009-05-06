@@ -56,6 +56,8 @@ public class KickstartScriptActionTest extends BaseKickstartEditTestCase {
                 KickstartScript.TYPE_POST);
         addRequestParameter(KickstartScriptCreateAction.SUBMITTED, 
                 Boolean.TRUE.toString());
+        addRequestParameter(KickstartScriptCreateAction.TEMPLATE, 
+                Boolean.TRUE.toString());
         setRequestPathInfo("/kickstart/KickstartScriptCreate");
         actionPerform();
         String[] keys = {"kickstart.script.toolarge"};

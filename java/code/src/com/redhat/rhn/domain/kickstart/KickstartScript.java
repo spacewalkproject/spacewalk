@@ -37,7 +37,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
     private byte[] data;
     private Date created;
     private Date modified;
-    private Boolean raw;
+    private Boolean raw = true;
     
     private KickstartData ksdata;
     
@@ -234,6 +234,7 @@ public class KickstartScript implements Comparable<KickstartScript> {
         cloned.setKsdata(ksDataIn);
         cloned.setPosition(this.getPosition());
         cloned.setScriptType(this.getScriptType());
+        cloned.setRaw(this.getRaw());
         return cloned;
     }
     
