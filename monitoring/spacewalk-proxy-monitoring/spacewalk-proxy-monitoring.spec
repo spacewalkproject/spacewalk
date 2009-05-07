@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.6.1
+Version:      0.6.2
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Thu May  7 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
+- require selinux packages
+
 * Thu Apr 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
 - bump up version to 0.6 
 
