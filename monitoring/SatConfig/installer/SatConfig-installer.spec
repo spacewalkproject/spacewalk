@@ -31,6 +31,11 @@ mkdir -p $RPM_BUILD_ROOT%config_dir
 install -m 755 scheduleEvents $RPM_BUILD_ROOT%{_bindir}
 install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/trapReceiver/* 2>/dev/null | xargs -I file mv file %config_dir
+fi
+
 %files
 %defattr(-,root,root,-)
 %attr(755,nocpulse,nocpulse) %dir %config_dir
