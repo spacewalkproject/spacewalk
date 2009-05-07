@@ -73,6 +73,11 @@ install -m 755 bin/execute_commands $RPM_BUILD_ROOT%bin/execute_commands
 mkdir -p $RPM_BUILD_ROOT%vardir/commands
 mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 
+%post client
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/commands/* 2>/dev/null | xargs -I file mv file %{vardir}/commands
+fi
+
 %files server
 %defattr(-,root,root,-)
 %attr(755, nocpulse, nocpulse) %dir %templatedir
