@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.6.3
+Version:        0.6.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -97,6 +97,9 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- no need to enable notification anymore (mzazrivec@redhat.com)
+
 * Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
 - 493466 - perl scripts from rhn-upgrade moved to spacewalk-setup
   (mzazrivec@redhat.com)
