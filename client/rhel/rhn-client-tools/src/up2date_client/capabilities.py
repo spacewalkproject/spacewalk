@@ -15,7 +15,8 @@ neededCaps = {"caneatCheese": {'version':"21"},
               "registration.delta_packages": {'version':"1"},
               "registration.remaining_subscriptions": {'version': '1'},
               "registration.update_contact_info": {'version': "1"},
-              "registration.extended_update_support": {"version" : "1"}}
+              "registration.extended_update_support": {"version" : "1"},
+              "registration.smbios": {"version" : "1"}}
 
 def parseCap(capstring):
     value = None
@@ -131,7 +132,8 @@ class Capabilities(UserDict.UserDict):
                          "registration.update_contact_info" : 'supportsUpdateContactInfo',
                          "registration.delta_packages" : 'supportsDeltaPackages',
                          "xmlrpc.packages.extended_profile" : 'supportsExtendedPackageProfile',
-                         "registration.extended_update_support" : "supportsEUS"}
+                         "registration.extended_update_support" : "supportsEUS",
+                         "registration.smbios" : "supportsSMBIOS"}
 
         for key in capsConfigMap.keys():
             self.setConfig(key, capsConfigMap[key])

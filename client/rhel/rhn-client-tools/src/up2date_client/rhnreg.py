@@ -18,6 +18,7 @@ import up2dateLog
 import rpcServer
 import urlparse
 import rhnreg_constants
+import hardware
 
 try:
     from rhn import rpclib
@@ -421,6 +422,9 @@ def registerSystem(username = None, password = None,
     else:
         auth_dict["username"] = username
         auth_dict["password"] = password
+
+    if cfg['supportsSMBIOS']:
+        auth_dict["smbios"] = hardware.get_hal_smbios()
     
     s = rhnserver.RhnServer()
     if packages == None:
@@ -492,7 +496,10 @@ def registerSystem2(username = None, password = None,
                        'virt_uuid', 
                        'virt_type',
                        'channel']
-    
+
+    if cfg['supportsSMBIOS']:
+        other["smbios"] = hardware.get_hal_smbios()
+
     s = rhnserver.RhnServer()
     
     if activationKey:
@@ -624,10 +631,6 @@ def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
     s.registration.add_packages(systemId, packageList)
 
-def sendSmbiosInfo(systemId, smbiosData):
-    s = rhnserver.RhnServer()
-    s.registration.add_smbios_info(systemId, smbiosData)
- 
 def sendVirtInfo(systemId):
     if support is not None:
         support.refresh()

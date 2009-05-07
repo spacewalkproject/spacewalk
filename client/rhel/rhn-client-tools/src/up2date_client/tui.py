@@ -1186,18 +1186,6 @@ class FinishWindow:
 
         self.setScale(3, 5)
 
-        # send smbios info to the server
-        smbiosData = hardware.get_hal_smbios()
-        try:
-            rhnreg.sendSmbiosInfo(self.systemId, smbiosData)
-        except AttributeError:
-            # Method Not Implemented, continue
-            pass
-        except:
-            log.log_exception(*sys.exc_info())
-            FatalErrorWindow(self.screen,
-                                 _("Problem sending smbios info:\n"))
-
         # maybe upload hardware profile
         if tui.includeHardware:
             try:

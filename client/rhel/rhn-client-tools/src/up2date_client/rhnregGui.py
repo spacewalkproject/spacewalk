@@ -1072,17 +1072,6 @@ class CreateProfilePage:
         if ret:
             return ret
         pwin.setProgress(3, 6)
- 
-        # send smbios info to the server
-        pwin.setStatusLabel(_("Sending smbios information"))
-        smbiosData = hardware.get_hal_smbios()
-        try:
-            rhnreg.sendSmbiosInfo(self.systemId, smbiosData)
-        except AttributeError:
-            # Method Not Implemented on server, continue
-            pass
-        except:
-            pwin.setStatusLabel(_("Problem sending smbios information."))
 
         # maybe upload hardware profile
         if self.sendHardware:
