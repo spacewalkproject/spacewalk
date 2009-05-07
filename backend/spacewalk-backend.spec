@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.3
+Version: 0.6.4
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -565,6 +565,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- 498273 - removing incorrect index busting package list updates for custom
+  base channels (shughes@redhat.com)
+- 1000010021 - fixing issue where you could not remove packages from rhel 4
+  systems (jsherril@redhat.com)
+- 497871 - fixing issue where guest provisioning would show as succesfull even
+  when it had failed (jsherril@redhat.com)
+- 486526 - put db creation / upgrade logs into spacewalk-debug
+  (mzazrivec@redhat.com)
+- 486526 - put dump files from embedded db into spacewalk-debug
+  (mzazrivec@redhat.com)
+- 486526 - put audit.log into spacewalk-debug (mzazrivec@redhat.com)
+- 486526 - put schema upgrade logs into spacewalk-debug (mzazrivec@redhat.com)
+- 492903 - fixing the sql fetch (pkilambi@redhat.com)
+
 * Fri Apr 24 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.3-1
 - 309601 - adding satpasswd, satwho and md5crypt to spacewalk-backend-tools
 
