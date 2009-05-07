@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.13
+Version: 0.6.14
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -247,6 +247,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu May 07 2009 Tomas Lestach <tlestach@redhat.com> 0.6.14-1
+- 499038 - channel list doesn't contain non globablly subscribable channels
+  (tlestach@redhat.com)
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.13-1
 - 469937 - Fixed a deactivateProxy issue. (s/reload/refresh) (paji@redhat.com)
 - 499258 - update Alter Channel Subscriptions to not ISE when base channel is
