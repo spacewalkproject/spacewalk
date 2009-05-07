@@ -46,7 +46,7 @@ Requires: ssl_bridge
 Requires: status_log_acceptor 
 Requires: tsdb 
 Requires: mod_perl
-if 0%{?rhel} == 4
+%if 0%{?rhel} == 4
 #for rhel4 we have no selinux policy, everything else should have
 %else
 Requires: spacewalk-monitoring-selinux
