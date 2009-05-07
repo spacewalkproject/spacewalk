@@ -214,7 +214,6 @@ else
         config_error 3 "Installation of package spacewalk-proxy-monitoring failed."
     fi
 fi
-ENABLE_SCOUT=0
 if [ $MONITORING -eq 0 ]; then
 	#here we configure monitoring
 	#and with cluster.ini
@@ -227,6 +226,8 @@ if [ $MONITORING -eq 0 ]; then
         MSG=$(echo -n "Your scout shared key (can be found on parent
 in $RHNCONF_DIR/cluster.ini as key scoutsharedkey)")
         default_or_input "$MSG" SCOUT_SHARED_KEY ''
+else
+	ENABLE_SCOUT=0
 fi
 
 # size of squid disk cache will be 60% of free space on /var/spool/squid
