@@ -180,6 +180,7 @@ def _set_server_capabilities():
         'registration.update_contact_info'      : {'version' : 1, 'value' : 1},
         'registration.delta_packages'           : {'version' : 1, 'value' : 1},
         'registration.extended_update_support'  : {'version' : 1, 'value' : 1},
+        'registration.smbios'                   : {'version' : 1, 'value' : 1},
         'applet.has_base_channel'               : {'version' : 1, 'value' : 1},
         'xmlrpc.login.extra_data'               : {'version' : 1, 'value' : 1},
         'rhncfg.content.base64_decode'          : {'version' : 1, 'value' : 1},

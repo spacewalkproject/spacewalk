@@ -341,6 +341,16 @@ class Registration(rhnHandler):
             newserv.virt_uuid = None
             newserv.virt_type = None
 
+        # check for kvm/qemu guest info
+        if data.has_key('smbios'):
+            smbios = data['smbios']
+            if smbios.has_key('smbios.bios.vendor') and \
+                smbios['smbios.bios.vendor'] == 'QEMU' and \
+                smbios.has_key('smbios.system.uuid'):
+
+                newserv.virt_type = rhnVirtualization.VirtualizationType.FULLY
+                newserv.virt_uuid = smbios['smbios.bios.uuid'].replace('-', '')
+
         if tokens_obj.forget_rereg_token:
 	    # At this point we retained the server with re-activation
 	    # let the stacked activation keys do their magic
