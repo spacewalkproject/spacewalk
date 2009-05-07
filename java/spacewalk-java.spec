@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.15
+Version: 0.6.16
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -247,6 +247,9 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu May 07 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.16-1
+- remove @Override for java 1.5 builds (jesusr@redhat.com)
+
 * Thu May 07 2009 Justin Sherrill <jsherril@redhat.com> 0.6.15-1
 - Split log4.properties files into two so taskomatic and tomcat are using different ones 
 
