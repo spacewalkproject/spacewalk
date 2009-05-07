@@ -10,7 +10,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.46
+Version: 0.5.47
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -235,6 +235,10 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Thu May 07 2009 Mike McCune <mmccune@gmail.com> 0.5.47-1
+- 496104 - fixing double slash and downloads with ++ in the filename.
+  (mmccune@gmail.com)
+
 * Thu Apr 09 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.46-1
 - Resolves - 494593 - schedule repodata gen for updated channels comparing the r
 ight timestamp
