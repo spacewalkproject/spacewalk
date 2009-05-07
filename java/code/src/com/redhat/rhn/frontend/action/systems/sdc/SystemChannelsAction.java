@@ -93,9 +93,8 @@ public class SystemChannelsAction extends RhnLookupDispatchAction {
         request.setAttribute(RequestContext.SYSTEM, s);
         if (s.getBaseChannel() != null) {
             Channel baseChannel = s.getBaseChannel();
-            List channels = ChannelManager.userAccessibleChildChannels(
-                    user.getOrg().getId(), baseChannel.getId());
-              
+            List channels = baseChannel.getAccessibleChildrenFor(user);
+
             Collections.sort(channels, 
                     new DynamicComparator("name", RequestContext.SORT_ASC));
             
