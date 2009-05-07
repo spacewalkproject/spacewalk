@@ -50,6 +50,15 @@ install -m 755 dequeue $RPM_BUILD_ROOT%{_bindir}
 # stuff needing special ownership doesn't go in filelist
 install -m 755 queuetool $RPM_BUILD_ROOT%{_bindir}
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/queue/commands/* 2>/dev/null | xargs -I file mv file %commands_qdir
+  ls /home/nocpulse/var/queue/notif/* 2>/dev/null | xargs -I file mv file %notif_qdir
+  ls /home/nocpulse/var/queue/sc_db/* 2>/dev/null | xargs -I file mv file %states_qdir
+  ls /home/nocpulse/var/queue/snmp/* 2>/dev/null | xargs -I file mv file %snmp_qdir
+  ls /home/nocpulse/var/queue/ts_db/* 2>/dev/null | xargs -I file mv file %trends_qdir
+fi
+
 %files
 %defattr(-,root,root,-)
 %attr(755,nocpulse,nocpulse) %dir %queue_dir
