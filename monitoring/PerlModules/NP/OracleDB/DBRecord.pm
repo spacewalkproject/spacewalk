@@ -171,13 +171,18 @@ sub LoadFromSql
 	return $class->LoadFromSqlWithBind($sqlStatement, [], @keyFields);
 }
 
+sub LoadOneFromSqlWithBind {
+	my ($class,$sqlStatement, $bindArrayRef) = @_;
+	$class = ref($class)||$class;
+    $class->LoadFromSqlWithBind($sqlStatement, $bindArrayRef);
+    my $instances = $class->InstancesList;
+    return $instances->[0];
+}
+
 sub LoadOneFromSql
 {
 	my ($class,$sqlStatement) = @_;
-	$class = ref($class)||$class;
-	$class->LoadFromSql($sqlStatement);
-	my $instances = $class->InstancesList;
-	return $instances->[0];
+	return $class->LoadOneFromSqlWithBind($sqlStatement);
 }
 
 sub Absorb
