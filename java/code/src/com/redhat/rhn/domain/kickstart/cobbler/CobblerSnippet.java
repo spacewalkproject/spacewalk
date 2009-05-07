@@ -313,10 +313,10 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
         }
     }
 
+
     /**
      * {@inheritDoc}
      */
-    @Override
     public int compareTo(CobblerSnippet o) {
         if (equals(o)) {
             return 0;
