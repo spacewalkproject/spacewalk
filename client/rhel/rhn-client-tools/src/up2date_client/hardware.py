@@ -663,7 +663,7 @@ def findHostByRoute():
         except:
             s.close()
             continue
-
+        
     # Override hostname with the one in /etc/sysconfig/network 
     # for bz# 457953
     
@@ -933,13 +933,16 @@ def Hardware():
     except:
         print _("Error reading system memory information:"), sys.exc_type
         
-    # minimal networking info
-    try:
-        ret = read_network()
-        if ret: 
-            allhw.append(ret)
-    except:
-        print _("Error reading networking information:"), sys.exc_type
+    cfg = config.initUp2dateConfig()
+    if cfg["sendNetwork"]:
+        # minimal networking info
+        print "Network Info::"
+        try:
+            ret = read_network()
+            if ret: 
+                allhw.append(ret)
+        except:
+            print _("Error reading networking information:"), sys.exc_type
     # dont like catchall exceptions but theres not
     # really anything useful we could do at this point
     # and its been trouble prone enough 
@@ -963,12 +966,14 @@ def Hardware():
     except:
         print _("Error reading install method information:"), sys.exc_type
 
-    try:
-        ret = read_network_interfaces()
-        if ret:
-            allhw.append(ret)
-    except:
-        print _("Error reading network interface information:"), sys.exc_type
+    if cfg["sendNetwork"]:
+        try:
+            ret = read_network_interfaces()
+            if ret:
+                allhw.append(ret)
+        except:
+            print _("Error reading network interface information:"), sys.exc_type
+    
     # all Done.
     return allhw
 
