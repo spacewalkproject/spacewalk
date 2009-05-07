@@ -2479,10 +2479,6 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />                 
-                 
     </action>
         
     <action path="/systems/details/packages/VerifyPackages"
@@ -2529,9 +2525,6 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />                 
     </action>
 
    <action path="/systems/details/packages/UpgradableList"
@@ -2552,9 +2545,6 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
-         <forward name="remote"
-                  path="/systems/details/packages/ScheduleRemoteCommand.do"
-                  redirect="true"/>
          <forward name="confirm"
                   path="/systems/details/packages/Packages.do"
                   redirect="true"/>                 
