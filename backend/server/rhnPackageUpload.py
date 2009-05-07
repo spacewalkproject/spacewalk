@@ -327,9 +327,9 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
 
     # commit the transactions
     rhnSQL.commit()
-
-    # Process Package Key information
-    server_packages.processPackageKeyAssociations(header, md5sum)
+    if not header.is_source:
+        # Process Package Key information
+        server_packages.processPackageKeyAssociations(header, md5sum)
 
     if not header.is_source:
         errataCache.schedule_errata_cache_update(importer.affected_channels)
