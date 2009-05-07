@@ -18,10 +18,10 @@ ifndef COMMON
 COMMON := ../../../common
 endif
 
-SRCDIR   := $(shell find $(COMMON) -name $(notdir $(shell cd ../; pwd)))
-SOURCES  := $(wildcard $(SRCDIR)/*)
-FILES    := $(notdir $(SOURCES))
-CAMELEON := cameleon -fs $(STYLE) $(OPTS)
+SRCDIR    := $(shell find $(COMMON) -name $(notdir $(shell cd ../; pwd)))
+SOURCES   := $(wildcard $(SRCDIR)/*)
+FILES     := $(notdir $(SOURCES))
+CHAMELEON := chameleon -fs $(STYLE) $(OPTS)
 
 
 all : links
@@ -33,7 +33,7 @@ files : $(FILES)
 	@rm -f parser.out
 
 %.sql : %.cql
-	$(CAMELEON) -o $@ $^
+	$(CHAMELEON) -o $@ $^
 
 links : FORCE
 	@find . -type l -delete
