@@ -20,8 +20,9 @@ my $Log=NOCpulse::Log::Logger->new(__PACKAGE__);
 my $CONFIG     = NOCpulse::Config->new;
 die unless $CONFIG;
 
-my $cfg_file   = $CONFIG->get('notification','config_dir') . '/static/notif.ini';
-die unless $cfg_file;
+my $cfg_file   = $CONFIG->get('notification','config_dir');
+die "Error: I expected config_dir option to be present" unless $cfg_file;
+$cfg_file .= '/static/notif.ini';
 
 my $notify_cfg = new Config::IniFiles(-file    => $cfg_file,
                                         -nocase  => 1);
