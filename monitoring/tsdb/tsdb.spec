@@ -57,6 +57,15 @@ install -m 755 LocalQueue/rebalance_cron $RPM_BUILD_ROOT%{_bindir}
 install -d $RPM_BUILD_ROOT%{init_script}
 install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /opt/nocpulse/TSDBLocalQueue/TSDBLocalQueue.log 2>/dev/null | xargs -I file mv file %lqdir
+  ls /opt/nocpulse/TSDBLocalQueue/queuefile.positions 2>/dev/null | xargs -I file mv file %lqdir
+  ls /opt/nocpulse/TSDBLocalQueue/archive/* 2>/dev/null | xargs -I file mv file %lqdir/archive
+  ls /opt/nocpulse/TSDBLocalQueue/failed/* 2>/dev/null | xargs -I file mv file %lqdir/failed
+  ls /opt/nocpulse/TSDBLocalQueue/queue/* 2>/dev/null | xargs -I file mv file %lqdir/queue
+fi
+
 %files
 %defattr(-,root,root,-)
 %{init_script}
