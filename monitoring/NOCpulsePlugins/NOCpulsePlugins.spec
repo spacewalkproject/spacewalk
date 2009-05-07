@@ -46,6 +46,11 @@ do
   install $pkg/*.pm $fulldir
 done
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/ProbeState/* 2>/dev/null | xargs -I file mv file %{_var}/lib/nocpulse/ProbeState
+fi
+
 %files
 %defattr(-,root,root,-)
 %dir %{_sysconfdir}/nocpulse
