@@ -11,7 +11,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.12
+Version: 0.6.13
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz 
@@ -247,6 +247,34 @@ fi
 %attr(644, root, root) %{_datadir}/rhn/lib/rhn.jar
 
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.13-1
+- 469937 - Fixed a deactivateProxy issue. (s/reload/refresh) (paji@redhat.com)
+- 499258 - update Alter Channel Subscriptions to not ISE when base channel is
+  changed (bbuckingham@redhat.com)
+- 499037 - fixing issue wher errata cache entires werent being generated if an
+  errata publication did not cause packages to be pushed to a channel
+  (jsherril@redhat.com)
+- 495789 - fixing issue where taskomtaic would create the api log first,
+  thereby stopping tomcat from being able to write to it (jsherril@redhat.com)
+- 437361 - Added all orgs (except default org) to the entitlement's org subtab.
+  (jason.dobies@redhat.com)
+- unit test fixes (jlsherri@justin-sherrills-macbook-2.local)
+- 499233 - Download CSV link on monitoring page should have the same look as on
+  others pages (msuchy@redhat.com)
+- unit test fix (jsherril@redhat.com)
+- 499258 - update Alter Channel Subscriptions to not ISE when base channel is
+  changed (bbuckingham@redhat.com)
+- compile fix (jsherril@redhat.com)
+- Fixed an accidental removal of a string resource entry (paji@redhat.com)
+- Applying changes suggested by zeus (paji@redhat.com)
+- 499046 - making it so that pre/post scripts can be templatized or not,
+  defaulting to not (jsherril@redhat.com)
+- Changed the gen-eclipse script to add things like tools.jar and ant-junit &
+  ant.jar (paji@redhat.com)
+- 433660 - Removed the restriction in the UI that prevents orgs with 0
+  entitlements from being shown on the org page of an entitlement.
+  (jason.dobies@redhat.com)
+
 * Mon May 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.12-1
 - add BuildRequires for jakarta-commons-codec (jesusr@redhat.com)
 - remove our requirement on commons-configuration (jesusr@redhat.com)
