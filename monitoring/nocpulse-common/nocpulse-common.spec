@@ -62,24 +62,29 @@ install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorl
 install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
-if [ $1 -eq 1 ] ; then
-  getent group %{package_name} >/dev/null || groupadd -r %{package_name}
-  getent passwd %{package_name} >/dev/null || \
-  useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
-  /usr/bin/passwd -l %{package_name} >/dev/null
-  exit 0
-fi
-# Old NOCpulse packages has home in /home/nocpulse.
-# We need to migrate them to new place.
-if getent passwd %{package_name} >/dev/null && [ -d /home/nocpulse ]; then
-  /usr/sbin/usermod -d %{_var}/lib/%{package_name} -m nocpulse
-  rm -rf %{_var}/lib/nocpulse/bin
-  rm -rf %{_var}/lib/nocpulse/var
-fi
-# if user already exist (rhnmd create it too) add nocpulse to apache group
+getent group %{package_name} >/dev/null || groupadd -r %{package_name}
+getent passwd %{package_name} >/dev/null || \
+useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
+/usr/bin/passwd -l %{package_name} >/dev/null
+
+# if user already exists (rhnmd creates it too) add nocpulse to apache group
 getent group apache | grep nocpulse >/dev/null || usermod -G apache nocpulse
 
 %post
+# migrate things from /home/nocpulse to /var/lib/nocpulse and /var/log/nocpulse
+if [ `getent passwd nocpulse|awk -F ':' '{ print $6 }'` = "/home/nocpulse" ]; then
+  # /var/lib/nocpulse is new homedir for nocpulse user
+  usermod -d %{_var}/lib/%{package_name} nocpulse
+  [ -f /home/nocpulse/etc/SatCluster.ini ] && mv /home/nocpulse/etc/SatCluster.ini %{_sysconfdir}/nocpulse
+  mv /home/nocpulse/.ssh/* %{_var}/lib/%{package_name}/.ssh
+  mv /home/nocpulse/.bash* /home/nocpulse/var/*.db \
+     /home/nocpulse/var/scheduler.xml /home/nocpulse/var/events.frozen \
+     %{_var}/lib/%{package_name}
+  # log files into /var/log/nocpulse
+  mv /home/nocpulse/var/*.log /home/nocpulse/var/archives/* \
+     %{_var}/log/%{package_name} 2> /dev/null
+fi
+
 if [ ! -f %{identity} ]
 then
     /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
