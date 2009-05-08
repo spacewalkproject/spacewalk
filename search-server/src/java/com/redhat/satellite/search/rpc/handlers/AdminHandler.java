@@ -46,10 +46,7 @@ public class AdminHandler {
     /**
      * Causes the task associated with the indexName to run and index new data.
      *
-     * @param sessionId
      * @param indexName
-     * @param uniqField
-     * @param id
      * @return true if index update is scheduled, false if unable to schedule.
      */
     public boolean updateIndex(String indexName) {
