@@ -36,8 +36,8 @@ use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
 use constant SHARED_DIR => "/usr/share/spacewalk";
 
-use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile(SHARED_DIR, 
-    'schema', 'postgresql', 'main.sql');
+use constant POSTGRESQL_SCHEMA_FILE => File::Spec->catfile("/etc", "sysconfig", 
+    'rhn', 'postgres', 'main.sql');
 
 use constant DEFAULT_ANSWER_FILE_GLOB =>
   SHARED_DIR . '/setup/defaults.d/*.conf';
