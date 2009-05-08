@@ -13,13 +13,13 @@ echo ""
 
 # Watchout for the vendor_perl dir here, this is ok for RHEL 5 and thus probably CentOS 5, 
 # but this is beyond fragile:
-scp ./spacewalk/setup/lib/Spacewalk/Setup.pm $SWHOST:/usr/lib/perl5/vendor_perl/5.8.8/Spacewalk/Setup.pm
-scp -r ./web/modules/rhn/RHN/ $SWHOST:/usr/lib/perl5/site_perl/5.8.8/
-scp -r ./web/modules/pxt/PXT/ $SWHOST:/usr/lib/perl5/site_perl/5.8.8/
+scp ./spacewalk/setup/lib/Spacewalk/Setup.pm $SWHOST:/usr/lib/perl5/vendor_perl/5.10.0/Spacewalk/Setup.pm
+scp -r ./web/modules/rhn/RHN/ $SWHOST:/usr/lib/perl5/vendor_perl/5.10.0/
+scp -r ./web/modules/pxt/PXT/ $SWHOST:/usr/lib/perl5/vendor_perl/5.10.0/
 scp ./spacewalk/setup/bin/spacewalk-setup $SWHOST:/usr/bin/spacewalk-setup
 
-ssh $SWHOST mkdir /usr/share/spacewalk/schema/
-scp -r ./schema/spacewalk/postgresql/ $SWHOST:/usr/share/spacewalk/schema/
+#ssh $SWHOST mkdir /usr/share/spacewalk/schema/
+#scp -r ./schema/spacewalk/postgresql/ $SWHOST:/usr/share/spacewalk/schema/
 
 scp -r ./backend/server $SWHOST:/usr/share/rhn/
 scp -r ./backend/satellite_tools $SWHOST:/usr/share/rhn/
