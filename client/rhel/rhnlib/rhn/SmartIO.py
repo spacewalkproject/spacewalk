@@ -57,11 +57,30 @@ class SmartIO:
         return getattr(self._io, name)
 
 # Creates a temporary file and passes back its file descriptor
-def _tempfile(tmpdir='/tmp'):
+def _tempfile(tmpdir=None):
     import tempfile
+    if not tmpdir:
+        tmpdir = getDefaultStorage()
     (fd, fname) = tempfile.mkstemp(prefix="_rhn_transports-%d-" \
                                    % os.getpid(), dir=tmpdir)
     # tempfile, unlink it
     os.unlink(fname)
     return os.fdopen(fd, "wb+")
 
+def getDefaultStorage():
+    """ Reads the default temp dir from up2date config.
+    if defined uses that else use /tmp. """
+    up2dateCfg = "/etc/sysconfig/rhn/up2date"
+    tmpdir = "/tmp"
+    try:
+        f = open(up2dateCfg)
+    except IOError:
+        return tmpdir
+    for line in f.readlines():
+        if line.startswith("tmpDir="): 
+            cfgdir = line.split("=")
+            if len(cfgdir) > 1:
+               tmpdir = cfgdir[-1].strip() or tmpdir
+    f.close()
+    # if tmpdir is still not acquired, default to /tmp
+    return tmpdir
