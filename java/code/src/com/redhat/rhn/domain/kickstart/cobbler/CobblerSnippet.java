@@ -30,7 +30,7 @@ import java.io.File;
  * CobblerSnippet - Class representation of a Cobbler snippet
  * @version $Rev: 1 $
  */
-public class CobblerSnippet implements Comparable<CobblerSnippet> {
+public class CobblerSnippet implements Comparable {
     private File path;
     private Org org;
 
@@ -313,17 +313,6 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
         }
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public int compareTo(CobblerSnippet o) {
-        if (equals(o)) {
-            return 0;
-        }
-        return this.path.compareTo(o.path);
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -348,5 +337,16 @@ public class CobblerSnippet implements Comparable<CobblerSnippet> {
         HashCodeBuilder b = new HashCodeBuilder();
         b.append(getPath());
         return b.toHashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int compareTo(Object o) {
+        if (equals(o)) {
+            return 0;
+        }
+        CobblerSnippet that = (CobblerSnippet) o;
+        return that.getPath().compareTo(getPath());
     }    
 }
