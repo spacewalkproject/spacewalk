@@ -198,6 +198,14 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         catch (InvalidEntitlementException e) {
             // expected
         }
+
+        try {
+            handler.listSoftwareEntitlements(adminKey, "nosuchfamily", Boolean.TRUE);
+            fail();
+        }
+        catch (InvalidEntitlementException e) {
+            // expected
+        }
     }
 
     public void testListSoftwareEntitlementsForOrgNoSuchOrg() throws Exception {
@@ -207,6 +215,68 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
         catch (NoSuchOrgException e) {
             // expected
+        }
+    }
+
+    public void testListSoftwareEntitlements() throws Exception {
+        // Spacewalk servers have no software entitlements:
+        if (Config.get().isSpacewalk()) {
+            return;
+        }
+
+        Org testOrg = createOrg();
+        ChannelFamily cf = lookupRedHatChannelFamily();
+
+        // test the entitlement api before the entitlement has been assigned to the org
+        List<OrgSoftwareEntitlementDto> entitlementCounts = null;
+
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
+            Boolean.TRUE);
+        // since includeUnentitled=TRUE, we should find an entry for the org w/ 0 ents
+        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+            entitlementCounts, 0, true);
+
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
+            Boolean.FALSE);
+        // since includeUnentitled=FALSE, we shouldn't be able to locate the org
+        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+            entitlementCounts, 0, false);
+
+        // now give the org some entitlements
+        int result = handler.setSoftwareEntitlements(adminKey,
+                       testOrg.getId().intValue(), cf.getLabel(), 1);
+        assertEquals(1, result);
+
+        // now that the org has the entitlement, we should find it entitled with
+        // both variations of the api call
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
+            Boolean.TRUE);
+        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+            entitlementCounts, 1, true);
+
+        entitlementCounts = handler.listSoftwareEntitlements(adminKey, cf.getLabel(),
+            Boolean.FALSE);
+        assertOrgSoftwareEntitlement(testOrg.getId(), cf.getLabel(),
+            entitlementCounts, 1, true);
+    }
+
+    private void assertOrgSoftwareEntitlement(Long orgId, String channelFamilyLabel,
+            List<OrgSoftwareEntitlementDto> entitlementCounts, int expectedAllocation,
+            boolean orgShouldExist) {
+
+        boolean found = false;
+
+        for (OrgSoftwareEntitlementDto counts : entitlementCounts) {
+
+            if (!counts.getOrg().getId().equals(orgId)) {
+                continue;
+            }
+            // Found our org, check it's allocation
+            found = true;
+            assertEquals(expectedAllocation, counts.getMaxMembers().intValue());
+        }
+        if (!found && orgShouldExist) {
+            fail("unable to find org: " + orgId);
         }
     }
 
@@ -389,6 +459,62 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         }
     }
 
+    public void testListSystemEntitlements() throws Exception {
+        Org testOrg = createOrg();
+        String systemEnt = EntitlementManager.ENTERPRISE_ENTITLED;
+
+        // test the entitlement api before the entitlement has been assigned to the org
+        List<Map> entitlementCounts = null;
+
+        entitlementCounts = handler.listSystemEntitlements(adminKey, systemEnt,
+            Boolean.TRUE);
+        // since includeUnentitled=TRUE, we should find an entry for the org w/ 0 ents
+        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
+            entitlementCounts, 0, true);
+
+        entitlementCounts = handler.listSystemEntitlements(adminKey, systemEnt,
+           Boolean.FALSE);
+        // since includeUnentitled=FALSE, we shouldn't be able to locate the org
+        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
+           entitlementCounts, 0, false);
+
+        int result = handler.setSystemEntitlements(adminKey,
+            new Integer(testOrg.getId().intValue()), systemEnt, new Integer(1));
+        assertEquals(1, result);
+
+        // now that the org has the entitlement, we should find it entitled with
+        // both variations of the api call
+        entitlementCounts = handler.listSystemEntitlements(adminKey, systemEnt,
+            Boolean.TRUE);
+        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
+            entitlementCounts, 1, true);
+
+        entitlementCounts = handler.listSystemEntitlements(adminKey, systemEnt,
+            Boolean.FALSE);
+        assertOrgSystemEntitlement(testOrg.getId(), systemEnt,
+            entitlementCounts, 1, true);
+    }
+
+    private void assertOrgSystemEntitlement(Long orgId, String systemEntitlmentLabel,
+            List<Map> entitlementCounts, int expectedAllocation, boolean orgShouldExist) {
+
+        boolean found = false;
+
+        for (Map counts : entitlementCounts) {
+            Integer lookupOrgId = (Integer)counts.get("org_id");
+            if (lookupOrgId.longValue() != orgId.longValue()) {
+                continue;
+            }
+            // Found our org, check it's allocation:
+            found = true;
+            Integer total = (Integer)counts.get("allocated");
+            assertEquals(new Integer(expectedAllocation), total);
+        }
+        if (!found && orgShouldExist) {
+            fail("unable to find org: " + orgId);
+        }
+    }
+
     /**
      * Test both list entitlement calls by verifying the given org has the 
      * expected allocation for the given channel family.
@@ -399,11 +525,12 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
      */
     private void assertOrgSoftwareEntitlementCount(Long orgId, String channelFamilyLabel, 
             int expectedAllocation) {
-        List<OrgSoftwareEntitlementDto> entitlementCounts =
-                                handler.listSoftwareEntitlements(adminKey,
-                                                        channelFamilyLabel);
+
         boolean found = false;
         
+        List<OrgSoftwareEntitlementDto> entitlementCounts =
+            handler.listSoftwareEntitlements(adminKey, channelFamilyLabel);
+
         for (OrgSoftwareEntitlementDto counts : entitlementCounts) {
 
             if (!counts.getOrg().getId().equals(orgId)) {
