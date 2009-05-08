@@ -58,27 +58,10 @@ class SmartIO:
 
 # Creates a temporary file and passes back its file descriptor
 def _tempfile(tmpdir='/tmp'):
-    # Try to create the file a couple of times
-    filename = "%s/_rhn_transports-%d" % (tmpdir, os.getpid())
-    for i in range(5):
-        try:
-            fd = os.open(filename, os.O_CREAT | os.O_RDWR | os.O_EXCL)
-        except OSError, e:
-            if e.errno == 17:
-                # File exists
-                filename = "%s-%.5f" % (filename, time.time() % 10)
-                continue
-            # Another error, raise it
-            raise
-        else:
-            break
-    else:
-        # Failed to get the temp file
-        raise IOError, "Could not create temporary file"
+    import tempfile
+    (fd, fname) = tempfile.mkstemp(prefix="_rhn_transports-%d-" \
+                                   % os.getpid(), dir=tmpdir)
+    # tempfile, unlink it
+    os.unlink(fname)
+    return os.fdopen(fd, "wb+")
 
-    # To make sure it's a temp file, unlink it
-    os.unlink(filename)
-
-    # Convert the file descriptor into a stream
-    f = os.fdopen(fd, "wb+")
-    return f
