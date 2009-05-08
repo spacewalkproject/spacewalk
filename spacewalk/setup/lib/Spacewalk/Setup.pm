@@ -1241,7 +1241,7 @@ sub oracle_populate_db {
     }
 
     my $sat_schema_deploy =
-        File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+        File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
     my $logfile = DB_POP_LOG_FILE;
 
 #    my @opts = ('/usr/bin/rhn-populate-database.pl',
@@ -1277,9 +1277,9 @@ sub oracle_populate_db {
 sub oracle_populate_tablespace_name {
   my $tablespace_name = shift;
 
-  my $sat_schema = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.satellite.sql');
+  my $sat_schema = File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'main.sql');
   my $sat_schema_deploy =
-    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'oracle', 'deploy.sql');
 
   system_or_exit([ "/usr/bin/rhn-config-schema.pl",
 		   "--source=" . $sat_schema,
