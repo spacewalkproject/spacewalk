@@ -34,13 +34,16 @@ _query_action_verify_packages = rhnSQL.Statement("""
            pn.name name,
            pe.version version,
            pe.release release,
-           pe.epoch epoch
+           pe.epoch epoch,
+           pa.label arch
       from rhnActionPackage ap,
            rhnPackageName pn,
-           rhnPackageEVR pe
+           rhnPackageEVR pe,
+           rhnPackageArch pa
      where ap.action_id = :actionid
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
+       and ap.package_arch_id = pa.id
 """)
 def verify(serverId, actionId):
     log_debug(3)
@@ -53,10 +56,6 @@ def verify(serverId, actionId):
             (actionId, serverId))
 
     packages = []
-
-    # client expects arch, currently can't give it from rhnserverpackage...
-    # send down an empty one for now
-    empty_arch = ''
     
     for package in tmppackages:
             
@@ -64,7 +63,7 @@ def verify(serverId, actionId):
                          package['version'],
                          package['release'],
                          package['epoch'] or '',
-                         empty_arch])
+                         package['arch']])
 
     log_debug(4, packages)
     return packages
