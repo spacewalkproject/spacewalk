@@ -389,10 +389,11 @@ public class ChannelManager extends BaseManager {
         
         List<Org> allOrgs = OrgManager.allOrgs(user);
         for (Org org : allOrgs) {
+            Long maxPossibleAllocation = null;
+
             if (orgEntitlementUsage.containsKey(org.getId())) {
                 ChannelOverview co = orgEntitlementUsage.get(org.getId());
 
-                Long maxPossibleAllocation = null;
                 if (co.getMaxMembers() != null && 
                         satelliteOrgOverview.getFreeMembers() != null) {
                         maxPossibleAllocation = co.getMaxMembers() + 
@@ -403,8 +404,9 @@ public class ChannelManager extends BaseManager {
                 ret.add(seDto);
             }
             else {
+                maxPossibleAllocation = satelliteOrgOverview.getFreeMembers();
                 OrgSoftwareEntitlementDto seDto =
-                    new OrgSoftwareEntitlementDto(org, 0L, 0L, null);
+                    new OrgSoftwareEntitlementDto(org, 0L, 0L, maxPossibleAllocation);
                 ret.add(seDto);
             }
         }

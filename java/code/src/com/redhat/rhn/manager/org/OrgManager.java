@@ -269,10 +269,10 @@ public class OrgManager extends BaseManager {
                 emptyOrgData.put("label", entitlementLabel);
                 
                 // The reason we're here is because it has no entitlements, so use zero
-                emptyOrgData.put("total", 0);
+                emptyOrgData.put("total", 0L);
                 
                 // If there were no entitlements, none are used
-                emptyOrgData.put("usage", 0);
+                emptyOrgData.put("usage", 0L);
                 
                 // Upper limit takes into account the total, so we can use the calculated
                 // value from above in all of these cases
