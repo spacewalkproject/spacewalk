@@ -2594,7 +2594,8 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.InstallPatchSetAction"
         parameter="dispatch">
         <forward name="default"
-                 path="/systems/details/packages/patchsets/PatchSetList.do"/>
+                 path="/systems/details/packages/patchsets/PatchSetList.do"
+                 redirect="true"/>
     </action>
 
     <action path="/systems/details/packages/patches/PatchList"

@@ -467,7 +467,7 @@ public class ActionManager extends BaseManager {
         ActionFactory.save(patchAction);
 
         // for each item in the set create a package action detail
-        WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action");
+        WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action_no_arch");
         for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
             RhnSetElement rse = (RhnSetElement) itr.next();
             Map params = new HashMap();
@@ -478,7 +478,6 @@ public class ActionManager extends BaseManager {
         }       
         
         return patchAction;
-                                               
     }
     
     /**
@@ -511,7 +510,8 @@ public class ActionManager extends BaseManager {
         // for each item in the set create a package action detail
         for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
             RhnSetElement rse = (RhnSetElement) itr.next();
-            WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action");
+            WriteMode m = ModeFactory.getWriteMode("Action_queries",
+                "schedule_action_no_arch");
             Map params = new HashMap();
             params.put("action_id", patchAction.getId());
             params.put("name_id", rse.getElement());
@@ -520,7 +520,6 @@ public class ActionManager extends BaseManager {
         }       
         
         return patchAction;
-                                               
     }
 
     /**
@@ -545,7 +544,7 @@ public class ActionManager extends BaseManager {
 
         ActionFactory.save(patchSetAction);
 
-        WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action");
+        WriteMode m = ModeFactory.getWriteMode("Action_queries", "schedule_action_no_arch");
         Map params = new HashMap();
         params.put("action_id", patchSetAction.getId());
         params.put("name_id", patchSet.getPackageName().getId());
