@@ -1,5 +1,18 @@
 #!/bin/bash
 
+RUN_PRE="oracle-instantclient-selinux oracle-instantclient-sqlplus-selinux"
+RUN_POST="oracle-rhnsat-selinux oracle-xe-selinux spacewalk-monitoring-selinux jabberd-selinux osa-dispatcher-selinux"
+
+for prescript in $RUN_PRE ; do
+  j="/usr/sbin/$prescript-enable"
+  if [ -f "$j" ] ; then
+    echo "Running $j"
+    $j
+  fi
+done
+
+echo "Running $0"
+
 # Install SELinux policy modules
 for selinuxvariant in mls strict targeted
   do
@@ -15,4 +28,12 @@ for selinuxvariant in mls strict targeted
 
 /usr/sbin/setsebool -P httpd_enable_cgi 1
 /usr/sbin/setsebool -P httpd_can_network_connect 1
+
+for postscript in $RUN_POST ; do
+  j="/usr/sbin/$postscript-enable"
+  if [ -f "$j" ] ; then
+    echo "Running $j"
+    $j
+  fi
+done
 
