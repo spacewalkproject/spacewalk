@@ -8,11 +8,6 @@ use lib qw(/etc/rc.d/np.d);
 use PhysCluster;
 
 my $q = CGI->new;
-my $key = $q->param('scoutsharedkey');
-my $sat_record = SatNodeRecord->LoadOneFromSqlWithBind("SELECT sat_cluster_id FROM rhn_sat_node WHERE scout_shared_key = ?", [$key]);
-if (not $sat_record) {
-	print $q->header(-status => "403 Forbidden"), 'Your are not allowed to access this file.';
-}
 
 $NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 my $cluster = PhysCluster->newInitialized();
