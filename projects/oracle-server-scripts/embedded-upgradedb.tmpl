@@ -88,7 +88,16 @@ END;
 
 alter session set current_schema=RHNORA_DB_USER;
 select 'rdbms/admin/utlxplan.sql' script from dual;
-alter table plan_table rename to plan_table_9i;
+-- backup plan_table if exists
+declare
+ doesnt_exist exception;
+ pragma exception_init(doesnt_exist, -00942);
+begin
+ execute immediate 'alter table plan_table rename to plan_table_9i';
+exception
+ when doesnt_exist then null;
+end;
+/
 @?/rdbms/admin/utlxplan.sql
 
 disconnect
