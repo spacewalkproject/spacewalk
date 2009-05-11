@@ -3,7 +3,7 @@ Name:         SatConfig-installer
 Summary:      Satellite Configuration System - command line installer
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      3.24.5
+Version:      3.24.6
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -46,6 +46,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazriec <mzazrivec@redhat.com> 3.24.6-1
+- 498257 - migrate existing files into new nocpulse homedir
+
 * Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 3.24.5-1
 - change Source0 to point to fedorahosted.org (msuchy@redhat.com)
 
