@@ -72,7 +72,7 @@ except rhnLockfile.LockfileLockedException:
 
 try:
     # NOTE: importing
-    from satellite_tools import migrateSystemProfile
+    from utils import migrateSystemProfile
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError, e:
