@@ -152,18 +152,18 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <copy toDir="${run-external.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />
-          <include name="**/*.properties" />          
+          <include name="**/*.properties" />
       </fileset>
     </copy>
     </target>
-    
+
     <!-- Generates Eclipse classpath   -->
   <target name="gen-eclipse" depends="link-jars"
-				description = "Generates eclipse .classpath file">
+          description = "Generates eclipse .classpath file">
       <exec executable="${basedir}/scripts/gen-eclipse.py"
         output="${basedir}/.classpath" >
         <arg value="${eclipse.lib.dirs}:${rhn-home}/buildconf/tempjars:${env.JAVA_HOME}/lib/tools.jar" />
-	    <arg value="${eclipse.libsrc.dirs}" />
+        <arg value="${eclipse.libsrc.dirs}" />
     </exec>
   </target>
 
@@ -178,11 +178,11 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   <target name="test-deps">
     <condition property="missing-deps">
       <not>
-	<and>
-	  <available file="${build.lib.dir}" type="dir" />
-	  <available file="${run.lib.dir}" type="dir" />
-	  <available file="${test.lib.dir}" type="dir" />
-	</and>
+        <and>
+          <available file="${build.lib.dir}" type="dir" />
+          <available file="${run.lib.dir}" type="dir" />
+          <available file="${test.lib.dir}" type="dir" />
+        </and>
       </not>
     </condition>
   </target>
@@ -245,26 +245,26 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="cctarget"
           depends="init-cc,all,cc-test,test-report,coverage-report,comment-ratio-report,apidoc-jsp,jspcompile,javadoc"
-	      description="Target called by cruisecontrol process">
-  	<!-- parallel>
+          description="Target called by cruisecontrol process">
+    <!-- parallel>
     <antcall target="test-report" />
     <antcall target="coverage-report" />
     <antcall target="comment-ratio-report" />
-  	</parallel -->
+    </parallel -->
   </target>
 
-	<target name="cc-test" depends ="set-cc-config-dir, test"/>
+  <target name="cc-test" depends ="set-cc-config-dir, test"/>
 
-	<target name="set-default-config-dir">
-		<property name="rhn.config.dir" value="/etc/rhn" />
-	</target>
+  <target name="set-default-config-dir">
+    <property name="rhn.config.dir" value="/etc/rhn" />
+  </target>
 
-	<target name="set-cc-config-dir">
-	  	<property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
-	</target>	
+  <target name="set-cc-config-dir">
+    <property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
+  </target>
 
   <target name="testdebug">
-	<property name="debug"
+    <property name="debug"
               value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>
     <antcall target="dotest" />
   </target>
@@ -273,7 +273,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
         <property name="debug" value=""/>
         <antcall target="dotest"/>
   </target>
-	  		
+
   <target name="dotest"
       description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
       depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
@@ -329,53 +329,49 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </delete>
   </target>
 
- <target name="apidoc-singlepage" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="SinglePageDoclet" />
-        <property name="template.dir" value="singlepage" />
-         <antcall target="apidoc" />
-</target>
+  <target name="apidoc-singlepage" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="SinglePageDoclet" />
+    <property name="template.dir" value="singlepage" />
+    <antcall target="apidoc" />
+  </target>
 
+  <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="JSPDoclet" />
+    <property name="template.dir" value="jsp" />
+    <antcall target="apidoc" />
+  </target>
 
- <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
-	<property name="doclet.class" value="JSPDoclet" />	
-	<property name="template.dir" value="jsp" />
-	 <antcall target="apidoc" />
- </target>
+  <target name="apidoc-list" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="ListDoclet" />
+    <property name="template.dir" value="list" />
+    <antcall target="apidoc" />
+  </target>
 
- <target name="apidoc-list" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="ListDoclet" />
-        <property name="template.dir" value="list" />
-         <antcall target="apidoc" />
- </target>
+  <target name="apidoc-html" description="Generate the api for jsps" depends="init">
+    <property name="doclet.class" value="HtmlDoclet" />
+    <property name="template.dir" value="html" />
+    <antcall target="apidoc" />
+  </target>
 
+  <target name="apidoc" description="Generate the api documentation" depends="init">
+    <path id="javadocpath">
+    <path refid="buildjars" />
+      <pathelement location="build/classes" />
+    </path>
 
- <target name="apidoc-html" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="HtmlDoclet" />
-	<property name="template.dir" value="html" />
-         <antcall target="apidoc" />
- </target>
+    <mkdir dir="${report.dir}/apidocs" />
+    <mkdir dir="${report.dir}/apidocs/${template.dir}/" />
+    <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
+    <javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" additionalparam="-quiet">
+      <fileset dir="code" >
+        <include  name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
+        <include  name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
+        <include  name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" />
+      </fileset>
+      <excludepackage name="**/*" />
+    </javadoc>
 
-
- <target name="apidoc" description="Generate the api documentation" depends="init">
-	<path id="javadocpath">
-	    <path refid="buildjars" />
-	    <pathelement location="build/classes" />
-	 </path>
-
-	<mkdir dir="${report.dir}/apidocs" />
-	<mkdir dir="${report.dir}/apidocs/${template.dir}/" />	
-	 <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
-	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" additionalparam="-quiet">
- 	      <fileset dir="code" > 
-		
-        	<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
-		<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
-		<include  name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" /> 
-	     </fileset>
-	    <excludepackage name="**/*" />
-	</javadoc>
-
-</target>
+  </target>
 
 <target name="enforce" description="Check actions" depends="init">
         <path id="javadocpath">
@@ -384,7 +380,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
          </path>
 
         <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private" additionalparam="-quiet">
-	     <fileset dir="code" >
+             <fileset dir="code" >
                 <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
              </fileset>
             <excludepackage name="**/*" />
@@ -423,15 +419,15 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="javadoc-deploy" description="Locally deploy javadocs"
-	  depends="javadoc">
+          depends="javadoc">
     <delete quiet="true">
       <fileset dir="${javadoc.deploydir}"
-	       includes="**/*.html"
-	       followsymlinks="false"/>
+               includes="**/*.html"
+               followsymlinks="false"/>
     </delete>
     <copy todir="${javadoc.deploydir}">
       <fileset dir="${report.dir}/javadoc"
-	       includes="**/*.html" />
+               includes="**/*.html" />
     </copy>
   </target>
 
@@ -570,7 +566,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            memoryMaximumSize="256m"
            classpathref="buildjars" >
       <src>
-      	<path location="${build.dir}/src" />
+        <path location="${build.dir}/src" />
         <path location="code/src" />
         <path location="code/scripts/src" />
       </src>
@@ -596,9 +592,9 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
          <else>
              <copy tofile="${dest.log4j}" file="${src.dir}/src/log4j.properties"/>
          </else>
-     </if> 
+     </if>
  </target>
-  
+
   <target name="compile-notests" depends="link-jars,prepare"
           description="compiles the main codebase without testcases" if="installbuild">
     <mkdir dir="${build.dir}/classes" />
@@ -614,7 +610,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            memoryMaximumSize="256m"
            classpathref="alljars" >
       <src>
-      	<path location="${build.dir}/src" />
+        <path location="${build.dir}/src" />
         <path location="code/src" />
         <path location="code/scripts/src" />
       </src>
@@ -689,11 +685,11 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="invoke-tests-all" unless="testcaseorsubsystem">
     <antcall target="checkstyle" />
-    <run-junit include="**/test/*Test.class" 
+    <run-junit include="**/test/*Test.class"
                banner="all tests"
-               testbuilddir="${build.dir}/classes" 
+               testbuilddir="${build.dir}/classes"
                exclude="**/AuthenticationServiceTest.class"
-               classpathid="tests.runpath" 
+               classpathid="tests.runpath"
                reportdir="${testresults.dir}"/>
   </target>
 
@@ -746,8 +742,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <delete file="${megajar.jar}" />
     <jar destfile="${megajar.jar}">
       <fileset dir="${build.dir}/classes">
-	<!-- internal is not for publication; tlds go in META-INF;
-	     html go as javadoc elsewhere -->
+        <!-- internal is not for publication; tlds go in META-INF;
+             html go as javadoc elsewhere -->
         <exclude name="**/internal/**" />
         <exclude name="**/*.tld" />
         <exclude name="**/*.html" />
@@ -760,7 +756,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <!-- ugh, we can't flatten this like we would with a <copy> tag
            or use a mapper, alas -->
       <metainf dir="${build.dir}/classes/com/redhat/rhn/frontend/taglibs">
-	<include name="*.tld" />
+        <include name="*.tld" />
       </metainf>
     </jar>
   </target>
@@ -776,9 +772,9 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
         <classes dir="${build.dir}/classes">
             <include name="log4j.properties" />
         </classes>
-    	<lib dir="${run.lib.dir}">
-    		<include name="rhn.jar"/>
-    	</lib>
+        <lib dir="${run.lib.dir}">
+           <include name="rhn.jar"/>
+        </lib>
         <lib dir="${run-external.lib.dir}">
             <!-- Don't want the Oracle drivers which use JNI in the war. -->
             <exclude name="**/ojdbc*" />
@@ -898,10 +894,10 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
           toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
           overwrite="true" />
 
-	<copy file="${build.dir}/reports/apidocs/jsp/scripts.jsp"
+    <copy file="${build.dir}/reports/apidocs/jsp/scripts.jsp"
           toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc"
-          overwrite="true" />  	
-	
+          overwrite="true" />
+
     <copy toDir="${prefix}/var/lib/tomcat5/webapps/rhn/apidoc/handlers/">
         <fileset dir="${report.dir}/apidocs/jsp/handlers/" />
     </copy>
@@ -951,7 +947,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="make-eclipse-project" depends = "gen-eclipse"
-			description="Configures this checkout as an eclipse project.">
+          description="Configures this checkout as an eclipse project.">
     <copy toDir="${rhn-home}" overwrite="false">
       <fileset dir="${rhn-home}/conf/eclipse/">
         <include name=".project" />
