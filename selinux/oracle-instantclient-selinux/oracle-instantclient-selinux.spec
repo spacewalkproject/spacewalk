@@ -17,7 +17,6 @@ BuildArch:	noarch
 Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
 Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
 Requires:	oracle-instantclient-basic
-Requires:	oracle-instantclient-sqlplus
 Requires:	oracle-nofcontext-selinux
 
 %description
