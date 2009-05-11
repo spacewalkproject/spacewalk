@@ -51,7 +51,6 @@ Requires:       tsdb
 #for rhel4 we have no selinux policy, everything else should have
 %else
 Requires: spacewalk-monitoring-selinux
-Requires: oracle-instantclient-selinux 
 %endif
 
 Requires(post): chkconfig

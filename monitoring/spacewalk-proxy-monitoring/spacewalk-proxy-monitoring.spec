@@ -50,7 +50,6 @@ Requires: mod_perl
 #for rhel4 we have no selinux policy, everything else should have
 %else
 Requires: spacewalk-monitoring-selinux
-Requires: oracle-instantclient-selinux
 %endif
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
