@@ -98,6 +98,8 @@ public class CobblerDistroCommand extends CobblerCommand {
             nonXen.setKernel(tree.getKernelPath());
             nonXen.setKsMeta(ksmeta);
         }
+        xen.save();
+        nonXen.save();
     }
 
 
