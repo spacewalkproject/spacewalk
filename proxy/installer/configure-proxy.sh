@@ -20,6 +20,56 @@ options:
             For use only with --answer-file. If the --answer-file doesn't
             provide a required response, default answer is used.
 
+  --version=VERSION
+			Version of Spacewalk Proxy Server you want to activate.
+  --rhn-parent=RHN_PARENT
+			Your parent Spacewalk server.
+  --traceback-email=TRACEBACK_EMAIL
+			Email to which tracebacks should be sent.
+  --use-ssl=USE_SSL
+			1  if  Spacewalk  Proxy Server should communicate with parent over SSL. 
+			0 otherwise. Even if disabled, client can still use SSL to connect 
+			to Spacewalk Proxy Server.
+  --ca-chain=CA_CHAIN
+			The CA cert used to verify the ssl connection to parent.
+  --http-proxy=HTTP_PROXY
+			HTTP proxy in host:port format, e.g. squid.redhat.com:3128
+  --http-username=HTTP_USERNAME
+			The username for an authenticated proxy.
+  --http-password=HTTP_PASSWORD
+			The password to use for an authenticated proxy.
+  --ssl-org=SSL_ORG
+			Organization name to be used in SSL certificate.
+  --ssl-orgunit=SSL_ORGUNIT
+			Organization unit name to be used in SSL certificate.
+  --ssl-common=SSL_COMMON
+			Common name to be used in SSL certificate.
+  --ssl-city=SSL_CITY
+			City to be used in SSL certificate.
+  --ssl-state=SSL_STATE
+			State to be used in SSL certificate.
+  --ssl-country=SSL_COUNTRY
+			Two letters country code to be used in SSL certificate.
+  --ssl-email=SSL_EMAIL
+			Email to be used in SSL certificate.
+  --ssl-password=SSL_PASSWORD
+			Password to be used for SSL CA certificate.
+  --install-monitoring=Y
+			Y if monitoring should be installed. Any other value means that 
+			monitoring will not be installed.
+  --enable-scout=1
+			1 to enable monitoring scout, 0 otherwise.
+  --monitoring-parent=MONITORING_PARENT
+			Name of the parent for your scout. Usually the same value as in 
+			RHN_PARENT.
+  --monitoring-parent-ip=MONITORING_PARENT_IP
+			IP address of MONITORING_PARENT
+  --scout-shared-key=SCOUT_SHARED_KEY
+			Your scout shared key (can be found on the parent in 
+			/etc/rhn/cluster.ini as key scoutsharedkey).
+  --populate-config-channel=Y
+			Y if config chanel should be created and configuration files in that channel
+			updated. Configuration channel will be named rhn_proxy_config_\${SYSTEM_ID}.		
 HELP
 	exit
 }
@@ -29,8 +79,32 @@ INTERACTIVE=1
 while [ $# -ge 1 ]; do
 	case $1 in
             --help | -h)  print_help;;
-            --answer-file=*) . $(echo $1 | cut -d= -f2);;
+            --answer-file=*) . $(echo $1 | cut -d= -f2-);;
             --non-interactive) INTERACTIVE=0;;
+
+			--version=*) VERSION=$(echo $1 | cut -d= -f2-);;
+			--rhn-parent=*) RHN_PARENT=$(echo $1 | cut -d= -f2-);;
+			--traceback-email=*) TRACEBACK_EMAIL=$(echo $1 | cut -d= -f2-);;
+			--use-ssl=*) USE_SSL=$(echo $1 | cut -d= -f2-);;
+			--ca-chain=*) CA_CHAIN=$(echo $1 | cut -d= -f2-);;
+			--http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
+			--http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
+			--http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
+			--ssl-org=*) SSL_ORG=$(echo $1 | cut -d= -f2-);;
+			--ssl-orgunit=*) SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
+			--ssl-common=*) SSL_COMMON=$(echo $1 | cut -d= -f2-);;
+			--ssl-city=*) SSL_CITY=$(echo $1 | cut -d= -f2-);;
+			--ssl-state=*) SSL_STATE=$(echo $1 | cut -d= -f2-);;
+			--ssl-country=*) SSL_COUNTRY=$(echo $1 | cut -d= -f2-);;
+			--ssl-email=*) SSL_EMAIL=$(echo $1 | cut -d= -f2-);;
+			--ssl-password=*) SSL_PASSWORD=$(echo $1 | cut -d= -f2-);;
+			--install-monitoring=*) INSTALL_MONITORING=$(echo $1 | cut -d= -f2-);;
+			--enable-scout=*) ENABLE_SCOUT=$(echo $1 | cut -d= -f2-);;
+			--monitoring-parent=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
+			--monitoring-parent-ip=*) MONITORING_PARENT_IP=$(echo $1 | cut -d= -f2-);;
+			--scout-shared-key=*) SCOUT_SHARED_KEY=$(echo $1 | cut -d= -f2-);;
+			--populate-config-channel=*) POPULATE_CONFIG_CHANNEL=$(echo $1 | cut -d= -f2-);;
+			*) echo Error: Invalid option $1
     esac
     shift
 done
