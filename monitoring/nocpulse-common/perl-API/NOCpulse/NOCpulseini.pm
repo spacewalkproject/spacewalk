@@ -206,10 +206,8 @@ sub download_nocpulseini {
   my $self = shift;
   my $url  = shift;
 
-  my $cluster_config = NOCpulse::Config->new('/etc/rhn/cluster.ini');
-  my $ssk = $cluster_config->get('', 'scoutsharedkey');
   my $ua  = LWP::UserAgent->new();
-  my $res = $ua->post($url, { scoutsharedkey => $ssk });
+  my $res = $ua->get($url);
   if ($res->is_success) {
     $self->save($self->filename, $res->content);
   } else {
