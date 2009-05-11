@@ -91,6 +91,10 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
         KickstartSession ksession = 
             KickstartSessionTest.createKickstartSession(ksdata, user);
+        
+        ksession.setKstree(tree);
+        ksession.setKsdata(ksdata);
+        
         TestUtils.saveAndFlush(ksession);
         String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
 
@@ -119,6 +123,8 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         
         KickstartSession ksession = 
             KickstartSessionTest.createKickstartSession(ksdata, user);
+        ksession.setKstree(tree);
+        ksession.setKsdata(ksdata);
         TestUtils.saveAndFlush(ksession);
         String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
 
