@@ -1,7 +1,7 @@
 
 Name:		oracle-instantclient-selinux
 Version:	10.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	SELinux support for Oracle Instant Client
 Group:		System Environment/Base
 License:	GPLv2+
@@ -102,9 +102,11 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-sqlplus-enable
 
 %changelog
+* Mon May 11 2009 Jan Pazdziora 10.2-12
+- do not Require oracle-instantclient-sqlplus
+
 * Mon May 11 2009 Jan Pazdziora 10.2-11
-- oracle-instantclient-selinux: create oracle-instantclient-sqlplus-selinux
-  subpackage
+- create oracle-instantclient-sqlplus-selinux subpackage
 
 * Wed Apr 29 2009 Jan Pazdziora 10.2-10
 - Require oracle-instantclient-sqlplus
