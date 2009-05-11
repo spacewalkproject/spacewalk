@@ -48,7 +48,7 @@
           </tr>
           <tr>
               <th>
-                  <bean:message key="post.jsp.contents"/><span class="required-form-field">*</span>
+                  <rhn:required-field key="post.jsp.contents"/>
               </th>
               <td>
                   <html:textarea rows="10" cols="80" property="contents"/><br>

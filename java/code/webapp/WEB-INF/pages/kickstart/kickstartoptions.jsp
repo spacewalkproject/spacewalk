@@ -29,7 +29,7 @@
           <c:forEach items="${options}" var="option">                        
             <tr>
               <c:if test="${option.required}">              
-              <th>${option.name}<span class="required-form-field">*</span>:</th>
+              <th><rhn:required-field>${option.name}</rhn:required-field>:</th>
               </c:if>
               <c:if test="${not option.required}">
               <th>${option.name}:</th>

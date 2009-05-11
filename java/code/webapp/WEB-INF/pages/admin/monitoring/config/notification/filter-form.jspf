@@ -53,7 +53,7 @@ function showDestination() {
     <table class="details">
     <tr>
         <th>
-            <bean:message key="filter-form.jspf.description"/><span class="required-form-field">*</span>
+            <rhn:required-field key="filter-form.jspf.description"/>
         </th>
         <td>
             <html:text property="description" maxlength="25" size="25" />
@@ -182,7 +182,7 @@ function showDestination() {
         </td>
     </tr>
     <tr>
-        <th><bean:message key="filter-form.jspf.recurring_duration"/><span class="required-form-field">*</span></th>
+        <th><rhn:required-field key="filter-form.jspf.recurring_duration"/></th>
             <td>
 
                 <html:text property="recurring_duration" maxlength="2" size="2" /> 

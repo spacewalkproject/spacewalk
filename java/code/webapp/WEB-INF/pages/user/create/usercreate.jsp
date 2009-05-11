@@ -39,7 +39,7 @@
 
   <table class="details" align="center">
     <tr>
-      <th><bean:message key="desiredlogin" /><span class="required-form-field">*</span>:</th>
+      <th><rhn:required-field key="desiredlogin"/>:</th>
       <td>
         <html:text property="login" size="15" maxlength="45"/>
       </td>
@@ -82,7 +82,7 @@
   <h2><bean:message key="usercreate.accountInfo" /></h2>
   <table class="details" align="center">
     <tr>
-      <th><bean:message key="usercreate.names" /><span class="required-form-field">*</span>:</th>
+      <th><rhn:required-field key="usercreate.names"/>:</th>
       <td>
         <html:select property="prefix">
           <html:options collection="availablePrefixes"
@@ -96,15 +96,14 @@
     </tr>
 
     <tr>
-       <th><bean:message key="email" /><span class="required-form-field">*</span>:</th>
+       <th><rhn:required-field key="email"/>:</th>
        <td>
            <html:text property="email" size="20" />
        </td>
     </tr>
 <c:if test="${account_type == 'create_corporate'}" >
     <tr>
-      <th><bean:message key="userdetails.jsp.company" />
-        <span class="required-form-field">*</span>:
+      <th><rhn:required-field key="userdetails.jsp.company"/>:
       </th>
       <td>
         <html:text property="company" size="15" maxlength="100"/>

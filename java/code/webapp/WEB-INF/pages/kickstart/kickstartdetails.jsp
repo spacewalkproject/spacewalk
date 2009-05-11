@@ -29,7 +29,7 @@
       <table class="details">
 
           <tr>
-            <th><bean:message key="kickstartdetails.jsp.label" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="kickstartdetails.jsp.label"/>:</th>
             <td><html:text property="label" maxlength="64" size="32" /><br/> 
             <span class="small-text"><bean:message key="kickstartdetails.jsp.labelwarning" /></span></td>
           </tr>

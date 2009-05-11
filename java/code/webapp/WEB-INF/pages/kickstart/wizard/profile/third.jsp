@@ -54,13 +54,11 @@ function movePrevious() {
             <td colspan="2"><bean:message key="kickstart.jsp.create.wizard.third.heading1" /></td>
         </tr>
         <tr>
-            <th width="14%"><bean:message key="kickstart.root.password.jsp.label" />
-            												<span class="required-form-field">*</span>:</th>
+            <th width="14%"><rhn:required-field key="kickstart.root.password.jsp.label"/>:</th>
             <td><html:password property="rootPassword" /></td>
         </tr>
         <tr>
-        	<th width="14%"><bean:message key="kickstart.root.password.verify.jsp.label" />
-        													<span class="required-form-field">*</span>:</th>
+        	<th width="14%"><rhn:required-field key="kickstart.root.password.verify.jsp.label"/>:</th>
         	<td valign="bottom"><html:password property="rootPasswordConfirm" /></td>
         </tr>
         <tr>

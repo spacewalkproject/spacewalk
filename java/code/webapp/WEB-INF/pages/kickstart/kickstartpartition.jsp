@@ -27,7 +27,7 @@
       <table class="details">
           <tr>
               <th>
-                  <bean:message key="kickstart.partition.jsp.partitiondetails"/>:<span class="required-form-field">*</span>
+                  <rhn:required-field key="kickstart.partition.jsp.partitiondetails"/>:
               </th>
               <td>
                   <html:textarea rows="6" cols="80" property="partitions"/>

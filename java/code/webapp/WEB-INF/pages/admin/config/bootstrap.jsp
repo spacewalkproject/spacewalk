@@ -31,8 +31,7 @@
     <table class="details">
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.hostname"/>
-                <span class="required-form-field">*</span>:
+            <rhn:required-field key="bootstrap.jsp.hostname"/>:
         </th>
         <td>
             <html:text size="32" property="hostname" />
@@ -40,8 +39,7 @@
     </tr>
     <tr>
         <th>
-            <bean:message key="bootstrap.jsp.ssl-cert"/>
-                <span class="required-form-field">*</span>:
+            <rhn:required-field key="bootstrap.jsp.ssl-cert"/>:
         </th>
         <td>
             <html:text size="32" property="ssl-cert" />
