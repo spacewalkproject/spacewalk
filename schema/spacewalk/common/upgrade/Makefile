@@ -13,16 +13,28 @@
 # in this software or its documentation.
 #
 
-STYLE  := oracle
-DIRS   := $(notdir $(shell find . -mindepth 1 -maxdepth 1 -type d))
-BLEND  := ../../blend -as $(STYLE)
+ifndef STYLE
+STYLE := oracle
+$(warning STYLE not defined, using $(STYLE))
+endif
 
-$(DIRS) : FORCE
-	$(MAKE) -C $@/common
-	$(BLEND) -o $@.sql .
+ROOT    := ../../..
+UPGRADE := $(notdir $(shell pwd))
+COMMON  := $(ROOT)/common
+FLAGS   := STYLE=$(STYLE) COMMON=../$(COMMON)
+BLEND   := $(ROOT)/blend -as $(STYLE)
 
-clean : FORCE
-	rm -f *.sql
-	$(foreach d, $(DIRS), $(MAKE) -C $(d)/common $@)
+$(UPGRADE).sql : common
+	$(BLEND) -o $@
+	cp $@ ../
 
-FORCE:
+common :
+	@mkdir -p common
+	@cp $(COMMON)/Makefile common
+	@$(MAKE) -C common $(FLAGS) $(MAKEOVERRIDES)
+
+clean :
+	@rm -rf common
+	@rm -f $(UPGRADE).sql
+
+.PHONY : common clean

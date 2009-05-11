@@ -17,9 +17,9 @@
 
 
 
-@../tables/common/rhnSsmOperation.sql
+@../../tables/common/rhnSsmOperation.sql
 
-@../triggers/rhnSsmOperation.sql
+@../../triggers/rhnSsmOperation.sql
 
-@../tables/common/rhnSsmOperationServer.sql
+@../../tables/common/rhnSsmOperationServer.sql
 

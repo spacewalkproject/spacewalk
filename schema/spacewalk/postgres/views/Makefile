@@ -9,17 +9,27 @@
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 #
 
+ifndef COMMON
 COMMON  := ../../../common
-SUBDIR  := $(notdir $(shell cd ../; pwd))
-SOURCES := $(notdir $(wildcard $(COMMON)/$(SUBDIR)/*))
+endif
+ifndef NAME
+NAME  := $(notdir $(shell pwd))
+endif
+
+SOURCES := $(notdir $(wildcard $(COMMON)/$(NAME)/*))
 
 
-all : clean $(SOURCES)
+common : clean
+	@mkdir -p common
+	@cp Makefile common
+	@$(MAKE) -C common NAME=$(NAME) links
+
+links : $(SOURCES)
 
 %.sql %.deps :
-	ln -s $(COMMON)/$(SUBDIR)/$@ .
+	@ln -s $(COMMON)/$(NAME)/$@ .
 
 clean :
-	@find . -type l -delete
+	@rm -rf common
 
-FORCE:
+.PHONY: clean common

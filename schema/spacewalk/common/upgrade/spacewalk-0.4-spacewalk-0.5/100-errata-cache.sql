@@ -68,17 +68,17 @@ CREATE INDEX rhn_snc_speid_idx
     TABLESPACE [[128m_tbs]]
     NOLOGGING;
 
-@../views/common/rhnServerNeededPackageCache.sql
+@../../views/common/rhnServerNeededPackageCache.sql
 
-@../views/common/rhnServerNeededErrataCache.sql
+@../../views/common/rhnServerNeededErrataCache.sql
 
-@../views/rhnServerNeededView.sql
+@../../views/rhnServerNeededView.sql
 
-@../views/common/rhnServerErrataTypeView.sql
+@../../views/common/rhnServerErrataTypeView.sql
 
-@../procs/queue_server.sql
+@../../procs/queue_server.sql
 
-@../procs/delete_errata.sql
+@../../procs/delete_errata.sql
 
-@../procs/delete_server.sql
+@../../procs/delete_server.sql
 

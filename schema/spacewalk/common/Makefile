@@ -13,36 +13,35 @@
 
 ifndef STYLE
 STYLE := oracle
+$(warning STYLE not defined, using $(STYLE))
 endif
 ifndef COMMON
 COMMON := ../../../common
+$(warning COMMON not defined, using $(COMMON))
+endif
+ifndef NAME
+NAME := $(notdir $(shell cd ../; pwd))
 endif
 
-SRCDIR    := $(shell find $(COMMON) -name $(notdir $(shell cd ../; pwd)))
+SRCDIR    := $(shell find $(COMMON) -name $(NAME))
 SOURCES   := $(wildcard $(SRCDIR)/*)
 FILES     := $(notdir $(SOURCES))
-CHAMELEON := chameleon -fs $(STYLE) $(OPTS)
+CHAMELEON := chameleon -fs $(STYLE) $(CFLAGS)
+RMLINKS   := find . -type l -delete
+RMTRASH   := rm -f lextab* parsetab* parser.out
 
 
 all : links
-	$(MAKE) files
+	$(MAKE) $(MAKEOVERRIDES) files
 
 files : $(FILES)
-	@rm -f lextab*
-	@rm -f parsetab*
-	@rm -f parser.out
+	@$(RMTRASH)
 
 %.sql : %.cql
 	$(CHAMELEON) -o $@ $^
 
-links : FORCE
-	@find . -type l -delete
-	@$(foreach f,\
-	  $(SOURCES),\
-	  ln -s $f $(notdir $(f:.sql=.cql));)
+links :
+	@$(RMLINKS)
+	@$(foreach f,$(SOURCES),ln -s $f $(notdir $(f:.sql=.cql));)
 
-clean : FORCE
-	@find . -type l -delete
-	@rm -f *.sql
-
-FORCE:
+.PHONY : links

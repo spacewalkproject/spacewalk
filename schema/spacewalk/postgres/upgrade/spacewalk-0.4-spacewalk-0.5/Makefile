@@ -1,4 +1,6 @@
 #
+# Copyright (c) 2008 Red Hat, Inc.
+#
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
 # implied, including the implied warranties of MERCHANTABILITY or FITNESS
@@ -11,7 +13,6 @@
 # in this software or its documentation.
 #
 
-STYLE  := postgres
-COMMON := ../../../common
+STYLE := postgres
 
-include $(COMMON)/Makefile.common
+include ../../../common/upgrade/Makefile

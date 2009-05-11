@@ -26,9 +26,11 @@ ifndef SQLUSER
 SQLUSER := spacewalk
 endif
 
+STYLE   := postgres
 DIRS    := class types tables procs packages views triggers data
-BLEND   := ../blend -as postgres
-MKFILES := $(shell find . -mindepth 2 -name Makefile)
+BLEND   := ../blend -as $(STYLE)
+REPLTBS := sed -re "s/\[\[[^]]+\]\]/$(TBS)/g"
+MKFILES := $(shell find . -mindepth 2 -maxdepth 2 -name Makefile)
 
 
 main : tables views data upgrade
@@ -38,23 +40,23 @@ devel : main
 	$(BLEND) $(DIRS)
 	$(REPLTBS) main.sql > devel.sql
 
-tables : FORCE
-	$(MAKE) -C $@/common
+tables :
+	$(MAKE) -C $@
 
-data : FORCE
-	$(MAKE) -C $@/common
+data :
+	$(MAKE) -C $@
 
-views : FORCE
-	$(MAKE) -C $@/common
+views :
+	$(MAKE) -C $@
 
-upgrade : FORCE
+upgrade :
 	$(MAKE) -C $@
 
 install : main
 	sqlplus $(SQLUSER) @main
 
-clean : FORCE
+clean :
 	@rm -f main.sql
-	@$(foreach m, $(MKFILES), $(MAKE) -C $(dir $(m)) $@;)
+	@$(foreach m,$(MKFILES),$(MAKE) -C $(dir $(m)) $@;)
 
-FORCE:
+.PHONY: clean tables data views upgrade

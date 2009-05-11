@@ -1,4 +1,6 @@
 #
+# Copyright (c) 2008 Red Hat, Inc.
+#
 # This software is licensed to you under the GNU General Public License,
 # version 2 (GPLv2). There is NO WARRANTY for this software, express or
 # implied, including the implied warranties of MERCHANTABILITY or FITNESS
@@ -6,13 +8,16 @@
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 #
-# Red Hat trademarks are not licensed under GPLv2. No permission is
-# granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation.
-#
 
-STYLE  := oracle
-COMMON := ../../../../common
+COMMON = ../../common
+FLAGS  = STYLE=oracle COMMON=../$(COMMON)
 
-include $(COMMON)/Makefile.common
+common :
+	@mkdir -p common
+	@cp $(COMMON)/Makefile common
+	@$(MAKE) -C common $(FLAGS) $(MAKEOVERRIDES)
 
+clean :
+	@rm -rf common
+
+.PHONY : common clean

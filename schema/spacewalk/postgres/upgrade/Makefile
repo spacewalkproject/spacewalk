@@ -13,7 +13,15 @@
 # in this software or its documentation.
 #
 
-STYLE  := oracle
-COMMON := ../../common/
+STYLE    := postgres
+SUBDIRS  := $(shell find . -mindepth 1 -maxdepth 1 -type d)
+UPGRADES := $(notdir $(SUBDIRS))
 
-include $(COMMON)/upgrade/Makefile
+$(UPGRADES) :
+	$(MAKE) -C $@ STYLE=$(STYLE)
+
+clean :
+	rm -f *.sql
+	$(foreach d,$(UPGRADES),$(MAKE) -C $(d) $@)
+
+.PHONY: clean $(UPGRADES)

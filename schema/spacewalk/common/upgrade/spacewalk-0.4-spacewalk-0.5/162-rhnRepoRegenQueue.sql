@@ -17,7 +17,7 @@
 
 
 
-@../tables/common/rhnRepoRegenQueue.sql
+@../../tables/common/rhnRepoRegenQueue.sql
 
-@../triggers/rhnRepoRegenQueue.sql
+@../../triggers/rhnRepoRegenQueue.sql
 

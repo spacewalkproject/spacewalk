@@ -17,5 +17,5 @@
 
 
 
-@../packages/rhn_org.pkb
+@../../packages/rhn_org.pkb
 
