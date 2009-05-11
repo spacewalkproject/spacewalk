@@ -52,7 +52,6 @@ Requires:       tsdb
 %else
 Requires: spacewalk-monitoring-selinux
 Requires: oracle-instantclient-selinux 
-Requires: oracle-nofcontext-selinux
 %endif
 
 Requires(post): chkconfig
