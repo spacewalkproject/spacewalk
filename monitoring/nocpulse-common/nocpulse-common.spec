@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.12
+Version:      2.1.13
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -108,6 +108,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.1.13-1
+- 498257 - migrate existing files into new nocpulse homedir
+
 * Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.12-1
 - 499568 - require scout_shared_key for requesting NOCpulse.ini
 
