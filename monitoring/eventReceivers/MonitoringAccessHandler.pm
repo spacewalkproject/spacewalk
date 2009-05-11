@@ -8,6 +8,9 @@ use strict;
 use warnings;
 use Apache2::Const ':common';
 use NOCpulse::CF_DB;
+use Apache2::RequestRec;
+use Apache2::RequestUtil;
+use Apache2::Connection ();
 
 # Get the valid ip addresses for satellites/proxies allowed
 # to talk to this satellite
@@ -31,7 +34,7 @@ sub get_scout_ips {
 sub handler {
 #############
   my $r = shift;
-  return DECLINED unless $r->main;    # don't handle sub-requests
+  return DECLINED unless $r->is_initial_req;    # don't handle sub-requests
 
   # Update the list of valid ips in case someone added another monitoring
   # satellite or proxy

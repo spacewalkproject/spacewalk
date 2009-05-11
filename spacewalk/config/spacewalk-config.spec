@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.5.9
+Version: 0.6.4
 Release: 1%{?dist}
 URL: http://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -20,6 +20,8 @@ Requires(preun): chkconfig
 Requires(preun): initscripts
 # this is so we can set the password consistently across all jabberd configs
 Requires(pre): jabberd
+# We need package httpd to be able to assign group apache in files section
+Requires: httpd
 
 %define prepdir %{_sysconfdir}/sysconfig/rhn-satellite-prep
 
@@ -39,14 +41,12 @@ mkdir -p $RPM_BUILD_ROOT
 mv etc $RPM_BUILD_ROOT/
 mv var $RPM_BUILD_ROOT/
 
-ln -s ../../../httpd/conf/ssl.key/server.key $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/private/server.key
-ln -s ../../../httpd/conf/ssl.crt/server.crt $RPM_BUILD_ROOT%{_sysconfdir}/pki/tls/certs/server.crt
-
 tar -C $RPM_BUILD_ROOT%{prepdir} -cf - etc \
      --exclude=etc/tomcat5 \
      --exclude=etc/jabberd \
      | tar -C $RPM_BUILD_ROOT -xvf -
 
+echo "" > $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/rhn.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,14 +62,12 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/webapp-keyring.gpg
 %config(noreplace) %{_var}/lib/cobbler/kickstarts/spacewalk-sample.ks
 %config(noreplace) %{_var}/lib/cobbler/snippets/spacewalk_file_preservation
-%dir %{_sysconfdir}/rhn
+%attr(0750,root,apache) %dir %{_sysconfdir}/rhn
 %dir %{_sysconfdir}/rhn/satellite-httpd
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf
 %dir %{_sysconfdir}/rhn/satellite-httpd/conf/rhn
 %ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/cluster.ini
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/private/server.key
-%ghost %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/pki/tls/certs/server.crt
+%attr(0640,root,apache) %config(missingok,noreplace) %verify(not md5 size mtime) %{_sysconfdir}/rhn/rhn.conf
 # NOTE: If if you change these, you need to make a corresponding change in
 # spacewalk/install/Spacewalk-Setup/bin/spacewalk-setup
 %config(noreplace) %{_sysconfdir}/pki/tls/private/spacewalk.key
@@ -115,6 +113,23 @@ fi
 
 
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 0.6.4-1
+- Require httpd, we need the apache group for %files
+
+* Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 485355 - change perms of /etc/rhn/rhn.conf & /etc/rhn dir
+
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- 495722 - fixing issue where /ty/TOKEn wasnt being rendered properly
+  (jsherril@redhat.com)
+
+* Tue Apr 14 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- config: Remove duplicate symlinks to httpd crt and key. (dgoodwin@redhat.com)
+- 491668 - update Spacewalk Apache conf to support .htaccess
+  (bbuckingham@redhat.com)
+- 487563 - adding enable_snapshots config value to default rhn.conf as per docs
+  (jsherril@redhat.com)
+
 * Mon Mar 30 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.9-1
 - 487618 - fixing jabberd to use mysql db by default instead of sqlite
 

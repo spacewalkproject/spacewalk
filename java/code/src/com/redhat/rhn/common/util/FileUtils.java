@@ -15,6 +15,7 @@
 package com.redhat.rhn.common.util;
 
 import org.apache.log4j.Logger;
+import org.jfree.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,6 +26,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.io.Writer;
 
 
@@ -50,12 +52,12 @@ public class FileUtils {
      */
     public static void writeStringToFile(String contents, String path) {
         try {
-            File ksfile = new File(path);
-            if (ksfile.exists()) {
-                ksfile.delete();
+            File file = new File(path);
+            if (file.exists()) {
+                file.delete();
             }
-            ksfile.createNewFile();
-            Writer output = new BufferedWriter(new FileWriter(ksfile));
+            file.createNewFile();
+            Writer output = new BufferedWriter(new FileWriter(file));
             try {
               output.write(contents);
             }
@@ -64,7 +66,7 @@ public class FileUtils {
             }
         } 
         catch (Exception e) {
-            log.error("Error trying to write KS file to disk: [" + path + "]", e);
+            log.error("Error trying to write file to disk: [" + path + "]", e);
             throw new RuntimeException(e);
         }
     }
@@ -85,25 +87,20 @@ public class FileUtils {
         BufferedReader input;
         try {
             input = new BufferedReader(new FileReader(f));
+            StringWriter writer = new StringWriter();
+            IOUtils.getInstance().copyWriter(input, writer);
+            String contents = writer.toString();
+            if (log.isDebugEnabled()) {
+                log.debug("contents: " + contents);
+            }
+            return contents;
         }
         catch (FileNotFoundException e) {
             throw new RuntimeException("File not found: " + path);
         }
-        StringBuilder contents = new StringBuilder();
-        String line = null;
-        try {
-            while ((line = input.readLine()) != null) {
-                contents.append(line);
-                contents.append(System.getProperty("line.separator"));
-            }
-        }
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (log.isDebugEnabled()) {
-            log.debug("contents: " + contents);
-        }
-        return contents.toString();
     }
     
     /**

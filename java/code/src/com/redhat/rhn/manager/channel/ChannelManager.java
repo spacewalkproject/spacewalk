@@ -21,6 +21,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -143,7 +144,7 @@ public class ChannelManager extends BaseManager {
      * @param label   the label
      */
     public static void refreshWithNewestPackages(Channel channel, String label) {
-        ChannelFactory.refreshNewestPackageCache(channel, label);
+        refreshWithNewestPackages(channel.getId(), label);
     }
 
     /**
@@ -155,7 +156,11 @@ public class ChannelManager extends BaseManager {
      * @param label     the label
      */
     public static void refreshWithNewestPackages(Long channelId, String label) {
-        ChannelFactory.refreshNewestPackageCache(channelId, label);
+        Channel chan = ChannelFactory.lookupById(channelId);
+         ChannelFactory.refreshNewestPackageCache(channelId, label);
+         if (chan != null) {
+             ChannelManager.queueChannelChange(chan.getLabel(), label, label);
+         }
     }
     
     /**
@@ -290,12 +295,15 @@ public class ChannelManager extends BaseManager {
     }
     
     /**
-     * Given a channel family, this method  returns
-     *  entitlement information on a per org basis.
-     * @param cf the channel family
+     * Given a channel family, this method returns entitlement information on a per org
+     * basis. If a particular org does not have any entitlements in the family, it
+     * will <strong>not</strong> be listed.
+     * 
+     * @param cf   the channel family
      * @param user the user needed for access privilege
-     * @return the lists the entitlement information  for the given channel family
-     *          for all orgs.
+     * @return the lists the entitlement information for the given channel family
+     *         for all orgs that have <strong>at least one entitlement on the
+     *         family.</strong> 
      */
     public static List<OrgSoftwareEntitlementDto> 
                     listEntitlementsForAllOrgs(ChannelFamily cf, User user) {
@@ -337,6 +345,68 @@ public class ChannelManager extends BaseManager {
                 }                
                 OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto(org, 
                   co.getCurrentMembers(), co.getMaxMembers(), maxPossibleAllocation);
+                ret.add(seDto);
+            }
+        }
+        
+        return ret;
+    }
+    
+    /**
+     * Given a channel family, this method returns entitlement information on a per org
+     * basis. This call will return all organizations, even if it does not have any
+     * entitlements on the family.
+     * 
+     * @param cf   the channel family
+     * @param user the user needed for access privilege
+     * @return lists the entitlement information for the given channel family for
+     *         all orgs.
+     */
+    public static List<OrgSoftwareEntitlementDto> 
+                    listEntitlementsForAllOrgsWithEmptyOrgs(ChannelFamily cf, User user) {
+        List <OrgSoftwareEntitlementDto> ret = 
+                            new LinkedList<OrgSoftwareEntitlementDto>();
+        
+        List<ChannelOverview> entitlementUsage = ChannelManager.getEntitlementForAllOrgs(
+                cf.getId());
+        
+        // Create a mapping of org ID's to the channel overview returned, we'll need this
+        // when iterating the list of all orgs shortly:
+        Map<Long, ChannelOverview> orgEntitlementUsage = 
+            new HashMap<Long, ChannelOverview>();
+        for (ChannelOverview o : entitlementUsage) {
+            orgEntitlementUsage.put(o.getOrgId(), o);
+        }        
+        Org satelliteOrg = OrgFactory.getSatelliteOrg();
+        ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
+                                            satelliteOrg.getId(),
+                                            cf.getId());
+        if (satelliteOrgOverview == null) {
+            throw new RuntimeException("Satellite org does not" +
+                                "appear to have been allocated entitlement:" +
+                                cf.getId());
+        }
+        
+        List<Org> allOrgs = OrgManager.allOrgs(user);
+        for (Org org : allOrgs) {
+            Long maxPossibleAllocation = null;
+
+            if (orgEntitlementUsage.containsKey(org.getId())) {
+                ChannelOverview co = orgEntitlementUsage.get(org.getId());
+
+                if (co.getMaxMembers() != null && 
+                        satelliteOrgOverview.getFreeMembers() != null) {
+                        maxPossibleAllocation = co.getMaxMembers() + 
+                            satelliteOrgOverview.getFreeMembers();
+                }                
+                OrgSoftwareEntitlementDto seDto = new OrgSoftwareEntitlementDto(org, 
+                  co.getCurrentMembers(), co.getMaxMembers(), maxPossibleAllocation);
+                ret.add(seDto);
+            }
+            else {
+                maxPossibleAllocation = satelliteOrgOverview.getFreeMembers();
+                OrgSoftwareEntitlementDto seDto =
+                    new OrgSoftwareEntitlementDto(org, 0L, 0L, maxPossibleAllocation);
                 ret.add(seDto);
             }
         }
@@ -493,6 +563,22 @@ public class ChannelManager extends BaseManager {
         params.put("user_id", user.getId());
         
         DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
+
+    /**
+     * Returns a list of channels owned by the user.
+     *
+     * @param user cannot be <code>null</code>
+     * @return list of maps containing the channel data
+     */
+    public static DataResult ownedChannelsTree(User user) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "owned_channels_tree");
+
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+
+        DataResult dr = makeDataResult(params, params, null, m);
         return dr;
     }
     
@@ -1355,15 +1441,19 @@ public class ChannelManager extends BaseManager {
      * Finds the id of a child channel with the given parent channel id that contains
      * a package with the given name.  Will only find one child channel even if there are
      * many that qualify.
+     * @param org Organization of the current user.
      * @param parent The id of the parent channel
      * @param packageName The exact name of the package sought for.
      * @return The id of a single child channel found or null if nothing found. 
      */
-    public static Long findChildChannelWithPackage(Long parent, String packageName) {
+    public static Long findChildChannelWithPackage(Org org, Long parent, String
+            packageName) {
+
         SelectMode m = ModeFactory.getMode("Channel_queries", "channel_with_package");
         Map params = new HashMap();
         params.put("parent", parent);
         params.put("package", packageName);
+        params.put("org_id", org.getId());
         
         //whittle down until we have the piece we want.
         DataResult dr = m.execute(params);
@@ -1421,7 +1511,7 @@ public class ChannelManager extends BaseManager {
         //we know its the channel we want if it has the rhncfg package in it.
         Long bcid = current.getBaseChannel().getId();
         log.debug("found basechannel: " + bcid);
-        Long cid = ChannelManager.findChildChannelWithPackage(bcid, 
+        Long cid = ChannelManager.findChildChannelWithPackage(user.getOrg(), bcid,
                 packageName);
         if (cid == null) { // Didnt find it ..
             log.debug("didnt find a child channel with the package.");
@@ -2374,6 +2464,37 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * Remove packages from a channel very quickly
+     * @param chan the channel
+     * @param packageIds list of package ids
+     * @param user the user doing the removing
+     */
+    public static void removePackages(Channel chan, List<Long> packageIds, User user) {
+
+        if (!UserManager.verifyChannelAdmin(user, chan)) {
+            StringBuffer msg = new StringBuffer("User: ");
+            msg.append(user.getLogin());
+            msg.append(" does not have channel admin access to channel: ");
+            msg.append(chan.getLabel());
+
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException(msg.toString());
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.channel"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.channel"));
+            throw pex;
+        }
+
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+
+        WriteMode m = ModeFactory.getWriteMode("Channel_queries", "remove_packages");
+        m.executeUpdate(params, packageIds);
+
+        HibernateFactory.getSession().refresh(chan);
+
+    }
+
+    /**
      * Remove a set of erratas from a channel
      *      and remove associated packages
      * @param chan The channel to remove from
@@ -2402,8 +2523,23 @@ public class ChannelManager extends BaseManager {
         ChannelManager.refreshWithNewestPackages(chan, "Remove errata");
         ErrataCacheManager.deleteCacheEntriesForChannelPackages(chan.getId(), pids);
         ErrataCacheManager.deleteCacheEntriesForChannelErrata(chan.getId(), ids);
+        ChannelFactory.getSession().refresh(chan);
     }
 
+    /**
+     * List packages that are contained in an errata and in a channel
+     * @param chan The channel
+     * @param errata the Errata
+     * @return A list of PackageDto that are in the channel and errata
+     */
+    public static List<PackageDto> listErrataPackages(Channel chan, Errata errata) {
+        Map params = new HashMap();
+        params.put("cid", chan.getId());
+        params.put("eid", errata.getId());
 
+        SelectMode mode = ModeFactory.getMode(
+                "Channel_queries", "channel_errata_packages");
+        return (List<PackageDto>) mode.execute(params);
+    }
 
 }

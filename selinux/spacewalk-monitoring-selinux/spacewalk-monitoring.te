@@ -14,6 +14,7 @@ require {
 	type http_port_t;
 	type httpd_t;
 	type httpd_sys_script_t;
+	type port_t;
 }
 
 type spacewalk_monitoring_t;
@@ -114,6 +115,7 @@ allow spacewalk_monitoring_t http_port_t:tcp_socket name_connect;
 read_files_pattern(httpd_t, spacewalk_monitoring_conf_t, spacewalk_monitoring_conf_t)
 
 allow httpd_sys_script_t spacewalk_monitoring_conf_t:file { read ioctl getattr };
+allow httpd_sys_script_t node_t:udp_socket node_bind;
 
 auth_dontaudit_read_shadow(spacewalk_monitoring_t)
 
@@ -127,3 +129,15 @@ optional_policy(`
 	')
 ')
 
+netutils_domtrans_ping(spacewalk_monitoring_t)
+ssh_exec(spacewalk_monitoring_t)
+allow spacewalk_monitoring_t port_t:tcp_socket name_connect;
+allow ifconfig_t spacewalk_monitoring_var_lib_t:file append;
+
+create_files_pattern(httpd_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)
+allow httpd_t spacewalk_monitoring_log_t:lnk_file create;
+
+allow spacewalk_monitoring_t httpd_t:process signull;
+
+manage_dirs_pattern(spacewalk_monitoring_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)
+manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_log_t, spacewalk_monitoring_log_t)

@@ -55,6 +55,8 @@ class RhnCreateProfileWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.CreateProf
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.CreateProfilePage.__init__(self)
+        if rhnreg.registered():
+            self.skipme = True
 
     def updatePage(self):
         self.createProfilePagePrepare()

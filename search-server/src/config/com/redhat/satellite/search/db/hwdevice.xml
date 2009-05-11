@@ -8,22 +8,22 @@
     <select id="getHardwareDeviceById" parameterClass="java.util.Map"
         resultClass="com.redhat.satellite.search.db.models.HardwareDevice">
             SELECT
-                hw.id as id,
-                hw.server_id as serverId,
-                hw.class as classInfo,
-                hw.bus as bus,
-                hw.detached as detached,
-                hw.device as device,
-                hw.driver as driver,
-                hw.description as description,
-                hw.vendor_id as vendorId,
-                hw.device_id as deviceId,
-                hw.subvendor_id as subVendorId,
-                hw.subdevice_id as subDeviceId,
-                hw.pcitype as pciType
-            FROM rhnHwDevice hw
-            WHERE hw.id > #id#
-            ORDER by hw.id ASC
+                rd.id as id,
+                rd.server_id as serverId,
+                rd.class as classInfo,
+                rd.bus as bus,
+                rd.detached as detached,
+                rd.device as device,
+                rd.driver as driver,
+                rd.description as description,
+                rd.prop1 as vendorId,
+                rd.prop2 as deviceId,
+                rd.prop3 as subVendorId,
+                rd.prop4 as subDeviceId,
+                rd.pcitype as pciType
+            FROM rhnDevice rd
+            WHERE rd.id > #id#
+            ORDER by rd.id ASC
     </select>
 
 
@@ -47,7 +47,7 @@
         SELECT last_modified from rhnIndexerWork where object_type='hwdevice'
     </select>
     <select id="queryAllHwDeviceIds" resultClass="Long">
-        SELECT id from rhnHwDevice
+        SELECT id from rhnDevice
     </select>
     
 </sqlMap>

@@ -111,7 +111,7 @@ sub spawn {
     open(STDOUT, ">$f") or die "Couldn't create $f: $!";
 
     $f = sprintf($stderr, $$);
-    open(STDERR, ">$f") or die "Couldn't create $f: $!";
+    open(STDERR, ">>$f") or die "Couldn't create $f: $!";
 
 
     # Execute the command

@@ -94,8 +94,6 @@ public class PackagePushAction extends RhnSetAction {
         }
         //publish them and the errata to the channel
         errata = ErrataFactory.publishToChannel(errata, c, user, filePackages);
-        //not sure what this is here for, but i'm scrared to remove it
-        ErrataManager.refreshErrataFiles(c, errata);
         
         RhnSet targetChannels = RhnSetDecl.CHANNELS_FOR_ERRATA.get(user);
         targetChannels.removeElement(cid);

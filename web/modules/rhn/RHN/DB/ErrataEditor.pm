@@ -318,8 +318,8 @@ sub find_next_advisory {
   my $suffix = '';
   my $i = 1;
 
-  $adv = 'CL' . substr($adv, 2);
-  $adv_name = 'CL' . substr($adv_name, 2);
+  $adv = 'CL' . substr($adv, 3);
+  $adv_name = 'CL' . substr($adv_name, 3);
 
   if (advisory_exists($adv) || advisory_name_exists($adv_name)) {
     $suffix = sprintf("-%u", $i++);

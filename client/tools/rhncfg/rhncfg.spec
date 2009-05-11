@@ -8,7 +8,7 @@ Group:   Applications/System
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.5
+Version: 5.9.6
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -104,6 +104,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.6-1
+- handle orphaned GID's the same way as orphaned UID's (maxim@wzzrd.com)
+- update copyright and licenses (jesusr@redhat.com)
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.5-1
 - 430885 - gracefuly ignore dir diffs instead of treating them as missing files
 

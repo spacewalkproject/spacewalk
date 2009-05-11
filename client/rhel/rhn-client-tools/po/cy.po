@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cy\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-05 18:11-0500\n"
+"POT-Creation-Date: 2009-04-27 11:54-0400\n"
 "PO-Revision-Date: 2005-04-26 22:40+0100\n"
 "Last-Translator: Rhys Jones <rhys@sgwarnog.com>\n"
 "Language-Team: Cymraeg <cy@li.org>\n"
@@ -70,23 +70,23 @@ msgstr "Rhaid i chi redeg yr Asiant Diweddaru fel y gwraidd."
 msgid "There was some sort of I/O error: %s"
 msgstr "Bu rhyw fath o wall M/A: %s"
 
-#: ../src/up2date_client/hardware.py:880
+#: ../src/up2date_client/hardware.py:894
 msgid "Error reading cpu information:"
 msgstr "Problem wrth ddarllen gwybodaeth cpu:"
 
-#: ../src/up2date_client/hardware.py:887
+#: ../src/up2date_client/hardware.py:901
 msgid "Error reading system memory information:"
 msgstr "Gwall wrth ddarllen gwybodaeth cof y cysawd:"
 
-#: ../src/up2date_client/hardware.py:895
+#: ../src/up2date_client/hardware.py:909
 msgid "Error reading networking information:"
 msgstr "Gwall wrth ddarllen gwybodaeth rhwydwaith:"
 
-#: ../src/up2date_client/hardware.py:916
+#: ../src/up2date_client/hardware.py:930
 msgid "Error reading install method information:"
 msgstr "Gwall wrth ddarllen gwybodaeth dull gosod:"
 
-#: ../src/up2date_client/hardware.py:923
+#: ../src/up2date_client/hardware.py:937
 msgid "Error reading network interface information:"
 msgstr "Gwall wrth ddarllen gwybodaeth rhyngwyneb:"
 
@@ -110,7 +110,11 @@ msgstr "Ymgom Ie/Na:"
 msgid "Question dialog:"
 msgstr "Ymgom cwestiwn:"
 
-#: ../src/up2date_client/rhnChannel.py:123
+#: ../src/up2date_client/rhnChannel.py:110
+msgid "Unable to Locate SystemId"
+msgstr ""
+
+#: ../src/up2date_client/rhnChannel.py:127
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "Ni cheir diweddaru'r system yma nes ei bod yn gysylltiedig â sianel."
 
@@ -210,7 +214,7 @@ msgid "See /var/log/up2date for more information"
 msgstr "Anfon gwybodaeth _caledwedd"
 
 #: ../src/up2date_client/rhnreg_constants.py:12
-msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgid "Copyright © 2006  Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -838,25 +842,6 @@ msgstr ""
 msgid "A installation number was found on disk, but we "
 msgstr "Annilys yw'r rhif tanysgrifiad"
 
-#: ../src/up2date_client/rhnreg_constants.py:297
-msgid ""
-"were not able to activate it (An unknown error occurred.) We used existing "
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:298
-msgid ""
-"active subscription slots available in the rhn account instead. You may wish "
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:299
-msgid "to contact Red Hat customer service regarding this issue: "
-msgstr ""
-
-#: ../src/up2date_client/rhnreg_constants.py:300
-#, fuzzy
-msgid "http://www.redhat.com/apps/support/"
-msgstr "https://rhn.redhat.com"
-
 #. Error Messages.
 #: ../src/up2date_client/rhnreg_constants.py:303
 msgid "Fatal Error"
@@ -1038,185 +1023,180 @@ msgstr "Up2date - Gweithredu"
 msgid "There was an error while applying your choice."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:305
+#: ../src/up2date_client/rhnregGui.py:303
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:329
+#: ../src/up2date_client/rhnregGui.py:325
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Red Hat Network server."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:346
+#: ../src/up2date_client/rhnregGui.py:345
 #, fuzzy, python-format
 msgid "We could not contact Red Hat Network (%s)."
 msgstr "Anfon Gwybodaeth Broffil at Rwydwaith Red Hat"
 
-#: ../src/up2date_client/rhnregGui.py:348
-#: ../src/up2date_client/rhnregGui.py:361
+#: ../src/up2date_client/rhnregGui.py:347
+#: ../src/up2date_client/rhnregGui.py:360
 msgid "Make sure the network connection on this system is operational."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:350
+#: ../src/up2date_client/rhnregGui.py:349
 msgid ""
 "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
 "can enter a Satellite or Proxy location instead."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:356
+#: ../src/up2date_client/rhnregGui.py:355
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:358
+#: ../src/up2date_client/rhnregGui.py:357
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:371
+#: ../src/up2date_client/rhnregGui.py:370
 #, fuzzy
 msgid "There was an error communicating with Red Hat Network."
 msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
 
-#: ../src/up2date_client/rhnregGui.py:372
+#: ../src/up2date_client/rhnregGui.py:371
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:374
+#: ../src/up2date_client/rhnregGui.py:373
 msgid "You may be running a client that is incompatible with the server."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:417
+#: ../src/up2date_client/rhnregGui.py:419
 #, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
 "Satellite:"
 msgstr "Gwybodaeth gofrestru ar gyfer: "
 
-#: ../src/up2date_client/rhnregGui.py:466
+#: ../src/up2date_client/rhnregGui.py:468
 #, fuzzy
 msgid "You must enter a login."
 msgstr "Rhaid i chi roi eich enw olaf."
 
-#: ../src/up2date_client/rhnregGui.py:472
+#: ../src/up2date_client/rhnregGui.py:474
 #, fuzzy
 msgid "You must enter a password."
 msgstr "Rhaid i chi roi a gwirio cyfrinair."
 
-#: ../src/up2date_client/rhnregGui.py:486
+#: ../src/up2date_client/rhnregGui.py:488
 #, fuzzy
 msgid "There was an error while logging in."
 msgstr "Roedd problem wrth gofrestru'r system."
 
-#: ../src/up2date_client/rhnregGui.py:513
+#: ../src/up2date_client/rhnregGui.py:515
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
 
-#: ../src/up2date_client/rhnregGui.py:525
+#: ../src/up2date_client/rhnregGui.py:527
 #, fuzzy, python-format
 msgid ""
 "There was a problem logging in:\n"
 "%s"
 msgstr "Roedd problem wrth gofrestru'r system."
 
-#: ../src/up2date_client/rhnregGui.py:530
+#: ../src/up2date_client/rhnregGui.py:532
 #, fuzzy
 msgid "There was problem logging in."
 msgstr "Roedd problem wrth gofrestru'r system."
 
-#: ../src/up2date_client/rhnregGui.py:596
+#: ../src/up2date_client/rhnregGui.py:598
 #, fuzzy
 msgid "There was an error while getting the list of organizations."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:704
+#: ../src/up2date_client/rhnregGui.py:706
 #, fuzzy
 msgid "You must enter an installation number."
 msgstr "Rhaid i chi roi rhif cofrestru."
 
-#: ../src/up2date_client/rhnregGui.py:717
+#: ../src/up2date_client/rhnregGui.py:719
 #, fuzzy
 msgid "There was an error activating your number."
 msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru:\n"
 
-#: ../src/up2date_client/rhnregGui.py:759
+#: ../src/up2date_client/rhnregGui.py:761
 msgid "This installation number has already been activated."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:908
+#: ../src/up2date_client/rhnregGui.py:910
 #, fuzzy
 msgid "There was an error while assembling information for the profile."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:929
+#: ../src/up2date_client/rhnregGui.py:931
 msgid "Error running hardware profile"
 msgstr "Problem wrth redeg proffil caledwedd."
 
-#: ../src/up2date_client/rhnregGui.py:955
+#: ../src/up2date_client/rhnregGui.py:957
 #, fuzzy
 msgid "There was an error while populating the profile."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:975
+#: ../src/up2date_client/rhnregGui.py:977
 msgid "You must choose a name for this profile."
 msgstr "Rhaid i chi ddewis enw ar gyfer y proffil yma."
 
-#: ../src/up2date_client/rhnregGui.py:990
+#: ../src/up2date_client/rhnregGui.py:992
 #, fuzzy
 msgid "There was an error while creating the profile."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1001
+#: ../src/up2date_client/rhnregGui.py:1003
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "Yn anfon eich gwybodaeth broffil at Rwydwaith Red Hat.  Arhoswch."
 
-#: ../src/up2date_client/rhnregGui.py:1020
+#: ../src/up2date_client/rhnregGui.py:1022
 #, fuzzy
 msgid "Registering System"
 msgstr "Problem wrth gofrestru'r system."
 
-#: ../src/up2date_client/rhnregGui.py:1034
-#: ../src/up2date_client/rhnregGui.py:1038
-#: ../src/up2date_client/rhnregGui.py:1042 ../src/up2date_client/tui.py:1133
-#: ../src/up2date_client/tui.py:1136 ../src/up2date_client/tui.py:1139
+#: ../src/up2date_client/rhnregGui.py:1036
+#: ../src/up2date_client/rhnregGui.py:1040
+#: ../src/up2date_client/rhnregGui.py:1044 ../src/up2date_client/tui.py:1138
+#: ../src/up2date_client/tui.py:1141 ../src/up2date_client/tui.py:1144
 msgid "Problem registering system:\n"
 msgstr "Problem wrth gofrestru'r system:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1045
+#: ../src/up2date_client/rhnregGui.py:1047
 #, fuzzy, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr "Nid yw'r rhif tanysgrifiad [ %s] a roddwyd yn rhif tanysgrifiad dilys."
 
-#: ../src/up2date_client/rhnregGui.py:1046
-#, fuzzy
-msgid "registration_number"
-msgstr "rhifCofrestru"
-
-#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1145
+#: ../src/up2date_client/rhnregGui.py:1058 ../src/up2date_client/tui.py:1150
 msgid "Problem registering system."
 msgstr "Problem wrth gofrestru'r system."
 
-#: ../src/up2date_client/rhnregGui.py:1066 ../src/up2date_client/tui.py:1150
+#: ../src/up2date_client/rhnregGui.py:1068 ../src/up2date_client/tui.py:1155
 msgid "Problem writing out system id to disk."
 msgstr "Problem wrth ysgrifennu'r dynodiad system allan i ddisg."
 
-#: ../src/up2date_client/rhnregGui.py:1072
+#: ../src/up2date_client/rhnregGui.py:1074
 msgid "There was a problem registering this system."
 msgstr "Roedd problem wrth gofrestru'r system."
 
-#: ../src/up2date_client/rhnregGui.py:1085
+#: ../src/up2date_client/rhnregGui.py:1087
 #, fuzzy
 msgid "Sending hardware information"
 msgstr "Anfon gwybodaeth _caledwedd"
 
-#: ../src/up2date_client/rhnregGui.py:1090
+#: ../src/up2date_client/rhnregGui.py:1092
 #, fuzzy
 msgid "Problem sending hardware information."
 msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"
@@ -1230,99 +1210,99 @@ msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:1116
+#: ../src/up2date_client/rhnregGui.py:1118
 #, fuzzy
 msgid "Sending package information"
 msgstr "Anfon gwybodaeth _caledwedd"
 
-#: ../src/up2date_client/rhnregGui.py:1121
+#: ../src/up2date_client/rhnregGui.py:1123
 #, fuzzy
 msgid "Problem sending package information."
 msgstr "Problem wrth anfon rhestr becynnau."
 
-#: ../src/up2date_client/rhnregGui.py:1155
-#: ../src/up2date_client/rhnregGui.py:1172 ../src/up2date_client/tui.py:1164
-#: ../src/up2date_client/tui.py:1178
+#: ../src/up2date_client/rhnregGui.py:1157
+#: ../src/up2date_client/rhnregGui.py:1174 ../src/up2date_client/tui.py:1169
+#: ../src/up2date_client/tui.py:1183
 msgid "Problem registering personal information:\n"
 msgstr "Problem wrth gofrestru gwybodaeth bersonol:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1160
-#: ../src/up2date_client/rhnregGui.py:1177 ../src/up2date_client/tui.py:1170
-#: ../src/up2date_client/tui.py:1182
+#: ../src/up2date_client/rhnregGui.py:1162
+#: ../src/up2date_client/rhnregGui.py:1179 ../src/up2date_client/tui.py:1175
+#: ../src/up2date_client/tui.py:1187
 msgid "Problem registering personal information"
 msgstr "Problem wrth gofrestru gwybodaeth bersonol"
 
-#: ../src/up2date_client/rhnregGui.py:1222
+#: ../src/up2date_client/rhnregGui.py:1224
 #, fuzzy
 msgid "There was an error while installing the certificate."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1248
+#: ../src/up2date_client/rhnregGui.py:1250
 #, fuzzy
 msgid "You must select a certificate."
 msgstr "Rhaid i chi roi enw defnyddiwr."
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:1300
+#: ../src/up2date_client/rhnregGui.py:1302
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr ""
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:1310
+#: ../src/up2date_client/rhnregGui.py:1312
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1362
-#: ../src/up2date_client/rhnregGui.py:1363
 #: ../src/up2date_client/rhnregGui.py:1364
+#: ../src/up2date_client/rhnregGui.py:1365
+#: ../src/up2date_client/rhnregGui.py:1366
 msgid "unknown"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1452
+#: ../src/up2date_client/rhnregGui.py:1454
 #, fuzzy
 msgid "There was an error retrieving the privacy statement."
 msgstr "Gwall angheuol wrth nôl y datganiad preifatrwydd:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1458
+#: ../src/up2date_client/rhnregGui.py:1460
 msgid "Unable to access the server. Please check your network settings."
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1484
+#: ../src/up2date_client/rhnregGui.py:1486
 #, fuzzy
 msgid "There was an error getting the list of hardware."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1496 ../src/up2date_client/tui.py:910
+#: ../src/up2date_client/rhnregGui.py:1498 ../src/up2date_client/tui.py:910
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1500
+#: ../src/up2date_client/rhnregGui.py:1502
 #, python-format
 msgid "%s MB"
 msgstr ""
 
-#: ../src/up2date_client/rhnregGui.py:1544
+#: ../src/up2date_client/rhnregGui.py:1546
 #, fuzzy
 msgid "There was an error building the list of packages."
 msgstr "Bu gwall angheuol wrth arsefydlu'r pecyn:\n"
 
-#: ../src/up2date_client/rhnregGui.py:1559
+#: ../src/up2date_client/rhnregGui.py:1561
 msgid "Package"
 msgstr "Pecyn"
 
-#: ../src/up2date_client/rhnregGui.py:1564
+#: ../src/up2date_client/rhnregGui.py:1566
 msgid "Arch"
 msgstr "Bwa"
 
-#: ../src/up2date_client/rhnregGui.py:1571
+#: ../src/up2date_client/rhnregGui.py:1573
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr "Yn adeiladu rhestr o'r pecynnau RPM sydd ar eich system.  Arhoswch."
 
-#: ../src/up2date_client/rhnregGui.py:1602
+#: ../src/up2date_client/rhnregGui.py:1604
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
@@ -1330,7 +1310,7 @@ msgstr ""
 "Bu gwall wrth lwytho'ch cyfluniad.  Sicrhewch eich bod yn medru\n"
 "darllen /etc/sysconfig/rhn."
 
-#: ../src/up2date_client/rhnregGui.py:1644
+#: ../src/up2date_client/rhnregGui.py:1646
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
@@ -1339,7 +1319,7 @@ msgstr ""
 "Bu gwall wrth gadw'ch cyfluniad. Sicrhewch mai chi sy'n berchen\n"
 "%s."
 
-#: ../src/up2date_client/rhnregGui.py:1673
+#: ../src/up2date_client/rhnregGui.py:1675
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1393,11 +1373,6 @@ msgstr "Bu gwall wrth gyfathrebu â'r gweinydd cofrestru.  Dyma oedd y neges:\n"
 msgid "You must enter an Installation Number that "
 msgstr "Rhaid i chi roi rhif cofrestru."
 
-#: ../src/up2date_client/tui.py:690
-#, fuzzy
-msgid "activates subscriptions in your account."
-msgstr "Gwneud eich tanysgrifiad yn weithredol"
-
 #: ../src/up2date_client/tui.py:710
 msgid "Select Operating System Release"
 msgstr ""
@@ -1426,7 +1401,7 @@ msgstr ""
 
 #: ../src/up2date_client/tui.py:807
 msgid ""
-"Your system will be subscribed to the base software channel to receives all "
+"Your system will be subscribed to the base software channel to receive all "
 "available updates."
 msgstr ""
 
@@ -1543,50 +1518,46 @@ msgstr "Problem wrth gofrestru enw defnyddiwr:\n"
 msgid "Problem registering login name."
 msgstr "Problem wrth gofrestru enw defnyddiwr."
 
-#: ../src/up2date_client/tui.py:1192
+#: ../src/up2date_client/tui.py:1197
 msgid "Problem sending hardware profile:\n"
 msgstr "Problem wrth anfon proffil caledwedd:\n"
 
-#: ../src/up2date_client/tui.py:1196
+#: ../src/up2date_client/tui.py:1201
 msgid "Problem sending hardware profile."
 msgstr "Problem wrth anfon proffil caledwedd."
 
-#: ../src/up2date_client/tui.py:1205
+#: ../src/up2date_client/tui.py:1210
 msgid "Problem sending package list:\n"
 msgstr "Problem wrth anfon rhestr becynnau:\n"
 
-#: ../src/up2date_client/tui.py:1208
+#: ../src/up2date_client/tui.py:1213
 msgid "Problem sending package list."
 msgstr "Problem wrth anfon rhestr becynnau."
 
-#: ../src/up2date_client/tui.py:1281 ../src/up2date_client/tui.py:1286
+#: ../src/up2date_client/tui.py:1286 ../src/up2date_client/tui.py:1291
 msgid ", quantity:"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1390
+#: ../src/up2date_client/tui.py:1395
 msgid "You specified an invalid protocol."
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1391
-msgid "Only https and http are allowed."
-msgstr ""
-
-#: ../src/up2date_client/tui.py:1420
+#: ../src/up2date_client/tui.py:1425
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr ""
 "  <Tab>/<Eil-Tab> rhwng elfennau  |  <Gofodnod> i ddewis  |  <F12> sgrin "
 "nesaf"
 
-#: ../src/up2date_client/tui.py:1680
+#: ../src/up2date_client/tui.py:1685
 msgid "You must run the RHN registration program as root."
 msgstr "Rhaid i chi redeg y rhaglen gofrestru RHN fel y gwraidd."
 
-#: ../src/up2date_client/tui.py:1695 ../data/rh_register.glade.h:84
+#: ../src/up2date_client/tui.py:1700 ../data/rh_register.glade.h:84
 msgid "System software updates already set up"
 msgstr ""
 
-#: ../src/up2date_client/tui.py:1697
+#: ../src/up2date_client/tui.py:1702
 #, fuzzy
 msgid ""
 "\n"
@@ -1594,14 +1565,14 @@ msgid ""
 "Red Hat Network Location: "
 msgstr "Mewngofnodiad Rhwydwaith Red Hat"
 
-#: ../src/up2date_client/tui.py:1699
+#: ../src/up2date_client/tui.py:1704
 #, fuzzy
 msgid ""
 "\n"
 "RHN Login: "
 msgstr "Mewngofnod Red Hat"
 
-#: ../src/up2date_client/tui.py:1700
+#: ../src/up2date_client/tui.py:1705
 msgid ""
 "\n"
 "System ID: "
@@ -1841,119 +1812,116 @@ msgstr "Yn diweddaru proffil pecynnau..."
 msgid "Do not attempt to use X"
 msgstr "peidio â cheisio defnyddio X"
 
-#: ../src/bin/rhnreg_ks.py:43
+#: ../src/bin/rhnreg_ks.py:42
 msgid "Specify a profilename"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:45
+#: ../src/bin/rhnreg_ks.py:44
 msgid "Specify a username"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:47
+#: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a password"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:49
+#: ../src/bin/rhnreg_ks.py:48
 #, fuzzy
 msgid "Specify an email address"
 msgstr "Cyfeiriad ebost"
 
-#: ../src/bin/rhnreg_ks.py:51
+#: ../src/bin/rhnreg_ks.py:50
 msgid "Specify an organizational id for this system"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:53
+#: ../src/bin/rhnreg_ks.py:52
 #, fuzzy
 msgid "Specify a url to use as a server"
 msgstr "Penodwch ba url gweinydd i'w ddefnyddio"
 
-#: ../src/bin/rhnreg_ks.py:55
+#: ../src/bin/rhnreg_ks.py:54
 #, fuzzy
 msgid "Specify a file to use as the ssl CA cert"
 msgstr ""
 "    --sslCACert=<llwybr>       - penodwch ffeil i'w defnyddio fel y tyst ssl "
 "CA"
 
-#: ../src/bin/rhnreg_ks.py:57
+#: ../src/bin/rhnreg_ks.py:56
 #, fuzzy
 msgid "Specify an activation key"
 msgstr "Penodwch ddirprwy http i'w ddefnyddio"
 
-#: ../src/bin/rhnreg_ks.py:59
+#: ../src/bin/rhnreg_ks.py:58
 #, fuzzy
 msgid "Specify a installation number to use"
 msgstr "Does dim rhif tanysgrifiad gyda fi i'w wneud yn weithredol."
 
-#: ../src/bin/rhnreg_ks.py:61
+#: ../src/bin/rhnreg_ks.py:60
 msgid ""
 "Subscribe this system to the EUS channel tied to the system's redhat-release"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:63
+#: ../src/bin/rhnreg_ks.py:62
 #, fuzzy
-msgid "Read contact info from stdin"
+msgid "[Deprecated] Read contact info from stdin"
 msgstr "    --contactinfo              - darllen gwybodaeth gysylltu o stdin "
 
-#: ../src/bin/rhnreg_ks.py:65
+#: ../src/bin/rhnreg_ks.py:64
 #, fuzzy
 msgid "Do not probe or upload any hardware info"
 msgstr ""
 "    --nohardware               - peidio ag archwilio na llwytho i fyny "
 "unrhyw wybodaeth caledwedd "
 
-#: ../src/bin/rhnreg_ks.py:67
+#: ../src/bin/rhnreg_ks.py:66
 #, fuzzy
 msgid "Do not profile or upload any package info"
 msgstr ""
 "    --nopackages               - peidio â phroffilio na lanlwytho unrhyw "
 "wybodaeth pecynnau "
 
-#: ../src/bin/rhnreg_ks.py:69
+#: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:71
+#: ../src/bin/rhnreg_ks.py:70
 msgid "Do not start rhnsd after completion"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:73
+#: ../src/bin/rhnreg_ks.py:72
 #, fuzzy
 msgid "Register the system even if it is already registered"
 msgstr ""
 "    --force                    - cofrestru'r system hyd yn oed os yw'n "
 "gofrestredig yn barod"
 
-#: ../src/bin/rhnreg_ks.py:75
-msgid "Check RHN repo for emergency updates"
-msgstr ""
-
-#: ../src/bin/rhnreg_ks.py:89
+#: ../src/bin/rhnreg_ks.py:82
 #, fuzzy
 msgid "A username and password are required to register a system."
 msgstr ""
 "Mynnir enw defnyddiwr, cyfrinair a chyfeiriad e-bost ar gyfer cofrestru "
 "system."
 
-#: ../src/bin/rhnreg_ks.py:94
+#: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
 msgstr "Mae'r system yma'n gofrestredig yn barod. Defnyddiwch --force i orfodi"
 
-#: ../src/bin/rhnreg_ks.py:124
-#, python-format
-msgid "Invalid character in profilename %s at index %d"
-msgstr ""
-
-#: ../src/bin/rhnreg_ks.py:144
+#: ../src/bin/rhnreg_ks.py:130
 msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:147
+#: ../src/bin/rhnreg_ks.py:133
 msgid "The server you are registering against does not support EUS."
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:264
+#: ../src/bin/rhnreg_ks.py:163
+msgid ""
+"Warning: --contactinfo option has been deprecated. Please login to the "
+"server web user Interface and update your contactinfo. "
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:203
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
@@ -2549,6 +2517,18 @@ msgstr ""
 #: ../data/rh_register.glade.h:129
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr ""
+
+#, fuzzy
+#~ msgid "http://www.redhat.com/apps/support/"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "registration_number"
+#~ msgstr "rhifCofrestru"
+
+#, fuzzy
+#~ msgid "activates subscriptions in your account."
+#~ msgstr "Gwneud eich tanysgrifiad yn weithredol"
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "Gwall wrth ddarllen gwybodaeth caledwedd:"

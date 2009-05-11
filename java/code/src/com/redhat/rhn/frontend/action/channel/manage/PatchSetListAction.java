@@ -108,7 +108,7 @@ public class PatchSetListAction extends RhnListAction {
                 Logger logger = Logger.getLogger(this.getClass());
                 logger.fatal("SIZE" + chan.getPackageCount());
                 chan.removePackage(PackageFactory.lookupByIdAndOrg(itr.next(), 
-                        user.getOrg()));
+                        user.getOrg()), user);
             }
             
             ActionMessages msg = new ActionMessages();

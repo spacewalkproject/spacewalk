@@ -14,7 +14,7 @@
 
   <html:errors />
   <rhn:toolbar base="h1" img="/img/rhn-icon-packages.gif" imgAlt="packagesearch.jsp.imgAlt"
-               helpUrl="/rhn/help/reference/en/s2-sm-software-search.jsp">
+               helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp#s2-sm-software-search">
     <bean:message key="packagesbyname.jsp.toolbar"/>
   </rhn:toolbar>
   

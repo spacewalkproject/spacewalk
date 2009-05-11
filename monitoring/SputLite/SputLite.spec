@@ -5,7 +5,7 @@
 %define vardir         /var/lib/nocpulse
 Name:         SputLite
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.48.7
+Version:      0.48.10
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 URL:          https://fedorahosted.org/spacewalk
@@ -73,6 +73,11 @@ install -m 755 bin/execute_commands $RPM_BUILD_ROOT%bin/execute_commands
 mkdir -p $RPM_BUILD_ROOT%vardir/commands
 mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 
+%post client
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/commands/* 2>/dev/null | xargs -I file mv file %{vardir}/commands
+fi
+
 %files server
 %defattr(-,root,root,-)
 %attr(755, nocpulse, nocpulse) %dir %templatedir
@@ -93,6 +98,12 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.48.10-1
+- 498257 - migrate existing files into new nocpulse homedir
+
+* Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.48.9-1
+- 499568 - require scout_shared_key for requesting NOCpulse.ini
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.48.7-1
 - remove dead code (apachereg)
 

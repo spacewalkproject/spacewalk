@@ -24,6 +24,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.kickstart.KickstartAction;
+import com.redhat.rhn.domain.action.kickstart.KickstartGuestAction;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -41,6 +42,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
+import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.dto.ServerPath;
@@ -49,13 +51,16 @@ import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.BaseSystemOperation;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
 
 import java.util.Collections;
 import java.util.Date;
@@ -433,7 +438,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (log.isDebugEnabled()) {
             log.debug("got back from cobbler: " + dtos);
         }
+        retval.setTotalSize(retval.getTotalSize() + dtos.size());
         retval.addAll(dtos);
+
         return retval;
     }
     
@@ -564,14 +571,20 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 storeActivationKeyInfo();
             }
         }
-        Action kickstartAction =
-            (Action) this.scheduleKickstartAction(packageAction);
+        Action kickstartAction = this.scheduleKickstartAction(packageAction);
         ActionFactory.save(packageAction);
-        ActionFactory.save(kickstartAction);
+        
+        
         this.kickstartActionId = kickstartAction.getId();
         log.debug("** Created ksaction: " + kickstartAction.getId());
         
         scheduleRebootAction(kickstartAction);
+
+        String host = this.getKickstartServerName();
+        if (!StringUtils.isEmpty(this.getProxyHost())) {
+            host = this.getProxyHost();
+        }
+
         if (!cobblerOnly) {
             // Setup Cobbler system profile
             KickstartUrlHelper uhelper = new KickstartUrlHelper(ksdata);
@@ -584,6 +597,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                         ksdata, uhelper.
                         getKickstartMediaPath(kickstartSession),
                         tokenList);
+            cmd.setKickstartHost(host);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
@@ -593,11 +607,28 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             CobblerSystemCreateCommand cmd = 
                 new CobblerSystemCreateCommand(user, 
                         server, cobblerProfileLabel);
+            cmd.setKickstartHost(host);
             ValidatorError cobblerError = cmd.store();
             if (cobblerError != null) {
                 return cobblerError;
             }            
         }
+
+
+        SystemRecord rec = SystemRecord.lookupById(CobblerXMLRPCHelper.getConnection(
+                this.getUser().getLogin()), this.getServer().getCobblerId());
+
+        //This is a really really crappy way of doing this, but i don't want to restructure
+        //      the actions too much at this point :/
+        if (kickstartAction instanceof KickstartAction) {
+            ((KickstartAction) kickstartAction).getKickstartActionDetails().
+                                                    setCobblerSystemName(rec.getName());
+        }
+        else if (kickstartAction instanceof KickstartGuestAction) {
+            ((KickstartGuestAction) kickstartAction).getKickstartGuestActionDetails().
+                                                       setCobblerSystemName(rec.getName());
+        }
+        ActionFactory.save(kickstartAction);
 
         log.debug("** Done scheduling kickstart session");
         return null;
@@ -671,7 +702,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
 
         // Create a new activation key for the target system.
 
-        createKickstartActivationKey(this.user,
+        ActivationKey key = createKickstartActivationKey(this.user,
                                      this.ksdata, 
                                      getTargetServer(),
                                      this.kickstartSession,
@@ -769,6 +800,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (!isCobblerOnly()) {
             fileList = ksdata.getPreserveFileLists(); 
         }
+        String server = this.getKickstartServerName();
+        if (this.getProxyHost() != null) {
+            server = this.getProxyHost();
+        }
         KickstartAction ksAction =
             (KickstartAction) 
                 ActionManager.scheduleKickstartAction(fileList,
@@ -776,13 +811,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                       this.getHostServer(),
                                                       this.getScheduleDate(),
                                                       this.getExtraOptions(),
-                                                      this.getKickstartServerName());
+                                                      server);
 
         if (prereqAction != null) {
-            ksAction.setPrerequisite(prereqAction.getId());
+            ksAction.setPrerequisite(prereqAction);
         }
         ksAction.getKickstartActionDetails().setStaticDevice(this.getStaticDevice());
-        return (Action) ksAction;
+        return ksAction;
     }
 
     /**
@@ -797,7 +832,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         Action rebootAction = ActionManager.scheduleRebootAction(this.getUser(), 
                 this.getHostServer(), this.getScheduleDate());
         log.debug("** Created rebootAction");
-        rebootAction.setPrerequisite(prereqAction.getId());
+        rebootAction.setPrerequisite(prereqAction);
         rebootAction.setEarliestAction(this.getScheduleDate());
         rebootAction.setOrg(this.getUser().getOrg());
         rebootAction.setName(rebootAction.getActionType().getName());
@@ -891,25 +926,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ActivationKeyFactory.save(key);
         
-        // We are swapping base channels.  In this case 
-        // we only add the ksdata's base channel and the tools
-        // channel to the key.
-        if (server == null || (!server.getBaseChannel().getId().equals(
-                ksdata.getTree().getChannel().getId()))) {
-            log.debug("** We are switching base channels or server is null.  " +
-                    "Use base channel from Kickstart Tree: " + 
-                    ksdata.getTree().getChannel().getLabel());
-            log.debug("*** Channel ID: " + ksdata.getTree().getChannel().getId());
-            key.addChannel(ksdata.getTree().getChannel());
-        }
-        else {
-            log.debug("** We are keeping same base channel.  keeping channels");
-            // Add the System's channels to the key
-            Iterator i = server.getChannels().iterator();
-            while (i.hasNext()) {
-                key.addChannel((Channel) i.next());
-            }
-        }
+
         // Add child channels to the key
         if (ksdata.getChildChannels() != null && ksdata.getChildChannels().size() > 0) {
             Iterator i = ksdata.getChildChannels().iterator();
@@ -929,6 +946,24 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (toolsChannel != null) {
             key.addChannel(toolsChannel);
         }
+
+        //fix for bugzilla 450954
+        // We set the reactivation key's base channel to whatever
+        //   an activation key's is set to (assuming there is one)
+        Channel chan = null;
+        for (Token token : ksdata.getDefaultRegTokens()) {
+            if (token.getBaseChannel() != null) {
+                chan = token.getBaseChannel();
+                break;
+            }
+        }
+        if (chan != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Setting reactivation key's base chan to " + chan.getLabel());
+            }
+            key.setBaseChannel(chan);
+        }
+
         log.debug("** Saving new token");
         ActivationKeyFactory.save(key);
         log.debug("** Saved new token: " + key.getId());

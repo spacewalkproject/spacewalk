@@ -36,6 +36,7 @@ import com.redhat.rhn.frontend.xmlrpc.DuplicateErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryReleaseException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
 import com.redhat.rhn.frontend.xmlrpc.MissingErrataAttributeException;
 import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
@@ -182,13 +183,18 @@ public class ErrataHandler extends BaseHandler {
      *      #struct("erratum")
      *          #prop("string", "issue_date")
      *          #prop("string", "update_date")
-     *          #prop("string", "last_modified_date")
-     *          #prop("string", "description")
+     *          #prop_desc("string", "last_modified_date", "This date is only included for
+     *          published erratum and it represents the last time the erratum was 
+     *          modified.")
      *          #prop("string", "synopsis")
+     *          #prop("int", "release")
+     *          #prop("string", "type")
+     *          #prop("string", "product")
      *          #prop("string", "topic")
+     *          #prop("string", "description")
      *          #prop("string", "references")
      *          #prop("string", "notes")
-     *          #prop("string", "type")
+     *          #prop("string", "solution")
      *     #struct_end()
      */
     public Map getDetails(String sessionKey, String advisoryName) throws FaultException {
@@ -200,7 +206,6 @@ public class ErrataHandler extends BaseHandler {
         
         Map errataMap = new HashMap();
               
-
         if (errata.getIssueDate() != null) {
             errataMap.put("issue_date", 
                           LocalizationService.getInstance()
@@ -214,6 +219,13 @@ public class ErrataHandler extends BaseHandler {
         if (errata.getLastModified() != null) {
             errataMap.put("last_modified_date", errata.getLastModified().toString());
         }
+        if (errata.getAdvisoryRel() != null) {
+            errataMap.put("release", errata.getAdvisoryRel());
+        }
+        errataMap.put("product", 
+                StringUtils.defaultString(errata.getProduct()));
+        errataMap.put("solution", 
+                StringUtils.defaultString(errata.getSolution()));
         errataMap.put("description", 
                       StringUtils.defaultString(errata.getDescription()));
         errataMap.put("synopsis", 
@@ -226,6 +238,7 @@ public class ErrataHandler extends BaseHandler {
                       StringUtils.defaultString(errata.getNotes()));
         errataMap.put("type", 
                       StringUtils.defaultString(errata.getAdvisoryType()));
+        
      
         return errataMap;
     }
@@ -239,7 +252,8 @@ public class ErrataHandler extends BaseHandler {
      * @return 1 on success, exception thrown otherwise.
      * 
      * @xmlrpc.doc Set erratum details. All arguments are optional and will only be modified
-     * if included in the struct.
+     * if included in the struct. This method will only allow for modification of custom 
+     * errata created either through the UI or API.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.param 
@@ -272,9 +286,42 @@ public class ErrataHandler extends BaseHandler {
      */
     public Integer setDetails(String sessionKey, String advisoryName, Map details) {
 
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("synopsis");
+        validKeys.add("advisory_name");
+        validKeys.add("advisory_release");
+        validKeys.add("advisory_type");
+        validKeys.add("product");
+        validKeys.add("topic");
+        validKeys.add("description");
+        validKeys.add("references");
+        validKeys.add("notes");
+        validKeys.add("solution");
+        validKeys.add("bugs");
+        validKeys.add("keywords");
+        validateMap(validKeys, details);
+
+        validKeys.clear();
+        validKeys.add("id");
+        validKeys.add("summary");
+        if (details.containsKey("bugs")) {
+            for (Map<String, Object> bugMap :
+                 (ArrayList<Map<String, Object>>) details.get("bugs")) {
+
+                validateMap(validKeys, bugMap);
+            }
+        }
+
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
 
+        if (errata.getOrg() == null) {
+            // Errata in the null org should not be modified; therefore, this is
+            // considered an invalid errata for this request
+            throw new InvalidErrataException(errata.getAdvisoryName());
+        }
+        
         if (details.containsKey("synopsis")) {
             errata.setSynopsis((String)details.get("synopsis"));
         }
@@ -597,7 +644,8 @@ public class ErrataHandler extends BaseHandler {
      * given advisoryName cannot be found
      * 
      * @xmlrpc.doc Add a set of packages to an erratum
-     * with the given advisory name. 
+     * with the given advisory name. This method will only allow for modification
+     * of custom errata created either through the UI or API.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.param #array_single("int", "packageId")
@@ -610,6 +658,12 @@ public class ErrataHandler extends BaseHandler {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        if (errata.getOrg() == null) {
+            // Errata in the null org should not be modified; therefore, this is
+            // considered an invalid errata for this request
+            throw new InvalidErrataException(errata.getAdvisoryName());
+        }
         
         int packagesAdded = 0;
         for (Integer packageId : packageIds) {
@@ -647,7 +701,8 @@ public class ErrataHandler extends BaseHandler {
      * given advisoryName cannot be found
      * 
      * @xmlrpc.doc Remove a set of packages from an erratum
-     * with the given advisory name. 
+     * with the given advisory name.  This method will only allow for modification
+     * of custom errata created either through the UI or API.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string", "advisoryName")
      * @xmlrpc.param #array_single("int", "packageId")
@@ -660,6 +715,12 @@ public class ErrataHandler extends BaseHandler {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        if (errata.getOrg() == null) {
+            // Errata in the null org should not be modified; therefore, this is
+            // considered an invalid errata for this request
+            throw new InvalidErrataException(errata.getAdvisoryName());
+        }
         
         int packagesRemoved = 0;
         for (Integer packageId : packageIds) {
@@ -715,7 +776,7 @@ public class ErrataHandler extends BaseHandler {
         
         return errata;
     }    
-    
+
     /**
      * Clones a list of errata into a specified channel
      * 
@@ -850,6 +911,28 @@ public class ErrataHandler extends BaseHandler {
     public Errata create(String sessionKey, Map errataInfo,
             List bugs, List keywords, List packageIds, boolean publish, 
             List channelLabels) throws InvalidChannelRoleException {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("synopsis");
+        validKeys.add("advisory_name");
+        validKeys.add("advisory_release");
+        validKeys.add("advisory_type");
+        validKeys.add("product");
+        validKeys.add("topic");
+        validKeys.add("description");
+        validKeys.add("references");
+        validKeys.add("notes");
+        validKeys.add("solution");
+        validateMap(validKeys, errataInfo);
+
+        validKeys.clear();
+        validKeys.add("id");
+        validKeys.add("summary");
+        for (Map<String, Object> bugMap : (ArrayList<Map<String, Object>>) bugs) {
+            validateMap(validKeys, bugMap);
+        }
+
         User loggedInUser = getLoggedInUser(sessionKey);
         
         //Don't want them to publish an errata without any channels, 
@@ -881,13 +964,11 @@ public class ErrataHandler extends BaseHandler {
         newErrata = ErrataManager.createNewErrata();
         newErrata.setOrg(loggedInUser.getOrg());
         
-        
         //all required
         newErrata.setSynopsis(synopsis);
         newErrata.setAdvisory(advisoryName + "-" + advisoryRelease.toString());
         newErrata.setAdvisoryName(advisoryName);
         newErrata.setAdvisoryRel(new Long(advisoryRelease.longValue()));
-        
         
         if (advisoryType.equals("Security Advisory") || 
                 advisoryType.equals("Product Enhancement Advisory") ||
@@ -921,7 +1002,6 @@ public class ErrataHandler extends BaseHandler {
             String  keyword = (String) itr.next();
             newErrata.addKeyword(keyword);       
         }
-       
         
         newErrata.setPackages(new HashSet());        
         for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
@@ -946,7 +1026,35 @@ public class ErrataHandler extends BaseHandler {
             return newErrata;
         }
     }
-    
+
+    /**
+     * Delete an erratum.
+     * @param sessionKey session of the logged in user
+     * @param advisoryName The advisory Name of the erratum to delete
+     * @throws FaultException if unknown or invalid erratum is provided.
+     * @return 1 on success, exception thrown otherwise.
+     * 
+     * @xmlrpc.doc Delete an erratum.  This method will only allow for deletion
+     * of custom errata created either through the UI or API.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.returntype #return_int_success()
+     */ 
+    public Integer delete(String sessionKey, String advisoryName) 
+        throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+
+        if (errata.getOrg() == null) {
+            // Errata in the null org should not be modified; therefore, this is
+            // considered an invalid errata for this request
+            throw new InvalidErrataException(errata.getAdvisoryName());
+        }
+
+        ErrataManager.deleteErratum(loggedInUser, errata);
+        return 1;
+    }
+
     /**
      * Publishes an existing (unpublished) errata to a set of channels
      * @param sessionKey session of the logged in user

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -125,7 +126,20 @@ public class KickstartUrlHelper {
      * @return String url to kickstart file
      */
     public String getKickstartFileUrlBase() {
-        
+        return getKickstartFileUrlBase(ksData.getOrg(), host, protocol);
+    }
+
+    
+    /**
+     * The base for a kickstart URL including the org:
+     * 
+     * http://spacewalk.example.com/kickstart/ks/cfg/org/1/ 
+     * @param org the org of the kickstart data
+     * @param host the host name
+     * @param protocol the protocol used.
+     * @return  base url to kickstart file
+     */
+    public static String getKickstartFileUrlBase(Org org, String host, String protocol) {
         StringBuilder urlBase = new StringBuilder();
         urlBase.append(protocol);
         if (!protocol.endsWith("://")) {
@@ -133,9 +147,9 @@ public class KickstartUrlHelper {
         }
         urlBase.append(host);
         urlBase.append(KS_CFG + "/org/"); 
-        urlBase.append(ksData.getOrg().getId().toString());        
+        urlBase.append(org.getId().toString());        
         return urlBase.toString();
-    }
+    }    
     
     /**
      * Get the URL to the org_default for this Org.  Looks like this:
@@ -160,9 +174,22 @@ public class KickstartUrlHelper {
      * @return String URL 
      */
     public String getKickstartFileUrlIpRange() {
-        return getKickstartFileUrlBase() + "/mode/ip_range";
+        return getKickstartFileUrlIpRange(ksData.getOrg(), host, protocol);
     }
 
+    /**
+     * Get the URL for the ip_range file server. Example:
+     * 
+     * http://spacewalk.example.com/kickstart/ks/org/1/mode/ip_range
+     * @param org the org of the kickstart data
+     * @param host the host name
+     * @param protocol the protocol used.
+     * @return  base url to kickstart iprange file.
+     */
+    public static String getKickstartFileUrlIpRange(Org org, String host, String protocol) {
+        return getKickstartFileUrlBase(org, host, protocol) + "/mode/ip_range";
+    }    
+    
     /**
      * Get the --url parameter for this kickstart.  This is
      * the full url including media path:
@@ -206,7 +233,7 @@ public class KickstartUrlHelper {
      */
     public String getCobblerMediaUrl() {
         StringBuilder url = new StringBuilder();
-        url.append(protocol + host + "/$" + COBBLER_MEDIA_VARIABLE);
+        url.append(protocol + host + "$" + COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
     }

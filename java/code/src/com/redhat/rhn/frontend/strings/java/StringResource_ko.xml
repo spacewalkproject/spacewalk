@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>힌트 </target>
 			</trans-unit>
-			<trans-unit id="About RHN">
-				<source>About RHN</source>
-				<target>RHN 정보</target>
+			<trans-unit id="About Spacewalk">
+				<source>About</source>
+				<target>정보 </target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -226,6 +226,10 @@
 				<source>Change Email</source>
 				<target>이메일 변경</target>
 			</trans-unit>
+			<trans-unit id="frontend.actions.channels.manager.create">
+				<source>Create Software Channel</source>
+				<target>소프트웨어 채널 생성     </target>
+			</trans-unit>
 			<trans-unit id="Software Channel Entitlements">
 				<source>Software Channel Entitlements</source>
 				<target>소프트웨어 채널 인타이틀먼트</target>
@@ -258,9 +262,9 @@
 				<source>Config Channels</source>
 				<target>설정 채널</target>
 			</trans-unit>
-			<trans-unit id="Contact RHN">
-				<source>Contact RHN</source>
-				<target>RHN 문의</target>
+			<trans-unit id="Contact Spacewalk">
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@에 연락 </target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -334,9 +338,9 @@
 				<source>File Preservation</source>
 				<target>파일 보관 </target>
 			</trans-unit>
-			<trans-unit id="Get RHN Software">
-				<source>Get RHN Software</source>
-				<target>RHN 소프트웨어 받기</target>
+			<trans-unit id="Get Spacewalk Software">
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ 소프트웨어 받기 </target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,17 +398,17 @@
 				<source>Management</source>
 				<target>관리</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Guide">
-				<source>Management Satellite Guide</source>
-				<target>관리 Satellite 가이드</target>
+			<trans-unit id="Management Spacewalk Guide">
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>관리 @@PRODUCT_NAME@@ 가이드  </target>
 			</trans-unit>
-			<trans-unit id="Management Satellite">
-				<source>Management Satellite</source>
-				<target>관리 Satellite</target>
+			<trans-unit id="Management Spacewalk">
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>관리 @@PRODUCT_NAME@@  </target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Release Notes">
-				<source>Management Satellite Release Notes</source>
-				<target>관리 Satellite 릴리즈 노트</target>
+			<trans-unit id="Management Spacewalk Release Notes">
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>관리 @@PRODUCT_NAME@@ 릴리즈 노트  </target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -415,10 +419,6 @@
 				<target>소프트웨어 패키지 관리</target>
 			</trans-unit>
 			<trans-unit id="Monitoring">
-				<source>Monitoring</source>
-				<target>모니터링 (Monitoring) </target>
-			</trans-unit>
-			<trans-unit id="monitoring_entitled">
 				<source>Monitoring</source>
 				<target>모니터링 (Monitoring) </target>
 			</trans-unit>
@@ -490,13 +490,13 @@
 				<source>Published</source>
 				<target>발표된 에라타</target>
 			</trans-unit>
-			<trans-unit id="Purchase History">
-				<source>Purchase History</source>
-				<target>구매 기록</target>
-			</trans-unit>
 			<trans-unit id="Subscription Management">
 				<source>Subscription Management</source>
 				<target>서브스크립션 관리</target>
+			</trans-unit>
+			<trans-unit id="Organization Trusts">
+				<source>Organization Trusts</source>
+				<target>조직 신뢰도 </target>
 			</trans-unit>
 			<trans-unit id="Quick Start Guide">
 				<source>Quick Start Guide</source>
@@ -526,29 +526,21 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL 마이그레이션 FAQ</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Satellite Tools">
-				<source>RHN Management Satellite Tools</source>
-				<target>RHN 관리 Satellite 도구</target>
+			<trans-unit id="Spacewalk Management Tools">
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ 관리 도구 </target>
 			</trans-unit>
-			<trans-unit id="RHN Security">
-				<source>RHN Security</source>
-				<target>RHN 보안</target>
-			</trans-unit>
-			<trans-unit id="Red Hat Login">
-				<source>Red Hat Login</source>
-				<target>Red Hat 로그인</target>
+			<trans-unit id="Spacewalk Login">
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ 로그인 </target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>로그인 생성</target>
 			</trans-unit>
-			<trans-unit id="RHN Support Tools">
-				<source>RHN Support Tools</source>
-				<target>RHN 지원 도구</target>
-			</trans-unit>
-			<trans-unit id="Satellite Release Notes">
-				<source>Satellite Release Notes</source>
-				<target>Satellite 릴리즈 노트</target>
+			<trans-unit id="Spacewalk Support Tools">
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ 지원 도구  </target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -557,6 +549,10 @@
 			<trans-unit id="Scout Config Push">
 				<source>Scout Config Push</source>
 				<target>스카웃 설정 푸시</target>
+			</trans-unit>
+			<trans-unit id="Search">
+				<source>Search</source>
+				<target>검색      </target>
 			</trans-unit>
 			<trans-unit id="Sessions">
 				<source>Sessions</source>
@@ -702,6 +698,14 @@
 				<source>You may not delete yourself.</source>
 				<target>자신의 계정을 삭제할 수 없습니다.</target>
 			</trans-unit>
+			<trans-unit id="user.satadmin.remove">
+				<source>Removed Satellite Administrator role from {0}</source>
+				<target>{0}에서 제거된 Satellite 관리자 역할 </target>
+			</trans-unit>
+			<trans-unit id="user.satadmin.add">
+				<source>Added Satellite Administrator role to {0}</source>
+				<target>{0}로 추가된 Satellite 관리자 역할 </target>
+			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
 				<target>&lt;strong&gt;또 다른&lt;/strong&gt; 조직 관리자를 삭제하실 수 없습니다. 사용자 계정을 삭제하기 전에 해당 사용자의 '조직 관리자' 역할을 먼저 삭제하셔야 합니다.  </target>
@@ -738,10 +742,6 @@
 				<source>Your Preferences</source>
 				<target>사용자 환경 설정</target>
 			</trans-unit>
-			<trans-unit id="Your RHN">
-				<source>Your RHN</source>
-				<target>사용자 RHN</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>조직 신청자 </target>
@@ -763,12 +763,16 @@
 				<target>조직 관리자 </target>
 			</trans-unit>
 			<trans-unit id="Satellite Administrators">
-				<source>Satellite Administrators</source>
-				<target>Satellite 관리자 </target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 관리자  </target>
 			</trans-unit>
-			<trans-unit id="RHN Super Users">
-				<source>RHN Super Users</source>
-				<target>RHN 수퍼 사용자</target>
+			<trans-unit id="Spacewalk Administrators">
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 관리자  </target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Super Users">
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ 수퍼 사용자  </target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1039,8 +1043,8 @@
 				<target>거르기:</target>
 			</trans-unit>
 			<trans-unit id="message.range">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;</source>
-				<target>&lt;strong&gt;{2}&lt;/strong&gt; 중 &lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt;  </target>
+				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
+				<target>&lt;strong id="list_total"&gt;{2}&lt;/strong&gt; 중 &lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt;      </target>
 			</trans-unit>
 			<trans-unit id="message.range.withtypedescription">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
@@ -1177,8 +1181,8 @@
 				<target>파일 업로드:</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.message">
-				<source>This kickstart profile uses a base channel that is missing packages. In order for all kickstart functionality to work correctly, the following packages should be present in this kickstart's base channel: {0}.</source>
-				<target>킥스타트 프로파일은 패키지가 없는 기본 채널을 사용합니다. 모든 킥스타트의 기능이 올바르게 작동하게 하기 위해, 다음의 패키지가 킥스타트의 기본 채널에 있어야 합니다: {0}.</target>
+				<source>The following packages are not available in any of the channels associated to this kickstart profile: {0}. In order for all kickstart functionality to work correctly, these packages should be present in at least one channel associated to this profile.</source>
+				<target>다음 패키지는 킥트타트 프로파일과 관련된 채널에서 사용할 수 없습니다: {0}. 모든 킥스타트의 기능이 올바르게 작동하게 하기 위해, 이러한 패키지는 킥스타트 프로파일과 관련된 최소 하나의 채널에 있어야 합니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.satmessage">
 				<source>&lt;div style="text-align: left;"&gt;
@@ -1187,11 +1191,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Satellite administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Satellite. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1211,11 +1215,11 @@ available for this kickstart profile to function properly.
 &lt;ul&gt;
 &lt;li&gt;
 킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 소프트웨어 채널을
-조직에서 사용할 수 있습니까? 사용할 수 없을 경우, Satellite 관리자에게서
+조직에서 사용할 수 있습니까? 사용할 수 없을 경우, @@PRODUCT_NAME@@ 관리자에게서
 'rhn-tools' 소프트웨어 채널에 필요한 인타이틀먼트를 요청하셔야 합니다.
 &lt;/li&gt;
 &lt;li&gt;
-킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 채널을 Satellite에서 사용할
+킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 채널을 @@PRODUCT_NAME@@에서 사용할
  수 있는 지를 확인합니다. 사용할 수 없을 경우, satellite 관리자에게 연락하셔서
 rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅니다.
 &lt;/li&gt;
@@ -1229,7 +1233,7 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 없을 경우, 올바르게 작동하게 하기 위해 킥스타트 프로파일에서 사용할 수 있도록 합니다.
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;/div&gt;   </target>
+&lt;/div&gt;        </target>
 			</trans-unit>
 			<trans-unit id="kickstart.initiate">
 				<source>Initiate a kickstart</source>
@@ -1261,7 +1265,7 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			</trans-unit>
 			<trans-unit id="kickstart.details.nolabel">
 				<source>Kickstart profile label is required.</source>
-				<target>킥스타트 프로파일 레이블이 필요합니다.</target>
+				<target>킥스타트 프로파일 레이블이 필요합니다. </target>
 			</trans-unit>
 			<trans-unit id="kickstart.delete.success">
 				<source>Kickstart was deleted successfully.</source>
@@ -1274,6 +1278,10 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			<trans-unit id="kickstart.options.success">
 				<source>Kickstart advanced options successfully updated.</source>
 				<target>킥스타트 고급 옵션이 성공적으로 업데이트되었습니다.</target>
+			</trans-unit>
+			<trans-unit id="kickstart.options.url.note">
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
+				<target>&lt;strong&gt;알림:&lt;/strong&gt; 기본값 @@PRODUCT_NAME@@ 킥스타트 URL은 파일 경로로 저장되기 때문에 @@PRODUCT_NAME@@이 킥스타트 파일에서 렌더링되는 URL의 호스트이름을 동적으로 조장할 수 있습니다 (프록시의 경우). 파일 경로를 정규화된 URL로 변경하여 이 값을 사용자 정의할 수 있으며, 이 경우 정규화된 URL은 킥스타트 파일에 나타나게 됩니다.        </target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
@@ -1294,6 +1302,38 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			<trans-unit id="kickstart.iprange_delete.failure">
 				<source>There was an error deleting the IP Range from Kickstart Profile {0}. Please try again.</source>
 				<target>킥스타트 프로파일 {0}에서 IP 범위를 삭제하는데 오류가 발생했습니다. 다시 시도하시기 바랍니다.</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.update.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 업데이트되었습니다. </target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.create.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 생성되었습니다.   </target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.delete.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;이 성공적으로 삭제되었습니다.   </target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.couldnotdelete.message">
+				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+				<target>snippet &lt;strong&gt;{0}&lt;/strong&gt;을 삭제 시도할 경우 오류가 발생합니다.   </target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.rename-error">
+				<source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+				<target>snippet &lt;strong&gt;{0}&lt;/strong&gt;을 &lt;strong&gt;{1}&lt;/strong&gt;로 이름 변경 시도할 경우 오류가 발생합니다.      </target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.filenameexists.message">
+				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt;라는 이름을 갖는 Cobbler snippet이 이미 존재합니다. </target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.invalidfilename.message">
+				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+				<target>요청하신 Cobbler snippet 파일 이름이 잘못되었습니다. 유효한 문자는 A-Z, a-z, 0-9, _, - 입니다.  </target>
+			</trans-unit>
+			<trans-unit id="toolbar.delete.snippets">
+				<source>delete snippet</source>
+				<target>snippet 삭제  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange.url">
 				<source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -1360,16 +1400,16 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>Solaris 패키치 목록 재생</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>RHN Daemon Configuration</source>
-				<target>RHN 데몬 설정</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ 데몬 설정  </target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>디플로이된 패키지 검증</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an RHN Satellite</source>
-				<target>RHN Satellite에서 rhn-applet 사용 허용</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@과 함께 rhn-applet 사용 허용 RHN Satellite에서 rhn-applet 사용 허용</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1415,6 +1455,14 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>You must select at least one system.</source>
 				<target>최소 하나의 시스템을 선택해 주셔야 합니다.</target>
 			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.startdate">
+				<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
+				<target>시작 날짜를 구문 분석할 수 없습니다. yyyy-mm-dd 형식으로 다시 입력해 주십시오.  </target>
+			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.enddate">
+				<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
+				<target>종료 날짜를 구문 분석할 수 없습니다. yyyy-mm-dd 형식으로 다시 입력해 주십시오.  </target>
+			</trans-unit>
 			<trans-unit id="patchremoveconfirm.schedule">
 				<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
 				<target>&lt;strong&gt;{1}&lt;/strong&gt; 시스템을 위해 패치 삭제 작업이 스케줄되었습니다</target>
@@ -1456,8 +1504,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>조직 관리자 </target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Satellite Administrator</source>
-				<target>Satellite 관리자 </target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ 관리자  </target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1468,8 +1516,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>채널 관리자</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Red Hat Network Superuser</source>
-				<target>Red Hat Network 수퍼유저</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ 수퍼 유저 </target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1484,8 +1532,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>Coma CMS Publisher</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Red Hat Network Support Administrator</source>
-				<target>Red Hat Network 지원 관리자</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ 지원 관리자  </target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -1522,6 +1570,10 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			<trans-unit id="toolbar.create.filter">
 				<source>create new notification filter</source>
 				<target>새 통지 필터 생성</target>
+			</trans-unit>
+			<trans-unit id="toolbar.upload.kickstart">
+				<source>upload new kickstart file</source>
+				<target>새 킥스타트 파일 업로드  </target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.kickstart">
 				<source>create new kickstart profile</source>
@@ -1571,6 +1623,14 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>delete system</source>
 				<target>시스템 삭제</target>
 			</trans-unit>
+			<trans-unit id="toolbar.delete.systemgroup">
+				<source>delete group</source>
+				<target>그룹 삭제  </target>
+			</trans-unit>
+			<trans-unit id="toolbar.work.with.group">
+				<source>work with group</source>
+				<target>그룹과 함께 작동 </target>
+			</trans-unit>
 			<trans-unit id="toolbar.delete.errata">
 				<source>delete errata</source>
 				<target>에라타 삭제</target>
@@ -1619,6 +1679,10 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>Security Advisory</source>
 				<target>보안 권고</target>
 			</trans-unit>
+			<trans-unit id="errata.search.could_not_execute_query">
+				<source>Could not execute query: {0}</source>
+				<target>질의를 실행할 수 없습니다: {0}  </target>
+			</trans-unit>
 			<trans-unit id="packages.search.both">
 				<source>Name and Summary</source>
 				<target>이름 및 요약 내용</target>
@@ -1659,9 +1723,21 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>Could not parse query '{0}'.</source>
 				<target>'{0}' 질의를 구문 분석할 수 없습니다. </target>
 			</trans-unit>
+			<trans-unit id="packages.search.index_files_missing">
+				<source>Index files missing from search-server.  Assuming data exists in database, indexes can be regenerated by running: /etc/init.d/rhn-search cleanindex, then restart rhn-search</source>
+				<target>검색 서버에 색인 파일이 없습니다. 데이터베이스에 데이터가 있다고 가정할 경우, /etc/init.d/rhn-search cleanindex를 실행하여 색인을 다시 생성하여 rhn-search를 재시작할 수 있습니다.   </target>
+			</trans-unit>
+			<trans-unit id="packages.search.could_not_execute_query">
+				<source>Could not execute query '{0}'.</source>
+				<target>'{0}' 질의를 실행할 수 없습니다.        </target>
+			</trans-unit>
 			<trans-unit id="packages.search.tooshort">
 				<source>Search strings must be longer than two characters.</source>
 				<target>검색 문자열을 최소한 두 글자를 넘어야합니다.</target>
+			</trans-unit>
+			<trans-unit id="packages.search.index_out_of_sync_with_db">
+				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target>패키지 검색 색인 및 데이터베이스 항목이 동기화되지 않은 것 같습니다. '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'를 실행합니다. </target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1714,6 +1790,14 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			<trans-unit id="systemsearch_cpu_mhz_gt">
 				<source>CPU Mhz Greater Than</source>
 				<target>CPU Mhz 이상</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_lt">
+				<source>Number of CPUs Less Than</source>
+				<target>CPU 수 이하 </target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_gt">
+				<source>Number of CPUs Greater Than</source>
+				<target>CPU 수 이상 </target>
 			</trans-unit>
 			<trans-unit id="systemsearch_ram_lt">
 				<source>RAM Less Than</source>
@@ -1787,6 +1871,10 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<source>Needed Packages</source>
 				<target>필요한 패키지</target>
 			</trans-unit>
+			<trans-unit id="systemsearch_running_kernel">
+				<source>Running Kernel</source>
+				<target>커널 실행 중  </target>
+			</trans-unit>
 			<trans-unit id="systemsearch.jsp.location">
 				<source>Location</source>
 				<target>위치</target>
@@ -1798,6 +1886,10 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 			<trans-unit id="systemsearch.errors.numeric">
 				<source>Search queries for this field must be numeric</source>
 				<target>이 영역의 검색 쿼리는 반드시 숫자로 되어야 합니다</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_no_matches_found">
+				<source>No matches found</source>
+				<target>일치하는 항목을 찾을 수 없음  </target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.sameorg">
 				<source>User to deactivate must be in the same organization.</source>
@@ -1971,6 +2063,14 @@ user before attempting to deactivate their account.</source>
 				<source>Install</source>
 				<target>설치</target>
 			</trans-unit>
+			<trans-unit id="Remove">
+				<source>Remove</source>
+				<target>삭제</target>
+			</trans-unit>
+			<trans-unit id="message.actionremove">
+				<source>Remove</source>
+				<target>삭제</target>
+			</trans-unit>
 			<trans-unit id="Groups">
 				<source>Groups</source>
 				<target>그룹</target>
@@ -2028,16 +2128,16 @@ user before attempting to deactivate their account.</source>
 				<target>마지막 시스템 체크인 날짜:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current RHN time:</source>
-				<target>현재 RHN 시간:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>현재 @@PRODUCT_NAME@@ 시간:   </target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>예상 체크인 시간:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;알림:&lt;/strong&gt; 이 시스템은 최근 Red Hat Network에 체크인하지 않았습니다. RHN에 체크인하지 않은 경우 시스템을 업데이트할 수 없기 때문에, 이 작업이 실패할 확률이 높습니다.&lt;br/&gt;&lt;br/&gt;시스템에서 rhnsd가 실행 중인지 확인해보십시오 (&lt;a href="/help/faq.pxt#15"&gt;자세한 정보&lt;/a&gt;). 만일 실행 중이지 않다면, &lt;a href="/help/contact.pxt"&gt;저희에게 문의하시기 바랍니다&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;알림:&lt;/strong&gt; 이 시스템은 최근 @@PRODUCT_NAME@@에 체크인하지 않았습니다. @@PRODUCT_NAME@@에 체크인하지 않은 경우 시스템을 업데이트할 수 없기 때문에, 작업을 실패할 확률이 높습니다.&lt;br/&gt;&lt;br/&gt;시스템에서 rhnsd가 실행 중인지 확인해보십시오 (&lt;a href="/help/faq.pxt#15"&gt;자세한 정보&lt;/a&gt;). 만일 실행 중이지 않다면, &lt;a href="/help/contact.pxt"&gt;저희에게 문의하시기 바랍니다&lt;/a&gt;. </target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2116,8 +2216,8 @@ user before attempting to deactivate their account.</source>
 				<target>초</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>&lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; 패치 클러스터 설치가 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;스케줄되었습니다&lt;/a&gt;.</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>&lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 패치 클러스터 설치가 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;스케줄되었습니다&lt;/a&gt;.  </target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2235,9 +2335,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>일반 설정</target>
 			</trans-unit>
-			<trans-unit id="Satellite Tools">
-				<source>Satellite Tools</source>
-				<target>Satellite 도구</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>관리  </target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2250,10 +2350,6 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="recurring_duration">
 				<source>Recurring Duration</source>
 				<target>반복 기간</target>
-			</trans-unit>
-			<trans-unit id="message.actionremove">
-				<source>Remove</source>
-				<target>삭제</target>
 			</trans-unit>
 			<trans-unit id="message.actiondowngrade">
 				<source>Downgrade to {0}</source>
@@ -2284,8 +2380,8 @@ user before attempting to deactivate their account.</source>
 				<target>&lt;strong&gt;{3}&lt;/strong&gt;의 &lt;strong&gt;{2}&lt;/strong&gt;를 위한 패키지 프로파일 동기화 작업을 성공적으로 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;스케줄하셨습니다&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;알림:&lt;/strong&gt; Red Hat Network는 패키지 프로파일 동기화 작업 이전에 &lt;strong&gt;{2}&lt;/strong&gt;에 하드웨어 재생 작업을 실행하도록 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;스케줄하였습니다&lt;/a&gt;&lt;/strong&gt;.  이 작업은 시스템이 패키지 비교 작업을 수행하는데 필요합니다.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;알림:&lt;/strong&gt; @@PRODUCT_NAME@@는 패키지 프로파일 동기화 작업 이전에 &lt;strong&gt;{2}&lt;/strong&gt;에 하드웨어 재생 작업을 실행하도록 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;스케줄하였습니다&lt;/a&gt;&lt;/strong&gt;.  이는 시스템에 패키지 비교 기능이 있는지를 확인하기 위해 필요합니다.  </target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -2411,6 +2507,10 @@ user before attempting to deactivate their account.</source>
 				<source>Aruba</source>
 				<target>아루바</target>
 			</trans-unit>
+			<trans-unit id="AX">
+				<source>Aland Islands</source>
+				<target>올란드 제도 </target>
+			</trans-unit>
 			<trans-unit id="AZ">
 				<source>Azerbaijan</source>
 				<target>아제르바이잔</target>
@@ -2498,6 +2598,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="CC">
 				<source>Cocos (Keeling) Islands</source>
 				<target>코코 (키링) 섬</target>
+			</trans-unit>
+			<trans-unit id="CD">
+				<source>CONGO, The Democratic Republic of the</source>
+				<target>콩고, 민주 공화국  </target>
 			</trans-unit>
 			<trans-unit id="CF">
 				<source>Central African Republic</source>
@@ -2648,12 +2752,16 @@ user before attempting to deactivate their account.</source>
 				<target>가봉</target>
 			</trans-unit>
 			<trans-unit id="GB">
-				<source>(GMT+0100) United Kingdom</source>
-				<target>(GMT+0100) 영국</target>
+				<source>United Kingdom</source>
+				<target>영국  </target>
 			</trans-unit>
 			<trans-unit id="GB-Eire">
-				<source>(GMT+0100) Ireland</source>
-				<target>(GMT+0100) 아일랜드 </target>
+				<source>Ireland</source>
+				<target>아일랜드</target>
+			</trans-unit>
+			<trans-unit id="IE">
+				<source>Ireland</source>
+				<target>아일랜드</target>
 			</trans-unit>
 			<trans-unit id="GD">
 				<source>Grenada</source>
@@ -2666,6 +2774,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="GF">
 				<source>French Guiana</source>
 				<target>프랑스령 기아나</target>
+			</trans-unit>
+			<trans-unit id="GG">
+				<source>Guernsey</source>
+				<target>건지 </target>
 			</trans-unit>
 			<trans-unit id="GH">
 				<source>Ghana</source>
@@ -2747,13 +2859,13 @@ user before attempting to deactivate their account.</source>
 				<source>Indonesia</source>
 				<target>인도네시아</target>
 			</trans-unit>
-			<trans-unit id="IE">
-				<source>Ireland</source>
-				<target>아일랜드</target>
-			</trans-unit>
 			<trans-unit id="IL">
 				<source>Israel</source>
 				<target>이스라엘</target>
+			</trans-unit>
+			<trans-unit id="IM">
+				<source>Isle of Man</source>
+				<target>맨 섬 </target>
 			</trans-unit>
 			<trans-unit id="IN">
 				<source>India</source>
@@ -2778,6 +2890,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="IT">
 				<source>Italy</source>
 				<target>이탈리아</target>
+			</trans-unit>
+			<trans-unit id="JE">
+				<source>Jersey</source>
+				<target>저지 섬 </target>
 			</trans-unit>
 			<trans-unit id="JM">
 				<source>Jamaica</source>
@@ -2890,6 +3006,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="MD">
 				<source>Moldova</source>
 				<target>몰도바</target>
+			</trans-unit>
+			<trans-unit id="ME">
+				<source>Montenegro</source>
+				<target>몬테네그로  </target>
 			</trans-unit>
 			<trans-unit id="MG">
 				<source>Madagascar</source>
@@ -3055,6 +3175,10 @@ user before attempting to deactivate their account.</source>
 				<source>Puerto Rico</source>
 				<target>푸에르토리코</target>
 			</trans-unit>
+			<trans-unit id="PS">
+				<source>Palestinian Territory, Occupied</source>
+				<target>팔레스타인 자치 구역 </target>
+			</trans-unit>
 			<trans-unit id="PT">
 				<source>Portugal</source>
 				<target>포루투갈</target>
@@ -3074,6 +3198,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="RE">
 				<source>Reunion (French)</source>
 				<target>리유니온(프랑스)</target>
+			</trans-unit>
+			<trans-unit id="RS">
+				<source>Serbia</source>
+				<target>세르비아  </target>
 			</trans-unit>
 			<trans-unit id="RO">
 				<source>Romania</source>
@@ -3190,6 +3318,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="TK">
 				<source>Tokelau</source>
 				<target>토켈라우</target>
+			</trans-unit>
+			<trans-unit id="TL">
+				<source>Timor-Leste</source>
+				<target>동티모르 </target>
 			</trans-unit>
 			<trans-unit id="TM">
 				<source>Turkmenistan</source>
@@ -3348,8 +3480,8 @@ user before attempting to deactivate their account.</source>
 				<target>재시작</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>RHN Satellite 서비스를 사용할 첫번째 사용자를 생성하셨습니다. &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;이곳을 클릭하여&lt;/strong&gt;&lt;/a&gt; 나머지 추가 설정을 마치시기 바랍니다.</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>@@PRODUCT_NAME@@ 서비스를 사용할 첫번째 사용자를 생성하셨습니다.&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;이곳을 클릭하여&lt;/strong&gt;&lt;/a&gt; 나머지 추가 설정을 마치시기 바랍니다.  </target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3364,8 +3496,8 @@ user before attempting to deactivate their account.</source>
 				<target>인증서를 찾지 못했습니다. 로컬 인증서 파일을 선택하시거나 양식에 인증서 내용을 복사하여 붙이시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Satellite has been re-activated.</source>
-				<target>인증서를 업로드하였습니다.  Satellite가 다시 활성화되었습니다.</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>인증서를 업로드하였습니다.  @@PRODUCT_NAME@@가 다시 활성화되었습니다.  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3376,8 +3508,8 @@ user before attempting to deactivate their account.</source>
 				<target>만료된 인증서</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Satellite version</source>
-				<target>알 수 없는 Satellite 버전</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>알 수 없는 @@PRODUCT_NAME@@ 버전  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3396,28 +3528,28 @@ user before attempting to deactivate their account.</source>
 				<target>관리 인타이틀먼트가 남아있지 않음</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Satellite channel not found</source>
-				<target>Satellite 채널을 찾을 수 없음</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ 채널을 찾을 수 없음  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Satellite channel entitlements remaining</source>
-				<target>Satellite 채널 인타이틀먼트가 남아있지 않음</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>@@PRODUCT_NAME@@ 채널 인타이틀먼트가 남아있지 않음 </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Satellite certificate</source>
-				<target>잘못된 Satellite 인증서</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>잘못된 @@PRODUCT_NAME@@ 인증서  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
-				<target>알수없는 활성 오류</target>
+				<target>알 수 없는 활성화 오류 </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Satellite has no base channel on parent server</source>
-				<target>Satellite는 부모 서버에 아무런 기본 채널도 갖지 않습니다</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@는 부모 서버에 아무런 기본 채널도 갖지 않음  </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Satellite channel available for this version</source>
-				<target>이 버전에는 Satellite 채널을 사용 불가능합니다</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>이 버전에는 @@PRODUCT_NAME@@ 채널을 사용할 수 없음 </target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3428,8 +3560,8 @@ user before attempting to deactivate their account.</source>
 				<target>처리할 수 없는 오류</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Satellite server hostname</source>
-				<target>Satellite 서버 호스트명</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ 서버 호스트 이름 </target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3476,20 +3608,20 @@ user before attempting to deactivate their account.</source>
 				<target>오류가 발생하여 Satellite 설정 변경 사항이 저장되지 않았습니다.  보다 자세한 정보는 지원팀에 문의하시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Satellite를 다시 시작하고 있습니다.  5 분 안에 이 페이지가 새로 고침되지 않을 경우, &lt;a href="/rhn/YourRhn.do"&gt;여기&lt;/a&gt;를 클릭하여 수동으로 시도해봅니다.  </target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@를 다시 시작하고 있습니다.  5 분 안에 이 페이지가 새로 고침되지 않을 경우, &lt;a href="/rhn/YourRhn.do"&gt;여기&lt;/a&gt;를 클릭하여 수동으로 시도해 봅니다.        </target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
-				<target>아래 양식에서 RHN Satellite를 재시작하도록 박스에 체크하시기 바랍니다.</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>아래 양식에서 @@PRODUCT_NAME@@를 재시작하도록 박스에 체크하시기 바랍니다. </target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>RHN Satellite has been restarted.</source>
-				<target>RHN Satellite가 다시 시작되었습니다. </target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@가 다시 시작되었습니다.        </target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>RHN Monitoring Scout</source>
-				<target>RHN Monitoring 스카웃  </target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ Monitoring 스카웃      </target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3520,6 +3652,10 @@ user before attempting to deactivate their account.</source>
 				<target>이 정보는 이미 사용중입니다.  이 키에 대한 새로운 정보를 입력해주십시오.</target>
 			</trans-unit>
 			<trans-unit id="label">
+				<source>Label</source>
+				<target>레이블</target>
+			</trans-unit>
+			<trans-unit id="filter.kickstart.label">
 				<source>Label</source>
 				<target>레이블</target>
 			</trans-unit>
@@ -3555,11 +3691,11 @@ user before attempting to deactivate their account.</source>
 				<source>No File List(s) selected.</source>
 				<target>파일 목록은 선택되지 않았습니다.</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.added">
+			<trans-unit id="kickstart_activation_keys.added">
 				<source>{0} Activation Key(s) added.</source>
 				<target>{0} 개의 활성키가 추가되었습니다.</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.removed">
+			<trans-unit id="kickstart_activation_keys.removed">
 				<source>{0} Activation Key(s) removed.</source>
 				<target>{0} 개의 활성키가 삭제되었습니다.</target>
 			</trans-unit>
@@ -3582,7 +3718,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Red Hat Network:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3591,9 +3727,9 @@ Please note that inactive systems cannot receive any updates.
 
 Follow this url to see the full list of inactive systems:
 {1}</source>
-				<target>체크인하지 않는 시스템:
+				<target>체크인하지 않은 시스템:
 -------------------------
-다음의 시스템들은 최근 Red Hat Network에 체크인하지 않고 있습니다:
+다음의 시스템들은 최근 @@PRODUCT_NAME@@:에 체크인하지 않고 있습니다:
 
 {0}
 
@@ -3695,9 +3831,21 @@ Follow this url to see the full list of inactive systems:
 				<source>Kickstart canceled by user: {0}</source>
 				<target>킥스타트 다음 사용자에 의해 취소되었습니다: {0}</target>
 			</trans-unit>
+			<trans-unit id="kickstart.schedule.requires.older.gpgkey">
+				<source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
+				<target>시스템 (0)가 이전 Red HatEnterprise Linux 버전에 킥스타트되도록 스케줄되어 있기 때문에 이전 버전의 GPG 키가 필요합니다. &lt;br/&gt; &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; 등으로 키를 설치하십시오.  </target>
+			</trans-unit>
 			<trans-unit id="kickstart.schedule.success">
 				<source>System Kickstart scheduled for {0}</source>
 				<target>{0}을 위해 예정된 시스템 킥스타트</target>
+			</trans-unit>
+			<trans-unit id="kickstart.schedule.cobblercreate">
+				<source>System record created for {0} in Cobbler.  This will allow you to kickstart this system using the {1} profile from {0}'s terminal with the usage of the 'koan' command.</source>
+				<target>Cobbler에서 (0)에 대한 시스템 기록을 만들었습니다. 이는 'koan' 명령과 함께 {0} 터미널에서 {1} 프로파일을 사용하여 이 시스템을 킥스타트 설치하게 합니다.  </target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.schedule.success">
+				<source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
+				<target>{0}에 대한 시스템 킥스타트가 스케줄되었습니다. 시스템 콘솔에서 상태 정보를 확인하십시오.       </target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.noprofiles">
 				<source>No profiles found that are compatible with this System.  Either you haven't created any Kickstart Profiles or this system does not have a Base Channel.</source>
@@ -3708,16 +3856,16 @@ Follow this url to see the full list of inactive systems:
 				<target>시스템 &lt;strong&gt; {0} &lt;/strong&gt;은 기본 채널이 없기 때문에 킥스타트되어질 수 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>현재 이 시스템의 기본 채널에 대해 RHN provisioning 채널에 남아있는 서브스크립션이 없습니다.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>현재 이 시스템의 기본 채널에 대해 @@PRODUCT_NAME@@ provisioning 채널에 남아있는 서브스크립션이 없습니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>현재 이 시스템의 기본 채널에 대해 RHN provisioning 채널에 남아있는 서브스크립션이 없습니다.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>현재 이 시스템의 기본 채널에 대해 @@PRODUCT_NAME@@ provisioning 채널에 남아있는 서브스크립션이 없습니다.  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>이 시스템의 현재 기본 채널에 주어지며 목표(target) 채널로 요구되는 필요한 RHN provisioning 패키지를 찾을 수 없습니다: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>이 시스템의 현재 기본 채널에 주어지며 목표(target) 채널로 요구되는 필요한 @@PRODUCT_NAME@@ provisioning 패키지를 찾을 수 없습니다: {0} </target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3736,8 +3884,8 @@ Follow this url to see the full list of inactive systems:
 				<target>시스템에 대한 새로운 킥스타트 세션이 시작되었습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;에 사용되는 Red Hat Network Tools 채널을 조회할 수 없습니다</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
+				<target>{1}에 대한 @@PRODUCT_NAME@@ 도구 채널을 찾을 수 없습니다. </target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3752,8 +3900,8 @@ Follow this url to see the full list of inactive systems:
 				<target>시스템을 킥스타트하기 위해 up2date의 버전 {0} 혹은 그 이상의 버전이 필요합니다. 이 시스템은 {1}이 설치되어져 있으나 시스템의 채널에서 필요한 버전으로 업데이트를 하기 위한 up2date의 버전을 찾을 수 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>지난 {0}분 동안 게스트 시스템이 Satellite와 통신하지 않았습니다. 하드 웨어 제약으로 인해 설치 과정이 지연되거나 중지될 수 있습니다.&lt;p/&gt; 호스트 시스템에서 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; 명령을 실행하여 이 문제를 해결할 수 있습니다. 이 명령으로 설치 시 게스트 시스템의 설치 상태에 관한 추가 정보를 제공하는 게스트의 텍스트 콘솔에 연결할 수 있습니다.     </target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>지난 {0}분 동안 게스트 시스템이 @@PRODUCT_NAME@@와 통신하지 않았습니다. 하드 웨어 제약으로 인해 설치 과정이 지연되거나 중지될 수 있습니다.&lt;p/&gt; 호스트 시스템에서 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; 명령을 실행하여 이 문제를 해결할 수 있습니다. 이 명령으로 설치 시 게스트 시스템의 설치 상태에 관한 추가 정보를 제공하는 게스트의 텍스트 콘솔에 연결할 수 있습니다.        </target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -3770,6 +3918,14 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="kickstart.tree.invalidlabel">
 				<source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
 				<target>레이블 형식이 적절하지 않습니다.  레이블은 문자, 숫자, 하이픈, 점과 밑줄만 포함할 수 있으며, 최소한 4 글자 이상이어야 합니다.</target>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidkernel">
+				<source>The kernel could not be found at the specified location: {0}</source>
+				<target>지정된 위치에서 커널을 찾을 수 없습니다: {0} </target>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidinitrd">
+				<source>The initrd could not be found at the specified location: {0}</source>
+				<target>지정된 위치에서 initrd를 찾을 수 없습니다: {0}  </target>
 			</trans-unit>
 			<trans-unit id="kickstart.tree.inuse">
 				<source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
@@ -3791,6 +3947,10 @@ Follow this url to see the full list of inactive systems:
 				<source>System {0} has a pending kickstart scheduled.</source>
 				<target>{0} 시스템에 보류 중인 킥스타트가 스케줄되어있습니다.</target>
 			</trans-unit>
+			<trans-unit id="activation-key.java.invalid_chars">
+				<source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+				<target>활성키 레이블 &lt;strong&gt;{0}&lt;/strong&gt;에 다음과 같은 잘못된 문자 &lt;strong&gt;{1}&lt;/strong&gt;이 1 개 이상 포함되어 있습니다. 레이블에서 잘못된 문자를 제거해 주십시오.   </target>
+			</trans-unit>
 			<trans-unit id="activation-key.java.exists">
 				<source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 레이블로된 활성키는 이미 사용되고 있습니다. 다른 레이블을 사용해 주세요. </target>
@@ -3810,6 +3970,18 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="activation-key.java.org_prefixed">
 				<source>Please note that &lt;strong&gt;{0}&lt;/strong&gt; has been modified to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt;이 &lt;strong&gt;{1}&lt;/strong&gt; 로 수정되었습니다. </target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy1">
+				<source>This system does not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system.</source>
+				<target>이 시스템에는 설정 배치 기능이 없습니다. 설정 배치 기능을 위해 시스템에 특정 소프트웨어가 설치되고 활성화되어 있어야 합니다.    </target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy2">
+				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
+				<target>&lt;a href={0}&gt;{1}&lt;/a&gt; 화면에서 시스템을 선택하고 "{2}"를 클릭하여 이 시스템에서 설정 배치 기능을 사용할 수 있는지를 확인할 수 있습니다  </target>
+			</trans-unit>
+			<trans-unit id="system.sdc.config_enablement.client">
+				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
+				<target>또한 다음 명령을 실행하여 시스템에서 설정 관리가 활성화되어 있는지를 확인할 수 있습니다:   </target>
 			</trans-unit>
 			<trans-unit id="system.sdc.addtossm">
 				<source>System added to the System Set Manager.</source>
@@ -4043,30 +4215,6 @@ Follow this url to see the full list of inactive systems:
 				<source>Email address</source>
 				<target>이메일 주소</target>
 			</trans-unit>
-			<trans-unit id="sw_mgr_entitled">
-				<source>Enterprise</source>
-				<target>엔터프라이즈</target>
-			</trans-unit>
-			<trans-unit id="enterprise_entitled">
-				<source>Enterprise</source>
-				<target>엔터프라이즈</target>
-			</trans-unit>
-			<trans-unit id="provisioning_entitled">
-				<source>Provisioning</source>
-				<target>프로비져닝 (Provisioning)</target>
-			</trans-unit>
-			<trans-unit id="nonlinux_entitled">
-				<source>Non-Linux</source>
-				<target>비리눅스</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host">
-				<source>Virtualization</source>
-				<target>가상화</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host_platform">
-				<source>Virtualization Platform</source>
-				<target>가상화 플랫폼</target>
-			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
 				<target>전역으로 이메일 통지를 비활성화함</target>
@@ -4088,8 +4236,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt;이 핑(ping)되었습니다. OSA 상태가 몇 분안으로 업데이트됩니다.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN Applet Satellite 활성이 &lt;a href="{0}"&gt;스케줄됨&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet @@PRODUCT_NAME@@ 활성이 &lt;a href="{0}"&gt;스케줄됨&lt;/a&gt; </target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4112,8 +4260,8 @@ Follow this url to see the full list of inactive systems:
 				<target>디플로이 작업이 완료되지 않음. [&lt;a href="{0}"&gt;디플로이 작업 스케줄함&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.failure">
-				<source>All file and/or directory ({0}) deployments failed. [&lt;a href={1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>모든 파일 및 디렉토리 ({0})를  디플로이하지 못했습니다. [&lt;a href={1}"&gt;자세한 정보 보기&lt;/a&gt;]</target>
+				<source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
+				<target>모든 파일 및 디렉토리 ({0})를 디플로이하지 못했습니다. [&lt;a href="{1}"&gt;자세한 정보 보기&lt;/a&gt;]   </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
@@ -4128,56 +4276,56 @@ Follow this url to see the full list of inactive systems:
 				<target>비교를 위한 파일 또는 디렉토리가 선택되지 않음. [&lt;a href="{0}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>시스템 상의 1개의 파일 중 {0}이 RHN 관리 파일 및 디렉토리와 성공적으로 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템 상의 1개의 파일 중 {0}이 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 성공적으로 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]    </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 개의 파일 중 {0} 개의 파일이 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 파일이 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>1 개의 디렉토리 중 {0} 개의 디렉토리가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 1 개 중 {0} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]    </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 개의 디렉토리 중 {0} 개의 디렉토리가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]    </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>1 개의 파일 중 {0}개 파일 및 1 개의 디렉토리가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 1 개 중 {0}개 파일 및 1 개 중 {1} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]       </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>1 개의 파일 중 {0}개 파일 및 {2} 개의 디렉토리 중 {1} 개의 디렉토리가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 1 개 중 {0}개 파일 및 {2} 개 중 {1} 개의 디렉토리 중 {1} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 파일 및 1 개 중 {2} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 파일 및 1 개 중 {2} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 파일 및 1 개 중 {2} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 RHN 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 파일 및 1 개 중 {2} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@-관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
-				<target>기존 파일이 RHN 관리 파일과 다릅니다.</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>기존 시스템에 있는 기존 파일은 @@PRODUCT_NAME@@-관리 파일과 다릅니다.  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
-				<target>1 개의 파일 중 1개가 RHN 관리 파일과 다릅니다.</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>시스템에 있는 1 개 중 1개의 파일이 @@PRODUCT_NAME@@-관리 파일과 다릅니다. </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
-				<target>{1} 개의 파일 중 {0} 개가 RHN 관리 파일과 다릅니다.</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>시스템에 있는 {1} 개 중 {0} 개의 파일이 @@PRODUCT_NAME@@-관리 파일과 다릅니다.  </target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4339,13 +4487,13 @@ Follow this url to see the full list of inactive systems:
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
 				<target>마지막으로 {0} vCPU 이하로 시작하셨을 경우 {1}을 종료해야 합니다. </target>
 			</trans-unit>
-			<trans-unit id="systems.details.virt.insufficient.memory">
-				<source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
-				<target>호스트 시스템에 요청된 게스트 RAM 수정에 필요한 메모리가 충분하지 않습니다. &lt;strong&gt;{0}&lt;/strong&gt; 호스트 시스템은 {1}MB 메모리가 있다고 보고되었습니다. 요청된 RAM 수정에는 호스트에 있는 사용 가능한 총 RAM 보다 더 많은 용량이 필요합니다 (하이퍼바이저에 필요한 {2}MB 오버헤드 및 기존 게스트에 의해 사용될 메모리 포함). {1}MB 보다 더 많은 용량이 필요할 경우 &lt;a href={3}&gt;호스트 시스템의 하드웨어 프로파일을 다시 읽어오기하시기 바랍니다&lt;/a&gt;.     </target>
-			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
-				<source>{0} will require a reboot for max memory settings to take effect.</source>
-				<target>{0}은 최대 메모리 설정을 위해 재부팅해야 합니다.</target>
+				<source>{0} must be shutdown for max memory settings to take effect.</source>
+				<target>최대 메모리 설정을 적용하기 위해 {0}을 재부팅해야 합니다.  </target>
+			</trans-unit>
+			<trans-unit id="systems.details.virt.memory.check.host">
+				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
+				<target>게스트 메모리 할당을 늘리는 경우 호스트 시스템에 충분한 여유 메모리가 있는지 확인하십시오. 그렇지 않을 경우, 다음번 게스트 시작 시 부팅하지 않을 수 있습니다.  </target>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4387,6 +4535,10 @@ Follow this url to see the full list of inactive systems:
 				<source>Note:  Some channel subscriptions could not be updated because there were no available subscriptions.</source>
 				<target>알림: 일부 채널 서브스크립션은 업데이트 가능한 서브스크립션이 없어 업데이트될 수 없습니다.</target>
 			</trans-unit>
+			<trans-unit id="selinux.java.invalid_mode">
+				<source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
+				<target>잘못된 SE Linux 모드 "{0}" 가 지정되었습니다. 유효한 값은 {1}입니다. </target>
+			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.successMessage">
 				<source>Updated entitlement count for '{0}'</source>
 				<target>'{0}'에 해당하는 업데이트된 인타이틀먼트 수 </target>
@@ -4394,6 +4546,14 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="orgsyssub.invalidnum">
 				<source>Provisioning must be a valid number.</source>
 				<target>Provisioning은 유효한 숫자이어야 합니다. </target>
+			</trans-unit>
+			<trans-unit id="orgsystemsubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>인타이틀먼트 수정은 {0}에 대해 유효한 숫자이어야 합니다.  </target>
+			</trans-unit>
+			<trans-unit id="orgsoftwaresubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>인타이틀먼트 수정은 {0}에 대해 유효한 숫자이어야 합니다.  </target>
 			</trans-unit>
 			<trans-unit id="multiorg.delete.org.button">
 				<source>Delete Selected Organizations</source>
@@ -4416,24 +4576,24 @@ Follow this url to see the full list of inactive systems:
 				<target>채널에 "{0}"라는 파일이 이미 존재합니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>시스템을 Red Hat Network Tools 채널에 자동으로 등록할 수 없습니다. 이 채널에는 가상화에 필요한 패키지가 들어있습니다. 이는 채널 인타이틀먼트의 부재로 인한 것일 수 도 있습니다.</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>시스템을 @@PRODUCT_NAME@@ Tools 채널에 자동으로 등록할 수 없습니다. 이 채널에는 가상화에 필요한 패키지가 들어있습니다. 이는 채널 인타이틀먼트의 부재로 인한 것일 수 도 있습니다. </target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>시스템을 RHEL 가상화 채널에 자동으로 등록할 수 없습니다. 이 채널에는 가상화에 필요한 패키지가 들어있습니다. 이는 채널 인타인틀먼트의 부재로 인한 것일 수 도 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
-				<target>Red Hat Network로 가상화 실행이 필요한 &lt;strong&gt;{1}&lt;/strong&gt; 채널에서 {0}개의 패키지를 찾을 수 없습니다.</target>
+				<source>Could not find a channel with the {0} package. This package is required to manage virtual guests with @@PRODUCT_NAME@@.</source>
+				<target>{0} 패키지가 있는 채널을 찾을 수 없습니다. 이 패키지는 @@PRODUCT_NAME@@으로 가상 게스트를 관리하기 위해 필요합니다.       </target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
 				<target>이미 시스템에 {0}개의 인타이틀먼트가 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>시스템에 가상화 인타이틀먼트를 추가하신 이후, 시스템이 가상 게스트를 보다 효과적으로 관리할 수 있는 지를 확인하기 위해 몇 가지 추가적인 단게를 실행하였습니다. 보다 자세한 정보는 &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;여기&lt;/a&gt;를 참조하시기 바랍니다. </target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="{0}"&gt;here&lt;/a&gt; for more info.</source>
+				<target>시스템에 가상화 인타이틀먼트를 추가하신 이후, 시스템이 가상 게스트를 보다 효과적으로 관리할 수 있는 지를 확인하기 위해 몇 가지 추가적인 단게를 실행하였습니다. 보다 자세한 정보는 &lt;a href="{0}"&gt;여기&lt;/a&gt;를 참조하시기 바랍니다.   </target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
@@ -4459,6 +4619,14 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid system</source>
 				<target>잘못된 시스템  </target>
 			</trans-unit>
+			<trans-unit id="system.runningkernel.unknown">
+				<source>Unkown</source>
+				<target>알 수 없음 </target>
+			</trans-unit>
+			<trans-unit id="api.invalidargs">
+				<source>Invalid argument(s): {0}</source>
+				<target>부적절한 인수: {0} </target>
+			</trans-unit>
 			<trans-unit id="api.action.nosuchaction">
 				<source>No such action: {0}</source>
 				<target>이러한 작업이 없음: {0}</target>
@@ -4466,6 +4634,30 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.action.invalidactiontype">
 				<source>Invalid action type</source>
 				<target>잘못된 작업 유형 </target>
+			</trans-unit>
+			<trans-unit id="api.org.migrationtosameorg">
+				<source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
+				<target>기존 조직과 대상 조직이 동일한 경우 사용자는 시스템을 이전할 수 없습니다. 조직 ID: {0}, 시스템 ID: {1}.  </target>
+			</trans-unit>
+			<trans-unit id="api.org.nosuchorg">
+				<source>No such organization: {0}</source>
+				<target>이러한 조직이 없음: {0} </target>
+			</trans-unit>
+			<trans-unit id="api.org.notintrust">
+				<source>Organization {0} is not defined in trust.</source>
+				<target>{0} 조직은 신뢰도에 정의되어 있지 않습니다.       </target>
+			</trans-unit>
+			<trans-unit id="api.org.sysnotintrust">
+				<source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
+				<target>{0} 시스템은 대상 조직의 신뢰도에 정의되지 않은 {1} 조직의 멤버입니다.         </target>
+			</trans-unit>
+			<trans-unit id="api.org.notpermittedbyorg">
+				<source>User in organization {0} is not allowed to retrieve or modify {1} properties in organization {2}.</source>
+				<target>{0} 조직에 있는 사용자는 {2} 조직에 있는 {1} 속성을 읽어오거나 수정할 수 없습니다.  </target>
+			</trans-unit>
+			<trans-unit id="api.org.cannotperformonsatelliteorg">
+				<source>Cannot perform this operation on the satellite organization. (Org ID 1)</source>
+				<target>satellite 조직에서 이 작업을 실행할 수 없습니다. (조직 ID 1) </target>
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
@@ -4483,9 +4675,17 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid arch specified: {0}</source>
 				<target>잘못된 아키텍쳐가 지정됨: {0} </target>
 			</trans-unit>
+			<trans-unit id="api.system.invalidsnapshot">
+				<source>Invalid snapshot specified: {0}</source>
+				<target>잘못된 스냅샷이 지정됨: {0}   </target>
+			</trans-unit>
 			<trans-unit id="api.systemgroup.lookupServerGroup">
 				<source>Unable to locate or access server group: "{0}"</source>
 				<target>서버 그룹을 배치 또는 액세스할 수 없음: "{0}" </target>
+			</trans-unit>
+			<trans-unit id="api.system.invalidprofilelabel">
+				<source>Invalid profile label specified: {0}</source>
+				<target>잘못된 프로파일 레이블이 지정됨: {0}  </target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.serverNotInGroup">
 				<source>The specified server is not a member of the specified group</source>
@@ -4495,9 +4695,25 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
 				<target>잘못된 에라타 유형, "{0}". 다음 중 하나를 사용하시기 바랍니다: "보안 권고", "제품 업데이트 권고", "버그 수정 권고".  </target>
 			</trans-unit>
+			<trans-unit id="api.errata.invalidadvisoryrelease">
+				<source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
+				<target>잘못된 권고 릴리즈 "{0}" 입니다. 최대 값은 {1}입니다.   </target>
+			</trans-unit>
 			<trans-unit id="api.errata.nochannelsselected">
 				<source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
 				<target>에라타를 발표하려 시도하고 있지만, 발표할 채널이 선택되지 않았습니다. 최소 한 개의 채널에 에라타가 발표되어야 합니다. </target>
+			</trans-unit>
+			<trans-unit id="api.package.download.toolarge">
+				<source>The requested file is too large to download over XMLRPC.</source>
+				<target>요청한 파일이 너무 커거 XMLRPC를 통해 다운로드할 수 없습니다.  </target>
+			</trans-unit>
+			<trans-unit id="api.package.download.ioerror">
+				<source>There was a general IO Error, check permissions on the requested file.</source>
+				<target>일반적인 IO 오류가 발생했습니다. 요청한 파일의 사용 권한을 확인하십시오.   </target>
+			</trans-unit>
+			<trans-unit id="api.channel.access.invalidaccessvalue">
+				<source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
+				<target>액세스 값 "{0}". "public", "private", "protected" 중 하나를 사용하십시오.     </target>
 			</trans-unit>
 			<trans-unit id="api.channel.software.channelsubscription">
 				<source>Unable to subscribe this system to the requested channel: "{0}"</source>
@@ -4507,6 +4723,10 @@ Follow this url to see the full list of inactive systems:
 				<source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
 				<target>등록을 위해 다중 기본 채널이 선택되었습니다. {0} 및 {1} 채널이 등록을 위해 선택되었으나, 시스템은 단일 기본 채널에만 등록될 수 있습니다.  </target>
 			</trans-unit>
+			<trans-unit id="api.channel.invalidchannellist">
+				<source>The channel list provided is invalid.  It must contain a list of channel labels or ids, but not a mixture of both.</source>
+				<target>채널 목록이 잘못되어 있습니다. 채널 목록에는 채널 레이블이나 ID가 들어 있어야 하며 이 두가지 모두가 혼합되어서는 안됩니다.       </target>
+			</trans-unit>
 			<trans-unit id="channel.invalidchannelarch">
 				<source>The channel arch specified ({0}) is invalid.</source>
 				<target>잘못된 채널 아키텍쳐 ({0})가 지정되어 있습니다. </target>
@@ -4514,6 +4734,10 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.channel.duplicatechannellabel">
 				<source>The channel label specified ({0}) already exists.</source>
 				<target>({0})은 이미 존재하는 채널 레이블입니다. </target>
+			</trans-unit>
+			<trans-unit id="api.channel.invalidchannelaccess">
+				<source>The channel access ({0}) is not allowed for this operation.</source>
+				<target>이 작업에 채널 액세스 ({0})는 허용되지 않습니다.  </target>
 			</trans-unit>
 			<trans-unit id="Certificate Administrators">
 				<source>Certificate Administrators</source>
@@ -4534,6 +4758,22 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.kickstart.labelalreadyinuse">
 				<source>Kickstart label already exists: {0}</source>
 				<target>이미 킥스타트 레이블이 존재함: {0}  </target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKeyType">
+				<source>The package key type specified ({0}) is invalid.</source>
+				<target>지정된 패키지 키 유형 ({0})이 잘못되어 있습니다.      </target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKey">
+				<source>The package key specified ({0}) is invalid.</source>
+				<target>지정된 패키지 키 ({0})가 잘못되어 있습니다.       </target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.duplicateKey">
+				<source>The package key specified ({0}) already exists.</source>
+				<target>지정된 패키지 키 ({0})는 이미 존재합니다.      </target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidProvider">
+				<source>The package provider specified ({0}) is  invalid.</source>
+				<target>지정된 패키지 제공자 ({0})가 잘못되어 있습니다.       </target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
@@ -4564,20 +4804,20 @@ Follow this url to see the full list of inactive systems:
 				<target>필요한 에라타 속성 ({0})이 없습니다. </target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>{0}에게 너무 많은 인타이틀먼트를 할당하게 됩니다. {1} 보다 작은 값이나 동일한 값을 입력해 주세요. </target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target>{0}에게 너무 많은 {1} 인타이틀먼트를 할당하게 됩니다. {2} 보다 작은 값이나 동일한 값을 입력해 주세요.   </target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>{0}에게 너무 많은 인타이틀먼트를 할당하게 됩니다. {1} 보다 작은 값이나 동일한 값을 입력해 주세요. </target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target>{0}에게 너무 많은 {1} 인타이틀먼트를 할당하게 됩니다. {2} 보다 작은 값이나 동일한 값을 입력해 주세요.   </target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
 				<target>인타이틀먼트가 성공적으로 업데이트되었습니다.  </target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
-				<source>Warning: Your Proposed entitlement allocation for {0} requires more entitlements than are in use for the {1} Organization. Please adjust your proposed allocation accordingly.</source>
-				<target>경고: {0}에 해당하는 인타이틀먼트 할당에는 {1} 조직에 대해 사용 중인 것 보다 더 많은 인타이틀먼트를 필요로합니다. 인타이틀먼트 할당을 조정해 주시기 바랍니다.    </target>
+				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
+				<target>경고: 제안된 {0} 할당은 현재 {1} 조직에서 사용되는 인타이틀먼트 보다 적은 수를 제공합니다. 현재 사용 중인 인타이틀먼트 수 보다 적지 않게 제안된 할당을 조정해 주십시오.    </target>
 			</trans-unit>
 			<trans-unit id="securityErrata">
 				<source>Security Errata</source>
@@ -4655,6 +4895,18 @@ Follow this url to see the full list of inactive systems:
 				<source>Entitlement Level</source>
 				<target>인타이틀먼트 레벨 </target>
 			</trans-unit>
+			<trans-unit id="serverName">
+				<source>Server Name</source>
+				<target>서버 이름 </target>
+			</trans-unit>
+			<trans-unit id="matchingField">
+				<source>Matching Field Name</source>
+				<target>일치하는 영역 이름 </target>
+			</trans-unit>
+			<trans-unit id="matchingFieldValue">
+				<source>Matching Field Value</source>
+				<target>일치하는 영역 값 </target>
+			</trans-unit>
 			<trans-unit id="listtag.note">
 				<source>Note:</source>
 				<target>알림: </target>
@@ -4716,8 +4968,8 @@ Follow this url to see the full list of inactive systems:
 				<target>사용자 정의 패키지 아키텍쳐 선택  </target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
-				<source>Succesfully added {0} Errata and {1} package(s) to channel {2}.</source>
-				<target>{0} 에라타 및 {1} 패키지가 {2} 채널에 성공적으로 추가되었습니다. </target>
+				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
+				<target>{2} 채널에 성공적으로 {1} 패키지가 추가되고 {0} 에라타가 스케줄되었습니다. 복제된 에라타는 채널에 표시되고 몇 분 내로 시스템에 적용됩니다.   </target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.clone">
 				<source>"Clone"</source>
@@ -4774,6 +5026,241 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="Password_confirm">
 				<source>Password Confirm</source>
 				<target>암호 확인 </target>
+			</trans-unit>
+			<trans-unit id="permission.configadmin.needed">
+				<source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
+				<target>요청된 기능에는 설정 관리자 또는 조직 관리자 역할이 필요합니다.   </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscripttype">
+				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
+				<target>"pre" 및 "post" 스크립트 유형만 킥스타트 용으로 사용할 수 있습니다.  </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscript">
+				<source>You have specified an invalid kickstart script.</source>
+				<target>잘못된 킥스타트 스크립트가 지정되었습니다. </target>
+			</trans-unit>
+			<trans-unit id="package.remove.cant.rollback">
+				<source>One or more of the packages you have selected for removal below are not contained in
+			a software channel that this system is subscribed to.  If you choose to continue with the removal
+			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+				<target>삭제하기 위해 선택한 하나 이상의 패키지는 시스템이 등록된 소프트웨어 채널에
+			 들어있지 않습니다.  삭제를 계속 진행할 경우 시스템을
+			스냅샷이나 이전 스냅샷으로 시스템을 롤백할 수 없게 됩니다.   </target>
+			</trans-unit>
+			<trans-unit id="list.filter.iprange">
+				<source>Single Ip Address</source>
+				<target>단일 Ip 주소 </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.duplicate">
+				<source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
+				<target>지정된 IP 범위 {0}는 기존 IP 범위와 충돌합니다. </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.invalid">
+				<source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
+				<target>지정된 IP 범위 {0}는 유효한 IP 범위가 아닙니다.   </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.ip.invalid">
+				<source>The Ip Address specified, {0}, is not valid..</source>
+				<target>지정된 IP 주소 {0}가 잘못되었습니다. </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.exists">
+				<source>A file list with label {0} already exists.</source>
+				<target>{0}으로 레이블된 파일 목록이 이미 존재합니다.   </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.notfound">
+				<source>A file list with label {0} could not be found.</source>
+				<target>{0}으로 레이블된 파일 목록을 찾을 수 없습니다.  </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.exists">
+				<source>The specified key conflicts with an existing key.</source>
+				<target>지정된 키는 기존 키와 충돌합니다.   </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.delete">
+				<source>The specified key cannot be deleted.</source>
+				<target>지정된 키를 삭제할 수 없습니다.  </target>
+			</trans-unit>
+			<trans-unit id="Compare">
+				<source>Compare</source>
+				<target>비교 </target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.alreadyexists">
+				<source>A Custom Key with this label already exists.</source>
+				<target>이 레이블로된 사용자 정의키가 이미 존재합니다.  </target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.tooshort">
+				<source>A Custom Key label and description must be at least two characters long.</source>
+				<target>사용자 정의 키 레이블 및 설명은 최소 2 자 이상이어야 합니다.  </target>
+			</trans-unit>
+			<trans-unit id="system.customkey.addsuccess">
+				<source>Successfully added 1 custom key.</source>
+				<target>1 개의 사용자 정의키가 성공적으로 추가되었습니다.  </target>
+			</trans-unit>
+			<trans-unit id="channel.java.package.deletesuccess">
+				<source>Successfully deleted {0} packages.</source>
+				<target>{0} 패키지가 성공적으로 삭제되었습니다.  </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
+				<source>Invalid kickstart install type: {0}.</source>
+				<target>잘못된 킥스타트 설치 유형: {0}   </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgfp">
+				<source>Invalid GPG Fingerprint</source>
+				<target>잘못된 GPG 지문  </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgkey">
+				<source>Invalid GPG Key Id</source>
+				<target>잘못된 GPG 키 Id </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgurl">
+				<source>Invalid GPG Url</source>
+				<target>잘못된 GPG Url  </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname">
+				<source>Invalid Channel Name</source>
+				<target>잘못된 채널 이름  </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.missing">
+				<source>Channel name must be specified</source>
+				<target>반드시 채널 이름을 지정해야 합니다 </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.regex">
+				<source>Invalid channel name, please see the format described below</source>
+				<target>채널 이름이 잘못되었습니다. 아래에 설명된 형식을 살펴보시기 바랍니다   </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.redhat">
+				<source>Red Hat channels require admin privileges</source>
+				<target>Red Hat 채널에는 관리 권한이 필요합니다 </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.redhat">
+				<source>Red Hat channels require admin privileges</source>
+				<target>Red Hat 채널에는 관리 권한이 필요합니다 </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.minlength">
+				<source>Channel name must be at least {0} characters long</source>
+				<target>채널 이름은 최소 {0} 자리 문자이어야 합니다. </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.nameinuse">
+				<source>The channel name '{0}' is already in use, please enter a different name</source>
+				<target>채널 이름 '{0}'은 이미 사용 중입니다. 다른 이름을 입력해주세요. </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel">
+				<source>Invalid Channel Label</source>
+				<target>잘못된 채널 레이블   </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.missing">
+				<source>Channel label must be specified</source>
+				<target>반드시 채널 레이블을 지정해야 합니다  </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.regex">
+				<source>Invalid channel label, please see the format described below</source>
+				<target>채널 레이블이 잘못되었습니다. 아래에 설명된 형식을 살펴보시기 바랍니다   </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.minlength">
+				<source>Channel label must be at least {0} characters long</source>
+				<target>채널 레이블은 최소 {0} 자리 문자이어야 합니다.  </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.labelinuse">
+				<source>The channel label '{0}' is already in use, please enter a different name</source>
+				<target>채널 레이블 '{0}'은 이미 사용 중입니다. 다른 이름을 입력해 주세요.       </target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelsummary">
+				<source>Invalid Channel Summary</source>
+				<target>잘못된 채널 요약 </target>
+			</trans-unit>
+			<trans-unit id="distribution.tree.exists">
+				<source>A distribution already exists with the name '{0}'.  Please select another name.</source>
+				<target>'{0}'라는 배포판이 이미 있습니다. 다른 이름을 선택하십시오. </target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.redhat">
+				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+				<target>Red Hat 채널은 삭제될 수 없습니다. 오직 사용자 설정 채널만 삭제될 수 있습니다.     </target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.haschild">
+				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+				<target>이 채널에는 관련된 자식 채널이 있습니다. 먼저 자식 채널을 삭제한 후 부모 채널을 삭제해야 합니다.  </target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.tree.notfound">
+				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
+				<target>킥스타트 트리를 찾을 수 없습니다. 요청된 트리에 액세스할 수 없습니다.  </target>
+			</trans-unit>
+			<trans-unit id="message.channelcreated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
+				<target>채널 &lt;strong&gt;{0}&lt;/strong&gt; 생성 </target>
+			</trans-unit>
+			<trans-unit id="message.channelupdated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+				<target>채널 &lt;strong&gt;{0}&lt;/strong&gt; 업데이트 </target>
+			</trans-unit>
+			<trans-unit id="message.channelsubscribers">
+				<source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+				<target>등록자 탭에서 사용자마다 서브스크립션 제한이 적용될 수 있습니다.  </target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidvirt">
+				<source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
+				<target>선택한 킥스타트 트리 또는 배포판에서 반가상화는 지원되지 않습니다.   </target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
+				<source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+				<target>현재 선택된 가상화 유형과 호환할 수 없는 배포판 또는 킥스타트 트리가 선택되었습니다. 다른 배포판을 선택하거나 배포판을 설정하기 전 프로파일의 선택된 가상화 유형을 변경하십시오.    </target>
+			</trans-unit>
+			<trans-unit id="snapshots.childchannel">
+				<source>Child Channels Updated</source>
+				<target>자식 채널 업데이트  </target>
+			</trans-unit>
+			<trans-unit id="snapshots.basechannel">
+				<source>Base Channel Updated</source>
+				<target>기본 채널 업데이트  </target>
+			</trans-unit>
+			<trans-unit id="snapshots.entitlements">
+				<source>Entitlements Updated</source>
+				<target>인타이틀먼트 업데이트  </target>
+			</trans-unit>
+			<trans-unit id="errata.updates.noncritical">
+				<source>Non-Critical</source>
+				<target>중요하지 않음 </target>
+			</trans-unit>
+			<trans-unit id="snapshots.configchannel">
+				<source>Configuration Channels Updated</source>
+				<target>설정 채널 업데이트  </target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.distro.syncfail">
+				<source>
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
+kickstarting systems kickstart distributions failed to sync from
+Spacewalk to Cobbler:
+
+{0}
+
+Please check:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+for more detailed errors.  If you don't resolve the errors the kickstart
+tree will not be usable for kickstarting.</source>
+				<target>
+Spacewalk가 Spacewalk에서 Cobbler로 킥스타트 배포판을 동기화하려고
+하면 다음과 같은 오류 목록이 나타났습니다.  Spacewalk에서 Cobbler로
+동기화에 실패한 시스템 킥스타트 배포판을 킥스타트할 수 있게 하려면
+이러한 오류를 수정해야 합니다:
+
+{0}
+
+오류에 대한 자세한 내용은 다음을 참조합니다:
+
+/var/log/rhn/rhn_taskomatic_daemon.log
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+오류를 해결하지 않으면 킥스타트를 위해 킥스타트 트리를 사용할 수
+없게 됩니다.  </target>
+			</trans-unit>
+			<trans-unit id="errata.delete.msg">
+				<source>Successfully deleted {0} errata.</source>
+				<target>{0} 에라타가 성공적으로 삭제되었습니다.   </target>
 			</trans-unit>
 		</body>
 	</file>

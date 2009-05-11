@@ -19,8 +19,10 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BaseSetOperateOnSelectedItemsAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -28,6 +30,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
 import java.util.Map;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -92,6 +95,23 @@ public class SubscribeSubmit extends BaseSetOperateOnSelectedItemsAction {
         if (set.isEmpty()) {
             return handleEmptySelection(mapping, formIn, request);
         }
+        
+        /* BZ 221637 - Any channels that is already subscribed to by all servers will be
+           omitted from the user selectable list. This RhnSet is used in the ranking
+           process on the next page, so need to add in those omitted channels explicitly
+           so they take place in the ranking.        
+         */
+        User user = context.getLoggedInUser();
+        ConfigurationManager manager = ConfigurationManager.getInstance();
+        DataResult channels = manager.ssmChannelListForSubscribeAlreadySubbed(user);
+
+        for (Iterator it = channels.iterator(); it.hasNext();) {
+            ConfigChannelDto channel = (ConfigChannelDto) it.next();
+            set.addElement(channel.getId());
+        }
+
+        RhnSetManager.store(set);
+        
         return mapping.findForward("confirm");
     }
     

@@ -2,7 +2,7 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.5
+Version: 0.6.3
 Release: 1%{?dist}
 URL:      https://fedorahosted.org/spacewalk 
 Source0:  https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -50,6 +50,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- adding optional way to specify profile name. (satoru.satoh@gmail.com)
+- 497110 - Don't assume jabberd is installed in rhn-ssl-tool (dgoodwin@redhat.com)
+
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- 465622 - setup config file deployment when it's due (mzazrivec@redhat.com)
+
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- update copyright and licenses (jesusr@redhat.com)
+
 * Fri Mar 27 2009 Devan Goodwin <dgoodwin@redhat.com> 0.5.5-1
 - Update for new jabberd cert location, and possiblity of jabber user instead of jabberd.
 

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.errata.Cve;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -102,7 +103,7 @@ public class UnpublishedErrata extends AbstractErrata {
     /**
      * {@inheritDoc}
      */
-    public Set getNotificationQueue() {
+    public List getNotificationQueue() {
         // if this gets called on an unpublished errata, just return null
         return null;
     }

@@ -23,7 +23,7 @@ from server.rhnServer import server_kickstart, server_packages
 __rhnexport__ = ['initiate', 'schedule_sync']
 
 _query_initiate = rhnSQL.Statement("""
-    select ak.append_string, ak.static_device, ak.kickstart_host
+    select ak.append_string, ak.static_device, ak.kickstart_host, ak.cobbler_system_name
       from rhnActionKickstart ak, rhnKickstartableTree kst 
      where ak.action_id = :action_id
 """)
@@ -50,6 +50,9 @@ def initiate(server_id, action_id):
     boot_image, append_string = ('spacewalk-koan', row['append_string'])
     static_device = row['static_device'] or ""
     kickstart_host = row['kickstart_host']
+    system_record = row['cobbler_system_name']
+    if system_record == None:
+       system_record = ''
     if not boot_image:
         raise InvalidAction("Boot image missing")
     if not kickstart_host:
@@ -59,7 +62,7 @@ def initiate(server_id, action_id):
     h.execute(action_id=action_id)
     files = map(lambda x: x['path'], h.fetchall_dict() or [])
     
-    return (kickstart_host, boot_image, append_string, static_device, files)
+    return (kickstart_host, boot_image, append_string, static_device, system_record, files)
 
 def schedule_sync(server_id, action_id):
     log_debug(3, server_id, action_id)

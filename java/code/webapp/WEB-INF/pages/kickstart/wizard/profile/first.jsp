@@ -85,7 +85,7 @@ function refresh() {
             <th width="10%"><bean:message key="kickstart.jsp.create.wizard.virtualization.label" /></th>
             <td colspan="2" align="left">
               <html:select property="virtualizationTypeLabel">
-                <html:optionsCollection property="virtualizationTypes" label="name" value="label" />
+                <html:optionsCollection property="virtualizationTypes" label="formattedName" value="label" />
               </html:select>
             </td>
         </tr>

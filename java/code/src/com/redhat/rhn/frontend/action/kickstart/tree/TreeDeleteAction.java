@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.kickstart.tree;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.PersistOperation;
@@ -68,8 +69,9 @@ public class TreeDeleteAction extends BaseTreeAction {
     /**
      * {@inheritDoc}
      */
-    protected void processCommandSetters(PersistOperation operation, DynaActionForm form) {
-        // NOOOP For delete
+    protected ValidatorError processCommandSetters(PersistOperation operation, 
+                                                            DynaActionForm form) {
+       return null;
     }
 
 }

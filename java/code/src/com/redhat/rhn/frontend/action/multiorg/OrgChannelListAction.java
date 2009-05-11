@@ -14,166 +14,149 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-import com.redhat.rhn.frontend.action.DispatchedAction;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.taglibs.list.collection.WebSessionSet;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 /**
- * OrgChannelListAction
- * @version $Rev$
+ * Handles the (un)enabling of organizations trusted to a channel. 
  */
-public class OrgChannelListAction extends DispatchedAction {
-    
-    @Override
-    protected ActionForward setupAction(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-        throws Exception {
-        
-        RequestContext ctx = new RequestContext(request);
-        new OrgSet(request);
-        Long cid = ctx.getParamAsLong("cid");
-        Channel c = ChannelManager.lookupByIdAndUser(cid,
-             ctx.getLoggedInUser());
-        checkProtected(c);
-        
-        request.setAttribute("channel_name", c.getName());                
-        request.setAttribute(ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?" + 
-                RequestContext.CID + "=" + c.getId()); 
+public class OrgChannelListAction extends RhnAction implements Listable {
 
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-    }
-    
-    @Override
-    protected ActionForward commitAction(ActionMapping mapping,
-            ActionForm formIn, HttpServletRequest request,
-            HttpServletResponse response) {
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping actionMapping,
+                                 ActionForm actionForm,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response)
+        throws Exception {
+
+        // Before we do anything, make sure the channel is actually configured
+        // with protected access
         RequestContext context = new RequestContext(request);
-        OrgSet orgSet = new OrgSet(request);
-        User user = context.getLoggedInUser();
         Long cid = context.getParamAsLong("cid");
-        Channel c = ChannelManager.lookupByIdAndUser(cid, user);
-        checkProtected(c);
-        
-        Set <String> set = SessionSetHelper.lookupAndBind(request, orgSet.getDecl());
-        List <OrgChannelDto> mylist = OrgManager.orgChannelTrusts(cid, user.getOrg());
-        processSets(c, set, mylist);
-        String strMode = set.size() != 1 ?  "orgs.trust.channels.plural.jsp.enabled" :
-                                            "orgs.trust.channels.single.jsp.enabled";
-        getStrutsDelegate().saveMessage(strMode,
-                        new String [] {String.valueOf(set.size())}, request);
-        
-        request.setAttribute("channel_name", c.getName());
-        Map params = new HashMap();
-        params.put(RequestContext.CID, c.getId().toString());
-        StrutsDelegate strutsDelegate = getStrutsDelegate();
-        return strutsDelegate.forwardParams
-                        (mapping.findForward("success"), params);        
+        Channel channel = ChannelManager.lookupByIdAndUser(cid, context.getLoggedInUser());
+
+        if (!channel.isProtected()) {
+            throw new PermissionException("Channel does not have protected access");
+        }
+
+        request.setAttribute("channel_name", channel.getName());
+        request.setAttribute(ListTagHelper.PARENT_URL,
+            request.getRequestURI() + "?" +
+                RequestContext.CID + "=" + channel.getId());
+
+        // Begin normal ListTag 3.0 usage
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request);
+        helper.ignoreEmptySelection();
+        helper.execute();
+
+        if (helper.isDispatched()) {
+            Set<String> selectedItems = helper.getSet();
+
+            handleDispatch(context.getLoggedInUser(), channel, selectedItems);
+
+            helper.destroy();
+
+            String messageKey =
+                selectedItems.size() != 1 ?  "orgs.trust.channels.plural.jsp.enabled" :
+                                             "orgs.trust.channels.single.jsp.enabled";
+            getStrutsDelegate().saveMessage(messageKey,
+                            new String [] {String.valueOf(selectedItems.size())}, request);
+
+            request.setAttribute("channel_name", channel.getName());
+            Map<String, String> params = new HashMap<String, String>();
+            params.put(RequestContext.CID, channel.getId().toString());
+            StrutsDelegate strutsDelegate = getStrutsDelegate();
+            return strutsDelegate.forwardParams
+                            (actionMapping.findForward("success"), params);
+
+        }
+
+        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
-    
-    /**
-     * 
-     * @param c Channel object we are setting trusted org access to
-     * @param selectedSet set of orgs selected in form
-     * @param original trusted org permissions before form manipulation
-     * @return
-     */
-    private boolean processSets(Channel c, Set <String> selectedSet,
-                                           List <OrgChannelDto> original) {
-      boolean retval = false;
-      Set<Org> s = c.getTrustedOrgs();
-      for (OrgChannelDto item : original) {
-          Org org = OrgFactory.lookupById(item.getId());              
-          if (!item.isSelected() && selectedSet.contains(org.getId().toString())) {
-              s.add(org);
-              retval = true;
-          } 
-          else if (item.isSelected() && !selectedSet.contains(org.getId().toString())) {
-              s.remove(org);
-              unsubscribeSystems(org, c);
-              retval = true;
-          }
-      }
-      return retval;
+
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        Org org = user.getOrg();
+        Long cid = context.getParamAsLong(RequestContext.CID);
+        return OrgManager.orgChannelTrusts(cid, org);
     }
-    
-    /**
-     * 
-     * @param orgIn Org to check systems
-     * @param c Channel to unsusbcribe 
-     */
+
+    private void handleDispatch(User user, Channel channel, Set<String> selectedOrgs) {
+
+        // Load the current list of trusts for the channel
+        List<OrgChannelDto> trusts =
+            OrgManager.orgChannelTrusts(channel.getId(), user.getOrg());
+
+        Set<Org> s = channel.getTrustedOrgs();
+        for (OrgChannelDto item : trusts) {
+            Org org = OrgFactory.lookupById(item.getId());
+            if (!item.isSelected() && selectedOrgs.contains(org.getId().toString())) {
+                s.add(org);
+            }
+            else if (item.isSelected() && !selectedOrgs.contains(org.getId().toString())) {
+                s.remove(org);
+                unsubscribeSystems(org, channel);
+            }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     private void unsubscribeSystems(Org orgIn, Channel c) {
         User u = UserFactory.findRandomOrgAdmin(orgIn);
-        DataResult<Map<String, Object>> myList = 
+        DataResult<Map<String, Object>> myList =
             SystemManager.systemsSubscribedToChannel(c, u);
+
         for (Map<String, Object> m : myList) {
-            Long sid = (Long)m.get("id");
+            Long sid = (Long) m.get("id");
             Server s = SystemManager.lookupByIdAndUser(sid, u);
-            SystemManager.unsubscribeServerFromChannel(s, c);
+
+            if (s.isSubscribed(c)) {
+                // check if this is a base custom channel
+                if (c.getParentChannel() == null) {
+                    // unsubscribe children first if subscribed
+                    List<Channel> children = c.getAccessibleChildrenFor(u);
+
+                    for (Channel child : children) {
+                        if (s.isSubscribed(child)) {
+                            // unsubscribe server from child channel
+                            child.getTrustedOrgs().remove(orgIn);
+                            ChannelFactory.save(child);
+                            s = SystemManager.unsubscribeServerFromChannel(s, child, true);
+                        }
+                    }
+                }
+                // unsubscribe server from channel
+                SystemManager.unsubscribeServerFromChannel(s, c, true);
+            }
         }
     }
-    
-    /**
-     * 
-     * @param c Channel object to check access for
-     */
-    private void checkProtected(Channel c) {
-        if (!c.isProtected()) {                                                
-            PermissionException pex = 
-                new PermissionException("Channel does not have protected access");
-            throw pex;
-        }
-    }
-    
-    private static class OrgSet extends WebSessionSet {
-
-        public OrgSet(HttpServletRequest request) {
-            super(request);
-        }
-
-        @Override
-        protected List getResult() {
-            RequestContext context = getContext();
-            User user = context.getLoggedInUser();
-            Org org = user.getOrg();
-            Long cid = context.getParamAsLong(RequestContext.CID);         
-            return OrgManager.orgChannelTrusts(cid, org);                        
-        }
-        
-        @Override
-        protected String getDecl() {
-            return super.getDecl() + 
-                    getContext().getLoggedInUser().getOrg().getId();
-        }
-        
-    }       
 
 }

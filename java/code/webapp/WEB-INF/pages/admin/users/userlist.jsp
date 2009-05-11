@@ -16,7 +16,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-users.gif" imgAlt="users.jsp.imgAlt"
- helpUrl="/rhn/help/reference/en/s2-sm-users-all.jsp"
+ helpUrl="/rhn/help/reference/en-US/s1-sm-users.jsp#s2-sm-users-all"
  creationUrl="/rhn/users/CreateUser.do?account_type=into_org" 
  creationType="user">
   <bean:message key="userlist.jsp.useroverview"/>

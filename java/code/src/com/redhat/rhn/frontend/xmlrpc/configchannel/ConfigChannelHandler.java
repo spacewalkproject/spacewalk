@@ -223,6 +223,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * for file paths -  'data' will hold values for-> 
      *  contents, owner, group, permissions, macro-start-delimiter, macro-end-delimiter 
      * @return returns the new created or updated config revision..
+     * @since 10.2
      * 
      * @xmlrpc.doc Create a new file or directory with the given path, or 
      * update an existing path.
@@ -257,6 +258,17 @@ public class ConfigChannelHandler extends BaseHandler {
                                                 String path,
                                                 boolean isDir,
                                                 Map<String, Object> data) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("contents");
+        validKeys.add("owner");
+        validKeys.add("group");
+        validKeys.add("permissions");
+        validKeys.add("macro-start-delimiter");
+        validKeys.add("macro-end-delimiter");
+        validateMap(validKeys, data);
+
         User user = getLoggedInUser(sessionKey);
         XmlRpcConfigChannelHelper helper = XmlRpcConfigChannelHelper.getInstance();
         ConfigChannel channel = helper.lookupGlobal(user, channelLabel);
@@ -271,6 +283,7 @@ public class ConfigChannelHandler extends BaseHandler {
      * @param channelLabel the channel label
      * @param paths a list of paths to examine.
      * @return a list containing the latest config revisions of the requested paths.
+     * @since 10.2
      * 
      * @xmlrpc.doc Given a list of paths and a channel, returns details about 
      * the latest revisions of the paths.

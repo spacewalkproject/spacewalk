@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -70,18 +69,13 @@ public class KickstartWizardHelper {
      * Retrieve a list of the valid virtualization types
      * @return list of VirtualizationTypes
      */
-    public List getVirtualizationTypes() {   
-        // Filter out KVM if this is Satellite
-        List types = KickstartFactory.lookupVirtualizationTypes();
-        if (!Config.get().isSpacewalk()) {
-            for (int i = 0; i < types.size(); i++) {
-                KickstartVirtualizationType type =
-                    (KickstartVirtualizationType) types.get(i);
-                if (type.getLabel().equals(KickstartVirtualizationType.KVM_FULLYVIRT)) {
-                    types.remove(i);
-                }
-            }            
-        }
+    public List<KickstartVirtualizationType> getVirtualizationTypes() {
+        List <KickstartVirtualizationType> types = 
+                    new LinkedList<KickstartVirtualizationType>();
+        types.add(KickstartVirtualizationType.kvmGuest());
+        types.add(KickstartVirtualizationType.paraHost());
+        types.add(KickstartVirtualizationType.xenPV());
+        types.add(KickstartVirtualizationType.xenFV());
         return types;
     }
 
@@ -200,9 +194,6 @@ public class KickstartWizardHelper {
             if (ksdata.getCommand("url") != null) {
                 ksdata.getCommand("url").setCreated(new Date());
             }
-            if (ksdata.getCommand("url") != null) {
-                ksdata.getCommand("url").setCreated(new Date());
-            }
         }
 
         ksdata.getKickstartDefaults().setCreated(new Date());
@@ -226,7 +217,7 @@ public class KickstartWizardHelper {
         cmd.store();
         log.debug("store() - done.");
     }
-    
+
     /**
      * Adds the vt repo to this ks data
      * @param ksdata the data to which the repos have to be processed

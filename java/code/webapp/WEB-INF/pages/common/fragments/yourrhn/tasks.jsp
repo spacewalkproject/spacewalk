@@ -10,17 +10,6 @@
   <th style="text-align: left;"><bean:message key="yourrhn.jsp.task.title" /></th></tr>
 </thead>
 
-<rhn:require acl="org_entitlement(sw_mgr_enterprise)">
-<tr class="list-row-odd">
-<td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
-									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <bean:message key="yourrhn.jsp.task.searchfor" /> 
-	<a href="/rhn/channels/software/Search.do">
-    	<bean:message key="header.jsp.packages" /></a> <strong>|</strong> <a href="/rhn/systems/Search.do"><bean:message key="header.jsp.systems" /></a>
-    	<strong>|</strong> <a href="/rhn/help/Search.do"><bean:message key="header.jsp.documentation" /></a>
-    	<strong>|</strong> <a href="/rhn/errata/Search.do"><bean:message key="header.jsp.errata" /></a>
-    </a></td></tr>
-</rhn:require>
-
 <rhn:require acl="not user_role(satellite_admin)">
 <rhn:require acl="user_role(org_admin)">
 <tr class="list-row-odd">
@@ -54,7 +43,7 @@
 
 <tr class="list-row-odd">
 <td style="text-align: left;" class="first-column last-column"><img style="margin-left: 4px;" src="/img/parent_node.gif"
-									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <a href="/rhn/help/client-config/en/index.jsp">
+									alt="<bean:message key="yourrhn.jsp.bullet.alttag"/>" /> <a href="/rhn/help/client-config/en-US/index.jsp">
     	<bean:message key="yourrhn.jsp.tasks.registersystem" />
     </a></td></tr>
 

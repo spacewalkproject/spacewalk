@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>संकेत</target>
 			</trans-unit>
-			<trans-unit id="About RHN">
-				<source>About RHN</source>
-				<target>RHN के बारे में</target>
+			<trans-unit id="About Spacewalk">
+				<source>About</source>
+				<target>परिचय</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -226,6 +226,10 @@
 				<source>Change Email</source>
 				<target>ईमेल बदलें</target>
 			</trans-unit>
+			<trans-unit id="frontend.actions.channels.manager.create">
+				<source>Create Software Channel</source>
+				<target>सॉफ्टवेयर चैनल बनाएँ</target>
+			</trans-unit>
 			<trans-unit id="Software Channel Entitlements">
 				<source>Software Channel Entitlements</source>
 				<target>सॉफ्टवेयर चैनल एंटाइटेलमेंट</target>
@@ -258,9 +262,9 @@
 				<source>Config Channels</source>
 				<target>विन्यास चैनल</target>
 			</trans-unit>
-			<trans-unit id="Contact RHN">
-				<source>Contact RHN</source>
-				<target>RHN से संपर्क करें</target>
+			<trans-unit id="Contact Spacewalk">
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ से संपर्क करें</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -334,9 +338,9 @@
 				<source>File Preservation</source>
 				<target>फाइल संरक्षण</target>
 			</trans-unit>
-			<trans-unit id="Get RHN Software">
-				<source>Get RHN Software</source>
-				<target>RHN सॉफ्टवेयर पाएं</target>
+			<trans-unit id="Get Spacewalk Software">
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ सॉफ्टवेयर पाएँ</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,17 +398,17 @@
 				<source>Management</source>
 				<target>प्रबंधन</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Guide">
-				<source>Management Satellite Guide</source>
-				<target>प्रबंधन सैटेलाइट गाइड</target>
+			<trans-unit id="Management Spacewalk Guide">
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>प्रबंधन @@PRODUCT_NAME@@ गाइड</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite">
-				<source>Management Satellite</source>
-				<target>प्रबंधन सैटेलाइट</target>
+			<trans-unit id="Management Spacewalk">
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>प्रबंधन @@PRODUCT_NAME@@</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Release Notes">
-				<source>Management Satellite Release Notes</source>
-				<target>प्रबंधन सैटेलाइट रिलीज टिप्पणी</target>
+			<trans-unit id="Management Spacewalk Release Notes">
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>प्रबंधन @@PRODUCT_NAME@@ रिलीज नोट्स</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -415,10 +419,6 @@
 				<target>सॉफ्टवेयर संकुल प्रबंधित करें</target>
 			</trans-unit>
 			<trans-unit id="Monitoring">
-				<source>Monitoring</source>
-				<target>मॉनीटरिंग</target>
-			</trans-unit>
-			<trans-unit id="monitoring_entitled">
 				<source>Monitoring</source>
 				<target>मॉनीटरिंग</target>
 			</trans-unit>
@@ -490,13 +490,13 @@
 				<source>Published</source>
 				<target>प्रकाशित</target>
 			</trans-unit>
-			<trans-unit id="Purchase History">
-				<source>Purchase History</source>
-				<target>खरीद इतिहास</target>
-			</trans-unit>
 			<trans-unit id="Subscription Management">
 				<source>Subscription Management</source>
 				<target>सदस्यता प्रबंधन</target>
+			</trans-unit>
+			<trans-unit id="Organization Trusts">
+				<source>Organization Trusts</source>
+				<target>संगठन ट्रस्ट</target>
 			</trans-unit>
 			<trans-unit id="Quick Start Guide">
 				<source>Quick Start Guide</source>
@@ -526,29 +526,21 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL उत्प्रवासन FAQ</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Satellite Tools">
-				<source>RHN Management Satellite Tools</source>
-				<target>RHN प्रबंधन सैटेलाइट औज़ार</target>
+			<trans-unit id="Spacewalk Management Tools">
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ प्रबंधन औजार</target>
 			</trans-unit>
-			<trans-unit id="RHN Security">
-				<source>RHN Security</source>
-				<target>RHN सुरक्षा</target>
-			</trans-unit>
-			<trans-unit id="Red Hat Login">
-				<source>Red Hat Login</source>
-				<target>Red Hat लॉगिन</target>
+			<trans-unit id="Spacewalk Login">
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ लॉगिन</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>लॉगिन बनाएं</target>
 			</trans-unit>
-			<trans-unit id="RHN Support Tools">
-				<source>RHN Support Tools</source>
-				<target>RHN समर्थन औज़ार</target>
-			</trans-unit>
-			<trans-unit id="Satellite Release Notes">
-				<source>Satellite Release Notes</source>
-				<target>सैटेलाइट रिलीज टिप्पणी</target>
+			<trans-unit id="Spacewalk Support Tools">
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ समर्थन औजार</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -557,6 +549,10 @@
 			<trans-unit id="Scout Config Push">
 				<source>Scout Config Push</source>
 				<target>स्कॉउट कॉन्फिग पुश</target>
+			</trans-unit>
+			<trans-unit id="Search">
+				<source>Search</source>
+				<target>खोजें</target>
 			</trans-unit>
 			<trans-unit id="Sessions">
 				<source>Sessions</source>
@@ -702,6 +698,14 @@
 				<source>You may not delete yourself.</source>
 				<target>आप स्वयं को मिटा नहीं सकते.</target>
 			</trans-unit>
+			<trans-unit id="user.satadmin.remove">
+				<source>Removed Satellite Administrator role from {0}</source>
+				<target>सैटेलाइट प्रशासक भूमिका {0} से हटाया</target>
+			</trans-unit>
+			<trans-unit id="user.satadmin.add">
+				<source>Added Satellite Administrator role to {0}</source>
+				<target>{0} में सैटेलाइट प्रशासक जोड़ा</target>
+			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
 				<target>आप &lt;strong&gt;दूसरे&lt;/strong&gt; संगठन प्रशासक को मिटा नहीं सकते हैं. कृपया 'संगठन प्रशासक' भूमिका को इस उपयोक्ता से उनके खाता के मिटाने के प्रयास पहले हटायें.</target>
@@ -738,10 +742,6 @@
 				<source>Your Preferences</source>
 				<target>आपकी वरीयता</target>
 			</trans-unit>
-			<trans-unit id="Your RHN">
-				<source>Your RHN</source>
-				<target>आपका RHN</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>संगठन अनुप्रयोग</target>
@@ -763,12 +763,16 @@
 				<target>संगठन प्रशासक</target>
 			</trans-unit>
 			<trans-unit id="Satellite Administrators">
-				<source>Satellite Administrators</source>
-				<target>सैटेलाइट प्रशासक</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ प्रशासक</target>
 			</trans-unit>
-			<trans-unit id="RHN Super Users">
-				<source>RHN Super Users</source>
-				<target>RHN सुपर उपयोक्ता</target>
+			<trans-unit id="Spacewalk Administrators">
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ प्रशासक</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Super Users">
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ सुपर यूजर</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1039,8 +1043,8 @@
 				<target>इसके द्वारा फ़िल्टर: </target>
 			</trans-unit>
 			<trans-unit id="message.range">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; &lt;strong&gt;{2}&lt;/strong&gt; का</target>
+				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
+				<target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="message.range.withtypedescription">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
@@ -1177,8 +1181,8 @@
 				<target>अपलोड के लिये फाइल:</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.message">
-				<source>This kickstart profile uses a base channel that is missing packages. In order for all kickstart functionality to work correctly, the following packages should be present in this kickstart's base channel: {0}.</source>
-				<target>किकस्टार्ट प्रोफाइल एक आधार चैनल का प्रयोग करता है जो कि अनुपस्थित संकुल है.  सभी किकस्टार्ट प्रोफाइल को ठीक से काम करने के लिये, निम्न संकुल को किकस्टार्ट आधार चैनल में मौजूद होना चाहिए: {0}.</target>
+				<source>The following packages are not available in any of the channels associated to this kickstart profile: {0}. In order for all kickstart functionality to work correctly, these packages should be present in at least one channel associated to this profile.</source>
+				<target state="needs-review-translation">किकस्टार्ट प्रोफाइल एक आधार चैनल का प्रयोग करता है जो कि अनुपस्थित संकुल है.  सभी किकस्टार्ट प्रोफाइल को ठीक से काम करने के लिये, निम्न संकुल को किकस्टार्ट आधार चैनल में मौजूद होना चाहिए: {0}.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.satmessage">
 				<source>&lt;div style="text-align: left;"&gt;
@@ -1187,11 +1191,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Satellite administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Satellite. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1212,11 +1216,11 @@ available for this kickstart profile to function properly.
 &lt;li&gt;
 क्या 'rhn-tools' संतति सॉफ्टवेयर चैनल आपके संगठन में मौजूद किकस्टार्ट प्रोफाइल चैनल
 बेस चैनल के लिए उपलब्ध है? यदि यह नहीं है, आपको आग्रह करने की जरूरत है
-'rhn-tools' साफ्टवेयर चैनल के लिए एनटाइटेलमेंट को अपने सैटेलाइट प्रशासक से.
+'rhn-tools' साफ्टवेयर चैनल के लिए एनटाइटेलमेंट को अपने @@PRODUCT_NAME@@ प्रशासक से.
 &lt;/li&gt;
 &lt;li&gt;
 निश्चित करें कि इस किकस्टार्ट प्रोफाइल के बेस चैनल के लिए आपके
-सैटेलाइट में 'rhn-tools' संतति चैनल के लिए उपलब्ध है. यदि ऐसा नहीं है, कृपया
+@@PRODUCT_NAME@@ में 'rhn-tools' संतति चैनल के लिए उपलब्ध है. यदि ऐसा नहीं है, कृपया
 अपने सैटेलाइट प्रशासक से संपर्क करें और rhn-tool चैनल के लिए सैटेलाइट सिंक का आग्रह करता है
 और फिर कोशिश करें.
 &lt;/li&gt;
@@ -1276,6 +1280,9 @@ available for this kickstart profile to function properly.
 				<source>Kickstart advanced options successfully updated.</source>
 				<target>किकस्टार्ट उन्नत विकल्प सफलतापूर्वक अद्यतन किया गया.</target>
 			</trans-unit>
+			<trans-unit id="kickstart.options.url.note">
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
+			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
 				<target>सफलतापूर्वर IP परिसर किकस्टार्त प्रोफाइल {0} में जोड़ा गया</target>
@@ -1295,6 +1302,37 @@ available for this kickstart profile to function properly.
 			<trans-unit id="kickstart.iprange_delete.failure">
 				<source>There was an error deleting the IP Range from Kickstart Profile {0}. Please try again.</source>
 				<target>IP परिसर किकस्टार्ट प्रोफाइल {0} से मिटाने में एक गलती हुई. फिर कोशिश करें.</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.update.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>कोब्बलर स्निपेट &lt;strong&gt;{0}&lt;/strong&gt; सफलतापूर्वक अद्यतन किया गया.</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.create.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>कोब्बलर स्निपेट &lt;strong&gt;{0}&lt;/strong&gt; सफलतापूर्वक बनाया गया.</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.delete.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>कोब्बलर स्निपेट &lt;strong&gt;{0}&lt;/strong&gt; सफलतापूर्वक मिटाया गया.</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.couldnotdelete.message">
+				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+				<target>स्निपेट &lt;strong&gt;{0}&lt;/strong&gt; मिटाने के प्रयास में एक त्रुटि आई.</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.rename-error">
+				<source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+				<target>स्निपेट &lt;strong&gt;{0}&lt;/strong&gt; का नाम बदलने के प्रयास में एक त्रुटि आई.</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.filenameexists.message">
+				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; नाम के साथ कोब्बलर स्निपेट पहले से मौजूद है.</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.invalidfilename.message">
+				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+			</trans-unit>
+			<trans-unit id="toolbar.delete.snippets">
+				<source>delete snippet</source>
+				<target>स्निपेट मिटाएँ</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange.url">
 				<source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -1361,16 +1399,16 @@ available for this kickstart profile to function properly.
 				<target>Solaris संकुल सूची ताज़ा करें</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>RHN Daemon Configuration</source>
-				<target>RHN डेमॉन विन्यास</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ डेमॉन विन्यास</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>तैनात संकुल जांचें</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an RHN Satellite</source>
-				<target>RHN सैटेलाइट के साथ hn-applet प्रयोग के लिये अनुमति दें</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ के साथ rhn-applet प्रयोग के लिये अनुमति दें</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1416,6 +1454,14 @@ available for this kickstart profile to function properly.
 				<source>You must select at least one system.</source>
 				<target>आप कम से कम एक सिस्टम जरूर चुनें.</target>
 			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.startdate">
+				<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
+				<target>आरंभिक तिथि के विश्लेषण में असमर्थ, yyyy-mm-dd प्रारूप में फिर दाखिल करें.</target>
+			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.enddate">
+				<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
+				<target>समाप्ति तिथि के विश्लेषण में असमर्थ, yyyy-mm-dd प्रारूप में फिर दाखिल करें.</target>
+			</trans-unit>
 			<trans-unit id="patchremoveconfirm.schedule">
 				<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
 				<target>&lt;strong&gt;{1}&lt;/strong&gt; सिस्टम के लिये पैच हटाया जाना अनुसूचित किया गया है</target>
@@ -1457,8 +1503,8 @@ available for this kickstart profile to function properly.
 				<target>संगठन प्रशासक</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Satellite Administrator</source>
-				<target>सैटेलाइट प्रशासक</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ प्रशासक</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1469,8 +1515,8 @@ available for this kickstart profile to function properly.
 				<target>चैनल प्रशासक</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Red Hat Network Superuser</source>
-				<target>Red Hat Network अधिउपयोक्ता</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ सुपरयूजर</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1485,8 +1531,8 @@ available for this kickstart profile to function properly.
 				<target>कोमा CMS प्रकाशक</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Red Hat Network Support Administrator</source>
-				<target>Red Hat Network समर्थन प्रशासक</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ समर्थन प्रशासक</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -1523,6 +1569,10 @@ available for this kickstart profile to function properly.
 			<trans-unit id="toolbar.create.filter">
 				<source>create new notification filter</source>
 				<target>नयी अधिसूचना फ़िल्टर बनाएं</target>
+			</trans-unit>
+			<trans-unit id="toolbar.upload.kickstart">
+				<source>upload new kickstart file</source>
+				<target>नयी किकस्टार्ट प्रोफाइल अपलोड करें</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.kickstart">
 				<source>create new kickstart profile</source>
@@ -1572,6 +1622,14 @@ available for this kickstart profile to function properly.
 				<source>delete system</source>
 				<target>सिस्टम मिटाएं</target>
 			</trans-unit>
+			<trans-unit id="toolbar.delete.systemgroup">
+				<source>delete group</source>
+				<target>समूह मिटाएँ</target>
+			</trans-unit>
+			<trans-unit id="toolbar.work.with.group">
+				<source>work with group</source>
+				<target>समूह के साथ कार्य</target>
+			</trans-unit>
 			<trans-unit id="toolbar.delete.errata">
 				<source>delete errata</source>
 				<target>इरेटा मिटाएं</target>
@@ -1620,6 +1678,10 @@ available for this kickstart profile to function properly.
 				<source>Security Advisory</source>
 				<target>सुरक्षा सलाहकारी</target>
 			</trans-unit>
+			<trans-unit id="errata.search.could_not_execute_query">
+				<source>Could not execute query: {0}</source>
+				<target>प्रश्न नहीं निष्पादित कर सका: {0}</target>
+			</trans-unit>
 			<trans-unit id="packages.search.both">
 				<source>Name and Summary</source>
 				<target>नाम और सारांश</target>
@@ -1660,9 +1722,19 @@ available for this kickstart profile to function properly.
 				<source>Could not parse query '{0}'.</source>
 				<target>{0} प्रश्न का विश्लेषण नहीं कर सका.</target>
 			</trans-unit>
+			<trans-unit id="packages.search.index_files_missing">
+				<source>Index files missing from search-server.  Assuming data exists in database, indexes can be regenerated by running: /etc/init.d/rhn-search cleanindex, then restart rhn-search</source>
+			</trans-unit>
+			<trans-unit id="packages.search.could_not_execute_query">
+				<source>Could not execute query '{0}'.</source>
+				<target>'{0}' प्रश्न का निस्पादन नहीं कर सका.</target>
+			</trans-unit>
 			<trans-unit id="packages.search.tooshort">
 				<source>Search strings must be longer than two characters.</source>
 				<target>खोज स्ट्रिंग को दो संप्रतीक से ज्यादा लंबा रहना चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="packages.search.index_out_of_sync_with_db">
+				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1715,6 +1787,14 @@ available for this kickstart profile to function properly.
 			<trans-unit id="systemsearch_cpu_mhz_gt">
 				<source>CPU Mhz Greater Than</source>
 				<target>CPU Mhz इससे ज्यादा</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_lt">
+				<source>Number of CPUs Less Than</source>
+				<target>इससे कम CPU की संख्या</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_gt">
+				<source>Number of CPUs Greater Than</source>
+				<target>इससे अधिक CPU की संख्या</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_ram_lt">
 				<source>RAM Less Than</source>
@@ -1788,6 +1868,10 @@ available for this kickstart profile to function properly.
 				<source>Needed Packages</source>
 				<target>संकुल जरूरी</target>
 			</trans-unit>
+			<trans-unit id="systemsearch_running_kernel">
+				<source>Running Kernel</source>
+				<target>कर्नेल चला रहा है</target>
+			</trans-unit>
 			<trans-unit id="systemsearch.jsp.location">
 				<source>Location</source>
 				<target>स्थान</target>
@@ -1799,6 +1883,10 @@ available for this kickstart profile to function properly.
 			<trans-unit id="systemsearch.errors.numeric">
 				<source>Search queries for this field must be numeric</source>
 				<target>खोज प्रश्न इस क्षेत्र के लिये जरूर अंक होना चाहिए</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_no_matches_found">
+				<source>No matches found</source>
+				<target state="needs-review-translation">कोई संकुल चयनित नहीं.</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.sameorg">
 				<source>User to deactivate must be in the same organization.</source>
@@ -1972,6 +2060,14 @@ user before attempting to deactivate their account.</source>
 				<source>Install</source>
 				<target>अधिष्ठापित करें</target>
 			</trans-unit>
+			<trans-unit id="Remove">
+				<source>Remove</source>
+				<target>हटायें</target>
+			</trans-unit>
+			<trans-unit id="message.actionremove">
+				<source>Remove</source>
+				<target>हटायें</target>
+			</trans-unit>
 			<trans-unit id="Groups">
 				<source>Groups</source>
 				<target>समूह</target>
@@ -2029,16 +2125,16 @@ user before attempting to deactivate their account.</source>
 				<target>सिस्टम अंतिम बार चेक इन किया गया:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current RHN time:</source>
-				<target>मौज़ूदा RHN समय:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>मौज़ूदा @@PRODUCT_NAME@@ समय:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>प्रत्याशित चेकइन समय:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;नोट:&lt;/strong&gt; यह सिस्टम Red Hat Network में हाल में चेक नहीं किया गया है. चूंकि सिस्टम अद्यतन नहीं हो सकता है अगर यह RHN में चेकइन नहीं करता है, यह संभव नहीं होगा कि यह क्रिया फिर होगी.&lt;br/&gt;&lt;br/&gt;कृपया सिस्टम जांचें और सुनिश्चित करें कि rhnsd चल रहा है (&lt;a href="/help/faq.pxt#15"&gt;ज्यादा जानकारी&lt;/a&gt;).  अगर यह चलने में विफल रहता है, कृपया &lt;a href="/help/contact.pxt"&gt;हमें संपर्क करें&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;नोट:&lt;/strong&gt; यह सिस्टम @@PRODUCT_NAME@@ में हाल में चेक नहीं किया गया है. चूंकि सिस्टम अद्यतन नहीं हो सकता है अगर यह @@PRODUCT_NAME@@ में चेकइन नहीं करता है, यह संभव नहीं होगा कि यह क्रिया फिर होगी.&lt;br/&gt;&lt;br/&gt;कृपया सिस्टम जांचें और सुनिश्चित करें कि rhnsd चल रहा है (&lt;a href="/help/faq.pxt#15"&gt;ज्यादा जानकारी&lt;/a&gt;).  अगर यह चलने में विफल रहता है, कृपया &lt;a href="/help/contact.pxt"&gt;हमें संपर्क करें&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2117,8 +2213,8 @@ user before attempting to deactivate their account.</source>
 				<target>सेकन्ड</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>पैच क्लस्टर का अधिष्ठापन &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; को &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;अनुसूचित किया गया है&lt;/a&gt;.</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target state="needs-review-translation">पैच क्लस्टर का अधिष्ठापन &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; को &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;अनुसूचित किया गया है&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2236,9 +2332,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>सामान्य विन्यास</target>
 			</trans-unit>
-			<trans-unit id="Satellite Tools">
-				<source>Satellite Tools</source>
-				<target>सैटेलाइट उपकरण</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>प्रशासक</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2251,10 +2347,6 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="recurring_duration">
 				<source>Recurring Duration</source>
 				<target>पुनरावर्तन अवधि</target>
-			</trans-unit>
-			<trans-unit id="message.actionremove">
-				<source>Remove</source>
-				<target>हटायें</target>
 			</trans-unit>
 			<trans-unit id="message.actiondowngrade">
 				<source>Downgrade to {0}</source>
@@ -2285,8 +2377,8 @@ user before attempting to deactivate their account.</source>
 				<target>आपने सफलतापूर्वक &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;अनुसूचित किया है&lt;/a&gt;&lt;/strong&gt;संकुल प्रोफाइल तुल्यकालन &lt;strong&gt;{2}&lt;/strong&gt; के लिये &lt;strong&gt;{3}&lt;/strong&gt; से.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;नोट:&lt;/strong&gt; Red Hat Network &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;ने &lt;/a&gt;&lt;/strong&gt; एक हार्डवेयर ताजाकरण &lt;strong&gt;{2}&lt;/strong&gt; के लिये संकुल प्रोफाइल तुल्यकालन के पहले अनुसूचित किया है.  यह जांचने के लिये यह जरूरी है कि सिस्टम के पास संकुल तुलना की क्षमता है.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;नोट:&lt;/strong&gt; @@PRODUCT_NAME@@ ने &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;अनुसूचित&lt;/a&gt;&lt;/strong&gt; किया है एक हार्डवेयर ताजाकरण &lt;strong&gt;{2}&lt;/strong&gt; के लिये संकुल प्रोफाइल तुल्यकालन के पहले. यह जांचने के लिये यह जरूरी है कि सिस्टम के पास संकुल तुलना की क्षमता है.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -2412,6 +2504,10 @@ user before attempting to deactivate their account.</source>
 				<source>Aruba</source>
 				<target>अरूबा</target>
 			</trans-unit>
+			<trans-unit id="AX">
+				<source>Aland Islands</source>
+				<target>आलैंड द्वीप</target>
+			</trans-unit>
 			<trans-unit id="AZ">
 				<source>Azerbaijan</source>
 				<target>अजरबैजान</target>
@@ -2499,6 +2595,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="CC">
 				<source>Cocos (Keeling) Islands</source>
 				<target>कोकोस (कीलिंग) द्वीप</target>
+			</trans-unit>
+			<trans-unit id="CD">
+				<source>CONGO, The Democratic Republic of the</source>
+				<target>कांगो गणराज्य</target>
 			</trans-unit>
 			<trans-unit id="CF">
 				<source>Central African Republic</source>
@@ -2649,12 +2749,16 @@ user before attempting to deactivate their account.</source>
 				<target>गैबन</target>
 			</trans-unit>
 			<trans-unit id="GB">
-				<source>(GMT+0100) United Kingdom</source>
-				<target>(GMT+0100) यूनाइटेड किंगडम</target>
+				<source>United Kingdom</source>
+				<target>यूनाइटेड किंगडम</target>
 			</trans-unit>
 			<trans-unit id="GB-Eire">
-				<source>(GMT+0100) Ireland</source>
-				<target>(GMT+0100) आयरलैंड</target>
+				<source>Ireland</source>
+				<target>आयरलैंड</target>
+			</trans-unit>
+			<trans-unit id="IE">
+				<source>Ireland</source>
+				<target>आयरलैंड</target>
 			</trans-unit>
 			<trans-unit id="GD">
 				<source>Grenada</source>
@@ -2667,6 +2771,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="GF">
 				<source>French Guiana</source>
 				<target>फ्रेंच गायना</target>
+			</trans-unit>
+			<trans-unit id="GG">
+				<source>Guernsey</source>
+				<target>गुएर्न्सी</target>
 			</trans-unit>
 			<trans-unit id="GH">
 				<source>Ghana</source>
@@ -2748,13 +2856,13 @@ user before attempting to deactivate their account.</source>
 				<source>Indonesia</source>
 				<target>इंडोनेशिया</target>
 			</trans-unit>
-			<trans-unit id="IE">
-				<source>Ireland</source>
-				<target>आयरलैंड</target>
-			</trans-unit>
 			<trans-unit id="IL">
 				<source>Israel</source>
 				<target>इज़राइल</target>
+			</trans-unit>
+			<trans-unit id="IM">
+				<source>Isle of Man</source>
+				<target>आइल ऑफ मैन</target>
 			</trans-unit>
 			<trans-unit id="IN">
 				<source>India</source>
@@ -2779,6 +2887,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="IT">
 				<source>Italy</source>
 				<target>इटली</target>
+			</trans-unit>
+			<trans-unit id="JE">
+				<source>Jersey</source>
+				<target>जर्सी</target>
 			</trans-unit>
 			<trans-unit id="JM">
 				<source>Jamaica</source>
@@ -2891,6 +3003,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="MD">
 				<source>Moldova</source>
 				<target>माल्डोवा</target>
+			</trans-unit>
+			<trans-unit id="ME">
+				<source>Montenegro</source>
+				<target>मोन्टेनेग्रो</target>
 			</trans-unit>
 			<trans-unit id="MG">
 				<source>Madagascar</source>
@@ -3056,6 +3172,10 @@ user before attempting to deactivate their account.</source>
 				<source>Puerto Rico</source>
 				<target>प्यूरिटो रिको</target>
 			</trans-unit>
+			<trans-unit id="PS">
+				<source>Palestinian Territory, Occupied</source>
+				<target>अधिकृत फिलीस्तीनी क्षेत्र</target>
+			</trans-unit>
 			<trans-unit id="PT">
 				<source>Portugal</source>
 				<target>पुर्तगाल</target>
@@ -3075,6 +3195,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="RE">
 				<source>Reunion (French)</source>
 				<target>रियूनियन (फ्रेंच)</target>
+			</trans-unit>
+			<trans-unit id="RS">
+				<source>Serbia</source>
+				<target>सर्बिया</target>
 			</trans-unit>
 			<trans-unit id="RO">
 				<source>Romania</source>
@@ -3191,6 +3315,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="TK">
 				<source>Tokelau</source>
 				<target>टोकेलाऊ</target>
+			</trans-unit>
+			<trans-unit id="TL">
+				<source>Timor-Leste</source>
+				<target>टिमोर लेस्टे</target>
 			</trans-unit>
 			<trans-unit id="TM">
 				<source>Turkmenistan</source>
@@ -3349,8 +3477,8 @@ user before attempting to deactivate their account.</source>
 				<target>फिर आरंभ करें</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>आपने RHN सैटेलाइट सेवा के पहले उपयोक्ता बनाया है.  अतिरिक्त विन्यास कोअंतिम रूप दिया जाना चाहिए &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;यहां क्लिक करके&lt;/strong&gt;&lt;/a&gt;</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>आपने @@PRODUCT_NAME@@ सेवा का पहला उपयोक्ता बनाया है.  अतिरिक्त विन्यास को अंतिम रूप दिया जाना चाहिए &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;यहां क्लिक करके&lt;/strong&gt;&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3365,8 +3493,8 @@ user before attempting to deactivate their account.</source>
 				<target>कोई प्रमाणपत्र नहीं मिला.  कृपया एक स्थानीय प्रमाणपत्र फाइल चुनें या प्रपत्र में सामग्री चिपकायें.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Satellite has been re-activated.</source>
-				<target>प्रमाणपत्र अपलोड किया गया.  सैटेलाइट फिर से सक्रिय किया गया.</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>प्रमाणपत्र अपलोड किया गया.  @@PRODUCT_NAME@@ फिर से सक्रिय किया गया.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3377,8 +3505,8 @@ user before attempting to deactivate their account.</source>
 				<target>प्रमाणपत्र समाप्त</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Satellite version</source>
-				<target>अनजान सैटेलाइट संस्करण</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>अज्ञात @@PRODUCT_NAME@@ संस्करण</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3397,28 +3525,28 @@ user before attempting to deactivate their account.</source>
 				<target>कोई प्रबंधन एंटाइटेलमेंट शेष नहीं</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Satellite channel not found</source>
-				<target>सैटेलाइट चैनल नहीं मिला</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ चैनल नहीं मिला</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Satellite channel entitlements remaining</source>
-				<target>कोई सैटेलाइट चैनल एंटाइटेलमेंट शेष नहीं</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>कोई @@PRODUCT_NAME@@ चैनल एंटाइटेलमेंट शेष नहीं</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Satellite certificate</source>
-				<target>अमान्य सैटेलाइट प्रमाणपत्र</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>अमान्य @@PRODUCT_NAME@@ प्रमाणपत्र</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>अज्ञात सक्रियकरण त्रुटि</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Satellite has no base channel on parent server</source>
-				<target>जनक सर्वर पर सैटेलाइट का कोई बेस चैनल नहीं है</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@ के पास कोई जनक सर्वर कोई बेस चैनल नहीं है</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Satellite channel available for this version</source>
-				<target>इस संस्करण के लिये कोई सैटेलाइट चैनल नहीं उपलब्ध है</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>इस संस्करण के लिये कोई @@PRODUCT_NAME@@ चैनल नहीं उपलब्ध है</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3429,8 +3557,8 @@ user before attempting to deactivate their account.</source>
 				<target>अनियंत्रति त्रुटि</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Satellite server hostname</source>
-				<target>सैटेलाइट सर्वर मेजबाननाम</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ सर्वर होस्टनेम</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3477,20 +3605,20 @@ user before attempting to deactivate their account.</source>
 				<target>एक त्रुटि हुई और आपका सैटेलाइट विन्यास बदलाव जमा नहीं हो सका. कृपया ज्यादा जानकारी के लिये समर्थन से संपर्क करें.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>सैटेलाइट फिर आरंभ कर रहा है. यदि पृष्ठ 5 मिनटों में फिर ताजा नहीं किया जाता है स्वयं करने के लिए  &lt;a href="/rhn/YourRhn.do"&gt;यहाँ&lt;/a&gt; पर क्लिक करें.</target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@ फिर आरंभ कर रहा है. यदि पृष्ठ 5 मिनटों में फिर ताजा नहीं किया जाता है स्वयं करने के लिए  &lt;a href="/rhn/YourRhn.do"&gt;यहाँ&lt;/a&gt; पर क्लिक करें.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
-				<target>कृपया निश्चित करें कि आप RHN सैटेलाइट को नीचे के फॉर्म में जांच कर फिर आरंभ करें.</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>कृपया निश्चित करें कि आप @@PRODUCT_NAME@@ को नीचे के फॉर्म में जांच कर फिर आरंभ करें.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>RHN Satellite has been restarted.</source>
-				<target>RHN सैटेलाइट फिर से सक्रिय किया गया.</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@ फिर से सक्रिय किया गया.</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>RHN Monitoring Scout</source>
-				<target>RHN मॉनीटरिंग स्कॉउट</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ मॉनीटरिंग स्कॉउट</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3521,6 +3649,10 @@ user before attempting to deactivate their account.</source>
 				<target>विवरण पहले से प्रयोग में है. इस कुंजी के लिये नया विवरण है.</target>
 			</trans-unit>
 			<trans-unit id="label">
+				<source>Label</source>
+				<target>लेबल</target>
+			</trans-unit>
+			<trans-unit id="filter.kickstart.label">
 				<source>Label</source>
 				<target>लेबल</target>
 			</trans-unit>
@@ -3556,11 +3688,11 @@ user before attempting to deactivate their account.</source>
 				<source>No File List(s) selected.</source>
 				<target>कोई फाइल सूची चयनित नहीं था.</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.added">
+			<trans-unit id="kickstart_activation_keys.added">
 				<source>{0} Activation Key(s) added.</source>
 				<target>{0} सक्रियकरण कुंजी जोड़ी गई.</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.removed">
+			<trans-unit id="kickstart_activation_keys.removed">
 				<source>{0} Activation Key(s) removed.</source>
 				<target>{0} सक्रियकरण कुंजी हटायी गई.</target>
 			</trans-unit>
@@ -3583,7 +3715,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Red Hat Network:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3594,7 +3726,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>सिस्टम चेकइन नहीं कर रहा है:
 -------------------------
-निम्न सिस्टम ने अभी हाल में Red Hat Network के साथ चेकइन करना रोक दिया है:
+निम्न सिस्टम ने अभी हाल में @@PRODUCT_NAME@@ के साथ चेकइन करना रोक दिया है:
 
 {0}
 
@@ -3696,9 +3828,18 @@ Follow this url to see the full list of inactive systems:
 				<source>Kickstart canceled by user: {0}</source>
 				<target>उपयोक्ता द्वारा रद्द किया गया किकस्टार्ट: {0}</target>
 			</trans-unit>
+			<trans-unit id="kickstart.schedule.requires.older.gpgkey">
+				<source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
+			</trans-unit>
 			<trans-unit id="kickstart.schedule.success">
 				<source>System Kickstart scheduled for {0}</source>
 				<target>{0} के लिये अनुसूचित सिस्टम किकस्टार्ट</target>
+			</trans-unit>
+			<trans-unit id="kickstart.schedule.cobblercreate">
+				<source>System record created for {0} in Cobbler.  This will allow you to kickstart this system using the {1} profile from {0}'s terminal with the usage of the 'koan' command.</source>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.schedule.success">
+				<source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.noprofiles">
 				<source>No profiles found that are compatible with this System.  Either you haven't created any Kickstart Profiles or this system does not have a Base Channel.</source>
@@ -3709,16 +3850,16 @@ Follow this url to see the full list of inactive systems:
 				<target>सिस्टम &lt;strong&gt;{0}&lt;/strong&gt; किकस्टार्ट नहीं किया जा सकता है क्योंकि इसके पास बेस चैनल नहीं है.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>आपके पास इस सिस्टम के मौजूदा बेस चैनल के लिए कोई शेष RHN प्रोविजनिंग चैनल नहीं है.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>आपके पास इस सिस्टम के मौजूदा बेस चैनल के लिए कोई शेष @@PRODUCT_NAME@@ प्रोविजनिंग चैनल नहीं है.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>आपके पास इस सिस्टम के मौजूदा बेस चैनल के लिए कोई शेष RHN प्रोविजनिंग चैनल नहीं है.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>आपके पास इस सिस्टम के मौजूदा बेस चैनल के लिए कोई शेष @@PRODUCT_NAME@@ प्रोविजनिंग चैनल नहीं है.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>जरूरी RHN प्रोविजनिंग संकुल नहीं पा सका दिये गये इस सिस्टम के मौजूदा बेस चैनल और इच्छिच लक्ष्य चैनल: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>जरूरी @@PRODUCT_NAME@@ प्रोविजनिंग संकुल नहीं पा सका दिये गये इस सिस्टम के मौजूदा बेस चैनल और इच्छिच लक्ष्य चैनल: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3737,8 +3878,7 @@ Follow this url to see the full list of inactive systems:
 				<target>इस सिस्टम के लिये नया किकस्टार्ट सत्र आरंभ किया गया.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>इसके लिये &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; Red Hat Network औजार चैनल को नहीं देख सका</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3753,8 +3893,8 @@ Follow this url to see the full list of inactive systems:
 				<target>हमें संस्करण {0} या उससे ऊपर के up2date की जरूरत है सिस्टम किकस्टार्ट करने के लिये.  इस सिस्टम ने {1} अधिष्ठापित किया है लेकिन हम up2date का संस्करण नहीं पा सकते हैं इस सिस्टम के चैनल में इसे जरूरी संस्कऱण या ऊपर के संस्कऱण के लिये नहीं पा सकते हैं.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>अतिथि सिस्टम ने सैटेलाइट के साथ अंतिम {0} मिनट में संचार नहीं किया है. अधिष्ठापन प्रक्रिया हार्डवेयर निर्धारकों की वजह से धीरे धीरे प्रक्रिया कर रहा होगा, या यह फ्रोजन हो चुका होगा.&lt;p/&gt;आप इस समस्या को &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; को मेजबान सिस्टम पर चलाकर हल करना चाह सकते हैं. यह कमांड आपको अतिथि के पाठ कंसोल से जोड़ने की अनुमति देगा जैसे यह अधिष्ठापित कर रहा है, जो इस अतिथि सिस्टम अधिष्ठापन स्थिति के बारे में अतिरिक्त सूचना दे सकता है.</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>अतिथि सिस्टम ने @@PRODUCT_NAME@@ के साथ अंतिम {0} मिनट में संचार नहीं किया है. अधिष्ठापन प्रक्रिया हार्डवेयर निर्धारकों की वजह से धीरे धीरे प्रक्रिया कर रहा होगा, या यह फ्रोजन हो चुका होगा.&lt;p/&gt;आप इस समस्या को &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; को मेजबान सिस्टम पर चलाकर हल करना चाह सकते हैं. यह कमांड आपको अतिथि के पाठ कंसोल से जोड़ने की अनुमति देगा जैसे यह अधिष्ठापित कर रहा है, जो इस अतिथि सिस्टम अधिष्ठापन स्थिति के बारे में अतिरिक्त सूचना दे सकता है.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -3771,6 +3911,12 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="kickstart.tree.invalidlabel">
 				<source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
 				<target>लेबल ठीक से संरूपित नहीं है.  लेबल को सिर्फ अक्षर, संख्या, हाइफन, काल और अंडरस्कोर को शामिल करना चाहिए. इसे जरूर कम से कम 4 संप्रतीक लंबा होना चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidkernel">
+				<source>The kernel could not be found at the specified location: {0}</source>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidinitrd">
+				<source>The initrd could not be found at the specified location: {0}</source>
 			</trans-unit>
 			<trans-unit id="kickstart.tree.inuse">
 				<source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
@@ -3792,6 +3938,9 @@ Follow this url to see the full list of inactive systems:
 				<source>System {0} has a pending kickstart scheduled.</source>
 				<target>सिस्टम {0} के पास स्थगित किकस्टार्ट अनुसूचन</target>
 			</trans-unit>
+			<trans-unit id="activation-key.java.invalid_chars">
+				<source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+			</trans-unit>
 			<trans-unit id="activation-key.java.exists">
 				<source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; लेबल के साथ एक सक्रियकरण कुँजी पहले से लिया हुआ है.</target>
@@ -3811,6 +3960,15 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="activation-key.java.org_prefixed">
 				<source>Please note that &lt;strong&gt;{0}&lt;/strong&gt; has been modified to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
 				<target>कृपया नोट करें कि &lt;strong&gt;{0}&lt;/strong&gt; को &lt;strong&gt;{1}&lt;/strong&gt; बदला गया है.</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy1">
+				<source>This system does not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system.</source>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy2">
+				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
+			</trans-unit>
+			<trans-unit id="system.sdc.config_enablement.client">
+				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
 			</trans-unit>
 			<trans-unit id="system.sdc.addtossm">
 				<source>System added to the System Set Manager.</source>
@@ -4044,30 +4202,6 @@ Follow this url to see the full list of inactive systems:
 				<source>Email address</source>
 				<target>ईमेल पता</target>
 			</trans-unit>
-			<trans-unit id="sw_mgr_entitled">
-				<source>Enterprise</source>
-				<target>एंटरप्राइज</target>
-			</trans-unit>
-			<trans-unit id="enterprise_entitled">
-				<source>Enterprise</source>
-				<target>एंटरप्राइज</target>
-			</trans-unit>
-			<trans-unit id="provisioning_entitled">
-				<source>Provisioning</source>
-				<target>प्रोविजनिंग</target>
-			</trans-unit>
-			<trans-unit id="nonlinux_entitled">
-				<source>Non-Linux</source>
-				<target>गैर-Linux</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host">
-				<source>Virtualization</source>
-				<target>वर्चुअलाइजेशन</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host_platform">
-				<source>Virtualization Platform</source>
-				<target>वर्चुअलाइजेशन प्लेटफॉर्म</target>
-			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
 				<target>ईमेल सूचना विश्वस्तर पर निष्क्रिय</target>
@@ -4089,8 +4223,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; को पिंग किया गया है. OSA स्थिति अगले मिनट में अद्यतन की जायेगी.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN एप्पलेट सैटेलाइट सक्रियकरण &lt;a href="{0}"&gt;नियोजित किया गया&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN एप्पलेट @@PRODUCT_NAME@@ सक्रियकरण &lt;a href="{0}"&gt;नियोजित किया गया&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4113,8 +4247,8 @@ Follow this url to see the full list of inactive systems:
 				<target>कोई तैनाती क्रिया पूर्ण नहीं. [&lt;a href="{0}"&gt;तैनाती क्रिया नियोजित करें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.failure">
-				<source>All file and/or directory ({0}) deployments failed. [&lt;a href={1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>सभी फाइल और/अथवा निर्देशिका ({0}) की तैनाती विफल रही. [&lt;a href={1}"&gt;विवरण देखें&lt;/a&gt;]</target>
+				<source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
+				<target state="needs-review-translation">सभी फाइल और/अथवा निर्देशिका ({0}) की तैनाती विफल रही. [&lt;a href={1}"&gt;विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
@@ -4129,56 +4263,56 @@ Follow this url to see the full list of inactive systems:
 				<target>किसी फाइल या निर्देशिका को तुलना के लिये नहीं चुना गया था. [&lt;a href="{0}"&gt; विवरण देखेंदेखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर 1 फाइल का {0} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{1}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर 1 फाइल का {0} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{1}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर {1} फाइल का {0} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{2}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर {1} फाइल का {0} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{2}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर 1 निर्देशिका के {0} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{1}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर 1 निर्देशिका के {0} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{1}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर {1} निर्देशिका के {0} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{2}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर {1} निर्देशिका के {0} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{2}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर 1 फाइल का {0} और 1 निर्देशिका के {1} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{2}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर 1 फाइल का {0} और 1 निर्देशिका के {1} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{2}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर 1 फाइल का {0} और {2} निर्देशिका के {1} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर 1 फाइल का {0} और {2} निर्देशिका के {1} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक RHN-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>सिस्टम पर {1} फाइल का {0} और 1 निर्देशिका के {2} को सफलतापूर्वक @@PRODUCT_NAME@@-प्रबंधित फाइल या निर्देशिका के साथ तुलना किया गया था. [&lt;a href="{3}"&gt; विवरण देखें&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
-				<target>मौजूदा सिस्टम में कोई मौजूदा फाइल RHN प्रबंधित फाइल से अलग नहीं.</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>मौजूदा सिस्टम में कोई मौजूदा फाइल @@PRODUCT_NAME@@ प्रबंधित फाइल से अलग नहीं.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
-				<target>RHN प्रबंधित फाइल से सिस्टम पर 1 का 1 फाइल भिन्न है.</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>@@PRODUCT_NAME@@ प्रबंधित फाइल से सिस्टम पर 1 का 1 फाइल भिन्न है.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
-				<target>RHN प्रबंधित फाइल से सिस्टम पर {1} का {0} फाइल भिन्न है.</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>@@PRODUCT_NAME@@ प्रबंधित फाइल से सिस्टम पर {1} का {0} फाइल भिन्न है.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4340,13 +4474,12 @@ Follow this url to see the full list of inactive systems:
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
 				<target>{1} को जरूर बंद करना चाहिए यदि यह अंतिम बार {0} vCPUs से कम के साथ आरंभ किया गया बदलाव को प्रभावी होने के लिए.</target>
 			</trans-unit>
-			<trans-unit id="systems.details.virt.insufficient.memory">
-				<source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
-				<target>इस मेजबान सिस्टम पर अपर्याप्त स्मृति है आग्रहित अतिथि RAM रूपांतरण के लिए. यह मेजबान सिस्टम &lt;strong&gt;{0}&lt;/strong&gt; ने {1}MB स्मृति को रिपोर्ट किया है. आग्रहित RAM रूपांतरण के लिए इस मेजबान पर उपलब्ध RAM से ज्यादा की जरूरत होगी (हाइपरविजर के लिए {2}MB अधिक और मौजूदा अतिथियों के द्वारा आरक्षित स्मृति.) &lt;a href={3}&gt;कृपया इस मेजबान सिस्टम के हार्डवेयर प्रोफाइल को ताजा करें&lt;/a&gt; यदि आप विश्वास करते हैं कि इसके पास {1}MB से अधिक है.</target>
-			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
-				<source>{0} will require a reboot for max memory settings to take effect.</source>
-				<target>{0} के लिये अधिकतम स्मृति जमावट के प्रभावी होने के लिये एक रिबूट जरूरी होगा.</target>
+				<source>{0} must be shutdown for max memory settings to take effect.</source>
+				<target state="needs-review-translation">{0} के लिये अधिकतम स्मृति जमावट के प्रभावी होने के लिये एक रिबूट जरूरी होगा.</target>
+			</trans-unit>
+			<trans-unit id="systems.details.virt.memory.check.host">
+				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4388,6 +4521,9 @@ Follow this url to see the full list of inactive systems:
 				<source>Note:  Some channel subscriptions could not be updated because there were no available subscriptions.</source>
 				<target>नोट:  कुछ चैनल सदस्यता अद्यतन नहीं किया जा सका क्योंकि कोई उपलब्ध सदस्यता नहीं था.</target>
 			</trans-unit>
+			<trans-unit id="selinux.java.invalid_mode">
+				<source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
+			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.successMessage">
 				<source>Updated entitlement count for '{0}'</source>
 				<target>'{0}' के लिए एंटाइटेलमेंट अद्यतन किया</target>
@@ -4395,6 +4531,14 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="orgsyssub.invalidnum">
 				<source>Provisioning must be a valid number.</source>
 				<target>प्रोविजनिंग को जरूर वैध संख्या होना चाहिए</target>
+			</trans-unit>
+			<trans-unit id="orgsystemsubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>एंटाइटेलमेंट रूपांतरण को जरूर {0} के लिए वैध संख्या होनी चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="orgsoftwaresubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>एंटाइटेलमेंट रूपांतरण को जरूर {0} के लिए वैध संख्या होनी चाहिए.</target>
 			</trans-unit>
 			<trans-unit id="multiorg.delete.org.button">
 				<source>Delete Selected Organizations</source>
@@ -4417,24 +4561,24 @@ Follow this url to see the full list of inactive systems:
 				<target>"{0}" नामक फाइल पहले से चैनल में मौजूद है.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>Red Hat Network औजार चैनल में स्वतः सदस्यता नहीं ले सका. यह चैनल वर्चुअलाइजेशन के लिये जरूरी संकुल रखता है.  यह संभवतः चैनल एंटाइटेलमेंट की कमी के कारण होता है.</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>@@PRODUCT_NAME@@ औजार चैनल में स्वतः सदस्यता नहीं ले सका. यह चैनल वर्चुअलाइजेशन के लिये जरूरी संकुल रखता है.  यह संभवतः चैनल एंटाइटेलमेंट की कमी के कारण होता है.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>RHEL वर्चुअलाइजेशन चैनल में स्वतः सदस्यता नहीं ले सका. यह चैनल वर्चुअलाइजेशन के लिये जरूरी संकुल रखता है.  यह संभवतः चैनल एंटाइटेलमेंट की कमी के कारण होता है.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
-				<target>{0} संकुल को &lt;strong&gt;{1}&lt;/strong&gt; चैनल में नहीं पा सका जो कि Red Hat Network के साथ वर्चुअलाइजेश चलाने के लिये जरूरी है.</target>
+				<source>Could not find a channel with the {0} package. This package is required to manage virtual guests with @@PRODUCT_NAME@@.</source>
+				<target>{0} संकुल के साथ कोई चैनल नहीं ढूंढ़ सका. यह संकुल @@PRODUCT_NAME@@ के साथ वर्चुअल अतिथि प्रबंधित करने के लिए जरूरी है.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
 				<target>सिस्टम के पास पहले से {0} एंटाइटेलमेंट है.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>चूंकि आपने सिस्टम में वर्चुअलाइजेशन एंटाइटेलमेंट सिस्टम में दिया है हमने भी कुछ अतिरिक्त चरण किया है यह सुनिश्चित करने के लिये आपका सिस्टम वर्चुअल अतिथि को बेहतर तरीके से प्रबंधित करने में समर्थ होगा. ज्यादा सूचना के लिये &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;यहां&lt;/a&gt; देखें.</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="{0}"&gt;here&lt;/a&gt; for more info.</source>
+				<target>चूंकि आपने सिस्टम में वर्चुअलाइजेशन एंटाइटेलमेंट सिस्टम में दिया है हमने भी कुछ अतिरिक्त चरण किया है यह सुनिश्चित करने के लिये आपका सिस्टम वर्चुअल अतिथि को बेहतर तरीके से प्रबंधित करने में समर्थ होगा. ज्यादा सूचना के लिये &lt;a href="{0}"&gt;यहाँ&lt;/a&gt; देखें.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
@@ -4460,6 +4604,14 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid system</source>
 				<target>अमान्य सिस्टम</target>
 			</trans-unit>
+			<trans-unit id="system.runningkernel.unknown">
+				<source>Unkown</source>
+				<target>अज्ञात</target>
+			</trans-unit>
+			<trans-unit id="api.invalidargs">
+				<source>Invalid argument(s): {0}</source>
+				<target state="needs-review-translation">अमान्य तर्क</target>
+			</trans-unit>
 			<trans-unit id="api.action.nosuchaction">
 				<source>No such action: {0}</source>
 				<target>ऐसी कोई क्रिया नहीं: {0}</target>
@@ -4467,6 +4619,27 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.action.invalidactiontype">
 				<source>Invalid action type</source>
 				<target>अमान्य क्रिया प्रकार</target>
+			</trans-unit>
+			<trans-unit id="api.org.migrationtosameorg">
+				<source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
+			</trans-unit>
+			<trans-unit id="api.org.nosuchorg">
+				<source>No such organization: {0}</source>
+				<target>कोई ऐसा संगठन नहीं: {0}</target>
+			</trans-unit>
+			<trans-unit id="api.org.notintrust">
+				<source>Organization {0} is not defined in trust.</source>
+				<target>{0} संगठन ट्रस्ट में परिभाषित नहीं है.</target>
+			</trans-unit>
+			<trans-unit id="api.org.sysnotintrust">
+				<source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
+				<target>सिस्टम {0} संगठन {1} का सदस्य है जो कि गंतव्य संगठन ट्रस्ट में परिभाषित नहीं है.</target>
+			</trans-unit>
+			<trans-unit id="api.org.notpermittedbyorg">
+				<source>User in organization {0} is not allowed to retrieve or modify {1} properties in organization {2}.</source>
+			</trans-unit>
+			<trans-unit id="api.org.cannotperformonsatelliteorg">
+				<source>Cannot perform this operation on the satellite organization. (Org ID 1)</source>
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
@@ -4484,9 +4657,17 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid arch specified: {0}</source>
 				<target>अवैध मॉक्रो निर्दिष्ट {0}</target>
 			</trans-unit>
+			<trans-unit id="api.system.invalidsnapshot">
+				<source>Invalid snapshot specified: {0}</source>
+				<target>अवैध स्नेपशॉट निर्दिष्ट: {0}</target>
+			</trans-unit>
 			<trans-unit id="api.systemgroup.lookupServerGroup">
 				<source>Unable to locate or access server group: "{0}"</source>
 				<target>सर्वर समूह को पता करने या अभिगम में असमर्थ: "{0}"</target>
+			</trans-unit>
+			<trans-unit id="api.system.invalidprofilelabel">
+				<source>Invalid profile label specified: {0}</source>
+				<target>अवैध प्रोफाइल लेबल निर्दिष्ट: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.serverNotInGroup">
 				<source>The specified server is not a member of the specified group</source>
@@ -4496,9 +4677,22 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
 				<target>अवैध इरेटा प्रकार, "{0}". कृपया इनमें से एक का प्रयोग करें: "सुरक्षा सलाहकारी", "उत्पाद संवर्द्धन सलाहकारी", या "बग फिक्स सलाहकारी".</target>
 			</trans-unit>
+			<trans-unit id="api.errata.invalidadvisoryrelease">
+				<source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
+				<target>अवैध सलाहकार रिलीज, "{0}". अधिकतम मान {1} है.</target>
+			</trans-unit>
 			<trans-unit id="api.errata.nochannelsselected">
 				<source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
 				<target>आप एक इरेटा प्रकाशित करने की कोशिश कर रहे हैं लेकिन किसी चैनल को चुना नहीं है जिसमें प्रकाशित किया जाना है.  इरेटा को कम से कम एक चैनल में जरूर प्रकाशित किया जाना चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="api.package.download.toolarge">
+				<source>The requested file is too large to download over XMLRPC.</source>
+			</trans-unit>
+			<trans-unit id="api.package.download.ioerror">
+				<source>There was a general IO Error, check permissions on the requested file.</source>
+			</trans-unit>
+			<trans-unit id="api.channel.access.invalidaccessvalue">
+				<source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
 			</trans-unit>
 			<trans-unit id="api.channel.software.channelsubscription">
 				<source>Unable to subscribe this system to the requested channel: "{0}"</source>
@@ -4508,6 +4702,9 @@ Follow this url to see the full list of inactive systems:
 				<source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
 				<target>सदस्यता के लिए बहुल बेस चैनल चुना गया है.  {0} और {1} दोनों चैनल सदस्यता के लिए चुने गए थे, लेकिन सिस्टम सिर्फ एक बेस सिस्टम से सदस्यता लिया जा सकता है.</target>
 			</trans-unit>
+			<trans-unit id="api.channel.invalidchannellist">
+				<source>The channel list provided is invalid.  It must contain a list of channel labels or ids, but not a mixture of both.</source>
+			</trans-unit>
 			<trans-unit id="channel.invalidchannelarch">
 				<source>The channel arch specified ({0}) is invalid.</source>
 				<target>निर्दिष्ट चैनल आर्क ({0}) अवैध है.</target>
@@ -4515,6 +4712,10 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.channel.duplicatechannellabel">
 				<source>The channel label specified ({0}) already exists.</source>
 				<target>निर्दिष्ट चैनल लेबल ({0}) पहले से मौजूद है.</target>
+			</trans-unit>
+			<trans-unit id="api.channel.invalidchannelaccess">
+				<source>The channel access ({0}) is not allowed for this operation.</source>
+				<target state="needs-review-translation">निर्दिष्ट चैनल आर्क ({0}) अवैध है.</target>
 			</trans-unit>
 			<trans-unit id="Certificate Administrators">
 				<source>Certificate Administrators</source>
@@ -4535,6 +4736,22 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.kickstart.labelalreadyinuse">
 				<source>Kickstart label already exists: {0}</source>
 				<target>किकस्टार्ट लेबल पहले से मौजूद है: {0}</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKeyType">
+				<source>The package key type specified ({0}) is invalid.</source>
+				<target state="needs-review-translation">निर्दिष्ट संकुल आर्क ({0}) अवैध है.</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKey">
+				<source>The package key specified ({0}) is invalid.</source>
+				<target state="needs-review-translation">निर्दिष्ट संकुल आर्क ({0}) अवैध है.</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.duplicateKey">
+				<source>The package key specified ({0}) already exists.</source>
+				<target state="needs-review-translation">निर्दिष्ट चैनल लेबल ({0}) पहले से मौजूद है.</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidProvider">
+				<source>The package provider specified ({0}) is  invalid.</source>
+				<target state="needs-review-translation">निर्दिष्ट संकुल आर्क ({0}) अवैध है.</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
@@ -4565,20 +4782,20 @@ Follow this url to see the full list of inactive systems:
 				<target>जरूरी इरेटा गुण ({0}) अनुपस्थित है.</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>आपने {0} को कई एंटाइटेलमेंट देने का प्रयास किया है.  कृपया {1} से कम या बराबर मान दें.</target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target state="needs-review-translation">आपने {0} को कई एंटाइटेलमेंट देने का प्रयास किया है.  कृपया {1} से कम या बराबर मान दें.</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>आपने {0} को कई एंटाइटेलमेंट देने का प्रयास किया है.  कृपया {1} से कम या बराबर मान दें.</target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target state="needs-review-translation">आपने {0} को कई एंटाइटेलमेंट देने का प्रयास किया है.  कृपया {1} से कम या बराबर मान दें.</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
 				<target>एंटाइटेलमेंट सफलतापूर्वक अद्यतन किया गया.</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
-				<source>Warning: Your Proposed entitlement allocation for {0} requires more entitlements than are in use for the {1} Organization. Please adjust your proposed allocation accordingly.</source>
-				<target>चेतावनी: आपका प्रस्तावित एंटाइटेलमेंट संभाजन {0} के लिए अधिक एंटाइटेलमेंट चाहिए जो {1} संगठन के लिए प्रयोग से अधिक है. कृपया अपना प्रस्तावित आबंटन उसी अनुसार समायोजित करें.</target>
+				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
+				<target state="needs-review-translation">चेतावनी: आपका प्रस्तावित एंटाइटेलमेंट संभाजन {0} के लिए अधिक एंटाइटेलमेंट चाहिए जो {1} संगठन के लिए प्रयोग से अधिक है. कृपया अपना प्रस्तावित आबंटन उसी अनुसार समायोजित करें.</target>
 			</trans-unit>
 			<trans-unit id="securityErrata">
 				<source>Security Errata</source>
@@ -4656,6 +4873,18 @@ Follow this url to see the full list of inactive systems:
 				<source>Entitlement Level</source>
 				<target>एंटाइटेलमेंट स्तर</target>
 			</trans-unit>
+			<trans-unit id="serverName">
+				<source>Server Name</source>
+				<target>सर्वर नाम</target>
+			</trans-unit>
+			<trans-unit id="matchingField">
+				<source>Matching Field Name</source>
+				<target>मिलान किया क्षेत्र नाम</target>
+			</trans-unit>
+			<trans-unit id="matchingFieldValue">
+				<source>Matching Field Value</source>
+				<target>मिलान किया क्षेत्र मान</target>
+			</trans-unit>
 			<trans-unit id="listtag.note">
 				<source>Note:</source>
 				<target>नोट:</target>
@@ -4717,8 +4946,7 @@ Follow this url to see the full list of inactive systems:
 				<target>पसंदीदा संकुल आर्क चयन</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
-				<source>Succesfully added {0} Errata and {1} package(s) to channel {2}.</source>
-				<target>सफलतापूर्वक {0} इरेटा और {1} संकुल को चैनल {2} दो से जोड़ा है. </target>
+				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.clone">
 				<source>"Clone"</source>
@@ -4775,6 +5003,230 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="Password_confirm">
 				<source>Password Confirm</source>
 				<target>शब्दकूट संपुष्ट</target>
+			</trans-unit>
+			<trans-unit id="permission.configadmin.needed">
+				<source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscripttype">
+				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscript">
+				<source>You have specified an invalid kickstart script.</source>
+				<target>आपने कोई अवैध किकस्टार्ट स्क्रिप्ट निर्दिष्ट किया है.</target>
+			</trans-unit>
+			<trans-unit id="package.remove.cant.rollback">
+				<source>One or more of the packages you have selected for removal below are not contained in
+			a software channel that this system is subscribed to.  If you choose to continue with the removal
+			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+			</trans-unit>
+			<trans-unit id="list.filter.iprange">
+				<source>Single Ip Address</source>
+				<target>एकल Ip पता</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.duplicate">
+				<source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
+				<target>Ip परिसर निर्दिष्ट, {0}, मौजदा Ip परिसर से विरोधी है.</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.invalid">
+				<source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
+				<target>निर्दिष्ट Ip परिसर, {0}, वैध Ip परिसर नहीं है.</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.ip.invalid">
+				<source>The Ip Address specified, {0}, is not valid..</source>
+				<target>निर्दिष्ट Ip पता, ({0}) अवैध है...</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.exists">
+				<source>A file list with label {0} already exists.</source>
+				<target>लेबल {0} के साथ फाइल सूची पहले से मौजूद है.</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.notfound">
+				<source>A file list with label {0} could not be found.</source>
+				<target>लेबल {0} के साथ फाइल सूची पहले से मौजूद है.</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.exists">
+				<source>The specified key conflicts with an existing key.</source>
+				<target>निर्दिष्ट कुंजी विरोध किसी मौजूदा कुंजी के साथ.</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.delete">
+				<source>The specified key cannot be deleted.</source>
+				<target>निर्दिष्ट कुंजी मिटाई नहीं जा सकती है.</target>
+			</trans-unit>
+			<trans-unit id="Compare">
+				<source>Compare</source>
+				<target>तुलना करें</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.alreadyexists">
+				<source>A Custom Key with this label already exists.</source>
+				<target>इस लेबल के साथ पसंदीदा कुंजी पहले से मौजूद है.</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.tooshort">
+				<source>A Custom Key label and description must be at least two characters long.</source>
+				<target>पसंदीदा कुंजी लेबल व विवरण को कम से कम दो संप्रतीक लंबा होना चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.addsuccess">
+				<source>Successfully added 1 custom key.</source>
+				<target>1 पसंदीदा कुंजी सफलतापूर्वक जोड़ा.</target>
+			</trans-unit>
+			<trans-unit id="channel.java.package.deletesuccess">
+				<source>Successfully deleted {0} packages.</source>
+				<target>{0} कुंजी सफलतापूर्वक मिटाया.</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
+				<source>Invalid kickstart install type: {0}.</source>
+				<target>अवैध किकस्टार्ट अधिष्ठापन गाइड: {0}.</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgfp">
+				<source>Invalid GPG Fingerprint</source>
+				<target>अवैध GPG फिंगरप्रिंट</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgkey">
+				<source>Invalid GPG Key Id</source>
+				<target>अवैध GPG कुंजी आईडी</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgurl">
+				<source>Invalid GPG Url</source>
+				<target>अवैध GPG Url</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname">
+				<source>Invalid Channel Name</source>
+				<target>अमान्य चैनल नाम</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.missing">
+				<source>Channel name must be specified</source>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.regex">
+				<source>Invalid channel name, please see the format described below</source>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.redhat">
+				<source>Red Hat channels require admin privileges</source>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.redhat">
+				<source>Red Hat channels require admin privileges</source>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.minlength">
+				<source>Channel name must be at least {0} characters long</source>
+				<target state="needs-review-translation">अतिथि नाम की लंबाई को {0} संप्रतीक कम से कम होनी चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.nameinuse">
+				<source>The channel name '{0}' is already in use, please enter a different name</source>
+				<target state="needs-review-translation">{0} पहले से उपयोग में है. कृपया एक अलग प्रोफाइल नाम डालें.</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel">
+				<source>Invalid Channel Label</source>
+				<target>अवैध चैनल लेबल</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.missing">
+				<source>Channel label must be specified</source>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.regex">
+				<source>Invalid channel label, please see the format described below</source>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.minlength">
+				<source>Channel label must be at least {0} characters long</source>
+				<target state="needs-review-translation">शब्दकूट कम से कम {0} संप्रतीक का होना चाहिए.</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.labelinuse">
+				<source>The channel label '{0}' is already in use, please enter a different name</source>
+				<target state="needs-review-translation">{0} पहले से उपयोग में है. कृपया एक अलग प्रोफाइल नाम डालें.</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelsummary">
+				<source>Invalid Channel Summary</source>
+				<target>अवैध चैनल सारांश</target>
+			</trans-unit>
+			<trans-unit id="distribution.tree.exists">
+				<source>A distribution already exists with the name '{0}'.  Please select another name.</source>
+				<target>'{0}' के साथ वितरण पहले से मौजूद है.  कृपया दूसरा नाम चुनें.</target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.redhat">
+				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+				<target>Red Hat चैनल मिटाया नहीं जा सका, केवल पसंदीदा चैनल कर सकता है.</target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.haschild">
+				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+			</trans-unit>
+			<trans-unit id="api.kickstart.tree.notfound">
+				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
+				<target>किकस्टार्ट तरू नहीं मिल सका.  आपके पास निवेदित तरू के लिए कोई पहुँच नहीं है.</target>
+			</trans-unit>
+			<trans-unit id="message.channelcreated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
+				<target>चैनल &lt;strong&gt;{0}&lt;/strong&gt; बनाया गया.</target>
+			</trans-unit>
+			<trans-unit id="message.channelupdated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+				<target>चैनल &lt;strong&gt;{0}&lt;/strong&gt; अद्यतन किया गया.</target>
+			</trans-unit>
+			<trans-unit id="message.channelsubscribers">
+				<source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+				<target>उपयोक्ता पूर्व सदस्यता प्रतिबंध को सदस्यता टैब में लागू किया गया</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidvirt">
+				<source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
+				<target>पैरा वर्चुअलाइजेशन असमर्थित है चयनित किकस्टार्ट तरू के साथ वितरण के साथ.</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
+				<source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+				<target state="needs-review-translation">आपने वितरण या किकस्टार्ट तरू चुना है जो कि अभी चुने गए वर्चुअलाइजेश प्रकार से असंगत है.  कृपया या तो भिन्न वितरण चुनें या इस प्रोफाइल के लिए चुने गए वर्चुअलाइजेशन प्रकार को बदलें वितरण को सेट करने के पहले.</target>
+			</trans-unit>
+			<trans-unit id="snapshots.childchannel">
+				<source>Child Channels Updated</source>
+				<target>संतति चैनल अद्यतन किया गया है</target>
+			</trans-unit>
+			<trans-unit id="snapshots.basechannel">
+				<source>Base Channel Updated</source>
+				<target>बेस चैनल अद्यतनीकृत</target>
+			</trans-unit>
+			<trans-unit id="snapshots.entitlements">
+				<source>Entitlements Updated</source>
+				<target>एंटाइटेलमेंट अद्यतनीकृत</target>
+			</trans-unit>
+			<trans-unit id="errata.updates.noncritical">
+				<source>Non-Critical</source>
+				<target>अगंभीर</target>
+			</trans-unit>
+			<trans-unit id="snapshots.configchannel">
+				<source>Configuration Channels Updated</source>
+				<target>विन्यास चैनल अद्यतनीकृत</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.distro.syncfail">
+				<source>
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
+kickstarting systems kickstart distributions failed to sync from
+Spacewalk to Cobbler:
+
+{0}
+
+Please check:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+for more detailed errors.  If you don't resolve the errors the kickstart
+tree will not be usable for kickstarting.</source>
+				<target>
+निम्नलिखित त्रुटियों की सूची है जो तब इकट्ठा की गई जब Spacewalk
+किकस्टार्ट वितरण को स्पेसवाक से कोब्बलर में तुल्यकालित करने के लिए प्रयास करता है.  इन
+त्रुटियों को जरूर सही किया जाना चाहिए
+सिस्टम के किकस्टार्ट वितरण को किकस्टार्ट करने के लिए मौजूद रहने के लिए
+स्पेसवाक से कोब्बलर में तुल्यकालित होने से विफल होने वाले के लिए:
+
+{0}
+
+कृपया जाँचें:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+अधिक विस्तृत त्रुटि के लिए.  यदि आप उन त्रुटियों को हल नहीं करते हैं तो
+किकस्टार्ट तरू किकस्टार्ट किए जाने के लिए उपयोगी नहीं होगा.</target>
+			</trans-unit>
+			<trans-unit id="errata.delete.msg">
+				<source>Successfully deleted {0} errata.</source>
+				<target state="needs-review-translation">{0} कुंजी सफलतापूर्वक मिटाया.</target>
 			</trans-unit>
 		</body>
 	</file>

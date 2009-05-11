@@ -103,7 +103,6 @@ SELECT  DISTINCT UAO.id as ID,
   FROM  rhnUserActionOverview UAO, rhnAction A, web_contact WC
  WHERE  UAO.org_id = :org_id
    AND  UAO.user_id = :user_id
-   AND  UAO.action_status_id IN (0,1)
    AND  UAO.archived = 0
    AND  UAO.id = A.id
    AND  WC.id = UAO.scheduler

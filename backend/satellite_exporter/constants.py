@@ -16,7 +16,7 @@
 Constant values (protocol versions, etc) for satellite sync/exporter.
 """
 
-PROTOCOL_VERSION = 3.2
+PROTOCOL_VERSION = 3.3
 
 # Support for update model details (rhn510+)
 EUS_SUPPORTED_VERSION = 3.2

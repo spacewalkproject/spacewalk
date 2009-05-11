@@ -63,7 +63,7 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
      * @throws XmlRpcFault if expected error occurs
      */
     public Object invokeMethod(String procedureName, List args) throws XmlRpcFault {
-        log.debug("procedure: " + procedureName + " Orig ags: " + args);
+        log.debug("procedure: " + procedureName + " Orig args: " + args);
         Object retval;
         try {
             retval = client.invoke(procedureName, args);
@@ -71,9 +71,6 @@ public class CobblerXMLRPCHelper implements XMLRPCInvoker {
         catch (XmlRpcException e) {
             throw new RuntimeException("XmlRpcException calling cobbler.", e);
         } 
-        if (retval instanceof String) {
-            retval = retval + "\n";
-        }
         return retval;
     }
     

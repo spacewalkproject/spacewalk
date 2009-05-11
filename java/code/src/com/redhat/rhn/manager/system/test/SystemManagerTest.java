@@ -1269,5 +1269,36 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 pack.getPackageEvr().getId()));
 
     }
+    public void testListSystemsWithNeededPackage() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user.addRole(RoleFactory.ORG_ADMIN);
+        Server server = ServerFactoryTest.createTestServer(user, true);
+        PageControl pc = new PageControl();
+        pc.setStart(1);
+        pc.setPageSize(20);
 
+        DataResult errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
+        assertNotNull(errata);
+        assertTrue(errata.isEmpty());
+        assertTrue(errata.size() == 0);
+        assertFalse(SystemManager.hasUnscheduledErrata(user, server.getId()));
+
+        Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        for (Iterator itr = e.getPackages().iterator(); itr.hasNext();) {
+            Package pkg = (Package) itr.next();
+            ErrataCacheManager.insertNeededPackageCache(server.getId(),
+                    e.getId(), pkg.getId());
+            List<SystemOverview> systems =
+                SystemManager.listSystemsWithNeededPackage(user, pkg.getId());
+            assertTrue(systems.size() == 1);
+            SystemOverview so = systems.get(0);
+            assertEquals(so.getId(), server.getId());
+        }
+
+        errata = SystemManager.unscheduledErrata(user, server.getId(), pc);
+        assertNotNull(errata);
+        assertFalse(errata.isEmpty());
+        assertTrue(errata.size() == 1);
+        assertTrue(SystemManager.hasUnscheduledErrata(user, server.getId()));
+    }
 }

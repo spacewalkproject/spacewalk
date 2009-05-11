@@ -1,5 +1,5 @@
 Name:         SatConfig-dbsynch
-Version:      1.3.1
+Version:      1.3.2
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - database synchronizer
 URL:          https://fedorahosted.org/spacewalk
@@ -38,6 +38,9 @@ install -m 644 synch.sqplus $RPM_BUILD_ROOT%{_usr}/share/SatConfig
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 1.3.2-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
 - spec cleanup for Fedora
 

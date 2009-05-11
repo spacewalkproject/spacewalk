@@ -5,7 +5,7 @@
 Summary: Red Hat Network Client Utilities and Libraries
 Name: rhnclient
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3
+Version: 0.4
 Release: 1
 License: GPLv2
 Group: Development/Libraries
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 #%doc ChangeLog COPYING README TODO
 
 %changelog
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4-1
+- update copyright and licenses (jesusr@redhat.com)
+
 * Mon Mar 23 2009 Devan Goodwin <dgoodwin@redhat.com> 0.3-1
 - Rebuild from spacewalk.git.
 

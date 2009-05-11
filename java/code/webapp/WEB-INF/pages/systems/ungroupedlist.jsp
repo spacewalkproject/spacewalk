@@ -16,7 +16,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-system.gif" imgAlt="system.common.systemAlt"
- helpUrl="/rhn/help/reference/en/s2-sm-system-list.jsp#s3-sm-system-list-ungrp">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-list-ungrp">
   <bean:message key="ungroupedlist.jsp.header"/>
 </rhn:toolbar>
 

@@ -212,7 +212,7 @@ public class ScheduleRemoteCommand extends RhnAction {
             List<Map<String, Long>> packs = getPackages(user, request, sessionSetLabel);
             int numPackages = packs.size();
             PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
-            pa.setPrerequisite(sra.getId());
+            pa.setPrerequisite(sra);
             ActionManager.storeAction(pa);
             showMessages(msgs, pa, server, numPackages, mode);
             showRemoteCommandMsg(msgs, true);
@@ -225,7 +225,7 @@ public class ScheduleRemoteCommand extends RhnAction {
                 ActionManager.createScript(username, group, timeout, script);
             ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
                 "", sad, earliest);
-            sra.setPrerequisite(pa.getId());
+            sra.setPrerequisite(pa);
             ActionManager.storeAction(sra);
             showMessages(msgs, sra, server, numPackages, mode);
             showRemoteCommandMsg(msgs, false);

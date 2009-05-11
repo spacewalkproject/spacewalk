@@ -131,7 +131,9 @@ public class AddCustomErrataAction extends RhnListAction {
         if (requestContext.wasDispatched(SUBMITTED)) {
             Map params = new HashMap();
             params.put(CID, request.getParameter(CID));
-            params.put(CHECKED, request.getParameter(CHECKED));            
+            params.put(CHECKED, request.getParameter(CHECKED));
+            params.put(SELECTED_CHANNEL,
+                    selectedChannelStr == null ? "" : selectedChannelStr);
             return getStrutsDelegate().forwardParams(mapping.findForward("submit"), 
                     params); 
         }

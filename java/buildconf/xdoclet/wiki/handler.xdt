@@ -40,7 +40,9 @@ Returns:
 <XDtMethod:ifDoesntHaveMethodTag tagName="xmlrpc.returntype">
 void
 </XDtMethod:ifDoesntHaveMethodTag>
-
+<XDtMethod:ifHasMethodTag tagName="since">
+Available since: <XDtMethod:methodTagValue tagName="since" /><p />
+</XDtMethod:ifHasMethodTag>
 <XDtMethod:ifHasMethodTag tagName="xmlrpc.usage">
 Usage:
 <pre>

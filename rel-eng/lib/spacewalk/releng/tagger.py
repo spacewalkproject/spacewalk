@@ -123,12 +123,17 @@ class VersionTagger(object):
                 found_changelog = True
 
                 old_version = get_latest_tagged_version(self.project_name)
-                last_tag = "%s-%s" % (self.project_name, old_version)
-                patch_command = \
-                        "git log --pretty=format:%%s\ \(%%ae\)" \
-                        " --relative %s..%s -- %s" % \
-                        (last_tag, "HEAD", ".")
-                output = run_command(patch_command)
+
+                # don't die if this is a new package with no history
+                if old_version != None:
+                    last_tag = "%s-%s" % (self.project_name, old_version)
+                    patch_command = \
+                            "git log --pretty=format:%%s\ \(%%ae\)" \
+                            " --relative %s..%s -- %s" % \
+                            (last_tag, "HEAD", ".")
+                    output = run_command(patch_command)
+                else:
+                    output = "new package"
 
                 fd, name = tempfile.mkstemp()
                 os.write(fd, "# No changelog entry found; please edit the following\n")

@@ -821,7 +821,7 @@ class Backend:
         if not errata:
             return
         # Figure out the errata ids
-        errata_ids = []
+        errata_channel_ids = []
         for erratum in errata:
             if erratum.ignored:
                 # Skip it
@@ -831,9 +831,11 @@ class Backend:
                     # New or modified in some way, queue it
                     # XXX we may not want to do this for trivial changes, 
                     # but not sure what trivial is
-                    errata_ids.append(erratum.id)
+                    for cid in erratum['channels']:
+                        errata_channel_ids.append(\
+                               (erratum.id, cid['channel_id']))
 
-        if not errata_ids:
+        if not errata_channel_ids:
             # Nothing to do
             return
 
@@ -842,12 +844,15 @@ class Backend:
         """)
 
         h = self.dbmodule.prepare("""
-            insert into rhnErrataQueue (errata_id, next_action) 
-            values (:errata_id, sysdate + :timeout / 86400)
+            insert into rhnErrataQueue (errata_id, channel_id, next_action) 
+            values (:errata_id, :channel_id, sysdate + :timeout / 86400)
         """)
+        errata_ids = map(lambda x:x[0], errata_channel_ids)
+        channel_ids = map(lambda x:x[1], errata_channel_ids)
         timeouts = [timeout] * len(errata_ids) 
         hdel.executemany(errata_id=errata_ids)
-        return h.executemany(errata_id=errata_ids, timeout=timeouts)
+        return h.executemany(errata_id=errata_ids, channel_id=channel_ids,\
+                             timeout=timeouts)
 
     
     def processChannels(self, channels):

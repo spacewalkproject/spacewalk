@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.4.4
+Version:      0.6.4
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -39,13 +39,18 @@ Requires: SatConfig-generator
 Requires: SatConfig-installer 
 Requires: SatConfig-spread 
 Requires: scdb 
-Requires: SNMPAlerts 
+Requires: SNMPAlerts
 Requires: SputLite-client 
 Requires: SputLite-server 
 Requires: ssl_bridge 
 Requires: status_log_acceptor 
 Requires: tsdb 
 Requires: mod_perl
+%if 0%{?rhel} == 4
+#for rhel4 we have no selinux policy, everything else should have
+%else
+Requires: spacewalk-monitoring-selinux
+%endif
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
@@ -67,7 +72,22 @@ rm -Rf $RPM_BUILD_ROOT
 
 #/etc/satname needs to be created on the proxy box, with the contents of '1'       
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
+mkdir -p $RPM_BUILD_ROOT/%{_sbindir}
+mkdir -p $RPM_BUILD_ROOT/%{_initrddir}
+
+ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
+
 install satname $RPM_BUILD_ROOT%{_sysconfdir}/satname
+install MonitoringScout $RPM_BUILD_ROOT%{_initrddir}
+
+%post
+/sbin/chkconfig --add MonitoringScout
+
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service MonitoringScout stop >/dev/null 2>&1
+    /sbin/chkconfig --del MonitoringScout
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -75,9 +95,26 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %config %{_sysconfdir}/satname
+%{_initrddir}/*
+%{_sbindir}/*
 %doc README
 
 %changelog
+* Mon May 11 2009 Jan Pazdziora 0.6.4-1
+- Move Req of oracle-instantclient-selinux to spacewalk-monitoring-selinux
+
+* Mon May 11 2009 Jan Pazdziora 0.6.3-1
+- no need to Require oracle-nofcontext-selinux here
+
+* Thu May  7 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
+- require selinux packages
+
+* Thu Apr 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
+- bump up version to 0.6 
+
+* Tue Apr 28 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.5-1
+- 497998 - add init.d script
+
 * Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.4.4-1
 - be sure that nocpulse home is correct
 

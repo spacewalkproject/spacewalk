@@ -6,7 +6,7 @@
 
 <rhn-token-details>
     <rhn-toolbar base="h1" img="/img/rhn-icon-keyring.gif"
-                 help-url="s2-sm-systems-activation-keys.jsp" deletion-type="key"
+                 help-url="s1-sm-systems.jsp#s2-sm-systems-activation-keys" deletion-type="key"
                  deletion-url="/rhn/activationkeys/Delete.do?tid={formvar:tid}" deletion-acl="formvar_exists(tid)">
       {token:note}
     </rhn-toolbar>

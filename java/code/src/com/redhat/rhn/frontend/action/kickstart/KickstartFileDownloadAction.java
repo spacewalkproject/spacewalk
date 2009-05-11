@@ -14,7 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -65,9 +65,6 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
         HttpServletRequest request = ctx.getRequest();
         KickstartFileDownloadCommand cmd = (KickstartFileDownloadCommand) cmdIn;
         KickstartData data = cmd.getKickstartData();
-        
-        KickstartUrlHelper urlHelper = new KickstartUrlHelper(
-                data, Config.get().getCobblerHost());        
         KickstartHelper helper = new KickstartHelper(request);
 
         
@@ -79,9 +76,16 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
          */
         if (helper.verifyKickstartChannel(
                     cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
-            request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
-                    KickstartManager.renderKickstart(data)));
-            request.setAttribute(KSURL, urlHelper.getKickstartFileUrl());
+            try {
+                request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(
+                        KickstartManager.getInstance().renderKickstart(data)));
+            }
+            catch (DownloadException de) {
+                request.setAttribute(FILEDATA,
+                                StringEscapeUtils.escapeHtml(de.getContent()));
+            }
+
+            request.setAttribute(KSURL, KickstartUrlHelper.getCobblerProfileUrl(data));
         }
         else {
             request.setAttribute(INVALID_CHANNEL, "true");

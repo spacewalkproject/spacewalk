@@ -386,6 +386,8 @@ class Queue(rhnHandler):
             missing_packages = "Missing-Packages: %s" % str( \
                                 data['missing_packages'])
             rmsg = "%s %s" % (message, missing_packages)
+        elif data.has_key('koan'):
+            rmsg = "%s: %s" % (message, data['koan'])
         else:
             rmsg = message
 

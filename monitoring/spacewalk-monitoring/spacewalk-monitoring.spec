@@ -1,7 +1,7 @@
 Summary:      Spacewalk monitoring
 Name:         spacewalk-monitoring
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.5.4
+Version:      0.6.4
 Release:      1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 License:      GPLv2
@@ -47,6 +47,11 @@ Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
+%if 0%{?rhel} == 4
+#for rhel4 we have no selinux policy, everything else should have
+%else
+Requires: spacewalk-monitoring-selinux
+%endif
 
 Requires(post): chkconfig
 Requires(preun): chkconfig
@@ -106,6 +111,18 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Mon May 11 2009 Jan Pazdziora 0.6.4-1
+- Move Req of oracle-instantclient-selinux to spacewalk-monitoring-selinux
+
+* Mon May 11 2009 Jan Pazdziora 0.6.3-1
+- no need to Require oracle-nofcontext-selinux here
+
+* Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
+- monitoring should require selinux modules
+
+* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.4-1
 - be sure that nocpulse home is correct
 

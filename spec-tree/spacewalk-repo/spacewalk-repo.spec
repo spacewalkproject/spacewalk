@@ -1,13 +1,13 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
-Version: 0.4
+Version: 0.6
 Release: 1%{?dist}
 License: GPL
 Group: Development
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd web
+# cd spec-tree/spacewalk-repo
 # make test-srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -47,6 +47,12 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
+* Thu Apr 30 2009 Jan Pazdziora 0.6-1
+- bump version to 0.6
+
+* Tue Mar 31 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.2-1
+- rebuilding for 0.5
+
 * Thu Jan 15 2009 Jan Pazdziora 0.4-1
 - building new version to point to 0.4 repo
 

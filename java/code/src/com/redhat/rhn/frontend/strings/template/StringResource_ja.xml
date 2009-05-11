@@ -3,20 +3,16 @@
 	<file source-language="en-US" target-language="ja-JP" datatype="po" original="en-US/template.xliff">
 		<body>
 			<trans-unit id="email.verify.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat ログイン Email の確認</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat ログイン Email の確認</target>
+				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<target>@@PRODUCT_NAME@@ ログイン電子メールの確認</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
-				<source>Dear Red Hat Network User,
+				<source>Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click the link below
@@ -28,41 +24,41 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 
 {2}</source>
-				<target>Red Hat Network ユーザーのみなさま
+				<target>@@PRODUCT_NAME@@ ユーザー様
 
-この電子メールは、あなたによって入力された Red Hat ログイン用の電子メール
+この電子メールは、ご入力された Red Hat ログイン用の電子メール
 アドレスを確認する目的で送信されています。ご使用の Red Hat ログインを
-アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、
-Red Hat Network によるシステム群管理機能をご利用頂けます。
+有効な Red Hat サブスクリプションと合わせてご使用頂くと、
+@@PRODUCT_NAME@@ によるシステム管理機能をご利用頂けます。
 
 Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、
 お手数ですが以下のリンクをクリックしてから登録された電子メールアドレスに
 誤りがないかご確認ください。電子メールアドレスのご確認を頂かない場合、
 最終的にはその Red Hat ログインは無効になります。
 
-次の URL で電子メールアドレスの確認を行ってください:
+次の URL で電子メールアドレスの確認を行ってください。
 
 {0}
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {1}
 
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.subject">
-				<source>Your RHN Account is ready</source>
-				<target>RHN アカウントの準備が整いました。</target>
+				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+				<target>@@PRODUCT_NAME@@ アカウントの準備が整いました。</target>
 			</trans-unit>
 			<trans-unit id="email.newaccountbycreator.body">
 				<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
        Password: {3}
@@ -72,13 +68,13 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>Red Hat Network ユーザーの方へ
+				<target>@@PRODUCT_NAME@@ ユーザー様
 
-あなたの Red Hat ログインが {0} {1} により作成されました。
-あなたの Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
-ご使用頂くことで、Red Hat Network 上でシステム群を管理することができます。
+Red Hat ログインが {0} {1} により作成されました。
+Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
+ご使用頂くと、@@PRODUCT_NAME@@ 上でシステムを管理することができます。
 
   Red Hat ログイン: {2}
         パスワード: {3}
@@ -86,9 +82,9 @@ Thank you for using Red Hat Network.
 
   {5}
 
-重要: ログイン時にパスワードを変更してください。
+重要: ログイン後にパスワードを変更してください。
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.body">
@@ -96,7 +92,7 @@ Red Hat Network をご利用頂きありがとうございます。
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
        Password: {1}
@@ -106,22 +102,22 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-				<target>Red Hat Network ユーザーの方へ
+				<target>@@PRODUCT_NAME@@ ユーザー様
 
-あなたの Red Hat ログインが作成されました。
-あなたの Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
-ご使用頂くことで、Red Hat Network 上でシステム群を管理することができます。
+Red Hat ログインが作成されました。
+Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
+ご使用頂くと、@@PRODUCT_NAME@@ 上でシステムを管理することができます。
 
   Red Hat ログイン: {0}
         パスワード: {1}
         電子メール: {2}
 
   {3}
-重要: ログイン時にパスワードを変更してください。
+重要: ログイン後にパスワードを変更してください。
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {4}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.pam.body">
@@ -129,32 +125,32 @@ Red Hat Network をご利用頂きありがとうございます。
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
          e-mail: {4}
 
   {5}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>Red Hat Network ユーザーの方へ
+				<target>@@PRODUCT_NAME@@ ユーザー様
 
-あなたの Red Hat ログインが {0} {1} により作成されました。
-あなたの Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
-ご使用頂くことで、Red Hat Network 上でシステム群を管理することができます。
+Red Hat ログインが {0} {1} により作成されました。
+Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
+ご使用頂くと、@@PRODUCT_NAME@@ 上でシステムを管理することができます。
 
   Red Hat ログイン: {2}
         電子メール: {4}
 
   {5}
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.subject">
-				<source>RHN User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>RHN ユーザーが作成されました: {0} ({1}, {2} &lt;{3}&gt;)</target>
+				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target>@@PRODUCT_NAME@@ ユーザーが作成されました: {0} ({1}, {2} &lt;{3}&gt;)</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.body">
 				<source>Hello,
@@ -168,26 +164,26 @@ please visit:
 
   {1}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>Red Hat Network ユーザーの方へ
+				<target>@@PRODUCT_NAME@@ ユーザー様
 
 新しいユーザーがアカウントに追加されました。
 
 {0}
 
-アカウントに関連付けられている有効なユーザー及び Red Hat ログインをすべて
-表示させるには、
-次をご覧ください:
+アカウントに関連付けられている有効なユーザーや Red Hat ログインをすべて
+表示するには、
+以下をご確認ください。
 
   {1}
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.subject">
-				<source>RHN Account Deactivated: {0}</source>
-				<target>RHN アカウントが無効になりました: {0}</target>
+				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+				<target>@@PRODUCT_NAME@@ アカウントが無効になりました: {0}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.body">
 				<source>
@@ -315,7 +311,7 @@ Red Hat Account Management Team</target>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to Red Hat Network
+account in the past day, but could not be entitled to @@PRODUCT_NAME@@
 services.
 
 {0}
@@ -324,10 +320,10 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on Red Hat Network by following
+   delete your existing system profile on @@PRODUCT_NAME@@ by following
    the directions at https://rhn.redhat.com/help/faq/#26
 
-2) The number of systems you have connected to Red Hat Network exceeds
+2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
    account.  This may be because your subscriptions have expired or
    you need to purchase a Red Hat subscription.
@@ -350,27 +346,27 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using Red Hat Network.</source>
+Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 お客様各位
 
-次のシステムは以前よりお客様の Red Hat ログインとアカウントに 
-関連づけられていますが、 Red Hat Network 各種サービスを 
-お受け頂けませんでした。 
+以下のシステムは以前よりお客様の Red Hat ログインとアカウントに
+関連付けられていますが、 @@PRODUCT_NAME@@ 各種サービスを
+使用することができませんでした。
 
 {0}
 
-これには考えられる理由がいくつかあります。 
+考えられる理由は次の通りです。
 
-1) 最近、 システムの再インストールを行なったため、 そのシステムを既存 
-   のアクティブなサブスクリプションに関連付けようとしている場合。 
-   https://rhn.redhat.com/help/faq/#26 にある指示に従って Red Hat Network 
-   上に存在しているシステムのプロフィールを確実に削除しているか確認してください。 
+1) 最近再インストールしたシステムを、既存のアクティブなサブスクリプション
+   に関連付けようとしている場合。
+   https://rhn.redhat.com/help/faq/#26 の指示に従って @@PRODUCT_NAME@@
+   上にある既存のシステムプロフィールが削除されているよう確認してください。
 
-2) Red Hat Network に接続しているシステム数がご使用のアカウントに
-   関連づけられているアクティブな Red Hat サブスクリプション数を
-   超えてしまっている場合。 サブスクリプションの有効期限が切れているか、
-   Red Hat サブスクリプションを購入しなければならない可能性があります。
+2) @@PRODUCT_NAME@@ に接続しているシステム数がご使用のアカウントに
+   関連付けられているアクティブな Red Hat サブスクリプションの数より多い場合。
+   サブスクリプションの有効期限が切れているか、Red Hat サブスクリプションの
+   購入が必要な場合があります。
 
    既存の Red Hat サブスクリプションの有効期限を確認するには、 
    次の URL をご覧ください。 
@@ -379,22 +375,22 @@ Thank you for using Red Hat Network.</source>
 
    ログインして表示 (View) をクリックし、 サブスクリプションリンクを確認します。 
 
-3) 最近、 Red Hat 製品をインストールしたが、 サブスクリプション番号が正常に 
-   アクティブにされなかった場合。 サブスクリプションのアクティベーションを 
-   再試行する場合は、 次をご覧ください。 
+3) 最近、Red Hat 製品をインストールし、サブスクリプション番号が正常に
+   アクティブにならなかった場合。 サブスクリプションをアクティブにするには
+   次をご覧ください。
 
    https://www.redhat.com/activate
 
-詳細なお問い合わせについては、 以下の Red Hat カスタマーサービスまで
+その他ご質問がある場合は、 以下の Red Hat カスタマーサービスまで
 ご連絡ください。
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Red Hat Network をご利用頂きありがとうございます。</target>
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>
-Red Hat Network has determined that the following advisory is applicable to
+@@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
 Complete information about this errata can be found at the following location:
@@ -409,10 +405,10 @@ Summary:
 {7}
 ------------------------------------------------------------------------------</source>
 				<target>
-Red Hat Network は、 次のアドバイザリが登録しているシステム群の 1 台または 
-複数台に適用できると判定しています。
+@@PRODUCT_NAME@@は、登録されているシステムの 1 台または複数台に以下のアドバイザリ
+を適用できると判断しました。
 
-このエラータに関する全詳細は次をご覧ください。
+このエラータに関する詳細は次をご覧ください。
      {0}
 
 {1} - {2}
@@ -444,24 +440,24 @@ root になり「up2date -p」(RHEL 4 とそれ以下)、あるいは「rhn-prof
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your RHN' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-「ユーザーの RHN」に登録されているシステムで影響を受けるシステムが 1 台あります 
+「概要」に登録されているシステムの 1 台が影響を受けました
 (明示的にエラータ警報を有効にしているシステムのみ表示されます)。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your RHN' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-「ユーザーの RHN」に登録されているシステムで影響を受けるシステムが {0} 台あります 
+「概要」に登録されているシステムの {0} 台が影響を受けました。
 (明示的にエラータ警報を有効にしているシステムのみ表示されます)。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
 				<source>
-System                          Operating System
-------------------------------- ---------------------------------------------
+Release    Arch       Profile Name
+---------- ---------- ---------------------------------------------
 {0}
 
 You may address the issues outlined in this advisory in two ways:
@@ -473,25 +469,24 @@ You may address the issues outlined in this advisory in two ways:
 
      - run the Update Agent on each affected server.</source>
 				<target>
-システム                          オペレーティングシステム
-------------------------------- ---------------------------------------------
+リリース    アーキテクチャ       プロフィール名
+---------- ---------- ---------------------------------------------
 {0}
 
-本アドバイザリに概略が説明されている問題に対して 2 通りの方法で対処することができます。
+本アドバイザリに記載されている問題に対して 2 通りの方法で対処することができます。
 
-     - 次にある一覧からサーバー名をクリックしてそのサーバーを 
-       選択し、 そのサーバーに対してエラータ更新をスケジュール 
-       します。
+     - 以下の場所にある一覧から選択するサーバーのサーバー名をクリックし、
+       そのサーバーに対してエラータ更新をスケジュールします。
            {1}
 
-     - 影響を受ける各サーバー上で更新エージェントを実行します。</target>
+     - 影響を受けた各サーバー上で更新エージェントを実行します。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.preferences">
 				<source>
 Changing Notification Preferences
 ---------------------------------
-To enable/disable your Errata Alert preferences globally please log in to RHN
-and navigate from "Your RHN" / "Your Account" to the "Preferences" tab.
+To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 
@@ -502,30 +497,30 @@ click the "Details" tab.
 {1}
 {2}</source>
 				<target>
-通知の設定を変更する
--------------------
-エラータ警報の設定をグローバルに有効/無効にするには、 RHN にログインして 
-「ユーザーの RHN」から「ユーザーのアカウント」-&gt;「ユーザーの個人設定」タブに行きます。 
+通知設定の変更
+---------------------------------
+エラータ警報の設定をグローバルに有効または無効にするには、 @@PRODUCT_NAME@@ に
+ログインして「概要」/「アカウント」より「個人設定」タブを選択します。
 
         URL: {0}
 
-また、 「システム一覧」から個別にシステムを選択してシステムごとに通知を 
-有効/無効にすることもできます。 各システムの表示で「詳細」タブをクリック 
+また、 「システム一覧」からシステムを個別に選択してシステムごとに通知を
+有効または無効にすることもできます。 各システムの表示より「詳細」タブをクリック
 します。
 
 {1}
 {2}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.subject">
-				<source>RHN Daily Status Report for {0}</source>
-				<target>{0} 用の RHN デイリーステータスレポート</target>
+				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+				<target>{0} の @@PRODUCT_NAME@@ デイリーステータスレポート</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.body">
-				<source>This is the RHN Status Report for your account {0}, as of {1}.
+				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
-This email will be sent when any of the following apply to the specified systems:
+This email will be sent when any of the following apply:
 
-1.  The system fails to check in with RHN within a 24-hour window.
+1.  The system fails to check in with @@PRODUCT_NAME@@ within a 24-hour window.
 2.  The system registers scheduled action activity.
 
 {2}
@@ -535,41 +530,41 @@ Disabling this email:
 
 To learn how to disable this email for systems:
 
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
+https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {5}
 {6}</source>
-				<target>ご使用のアカウント {0} の {1} 現在における RHN ステータスレポートです。
+				<target>ご使用のアカウント {0} の {1} 現在における @@PRODUCT_NAME@@ ステータスレポートです。
 
-指定のシステムに次のいずれかが該当するとこのメールが送信されます:
+指定のシステムに次のいずれかが該当すると、このメールが送信されます。
 
-1.  システムが 24時間枠内に RHN へのチェックインに失敗
+1.  システムが 24時間内に @@PRODUCT_NAME@@ へのチェックインに失敗
 2.  システムがスケジュールされたアクションの実行を登録
 
 {2}
 {3}
-このメールを無効にする: 
+このメールを無効にする。
 ----------------------
 
-システム群に関する本メールを無効にする方法は以下を参照してください: 
+本メールを無効にする方法は以下を参照してください。
 
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp 
+https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
 
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {5}
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.verification.notice.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -581,38 +576,42 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-Red Hat Network ユーザーの方へ
+@@PRODUCT_NAME@@ ユーザー様
 
-この電子メールは、 ユーザーが入力した Red Hat ログイン用の電子メール
-アドレスを確認する目的で送信されています。 ご使用の Red Hat ログインを
-アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、 
-Red Hat Network によるシステム管理機能をご利用頂けます。
+この電子メールは、入力された Red Hat ログイン用の電子メール
+アドレスを確認する目的で送信されています。ご使用の Red Hat ログインを
+アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、
+@@PRODUCT_NAME@@ によるシステム管理機能をご利用頂けます。
 
-Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、 
-お手数ですが以下のリンクをクリックしてから登録された電子メールアドレスに 
-誤りがないかご確認ください。 電子メールアドレスのご確認を頂かない場合、 
-最終的にはその Red Hat ログインは無効になります。 
+Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、
+以下のリンクをクリックして登録された電子メールアドレスに誤りがないかご確認
+ください。 電子メールアドレスのご確認を頂かない場合、Red Hat ログインは最終的
+に無効となります。
 
-次の URL で電子メールアドレスの確認を行ってください。
+次の URL にて電子メールアドレスをご確認ください。
 
 {0}
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {1}
 {2}</target>
 			</trans-unit>
+			<trans-unit id="email.verification.notice.subject">
+				<source>Red Hat login Email Verification</source>
+				<target>Red Hat ログイン電子メールの確認</target>
+			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -627,30 +626,30 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-Red Hat Network ユーザーの方へ
+@@PRODUCT_NAME@@ ユーザー様
 
-この電子メールは、 ユーザーが入力した Red Hat ログイン用の電子メール 
+この電子メールは、入力された Red Hat ログイン用の電子メール
 アドレスを確認する目的で送信されています。 ご使用の Red Hat ログインを 
 アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、 
-Red Hat Network によるシステム管理機能をご利用頂けます。 
+@@PRODUCT_NAME@@ によるシステム管理機能をご利用頂けます。
 
-Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、 
-お手数ですが以下のリンクをクリックしてから登録された電子メールアドレスに 
-誤りがないかご確認ください。 電子メールアドレスのご確認を頂かない場合、 
-最終的にはその Red Hat ログインは無効になります。
+Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、
+以下のリンクをクリックして登録された電子メールアドレスに誤りがないかご確認
+ください。 電子メールアドレスのご確認を頂かない場合、Red Hat ログインは最終的
+に無効となります。
 
 本メールは最終通知となりますのでご注意ください。 以下の URL を 2日以内に 
 クリックして頂かないとご使用の Red Hat ログインは無効になります。 
 
-次の URL で電子メールアドレスの確認を行ってください。
+次の URL で電子メールアドレスをご確認ください。
 
 {0}
 
-Red Hat Network をご利用頂きありがとうございます。
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
 {1}
 {2}</target>
 			</trans-unit>
@@ -659,32 +658,31 @@ Red Hat Network をご利用頂きありがとうございます。
 				<target>Red Hat ログイン電子メールの確認、最終通知</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat Satellite Server Certificate expiration warning</source>
-				<target>Red Hat Satellite サーバー証明書の失効通知</target>
+				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+				<target>Red Hat @@PRODUCT_NAME@@ サーバー証明書の失効通知</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. After {1} day(s) the systems 
-management services provided by your RHN Satellite Server will become inaccessible. 
+management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
 Please contact your regional Red Hat Customer  Service Representative for information 
-on how to renew your Satellite Certificate.
+on how to renew your @@PRODUCT_NAME@@ Certificate.
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-Red Hat Network ユーザーの方へ
+@@PRODUCT_NAME@@ ユーザー様
 
-このメールは、 ご使用の RHN Satellite 証明書がローカルのサテライト {0} 上で失効していることを 
-お知らせするために送信されています。 {1} 日後には、 RHN Satellite Server で提供されている 
+このメールは、 ご使用の @@PRODUCT_NAME@@ 証明書がローカルのサテライト {0} 上で失効していることを
+お知らせするために送信されています。 {1} 日後に、@@PRODUCT_NAME@@ Server で提供されている
 システム管理サービスにアクセスできなくなります。 
-Satellite 証明書の更新方法に関しては、 担当地域の Red Hat カスタマーサービスに 
-ご連絡ください。
+@@PRODUCT_NAME@@ 証明書の更新方法に関しては、担当地域の Red Hat カスタマーサービスまでご連絡ください。
 
-Red Hat Network をご利用頂きありがとうございます。
---Red Hat Network Team</target>
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
+--@@PRODUCT_NAME@@ チーム</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.subject">
 				<source>Red Hat satellite certificate expiration notice</source>
@@ -692,27 +690,26 @@ Red Hat Network をご利用頂きありがとうございます。
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. The system management services will be inaccessible 
 until your certificate is renewed. Please contact your regional Red Hat 
-Customer Service Representative for information on how to renew your Satellite Certificate.
+Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-Red Hat Network ユーザーの方へ。
+@@PRODUCT_NAME@@ ユーザー様
 
-このメールは、 ご使用の RHN Satellite 証明書がローカルのサテライト {0} 上で失効していることを 
+このメールは、 ご使用の @@PRODUCT_NAME@@ 証明書がローカルのサテライト {0} 上で失効していることを
 お知らせするために送信されています。 この証明書が更新されるまで、 システム管理サービスはアクセスできなくなります。 
-Satellite 証明書の更新方法に関しては、 担当地域の Red Hat カスタマーサービスに 
-ご連絡ください。
+@@PRODUCT_NAME@@ 証明書の更新方法に関しては、担当地域の Red Hat カスタマーサービスまでご連絡ください。
 
 
-Red Hat Network をご利用頂きありがとうございます。
---Red Hat Network Team</target>
+@@PRODUCT_NAME@@ をご利用頂きありがとうございます。
+--@@PRODUCT_NAME@@ チーム</target>
 			</trans-unit>
 		</body>
 	</file>

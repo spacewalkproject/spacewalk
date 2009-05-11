@@ -24,10 +24,14 @@ import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.KickstartManager;
+import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileEditCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
@@ -113,9 +117,10 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
 
         setupCobblerFormValues(ctx, form, cmd.getKickstartData());
         
-
+        KickstartWizardHelper wizardHelper = new 
+                            KickstartWizardHelper(ctx.getLoggedInUser()); 
         // Lookup the kickstart virtualization types and pre-select the current one:
-        List types = KickstartFactory.lookupVirtualizationTypes();
+        List types = wizardHelper.getVirtualizationTypes();
         form.set(VIRTUALIZATION_TYPES, types);
         form.set(VIRTUALIZATION_TYPE_LABEL, cmd.getVirtualizationType().getLabel());
         
@@ -125,7 +130,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 ctx.getRequest());  
         ctx.getRequest().setAttribute(KickstartFileDownloadAction.KSURL, 
                 dcmd.getOrgDefaultUrl());
-        
+        checkKickstartFile(ctx, getStrutsDelegate());
     }
     
 
@@ -285,10 +290,6 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      */
     public static void processCobblerFormValues(KickstartData ksdata, 
                                             DynaActionForm form, User user) {
-        
-        
-        
-        
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, user);
         cmd.setKernelOptions(StringUtil.convertOptionsToMap(
                 form.getString(KERNEL_OPTIONS), "kickstart.jsp.error.invalidvariable"));
@@ -310,8 +311,25 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             prof.setVirtBridge(form.getString(VIRT_BRIDGE));
             prof.setVirtPath(form.getString(VIRT_PATH));
         }
-        prof.save(); 
+        prof.save();
     }
 
-    
+    /**
+     * Method used to check if when/after a kickstart file was generated
+     * if there is any glitch (like parser error) in the template that got created
+     * @param context the request context
+     * @param strutsDelegate the strutsdelegate associated to the action.
+     */
+    public static void checkKickstartFile(RequestContext context,
+                                                StrutsDelegate strutsDelegate) {
+        try {
+            KickstartManager.getInstance().validateKickstartFile(
+                    context.lookupAndBindKickstartData());
+        }
+        catch (ValidatorException ve) {
+            RhnValidationHelper.setFailedValidation(context.getRequest());
+            strutsDelegate.saveMessages(context.getRequest(), ve.getResult());          
+        }
+
+    }    
 }

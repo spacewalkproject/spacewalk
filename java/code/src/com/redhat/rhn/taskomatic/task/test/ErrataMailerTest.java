@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.taskomatic.task.test;
 
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.taskomatic.task.ErrataMailer;
@@ -28,6 +30,7 @@ public class ErrataMailerTest extends BaseTestCaseWithUser {
     
     public void testErrataMailer() throws Exception {
         final Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
+        final Channel c = ChannelFactoryTest.createBaseChannel(user);
         // Override the methods that make the size of the task grow really huge
         // We still test the majority of the stuff in ErrataMailer(), just not
         // the queries that get all the users and errata.
@@ -45,6 +48,7 @@ public class ErrataMailerTest extends BaseTestCaseWithUser {
             protected List getErrataToProcess() {
                 List retval = new LinkedList();
                 Map row = new HashMap();
+                row.put("channel_id", c.getId());
                 row.put("errata_id", e.getId());
                 row.put("org_id", user.getOrg().getId());
                 retval.add(row);

@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install
 Group:          Applications/Multimedia
 License:        GPLv2
@@ -11,30 +11,31 @@ License:        GPLv2
 # make srpm
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
-Requires:       oracle-instantclient-basic >= 10.2.0
-Requires:       oracle-instantclient-sqlplus >= 10.2.0
-Requires(post): ldconfig
-
-%ifarch x86_64
-%define lib64 ()(64bit)
-%endif
-Provides:       libocci.so.10.1%{?lib64}   = 10.2.0
-Provides:       libnnz10.so%{?lib64}       = 10.2.0
-Provides:       libocijdbc10.so%{?lib64}   = 10.2.0
-Provides:       libclntsh.so.10.1%{?lib64} = 10.2.0
-Provides:       libociei.so%{?lib64}       = 10.2.0
-Provides:       ojdbc14                    = 10.2.0
-Obsoletes:      rhn-oracle-jdbc           <= 1.0
-Requires:       libstdc++.so.5%{?lib64}
-
-%description
-Compatibility package so that perl-DBD-Oracle will install.
 
 %ifarch s390 s390x
 %define icversion 10.2.0.2
 %else
 %define icversion 10.2.0.4
 %endif
+
+Requires:       oracle-instantclient-basic = %{icversion}
+Requires:       oracle-instantclient-sqlplus = %{icversion}
+Requires(post): ldconfig
+
+%ifarch x86_64
+%define lib64 ()(64bit)
+%endif
+Provides:       libocci.so.10.1%{?lib64}   = %{icversion}
+Provides:       libnnz10.so%{?lib64}       = %{icversion}
+Provides:       libocijdbc10.so%{?lib64}   = %{icversion}
+Provides:       libclntsh.so.10.1%{?lib64} = %{icversion}
+Provides:       libociei.so%{?lib64}       = %{icversion}
+Provides:       ojdbc14                    = %{icversion}
+Obsoletes:      rhn-oracle-jdbc           <= 1.0
+Requires:       libstdc++.so.5%{?lib64}
+
+%description
+Compatibility package so that perl-DBD-Oracle will install.
 
 %prep
 
@@ -78,6 +79,9 @@ ldconfig
 
 
 %changelog
+* Tue Apr 07 2009 Michael Mraka <michael.mraka@redhat.com> 10.2-20
+- specified exact version of instantclient
+
 * Mon Mar 02 2009 Devan Goodwin <dgoodwin@redhat.com> 10.2-19
 - Version bump to allow fresh dist-cvs tags.
 

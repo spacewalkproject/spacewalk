@@ -15,7 +15,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-config_namespace-2.gif" imgAlt="config.jsp.imgAlt"
- helpUrl="/rhn/help/reference/en/configuration-channels.jsp"
+ helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-central"
  creationUrl="/rhn/configuration/ChannelCreate.do?editing=true" 
  creationType="configchannel"
  creationAcl="user_role(config_admin)">

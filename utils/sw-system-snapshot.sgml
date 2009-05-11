@@ -1,0 +1,169 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Management Satellite Server" >
+<!ENTITY RHNSAT "System Snapshot Tool" >
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>sw-system-snapshot</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 1.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>sw-system-snapshot</command></RefName>
+<RefPurpose>
+List or delete system snapshots from the management server.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>sw-system-snapshot</command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--satellite=<replaceable>SATELLITE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-u<replaceable>USERNAME</replaceable></arg>
+        <arg>--username=<replaceable>USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p<replaceable>PASSWORD</replaceable></arg>
+        <arg>--password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-l</arg>
+        <arg>--list</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-d</arg>
+        <arg>--delete</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-a</arg>
+        <arg>--all</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--system-id=<replaceable>SYSTEMID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--snapshot-id=<replaceable>SNAPSHOTID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--start-date=<replaceable>STARTDATE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--end-date=<replaceable>ENDDATE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-v</arg><arg>--verbose</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg><arg>--help</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+    <para>
+        <emphasis>sw-system-snapshot</emphasis> is used to list or delete system snapshots.
+    </para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--satellite </term>
+        <listitem>
+            <para>Satellite server to run against.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u<replaceable>USERNAME</replaceable>
+        --username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>Satellite username to execute the command as.  Note: a user will only be able to list and delete snapshots that are accessible by this user's account.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p<replaceable>PASSWORD</replaceable>
+        --password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>Password associated with the username provided.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list</term>
+        <listitem>
+            <para>List system snapshot summaries that meet the criteria provided.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d, --delete</term>
+        <listitem>
+            <para>Delete system snapshots that meet the criteria provided.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-a, --all</term>
+        <listitem>
+            <para>Perform the requested action on all system snapshots.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--system-id=<replaceable>SYSTEMID</replaceable></term>
+        <listitem>
+            <para>Perform the requested action for the system id specified.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--snapshot-id=<replaceable>SNAPSHOTID</replaceable></term>
+        <listitem>
+            <para>Perform the requested action for the snapshot id specified.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--start-date=<replaceable>STARTDATE</replaceable></term>
+        <listitem>
+            <para>Perform the requested action on all snapshots that were created on or after the date specified.  A start-date may be used to further narrow the snapshots affected when using the --all or --system-id options.</para>
+            <para>The date must be in the following format: YYYYMMDDHH24MISS.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--end-date=<replaceable>ENDDATE</replaceable></term>
+        <listitem>
+            <para>Perform the requested action on all snapshots that were created on or before the date specified.  An end-date may be used to further narrow the snapshots affected when using the --all or --system-id options.</para>
+            <para>The date must be in the following format: YYYYMMDDHH24MISS.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+<member><command>sw-system-snapshot --list --all</command></member>
+<member><command>sw-system-snapshot --list --all --start-date=20090403000000</command></member>
+<member><command>sw-system-snapshot --list --system-id=1000010022</command></member>
+<member><command>sw-system-snapshot --list --system-id=1000010022 --start-date=20090101000000 --end-date=20091231000000</command></member>
+<member><command>sw-system-snapshot --delete --all</command></member>
+<member><command>sw-system-snapshot --delete --all --start-date=20090403000000</command></member>
+<member><command>sw-system-snapshot --delete --system-id=1000010022</command></member>
+<member><command>sw-system-snapshot --delete --system-id=1000010022 --start-date=20090101000000 --end-date=20091231000000</command></member>
+<member><command>sw-system-snapshot --delete --system-id=1000010022 --system-id=1000010033</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Brad Buckingham<email>bbuckingham@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

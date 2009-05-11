@@ -2,7 +2,7 @@ Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.183.6
+Version:      1.183.7
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -70,6 +70,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 1.183.7-1
+- fix various perl -w warnings (msuchy@redhat.com)
+- Fix ownership of nocpulse directory (msuchy@redhat.com)
+- Add LICENSE file (msuchy@redhat.com)
+- Remove unused macro definition (msuchy@redhat.com)
+
 * Tue Jan 13 2009 Milan Zazrivec 1.183.6-1
 - point ssh to correct private key
 

@@ -1098,17 +1098,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param($date, "startDate")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("errata")
-     *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop_desc("string","issue_date",
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop_desc("string","update_date",
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop("string","synopsis")
-     *              #prop("string","advisory_type")
-     *              #prop_desc("string","last_modified_date",
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
-     *          #struct_end()
+     *          $ErrataOverviewSerializer
      *      #array_end()
      */
     public List listErrata(String sessionKey, String channelLabel,
@@ -1138,17 +1128,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param($date, "endDate")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("errata")
-     *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop_desc("string","issue_date",
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop_desc("string","update_date",
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
-     *              #prop("string","synopsis")
-     *              #prop("string","advisory_type")
-     *              #prop_desc("string","last_modified_date",
-     *                         "date format follows YYYY-MM-DD HH24:MI:SS")
-     *          #struct_end()
+     *          $ErrataOverviewSerializer
      *      #array_end()
      */
 
@@ -1189,7 +1169,6 @@ public class ChannelSoftwareHandler extends BaseHandler {
      *    #array()
      *      #struct("errata")
      *        #prop_desc("int", "id", "Errata Id")
-     *        #prop("string","advisory_type")
      *        #prop_desc("string", "date", "Date erratum was created.")
      *        #prop_desc("string", "advisory_synopsis", "Summary of the erratum.")
      *        #prop_desc("string", "advisory_type", "Type label such as Security, Bug Fix")
@@ -1526,6 +1505,19 @@ public class ChannelSoftwareHandler extends BaseHandler {
      */
     public int clone(String sessionKey, String originalLabel, Map channelDetails, 
             Boolean originalState) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("name");
+        validKeys.add("label");
+        validKeys.add("summary");
+        validKeys.add("parent_label");
+        validKeys.add("arch_label");
+        validKeys.add("gpg_url");
+        validKeys.add("gpg_id");
+        validKeys.add("gpg_fingerprint");
+        validKeys.add("description");
+        validateMap(validKeys, channelDetails);
 
         User loggedInUser = getLoggedInUser(sessionKey);
         channelAdminPermCheck(loggedInUser);

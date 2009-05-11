@@ -68,4 +68,26 @@ public class ArchType extends BaseDomainHelper {
         this.name = n;
     }
 
+    /** {@inheritDoc} */
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ArchType archType = (ArchType) o;
+
+        if (id != null ? !id.equals(archType.id) : archType.id != null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /** {@inheritDoc} */
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

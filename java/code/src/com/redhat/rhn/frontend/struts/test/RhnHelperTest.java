@@ -51,6 +51,34 @@ public class RhnHelperTest extends RhnBaseTestCase {
         assertNotNull(stripped);
         assertTrue(stripped.indexOf('\r') == -1);
     }
+    
+    public void testGetParameterWithSpecialCharacters() throws Exception {
+        RhnMockHttpServletRequest request = new RhnMockHttpServletRequest();
+        request.setupQueryString("   ");
+        assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
+
+        request.setupQueryString(null);
+        assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
+        
+        request.setupQueryString("asdf12354");
+        assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
+        
+        request.setupQueryString("foo=bar");
+        assertNull(RhnHelper.getParameterWithSpecialCharacters(request, "zzzz"));
+        
+        request.setupQueryString("foo=bar");
+        assertEquals("bar", RhnHelper.
+                getParameterWithSpecialCharacters(request, "foo"));
+        
+        request.setupQueryString("foo=bar&baz=bloop&blippy=blorg");
+        assertEquals("bar", RhnHelper.
+                getParameterWithSpecialCharacters(request, "foo"));
+        
+        request.setupQueryString("foo=bar+++&baz=bloop&blippy=blorg");
+        assertEquals("bar+++", RhnHelper.
+                    getParameterWithSpecialCharacters(request, "foo"));
+        
+    }
 
 }
 

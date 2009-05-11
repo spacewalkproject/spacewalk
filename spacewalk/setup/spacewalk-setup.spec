@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.5.27
+Version:        0.6.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -25,7 +25,7 @@ Requires:       spacewalk-admin
 Requires:       spacewalk-certs-tools
 Requires:       perl-Satcon
 Requires:       spacewalk-backend-tools
-Requires:       cobbler >= 1.4.3
+Requires:       cobbler >= 1.6.3
 Requires:       PyYAML
 Requires:       jabberd
 
@@ -62,7 +62,10 @@ install -m 0644 share/ssl.conf.2 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.3 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.4 %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/ssl.conf.5 %{buildroot}/%{_datadir}/spacewalk/setup/
+install -m 0644 share/old-jvm-list %{buildroot}/%{_datadir}/spacewalk/setup/
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
+install -m 0755 share/upgrade/* %{buildroot}/%{_datadir}/spacewalk/setup/upgrade
 install -m 0644 share/defaults.d/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/defaults.d/
 
 # jabberd ssl cert location
@@ -95,6 +98,40 @@ rm -rf %{buildroot}
 %dir %{_sysconfdir}/pki/spacewalk/jabberd
 
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- no need to enable notification anymore (mzazrivec@redhat.com)
+
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
+- 493466 - perl scripts from rhn-upgrade moved to spacewalk-setup
+  (mzazrivec@redhat.com)
+- 493466 - add scripts from rhn-upgrade to spacewalk-setup
+  (mzazrivec@redhat.com)
+- 466577 - add bouncycastle* to the list of obsoleted java packages
+  (mzazrivec@redhat.com)
+- 466577 - list of jvms from older Satellites (mzazrivec@redhat.com)
+- 466577 - support for removing old jvms during upgrade (mzazrivec@redhat.com)
+
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- Added syntax check to the setup to add cobbler.host to rhn.conf if it's
+  not present (paji@redhat.com)
+- 208440 - call install-db.sh with custom creation parameters
+  (mzazrivec@redhat.com)
+- 208440 - install-db.sh: support for creating embedded db with custom
+  parameters (mzazrivec@redhat.com)
+- Removing the last bastions of conditional cobbler 1.4 code 
+  (paji@redhat.com)
+
+ * Mon Apr  6 2009 Partha Aji <paji@redhat.com> 0.6.1-1
+ - moved the cobbler requirement to 1.6.3 or greater as required by sat. 
+
+* Mon Apr 06 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
+- replace snail with worm (msuchy@redhat.com)
+- 391771 - removing usermod from install-db.sh, we should do it in %pre of some
+  rpm. (jpazdziora@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- 469413 - included build number to the installation log file
+  (tlestach@redhat.com)
+
 * Fri Mar 27 2009 Jan Pazdziora 0.5.27-1
 - 492194 - address spacewalk-setup hanging while Restarting services.
 

@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.5
+Version: 	  2.208.7
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plugins
 URL:          https://fedorahosted.org/spacewalk
@@ -46,6 +46,11 @@ do
   install $pkg/*.pm $fulldir
 done
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/ProbeState/* 2>/dev/null | xargs -I file mv file %{_var}/lib/nocpulse/ProbeState
+fi
+
 %files
 %defattr(-,root,root,-)
 %dir %{_sysconfdir}/nocpulse
@@ -60,6 +65,12 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.208.7-1
+- 498257 - migrate existing files into new nocpulse homedir
+
+* Thu Apr 16 2009 Tomas Lestach <tlestach@redhat.com> 2.208.6-1
+- 449919 - fixing SNMP uptime information
+
 * Thu Feb  5 2009 Miroslav Suchý <msuchy@redhat.com> 2.208.5-1
 - 474279 - rewrite TNSping probe
 

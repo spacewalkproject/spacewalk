@@ -77,6 +77,8 @@ public class RepositoryWriter {
         Date fileModifiedDate = new Date(theFile.lastModified());
         // the file Modified date should be getting set when the file
         // is moved into the correct location.
+        log.info("File Modified Date:" + fileModifiedDate);
+        log.info("Channel Modified Date:" + channel.getLastModified());
         return !fileModifiedDate.equals(channel.getLastModified());
     }
 

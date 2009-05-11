@@ -1,6 +1,6 @@
 <rl:listset name="groupSet" legend="errata">
 
-    <rl:list emptykey="erratalist.jsp.deleteerrata">
+    <rl:list emptykey="${emptyListKey}">
 
         <rl:decorator name="PageSizeDecorator"/>
         <rl:decorator name="SelectableDecorator"/>

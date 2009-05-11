@@ -35,16 +35,23 @@ LOGGING
 
 CREATE INDEX rhn_snc_pid_idx
     ON rhnServerNeededCache (package_id)
+    NOPARALLEL
     TABLESPACE [[128m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_snc_sid_idx
     ON rhnServerNeededCache (server_id)
+    NOPARALLEL
     TABLESPACE [[128m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_snc_eid_idx
     ON rhnServerNeededCache (errata_id)
     TABLESPACE [[128m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
+CREATE INDEX rhn_snc_speid_idx
+    ON rhnServerNeededCache (server_id, package_id, errata_id)
+    NOPARRALLEL
+    TABLESPACE [[128m_tbs]]
+    NOLOGGING;

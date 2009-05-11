@@ -14,14 +14,17 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.BaseManager;
 
 import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,13 +36,8 @@ public class CobblerSnippetLister extends BaseManager {
     /**
      * Logger for this class
      */
-    private static Logger logger = Logger.getLogger(CobblerSnippetLister.class);
-
-    private static CobblerSnippetLister instance = new CobblerSnippetLister();
-    private static String globalSnippetDir = "/var/lib/cobbler/snippets";
-
-    private List<CobblerSnippet> snippetFiles = new ArrayList<CobblerSnippet>();
-
+    private static final Logger LOG = Logger.getLogger(CobblerSnippetLister.class);
+    private static final CobblerSnippetLister INSTANCE = new CobblerSnippetLister();
     /**
      * Default constructor
      */
@@ -52,40 +50,97 @@ public class CobblerSnippetLister extends BaseManager {
      * @return CobblerSnippetLister instance
      */
     public static CobblerSnippetLister getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
-    private void recurseDirectory(File path) {
-        CobblerSnippet snippy = new CobblerSnippet();
-        if (path.isDirectory() && !path.isHidden()) {
-            String[] children = path.list();
-            Arrays.sort(children);
-            for (int i = 0; i < children.length; i++) {
-                recurseDirectory(new File(path, children[i]));
-            }
-        }
-        else {
-            if (!path.isHidden() && path.exists()) {
-                snippy.setName(path.toString().substring(26));
-                snippy.setContents(null);
-                snippetFiles.add(snippy);
+    private void loadDefaultSnippets(File path, 
+                    List<CobblerSnippet> snippetFiles) {
+        if (path.exists() && !path.isHidden()) {
+            final String spacewalkSnippetsDir = CobblerSnippet.
+                        getSpacewalkSnippetsDir().getAbsolutePath();
+            if (!path.getAbsolutePath().startsWith(spacewalkSnippetsDir)) {
+                if (path.isDirectory()) {
+                    String[] children = path.list();
+                    Arrays.sort(children);
+                    for (int i = 0; i < children.length; i++) {
+                        loadDefaultSnippets(new File(path, children[i]), snippetFiles);
+                    }
+                }
+                else {
+                    snippetFiles.add(CobblerSnippet.loadReadOnly(path));    
+                }
             }
         }
     }
-
+    
     /**
-     * Get the list of snippets 
-     * List
-     * @return List of snippets
+     * Returns a list of snippets accessible to this user
+     * @param user the user has to be atleast a 
+     * config admin to be able to access snippets.
+     * @param common true if we want the common snippets
+     *                   i.e ones in /var/lib/cobbler/snippets minus spacewalk
+     *                   false if want the  editable snippets
+     *                   i.e ones in /var/lib/cobbler/snippets/spacewalk
+     * @return the snippets accessible to the user.
      */
-    public List listSnippets() {
-        String processPath = globalSnippetDir;
-        File f = new File(processPath);
+    private List<CobblerSnippet> listSnippets(User user, boolean common) {
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(RoleFactory.CONFIG_ADMIN);
+        }
+        
+        if (common) {
+            List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
+            loadDefaultSnippets(CobblerSnippet.getCobblerSnippetsDir(),
+                                                                snippetFiles);
+            return snippetFiles;
+        }
 
-        snippetFiles.clear();
-        recurseDirectory(f);
-
+        List<CobblerSnippet> snippetFiles = new LinkedList<CobblerSnippet>();
+        File spacewalkDir = new File(CobblerSnippet.getPrefixFor(user.getOrg()));
+        
+        if (spacewalkDir.exists() && spacewalkDir.isDirectory()) {
+            for (File file : spacewalkDir.listFiles()) {
+                if (!file.isHidden() && file.isFile()) {
+                    snippetFiles.add(CobblerSnippet.loadEditable(file.getName(),
+                                                            user.getOrg()));
+                }
+            }
+        }
         return snippetFiles;
     }
 
+    /**
+     * Returns a list of default snippets accessible to this user
+     * i.e ones in /var/lib/cobbler/snippets minus spacewalk
+     * @param user the user has to be atleast a 
+     * config admin to be able to access snippets.
+     * @return the snippets accessible to the user.
+     */
+    public List<CobblerSnippet> listDefault(User user) {
+        return listSnippets(user, true);
+    }
+
+
+    /**
+     * Returns a list of custom snippets accessible to this user
+     * i.e ones in /var/lib/cobbler/snippets/spacewalk
+     * @param user the user has to be atleast a 
+     * config admin to be able to access snippets.
+     * @return the snippets accessible to the user.
+     */    
+    public List<CobblerSnippet> listCustom(User user) {
+        return listSnippets(user, false);
+    }
+    
+    /**
+     * Returns a list of snippets accessible to this user
+     * @param user the user has to be atleast a 
+     * config admin to be able to access snippets.
+     * @return the snippets accessible to the user.
+     */
+    public List<CobblerSnippet> list(User user) {
+        List <CobblerSnippet> snip = new LinkedList<CobblerSnippet>(listDefault(user));
+        snip.addAll(listCustom(user));
+        return snip;
+    }
 }

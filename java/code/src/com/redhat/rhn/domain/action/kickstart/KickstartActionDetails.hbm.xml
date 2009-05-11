@@ -15,6 +15,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="appendString" type="string" column="append_string"/>
         <property name="kickstartHost" type="string" column="kickstart_host"/>
         <property name="staticDevice" type="string" column="static_device"/>
+        <property name="cobblerSystemName" type="string" column="cobbler_system_name"/>
 
 		<many-to-one name="parentAction" column="action_id" 
 			class="com.redhat.rhn.domain.action.Action" outer-join="true" 
@@ -22,7 +23,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 
         <set name="fileLists" table="RHNACTIONKICKSTARTFILELIST" lazy="true">
             <key column="action_ks_id"/>
-            <element type="long" column="file_list_id" not-null="true"/>
+            <many-to-many column="file_list_id"
+                class="com.redhat.rhn.domain.common.FileList" />
         </set>
   
     </class>

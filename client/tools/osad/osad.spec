@@ -9,7 +9,7 @@ Group:   System Environment/Daemons
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 5.9.10
+Version: 5.9.11
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -77,7 +77,7 @@ Requires: spacewalk-selinux
 %if "%{selinux_policyver}" != ""
 Requires: selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post): /usr/sbin/semodule, /sbin/restorecon
+Requires(post): /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires: osa-dispatcher
 
@@ -124,6 +124,10 @@ install -p -m 644 osa-dispatcher-selinux/%{modulename}.if \
 
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
+
+# Install osa-dispatcher-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 osa-dispatcher-selinux/osa-dispatcher-selinux-enable %{buildroot}%{_sbindir}/osa-dispatcher-selinux-enable
 %endif
 
 %clean
@@ -153,18 +157,9 @@ fi
 
 %if %{include_selinux_package}
 %post -n osa-dispatcher-selinux
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
-      && /usr/sbin/semodule -s ${selinuxvariant} -i \
-        %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
-  done
-
-/usr/sbin/semanage port -a -t osa_dispatcher_upstream_notif_server_port_t -p tcp 1290 > /dev/null 2>&1 || :
-
-rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
-/sbin/restorecon -vvi /var/log/rhn/osa-dispatcher.log
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/osa-dispatcher-selinux-enable
+fi
 
 %postun -n osa-dispatcher-selinux
 # Clean up after package removal
@@ -226,10 +221,15 @@ rpm -ql osa-dispatcher | xargs -n 1 /sbin/restorecon -rvvi {}
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 %doc LICENSE
 %doc PYTHON-LICENSES.txt
+%attr(0755,root,root) %{_sbindir}/osa-dispatcher-selinux-enable
 %endif
 
 # $Id$
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 5.9.11-1
+- move the %post SELinux activation to
+  /usr/sbin/osa-dispatcher-selinux-enable
+
 * Fri Mar 27 2009 jesus m. rodriguez <jesusr@redhat.com> 5.9.10-1
 - added PYTHON-LICENSES.txt file
 

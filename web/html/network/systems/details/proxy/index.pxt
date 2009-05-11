@@ -30,7 +30,7 @@
       </p>
 </rhn-appinstall-start>
 
-<rhn-appinstall-check-requirements file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml" process="install" doc-link="/rhn/help/proxy/rhn{condensed_proxy_version}/en/ch-requirements.jsp#s1-software-requirements">
+<rhn-appinstall-check-requirements file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml" process="install" doc-link="/rhn/help/proxy/rhn{condensed_proxy_version}/en-US/ch-requirements.jsp#s1-software-requirements">
       <p><a href="/network/systems/details/proxy/terms-and-conditions.pxt?sid={formvar:sid}&amp;version={formvar:version}">Continue</a></p>
 </rhn-appinstall-check-requirements>
 

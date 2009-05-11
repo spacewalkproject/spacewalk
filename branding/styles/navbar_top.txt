@@ -12,10 +12,13 @@ class="navPipe">|</span> <a href="rhn/">Documentation</a></p>
 	<div id="utilityAccount">
 <rhn-display-login>
         <p>
-         <span class="label">Logged in:</span> <a
+         <span class="label">User:</span> <a
 href="/rhn/account/UserDetails.do">[login]</a><span
-class="navPipe">|</span><a
-href="/rhn/account/UserPreferences.do">Preferences</a><span
+class="navPipe">|</span>
+        <span class="label">Organization:</span> <a
+href="/rhn/admin/multiorg/OrgDetails.do?oid=[oid]">[org]</a><span
+class="navPipe">|</span>
+<a href="/rhn/account/UserPreferences.do">Preferences</a><span
 class="navPipe">|</span><a href="/rhn/Logout.do"><span>Sign Out</span></a>
 
           </p>
@@ -35,6 +38,7 @@ class="navPipe">|</span><a href="/rhn/Logout.do"><span>Sign Out</span></a>
           
       <option value="packages">Packages</option>
       <option value="errata">Errata</option>
+      <option value="docs">Documentation</option>
       </select><input type="text" name="search_string" maxlength="40"
 size="20" />
 

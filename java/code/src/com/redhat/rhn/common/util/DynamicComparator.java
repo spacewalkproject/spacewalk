@@ -41,8 +41,8 @@ public class DynamicComparator implements Comparator  {
     private int order;
     private Collator collator;
     /**
-     * Create a new DynamicComparitor that 
-     * 
+     * Create a new DynamicComparator that 
+     * can be used to compare indivdual beans..
      * @param fieldNameIn Name of field you want to use in 
      * the bean to compare to
      * 
@@ -50,14 +50,26 @@ public class DynamicComparator implements Comparator  {
      * <code>RequestContext.LIST_SORT_DESC</code> 
      */
     public DynamicComparator(String fieldNameIn, String sortOrder) {
+        this (fieldNameIn, RequestContext.SORT_ASC.equals(sortOrder));
+    }
+    
+    /**
+     * Create a new DynamicComparator that 
+     * can be used to compare indivdual beans..
+     * @param fieldNameIn Name of field you want to use in 
+     * the bean to compare to
+     * 
+     * @param ascending true for ascending order 
+     */
+    public DynamicComparator(String fieldNameIn, boolean ascending) {
         this.fieldName = fieldNameIn;
-        if (RequestContext.SORT_ASC.equals(sortOrder)) {
+        if (ascending) {
             order = 1;
         }
         else {
             order = -1;
         }
-    }
+    }    
     
     /**
      * {@inheritDoc}

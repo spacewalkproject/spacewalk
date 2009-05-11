@@ -4,7 +4,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.27.19
+Version:      1.27.20
 Release:      1%{?dist}
 Summary:      Time Series Database
 URL:          https://fedorahosted.org/spacewalk
@@ -57,6 +57,15 @@ install -m 755 LocalQueue/rebalance_cron $RPM_BUILD_ROOT%{_bindir}
 install -d $RPM_BUILD_ROOT%{init_script}
 install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /opt/nocpulse/TSDBLocalQueue/TSDBLocalQueue.log 2>/dev/null | xargs -I file mv file %lqdir
+  ls /opt/nocpulse/TSDBLocalQueue/queuefile.positions 2>/dev/null | xargs -I file mv file %lqdir
+  ls /opt/nocpulse/TSDBLocalQueue/archive/* 2>/dev/null | xargs -I file mv file %lqdir/archive
+  ls /opt/nocpulse/TSDBLocalQueue/failed/* 2>/dev/null | xargs -I file mv file %lqdir/failed
+  ls /opt/nocpulse/TSDBLocalQueue/queue/* 2>/dev/null | xargs -I file mv file %lqdir/queue
+fi
+
 %files
 %defattr(-,root,root,-)
 %{init_script}
@@ -73,6 +82,9 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.27.20-1
+- 498257 - migrate existing files into new nocpulse homedir
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 1.27.19-1
 - remove dead code (apachereg)
 * Thu Feb 05 2009 jesus m. rodriguez <jesusr@redhat.com> 1.27.18-1

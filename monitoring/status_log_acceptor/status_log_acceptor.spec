@@ -1,6 +1,6 @@
 Name:         status_log_acceptor
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      0.12.7
+Version:      0.12.8
 Release:      1%{?dist}
 Summary:      Current state log acceptor
 URL:          https://fedorahosted.org/spacewalk
@@ -38,6 +38,10 @@ install -m 444 AcceptStatusLog.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.12.8-1
+- Use Apache2::RequestRec. (jpazdziora@redhat.com)
+- Returning undef instead of string "NULL". (jpazdziora@redhat.com)
+
 * Wed Feb 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.12.7-1
 - remove dead code (apachereg)
 

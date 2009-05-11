@@ -4,7 +4,7 @@ Group:   Applications/Internet
 License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version: 0.5.7
+Version: 0.6.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildRequires: python
@@ -29,6 +29,11 @@ Requires: %{name}-redirect = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
+%if 0%{?rhel} == 4
+#for rhel4 we have no selinux policy, everything else should have
+%else
+Requires: spacewalk-proxy-selinux
+%endif
 Requires: jabberd
 Requires: httpd
 Requires: sos
@@ -283,6 +288,14 @@ fi
 
 
 %changelog
+* Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
+- 493428 - require spacewalk-proxy-selinux so we can run in permissive mode
+
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- code cleanup (msuchy@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- update copyright and licenses (jesusr@redhat.com)
+
 * Thu Mar 26 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.7-1
 - add dependency on httpd
 

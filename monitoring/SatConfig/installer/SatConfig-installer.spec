@@ -3,7 +3,7 @@ Name:         SatConfig-installer
 Summary:      Satellite Configuration System - command line installer
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      3.24.4
+Version:      3.24.6
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -31,6 +31,11 @@ mkdir -p $RPM_BUILD_ROOT%config_dir
 install -m 755 scheduleEvents $RPM_BUILD_ROOT%{_bindir}
 install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/trapReceiver/* 2>/dev/null | xargs -I file mv file %config_dir
+fi
+
 %files
 %defattr(-,root,root,-)
 %attr(755,nocpulse,nocpulse) %dir %config_dir
@@ -41,6 +46,12 @@ install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazriec <mzazrivec@redhat.com> 3.24.6-1
+- 498257 - migrate existing files into new nocpulse homedir
+
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 3.24.5-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Tue Nov 25 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.4-1
 - fix missing semicolon 
 

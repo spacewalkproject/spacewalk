@@ -72,7 +72,7 @@ public class SystemListHelper {
         else if (checkinOverdue(next)) {
             //status = "awol";
             url.setAttribute("href",
-                    "/rhn/help/reference/en/s1-sm-systems.jsp");
+                    "/rhn/help/reference/en-US/s1-sm-systems.jsp");
             message = ls.getMessage("systemlist.jsp.notcheckingin");
             img.setAttribute("src", "/img/icon_checkin.gif");
             img.setAttribute("alt", message);
@@ -81,7 +81,7 @@ public class SystemListHelper {
         else if (next.getLocked().intValue() == 1) {
             //status = "locked";
             url.setAttribute("href",
-                    "/rhn/help/reference/en/s1-sm-systems.jsp");
+                    "/rhn/help/reference/en-US/s1-sm-systems.jsp");
             message = ls.getMessage("systemlist.jsp.locked");
             img.setAttribute("src", "/img/icon_locked.gif");
             img.setAttribute("alt", message);

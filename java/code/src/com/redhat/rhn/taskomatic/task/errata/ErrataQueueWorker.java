@@ -14,13 +14,6 @@
  */
 package com.redhat.rhn.taskomatic.task.errata;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
@@ -32,13 +25,17 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.manager.action.ActionManager;
-import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.taskomatic.task.TaskConstants;
 import com.redhat.rhn.taskomatic.task.threaded.QueueWorker;
 import com.redhat.rhn.taskomatic.task.threaded.TaskQueue;
+
+import org.apache.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Processes an errata for a single org
@@ -49,10 +46,12 @@ class ErrataQueueWorker implements QueueWorker {
     
     private Logger logger;
     private Long errataId;
+    private Long channelId;
     private Long orgId;
     private TaskQueue parentQueue;
     
     ErrataQueueWorker(Map row, Logger parentLogger) {
+        channelId = (Long) row.get("channel_id");
         errataId = (Long) row.get("errata_id");
         orgId = (Long) row.get("org_id");
         logger = parentLogger;
@@ -95,6 +94,7 @@ class ErrataQueueWorker implements QueueWorker {
             Map params = new HashMap();
             params.put("errata_id", errataId);
             params.put("minutes", new Long(0));
+            params.put("channel_id", channelId);
             int rowsUpdated = marker.executeUpdate(params);
             if (logger.isDebugEnabled()) {
                 logger.debug("inserted " + rowsUpdated + 
@@ -172,35 +172,27 @@ class ErrataQueueWorker implements QueueWorker {
                 Long serverId = (Long) row.get("server_id");
                 Long tmp = (Long) row.get("org_id");
                 Long convertedOrgId = new Long(tmp.longValue());
-                if (orgId == null || !convertedOrgId.equals(orgId)) {
+                if (orgId == null) {
                     org = OrgFactory.lookupById(convertedOrgId);
                 }
-                Long convertedServerId = new Long(serverId.longValue());
-                Server server = ServerFactory.lookupById(convertedServerId);
-                if (server == null) {
-                    logger.error("Server " + serverId + " not found. " + 
-                       "Aboring auto-errata processing");
-                    return;
+                else {
+                    org = OrgFactory.lookupById(orgId);
                 }
+                Long convertedServerId = new Long(serverId.longValue());
                 // Only schedule an Auto Update if the server supports the 
                 // feature.  We originally calculated this in the driving
                 // query but it wasn't performant.
-                if (SystemManager.serverHasFeature(convertedServerId, 
-                        "ftr_auto_errata_updates") && org.isPayingCustomer() &&
-                        server.getAutoUpdate() != null && 
-                        server.getAutoUpdate().equalsIgnoreCase("y")) {
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("Scheduling auto update for Errata: " +
-                                errata.getId() + ", Server: " + convertedServerId + 
-                                ", Org: " + convertedOrgId);
-                    }
-                    ErrataAction errataAction = ActionManager.
-                        createErrataAction(org, errata);
-                    ActionManager.addServerToAction(convertedServerId, errataAction);
-                    ActionManager.storeAction(errataAction);
-                    HibernateFactory.commitTransaction();
-                    HibernateFactory.closeSession();
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Scheduling auto update for Errata: " +
+                            errata.getId() + ", Server: " + convertedServerId + 
+                            ", Org: " + convertedOrgId);
                 }
+                ErrataAction errataAction = ActionManager.
+                    createErrataAction(org, errata);
+                ActionManager.addServerToAction(convertedServerId, errataAction);
+                ActionManager.storeAction(errataAction);
+                HibernateFactory.commitTransaction();
+                HibernateFactory.closeSession();
             }
             HibernateFactory.commitTransaction();
             HibernateFactory.closeSession();

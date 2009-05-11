@@ -17,7 +17,7 @@
 </html:messages>
 
   <rhn:toolbar base="h1" img="/img/rhn-icon-system_group.gif"
-	           helpUrl="/rhn/help/reference/en/s2-sm-monitor-notif.jsp">
+	           helpUrl="/rhn/help/reference/en-US/s1-sm-monitor.jsp#s2-sm-monitor-notif">
     <bean:message key="filtercreate.jsp.header1" />
   </rhn:toolbar>
 

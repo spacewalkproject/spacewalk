@@ -14,23 +14,6 @@
  */
 package com.redhat.rhn.domain.errata;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import org.apache.commons.collections.IteratorUtils;
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -56,6 +39,23 @@ import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * ErrataFactory - the singleton class used to fetch and store
@@ -329,12 +329,10 @@ public class ErrataFactory extends HibernateFactory {
      * @return clone of e
      */
     public static Errata createClone(Org org, Errata e) {
-        UnpublishedClonedErrata clone = new UnpublishedClonedErrata();
 
-        copyDetails(clone, e);
        
-        String baseClonedAdvisoryName = "CL" + clone.getAdvisoryName().substring(3);
-        String baseClonedAdvisory = "CL" + clone.getAdvisory().substring(3);
+        String baseClonedAdvisoryName = "CL" + e.getAdvisoryName().substring(3);
+        String baseClonedAdvisory = "CL" + e.getAdvisory().substring(3);
         String clonedAdvisory = baseClonedAdvisory;
         String clonedAdvisoryName = baseClonedAdvisoryName;
         boolean unusedNameFound = false;
@@ -353,6 +351,10 @@ public class ErrataFactory extends HibernateFactory {
             }
         }
                 
+        UnpublishedClonedErrata clone = new UnpublishedClonedErrata();
+
+        copyDetails(clone, e);
+
         clone.setAdvisoryName(clonedAdvisoryName);
         clone.setAdvisory(clonedAdvisory);
         clone.setOriginal(e);
@@ -775,10 +777,7 @@ public class ErrataFactory extends HibernateFactory {
                               .setParameter("org", org).list();
             
             if (retval == null) {
-                retval = (List) session.
-                getNamedQuery("PublishedClonedErrata.findByOriginal")
-                .setParameter("original", original)
-                .setParameter("org", org).list();
+                retval = lookupPublishedByOriginal(org, original);
             }
                               
         }
@@ -789,6 +788,30 @@ public class ErrataFactory extends HibernateFactory {
         return retval;
     }
     
+    /**
+     * Lookup all the clones of a particular errata
+     * @param org Org that the clones belongs to
+     * @param original Original errata that the clones are clones of
+     * @return list of clones of the errata
+     */
+    public static List lookupPublishedByOriginal(Org org, Errata original) {
+        Session session = null;
+        List retval = null;
+
+        try {
+            session = HibernateFactory.getSession();
+            retval = (List) session.getNamedQuery("PublishedClonedErrata.findByOriginal")
+                .setParameter("original", original)
+                .setParameter("org", org).list();
+        }
+        catch (HibernateException e) {
+            throw new
+                HibernateRuntimeException("Error looking up errata by original errata");
+        }
+        return retval;
+    }
+
+
     /**
      * Insert or Update a Errata.
      * @param errataIn Errata to be stored in database.
@@ -963,6 +986,6 @@ public class ErrataFactory extends HibernateFactory {
         return errata;
     }
     
-    
+
 }
 

@@ -72,9 +72,6 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
             if (requestContext.wasDispatched("installconfirm.jsp.confirm")) {
                 return executePackageAction(mapping, formIn, request, response);
             }
-            else if (!StringUtils.isBlank(getRemoteMode())) {
-                return runRemoteCommand(mapping, formIn, request, response);
-            }
         }         
         
         List<PackageListItem> items = getDataResult(request);
@@ -137,29 +134,7 @@ public abstract class BaseSystemPackagesConfirmAction extends RhnAction {
         }
         return items;
     }    
-    
-    
-    /**
-     * Runs remote packages
-     * @param mapping ActionMapping
-     * @param formIn ActionForm
-     * @param request ServletRequest
-     * @param response ServletResponse
-     * @return The ActionForward to go to next.
-     */
-    public ActionForward runRemoteCommand(ActionMapping mapping,
-                                       ActionForm formIn,
-                                       HttpServletRequest request,
-                                       HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);
-        Long sid = requestContext.getRequiredParam("sid");
-        Map params = new HashMap();
-        params.put("session_set_label", getDecl(sid));
-        params.put("sid", sid.toString());
-        params.put("mode", getRemoteMode());
-        return getStrutsDelegate().forwardParams(mapping.findForward("remotecmd"), params);
-    }
+
     /**
      * Executes the appropriate PackageAction
      * @param mapping ActionMapping

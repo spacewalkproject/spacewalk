@@ -57,6 +57,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
     public void testKsDownload() throws Exception {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/boot.iso");
+        request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/images/boot.iso");
         actionPerform();
         assertNull(getActualForward());
         assertEquals("application/octet-stream", getResponse().getContentType());
@@ -77,6 +78,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         TestUtils.saveAndFlush(p);
         
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/Server/" + fileName);
+        request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/Server/" + fileName);
         actionPerform();
         // assertEquals("/kickstart/DownloadFile.do", getActualForward());
         assertNotNull(request.getAttribute("params"));
@@ -90,11 +92,13 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         KickstartSession ksession = 
             KickstartSessionTest.createKickstartSession(ksdata, user);
         TestUtils.saveAndFlush(ksession);
-        TestUtils.saveAndFlush(ksession);
         String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
 
         addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
                 tree.getLabel() + "/images/boot.iso");
+        request.setQueryString("url=/ks/dist/session/" + encodedSession + "/" +
+                tree.getLabel() + "/images/boot.iso");
+
         actionPerform();
         assertNull(getActualForward());
         assertNotNull(request.getAttribute("params"));
@@ -103,6 +107,35 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
         String filename = (String) params.get("filename");
         assertNotNull(filename);
     }
+    
+    public void testKSSessionAndPackageCount() throws Exception {
+        Package p = PackageManagerTest.addPackageToChannel("some-package", 
+                tree.getChannel());
+        String fileName = "some-package-2.13.1-6.fc9.x86_64.rpm";
+        p.setPath("redhat/1/c7d/some-package/2.13.1-6.fc9/" +
+                "x86_64/c7dd5e9b6975bc7f80f2f4657260af53/" +
+                fileName);
+        TestUtils.saveAndFlush(p);
+        
+        KickstartSession ksession = 
+            KickstartSessionTest.createKickstartSession(ksdata, user);
+        TestUtils.saveAndFlush(ksession);
+        String encodedSession = SessionSwap.encodeData(ksession.getId().toString());
+
+        addRequestParameter("url", "/ks/dist/session/" + encodedSession + "/" +
+                tree.getLabel() +  "/Server/" + fileName);
+        request.setQueryString("url=/ks/dist/session/" + encodedSession + "/" +
+                tree.getLabel() +  "/Server/" + fileName);
+
+        actionPerform();
+        assertNotNull(request.getAttribute("params"));
+        assertEquals(1, ksession.getPackageFetchCount().longValue());
+        
+        request.setHeader("Range", "333");
+        actionPerform();
+        assertEquals(1, ksession.getPackageFetchCount().longValue());
+        
+    }
 
     public void testDirHit() throws Exception {
         // /ks/dist/f9-x86_64-distro/images/boot.iso
@@ -110,6 +143,7 @@ public class DownloadActionTest extends RhnMockStrutsTestCase {
             KickstartSessionTest.createKickstartSession(ksdata, user);
         TestUtils.saveAndFlush(ksession);
         addRequestParameter("url", "/ks/dist/" + tree.getLabel() + "/images/");
+        request.setQueryString("url=/ks/dist/" + tree.getLabel() + "/images/");
         actionPerform();
         assertNull(getActualForward());
         assertEquals("text/plain", getResponse().getContentType());

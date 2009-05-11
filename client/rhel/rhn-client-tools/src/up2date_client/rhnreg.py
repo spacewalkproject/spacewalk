@@ -85,30 +85,6 @@ def startRhnCheck():
     else:
         print _("Warning: unable to run rhn_check")
 
-# product info structure
-productInfoHash = {
-    "title" : "",
-    "first_name" : "",
-    "last_name" : "",
-    "company" : "",
-    "position" : "",
-    "address1" : "",
-    "address2" : "",
-    "city" : "",
-    "state" : "",
-    "zip" : "",
-    "country" : "",
-    "phone" : "",
-    "fax" : "",
-    "contact_email" : 1,
-    "contact_mail" : 0,
-    "contact_phone" : 0,
-    "contact_fax" : 0, 
-    "newsletter" : 0,
-    "special_offers" : 0
-    }
-
-
 def getOemInfo():
     configFile = cfg["oemInfoFile"] or "/etc/sysconfig/rhn/oeminfo"
 
@@ -647,7 +623,11 @@ def sendHardware(systemId, hardwareList):
 def sendPackages(systemId, packageList):
     s = rhnserver.RhnServer()
     s.registration.add_packages(systemId, packageList)
-   
+
+def sendSmbiosInfo(systemId, smbiosData):
+    s = rhnserver.RhnServer()
+    s.registration.add_smbios_info(systemId, smbiosData)
+ 
 def sendVirtInfo(systemId):
     if support is not None:
         support.refresh()

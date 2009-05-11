@@ -21,6 +21,7 @@ import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.IndexingException;
 import com.redhat.satellite.search.index.Result;
 import com.redhat.satellite.search.index.QueryParseException;
+import com.redhat.satellite.search.scheduler.ScheduleManager;
 
 import org.apache.log4j.Logger;
 
@@ -55,7 +56,8 @@ public class IndexHandler {
      * @param idxManager
      *            Search engine interface
      */
-    public IndexHandler(IndexManager idxManager, DatabaseManager dbMgr) {
+    public IndexHandler(IndexManager idxManager, DatabaseManager dbMgr,
+            ScheduleManager schedMgr) {
         indexManager = idxManager;
         databaseManager = dbMgr;
     }
@@ -107,12 +109,15 @@ public class IndexHandler {
             return hits;
         }
         catch (IndexingException e) {
+            log.error("Caught exception: ", e);
             throw new XmlRpcFault(INDEX_ERROR, e.getMessage());
         }
         catch (QueryParseException e) {
+            log.error("Caught exception: ", e);
             throw new XmlRpcFault(QUERY_ERROR, e.getMessage());
         }
         catch (SQLException e) {
+            log.error("Caught exception: ", e);
             throw new XmlRpcFault(DB_ERROR, e.getMessage());
         }
     }

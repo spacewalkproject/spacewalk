@@ -40,11 +40,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             insert="false" update="false"/>
         <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl" 
             column="org_id"/>
-        <set name="notificationQueue" lazy="true" 
-            cascade="all" table="rhnErrataQueue">
-            <key column="errata_id"/>
-            <element type="timestamp" column="next_action"/>
-        </set>
         <set name="bugs" lazy="true" inverse="true" order-by="BUG_ID asc" 
             cascade="all">
             <key column="errata_id"/>
@@ -165,4 +160,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
          ]]>
         <return alias="e" class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />
     </sql-query>
+
+
 </hibernate-mapping>

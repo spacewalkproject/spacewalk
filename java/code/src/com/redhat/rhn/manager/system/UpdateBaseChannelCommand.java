@@ -96,7 +96,7 @@ public class UpdateBaseChannelCommand extends BaseUpdateChannelCommand {
         
         // Unsubscribe the server from it's current base channel
         try {
-            SystemManager.unsubscribeServerFromChannel(user, server, oldChannel);
+            SystemManager.unsubscribeServerFromChannel(user, server, oldChannel, false);
         }
         catch (PermissionException e) {
             // convert to FaultException

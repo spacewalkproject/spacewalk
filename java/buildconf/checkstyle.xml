@@ -76,7 +76,6 @@
             <property name="allowMissingReturnTag" value="${javadoc.lazy}" />
         </module>
         <module name="JavadocType">
-          <property name="versionFormat" value="\$Rev.*\$"/>
           <property name="scope" value="${javadoc.type.scope}" />
         </module>
         <module name="JavadocVariable">

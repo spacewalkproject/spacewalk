@@ -208,9 +208,12 @@ public class ListDisplayTag extends BodyTagSupport {
     /** **/
     private String tableId;
 
+    // The following keys apply to functionality that affects the contents of the list
+    // tag's table
     public static final String UPDATE_LIST_KEY = "Update List";
     public static final String SELECT_ALL_KEY = "Select All";
     public static final String UNSELECT_ALL_KEY = "Unselect All";
+    public static final String ADD_TO_SSM_KEY = "Add to SSM";
 
     /**
      * @return Returns the tableId.
@@ -588,9 +591,10 @@ public class ListDisplayTag extends BodyTagSupport {
         if (request.getQueryString() != null) {
             page.append("&" + request.getQueryString());
         }
-        out.println("<p><a href=\"" + page + "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" + 
+        out.println("<div class=\"csv-download\"><a href=\"" + page + 
+              "\"><img src=\"/img/csv-16.png\"/ alt=\"\">" + 
               LocalizationService.getInstance().getMessage("listdisplay.csv") +
-              "</a></p>");
+              "</a></div>");
     }
     
     /**

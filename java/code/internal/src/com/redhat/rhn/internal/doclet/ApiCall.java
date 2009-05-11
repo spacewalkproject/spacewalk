@@ -32,8 +32,9 @@ public class ApiCall implements Comparable<ApiCall> {
     private String returnDoc;
     private boolean deprecated = false;
     private String deprecatedVersion;
+    private boolean sinceAvailable = false;
+    private String sinceVersion;
     private MethodDoc method;
-    
  
     /**
      * constructor
@@ -41,7 +42,6 @@ public class ApiCall implements Comparable<ApiCall> {
      */
     public ApiCall(MethodDoc meth) {
         method = meth;
-     
     }
     
     /**
@@ -60,8 +60,6 @@ public class ApiCall implements Comparable<ApiCall> {
         return deprecatedVersion;
     }
 
-
-
     /**
      * sets the deprecated version
      * @param deprecatedVersionIn  the version
@@ -69,10 +67,6 @@ public class ApiCall implements Comparable<ApiCall> {
     public void setDeprecatedVersion(String deprecatedVersionIn) {
         this.deprecatedVersion = deprecatedVersionIn;
     }
-
-
- 
-    
     
     /**
      * is the call deprecated
@@ -90,6 +84,37 @@ public class ApiCall implements Comparable<ApiCall> {
         this.deprecated = deprecatedIn;
     }
 
+    /**
+     * Gets the since version. (i.e API version that the API was introduced)
+     * @return the since version
+     */
+    public String getSinceVersion() {
+        return sinceVersion;
+    }
+
+    /**
+     * sets the since version
+     * @param sinceVersionIn  the version
+     */
+    public void setSinceVersion(String sinceVersionIn) {
+        this.sinceVersion = sinceVersionIn;
+    }
+
+    /**
+     * did the call include a tag to indicate when the API was made available?
+     * @return true of it was available
+     */
+    public boolean isSinceAvailable() {
+        return sinceAvailable;
+    }
+
+    /**
+     * Sets if the API included a 'since' tag
+     * @param sinceAvailableIn since tag included?
+     */
+    public void setSinceAvailable(boolean sinceAvailableIn) {
+        this.sinceAvailable = sinceAvailableIn;
+    }
     /**
      * gets the call's name (namespace)
      * @return the name

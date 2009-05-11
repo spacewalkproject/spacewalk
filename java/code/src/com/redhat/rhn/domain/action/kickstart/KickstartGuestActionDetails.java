@@ -14,89 +14,23 @@
  */
 package com.redhat.rhn.domain.action.kickstart;
 
-import com.redhat.rhn.domain.action.ActionChild;
-import com.redhat.rhn.domain.common.FileList;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * KickstartGuestActionDetails - java representation of the rhnActionKickstart table
  * @version $Rev$
  */
-public class KickstartGuestActionDetails extends ActionChild {
+public class KickstartGuestActionDetails extends BaseKickstartActionDetails {
 
     private Long kickstartSessionId;
-    private String kickstartHost;
     private String guestName;
     private Long memKb;
     private Long vcpus;
     private Long diskGb;
-    private String appendString;
-    private Set fileLists;
-    private Long kickstartId;
     private String virtBridge;
     private String diskPath;
-    private String cobblerSystemName;
     
     
-    /**
-     * Adds a FileList object to fileLists.
-     * @param f FileList to add
-     */
-    public void addFileList(FileList f) {
-        if (fileLists == null) {
-            fileLists = new HashSet();
-        }
-        fileLists.add(f);
-    }
-    
-    /**
-     * @return Returns the fileLists.
-     */
-    public Set getFileLists() {
-        return fileLists;
-    }
-    
-    /**
-     * @param f The fileLists to set.
-     */
-    public void setFileLists(Set f) {
-        this.fileLists = f;
-    }
-    
-    /**
-     * @return Returns the appendString.
-     */
-    public String getAppendString() {
-        return appendString;
-    }
-    
-    /**
-     * @param a The appendString to set.
-     */
-    public void setAppendString(String a) {
-        this.appendString = a;
-    }
-    
-    /**
-     * This is the PK for this object.  Its not the 
-     * actual ID to a KickstartData object
-     * @return Returns the id.
-     */
-    protected Long getKickstartId() {
-        return kickstartId;
-    }
-    
-    /**
-     * This is the PK for this object.  Its not the 
-     * actual ID to a KickstartData object.  Making 
-     * this protected because nobody should really touch this.
-     * @param i The id to set.
-     */
-    protected void setKickstartId(Long i) {
-        this.kickstartId = i;
-    }
+
 
     /**
      * Returns the kickstart session ID.
@@ -169,22 +103,6 @@ public class KickstartGuestActionDetails extends ActionChild {
     public void setDiskGb(Long diskGbIn) {
         this.diskGb = diskGbIn;
     }
-
-    /**
-     * @return the kickstartHost
-     */
-    public String getKickstartHost() {
-        return kickstartHost;
-    }
-
-    
-    /**
-     * @param kickstartHostIn the kickstartHost to set
-     */
-    public void setKickstartHost(String kickstartHostIn) {
-        this.kickstartHost = kickstartHostIn;
-    }
-
     
     /**
      * @return Returns the virtBridge.
@@ -218,19 +136,4 @@ public class KickstartGuestActionDetails extends ActionChild {
     }
 
     
-    /**
-     * @return the cobblerSystemName
-     */
-    public String getCobblerSystemName() {
-        return cobblerSystemName;
-    }
-
-    
-    /**
-     * @param cobblerSystemNameIn the cobblerSystemName to set
-     */
-    public void setCobblerSystemName(String cobblerSystemNameIn) {
-        this.cobblerSystemName = cobblerSystemNameIn;
-    }
-
 }

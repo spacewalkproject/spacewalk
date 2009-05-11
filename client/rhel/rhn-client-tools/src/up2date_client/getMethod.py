@@ -23,7 +23,7 @@ def sanity(methodNameComps):
     # Verifies if all the components have proper names
     #"""
     # Allowed characters in each string
-    alpha = string.lowercase + string.uppercase 
+    alpha = string.ascii_lowercase + string.ascii_uppercase 
     allowedChars = alpha + string.digits + '_'
     for comp in methodNameComps:
         if not len(comp):

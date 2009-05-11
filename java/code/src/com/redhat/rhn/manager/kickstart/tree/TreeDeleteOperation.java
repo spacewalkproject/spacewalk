@@ -15,18 +15,22 @@
 package com.redhat.rhn.manager.kickstart.tree;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroDeleteCommand;
 
 import java.util.List;
 
 /**
- * TreeEditCommand to edit a KickstartableTree
+ * TreeDeleteOperation to delete a KickstartableTree
  * @version $Rev$
  */
 public class TreeDeleteOperation extends BaseTreeEditOperation {
+
+    private Boolean deleteProfiles = Boolean.FALSE;
 
     /**
      * Default constructor: DONT USE
@@ -57,22 +61,48 @@ public class TreeDeleteOperation extends BaseTreeEditOperation {
     }
     
     /**
+     * Set the delete profiles flag.  If set, invoking store will delete
+     * any profile that are currently associated with the tree.
+     * 
+     * @param deleteProfilesIn flag indicating if profiles associated with
+     * the tree should be deleted during store()
+     */
+    public void setDeleteProfiles(Boolean deleteProfilesIn) {
+        deleteProfiles = deleteProfilesIn;
+    }
+    
+    /**
      * {@inheritDoc}
      * store() here actually does a remove operation. 
      * It is done to reuse code from BaseTreeEditOperation and BaseTreeAction
      */
     public ValidatorError store() {
-        List profiles = KickstartFactory.lookupKickstartDatasByTree(this.tree);
+
+        ValidatorError error = null;
+        List<KickstartData> profiles = KickstartFactory.lookupKickstartDatasByTree(
+            this.tree);
+
         if (profiles != null && profiles.size() > 0) {
-            return new ValidatorError("kickstart.tree.inuse");
+
+            if (deleteProfiles) {
+                for (KickstartData profile : profiles) {
+                    KickstartDeleteCommand cmd = new KickstartDeleteCommand(
+                        profile.getId(), this.user);
+                    cmd.store();
+                }
+            }
+            else {
+                error = new ValidatorError("kickstart.tree.inuse");
+            }
         }
-        else {
+
+        if (error == null) {
             KickstartFactory.removeKickstartableTree(this.tree);
             CobblerDistroDeleteCommand delcmd = new CobblerDistroDeleteCommand(this.tree, 
-                    this.user);
+                this.user);
             delcmd.store();
-            return null;
         }
+        return error;
     }
 
 

@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.user.User;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
@@ -59,9 +60,10 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
      * @param contentsIn of the script itself
      * @param typeIn of script (KickstartScript.TYPE_POST or KickstartScript.TYPE_PRE)
      * @param chrootIn value of chroot ("Y" or "N")
+     * @param templatize whether to templatize the script or not
      */
     public void setScript(String language, String contentsIn, 
-                                               String typeIn, String chrootIn) {
+                               String typeIn, String chrootIn, boolean templatize) {
         if (!typeIn.equals(KickstartScript.TYPE_POST) && 
                 !typeIn.equals(KickstartScript.TYPE_PRE)) {
             throw new IllegalArgumentException("Unknown script type: " + typeIn);
@@ -77,9 +79,17 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
 
         }
         
+        if (StringUtils.isBlank(language)) {
+            language = null;
+        }
+        else {
+            language = language.trim();
+        }
+        
         this.script.setInterpreter(language);
         this.script.setScriptType(typeIn);
         this.script.setChroot(chrootIn);
+        this.script.setRaw(!templatize); //template is the ! of raw
     }
 
     /**
@@ -111,6 +121,19 @@ public class BaseKickstartScriptCommand extends BaseKickstartCommand {
         }
         else {
             return KickstartScript.TYPE_PRE;
+        }
+    }
+    
+    /**
+     * gets whether the script is raw or not.
+     * @return true or false
+     */
+    public boolean getRaw() {
+        if (this.script != null) {
+            return this.script.getRaw();
+        }
+        else {
+            return true;
         }
     }
 

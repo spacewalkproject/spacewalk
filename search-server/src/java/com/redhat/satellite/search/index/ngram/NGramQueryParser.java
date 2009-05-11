@@ -17,6 +17,7 @@ package com.redhat.satellite.search.index.ngram;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.lucene.search.ConstantScoreRangeQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.queryParser.QueryParser;
@@ -64,6 +65,18 @@ public class NGramQueryParser extends QueryParser {
         return new NGramQuery(pq);
     }
     
+    /**
+     *
+     * @param field
+     * @return return   true if this looks to be a date string
+     *                  false if this is not a date string
+     */
+    protected boolean isDate(String field) {
+        if (field.length() == 12) {
+            return true;
+        }
+        return false;
+    }
     /** 
      * This will look to see if "part1" or "part2" are strings of all digits,
      * if they are, then they will be converted to a lexicographically safe string 
@@ -76,6 +89,15 @@ public class NGramQueryParser extends QueryParser {
             String part1,
             String part2,
             boolean inclusive) throws ParseException {
+        if (isDate(part1) && isDate(part2)) {
+            if (log.isDebugEnabled()) {
+                log.debug("Detected passed in terms are dates, creating " +
+                    "ConstantScoreRangeQuery(" + field + ", " + part1 + ", " +
+                    part2 + ", " + inclusive + ", " + inclusive);
+            }
+            return new ConstantScoreRangeQuery(field, part1, part2, inclusive,
+                    inclusive);
+        }
         String newPart1 = part1;
         String newPart2 = part2;
         String regEx = "(\\d)*";
@@ -85,11 +107,11 @@ public class NGramQueryParser extends QueryParser {
         if (matcher1.matches() && matcher2.matches()) {
             newPart1 = NumberTools.longToString(Long.parseLong(part1));
             newPart2 = NumberTools.longToString(Long.parseLong(part2));
-            log.info("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
+            if (log.isDebugEnabled()) {
+                log.debug("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
                     newPart1 + ", Converted " + part2 + " to " + newPart2);
+            }
         } 
-        log.info("Passing terms down to super.getRangeQuery(" + field + ", " +
-                newPart1 + ", " + newPart2 + ", " + inclusive + ")");
         return super.getRangeQuery(field, newPart1, newPart2, inclusive);
     }
 }

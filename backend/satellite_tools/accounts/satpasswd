@@ -1,0 +1,139 @@
+#!/bin/bash
+# name:         satpasswd
+# description:  Change the password of a satellite user
+# author:	G.R.Keech <rkeech@redhat.com>
+# date:		2006-01-31
+#
+# NOTICE: The use of this code/script is only for the use with RHN
+# Satellite and an external database.  It is not permitted to use this
+# script within RHN Satellite and an embedded database.
+
+SQLPLUS=/usr/bin/sqlplus
+SATWHO=/usr/bin/satwho
+MD5=/usr/bin/openssl
+MD5ARGS="passwd -1 -stdin"
+CREDENTIALS=$(awk -F= '/^default_db/ {print $2} ' /etc/rhn/rhn.conf)
+PROG=satpasswd
+myuser=""
+
+usage () {
+	cat <<EOF
+Usage: $PROG user [OPTION]
+Change the password of a satellite user.
+
+  -h, --help              print this message and exit
+EOF
+}
+#==================================================================
+
+for P in $SQLPLUS $SATWHO $MD5
+do
+  if [ ! -x "$P" ]
+  then
+    echo Sorry, I cannot find \"$P\" to execute
+    exit 1
+  fi
+done
+
+# Replaced by the configure script.
+prefix=/usr
+exec_prefix=/usr
+sbindir=/sbin
+STDIN=FALSE
+
+if [ $# -lt 1 ]
+then
+  usage
+  exit 1
+fi
+
+VARCOUNT=$#
+# Check the arguments.
+for option in "$@"; do
+    case "$option" in
+    -h | --help)
+	usage
+	exit 0
+	;;
+
+    --stdin)
+	STDIN=TRUE
+	VARCOUNT=$(( $VARCOUNT - 1 ))
+        ;;
+
+    -*)
+	echo "$PROG: unrecognized option \`$option'"
+	echo "Usage: $PROG [OPTION]"
+	echo "Try \`$PROG --help' for more information."
+	exit 1
+	;;
+     *)
+	myuser=$option
+	if [ $VARCOUNT -gt 1 ]
+        then
+	   echo there can only be one user passed on the command line.
+	   exit 1
+        fi
+        ;;
+
+    esac
+done
+
+# OK, we have a username passed as an option, now check that it is actually a user on this satellite
+# by using the satwho utility
+
+abort=no
+$SATWHO | grep  "^${myuser}$" &> /dev/null ||  abort=yes
+
+if [ "$abort" = "yes" ]
+then
+    echo user \"$myuser\" is not a valid satellite user
+    exit 1
+fi
+
+
+# Now lets get the password string.
+
+if [ "$STDIN" = "FALSE" ]
+then
+  # Suppress echo backs. I don't know if this is really portable. -okuji
+  stty -echo
+
+  # Prompt to enter a password.
+  echo -n "Password: "
+  read -r password
+  echo
+
+  # One more time.
+  echo -n "Retype password: "
+  read -r password2
+  echo
+
+  # Resume echo backs.
+  stty echo
+else
+  read password
+  password2="$password"
+fi
+
+if test "x$password" = x; then
+    echo "Empty password is not permitted."
+    exit 1
+fi
+
+if test "x$password" != "x$password2"; then
+    echo "Sorry, passwords do not match."
+    exit 1
+fi
+
+
+# Now lets create the md5 hash of the password string.
+
+md5password="$( echo "$password" | $MD5 $MD5ARGS )"
+
+
+# OK, if we've got this far then we have a valid user and a hashed password string, so lets proceed and change
+# the password for the user.
+
+
+echo "update rhnuser set password = '"$md5password"' where login = '"$myuser"';"| $SQLPLUS -S $CREDENTIALS &> /dev/null

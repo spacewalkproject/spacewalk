@@ -28,7 +28,7 @@ from koan.app import Koan
 
 SHADOW      = "/tmp/ks-tree-shadow"
 
-def initiate(kickstart_host, base, extra_append, static_device=None, preserve_files=[]):
+def initiate(kickstart_host, base, extra_append, static_device=None, system_record="", preserve_files=[]):
 
     error_messages = {}
     success = 0
@@ -46,9 +46,13 @@ def initiate(kickstart_host, base, extra_append, static_device=None, preserve_fi
         k.is_virt             = False
         k.is_replace          = True
         k.is_display          = False
-        k.profile             = None
-	k.port                = 443 
-        k.system              = None
+	k.profile             = None
+
+        if system_record != "":
+           k.system          = system_record
+        else:
+           k.system          = None
+	k.port                = 443
         k.image               = None
         k.live_cd             = None
         k.virt_path           = None
@@ -65,7 +69,7 @@ def initiate(kickstart_host, base, extra_append, static_device=None, preserve_fi
         (xa, xb, tb) = sys.exc_info()
         try:
             getattr(e,"from_koan")
-            error_messages['from_koan'] = str(e)[1:-1]
+            error_messages['koan'] = str(e)[1:-1]
             print str(e)[1:-1] # nice exception, no traceback needed
         except:
             print xa
@@ -119,7 +123,7 @@ def initiate_guest(kickstart_host, cobbler_system_name, virt_type, name, mem_kb,
         (xa, xb, tb) = sys.exc_info()
         try:
             getattr(e,"from_koan")
-            error_messages['from_koan'] = str(e)[1:-1]
+            error_messages['koan'] = str(e)[1:-1]
             print str(e)[1:-1] # nice exception, no traceback needed
         except:
             print xa

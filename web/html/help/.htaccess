@@ -6,27 +6,6 @@
 
 </Files>
 
-
-<Files RHN-unix.pdf>
-  AuthType Basic
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-  require acl user_authenticated(); org_entitlement(rhn_nonlinux)
-</Files>
-
-
-<Files rhn-enterprise-urg-en.pdf>
-  AuthType Basic
-  PerlModule PXT::ApacheHandler
-  PerlModule PXT::ApacheAuth
-  PerlAuthenHandler PXT::ApacheAuth
-
-  require acl user_authenticated(); org_entitlement(sw_mgr_enterprise)
-</Files>
-
-
 <Files RHN-proxy-en.pdf>
   AuthType Basic
   PerlModule PXT::ApacheHandler
@@ -54,13 +33,6 @@
 
 
 <Files *.html>
-  ForceType text/pxt
-  SetHandler perl-script
-  PerlModule PXT::ApacheHandler
-  PerlHandler PXT::ApacheHandler
-</Files>
-
-<Files faq>
   ForceType text/pxt
   SetHandler perl-script
   PerlModule PXT::ApacheHandler

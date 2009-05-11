@@ -5,7 +5,7 @@ Summary:       Common programs needed to be installed on the RHN servers/proxies
 Group:         Applications/System
 License:       GPLv2
 URL:           http://fedorahosted.org/spacewalk
-Version:       0.4.6
+Version:       5.4.1
 Release:       1%{?dist}
 Source0:       https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -49,6 +49,22 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Wed Apr 08 2009 Jan Pazdziora 5.4.1-1
+- 488157 - turn sparcv9 into sparc
+
+* Tue Apr 07 2009 Devan Goodwin <dgoodwin@redhat.com> 5.4.0-1
+- Bump release following release of Spacewalk 0.5.
+
+* Fri Apr  3 2009 Jan Pazdziora 5.3.0-1
+- bump version to 5.3.0
+
+* Wed Apr 01 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.7-1
+- new build for 485880 (pkilambi@redhat.com)
+- 241221 - add release of the package (if it exists) to Provides (Jan P.)
+
+* Wed Apr  1 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves: 485880 - missing help and man options for rhnpush - new build
+
 * Wed Mar 11 2009 jesus m. rodriguez <jesusr@redhat.com> 0.4.6-1
 - 485880 - adding missing man page options to rhnpush
 - Fix tab in rhnpush.py.

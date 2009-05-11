@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.5.8
+Version:    0.6.3
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -68,6 +68,19 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 444221 - More fixes related to snippet pages in general (paji@redhat.com)
+- 484962 - Cleanup System Overview alerts. (dgoodwin@redhat.com)
+- 480011 - Added organization to the top header near the username (jason.dobies@redhat.com)
+
+* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- 496321 - add Documentation as a search option on perl pages (jesusr@redhat.com)
+
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 494475,460136 - remove faq & feedback code which used customer service emails.
+  (jesusr@redhat.com)
+- 443132 - Converted action lists to new list tag. (jsherril@redhat.com)
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.8-1
 - removing satellite-debug link
 

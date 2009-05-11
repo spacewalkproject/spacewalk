@@ -17,10 +17,12 @@ package com.redhat.rhn.frontend.xmlrpc.activationkey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -287,6 +289,15 @@ public class ActivationKeyHandler extends BaseHandler {
     public int setDetails(String sessionKey, String key, Map details)
         throws FaultException {
 
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("description");
+        validKeys.add("base_channel_label");
+        validKeys.add("usage_limit");
+        validKeys.add("unlimited_usage_limit");
+        validKeys.add("universal_default");
+        validateMap(validKeys, details);
+
         User user = getLoggedInUser(sessionKey);
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey aKey = lookupKey(key, user);
@@ -344,6 +355,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @param sessionKey The current user's session key
      * @param key The activation key to be modified
      * @return Map representation of the activation key
+     * @since 10.2
      * 
      * @xmlrpc.doc Lookup an activation key's details.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -619,6 +631,9 @@ public class ActivationKeyHandler extends BaseHandler {
      * @param key The activation key to act upon
      * @param packageNames List of package names to be added to this activation key
      * @return 1 on success, exception thrown otherwise.
+     * @deprecated being replaced by addPackages(string sessionKey, string key,
+     * array[packages])
+     * @since 10.2
      * 
      * @xmlrpc.doc Add packages to an activation key using package name only.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -648,6 +663,9 @@ public class ActivationKeyHandler extends BaseHandler {
      * @param key The activation key to act upon
      * @param packageNames List of package names to be removed from this activation key
      * @return 1 on success, exception thrown otherwise
+     * @deprecated being replaced by removePackages(string sessionKey, string key,
+     * array[packages])
+     * @since 10.2
      * 
      * @xmlrpc.doc Remove package names from an activation key.
      * @xmlrpc.param #param("string", "sessionKey")
@@ -700,6 +718,14 @@ public class ActivationKeyHandler extends BaseHandler {
     public int addPackages(String sessionKey, String key,
             List<Map<String, String>> packages) {
 
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("name");
+        validKeys.add("arch");
+        for (Map<String, String> pkg : packages) {
+            validateMap(validKeys, pkg);
+        }
+
         User user = getLoggedInUser(sessionKey);
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, user);
@@ -743,6 +769,14 @@ public class ActivationKeyHandler extends BaseHandler {
     public int removePackages(String sessionKey, String key,
             List<Map<String, String>> packages) {
 
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("name");
+        validKeys.add("arch");
+        for (Map<String, String> pkg : packages) {
+            validateMap(validKeys, pkg);
+        }
+
         User user = getLoggedInUser(sessionKey);
         ActivationKeyManager manager = ActivationKeyManager.getInstance();
         ActivationKey activationKey = lookupKey(key, user);
@@ -766,6 +800,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * Return a list of activation key structs that are visible to the requesting user.
      * @param sessionKey The current user's session key
      * @return List of map representations of activation keys
+     * @since 10.2
      *
      * @xmlrpc.doc List activation keys that are visible to the 
      * user.

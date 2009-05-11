@@ -214,6 +214,14 @@ public class KickstartHelper {
         return retval;
     }
 
+    /**
+     * Check to see if this request came through a proxy
+     * @return boolean if proxied or not.
+     */
+    public boolean isProxyRequest() {
+        return request.getHeader(XFORWARD) != null;
+    }
+    
     private String getClientIp() {
         String remoteAddr = request.getRemoteAddr();
         String proxyHeader = request.getHeader(XFORWARD);                

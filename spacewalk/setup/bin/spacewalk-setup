@@ -96,6 +96,8 @@ else {
     die "No idea how to install to database: " . $answers{'db-backend'};
 }
 
+remove_old_jvm(\%opts, \%answers);
+
 print Spacewalk::Setup::loc("* Setting up users and groups.\n");
 setup_users_and_groups();
 
@@ -187,6 +189,54 @@ sub choose_database_schema {
             -answer => \$answers->{'db-backend'});
     }
 
+}
+
+sub remove_old_jvm {
+	my $opts = shift;
+	my $answers = shift;
+
+	return unless (($opts{"upgrade"}) and ($product_name =~ /Satellite/));
+
+	my $jvm_list = Spacewalk::Setup::SHARED_DIR . "/old-jvm-list";
+
+	local *F;
+	open F, $jvm_list or die "Error opening [$jvm_list]: $!\n";
+	my @jvms = <F>;
+	close F;
+	chomp @jvms;
+
+	my $remove;
+
+	foreach my $jvm (@jvms) {
+		system("rpm -q $jvm >& /dev/null");
+		$remove .= " $jvm" unless $? >> 8;
+	}
+
+	if ($remove) {
+		print Spacewalk::Setup::loc("Setup found following old java packages:\n");
+		foreach my $p (split (" ", $remove)) {
+			print Spacewalk::Setup::loc("\t$p\n");
+		}
+	} else {
+		return;
+	}
+
+	Spacewalk::Setup::ask(
+		-noninteractive => $opts{"non-interactive"},
+		-question => "Should setup remove these packages y/n",
+		-test => sub { my $text = shift; return $text =~ /^[YyNn]/ },
+		-answer => \$answers->{"remove-old-jvm"},
+	);
+	unless ( $answers->{"remove-old-jvm"} =~ /^[Yy]/ ) {
+		print Spacewalk::Setup::loc("** Skipping removal of old java packages.\n");
+		return;
+	}
+
+	my $result = `rpm -e $remove 2>&1`;
+	if ($? >> 8) {
+		print Spacewalk::Setup::loc("** Error occured while removing the packages:\n");
+		print Spacewalk::Setup::loc($result);
+	}
 }
 
 sub setup_cobbler {

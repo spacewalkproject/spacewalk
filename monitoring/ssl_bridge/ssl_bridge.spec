@@ -1,6 +1,6 @@
 Name:         ssl_bridge
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.9.2
+Version:      1.9.3
 Release:      1%{?dist}
 Summary:      SSL bridge
 URL:          https://fedorahosted.org/spacewalk
@@ -40,6 +40,9 @@ install -m 755 ssl_bridge.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Apr 23 2009 jesus m. rodriguez <jesusr@redhat.com> 1.9.3-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.2-1
 - removing logrotate, it is hadled by nocpulse-common 
 - clean up spec to comply with Fedora

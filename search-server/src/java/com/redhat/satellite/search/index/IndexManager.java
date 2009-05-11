@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.IndexReader;
@@ -54,12 +55,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 /**
  * Indexing workhorse class
@@ -73,9 +72,12 @@ public class IndexManager {
     private int maxHits;
     private double score_threshold;
     private double system_score_threshold;
+    private double errata_score_threshold;
+    private double errata_advisory_score_threshold;
     private int min_ngram;
     private int max_ngram;
     private boolean filterDocResults = false;
+    private boolean explainResults = false;
     private AnalyzerFactory nutchAnalyzerFactory;
     // Name conflict with our Configuration class and Hadoop's
     private org.apache.hadoop.conf.Configuration nutchConf;
@@ -98,10 +100,14 @@ public class IndexManager {
         }
         score_threshold = config.getDouble("search.score_threshold", .30);
         system_score_threshold = config.getDouble("search.system_score_threshold", .30);
+        errata_score_threshold = config.getDouble("search.errata_score_threshold", .30);
+        errata_advisory_score_threshold =
+            config.getDouble("search.errata.advisory_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
         initDocLocaleLookup();
         filterDocResults = config.getBoolean("search.doc.limit_results");
+        explainResults = config.getBoolean("search.log.explain.results");
         initDocSummary();
     }
 
@@ -140,7 +146,6 @@ public class IndexManager {
             Hits hits = searcher.search(q);
             if (log.isDebugEnabled()) {
                 log.debug(hits.length() + " results were found.");
-                //debugDisplay(indexName, hits, searcher, q);
             }
             Set<Term> queryTerms = null;
             try {
@@ -153,6 +158,9 @@ public class IndexManager {
                 throw new QueryParseException(e);
             }
             retval = processHits(indexName, hits, queryTerms, query, lang);
+            if (explainResults) {
+                debugExplainResults(indexName, hits, searcher, q, queryTerms);
+            }
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -362,7 +370,7 @@ public class IndexManager {
         else {
             qp = new NGramQueryParser("name", analyzer);
         }
-        
+        qp.setDateResolution(DateTools.Resolution.MINUTE);
         return qp;
     }
     
@@ -399,7 +407,7 @@ public class IndexManager {
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
-            if (!isScoreAcceptable(indexName, hits, x)) {
+            if (!isScoreAcceptable(indexName, hits, x, query)) {
                 break;
             }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
@@ -432,25 +440,16 @@ public class IndexManager {
              * for this match.  Later implementation should use "Explanation" to determine
              * field, for now we will simply grab one term and return it's field.
              */
-            if (queryTerms.size() > 0) {
-                Iterator<Term> iter = queryTerms.iterator();
-                if (iter.hasNext()) {
-                    Term t = iter.next();
-                    log.info("For hit[" + x + "] setting matchingField to '" +
-                            t.field() + "'");
-                    pr.setMatchingField(t.field());
-                }
-                else {
-                    log.info("hit[" + x + "] odd queryTerms iterator doesn't " + 
-                            "have a first element, matchingField is left as: <" +
-                            pr.getMatchingField() + ">");
-                }
-            }
-            else {
-                String field = getFirstFieldName(query);
-                pr.setMatchingField(field);
+            try {
+                MatchingField match = new MatchingField(query, doc, queryTerms);
+                pr.setMatchingField(match.getFieldName());
+                pr.setMatchingFieldValue(match.getFieldValue());
                 log.info("hit[" + x + "] matchingField is being set to: <" + 
-                        pr.getMatchingField() + "> based on passed in query field.");
+                    pr.getMatchingField() + "> based on passed in query field.  " +
+                    "matchingFieldValue = " + pr.getMatchingFieldValue());
+            }
+            catch (Exception e) {
+                log.error("Caught exception: ", e);
             }
             if (pr != null) {
                 retval.add(pr);
@@ -466,12 +465,15 @@ public class IndexManager {
      * @param indexName
      * @param hits
      * @param x
+     * @param query
      * @return  true - score is acceptable
      *          false - score is NOT acceptable
      * @throws IOException
      */
-    private boolean isScoreAcceptable(String indexName, Hits hits, int x)
+    private boolean isScoreAcceptable(String indexName, Hits hits, int x, String queryIn)
         throws IOException {
+        String guessMainQueryTerm = MatchingField.getFirstFieldName(queryIn);
+
         if ((indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) &&
                 (!filterDocResults)) {
             return true;
@@ -494,6 +496,32 @@ public class IndexManager {
                             "system_score_threshold = " + system_score_threshold);
                 }
                 return false;
+            }
+        }
+        else if (indexName.compareTo(BuilderFactory.ERRATA_TYPE) == 0) {
+            if (guessMainQueryTerm.compareTo("advisoryName") == 0) {
+                if (hits.score(x) < errata_advisory_score_threshold) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("hits.score(" + x + ") is " + hits.score(x));
+                        log.debug("Filtering out search results from " + x + " to " +
+                            hits.length() + ", due to their score being below " +
+                            "errata_advisory_score_threshold = " +
+                            errata_advisory_score_threshold);
+                    }
+                    return false;
+                }
+            }
+            else {
+                if (hits.score(x) < errata_score_threshold) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("hits.score(" + x + ") is " + hits.score(x));
+                        log.debug("Filtering out search results from " + x + " to " +
+                            hits.length() + ", due to their score being below " +
+                            "errata_score_threshold = " +
+                            errata_score_threshold);
+                    }
+                    return false;
+                }
             }
         }
         else if (((hits.score(x) < score_threshold) && (x > 10)) ||
@@ -566,21 +594,10 @@ public class IndexManager {
         return count;
     }
 
-    private String getFirstFieldName(String query) {
-        StringTokenizer tokens = new StringTokenizer(query, ":");
-        return tokens.nextToken();
-    }
-    
-    private void printExplanationDetails(Explanation ex) {
-        log.debug("Explanation.getDescription() = " + ex.getDescription());
-        log.debug("Explanation.getValue() = " + ex.getValue());
-        for (Explanation detail : ex.getDetails()) {
-            printExplanationDetails(detail);
-        }
-    }
-    private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
-            Query q)
+    private void debugExplainResults(String indexName, Hits hits, IndexSearcher searcher,
+            Query q, Set<Term> queryTerms)
         throws IOException {
+        log.debug("Parsed Query is " + q.toString());
         log.debug("Looking at index:  " + indexName);
         for (int i = 0; i < hits.length(); i++) {
             if ((i < 10)) {
@@ -590,21 +607,11 @@ public class IndexManager {
                 log.debug("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
                         ">: " + doc);
                 log.debug("Explanation: " + ex);
-                log.debug("Explanation.getDescription() = " + ex.getDescription());
-                log.debug("Explanation.getValue() = " + ex.getValue());
-                printExplanationDetails(ex);
-                String data = ex.toString();
-                String matcher = "(field=";
-                int startLoc = data.indexOf(matcher);
-                if (startLoc < 0) {
-                    return;
-                }
-                int endLoc = data.indexOf(",", startLoc + matcher.length());
-                if (endLoc < 0) {
-                    return;
-                }
-                String fieldName = data.substring(startLoc + matcher.length(), endLoc);
-                log.debug("Guessing that matched fieldName is " + fieldName);
+                MatchingField match = new MatchingField(q.toString(), doc, queryTerms);
+                String fieldName = match.getFieldName();
+                String fieldValue = match.getFieldValue();
+                log.debug("Guessing that matched fieldName is " + fieldName + " = " +
+                        fieldValue);
             }
         }
     }

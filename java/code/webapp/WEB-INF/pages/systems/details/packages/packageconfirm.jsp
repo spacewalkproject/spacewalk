@@ -36,19 +36,10 @@
  			
 <c:if test="${not empty requestScope.pageList}">
       <div align="right">
-      <c:if test="${requestScope.enableRemoteCommand}">
-        <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler" acl="system_feature(ftr_remote_command); client_capable(script.run)">
-          <hr />
-		    <input type="submit" 
-		    	name ="dispatch"
-			    value='<bean:message key="removeconfirm.jsp.runremotecommand"/>'/>          
-        </rhn:require>
-      </c:if>
       
         <div align="left"> 
           <p><bean:message key="${widgetSummary}"/></p>
         </div>
-        
       
         <table class="schedule-action-interface" align="center">
         

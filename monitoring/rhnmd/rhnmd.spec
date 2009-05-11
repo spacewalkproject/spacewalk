@@ -1,17 +1,16 @@
 %define np_name nocpulse
-%define identity %{_var}/lib/%{np_name}/.ssh/ssh_host_dsa_key
+%define identity %{_var}/lib/%{np_name}/.ssh/nocpulse-identity
 
 Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
 URL:       https://fedorahosted.org/spacewalk
 Source0:   https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:   5.1.7
+Version:   5.3.2
 Release:   1%{?dist}
 License:   GPLv2
 Group:     System Environment/Daemons
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
-Requires:  nocpulse-common
 BuildRequires: pam-devel gcc
 
 %description
@@ -23,9 +22,6 @@ scout and the monitored host.
 
 %build
 gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
-
-%post
-/sbin/chkconfig --add rhnmd
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -45,13 +41,38 @@ install -m 0755 rhnmd-wrap $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd-wrap
 install -m 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
 install -m 0755 librhnmdwrap.so $RPM_BUILD_ROOT%{_libdir}/librhnmdwrap.so
 
+%pre
+if [ $1 -eq 1 ] ; then
+  getent group %{np_name} >/dev/null || groupadd -r %{np_name}
+  getent passwd %{np_name} >/dev/null || \
+  useradd -r -g %{np_name} -d %{_var}/lib/%{np_name} -c "NOCpulse user" %{np_name}
+  /usr/bin/passwd -l %{np_name} >/dev/null
+  exit 0
+fi
+# Old NOCpulse packages has home in /home/nocpulse.
+# We need to migrate them to new place.
+if getent passwd %{np_name} >/dev/null && [ -d /home/nocpulse ]; then
+  /usr/sbin/usermod -d %{_var}/lib/%{np_name} -m nocpulse
+  rm -rf %{_var}/lib/nocpulse/bin
+  rm -rf %{_var}/lib/nocpulse/var
+fi
+
+%post
+if [ ! -f %{identity} ]
+then
+    /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{np_name}
+fi
+/sbin/chkconfig --add rhnmd
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root,root,-)
 %config(noreplace) %{_sysconfdir}/pam.d/rhnmd
-%config(noreplace) %{_var}/lib/%{np_name}/.ssh/authorized_keys
+%dir %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}
+%dir %attr(700, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh
+%config(noreplace) %attr(-, %{np_name},%{np_name}) %{_var}/lib/%{np_name}/.ssh/authorized_keys
 %{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
 %config(noreplace) %{_sysconfdir}/%{np_name}/*
@@ -65,6 +86,13 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.2-1
+- 494538 - remove the dependecy of rhnmd on nocpulse-common
+
+* Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com> 5.3.1-1
+- authorized_keys should be owned by nocpulse
+- bump up version to 5.3.0
+
 * Wed Mar 11 2009 Miroslav Suchy <msuchy@redhat.com> 5.1.7-1
 - 489573 - remove generating keys and leave it on nocpulse-common
 
@@ -75,7 +103,7 @@ fi
 - 479541, 483867 - replaced runuser with /sbin/runuser
 
 * Tue Jan 13 2009 Milan Zazrivec 5.1.4-1
-- bz #479830 - %post error when installing rhnmd-5.1.2-1 on RHEL-5
+- bz #479830 - %%post error when installing rhnmd-5.1.2-1 on RHEL-5
 - package should create nocpulse user instead of rhnmd
 
 * Wed Nov 26 2008 Miroslav Suchy <msuchy@redhat.com> 5.1.2-1

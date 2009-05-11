@@ -15,6 +15,8 @@
 package com.redhat.rhn.frontend.action.errata.test;
 
 import com.redhat.rhn.common.security.errata.PublishedOnlyException;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.user.User;
@@ -52,6 +54,8 @@ public class NotifyActionTest extends RhnBaseTestCase {
         User user = requestContext.getLoggedInUser();
         Errata published = ErrataFactoryTest
                 .createTestPublishedErrata(user.getOrg().getId());
+        Channel c = ChannelFactoryTest.createBaseChannel(user);
+        published.addChannel(c);
         Errata unpublished = ErrataFactoryTest
                 .createTestUnpublishedErrata(user.getOrg().getId());
         

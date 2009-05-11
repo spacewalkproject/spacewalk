@@ -339,10 +339,17 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         Channel base = createTestChannel(user);
         List<Channel> channels = ChannelFactory.listAllBaseChannels(user.getOrg());
         List<Channel> rhbases = ChannelFactory.listRedHatBaseChannels();
+        int rbsize = 0;
+        for (Iterator itr = rhbases.iterator(); itr.hasNext();) {
+            Channel c = (Channel)itr.next();
+            if (ChannelManager.verifyChannelSubscribe(user, c.getId())) {
+                rbsize++;
+            }
+        }
         assertNotNull(channels);
         int size = 1; // include the one we created
         if (rhbases != null) {
-            size = size + rhbases.size();
+            size = size + rbsize;
         }
         assertEquals(channels.size(), size);
     }

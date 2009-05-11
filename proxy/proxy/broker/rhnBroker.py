@@ -258,7 +258,6 @@ class BrokerHandler(SharedHandler):
     def _prepHandler(self):
         """ prep handler and check PROXY_AUTH's expiration. """
         SharedHandler._prepHandler(self)
-        #proxy.rhnProxyAuth.PROXY_AUTH.verifyToken()
 
     # --- PRIVATE METHODS ---
 

@@ -182,8 +182,15 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public String getDefaultDownloadLocation(String host) {
         if (this.getBasePath() != null) {
-            String defaultLocation = "ks/dist/" + this.getLabel();
-            defaultLocation = defaultLocation.toLowerCase();
+
+            String defaultLocation = "ks/dist/";
+
+            if (this.getOrg() != null) {
+                defaultLocation += "org/" + this.getOrgId() + "/";
+            }
+
+            defaultLocation += this.getLabel();
+
             if (basePathIsUrl()) {
                 return this.getBasePath();
             }
@@ -256,7 +263,13 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the kernel path
      */
     public String getKernelPath() {
-        return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
+        String arch = this.getChannel().getChannelArch().getLabel();
+        if (arch.equals("channel-s390") || arch.endsWith("channel-s390x")) {
+            return StringUtil.addPath(getAbsolutePath(), "/images/kernel.img");
+        }
+        else {
+            return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/vmlinuz");
+        }
     }
 
     /**
@@ -266,7 +279,13 @@ public class KickstartableTree extends BaseDomainHelper {
      * @return the Initrd path
      */
     public String getInitrdPath() {
-        return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
+        String arch = this.getChannel().getChannelArch().getLabel();
+        if (arch.equals("channel-s390") || arch.endsWith("channel-s390x")) {
+            return StringUtil.addPath(getAbsolutePath(), "/images/initrd.img");
+        }
+        else {
+            return StringUtil.addPath(getAbsolutePath(), "/images/pxeboot/initrd.img");
+        }
     }
 
     /**

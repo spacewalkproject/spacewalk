@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.struts;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.domain.Identifiable;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
@@ -25,7 +26,9 @@ import com.redhat.rhn.frontend.taglibs.list.ListFilterHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
+import com.redhat.rhn.frontend.taglibs.list.decorators.AddToSsmDecorator;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.ssm.SsmManager;
 
 import java.util.List;
 import java.util.Map;
@@ -112,6 +115,29 @@ public class BaseSetHelper {
         else if (lookupEquals(ListDisplayTag.UNSELECT_ALL_KEY, value)) {
             unselectAll(set, listName, dataSet);
         }
+        else if (lookupEquals(ListDisplayTag.ADD_TO_SSM_KEY, value)) {
+
+            // If this isn't done, the servers will be added to the SSM but the table
+            // itself will have the selected servers cleared
+            updateSet(set, listName);
+
+            String[] selected = ListTagHelper.getSelected(listName, request);
+            
+            RequestContext context = new RequestContext(request);
+            User user = context.getLoggedInUser();
+
+            // If the user requested, first clear the SSM server set
+            // Note: if the checkbox is selected, this executes regardless of whether or not
+            // any servers were selected in the table
+            if (request.getParameter(AddToSsmDecorator.PARAM_CLEAR_SSM) != null) {
+                SsmManager.clearSsm(user);
+            }
+
+            // If the user has made any selections, add those to the SSM 
+            if (selected != null && selected.length > 0) {
+                SsmManager.addServersToSsm(user, selected);
+            }
+        }
     }
 
 
@@ -179,6 +205,7 @@ public class BaseSetHelper {
                 break;
             }
         }
+        storeSet(set);
     }
 
 

@@ -17,9 +17,11 @@ package com.redhat.rhn.frontend.xmlrpc.system.config;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.config.ConfigChannel;
@@ -110,18 +112,19 @@ public class ServerConfigHandler extends BaseHandler {
      * @param commitToLocal true if we want to commit the file to 
      * the server's local channel false if we want to commit it to sandbox.
      * @return returns the new created or updated config revision..
+     * @since 10.2
      * 
      * @xmlrpc.doc Create a new file (text or binary) or directory with the given path, or 
      * update an existing path on a server.
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param("int","serverId")
+     * @xmlrpc.param #param_desc("string","path",
+     *                          "the configuration file/directory path")
      * @xmlrpc.param #param( "boolean", "isDir")
      *      #options()
      *          #item_desc ("True", "if the path is a directory")
      *          #item_desc ("False", "if the path is a file")
      *      #options_end()
-     * @xmlrpc.param #param_desc("string","path",
-     *                          "the configuration file/directory path") 
      * @xmlrpc.param 
      *   #struct("path info")
      *      #prop_desc("string","contents",
@@ -154,6 +157,17 @@ public class ServerConfigHandler extends BaseHandler {
                                             boolean isDir,
                                             Map<String, Object> data,
                                             boolean commitToLocal) {
+
+        // confirm that the user only provided valid keys in the map
+        Set<String> validKeys = new HashSet<String>();
+        validKeys.add("contents");
+        validKeys.add("owner");
+        validKeys.add("group");
+        validKeys.add("permissions");
+        validKeys.add("macro-start-delimiter");
+        validKeys.add("macro-end-delimiter");
+        validateMap(validKeys, data);
+
         User user = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(user, sid);
@@ -177,6 +191,7 @@ public class ServerConfigHandler extends BaseHandler {
      * @param searchLocal true look at local overrides, false 
      *              to look at sandbox overrides 
      * @return a list containing the latest config revisions of the requested paths.
+     * @since 10.2
      * 
      * @xmlrpc.doc Given a list of paths and a server, returns details about 
      * the latest revisions of the paths.

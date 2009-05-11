@@ -13,7 +13,6 @@
  * in this software or its documentation.
  */
 
-
 package com.redhat.rhn.internal.doclet;
 
 import com.sun.javadoc.ClassDoc;
@@ -41,17 +40,16 @@ public class ApiDoclet {
     private static final String XMLRPC_NAMESPACE = "@xmlrpc.namespace";
     private static final String XMLRPC_IGNORE = "@xmlrpc.ignore";
     private static final String DEPRECATED = "@deprecated";
+    private static final String SINCE = "@since";
 
     public static final String API_MACROS_FILE = "macros.txt";
     public static final String API_HANDLER_FILE = "handler.txt";
     public static final String API_INDEX_FILE = "apiindex.txt";
     public static final String API_FOOTER_FILE = "api_index_ftr.txt";
     public static final String API_HEADER_FILE = "api_index_hdr.txt";
-
         
     protected ApiDoclet() {        
     }
-    
         
     /**
      * start the doclet
@@ -63,24 +61,17 @@ public class ApiDoclet {
     public static boolean start(RootDoc root, String docType) throws Exception {
         ClassDoc[] classes = root.classes();
         
-        
-        
         List<ClassDoc> serializers = getSerializers(classes);
         List<ClassDoc> handlers = getHandlers(classes);
         Map<String, String> serialMap = getSerialMap(serializers);
         List<Handler> handlerList = new ArrayList<Handler>();
        
-        
-
-
         for (ClassDoc clas : handlers) {
             Handler handler = new Handler();
             
             if (clas.tags(XMLRPC_IGNORE).length > 0) {
                 continue;
             }
-            
-            
             
             Tag name = getFirst(clas.tags(XMLRPC_NAMESPACE));
             if (name != null) {
@@ -122,6 +113,12 @@ public class ApiDoclet {
                                     method.tags(DEPRECATED)).text());
                         }
                         
+                        if (method.tags(SINCE).length > 0) {
+                            call.setSinceAvailable(true);
+                            call.setSinceVersion(getFirst(
+                                    method.tags(SINCE)).text());
+                        }
+
                         Tag tag = getFirst(method.tags(XMLRPC_RETURN));
                         if (tag != null) {
                             //run templating on the return value
@@ -156,10 +153,8 @@ public class ApiDoclet {
         }
         writer.write(handlerList, serialMap);
         
-        
         return true;
     }
-    
     
     private static List<ClassDoc> getSerializers(ClassDoc[] classes) {
         List<ClassDoc> serializers = new ArrayList<ClassDoc>(); 
@@ -219,8 +214,4 @@ public class ApiDoclet {
             return null;
         }
     }
-    
-    
-    
-    
 }

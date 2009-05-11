@@ -34,7 +34,7 @@
 	<c:if test="${not empty systemgroup}">
 		${fn:escapeXml(systemgroup.name)}
 	</c:if>
-	<a href="/rhn/help/reference/en/s2-sm-system-group-list.jsp#s3-sm-system-group-details" target="_new" class="help-title">
+	<a href="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-group-list" target="_new" class="help-title">
 		<img src="/img/rhn-icon-help.gif" alt="<bean:message key="toolbar.jsp.helpicon.alt"/>" />
 	</a>
 </div>

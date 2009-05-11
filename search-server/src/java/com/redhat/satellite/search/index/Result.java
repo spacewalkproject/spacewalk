@@ -31,7 +31,7 @@ public class Result {
      * lucene think this was a good match..
      */
     private String matchingField = "";
-    
+    private String matchingFieldValue = "";
     /**
      * Constructor
      */
@@ -129,7 +129,18 @@ public class Result {
     public void setMatchingField(String matchingFieldIn) {
         this.matchingField = matchingFieldIn;
     }
-
+    /**
+     * @return the matchingFieldValue
+     */
+    public String getMatchingFieldValue() {
+        return matchingFieldValue;
+    }
+    /**
+     * @param matchingFieldValueIn the matchingFieldValue to set
+     */
+    public void setMatchingFieldValue(String matchingFieldValueIn) {
+        this.matchingFieldValue = matchingFieldValueIn;
+    }
     /**
      * @return the string representation of this object
     **/

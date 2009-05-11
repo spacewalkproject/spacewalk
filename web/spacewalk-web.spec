@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.23
+Version: 0.6.5
 Release: 1%{?dist}
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -190,7 +190,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/RHN/ErrataEditor.pm
 %{perl_vendorlib}/RHN/ErrataMailer.pm
 %{perl_vendorlib}/RHN/ErrataTmp.pm
-%{perl_vendorlib}/RHN/Feedback.pm
 %{perl_vendorlib}/RHN/FileList.pm
 %{perl_vendorlib}/RHN/Form.pm
 %{perl_vendorlib}/RHN/Form/
@@ -318,6 +317,46 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed May  6 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
+- make webui proxy installer aware of new packages spacewalk-monitoring-selinux
+- make webui proxy installer aware of new packages oracle-instantclient-selinux, oracle-nofcontext-selinux
+- 493428 - make webui installer aware of new package - spacewalk-proxy-selinux
+- 492588 - changed query to use rhnSharedChannelView to support shared channels in activation keys
+- 480011 - Added organization to the top header near the username.
+- 481578 - Ported manage software channels page from perl to java
+- 489902 - fix help links to work with rhn-il8n-guides
+
+* Fri Apr 24 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- 485981 - fix web proxy installer help links (bbuckingham@redhat.com)
+
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 485020 - errata clone names consistent in perl/java (jsherril@redhat.com)
+- 474567 - Stop running commands on SSM systems that don't have provisioning. (dgoodwin@redhat.com)
+- 436851 - Removed dead references (jason.dobies@redhat.com)
+- 496710 - system.listSystemEvents - convert dates in return to use Date (bbuckingham@redhat.com)
+- 496214 - Fix About links in Perl sitenav. (dgoodwin@redhat.com)
+
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.2-1
+- 496161 - removing find a system box from system group details page
+  (jsherril@redhat.com)
+- 476248 - add correct lang to proxy install guide url (jesusr@redhat.com)
+- 494450 - api - add permissions_mode to ConfigRevisionSerializer & fix doc on
+  system.config.createOrUpdatePath (bbuckingham@redhat.com)
+
+* Thu Apr 16 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- remove Proxy Release Notes link and unused Developer's area. (jesusr@redhat.com)
+- 494714 - fixing 404 after cloning channel with selective errata (jsherril@redhat.com)
+- 484294 - can't delete channel with distros (paji@redhat.com)
+- 495722 - fixing issue where /ty/TOKEn wasnt being rendered properly (jsherril@redhat.com)
+- 490904 - change all references to /rhn/help/*/en/ -> /rhn/help/*/en-US/ (jesusr@redhat.com)
+- api doclet - enhanced to support a 'since' tag, tagged snapshot apis and
+  bumped api version (bbuckingham@redhat.com)
+- 494475,460136 - remove faq & feedback code which used customerservice emails. (jesusr@redhat.com)
+- Revert "484702 - remove dead function generate_server_pem from RHN::SatInstall." (mzazrivec@redhat.com)
+- Revert "484703 - remove dead function generate_satcon_dict from RHN::SatInstall." (mzazrivec@redhat.com)
+- Revert "484705 - remove dead function satcon_deploy from RHN::SatInstall." (mzazrivec@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Thu Mar 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.23-1
 - 489736 - generate non-expiring kickstart package download url
 - 489736 - download_url_lifetime of 0 disables expiration server wide

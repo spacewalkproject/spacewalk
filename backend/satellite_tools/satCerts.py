@@ -50,8 +50,8 @@ class NoFreeEntitlementsError(Exception):
     def __init__(self, label, quantity):
           self.label = label
           self.quantity = quantity
-          self.message = 'You do not have enough unused \'' + self.label + '\' entitlements in the base org.' \
-            + ' Please un-entitle systems from this entitlement until there are at most ' + str(quantity) + ' used.'
+          self.message = \
+          "Error: You do not have enough unused %s entitlements in the base org. There can only be atmost %s used based on your current consumption. Please un-entitle the remaining systems for the activation to proceed." % (self.label, self.quantity)
           self.args = [self.message]
 
 def get_all_orgs():
@@ -102,6 +102,7 @@ def create_first_org(owner):
         p(owner, pword)
         # Now create the first private channel family
         create_first_private_chan_family()
+        verify_family_permissions()
     return get_org_id()
 
 _query_get_slot_types = rhnSQL.Statement("""
@@ -171,13 +172,16 @@ def set_slots_from_cert(cert):
         if not quantity:
             quantity = 0
 
-        slot_type_id = slot_table[db_label]['id']
+        slot_type_id = None
+        if slot_table.has_key(db_label):
+            slot_type_id = slot_table[db_label]['id']
 
         # Take it out of extra_slots
-        if extra_slots.has_key(slot_type_id):
+        if slot_type_id and extra_slots.has_key(slot_type_id):
             del extra_slots[slot_type_id]
 
-        if sys_ent_total_max.has_key(db_label):
+        if sys_ent_total_max.has_key(db_label) and \
+             sys_ent_total_max[db_label] is not None:
 	     # Do the math only if the slot already exists
              if sys_ent_total_max[db_label] > int(quantity):
 	         # If cert count is lower than existing db slot
@@ -527,6 +531,16 @@ def create_first_private_chan_family():
        Check to see if org has a channelfamily associated with it.
        If not, Create one.
        """
+       _lookup_chfam = """
+          SELECT 1 from rhnChannelFamily
+           WHERE label='private-channel-family-1'
+       """
+       h = rhnSQL.prepare(_lookup_chfam)
+       row = h.execute()
+       # some extra check for upgrades
+       if row:
+           # Already exists, move on
+           return
        _query_create_chfam = """
           INSERT INTO  rhnChannelFamily
                  (id, name, label, org_id, product_url)
@@ -534,9 +548,45 @@ def create_first_private_chan_family():
 
        """
        h = rhnSQL.prepare(_query_create_chfam)
-       h.execute(name="Private Channel Family 1", \
-                 label="private-channel-family-1", \
-                 org=1, url="First Org Created")
+       try:
+           h.execute(name='Private Channel Family 1', \
+                     label='private-channel-family-1', \
+                     org=1, url='First Org Created')
+       except rhnSQL.SQLError, e:
+           # if we're here that means we're voilating something
+           raise e
+           
+
+def verify_family_permissions(orgid=1):
+    """
+     Verify channel family permissions for first org
+    """
+    _query_lookup_cfid = """
+        SELECT  CF.id
+          FROM  rhnChannelFamily CF
+         WHERE  CF.org_id = :orgid
+        AND NOT  EXISTS (
+                   SELECT  1
+                     FROM  rhnPrivateChannelFamily PCF
+                    WHERE  PCF.org_id = CF.org_id
+                      AND  PCF.channel_family_id = CF.id)
+        ORDER BY  CF.id
+    """
+
+    h = rhnSQL.prepare(_query_lookup_cfid)
+    h.execute(orgid = orgid)
+    cfid = h.fetchone_dict()
+    if not cfid:
+        return
+
+    _query_create_priv_chfam = """
+        INSERT INTO  rhnPrivateChannelFamily
+            (channel_family_id, org_id, max_members, current_members)
+        VALUES  (:id, :org_id, NULL, 0)
+    """
+    
+    h = rhnSQL.prepare(_query_create_priv_chfam)
+    h.execute(id=cfid['id'], org_id=orgid)
 
 
 if __name__ == '__main__':

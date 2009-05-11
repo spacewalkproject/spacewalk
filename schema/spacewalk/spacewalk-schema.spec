@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server
 
-Version:        0.5.20
+Version:        0.6.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -58,6 +58,54 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/spacewalk-schema-upgrade*
 
 %changelog
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.5-1
+- 499046 - making it so that pre/post scripts can be templatized or not,
+  defaulting to not (jsherril@redhat.com)
+- alter index needs to be run via execute immediate (mzazrivec@redhat.com)
+- 461704 - clean time_series when deleting a server (upgrade script)
+  (mzazrivec@redhat.com)
+- 461704 - clear time_series when deleting server (mzazrivec@redhat.com)
+- 496174 - upgrade to view (mmccune@gmail.com)
+- 496174 - view optimization. (mmccune@gmail.com)
+
+* Fri Apr 24 2009 Jan Pazdziora 0.6.4-1
+- 497477 - add function based index on time_series for faster probe_id lookups,
+  use hint in delete to use it
+
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.3-1
+- 494976 - adding cobbler systme record name usage to reprovisioning (jsherril@redhat.com)
+
+* Tue Apr 21 2009 Jan Pazdziora 0.6.2-1
+- spacewalk-schema-upgrade: other stability and code cleanup changes
+- 495869 - label the /var/log/spacewalk/schema-upgrade based on the SELinux
+  policy
+- set noparallel if index rhn_snc_speid_idx exists (mzazrivec@redhat.com)
+- spacewalk-schema-upgrade: for upgrades from Satellite 5.3.0 up, the starting
+  schema name is satellite-schema
+- 487319 - restore text input for SNMP Community String field
+  (mzazrivec@redhat.com)
+- 487319 - text input for "SNMP Community String" field (mzazrivec@redhat.com)
+
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 495133 - fixing errata mailer such that mails are only sent for a particular
+  channel that was changed (jsherril@redhat.com)
+- fix ORA-00955 when creating RHN_SNC_SPEID_IDX (mzazrivec@redhat.com)
+- 149695 - Including channel_id as part of rhnErrataQueue table so that
+  taskomatic can send errata notifications based on channel_id instead of
+  sending to everyone subscribed to the channel. The changes include db change
+  to rhnErrataQueue table and backend change to satellite-sync's errata import.
+  (pkilambi@redhat.com)
+- 485870 - only recalculate the channel family counts once per family.
+  (mmccune@gmail.com)
+- 494475,460136 - remove faq & feedback code which used customerservice emails.
+  (jesusr@redhat.com)
+- fixing some index mixups, nologging was left off the base schema for a few
+  indexes for 0.5 (jsherril@redhat.com)
+- 480060 - schema changes to support errata list enhancements.  Simple
+  (mmccune@gmail.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- adding missing index for errata cache\ (jsherril@redhat.com)
+
 * Wed Mar 25 2009 Mike McCune <mmccune@gmail.com> 0.5.20-1
 -  472595 - forgot the index in the table definition.  was in the upgrade area only
 

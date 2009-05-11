@@ -1191,6 +1191,36 @@ EOQ
   return $date;
 }
 
+sub distros {
+  my $self = shift;
+  my $cid;
+
+  if (ref $self) {
+    $cid = $self->id;
+  }
+  else {
+    $cid = shift;
+  }
+
+  undef $self;
+  die "No channel id" unless defined $cid;
+
+  my $dbh = RHN::DB->connect;
+  my $sth = $dbh->prepare(<<EOQ);
+SELECT id FROM rhnKickstartableTree WHERE channel_id = ?
+EOQ
+
+  $sth->execute($cid);
+  my @ret;
+
+  while (my ($tree_id) = $sth->fetchrow) {
+    push @ret, $tree_id;
+  }
+
+  return @ret;
+}
+
+
 sub servers {
   my $self = shift;
   my $cid;

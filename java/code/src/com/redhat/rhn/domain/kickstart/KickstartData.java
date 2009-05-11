@@ -394,7 +394,7 @@ public class KickstartData {
      * Getter for defaultRegTokens
      * @return Returns the pacakageLists.
      */
-    public Set getDefaultRegTokens() {
+    public Set<Token> getDefaultRegTokens() {
         return defaultRegTokens;
     }
 
@@ -1226,7 +1226,7 @@ public class KickstartData {
             while (i.hasNext()) {
                 KickstartScript kss = (KickstartScript) i.next();
                 KickstartScript ksscloned = kss.deepCopy(cloned);
-                cloned.addScript(ksscloned);
+                cloned.addScript(ksscloned);   
             }
         }
 
@@ -1382,7 +1382,7 @@ public class KickstartData {
             Profile prof = Profile.lookupById(
                    CobblerXMLRPCHelper.getConnection(
                    Config.get().getString(Config.COBBLER_AUTOMATED_USER)), getCobblerId());
-            if (!StringUtils.isBlank(prof.getKickstart())) {
+            if (prof != null && !StringUtils.isBlank(prof.getKickstart())) {
                 return prof.getKickstart();
             }
         }

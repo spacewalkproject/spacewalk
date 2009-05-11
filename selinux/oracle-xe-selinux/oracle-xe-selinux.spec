@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         9%{?dist}
+Release:         10%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -19,6 +19,7 @@ URL:             http://fedorahosted.org/spacewalk
 Source1:         %{modulename}.if
 Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
+Source4:         %{name}-enable
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
 BuildArch:       noarch
@@ -26,7 +27,7 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig, /usr/sbin/selinuxenabled
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-xe-univ
 Requires:         oracle-nofcontext-selinux
@@ -38,7 +39,7 @@ SELinux policy module supporting Oracle XE server.
 %prep
 rm -rf %{name}-%{version}
 mkdir -p %{name}-%{version}
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{name}-%{version}
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{name}-%{version}
 
 %build
 # Build SELinux policy modules
@@ -63,6 +64,10 @@ for selinuxvariant in %{selinux_variants}
     install -p -m 644 %{modulename}.pp.${selinuxvariant} \
            %{buildroot}%{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp
   done
+
+%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle
+%define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
+sed -i -e 's!%%extra_restorecon!%extra_restorecon!g' -e 's!%%extra_subdirs!%extra_subdirs!g' %{name}-enable
 cd -
 
 # Install SELinux interfaces
@@ -73,12 +78,12 @@ install -p -m 644 %{name}-%{version}/%{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+# Install oracle-xe-selinux-enable which will be called in %post
+install -d %{buildroot}%{_sbindir}
+install -p -m 755 %{name}-%{version}/%{name}-enable %{buildroot}%{_sbindir}/%{name}-enable
 
 %clean
 rm -rf %{buildroot}
-
-%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app /var/tmp/.oracle
-%define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
 
 %pre
 
@@ -93,28 +98,10 @@ elif [ $ORACLE_UID -ge 500 ] ; then
 fi
 
 %post
-# Install SELinux policy modules
-for selinuxvariant in %{selinux_variants}
-  do
-    /usr/sbin/semodule -s ${selinuxvariant} -i \
-      %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
-  done
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-enable
+fi
 
-/usr/sbin/semanage port -a -t oracle_port_t -p tcp 9000 || :
-
-# Relabel oracle-xe-univ's files
-rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
-
-# Create the extra directories if they do not exist yet, so that they
-# can be restorecon'ed
-mkdir -p %extra_restorecon
-mkdir -p %extra_subdirs
-chown oracle:dba %extra_subdirs
-
-# Fix up additional directories, not owned by oracle-xe-univ
-/sbin/restorecon -Rivv %extra_restorecon
-
-/sbin/ldconfig
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -138,8 +125,12 @@ fi
 %doc %{name}-%{version}/%{modulename}.fc %{name}-%{version}/%{modulename}.if %{name}-%{version}/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+%attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Wed Apr 29 2009 Jan Pazdziora 10.2-10
+- move the %post SELinux activation to /usr/sbin/oracle-xe-enable
+
 * Tue Feb 10 2009 Jan Pazdziora 10.2-9
 - added textrel_shlib_t to libdbcfg10.so
 

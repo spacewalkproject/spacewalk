@@ -76,7 +76,7 @@ public class ConfigurationManager extends BaseManager {
     private static Logger log = Logger
             .getLogger(ConfigurationManager.class);
     
-    private static ConfigurationManager instance = new ConfigurationManager();
+    private static final ConfigurationManager INSTANCE = new ConfigurationManager();
     
     // Used as keys into the Map returned by a file-content-validation error
     // see validateContent()
@@ -107,7 +107,7 @@ public class ConfigurationManager extends BaseManager {
      * @return the static object of this class.
      */
     public static ConfigurationManager getInstance() {
-        return instance;
+        return INSTANCE;
     }
     
     /**
@@ -602,15 +602,19 @@ public class ConfigurationManager extends BaseManager {
     }
     
     /**
-     * List all the global channels to which the given user can subscribe
-     * systems.
+     * Lists all the global configuration channels to which the given user can subscribe
+     * systems. Only channels that it makes sense to subscribe to will be listed. In other
+     * words, if all of the servers in the SSM are already subscribed to a channel, it
+     * will not be returned. To get this list of already subscribed channels, use
+     * {@link #ssmChannelListForSubscribeAlreadySubbed(User)}
+     * 
      * @param user The user looking at channels.
      * @param pc A page control for this user.
-     * @return A list of the channels in DTO format.
+     * @return a list of {@link ConfigChannelDto} objects
      */
     public DataResult ssmChannelListForSubscribe(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries",
-                "ssm_channels_for_subscribe");
+                "ssm_channels_for_subscribe_choose");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("org_id", user.getOrg().getId());
@@ -618,6 +622,26 @@ public class ConfigurationManager extends BaseManager {
         elabParams.put("user_id", user.getId());
         elabParams.put("system_set_label", RhnSetDecl.SYSTEMS.getLabel());
         return makeDataResult(params, elabParams, pc, m);
+    }
+
+    /**
+     * Returns configuration channels that <em>every</em> system in the SSM is subscribed
+     * to. This is effectively the complement of
+     * {@link #ssmChannelListForSubscribe(User, PageControl)}. 
+     * 
+     * @param user the user working with the channels
+     * @return a list of {@link ConfigChannelDto} objects
+     */
+    public DataResult ssmChannelListForSubscribeAlreadySubbed(User user) {
+        SelectMode m = ModeFactory.getMode("config_queries",
+                "ssm_channels_for_subscribe_already_sub");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+        elabParams.put("system_set_label", RhnSetDecl.SYSTEMS.getLabel());
+        return makeDataResult(params, elabParams, null, m);
     }
     
     /**

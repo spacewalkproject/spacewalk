@@ -15,7 +15,7 @@
 
 <rhn:toolbar base="h1" img="/img/rhn-config_central.gif"
 	imgAlt="config.common.globalAlt"
-	helpUrl="/rhn/help/reference/en/configuration-channels.jsp">
+	helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-channels">
 	<bean:message key="channelOverview.jsp.newToolbar" />
 </rhn:toolbar>
 

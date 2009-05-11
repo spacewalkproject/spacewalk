@@ -58,7 +58,7 @@ public class ConfirmErrataAction extends RhnListAction {
     
     private static final String MULTI_ARCH = "multi_arch";
     
-    
+    private static final String SELECTED_CHANNEL = "selected_channel";
     private static final String ARCH_COUNT = "arch_count";
     private static final String BUG_COUNT = "bug_count";
     private static final String ENHANCE_COUNT = "enhance_count";
@@ -92,9 +92,13 @@ public class ConfirmErrataAction extends RhnListAction {
             return getStrutsDelegate().forwardParams(mapping.findForward("clone"), params);
         }
         
-        
-        
-        
+        Long sourceCid = null;
+        Channel srcChan = null;
+        if (request.getParameter(SELECTED_CHANNEL) != "") {
+            sourceCid = Long.parseLong(request.getParameter(SELECTED_CHANNEL));
+            srcChan = ChannelFactory.lookupByIdAndUser(sourceCid, user);
+        }
+
         //If this is a possible confusing arch, then set the multi_arch flag
         for (String arch : MULTI_ARCHES) {
             if (arch.equals(currentChan.getChannelArch().getLabel())) {
@@ -133,7 +137,7 @@ public class ConfirmErrataAction extends RhnListAction {
         
         //Get Package Info and counts
         DataResult<PackageOverview> packageResult = 
-            ErrataManager.lookupPacksFromErrataSet(packageAssoc, currentChan, user, 
+            ErrataManager.lookupPacksFromErrataSet(srcChan, currentChan, user,
                     getSetDecl(currentChan).getLabel());
         
         
@@ -141,13 +145,8 @@ public class ConfirmErrataAction extends RhnListAction {
         //if we are not using package association (and thus the queries aren't handling
         //arch solving, then we need to validate the packages
         List<PackageOverview> validList;
-        if (packageAssoc) {
-            validList = packageResult;
-        }
-        else {
             validList = validatePackages(packageResult, 
                 currentChan);
-        }
         
         storePackagesInSet(user, validList, currentChan);
         

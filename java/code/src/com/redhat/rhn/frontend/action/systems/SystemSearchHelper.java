@@ -43,6 +43,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import redstone.xmlrpc.XmlRpcClient;
 import redstone.xmlrpc.XmlRpcFault;
@@ -196,7 +197,7 @@ public class SystemSearchHelper {
         if ("system_list".equals(whereToSearch)) {
             serverIds = filterOutIdsNotInSSM(user, serverIds);
         }
-        DataResult retval = processResultMap(user, serverIds);
+        DataResult retval = processResultMap(user, serverIds, viewMode);
         return retval;
     }
 
@@ -233,11 +234,8 @@ public class SystemSearchHelper {
             buf.append(s);
             buf.append(" ");
         }
-
         String terms = buf.toString().trim();
-        String query;
-        String index;
-
+        String query, index;
         if (NAME_AND_DESCRIPTION.equals(mode)) {
             query = "name:(" + terms + ") description:(" + terms + ")";
             index = SERVER_INDEX;
@@ -258,17 +256,21 @@ public class SystemSearchHelper {
         else if (CHECKIN.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
             Calendar startDate = Calendar.getInstance();
+            // SearchRange:  [EPOCH - TargetDate]
             startDate.add(Calendar.DATE, -1 * numDays);
             query = "checkin:[\"" + formatDateString(new Date(0)) +
-            "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
+                    "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
             index = SERVER_INDEX;
         }
         else if (REGISTERED.equals(mode)) {
             Integer numDays = Integer.parseInt(terms);
             Calendar startDate = Calendar.getInstance();
-            startDate.add(Calendar.DATE, -1 * numDays);
-            query = "registered:[\"" + formatDateString(startDate.getTime()) +
-            "\" TO \"" + formatDateString(Calendar.getInstance().getTime()) + "\"]";
+            // SearchRange:  [TargetDate - NOW]
+            startDate.add(Calendar.DATE, (-1 * numDays) - 1);
+            query = "registered:{\"" + formatDateString(startDate.getTime()) +
+                "\" TO \"" + formatDateString(
+                Calendar.getInstance().getTime()) +
+                "\"}";
             index = SERVER_INDEX;
         }
         else if (CPU_MODEL.equals(mode)) {
@@ -367,7 +369,6 @@ public class SystemSearchHelper {
         else {
             throw new ValidatorException("Mode: " + mode + " not supported.");
         }
-
         Map<String, String> retval = new HashMap<String, String>();
         retval.put("query", query);
         retval.put("index", index);
@@ -387,8 +388,10 @@ public class SystemSearchHelper {
         // this is our main result Map which we will return, it's keys
         // represent the list of server Ids this search yielded
         Map serverMaps = new HashMap();
-        for (Object obj : searchResults) {
-            Map result = (Map)obj;
+        log.info("Entering getResultMapFromPackagesIndex() searchResults.size() = " +
+                searchResults.size());
+        for (int index = 0; index < searchResults.size(); index++) {
+            Map result = (Map)searchResults.get(index);
             Map pkgItem = new HashMap();
             pkgItem.put("rank", result.get("rank"));
             pkgItem.put("score", result.get("score"));
@@ -396,23 +399,33 @@ public class SystemSearchHelper {
             pkgItem.put("pkgId", result.get("id"));
             
             /** 
-             * Dropping results which have a weak score
+             * Ensure we process at least the first result.
+             * Remeber, first result might be a group of packages with the same
+             * name but different archs, we want to process the whole group.
+             * Therefore for cases of low score quality, we'll set min_score
+             * to the score of the first hit, this will allow the first group
+             * of similarly scored results to be processed, all further results will
+             * be dropped.
+             * For case of a high scoring result, PACKAGE_SCORE_THRESHOLD still
+             * limits the results returned.
              */
-            if ((Double)result.get("score") < PACKAGE_SCORE_THRESHOLD) {
+            Double currentScore = (Double)result.get("score");
+            Double minScore = PACKAGE_SCORE_THRESHOLD;
+            if (index == 0) {
+                if (currentScore <= PACKAGE_SCORE_THRESHOLD) {
+                    minScore = currentScore;
+                }
+            }
+            log.info("Iteration " + index + ", Name = " + result.get("name") +
+                    ", Score = " + currentScore);
+            if (currentScore < minScore) {
                 log.info("SystemSearchHelper.getResultMapFromPackagesIndex() " +
                         " skipping result<" + result.get("name") + "> score = " +
                         result.get("score") + " it is below threshold: " +
-                        PACKAGE_SCORE_THRESHOLD);
+                        minScore);
                 continue;
             }
             Long pkgId = Long.valueOf((String)result.get("id"));
-            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
-            if (pkg == null) {
-                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
-                        " problem when looking up package id <" + pkgId + 
-                        " PackageFactory.lookupByIdAndUser returned null.");
-                continue;
-            }
             List<Long> serverIds = null;
             if (INSTALLED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByInstalledPackageId(user, pkgId);
@@ -420,6 +433,19 @@ public class SystemSearchHelper {
             if (NEEDED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByNeededPackageId(user, pkgId);
             }
+            if (serverIds.size() < 1) {
+                continue;
+            }
+            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
+            if (pkg == null) {
+                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                        " problem when looking up package id <" + pkgId +
+                        " PackageFactory.lookupByIdAndUser returned null.");
+                continue;
+            }
+            log.info("Package " + pkg.getNameEvra() + ", id = " + pkgId + ", score = " +
+                    currentScore + ", serverIds associated with package = " +
+                    serverIds.size());
             for (Long s : serverIds) {
                 if (serverMaps.containsKey(s)) {
                     Map m = (Map)serverMaps.get(s);
@@ -434,6 +460,7 @@ public class SystemSearchHelper {
                     Map serverInfo = new HashMap();
                     serverInfo.put("score", result.get("score"));
                     serverInfo.put("matchingField", "packageName");
+                    serverInfo.put("matchingFieldValue", pkg.getNameEvra());
                     serverInfo.put("packageName", pkg.getNameEvra());
                     serverMaps.put(s, serverInfo);
                     if (log.isDebugEnabled()) {
@@ -468,6 +495,7 @@ public class SystemSearchHelper {
                 matchingField = "id";
             }
             serverItem.put("matchingField", matchingField);
+            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for system id: " + result.get("id") +
                         " new map = " + serverItem);
@@ -484,6 +512,17 @@ public class SystemSearchHelper {
         Map serverIds = new HashMap();
         for (Object obj : searchResults) {
             Map result = (Map)obj;
+            Long sysId = Long.valueOf((String)result.get("serverId"));
+            if (serverIds.containsKey(sysId)) {
+                Map priorResult = (Map)serverIds.get(sysId);
+                Double priorScore = (Double)priorResult.get("score");
+                Double thisScore = (Double)result.get("score");
+                if (priorScore >= thisScore) {
+                    // We only want to capture the best match of a hwdevice for each system
+                    continue;
+                }
+            }
+
             Map serverItem = new HashMap();
             serverItem.put("rank", result.get("rank"));
             serverItem.put("score", result.get("score"));
@@ -494,12 +533,13 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
+            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", hwdevice id: " + result.get("id") + " new map = " +
                         serverItem);
             }
-            serverIds.put(Long.valueOf((String)result.get("serverId")), serverItem);
+            serverIds.put(sysId, serverItem);
         }
         return serverIds;
     }
@@ -521,6 +561,7 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
+            serverItem.put("matchingFieldValue", (String)result.get("matchingFieldValue"));
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", snapshotID: " + result.get("snapshotId") + " new map = " +
@@ -548,6 +589,11 @@ public class SystemSearchHelper {
                 matchingField = (String)result.get("value");
             }
             serverItem.put("matchingField", matchingField);
+            String matchingFieldValue = (String)result.get("matchingFieldValue");
+            if (matchingFieldValue.length() == 0) {
+                matchingFieldValue = (String)result.get("value");
+            }
+            serverItem.put("matchingFieldValue", matchingFieldValue);
             if (log.isDebugEnabled()) {
                 log.debug("creating new map for serverId = " + result.get("serverId") +
                         ", customValueID: " + result.get("id") + " new map = " +
@@ -558,7 +604,8 @@ public class SystemSearchHelper {
         return serverIds;
     }
 
-    protected static DataResult processResultMap(User userIn, Map serverIds) {
+    protected static DataResult processResultMap(User userIn, Map serverIds,
+            String viewMode) {
         DataResult<SystemSearchResult> serverList =
             UserManager.visibleSystemsAsDtoFromList(userIn,
                     new ArrayList(serverIds.keySet()));
@@ -585,16 +632,42 @@ public class SystemSearchHelper {
             if (details.containsKey("score")) {
                 sr.setScore((Double)details.get("score"));
             }
+            if (details.containsKey("matchingFieldValue")) {
+                sr.setMatchingFieldValue((String)details.get("matchingFieldValue"));
+            }
         }
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
-        SearchResultNameComparator nameComparator =
-            new SearchResultNameComparator(serverIds);
-        Collections.sort(serverList, nameComparator);
-        SearchResultScoreComparator scoreComparator =
-            new SearchResultScoreComparator(serverIds);
-        Collections.sort(serverList, scoreComparator);
+
+        /** RangeQueries return a constant score of 1.0 for anything that matches.
+         * Therefore we need to do more work to understand how to best sort results.
+         * Sorting will be done based on value for 'matchingFieldValue', this is a best
+         * guess from the search server of what field in the document most influenced
+         * the result.
+         * */
+        if (REGISTERED.equals(viewMode) || CPU_MHZ_GT.equals(viewMode) ||
+                NUM_CPUS_GT.equals(viewMode) || RAM_GT.equals(viewMode)) {
+            // We want to sort Low to High
+            SearchResultMatchedFieldComparator comparator =
+                new SearchResultMatchedFieldComparator(serverIds);
+            Collections.sort(serverList, comparator);
+        }
+        else if (CHECKIN.equals(viewMode) || CPU_MHZ_LT.equals(viewMode) ||
+                NUM_CPUS_LT.equals(viewMode) || RAM_LT.equals(viewMode)) {
+            // We want to sort High to Low
+            SearchResultMatchedFieldComparator comparator =
+                new SearchResultMatchedFieldComparator(serverIds, false);
+            Collections.sort(serverList, comparator);
+        }
+        else {
+            SearchResultNameComparator nameComparator =
+                new SearchResultNameComparator(serverIds);
+            Collections.sort(serverList, nameComparator);
+            SearchResultScoreComparator scoreComparator =
+                new SearchResultScoreComparator(serverIds);
+            Collections.sort(serverList, scoreComparator);
+        }
         if (log.isDebugEnabled()) {
             log.debug("sorted server data = " + serverList);
         }
@@ -609,8 +682,6 @@ public class SystemSearchHelper {
                     ") got back null.");
             return null;
         }
-        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
-                " SystemManager.listSystemsWithPackage(" + pkgId + ")"); 
         for (SystemOverview so : data) {
             serverIds.add(so.getId());
         }
@@ -625,8 +696,6 @@ public class SystemSearchHelper {
                     ") got back null.");
             return null;
         }
-        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
-                " SystemManager.listSystemsWithNeededPackage(" + pkgId + ")"); 
         for (SystemOverview so : data) {
             serverIds.add(so.getId());
         }
@@ -681,9 +750,11 @@ public class SystemSearchHelper {
     }
     
     protected static String formatDateString(Date d) {
-        String dateFormat = "MM/dd/yyyy";
+        String dateFormat = "yyyyMMddHHmm";
         java.text.SimpleDateFormat sdf =
               new java.text.SimpleDateFormat(dateFormat);
+        // Lucene uses GMT for indexing
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         return sdf.format(d);
     }
 
@@ -800,4 +871,89 @@ public class SystemSearchHelper {
             return score2.compareTo(score1);
      }
    }
+    /**
+     *
+     * Compares search results by 'matchingFieldValue'
+     *
+     */
+    public static class SearchResultMatchedFieldComparator implements Comparator {
+        protected Map results;
+        protected boolean sortLowToHigh;
+
+        protected SearchResultMatchedFieldComparator() {
+        }
+        /**
+         * @param resultsIn map of server related info to use for comparisons
+         */
+        public SearchResultMatchedFieldComparator(Map resultsIn) {
+            this.results = resultsIn;
+            this.sortLowToHigh = true;
+        }
+        /**
+         * @param resultsIn map of server related info to use for comparisons
+         * @param sortLowToHighIn sort order boolean
+         */
+        public SearchResultMatchedFieldComparator(Map resultsIn, boolean sortLowToHighIn) {
+            this.results = resultsIn;
+            this.sortLowToHigh = sortLowToHighIn;
+        }
+        /**
+         * @param o1 systemOverview11
+         * @param o2 systemOverview2
+         * @return comparison info based on matchingFieldValue
+         */
+        public int compare(Object o1, Object o2) {
+            SystemOverview sys1 = (SystemOverview)o1;
+            SystemOverview sys2 = (SystemOverview)o2;
+            Long serverId1 = sys1.getId();
+            Long serverId2 = sys2.getId();
+            if (results == null) {
+                return 0;
+            }
+            Map sMap1 = (Map)results.get(serverId1);
+            Map sMap2 = (Map)results.get(serverId2);
+            if ((sMap1 == null) || (sMap2 == null)) {
+                return 0;
+            }
+            if ((!sMap1.containsKey("matchingFieldValue")) ||
+                    (!sMap2.containsKey("matchingFieldValue"))) {
+                return 0;
+            }
+            String val1 = (String)sMap1.get("matchingFieldValue");
+            String val2 = (String)sMap2.get("matchingFieldValue");
+            try {
+                Long lng1 = Long.parseLong(val1);
+                Long lng2 = Long.parseLong(val2);
+                if (sortLowToHigh) {
+                    return lng1.compareTo(lng2);
+                }
+                else {
+                    return lng2.compareTo(lng1);
+                }
+            }
+            catch (NumberFormatException e) {
+                // String isn't a Long so continue;
+            }
+            try {
+                Double doub1 = Double.parseDouble(val1);
+                Double doub2 = Double.parseDouble(val2);
+                if (sortLowToHigh) {
+                    return doub1.compareTo(doub2);
+                }
+                else {
+                    return doub2.compareTo(doub1);
+                }
+            }
+            catch (NumberFormatException e) {
+                // String isn't a Double so continue;
+            }
+            // Fallback to standard string sort
+            if (sortLowToHigh) {
+                return val1.compareTo(val2);
+            }
+            else {
+                return val2.compareTo(val1);
+            }
+        }
+    }
 }

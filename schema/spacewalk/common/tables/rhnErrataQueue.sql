@@ -20,6 +20,10 @@ CREATE TABLE rhnErrataQueue
                      CONSTRAINT rhn_equeue_eid_fk
                          REFERENCES rhnErrata (id) 
                          ON DELETE CASCADE, 
+        channel_id              NUMBER NOT NULL
+                                CONSTRAINT rhn_equeue_cid_fk
+                                REFERENCES rhnChannel(id)
+                                ON DELETE CASCADE,
     next_action  DATE, 
     created      DATE 
                      DEFAULT (sysdate) NOT NULL, 
@@ -37,6 +41,4 @@ CREATE INDEX rhn_equeue_na_eid_idx
     ON rhnErrataQueue (next_action, errata_id)
     TABLESPACE [[8m_tbs]];
 
-ALTER TABLE rhnErrataQueue
-    ADD CONSTRAINT rhn_equeue_eoid_uq UNIQUE (errata_id);
 

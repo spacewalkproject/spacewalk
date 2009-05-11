@@ -66,7 +66,6 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.ObjectNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -909,8 +908,8 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         snap.addGroup(grp);
         
         TestUtils.saveAndFlush(snap);        
-        List<ServerSnapshot> list = ServerFactory.listSnapshotsForServer(server2, 
-                server2.getOrg());
+        List<ServerSnapshot> list = ServerFactory.listSnapshots(server2.getOrg(), 
+                server2, null, null);
         assertContains(list, snap);
         assertContains(snap.getGroups(), grp);
     }
@@ -933,14 +932,9 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         TestUtils.saveAndFlush(snap);
         ServerFactory.deleteSnapshot(snap);
         boolean lost = false;
-        try {
-                ServerSnapshot snap2 = ServerFactory.lookupSnapshotById(
-                        snap.getId().intValue());
-            }
-        catch (ObjectNotFoundException e) {
-            lost = true;
-        }
-        assertTrue(lost);
+        ServerSnapshot snap2 = ServerFactory.lookupSnapshotById(
+            snap.getId().intValue());
+        assertNull(snap2);
     }
     
     

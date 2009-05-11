@@ -25,6 +25,7 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.cobbler.SystemRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +49,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     private String mediaPath;
     private String profileName;
     private String activationKeys;
+    private String kickstartHost;
     
     /**
      * Constructor
@@ -106,7 +108,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         profileName = nameIn;
     }    
   
-    private String getSystemHandleByMAC() {
+    protected String lookupExisting() {
         Map sysmap = getSystemMapByMac();
         if (sysmap != null) {
             log.debug("getSystemHandleByMAC.found match.");
@@ -123,7 +125,18 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
         // Build up list of mac addrs
         List macs = new LinkedList();
         for (NetworkInterface n : server.getNetworkInterfaces()) {
-            macs.add(n.getHwaddr().toLowerCase());
+            // Skip localhost and non real interfaces
+            if (n.getHwaddr() == null ||
+                n.getHwaddr().equals("00:00:00:00:00:00") ||
+                n.getHwaddr().equals("fe:ff:ff:ff:ff:ff") ||
+                n.getIpaddr() == null ||
+                n.getIpaddr().equals("127.0.0.1")) {
+                log.debug("Skipping.  not a real interface");
+            }
+            else {
+                macs.add(n.getHwaddr().toLowerCase());
+            }
+            
         }
 
         List <String> args = new ArrayList();
@@ -143,6 +156,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 String mac = (String) iface.get("mac_address");
                 log.debug("getSystemMapByMac.ROW: " + row + 
                         " looking for: " + macs);
+                
                 if (mac != null && 
                         macs.contains(mac.toLowerCase())) {
                     log.debug("getSystemMapByMac.found match.");
@@ -162,7 +176,7 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
     public ValidatorError store() {
         String handle = null;
         // First lookup by MAC addr
-        handle = getSystemHandleByMAC();
+        handle = lookupExisting();
         if (handle == null) {
             // Next try by name
             try {
@@ -198,17 +212,31 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
                 "have a redhat_management_key set ");
         }
         else {
-            args = new Object[]{handle, "redhat_management_key", 
-                    this.activationKeys, xmlRpcToken};
+            invokeXMLRPC("modify_system", handle, "redhat_management_key",
+                                            this.activationKeys, xmlRpcToken);
         }
 
-        invokeXMLRPC("modify_system", Arrays.asList(args));
+
+        if (!StringUtils.isEmpty(getKickstartHost())) {
+            invokeXMLRPC("modify_system", handle, "server",
+                                getKickstartHost(), xmlRpcToken);
+        }
+        else {
+            invokeXMLRPC("modify_system", handle, "server",
+                    "", xmlRpcToken);
+        }
+
+
         
         // Setup the kickstart metadata so the URLs and activation key are setup
         Map ksmeta = new HashMap();
         if (!StringUtils.isBlank(mediaPath)) {
             ksmeta.put(KickstartUrlHelper.COBBLER_MEDIA_VARIABLE,
                                                     this.mediaPath);            
+        }
+        if (!StringUtils.isBlank(getKickstartHost())) {
+            ksmeta.put(SystemRecord.REDHAT_MGMT_SERVER,
+                    getKickstartHost());
         }
 
         args = new Object[]{handle, "ksmeta", 
@@ -265,6 +293,22 @@ public class CobblerSystemCreateCommand extends CobblerCommand {
      */
     public Server getServer() {
         return server;
+    }
+
+
+    /**
+     * @return Returns the kickstartHost.
+     */
+    public String getKickstartHost() {
+        return kickstartHost;
+    }
+
+
+    /**
+     * @param kickstartHostIn The kickstartHost to set.
+     */
+    public void setKickstartHost(String kickstartHostIn) {
+        this.kickstartHost = kickstartHostIn;
     }
   
 }

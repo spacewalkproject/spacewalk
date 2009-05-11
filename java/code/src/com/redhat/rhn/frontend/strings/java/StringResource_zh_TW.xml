@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>提示</target>
 			</trans-unit>
-			<trans-unit id="About RHN">
-				<source>About RHN</source>
-				<target>關於 RHN</target>
+			<trans-unit id="About Spacewalk">
+				<source>About</source>
+				<target>關於</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -188,7 +188,7 @@
 			</trans-unit>
 			<trans-unit id="All">
 				<source>All</source>
-				<target>所有</target>
+				<target>所有系統</target>
 			</trans-unit>
 			<trans-unit id="alphabet">
 				<source>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</source>
@@ -204,7 +204,7 @@
 			</trans-unit>
 			<trans-unit id="Sample Scripts">
 				<source>Sample Scripts</source>
-				<target>範例程序檔</target>
+				<target>範例 Script</target>
 			</trans-unit>
 			<trans-unit id="Archived Actions">
 				<source>Archived Actions</source>
@@ -225,6 +225,10 @@
 			<trans-unit id="Change Email">
 				<source>Change Email</source>
 				<target>變更電子郵件</target>
+			</trans-unit>
+			<trans-unit id="frontend.actions.channels.manager.create">
+				<source>Create Software Channel</source>
+				<target>建立軟體頻道</target>
 			</trans-unit>
 			<trans-unit id="Software Channel Entitlements">
 				<source>Software Channel Entitlements</source>
@@ -258,9 +262,9 @@
 				<source>Config Channels</source>
 				<target>設定頻道</target>
 			</trans-unit>
-			<trans-unit id="Contact RHN">
-				<source>Contact RHN</source>
-				<target>連絡 RHN</target>
+			<trans-unit id="Contact Spacewalk">
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>聯絡 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -292,7 +296,7 @@
 			</trans-unit>
 			<trans-unit id="Distributions">
 				<source>Distributions</source>
-				<target>散佈版本</target>
+				<target>發行套件</target>
 			</trans-unit>
 			<trans-unit id="Download Software">
 				<source>Download Software</source>
@@ -334,9 +338,9 @@
 				<source>File Preservation</source>
 				<target>檔案保存</target>
 			</trans-unit>
-			<trans-unit id="Get RHN Software">
-				<source>Get RHN Software</source>
-				<target>取得 RHN 軟體</target>
+			<trans-unit id="Get Spacewalk Software">
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>取得 @@PRODUCT_NAME@@ 軟體</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,17 +398,17 @@
 				<source>Management</source>
 				<target>管理</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Guide">
-				<source>Management Satellite Guide</source>
-				<target>管理衛星伺服器指南</target>
+			<trans-unit id="Management Spacewalk Guide">
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>管理 @@PRODUCT_NAME@@ 的指南</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite">
-				<source>Management Satellite</source>
-				<target>管理衛星伺服器</target>
+			<trans-unit id="Management Spacewalk">
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>管理 @@PRODUCT_NAME@@</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Release Notes">
-				<source>Management Satellite Release Notes</source>
-				<target>管理衛星伺服器的發行公告</target>
+			<trans-unit id="Management Spacewalk Release Notes">
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>管理 @@PRODUCT_NAME@@ 的發行公告</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -415,10 +419,6 @@
 				<target>管理軟體套件</target>
 			</trans-unit>
 			<trans-unit id="Monitoring">
-				<source>Monitoring</source>
-				<target>監控</target>
-			</trans-unit>
-			<trans-unit id="monitoring_entitled">
 				<source>Monitoring</source>
 				<target>監控</target>
 			</trans-unit>
@@ -440,7 +440,7 @@
 			</trans-unit>
 			<trans-unit id="Overview">
 				<source>Overview</source>
-				<target>一覽</target>
+				<target>總覽</target>
 			</trans-unit>
 			<trans-unit id="Packages">
 				<source>Packages</source>
@@ -490,17 +490,17 @@
 				<source>Published</source>
 				<target>已出版</target>
 			</trans-unit>
-			<trans-unit id="Purchase History">
-				<source>Purchase History</source>
-				<target>購買的歷史紀錄</target>
-			</trans-unit>
 			<trans-unit id="Subscription Management">
 				<source>Subscription Management</source>
 				<target>訂閱管理</target>
 			</trans-unit>
+			<trans-unit id="Organization Trusts">
+				<source>Organization Trusts</source>
+				<target>組織 Trust</target>
+			</trans-unit>
 			<trans-unit id="Quick Start Guide">
 				<source>Quick Start Guide</source>
-				<target>快速啟動指南</target>
+				<target>快速使用指南</target>
 			</trans-unit>
 			<trans-unit id="Quota">
 				<source>Quota</source>
@@ -516,7 +516,7 @@
 			</trans-unit>
 			<trans-unit id="Relevant">
 				<source>Relevant</source>
-				<target>有關的</target>
+				<target>相關</target>
 			</trans-unit>
 			<trans-unit id="request">
 				<source>Request</source>
@@ -526,29 +526,21 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL 轉移 FAQ</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Satellite Tools">
-				<source>RHN Management Satellite Tools</source>
-				<target>RHN 管理衛星伺服器工具</target>
+			<trans-unit id="Spacewalk Management Tools">
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ 管理工具</target>
 			</trans-unit>
-			<trans-unit id="RHN Security">
-				<source>RHN Security</source>
-				<target>RHN 安全</target>
-			</trans-unit>
-			<trans-unit id="Red Hat Login">
-				<source>Red Hat Login</source>
-				<target>Red Hat 登入帳號</target>
+			<trans-unit id="Spacewalk Login">
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ 登入帳號</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>建立登入帳號</target>
 			</trans-unit>
-			<trans-unit id="RHN Support Tools">
-				<source>RHN Support Tools</source>
-				<target>RHN 支援工具</target>
-			</trans-unit>
-			<trans-unit id="Satellite Release Notes">
-				<source>Satellite Release Notes</source>
-				<target>衛星伺服器的發行公告</target>
+			<trans-unit id="Spacewalk Support Tools">
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ 支援工具</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -557,6 +549,10 @@
 			<trans-unit id="Scout Config Push">
 				<source>Scout Config Push</source>
 				<target>偵察設定推送</target>
+			</trans-unit>
+			<trans-unit id="Search">
+				<source>Search</source>
+				<target>搜尋</target>
 			</trans-unit>
 			<trans-unit id="Sessions">
 				<source>Sessions</source>
@@ -702,6 +698,14 @@
 				<source>You may not delete yourself.</source>
 				<target>您不能刪除自己。</target>
 			</trans-unit>
+			<trans-unit id="user.satadmin.remove">
+				<source>Removed Satellite Administrator role from {0}</source>
+				<target>已由 {0} 將衛星伺服器管理員角色移除</target>
+			</trans-unit>
+			<trans-unit id="user.satadmin.add">
+				<source>Added Satellite Administrator role to {0}</source>
+				<target>已將衛星伺服器管理員角色新增至 {0}</target>
+			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
 				<target>您不能刪除「&lt;strong&gt;另一個&lt;/strong&gt;」組織管理員。在試圖刪除「組織管理員」的帳號前，請先移除這使用者的組織管理員角色。</target>
@@ -738,41 +742,41 @@
 				<source>Your Preferences</source>
 				<target>您的偏好設定</target>
 			</trans-unit>
-			<trans-unit id="Your RHN">
-				<source>Your RHN</source>
-				<target>您專屬的 RHN</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>組織申請者</target>
 			</trans-unit>
 			<trans-unit id="Organization Admins">
 				<source>Organization Admins</source>
-				<target>組織管理者</target>
+				<target>組織管理員</target>
 			</trans-unit>
 			<trans-unit id="Activation Key Administrators">
 				<source>Activation Key Administrators</source>
-				<target>啟動金鑰管理者</target>
+				<target>啟動金鑰管理員</target>
 			</trans-unit>
 			<trans-unit id="Channel Administrators">
 				<source>Channel Administrators</source>
-				<target>頻道管理者</target>
+				<target>頻道管理員</target>
 			</trans-unit>
 			<trans-unit id="Organization Administrators">
 				<source>Organization Administrators</source>
-				<target>組織管理者</target>
+				<target>組織管理員</target>
 			</trans-unit>
 			<trans-unit id="Satellite Administrators">
-				<source>Satellite Administrators</source>
-				<target>衛星管理者</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 管理員</target>
 			</trans-unit>
-			<trans-unit id="RHN Super Users">
-				<source>RHN Super Users</source>
-				<target>RHN 超級使用者</target>
+			<trans-unit id="Spacewalk Administrators">
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 管理員</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Super Users">
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ 超級用戶</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
-				<target>系統群組管理者</target>
+				<target>系統群組管理員</target>
 			</trans-unit>
 			<trans-unit id="for Org">
 				<source> for Org </source>
@@ -844,15 +848,15 @@
 			</trans-unit>
 			<trans-unit id="error.addr_empty">
 				<source>A valid email address must be entered</source>
-				<target>請輸入正確的電子郵件位址</target>
+				<target>請輸入正確的電子郵件地址</target>
 			</trans-unit>
 			<trans-unit id="error.addr_invalid">
 				<source>Entered email address is not valid</source>
-				<target>所輸入的電子郵件位址無效</target>
+				<target>所輸入的電子郵件地址無效</target>
 			</trans-unit>
 			<trans-unit id="error.addr_exists">
 				<source>Email address "{0}" already exists</source>
-				<target>電子郵件位址「{0}」已經存在</target>
+				<target>電子郵件地址「{0}」已經存在</target>
 			</trans-unit>
 			<trans-unit id="error.minlogin">
 				<source>Logins must be no shorter than {0} characters.</source>
@@ -880,7 +884,7 @@
 			</trans-unit>
 			<trans-unit id="error.unknown_usertype">
 				<source>Unknown account type.</source>
-				<target>未知的帳號類型。</target>
+				<target>不明的帳號類型。</target>
 			</trans-unit>
 			<trans-unit id="confirm">
 				<source>Confirm</source>
@@ -1032,15 +1036,15 @@
 			</trans-unit>
 			<trans-unit id="message.filterby">
 				<source>Filter by {0}: </source>
-				<target>由 {0} 篩選： </target>
+				<target>由 {0} 來篩選：</target>
 			</trans-unit>
 			<trans-unit id="message.filterby.multiple">
 				<source>Filter by: </source>
-				<target>由...篩選： </target>
+				<target>由...來篩選：</target>
 			</trans-unit>
 			<trans-unit id="message.range">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{2}&lt;/strong&gt; 的 &lt;strong&gt;{1}&lt;/strong&gt;</target>
+				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
+				<target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="message.range.withtypedescription">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
@@ -1150,15 +1154,15 @@
 			</trans-unit>
 			<trans-unit id="configfiles.deploy">
 				<source>Deploy config files to system</source>
-				<target>對系統佈署設定檔</target>
+				<target>將設定檔建置至系統</target>
 			</trans-unit>
 			<trans-unit id="configfiles.verify">
 				<source>Verify deployed config files</source>
-				<target>驗證以佈署的設定檔</target>
+				<target>驗證已建置的設定檔</target>
 			</trans-unit>
 			<trans-unit id="configfiles.diff">
 				<source>Show differences between profiled config files and deployed config files</source>
-				<target>顯示儲存設定檔與佈署設定檔的不同</target>
+				<target>顯示已儲存的設定檔和已建置的設定檔之間的不同</target>
 			</trans-unit>
 			<trans-unit id="config.actionnote">
 				<source>&lt;a href="{0}"&gt;Revision {1}&lt;/a&gt; of {2} from &lt;a href="{3}"&gt;{4}&lt;/a&gt;</source>
@@ -1177,8 +1181,8 @@
 				<target>需上傳的檔案：</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.message">
-				<source>This kickstart profile uses a base channel that is missing packages. In order for all kickstart functionality to work correctly, the following packages should be present in this kickstart's base channel: {0}.</source>
-				<target>此 kickstart 設定檔使用了一個遺失套件的基礎頻道。若要能使完整的 kickstart 功能運作，下列的套件必須出現在此 kickstart 的基礎頻道：{0}。</target>
+				<source>The following packages are not available in any of the channels associated to this kickstart profile: {0}. In order for all kickstart functionality to work correctly, these packages should be present in at least one channel associated to this profile.</source>
+				<target>下列套件無法使用於任何與此 kickstart 設定檔相聯的頻道中：{0}。若要能使 kickstart 功能完整運作的話，這些套件必須出現在至少一個與此設定檔相聯的頻道中。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.satmessage">
 				<source>&lt;div style="text-align: left;"&gt;
@@ -1187,11 +1191,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Satellite administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Satellite. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1207,24 +1211,27 @@ available for this kickstart profile to function properly.
 &lt;/ul&gt;
 &lt;/div&gt;</source>
 				<target>&lt;div style="text-align: left;"&gt;
-&lt;p&gt;要解決這問題，請檢查以下項目：&lt;/p&gt;
+&lt;p&gt;若要解決這項問題，請檢查以下項目：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-您的組織是否可以使用這 kickstart 設定檔的基礎頻道之「rhn-tools」子軟體
-頻道？若否，您需要向您的衛星管理員要求這個「rhn-tools」軟體頻道的權利。
+您的組織是否可以使用此 kickstart 設定檔的基礎頻道之「rhn-tools」子軟體
+頻道？若不行的話，您將需要向您的 @@PRODUCT_NAME@@ 管理員
+要求這個「rhn-tools」軟體頻道的權利。
 &lt;/li&gt;
 &lt;li&gt;
-請確定您的衛星伺服器可以使用這個 kickstart 設定檔的基礎頻道之「rhn-tools」
-子頻道。若否，請聯絡您的衛星管理員，為這 rhn-tools 頻道要求 satellite-sync
+請確定您的 @@PRODUCT_NAME@@ 能夠使用此 kickstart 設定檔的基礎
+頻道之「rhn-tools」
+子頻道。若不行的話，請聯絡您的衛星伺服器管理員，並為 rhn-tools 頻道要求 satellite-sync
 （同步衛星伺服器的資料），然後再試一次。
 &lt;/li&gt;
 &lt;li&gt;
-請確定與此 kickstart 相關的 rhn-kickstart* 套件能在 kickstart 的基礎頻道之
-「rhn-tools」頻道中找到。若否，請啟用之，如此才能正常運作。
+請確認與此 kickstart 相關的 rhn-kickstart* 套件能在 kickstart 的基礎頻道之
+「rhn-tools」頻道中使用。若不行的話，請啟用之，
+如此一來該 kickstart 設定檔才能正常運作。
 &lt;/li&gt;
 &lt;li&gt;
-以上所列之套件是否可以在這 kickstart 的基礎頻道中找到？若否，請啟用之，這
-樣此 kickstart 設定檔才能正常運作。
+以上所列出之套件是否可以在此 kickstart 的基礎頻道中找到？若不行的話，請啟用之，
+如此一來該 kickstart 設定檔才能正常運作。
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;</target>
@@ -1273,6 +1280,10 @@ available for this kickstart profile to function properly.
 				<source>Kickstart advanced options successfully updated.</source>
 				<target>kickstart 的進階選項已經成功地更新。</target>
 			</trans-unit>
+			<trans-unit id="kickstart.options.url.note">
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
+				<target>&lt;strong&gt;請注意：&lt;/strong&gt;預設的 @@PRODUCT_NAME@@ kickstart URL 只使用檔案路徑來儲存，這能讓 @@PRODUCT_NAME@@ 知道何時應動態式地調整納入 kickstart 檔案中的 URL 中的主機名稱。您可（針對於代理伺服器等等）透過將這個值更改為完整的 URL 來將它自訂化，並且它會如此一般地出現在 kickstart 檔案中。</target>
+			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
 				<target>IP 位址範圍已經成功地加入 kickstart 設定檔 {0} 中</target>
@@ -1293,6 +1304,38 @@ available for this kickstart profile to function properly.
 				<source>There was an error deleting the IP Range from Kickstart Profile {0}. Please try again.</source>
 				<target>從 kickstart 設定檔 {0} 中刪除 IP 位址範圍時，發生錯誤。請再試一次。</target>
 			</trans-unit>
+			<trans-unit id="cobblersnippet.update.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>已成功更新 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.create.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>已成功建立 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.delete.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>已成功刪除 Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt;。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.couldnotdelete.message">
+				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+				<target>當嘗試刪除 snippet &lt;strong&gt;{0}&lt;/strong&gt; 時發生了錯誤。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.rename-error">
+				<source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+				<target>當嘗試將 snippet &lt;strong&gt;{0}&lt;/strong&gt; 重新命名為 &lt;strong&gt;{1}&lt;/strong&gt; 時發生了錯誤。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.filenameexists.message">
+				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>名稱同樣為 &lt;strong&gt;{0}&lt;/strong&gt; 的 Cobbler snippet 已存在。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.invalidfilename.message">
+				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+				<target>請求的 Cobbler snippet 檔案名稱無效。有效字元為 A-Z、0-9、_ 和 -。</target>
+			</trans-unit>
+			<trans-unit id="toolbar.delete.snippets">
+				<source>delete snippet</source>
+				<target>刪除 snippet</target>
+			</trans-unit>
 			<trans-unit id="kickstart.iprange.url">
 				<source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
 				<target>您可以根據新系統的 IP 位址來 kickstart，方法是在使用 kickstart 安裝時，將 &lt;code&gt;{0}&lt;/code&gt; 加入核心參數。</target>
@@ -1303,7 +1346,7 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="kickstart.partition.invalid">
 				<source>Invalid partition value removed: &lt;strong&gt;{0}&lt;/strong&gt;. Please verify the input values and resubmit.</source>
-				<target>不合乎規定的分割區數值已經移除：&lt;strong&gt;{0}&lt;/strong&gt;。請檢查輸入值，並重新提交一次。</target>
+				<target>已經移除了無效的分割區數值：&lt;strong&gt;{0}&lt;/strong&gt;。請檢查輸入值，並重新提交一次。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.partition.success">
 				<source>Kickstart profile options updated successfully.</source>
@@ -1319,7 +1362,7 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="activation.schedule_deploy">
 				<source>Schedule a config deploy for activation key</source>
-				<target>為啟動金鑰排程設定佈署</target>
+				<target>為啟動金鑰排程設定建置</target>
 			</trans-unit>
 			<trans-unit id="configfiles.mtime_upload">
 				<source>Upload config file data based upon mtime to server</source>
@@ -1351,23 +1394,23 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="script.run">
 				<source>Run an arbitrary script</source>
-				<target>執行惡意的程序檔</target>
+				<target>執行任意的 script</target>
 			</trans-unit>
 			<trans-unit id="solarispkgs.refresh_list">
 				<source>Solaris Package List Refresh</source>
 				<target>更新 Solaris 套件清單</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>RHN Daemon Configuration</source>
-				<target>RHN 系統程式的設定</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ 系統程式的設定</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
-				<target>驗證已佈署的套件</target>
+				<target>驗證已建置的套件</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an RHN Satellite</source>
-				<target>允許 RHN 衛星伺服器使用 rhn-applet</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>允許 @@PRODUCT_NAME@@ 使用 rhn-applet</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1413,6 +1456,14 @@ available for this kickstart profile to function properly.
 				<source>You must select at least one system.</source>
 				<target>您必須選擇至少一個系統。</target>
 			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.startdate">
+				<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
+				<target>無法剖析起始日期，請重新以 yyyy-mm-dd 這個格式來輸入日期。</target>
+			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.enddate">
+				<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
+				<target>無法剖析結束日期，請重新以 yyyy-mm-dd 這個格式來輸入日期。</target>
+			</trans-unit>
 			<trans-unit id="patchremoveconfirm.schedule">
 				<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
 				<target>已經為 &lt;strong&gt;{1}&lt;/strong&gt; 系統排程移除升級檔</target>
@@ -1447,15 +1498,15 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="cert_admin">
 				<source>Certificate Administrator</source>
-				<target>認證管理者</target>
+				<target>認證管理員</target>
 			</trans-unit>
 			<trans-unit id="org_admin">
 				<source>Organization Administrator</source>
-				<target>組織管理者</target>
+				<target>組織管理員</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Satellite Administrator</source>
-				<target>衛星管理者</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ 管理員</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1463,15 +1514,15 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="channel_admin">
 				<source>Channel Administrator</source>
-				<target>頻道管理者</target>
+				<target>頻道管理員</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Red Hat Network Superuser</source>
-				<target>Red Hat Network 超級使用者</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ 超級用戶</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
-				<target>Coma CMS 管理者</target>
+				<target>Coma CMS 管理員</target>
 			</trans-unit>
 			<trans-unit id="coma_author">
 				<source>Coma CMS Author</source>
@@ -1482,24 +1533,24 @@ available for this kickstart profile to function properly.
 				<target>Coma CMS 出版者</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Red Hat Network Support Administrator</source>
-				<target>Red Hat Network 支援管理者</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ 支援管理員</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
-				<target>設定管理者</target>
+				<target>設定管理員</target>
 			</trans-unit>
 			<trans-unit id="monitoring_admin">
 				<source>Monitoring Administrator</source>
-				<target>監控管理者</target>
+				<target>監控管理員</target>
 			</trans-unit>
 			<trans-unit id="system_group_admin">
 				<source>System Group Administrator</source>
-				<target>系統群組管理者</target>
+				<target>系統群組管理員</target>
 			</trans-unit>
 			<trans-unit id="activation_key_admin">
 				<source>Activation Key Administrator</source>
-				<target>啟動金鑰管理者</target>
+				<target>啟動金鑰管理員</target>
 			</trans-unit>
 			<trans-unit id="normal_user">
 				<source>(normal user)</source>
@@ -1520,6 +1571,10 @@ available for this kickstart profile to function properly.
 			<trans-unit id="toolbar.create.filter">
 				<source>create new notification filter</source>
 				<target>建立新通知篩選</target>
+			</trans-unit>
+			<trans-unit id="toolbar.upload.kickstart">
+				<source>upload new kickstart file</source>
+				<target>上傳新的 kickstart 檔案</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.kickstart">
 				<source>create new kickstart profile</source>
@@ -1569,6 +1624,14 @@ available for this kickstart profile to function properly.
 				<source>delete system</source>
 				<target>刪除系統</target>
 			</trans-unit>
+			<trans-unit id="toolbar.delete.systemgroup">
+				<source>delete group</source>
+				<target>刪除群組</target>
+			</trans-unit>
+			<trans-unit id="toolbar.work.with.group">
+				<source>work with group</source>
+				<target>進行群組作業</target>
+			</trans-unit>
 			<trans-unit id="toolbar.delete.errata">
 				<source>delete errata</source>
 				<target>刪除勘誤</target>
@@ -1579,7 +1642,7 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="toolbar.delete.deleteTree">
 				<source>delete distribution</source>
-				<target>散佈版本</target>
+				<target>刪除發行套件</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.probesuite">
 				<source>create new probe suite</source>
@@ -1603,7 +1666,7 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="email.verified">
 				<source>Email Address Updated</source>
-				<target>電子郵件位址已更新</target>
+				<target>電子郵件地址已更新</target>
 			</trans-unit>
 			<trans-unit id="errata.create.bugfixadvisory">
 				<source>Bug Fix Advisory</source>
@@ -1616,6 +1679,10 @@ available for this kickstart profile to function properly.
 			<trans-unit id="errata.create.securityadvisory">
 				<source>Security Advisory</source>
 				<target>安全建議</target>
+			</trans-unit>
+			<trans-unit id="errata.search.could_not_execute_query">
+				<source>Could not execute query: {0}</source>
+				<target>無法執行查詢：{0}</target>
 			</trans-unit>
 			<trans-unit id="packages.search.both">
 				<source>Name and Summary</source>
@@ -1657,9 +1724,21 @@ available for this kickstart profile to function properly.
 				<source>Could not parse query '{0}'.</source>
 				<target>無法解析 {0} 查詢。</target>
 			</trans-unit>
+			<trans-unit id="packages.search.index_files_missing">
+				<source>Index files missing from search-server.  Assuming data exists in database, indexes can be regenerated by running: /etc/init.d/rhn-search cleanindex, then restart rhn-search</source>
+				<target>搜尋伺服器的檢索檔案遺失。假設資料儲存在資料庫中的話，檢索便能透過執行 /etc/init.d/rhn-search cleanindex 然後重新啟動 rhn-search 來重新產生。</target>
+			</trans-unit>
+			<trans-unit id="packages.search.could_not_execute_query">
+				<source>Could not execute query '{0}'.</source>
+				<target>無法執行查詢「{0}」。</target>
+			</trans-unit>
 			<trans-unit id="packages.search.tooshort">
 				<source>Search strings must be longer than two characters.</source>
 				<target>搜尋字串必須多於兩個字元。</target>
+			</trans-unit>
+			<trans-unit id="packages.search.index_out_of_sync_with_db">
+				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target>套件搜尋檢索和資料庫項目似乎沒有同步化。請執行「/sbin/service rhn-search cleanindex; /sbin/service rhn-search start」。</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1712,6 +1791,14 @@ available for this kickstart profile to function properly.
 			<trans-unit id="systemsearch_cpu_mhz_gt">
 				<source>CPU Mhz Greater Than</source>
 				<target>中央處理器 MHz 大於</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_lt">
+				<source>Number of CPUs Less Than</source>
+				<target>中央處理器數量小於</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_gt">
+				<source>Number of CPUs Greater Than</source>
+				<target>中央處理器數量大於</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_ram_lt">
 				<source>RAM Less Than</source>
@@ -1785,17 +1872,25 @@ available for this kickstart profile to function properly.
 				<source>Needed Packages</source>
 				<target>所需的套件</target>
 			</trans-unit>
+			<trans-unit id="systemsearch_running_kernel">
+				<source>Running Kernel</source>
+				<target>執行中的 Kernel</target>
+			</trans-unit>
 			<trans-unit id="systemsearch.jsp.location">
 				<source>Location</source>
 				<target>位置</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_location_address">
 				<source>Address</source>
-				<target>位址</target>
+				<target>地址</target>
 			</trans-unit>
 			<trans-unit id="systemsearch.errors.numeric">
 				<source>Search queries for this field must be numeric</source>
 				<target>此欄位的搜尋詢問必須為數字</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_no_matches_found">
+				<source>No matches found</source>
+				<target>找不到符合的項目</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.sameorg">
 				<source>User to deactivate must be in the same organization.</source>
@@ -1803,11 +1898,11 @@ available for this kickstart profile to function properly.
 			</trans-unit>
 			<trans-unit id="userdisable.error.onlyuser">
 				<source>This user is the last Organization Administrator for this Organization. You cannot remove him from the Organization Administrators group.</source>
-				<target>這使用者是本組織的最後一個組織管理者，您不能將他從組織管理者群組中移除。</target>
+				<target>這使用者是本組織的最後一個組織管理員，您不能將他從組織管理員群組中移除。</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.otheruser">
 				<source>Only Organization Administrators can deactivate users other than themselves.</source>
-				<target>只有組織管理者能停用使用者；但不包括自己。</target>
+				<target>只有組織管理員能停用使用者；但不包括自己。</target>
 			</trans-unit>
 			<trans-unit id="org.base.delete.error">
 				<source>You cannot delete the base Organization {0}</source>
@@ -1842,11 +1937,11 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="userenable.error.orgadmin">
 				<source>You must be an Organization Administrator to enable a user.</source>
-				<target>您必須是組織管理者，才可以啟用使用者。</target>
+				<target>您必須是組織管理員，才可以啟用使用者。</target>
 			</trans-unit>
 			<trans-unit id="userenable.error.orgadmin.param">
 				<source>{0}: You must be an Organization Administrator to enable a user.</source>
-				<target>{0}：您必須是組織管理者，才可以啟用使用者。</target>
+				<target>{0}：您必須是組織管理員，才可以啟用使用者。</target>
 			</trans-unit>
 			<trans-unit id="reactivateusers.none">
 				<source>Choose at least one user to reactivate.</source>
@@ -1968,6 +2063,14 @@ user before attempting to deactivate their account.</source>
 				<source>Install</source>
 				<target>安裝</target>
 			</trans-unit>
+			<trans-unit id="Remove">
+				<source>Remove</source>
+				<target>移除</target>
+			</trans-unit>
+			<trans-unit id="message.actionremove">
+				<source>Remove</source>
+				<target>移除</target>
+			</trans-unit>
 			<trans-unit id="Groups">
 				<source>Groups</source>
 				<target>群組</target>
@@ -2006,15 +2109,15 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="probecreate.created">
 				<source>Probe &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
-				<target>偵測 &lt;strong&gt;{0}&lt;/strong&gt; 以建立。</target>
+				<target>偵測 &lt;strong&gt;{0}&lt;/strong&gt; 已建立。</target>
 			</trans-unit>
 			<trans-unit id="upgrade.none">
 				<source>Choose at least one package to upgrade.</source>
-				<target>至少選擇一個套件以升級。</target>
+				<target>至少選擇一個套件以進行升級。</target>
 			</trans-unit>
 			<trans-unit id="download.none">
 				<source>Choose at least one package to download.</source>
-				<target>至少選擇一個套件以下載。</target>
+				<target>至少選擇一個套件以進行下載。</target>
 			</trans-unit>
 			<trans-unit id="download.toomany">
 				<source>At most {0} packages may be downloaded as a tarball at one time; please reduce your selection size.</source>
@@ -2025,16 +2128,16 @@ user before attempting to deactivate their account.</source>
 				<target>系統最後登入：</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current RHN time:</source>
-				<target>目前 RHN 時間：</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>@@PRODUCT_NAME@@ 的目前時間：</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>預期登入時間：</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 Red Hat Network。如果系統未登入 RHN，它就不能成功進行這動作。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確定 rhnsd 正在執行中（&lt;a href="/help/faq.pxt#15"&gt;更多資訊&lt;/a&gt;）。如果它執行失敗，請 &lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;注意：&lt;/strong&gt;本系統最近未登入 @@PRODUCT_NAME@@。如果系統未登入 @@PRODUCT_NAME@@，它就無法進行更新，因此這項動作不太可能會成功。&lt;br/&gt;&lt;br/&gt;請檢查系統，並確認 rhnsd 正在執行中（&lt;a href="/help/faq.pxt#15"&gt;更多資訊&lt;/a&gt;）。如果它執行失敗，請&lt;a href="/help/contact.pxt"&gt;連絡我們&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2113,8 +2216,8 @@ user before attempting to deactivate their account.</source>
 				<target>秒</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>安裝升級叢集 &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; 已經被 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;排程&lt;/a&gt;。</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>升級叢集 &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 的安裝程序已經被&lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;排程&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2232,9 +2335,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>一般設定</target>
 			</trans-unit>
-			<trans-unit id="Satellite Tools">
-				<source>Satellite Tools</source>
-				<target>衛星伺服器工具</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>管理員</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2247,10 +2350,6 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="recurring_duration">
 				<source>Recurring Duration</source>
 				<target>重複發生的時間</target>
-			</trans-unit>
-			<trans-unit id="message.actionremove">
-				<source>Remove</source>
-				<target>移除</target>
 			</trans-unit>
 			<trans-unit id="message.actiondowngrade">
 				<source>Downgrade to {0}</source>
@@ -2281,8 +2380,8 @@ user before attempting to deactivate their account.</source>
 				<target>您已經成功地 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;排程&lt;/a&gt;&lt;/strong&gt; 套件設定檔的同步，針對來自 &lt;strong&gt;{3}&lt;/strong&gt;的&lt;strong&gt;{2}&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;注意：&lt;/strong&gt;Red Hat Network 已經&lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;排程&lt;/a&gt;&lt;/strong&gt;硬體更新（針對&lt;strong&gt;{2}&lt;/strong&gt;），這會在套件設定檔同步之前執行。在系統得以比較套件前，這是必須確認的過程。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;請注意：&lt;/strong&gt;@@PRODUCT_NAME@@ 已經針對&lt;strong&gt;{2}&lt;/strong&gt;&lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;排程&lt;/a&gt;&lt;/strong&gt;了硬體更新，這會在套件設定檔同步之前執行。在系統得以比較套件前，必須先經過這項確認的過程。</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -2408,6 +2507,10 @@ user before attempting to deactivate their account.</source>
 				<source>Aruba</source>
 				<target>荷屬阿魯巴</target>
 			</trans-unit>
+			<trans-unit id="AX">
+				<source>Aland Islands</source>
+				<target>奧蘭群島</target>
+			</trans-unit>
 			<trans-unit id="AZ">
 				<source>Azerbaijan</source>
 				<target>阿塞拜然</target>
@@ -2495,6 +2598,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="CC">
 				<source>Cocos (Keeling) Islands</source>
 				<target>可可斯群島</target>
+			</trans-unit>
+			<trans-unit id="CD">
+				<source>CONGO, The Democratic Republic of the</source>
+				<target>剛果民主共和國</target>
 			</trans-unit>
 			<trans-unit id="CF">
 				<source>Central African Republic</source>
@@ -2645,12 +2752,16 @@ user before attempting to deactivate their account.</source>
 				<target>加彭</target>
 			</trans-unit>
 			<trans-unit id="GB">
-				<source>(GMT+0100) United Kingdom</source>
-				<target>(GMT+0100) 英國</target>
+				<source>United Kingdom</source>
+				<target>英國</target>
 			</trans-unit>
 			<trans-unit id="GB-Eire">
-				<source>(GMT+0100) Ireland</source>
-				<target>(GMT+0100) 愛爾蘭</target>
+				<source>Ireland</source>
+				<target>愛爾蘭</target>
+			</trans-unit>
+			<trans-unit id="IE">
+				<source>Ireland</source>
+				<target>愛爾蘭</target>
 			</trans-unit>
 			<trans-unit id="GD">
 				<source>Grenada</source>
@@ -2663,6 +2774,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="GF">
 				<source>French Guiana</source>
 				<target>法屬圭亞那</target>
+			</trans-unit>
+			<trans-unit id="GG">
+				<source>Guernsey</source>
+				<target>格恩西島</target>
 			</trans-unit>
 			<trans-unit id="GH">
 				<source>Ghana</source>
@@ -2744,13 +2859,13 @@ user before attempting to deactivate their account.</source>
 				<source>Indonesia</source>
 				<target>印尼</target>
 			</trans-unit>
-			<trans-unit id="IE">
-				<source>Ireland</source>
-				<target>愛爾蘭</target>
-			</trans-unit>
 			<trans-unit id="IL">
 				<source>Israel</source>
 				<target>以色列</target>
+			</trans-unit>
+			<trans-unit id="IM">
+				<source>Isle of Man</source>
+				<target>馬恩島</target>
 			</trans-unit>
 			<trans-unit id="IN">
 				<source>India</source>
@@ -2775,6 +2890,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="IT">
 				<source>Italy</source>
 				<target>義大利</target>
+			</trans-unit>
+			<trans-unit id="JE">
+				<source>Jersey</source>
+				<target>澤西</target>
 			</trans-unit>
 			<trans-unit id="JM">
 				<source>Jamaica</source>
@@ -2887,6 +3006,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="MD">
 				<source>Moldova</source>
 				<target>摩爾多瓦</target>
+			</trans-unit>
+			<trans-unit id="ME">
+				<source>Montenegro</source>
+				<target>蒙特內哥羅</target>
 			</trans-unit>
 			<trans-unit id="MG">
 				<source>Madagascar</source>
@@ -3052,6 +3175,10 @@ user before attempting to deactivate their account.</source>
 				<source>Puerto Rico</source>
 				<target>波多黎各</target>
 			</trans-unit>
+			<trans-unit id="PS">
+				<source>Palestinian Territory, Occupied</source>
+				<target>巴勒斯坦佔領區</target>
+			</trans-unit>
 			<trans-unit id="PT">
 				<source>Portugal</source>
 				<target>葡萄牙</target>
@@ -3071,6 +3198,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="RE">
 				<source>Reunion (French)</source>
 				<target>留尼旺（法）</target>
+			</trans-unit>
+			<trans-unit id="RS">
+				<source>Serbia</source>
+				<target>塞爾維亞</target>
 			</trans-unit>
 			<trans-unit id="RO">
 				<source>Romania</source>
@@ -3187,6 +3318,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="TK">
 				<source>Tokelau</source>
 				<target>托克勞</target>
+			</trans-unit>
+			<trans-unit id="TL">
+				<source>Timor-Leste</source>
+				<target>東帝汶</target>
 			</trans-unit>
 			<trans-unit id="TM">
 				<source>Turkmenistan</source>
@@ -3334,7 +3469,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="Bootstrap Script">
 				<source>Bootstrap Script</source>
-				<target>Bootscript 程序檔</target>
+				<target>Bootscript Script</target>
 			</trans-unit>
 			<trans-unit id="Restart">
 				<source>Restart</source>
@@ -3345,8 +3480,8 @@ user before attempting to deactivate their account.</source>
 				<target>重新啟動</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>您已經為 RHN 衛星伺服器服務建立的第一個使用者。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;請按這裡&lt;/strong&gt;&lt;/a&gt;完成額外設定。</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>您已為 @@PRODUCT_NAME@@ 服務建立了第一個使用者。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;請按這裡&lt;/strong&gt;&lt;/a&gt;完成額外設定。</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3361,8 +3496,8 @@ user before attempting to deactivate their account.</source>
 				<target>找不到認證。請選擇本機認證檔或將其內容貼至本表格。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Satellite has been re-activated.</source>
-				<target>認證上傳完畢。衛星伺服器已經重新啟動。</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>認證上傳完畢。@@PRODUCT_NAME@@ 已被重新啟動。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3373,8 +3508,8 @@ user before attempting to deactivate their account.</source>
 				<target>認證已過期</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Satellite version</source>
-				<target>未知的衛星伺服器版本</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>不明的 @@PRODUCT_NAME@@ 版本</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3386,59 +3521,59 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.40">
 				<source>Channel population failure</source>
-				<target>散佈頻道失敗</target>
+				<target>頻道集結失敗</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.80">
 				<source>No management entitlements remaining</source>
 				<target>沒有剩餘的管理權利</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Satellite channel not found</source>
-				<target>找不到衛星頻道</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>找不到 @@PRODUCT_NAME@@ 頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Satellite channel entitlements remaining</source>
-				<target>沒有剩餘的衛星頻道權利</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>沒有剩餘的 @@PRODUCT_NAME@@ 頻道權利</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Satellite certificate</source>
-				<target>不正確的衛星認證</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>無效的 @@PRODUCT_NAME@@ 認證</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
-				<target>未知的啟動錯誤</target>
+				<target>不明的啟動錯誤</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Satellite has no base channel on parent server</source>
-				<target>衛星伺服器在父伺服器上沒有基礎頻道</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@ 在父伺服器上沒有基礎頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Satellite channel available for this version</source>
-				<target>沒有適用於這版本的衛星伺服器頻道</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>沒有適用於此版本的 @@PRODUCT_NAME@@ 頻道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
-				<target>未被處理的錯誤</target>
+				<target>未處理的錯誤</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.127">
 				<source>Unhandled error</source>
-				<target>未被處理的錯誤</target>
+				<target>未處理的錯誤</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Satellite server hostname</source>
-				<target>衛星伺服器的主機名稱</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ 伺服器主機名稱</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
-				<target>同名程序檔已存在</target>
+				<target>同名的 script 已存在</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.11">
 				<source>Invalid script name</source>
-				<target>錯誤的程序檔名稱</target>
+				<target>無效的 script 名稱</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.12">
 				<source>Invalid arguments</source>
-				<target>錯誤的參數</target>
+				<target>無效的參數</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.13">
 				<source>Could not parse httpd proxy URL</source>
@@ -3462,7 +3597,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.success">
 				<source>Bootstrap script successfully generated.  You can access it &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt;</source>
-				<target>已成功產生 bootstrap 程序檔。您可以自 &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt; 存取</target>
+				<target>已成功產生 bootstrap script。您可以自 &lt;a href="{0}/pub/bootstrap/"&gt;{0}/pub/bootstrap/&lt;/a&gt; 存取</target>
 			</trans-unit>
 			<trans-unit id="restart.config.error">
 				<source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
@@ -3473,20 +3608,20 @@ user before attempting to deactivate their account.</source>
 				<target>發生錯誤，您對衛星伺服器的設定所做的改變無法儲存。欲知更多詳情，請尋求技術支援。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>正在重新啟動衛星伺服器。如果五分鐘內本網頁更新，請按&lt;a href="/rhn/YourRhn.do"&gt;這裡&lt;/a&gt;手動更新。</target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>正在重新啟動 @@PRODUCT_NAME@@。如果五分鐘內本網頁未更新，請點選&lt;a href="/rhn/YourRhn.do"&gt;這裡&lt;/a&gt;來嘗試手動式更新。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
-				<target>請勾選以下表單中的方塊，確定您想要重新啟動 RHN 衛星伺服器。</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>請藉由勾選以下表單中的方塊來確認您想要重新啟動 @@PRODUCT_NAME@@。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>RHN Satellite has been restarted.</source>
-				<target>RHN 衛星伺服器已經重新啟動。</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@ 已經重新啟動。</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>RHN Monitoring Scout</source>
-				<target>RHN 監控偵測</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ 監控偵測</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3517,6 +3652,10 @@ user before attempting to deactivate their account.</source>
 				<target>這描述已經在使用中。請為這金鑰輸入新的描述。</target>
 			</trans-unit>
 			<trans-unit id="label">
+				<source>Label</source>
+				<target>標籤</target>
+			</trans-unit>
+			<trans-unit id="filter.kickstart.label">
 				<source>Label</source>
 				<target>標籤</target>
 			</trans-unit>
@@ -3552,11 +3691,11 @@ user before attempting to deactivate their account.</source>
 				<source>No File List(s) selected.</source>
 				<target>並未選擇檔案清單。</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.added">
+			<trans-unit id="kickstart_activation_keys.added">
 				<source>{0} Activation Key(s) added.</source>
 				<target>已新增 {0} 啟動金鑰。</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.removed">
+			<trans-unit id="kickstart_activation_keys.removed">
 				<source>{0} Activation Key(s) removed.</source>
 				<target>已移除 {0} 個啟動金鑰。</target>
 			</trans-unit>
@@ -3579,7 +3718,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Red Hat Network:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3590,7 +3729,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>系統未登入：
 -------------------------
-以下系統最近並未登入 Red Hat Network：
+以下系統最近並未登入 @@PRODUCT_NAME@@：
 
 {0}
 
@@ -3646,11 +3785,11 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.script.pre">
 				<source>Pre Script</source>
-				<target>Pre 程序檔</target>
+				<target>Pre Script</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.post">
 				<source>Post Script</source>
-				<target>Post 程序檔</target>
+				<target>Post Script</target>
 			</trans-unit>
 			<trans-unit id="listdisplaytag.viewall">
 				<source>View All</source>
@@ -3662,7 +3801,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="tree.delete.success">
 				<source>Kickstart Distribution deleted successfully.</source>
-				<target>成功刪除 kickstart 散佈版本。</target>
+				<target>成功刪除 kickstart 發行套件。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.troubleshooting.validation.kernelparams.too_long">
 				<source>Extra kernel parameters can be no longer than 128 characters.</source>
@@ -3674,7 +3813,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="kickstart.locale.validation.timezone.invalid">
 				<source>Invalid timezone.</source>
-				<target>錯誤的時區。</target>
+				<target>無效的時區。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.script.delete">
 				<source>Kickstart Script Deleted.</source>
@@ -3692,9 +3831,21 @@ Follow this url to see the full list of inactive systems:
 				<source>Kickstart canceled by user: {0}</source>
 				<target>Kickstart 已由使用者取消：{0}</target>
 			</trans-unit>
+			<trans-unit id="kickstart.schedule.requires.older.gpgkey">
+				<source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
+				<target>系統 {0} 已被排程被 kickstart 至一個較舊版本的 Red Hat Enterprise Linux，它將需要較舊發行版的 GPG key。&lt;br/&gt;請安裝此金鑰，例如：&lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt;</target>
+			</trans-unit>
 			<trans-unit id="kickstart.schedule.success">
 				<source>System Kickstart scheduled for {0}</source>
 				<target>為 {0} 排程的系統 kickstart</target>
+			</trans-unit>
+			<trans-unit id="kickstart.schedule.cobblercreate">
+				<source>System record created for {0} in Cobbler.  This will allow you to kickstart this system using the {1} profile from {0}'s terminal with the usage of the 'koan' command.</source>
+				<target>已在 Cobbler 中為 {0} 建立了系統紀錄。這能讓您透過「koan」指令來使用來自於 {0} 的終端機的 {1} 設定檔來 kickstart 系統。</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.schedule.success">
+				<source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
+				<target>已為 {0} 排程了系統 Kickstart。請檢查系統主控台以查看狀態資訊。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.noprofiles">
 				<source>No profiles found that are compatible with this System.  Either you haven't created any Kickstart Profiles or this system does not have a Base Channel.</source>
@@ -3705,20 +3856,20 @@ Follow this url to see the full list of inactive systems:
 				<target>無法 kickstart &lt;strong&gt;{0}&lt;/strong&gt;，因為它沒有基礎頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>您已經沒有剩餘的訂閱至該系統目前基礎頻道的 RHN provisioning 頻道。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>您已經沒有剩餘的訂閱權利至此系統目前基礎頻道的 @@PRODUCT_NAME@@ provisioning 頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>您已經沒有剩餘的訂閱至該系統目前基礎頻道的 RHN provisioning 頻道。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>您已經沒有剩餘的訂閱權利至此系統目前基礎頻道的 @@PRODUCT_NAME@@ provisioning 頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>找不到所需的 RHN Provisioning 套件，給這台系統的基礎頻道與目標頻道使用：{0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>找不到需要的 @@PRODUCT_NAME@@ provisioning 套件給這台系統的目前基礎頻道與目標頻道使用：{0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
-				<target>您已經沒有剩餘的訂閱數至該系統目前基礎頻道的 {0} 頻道。</target>
+				<target>您已經沒有剩餘的訂閱數至此系統目前基礎頻道的 {0} 頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.noup2date">
 				<source>A kickstart was not scheduled for &lt;strong&gt;&lt;a href="/rhn/systems/details/Overview.do?sid={0}"&gt;{1}&lt;/a&gt;&lt;/strong&gt; because the package profile did not contain the 'up2date' package. An update of that system's package profile may be required.</source>
@@ -3733,8 +3884,8 @@ Follow this url to see the full list of inactive systems:
 				<target>為這台系統準備的 kickstart 已經啟動。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>找不到給 &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; 所使用的 Red Hat 工具頻道。</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
+				<target>無法查詢 {1} 的 @@PRODUCT_NAME@@ 工具頻道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3749,16 +3900,16 @@ Follow this url to see the full list of inactive systems:
 				<target>我們需要 up2date {0} 以上（含）的版本，好對系統進行 kickstart。這台系統已安裝 {1}，但在這台系統上，我們找不到 up2date，無法將其升級至所需的版本。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>過去 {0} 分鐘內，客座端系統並未與衛星伺服器通訊。因為硬體限制，安裝過程可能稍嫌緩慢，或停滯不前。您可以在主系統上執行 &lt;em&gt;virsh console &lt;strong&gt;客座端名稱&lt;/strong&gt;&lt;/em&gt; 進行障礙排除。這指令讓您連接到正在進行安裝的客座端之文字終端機，提供客座端系統安裝狀態的額外資訊。</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>在過去的 {0} 分鐘內，客座端系統並未與 @@PRODUCT_NAME@@ 進行通訊。因為硬體限制，安裝過程可能稍嫌緩慢，或停滯不前。&lt;p/&gt;您可以在主機系統上執行 &lt;em&gt;virsh console &lt;strong&gt;客座端名稱&lt;/strong%gt;&lt;/em&gt; 來進行疑難排解。這項指令能讓您連接到正在進行安裝的客座端之文字終端機，並提供有關此客座端系統安裝狀態的額外資訊。</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
-				<target>已更新 kickstart 散佈版本。</target>
+				<target>已更新 kickstart 發行套件</target>
 			</trans-unit>
 			<trans-unit id="tree.create.success">
 				<source>Kickstart Distribution Created</source>
-				<target>已建立 kickstart 散佈版本。</target>
+				<target>已建立 kickstart 發行套件</target>
 			</trans-unit>
 			<trans-unit id="kickstart.tree.invalidurl">
 				<source>The External Location field is not a valid URL.  Please reformat the field to contain a valid http/https/ftp type value.</source>
@@ -3768,9 +3919,17 @@ Follow this url to see the full list of inactive systems:
 				<source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
 				<target>這標籤的格式不正確，它應該包括文字、數字、減號、句號與底線符號，同時至少是四個字元。</target>
 			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidkernel">
+				<source>The kernel could not be found at the specified location: {0}</source>
+				<target>指定的位置上找不到 kernel：{0}</target>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidinitrd">
+				<source>The initrd could not be found at the specified location: {0}</source>
+				<target>指定的位置上找不到 initrd：{0}</target>
+			</trans-unit>
 			<trans-unit id="kickstart.tree.inuse">
 				<source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
-				<target>您打算刪除的 kickstart 散佈檔正在使用中。請使用這個散佈檔，刪除或改變 kickstart 設定檔的散佈檔。</target>
+				<target>您打算刪除的 kickstart 發行套件正在使用中。請使用這個發行套件來刪除或改變 kickstart 設定檔的發行套件。</target>
 			</trans-unit>
 			<trans-unit id="basepath">
 				<source>External Location</source>
@@ -3787,6 +3946,10 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="kickstart.schedule.already.scheduled.jsp">
 				<source>System {0} has a pending kickstart scheduled.</source>
 				<target>系統 {0} 有一個尚未處理的 kickstart 需求。</target>
+			</trans-unit>
+			<trans-unit id="activation-key.java.invalid_chars">
+				<source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+				<target>啟動金鑰標籤 &lt;strong&gt;{0}&lt;/strong&gt; 含有一或更多個下列無效字元 &lt;strong&gt;{1}&lt;/strong&gt;。請將這些字元由標籤中移除。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.java.exists">
 				<source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
@@ -3807,6 +3970,18 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="activation-key.java.org_prefixed">
 				<source>Please note that &lt;strong&gt;{0}&lt;/strong&gt; has been modified to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
 				<target>請注意 &lt;strong&gt;{0}&lt;/strong&gt; 已經改為 &lt;strong&gt;{1}&lt;/strong&gt;。</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy1">
+				<source>This system does not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system.</source>
+				<target>這部系統還未有配置建置功能。配置建置需要特定軟體被安裝至您的系統上並被啟用。</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy2">
+				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
+				<target>您可透過在 &lt;a href={0}&gt;{1}&lt;/a&gt; 畫面中點選「{2}」來選擇系統並確認配置建置功能可在此系統上啟用。</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.config_enablement.client">
+				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
+				<target>還有請藉由執行下列指令來確認配置管理在此系統上已被啟用：</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.addtossm">
 				<source>System added to the System Set Manager.</source>
@@ -3938,11 +4113,11 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="scheduledeploy.ssm.success">
 				<source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;1 system&lt;/strong&gt;.</source>
-				<target>已為 &lt;strong&gt;1 台系統&lt;/strong&gt;成功地排程了配置佈署的動作。</target>
+				<target>已為 &lt;strong&gt;1 台系統&lt;/strong&gt;成功地排程了配置建置的動作。</target>
 			</trans-unit>
 			<trans-unit id="scheduledeploy.ssm.successes">
 				<source>Configuration Deploy Action scheduled successfully for &lt;strong&gt;{0} systems&lt;/strong&gt;.</source>
-				<target>已為 &lt;strong&gt;{0} 台系統&lt;/strong&gt;成功地排程了配置佈署的動作。</target>
+				<target>已為 &lt;strong&gt;{0} 台系統&lt;/strong&gt;成功地排程了配置建置的動作。</target>
 			</trans-unit>
 			<trans-unit id="unsubscribe.ssm.success">
 				<source>&lt;strong&gt;1 system&lt;/strong&gt; successfully unsubscribed from configuration channels.</source>
@@ -4040,30 +4215,6 @@ Follow this url to see the full list of inactive systems:
 				<source>Email address</source>
 				<target>電子郵件信箱地址</target>
 			</trans-unit>
-			<trans-unit id="sw_mgr_entitled">
-				<source>Enterprise</source>
-				<target>企業</target>
-			</trans-unit>
-			<trans-unit id="enterprise_entitled">
-				<source>Enterprise</source>
-				<target>企業</target>
-			</trans-unit>
-			<trans-unit id="provisioning_entitled">
-				<source>Provisioning</source>
-				<target>Provisioning</target>
-			</trans-unit>
-			<trans-unit id="nonlinux_entitled">
-				<source>Non-Linux</source>
-				<target>非 Linux</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host">
-				<source>Virtualization</source>
-				<target>虛擬化</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host_platform">
-				<source>Virtualization Platform</source>
-				<target>虛擬化平台</target>
-			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
 				<target>電子郵件通知已全域性地被停用了</target>
@@ -4085,12 +4236,12 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 已被 ping 了。OSA 狀態會在接下來的一分鐘內更新。</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN 程式衛星伺服器的啟動程序已被 &lt;a href="{0}"&gt;排程&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet @@PRODUCT_NAME@@ 的啟動程序已被&lt;a href="{0}"&gt;排程&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
-				<target>無</target>
+				<target>None</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.unentitle">
 				<source>Unentitle System</source>
@@ -4106,15 +4257,15 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.noaction">
 				<source>No deploy action completed. [&lt;a href="{0}"&gt;Schedule Deploy Action&lt;/a&gt;]</source>
-				<target>無佈署動作被完成。「&lt;a href="{0}"&gt;排程佈署動作&lt;/a&gt;」</target>
+				<target>無建置動作被完成。「&lt;a href="{0}"&gt;排程建置動作&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.failure">
-				<source>All file and/or directory ({0}) deployments failed. [&lt;a href={1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>所有檔案與 / 或目錄（{0}）的佈署都失敗了。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
+				<target>所有檔案與/或目錄（{0}）的建置都失敗了。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>所有檔案與 / 或目錄（{0}）的佈署都成功了。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<target>所有檔案與 / 或目錄（{0}）的建置都成功了。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.noaction">
 				<source>No system comparisons completed. [&lt;a href="{0}"&gt;Schedule System Comparison&lt;/a&gt;]</source>
@@ -4125,56 +4276,56 @@ Follow this url to see the full list of inactive systems:
 				<target>被用來做比較的檔案或目錄尚未被選擇。「&lt;a href="{0}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案中的 {0} 個檔案已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個目錄中的 {0} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{1}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案的 {0} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個目錄中的 {0} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 與 1 個目錄的 {1} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案中的 {0} 個檔案以及 1 個目錄的 {1} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{2}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 1 個檔案的 {0} 與 {2} 個目錄的 {1} 已被成功地拿來與 RHN 管理的檔案與目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 1 個檔案中的 {0} 個檔案以及 {2} 個目錄的 {1} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 RHN 管理的檔案與目錄做比較。[&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系統上 {1} 個檔案中的 {0} 個檔案以及 1 個目錄的 {2} 個目錄已被成功地拿來與 @@PRODUCT_NAME@@ 所管理的檔案和目錄做比較。「&lt;a href="{3}"&gt;檢視詳細資料&lt;/a&gt;」</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
-				<target>現存的系統中沒有存在任何與 RHN 所管理的檔案相異的檔案。</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>現存的系統中沒有任何與 @@PRODUCT_NAME@@ 所管理的檔案相異的檔案存在。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
-				<target>系統上有 1 個檔案中的 1 個檔案與 RHN 所管理的檔案不同</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>系統上有 1 個檔案中的 1 個檔案與 @@PRODUCT_NAME@@ 所管理的檔案不同。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
-				<target>系統上有 {1} 個檔案中的 {0} 個檔案與 RHN 所管理的檔案不同</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>系統上有 {1} 個檔案中的 {0} 個檔案與 @@PRODUCT_NAME@@ 所管理的檔案不同。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4336,13 +4487,13 @@ Follow this url to see the full list of inactive systems:
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
 				<target>假如最後一次是以小於 {0} 個 vCPU 來啟動的話，{1} 也許就需要被重新啟動，才能讓改變生效。</target>
 			</trans-unit>
-			<trans-unit id="systems.details.virt.insufficient.memory">
-				<source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
-				<target>主系統上記憶體不足，無法變更客座端的記憶體為您想要的大小。這台主機系統 &lt;strong&gt;{0}&lt;/strong&gt; 的記憶體大小為 {1}MB。您所修改的記憶體大小超過本主機所擁有的實際大小（包括 hypervisor 所需的 {2}MB 以及為目前客座端所保留的記憶體。）&lt;a href="{3}"&gt;請更新這台主機系統的硬體設定檔&lt;/a&gt;如果這台電腦的記憶體超過 {1}MB。</target>
-			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
-				<source>{0} will require a reboot for max memory settings to take effect.</source>
-				<target>若要最大限度的記憶體設定生效的話，{0} 就會需要被重新啟動。</target>
+				<source>{0} must be shutdown for max memory settings to take effect.</source>
+				<target>若要最大限度的記憶體設定生效的話，{0} 將需要被關閉。</target>
+			</trans-unit>
+			<trans-unit id="systems.details.virt.memory.check.host">
+				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
+				<target>若要增加客座端記憶體的分配，請確認主機系統擁有足夠的記憶體。否則客座端下次也許會拒絕啟動。</target>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4384,13 +4535,25 @@ Follow this url to see the full list of inactive systems:
 				<source>Note:  Some channel subscriptions could not be updated because there were no available subscriptions.</source>
 				<target>請注意：有些頻道的訂閱無法被更新因為沒有可用的訂閱。</target>
 			</trans-unit>
+			<trans-unit id="selinux.java.invalid_mode">
+				<source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
+				<target>指定的 SE Linux 模式「{0}」無效。有效的值為 {1}。</target>
+			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.successMessage">
 				<source>Updated entitlement count for '{0}'</source>
 				<target>為「{0}」更新權利的數量</target>
 			</trans-unit>
 			<trans-unit id="orgsyssub.invalidnum">
 				<source>Provisioning must be a valid number.</source>
-				<target>Provision 必須是合於規則的數字。</target>
+				<target>Provision 必須是個有效的數字。</target>
+			</trans-unit>
+			<trans-unit id="orgsystemsubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>{0} 的權利修改必須是個有效的數字。</target>
+			</trans-unit>
+			<trans-unit id="orgsoftwaresubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>{0} 的權利修改必須是個有效的數字。</target>
 			</trans-unit>
 			<trans-unit id="multiorg.delete.org.button">
 				<source>Delete Selected Organizations</source>
@@ -4413,24 +4576,24 @@ Follow this url to see the full list of inactive systems:
 				<target>一個稱為「{0}」的檔案已存在此頻道中。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>無法自動地將系統訂閱至 Red Hat Network Tools 頻道。此頻道包含著虛擬化所需的套件。這通常是因為頻道權利不足。</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>無法自動地將系統訂閱至 @@PRODUCT_NAME@@ 工具頻道。此頻道包含著虛擬化所需的套件。這通常是因為頻道權利不足所造成的。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>無法自動地將系統訂閱至 RHEL Virtualization 頻道。此頻道包含著虛擬化所需的套件。這通常是因為頻道權利不足。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
-				<target>在 &lt;strong&gt;{1}&lt;/strong&gt; 頻道中無法找到 {0} 這個套件，此套件是 Red Hat Network 實施虛擬化時所需的套件。</target>
+				<source>Could not find a channel with the {0} package. This package is required to manage virtual guests with @@PRODUCT_NAME@@.</source>
+				<target>找不到包含了 {0} 套件的頻道。若要以 @@PRODUCT_NAME@@ 來管理虛擬客座端，此套件將是必要的。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
 				<target>系統已經擁有 {0} 這項權利了。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>當您增加了虛擬化權利至您的系統的同時，我們也實施了一些額外的步驟來確保您的系統能夠更有效地管理虛擬客座。欲取得更多資訊請參閱 &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;這裡&lt;/a&gt;。</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="{0}"&gt;here&lt;/a&gt; for more info.</source>
+				<target>當您增加了虛擬化權利至您的系統的同時，我們也實施了一些額外的步驟來確保您的系統能夠更有效地管理虛擬客座。欲取得更多資訊請參閱 &lt;a href="{0}"&gt;這裡&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
@@ -4438,7 +4601,7 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="system.entitle.invalid_addon_entitlement">
 				<source>Invalid add-on entitlement [{0}] provided.No such entitlement exists.</source>
-				<target>提供了錯誤的額外權利「{0}」。這項權利不存在。</target>
+				<target>提供了無效的額外權利「{0}」。這項權利不存在。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.noslots">
 				<source>There were no more {0} System Entitlements available.</source>
@@ -4454,7 +4617,15 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="system.invalidsystem">
 				<source>Invalid system</source>
-				<target>錯誤的系統</target>
+				<target>無效的系統</target>
+			</trans-unit>
+			<trans-unit id="system.runningkernel.unknown">
+				<source>Unkown</source>
+				<target>不明</target>
+			</trans-unit>
+			<trans-unit id="api.invalidargs">
+				<source>Invalid argument(s): {0}</source>
+				<target>無效的參數：{0}</target>
 			</trans-unit>
 			<trans-unit id="api.action.nosuchaction">
 				<source>No such action: {0}</source>
@@ -4463,6 +4634,30 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.action.invalidactiontype">
 				<source>Invalid action type</source>
 				<target>無效的動作類型</target>
+			</trans-unit>
+			<trans-unit id="api.org.migrationtosameorg">
+				<source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
+				<target>用戶無法在原始組織和目標組織相同的情況下遷移系統。Org Id: {0}, System Id: {1}。</target>
+			</trans-unit>
+			<trans-unit id="api.org.nosuchorg">
+				<source>No such organization: {0}</source>
+				<target>沒有此組織：{0}</target>
+			</trans-unit>
+			<trans-unit id="api.org.notintrust">
+				<source>Organization {0} is not defined in trust.</source>
+				<target>組織 {0} 尚未定義於 trust 中。</target>
+			</trans-unit>
+			<trans-unit id="api.org.sysnotintrust">
+				<source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
+				<target>系統 {0} 為組織 {1} 的成員，並且尚未定義於目標組織的 trust 中。</target>
+			</trans-unit>
+			<trans-unit id="api.org.notpermittedbyorg">
+				<source>User in organization {0} is not allowed to retrieve or modify {1} properties in organization {2}.</source>
+				<target>組織 {0} 中的用戶不可檢索或修改組織 {2} 中的 {1} 內容。</target>
+			</trans-unit>
+			<trans-unit id="api.org.cannotperformonsatelliteorg">
+				<source>Cannot perform this operation on the satellite organization. (Org ID 1)</source>
+				<target>無法在衛星伺服器組織上執行這項作業。（Org ID 1）</target>
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
@@ -4478,11 +4673,19 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="api.system.invalidarch">
 				<source>Invalid arch specified: {0}</source>
-				<target>指令了無效的架構：{0}</target>
+				<target>指定了無效的架構：{0}</target>
+			</trans-unit>
+			<trans-unit id="api.system.invalidsnapshot">
+				<source>Invalid snapshot specified: {0}</source>
+				<target>指定了無效的快照：{0}</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.lookupServerGroup">
 				<source>Unable to locate or access server group: "{0}"</source>
 				<target>無法找到或存取伺服器群組：「{0}」</target>
+			</trans-unit>
+			<trans-unit id="api.system.invalidprofilelabel">
+				<source>Invalid profile label specified: {0}</source>
+				<target>指定了無效的設定檔標籤：{0}</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.serverNotInGroup">
 				<source>The specified server is not a member of the specified group</source>
@@ -4490,11 +4693,27 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="api.errata.invalidadvisorytype">
 				<source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
-				<target>無效的勘誤類型「{0}」。請使用以下選項：「Security Advisory」、「Product Enhancement Advisory」、「Bug Fix Advisory」。</target>
+				<target>無效的勘誤類型「{0}」。請使用以下選項：「Security Advisory（安全性建議）」、「Product Enhancement Advisory（產品加強建議）」、「Bug Fix Advisory（錯誤修正建議）」。</target>
+			</trans-unit>
+			<trans-unit id="api.errata.invalidadvisoryrelease">
+				<source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
+				<target>無效的建議版本，「{0}」。最大值為 {1}。</target>
 			</trans-unit>
 			<trans-unit id="api.errata.nochannelsselected">
 				<source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
 				<target>您試圖出版一項勘誤，但並未選擇任何出版頻道。勘誤必須出版到至少一個頻道上。</target>
+			</trans-unit>
+			<trans-unit id="api.package.download.toolarge">
+				<source>The requested file is too large to download over XMLRPC.</source>
+				<target>請求的檔案太大因此無法透過 XMLRPC 下載。</target>
+			</trans-unit>
+			<trans-unit id="api.package.download.ioerror">
+				<source>There was a general IO Error, check permissions on the requested file.</source>
+				<target>發生了一項一般 IO 錯誤，請檢查請求的檔案上的權限。</target>
+			</trans-unit>
+			<trans-unit id="api.channel.access.invalidaccessvalue">
+				<source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
+				<target>存取值，「{0}」。請使用下列其中之一：「public」、「private」或「protected」。</target>
 			</trans-unit>
 			<trans-unit id="api.channel.software.channelsubscription">
 				<source>Unable to subscribe this system to the requested channel: "{0}"</source>
@@ -4504,25 +4723,33 @@ Follow this url to see the full list of inactive systems:
 				<source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
 				<target>已選擇多個頻道供訂閱用。頻道 {0} 與 {1} 都已經選為訂閱，但系統一次只能訂閱一個基礎頻道。</target>
 			</trans-unit>
+			<trans-unit id="api.channel.invalidchannellist">
+				<source>The channel list provided is invalid.  It must contain a list of channel labels or ids, but not a mixture of both.</source>
+				<target>提供的頻道清單無效。它必須包含著一列頻道標籤或 id，而不是兩者混合。</target>
+			</trans-unit>
 			<trans-unit id="channel.invalidchannelarch">
 				<source>The channel arch specified ({0}) is invalid.</source>
-				<target>指定的頻道架構（{0}）並不合乎規定。</target>
+				<target>指定的頻道架構（{0}）無效。</target>
 			</trans-unit>
 			<trans-unit id="api.channel.duplicatechannellabel">
 				<source>The channel label specified ({0}) already exists.</source>
 				<target>指定的頻道標籤（{0}）已經存在。</target>
 			</trans-unit>
+			<trans-unit id="api.channel.invalidchannelaccess">
+				<source>The channel access ({0}) is not allowed for this operation.</source>
+				<target>這項作業不允許頻道存取（{0}）。</target>
+			</trans-unit>
 			<trans-unit id="Certificate Administrators">
 				<source>Certificate Administrators</source>
-				<target>認證管理者</target>
+				<target>認證管理員</target>
 			</trans-unit>
 			<trans-unit id="Monitoring Administrators">
 				<source>Monitoring Administrators</source>
-				<target>監控管理者</target>
+				<target>監控管理員</target>
 			</trans-unit>
 			<trans-unit id="Configuration Administrators">
 				<source>Configuration Administrators</source>
-				<target>設定管理者</target>
+				<target>設定管理員</target>
 			</trans-unit>
 			<trans-unit id="user.unspecified.name">
 				<source>(unspecified)</source>
@@ -4532,9 +4759,25 @@ Follow this url to see the full list of inactive systems:
 				<source>Kickstart label already exists: {0}</source>
 				<target>Kickstart 標籤已經存在：{0}</target>
 			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKeyType">
+				<source>The package key type specified ({0}) is invalid.</source>
+				<target>指定的套件金鑰類型（{0}）無效。</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKey">
+				<source>The package key specified ({0}) is invalid.</source>
+				<target>指定的套件金鑰（{0}）無效。</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.duplicateKey">
+				<source>The package key specified ({0}) already exists.</source>
+				<target>指定的套件金鑰（{0}）已經存在。</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidProvider">
+				<source>The package provider specified ({0}) is  invalid.</source>
+				<target>指定的套件提供者（{0}）無效。</target>
+			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
-				<target>不合乎規定的虛擬類型：{0}</target>
+				<target>無效的虛擬類型：{0}</target>
 			</trans-unit>
 			<trans-unit id="org.create.success">
 				<source>Organization {0} created successfully</source>
@@ -4550,31 +4793,31 @@ Follow this url to see the full list of inactive systems:
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidkickstartlabel">
 				<source>Invalid kickstart label: {0}</source>
-				<target>不合乎規定的 kickstart 標籤：{0}</target>
+				<target>無效的 kickstart 標籤：{0}</target>
 			</trans-unit>
 			<trans-unit id="api.package.invalidpackagearch">
 				<source>The package arch specified ({0}) is invalid.</source>
-				<target>指定的套件架構（{0}）不合乎規定。</target>
+				<target>指定的套件架構（{0}）無效。</target>
 			</trans-unit>
 			<trans-unit id="api.errata.missingerrataaction">
 				<source>A required errata attribute ({0}) was missing.</source>
-				<target>所需的勘誤屬性（{0}）已經佚失。</target>
+				<target>所需的勘誤屬性（{0}）遺失。</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>您試圖給 {0} 太多權利。請輸入低於或相同於 {1} 的值</target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target>您試圖給予 {0} 太多 {1} 權利。請輸入低於或相同於 {2} 的值</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>您試圖給 {0} 太多權利。請輸入低於或相同於 {1} 的值</target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target>您試圖給予 {0} 太多 {1} 權利。請輸入低於或相同於 {2} 的值</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
 				<target>權利已經成功地更新。</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
-				<source>Warning: Your Proposed entitlement allocation for {0} requires more entitlements than are in use for the {1} Organization. Please adjust your proposed allocation accordingly.</source>
-				<target>警告：您想給 {0} 所分配的權利多過 {1} 組織所擁有的權利。請適量調整您想分配的權利。</target>
+				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
+				<target>警告：您的 {0} 配置所提供的權利少於 {1} 組織目前所使用中的權利。請適量調整您想分配的權利並不使其少於目前使用中的權利數量。</target>
 			</trans-unit>
 			<trans-unit id="securityErrata">
 				<source>Security Errata</source>
@@ -4652,6 +4895,18 @@ Follow this url to see the full list of inactive systems:
 				<source>Entitlement Level</source>
 				<target>權利等級</target>
 			</trans-unit>
+			<trans-unit id="serverName">
+				<source>Server Name</source>
+				<target>伺服器名稱</target>
+			</trans-unit>
+			<trans-unit id="matchingField">
+				<source>Matching Field Name</source>
+				<target>符合的欄位名稱</target>
+			</trans-unit>
+			<trans-unit id="matchingFieldValue">
+				<source>Matching Field Value</source>
+				<target>符合的欄位值</target>
+			</trans-unit>
 			<trans-unit id="listtag.note">
 				<source>Note:</source>
 				<target>注意：</target>
@@ -4713,8 +4968,8 @@ Follow this url to see the full list of inactive systems:
 				<target>自訂套件架構的選擇</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
-				<source>Succesfully added {0} Errata and {1} package(s) to channel {2}.</source>
-				<target>成功地將 {0} 個勘誤與 {1} 套件加入頻道 {2}。</target>
+				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
+				<target>成功地新增了 {1} 個套件並排程了 {0} 個勘誤來被複製至頻道 {2}。被複製的勘誤應在幾分鐘之內出現在頻道中並且可供系統使用。</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.clone">
 				<source>"Clone"</source>
@@ -4771,6 +5026,242 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="Password_confirm">
 				<source>Password Confirm</source>
 				<target>密碼確認</target>
+			</trans-unit>
+			<trans-unit id="permission.configadmin.needed">
+				<source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
+				<target>請求的功能需要配置管理員或組織管理員才能使用。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscripttype">
+				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
+				<target>Kickstart 只可使用「pre」和「post」類型的 script。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscript">
+				<source>You have specified an invalid kickstart script.</source>
+				<target>您指定了一個無效的 kickstart script。</target>
+			</trans-unit>
+			<trans-unit id="package.remove.cant.rollback">
+				<source>One or more of the packages you have selected for removal below are not contained in
+			a software channel that this system is subscribed to.  If you choose to continue with the removal
+			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+				<target>您所選擇的一個或更多個欲移除的套件不包含在
+			此系統所訂閱的軟體頻道中。若您選擇繼續進行移除的話，
+			您便無法將系統回溯至此快照或任何先前的快照。</target>
+			</trans-unit>
+			<trans-unit id="list.filter.iprange">
+				<source>Single Ip Address</source>
+				<target>單 IP 位址</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.duplicate">
+				<source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
+				<target>指定的 IP 範圍 {0} 和現有的 IP 範圍產生了衝突。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.invalid">
+				<source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
+				<target>指定的 IP 範圍（{0}）是個無效的 IP 範圍。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.ip.invalid">
+				<source>The Ip Address specified, {0}, is not valid..</source>
+				<target>指定的 IP 位址（{0}）無效。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.exists">
+				<source>A file list with label {0} already exists.</source>
+				<target>已有個含有標籤 {0} 的檔案清單存在了。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.notfound">
+				<source>A file list with label {0} could not be found.</source>
+				<target>找不到含有標籤 {0} 的檔案清單。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.exists">
+				<source>The specified key conflicts with an existing key.</source>
+				<target>指定的金鑰和現有的金鑰產生衝突。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.delete">
+				<source>The specified key cannot be deleted.</source>
+				<target>指定的金鑰無法被刪除。</target>
+			</trans-unit>
+			<trans-unit id="Compare">
+				<source>Compare</source>
+				<target>比較</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.alreadyexists">
+				<source>A Custom Key with this label already exists.</source>
+				<target>含有此標籤的自訂金鑰已存在。</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.tooshort">
+				<source>A Custom Key label and description must be at least two characters long.</source>
+				<target>自訂金鑰的標籤和描述長度至少需要有兩個字元以上。</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.addsuccess">
+				<source>Successfully added 1 custom key.</source>
+				<target>已成功新增了 1 個自訂金鑰。</target>
+			</trans-unit>
+			<trans-unit id="channel.java.package.deletesuccess">
+				<source>Successfully deleted {0} packages.</source>
+				<target>已成功刪除了 {0} 個套件。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
+				<source>Invalid kickstart install type: {0}.</source>
+				<target>無效的 kickstart 安裝類型：{0}。</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgfp">
+				<source>Invalid GPG Fingerprint</source>
+				<target>無效的 GPG 指紋</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgkey">
+				<source>Invalid GPG Key Id</source>
+				<target>無效的 GPG Key Id</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgurl">
+				<source>Invalid GPG Url</source>
+				<target>無效的 GPG Url</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname">
+				<source>Invalid Channel Name</source>
+				<target>無效的頻道名稱</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.missing">
+				<source>Channel name must be specified</source>
+				<target>必須指定頻道名稱</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.regex">
+				<source>Invalid channel name, please see the format described below</source>
+				<target>無效的頻道名稱，請查看以下所描述的格式</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.redhat">
+				<source>Red Hat channels require admin privileges</source>
+				<target>Red Hat 頻道需要擁有管理員權限</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.redhat">
+				<source>Red Hat channels require admin privileges</source>
+				<target>Red Hat 頻道需要擁有管理員權限</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.minlength">
+				<source>Channel name must be at least {0} characters long</source>
+				<target>頻道名稱的長度不能少於 {0} 個字元</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.nameinuse">
+				<source>The channel name '{0}' is already in use, please enter a different name</source>
+				<target>「{0}」這個頻道名稱已被使用，請輸入不同的名稱</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel">
+				<source>Invalid Channel Label</source>
+				<target>無效的頻道標籤</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.missing">
+				<source>Channel label must be specified</source>
+				<target>必須指定頻道標籤</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.regex">
+				<source>Invalid channel label, please see the format described below</source>
+				<target>無效的頻道標籤，請查看以下所描述的格式</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.minlength">
+				<source>Channel label must be at least {0} characters long</source>
+				<target>頻道標籤的長度不能少於 {0} 個字元</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.labelinuse">
+				<source>The channel label '{0}' is already in use, please enter a different name</source>
+				<target>「{0}」這個頻道標籤已被使用，請輸入不同的名稱</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelsummary">
+				<source>Invalid Channel Summary</source>
+				<target>無效的頻道摘要</target>
+			</trans-unit>
+			<trans-unit id="distribution.tree.exists">
+				<source>A distribution already exists with the name '{0}'.  Please select another name.</source>
+				<target>已有個名稱為「{0}」的發行套件存在了。請選擇另一組名稱。</target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.redhat">
+				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+				<target>無法刪除 Red Hat 頻道，只可刪除自訂頻道。</target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.haschild">
+				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+				<target>此頻道含有與其關聯的子頻道。您必須先刪除這些頻道才可刪除父頻道。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.tree.notfound">
+				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
+				<target>找不到 kickstart tree。您可能沒有請求的 tree 的存取權限。</target>
+			</trans-unit>
+			<trans-unit id="message.channelcreated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
+				<target>頻道 &lt;strong&gt;{0}&lt;/strong&gt; 已建立。</target>
+			</trans-unit>
+			<trans-unit id="message.channelupdated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+				<target>頻道 &lt;strong&gt;{0}&lt;/strong&gt; 已更新。</target>
+			</trans-unit>
+			<trans-unit id="message.channelsubscribers">
+				<source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+				<target>訂閱者分頁中可預套用用戶訂閱的限制</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidvirt">
+				<source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
+				<target>所選擇的 kickstart tree 或發行套件不支援半虛擬化。</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
+				<source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+				<target>您選擇了一個與目前所選擇的虛擬化類型不相容的發行套件或 kickstart tree。請在嘗試設置發行套件以前，選擇不同的發行套件或更改此設定檔所選擇的虛擬化類型。</target>
+			</trans-unit>
+			<trans-unit id="snapshots.childchannel">
+				<source>Child Channels Updated</source>
+				<target>子頻道已更新</target>
+			</trans-unit>
+			<trans-unit id="snapshots.basechannel">
+				<source>Base Channel Updated</source>
+				<target>基礎頻道已更新</target>
+			</trans-unit>
+			<trans-unit id="snapshots.entitlements">
+				<source>Entitlements Updated</source>
+				<target>權利已更新</target>
+			</trans-unit>
+			<trans-unit id="errata.updates.noncritical">
+				<source>Non-Critical</source>
+				<target>非重大</target>
+			</trans-unit>
+			<trans-unit id="snapshots.configchannel">
+				<source>Configuration Channels Updated</source>
+				<target>配置頻道已更新</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.distro.syncfail">
+				<source>
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
+kickstarting systems kickstart distributions failed to sync from
+Spacewalk to Cobbler:
+
+{0}
+
+Please check:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+for more detailed errors.  If you don't resolve the errors the kickstart
+tree will not be usable for kickstarting.</source>
+				<target>
+下列為一列當 Spacewalk 嘗試將 kickstart 發行套件由 Spacewalk 同步化
+至 Cobbler 時所蒐集的錯誤之清單。這些錯誤必須先被
+修正，如此一來發行套件才可被用來 kickstart 無
+法由 Spacewalk 同步化至 Cobbler 的
+系統 kickstart 發行套件：
+
+{0}
+
+請檢查：
+
+/var/log/rhn/rhn_taskomatic_daemon.log 和
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+以取得更多的錯誤詳情。若您不解決這些錯誤的話，kickstart
+tree 將無法被使用來進行 kickstart。</target>
+			</trans-unit>
+			<trans-unit id="errata.delete.msg">
+				<source>Successfully deleted {0} errata.</source>
+				<target>已成功刪除了 {0} 個勘誤。</target>
 			</trans-unit>
 		</body>
 	</file>

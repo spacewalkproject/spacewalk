@@ -32,7 +32,7 @@
   </html:messages>
 
   <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif"
-               helpUrl="/rhn/help/reference/en/s2-sm-errata-search.jsp"
+               helpUrl="/rhn/help/reference/en-US/s1-sm-errata.jsp#s2-sm-errata-search"
                imgAlt="search.alt.img">
     <bean:message key="erratasearch.jsp.toolbar"/>
   </rhn:toolbar> 
@@ -135,7 +135,7 @@
    <input type="hidden" name="submitted" value="true" />
   </html:form>
 
-  <c:if test="${search_string != null && search_string != ''}">
+  <c:if test="${(search_string != null && search_string != '') || param.optionIssueDateSearch != null }">
   <hr />
 
   <c:set var="pageList" value="${requestScope.pageList}" />

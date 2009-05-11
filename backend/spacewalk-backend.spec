@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.5.28
+Version: 0.6.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -504,8 +504,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
-%attr(755,root,root) %{_bindir}/migrate-system-profile
 %attr(755,root,root) %{_bindir}/rhn-db-stats
+%attr(750,root,root) %{_bindir}/md5crypt
+%attr(750,root,root) %{_bindir}/satpasswd
+%attr(750,root,root) %{_bindir}/satwho
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
@@ -521,7 +523,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
-%{rhnroot}/satellite_tools/migrateSystemProfile.py*
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
@@ -539,7 +540,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/satellite-sync.8*
 %{_mandir}/man8/spacewalk-debug.8*
-%{_mandir}/man8/migrate-system-profile.8*
+%{_mandir}/man8/satpasswd.8*
+%{_mandir}/man8/satwho.8*
+
 
 %files xml-export-libs
 %defattr(-,root,root)
@@ -562,6 +565,84 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 11 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.5-1
+- 309601 - updating satpasswd/satwho to pull db info from rhn.conf
+  (bbuckingham@redhat.com)
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
+- 498273 - removing incorrect index busting package list updates for custom
+  base channels (shughes@redhat.com)
+- 1000010021 - fixing issue where you could not remove packages from rhel 4
+  systems (jsherril@redhat.com)
+- 497871 - fixing issue where guest provisioning would show as succesfull even
+  when it had failed (jsherril@redhat.com)
+- 486526 - put db creation / upgrade logs into spacewalk-debug
+  (mzazrivec@redhat.com)
+- 486526 - put dump files from embedded db into spacewalk-debug
+  (mzazrivec@redhat.com)
+- 486526 - put audit.log into spacewalk-debug (mzazrivec@redhat.com)
+- 486526 - put schema upgrade logs into spacewalk-debug (mzazrivec@redhat.com)
+- 492903 - fixing the sql fetch (pkilambi@redhat.com)
+
+* Fri Apr 24 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.3-1
+- 309601 - adding satpasswd, satwho and md5crypt to spacewalk-backend-tools
+
+* Wed Apr 22 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.2-1
+- 494976 - adding cobbler systme record name usage to reprovisioning
+  (jsherril@redhat.com)
+- 443500 - Changed logic to determine packages to remove to include the
+  server's current package information. (jason.dobies@redhat.com)
+- When a new system is registered it will notify search service
+  (jmatthew@redhat.com)
+
+* Fri Apr 17 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.1-1
+- 439042 - fixing the not enough entitlements error to more descriptive.
+  (pkilambi@redhat.com)
+- 495928 - adding cobbler collection to spacewalk-debug (jsherril@redhat.com)
+- moving migrate-system-profile to spacewalk-utils package
+  (pkilambi@redhat.com)
+- 492903 - fix the query to include the privatechannelfamily org into
+  rhnprivatecahnnelfamily (pkilambi@redhat.com)
+- 495396 - let the commandline ca-cert option override the cert when using in
+  conjunction with iss (pkilambi@redhat.com)
+- 494982 - fixing the error message to not take extra strings cusing parse
+  errors (pkilambi@redhat.com)
+- 486526 - display the created and modified information in ISO format.
+  (jpazdziora@redhat.com)
+- 486526 - add history of schema upgrades to spacewalk-debug
+  (mzazrivec@redhat.com)
+- 149695 - Including channel_id as part of rhnErrataQueue table so that
+  taskomatic can send errata notifications based on channel_id instead of
+  sending to everyone subscribed to the channel. The changes include db change
+  to rhnErrataQueue table and backend change to satellite-sync's errata import.
+  (pkilambi@redhat.com)
+- 485870 - only recalculate the channel family counts once per family.
+  (mmccune@gmail.com)
+- 488062 - fixing the activation to be more careful in checking the integrity
+  of variables before assigning slots (pkilambi@redhat.com)
+- 494968 - typo in config comment (pkilambi@redhat.com)
+- 494593 - fixing the repofile compare to use the right type for java date
+  object obtained through hibernate (pkilambi@redhat.com)
+- bumping the protocol version on exporter (pkilambi@redhat.com)
+- 491668 - update Spacewalk Apache conf to support .htaccess
+  (bbuckingham@redhat.com)
+- 486526 - store alert.log into the database/ directory.
+  (jpazdziora@redhat.com)
+- 486526 - renaming directory for database-related stuff, we will want to store
+  alert.log here as well. (jpazdziora@redhat.com)
+- check the attr instead of try catch (pkilambi@redhat.com)
+- 493583 - fixing the rhnpush to call old rpm libraries for RHEL-4
+  (pkilambi@redhat.com)
+- adding some additional checks before creating first org info
+  (pkilambi@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+- minor default args clean up (pkilambi@redhat.com)
+- Fixing the first org creation to check for ChannelFamily existance and create
+  row if missing so the channel shows up in channels tab on sync
+  (pkilambi@redhat.com)
+
+* Fri Apr 17 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- move the migrate systems script to utils package
+
 * Mon Mar 30 2009 Milan Zazrivec <mzazrivec@redhat.com> 0.5.28-1
 - 485698 - rhn-satellite-exporter manual page fixes
 

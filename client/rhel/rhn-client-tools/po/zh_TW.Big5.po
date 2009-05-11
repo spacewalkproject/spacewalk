@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW.Big5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-05 18:11-0500\n"
+"POT-Creation-Date: 2009-04-27 11:54-0400\n"
 "PO-Revision-Date: 2007-01-30 09:38+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
@@ -60,23 +60,23 @@ msgstr "您必須是 root 才能執行 rhn_register。"
 msgid "There was some sort of I/O error: %s"
 msgstr "發生某種 I/O 錯誤：%s"
 
-#: ../src/up2date_client/hardware.py:880
+#: ../src/up2date_client/hardware.py:894
 msgid "Error reading cpu information:"
 msgstr "讀取處理器資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:887
+#: ../src/up2date_client/hardware.py:901
 msgid "Error reading system memory information:"
 msgstr "讀取系統記憶體資訊時發生錯誤："
 
-#: ../src/up2date_client/hardware.py:895
+#: ../src/up2date_client/hardware.py:909
 msgid "Error reading networking information:"
 msgstr "讀取網路資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:916
+#: ../src/up2date_client/hardware.py:930
 msgid "Error reading install method information:"
 msgstr "讀取安裝方法的資訊時發生問題："
 
-#: ../src/up2date_client/hardware.py:923
+#: ../src/up2date_client/hardware.py:937
 msgid "Error reading network interface information:"
 msgstr "讀取網路介面資訊時發生問題："
 
@@ -100,7 +100,11 @@ msgstr "「是/否」對話窗："
 msgid "Question dialog:"
 msgstr "問題對話窗："
 
-#: ../src/up2date_client/rhnChannel.py:123
+#: ../src/up2date_client/rhnChannel.py:110
+msgid "Unable to Locate SystemId"
+msgstr ""
+
+#: ../src/up2date_client/rhnChannel.py:127
 msgid "This system may not be updated until it is associated with a channel."
 msgstr "在系統與一個頻道產生關聯前，該部系統將不會被更新。"
 
@@ -199,7 +203,8 @@ msgid "See /var/log/up2date for more information"
 msgstr "如需更多資料，請瀏覽 /var/log/up2date"
 
 #: ../src/up2date_client/rhnreg_constants.py:12
-msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+#, fuzzy
+msgid "Copyright © 2006  Red Hat, Inc. All rights reserved."
 msgstr "版權所有 Â© 2006  Red Hat, Inc. 保留所有權利。"
 
 #. Connect Window
@@ -901,24 +906,6 @@ msgstr ""
 msgid "A installation number was found on disk, but we "
 msgstr "在磁碟上找到訂閱 - 啟動安裝號碼，"
 
-#: ../src/up2date_client/rhnreg_constants.py:297
-msgid ""
-"were not able to activate it (An unknown error occurred.) We used existing "
-msgstr "但我們無法啟動它（發生未知的錯誤）。"
-
-#: ../src/up2date_client/rhnreg_constants.py:298
-msgid ""
-"active subscription slots available in the rhn account instead. You may wish "
-msgstr "我們將改用 RHN 帳號中，現有、可用的啟動訂閱。"
-
-#: ../src/up2date_client/rhnreg_constants.py:299
-msgid "to contact Red Hat customer service regarding this issue: "
-msgstr "關於此問題，請連絡 Red Hat 客戶服務部："
-
-#: ../src/up2date_client/rhnreg_constants.py:300
-msgid "http://www.redhat.com/apps/support/"
-msgstr "http://www.redhat.com/apps/support/"
-
 #. Error Messages.
 #: ../src/up2date_client/rhnreg_constants.py:303
 msgid "Fatal Error"
@@ -1130,28 +1117,28 @@ msgstr "訂閱啟動"
 msgid "There was an error while applying your choice."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:305
+#: ../src/up2date_client/rhnregGui.py:303
 msgid "You specified an invalid protocol. Only https and http are allowed."
 msgstr "您指定了不合規定的通訊協定。請使用 https 或 http。"
 
-#: ../src/up2date_client/rhnregGui.py:329
+#: ../src/up2date_client/rhnregGui.py:325
 #, fuzzy
 msgid ""
 "You will not be able to successfully register this system without contacting "
 "a Red Hat Network server."
 msgstr "不向 Red Hat Network 註冊系統，您將<b>無法</b>享受到這些訂閱權利。"
 
-#: ../src/up2date_client/rhnregGui.py:346
+#: ../src/up2date_client/rhnregGui.py:345
 #, python-format
 msgid "We could not contact Red Hat Network (%s)."
 msgstr "我們無法連上 Red Hat Network（%s）。"
 
-#: ../src/up2date_client/rhnregGui.py:348
-#: ../src/up2date_client/rhnregGui.py:361
+#: ../src/up2date_client/rhnregGui.py:347
+#: ../src/up2date_client/rhnregGui.py:360
 msgid "Make sure the network connection on this system is operational."
 msgstr "請確定這台電腦可以連上網路。"
 
-#: ../src/up2date_client/rhnregGui.py:350
+#: ../src/up2date_client/rhnregGui.py:349
 msgid ""
 "Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
 "can enter a Satellite or Proxy location instead."
@@ -1159,31 +1146,31 @@ msgstr ""
 "您打算註冊 Ret Hat Network 衛星伺服器或代理伺服器？如果是的話，您可以輸入衛星"
 "伺服器或代理伺服器的位址。"
 
-#: ../src/up2date_client/rhnregGui.py:356
+#: ../src/up2date_client/rhnregGui.py:355
 #, python-format
 msgid "We could not contact the Satellite or Proxy at '%s.'"
 msgstr "我們無法連上位於 %s 的衛星伺服器或代理伺服器。"
 
-#: ../src/up2date_client/rhnregGui.py:358
+#: ../src/up2date_client/rhnregGui.py:357
 #, python-format
 msgid ""
 "Double-check the location - is '%s' correct? If not, you can correct it and "
 "try again."
 msgstr "請再檢查位置 - %s 是否正確？如果不正確，請更改後再試一次。"
 
-#: ../src/up2date_client/rhnregGui.py:371
+#: ../src/up2date_client/rhnregGui.py:370
 msgid "There was an error communicating with Red Hat Network."
 msgstr "連接 Red Hat Network 時發生錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:372
+#: ../src/up2date_client/rhnregGui.py:371
 msgid "The server may be in outage mode. You may have to try connecting later."
 msgstr "伺服器可能處於停機狀態。請稍後再嘗試連線。"
 
-#: ../src/up2date_client/rhnregGui.py:374
+#: ../src/up2date_client/rhnregGui.py:373
 msgid "You may be running a client that is incompatible with the server."
 msgstr "可能您執行的用戶端與伺服器不相容。"
 
-#: ../src/up2date_client/rhnregGui.py:417
+#: ../src/up2date_client/rhnregGui.py:419
 #, fuzzy, python-format
 msgid ""
 "Please enter your account information for the <b>%s</b> Red Hat Network "
@@ -1192,26 +1179,26 @@ msgstr ""
 "請為您的 %s Red Hat Network 衛星伺服器，輸入登入資訊：\n"
 "\n"
 
-#: ../src/up2date_client/rhnregGui.py:466
+#: ../src/up2date_client/rhnregGui.py:468
 msgid "You must enter a login."
 msgstr "您必須輸入登入帳號。"
 
-#: ../src/up2date_client/rhnregGui.py:472
+#: ../src/up2date_client/rhnregGui.py:474
 msgid "You must enter a password."
 msgstr "您必須輸入密碼。"
 
-#: ../src/up2date_client/rhnregGui.py:486
+#: ../src/up2date_client/rhnregGui.py:488
 #, fuzzy
 msgid "There was an error while logging in."
 msgstr "登入時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:513
+#: ../src/up2date_client/rhnregGui.py:515
 msgid ""
 "There was an error communicating with the registration server.  The message "
 "was:\n"
 msgstr "連接註冊伺服器時發生錯誤。  錯誤訊息是：\n"
 
-#: ../src/up2date_client/rhnregGui.py:525
+#: ../src/up2date_client/rhnregGui.py:527
 #, python-format
 msgid ""
 "There was a problem logging in:\n"
@@ -1220,94 +1207,90 @@ msgstr ""
 "登入時發生問題：\n"
 "%s"
 
-#: ../src/up2date_client/rhnregGui.py:530
+#: ../src/up2date_client/rhnregGui.py:532
 msgid "There was problem logging in."
 msgstr "登入時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:596
+#: ../src/up2date_client/rhnregGui.py:598
 #, fuzzy
 msgid "There was an error while getting the list of organizations."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:704
+#: ../src/up2date_client/rhnregGui.py:706
 #, fuzzy
 msgid "You must enter an installation number."
 msgstr "您必須輸入一組安裝號碼。"
 
-#: ../src/up2date_client/rhnregGui.py:717
+#: ../src/up2date_client/rhnregGui.py:719
 #, fuzzy
 msgid "There was an error activating your number."
 msgstr "連接 Red Hat Network 時發生錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:759
+#: ../src/up2date_client/rhnregGui.py:761
 msgid "This installation number has already been activated."
 msgstr "這安裝號碼已經啟用。"
 
-#: ../src/up2date_client/rhnregGui.py:908
+#: ../src/up2date_client/rhnregGui.py:910
 #, fuzzy
 msgid "There was an error while assembling information for the profile."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:929
+#: ../src/up2date_client/rhnregGui.py:931
 msgid "Error running hardware profile"
 msgstr "執行硬體資料檔發生錯誤"
 
-#: ../src/up2date_client/rhnregGui.py:955
+#: ../src/up2date_client/rhnregGui.py:957
 msgid "There was an error while populating the profile."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:975
+#: ../src/up2date_client/rhnregGui.py:977
 msgid "You must choose a name for this profile."
 msgstr "您必須為這個資料檔選擇一個名稱。"
 
-#: ../src/up2date_client/rhnregGui.py:990
+#: ../src/up2date_client/rhnregGui.py:992
 #, fuzzy
 msgid "There was an error while creating the profile."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:1001
+#: ../src/up2date_client/rhnregGui.py:1003
 msgid "Sending your profile information to Red Hat Network.  Please wait."
 msgstr "正在傳送您的資料檔資訊到 Red Hat Network。  請稍候。"
 
-#: ../src/up2date_client/rhnregGui.py:1020
+#: ../src/up2date_client/rhnregGui.py:1022
 msgid "Registering System"
 msgstr "註冊系統"
 
-#: ../src/up2date_client/rhnregGui.py:1034
-#: ../src/up2date_client/rhnregGui.py:1038
-#: ../src/up2date_client/rhnregGui.py:1042 ../src/up2date_client/tui.py:1133
-#: ../src/up2date_client/tui.py:1136 ../src/up2date_client/tui.py:1139
+#: ../src/up2date_client/rhnregGui.py:1036
+#: ../src/up2date_client/rhnregGui.py:1040
+#: ../src/up2date_client/rhnregGui.py:1044 ../src/up2date_client/tui.py:1138
+#: ../src/up2date_client/tui.py:1141 ../src/up2date_client/tui.py:1144
 msgid "Problem registering system:\n"
 msgstr "註冊系統發生問題：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1045
+#: ../src/up2date_client/rhnregGui.py:1047
 #, python-format
 msgid ""
 "The installation number [ %s ] provided is not a valid installation number. "
 "Please go back to the previous screen and fix it."
 msgstr "您提供的安裝號碼 [ %s ] 是無效的安裝號碼。請回到上一個畫面並修正之。"
 
-#: ../src/up2date_client/rhnregGui.py:1046
-msgid "registration_number"
-msgstr "註冊號碼（registration_number）"
-
-#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1145
+#: ../src/up2date_client/rhnregGui.py:1058 ../src/up2date_client/tui.py:1150
 msgid "Problem registering system."
 msgstr "註冊系統時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:1066 ../src/up2date_client/tui.py:1150
+#: ../src/up2date_client/rhnregGui.py:1068 ../src/up2date_client/tui.py:1155
 msgid "Problem writing out system id to disk."
 msgstr "寫入系統 ID 到磁碟發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:1072
+#: ../src/up2date_client/rhnregGui.py:1074
 msgid "There was a problem registering this system."
 msgstr "註冊本系統時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:1085
+#: ../src/up2date_client/rhnregGui.py:1087
 msgid "Sending hardware information"
 msgstr "傳送硬體資訊"
 
-#: ../src/up2date_client/rhnregGui.py:1090
+#: ../src/up2date_client/rhnregGui.py:1092
 msgid "Problem sending hardware information."
 msgstr "傳送硬體資訊時發生錯誤。"
 
@@ -1320,110 +1303,110 @@ msgstr "傳送硬體資訊時發生錯誤。"
 #. #            for pkg in packageList:
 #. #                if pkg[0] in selection:
 #. #                    selectedPackages.append(pkg)
-#: ../src/up2date_client/rhnregGui.py:1116
+#: ../src/up2date_client/rhnregGui.py:1118
 msgid "Sending package information"
 msgstr "傳送套件資訊"
 
-#: ../src/up2date_client/rhnregGui.py:1121
+#: ../src/up2date_client/rhnregGui.py:1123
 msgid "Problem sending package information."
 msgstr "傳送套件訊息時發生問題。"
 
-#: ../src/up2date_client/rhnregGui.py:1155
-#: ../src/up2date_client/rhnregGui.py:1172 ../src/up2date_client/tui.py:1164
-#: ../src/up2date_client/tui.py:1178
+#: ../src/up2date_client/rhnregGui.py:1157
+#: ../src/up2date_client/rhnregGui.py:1174 ../src/up2date_client/tui.py:1169
+#: ../src/up2date_client/tui.py:1183
 msgid "Problem registering personal information:\n"
 msgstr "註冊個人資訊發生問題：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1160
-#: ../src/up2date_client/rhnregGui.py:1177 ../src/up2date_client/tui.py:1170
-#: ../src/up2date_client/tui.py:1182
+#: ../src/up2date_client/rhnregGui.py:1162
+#: ../src/up2date_client/rhnregGui.py:1179 ../src/up2date_client/tui.py:1175
+#: ../src/up2date_client/tui.py:1187
 msgid "Problem registering personal information"
 msgstr "註冊個人資訊發生問題"
 
-#: ../src/up2date_client/rhnregGui.py:1222
+#: ../src/up2date_client/rhnregGui.py:1224
 #, fuzzy
 msgid "There was an error while installing the certificate."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:1248
+#: ../src/up2date_client/rhnregGui.py:1250
 msgid "You must select a certificate."
 msgstr "您必須選擇一個認證。"
 
 #. TODO Modify rhnlib to raise a unique exception for the not a
 #. cert file case.
-#: ../src/up2date_client/rhnregGui.py:1300
+#: ../src/up2date_client/rhnregGui.py:1302
 msgid ""
 "There was an SSL error. This could be because the file you picked was not a "
 "certificate file."
 msgstr "發生 SSL 錯誤。這可能是因為您選的檔案不是認證檔。"
 
 #. TODO Provide better messages
-#: ../src/up2date_client/rhnregGui.py:1310
+#: ../src/up2date_client/rhnregGui.py:1312
 msgid "Something went wrong while installing the new certificate:\n"
 msgstr "安裝新認證時發生錯誤：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1362
-#: ../src/up2date_client/rhnregGui.py:1363
 #: ../src/up2date_client/rhnregGui.py:1364
+#: ../src/up2date_client/rhnregGui.py:1365
+#: ../src/up2date_client/rhnregGui.py:1366
 msgid "unknown"
 msgstr "未知的"
 
-#: ../src/up2date_client/rhnregGui.py:1452
+#: ../src/up2date_client/rhnregGui.py:1454
 #, fuzzy
 msgid "There was an error retrieving the privacy statement."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:1458
+#: ../src/up2date_client/rhnregGui.py:1460
 msgid "Unable to access the server. Please check your network settings."
 msgstr "無法存取伺服器。請檢查您的網路設定。"
 
-#: ../src/up2date_client/rhnregGui.py:1484
+#: ../src/up2date_client/rhnregGui.py:1486
 #, fuzzy
 msgid "There was an error getting the list of hardware."
 msgstr "產生設定檔時發生嚴重錯誤。"
 
-#: ../src/up2date_client/rhnregGui.py:1496 ../src/up2date_client/tui.py:910
+#: ../src/up2date_client/rhnregGui.py:1498 ../src/up2date_client/tui.py:910
 #, python-format
 msgid "%d MHz"
 msgstr "%d MHz"
 
-#: ../src/up2date_client/rhnregGui.py:1500
+#: ../src/up2date_client/rhnregGui.py:1502
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: ../src/up2date_client/rhnregGui.py:1544
+#: ../src/up2date_client/rhnregGui.py:1546
 #, fuzzy
 msgid "There was an error building the list of packages."
 msgstr "安裝這個套件時發生嚴重錯誤：\n"
 
-#: ../src/up2date_client/rhnregGui.py:1559
+#: ../src/up2date_client/rhnregGui.py:1561
 msgid "Package"
 msgstr "套件"
 
-#: ../src/up2date_client/rhnregGui.py:1564
+#: ../src/up2date_client/rhnregGui.py:1566
 msgid "Arch"
 msgstr "硬體架構"
 
-#: ../src/up2date_client/rhnregGui.py:1571
+#: ../src/up2date_client/rhnregGui.py:1573
 msgid "Building a list of RPM packages installed on your system.  Please wait."
 msgstr "正在建立安裝在您系統的 RPM 套件清單。  請稍候。"
 
-#: ../src/up2date_client/rhnregGui.py:1602
+#: ../src/up2date_client/rhnregGui.py:1604
 msgid ""
 "There was an error loading your configuration.  Make sure that\n"
 "you have read access to /etc/sysconfig/rhn."
 msgstr ""
 "載入您的設定時發生錯誤。  請確定您有讀取 /etc/sysconfig/rhn 檔案的權限。"
 
-#: ../src/up2date_client/rhnregGui.py:1644
+#: ../src/up2date_client/rhnregGui.py:1646
 #, python-format
 msgid ""
 "There was an error saving your configuration. Make sure that\n"
 "you own %s."
 msgstr "儲存您的設定時發生錯誤。 請確定您有 %s 的擁有權。"
 
-#: ../src/up2date_client/rhnregGui.py:1673
+#: ../src/up2date_client/rhnregGui.py:1675
 #, python-format
 msgid ""
 "This error shouldn't have happened. If you'd like to help us improve this "
@@ -1477,10 +1460,6 @@ msgstr "連接註冊伺服器時發生錯誤。  錯誤訊息是：\n"
 msgid "You must enter an Installation Number that "
 msgstr "您必須輸入一個安裝號碼"
 
-#: ../src/up2date_client/tui.py:690
-msgid "activates subscriptions in your account."
-msgstr "以啟動您的帳號。"
-
 #: ../src/up2date_client/tui.py:710
 msgid "Select Operating System Release"
 msgstr ""
@@ -1507,7 +1486,7 @@ msgstr ""
 
 #: ../src/up2date_client/tui.py:807
 msgid ""
-"Your system will be subscribed to the base software channel to receives all "
+"Your system will be subscribed to the base software channel to receive all "
 "available updates."
 msgstr ""
 
@@ -1609,48 +1588,44 @@ msgstr "註冊登入帳號時發生問題：\n"
 msgid "Problem registering login name."
 msgstr "註冊登入帳號時發生問題。"
 
-#: ../src/up2date_client/tui.py:1192
+#: ../src/up2date_client/tui.py:1197
 msgid "Problem sending hardware profile:\n"
 msgstr "傳送硬體資料檔發生問題：\n"
 
-#: ../src/up2date_client/tui.py:1196
+#: ../src/up2date_client/tui.py:1201
 msgid "Problem sending hardware profile."
 msgstr "傳送硬體資料檔發生問題。"
 
-#: ../src/up2date_client/tui.py:1205
+#: ../src/up2date_client/tui.py:1210
 msgid "Problem sending package list:\n"
 msgstr "傳送套件清單發生問題：\n"
 
-#: ../src/up2date_client/tui.py:1208
+#: ../src/up2date_client/tui.py:1213
 msgid "Problem sending package list."
 msgstr "傳送套件清單發生問題。"
 
-#: ../src/up2date_client/tui.py:1281 ../src/up2date_client/tui.py:1286
+#: ../src/up2date_client/tui.py:1286 ../src/up2date_client/tui.py:1291
 msgid ", quantity:"
 msgstr "，量："
 
-#: ../src/up2date_client/tui.py:1390
+#: ../src/up2date_client/tui.py:1395
 msgid "You specified an invalid protocol."
 msgstr "您指定了不合規定的通訊協定。"
 
-#: ../src/up2date_client/tui.py:1391
-msgid "Only https and http are allowed."
-msgstr "只允許 https 或 http。"
-
-#: ../src/up2date_client/tui.py:1420
+#: ../src/up2date_client/tui.py:1425
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> 移動游標  |  <Space> 選取  |  <F12> 下一個畫面"
 
-#: ../src/up2date_client/tui.py:1680
+#: ../src/up2date_client/tui.py:1685
 msgid "You must run the RHN registration program as root."
 msgstr "您必須是 root 才能執行 RHN 註冊程式。"
 
-#: ../src/up2date_client/tui.py:1695 ../data/rh_register.glade.h:84
+#: ../src/up2date_client/tui.py:1700 ../data/rh_register.glade.h:84
 msgid "System software updates already set up"
 msgstr "系統軟體更新已經設定"
 
-#: ../src/up2date_client/tui.py:1697
+#: ../src/up2date_client/tui.py:1702
 msgid ""
 "\n"
 "\n"
@@ -1660,7 +1635,7 @@ msgstr ""
 "\n"
 "Red Hat Network 的位置："
 
-#: ../src/up2date_client/tui.py:1699
+#: ../src/up2date_client/tui.py:1704
 msgid ""
 "\n"
 "RHN Login: "
@@ -1668,7 +1643,7 @@ msgstr ""
 "\n"
 "Red Hat 登入："
 
-#: ../src/up2date_client/tui.py:1700
+#: ../src/up2date_client/tui.py:1705
 msgid ""
 "\n"
 "System ID: "
@@ -1893,101 +1868,99 @@ msgstr "正在更新虛擬化設定檔..."
 msgid "Do not attempt to use X"
 msgstr "不要嘗試使用 X"
 
-#: ../src/bin/rhnreg_ks.py:43
+#: ../src/bin/rhnreg_ks.py:42
 msgid "Specify a profilename"
 msgstr "指定設定檔的檔名"
 
-#: ../src/bin/rhnreg_ks.py:45
+#: ../src/bin/rhnreg_ks.py:44
 msgid "Specify a username"
 msgstr "指定使用者名稱"
 
-#: ../src/bin/rhnreg_ks.py:47
+#: ../src/bin/rhnreg_ks.py:46
 msgid "Specify a password"
 msgstr "指定密碼"
 
-#: ../src/bin/rhnreg_ks.py:49
+#: ../src/bin/rhnreg_ks.py:48
 msgid "Specify an email address"
 msgstr "指定電子郵件地址"
 
-#: ../src/bin/rhnreg_ks.py:51
+#: ../src/bin/rhnreg_ks.py:50
 msgid "Specify an organizational id for this system"
 msgstr "指定這系統的組織 ID"
 
-#: ../src/bin/rhnreg_ks.py:53
+#: ../src/bin/rhnreg_ks.py:52
 msgid "Specify a url to use as a server"
 msgstr "指定要做為伺服器的網址"
 
-#: ../src/bin/rhnreg_ks.py:55
+#: ../src/bin/rhnreg_ks.py:54
 msgid "Specify a file to use as the ssl CA cert"
 msgstr "指定一個檔案用作 ssl CA 的認證"
 
-#: ../src/bin/rhnreg_ks.py:57
+#: ../src/bin/rhnreg_ks.py:56
 msgid "Specify an activation key"
 msgstr "指定啟動金鑰"
 
-#: ../src/bin/rhnreg_ks.py:59
+#: ../src/bin/rhnreg_ks.py:58
 #, fuzzy
 msgid "Specify a installation number to use"
 msgstr "指定要使用的訂閱號碼"
 
-#: ../src/bin/rhnreg_ks.py:61
+#: ../src/bin/rhnreg_ks.py:60
 msgid ""
 "Subscribe this system to the EUS channel tied to the system's redhat-release"
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:63
-msgid "Read contact info from stdin"
+#: ../src/bin/rhnreg_ks.py:62
+#, fuzzy
+msgid "[Deprecated] Read contact info from stdin"
 msgstr "從標準輸入讀取聯絡資訊 "
 
-#: ../src/bin/rhnreg_ks.py:65
+#: ../src/bin/rhnreg_ks.py:64
 msgid "Do not probe or upload any hardware info"
 msgstr "不要偵測或上載任何硬體的資訊 "
 
-#: ../src/bin/rhnreg_ks.py:67
+#: ../src/bin/rhnreg_ks.py:66
 msgid "Do not profile or upload any package info"
 msgstr "不要歸檔或上載任何套件資訊 "
 
-#: ../src/bin/rhnreg_ks.py:69
+#: ../src/bin/rhnreg_ks.py:68
 msgid "Do not upload any virtualization info"
 msgstr "不要上載任何虛擬資料"
 
-#: ../src/bin/rhnreg_ks.py:71
+#: ../src/bin/rhnreg_ks.py:70
 msgid "Do not start rhnsd after completion"
 msgstr "完成後不啟動 rhnsd"
 
-#: ../src/bin/rhnreg_ks.py:73
+#: ../src/bin/rhnreg_ks.py:72
 msgid "Register the system even if it is already registered"
 msgstr "註冊系統；即使已經註冊過了"
 
-#: ../src/bin/rhnreg_ks.py:75
-msgid "Check RHN repo for emergency updates"
-msgstr ""
-
-#: ../src/bin/rhnreg_ks.py:89
+#: ../src/bin/rhnreg_ks.py:82
 msgid "A username and password are required to register a system."
 msgstr "註冊系統需要使用者名稱與密碼。"
 
-#: ../src/bin/rhnreg_ks.py:94
+#: ../src/bin/rhnreg_ks.py:87
 msgid "This system is already registered. Use --force to override"
 msgstr "這個系統已經註冊過了。 請使用 --force 來強制註冊"
 
-#: ../src/bin/rhnreg_ks.py:124
-#, python-format
-msgid "Invalid character in profilename %s at index %d"
-msgstr ""
-
-#: ../src/bin/rhnreg_ks.py:144
+#: ../src/bin/rhnreg_ks.py:130
 msgid ""
 "Usage of --use-eus-channel option with --activationkey is not supported. "
 "Please use username and password instead."
 msgstr ""
 
-#: ../src/bin/rhnreg_ks.py:147
+#: ../src/bin/rhnreg_ks.py:133
 #, fuzzy
 msgid "The server you are registering against does not support EUS."
 msgstr "您試圖連上、註冊的伺服器並不支援這用戶端版本。"
 
-#: ../src/bin/rhnreg_ks.py:264
+#: ../src/bin/rhnreg_ks.py:163
+msgid ""
+"Warning: --contactinfo option has been deprecated. Please login to the "
+"server web user Interface and update your contactinfo. "
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:203
 msgid ""
 "A profilename was not specified, and hostname and IP address could not be "
 "determined to use as a profilename, please specify one."
@@ -2583,6 +2556,31 @@ msgstr "• 您 Red Hat Network 衛星伺服器的位址（選用）"
 #: ../data/rh_register.glade.h:129
 msgid "• Your Red Hat Network or Red Hat Network Satellite login "
 msgstr "• 您 Red Hat Network 或 Red Hat Network 衛星伺服器的登入名稱"
+
+#~ msgid ""
+#~ "were not able to activate it (An unknown error occurred.) We used "
+#~ "existing "
+#~ msgstr "但我們無法啟動它（發生未知的錯誤）。"
+
+#~ msgid ""
+#~ "active subscription slots available in the rhn account instead. You may "
+#~ "wish "
+#~ msgstr "我們將改用 RHN 帳號中，現有、可用的啟動訂閱。"
+
+#~ msgid "to contact Red Hat customer service regarding this issue: "
+#~ msgstr "關於此問題，請連絡 Red Hat 客戶服務部："
+
+#~ msgid "http://www.redhat.com/apps/support/"
+#~ msgstr "http://www.redhat.com/apps/support/"
+
+#~ msgid "registration_number"
+#~ msgstr "註冊號碼（registration_number）"
+
+#~ msgid "activates subscriptions in your account."
+#~ msgstr "以啟動您的帳號。"
+
+#~ msgid "Only https and http are allowed."
+#~ msgstr "只允許 https 或 http。"
 
 #~ msgid "Error reading hardware information:"
 #~ msgstr "讀取硬體資訊時發生錯誤"

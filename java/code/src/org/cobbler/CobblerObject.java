@@ -57,33 +57,23 @@ public abstract class CobblerObject {
      * @param client the Cobbler Connection
      * @param id the UID of the distro/profile/system record
      * @param findMethod the find xmlrpc method, eg: find_distro
-     * @param listMethod the list xmlrpc method, eg: get_distros
      * @return true if the cobbler object was found. 
      */
     protected static Map<String, Object> lookupDataMapById(CobblerConnection client, 
-                             String id, String findMethod, String listMethod) {
+                             String id, String findMethod) {
         if (id == null) {
             return null;
         }
-        if (client.is16OrGreater()) {
-            Map<String, String> criteria  = new HashMap<String, String>();
-            criteria.put(UID, id);
-            List<Map<String, Object>> objects = (List<Map<String, Object>>)
-            client.invokeTokenMethod(findMethod, criteria);
-            if (!objects.isEmpty()) {
-                return objects.get(0);
-            }
-            return null;
-        }
-        List<Map<String, Object>> cobblerObjects = (List<Map<String, Object>>) 
-                                                client.invokeMethod(listMethod);
-        for (Map <String, Object> map : cobblerObjects) {
-            
-            if (id.equals(map.get(UID))) {
-                return map;
-            }
+
+        Map<String, String> criteria  = new HashMap<String, String>();
+        criteria.put(UID, id);
+        List<Map<String, Object>> objects = (List<Map<String, Object>>)
+                                client.invokeTokenMethod(findMethod, criteria);
+        if (!objects.isEmpty()) {
+            return objects.get(0);
         }
         return null;
+
     }
     
     /**
@@ -330,8 +320,9 @@ public abstract class CobblerObject {
      */
     public void setName(String nameIn) {
         invokeRename(nameIn);
-        modify(NAME, nameIn);
         dataMap.put(NAME, nameIn);
+        handle = null;
+        handle = getHandle();
         reload();
     }
     

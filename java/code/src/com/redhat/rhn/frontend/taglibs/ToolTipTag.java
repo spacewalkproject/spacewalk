@@ -39,7 +39,7 @@ public class ToolTipTag extends TagSupport {
     private static final long serialVersionUID = 7202597580376186072L;
 
     private String key;
-    private String text;
+    private String typeKey = "Tip";
     
     /**
      * Sets the key
@@ -50,11 +50,11 @@ public class ToolTipTag extends TagSupport {
     }
     
     /**
-     * Sets the text to render...
-     * @param txt the text..
+     * Sets the type to render, example "Tip", "Warning", "Note"...
+     * @param typeKeyIn the String resources key of the type..
      */
-    public void setText(String txt) {
-        text = txt;
+    public void setTypeKey(String typeKeyIn) {
+       typeKey = typeKeyIn; 
     }
     
     /**
@@ -64,11 +64,11 @@ public class ToolTipTag extends TagSupport {
     public int doStartTag() throws JspException {
         LocalizationService ls = LocalizationService.getInstance();
         HtmlTag strong = new HtmlTag("strong");
-        strong.addBody(ls.getMessage("Tip") + ": ");
+        strong.addBody(ls.getMessage(geTypeKey()) + ": ");
 
         JspWriter writer = pageContext.getOut();
         try {
-            writer.write("<span class=\"small-text\">");
+            writer.write("<p class=\"small-text\">");
             writer.write(strong.render());
             if (!StringUtils.isBlank(key)) {
                 writer.write(ls.getMessage(key));
@@ -81,17 +81,33 @@ public class ToolTipTag extends TagSupport {
         
     }
     
+    protected String geTypeKey() {
+        if (StringUtils.isBlank(typeKey)) {
+            return "Tip";
+        }
+        return typeKey; 
+    }
+    
     /**
      * {@inheritDoc}
      */
     public int doEndTag() throws JspException {
         JspWriter writer = pageContext.getOut();
         try {
-            writer.write("</span>");
+            writer.write("</p>");
         }
         catch (IOException e) {
             throw new JspException(e);
         }        
         return SKIP_BODY;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void release() {
+        typeKey = "Tip";
+        key = null;                
+        super.release();
     }
 }

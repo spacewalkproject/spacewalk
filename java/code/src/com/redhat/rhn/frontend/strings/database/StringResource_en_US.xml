@@ -2893,14 +2893,14 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         <context-group name="ctx">
 			<context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
-      </trans-unit>                
+      </trans-unit>
 
-	<trans-unit id="WARNING">
+       <trans-unit id="WARNING">
 <source>WARNING</source>
         <context-group name="ctx">
-			<context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
+                       <context context-type="sourcefile">/rhn/systems/details/probes/ProbeDetails.do</context>
         </context-group>
- 	</trans-unit>                
+       </trans-unit>
         
       <group>
         <context-group name="ctx">

@@ -33,22 +33,32 @@ def update(errataidlist):
         tmpList = __getErrataInfo(errataid)
         packagelist = packagelist + tmpList
 
-    current_packages = {}
-    for p in rpmUtils.getInstalledPackageList():
+    current_packages_with_arch = {}
+    current_packages ={}
+    for p in rpmUtils.getInstalledPackageList(getArch=1):
+        current_packages_with_arch[p[0]+p[4]] = p
         current_packages[p[0]] = p
 
     u = {}   
     # only update packages that are currently installed
     # since an "applicable errata" may only contain some packages
     # that actually apply. aka kernel. Fun fun fun. 
-    for p in packagelist:
-	if current_packages.has_key(p[0]):
-	    u[p[0]] = p
+    if len(packagelist[0]) > 4:
+        # Newer sats send down arch, filter using name+arch
+        for p in packagelist:
+	    if current_packages_with_arch.has_key(p[0]+p[4]):
+	        u[p[0]+p[4]] = p
+    else:
+        # 5.2 and older sats + hosted dont send arch
+        for p in packagelist:
+            if current_packages.has_key(p[0]):
+                u[p[0]] = p
+
 
     # XXX: Fix me - once we keep all errata packages around,
     # this is the WRONG thing to do - we want to keep the specific versions
     # that the user has asked for.
-    packagelist = map(lambda a: [a, 0, 0, ""], u.keys())
+    packagelist = map(lambda a: u[a], u.keys())
    
     if packagelist == []:
 	data = {}

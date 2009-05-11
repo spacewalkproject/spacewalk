@@ -88,6 +88,33 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>typeKey</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>        
+    </tag>
+
+    <tag>
+        <name>warning</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.WarningTag</tag-class> 
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>key</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <name>note</name>
+        <tag-class>com.redhat.rhn.frontend.taglibs.NoteTag</tag-class> 
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>key</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
 
 

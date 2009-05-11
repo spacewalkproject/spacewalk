@@ -23,7 +23,7 @@ function showFiltered() {
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif" imgAlt="channels.overview.toolbar.imgAlt"
-             helpUrl="/rhn/help/reference/en/s2-sm-channel-list.jsp#s3-sm-channel-list-all" >
+             helpUrl="/rhn/help/reference/en-US/s1-sm-channels-packages.jsp" >
   <bean:message key="channels.all.jsp.toolbar"/>
 </rhn:toolbar>
 

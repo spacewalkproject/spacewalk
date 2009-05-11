@@ -14,12 +14,34 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -35,23 +57,7 @@ import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.manager.user.UserManager;
 
 
 /**
@@ -108,6 +114,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 helper.setListName(getListName());
                 // ignore the return
                 helper.execute();
+                request.setAttribute("channel_name", (String) form.getString("name"));
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(sharing), params);
             }
@@ -134,15 +141,23 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         else if (ctx.hasParam("deny")) {
             deny(form, errors, ctx);
+            if (errors.isEmpty()) {
+                createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
         }
         else if (ctx.hasParam("grant")) {
             grant(form, errors, ctx);
+            if (errors.isEmpty()) {
+                createSuccessMessage(request, "message.channelupdated",
+                    form.getString("name"));
+            }
         }
         if (!errors.isEmpty()) {
-            request.setAttribute("channel_label", (String) form.get("label"));
-            request.setAttribute("channel_name", (String) form.getString("name"));
-            request.setAttribute("channel_arch", (String) form.get("arch_name"));
-            request.setAttribute("channel_arch_label", (String) form.get("arch"));
+            request.setAttribute("channel_label", form.get("label"));
+            request.setAttribute("channel_name", form.getString("name"));
+            request.setAttribute("channel_arch", form.get("arch_name"));
+            request.setAttribute("channel_arch_label", form.get("arch"));
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(
@@ -165,7 +180,7 @@ public class EditChannelAction extends RhnAction implements Listable {
     private boolean hasSharingChanged(DynaActionForm form, RequestContext ctx) {
         Long cid = ctx.getParamAsLong("cid");
         Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getLoggedInUser());
-        return !c.getAccess().equals((String) form.get("org_sharing"));
+        return !c.getAccess().equals(form.get("org_sharing"));
     }
     
     /**
@@ -178,38 +193,95 @@ public class EditChannelAction extends RhnAction implements Listable {
      */
     private void formToAttributes(HttpServletRequest request,
                                   DynaActionForm form) {
-        request.setAttribute("name", (String) form.get("name"));
-        request.setAttribute("label", (String) form.get("label"));
-        request.setAttribute("parent", (String) form.get("parent"));
-        request.setAttribute("arch", (String) form.get("arch"));
-        request.setAttribute("arch_name", (String) form.get("arch_name"));
-        request.setAttribute("summary", (String) form.get("summary"));
-        request.setAttribute("description", (String) form.get("description"));
+        request.setAttribute("name", form.get("name"));
+        request.setAttribute("label", form.get("label"));
+        request.setAttribute("parent", form.get("parent"));
+        request.setAttribute("arch", form.get("arch"));
+        request.setAttribute("arch_name", form.get("arch_name"));
+        request.setAttribute("summary", form.get("summary"));
+        request.setAttribute("description", form.get("description"));
         request.setAttribute("maintainer_name",
-                (String) form.get("maintainer_name"));
+                form.get("maintainer_name"));
         request.setAttribute("maintainer_email",
-                (String) form.get("maintainer_email"));
+                form.get("maintainer_email"));
         request.setAttribute("maintainer_phone",
-                (String) form.get("maintainer_phone"));
+                form.get("maintainer_phone"));
         request.setAttribute("support_policy",
-                (String) form.get("support_policy"));
+                form.get("support_policy"));
         request.setAttribute("per_user_subscriptions",
-                (String) form.get("per_user_subscriptions"));
-        request.setAttribute("org_sharing", (String) form.get("org_sharing"));
-        request.setAttribute("gpg_key_url", (String) form.get("gpg_key_url"));
-        request.setAttribute("gpg_key_id", (String) form.get("gpg_key_id"));
+                form.get("per_user_subscriptions"));
+        request.setAttribute("org_sharing", form.get("org_sharing"));
+        request.setAttribute("gpg_key_url", form.get("gpg_key_url"));
+        request.setAttribute("gpg_key_id", form.get("gpg_key_id"));
         request.setAttribute("gpg_key_fingerprint",
-                (String) form.get("gpg_key_fingerprint"));
+                form.get("gpg_key_fingerprint"));
     }
     
-    private Channel deny(DynaActionForm form,
-            ActionErrors errors,
+    /**
+     *
+     * @param form form to check
+     * @param errors errors to report
+     * @param ctx context
+     * @return Channel
+     */
+    private Channel deny(DynaActionForm form, ActionErrors errors,
             RequestContext ctx) {
+
         Channel c = edit(form, errors, ctx);
-        // now remove all of the orgs to the "rhnchanneltrust"
+        User user = ctx.getLoggedInUser();
+
+        unsubscribeOrgsFromChannel(user, c, Channel.PROTECTED);
+
         c.getTrustedOrgs().clear();
         ChannelFactory.save(c);
         return c;
+    }
+
+    /**
+     *
+     * @param user User that owns parent channel
+     * @param channelIn base channel to unsubscribe from.
+     */
+    private void unsubscribeOrgsFromChannel(User user, Channel channelIn, String accessIn) {
+        Long cid = channelIn.getId();
+        Org org = channelIn.getOrg();
+
+        // find trusted orgs
+        Set<Org> trustedOrgs = org.getTrustedOrgs();
+        for (Org o : trustedOrgs) {
+            // find systems subscribed in org Trust
+            DataResult<Map> dr = SystemManager.sidsInOrgTrust(
+                    org.getId(), o.getId());
+
+            for (Map item : dr) {
+                Long sid = (Long) item.get("id");
+                Server s = ServerFactory.lookupById(sid);
+                if (s.isSubscribed(channelIn)) {
+                    // check if this is a base custom channel
+                    if (channelIn.getParentChannel() == null) {
+                        // unsubscribe children first if subscribed
+                        List<Channel> children = channelIn
+                                .getAccessibleChildrenFor(user);
+                        Iterator<Channel> i = children.iterator();
+                        while (i.hasNext()) {
+                            Channel child = (Channel) i.next();
+                            if (s.isSubscribed(child)) {
+                                // unsubscribe server from child channel
+
+                                child.getTrustedOrgs().remove(o);
+                                child.setAccess(accessIn);
+                                ChannelFactory.save(child);
+                                s = SystemManager.
+                                unsubscribeServerFromChannel(s, child, true);
+                            }
+                        }
+                    }
+                    // unsubscribe server from channel
+                    ChannelFactory.save(channelIn);
+                    s = SystemManager.unsubscribeServerFromChannel(s, channelIn, true);
+                }
+            }
+        }
     }
     
     private Channel grant(DynaActionForm form,
@@ -227,20 +299,11 @@ public class EditChannelAction extends RhnAction implements Listable {
     private Channel makePrivate(DynaActionForm form,
                                 ActionErrors errors,
                                 RequestContext ctx) {
-        // need to unsubscribe all systems from the trusted orgs from this
-        // channel
+
+        User user = ctx.getLoggedInUser();
         Long cid = ctx.getParamAsLong("cid");
-        Org org = ctx.getLoggedInUser().getOrg();
-        Set<Org> trustedorgs = org.getTrustedOrgs();
-        for (Org o : trustedorgs) {
-            DataResult<Map> dr =
-                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
-            for (Map item : dr) {
-                Long sid = (Long)item.get("id");
-                User user = ctx.getLoggedInUser();
-                SystemManager.unsubscribeServerFromChannel(user, sid, cid);
-            }
-        }
+        Channel channel = ChannelFactory.lookupById(cid);
+        unsubscribeOrgsFromChannel(user, channel, Channel.PRIVATE);
         return edit(form, errors, ctx);
     }
 
@@ -298,12 +361,12 @@ public class EditChannelAction extends RhnAction implements Listable {
                     new ActionMessage("edit.channel.invalidgpgurl"));
         }
         catch (InvalidChannelNameException ferengi) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannelname"));
+            handleChannelNameException(errors, ferengi);
+
         }
         catch (InvalidChannelLabelException q) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannellabel"));
+            handleChannelLabelException(errors, q);
+
         }
         catch (IllegalArgumentException iae) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -369,12 +432,10 @@ public class EditChannelAction extends RhnAction implements Listable {
                     new ActionMessage("edit.channel.invalidgpgurl"));
         }
         catch (InvalidChannelNameException ferengi) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannelname"));
+            handleChannelNameException(errors, ferengi);
         }
         catch (InvalidChannelLabelException q) {
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("edit.channel.invalidchannellabel"));
+            handleChannelLabelException(errors, q);
         }
         catch (IllegalArgumentException iae) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -384,6 +445,78 @@ public class EditChannelAction extends RhnAction implements Listable {
         return cid;
     }
     
+    private void handleChannelNameException(ActionErrors errors,
+                                            InvalidChannelNameException ferengi) {
+        switch (ferengi.getReason()) {
+            case IS_MISSING:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.missing"));
+                break;
+            
+            case REGEX_FAILS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.regex"));
+                break;
+            
+            case RHN_CHANNEL_BAD_PERMISSIONS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.redhat"));
+                break;
+            
+            case TOO_SHORT:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.minlength",
+                            CreateChannelCommand.CHANNEL_NAME_MIN_LENGTH));
+                break;
+            
+            case NAME_IN_USE:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname.nameinuse",
+                            ferengi.getName()));
+                break;
+            
+            default:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                        new ActionMessage("edit.channel.invalidchannelname"));
+        }
+    }
+    
+    private void handleChannelLabelException(ActionErrors errors,
+                                             InvalidChannelLabelException q) {
+        switch (q.getReason()) {
+            case IS_MISSING:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.missing"));
+                break;
+            
+            case REGEX_FAILS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.regex"));
+                break;
+
+            case RHN_CHANNEL_BAD_PERMISSIONS:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.redhat"));
+                break;
+
+            case TOO_SHORT:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.minlength",
+                        CreateChannelCommand.CHANNEL_LABEL_MIN_LENGTH));
+                break;
+            
+            case LABEL_IN_USE:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel.labelinuse",
+                        q.getLabel()));
+                break;
+            
+            default:
+                errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannellabel"));
+        }
+    }
+
     private void setupForm(HttpServletRequest request, DynaActionForm form) {
         RequestContext ctx = new RequestContext(request);
         prepDropdowns(ctx);
@@ -392,6 +525,9 @@ public class EditChannelAction extends RhnAction implements Listable {
         if (cid != null) {
             Channel c = ChannelManager.lookupByIdAndUser(cid,
                                                          ctx.getLoggedInUser());
+            if (!UserManager.verifyChannelAdmin(ctx.getLoggedInUser(), c)) {
+                throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+            }
 
             form.set("name", c.getName());
             form.set("summary", c.getSummary());
@@ -498,7 +634,7 @@ public class EditChannelAction extends RhnAction implements Listable {
         List<OrgTrust> trusts = new ArrayList<OrgTrust>();
         for (Org o : trustedorgs) {
             DataResult<Map> dr =
-                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
+                SystemManager.sidsInOrgTrust(org.getId(), o.getId());
             OrgTrust trust = new OrgTrust(o);
             if (!dr.isEmpty()) {
                 for (Map m : dr) {

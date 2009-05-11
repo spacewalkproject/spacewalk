@@ -3,20 +3,16 @@
 	<file source-language="en-US" target-language="zh-TW" datatype="po" original="en-US/template.xliff">
 		<body>
 			<trans-unit id="email.verify.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat 登入電子郵件驗證</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat 登入電子郵件驗證</target>
+				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<target>@@PRODUCT_NAME@@ 登入電子郵件驗證</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
-				<source>Dear Red Hat Network User,
+				<source>Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click the link below
@@ -28,39 +24,42 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 
 {2}</source>
-				<target>Red Hat Network 用戶鈞鑒：
+				<target>@@PRODUCT_NAME@@ 用戶鈞鑒：
 
-這封電子郵件是用來驗證您為 Red Hat 登入帳號所提供的電子郵件位址。
-您的 Red Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過
-Red Hat Network，存取系統管理功能。
+這封電子郵件是用來驗證您為 Red Hat 登入帳號
+所提供的電子郵件地址。您的 Red Hat 登入帳號
+結合了啟用的 Red Hat 訂閱服務，能讓您透過
+@@PRODUCT_NAME@@，存取系統管理功能。
 
-要確保您 Red Hat 登入帳號的資訊安全性，請撥冗點選以下連結，確認您
-的電子郵件位址。如果無法確認您的電子郵件位址，那麼您的 Red Hat 登
+要確保您 Red Hat 登入帳號的資訊
+安全性，請撥冗點選以下連結，確認您
+的電子郵件地址。如果無法確認您的
+電子郵件地址，那麼您的 Red Hat 登
 入帳號將會被停用。
 
-要確認您的電子郵件位址，請按下以下網址：
+要確認您的電子郵件地址，請至以下網址：
 
 {0}
 
-謝謝您使用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {1}
 
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.subject">
-				<source>Your RHN Account is ready</source>
-				<target>您的 RHN 帳號已經準備妥當</target>
+				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+				<target>您的 @@PRODUCT_NAME@@ 帳號已經準備妥當</target>
 			</trans-unit>
 			<trans-unit id="email.newaccountbycreator.body">
 				<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
        Password: {3}
@@ -70,23 +69,23 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>您好。
 
 您的 Red Hat 登入帳號已經由 {0} {1} 為您建立完成。您的 Red
-Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 Red Hat
-Network，存取系統管理功能。
+Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PRODUCT_NAME@@
+來存取系統管理功能。
 
-Red Hat 登入：{2}
-        密碼：{3}
-電子郵件位址：{4}
+Red Hat 登入帳號：{2}
+       密碼：{3}
+         電子郵件地址：{4}
 
   {5}
 
-重要：請在登入後變更您的密碼。
+重要：請在登入後更改您的密碼。
 
-謝謝您採用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.body">
@@ -94,7 +93,7 @@ Red Hat 登入：{2}
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
        Password: {1}
@@ -104,23 +103,23 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>您好。
 
 您的 Red Hat 登入帳號已經建立完成。您的 Red
-Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 Red Hat
-Network，存取系統管理功能。
+Hat 登入帳號結合了啟用的 Red Hat 訂閱服務，能讓您透過 @@PRODUCT_NAME@@
+來存取系統管理功能。
 
-Red Hat 登入：{0}
-        密碼：{1}
-電子郵件位址：{2}
+  Red Hat 登入帳號：{0}
+       密碼：{1}
+         電子郵件地址：{2}
 
   {3}
 
-重要：請在登入後變更您的密碼。
+重要：請在登入後更改您的密碼。
 
-謝謝您採用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {4}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.pam.body">
@@ -128,33 +127,32 @@ Red Hat 登入：{0}
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
          e-mail: {4}
 
   {5}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>您好。
 
 您的 Red Hat 登入帳號已經由 {0} {1} 為您建立完成。您的
 Red Hat 登入帳號結合了啟用中的 Red Hat 訂閱服務，能讓您透過
-Red Hat Network，存取系統管理功能。
+@@PRODUCT_NAME@@ 來存取系統管理功能。
 
-Red Hat 登入：{2}
-電子郵件位址：{4}
-
+  Red Hat 登入帳號：{2}
+         電子郵件地址：{4}
 
   {5}
 
-謝謝您採用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.subject">
-				<source>RHN User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>RHN 使用者已建立：{0} ({1}, {2} &lt;{3}&gt;)</target>
+				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target>@@PRODUCT_NAME@@ 用戶已建立：{0} ({1}, {2} &lt;{3}&gt;)</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.body">
 				<source>Hello,
@@ -168,25 +166,25 @@ please visit:
 
   {1}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
 				<target>您好。
 
-新使用者已經加入您的帳號。
+新使用者已被加入至您的帳號。
 
 {0}
 
-要檢視所有啟用的使用者，以及與您帳號相關的 Red Hat 登入帳號，
-請使用：
+要檢視所有啟用的使用者，以及與您帳號相聯的 Red Hat 登入帳號，
+請至：
 
-{1}
+  {1}
 
-謝謝您採用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.subject">
-				<source>RHN Account Deactivated: {0}</source>
-				<target>RHN 帳號停用：{0}</target>
+				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+				<target>@@PRODUCT_NAME@@ 帳號已停用：{0}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.body">
 				<source>
@@ -196,7 +194,7 @@ Thank you for contacting Red Hat.</source>
 				<target>
 Red Hat 登入帳號 {0} 已經根據您的要求，予以停用。
 
-謝謝您聯絡 Red Hat。</target>
+感謝您聯絡 Red Hat。</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.bala.subject">
 				<source>Red Hat login creation request</source>
@@ -313,7 +311,7 @@ Red Hat 帳號管理小組敬上</target>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to Red Hat Network
+account in the past day, but could not be entitled to @@PRODUCT_NAME@@
 services.
 
 {0}
@@ -322,10 +320,10 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on Red Hat Network by following
+   delete your existing system profile on @@PRODUCT_NAME@@ by following
    the directions at https://rhn.redhat.com/help/faq/#26
 
-2) The number of systems you have connected to Red Hat Network exceeds
+2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
    account.  This may be because your subscriptions have expired or
    you need to purchase a Red Hat subscription.
@@ -348,45 +346,50 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using Red Hat Network.</source>
+Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Red Hat 用戶鈞鑒：
 
-過去幾天內，以下系統與您的 Red Hat 登入帳號有關聯，但無法從 Red Hat Network
-處取得權利。
+過去幾天內，以下系統與您的 Red Hat 登入帳號有
+關聯，但無法被授予 @@PRODUCT_NAME@@
+服務的權利。
 
 {0}
 
-有幾項原因可能引起這問題：
+有幾項原因可能引起此問題：
 
-1) 您最近重新安裝了系統，並試圖將這系統與現有、已啟動的訂閱服務相關連。請
-   確定您從 Red Hat Network 刪除現有的系統設定檔，方法請參閱
+1) 您最近重新安裝了系統，並試圖將這系統與
+   現有、已啟動的訂閱服務相關連。請
+   確定您有從 @@PRODUCT_NAME@@ 中刪除現有的系統設定檔，方法請參閱
    https://rhn.redhat.com/help/faq/#26
 
-2) 您連接到 Red Hat Network 的系統數目超過了您帳號所擁有的 Red Hat 訂閱
-   數。這可能是因為您的訂閱服務已經過期，或您需要購買一份 Red Hat 訂閱服
-   務。
+2) 您連接到 @@PRODUCT_NAME@@ 的系統數目超過了
+   您帳號所擁有的 Red Hat 訂閱
+   數。這可能是因為您的訂閱服務已經過期，或
+   您需要購買一份 Red Hat 訂閱服務。
 
-   要檢查您現有 Red Hat 的訂閱資訊，請參閱：
+   要檢查您現有 Red Hat 訂閱的有效期限，請至：
 
    https://www.redhat.com/apps/support/
 
    登入後請按下「檢視」，並使用連結管理您的訂閱。
 
-3) 您最近安裝了 Red Hat 產品，而您的訂閱碼並未成功地啟動。如果您打算試著
+3) 您最近安裝了 Red Hat 產品，而您的訂閱
+   碼並未成功地啟動。如果您打算試著
    重新啟動您的訂閱，請使用以下網址：
 
    https://www.redhat.com/activate
 
-如果您有其他疑問，請聯絡 Red Hat 業務代表：
+如果您有其他疑問，請聯絡 Red Hat 客服
+人員：
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-感謝您使用 Red Hat Network。</target>
+感謝您使用 @@PRODUCT_NAME@@。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>
-Red Hat Network has determined that the following advisory is applicable to
+@@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
 Complete information about this errata can be found at the following location:
@@ -401,7 +404,7 @@ Summary:
 {7}
 ------------------------------------------------------------------------------</source>
 				<target>
-Red Hat Network 測定了下列建議能對應於
+@@PRODUCT_NAME@@ 判斷了下列建議能對應於
 一個或更多個您所註冊的系統：
 
 有關此勘誤的完整資訊能在下列位置上 發現：
@@ -409,7 +412,7 @@ Red Hat Network 測定了下列建議能對應於
 
 {1} - {2}
 ------------------------------------------------------------------------------
-概敘：
+摘要：
 {3}
 
 {4}{5}{6}
@@ -436,24 +439,24 @@ package profile for that server is out of date. In that case you should run
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your RHN' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-有 1 個被影響的系統註冊於「您的 RHN」之中（只有您明確地
+有 1 個被影響的系統註冊於「總覽」之中（只有您明確地
 啟用勘誤警告的系統才會被顯示出）。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your RHN' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-有 {0} 個被影響的系統註冊於「您的 RHN」之中（只有您明確地
+有 {0} 個被影響的系統註冊於「總覽」之中（只有您明確地
 啟用勘誤警告的系統才會被顯示出）。</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
 				<source>
-System                          Operating System
-------------------------------- ---------------------------------------------
+Release    Arch       Profile Name
+---------- ---------- ---------------------------------------------
 {0}
 
 You may address the issues outlined in this advisory in two ways:
@@ -465,8 +468,8 @@ You may address the issues outlined in this advisory in two ways:
 
      - run the Update Agent on each affected server.</source>
 				<target>
-系統                          作業系統
-------------------------------- ---------------------------------------------
+發行版    架構       設定檔名稱
+---------- ---------- ---------------------------------------------
 {0}
 
 您能夠使用兩種方法來找出此建議中所描述出的問題：
@@ -482,8 +485,8 @@ You may address the issues outlined in this advisory in two ways:
 				<source>
 Changing Notification Preferences
 ---------------------------------
-To enable/disable your Errata Alert preferences globally please log in to RHN
-and navigate from "Your RHN" / "Your Account" to the "Preferences" tab.
+To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 
@@ -494,30 +497,30 @@ click the "Details" tab.
 {1}
 {2}</source>
 				<target>
-更改通知偏好
+更改通知偏好設定
 ---------------------------------
-如要全域性的啟用 / 停用您的勘誤警告偏好，請登入至 RHN
-並由「您的 RHN」/「您的帳號」瀏覽至「偏好設定」 標籤。
+如要全域性地啟用/停用您的勘誤警告偏好設定，請登入 @@PRODUCT_NAME@@
+並由「總覽」/「您的帳號」瀏覽至「偏好設定」分頁。
 
         URL：{0}
 
-您也能夠藉由從「系統清單」中選擇個別的系統 來
-啟用 / 停用基於單一系統的通知。從個別系統的 畫面中
-按下「詳細資料」的標籤。
+您也能夠藉由從「系統清單」中選擇個別的系統來
+啟用/停用基於單一系統的通知。從個別系統的畫面中
+按下「詳細資料」分頁。
 
 {1}
 {2}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.subject">
-				<source>RHN Daily Status Report for {0}</source>
-				<target>{0} 的 RHN 每日狀態報告</target>
+				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+				<target>{0} 的 @@PRODUCT_NAME@@ 每日狀態報告</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.body">
-				<source>This is the RHN Status Report for your account {0}, as of {1}.
+				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
-This email will be sent when any of the following apply to the specified systems:
+This email will be sent when any of the following apply:
 
-1.  The system fails to check in with RHN within a 24-hour window.
+1.  The system fails to check in with @@PRODUCT_NAME@@ within a 24-hour window.
 2.  The system registers scheduled action activity.
 
 {2}
@@ -527,17 +530,17 @@ Disabling this email:
 
 To learn how to disable this email for systems:
 
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
+https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {5}
 {6}</source>
-				<target>這是您截至 {1} 為止，帳號 {0} 的 RHN 狀態報告。
+				<target>這是您截至 {1} 為止，帳號 {0} 的 @@PRODUCT_NAME@@ 狀態報告。
 
 這封郵件會在任何特定系統符合以下條件時發出：
 
-1.  該系統在過去廿四小時內並未登入 RHN。
+1.  該系統在過去廿四小時內並未登入 @@PRODUCT_NAME@@。
 2.  該系統註冊了排程活動。
 
 {2}
@@ -547,21 +550,21 @@ Thank you for using Red Hat Network.
 
 如要了解如何取消這封電子郵件：
 
-https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
+https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-感謝您使用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {5}
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.verification.notice.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -573,36 +576,43 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-Red Hat Network 用戶鈞鑒：
+@@PRODUCT_NAME@@ 用戶鈞鑒：
 
-這封電子郵件是用來驗證您為 Red Hat 登入帳號所提供的電子郵件位址。
+這封電子郵件是用來驗證您
+為 Red Hat 登入帳號所提供的電子郵件地址。
 您的 Red Hat 登入帳號結合了已啟用的 Red Hat 訂閱服務，能讓您透過
-Red Hat Network，存取系統管理功能。
+@@PRODUCT_NAME@@ 來存取系統管理功能。
 
-要確保您 Red Hat 登入帳號的資訊安全性，請撥冗點選以下連結，確認您
-的電子郵件位址。如果無法確認您的電子郵件位址，那麼您的 Red Hat 登
-入帳號將會被停用。
+要確保您 Red Hat 登入帳號的資訊安全性，
+請撥冗點選以下連結，確認您的電子郵件地址。
+如果無法確認您的電子郵件地址，那麼您
+的 Red Hat 登入帳號將會
+被停用。
 
-要確認您的電子郵件位址，請按下以下網址：
+要確認您的電子郵件地址，請至以下網址：
 
 {0}
 
-謝謝您使用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {1}
 {2}</target>
 			</trans-unit>
+			<trans-unit id="email.verification.notice.subject">
+				<source>Red Hat login Email Verification</source>
+				<target>Red Hat 登入電子郵件驗證</target>
+			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -617,28 +627,31 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-Red Hat Network 用戶鈞鑒：
+@@PRODUCT_NAME@@ 用戶鈞鑒：
 
-這封電子郵件是用來驗證您為 Red Hat 登入帳號所提供的電子郵件位址。
+這封電子郵件是用來驗證您
+為 Red Hat 登入帳號所提供的電子郵件地址。
 您的 Red Hat 登入帳號結合了已啟用的 Red Hat 訂閱服務，能讓您透過
-Red Hat Network，存取系統管理功能。
+@@PRODUCT_NAME@@ 來存取系統管理功能。
 
-要確保您 Red Hat 登入帳號的資訊安全性，請撥冗點選以下連結，確認您
-的電子郵件位址。如果無法確認您的電子郵件位址，那麼您的 Red Hat 登
-入帳號將會被停用。
+要確保您 Red Hat 登入帳號的資訊安全性，請
+撥冗點選以下連結，確認您的電子郵件地址。
+如果無法確認您的電子郵件地址，那麼您
+的 Red Hat 登入帳號將會
+被停用。
 
-請注意這是最後通知。如果您不再兩天內點選以下網址，那麼您的 Red Hat
+請注意這是最後通知。如果您不在兩天內點選以下網址，那麼您的 Red Hat
 登入帳號將會被停用。
 
-要確認您的電子郵件位址，請按下以下網址：
+要確認您的電子郵件地址，請至以下網址：
 
 {0}
 
-謝謝您使用 Red Hat Network。
+感謝您使用 @@PRODUCT_NAME@@。
 {1}
 {2}</target>
 			</trans-unit>
@@ -647,32 +660,32 @@ Red Hat Network，存取系統管理功能。
 				<target>Red Hat 登入電子郵件驗證，最後通知</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat Satellite Server Certificate expiration warning</source>
-				<target>Red Hat 衛星伺服器認證過期的警告</target>
+				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+				<target>Red Hat @@PRODUCT_NAME@@ 伺服器認證過期警告</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. After {1} day(s) the systems 
-management services provided by your RHN Satellite Server will become inaccessible. 
+management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
 Please contact your regional Red Hat Customer  Service Representative for information 
-on how to renew your Satellite Certificate.
+on how to renew your @@PRODUCT_NAME@@ Certificate.
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-Red Hat Network 用戶鈞鑒：
+@@PRODUCT_NAME@@ 用戶鈞鑒：
 
-我們藉此電子郵件通知您，您本地的 RHN 衛星伺服器 {0} 之認證已經過
-期。經過 {1} 天之後，您 RHN 衛星伺服器所提供的系統管理服務將無法
-繼續使用。請聯絡您的 Red Hat 客戶服務代表，了解更新衛星伺服器的
+我們藉此電子郵件通知您，您本地的 @@PRODUCT_NAME@@ 衛星伺服器 {0} 之認證已經過
+期。經過 {1} 天之後，您 @@PRODUCT_NAME@@ 伺服器所提供的系統
+管理服務將無法繼續使用。請聯絡您的 Red Hat 客服人員，以了解
+更新 @@PRODUCT_NAME@@ 的
 認證之方法。
 
-謝謝您使用 Red Hat Network。
-
-Red Hat Network 小組敬上</target>
+感謝您使用 @@PRODUCT_NAME@@。
+--@@PRODUCT_NAME@@ 小組敬上</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.subject">
 				<source>Red Hat satellite certificate expiration notice</source>
@@ -680,28 +693,28 @@ Red Hat Network 小組敬上</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. The system management services will be inaccessible 
 until your certificate is renewed. Please contact your regional Red Hat 
-Customer Service Representative for information on how to renew your Satellite Certificate.
+Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-Red Hat Network 用戶鈞鑒：
+@@PRODUCT_NAME@@ 用戶鈞鑒：
 
-我們藉此電子郵件通知您，您本地的 RHN 衛星伺服器 {0} 之認證已經過
-期。除非您更新認證，否則您 RHN 衛星伺服器所提供的系統管理服務將無
-法繼續使用。請聯絡您的 Red Hat 客戶服務代表，了解更新衛星伺服器
+我們藉此電子郵件通知您，您本地衛星伺服器 {0} 上
+的 @@PRODUCT_NAME@@ 之認證已經過
+期。除非您更新認證，否則您將無法繼續使用系統管理服務。
+請聯絡您地區的 Red Hat 客服人員，以了解更新 @@PRODUCT_NAME@@
 的認證之方法。
 
 
-謝謝您使用 Red Hat Network。
-
-Red Hat Network 小組敬上</target>
+感謝您使用 @@PRODUCT_NAME@@。
+--@@PRODUCT_NAME@@ 小組敬上</target>
 			</trans-unit>
 		</body>
 	</file>

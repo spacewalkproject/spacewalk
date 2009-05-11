@@ -8,7 +8,7 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-    <h1><img src="/img/rhn-icon-channels.gif" /> Full Software Channel List <rhn-help href="s2-sm-channel-list.jsp#s3-sm-channel-list-all" />
+    <h1><img src="/img/rhn-icon-channels.gif" /> Full Software Channel List <rhn-help href="s1-sm-channels-packages.jsp" />
     </h1>
 
     <div class="page-summary">

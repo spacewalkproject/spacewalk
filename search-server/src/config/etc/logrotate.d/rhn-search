@@ -1,0 +1,9 @@
+/var/log/rhn/search/rhn_search.log {
+    weekly
+    rotate 5
+    copytruncate
+    compress
+    notifempty
+    missingok
+    size=10M
+}  

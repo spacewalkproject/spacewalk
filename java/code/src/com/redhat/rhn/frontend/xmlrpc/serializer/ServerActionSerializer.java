@@ -33,8 +33,10 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @xmlrpc.doc 
  *      #struct("action")
  *          #prop_desc("int", "failed_count", "Number of times action failed.")
- *          #prop_desc("string", "modified", "Date modified.")
- *          #prop_desc("string", "created", "Date created.")
+ *          #prop_desc("string", "modified", "Date modified. (Deprecated by modified_date)")
+ *          #prop_desc($date, "modified_date", "Date modified.")
+ *          #prop_desc("string", "created", "Date created. (Deprecated by created_date)")
+ *          #prop_desc($date, "created_date", "Date created.")
  *          #prop("string", "action_type")
  *          #prop_desc("int", "successful_count", 
  *                      "Number of times action was successful.")
@@ -46,16 +48,20 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("string", "name", "Name of this action.")
  *          #prop_desc("int", "id", "Id of this action.")
  *          #prop_desc("string", "version", "Version of action.")
- *          #prop_desc("string", "completion_time", "The event completion time or '' 
- *                                  if the action did not complete.  
+ *          #prop_desc("string", "completion_time", "The date/time the event was completed.
  *                                  Format ->YYYY-MM-dd hh:mm:ss.ms 
- *                                  Eg ->2007-06-04 13:58:13.0 (optional)")
- *          #prop_desc("string", "pickup_time", "The time the action was picked
- *                                   up or '' if the action was not picked up.
+ *                                  Eg ->2007-06-04 13:58:13.0. (optional)
+ *                                  (Deprecated by completed_date)")
+ *          #prop_desc($date, "completed_date", "The date/time the event was completed.
+ *                                  (optional)")
+ *          #prop_desc("string", "pickup_time", "The date/time the action was picked up.
  *                                   Format ->YYYY-MM-dd hh:mm:ss.ms
- *                                   Eg ->2007-06-04 13:58:13.0")
+ *                                   Eg ->2007-06-04 13:58:13.0. (optional)
+ *                                   (Deprecated by pickup_date)")
+ *          #prop_desc($date, "pickup_date", "The date/time the action was picked up.
+ *                                   (optional)")
  *          #prop_desc("string", "result_msg", "The result string after the action
- *                                       executes at the client machine (optional)")
+ *                                       executes at the client machine. (optional)")
  *      #struct_end()     
  */
 public class ServerActionSerializer implements XmlRpcCustomSerializer {
@@ -73,7 +79,6 @@ public class ServerActionSerializer implements XmlRpcCustomSerializer {
         ServerAction sAct = (ServerAction) value;
         Action act = sAct.getParentAction();
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-        
         
         helper.add("failed_count", act.getFailedCount());
         helper.add("modified", act.getModified().toString());
@@ -94,6 +99,12 @@ public class ServerActionSerializer implements XmlRpcCustomSerializer {
         if (sAct.getPickupTime() != null) {
             helper.add("pickup_time", sAct.getPickupTime().toString());
         }
+
+        helper.add("modified_date", act.getModified());
+        helper.add("created_date", act.getCreated());
+        helper.add("completed_date", sAct.getCompletionTime());
+        helper.add("pickup_date", sAct.getPickupTime());
+
         helper.add("result_msg", sAct.getResultMsg());
 
         helper.writeTo(output);

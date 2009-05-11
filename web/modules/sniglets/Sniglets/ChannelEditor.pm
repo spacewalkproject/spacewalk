@@ -104,6 +104,11 @@ sub channel_delete_cb {
     $pxt->push_message(local_alert => 'A channel cannot be deleted until all child channels are deleted.');
     return;
   }
+  if (RHN::Channel->distros($cid)) {
+    $pxt->push_message(local_alert => 'A channel cannot be deleted until all associated kickstart distributions are deleted or dissociated.');
+    return;
+  }
+
 
   my @servers = RHN::Channel->servers($cid);
 

@@ -58,7 +58,7 @@ class _DoCallWrapper(object):
             error = error.strip("[()]")
             pieces = error.split(',')
             message = ""
-            if len(pieces) >= 2:
+            if len(pieces) > 2:
                 message = pieces[2].strip(" '")
             if message == 'certificate verify failed':
                 raise up2dateErrors.SSLCertificateVerifyFailedError()

@@ -12,7 +12,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-search.gif"
-                       helpUrl="/rhn/help/reference/en/s2-sm-system-search.jsp"
+                       helpUrl="/rhn/help/reference/en-US/s1-sm-systems.jsp#s2-sm-system-search"
                        imgAlt="search.alt.img">
   <bean:message key="systemsearch.jsp.toolbar"/>
 </rhn:toolbar>
@@ -131,6 +131,16 @@
                                 </rhn:highlight>
                               </rl:column>
                 </c:when>
+                <c:when test="${view_mode == 'systemsearch_checkin'}">
+                    <rl:column bound="false" headerkey="${view_mode}" >
+                        ${current.checkin}
+                    </rl:column>
+                </c:when>
+                <c:when test="${view_mode == 'systemsearch_registered'}">
+                    <rl:column bound="false" headerkey="${view_mode}" >
+                        ${current.registered}
+                    </rl:column>
+                </c:when>
                 <%--We aren't able to determine what matchingField is from SearchServer yet,
                 it could be 1 of 3 values,
                 will display all 3 vendor-version-release --%>
@@ -148,11 +158,10 @@
                         </rhn:highlight>
                     </rl:column>
                 </c:when>
-
                 <c:otherwise>
                   <rl:column bound="false" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">
-                        ${current.lookupMatchingField}
+                        ${current.matchingFieldValue}
                    </rhn:highlight>
                   </rl:column>
                 </c:otherwise>
@@ -162,9 +171,9 @@
                         ${current.entitlementLevel}
             </rl:column>
         </rl:list>
-        <rl:csv dataset="pageList"
+        <rl:csv dataset="searchResults"
                 name="searchResults"
-                exportColumns="id,serverName,dmiBiosVendor,dmiBiosVersion,dmiBiosRelease,description,entitlementLevel"/>
+                exportColumns="id,serverName,matchingField,matchingFieldValue,entitlementLevel"/>
 
     </rl:listset>
     </c:if>

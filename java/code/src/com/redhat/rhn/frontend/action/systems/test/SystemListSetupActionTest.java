@@ -66,7 +66,7 @@ public class SystemListSetupActionTest extends RhnMockStrutsTestCase {
         String up2date = "<a><img src=\"/img/icon_up2date.gif\" title=\"" +
                          ls.getMessage("systemlist.jsp.up2date") + "\" alt=\"" +
                          ls.getMessage("systemlist.jsp.up2date") + "\" /></a>";
-        String awol = "<a href=\"/rhn/help/reference/en/s1-sm-systems.jsp" + 
+        String awol = "<a href=\"/rhn/help/reference/en-US/s1-sm-systems.jsp" +
                       "\"><img src=\"/img/icon_checkin.gif\" " +
                       "alt=\"" + ls.getMessage("systemlist.jsp.notcheckingin") + "\" " +
                       "title=\"" + ls.getMessage("systemlist.jsp.notcheckingin") +

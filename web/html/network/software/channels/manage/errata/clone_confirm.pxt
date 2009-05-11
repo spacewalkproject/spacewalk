@@ -36,7 +36,8 @@
 
   <empty_list_message>No Errata.</empty_list_message>
 
-  <action name="Update Errata" label="confirm_errata_application" url="/network/software/channels/manage/index.pxt" />
+  <action name="Update Errata" label="confirm_errata_application" url="/rhn/channels/manage/Manage.do" />
+
 </rhn-listview>
 
   </grail-canvas-template>

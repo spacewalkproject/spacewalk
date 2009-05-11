@@ -26,11 +26,11 @@ Spacewalk::Setup
 
 =head1 VERSION
 
-Version 0.5
+Version 0.6
 
 =cut
 
-our $VERSION = '0.5';
+our $VERSION = '0.6';
 
 use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
 
@@ -304,7 +304,7 @@ sub upgrade_stop_services {
 }
 
 my $spinning_callback_count;
-my @spinning_pattern = ('.', '@', '@;', '_@;', ' _@;', '  _@;', '   _@;', '    @;', '   ;@', '  ;@_', ' ;@_', '@_', '@');
+my @spinning_pattern = ('_/\,', ' ___,', '  _/\,', '   ___,', '    _/\,', '    _,_', '    ,/\_', '   ,___', '  ,/\_', ' ,___', ',/\_', '_,_');
 my $spinning_pattern_maxlength = 0;
 for (@spinning_pattern) {
 	if (length > $spinning_pattern_maxlength) {
@@ -893,9 +893,17 @@ sub need_oracle_9i_10g_upgrade {
 
 sub oracle_setup_embedded_db {
     my $opts = shift;
+    my $answers = shift;
 
     if (not is_embedded_db()) {
         return 0;
+    } else {
+        $answers->{'db-user'} = 'rhnsat' if not defined $answers->{'db-user'};
+        $answers->{'db-password'} = 'rhnsat' if not defined $answers->{'db-password'};
+        $answers->{'db-sid'} = 'rhnsat' if not defined $answers->{'db-sid'};
+        $answers->{'db-host'} = 'localhost';
+        $answers->{'db-port'} = 1521;
+        $answers->{'db-protocol'} = 'TCP';
     }
 
     # create DB_SERVICE entry in /etc/sysconfig/rhn-satellite
@@ -968,7 +976,8 @@ EOQ
 		-log_file_size => DB_INSTALL_LOG_SIZE,
 		-err_message => "Could not install database.\n",
 		-err_code => 15,
-		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh" ]);
+		-system_opts => [ SHARED_DIR . "/oracle/install-db.sh", "--db", $answers->{'db-sid'},
+                        "--user", $answers->{'db-user'}, "--password", $answers->{'db-password'}]);
 
     print loc("** Database: Installation complete.\n");
 
@@ -986,17 +995,7 @@ sub oracle_setup_db_connection {
     my $connected;
 
     while (not $connected) {
-        if (is_embedded_db()) {
-            $answers->{'db-user'} = 'rhnsat';
-            $answers->{'db-password'} = 'rhnsat';
-            $answers->{'db-sid'} = 'rhnsat';
-            $answers->{'db-host'} = 'localhost';
-            $answers->{'db-port'} = 1521;
-            $answers->{'db-protocol'} = 'TCP';
-        }
-        else {
-            get_database_answers($opts, $answers);
-        }
+        get_database_answers($opts, $answers);
 
         my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
 
@@ -1498,10 +1497,16 @@ Do not test the Red Hat Enterprise Linux version before installing.
 
 =item B<--skip-selinux-test>
 
-Do not check if SELinux is Permissive or Disabled.
-RHN Satellite is not currently supported on selinux 'Enforcing'
-enabled systems.
-See http://kbase.redhat.com/faq/FAQ_49_6086.shtm for more information.
+On RHEL 5 and Fedoras, SELinux should be in Permissive or Enforcing
+mode for the installation and setup to proceed properly. If you are
+certain that you are not in Disabled mode or you want to install in
+Disabled anyway, re-run the installer with the flag
+--skip-selinux-test.
+
+On RHEL 4, SELinux is not supported, so it must be Disabled or
+Permissive, not Enforcing. If you are certain that you are not in
+Enforcing mode or you know what you're doing, re-run the installer
+with the flag --skip-selinux-test.
 
 =item B<--skip-fqdn-test>
 

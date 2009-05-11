@@ -34,12 +34,13 @@ __revision__ = "$Rev$"
 
 requires_api_version = '2.5'
 plugin_type = TYPE_CORE
+pcklAuthFileName = "/var/spool/up2date/loginAuth.pkl"
 
 rhn_enabled = True
 
 COMMUNICATION_ERROR = _("There was an error communicating with RHN.")
 
-import M2Crypto.SSL.Connection
+from M2Crypto.SSL import SSLError, Connection
 
 def bypass_m2crypto_ssl_connection_check(*args, **kw):
     """This needs to return True, it's used to bypass a check in 
@@ -67,7 +68,7 @@ def init_hook(conduit):
     #when the SSL Cert "commonName" did not match the name used to connect to the host.
     #This functionality was different than RHEL4, desire was to bypass the check to 
     #maintain the functionality in RHEL4 
-    setattr(M2Crypto.SSL.Connection, "clientPostConnectionCheck", bypass_m2crypto_ssl_connection_check)
+    setattr(Connection, "clientPostConnectionCheck", bypass_m2crypto_ssl_connection_check)
 
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
@@ -128,11 +129,15 @@ def init_hook(conduit):
         conduit.error(0, _("This system is not subscribed to any channels.") + 
             "\n" + CHANNELS_DISABLED)
         return
+    except up2dateErrors.NoSystemIdError:
+        conduit.error(0, _("This system may not be a registered to RHN. SystemId could not be acquired.\n") +
+                          RHN_DISABLED)
+        return
     except up2dateErrors.RhnServerException, e:
         conduit.error(0, COMMUNICATION_ERROR + "\n" + CHANNELS_DISABLED + 
             "\n" + str(e))
         return
-   
+
     repos = conduit.getRepos()
     cachedir = conduit.getConf().cachedir
     default_gpgcheck = conduit.getConf().gpgcheck
@@ -182,6 +187,9 @@ def formReposForClean(conduit):
             repo.enable()
             if not repos.findRepos(repo.id):
                 repos.add(repo)
+   # cleanup cached login info
+    if os.path.exists(pcklAuthFileName):
+        os.unlink(pcklAuthFileName)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
@@ -305,6 +313,10 @@ class RhnRepo(YumRepository):
             raise yum.Errors.RepoError, \
                 "failed to retrieve %s from %s\nerror was %s" % (relative,
                 self.id, e)
+        except SSLError, e:
+            raise yum.Errors.RepoError(str(e))
+        except up2dateErrors.InvalidRedirectionError, e:
+            raise up2dateErrors.InvalidRedirectionError(e)
     _YumRepository__get = _getFile
 
     # This code is copied from yum, we should get the original code to

@@ -34,13 +34,16 @@ _query_action_verify_packages = rhnSQL.Statement("""
            pn.name name,
            pe.version version,
            pe.release release,
-           pe.epoch epoch
+           pe.epoch epoch,
+           pa.label arch
       from rhnActionPackage ap,
            rhnPackageName pn,
-           rhnPackageEVR pe
+           rhnPackageEVR pe,
+           rhnPackageArch pa
      where ap.action_id = :actionid
        and ap.evr_id = pe.id
        and ap.name_id = pn.id
+       and ap.package_arch_id = pa.id
 """)
 def verify(serverId, actionId):
     log_debug(3)
@@ -53,10 +56,6 @@ def verify(serverId, actionId):
             (actionId, serverId))
 
     packages = []
-
-    # client expects arch, currently can't give it from rhnserverpackage...
-    # send down an empty one for now
-    empty_arch = ''
     
     for package in tmppackages:
             
@@ -64,7 +63,7 @@ def verify(serverId, actionId):
                          package['version'],
                          package['release'],
                          package['epoch'] or '',
-                         empty_arch])
+                         package['arch']])
 
     log_debug(4, packages)
     return packages
@@ -105,7 +104,7 @@ def handle_action(serverId, actionId, packagesIn):
 
 def remove(serverId, actionId):
     h = rhnSQL.prepare(_packageStatement_remove)
-    h.execute(actionid=actionId)
+    h.execute(serverid=serverId, actionid=actionId)
     tmppackages = h.fetchall_dict()
     return handle_action(serverId, actionId, tmppackages)
 
@@ -248,19 +247,19 @@ _packageStatement_remove = """
         pe.release release,
         pa.label  arch
     from rhnActionPackage ap,
-        rhnPackage p,
         rhnPackageName pn,
         rhnPackageEVR pe,
         rhnPackageArch pa,
-        rhnChannelPackage cp
+        rhnServerPackage sp
     where ap.action_id = :actionid
         and ap.evr_id is not null
-        and ap.evr_id = p.evr_id
         and ap.evr_id = pe.id
-        and ap.name_id = p.name_id
         and ap.name_id = pn.id
         and ap.package_arch_id = pa.id(+)
-        and p.id = cp.package_id
+        and sp.server_id = :serverid
+        and sp.name_id = ap.name_id
+        and sp.evr_id = ap.evr_id
+        and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)
     union
     select distinct
         pn.name name,
@@ -269,14 +268,12 @@ _packageStatement_remove = """
         null epoch,
         pa.label arch
     from rhnActionPackage ap,
-        rhnPackage p,
         rhnPackageName pn,
         rhnPackageArch pa,
-        rhnChannelPackage cp
+        rhnServerPackage sp
     where ap.action_id = :actionid
         and ap.evr_id is null
-        and ap.name_id = p.name_id
-        and p.name_id = pn.id
         and ap.package_arch_id = pa.id(+)
-        and p.id = cp.package_id"""
+        and sp.server_id = :serverid
+        and (sp.package_arch_id = ap.package_arch_id or sp.package_arch_id is null)"""
 

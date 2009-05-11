@@ -160,7 +160,7 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     protected CobblerSystemCreateCommand getCobblerSystemCreateCommand(User userIn, 
             Server serverIn, KickstartData ksdataIn, String mediaPath, String tokenList) {
         return new CobblerVirtualSystemCommand(userIn, serverIn,
-                ksdataIn, mediaPath, tokenList);
+                ksdataIn, mediaPath, tokenList, guestName);
     }
     
     @Override
@@ -184,8 +184,8 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         //a public method.
         KickstartGuestAction ksAction = (KickstartGuestAction)
             ActionManager.scheduleKickstartGuestAction(this, sessionId);
-    
-        ksAction.setPrerequisite(prereqAction.getId());
+        ksSession.setAction(ksAction);
+        ksAction.setPrerequisite(prereqAction);
         ActionFactory.save(ksAction);
     
         return (Action) ksAction;

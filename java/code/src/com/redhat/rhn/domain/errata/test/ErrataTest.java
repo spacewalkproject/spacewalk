@@ -50,7 +50,10 @@ public class ErrataTest extends RhnBaseTestCase {
     
     public void testNotificationQueue() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Channel c = ChannelFactoryTest.createBaseChannel(user);
         Errata e = ErrataFactoryTest.createTestPublishedErrata(user.getOrg().getId());
+        e.addChannel(c);
+        ErrataManager.storeErrata(e);
         Long id = e.getId(); //get id for later
         e.addNotification(new Date()); //add one
         e.addNotification(new Date()); //add another
@@ -225,25 +228,14 @@ public class ErrataTest extends RhnBaseTestCase {
         
         assertEquals(1, e.getChannels().size());
         
-        boolean matched = false;
-        Iterator i = e.getFiles().iterator();
-        while (i.hasNext()) {
-            PublishedErrataFile f1 = (PublishedErrataFile) i.next();
-            if (f1.getId().equals(ef.getId())) {
-                assertNotNull(f1.getChannels());
-                assertTrue(f1.getChannels().size() > 0);
-                assertTrue(f1.getChannels().contains(c));
-                matched = true;
-            }
-        }
-        assertTrue("didnt match the erratafile", matched);
+        
         
         // Now test clearing it out
         e.clearChannels();
         e = (Errata) TestUtils.saveAndReload(e);
         assertTrue(e.getChannels() == null || e.getChannels().size() == 0);
-        i = e.getFiles().iterator();
-        matched = false;
+        Iterator i = e.getFiles().iterator();
+        boolean matched = false;
         while (i.hasNext()) {
             PublishedErrataFile f1 = (PublishedErrataFile) i.next();
             assertNotNull(f1.getChannels());

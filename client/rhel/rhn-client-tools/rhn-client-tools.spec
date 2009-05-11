@@ -2,15 +2,14 @@ Summary: Support programs and libraries for Red Hat Network or Spacewalk
 License: GPLv2
 Group: System Environment/Base
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Source1: rhn_register.desktop
 URL:     https://fedorahosted.org/spacewalk
 Name: rhn-client-tools
-Version: 0.4.24
+Version: 0.4.25
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-Requires: rhnlib >= 2.1
+Requires: rhnlib >= 2.2.7
 Requires: yum-rhn-plugin >= 0.5.3-30
 Requires: rhpl >= 0.81-2
 Requires: rpm >= 4.2.3-24_nonptl
@@ -79,7 +78,7 @@ make -f Makefile.rhn-client-tools install VERSION=%{version}-%{release} PREFIX=$
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/up2date
 
-desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn %{SOURCE1}
+desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications --vendor=rhn rhn_register.desktop
 
 %find_lang %{name}
 
@@ -205,6 +204,32 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Fri May 01 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.25-1
+- Stop using spec file Source line for desktop file. (dgoodwin@redhat.com)
+- Adding support to send smbios information to the servers if implemented.
+  add_smbios_info needs to be implemented on the server to fully take advantage
+  of this call. Xen host/guests + para/fully virt types should work as usual
+  for now. (pkilambi@redhat.com)
+- 250312 - Do not spam the cert directory with backup certs, instead use the
+  one requested by the user and proceed if its valid else reprompt to upload a
+  valid certificate (pkilambi@redhat.com)
+- removing config set logic as this code block will prevent from accessing the
+  provide security certificate page. Also Adding supporing code to handle
+  missing CA cert cases, instead of erroring out. (pkilambi@redhat.com)
+- updating translations (pkilambi@redhat.com)
+- 476797 -  profile-sync should not  probe dmidecode info on PV guests as there
+  is no SMBIOS entry. (pkilambi@redhat.com)
+- 204449 - Deprecating contactinfo flag functionality from rhnreg_ks
+  (pkilambi@redhat.com)
+- rhn-client-tools should now depend on cdn enabled rhnlib package
+  (pkilambi@redhat.com)
+- 476894 - Fix to support multiarch support for errata with multiarch packages.
+  Errata apply should only install installed arch updates. If i386 and x86_64
+  are installed, updates for both arches will be applied. (pkilambi@redhat.com)
+
+* Fri Apr 24 2009 Pradeep Kilambi <pkilambi@redhat.com>
+- Resolves: #487754 - rhn-client-tools depends on cdn enabled rhnlib package
+
 * Mon Mar 30 2009 Miroslav Suchy <msuchy@redhat.com> 0.4.24-1
 - 490438 - add .desktop file, own allowed-actions dir
 

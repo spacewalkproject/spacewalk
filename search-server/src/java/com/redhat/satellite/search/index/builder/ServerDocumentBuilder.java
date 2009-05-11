@@ -44,7 +44,7 @@ public class ServerDocumentBuilder implements DocumentBuilder {
                 Field.Index.TOKENIZED));
 
         for (Iterator<String> iter = metadata.keySet().iterator(); iter.hasNext();) {
-            Field.Store store = Field.Store.NO;
+            Field.Store store = Field.Store.YES;
             Field.Index tokenize = Field.Index.TOKENIZED;
 
             String name = iter.next();

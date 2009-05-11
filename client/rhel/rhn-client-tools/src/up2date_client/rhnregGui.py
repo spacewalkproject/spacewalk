@@ -274,7 +274,7 @@ class ChooseServerPage:
         """
         status = callAndFilterExceptions(
                 self._chooseServerPageApply,
-                [up2dateErrors.SSLCertificateVerifyFailedError],
+                [up2dateErrors.SSLCertificateVerifyFailedError, up2dateErrors.SSLCertificateFileNotFound],
                 _("There was an error while applying your choice.")
         )
         if status is False:
@@ -309,18 +309,6 @@ class ChooseServerPage:
                 up2dateConfig.set('serverURL', customServer)
             serverType = 'satellite'    
             
-        try:
-            rhnreg.privacyText()
-        except:
-            if(serverType) == "satellite":
-                up2dateConfig.set('sslCACert',
-                                  '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
-            else:
-                up2dateConfig.set('sslCACert',
-                                  '/usr/share/rhn/RHNS-CA-CERT')
-                
-        # TODO Only save the config if they changed the setting
-        up2dateConfig.save()
         
         NEED_SERVER_MESSAGE = _("You will not be able to successfully register "
                                 "this system without contacting a Red Hat Network server.")
@@ -331,6 +319,9 @@ class ChooseServerPage:
             rhnreg.privacyText()
             setArrowCursor()
         except up2dateErrors.SSLCertificateVerifyFailedError:
+            setArrowCursor()
+            raise
+        except up2dateErrors.SSLCertificateFileNotFound:
             setArrowCursor()
             raise
         except up2dateErrors.CommunicationError:
@@ -1081,7 +1072,18 @@ class CreateProfilePage:
         if ret:
             return ret
         pwin.setProgress(3, 6)
-        
+ 
+        # send smbios info to the server
+        pwin.setStatusLabel(_("Sending smbios information"))
+        smbiosData = hardware.get_hal_smbios()
+        try:
+            rhnreg.sendSmbiosInfo(self.systemId, smbiosData)
+        except AttributeError:
+            # Method Not Implemented on server, continue
+            pass
+        except:
+            pwin.setStatusLabel(_("Problem sending smbios information."))
+
         # maybe upload hardware profile
         if self.sendHardware:
             pwin.setStatusLabel(_("Sending hardware information"))
@@ -1255,27 +1257,8 @@ class ProvideCertificatePage:
             else: # Satellite
                 destinationName = '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT'
             if certFile != destinationName:
-                if os.path.exists(destinationName):
-                    i = 1
-                    backupName = destinationName + '.save' + str(i)
-                    while os.path.exists(backupName):
-                        i = i + 1
-                        backupName = destinationName + '.save' + str(i)
-                    os.rename(destinationName, backupName)
-                # We need to make sure file is owned by root and 644 before we put 
-                # the certificate in it, so there isn't a security race condition 
-                # where it can be tinkered with before it's owner and permissions 
-                # are made safe.
-                destination = open(destinationName, 'w')
-                destination.close()
-                os.chown(destinationName, 0, -1)
-                os.chmod(destinationName, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP 
-                        | stat.S_IROTH)
-                source = open(certFile, 'r')
-                destination = open(destinationName, 'w')
-                destination.write(source.read())
-                source.close()
-                destination.close()
+                if os.path.exists(certFile):
+                    destinationName = certFile
             up2dateConfig.set('sslCACert', destinationName)
             up2dateConfig.save()
             # Take the new cert for a spin
@@ -1294,8 +1277,8 @@ class ProvideCertificatePage:
                     errorWindow(rhnreg_constants.SSL_CERT_EXPIRED)
                 else:
                     errorWindow(rhnreg_constants.SSL_CERT_ERROR_MSG % (certFile, server_url))
-                return ERROR_WAS_HANDLED
 
+                return ERROR_WAS_HANDLED
             except OpenSSL.SSL.Error:
                 # TODO Modify rhnlib to raise a unique exception for the not a 
                 # cert file case.

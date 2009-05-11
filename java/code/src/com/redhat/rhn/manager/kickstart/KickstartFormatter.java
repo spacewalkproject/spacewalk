@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.RepoInfo;
+import com.redhat.rhn.domain.kickstart.cobbler.CobblerSnippet;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -52,6 +53,8 @@ public class KickstartFormatter {
     
     private static Logger log = Logger.getLogger(KickstartFormatter.class);
     
+    private static final String RAW_START = "#raw";
+    private static final String RAW_END = "#end raw";
     private static final String NEWLINE = "\n";
     private static final String SPACE = " ";
     private static final String WHITESPACE = "\\s";
@@ -225,8 +228,9 @@ public class KickstartFormatter {
     }
 
     private void addCobblerSnippet(StringBuilder buf, String contents) {
-        String format = "$SNIPPET('%s')\n";
-        buf.append(String.format(format, contents));
+        CobblerSnippet.makeFragment(contents);
+        buf.append(CobblerSnippet.makeFragment(contents));
+        buf.append(NEWLINE);
     }
     
 
@@ -417,7 +421,10 @@ public class KickstartFormatter {
                             (typeIn.equals(KickstartScript.TYPE_POST) && 
                                     (kss.getChroot().equals("Y")))) {
                         retval.append(NEWLINE);
-                        if (!StringUtils.isEmpty(kss.getInterpreter())) {
+                        if (kss.getRaw()) {
+                            retval.append(RAW_START + NEWLINE);
+                        }
+                        if (!StringUtils.isBlank(kss.getInterpreter())) {
                             retval.append("%" + typeIn + SPACE + INTERPRETER_OPT + SPACE +
                                     kss.getInterpreter() + NEWLINE);
                         }
@@ -441,6 +448,9 @@ public class KickstartFormatter {
                                 ksdata.getPreLog()) {
                             retval.append(END_PRE);
                         }
+                        if (kss.getRaw()) {
+                            retval.append(RAW_END + NEWLINE);
+                        }
                     }                    
                 } // end script type and chroot = y
 
@@ -463,7 +473,7 @@ public class KickstartFormatter {
                         kss.getChroot().equals("N")) {
                     // Put a blank line in between the scripts
                     retval.append(NEWLINE);
-                    if (kss.getInterpreter() != null) {
+                    if (!StringUtils.isBlank(kss.getInterpreter())) {
                         retval.append("%" + KickstartScript.TYPE_POST + SPACE + 
                                 NOCHROOT  + SPACE + kss.getInterpreter() + NEWLINE);
                     }

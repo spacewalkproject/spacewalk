@@ -64,5 +64,13 @@ CREATE UNIQUE INDEX rhn_errata_advisory_name_uq
     ON rhnErrata (advisory_name)
     TABLESPACE [[64k_tbs]];
 
+CREATE INDEX rhn_errata_udate_index
+    ON rhnErrata (update_date)
+    TABLESPACE [[64k_tbs]];
+
+CREATE INDEX rhn_errata_syn_index
+    ON rhnErrata ( synopsis )
+    TABLESPACE [[64k_tbs]];
+
 CREATE SEQUENCE rhn_errata_id_seq;
 

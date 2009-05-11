@@ -100,7 +100,7 @@
             <br />
             <span class="small-text">
               <bean:message key="filedetails.jsp.binarytoggletip"
-                            arg0="/rhn/help/reference/en/s1-sm-configuration.jsp" />
+                            arg0="/rhn/help/reference/en-US/s1-sm-configuration.jsp" />
             </span>
     	</c:otherwise>
     </c:choose>

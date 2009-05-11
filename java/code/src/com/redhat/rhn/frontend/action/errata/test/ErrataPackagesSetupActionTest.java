@@ -40,7 +40,7 @@ public class ErrataPackagesSetupActionTest extends RhnBaseTestCase {
         sah.executeAction();
 
         assertNotNull(sah.getRequest().getAttribute("errata"));
-        assertNotNull(sah.getRequest().getAttribute("files"));
+        assertNotNull(sah.getRequest().getAttribute("channels"));
         
     }
 }

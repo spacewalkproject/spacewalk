@@ -1,0 +1,36 @@
+#!/bin/bash
+# name:         satwho
+# description:  Print a list of the satellite users.
+# author:	G.R.Keech <rkeech@redhat.com>
+# date:		2006-01-31
+#
+# NOTICE: The use of this code/script is only for the use with RHN
+# Satellite and an external database.  It is not permitted to use this
+# script within RHN Satellite and an embedded database.
+
+SQLPLUS=/usr/bin/sqlplus
+CREDENTIALS=$(awk -F= '/^default_db/ {print $2} ' /etc/rhn/rhn.conf)
+
+if [ ! -x $SQLPLUS ]
+then
+  echo Sorry, I cannot find \"$SQLPLUS\" to execute
+  exit 1
+fi
+
+
+BLOCK=0
+echo "select login from rhnuser;"| $SQLPLUS -S $CREDENTIALS| grep -v "^$" |\
+while read line
+do
+  if [ $BLOCK -eq 0 ]
+  then
+    # We are before the block so do not print anything.
+
+    # First look for the horizontal separating line
+    echo "$line" | grep "^-*$" &>/dev/null && BLOCK=1
+  else
+    # We are in the block, so print the line, so long as it is not the line with "rows selected"
+    echo "$line" | grep "rows selected.$" &>/dev/null || echo $line
+  fi
+done
+

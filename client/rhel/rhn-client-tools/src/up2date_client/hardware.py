@@ -663,7 +663,7 @@ def findHostByRoute():
         except:
             s.close()
             continue
-
+        
     # Override hostname with the one in /etc/sysconfig/network 
     # for bz# 457953
     
@@ -790,13 +790,23 @@ def read_dmi():
         system = product + " " + version
         dmidict["system"] = system
 
+    is_pv_guest = 0
+    # check to see if this a PV Guest
+    if os.access("/dev/xvc0", os.R_OK):
+        is_pv_guest = 1
+
     # BaseBoard Information
     # bz#432426 To Do: try to avoid system calls and probing hardware to
-    # get baseboard and chassis information 
-    f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
-    vendor = f.readline().strip()
-    f.close()
-    dmidict["board"] = vendor
+    # get baseboard and chassis information
+    if not is_pv_guest:
+        # only probe dmidecode if its not a PV xen guest.
+        # As PV guests will *never* be provided SMBIOS data.
+        f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
+        vendor = f.readline().strip()
+        f.close()
+        dmidict["board"] = vendor
+    else:
+        dmidict["board"] = ''
     
 
     # Bios Information    
@@ -813,18 +823,22 @@ def read_dmi():
     # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
     asset = ""
-    
-    f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
-    chassis_serial = f.readline().strip()
-    f.close()
+    if not is_pv_guest:
+        # only probe dmidecode if its not a PV xen guest.
+        # As PV guests will *never* be provided SMBIOS data.
+        f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
+        chassis_serial = f.readline().strip()
+        f.close()
      
-    f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
-    chassis_tag = f.readline().strip()
-    f.close()
+        f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
+        chassis_tag = f.readline().strip()
+        f.close()
     
-    f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
-    board_serial = f.readline().strip()
-    f.close()
+        f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
+        board_serial = f.readline().strip()
+        f.close()
+    else:
+        chassis_serial = chassis_tag = board_serial = ''
     
     system_serial = get_device_property(computer, "smbios.system.serial")
     
@@ -856,19 +870,52 @@ def get_hal_system_and_smbios():
 
     return system_and_smbios
 
+def get_hal_smbios():
+    computer = get_hal_computer()
+    try:
+        props = computer.GetAllProperties()
+    except:
+        log = up2dateLog.initLog()
+        msg = "Error reading smbios information: %s\n" % (sys.exc_type)
+        log.log_debug(msg)
+        return
+    smbios = {}
+    for key in props:
+        if key.startswith('smbios'):
+            smbios[str(key)] = props[str(key)]
+    return smbios
+
+def check_hal_dbus_status():
+    # check if hal and messagebus are running, if not warn the user
+    import commands
+    hal_status, msg = commands.getstatusoutput('/etc/init.d/haldaemon status')
+    dbus_status, msg = commands.getstatusoutput('/etc/init.d/messagebus status')
+    return hal_status, dbus_status
+
 # this one reads it all
 def Hardware():
+    hal_status, dbus_status = check_hal_dbus_status()
+    hwdaemon = 1
+    if hal_status or dbus_status:
+        # if status != 0 haldaemon or messagebus service not running. 
+        # set flag and dont try probing hardware and DMI info
+        # and warn the user.
+        log = up2dateLog.initLog()
+        msg = "Warning: haldaemon or messagebus service not running. Cannot probe hardware and DMI information.\n"
+        log.log_me(msg)
+        hwdaemon = 0
     allhw = []
 
-    try:
-        ret = read_hal()
-        if ret: 
-            allhw = ret
-    except:
-        # bz253596 : Logging Dbus Error messages instead of printing on stdout
-        log = up2dateLog.initLog()
-        msg = "Error reading hardware information: %s\n" % (sys.exc_type)
-        log.log_me(msg)
+    if hwdaemon:
+        try:
+            ret = read_hal()
+            if ret: 
+                allhw = ret
+        except:
+            # bz253596 : Logging Dbus Error messages instead of printing on stdout
+            log = up2dateLog.initLog()
+            msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+            log.log_me(msg)
         
     # all others return individual arrays
 
@@ -886,27 +933,31 @@ def Hardware():
     except:
         print _("Error reading system memory information:"), sys.exc_type
         
-    # minimal networking info
-    try:
-        ret = read_network()
-        if ret: 
-            allhw.append(ret)
-    except:
-        print _("Error reading networking information:"), sys.exc_type
+    cfg = config.initUp2dateConfig()
+    if cfg["sendNetwork"]:
+        # minimal networking info
+        print "Network Info::"
+        try:
+            ret = read_network()
+            if ret: 
+                allhw.append(ret)
+        except:
+            print _("Error reading networking information:"), sys.exc_type
     # dont like catchall exceptions but theres not
     # really anything useful we could do at this point
     # and its been trouble prone enough 
 
-    # minimal DMI info
-    try:
-        ret = read_dmi()
-        if ret:
-            allhw.append(ret)
-    except:
-        # bz253596 : Logging Dbus Error messages instead of printing on stdout
-        log = up2dateLog.initLog()
-        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
-        log.log_me(msg)
+    if hwdaemon:
+        # minimal DMI info
+        try:
+            ret = read_dmi()
+            if ret:
+                allhw.append(ret)
+        except:
+            # bz253596 : Logging Dbus Error messages instead of printing on stdout
+            log = up2dateLog.initLog()
+            msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+            log.log_me(msg)
         
     try:
         ret = read_installinfo()
@@ -915,12 +966,14 @@ def Hardware():
     except:
         print _("Error reading install method information:"), sys.exc_type
 
-    try:
-        ret = read_network_interfaces()
-        if ret:
-            allhw.append(ret)
-    except:
-        print _("Error reading network interface information:"), sys.exc_type
+    if cfg["sendNetwork"]:
+        try:
+            ret = read_network_interfaces()
+            if ret:
+                allhw.append(ret)
+        except:
+            print _("Error reading network interface information:"), sys.exc_type
+    
     # all Done.
     return allhw
 

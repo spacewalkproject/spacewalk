@@ -14,7 +14,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-config_files.gif" imgAlt="config.common.filesAlt"
- helpUrl="/rhn/help/reference/en/configuration-files-local.jsp">
+ helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-files-local">
   <bean:message key="localfilelist.jsp.toolbar"/>
 </rhn:toolbar>
 

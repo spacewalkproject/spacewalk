@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.2
+Version:      3.26.4
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 URL:          https://fedorahosted.org/spacewalk
@@ -50,6 +50,15 @@ install -m 755 dequeue $RPM_BUILD_ROOT%{_bindir}
 # stuff needing special ownership doesn't go in filelist
 install -m 755 queuetool $RPM_BUILD_ROOT%{_bindir}
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /home/nocpulse/var/queue/commands/* 2>/dev/null | xargs -I file mv file %commands_qdir
+  ls /home/nocpulse/var/queue/notif/* 2>/dev/null | xargs -I file mv file %notif_qdir
+  ls /home/nocpulse/var/queue/sc_db/* 2>/dev/null | xargs -I file mv file %states_qdir
+  ls /home/nocpulse/var/queue/snmp/* 2>/dev/null | xargs -I file mv file %snmp_qdir
+  ls /home/nocpulse/var/queue/ts_db/* 2>/dev/null | xargs -I file mv file %trends_qdir
+fi
+
 %files
 %defattr(-,root,root,-)
 %attr(755,nocpulse,nocpulse) %dir %queue_dir
@@ -66,6 +75,12 @@ install -m 755 queuetool $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 3.26.4-1
+- 498257 - migrate existing files into new nocpulse homedir
+
+* Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 3.26.3-1
+- change Source0 to point to fedorahosted.org (msuchy@redhat.com)
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 3.26.2-1
 - 467441 - fix namespace
 

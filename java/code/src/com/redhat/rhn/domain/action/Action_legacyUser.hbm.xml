@@ -20,7 +20,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="archived" column="archived" type="long" />
         <property name="created" column="created" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" type="timestamp" insert="false" update="false"/>
-        <property name="prerequisite" column="prerequisite" type="long" />
+        
+        <many-to-one name="prerequisite"
+            class="com.redhat.rhn.domain.action.Action"
+            column="prerequisite" update="true" insert="true" cascade="all" />
+        
         <many-to-one name="schedulerUser"
             class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
             column="scheduler" update="true" insert="true" cascade="all" />
@@ -408,7 +412,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     
     <query name="Action.findDependentActions"><![CDATA[
-   		from Action a where a.prerequisite in (:action_ids)
+		from Action a where a.prerequisite.id in (:action_ids)
     ]]></query>
     
    <sql-query name="Action.findLastActionByServerIdAndActionTypeIdAndUserId">                 

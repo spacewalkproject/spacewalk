@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-ProcessPool
-Version: 	  0.10.3
+Version: 	  0.10.4
 Release: 	  1%{?dist}
 Summary:      Perl implementation of a process pool
 URL:          https://fedorahosted.org/spacewalk
@@ -47,6 +47,11 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.10.4-1
+- Append to STDERR log instead of write to allow the SELinux policy to
+  be more strict. (jpazdziora@redhat.com)
+- Fix various perl -w warnings. (msuchy@redhat.com)
+
 * Wed Jan 28 2009 Dennis Gilmore <dennis@ausil.us> 0.10.3-1
 - BR perl(ExtUtils::MakeMaker)
 

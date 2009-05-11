@@ -20,6 +20,7 @@
 import sys
 sys.path.append("/usr/share/rhn/up2date_client/")
 sys.path.append("/usr/share/rhn")
+import rhnreg
 import rhnregGui
 from rhn_register_firstboot_gui_window import RhnRegisterFirstbootGuiWindow
 
@@ -43,6 +44,8 @@ class RhnFinishWindow(RhnRegisterFirstbootGuiWindow, rhnregGui.FinishPage):
     def __init__(self):
         RhnRegisterFirstbootGuiWindow.__init__(self)
         rhnregGui.FinishPage.__init__(self)
+        if rhnreg.registered():
+            self.skipme = True
     
     def _getVbox(self):
         return self.finishPageVbox()

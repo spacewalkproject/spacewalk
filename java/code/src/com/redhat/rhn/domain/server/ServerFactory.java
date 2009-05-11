@@ -550,58 +550,47 @@ public class ServerFactory extends HibernateFactory {
     }
 
     /**
-     * List snapshots for a server by org
-     * @param server the server to check for
-     * @param org the org doing the request
-     * @return List of server Snapshots
+     * List snapshots associated with a server.
+     *
+     * A user may optionally provide a start and end date to narrow the snapshots that
+     * will be listed.  For example,
+     * - If user provides startDate only, all snapshots created either on or after the
+     *   date provided will be returned
+     * - If user provides startDate and endDate, all snapshots created on or between the
+     *   dates provided will be returned
+     * - If the user doesn't provide a startDate and endDate, all snapshots associated with
+     *   the server will be returned.
+     *
+     * @param org the org doing the request. Required.
+     * @param server the server to check for. Required.
+     * @param startDate the start date.  Optional, unless endDate is provided.
+     * @param endDate the end date. Optional.
+     * @return list of ServerSnapshot objects
      */
-    public static List<ServerSnapshot> listSnapshotsForServer(Server server,
-            Org org) {
-        Map params = new HashMap();
-        params.put("org", org);
-        params.put("server", server);
-        List<ServerSnapshot> snaps = singleton.listObjectsByNamedQuery(
-                "ServerSnapshot.findForServer", params);
-        return snaps;
-    }
+    public static List<ServerSnapshot> listSnapshots(Org org, Server server,
+            Date startDate, Date endDate) {
 
-    /**
-     * List snapshots for a server by org that were created after the date provided
-     * @param server the server to check for
-     * @param org the org doing the request
-     * @param startDate the start date
-     * @return List of server Snapshots
-     */
-    public static List<ServerSnapshot> listSnapshotsForServerByDate(Server server,
-            Org org, Date startDate) {
         Map params = new HashMap();
         params.put("org", org);
         params.put("server", server);
-        params.put("start_date", startDate);
-        List<ServerSnapshot> snaps = singleton.listObjectsByNamedQuery(
-                "ServerSnapshot.findAfterDate", params);
-        return snaps;
-    }
 
-    /**
-     * List snapshots for a server by org that were created between the dates provided.
-     * Note: it will include snapshots with creation dates that match the start or end
-     * date.
-     * @param server the server to check for
-     * @param org the org doing the request
-     * @param startDate the start date
-     * @param endDate the end date
-     * @return List of server Snapshots
-     */
-    public static List<ServerSnapshot> listSnapshotsForServerByDate(Server server,
-            Org org, Date startDate, Date endDate) {
-        Map params = new HashMap();
-        params.put("org", org);
-        params.put("server", server);
-        params.put("start_date", startDate);
-        params.put("end_date", endDate);
-        List<ServerSnapshot> snaps = singleton.listObjectsByNamedQuery(
-                "ServerSnapshot.findBetweenDates", params);
+        List<ServerSnapshot> snaps = null;
+
+        if ((startDate != null) && (endDate != null)) {
+            params.put("start_date", startDate);
+            params.put("end_date", endDate);
+            snaps = singleton.listObjectsByNamedQuery(
+                    "ServerSnapshot.findBetweenDates", params);
+        }
+        else if (startDate != null) {
+            params.put("start_date", startDate);
+            snaps = singleton.listObjectsByNamedQuery(
+                    "ServerSnapshot.findAfterDate", params);
+        }
+        else {
+            snaps = singleton.listObjectsByNamedQuery(
+                    "ServerSnapshot.findForServer", params);
+        }
         return snaps;
     }
 
@@ -611,8 +600,10 @@ public class ServerFactory extends HibernateFactory {
      * @return the server snapshot
      */
     public static ServerSnapshot lookupSnapshotById(Integer id) {
-        return (ServerSnapshot) ServerFactory.getSession().load(
-                ServerSnapshot.class, new Long(id));
+        Map params = new HashMap();
+        params.put("snapId", new Long(id));
+        return (ServerSnapshot) singleton.lookupObjectByNamedQuery(
+                "ServerSnapshot.findById", params);
     }
 
     /**
@@ -629,6 +620,93 @@ public class ServerFactory extends HibernateFactory {
      */
     public static void deleteSnapshot(ServerSnapshot snap) {
         ServerFactory.getSession().delete(snap);
+    }
+
+    /**
+     * Delete snapshots across servers in the org.
+     *
+     * A user may optionally provide a start and end date to narrow the snapshots that
+     * will be removed.  For example,
+     * - If user provides startDate only, all snapshots created either on or after the
+     *   date provided will be removed
+     * - If user provides startDate and endDate, all snapshots created on or between the
+     *   dates provided will be removed
+     * - If the user doesn't provide a startDate and endDate, all snapshots associated with
+     *   the server will be removed.
+     *
+     * @param org the org doing the request. Required.
+     * @param startDate the start date.  Optional, unless endDate is provided.
+     * @param endDate the end date. Optional.
+     */
+    public static void deleteSnapshots(Org org, Date startDate, Date endDate) {
+
+        if ((startDate != null) && (endDate != null)) {
+            singleton.getSession()
+                .getNamedQuery("ServerSnapshot.deleteBetweenDates")
+                .setParameter("org", org)
+                .setParameter("start_date", startDate)
+                .setParameter("end_date", endDate)
+                .executeUpdate();
+        }
+        else if (startDate != null) {
+            singleton.getSession()
+                .getNamedQuery("ServerSnapshot.deleteAfterDate")
+                .setParameter("org", org)
+                .setParameter("start_date", startDate)
+                .executeUpdate();
+        }
+        else {
+            singleton.getSession()
+                .getNamedQuery("ServerSnapshot.delete")
+                .setParameter("org", org)
+                .executeUpdate();
+        }
+    }
+
+    /**
+     * Delete snapshots associated with a server.
+     *
+     * A user may optionally provide a start and end date to narrow the snapshots that
+     * will be removed.  For example,
+     * - If user provides startDate only, all snapshots created either on or after the
+     *   date provided will be removed
+     * - If user provides startDate and endDate, all snapshots created on or between the
+     *   dates provided will be removed
+     * - If the user doesn't provide a startDate and endDate, all snapshots associated with
+     *   the server will be removed.
+     *
+     * @param org the org doing the request. Required.
+     * @param server the server to check for. Required.
+     * @param startDate the start date.  Optional, unless endDate is provided.
+     * @param endDate the end date. Optional.
+     */
+    public static void deleteSnapshots(Org org, Server server,
+            Date startDate, Date endDate) {
+
+        if ((startDate != null) && (endDate != null)) {
+            singleton.getSession()
+                .getNamedQuery("ServerSnapshot.deleteForServerBetweenDates")
+                .setParameter("org", org)
+                .setParameter("server", server)
+                .setParameter("start_date", startDate)
+                .setParameter("end_date", endDate)
+                .executeUpdate();
+        }
+        else if (startDate != null) {
+            singleton.getSession()
+                .getNamedQuery("ServerSnapshot.deleteForServerAfterDate")
+                .setParameter("org", org)
+                .setParameter("server", server)
+                .setParameter("start_date", startDate)
+                .executeUpdate();
+        }
+        else {
+            singleton.getSession()
+                .getNamedQuery("ServerSnapshot.deleteForServer")
+                .setParameter("org", org)
+                .setParameter("server", server)
+                .executeUpdate();
+        }
     }
 
     /**

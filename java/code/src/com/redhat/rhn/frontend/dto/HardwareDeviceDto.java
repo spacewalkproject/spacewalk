@@ -26,6 +26,8 @@ public class HardwareDeviceDto extends BaseDto {
     private String driver;
     private String deviceId;
     private String vendorId;
+    private String subVendorId;
+    private String subDeviceId;
     /**
      * @return the id
      */
@@ -122,5 +124,33 @@ public class HardwareDeviceDto extends BaseDto {
      */
     public void setVendorId(String vendorIdIn) {
         this.vendorId = vendorIdIn;
+    }
+
+    /**
+     * @return the subVendorId
+     */
+    public String getSubVendorId() {
+        return subVendorId;
+    }
+
+    /**
+     * @param subVendorIdIn the subVendorId to set
+     */
+    public void setSubVendorId(String subVendorIdIn) {
+        this.subVendorId = subVendorIdIn;
+    }
+
+    /**
+     * @return the subDeviceId
+     */
+    public String getSubDeviceId() {
+        return subDeviceId;
+    }
+
+    /**
+     * @param subDeviceIdIn the subDeviceId to set
+     */
+    public void setSubDeviceId(String subDeviceIdIn) {
+        this.subDeviceId = subDeviceIdIn;
     }
 }

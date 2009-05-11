@@ -42,7 +42,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.cobbler.Distro;
 
 import java.lang.reflect.Method;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -330,7 +329,6 @@ public class CreateProfileWizardAction extends RhnWizardAction {
     private void loadVirtualizationTypes(KickstartWizardHelper cmd, DynaActionForm form,
             HttpServletRequest request) {
         List types = cmd.getVirtualizationTypes();
-        Collections.sort(types);
         form.set(VIRTUALIZATION_TYPES_PARAM, types);
         form.set(VIRTUALIZATION_TYPE_LABEL_PARAM,
                                 KickstartVirtualizationType.KVM_FULLYVIRT);

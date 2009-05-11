@@ -16,6 +16,9 @@ package com.redhat.rhn.frontend.dto;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * ChannelOverview
  * @version $Rev$
@@ -31,6 +34,7 @@ public class ChannelOverview extends BaseDto implements Comparable {
     private String url;
     private Long relevantPackages;
     private Long originalId;
+    private List<PackageDto> packages = new ArrayList<PackageDto>();
 
     
     /**
@@ -224,5 +228,25 @@ public class ChannelOverview extends BaseDto implements Comparable {
     public Long getHasSubscription() {
         return hasSubscription;
     }
+
+
+
+    /**
+     * @return Returns the packages.
+     */
+    public List<PackageDto> getPackages() {
+        return packages;
+    }
+
+
+
+    /**
+     * @param packagesIn The packages to set.
+     */
+    public void setPackages(List<PackageDto> packagesIn) {
+        this.packages = packagesIn;
+    }
+
+
 
 }

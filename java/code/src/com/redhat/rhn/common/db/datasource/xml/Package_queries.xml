@@ -656,7 +656,7 @@ SELECT  distinct pn.name AS NAME,
                       FROM rhnServerPackage SP
                      WHERE SP.server_id = :sid
                        AND SP.name_id = full_list.name_id
-                       AND SP.package_arch_id = full_list.arch_id)
+                       AND (SP.package_arch_id = full_list.arch_id or SP.package_arch_id is null))
 ORDER BY  UPPER(pn.name)
   </query>
 </mode>
@@ -756,7 +756,6 @@ SELECT  pn.id AS id,
           WHERE  SOP.server_id = :sid
             AND  SOP.package_name_id = SP.name_id
             AND  SOP.package_evr_id = PE.id
-            AND  SP.package_arch_id IS NOT NULL
        GROUP BY  SOP.package_name_id, SP.package_arch_id
          ) full_list
  WHERE  full_list.name_id = PN.id
@@ -1627,7 +1626,6 @@ SELECT distinct P.id AS ID,
  				P2.evr_id = PE.id and
  				P2.package_arch_id = PA.id
  		) 
-
   </query>
     <elaborator name="package_details" />
 </mode>

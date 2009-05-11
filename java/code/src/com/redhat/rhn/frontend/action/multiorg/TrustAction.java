@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -203,7 +204,7 @@ public class TrustAction extends FormDispatcher {
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org theOrg = OrgFactory.lookupById(oid);
         helper.updateSet(set, LIST_NAME);
-        List<OrgTrust> removed = new ArrayList<OrgTrust>();
+        List<OrgTrust> removed = new ArrayList<OrgTrust>();        
         for (Org org : getRemoved(theOrg, set)) {
             DataResult<Map> dr = 
                 SystemManager.subscribedInOrgTrust(theOrg.getId(), org.getId());
@@ -216,7 +217,7 @@ public class TrustAction extends FormDispatcher {
                 trust.getSubscribed().add(sid);
             }
             removed.add(trust);
-        }
+        }        
         if (removed.size() == 0) {
             return commitAction(mapping, form, request, response);
         }
@@ -246,8 +247,19 @@ public class TrustAction extends FormDispatcher {
         for (Org added : getAdded(theOrg, set)) {
             theOrg.addTrust(added);
         }
+        
+        User orgUser = UserFactory.findRandomOrgAdmin(theOrg);
         for (Org removed : getRemoved(theOrg, set)) {
             theOrg.removeTrust(removed);
+            DataResult<Map> dr =
+                SystemManager.subscribedInOrgTrust(theOrg.getId(), removed.getId());
+
+              for (Map item : dr) {
+                Long sid = (Long)item.get("id");       
+                Long cid = (Long)item.get("cid");            
+                SystemManager.unsubscribeServerFromChannel(orgUser, sid, cid);
+            }
+            
         }
         
         OrgFactory.save(theOrg);
@@ -259,7 +271,7 @@ public class TrustAction extends FormDispatcher {
         ActionForward success = mapping.findForward("success");
         return strutsDelegate.forwardParams(success, params);
     }
-    
+        
     @SuppressWarnings("unchecked")
     protected ActionForward affectedSystemsAction(
             ActionMapping mapping, 

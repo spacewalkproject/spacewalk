@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.5.25
+Version: 0.6.7
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -20,6 +20,8 @@ Requires: chkconfig
 Requires: libxslt
 BuildRequires: /usr/bin/docbook2man
 Conflicts: rhns-proxy-tools < 5.3.0
+Obsoletes: proxy-installer < 5.3.0
+Provides: proxy-installer = 5.3.0
 
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
 
@@ -82,6 +84,27 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.7-1
+- 489607 - add command flag for every option in the answer file
+
+* Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
+- be precise in terminology: it -> monitoring scout (msuchy@redhat.com)
+
+* Tue May  5 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.5-1
+- 497929 - use parent CA
+
+* Wed Apr 15 2009 Devan Goodwin <dgoodwin@redhat.com> 0.6.3-1
+- 495194 - install cluster.ini only if monitoring is enabled
+  (msuchy@redhat.com)
+- 469060 - do not try to deactivate if we are not proxy (msuchy@redhat.com)
+
+* Tue Apr  7 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.2-1
+- fix various errors in configure-proxy.sh
+
+* Mon Apr 06 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.1-1
+- 494290 - change ownership after apache is installed (msuchy@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Mon Mar 30 2009 Miroslav Suchý <msuchy@redhat.com> 0.5.25-1
 - 492871 - do not depend on apache user when it not yet available
 

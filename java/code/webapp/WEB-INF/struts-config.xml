@@ -627,6 +627,7 @@
             <form-property name="contents" type="java.lang.String" />
             <form-property name="type" type="java.lang.String" />
             <form-property name="nochroot" type="java.lang.Boolean" />
+            <form-property name="template" type="java.lang.Boolean" />
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
@@ -795,15 +796,8 @@
         <form-bean name="cobblerSnippetsForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="name" type="java.lang.String" />
+            <form-property name="oldName" type="java.lang.String" />
             <form-property name="contents" type="java.lang.String" />
-            <form-property name="submitted"  type="java.lang.Boolean"/>
-        </form-bean>
-
-        <form-bean name="cobblerSnippetDeleteForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
-            <form-property name="name"  type="java.lang.String"/>
-            <form-property name="contents"  type="java.lang.String"/>
-            <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>
 
         <form-bean name="systemEntitlementsForm"
@@ -995,6 +989,9 @@
     <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException"
       path="/WEB-INF/pages/common/errors/nosuchpkg.jsp" key="date"
       handler="com.redhat.rhn.common.errors.NoSuchPackageExceptionHandler"/>
+    <exception type="com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException"
+      path="/WEB-INF/pages/common/errors/nosuchkickstart.jsp" key="date"
+      handler="com.redhat.rhn.common.errors.NoSuchKickstartExceptionHandler"/>
   </global-exceptions>
 
   <!-- 
@@ -1880,7 +1877,7 @@
          <forward name="default"
                   path="/WEB-INF/pages/errata/delete.jsp" />
          <forward name="deleted"
-                  path="/errata/manage/PublishedErrata.do" />
+                  path="/errata/manage/PublishedErrata.do" redirect="true" />
      </action>
      
      <action path="/errata/manage/Create" 
@@ -2096,7 +2093,7 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <set-property property="acls" value="user_role(channel_admin)"/>
         <forward name="default"
-            path="/errata/manage/ListPackages.do" redirect="true"/>
+            path="/errata/manage/ListPackages.do" />
         <forward name="confirm"
             path="/errata/manage/RemovePackages.do" redirect="true"/>
     </action>
@@ -2482,10 +2479,6 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />                 
-                 
     </action>
         
     <action path="/systems/details/packages/VerifyPackages"
@@ -2532,9 +2525,6 @@
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
-        <forward name="remotecmd"
-                 path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />                 
     </action>
 
    <action path="/systems/details/packages/UpgradableList"
@@ -2555,9 +2545,6 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
-         <forward name="remote"
-                  path="/systems/details/packages/ScheduleRemoteCommand.do"
-                  redirect="true"/>
          <forward name="confirm"
                   path="/systems/details/packages/Packages.do"
                   redirect="true"/>                 
@@ -2607,7 +2594,8 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.InstallPatchSetAction"
         parameter="dispatch">
         <forward name="default"
-                 path="/systems/details/packages/patchsets/PatchSetList.do"/>
+                 path="/systems/details/packages/patchsets/PatchSetList.do"
+                 redirect="true"/>
     </action>
 
     <action path="/systems/details/packages/patches/PatchList"
@@ -4878,12 +4866,35 @@
                  path="/WEB-INF/pages/kickstart/kstrees.jsp"/>
     </action>
 
-    <action path="/kickstart/cobbler/CobblerSnippetList"
+    <action path="/kickstart/cobbler/DefaultSnippetList"
         scope="request"
+        parameter="default"
         input="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"
         type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetListSetupAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="user_role(org_admin)"/>
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"/>
+    </action>
+
+    <action path="/kickstart/cobbler/CustomSnippetList"
+        scope="request"
+        parameter="custom"
+        input="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetListSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"/>
+    </action>
+        
+    <action path="/kickstart/cobbler/CobblerSnippetList"
+        scope="request"
+        parameter="all"
+        input="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetListSetupAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/cobbler/snippets.jsp"/>
     </action>
@@ -4892,37 +4903,52 @@
         scope="request"
         validate="false"
         name="cobblerSnippetsForm"
-        input="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetCreateAction">
+        parameter="create_mode"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/snippetcreate.jsp"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetdetails.jsp"/>
         <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetList.do"
-                 redirect="true"
+                 path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"
                  />
     </action>
     
     <action path="/kickstart/cobbler/CobblerSnippetEdit"
         scope="request"
         name="cobblerSnippetsForm"
-        input="/WEB-INF/pages/kickstart/cobbler/snippetedit.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetEditAction">
+        parameter="edit_mode"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/snippetedit.jsp"/>
-        <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetList.do"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetdetails.jsp"/>
+        <forward name="success" 
+                 path="/kickstart/cobbler/CobblerSnippetEdit.do" redirect = "true"/>
     </action>
 
+    <action path="/kickstart/cobbler/CobblerSnippetView"
+        scope="request"
+        name="cobblerSnippetsForm"
+        input="/WEB-INF/pages/kickstart/cobbler/snippetview.jsp"
+        parameter="view_mode"
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetViewAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/cobbler/snippetview.jsp"/>
+    </action>
 
     <action path="/kickstart/cobbler/CobblerSnippetDelete"
         scope="request"
-        name="cobblerSnippetDeleteForm"
         input="/WEB-INF/pages/kickstart/cobbler/cobblersnippetdeleteconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDeleteAction">
+        type="com.redhat.rhn.frontend.action.kickstart.cobbler.CobblerSnippetDeleteAction"
+         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/cobbler/cobblersnippetdeleteconfirm.jsp"/>
-        <forward name="success"
-                 path="/kickstart/cobbler/CobblerSnippetList.do"/>
+                 path="/WEB-INF/pages/kickstart/cobbler/deleteconfirm.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/kickstart/cobbler/CustomSnippetList.do"/>
     </action>
 
    <action path="/keys/CryptoKeysList"
@@ -6173,7 +6199,7 @@
       <forward name="success" path="/channels/ChannelDetail.do" redirect="true" />
    </action>         
 
-  <action path="/channels/manage/ChannelPackages"
+   <action path="/channels/manage/ChannelPackages"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -6181,6 +6207,13 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/listremovepackages.jsp" />
       </action>
 
+   <action path="/channels/manage/Manage"
+           scope="request"
+           type="com.redhat.rhn.frontend.action.channel.manage.ManageChannelsAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/manage.jsp"/> 
+   </action>
+     
    <action path="/channels/manage/Edit"
            scope="request"
            name="channelEditForm"

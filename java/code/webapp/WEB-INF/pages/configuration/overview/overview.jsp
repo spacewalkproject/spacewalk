@@ -12,7 +12,7 @@
 <body>
 
 <rhn:toolbar base="h1" img="/img/rhn-config_management.gif" imgAlt="config.jsp.imgAlt"
- helpUrl="/rhn/help/reference/en/configuration-overview.jsp" >
+ helpUrl="/rhn/help/reference/en-US/s1-sm-configuration.jsp#configuration-overview" >
   <bean:message key="configoverview.jsp.toolbar"/>
 </rhn:toolbar>
 

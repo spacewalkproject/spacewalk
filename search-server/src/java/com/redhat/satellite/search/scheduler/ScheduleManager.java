@@ -17,6 +17,7 @@ package com.redhat.satellite.search.scheduler;
 
 import com.redhat.satellite.search.config.Configuration;
 import com.redhat.satellite.search.db.DatabaseManager;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.scheduler.tasks.IndexErrataTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexPackagesTask;
@@ -46,12 +47,12 @@ import java.util.Date;
  * @version $Rev $
  */
 public class ScheduleManager implements Startable {
-    
     private static Logger log = Logger.getLogger(ScheduleManager.class);
     private Scheduler scheduler;
     private DatabaseManager databaseManager;
     private IndexManager indexManager;
-    
+
+    private final String updateIndexGroupName = "updateIndex";
     /**
      * Constructor
      * @param dbmgr allows ScheduleManager to access the database.
@@ -60,6 +61,22 @@ public class ScheduleManager implements Startable {
     public ScheduleManager(DatabaseManager dbmgr, IndexManager idxmgr) {
         databaseManager = dbmgr;
         indexManager = idxmgr;
+        try {
+            scheduler = StdSchedulerFactory.getDefaultScheduler();
+        }
+        catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    private void scheduleJob(Scheduler sched, String name,
+            int mode, long interval, Class task, JobDataMap data)
+        throws SchedulerException {
+        
+        Trigger t = createTrigger(name, updateIndexGroupName, mode, interval);
+        JobDetail d = new JobDetail(name, updateIndexGroupName, task);
+        d.setJobDataMap(data);
+        sched.scheduleJob(d, t);
     }
     
     private Trigger createTrigger(String name, String group, int mode,
@@ -77,7 +94,7 @@ public class ScheduleManager implements Startable {
     public void start() {
         try {
             Configuration config = new Configuration();
-            scheduler = StdSchedulerFactory.getDefaultScheduler();
+            
             long interval = config.getInt("search.schedule.interval", 300000);
             log.info("ScheduleManager task interval is set to " + interval);
             int mode = SimpleTrigger.REPEAT_INDEFINITELY;
@@ -85,50 +102,35 @@ public class ScheduleManager implements Startable {
                 interval = 100;
                 mode = 0;
             }
-            Trigger pkgTrigger = createTrigger("packages", "index", mode,
-                    interval);
-            Trigger errataTrigger = createTrigger("errata", "index", mode,
-                    interval);
-            Trigger systemTrigger = createTrigger("systems", "index", mode,
-                    interval);
-            Trigger hwDeviceTrigger = createTrigger("hwdevice", "index", mode,
-                    interval);
-            Trigger snapshotTagTrigger = createTrigger("snapshotTag", "index",
-                    mode, interval);
-            Trigger serverCustomInfoTrigger = createTrigger("serverCustomInfo", "index",
-                    mode, interval);
             
-            JobDetail pkgDetail = new JobDetail("packages", "index",
-                    IndexPackagesTask.class);
-            JobDetail errataDetail = new JobDetail("errata", "index",
-                    IndexErrataTask.class);
-            JobDetail systemDetail = new JobDetail("systems", "index",
-                    IndexSystemsTask.class);
-            JobDetail hwDeviceDetail = new JobDetail("hwdevice", "index",
-                    IndexHardwareDevicesTask.class);
-            JobDetail snapshotTagDetail = new JobDetail("snapshotTag", "index",
-                    IndexSnapshotTagsTask.class);
-            JobDetail serverCustomInfoDetail = new JobDetail("serverCustomInfo", "index",
-                    IndexServerCustomInfoTask.class);
-
             JobDataMap jobData = new JobDataMap();
             jobData.put("indexManager", indexManager);
             jobData.put("databaseManager", databaseManager);
             jobData.put("configuration", new Configuration());
             
-            pkgDetail.setJobDataMap(jobData);
-            errataDetail.setJobDataMap(jobData);
-            systemDetail.setJobDataMap(jobData);
-            hwDeviceDetail.setJobDataMap(jobData);
-            snapshotTagDetail.setJobDataMap(jobData);
-            serverCustomInfoDetail.setJobDataMap(jobData);
+            scheduleJob(scheduler, BuilderFactory.PACKAGES_TYPE,
+                    mode, interval,
+                    IndexPackagesTask.class, jobData);
+            
+            scheduleJob(scheduler, BuilderFactory.ERRATA_TYPE,
+                    mode, interval,
+                    IndexErrataTask.class, jobData);
+            
+            scheduleJob(scheduler, BuilderFactory.SERVER_TYPE,
+                    mode, interval,
+                    IndexSystemsTask.class, jobData);
 
-            scheduler.scheduleJob(pkgDetail, pkgTrigger);
-            scheduler.scheduleJob(errataDetail, errataTrigger);
-            scheduler.scheduleJob(systemDetail, systemTrigger);
-            scheduler.scheduleJob(hwDeviceDetail, hwDeviceTrigger);
-            scheduler.scheduleJob(snapshotTagDetail, snapshotTagTrigger);
-            scheduler.scheduleJob(serverCustomInfoDetail, serverCustomInfoTrigger);
+            scheduleJob(scheduler, BuilderFactory.HARDWARE_DEVICE_TYPE,
+                    mode, interval,
+                    IndexHardwareDevicesTask.class, jobData);
+
+            scheduleJob(scheduler, BuilderFactory.SNAPSHOT_TAG_TYPE,
+                    mode, interval,
+                    IndexSnapshotTagsTask.class, jobData);
+
+            scheduleJob(scheduler, BuilderFactory.SERVER_CUSTOM_INFO_TYPE,
+                    mode, interval,
+                    IndexServerCustomInfoTask.class, jobData);
 
             scheduler.start();
         }
@@ -147,5 +149,54 @@ public class ScheduleManager implements Startable {
         catch (SchedulerException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private boolean isSupported(String indexName) {
+        if (BuilderFactory.ERRATA_TYPE.equals(indexName) ||
+             BuilderFactory.HARDWARE_DEVICE_TYPE.equals(indexName) ||
+             BuilderFactory.PACKAGES_TYPE.equals(indexName) ||
+             BuilderFactory.SERVER_CUSTOM_INFO_TYPE.equals(indexName) ||
+             BuilderFactory.SERVER_TYPE.equals(indexName) ||
+             BuilderFactory.SNAPSHOT_TAG_TYPE.equals(indexName)) {
+            return true;
+        }
+        else if (BuilderFactory.DOCS_TYPE.equals(indexName)) {
+            log.info("Index updates for " + BuilderFactory.DOCS_TYPE +
+                    " are not supported.");
+            return false;
+        }
+        log.info("Unknown index: " + indexName);
+        return false;
+    }
+
+    /**
+     * Will create/schedule a trigger for the passed in indexName.
+     * Note: Only one trigger per indexName is allowed, if subsequent calls
+     * are made before the current trigger finishes completion, this request
+     * will be dropped.
+     * @param indexName
+     * @return
+     */
+    public boolean triggerIndexTask(String indexName) {
+        if (!isSupported(indexName)) {
+            log.info(indexName + " is not a supported for scheduler modifications.");
+            return false;
+        }
+        // Define a Trigger that will fire "now" and associate it with the existing job
+        Trigger trigger = new SimpleTrigger("immediateTrigger-" + indexName,
+                "group1", new Date());
+        trigger.setJobName(indexName);
+        trigger.setJobGroup(updateIndexGroupName);
+        try {
+            // Schedule the trigger
+            log.info("Scheduling trigger: " + trigger);
+            scheduler.scheduleJob(trigger);
+        }
+        catch (SchedulerException e) {
+            log.warn("Scheduling trigger: " + trigger + " failed.");
+            log.warn("Exception was caught: ",  e);
+            return false;
+        }
+        return true;
     }
 }

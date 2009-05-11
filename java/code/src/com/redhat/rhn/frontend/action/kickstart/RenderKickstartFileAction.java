@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import com.redhat.rhn.common.util.download.DownloadException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchKickstartException;
 import com.redhat.rhn.manager.kickstart.KickstartManager;
 
 import org.apache.log4j.Logger;
@@ -59,14 +61,31 @@ public class RenderKickstartFileAction extends Action {
             if (params != null) {
                 String host = (String) params.get("host");
                 KickstartData ksdata = (KickstartData) params.get("ksdata");
+                if (log.isDebugEnabled()) {
+                    log.debug("execute.host: " + host);
+                    log.debug("execute.ksdata: " + ksdata);
+                }
                 if (host != null && ksdata != null) {
-                    fileContents = KickstartManager.renderKickstart(ksdata);
+                    try {
+                        if (helper.isProxyRequest()) {
+                            fileContents = KickstartManager.
+                                getInstance().renderKickstart(host, ksdata);    
+                        }
+                        else {
+                            fileContents = KickstartManager.
+                                getInstance().renderKickstart(ksdata);    
+                        }
+                    }
+                    catch (DownloadException de) {
+                        fileContents = de.getContent();
+                    }
                 }
                 else {
                     log.error("No kickstart filecontents found for: " + url + 
                             " params: " + params + " ksdata: " + ksdata);
                     // send 404 to the user since we don't have a kickstart profile match
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                    //response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                    throw new NoSuchKickstartException();
                 }
                 if (log.isDebugEnabled()) {
                     log.debug("fileContents: " + fileContents);

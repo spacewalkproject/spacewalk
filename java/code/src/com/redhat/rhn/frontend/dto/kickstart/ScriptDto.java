@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.dto.kickstart;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.dto.BaseDto;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * DTO for a com.redhat.rhn.domain.kickstart.KickStartScript
  * @version $Rev: 50942 $
@@ -70,7 +72,7 @@ public class ScriptDto extends BaseDto {
      * @return interpreter for this script
      */
     public String getInterpreter() {
-        if (this.interpreter == null) {
+        if (StringUtils.isBlank(interpreter)) {
             return BASH;
         }
         return interpreter;

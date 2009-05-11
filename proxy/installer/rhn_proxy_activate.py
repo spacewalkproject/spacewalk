@@ -89,22 +89,6 @@ def getServer(options, handler):
 
     return s
 
-
-def chmod_chown_systemid():
-    path = "/etc/sysconfig/rhn/systemid"
-
-    if getSystemId() is None:
-        sys.stderr.write("ERROR: RHN Proxy does not appear to be registered\n")
-        sys.exit(1)
-
-    # systemid needs to be accessible by apache
-    apacheGID = pwd.getpwnam('apache')[3]
-
-    # chmod 0640 ...; chown root.apache ...
-    os.chmod(path, 0640)
-    os.chown(path, 0, apacheGID)
-
-
 def _getProtocolError(e, hostname=''):
     """
         10      connection issues?
@@ -328,6 +312,15 @@ def _deactivateProxy_api_v3_x(options, apiVersion):
     systemid = getSystemId()
 
     errorCode, errorString = 0, ''
+
+    try:
+        if not s.proxy.is_proxy(systemid):
+            # if system is not proxy, we do not need to deactivate it
+            return (errorCode, errorString)
+    except:
+        # api do not have proxy.is_proxy is implemented or it is hosted
+        # ignore error and try to deactivate
+        pass
     try:
         s.proxy.deactivate_proxy(systemid)       # proxy 3.0+ API
     except:
@@ -522,9 +515,6 @@ def main():
     resolveHostnamePort(options.http_proxy)
     if not options.http_proxy:
         resolveHostnamePort(options.server)
-
-    # fix permissions on systemid
-    chmod_chown_systemid()
 
     # snag the apiVersion
     apiVersion = getAPIVersion(options)

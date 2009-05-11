@@ -1,5 +1,5 @@
 Name: spacewalk-doc-indexes
-Version: 0.5.1
+Version: 0.6.1
 Release: 1%{?dist}
 Summary: Lucene indexes of help documentation for spacewalk
 
@@ -15,6 +15,7 @@ Source0: %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: nutch
 BuildArch: noarch
+Provides: doc-indexes
 
 %description
 Lucene generated indexes used by the spacewalk search-server for
@@ -44,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Apr 04 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.1-1
+- search requires doc-indexes, sw-doc-indexes provides doc-indexes (jesusr@redhat.com)
+- bump Versions to 0.6.0 (jesusr@redhat.com)
+
 * Mon Jan 26 2009 jesus m. rodriguez <jesusr@redhat.com> 0.5.1-1
 - requires nutch now
 

@@ -30,6 +30,8 @@ import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -40,6 +42,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
+import com.redhat.rhn.frontend.dto.PackageDto;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.dto.SystemsPerChannelDto;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
@@ -712,5 +715,36 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         assertFalse(e.getChannels().contains(c));
         c = ChannelManager.lookupByLabel(user.getOrg(), c.getLabel());
         assertFalse(c.getErratas().contains(eids));
+    }
+
+    public void testListErrataPackages() throws Exception {
+
+        Channel c = ChannelFactoryTest.createBaseChannel(user);
+        Errata e = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+
+        Package bothP = PackageTest.createTestPackage();
+        Package channelP = PackageTest.createTestPackage();
+        Package errataP = PackageTest.createTestPackage();
+
+
+        c.addPackage(bothP);
+        e.addPackage(bothP);
+
+        c.addPackage(channelP);
+        e.addPackage(errataP);
+
+        c.addErrata(e);
+
+        c = (Channel) TestUtils.saveAndReload(c);
+        e = (Errata) TestUtils.saveAndReload(e);
+
+        bothP = (Package) TestUtils.saveAndReload(bothP);
+
+
+        List<PackageDto> list = ChannelManager.listErrataPackages(c, e);
+        assertEquals(list.size(), 1);
+        assertEquals(list.get(0).getId(), (bothP.getId()));
+
+
     }
 }

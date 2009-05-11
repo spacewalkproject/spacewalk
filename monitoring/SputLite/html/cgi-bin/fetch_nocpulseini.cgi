@@ -1,9 +1,13 @@
 #!/usr/bin/perl
 
 use strict;
+use CGI;
 use NOCpulse::NOCpulseini;
+use NOCpulse::NPRecords;
 use lib qw(/etc/rc.d/np.d);
 use PhysCluster;
+
+my $q = CGI->new;
 
 $NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 my $cluster = PhysCluster->newInitialized();
@@ -21,6 +25,6 @@ $ini->connect($dbd,$dbname,$username,$password,$orahome);
 
 $ini->fetch_nocpulseini('EXTERNAL');
 
-print "Content-type: text\n\n";
-print $ini->dump();
+print $q->header("text/plain"),
+	$ini->dump();
 

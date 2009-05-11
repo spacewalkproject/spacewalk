@@ -328,7 +328,7 @@ sub clonable_errata_list_provider {
   foreach my $row (@{$data}) {
     $row->{RELATED_CHANNELS} =
       join "<br />\n",
-	map { PXT::HTML->link('/network/software/channels/manage/index.pxt?cid=' . $_->{CHANNEL_ID},
+	map { PXT::HTML->link('/rhn/channels/manage/Manage.do?cid=' . $_->{CHANNEL_ID},
 			      $_->{CHANNEL_NAME}) } @{$row->{__data__} };
     $row->{CLONED} = $row->{ALREADY_CLONED} ? 'Yes' : 'No';
   }
@@ -564,7 +564,7 @@ sub potential_for_cloned_channel_cb {
     $transaction->nested_commit;
 
     $pxt->push_message(site_info => $_) foreach (@messages);
-    $pxt->redirect("/network/software/channels/manage/errata/index.pxt?cid=${cid}");
+    $pxt->redirect("/rhn/channels/manage/errata/Errata.do?cid=${cid}");
   }
 
   return 1;

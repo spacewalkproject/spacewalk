@@ -14,6 +14,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="position" column="position" not-null="true" type="long" />
         <property name="scriptType" column="script_type" not-null="true" type="string" length="4" />
         <property name="chroot" column="chroot" not-null="true" type="string" length="1" />
+        <property name="raw" column="raw_script" not-null="true" type="yes_no" />
         <property name="interpreter" column="interpreter"  type="string" length="80" />
         <property name="dataBlob" column="data"  type="blob" />
         <property name="created" column="created" not-null="true" 

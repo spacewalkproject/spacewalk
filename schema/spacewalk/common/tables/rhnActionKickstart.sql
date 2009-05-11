@@ -24,6 +24,7 @@ CREATE TABLE rhnActionKickstart
     append_string   VARCHAR2(1024), 
     kickstart_host  VARCHAR2(256), 
     static_device   VARCHAR2(32), 
+    cobbler_system_name      VARCHAR2(256),
     created         DATE 
                         DEFAULT (sysdate) NOT NULL, 
     modified        DATE 

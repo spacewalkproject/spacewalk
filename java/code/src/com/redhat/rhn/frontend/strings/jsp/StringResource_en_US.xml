@@ -905,14 +905,8 @@
           <context context-type="sourcefile">/rhn/Relogin</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="relogin.jsp.relogintext">
-<source>To access purchasing, account or profile information, or to continue an expired session, please sign in below.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/Relogin</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="login.jsp.redhatlogin">
-<source>@@PRODUCT_NAME@@ Login / Email: </source>
+<source>@@PRODUCT_NAME@@ Login: </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/Login</context>
         </context-group>
@@ -1329,7 +1323,13 @@
         </context-group>
       </trans-unit>
       <trans-unit id="header.jsp.loggedin">
-<source>Logged In:</source>
+<source>User:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">./includes/header.jsp</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="header.jsp.org">
+<source>Organization:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/header.jsp</context>
         </context-group>
@@ -2017,7 +2017,7 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
 
       <trans-unit id="usercreate.jsp.pam.reference">
-<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
+<source>If you would like to set up your satellite to authenticate against LDAP, kerberos, and other network-based authentication systems, please visit the &lt;a href="/rhn/help/satellite/en-US/s1-maintenance-pam-auth.jsp"&gt;reference guide&lt;/a&gt; for instructions on how to set up PAM.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/CreateUser.do</context>
         </context-group>
@@ -2456,6 +2456,18 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
       </trans-unit>
       <trans-unit id="Unselect All">
 <source>Unselect All</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page with a List View</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Add to SSM">
+        <source>Add Selected to SSM</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">Any page with a List View</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Clear SSM">
+        <source>Remove existing servers from the SSM</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Any page with a List View</context>
         </context-group>
@@ -7390,14 +7402,14 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.channelsprovided">
-          <source>Channels Provided</source>
+          <source>Channels Provided to your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>     
              
        <trans-unit id="orgtrustdetails.jsp.channelsconsumed">
-          <source>Channels Consumed</source>
+          <source>Channels Consumed from your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
@@ -7418,14 +7430,14 @@ organization management tools if you choose to remove this role from your login.
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
-          <source>Systems Migrated to Your org</source>
+          <source>Systems Migrated to Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
-          <source>Systems Migrated from Your org</source>
+          <source>Systems Migrated from Your Organization</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
@@ -8958,7 +8970,7 @@ Please note that some manual configuration of these scripts may still be require
           <context context-type="sourcefile">/rhn/admin/config/Cobbler.do</context>
         </context-group>
         <trans-unit id="cobbler.jsp.toolbar">
-          <source>Spacewalk Configuration - Cobbler.</source>
+          <source>@@PRODUCT_NAME@@ Configuration - Cobbler.</source>
         </trans-unit>
         <trans-unit id="Cobbler">
           <source>Cobbler</source>
@@ -9234,6 +9246,13 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">Kickstart Details</context>
         </context-group>
     </trans-unit>    
+
+    <trans-unit id="kickstart.jsp.error.template_generation">
+        <source>There are errors in your kickstart template. Please check the &lt;a href=&quot;{0}&quot;&gt;template errors&lt;/a&gt; to determine the problem with the template.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">Kickstart Details</context>
+        </context-group>
+    </trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.kernel_options">
         <source>Kernel Options</source>
@@ -10128,7 +10147,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="keys.jsp.summary">
-        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href=&quot;/rhn/help/reference/en/s2-sm-system-kickstart.jsp#s3-sm-system-kick-keys&quot; target=&quot;_new&quot; &gt;RHN Reference Guide&lt;/a&gt;</source>
+        <source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-keys&quot; target=&quot;_new&quot; &gt;RHN Reference Guide&lt;/a&gt;</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
         </context-group>
@@ -10299,7 +10318,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="preservation_list.jsp.summary">
-        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href=&quot;/rhn/help/reference/en/s2-sm-system-kickstart.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_new&quot; &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
+        <source>File preservation lists are lists of files that will be restored to a system during a particular kickstart.  You can reference a file preservation list in a kickstart profile.  For more information refer to the &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_new&quot; &gt;RHN Reference Guide&lt;/a&gt;.  The following file preservation lists have been created for use by your organization:</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
@@ -10338,124 +10357,6 @@ Please note that some manual configuration of these scripts may still be require
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationList.do</context>
         </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippets.jsp.toolbar">
-        <source>Cobbler Snippets</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetListSetupAction.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippets.jsp.summary">
-        <source>Cobbler Snippets are a way of re-using common blocks of code between kickstarts.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/keys/CryptoKeysList.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetedit.jsp.header2">
-        <source>Edit Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="toolbar.create.snippets">
-        <source>create new cobbler snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetListSetupAction.do</context>
-        </context-group>
-    </trans-unit>
-    <trans-unit id="snippetcreate.jsp.toolbar">
-        <source>Create New Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetcreate.jsp.summary">
-        <source>Snippets can be shared between Kickstart Profiles</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetcreate.jsp.header2">
-        <source>Create Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetcreate.jsp.name">
-        <source>Name</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetcreate.jsp.contents">
-        <source>Contents</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetcreate.jsp.tip1">
-        <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; Avoid spaces in the snippet name.&lt;/span&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetcreate.jsp.submit">
-        <source>Update Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="cobbler.snippet.name">
-        <source>Snippet Name</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetlist.do</context>
-        </context-group>
-    </trans-unit>		      
-
-    <trans-unit id="cobbler.snippet.jsp.nosnippets">
-        <source>No Cobbler snippets defined.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetlist.do</context>
-        </context-group>
-    </trans-unit>
-
-   <trans-unit id="snippetdelete.jsp.toolbar">
-        <source>Delete Snippet Confirmation</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-        </context-group>
-    </trans-unit>
-
-   <trans-unit id="snippetdelete.jsp.header2">
-        <source>Deleting Snippet</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-        </context-group>
-    </trans-unit>
-
-     <trans-unit id="snippetdelete.jsp.summary">
-        <source>Are you sure you want to delete this Snippet permanently?&lt;p&gt;&lt;strong&gt;If so please click the button once.&lt;/strong&gt;&lt;/p&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="snippetdelete.jsp.deletesnippet">
-<source>Delete Snippet</source>
-      <context-group name="ctx">
-        <context context-type="sourcefile">/rhn/systems/cobbler/CobblerSnippetDelete</context>
-      </context-group>
     </trans-unit>
 
     <trans-unit id="toolbar.create.filelist">
@@ -10545,7 +10446,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="preservation_edit.jsp.summary">
-        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href=&quot;/rhn/help/reference/en/s2-sm-system-kickstart.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_new&quot; &gt;RHN Reference Guide&lt;/a&gt;.</source>
+        <source>Any files or directories listed here will be preserved following the kickstart. List files or directories one per line.&lt;br/&gt;Each list is limited to a total size of &lt;strong&gt;1 MB&lt;/strong&gt;.  For more information see the &lt;a href=&quot;/rhn/help/reference/en-US/s1-sm-systems.jsp#s3-sm-system-kick-preserve&quot; target=&quot;_new&quot; &gt;RHN Reference Guide&lt;/a&gt;.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/provisioning/preservation/PreservationListEdit.do</context>
         </context-group>
@@ -10785,6 +10686,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
 
+      <trans-unit id="kickstart.script.template">
+        <source>Template</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartOverview.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="kickstart.script.template.tip">
+        <source>Enable this to enable templating on this script using cobbler.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/KickstartOverview.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="kickstart.script.tip3">
         <source>&lt;span class=&quot;small-text&quot;&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This specifies when the script gets ran (before or after kickstart).&lt;/span&gt;</source>
         <context-group name="ctx">
@@ -10885,8 +10800,156 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context context-type="sourcefile">/rhn/kickstart/KickstartPackagesEdit.do</context>
       </context-group>
     </trans-unit>
+    <!-- Cobbler Snippet Entries -->
+    <group>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/DefaultSnippetList.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CustomSnippetList.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetList.do</context>
+        </context-group>
+        
+    <trans-unit id="cobbler.nav.default">
+        <source>Default Snippets</source>
+    </trans-unit>
+	<trans-unit id="cobbler.nav.custom">
+        <source>Custom Snippets</source>
+    </trans-unit>
+    <trans-unit id="cobbler.nav.all">
+        <source>All Snippets</source>
+    </trans-unit>
+    
+    <trans-unit id="snippets.jsp.toolbar">
+        <source>Kickstart Snippets</source>
+    </trans-unit>
 
-    <trans-unit id="yourrhn.jsp.bullet.alttag">
+    <trans-unit id="snippets.jsp.summary">
+        <source>Use kickstart snippets to store common blocks of code that can be shared across multiple kickstart profiles in @@PRODUCT_NAME@@. When you create a kickstart snippet, all kickstart profiles including that snippet will be updated accordingly.</source>
+    </trans-unit>
+
+    <trans-unit id="snippets.jsp.note.default">
+        <source>Default kickstart snippets are not editable.</source>
+    </trans-unit>
+    <trans-unit id="toolbar.create.snippets">
+        <source>create new snippet</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.name">
+        <source>Snippet Name</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.macro">
+        <source>Snippet Macro</source>
+    </trans-unit>    
+    <trans-unit id="cobbler.snippet.jsp.nosnippets">
+        <source>No kickstart snippets found.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.copy-paste-snippet-tip">
+        <source>Copy and paste the snippet macro into your kickstart profiles to make the full snippet appear in that kickstart profile.</source>
+    </trans-unit>    
+	</group>    
+    
+    <!--Cobbler Create/Edit/View/Delete pages -->
+    <group>
+		<context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetEdit.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetCreate.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetView.do</context>
+            <context context-type="sourcefile">/rhn/kickstart/cobbler/CobblerSnippetDelete.do</context>
+        </context-group>
+    <trans-unit id="snippetcreate.jsp.warning.tip">
+        <source>Changing this snippet's name will require updating any kickstart profiles that refer to it so that they can continue to access the content of this snippet.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.path">
+        <source>File Path</source>
+    </trans-unit>
+	<trans-unit id="cobbler.snippet.path.tip">
+        <source>This is where the snippet resides on the @@PRODUCT_NAME@@ file system.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.header.name">
+        <source>Kickstart Snippet: {0}</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.type">
+        <source>Snippet Type</source>
+    </trans-unit>    
+    <trans-unit id="cobbler.snippet.custom">
+        <source>Custom</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.custom.tip">
+        <source>Custom kickstart snippets will be only available to the &lt;strong&gt;{0}&lt;/strong&gt; organization.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.default">
+        <source>Default</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.default.tip">
+        <source>Default kickstart snippets are available to all organizations. These snippets cannot be modified.</source>
+    </trans-unit>    
+    
+    <trans-unit id="snippetedit.jsp.header2">
+        <source>Edit Snippet</source>
+    </trans-unit>
+
+    <trans-unit id="snippetcreate.jsp.toolbar">
+        <source>Create New Snippet</source>
+    </trans-unit>
+
+    <trans-unit id="snippetcreate.jsp.summary">
+        <source>Snippets can be shared between kickstart profiles</source>
+    </trans-unit>
+
+    <trans-unit id="snippetcreate.jsp.header2">
+        <source>Create Snippet</source>
+    </trans-unit>
+    <trans-unit id="snippetdetails.jsp.header2">
+        <source>Snippet Details</source>
+    </trans-unit>
+    <trans-unit id="snippetcreate.jsp.name">
+        <source>Name</source>
+    </trans-unit>
+
+    <trans-unit id="snippetcreate.jsp.contents">
+        <source>Contents</source>
+    </trans-unit>
+
+
+    <trans-unit id="snippetcreate.jsp.contents.header">
+        <source>Kickstart Snippet Contents</source>
+    </trans-unit>
+
+
+    <trans-unit id="snippetcreate.jsp.tip1">
+        <source>The snippet name is the name of a file that will reside in this organization's snippet directory. Any standard unix file name characters are acceptable. Snippet names containing slash character or snippet names beginning with period are not allowed.</source>
+    </trans-unit>
+
+    <trans-unit id="snippetcreate.jsp.submit">
+        <source>Create Snippet</source>
+    </trans-unit>
+    
+    <trans-unit id="snippetupdate.jsp.submit">
+        <source>Update Snippet</source>
+    </trans-unit>
+
+   <trans-unit id="snippetdelete.jsp.toolbar">
+        <source>Delete Snippet Confirmation</source>
+    </trans-unit>
+
+   <trans-unit id="snippetdelete.jsp.header2">
+        <source>Deleting Snippet</source>
+    </trans-unit>
+
+     <trans-unit id="snippetdelete.jsp.summary">
+        <source>Are you sure you want to delete this snippet permanently?</source>
+    </trans-unit>
+     <trans-unit id="snippetdelete.jsp.warning">
+        <source>Deleting this snippet will affect any kickstart profiles that refer to it. It may break those kickstart profiles. We recommend ensuring that no kickstart profiles rely on this snippet before deleting it.</source>
+    </trans-unit>
+    <trans-unit id="cobbler.snippet.delete">
+        <source>Confirm Snippet Delete</source>
+	</trans-unit>
+
+    <trans-unit id="snippetdelete.jsp.deletesnippet">
+<source>Delete Snippet</source>
+    </trans-unit>       
+    </group>
+ 
+     <trans-unit id="yourrhn.jsp.bullet.alttag">
         <source>Bullet Item</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn</context>
@@ -11499,6 +11562,25 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
       </trans-unit>
 
+      <trans-unit id="channels.manage.jsp.toolbar">
+        <source>Software Channel Management</source>
+      </trans-unit>
+
+      <trans-unit id="channels.manage.jsp.header1">
+        <source>The following software channels are owned by your organization.</source>
+      </trans-unit>
+
+      <trans-unit id="channels.manage.jsp.header2">
+        <source>Modify an existing software channel by selecting it from the list below, or create a new software channel. </source>
+      </trans-unit>
+
+      <trans-unit id="toolbar.create.channel">
+        <source>create new channel</source>
+      </trans-unit>
+
+      <trans-unit id="toolbar.clone.channel">
+        <source>clone channel</source>
+      </trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>
@@ -11635,7 +11717,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        </context-group>
      </trans-unit>
      <trans-unit id="kickstart.jsp.create.wizard.kickstart.profile.label">
-       <source>Kickstart Profile Label</source>
+       <source>Label</source>
        <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
@@ -11709,6 +11791,27 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
        </context-group>
      </trans-unit>
+     
+     <group>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/CreateProfileWizard.do</context>
+        </context-group>
+        <trans-unit id="kickstart.jsp.virt-type.para_host">
+          <source>Para-Virtualized Host</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.qemu">
+          <source>None Or KVM Virtualized Guest</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.xenfv">
+          <source>XEN Fully-Virtualized Guest</source>
+        </trans-unit>
+        <trans-unit id="kickstart.jsp.virt-type.xenpv">
+          <source>XEN Para-Virtualized Guest</source>
+        </trans-unit>                        
+     </group>
+     
+     
+     
     <!-- Activation Keys -->
      <group>
        <context-group name="ctx">
@@ -16787,7 +16890,7 @@ The Distribution Label field should contain only letters, numbers, hyphens, peri
 
 The Tree Path, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;&lt;br/&gt;
 
-&lt;p&gt;The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the kernel and initrd required for kickstarting a system. From within the specified tree path, a kernel should be available at &quot;./images/pxeboot/vmlinuz&quot; and an initrd image should be available at &quot;./images/pxeboot/initrd.img&quot;. For instance, if you have media located on the @@PRODUCT_NAME@@ server at: &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; you would specify that path as your Tree Path value which would check for a kernel and initrd here: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;
+&lt;p&gt;The Tree Path must be a local disk path on your @@PRODUCT_NAME@@ server containing the entire kickstart tree for a distribution include kernel, initrd, and repo information, but excluding any rpms. This directory should be readable by the apache and tomcat users.  From within the specified tree path, a kernel should be available at &quot;./images/pxeboot/vmlinuz&quot; and an initrd image should be available at &quot;./images/pxeboot/initrd.img&quot;. For instance, if you have media located on the @@PRODUCT_NAME@@ server at: &lt;i&gt;/var/distro-trees/rhel-5-server/&lt;/i&gt; you would specify that path as your Tree Path value which would check for a kernel and initrd here: &lt;i&gt;/var/distro-trees/rhel-5-server/images/pxeboot/&lt;/i&gt; &lt;/p&gt;
 </source>
           <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/TreeCreate.do</context>
@@ -17898,6 +18001,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	     	<context-group name="ctx">
 	     	<context context-type="sourcefile">/systems/details/Overview.do</context>
         	</context-group>
+	     </trans-unit>
+
+	     <trans-unit id="sdc.details.overview.updatesavailable">
+                <source>Software Updates Available</source>
+                <context-group name="ctx">
+                    <context context-type="sourcefile">/systems/details/Overview.do</context>
+                </context-group>
 	     </trans-unit>
 
 	     <trans-unit id="sdc.details.overview.updates.critical">
@@ -20865,7 +20975,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.private">
         <source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
-        be accessed by any organization.</source>
+        be accessed by any other organization.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -20909,7 +21019,7 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="confirmprotected.jsp.confirmmsg">
         <source>Are you sure you want to set this channel's access policy to
-        being a &lt;strong&gt;protected&lt;/strong&gt;channel, note that the
+        being a &lt;strong&gt;protected&lt;/strong&gt; channel, note that the
         organizations below have systems that subscribe to this channel.
         Removing these organizations' access may adversely affect those systems.
         For example, they may no longer receive critical security updates to
@@ -21034,6 +21144,13 @@ given channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/ErrataList.do</context>
         </context-group>
+     </trans-unit>
+     <trans-unit id="unknown.kickstart">
+         <source>Kickstart Not Found</source>
+     </trans-unit>
+     <trans-unit id="unknown.kickstart.message">
+         <source>The requested kickstart file could not be found.
+         If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      </trans-unit>
 
   </body>

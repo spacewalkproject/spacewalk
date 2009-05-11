@@ -1,0 +1,7 @@
+<a name="#top">Red Hat Satellite API Documentation</a>
+<ul>
+#foreach( $handler in $handlers )
+    <li><a href="#${handler.name}">$handler.name</a></li>
+#end
+</ul>
+<hr>

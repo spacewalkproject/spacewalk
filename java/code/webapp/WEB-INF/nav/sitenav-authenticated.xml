@@ -81,8 +81,13 @@
       <rhn-tab name="File Preservation" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/systems/provisioning/preservation/PreservationList.do" >
         <rhn-tab-directory>/systems/provisioning/preservation/</rhn-tab-directory>
       </rhn-tab>
-      <rhn-tab name="Cobbler Snippets" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/CobblerSnippetList.do" >
+      <rhn-tab name="snippets.jsp.toolbar" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/cobbler/DefaultSnippetList.do" >
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetList.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CustomSnippetList.do</rhn-tab-url>
         <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetEdit.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetCreate.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetDelete.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/kickstart/cobbler/CobblerSnippetView.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
@@ -117,7 +122,7 @@
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
       <rhn-tab-directory>/rhn/channels/manage</rhn-tab-directory>      
-      <rhn-tab-url>/network/software/channels/manage/index.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/Manage.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/Add.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/AddRedHatErrata.do</rhn-tab-url>
       <rhn-tab-url>/rhn/channels/manage/errata/AddCustomErrata.do</rhn-tab-url>
@@ -128,7 +133,7 @@
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning)">
+  <rhn-tab name="config.nav.config" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)">
     <rhn-tab-directory>/rhn/configuration</rhn-tab-directory>
     <rhn-tab name="common.nav.overview" url="/rhn/configuration/Overview.do" acl="org_entitlement(rhn_provisioning);user_role(config_admin)" />
     <rhn-tab name="config.nav.channels" url="/rhn/configuration/GlobalConfigChannelList.do" acl="user_role(config_admin)" />
@@ -245,12 +250,6 @@
     </rhn-tab>
     
   </rhn-tab>
-  <rhn-tab name="Developer's Area" url="/dev/index.pxt" acl="is(development_environment)"
-           active-image="tab-dev-selected.gif"
-           inactive-image="tab-dev.gif">
-    <rhn-tab name="Magic Entitler" url="/dev/entitle.pxt" />
-    <rhn-tab name="Session Tracer" url="/dev/trace.pxt" />
-  </rhn-tab>
   <rhn-tab name="Help" url="/rhn/help/index.do" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
     <rhn-tab name="Reference Guide" url="/rhn/help/dispatcher/reference_guide">
@@ -267,9 +266,6 @@
     </rhn-tab>
     <rhn-tab name="Channel Management" url="/rhn/help/dispatcher/channel_mgmt_guide">
       <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
-    </rhn-tab>
-    <rhn-tab name="Proxy Release Notes" url="/rhn/help/dispatcher/proxy_release_notes">
-      <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Release Notes" url="/rhn/help/dispatcher/release_notes">
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>

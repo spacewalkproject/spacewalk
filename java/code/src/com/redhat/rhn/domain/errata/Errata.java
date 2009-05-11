@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -355,22 +356,16 @@ public interface Errata {
     void addChannel(Channel channelIn);
     
     /**
-     * Get the set of notifications in the queue for this errata.
-     * @return Returns the set of notifications for this errata
-     */
-    Set getNotificationQueue();
-    
-    /**
-     * Sets the notification queue for this errata
-     * @param queueIn The Set of notifications for this errata
-     */
-    void setNotificationQueue(Set queueIn);
-    
-    /**
      * Add a new notification for this errata
      * @param dateIn The notify date
      */
     void addNotification(Date dateIn);
+    
+    /**
+     * List errata notifications that are queued
+     * @return list of maps with channel_id and time
+     */
+    List getNotificationQueue();
     
     /**
      * Tells whether or not the errata is published. 

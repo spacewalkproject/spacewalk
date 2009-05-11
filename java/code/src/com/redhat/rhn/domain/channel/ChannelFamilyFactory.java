@@ -127,7 +127,6 @@ public class ChannelFamilyFactory extends HibernateFactory {
             updateFamilyPermissions(orgIn);
             //permission to use it.
         }
-
         return cfam;
     }
     

@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.tree;
 
+import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
@@ -47,4 +48,18 @@ public class TreeCreateOperation extends BaseTreeEditOperation {
         return new CobblerDistroCreateCommand(this.tree, this.user);
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
+    public ValidatorError store() {
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
+                        this.getTree().getLabel(), this.getUser().getOrg());
+        if (tree != null) {
+            return new ValidatorError("distribution.tree.exists", tree.getLabel());
+        }
+        return super.store();
+        
+    }
+    
 }

@@ -226,11 +226,16 @@ div.important h2{background-image:url(../images/important.png)}
 .section .table table tr.even td
 {background-color:#f5f5f5;}
 
-.chapter .table table th p:first-child,table td p:first-child,table  li p:first-child,
-.book .table table th p:first-child,table td p:first-child,table  li p:first-child,
-.preface .table table th p:first-child,table td p:first-child,table  li p:first-child,
-.section .table table th p:first-child,table td p:first-child,table  li p:first-child
+.chapter .table table th p:first-child, .chapter table td p:first-child,
+.chapter table  li p:first-child,
+.book .table table th p:first-child, .book table td p:first-child, 
+.book table li p:first-child,
+.preface .table table th p:first-child, .preface table td p:first-child,
+.preface table  li p:first-child,
+.section .table table th p:first-child, .section table td p:first-child,
+.section table  li p:first-child
 {margin-top:0em;padding-top:0em;display:inline;}
+
 
 .chapter th, .chapter td,
 .book th, .book td,

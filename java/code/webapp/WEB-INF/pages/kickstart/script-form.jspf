@@ -50,6 +50,16 @@
                   <html:checkbox  property="nochroot"  />
               </td>
           </tr>
+          <tr>
+              <th>
+                  <bean:message key="kickstart.script.template"/>
+              </th>
+              <td>
+                  <html:checkbox  property="template"  /><br/>
+                  <rhn:tooltip key="kickstart.script.template.tip"/>
+                  <br/>
+              </td>
+          </tr>
           <tr>          
             <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
           </tr>

@@ -21,15 +21,8 @@ my $soapbox = new NOCpulse::Gritch('/var/lib/nocpulse/npBootstrap.db');
 
 
 # get the scout_shared_key formt he /etc/rhn/cluster.ini file
-my $ssk;
-open(CLUSTERINI, '/etc/rhn/cluster.ini') or die 'could not open /etc/rhn/cluster.ini for reading!';
-while (<CLUSTERINI>) {
-    my $line = $_;
-    if ($line =~  /^scoutsharedkey=(.*)/) {
-	$ssk = $1;
-    } 
-}
-close(CLUSTERINI);
+my $cluster_config = NOCpulse::Config->new('/etc/rhn/cluster.ini');
+my $ssk=$cluster_config->get('', 'scoutsharedkey');
 
 my $gritchMsg;
 if (!$ssk) {

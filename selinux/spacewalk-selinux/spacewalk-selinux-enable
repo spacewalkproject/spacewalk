@@ -1,0 +1,58 @@
+#!/bin/bash
+
+RUN_PRE=
+RUN_POST=
+
+RUN_PURE=
+while [ -n "$1" ] ; do
+	case $1 in
+	--run-pure )
+		shift
+		RUN_PURE=1
+		;;
+	* )
+		echo "$0: Unknown option: $1"
+		exit -1
+		;;
+	esac
+	shift
+done
+
+if [ -z "$RUN_PURE" ] ; then
+	RUN_PRE="oracle-instantclient-selinux oracle-instantclient-sqlplus-selinux"
+	RUN_POST="oracle-rhnsat-selinux oracle-xe-selinux spacewalk-monitoring-selinux jabberd-selinux osa-dispatcher-selinux"
+fi
+
+for prescript in $RUN_PRE ; do
+	j="/usr/sbin/$prescript-enable"
+	if [ -f "$j" ] ; then
+		echo "Running $j"
+		$j
+	fi
+done
+
+echo "Running $0"
+
+# Install SELinux policy modules
+for selinuxvariant in mls strict targeted
+	do
+	/usr/sbin/semodule -s ${selinuxvariant} -l > /dev/null 2>&1 \
+		&& /usr/sbin/semodule -s ${selinuxvariant} -i /usr/share/selinux/${selinuxvariant}/spacewalk.pp || :
+  done
+
+/usr/sbin/semanage port -a -t cobbler_port_t -p tcp 25152 || :
+
+/sbin/restorecon -rvvi /etc/rhn/satellite-httpd/conf/satidmap.pl /usr/sbin/rhn-sat-restart-silent /var/log/rhn /var/cache/rhn \
+	/usr/bin/rhn-sudo-ssl-tool /usr/bin/rhn-sudo-load-ssl-cert
+
+/usr/sbin/setsebool -P httpd_enable_cgi 1
+/usr/sbin/setsebool -P httpd_can_network_connect 1
+
+for postscript in $RUN_POST ; do
+	j="/usr/sbin/$postscript-enable"
+	if [ -f "$j" ] ; then
+		echo "Running $j"
+		$j
+	fi
+done
+

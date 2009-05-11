@@ -71,6 +71,9 @@ class Builder(object):
 
         temp_dir = "rpmbuild-%s" % self.project_name_and_sha1
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
+        if os.path.exists(self.rpmbuild_dir):
+            print("WARNING: rpmbuild directory already exists, removing...")
+            run_command("rm -rf self.rpmbuild_dir")
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
 
@@ -372,13 +375,24 @@ class Builder(object):
 
         # Build the list of all files we will copy from git to CVS.
         debug("Searching for git files to copy to CVS:")
-        files_to_copy = []
+
+        # Include the spec file explicitly, in the case of SatelliteBuilder
+        # we modify and then use a spec file copy from a different location.
+        files_to_copy = [self.spec_file] # full paths
+        filenames_to_copy = [os.path.basename(self.spec_file)] # just filenames
+
         for filename in os.listdir(self.rpmbuild_gitcopy):
-            if os.path.isdir(os.path.join(self.rpmbuild_gitcopy, filename)):
+            full_filepath = os.path.join(self.rpmbuild_gitcopy, filename)
+            if os.path.isdir(full_filepath):
                 # skip it
                 continue
             if filename in CVS_PROTECT_FILES:
                 debug("   skipping:  %s (protected file)" % filename)
+                continue
+            elif filename.endswith(".spec"):
+                # Skip the spec file, we already copy this explicitly as it 
+                # can come from a couple different locations depending on which
+                # builder is in use.
                 continue
 
             # Check if file ends with something this builder subclass wants
@@ -390,7 +404,8 @@ class Builder(object):
                     continue
             if copy_it:
                 debug("   copying:   %s" % filename)
-                files_to_copy.append(filename)
+                files_to_copy.append(full_filepath)
+                filenames_to_copy.append(filename)
 
         for branch in self.cvs_branches:
             branch_dir = os.path.join(self.cvs_workdir, self.project_name,
@@ -398,9 +413,8 @@ class Builder(object):
             os.chdir(branch_dir)
             print("Syncing files with CVS branch [%s]" % branch)
             for copy_me in files_to_copy:
-                source_path = os.path.join(self.rpmbuild_gitcopy,
-                        copy_me)
-                dest_path = os.path.join(branch_dir, copy_me)
+                base_filename = os.path.basename(copy_me)
+                dest_path = os.path.join(branch_dir, base_filename)
 
                 # Check if file we're about to copy already exists in CVS so
                 # we know if we need to run 'cvs add' or not:
@@ -408,19 +422,19 @@ class Builder(object):
                 if os.path.exists(dest_path):
                     cvs_add = False
 
-                cmd = "cp %s %s" % (source_path, dest_path)
+                cmd = "cp %s %s" % (copy_me, dest_path)
                 run_command(cmd)
 
                 if cvs_add:
-                    print("   added: %s" % copy_me)
-                    commands.getstatusoutput("cvs add %s" %  copy_me)
+                    print("   added: %s" % base_filename)
+                    commands.getstatusoutput("cvs add %s" %  base_filename)
                 else:
-                    print("   copied: %s" % copy_me)
+                    print("   copied: %s" % base_filename)
 
             # Now delete any extraneous files in the CVS branch.
             for filename in os.listdir(branch_dir):
                 if filename not in CVS_PROTECT_FILES and \
-                        filename not in files_to_copy:
+                        filename not in filenames_to_copy:
                     print("   deleted: %s" % filename)
                     # Can't delete via full path, must not chdir:
                     run_command("cvs rm -Rf %s" % filename)
@@ -895,18 +909,22 @@ class SatelliteBuilder(NoTgzBuilder):
                 patch_insert_index = array_index + 1
                 patch_number = int(match.group(1)) + 1
 
-            if line.startswith("%setup"):
+            if line.startswith("%prep"):
+                # We'll apply patch right after prep if there's no %setup line
+                patch_apply_index = array_index + 2
+            elif line.startswith("%setup"):
                 patch_apply_index = array_index + 2 # already added a line
 
             array_index += 1
         
+        debug("patch_insert_index = %s" % patch_insert_index)
+        debug("patch_apply_index = %s" % patch_apply_index)
         if patch_insert_index == 0 or patch_apply_index == 0:
             error_out("Unable to insert PatchX or %patchX lines in spec file")
 
         lines.insert(patch_insert_index, "Patch%s: %s\n" % (patch_number, 
             self.patch_filename))
-        lines.insert(patch_apply_index, "%%patch%s -p1 -b .%s\n" % (patch_number,
-            self.patch_filename[0:-len(".patch")]))
+        lines.insert(patch_apply_index, "%%patch%s -p1\n" % (patch_number))
         f.close()
 
         # Now write out the modified lines to the spec file copy:

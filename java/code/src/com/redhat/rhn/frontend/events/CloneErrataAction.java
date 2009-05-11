@@ -45,6 +45,8 @@ public class CloneErrataAction
      * {@inheritDoc}
      */
     public void doExecute(EventMessage msgIn) {
+
+
         CloneErrataEvent msg = (CloneErrataEvent) msgIn;
         Channel currChan = msg.getChan();
         Collection<Long> list = msg.getErrata();
@@ -52,6 +54,7 @@ public class CloneErrataAction
         cids.add(currChan.getId());
         
         for (Long eid : list) {
+
             Errata errata = ErrataFactory.lookupById(eid);
             if (errata instanceof PublishedClonedErrata) {
                 errata.addChannel(currChan);
@@ -60,14 +63,22 @@ public class CloneErrataAction
                 Set<Channel> channelSet = new HashSet<Channel>();
                 channelSet.add(currChan);
                 
-                Errata published = PublishErrataHelper.cloneErrataFast(errata, 
-                        msg.getUser().getOrg());
-                published.setChannels(channelSet);
-                ErrataManager.refreshErrataFiles(currChan, published);
+                List<Errata> clones = ErrataManager.lookupPublishedByOriginal(
+                                                                msg.getUser(), errata);
+                if (clones.size() == 0) {
+                    log.debug("Cloning errata");
+                    Errata published = PublishErrataHelper.cloneErrataFast(errata,
+                            msg.getUser().getOrg());
+                    published.setChannels(channelSet);
+                }
+                else {
+                    log.debug("Re-publishing clone");
+                    ErrataManager.publish(clones.get(0), cids, msg.getUser());
+                }
+
                 
             }
             ErrataCacheManager.insertCacheForChannelErrata(cids, errata);
-            
         }
         handleTransactions();
     }

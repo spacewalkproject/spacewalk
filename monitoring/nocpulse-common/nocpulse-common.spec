@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.8
+Version:      2.1.13
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -52,7 +52,7 @@ install -m644 nocpulse.logrotate \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
-install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/NOCpulse.ini
+install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/%{package_name}/NOCpulse.ini
 install -m644 forward $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/.forward
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
@@ -62,22 +62,29 @@ install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorl
 install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
-if [ $1 -eq 1 ] ; then
-  getent group %{package_name} >/dev/null || groupadd -r %{package_name}
-  getent passwd %{package_name} >/dev/null || \
-  useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
-  /usr/bin/passwd -l %{package_name} >/dev/null
-  exit 0
-fi
-# Old NOCpulse packages has home in /home/nocpulse.
-# We need to migrate them to new place.
-if getent passwd %{package_name} >/dev/null && [ -d /home/nocpulse ]; then
-  /usr/sbin/usermod -d %{_var}/lib/%{package_name} -m nocpulse
-  rm -rf %{_var}/lib/nocpulse/bin
-  rm -rf %{_var}/lib/nocpulse/var
-fi
+getent group %{package_name} >/dev/null || groupadd -r %{package_name}
+getent passwd %{package_name} >/dev/null || \
+useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
+/usr/bin/passwd -l %{package_name} >/dev/null
+
+# if user already exists (rhnmd creates it too) add nocpulse to apache group
+getent group apache | grep nocpulse >/dev/null || usermod -G apache nocpulse
 
 %post
+# migrate things from /home/nocpulse to /var/lib/nocpulse and /var/log/nocpulse
+if [ `getent passwd nocpulse|awk -F ':' '{ print $6 }'` = "/home/nocpulse" ]; then
+  # /var/lib/nocpulse is new homedir for nocpulse user
+  usermod -d %{_var}/lib/%{package_name} nocpulse
+  [ -f /home/nocpulse/etc/SatCluster.ini ] && mv /home/nocpulse/etc/SatCluster.ini %{_sysconfdir}/nocpulse
+  mv /home/nocpulse/.ssh/* %{_var}/lib/%{package_name}/.ssh
+  mv /home/nocpulse/.bash* /home/nocpulse/var/*.db \
+     /home/nocpulse/var/scheduler.xml /home/nocpulse/var/events.frozen \
+     %{_var}/lib/%{package_name}
+  # log files into /var/log/nocpulse
+  mv /home/nocpulse/var/*.log /home/nocpulse/var/archives/* \
+     %{_var}/log/%{package_name} 2> /dev/null
+fi
+
 if [ ! -f %{identity} ]
 then
     /sbin/runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
@@ -86,7 +93,7 @@ fi
 %files
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
-%config(missingok,noreplace) %{_var}/lib/%{package_name}/NOCpulse.ini
+%config(missingok,noreplace) %{_sysconfdir}/%{package_name}/NOCpulse.ini
 %config(missingok,noreplace) %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}/.forward
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
@@ -101,6 +108,18 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.1.13-1
+- 498257 - migrate existing files into new nocpulse homedir
+
+* Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.12-1
+- 499568 - require scout_shared_key for requesting NOCpulse.ini
+
+* Wed Apr 22 2009 Jan Pazdziora 2.1.10-1
+- 497064 - do not inherit crond's stdin
+
+* Fri Apr 10 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.9-1
+- 494538 - remove the dependecy of rhnmd on nocpulse-common
+
 * Wed Mar 25 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.8-1
 - be sure that nocpulse home is correct after upgrade
 
