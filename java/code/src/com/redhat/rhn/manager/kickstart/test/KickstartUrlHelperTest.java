@@ -85,7 +85,7 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
         helper = new KickstartUrlHelper(ksdata);
         String expected = "http://" + 
             KickstartUrlHelper.COBBLER_SERVER_VARIABLE + 
-            "/$" + KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
+            "$" + KickstartUrlHelper.COBBLER_MEDIA_VARIABLE;
         
         assertEquals(expected, helper.getCobblerMediaUrl());
     }

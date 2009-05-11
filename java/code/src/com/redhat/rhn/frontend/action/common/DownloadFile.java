@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.kickstart.KickstartSessionState;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Patch;
@@ -126,60 +127,102 @@ public class DownloadFile extends DownloadAction {
         return null;
     }
     
+    /**
+     * Parse a /ks/dist url
+     *  The following URLS are accepted:
+     *   /ks/dist/tree-label/path/to/file.rpm
+     *    /ks/dist/org/#/tree-label/path/to/file
+     *    /ks/dist/session/HEX/tree-label/path/to/file.rpm
+     *
+     * @param url the url to parse
+     * @return a map with the following params:
+     *     label  (req)
+     *     path    (req)
+     *     session  (opt)
+     *     orgId    (opt)
+     */
+    public static Map<String, String> parseDistUrl(String url) {
+        Map<String, String> ret = new HashMap<String, String>();
+
+
+        if (url.charAt(0) == '/') {
+            url = url.substring(1);
+        }
+
+        String[] split = url.split("/");
+        int labelPos = 2;
+        if (split[2].equals("org")) {
+            ret.put("orgId",  split[3]);
+            labelPos = 4;
+        }
+        else if (split[2].equals("session")) {
+            ret.put("session", split[3]);
+            labelPos = 4;
+        }
+        ret.put("label", split[labelPos]);
+        String path = "";
+        for (int i = labelPos + 1; i < split.length; i++) {
+            path += "/" + split[i];
+        }
+        ret.put("path", path);
+
+        return ret;
+    }
+
     private ActionForward handleKickstartDownload(HttpServletRequest request, 
             HttpServletResponse response, String url, 
             ActionMapping mapping) throws IOException {
-        // /ks/dist/f9-x86_64-distro/images/boot.iso
-        
-        // we accept two URL forms, for cases when there is a pre-determined
-        // session available:
-        // /ks/dist/tree-label/path/to/file.rpm
-        // /ks/dist/session/HEX/tree-label/path/to/file.rpm
 
-        Map params = new HashMap();
-        KickstartSession ksession = null;
-        KickstartSessionState newState = null;
         if (log.isDebugEnabled()) {
             log.debug("URL : " + url);
         }
-        String[] split = StringUtils.split(url, '/');
-        String treeLabel = split[2];
-        String path = "";
-        for (int i = 3; i < split.length; i++) {
-            path = path + "/" + split[i];
+
+        Map<String, String> map = DownloadFile.parseDistUrl(url);
+        String path = map.get("path");
+        String label = map.get("label");
+        Long orgId = null;
+        if (map.containsKey("orgId")) {
+            orgId = Long.parseLong(map.get("orgId"));
         }
-        if (treeLabel.equals("session")) {
-            if (log.isDebugEnabled()) {
-                log.debug("using session: " + treeLabel);
-            }
-            // ($session_id, $tree_label, $path) = split m(/), $path, 3;
-            String sessionId = split[3];
-            treeLabel = split[4];
-            path = "";
-            for (int i = 5; i < split.length; i++) {
-                path = path + "/" + split[i];
-            }
-            sessionId = SessionSwap.extractData(sessionId)[0];
-            if (log.isDebugEnabled()) {
-                log.debug("SessionId: " + sessionId);
-            }
+
+
+        KickstartSession ksession = null;
+        KickstartSessionState newState = null;
+
+
+        if (map.containsKey("session")) {
+            String sessionId = SessionSwap.extractData(map.get("session"))[0];
             ksession = KickstartFactory.
-                lookupKickstartSessionById(new Long(sessionId));
-            if (log.isDebugEnabled()) {
-                log.debug("looked up ksession: " + ksession);
-            }
+            lookupKickstartSessionById(new Long(sessionId));
+
         }
+
+
         if (log.isDebugEnabled()) {
             log.debug("computed path to just the file: " + path);
-            log.debug("Tree label to lookup: " + treeLabel);
+            log.debug("Tree label to lookup: " + label);
         }
-        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(treeLabel);
+
+        KickstartableTree tree;
+        if (orgId != null) {
+            tree = KickstartFactory.lookupKickstartTreeByLabel(label,
+                    OrgFactory.lookupById(orgId));
+
+        }
+        else if (ksession != null) {
+            tree = ksession.getKstree();
+        }
+        else {
+            tree = KickstartFactory.lookupKickstartTreeByLabel(label);
+        }
+
+
         if (tree == null) {
             log.error("Tree not found.");
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return mapping.findForward("error");
         }
-        
+        HashMap params = new HashMap();
         params.put(TYPE, DownloadManager.DOWNLOAD_TYPE_KICKSTART);
         params.put(TREE, tree);
         params.put(FILENAME, path);

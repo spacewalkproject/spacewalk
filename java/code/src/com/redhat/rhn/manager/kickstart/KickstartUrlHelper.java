@@ -233,7 +233,7 @@ public class KickstartUrlHelper {
      */
     public String getCobblerMediaUrl() {
         StringBuilder url = new StringBuilder();
-        url.append(protocol + host + "/$" + COBBLER_MEDIA_VARIABLE);
+        url.append(protocol + host + "$" + COBBLER_MEDIA_VARIABLE);
         log.debug("returning: " + url);
         return url.toString();
     }
