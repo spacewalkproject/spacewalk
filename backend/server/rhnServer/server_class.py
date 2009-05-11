@@ -28,6 +28,7 @@ from common.rhnTranslate import _
 from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction, \
                    rhnVirtualization
 # from server import rhnChannel, rhnUser, rhnSQL, rhnLib, rhnAction
+from search_notify import SearchNotify
 
 # Local Modules
 import server_kickstart
