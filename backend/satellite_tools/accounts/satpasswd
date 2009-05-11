@@ -12,7 +12,7 @@ SQLPLUS=/usr/bin/sqlplus
 SATWHO=/usr/bin/satwho
 MD5=/usr/bin/openssl
 MD5ARGS="passwd -1 -stdin"
-CREDENTIALS="rhnsat/rhnsat@rhnsat"
+CREDENTIALS=$(awk -F= '/^default_db/ {print $2} ' /etc/rhn/rhn.conf)
 PROG=satpasswd
 myuser=""
 

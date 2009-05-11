@@ -9,7 +9,7 @@
 # script within RHN Satellite and an embedded database.
 
 SQLPLUS=/usr/bin/sqlplus
-CREDENTIALS="rhnsat/rhnsat@rhnsat"
+CREDENTIALS=$(awk -F= '/^default_db/ {print $2} ' /etc/rhn/rhn.conf)
 
 if [ ! -x $SQLPLUS ]
 then
