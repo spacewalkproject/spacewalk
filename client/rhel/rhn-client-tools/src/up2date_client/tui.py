@@ -1412,6 +1412,11 @@ class Tui:
             self.serverURL = cfg['serverURL'][0]
         else:
             self.serverURL = cfg['serverURL']
+        
+        if self.serverType == "hosted":
+            cfg.set('sslCACert', '/usr/share/rhn/RHNS-CA-CERT')
+        else:
+            cfg.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT') 
        
     def __del__(self):
         self.screen.finish()
