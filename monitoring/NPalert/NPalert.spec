@@ -91,6 +91,15 @@ install -p -m 644 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/template
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
 install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
 
+%post
+if [ $1 -eq 2 ]; then
+  ls /opt/notification/config/generated/* 2>/dev/null | xargs -I file mv file %{_sysconfdir}/no
+  ls /opt/notification/config/static/notif.ini 2>/dev/null | xargs -I file mv file %{_sysconfdi
+  ls /opt/notification/var/GenerateNotifConfig-error.log 2>/dev/null | xargs -I file mv file %{_var}/log/nocpulse
+  ls /opt/notification/var/archive/* 2>/dev/null | xargs -I file mv file %log_dir/archive
+  ls /opt/notification/var/ticketlog/* 2>/dev/null | xargs -I file mv file %log_dir/ticketlog
+fi
+
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/cron.d/notification
