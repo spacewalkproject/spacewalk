@@ -3,20 +3,16 @@
 	<file source-language="en-US" target-language="ta-IN" datatype="po" original="en-US/template.xliff">
 		<body>
 			<trans-unit id="email.verify.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target>
+				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<target state="needs-review-translation">Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
-				<source>Dear Red Hat Network User,
+				<source>Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click the link below
@@ -28,11 +24,11 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 
 {2}</source>
-				<target>Red Hat Network பயனர்களுக்கு,
+				<target state="needs-review-translation">Red Hat Network பயனர்களுக்கு,
 
 இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவிற்கு வழங்கப்பட்ட மின்னஞ்சல் 
 முகவரியை சரிபார்க்க அனுப்பப்பட்டதாகும். உங்கள் Red Hat புகுபதிவானது, 
@@ -55,15 +51,15 @@ Red Hat Networkஐ பயன்படுத்தியதற்காக நன
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.subject">
-				<source>Your RHN Account is ready</source>
-				<target>உங்கள் RHN கணக்கு தயாராக உள்ளது</target>
+				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+				<target state="needs-review-translation">உங்கள் RHN கணக்கு தயாராக உள்ளது</target>
 			</trans-unit>
 			<trans-unit id="email.newaccountbycreator.body">
 				<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
        Password: {3}
@@ -73,9 +69,9 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>வணக்கம்,
+				<target state="needs-review-translation">வணக்கம்,
 
 {0} {1}ஆல் ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள 
 Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது, 
@@ -97,7 +93,7 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு நன்
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
        Password: {1}
@@ -107,9 +103,9 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
-				<target>வணக்கம்,
+				<target state="needs-review-translation">வணக்கம்,
 
 ஒரு Red Hat புகுபதிவு உங்களால் உருவாக்கப்பட்டது. செயலிலுள்ள 
 Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat பதிவானது, 
@@ -131,16 +127,16 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு நன்
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
          e-mail: {4}
 
   {5}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
-				<target>வணக்கம்,
+				<target state="needs-review-translation">வணக்கம்,
 
 {0} {1}ஆல் உங்களுக்கு Red Hat புகுபதிவு உருவாக்கப்பட்டது. செயலிலுள்ள 
 Red Hat சந்தாவுடன் இணைந்த உங்கள் Red Hat புகுபதிவானது, 
@@ -155,8 +151,8 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு நன்
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.subject">
-				<source>RHN User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>RHN பயனர் உருவாக்கப்பட்டது: {0} ({1}, {2} &lt;{3}&gt;)</target>
+				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target state="needs-review-translation">RHN பயனர் உருவாக்கப்பட்டது: {0} ({1}, {2} &lt;{3}&gt;)</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.body">
 				<source>Hello,
@@ -170,9 +166,9 @@ please visit:
 
   {1}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
-				<target>வணக்கம்,
+				<target state="needs-review-translation">வணக்கம்,
 
 உங்கள் கணக்கில் ஒரு புதிய பயனர் சேர்க்கப்பட்டார்.
 
@@ -187,8 +183,8 @@ Red Hat Networkஐ பயன்படுத்தியதற்காக நன
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.subject">
-				<source>RHN Account Deactivated: {0}</source>
-				<target>RHN கணக்கு செயலிழக்கப்பட்டது: {0}</target>
+				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+				<target state="needs-review-translation">RHN கணக்கு செயலிழக்கப்பட்டது: {0}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.body">
 				<source>
@@ -317,7 +313,7 @@ Red Hat கணக்கு மேலாண்மை குழு</target>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to Red Hat Network
+account in the past day, but could not be entitled to @@PRODUCT_NAME@@
 services.
 
 {0}
@@ -326,10 +322,10 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on Red Hat Network by following
+   delete your existing system profile on @@PRODUCT_NAME@@ by following
    the directions at https://rhn.redhat.com/help/faq/#26
 
-2) The number of systems you have connected to Red Hat Network exceeds
+2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
    account.  This may be because your subscriptions have expired or
    you need to purchase a Red Hat subscription.
@@ -352,8 +348,8 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using Red Hat Network.</source>
-				<target>
+Thank you for using @@PRODUCT_NAME@@.</source>
+				<target state="needs-review-translation">
 அன்புள்ள Red Hat வாடிக்கையாளர்களே,
 
 பின்வரும் கணினி உங்கள் Red Hat  புகுபதிவு மற்றும் கணக்குடன் முன் நாட்களில் 
@@ -395,7 +391,7 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு உங்
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>
-Red Hat Network has determined that the following advisory is applicable to
+@@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
 Complete information about this errata can be found at the following location:
@@ -409,7 +405,7 @@ Summary:
 {4}{5}{6}
 {7}
 ------------------------------------------------------------------------------</source>
-				<target>
+				<target state="needs-review-translation">
 Red Hat Network நீங்கள் பதிவு செய்த ஒன்று அல்லது அதற்கு மேற்பட்ட கணினிகளில்
 பின்வரும் அறிவுரையை வரையறுக்கிறது:
 
@@ -445,24 +441,24 @@ package profile for that server is out of date. In that case you should run
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your RHN' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
+				<target state="needs-review-translation">
 1 பாதிக்கப்பட்ட கணினி 'உங்கள் RHN'இல் பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த 
 எச்சரிக்கைகள் உள்ள கணினிகளில் மட்டும்).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your RHN' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
-				<target>
+				<target state="needs-review-translation">
 {0} பாதிக்கப்பட்ட கணினிகள் 'உங்கள் RHN'இல் பதிவு செய்யப்பட்டுள்ளது (தனியாக பிழைத்திருத்த 
 எச்சரிக்கைகள் உள்ள கணினிகளில் மட்டும்).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
 				<source>
-System                          Operating System
-------------------------------- ---------------------------------------------
+Release    Arch       Profile Name
+---------- ---------- ---------------------------------------------
 {0}
 
 You may address the issues outlined in this advisory in two ways:
@@ -473,7 +469,7 @@ You may address the issues outlined in this advisory in two ways:
            {1}
 
      - run the Update Agent on each affected server.</source>
-				<target>
+				<target state="needs-review-translation">
 கணினி                          இயக்கத்தளம்
 ------------------------------- ---------------------------------------------
 {0}
@@ -491,8 +487,8 @@ You may address the issues outlined in this advisory in two ways:
 				<source>
 Changing Notification Preferences
 ---------------------------------
-To enable/disable your Errata Alert preferences globally please log in to RHN
-and navigate from "Your RHN" / "Your Account" to the "Preferences" tab.
+To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 
@@ -502,7 +498,7 @@ click the "Details" tab.
 
 {1}
 {2}</source>
-				<target>
+				<target state="needs-review-translation">
 அறிவிப்பு விருப்பங்களை மாற்றுதல்
 ---------------------------------
 உங்கள் பிழைத்திருத்த எச்சரிக்கை விருப்பங்களை முழுமையாக செயல்படுத்த/நீக்க RHN இல் புகுபதிவு செய்யவும்
@@ -518,15 +514,15 @@ click the "Details" tab.
 {2}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.subject">
-				<source>RHN Daily Status Report for {0}</source>
-				<target>RHN {0} க்கு தினசரி அறிக்கை நிலை</target>
+				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+				<target state="needs-review-translation">RHN {0} க்கு தினசரி அறிக்கை நிலை</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.body">
-				<source>This is the RHN Status Report for your account {0}, as of {1}.
+				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
-This email will be sent when any of the following apply to the specified systems:
+This email will be sent when any of the following apply:
 
-1.  The system fails to check in with RHN within a 24-hour window.
+1.  The system fails to check in with @@PRODUCT_NAME@@ within a 24-hour window.
 2.  The system registers scheduled action activity.
 
 {2}
@@ -539,10 +535,10 @@ To learn how to disable this email for systems:
 https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {5}
 {6}</source>
-				<target>{0}, க்கும் {1} இது உங்கள் கணக்கிற்கான RHN நிலை அறிக்கை.
+				<target state="needs-review-translation">{0}, க்கும் {1} இது உங்கள் கணக்கிற்கான RHN நிலை அறிக்கை.
 
 குறிப்பிட்ட கணினிகளுக்குப் பின்வருவதில் ஏதாவது பொருந்தினால் இந்த மின்னஞ்சல் அனுப்பப்படும்:
 
@@ -556,7 +552,7 @@ Thank you for using Red Hat Network.
 
 கணினிகளுக்கு இந்த மின்னஞ்சலை எவ்வாறு செயலிழக்க செய்ய வேண்டும் என்பதை கற்க:
 
-https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
+https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
 
 
 Red Hat Networkஐ பயன்படுத்தியதற்கு நன்றி.
@@ -565,12 +561,12 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு நன்
 			</trans-unit>
 			<trans-unit id="email.verification.notice.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -582,10 +578,10 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
-				<target>
+				<target state="needs-review-translation">
 அன்புள்ள Red Hat Network பயனர்கள்,
 
 இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல் 
@@ -607,14 +603,18 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு நன்
 {1}
 {2}</target>
 			</trans-unit>
+			<trans-unit id="email.verification.notice.subject">
+				<source>Red Hat login Email Verification</source>
+				<target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல்</target>
+			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -629,10 +629,10 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
-				<target>
+				<target state="needs-review-translation">
 அன்புள்ள Red Hat Network பயனர்கள்,
 
 இந்த மின்னஞ்சல் உங்கள் Red Hat புகுபதிவுக்கு வழங்கப்பட்ட மின்னஞ்சல் 
@@ -662,22 +662,22 @@ Red Hat Networkஐ பயன்படுத்தியதற்கு நன்
 				<target>Red Hat புகுபதிவு மின்னஞ்சல் உறுதிப்படுத்தல், இறுதி அறிவிப்பு</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat Satellite Server Certificate expiration warning</source>
-				<target>Red Hat சேட்டிலைட் சேவையக சான்றிதழ் முடிவுறும் எச்சரிக்கை</target>
+				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+				<target state="needs-review-translation">Red Hat சேட்டிலைட் சேவையக சான்றிதழ் முடிவுறும் எச்சரிக்கை</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. After {1} day(s) the systems 
-management services provided by your RHN Satellite Server will become inaccessible. 
+management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
 Please contact your regional Red Hat Customer  Service Representative for information 
-on how to renew your Satellite Certificate.
+on how to renew your @@PRODUCT_NAME@@ Certificate.
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
-				<target>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
+				<target state="needs-review-translation">
 அன்புள்ள Red Hat Network பயனர்களே,
 
 இந்த மின்னஞ்சல் உங்கள் RHN சேட்டிலைட் சான்றிதழ் உங்கள் உள்ளமை 
@@ -695,17 +695,17 @@ Red Hat Networkஐ பயன்படுத்தியதற்காக நன
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. The system management services will be inaccessible 
 until your certificate is renewed. Please contact your regional Red Hat 
-Customer Service Representative for information on how to renew your Satellite Certificate.
+Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
-				<target>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
+				<target state="needs-review-translation">
 அன்புள்ள Red Hat Network பயனர்களே,
 
 இந்த மின்னஞ்சல் உங்கள் RHN சேட்டிலைட் சான்றிதழ் உங்கள் உள்ளமை 

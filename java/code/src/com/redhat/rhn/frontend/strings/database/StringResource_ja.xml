@@ -18,7 +18,7 @@
 				<source>Failed</source>
 				<target>失敗</target>
 			</trans-unit>
-			<trans-unit id="RHN Update Entitled Servers">
+			<trans-unit id="Spacewalk Update Entitled Servers">
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
@@ -30,11 +30,11 @@
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
-			<trans-unit id="RHN Demo Entitled Servers">
+			<trans-unit id="Spacewalk Demo Entitled Servers">
 				<source>Demo</source>
 				<target>Demo</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Entitled Servers">
+			<trans-unit id="Spacewalk Management Entitled Servers">
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
@@ -46,7 +46,7 @@
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
-			<trans-unit id="RHN Provisioning Entitled Servers">
+			<trans-unit id="Spacewalk Provisioning Entitled Servers">
 				<source>Provisioning</source>
 				<target>Provisioning</target>
 			</trans-unit>
@@ -70,7 +70,7 @@
 				<source>Non-Linux</source>
 				<target>Linux 以外</target>
 			</trans-unit>
-			<trans-unit id="RHN Monitoring Entitled Servers">
+			<trans-unit id="Spacewalk Monitoring Entitled Servers">
 				<source>Monitoring</source>
 				<target>Monitoring</target>
 			</trans-unit>
@@ -85,6 +85,22 @@
 			<trans-unit id="unentitled">
 				<source>&lt;em&gt;(none)&lt;/em&gt;</source>
 				<target>&lt;em&gt;(なし)&lt;/em&gt;</target>
+			</trans-unit>
+			<trans-unit id="base">
+				<source>Base</source>
+				<target>ベース</target>
+			</trans-unit>
+			<trans-unit id="add-on">
+				<source>Add-On</source>
+				<target>追加</target>
+			</trans-unit>
+			<trans-unit id="virtualization_host">
+				<source>Virtualization</source>
+				<target>仮想化</target>
+			</trans-unit>
+			<trans-unit id="virtualization_host_platform">
+				<source>Virtualization Platform</source>
+				<target>仮想化プラットフォーム</target>
 			</trans-unit>
 			<trans-unit id="Australia/Sydney">
 				<source>(GMT+1000) Australia (Eastern)</source>
@@ -235,32 +251,32 @@
 				<target>メールドメイン (例 myemail@redhat.com で redhat.com の部分)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>RHN Satellite administrator email</source>
-				<target>RHN Satellite 管理者の Email</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>@@製品名@@ 管理者のメールアドレス</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>RHN database name</source>
-				<target>RHN データベース名</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>@@PRODUCT_NAME@@ データベース名</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>RHN database password</source>
-				<target>RHN データベースパスワード</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>@@PRODUCT_NAME@@ データベースのパスワード</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>RHN Database table owner</source>
-				<target>RHN データベース表の所有者</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>@@PRODUCT_NAME@@ データベーステーブルの所有者</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>RHN database username</source>
-				<target>RHN データベースユーザー名</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>@@PRODUCT_NAME@@ データベースユーザー名</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>RHN Satellite hostname (FQDN)</source>
-				<target>RHN Satellite ホスト名 (完全修飾名)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>@@PRODUCT_NAME@@ ホスト名 (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>RHN Satellite webserver port (80 for http, 443 for https)</source>
-				<target>RHN Satellite ウェブサーバーポート (http は 80、 https は 443)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>@@PRODUCT_NAME@@ ウェブサーバーポート (http は 80、https は 443)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -837,6 +853,10 @@
 			<trans-unit id="RHNMD User">
 				<source>RHNMD User</source>
 				<target>RHNMD ユーザー</target>
+			</trans-unit>
+			<trans-unit id="SSH banner (number of lines)">
+				<source>SSH banner (number of lines)</source>
+				<target>SSH バナー (行数)</target>
 			</trans-unit>
 			<trans-unit id="Remote IP Address">
 				<source>Remote IP Address</source>
@@ -2250,9 +2270,21 @@
 				<source>Oracle</source>
 				<target>Oracle</target>
 			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
 			<trans-unit id="Satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Satellite">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2591,8 @@
 				<target>キックスタートプロセスを開始するため、 システムが再起動されています。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from RHN.</source>
-				<target>このシステムはキックスタート設定ファイルを RHN からダウンロードしました。</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>このシステムはキックスタート設定ファイルを @@PRODUCT_NAME@@ からダウンロードしました。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2603,8 @@
 				<target>このシステムはインストールに必要な RPM をダウンロード中です。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with RHN after kickstarting.</source>
-				<target>このシステムはキックスタート完了後 RHN に正しく登録されました。</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>このシステムはキックスタート完了後 @@PRODUCT_NAME@@ に正しく登録されました。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

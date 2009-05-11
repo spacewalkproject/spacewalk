@@ -18,7 +18,7 @@
 				<source>Failed</source>
 				<target>Gescheitert</target>
 			</trans-unit>
-			<trans-unit id="RHN Update Entitled Servers">
+			<trans-unit id="Spacewalk Update Entitled Servers">
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
@@ -30,11 +30,11 @@
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
-			<trans-unit id="RHN Demo Entitled Servers">
+			<trans-unit id="Spacewalk Demo Entitled Servers">
 				<source>Demo</source>
 				<target>Demo</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Entitled Servers">
+			<trans-unit id="Spacewalk Management Entitled Servers">
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
@@ -46,7 +46,7 @@
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
-			<trans-unit id="RHN Provisioning Entitled Servers">
+			<trans-unit id="Spacewalk Provisioning Entitled Servers">
 				<source>Provisioning</source>
 				<target>Provisioning</target>
 			</trans-unit>
@@ -70,7 +70,7 @@
 				<source>Non-Linux</source>
 				<target>Nicht-Linux</target>
 			</trans-unit>
-			<trans-unit id="RHN Monitoring Entitled Servers">
+			<trans-unit id="Spacewalk Monitoring Entitled Servers">
 				<source>Monitoring</source>
 				<target>Monitoring</target>
 			</trans-unit>
@@ -85,6 +85,22 @@
 			<trans-unit id="unentitled">
 				<source>&lt;em&gt;(none)&lt;/em&gt;</source>
 				<target>&lt;em&gt;(keine)&lt;/em&gt;</target>
+			</trans-unit>
+			<trans-unit id="base">
+				<source>Base</source>
+				<target>Basis</target>
+			</trans-unit>
+			<trans-unit id="add-on">
+				<source>Add-On</source>
+				<target>Add-On</target>
+			</trans-unit>
+			<trans-unit id="virtualization_host">
+				<source>Virtualization</source>
+				<target>Virtualisierung</target>
+			</trans-unit>
+			<trans-unit id="virtualization_host_platform">
+				<source>Virtualization Platform</source>
+				<target>Virtualisierungsplattform</target>
 			</trans-unit>
 			<trans-unit id="Australia/Sydney">
 				<source>(GMT+1000) Australia (Eastern)</source>
@@ -144,7 +160,7 @@
 			</trans-unit>
 			<trans-unit id="Pacific/Honolulu">
 				<source>(GMT-1000) United States (Hawaii)</source>
-				<target>(GMT-1000) USA (Hawai)</target>
+				<target>(GMT-1000) USA (Hawaii)</target>
 			</trans-unit>
 			<trans-unit id="Pacific/Enderbury">
 				<source>(GMT+1300) Tonga</source>
@@ -232,35 +248,35 @@
 			</trans-unit>
 			<trans-unit id="MDOM">
 				<source>Mail domain (e.g. 'redhat.com' for myemail@redhat.com)</source>
-				<target>Maildomäne (z.B. 'redhat.com' für myemail@redhat.com)</target>
+				<target>Maildomäne (z. B. 'redhat.com' für myemail@redhat.com)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>RHN Satellite administrator email</source>
-				<target>RHN Satellite Administrator E-Mail</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>@@PRODUCT_NAME@@ Administrator E-Mail</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>RHN database name</source>
-				<target>RHN Datenbankname</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>@@PRODUCT_NAME@@ Datenbankname</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>RHN database password</source>
-				<target>RHN Datenbankpasswort</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>@@PRODUCT_NAME@@ Datenbankpasswort</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>RHN Database table owner</source>
-				<target>RHN Datenbanktabellenbesitzer</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>@@PRODUCT_NAME@@ Datenbanktabellenbesitzer</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>RHN database username</source>
-				<target>RHN Datenbankbenutzername</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>@@PRODUCT_NAME@@ Datenbankbenutzername</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>RHN Satellite hostname (FQDN)</source>
-				<target>RHN Satellite Hostname (FQDN)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>@@PRODUCT_NAME@@ Hostname (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>RHN Satellite webserver port (80 for http, 443 for https)</source>
-				<target>RHN Satellite Webserver-Port (80 für http, 443 für https)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>@@PRODUCT_NAME@@ Webserver-Port (80 für http, 443 für https)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -272,11 +288,11 @@
 			</trans-unit>
 			<trans-unit id="Available Space Percent Used Critical if Above">
 				<source>Available Space Percent Used Critical if Above</source>
-				<target>Verbrauchter verfügbarer Platz in Prozent - Kritisch wenn darüber</target>
+				<target>Verbrauchter verfügbarer Platz in % - Kritisch wenn darüber</target>
 			</trans-unit>
 			<trans-unit id="Available Space Percent Used Warn if Above">
 				<source>Available Space Percent Used Warn if Above</source>
-				<target>Verfügbarer Platz in Prozent - Warnen wenn darüber</target>
+				<target>Verfügbarer Platz in % - Warnen wenn darüber</target>
 			</trans-unit>
 			<trans-unit id="BEA Domain Admin Server">
 				<source>BEA Domain Admin Server</source>
@@ -320,7 +336,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Active Locks">
 				<source>Critical Active Locks</source>
-				<target>Kritische aktive Locks</target>
+				<target>Kritische aktive Sperren</target>
 			</trans-unit>
 			<trans-unit id="Critical Active Sessions">
 				<source>Critical Active Sessions</source>
@@ -332,7 +348,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Blocked Process Count">
 				<source>Critical Blocked Process Count</source>
-				<target>Anzahl kritischer blockierter Prozesse</target>
+				<target>Kritische Anzahl blockierter Prozesse</target>
 			</trans-unit>
 			<trans-unit id="Critical Blocking Sessions">
 				<source>Critical Blocking Sessions</source>
@@ -348,19 +364,19 @@
 			</trans-unit>
 			<trans-unit id="Critical CPU Load 1-Min Ave">
 				<source>Critical CPU Load 1-Min Ave</source>
-				<target>Kritischer CPU-Last 1-Min.-Durchschnitt</target>
+				<target>Kritische CPU-Last 1-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Load 15-Min Ave">
 				<source>Critical CPU Load 15-Min Ave</source>
-				<target>Kritische CPU-Last 15-Min.-Durchschn.</target>
+				<target>Kritische CPU-Last 15-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Load 5-Min Ave">
 				<source>Critical CPU Load 5-Min Ave</source>
-				<target>Kritische CPU-Last 5-Min.-Durchschn.</target>
+				<target>Kritische CPU-Last 5-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Pct Used">
 				<source>Critical CPU Pct Used</source>
-				<target>Kritische verbrauchte CPU in Prozent</target>
+				<target>Kritische verbrauchte CPU in %</target>
 			</trans-unit>
 			<trans-unit id="Critical CPU Time Rate">
 				<source>Critical CPU Time Rate</source>
@@ -400,7 +416,7 @@
 			</trans-unit>
 			<trans-unit id="Critical ESTABLISHED Connections">
 				<source>Critical ESTABLISHED Connections</source>
-				<target>Kritische AUFGEBAUTE Verbindungen</target>
+				<target>Kritische ESTABLISHED Verbindungen</target>
 			</trans-unit>
 			<trans-unit id="Critical Execution Time Moving Ave">
 				<source>Critical Execution Time Moving Ave</source>
@@ -416,11 +432,11 @@
 			</trans-unit>
 			<trans-unit id="Critical Filesystem Pct Used">
 				<source>Critical Filesystem Pct Used</source>
-				<target>Kritisches verbrauchtes Dateisystem in Prozent</target>
+				<target>Kritisches verbrauchtes Dateisystem in %</target>
 			</trans-unit>
 			<trans-unit id="Critical Heap Free">
 				<source>Critical Heap Free</source>
-				<target>Kritischer free heap</target>
+				<target>Kritischer freier Heap</target>
 			</trans-unit>
 			<trans-unit id="Critical High Execution Time">
 				<source>Critical High Execution Time</source>
@@ -436,7 +452,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Inodes Pct Used">
 				<source>Critical Inodes Pct Used</source>
-				<target>Kritische verbrauchte Inodes in Prozent</target>
+				<target>Kritische verbrauchte Inodes in %</target>
 			</trans-unit>
 			<trans-unit id="Critical Input Rate">
 				<source>Critical Input Rate</source>
@@ -488,7 +504,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Packet Loss Pct">
 				<source>Critical Packet Loss Pct</source>
-				<target>Kritischer Paketverlust in Prozent</target>
+				<target>Kritischer Paketverlust in %</target>
 			</trans-unit>
 			<trans-unit id="Critical Percent">
 				<source>Critical Percent</source>
@@ -496,7 +512,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Physical Memory Used">
 				<source>Critical Physical Memory Used</source>
-				<target>Kritischer verbrauchter physikalischer Speicher</target>
+				<target>Kritischer verbrauchter phys. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Critical Process Count">
 				<source>Critical Process Count</source>
@@ -576,7 +592,7 @@
 			</trans-unit>
 			<trans-unit id="Critical Swap Pct Free">
 				<source>Critical Swap Pct Free</source>
-				<target>Kritischer Prozentsatz an freiem Swap</target>
+				<target>Kritischer freier Swap in %</target>
 			</trans-unit>
 			<trans-unit id="Critical Swapped Process Count">
 				<source>Critical Swapped Process Count</source>
@@ -620,11 +636,11 @@
 			</trans-unit>
 			<trans-unit id="Critical Virtual Mem Pct Free">
 				<source>Critical Virtual Mem Pct Free</source>
-				<target>Kritischer Prozentsatz an freiem virtuellem Speicher</target>
+				<target>Kritischer freier virt. Speicher in %</target>
 			</trans-unit>
 			<trans-unit id="Critical Virtual Memory Used">
 				<source>Critical Virtual Memory Used</source>
-				<target>Kritischer verbrauchter virtueller Speicher</target>
+				<target>Kritischer verbrauchter virt. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Critical Waiters">
 				<source>Critical Waiters</source>
@@ -648,7 +664,7 @@
 			</trans-unit>
 			<trans-unit id="Critical if number of defunct processes exceeds">
 				<source>Critical if number of defunct processes exceeds</source>
-				<target>Kritisch, wenn Anzahl von defunct-Prozessen (erloschen) darüber hinausgeht</target>
+				<target>Kritisch, wenn Anzahl von Zombie-Prozessen darüber hinausgeht</target>
 			</trans-unit>
 			<trans-unit id="Critical if number of stopped processes exceeds">
 				<source>Critical if number of stopped processes exceeds</source>
@@ -838,6 +854,10 @@
 				<source>RHNMD User</source>
 				<target>RHNMD-Benutzer</target>
 			</trans-unit>
+			<trans-unit id="SSH banner (number of lines)">
+				<source>SSH banner (number of lines)</source>
+				<target>SSH-Banner (Anzahl an Zeilen)</target>
+			</trans-unit>
 			<trans-unit id="Remote IP Address">
 				<source>Remote IP Address</source>
 				<target>Remote IP-Adresse</target>
@@ -968,7 +988,7 @@
 			</trans-unit>
 			<trans-unit id="Warn if number of defunct processes exceeds">
 				<source>Warn if number of defunct processes exceeds</source>
-				<target>Warnung bei Überschreitung der Anzahl der defunct-Prozessen (erloschen)</target>
+				<target>Warnung bei Überschreitung der Anzahl der Zombie-Prozesse</target>
 			</trans-unit>
 			<trans-unit id="Warn if number of stopped processes exceeds">
 				<source>Warn if number of stopped processes exceeds</source>
@@ -992,7 +1012,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Avail Sessions Used Pct">
 				<source>Warning Avail Sessions Used Pct</source>
-				<target>Warnung - Verbrauchte verfügbaren Sessions in Prozent</target>
+				<target>Warnung - Verbrauchte verfügbare Sessions in %</target>
 			</trans-unit>
 			<trans-unit id="Warning Blocked Process Count">
 				<source>Warning Blocked Process Count</source>
@@ -1012,19 +1032,19 @@
 			</trans-unit>
 			<trans-unit id="Warning CPU Load 1-Min Ave">
 				<source>Warning CPU Load 1-Min Ave</source>
-				<target>Warnung - CPU-Last 1-Min. Durchschnitt</target>
+				<target>Warnung - CPU-Last 1-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="Warning CPU Load 15-Min Ave">
 				<source>Warning CPU Load 15-Min Ave</source>
-				<target>Warnung - CPU-Last 15-Min. Durchschnitt</target>
+				<target>Warnung - CPU-Last 15-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="Warning CPU Load 5-Min Ave">
 				<source>Warning CPU Load 5-Min Ave</source>
-				<target>Warnung - CPU-Last 5-Min. Durchschnitt</target>
+				<target>Warnung - CPU-Last 5-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="Warning CPU Pct Used">
 				<source>Warning CPU Pct Used</source>
-				<target>Warnung - Verbrauchte CPU in Prozent</target>
+				<target>Warnung - Verbrauchte CPU in %</target>
 			</trans-unit>
 			<trans-unit id="Warning CPU Time Rate">
 				<source>Warning CPU Time Rate</source>
@@ -1056,7 +1076,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Defunct Process Count">
 				<source>Warning Defunct Process Count</source>
-				<target>Warnung - Anzahl defuncter (erloschener) Prozesse</target>
+				<target>Warnung - Anzahl Zombie-Prozesse</target>
 			</trans-unit>
 			<trans-unit id="Warning Disk Sort Ratio">
 				<source>Warning Disk Sort Ratio</source>
@@ -1064,11 +1084,11 @@
 			</trans-unit>
 			<trans-unit id="Warning ESTABLISHED Connections">
 				<source>Warning ESTABLISHED Connections</source>
-				<target>Warnung - AUFGEBAUTE (established) Verbindungen</target>
+				<target>Warnung - ESTABLISHED Verbindungen</target>
 			</trans-unit>
 			<trans-unit id="Warning Execution Time Moving Ave">
 				<source>Warning Execution Time Moving Ave</source>
-				<target>Warnung - Durchschnittl. Ausführungszeit in Bewegung</target>
+				<target>Warnung - Durchschn. Ausführungszeit in Bewegung</target>
 			</trans-unit>
 			<trans-unit id="Warning Exit Status">
 				<source>Warning Exit Status</source>
@@ -1080,7 +1100,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Filesystem Pct Used">
 				<source>Warning Filesystem Pct Used</source>
-				<target>Warnung - Verbr. Dateisystem in Prozent</target>
+				<target>Warnung - Verbr. Dateisystem in %</target>
 			</trans-unit>
 			<trans-unit id="Warning Heap Free">
 				<source>Warning Heap Free</source>
@@ -1100,7 +1120,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Inodes Pct Used">
 				<source>Warning Inodes Pct Used</source>
-				<target>Warnung - Belegte Inodes in Prozent</target>
+				<target>Warnung - Belegte Inodes in %</target>
 			</trans-unit>
 			<trans-unit id="Warning Input Rate">
 				<source>Warning Input Rate</source>
@@ -1144,11 +1164,11 @@
 			</trans-unit>
 			<trans-unit id="Warning Packet Loss Pct">
 				<source>Warning Packet Loss Pct</source>
-				<target>Warnung - Paketverlust-Prozentsatz</target>
+				<target>Warnung - Paketverlust in %</target>
 			</trans-unit>
 			<trans-unit id="Warning Physical Memory Used">
 				<source>Warning Physical Memory Used</source>
-				<target>Warnung - Verbrauchter physikalischer Speicher</target>
+				<target>Warnung - Verbrauchter phys. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Warning Process Count">
 				<source>Warning Process Count</source>
@@ -1224,7 +1244,7 @@
 			</trans-unit>
 			<trans-unit id="Warning Swap Pct Free">
 				<source>Warning Swap Pct Free</source>
-				<target>Warnung - Prozentsatz an freiem Swap</target>
+				<target>Warnung - freier Swap in %</target>
 			</trans-unit>
 			<trans-unit id="Warning Swapped Process Count">
 				<source>Warning Swapped Process Count</source>
@@ -1268,11 +1288,11 @@
 			</trans-unit>
 			<trans-unit id="Warning Virtual Mem Pct Free">
 				<source>Warning Virtual Mem Pct Free</source>
-				<target>Warnung - Prozentsatz an freiem virtuellem Speicher</target>
+				<target>Warnung - freier virt. Speicher in %</target>
 			</trans-unit>
 			<trans-unit id="Warning Virtual Memory Used">
 				<source>Warning Virtual Memory Used</source>
-				<target>Warnung - Verbrauchter virtueller Speicher</target>
+				<target>Warnung - Verbrauchter virt. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Warning Waiters">
 				<source>Warning Waiters</source>
@@ -1308,31 +1328,31 @@
 			</trans-unit>
 			<trans-unit id="metrics.CPU load 1-min ave">
 				<source>CPU load 1-min ave</source>
-				<target>CPU-Load 1-Min. Durchschnitt</target>
+				<target>CPU-Load 1-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU load 1-min avg">
 				<source>CPU load 1-min avg</source>
-				<target>CPU-Load 1-Min. Durchschnitt</target>
+				<target>CPU-Load 1-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU load 15-min ave">
 				<source>CPU load 15-min ave</source>
-				<target>CPU-Load 15-Min. Durchschnitt</target>
+				<target>CPU-Load 15-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU load 15-min avg">
 				<source>CPU load 15-min avg</source>
-				<target>CPU-Load 15-Min. Durchschnitt</target>
+				<target>CPU-Load 15-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU load 5-min ave">
 				<source>CPU load 5-min ave</source>
-				<target>CPU-Load 5-Min. Durchschnitt</target>
+				<target>CPU-Load 5-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU load 5-min avg">
 				<source>CPU load 5-min avg</source>
-				<target>CPU-Load 5-Min. Durchschnitt</target>
+				<target>CPU-Load 5-Min. Durchschn.</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU pct used">
 				<source>CPU pct used</source>
-				<target>Verbrauchte CPU in Prozent</target>
+				<target>Verbrauchte CPU in %</target>
 			</trans-unit>
 			<trans-unit id="metrics.CPU usage">
 				<source>CPU usage</source>
@@ -1380,7 +1400,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Defunct processes">
 				<source>Defunct processes</source>
-				<target>Defunct-Prozesse</target>
+				<target>Zombie-Prozesse</target>
 			</trans-unit>
 			<trans-unit id="metrics.Disk sort rate">
 				<source>Disk sort rate</source>
@@ -1392,11 +1412,11 @@
 			</trans-unit>
 			<trans-unit id="metrics.ESTABLISHED conns">
 				<source>ESTABLISHED conns</source>
-				<target>AUFGEBAUTE Verbindungen</target>
+				<target>ESTABLISHED Verbindungen</target>
 			</trans-unit>
 			<trans-unit id="metrics.Exec time moving ave">
 				<source>Exec time moving ave</source>
-				<target>Durchschnittl. Ausführungszeit in Bewegung</target>
+				<target>Durchschn. Ausführungszeit in Bewegung</target>
 			</trans-unit>
 			<trans-unit id="metrics.Execution rate">
 				<source>Execution rate</source>
@@ -1412,11 +1432,11 @@
 			</trans-unit>
 			<trans-unit id="metrics.Filesystem pct used">
 				<source>Filesystem pct used</source>
-				<target>Verbrauchtes Dateisystem in Prozent</target>
+				<target>Verbrauchtes Dateisystem in %</target>
 			</trans-unit>
 			<trans-unit id="metrics.Get rate">
 				<source>Get rate</source>
-				<target>Get-Rate</target>
+				<target>Zugriffsgeschwindigkeit</target>
 			</trans-unit>
 			<trans-unit id="metrics.High exec time">
 				<source>High exec time</source>
@@ -1432,7 +1452,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Inodes pct used">
 				<source>Inodes pct used</source>
-				<target>Belegte Inodes in Prozent</target>
+				<target>Belegte Inodes in %</target>
 			</trans-unit>
 			<trans-unit id="metrics.Input rate">
 				<source>Input rate</source>
@@ -1464,15 +1484,15 @@
 			</trans-unit>
 			<trans-unit id="metrics.Lines">
 				<source>Lines</source>
-				<target>Linien</target>
+				<target>Zeilen</target>
 			</trans-unit>
 			<trans-unit id="Lines">
 				<source>Lines</source>
-				<target>Linien</target>
+				<target>Zeilen</target>
 			</trans-unit>
 			<trans-unit id="Lines">
 				<source>Lines</source>
-				<target>Linien</target>
+				<target>Zeilen</target>
 			</trans-unit>
 			<trans-unit id="metrics.Low exec time">
 				<source>Low exec time</source>
@@ -1504,7 +1524,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Packet loss pct">
 				<source>Packet loss pct</source>
-				<target>Paketverlust-Prozentsatz</target>
+				<target>Paketverlust in %</target>
 			</trans-unit>
 			<trans-unit id="metrics.Pattern match rate">
 				<source>Pattern match rate</source>
@@ -1516,15 +1536,15 @@
 			</trans-unit>
 			<trans-unit id="metrics.Physical memory used">
 				<source>Physical memory used</source>
-				<target>Verbrauchter physikal. Speicher</target>
+				<target>Verbrauchter phys. Speicher</target>
 			</trans-unit>
 			<trans-unit id="metrics.Physical read rate">
 				<source>Physical read rate</source>
-				<target>Physikal. Leserate</target>
+				<target>Phys. Leserate</target>
 			</trans-unit>
 			<trans-unit id="metrics.Probe exec time ave">
 				<source>Probe exec time ave</source>
-				<target>Durchschnittlicher Probe-Ausführungszeit</target>
+				<target>Durchschn. Probe-Ausführungszeit</target>
 			</trans-unit>
 			<trans-unit id="metrics.Probe latency ave">
 				<source>Probe latency ave</source>
@@ -1628,7 +1648,7 @@
 			</trans-unit>
 			<trans-unit id="metrics.Swap pct free">
 				<source>Swap pct free</source>
-				<target>Prozentsatz an freiem Swap</target>
+				<target>Freier Swap in %</target>
 			</trans-unit>
 			<trans-unit id="metrics.TIME_WAIT conns">
 				<source>TIME_WAIT conns</source>
@@ -1704,11 +1724,11 @@
 			</trans-unit>
 			<trans-unit id="metrics.Virtual mem pct free">
 				<source>Virtual mem pct free</source>
-				<target>Prozentsatz an freiem virtuellem Speicher</target>
+				<target>Freier virt. Speicher in %</target>
 			</trans-unit>
 			<trans-unit id="metrics.Virtual memory used">
 				<source>Virtual memory used</source>
-				<target>Verbr. virtueller Speicher</target>
+				<target>Verbrauchter virt. Speicher</target>
 			</trans-unit>
 			<trans-unit id="metrics.Waiters">
 				<source>Waiters</source>
@@ -1844,7 +1864,7 @@
 			</trans-unit>
 			<trans-unit id="Defunct Processes">
 				<source>Defunct Processes</source>
-				<target>Defunct-Prozesse</target>
+				<target>Zombie-Prozesse</target>
 			</trans-unit>
 			<trans-unit id="Disk Sort Rate">
 				<source>Disk Sort Rate</source>
@@ -1864,7 +1884,7 @@
 			</trans-unit>
 			<trans-unit id="Execution Time Moving Average">
 				<source>Execution Time Moving Average</source>
-				<target>Durchschnittl. Ausführungszeit in Bewegung</target>
+				<target>Durchschn. Ausführungszeit in Bewegung</target>
 			</trans-unit>
 			<trans-unit id="FIN_WAIT Connections">
 				<source>FIN_WAIT Connections</source>
@@ -1940,11 +1960,11 @@
 			</trans-unit>
 			<trans-unit id="Physical Memory Used">
 				<source>Physical Memory Used</source>
-				<target>Verbrauchter physikal. Speicher</target>
+				<target>Verbrauchter phys. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Physical Read Rate">
 				<source>Physical Read Rate</source>
-				<target>Physikal. Leserate</target>
+				<target>Phys. Leserate</target>
 			</trans-unit>
 			<trans-unit id="Probe Execution Time Average">
 				<source>Probe Execution Time Average</source>
@@ -2036,11 +2056,11 @@
 			</trans-unit>
 			<trans-unit id="Virtual Memory Free">
 				<source>Virtual Memory Free</source>
-				<target>Verbr. virtueller Speicher</target>
+				<target>Freier virt. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Virtual Memory Used">
 				<source>Virtual Memory Used</source>
-				<target>Verbr. virtueller Speicher</target>
+				<target>Verbrauchter virt. Speicher</target>
 			</trans-unit>
 			<trans-unit id="Write Rate">
 				<source>Write Rate</source>
@@ -2208,7 +2228,7 @@
 			</trans-unit>
 			<trans-unit id="apache1_3">
 				<source>The ExtendedStatus directive in the httpd.conf file of this webserver must be set to On for this check to function properly.</source>
-				<target>ExtendedStatus in der httpd.conf-Datei des Webservers muss auf On gesetzt sein, so dass dieser Check ordnungsgemäß funktionieren kann.</target>
+				<target>ExtendedStatus in der httpd.conf-Datei des Webservers muss auf On gesetzt sein, damit dieser Check ordnungsgemäß funktionieren kann.</target>
 			</trans-unit>
 			<trans-unit id="All">
 				<source>All</source>
@@ -2250,9 +2270,21 @@
 				<source>Oracle</source>
 				<target>Oracle</target>
 			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
 			<trans-unit id="Satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Satellite">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2356,7 +2388,7 @@
 			</trans-unit>
 			<trans-unit id="JDBC Connection Pool">
 				<source>JDBC Connection Pool</source>
-				<target>JDBC Connection Pool</target>
+				<target>JDBC Verbindungs-Pool</target>
 			</trans-unit>
 			<trans-unit id="Library Cache">
 				<source>Library Cache</source>
@@ -2408,27 +2440,27 @@
 			</trans-unit>
 			<trans-unit id="Probe Count">
 				<source>Probe Count</source>
-				<target>Probe-Count</target>
+				<target>Probe-Anzahl</target>
 			</trans-unit>
 			<trans-unit id="Process Count Total">
 				<source>Process Count Total</source>
-				<target>Gesamter Prozess-Count</target>
+				<target>Gesamte Prozess-Anzahl</target>
 			</trans-unit>
 			<trans-unit id="Process Counts">
 				<source>Process Counts</source>
-				<target>Prozess-Counts</target>
+				<target>Prozess-Anzahl</target>
 			</trans-unit>
 			<trans-unit id="Process Counts by State">
 				<source>Process Counts by State</source>
-				<target>Prozess-Counts nach Status</target>
+				<target>Prozess-Anzahl nach Status</target>
 			</trans-unit>
 			<trans-unit id="Process Health">
 				<source>Process Health</source>
-				<target>Process-Health</target>
+				<target>Prozess-Health</target>
 			</trans-unit>
 			<trans-unit id="Process Running">
 				<source>Process Running</source>
-				<target>Ablaufender Process</target>
+				<target>Ablaufender Prozess</target>
 			</trans-unit>
 			<trans-unit id="Query Rate">
 				<source>Query Rate</source>
@@ -2559,8 +2591,8 @@
 				<target>Das System wurde neu gestartet, um den Kickstartprozess zu beginnen.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from RHN.</source>
-				<target>Das System hat die Kickstartkonfigurationsdatei von RHN heruntergeladen.</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>Das System hat die Kickstartkonfigurationsdatei von @@PRODUCT_NAME@@ heruntergeladen.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2603,8 @@
 				<target>Das System lädt die RPMs, die installiert werden müssen, herunter.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with RHN after kickstarting.</source>
-				<target>Das System hat sich nach dem Kickstart erfolgreich bei RHN registriert.</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>Das System hat sich nach dem Kickstart erfolgreich bei @@PRODUCT_NAME@@ registriert.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

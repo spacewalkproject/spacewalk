@@ -3,20 +3,16 @@
 	<file source-language="en-US" target-language="it-IT" datatype="po" original="en-US/template.xliff">
 		<body>
 			<trans-unit id="email.verify.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Verifica email di login di Red Hat</target>
-			</trans-unit>
-			<trans-unit id="email.verification.notice.subject">
-				<source>Red Hat login Email Verification</source>
-				<target>Verifica email di login di Red Hat</target>
+				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<target>Verifica email di login di @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
-				<source>Dear Red Hat Network User,
+				<source>Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click the link below
@@ -28,16 +24,16 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 
 {2}</source>
-				<target>Egregio utente di Red Hat Network,
+				<target>Egregio utente di @@PRODUCT_NAME@@,
 
 Questa email è stata inviata per convalidare l'indirizzo email per
  il suo login di Red Hat. Il suddetto login, in combinazione con una
  sottoscrizione attiva di Red Hat, fornisce un accesso alle capacità
- di gestione dei sistemi attraverso il Red Hat Network.
+ di gestione dei sistemi attraverso il @@PRODUCT_NAME@@.
 
 Per garantire la sicurezza delle informazioni relative all'account associate con il suo login 
 di Red Hat, le suggeriamo di spendere qualche secondo per navigare attraverso
@@ -49,21 +45,21 @@ Per confermare il suddetto indirizzo email, consultare il seguente URL:
 
 {0}
 
-Grazie per aver usato Red Hat Network.
+Grazie per aver usato @@PRODUCT_NAME@@.
 {1}
 
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.subject">
-				<source>Your RHN Account is ready</source>
-				<target>Il tuo RHN Account è pronto</target>
+				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+				<target>Il @@PRODUCT_NAME@@ Account è pronto</target>
 			</trans-unit>
 			<trans-unit id="email.newaccountbycreator.body">
 				<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
        Password: {3}
@@ -73,13 +69,13 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>Salve,
  
 Un login di Red Hat è stato appena creato per Lei da {0} {1}. Il
  suddetto login,in combinazione con una sottoscrizione attiva di Red Hat,
- le garantisce la possibilità di gestire i sistemi presenti su Red Hat Network.
+ le garantisce la possibilità di gestire i sistemi presenti su @@PRODUCT_NAME@@.
 
 Login di Red Hat: {2}
        Password: {3}
@@ -89,7 +85,7 @@ Login di Red Hat: {2}
 
 Importante: Si prega di cambiare la password dopo aver eseguito il login.
 
-Grazie per aver usato Red Hat Network.
+Grazie per aver usato @@PRODUCT_NAME@@.
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.body">
@@ -97,7 +93,7 @@ Grazie per aver usato Red Hat Network.
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
        Password: {1}
@@ -107,13 +103,13 @@ provides you with access to manage systems on Red Hat Network.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>Salve,
  
 Un login di Red Hat è stato appena creato per Lei. Il
  suddetto login,in combinazione con una sottoscrizione attiva di Red Hat,
- le garantisce la possibilità di gestire i sistemi presenti su Red Hat Network.
+ le garantisce la possibilità di gestire i sistemi presenti su @@PRODUCT_NAME@@.
 
 Login di Red Hat: {0}
        Password: {1}
@@ -123,7 +119,7 @@ Login di Red Hat: {0}
 
 Importante: Si prega di cambiare la password dopo aver eseguito il login.
 
-Grazie per aver usato Red Hat Network.
+Grazie per aver usato @@PRODUCT_NAME@@.
 {4}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.pam.body">
@@ -131,32 +127,32 @@ Grazie per aver usato Red Hat Network.
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Red Hat Network.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
          e-mail: {4}
 
   {5}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>Salve,
 
-Un login di Red Hat è stato appena creato per Lei da {0}. Il
+Un login di Red Hat è stato appena creato per Lei da {0} {1}. Il
 suddetto login,in combinazione con una sottoscrizione attiva di Red Hat,
-le garantisce la possibilità di gestire i sistemi presenti su Red Hat Network.
+le garantisce la possibilità di gestire i sistemi presenti su @@PRODUCT_NAME@@.
 
  Login di Red Hat: {2}
          e-mail: {4}
 
   {5}
 
- Grazie per aver usato Red Hat Network.
+ Grazie per aver usato @@PRODUCT_NAME@@.
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.subject">
-				<source>RHN User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>Utente di RHN Creato: {0} ({1}, {2} &lt;{3}&gt;)</target>
+				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target>Utente di @@PRODUCT_NAME@@ Creato: {0} ({1}, {2} &lt;{3}&gt;)</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.body">
 				<source>Hello,
@@ -170,7 +166,7 @@ please visit:
 
   {1}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
 				<target>Salve,
  
@@ -184,12 +180,12 @@ Per poter visualizzare tutti gli utenti attivi ed i login di Red Hat associati a
 
   {1}
 
-Grazie per aver utilizzato Red Hat Network.
+Grazie per aver utilizzato @@PRODUCT_NAME@@.
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.subject">
-				<source>RHN Account Deactivated: {0}</source>
-				<target>Account RHN disattivato: {0}</target>
+				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+				<target>Account @@PRODUCT_NAME@@ disattivato: {0}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.body">
 				<source>
@@ -317,7 +313,7 @@ Il Red Hat Account Management Team</target>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to Red Hat Network
+account in the past day, but could not be entitled to @@PRODUCT_NAME@@
 services.
 
 {0}
@@ -326,10 +322,10 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on Red Hat Network by following
+   delete your existing system profile on @@PRODUCT_NAME@@ by following
    the directions at https://rhn.redhat.com/help/faq/#26
 
-2) The number of systems you have connected to Red Hat Network exceeds
+2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
    account.  This may be because your subscriptions have expired or
    you need to purchase a Red Hat subscription.
@@ -352,13 +348,13 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using Red Hat Network.</source>
+Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 Gentile cliente di Red Hat,
 
 Il seguente sistema è stato associato al vostro login e account di Red Hat,
 ma purtroppo non risulta aver diritto ai servizi di
-Red Hat Network.
+@@PRODUCT_NAME@@.
 
 {0}
 
@@ -366,10 +362,10 @@ Questo problema si è potuto verificare per diverse ragioni:
 
 1) Avete recentemente reinstallato un sistema e avete cercato di associare il
    sistema stesso con una sottoscrizione esistente ed attiva. Vi preghiamo di cancellare
-   il profilo del sistema esistente su Red Hat Network, seguendo le indicazioni
+   il profilo del sistema esistente su @@PRODUCT_NAME@@, seguendo le indicazioni
    presenti su https://rhn.redhat.com/help/faq/#26
 
-2) Il numero di sistemi collegati al Red Hat Network eccede il numero di
+2) Il numero di sistemi collegati al @@PRODUCT_NAME@@ eccede il numero di
    sottoscrizioni Red Hat attive associate con il vostro account.
    Ciò può essere causato se le vostre sottoscrizioni risultano scadute,
    oppure se avete bisogno di acquistare una sottoscrizione di Red Hat.
@@ -392,11 +388,11 @@ Red Hat Customer Service su:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Grazie per aver scelto Red Hat Network.</target>
+Grazie per aver scelto @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>
-Red Hat Network has determined that the following advisory is applicable to
+@@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
 Complete information about this errata can be found at the following location:
@@ -411,7 +407,7 @@ Summary:
 {7}
 ------------------------------------------------------------------------------</source>
 				<target>
-Red Hat Network ha determinato che il seguente advisory è applicabile ad uno
+@@PRODUCT_NAME@@ ha determinato che il seguente advisory è applicabile ad uno
 o più sistemi registrati:
 
 Informazioni complete riguardanti questa errata sono di seguito disponibili:
@@ -446,24 +442,24 @@ del pacchetto per il server in questione non è aggiornato. In tal caso è consi
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your RHN' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-È presente 1 sistema interessato e registrato su 'Il vostro RHN' (vengono mostrati solo i
+È presente 1 sistema interessato e registrato su 'Panoramica' (vengono mostrati solo i
 sistemi ai quali avete già abilitato gli Errata Alerts).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your RHN' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-Sono presenti {0} sistemi interessati registrati su 'Il vostro RHN' (vengono mostrati solo i
+Sono presenti {0} sistemi interessati registrati su 'Panoramica' (vengono mostrati solo i
 sistemi ai quali avete già abilitato gli Errata Alerts).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
 				<source>
-System                          Operating System
-------------------------------- ---------------------------------------------
+Release    Arch       Profile Name
+---------- ---------- ---------------------------------------------
 {0}
 
 You may address the issues outlined in this advisory in two ways:
@@ -475,8 +471,8 @@ You may address the issues outlined in this advisory in two ways:
 
      - run the Update Agent on each affected server.</source>
 				<target>
-Sistema                          Sistema Operativo
-------------------------------- ---------------------------------------------
+Release      Arch                    Nome profilo
+----------------------------------------------------------------------------
 {0}
 
 È possibile risolrvere i problemi presenti su questa advisory in due modi:
@@ -492,8 +488,8 @@ Sistema                          Sistema Operativo
 				<source>
 Changing Notification Preferences
 ---------------------------------
-To enable/disable your Errata Alert preferences globally please log in to RHN
-and navigate from "Your RHN" / "Your Account" to the "Preferences" tab.
+To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 
@@ -506,8 +502,8 @@ click the "Details" tab.
 				<target>
 Modifica delle preferenze di notifica
 ---------------------------------
-Per abilitare/disabilitare le preferenze del vostro Errata Alert è necessario eseguire il login su RHN
-e navigare attraverso "Il vostro RHN" / "Il vostro Account" fino alla tabella "Preferenze".
+Per abilitare/disabilitare le preferenze del vostro Errata Alert è necessario eseguire il login su @@PRODUCT_NAME@@
+e navigare attraverso "Panoramica" / "Il vostro Account" fino alla tabella "Preferenze".
 
         URL: {0}
 
@@ -519,15 +515,15 @@ fate clic sulla tabella "Dettagli".
 {2}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.subject">
-				<source>RHN Daily Status Report for {0}</source>
-				<target>Rapporto giornaliero sullo Stato di RHN per {0}</target>
+				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+				<target>Rapporto giornaliero sullo Stato di @@PRODUCT_NAME@@ per {0}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.body">
-				<source>This is the RHN Status Report for your account {0}, as of {1}.
+				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
-This email will be sent when any of the following apply to the specified systems:
+This email will be sent when any of the following apply:
 
-1.  The system fails to check in with RHN within a 24-hour window.
+1.  The system fails to check in with @@PRODUCT_NAME@@ within a 24-hour window.
 2.  The system registers scheduled action activity.
 
 {2}
@@ -540,14 +536,14 @@ To learn how to disable this email for systems:
 https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {5}
 {6}</source>
-				<target>Questo è il rapporto sullo stato di RHN per il vostro account {0}, a partire da {1}.
+				<target>Questo è il rapporto sullo stato di @@PRODUCT_NAME@@ per il vostro account {0}, a partire da {1}.
 
 Questa email verrà inviata ogni qualvolta si verificano i seguenti casi per i sistemi indicati:
 
-1. Il sistema non è in grado di eseguire il checkin con RHN in un periodo di 24 ore.
+1. Il sistema non è in grado di eseguire il checkin con @@PRODUCT_NAME@@ in un periodo di 24 ore.
 2.  Il sistema registra attività programmate.
 
 {2}
@@ -560,18 +556,18 @@ Per sapere come disabilitare questa email per un sistema:
 https://{4}/rhn/help/reference/en-US/s1-sm-your-rhn.jsp
 
 
-Grazie per aver utilizzato Red Hat Network.
+Grazie per aver utilizzato @@PRODUCT_NAME@@.
 {5}
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.verification.notice.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -583,16 +579,16 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-Egregio utente di Red Hat Network,
+Egregio utente di @@PRODUCT_NAME@@,
 
 Questa email è stata inviata per convalidare l'indirizzo email inviato
 per il suo login di Red Hat.
 Il suddetto login, in combinazione con una sottoscrizione attiva di Red Hat,
-fornisce un accesso alle capacità di gestione dei sistemi attraverso il Red Hat Network.
+fornisce un accesso alle capacità di gestione dei sistemi attraverso il @@PRODUCT_NAME@@.
 
 Per garantire la sicurezza delle informazioni relative all'account associate con il suo login 
 di Red Hat, Le suggeriamo di spendere qualche secondo per navigare attraverso il
@@ -604,18 +600,22 @@ Per confermare il suddetto indirizzo, consultare il seguente URL:
 
 {0}
 
-Grazie per aver usato Red Hat Network.
+Grazie per aver usato @@PRODUCT_NAME@@.
 {1}
 {2}</target>
 			</trans-unit>
+			<trans-unit id="email.verification.notice.subject">
+				<source>Red Hat login Email Verification</source>
+				<target>Verifica email di login di Red Hat</target>
+			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Red Hat Network.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -630,16 +630,16 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Red Hat Network.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-Egregio utente di Red Hat Network,
+Egregio utente di @@PRODUCT_NAME@@,
 
 Questa email è stata inviata per convalidare l'indirizzo email
 fornito per il suo Red Hat login. Il suddetto login, in combinazione
 con una sottoscrizione attiva di Red Hat, fornisce un accesso alle
-capacità di gestione dei sistemi attraverso il Red Hat Network.
+capacità di gestione dei sistemi attraverso il @@PRODUCT_NAME@@.
 
 Per garantire la sicurezza delle informazioni relative all'account associate con il suo login 
 di Red Hat, Le suggeriamo di spendere qualche secondo per navigare
@@ -654,7 +654,7 @@ Per confermare il suddetto indirizzo, consultare il seguente URL:
 
 {0}
 
-Grazie per aver usato Red Hat Network.
+Grazie per aver usato @@PRODUCT_NAME@@.
 {1}
 {2}</target>
 			</trans-unit>
@@ -663,32 +663,32 @@ Grazie per aver usato Red Hat Network.
 				<target>Verifica email login di Red Hat, avviso finale</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat Satellite Server Certificate expiration warning</source>
-				<target>Avviso di scadenza del Red Hat Satellite Server Certificate</target>
+				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
+				<target>Avviso di scadenza del Certificato di @@PRODUCT_NAME@@ Server</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. After {1} day(s) the systems 
-management services provided by your RHN Satellite Server will become inaccessible. 
+management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible.
 Please contact your regional Red Hat Customer  Service Representative for information 
-on how to renew your Satellite Certificate.
+on how to renew your @@PRODUCT_NAME@@ Certificate.
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-Egregio utente di Red Hat Network,
+Egregio utente di @@PRODUCT_NAME@@,
 
-Questa email le è stata recapitata per informarLa che il suo Certificato RHN Satellite
-sul suo satellite locale è scaduto {0}. Fra {1} giorno(i) i servizi di gestione del sistema 
-forniti dal suo RHN Satellite Server non saranno più accessibili.
+Questa email le è stata recapitata per informarLa che il suo Certificato @@PRODUCT_NAME@@
+sul suo satellite locale  {0} è scaduto. Fra {1} giorno(i) i servizi di gestione del sistema
+forniti dal suo @@PRODUCT_NAME@@ Server non saranno più accessibili.
 La preghiamo di contattare il suo rappresentante di zona del Red Hat Customer Service per informazioni 
-su come rinnovare il suo Certificato di Satellite.
+su come rinnovare il suo Certificato @@PRODUCT_NAME@@.
 
-Grazie per aver scelto Red Hat Network.
---il Red Hat Network Team</target>
+Grazie per aver scelto @@PRODUCT_NAME@@.
+--il @@PRODUCT_NAME@@ Team</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.subject">
 				<source>Red Hat satellite certificate expiration notice</source>
@@ -696,27 +696,27 @@ Grazie per aver scelto Red Hat Network.
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.body">
 				<source>
-Dear Red Hat Network User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your RHN Satellite Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. The system management services will be inaccessible 
 until your certificate is renewed. Please contact your regional Red Hat 
-Customer Service Representative for information on how to renew your Satellite Certificate.
+Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
-Thank you for using Red Hat Network.
---the Red Hat Network Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
 Egregio utente di Red Hat Network,
 
-Questa email le è stata recapitata per informarLa che il suo Certificato RHN Satellite
-sul suo satellite locale è scaduto {0}. I servizi di gestione del sistema non saranno più accessibili 
+Questa email le è stata recapitata per informarLa che il suo Certificato @@PRODUCT_NAME@@
+sul suo satellite locale {0} è scaduto. I servizi di gestione del sistema non saranno più accessibili
 fino a quando il suo certificato non verrà rinnovato. La preghiamo di contattare il suo
-rappresentante di zona del Red Hat Customer Service, per informazioni su come rinnovare il suo Certificato di Satellite.
+rappresentante di zona del Red Hat Customer Service, per informazioni su come rinnovare il suo Certificato @@PRODUCT_NAME@@.
 
 
-Grazie per aver scelto Red Hat Network.
---il Red Hat Network Team</target>
+Grazie per aver scelto @PRODUCT_NAME@@.
+--il @@PRODUCT_NAME@@ Team</target>
 			</trans-unit>
 		</body>
 	</file>
