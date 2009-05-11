@@ -41,7 +41,7 @@ function reloadForm(ctl) {
     <html:form method="post" action="/kickstart/KickstartSoftwareEdit.do" styleId="editForm">
       <table class="details">
           <tr>
-            <th><bean:message key="softwareedit.jsp.basechannel" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="softwareedit.jsp.basechannel"/>:</th>
             <td>
               <html:select property="channel" onchange="reloadForm(this);" styleId="channel">
                   <html:options collection="channels"
@@ -53,7 +53,7 @@ function reloadForm(ctl) {
           </tr>
           <tr>
               <th>
-                  <bean:message key="softwareedit.jsp.child_channels" /><span class="required-form-field">*</span>:</th>
+                  <rhn:required-field key="softwareedit.jsp.child_channels"/>:</th>
               <td>
                   <c:choose>
                     <c:when test="${nochildchannels == null}">                
@@ -77,7 +77,7 @@ function reloadForm(ctl) {
           </tr>
           <tr>
               <th>
-                  <bean:message key="softwareedit.jsp.avail_trees" /><span class="required-form-field">*</span>:
+                  <rhn:required-field key="softwareedit.jsp.avail_trees"/>:
               </th>
               <td>
                   <c:choose>

@@ -21,7 +21,7 @@
           </tr>
           <tr>
               <th>
-                  <bean:message key="kickstart.script.contents"/><span class="required-form-field">*</span>
+                  <rhn:required-field key="kickstart.script.contents"/>
               </th>
               <td>
                   <textarea name="contents" rows="24" cols="80" id="contents"><bean:write name="kickstartScriptForm" property="contents" /></textarea><br />
@@ -29,7 +29,7 @@
           </tr>
           <tr>
               <th>
-                  <bean:message key="kickstart.script.type"/><span class="required-form-field">*</span>
+                  <rhn:required-field key="kickstart.script.type"/>
               </th>
               <td>
                 <html:select property="type"> 

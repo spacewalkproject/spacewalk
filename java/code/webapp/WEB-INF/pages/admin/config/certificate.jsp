@@ -31,8 +31,7 @@
     <table class="details">
     <tr>
         <th>
-            <bean:message key="certificate.jsp.cert_file"/>
-                <span class="required-form-field">*</span>
+            <rhn:required-field key="certificate.jsp.cert_file"/>
         </th>
         <td>
             <html:file property="cert_file"/>
@@ -40,8 +39,7 @@
     </tr>
     <tr>
         <th>
-            <bean:message key="certificate.jsp.cert_text"/>
-                <span class="required-form-field">*</span>
+            <rhn:required-field key="certificate.jsp.cert_text"/>
         </th>
         <td>
             <html:textarea cols="80" rows="24" property="cert_text" />

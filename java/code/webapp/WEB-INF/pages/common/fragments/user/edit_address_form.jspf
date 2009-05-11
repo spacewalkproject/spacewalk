@@ -1,6 +1,6 @@
 <table class="details" align="center">
     <tr>
-	    <th><bean:message key="edit_address.jsp.phone"/><span class="required-form-field">*</span>:</th>
+	    <th><rhn:required-field key="edit_address.jsp.phone"/>:</th>
 	    <td><html:text size="14" property="phone"/></td>
     </tr>
     
@@ -10,24 +10,24 @@
     </tr>
     
     <tr>
-	    <th><bean:message key="edit_address.jsp.address"/><span class="required-form-field">*</span>:</th>
+	    <th><rhn:required-field key="edit_address.jsp.address"/>:</th>
 	    <td><html:text size="30" property="address1"/><br />
 	    <html:text size="30" property="address2"/></td>
     </tr>
     <tr>
-	    <th><bean:message key="edit_address.jsp.city"/><span class="required-form-field">*</span>:</th>
+	    <th><rhn:required-field key="edit_address.jsp.city"/>:</th>
 	    <td><html:text size="20" property="city"/></td>
     </tr>
     <tr>
-	    <th><bean:message key="edit_address.jsp.state"/><span class="required-form-field">*</span>:</th>
+	    <th><rhn:required-field key="edit_address.jsp.state"/>:</th>
 	    <td><html:text size="20" property="state"/><br/><bean:message key="edit_address.jsp.staterequired"/></td>
     </tr>
     <tr>
-	    <th><bean:message key="edit_address.jsp.zipcode"/><span class="required-form-field">*</span>:</th>
+	    <th><rhn:required-field key="edit_address.jsp.zipcode"/>:</th>
 	    <td><html:text size="14" property="zip"/></td>
     </tr>
     <tr>
-	    <th><bean:message key="edit_address.jsp.country"/><span class="required-form-field">*</span>:</th>
+	    <th><rhn:required-field key="edit_address.jsp.country"/>:</th>
         <td>
         <html:select property="country">
                 <html:options collection="availableCountries" 

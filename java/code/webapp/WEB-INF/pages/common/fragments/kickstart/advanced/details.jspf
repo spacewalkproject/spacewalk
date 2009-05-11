@@ -11,11 +11,11 @@
     <p><bean:message key="${param.summary_key}"/></p>
     <table class="details">
         <tr>
-            <th><bean:message key="kickstart.jsp.create.wizard.kickstart.profile.label" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="kickstart.jsp.create.wizard.kickstart.profile.label"/>:</th>
             <td><html:text property="kickstartLabel" size="40" maxlength="80" /></td>
         </tr>
         <tr>
-            <th><bean:message key="kickstart.jsp.create.wizard.kstree.label" /><span class="required-form-field">*</span>:</th>
+            <th><rhn:required-field key="kickstart.jsp.create.wizard.kstree.label"/>:</th>
             <td>
                   <c:choose>
                     <c:when test="${notrees == null}">

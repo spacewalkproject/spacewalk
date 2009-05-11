@@ -25,7 +25,7 @@
     <table class="details">
     <tr>
         <th>
-            <bean:message key="method-form.jspf.name"/><span class="required-form-field">*</span>
+            <rhn:required-field key="method-form.jspf.name"/>
         </th>
         <td>
             <html:text property="name" maxlength="20" size="20" />
