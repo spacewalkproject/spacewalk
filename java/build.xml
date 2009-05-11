@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 
+<!--
+  Spacewalk build file, please indent 2 spaces. NO TABS!
+-->
 <project name="RHN" default="all" basedir=".">
   <import file="buildconf/build-props.xml" />
   <import file="buildconf/build-taskdefs.xml" />
@@ -7,6 +10,7 @@
   <import file="buildconf/build-webapp.xml" />
 
   <target name= "build-all" depends="clean, create-webapp-dir, all"/>
+
   <target name="prepare" depends="init-taskdefs">
         <mkdir dir="${build.dir}/src"/>
   </target>
@@ -47,7 +51,7 @@
     </copy>
     </target>
 
-    <!-- Generates Eclipse classpath   -->
+  <!-- Generates Eclipse classpath   -->
   <target name="gen-eclipse" depends="link-jars"
           description = "Generates eclipse .classpath file">
       <exec executable="${basedir}/scripts/gen-eclipse.py"
@@ -57,7 +61,8 @@
     </exec>
   </target>
 
-  <target name="missingstrings" description="prints out a report with untranslated strings.">
+  <target name="missingstrings"
+          description="prints out a report with untranslated strings.">
     <mkdir dir="${report.dir}" />
     <exec executable="${basedir}/scripts/missingstrings.sh"
           output="${report.dir}/missingstrings.txt"
@@ -90,7 +95,9 @@
     </copy>
 
     <emma enabled="true">
-      <report sourcepath="${build.dir}/src-copy" sort="+block,+name,+method,+class" metrics="method:70,block:80,line:80,class:100">
+      <report sourcepath="${build.dir}/src-copy"
+              sort="+block,+name,+method,+class"
+              metrics="method:70,block:80,line:80,class:100">
         <infileset dir="${rhn-home}" includes="*.em, *.ec" />
         <!-- txt outfile="${report.dir}/emma.txt"
              depth="package"
@@ -118,7 +125,8 @@
     </exec>
   </target>
 
-  <target name="init" depends="resolve,link-jars,init-taskdefs, set-default-config-dir">
+  <target name="init"
+          depends="resolve,link-jars,init-taskdefs, set-default-config-dir">
     <tstamp />
   </target>
 
@@ -136,11 +144,6 @@
   <target name="cctarget"
           depends="init-cc,all,cc-test,test-report,coverage-report,comment-ratio-report,apidoc-jsp,jspcompile,javadoc"
           description="Target called by cruisecontrol process">
-    <!-- parallel>
-    <antcall target="test-report" />
-    <antcall target="coverage-report" />
-    <antcall target="comment-ratio-report" />
-    </parallel -->
   </target>
 
   <target name="cc-test" depends ="set-cc-config-dir, test"/>
@@ -150,7 +153,8 @@
   </target>
 
   <target name="set-cc-config-dir">
-    <property name="rhn.config.dir" value="${rhn-home}/buildconf/builder/config/satellite" />
+    <property name="rhn.config.dir"
+              value="${rhn-home}/buildconf/builder/config/satellite" />
   </target>
 
   <target name="testdebug">
@@ -160,13 +164,13 @@
   </target>
 
   <target name="test">
-        <property name="debug" value=""/>
-        <antcall target="dotest"/>
+    <property name="debug" value=""/>
+    <antcall target="dotest"/>
   </target>
 
   <target name="dotest"
-      description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-      depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
+          description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
+          depends="set-default-config-dir,compile-main,init-tests,invoke-tests-testcase,invoke-tests-subsystem,invoke-tests-all" >
 
     <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
@@ -176,16 +180,14 @@
           classname="${classname}"
           failonerror="true" >
           <classpath>
-              <pathelement path="${build.dir}/classes" />
-              <path refid="alljars"/>
+            <pathelement path="${build.dir}/classes" />
+            <path refid="alljars"/>
           </classpath>
-          <!-- arg value="${rhn.checkout.dir}" />
-          <arg value="${report.dir}/explainplan/explain.txt" / -->
     </java>
   </target>
 
   <target name="test-report" depends="init-tests"
-    description="Pretty-print the results of a previous test run.">
+          description="Pretty-print the results of a previous test run.">
     <junitreport todir="${testresults.dir}">
       <fileset dir="${testresults.dir}">
         <include name="TEST-*.xml"/>
@@ -211,10 +213,10 @@
     </delete>
     <delete>
       <fileset defaultexcludes="no" dir="${rhn-home}">
-          <include name="**/*~" />
-          <include name="velocity.log*" />
-          <include name="coverage.ec" />
-          <include name="coverage.em" />
+        <include name="**/*~" />
+        <include name="velocity.log*" />
+        <include name="coverage.ec" />
+        <include name="coverage.em" />
       </fileset>
     </delete>
   </target>
@@ -254,30 +256,28 @@
     <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
     <javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" additionalparam="-quiet">
       <fileset dir="code" >
-        <include  name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
-        <include  name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
-        <include  name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" />
+        <include name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
+        <include name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
+        <include name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" />
       </fileset>
       <excludepackage name="**/*" />
     </javadoc>
 
   </target>
 
-<target name="enforce" description="Check actions" depends="init">
-        <path id="javadocpath">
-            <path refid="buildjars" />
-            <pathelement location="build/classes" />
-         </path>
+  <target name="enforce" description="Check actions" depends="init">
+    <path id="javadocpath">
+      <path refid="buildjars" />
+      <pathelement location="build/classes" />
+    </path>
 
-        <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private" additionalparam="-quiet">
-             <fileset dir="code" >
-                <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
-             </fileset>
-            <excludepackage name="**/*" />
-        </javadoc>
-
-</target>
-
+    <javadoc doclet="com.redhat.rhn.internal.doclet.EnforcementDoclet" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src" access="private" additionalparam="-quiet">
+      <fileset dir="code" >
+        <include  name="**/src/com/redhat/rhn/frontend/action/**/*.java" />
+      </fileset>
+      <excludepackage name="**/*" />
+    </javadoc>
+  </target>
 
   <target name="javadoc" description="Generate the java-doc" depends="init">
     <javadoc destdir="${report.dir}/javadoc" author="true" version="true"
@@ -357,18 +357,19 @@
       <formatter type="plain" />
       <formatter type="xml" toFile="${report.dir}/checkstyle_report_test.xml" />
     </checkstyle>
-     <antcall target="enforce" />
+    <antcall target="enforce" />
   </target>
 
-    <target name="init-pack">
-        <mkdir dir="${build.dir}/webapp" />
-    </target>
+  <target name="init-pack">
+    <mkdir dir="${build.dir}/webapp" />
+  </target>
 
-    <target name="pack" depends="init,init-pack,pack-megajar,pack-webapp"
-            description="Create jars and copy descriptors" />
+  <target name="pack" depends="init,init-pack,pack-megajar,pack-webapp"
+          description="Create jars and copy descriptors" />
 
-    <target name="pack-all" depends="init,init-pack,pack-megajar,pack-playpen,pack-webapp"
-            description="Create jars and copy descriptors" />
+  <target name="pack-all"
+          depends="init,init-pack,pack-megajar,pack-playpen,pack-webapp"
+          description="Create jars and copy descriptors" />
 
   <target name="instrument" depends="init-taskdefs" if="ccbuild">
     <emma enabled="true">
@@ -399,7 +400,7 @@
 
   <!-- ============== Compile tasks ================== -->
   <target name="compile" depends="init, compile-main, compile-notests"
-      description="Compile source" />
+          description="Compile source" />
 
   <target name="compile-playpen" depends="init,compile-main"
           description="Compile playpen source">
@@ -440,7 +441,9 @@
            classpathref="buildjars" >
     </javac>
   </target>
+
   <target name="compile-main" depends="do-compile-main, setup-log4j"/>
+
   <target name="do-compile-main" depends="link-jars,prepare"
           description="Compile the main codebase" unless="installbuild">
     <mkdir dir="${build.dir}/classes" />
@@ -469,24 +472,24 @@
          <exclude name="**/log4j.properties" />
       </fileset>
     </copy>
- </target>
+  </target>
 
-
- <target name ="setup-log4j" >
-     <property name="dest.log4j" location = "${build.dir}/classes/log4j.properties"/>
-     <if>
-         <available file="${custom.log4j}"/>
-         <then>
-             <copy tofile="${dest.log4j}" file="${custom.log4j}"/>
-         </then>
-         <else>
-             <copy tofile="${dest.log4j}" file="${src.dir}/src/log4j.properties"/>
-         </else>
-     </if>
- </target>
+  <target name ="setup-log4j" >
+    <property name="dest.log4j" location = "${build.dir}/classes/log4j.properties"/>
+    <if>
+      <available file="${custom.log4j}"/>
+      <then>
+        <copy tofile="${dest.log4j}" file="${custom.log4j}"/>
+      </then>
+      <else>
+        <copy tofile="${dest.log4j}" file="${src.dir}/src/log4j.properties"/>
+      </else>
+    </if>
+  </target>
 
   <target name="compile-notests" depends="link-jars,prepare"
-          description="compiles the main codebase without testcases" if="installbuild">
+          description="compiles the main codebase without testcases"
+          if="installbuild">
     <mkdir dir="${build.dir}/classes" />
     <javac destdir="${build.dir}/classes"
            optimize="off"
@@ -553,7 +556,7 @@
 
   <target name="check-testcase" depends="check-testcase-name" if="testcase"
       unless="valid.testcase">
-    <fail message="Invalid testcase name: ${testcase}.  Class name must look like .*Test"/>
+    <fail message="Invalid testcase name: ${testcase}. Class name must look like .*Test"/>
   </target>
 
   <!-- ================= Invoke tests ==================== -->
@@ -567,10 +570,11 @@
 
   <target name="invoke-tests-subsystem" if="testsubsystem">
     <property name="testcaseorsubsystem" value="true" />
-    <run-junit include="**/${testsubsystem}/**/test/*Test.class" banner="all tests in ${testsubsystem} subsystem"
-        testbuilddir="${build.dir}/classes"
-        classpathid="tests.runpath" reportdir="${testresults.dir}"
-        debug="${debug}" />
+    <run-junit include="**/${testsubsystem}/**/test/*Test.class"
+                banner="all tests in ${testsubsystem} subsystem"
+                testbuilddir="${build.dir}/classes"
+                classpathid="tests.runpath" reportdir="${testresults.dir}"
+                debug="${debug}" />
   </target>
 
   <target name="invoke-tests-all" unless="testcaseorsubsystem">
@@ -621,9 +625,6 @@
   </target>
 
   <!-- =================== Packaging Tasks ======================= -->
-  <target name="demo-init">
-  </target>
-
   <target name="megajar-init">
     <mkdir dir="${run.lib.dir}" />
   </target>
@@ -654,23 +655,23 @@
   <target name="pack-playpen" depends="compile-playpen" />
 
   <target name="pack-webapp" depends="compile">
-      <war destfile="${rhn.war}" webxml="${src.dir}/webapp/WEB-INF/web.xml">
-        <fileset dir="${src.dir}/webapp">
-            <exclude name="WEB-INF/web.xml"/>
-            <exclude name="help/**" unless="includehelp"/>
-        </fileset>
-        <classes dir="${build.dir}/classes">
-            <include name="log4j.properties" />
-        </classes>
-        <lib dir="${run.lib.dir}">
-           <include name="rhn.jar"/>
-        </lib>
-        <lib dir="${run-external.lib.dir}">
-            <!-- Don't want the Oracle drivers which use JNI in the war. -->
-            <exclude name="**/ojdbc*" />
-            <exclude name="**/oracle-jdbc*" />
-            <exclude name="**/servlet*" />
-        </lib>
+    <war destfile="${rhn.war}" webxml="${src.dir}/webapp/WEB-INF/web.xml">
+      <fileset dir="${src.dir}/webapp">
+        <exclude name="WEB-INF/web.xml"/>
+        <exclude name="help/**" unless="includehelp"/>
+      </fileset>
+      <classes dir="${build.dir}/classes">
+        <include name="log4j.properties" />
+      </classes>
+      <lib dir="${run.lib.dir}">
+        <include name="rhn.jar"/>
+      </lib>
+      <lib dir="${run-external.lib.dir}">
+        <!-- Don't want the Oracle drivers which use JNI in the war. -->
+        <exclude name="**/ojdbc*" />
+        <exclude name="**/oracle-jdbc*" />
+        <exclude name="**/servlet*" />
+      </lib>
     </war>
   </target>
 
@@ -714,7 +715,6 @@
     <mkdir dir="${playpen.testresults.dir}" />
   </target>
 
-
   <target name="compile-playpen-tests" depends="init-playpen-tests,compile-playpen"
           description="Compile playpen tests">
     <javac destdir="${playpen.testclasses.dir}"
@@ -737,9 +737,9 @@
   </target>
 
   <target name="test-playpen"
-      description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
-      depends="compile-playpen,compile-playpen-tests,init-playpen-tests,invoke-playpen-testcase,invoke-playpen-subsystem,invoke-playpen-all" >
-      <fail if="junit_test_failure" message="One or more tests failed" />
+          description="Run the tests (use -Dtestsubsystem=&lt;subsystem&gt; or -Dtestcase=&lt;testcase&gt;)"
+          depends="compile-playpen,compile-playpen-tests,init-playpen-tests,invoke-playpen-testcase,invoke-playpen-subsystem,invoke-playpen-all" >
+    <fail if="junit_test_failure" message="One or more tests failed" />
   </target>
 
   <!-- ================= Invoke tests ==================== -->
@@ -763,7 +763,8 @@
        classpathid="playpen.tests.runpath" reportdir="${playpen.testresults.dir}"/>
   </target>
 
-  <target name="install" depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
+  <target name="install"
+          depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
           description="Install the webapp to the directory specified by $prefix">
     <delete dir="${prefix}/var/lib/tomcat5/webapps/rhn" />
     <delete dir="${prefix}/usr/share/rhn/lib" />
@@ -824,8 +825,10 @@
       </fileset>
     </copy>
 
-    <!-- delete the symlinks for the jars that break the webapp.  Basically
-    these are the oracle jars and the servlet jar.  -->
+    <!--
+     - delete the symlinks for the jars that break the webapp.  Basically
+     - these are the oracle jars and the servlet jar.
+     -->
     <delete>
       <fileset dir="${prefix}/var/lib/tomcat5/webapps/rhn/WEB-INF/lib">
         <include name="**/ojdbc*" />
@@ -853,26 +856,16 @@
       <echo message="in the head for some comic relief." />
   </target>
 
-  <!-- findbugs
-
-  <target name="findbugs" depends="compile">
-      <findbugs home="${findbugs.home}" output="xml" outputFile="output.txt">
-          <class location="${build.dir}/classes" />
-          <auxClasspath refid="alljars" />
-          <sourcePath path="${src.dir}" />
-      </findbugs>
-  </target>
-  -->
-
   <target name="resolve" depends="resolve-ivy,resolve-local" />
 
   <target name="resolve-local" if="installbuild">
     <mkdir dir="${build.lib.dir}" />
     <mkdir dir="${test.lib.dir}" />
     <mkdir dir="${run-external.lib.dir}" />
-    <jpackage-deps jars="${install.build.jar.dependencies}" dir="${build.lib.dir}" />
-    <!-- jpackage-deps jars="${install.test.jar.dependencies}" dir="${test.lib.dir}"/ -->
-    <jpackage-deps jars="${install.run.jar.dependencies}" dir="${run-external.lib.dir}"/>
+    <jpackage-deps jars="${install.build.jar.dependencies}"
+                   dir="${build.lib.dir}" />
+    <jpackage-deps jars="${install.run.jar.dependencies}"
+                   dir="${run-external.lib.dir}"/>
     <copy toDir="${build.lib.dir}" overwrite="true">
       <fileset dir="${rhn-home}/buildconf/tempjars">
           <include name="**/*.jar" />
@@ -884,17 +877,20 @@
   <target name="resolve-ivy" description="retrieve dependencies with ivy"
           depends="boot-deps,init-ivy" unless="installbuild">
 
-     <!-- properties set here to show we are overriding default ivy values -->
+    <!-- properties set here to show we are overriding default ivy values -->
 
-     <!-- local directory -->
-     <property name="ivy.default.ivy.user.dir" value="${user.home}/.ivy/rhn"/>
-     <property name="ivy.local.default.artifact.pattern" value="[artifact]-[revision].[ext]" />
-     <!-- public directory -->
-     <property name="ivy.ivyrep.default.ivy.root" value="${ivyserver}/ivy/" />
-     <property name="ivy.ivyrep.default.artifact.root" value="${ivyserver}/ivy/" />
-     <property name="ivy.ivyrep.default.artifact.pattern" value="[artifact]-[revision].[ext]" />
+    <!-- local directory -->
+    <property name="ivy.default.ivy.user.dir" value="${user.home}/.ivy/rhn"/>
+    <property name="ivy.local.default.artifact.pattern"
+              value="[artifact]-[revision].[ext]" />
+    <!-- public directory -->
+    <property name="ivy.ivyrep.default.ivy.root" value="${ivyserver}/ivy/" />
+    <property name="ivy.ivyrep.default.artifact.root"
+              value="${ivyserver}/ivy/" />
+    <property name="ivy.ivyrep.default.artifact.pattern"
+              value="[artifact]-[revision].[ext]" />
 
-     <ivy-retrieve/>
- </target>
+    <ivy-retrieve/>
+  </target>
 
 </project>
