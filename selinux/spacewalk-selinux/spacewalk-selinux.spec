@@ -80,7 +80,7 @@ rm -rf %{buildroot}
 
 %post
 if /usr/sbin/selinuxenabled ; then
-   %{_sbindir}/%{name}-enable
+   %{_sbindir}/%{name}-enable --run-pure
 fi
 
 %postun
