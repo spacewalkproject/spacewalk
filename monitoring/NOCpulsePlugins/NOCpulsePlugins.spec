@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.6
+Version: 	  2.208.7
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plugins
 URL:          https://fedorahosted.org/spacewalk
@@ -65,6 +65,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 2.208.7-1
+- 498257 - migrate existing files into new nocpulse homedir
+
 * Thu Apr 16 2009 Tomas Lestach <tlestach@redhat.com> 2.208.6-1
 - 449919 - fixing SNMP uptime information
 
