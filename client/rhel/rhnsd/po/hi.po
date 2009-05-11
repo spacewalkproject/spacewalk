@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 
 #: ../rhnsd.c:50
@@ -61,4 +62,3 @@ msgstr "कॉपीराइट (C) %s Red Hat, Inc.\n"
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s के द्वारा लिखित.\n"
-

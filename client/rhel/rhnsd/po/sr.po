@@ -58,4 +58,3 @@ msgstr "Ауторска права %s Red Hat, Inc.\n"
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Написао је %s.\n"
-
