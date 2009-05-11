@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.4
+Version:        0.6.5
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -102,6 +102,10 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon May 11 2009 Jan Pazdziora 0.6.5-1
+- Move Requires of oracle-instantclient-selinux from
+  spacewalk(-proxy)-monitoring to spacewalk-monitoring-selinux
+
 * Tue May 05 2009 Jan Pazdziora 0.6.4-1
 - 499189 - spacewalk-selinux is not needed, do not Require it
 
