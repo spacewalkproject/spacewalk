@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.1.10
+Version:      2.1.11
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -103,6 +103,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 2.1.11-1
+- 499568 - require scout_shared_key for requesting NOCpulse.ini
+
 * Wed Apr 22 2009 Jan Pazdziora 2.1.10-1
 - 497064 - do not inherit crond's stdin
 
