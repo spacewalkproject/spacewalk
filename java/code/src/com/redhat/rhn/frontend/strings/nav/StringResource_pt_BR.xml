@@ -34,6 +34,10 @@
 				<source>All</source>
 				<target>Todos</target>
 			</trans-unit>
+			<trans-unit id="ssm.nav.status.all">
+				<source>All</source>
+				<target>Todos</target>
+			</trans-unit>
 			<trans-unit id="users.nav.active">
 				<source>Active</source>
 				<target>Ativo</target>
@@ -93,14 +97,6 @@
 			<trans-unit id="system.nav.inactive">
 				<source>Inactive</source>
 				<target>Inativo</target>
-			</trans-unit>
-			<trans-unit id="system.nav.satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
-			</trans-unit>
-			<trans-unit id="Satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -166,17 +162,45 @@
 				<source>Enable Configuration</source>
 				<target>Habilite a Configuração</target>
 			</trans-unit>
+			<trans-unit id="ssm.nav.status">
+				<source>Status</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.status.inprogress">
+				<source>In Progress</source>
+				<target>Em Progresso</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.status.completed">
+				<source>Completed</source>
+				<target>Concluído</target>
+			</trans-unit>
 			<trans-unit id="channel.nav.relevant">
 				<source>Relevant channels</source>
 				<target>Canais relevantes</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.all">
-				<source>All channels</source>
-				<target>Todos os canais</target>
+				<source>All Channels</source>
+				<target>Todos os Canais</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.shared">
+				<source>Shared Channels</source>
+				<target>Canais Compartilhados</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.redhat">
+				<source>Red Hat Channels</source>
+				<target>Canais da Red Hat</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.popular">
+				<source>Popular Channels</source>
+				<target>Canais Populares</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.custom">
+				<source>My Channels</source>
+				<target>Meus Canais</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.retired">
 				<source>Retired channels</source>
-				<target>Canais aposentados</target>
+				<target>Canais Aposentados</target>
 			</trans-unit>
 			<trans-unit id="config.nav.managed">
 				<source>Managed Systems</source>
@@ -354,9 +378,9 @@
 				<source>Snapshots</source>
 				<target>Snapshots</target>
 			</trans-unit>
-			<trans-unit id="Satellite Guide">
-				<source>Satellite Guide</source>
-				<target>Guia do Satellite</target>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
+				<target>Guia de Instalação</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -386,9 +410,13 @@
 				<source>Sandbox</source>
 				<target>Sandbox</target>
 			</trans-unit>
-			<trans-unit id="Satellite Configuration">
-				<source>Satellite Configuration</source>
-				<target>Configuração do Satellite</target>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@NOME_DO_PRODUTO@@</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Configuration">
+				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<target>Configuração do @@NOME_DO_PRODUTO@@</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>
@@ -490,6 +518,14 @@
 				<source>Kickstart Details</source>
 				<target>Detalhes do Kickstart</target>
 			</trans-unit>
+			<trans-unit id="kickstart.tree.edit.nav">
+				<source>Edit</source>
+				<target>Editar</target>
+			</trans-unit>
+			<trans-unit id="kickstart.variable.nav">
+				<source>Variables</source>
+				<target>Variantes</target>
+			</trans-unit>
 			<trans-unit id="System Details">
 				<source>System Details</source>
 				<target>Detalhes do Sistema</target>
@@ -566,6 +602,10 @@
 				<source>Recently Registered</source>
 				<target>Registrados Recentemente</target>
 			</trans-unit>
+			<trans-unit id="Admins">
+				<source>Admins</source>
+				<target>Administrativo</target>
+			</trans-unit>
 			<trans-unit id="Managers">
 				<source>Managers</source>
 				<target>Gerenciadores</target>
@@ -585,6 +625,18 @@
 			<trans-unit id="Organizations">
 				<source>Organizations</source>
 				<target>Organizações</target>
+			</trans-unit>
+			<trans-unit id="Trusts">
+				<source>Trusts</source>
+				<target>Trusts</target>
+			</trans-unit>
+			<trans-unit id="Channels Consumed">
+				<source>Channels Consumed</source>
+				<target>Canais Consumidos</target>
+			</trans-unit>
+			<trans-unit id="Channels Provided">
+				<source>Channels Provided</source>
+				<target>Canais Fornecidos</target>
 			</trans-unit>
 			<trans-unit id="Subscriptions">
 				<source>Subscriptions</source>

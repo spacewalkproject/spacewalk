@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd ../code/src/com/redhat/rhn/frontend/strings/
-wget --no-check-certificate http://engineering.redhat.com/docbot/tar/$1-xliff.tgz
+wget --no-check-certificate http://engineering.bne.redhat.com/~gcintra/$1-xliff.tgz
 mv $1-xliff.tgz $1
 cd $1
 tar xzvf $1-xliff.tgz

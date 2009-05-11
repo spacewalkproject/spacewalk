@@ -34,6 +34,10 @@
 				<source>All</source>
 				<target>所有</target>
 			</trans-unit>
+			<trans-unit id="ssm.nav.status.all">
+				<source>All</source>
+				<target>所有</target>
+			</trans-unit>
 			<trans-unit id="users.nav.active">
 				<source>Active</source>
 				<target>激活</target>
@@ -93,14 +97,6 @@
 			<trans-unit id="system.nav.inactive">
 				<source>Inactive</source>
 				<target>不活跃的</target>
-			</trans-unit>
-			<trans-unit id="system.nav.satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
-			</trans-unit>
-			<trans-unit id="Satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -166,13 +162,41 @@
 				<source>Enable Configuration</source>
 				<target>启用配置</target>
 			</trans-unit>
+			<trans-unit id="ssm.nav.status">
+				<source>Status</source>
+				<target>状态</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.status.inprogress">
+				<source>In Progress</source>
+				<target>进行中</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.status.completed">
+				<source>Completed</source>
+				<target>完成</target>
+			</trans-unit>
 			<trans-unit id="channel.nav.relevant">
 				<source>Relevant channels</source>
 				<target>相关的频道</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.all">
-				<source>All channels</source>
+				<source>All Channels</source>
 				<target>所有频道</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.shared">
+				<source>Shared Channels</source>
+				<target>共享频道</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.redhat">
+				<source>Red Hat Channels</source>
+				<target>红帽频道</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.popular">
+				<source>Popular Channels</source>
+				<target>受欢迎的频道</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.custom">
+				<source>My Channels</source>
+				<target>我的频道</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.retired">
 				<source>Retired channels</source>
@@ -354,9 +378,9 @@
 				<source>Snapshots</source>
 				<target>快照</target>
 			</trans-unit>
-			<trans-unit id="Satellite Guide">
-				<source>Satellite Guide</source>
-				<target>Satellite 指南</target>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
+				<target>安装指南</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -386,9 +410,13 @@
 				<source>Sandbox</source>
 				<target>沙盒</target>
 			</trans-unit>
-			<trans-unit id="Satellite Configuration">
-				<source>Satellite Configuration</source>
-				<target>Satellite 配置</target>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Configuration">
+				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<target>@@PRODUCT_NAME@@ 配置</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>
@@ -490,6 +518,14 @@
 				<source>Kickstart Details</source>
 				<target>Kickstart 信息</target>
 			</trans-unit>
+			<trans-unit id="kickstart.tree.edit.nav">
+				<source>Edit</source>
+				<target>编辑</target>
+			</trans-unit>
+			<trans-unit id="kickstart.variable.nav">
+				<source>Variables</source>
+				<target>变量</target>
+			</trans-unit>
 			<trans-unit id="System Details">
 				<source>System Details</source>
 				<target>系统详情</target>
@@ -566,6 +602,10 @@
 				<source>Recently Registered</source>
 				<target>最近注册的</target>
 			</trans-unit>
+			<trans-unit id="Admins">
+				<source>Admins</source>
+				<target>管理员</target>
+			</trans-unit>
 			<trans-unit id="Managers">
 				<source>Managers</source>
 				<target>管理者</target>
@@ -585,6 +625,18 @@
 			<trans-unit id="Organizations">
 				<source>Organizations</source>
 				<target>机构</target>
+			</trans-unit>
+			<trans-unit id="Trusts">
+				<source>Trusts</source>
+				<target>信托</target>
+			</trans-unit>
+			<trans-unit id="Channels Consumed">
+				<source>Channels Consumed</source>
+				<target>消耗的频道</target>
+			</trans-unit>
+			<trans-unit id="Channels Provided">
+				<source>Channels Provided</source>
+				<target>提供的频道</target>
 			</trans-unit>
 			<trans-unit id="Subscriptions">
 				<source>Subscriptions</source>

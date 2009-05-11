@@ -138,9 +138,9 @@
 				<source>Tip</source>
 				<target>ヒント</target>
 			</trans-unit>
-			<trans-unit id="About RHN">
-				<source>About RHN</source>
-				<target>RHN について</target>
+			<trans-unit id="About Spacewalk">
+				<source>About</source>
+				<target>★</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -226,6 +226,10 @@
 				<source>Change Email</source>
 				<target>Email の変更</target>
 			</trans-unit>
+			<trans-unit id="frontend.actions.channels.manager.create">
+				<source>Create Software Channel</source>
+				<target>ソフトウェアチャンネルの作成</target>
+			</trans-unit>
 			<trans-unit id="Software Channel Entitlements">
 				<source>Software Channel Entitlements</source>
 				<target>ソフトウェアチャンネルのエンタイトルメント</target>
@@ -258,9 +262,9 @@
 				<source>Config Channels</source>
 				<target>設定チャンネル</target>
 			</trans-unit>
-			<trans-unit id="Contact RHN">
-				<source>Contact RHN</source>
-				<target>RHN に連絡</target>
+			<trans-unit id="Contact Spacewalk">
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ に連絡●</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -334,9 +338,9 @@
 				<source>File Preservation</source>
 				<target>ファイル保持</target>
 			</trans-unit>
-			<trans-unit id="Get RHN Software">
-				<source>Get RHN Software</source>
-				<target>RHN ソフトウェアを取得</target>
+			<trans-unit id="Get Spacewalk Software">
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ ソフトウェアを取得</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -394,17 +398,17 @@
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Guide">
-				<source>Management Satellite Guide</source>
-				<target>Management Satellite Guide</target>
+			<trans-unit id="Management Spacewalk Guide">
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>Management @@PRODUCT_NAME@@ ガイド　●</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite">
-				<source>Management Satellite</source>
-				<target>Management Satellite</target>
+			<trans-unit id="Management Spacewalk">
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>Management @@PRODUCT_NAME@@　●</target>
 			</trans-unit>
-			<trans-unit id="Management Satellite Release Notes">
-				<source>Management Satellite Release Notes</source>
-				<target>Management Satellite リリースノート</target>
+			<trans-unit id="Management Spacewalk Release Notes">
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>Management @@PRODUCT_NAME@@ リリースノート</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -415,10 +419,6 @@
 				<target>ソフトウェアパッケージの管理</target>
 			</trans-unit>
 			<trans-unit id="Monitoring">
-				<source>Monitoring</source>
-				<target>Monitoring</target>
-			</trans-unit>
-			<trans-unit id="monitoring_entitled">
 				<source>Monitoring</source>
 				<target>Monitoring</target>
 			</trans-unit>
@@ -490,13 +490,13 @@
 				<source>Published</source>
 				<target>発行済み</target>
 			</trans-unit>
-			<trans-unit id="Purchase History">
-				<source>Purchase History</source>
-				<target>購入履歴</target>
-			</trans-unit>
 			<trans-unit id="Subscription Management">
 				<source>Subscription Management</source>
 				<target>サブスクリプションの管理</target>
+			</trans-unit>
+			<trans-unit id="Organization Trusts">
+				<source>Organization Trusts</source>
+				<target>組織の信頼　●</target>
 			</trans-unit>
 			<trans-unit id="Quick Start Guide">
 				<source>Quick Start Guide</source>
@@ -526,29 +526,21 @@
 				<source>RHL Migration FAQ</source>
 				<target>RHL 移行に関する良くある質問とその答え (FAQ)</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Satellite Tools">
-				<source>RHN Management Satellite Tools</source>
-				<target>RHN Management Satellite ツール</target>
+			<trans-unit id="Spacewalk Management Tools">
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ 管理ツール　●</target>
 			</trans-unit>
-			<trans-unit id="RHN Security">
-				<source>RHN Security</source>
-				<target>RHN セキュリティ</target>
-			</trans-unit>
-			<trans-unit id="Red Hat Login">
-				<source>Red Hat Login</source>
-				<target>Red Hat ログイン</target>
+			<trans-unit id="Spacewalk Login">
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ ログイン</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>ログインの作成</target>
 			</trans-unit>
-			<trans-unit id="RHN Support Tools">
-				<source>RHN Support Tools</source>
-				<target>RHN サポートツール</target>
-			</trans-unit>
-			<trans-unit id="Satellite Release Notes">
-				<source>Satellite Release Notes</source>
-				<target>Satellite リリースノート</target>
+			<trans-unit id="Spacewalk Support Tools">
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ サポートツール</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -557,6 +549,10 @@
 			<trans-unit id="Scout Config Push">
 				<source>Scout Config Push</source>
 				<target>設定プッシュのスカウト</target>
+			</trans-unit>
+			<trans-unit id="Search">
+				<source>Search</source>
+				<target>検索</target>
 			</trans-unit>
 			<trans-unit id="Sessions">
 				<source>Sessions</source>
@@ -702,6 +698,14 @@
 				<source>You may not delete yourself.</source>
 				<target>自分自身は削除できません。</target>
 			</trans-unit>
+			<trans-unit id="user.satadmin.remove">
+				<source>Removed Satellite Administrator role from {0}</source>
+				<target>Satellite 管理者ロールを {0} より削除しました　●</target>
+			</trans-unit>
+			<trans-unit id="user.satadmin.add">
+				<source>Added Satellite Administrator role to {0}</source>
+				<target>Satellite 管理者ロールを {0} に追加しました　●</target>
+			</trans-unit>
 			<trans-unit id="user.deleteadmin">
 				<source>You cannot delete &lt;strong&gt;another&lt;/strong&gt; organization administrator. Please remove the 'Organization Administrator' role from this user before attempting to delete their account</source>
 				<target>&lt;strong&gt;別の&lt;/strong&gt; Organization Administrator を削除することはできません。 このユーザーの「Organization Administrator」ロールを削除してからアカウントの削除を行なってください。</target>
@@ -738,10 +742,6 @@
 				<source>Your Preferences</source>
 				<target>ユーザーの個人設定</target>
 			</trans-unit>
-			<trans-unit id="Your RHN">
-				<source>Your RHN</source>
-				<target>ユーザーの RHN </target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>Organization Applicant</target>
@@ -763,16 +763,20 @@
 				<target>Organization Administrator</target>
 			</trans-unit>
 			<trans-unit id="Satellite Administrators">
-				<source>Satellite Administrators</source>
-				<target>Satellite 管理者</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 管理者　●</target>
 			</trans-unit>
-			<trans-unit id="RHN Super Users">
-				<source>RHN Super Users</source>
-				<target>RHN Super User</target>
+			<trans-unit id="Spacewalk Administrators">
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 管理者　●</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Super Users">
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ スーパーユーザー</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
-				<target>System Group Administrator</target>
+				<target>システムグループ管理者　●</target>
 			</trans-unit>
 			<trans-unit id="for Org">
 				<source> for Org </source>
@@ -1039,8 +1043,8 @@
 				<target>フィルタする: </target>
 			</trans-unit>
 			<trans-unit id="message.range">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{2}&lt;/strong&gt; のうち &lt;strong&gt;{1}&lt;/strong&gt; </target>
+				<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
+				<target>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; のうち &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="message.range.withtypedescription">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;
@@ -1177,8 +1181,8 @@
 				<target>アップロード用ファイル:</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.message">
-				<source>This kickstart profile uses a base channel that is missing packages. In order for all kickstart functionality to work correctly, the following packages should be present in this kickstart's base channel: {0}.</source>
-				<target>このキックスタートプロフィールはパッケージが不足しているベースチャンネルを使用しています。 キックスタート機能をすべて正常に動作させるには、 次のパッケージがこのキックスタートのベースチャンネルに必要なります。 {0}</target>
+				<source>The following packages are not available in any of the channels associated to this kickstart profile: {0}. In order for all kickstart functionality to work correctly, these packages should be present in at least one channel associated to this profile.</source>
+				<target>以下のパッケージはキックスタートプロフィール {0} に関連するチャンネルには存在しません。キックスタート機能をすべて適切に動作させるには、このプロフィールに関連するチャンネルの 1 つ以上に以下のパッケージが存在しなければなりません。●</target>
 			</trans-unit>
 			<trans-unit id="kickstart.invalidchannel.satmessage">
 				<source>&lt;div style="text-align: left;"&gt;
@@ -1187,11 +1191,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Satellite administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Satellite. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1207,22 +1211,22 @@ available for this kickstart profile to function properly.
 &lt;/ul&gt;
 &lt;/div&gt;</source>
 				<target>&lt;div style="text-align: left;"&gt;
-&lt;p&gt;この問題を解決する為に、以下の事項をチェックして下さい:&lt;/p&gt;
+&lt;p&gt;この問題を解決するために、以下の事項を確認してください。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-このキックスタートプロフィールのベースチャンネル用の 'rhn-tools' の子ソフトウェア 
-チャンネルは、ユーザーの組織で使用できますか？ 使用できなければ、Satellite 管理者に 'rhn-tools' のソフトウェアチャンネルの為のエンタイトルメントを要求する 必要があります。
+このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子ソフトウェア
+チャンネルは、ユーザーの組織で使用できますか？ 使用できなければ、@@PRODUCT_NAME@@ 管理者に rhn-tools のソフトウェアチャンネルのエンタイトルメントをリクエストしなければなりません。
 &lt;/li&gt;
 &lt;li&gt;
-このキックスタートプロフィールのベースチャンネル用の 'rhn-tools' の子チャンネルが 
-使用中の Satellite で使用できることを確認してください。使用できなければ、担当の Satellite 管理者に連絡して、rhn-tools チャンネル用に satellite-sync  を要求し、 それからもう一度試してください。
+このキックスタートプロフィールのベースチャンネルに対する rhn-tools の子チャンネルが
+@@PRODUCT_NAME@@ で使用できるか確認してください。使用できなければ、担当の Satellite 管理者に連絡し、rhn-tools チャンネルの satellite-sync をリクエストしてから再度試してください。
 &lt;/li&gt;
 &lt;li&gt;
 このキックスタートに対応する rhn-kickstart* パッケージが、このキックスタート 
-のベースチャンネルの 'rhn-tools'  チャンネル内で使用できることを確認して下さい。 使用できなければ、正常に機能するようにユーザーがそれらをこのキックスタートプロフィール用に使用可能にする必要があります。
+のベースチャンネルの rhn-tools チャンネル内で使用できるか確認してください。rhn-kickstart* パッケージが使用できないとキックスタートプロフィールが正しく動作しないため、使用できるようにしてください。
 &lt;/li&gt;
 &lt;li&gt;
-上記のパッケージはこのキックスタートのベースチャンネルで使用できますか？ 使用できなければ、正常に機能するようにユーザーがこのキックスタートプロフィール用に使用可能にする必要があります。
+上記のパッケージはキックスタートのベースチャンネルで使用できますか？ パッケージが使用できないとキックスタートプロフィールが正しく動作しないため、使用できるようにしてください。●
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;</target>
@@ -1271,6 +1275,10 @@ available for this kickstart profile to function properly.
 				<source>Kickstart advanced options successfully updated.</source>
 				<target>キックスタートの高度なオプションが正しく更新されました。</target>
 			</trans-unit>
+			<trans-unit id="kickstart.options.url.note">
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; デフォルトの @@PRODUCT_NAME@@ キックスタート URL はファイルパスで保存されているため、@@PRODUCT_NAME@@ はいつキックスタートファイルにレンダーリングされている URL のホスト名を動的に調整するかを判断できます (プロキシに対する場合など)。ファイルパスを完全修飾 URL に変更してこの値をカスタマイズすることもできます。この場合、完全修飾 URL がキックスタートファイルに表示されます。●</target>
+			</trans-unit>
 			<trans-unit id="kickstart.iprange_add.success">
 				<source>Successfully added IP Range to Kickstart Profile {0}</source>
 				<target>IP 範囲がキックスタートプロフィール {0} に正しく追加されました。</target>
@@ -1290,6 +1298,38 @@ available for this kickstart profile to function properly.
 			<trans-unit id="kickstart.iprange_delete.failure">
 				<source>There was an error deleting the IP Range from Kickstart Profile {0}. Please try again.</source>
 				<target>キックスタートプロフィール {0} から IP 範囲を削除する際にエラーが発生しました。 やり直してください。</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.update.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; updated successfully.</source>
+				<target>Cobber スニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく更新されました。●</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.create.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; created successfully.</source>
+				<target>Cobber スニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく作成されました。●</target>
+			</trans-unit>
+			<trans-unit id="cobblersnippet.delete.success">
+				<source>Cobbler Snippet &lt;strong&gt;{0}&lt;/strong&gt; deleted successfully.</source>
+				<target>Cobber スニペット &lt;strong&gt;{0}&lt;/strong&gt; が正しく削除されました。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.couldnotdelete.message">
+				<source>An error occurred when attempting to delete the snippet &lt;strong&gt;{0}&lt;/strong&gt;.</source>
+				<target>スニペット &lt;strong&gt;{0}&lt;/strong&gt; を削除する際にエラーが発生しました。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.rename-error">
+				<source>An error occurred when attempting to rename the snippet &lt;strong&gt;{0}&lt;/strong&gt; to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
+				<target>スニペット &lt;strong&gt;{0}&lt;/strong&gt; の名前を &lt;strong&gt;{1}&lt;/strong&gt; に変更する際にエラーが発生しました。</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.filenameexists.message">
+				<source>Cobbler snippet with the name &lt;strong&gt;{0}&lt;/strong&gt; already exists.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; という名前の Cobbler スニペットは既に存在します。●</target>
+			</trans-unit>
+			<trans-unit id="cobbler.snippet.invalidfilename.message">
+				<source>The requested Cobbler snippet filename is not valid.  Valid characters are A-Z, a-z, 0-9, _ and -.</source>
+				<target>指定された Cobbler スニペットのファイル名は無効です。有効な文字は英数字 (A〜Z、a〜z、0〜9)、アンダーライン (_)、ハイフン (-) です。●</target>
+			</trans-unit>
+			<trans-unit id="toolbar.delete.snippets">
+				<source>delete snippet</source>
+				<target>スニペットの削除</target>
 			</trans-unit>
 			<trans-unit id="kickstart.iprange.url">
 				<source>New systems can be kickstarted based upon their ip address by appending &lt;code&gt;{0}&lt;/code&gt; to the kernel parameters for a kickstart install.</source>
@@ -1356,16 +1396,16 @@ available for this kickstart profile to function properly.
 				<target>Solaris パッケージリストリフレッシュ</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>RHN Daemon Configuration</source>
-				<target>RHN デーモン設定</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ デーモン設定</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>配備したパッケージの確認</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an RHN Satellite</source>
-				<target>RHN Satellite での rhn-applet 使用を許可</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ で rhn-applet の使用を許可　●</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1411,6 +1451,14 @@ available for this kickstart profile to function properly.
 				<source>You must select at least one system.</source>
 				<target>少くとも 1 システムを選択する必要があります。</target>
 			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.startdate">
+				<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
+				<target>開始日を解析できません。yyyy-mm-dd 形式で再入力してください。●</target>
+			</trans-unit>
+			<trans-unit id="erratasearch.error.parse.enddate">
+				<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
+				<target>終了日を解析できません。yyyy-mm-dd 形式で再入力してください。●</target>
+			</trans-unit>
 			<trans-unit id="patchremoveconfirm.schedule">
 				<source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
 				<target>&lt;strong&gt;{1}&lt;/strong&gt; システムに対してパッチの削除がスケジュールされています</target>
@@ -1452,8 +1500,8 @@ available for this kickstart profile to function properly.
 				<target>Organization Administrator</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Satellite Administrator</source>
-				<target>Satellite 管理者</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ 管理者</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1464,8 +1512,8 @@ available for this kickstart profile to function properly.
 				<target>Channel Administrator</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Red Hat Network Superuser</source>
-				<target>Red Hat Network Superuser</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ スーパーユーザー　●</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1480,8 +1528,8 @@ available for this kickstart profile to function properly.
 				<target>Coma CMS Publisher</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Red Hat Network Support Administrator</source>
-				<target>Red Hat Network Support Administrator</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ サポート管理者</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -1518,6 +1566,10 @@ available for this kickstart profile to function properly.
 			<trans-unit id="toolbar.create.filter">
 				<source>create new notification filter</source>
 				<target>新規の通知フィルタを作成</target>
+			</trans-unit>
+			<trans-unit id="toolbar.upload.kickstart">
+				<source>upload new kickstart file</source>
+				<target>新規のキックスタートプロフィールをアップロード　●</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.kickstart">
 				<source>create new kickstart profile</source>
@@ -1567,6 +1619,14 @@ available for this kickstart profile to function properly.
 				<source>delete system</source>
 				<target>システムの削除</target>
 			</trans-unit>
+			<trans-unit id="toolbar.delete.systemgroup">
+				<source>delete group</source>
+				<target>グループの削除</target>
+			</trans-unit>
+			<trans-unit id="toolbar.work.with.group">
+				<source>work with group</source>
+				<target>グループと動作　●</target>
+			</trans-unit>
 			<trans-unit id="toolbar.delete.errata">
 				<source>delete errata</source>
 				<target>エラータの削除</target>
@@ -1615,6 +1675,10 @@ available for this kickstart profile to function properly.
 				<source>Security Advisory</source>
 				<target>セキュリティに関するアドバイザリ</target>
 			</trans-unit>
+			<trans-unit id="errata.search.could_not_execute_query">
+				<source>Could not execute query: {0}</source>
+				<target>クエリを実行できませんでした: {0}　●</target>
+			</trans-unit>
 			<trans-unit id="packages.search.both">
 				<source>Name and Summary</source>
 				<target>名前と要約</target>
@@ -1655,9 +1719,21 @@ available for this kickstart profile to function properly.
 				<source>Could not parse query '{0}'.</source>
 				<target>クエリを構文解析できませんでした '{0}'</target>
 			</trans-unit>
+			<trans-unit id="packages.search.index_files_missing">
+				<source>Index files missing from search-server.  Assuming data exists in database, indexes can be regenerated by running: /etc/init.d/rhn-search cleanindex, then restart rhn-search</source>
+				<target>検索サーバーにインデックスファイルがありません。データベースにデータが存在する場合、/etc/init.d/rhn-search cleanindex を実行した後に rhn-search を起動するとインデックスを再生成できます。</target>
+			</trans-unit>
+			<trans-unit id="packages.search.could_not_execute_query">
+				<source>Could not execute query '{0}'.</source>
+				<target>クエリ '{0}' を実行できませんでした。</target>
+			</trans-unit>
 			<trans-unit id="packages.search.tooshort">
 				<source>Search strings must be longer than two characters.</source>
 				<target>検索文字列は 2 文字以上にしてください。</target>
+			</trans-unit>
+			<trans-unit id="packages.search.index_out_of_sync_with_db">
+				<source>Package search index and database entries appear to be out of sync. Please run '/sbin/service rhn-search cleanindex; /sbin/service rhn-search start'</source>
+				<target>パッケージ検索インデックスとデータベースエントリが同期されていないようです。「/sbin/service rhn-search cleanindex; /sbin/service rhn-search start」を実行してください。●</target>
 			</trans-unit>
 			<trans-unit id="patches.installed.notavailable">
 				<source>Not Available</source>
@@ -1710,6 +1786,14 @@ available for this kickstart profile to function properly.
 			<trans-unit id="systemsearch_cpu_mhz_gt">
 				<source>CPU Mhz Greater Than</source>
 				<target>CPU Mhz が指定値を超えるもの</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_lt">
+				<source>Number of CPUs Less Than</source>
+				<target>CPU の数が指定値未満のもの</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_num_of_cpus_gt">
+				<source>Number of CPUs Greater Than</source>
+				<target>CPU の数が指定値を超えるもの</target>
 			</trans-unit>
 			<trans-unit id="systemsearch_ram_lt">
 				<source>RAM Less Than</source>
@@ -1783,6 +1867,10 @@ available for this kickstart profile to function properly.
 				<source>Needed Packages</source>
 				<target>必要とされるパッケージ</target>
 			</trans-unit>
+			<trans-unit id="systemsearch_running_kernel">
+				<source>Running Kernel</source>
+				<target>稼働中のカーネル</target>
+			</trans-unit>
 			<trans-unit id="systemsearch.jsp.location">
 				<source>Location</source>
 				<target>場所</target>
@@ -1794,6 +1882,10 @@ available for this kickstart profile to function properly.
 			<trans-unit id="systemsearch.errors.numeric">
 				<source>Search queries for this field must be numeric</source>
 				<target>このフィールドの検索は数値検索にしてください</target>
+			</trans-unit>
+			<trans-unit id="systemsearch_no_matches_found">
+				<source>No matches found</source>
+				<target>一致する項目はありませんでした　●</target>
 			</trans-unit>
 			<trans-unit id="userdisable.error.sameorg">
 				<source>User to deactivate must be in the same organization.</source>
@@ -1967,6 +2059,14 @@ user before attempting to deactivate their account.</source>
 				<source>Install</source>
 				<target>インストール</target>
 			</trans-unit>
+			<trans-unit id="Remove">
+				<source>Remove</source>
+				<target>削除</target>
+			</trans-unit>
+			<trans-unit id="message.actionremove">
+				<source>Remove</source>
+				<target>削除</target>
+			</trans-unit>
 			<trans-unit id="Groups">
 				<source>Groups</source>
 				<target>グループ</target>
@@ -2024,16 +2124,16 @@ user before attempting to deactivate their account.</source>
 				<target>システムの前回チェックイン :</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current RHN time:</source>
-				<target>現在の RHN 時間:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>現在の @@PRODUCT_NAME@@ 時間:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
-				<target>期待されるチェックイン時刻 :</target>
+				<target>予期されるチェックイン時刻 :</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Red Hat Network recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; このシステムは最近、 Red Hat Network にチェックインしていません。 RHN にチェックインしないとシステムの更新を行うことができないため、 このアクションは恐らく成功しないでしょう。 &lt;br/&gt;&lt;br/&gt;システムをチェックして、 rhnsd が実行されていることを確認してください(&lt;a href="/help/faq.pxt#15"&gt;詳細&lt;/a&gt;)。 実行が失敗している場合は、 &lt;a href="/help/contact.pxt"&gt;当社に連絡してください&lt;/a&gt;。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; このシステムはしばらく @@PRODUCT_NAME@@ にチェックインしていません。 @@PRODUCT_NAME@@ にチェックインしないとシステムの更新を行うことができないため、指定のアクションは正常に実行されない可能性があります。&lt;br/&gt;&lt;br/&gt;システムをチェックして、 rhnsd が実行されていることを確認してください (&lt;a href="/help/faq.pxt#15"&gt;詳細&lt;/a&gt;)。 実行できない場合は、 &lt;a href="/help/contact.pxt"&gt;当社に連絡してください&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2112,8 +2212,8 @@ user before attempting to deactivate their account.</source>
 				<target>秒</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>&lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; パッチクラスタのインストールが &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;スケジュールされています&lt;/a&gt;。</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>&lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; パッチクラスタのインストールが &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;スケジュールされています&lt;/a&gt;。●</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2231,9 +2331,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>全般的な設定</target>
 			</trans-unit>
-			<trans-unit id="Satellite Tools">
-				<source>Satellite Tools</source>
-				<target>Satellite ツール</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>管理　●</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2246,10 +2346,6 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="recurring_duration">
 				<source>Recurring Duration</source>
 				<target>繰り返しの期間</target>
-			</trans-unit>
-			<trans-unit id="message.actionremove">
-				<source>Remove</source>
-				<target>削除</target>
 			</trans-unit>
 			<trans-unit id="message.actiondowngrade">
 				<source>Downgrade to {0}</source>
@@ -2280,8 +2376,8 @@ user before attempting to deactivate their account.</source>
 				<target>&lt;strong&gt;{3}&lt;/strong&gt; からの &lt;strong&gt;{2}&lt;/strong&gt;に対するパッケージプロフィールの同期が正しく &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;スケジュールされました&lt;/a&gt;&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Red Hat Network has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; Red Hat Network は &lt;strong&gt;{2}&lt;/strong&gt; のハードウェアリフレッシュがパッケージプロフィールの同期より先に実行されるよう &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;スケジュールしています&lt;/a&gt;&lt;/strong&gt;。 システムがパッケージの比較を行なえるようにするために必要となります。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; @@PRODUCT_NAME@@ は &lt;strong&gt;{2}&lt;/strong&gt; のハードウェアリフレッシュがパッケージプロフィールの同期より先に実行されるよう &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;スケジュールされています&lt;/a&gt;&lt;/strong&gt;。これは、システムがパッケージの比較を行えるか検証するために必要となります。●</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -2407,6 +2503,10 @@ user before attempting to deactivate their account.</source>
 				<source>Aruba</source>
 				<target>アルバ</target>
 			</trans-unit>
+			<trans-unit id="AX">
+				<source>Aland Islands</source>
+				<target>アランド諸島</target>
+			</trans-unit>
 			<trans-unit id="AZ">
 				<source>Azerbaijan</source>
 				<target>アゼルバイジャン</target>
@@ -2494,6 +2594,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="CC">
 				<source>Cocos (Keeling) Islands</source>
 				<target>ココス諸島</target>
+			</trans-unit>
+			<trans-unit id="CD">
+				<source>CONGO, The Democratic Republic of the</source>
+				<target>コンゴ民主共和国</target>
 			</trans-unit>
 			<trans-unit id="CF">
 				<source>Central African Republic</source>
@@ -2644,12 +2748,16 @@ user before attempting to deactivate their account.</source>
 				<target>ガボン</target>
 			</trans-unit>
 			<trans-unit id="GB">
-				<source>(GMT+0100) United Kingdom</source>
-				<target>(GMT+0100) イギリス</target>
+				<source>United Kingdom</source>
+				<target>イギリス</target>
 			</trans-unit>
 			<trans-unit id="GB-Eire">
-				<source>(GMT+0100) Ireland</source>
-				<target>(GMT+0100) アイルランド</target>
+				<source>Ireland</source>
+				<target>アイルランド</target>
+			</trans-unit>
+			<trans-unit id="IE">
+				<source>Ireland</source>
+				<target>アイルランド</target>
 			</trans-unit>
 			<trans-unit id="GD">
 				<source>Grenada</source>
@@ -2662,6 +2770,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="GF">
 				<source>French Guiana</source>
 				<target>仏領ギアナ</target>
+			</trans-unit>
+			<trans-unit id="GG">
+				<source>Guernsey</source>
+				<target>ガーンジー</target>
 			</trans-unit>
 			<trans-unit id="GH">
 				<source>Ghana</source>
@@ -2743,13 +2855,13 @@ user before attempting to deactivate their account.</source>
 				<source>Indonesia</source>
 				<target>インドネシア</target>
 			</trans-unit>
-			<trans-unit id="IE">
-				<source>Ireland</source>
-				<target>アイルランド</target>
-			</trans-unit>
 			<trans-unit id="IL">
 				<source>Israel</source>
 				<target>イスラエル</target>
+			</trans-unit>
+			<trans-unit id="IM">
+				<source>Isle of Man</source>
+				<target>マン島</target>
 			</trans-unit>
 			<trans-unit id="IN">
 				<source>India</source>
@@ -2757,7 +2869,7 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="IO">
 				<source>British Indian Ocean Territory</source>
-				<target>英領インド洋植民地</target>
+				<target>イギリス領インド洋地域</target>
 			</trans-unit>
 			<trans-unit id="IQ">
 				<source>Iraq</source>
@@ -2774,6 +2886,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="IT">
 				<source>Italy</source>
 				<target>イタリア</target>
+			</trans-unit>
+			<trans-unit id="JE">
+				<source>Jersey</source>
+				<target>ジャージー島</target>
 			</trans-unit>
 			<trans-unit id="JM">
 				<source>Jamaica</source>
@@ -2886,6 +3002,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="MD">
 				<source>Moldova</source>
 				<target>モルドバ</target>
+			</trans-unit>
+			<trans-unit id="ME">
+				<source>Montenegro</source>
+				<target>モンテネグロ</target>
 			</trans-unit>
 			<trans-unit id="MG">
 				<source>Madagascar</source>
@@ -3051,6 +3171,10 @@ user before attempting to deactivate their account.</source>
 				<source>Puerto Rico</source>
 				<target>プエルトリコ</target>
 			</trans-unit>
+			<trans-unit id="PS">
+				<source>Palestinian Territory, Occupied</source>
+				<target>パレスチナ占領地区</target>
+			</trans-unit>
 			<trans-unit id="PT">
 				<source>Portugal</source>
 				<target>ポルトガル</target>
@@ -3070,6 +3194,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="RE">
 				<source>Reunion (French)</source>
 				<target>レユニオン島(仏領)</target>
+			</trans-unit>
+			<trans-unit id="RS">
+				<source>Serbia</source>
+				<target>セルビア</target>
 			</trans-unit>
 			<trans-unit id="RO">
 				<source>Romania</source>
@@ -3186,6 +3314,10 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="TK">
 				<source>Tokelau</source>
 				<target>トケラウ</target>
+			</trans-unit>
+			<trans-unit id="TL">
+				<source>Timor-Leste</source>
+				<target>東ティモール</target>
 			</trans-unit>
 			<trans-unit id="TM">
 				<source>Turkmenistan</source>
@@ -3344,8 +3476,8 @@ user before attempting to deactivate their account.</source>
 				<target>再起動</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the RHN Satellite Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>RHN Satellite Service の最初のユーザーが作成されました。 追加の設定は、 &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;ここをクリック&lt;/strong&gt;&lt;/a&gt; すると完了するはずです。</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>@@PRODUCT_NAME@@ Service の最初のユーザーが作成されました。追加の設定は、 &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;ここをクリック&lt;/strong&gt;&lt;/a&gt; すると完了するはずです。</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3360,8 +3492,8 @@ user before attempting to deactivate their account.</source>
 				<target>証明書が見つかりませんでした。 ローカルの証明書ファイルを選択するか内容をフォームに貼り付けてください。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Satellite has been re-activated.</source>
-				<target>証明書がアップロードされました。 サテライトが再度アクティブになりました。</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>証明書がアップロードされました。 @@PRODUCT_NAME@@ が再度アクティブになりました。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3372,8 +3504,8 @@ user before attempting to deactivate their account.</source>
 				<target>証明書の有効期限が切れています</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Satellite version</source>
-				<target>Satellite のバージョンが不明です</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>不明の @@PRODUCT_NAME@@ バージョン</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3392,28 +3524,28 @@ user before attempting to deactivate their account.</source>
 				<target>残っている Management エンタイトルメントがありません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Satellite channel not found</source>
-				<target>Satellite チャンネルが見つかりませんでした</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ チャンネルが見つかりませんでした</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Satellite channel entitlements remaining</source>
-				<target>残っている Satellite チャンネルのエンタイトルメントがありません</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>@@PRODUCT_NAME@@ チャンネルの残りのエンタイトルメントはありません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Satellite certificate</source>
-				<target>無効な Satellite 証明書</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>無効な @@PRODUCT_NAME@@ 証明書</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>不明なアクティベーションエラーです</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Satellite has no base channel on parent server</source>
-				<target>Satellite が親サーバーにベースチャンネルを持っていません</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@ が親サーバーにベースチャンネルを持っていません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Satellite channel available for this version</source>
-				<target>このバージョンに使用できる Satellite チャンネルはありません</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>このバージョンに使用できる @@PRODUCT_NAME@@ チャンネルはありません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3424,8 +3556,8 @@ user before attempting to deactivate their account.</source>
 				<target>未処理エラー</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Satellite server hostname</source>
-				<target>Satellite サーバーのホスト名</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ サーバーホスト名　●</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3472,20 +3604,20 @@ user before attempting to deactivate their account.</source>
 				<target>エラーが発生して、ご使用のサテライト設定に関する変更は保存できません でした。 詳細についてはサポートに連絡してください。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Satellite restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Satellite の再起動中です。 このページが 5 分でリフレッシュされない場合は、 &lt;a href="/rhn/YourRhn.do"&gt;ここ&lt;/a&gt; をクリックしてから、手作業で行ってください。</target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@ の再起動中です。 このページが 5 分後にリフレッシュされない場合は、 &lt;a href="/rhn/YourRhn.do"&gt;ここ&lt;/a&gt; をクリックして、手作業でリフレッシュしてください。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the RHN Satellite by checking the box in the form below.</source>
-				<target>以下のフォームにあるボックスに印を付けて RHN Satellite の再起動を確認してください。</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>以下のフォームにあるボックスにチェックを入れ、 @@PRODUCT_NAME@@ の再起動を確認してください。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>RHN Satellite has been restarted.</source>
-				<target>RHN Satellite は再起動されています。</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@ は再起動されています。</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>RHN Monitoring Scout</source>
-				<target>RHN Monitoring スカウト</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ 監視スカウト</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3516,6 +3648,10 @@ user before attempting to deactivate their account.</source>
 				<target>この説明はすでに使用されています。 このキーに新しい詳細を入力してください。</target>
 			</trans-unit>
 			<trans-unit id="label">
+				<source>Label</source>
+				<target>ラベル</target>
+			</trans-unit>
+			<trans-unit id="filter.kickstart.label">
 				<source>Label</source>
 				<target>ラベル</target>
 			</trans-unit>
@@ -3551,11 +3687,11 @@ user before attempting to deactivate their account.</source>
 				<source>No File List(s) selected.</source>
 				<target>ファイル一覧が選択されていません。</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.added">
+			<trans-unit id="kickstart_activation_keys.added">
 				<source>{0} Activation Key(s) added.</source>
 				<target>{0} アクティベーションキーが追加されました。</target>
 			</trans-unit>
-			<trans-unit id="activation_keys.removed">
+			<trans-unit id="kickstart_activation_keys.removed">
 				<source>{0} Activation Key(s) removed.</source>
 				<target>{0} アクティベーションキーが削除されました。</target>
 			</trans-unit>
@@ -3578,7 +3714,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Red Hat Network:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3589,14 +3725,14 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>チェックインを行なっていないシステム:
 ----------------------------------
-以下のシステムは、 最近になって Red Hat Network とのチェックインを停止しました。
+以下のシステムは、 最近 @@PRODUCT_NAME@@ とのチェックインを停止しました。
 
 {0}
 
 
-休止中のシステムは更新をまったく受け取ることができないので注意してください。
+休止中のシステムは更新を受信できないため注意してください。
 
-次の URL に従って休止中のシステムの全一覧を確認してください。
+次の URL より休止中のシステムの一覧を確認してください。
 {1}</target>
 			</trans-unit>
 			<trans-unit id="taskomatic.daily.sid">
@@ -3691,9 +3827,21 @@ Follow this url to see the full list of inactive systems:
 				<source>Kickstart canceled by user: {0}</source>
 				<target>キックスタートが次のユーザーにより取り消されました: {0}</target>
 			</trans-unit>
+			<trans-unit id="kickstart.schedule.requires.older.gpgkey">
+				<source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
+				<target>システム {0} が古いバージョンの Red Hat Enterprise Linux にキックスタートされるようスケジュールされているため、古いリリースの GPG キーが必要です。 &lt;br/&gt;  &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; などで、キーをインストールしてください。●</target>
+			</trans-unit>
 			<trans-unit id="kickstart.schedule.success">
 				<source>System Kickstart scheduled for {0}</source>
 				<target>{0} に対してシステムキックスタートがスケジュールされました</target>
+			</trans-unit>
+			<trans-unit id="kickstart.schedule.cobblercreate">
+				<source>System record created for {0} in Cobbler.  This will allow you to kickstart this system using the {1} profile from {0}'s terminal with the usage of the 'koan' command.</source>
+				<target>Cobbler の {0} にシステム記録が作成されました。これにより、koan コマンドにて {0} のターミナルより {1} プロフィールを使用してこのシステムをキックスタートすることができます。●</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.schedule.success">
+				<source>System Kickstart scheduled for {0}. Please check the system console for status information.</source>
+				<target>{0} にシステムキックスタートがスケジュールされました。システムコンソールで状況を確認してください。●</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.noprofiles">
 				<source>No profiles found that are compatible with this System.  Either you haven't created any Kickstart Profiles or this system does not have a Base Channel.</source>
@@ -3704,16 +3852,16 @@ Follow this url to see the full list of inactive systems:
 				<target>システム &lt;strong&gt;{0}&lt;/strong&gt; にはベースチャンネルがないため、 キックスタートを行なうことができません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>このシステムの現在のベースチャンネルに対して、 RHN Provisioning チャンネルへのサブスクリプションが残っていません。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>このシステムの現在のベースチャンネルに対して、@@PRODUCT_NAME@@ チャンネルへのサブスクリプションが残っていません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the RHN provisioning channel for this system's current base channel.</source>
-				<target>このシステムの現在のベースチャンネルに対して、 RHN Provisioning チャンネルへのサブスクリプションが残っていません。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>このシステムの現在のベースチャンネルに対して、@@PRODUCT_NAME@@ チャンネルへのサブスクリプションが残っていません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed RHN provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>このシステムの現在のベースチャンネル及び目的のターゲットチャンネルに必要な RHN Provisioning パッケージ群が見つかりませんでした: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>このシステムの現在のベースチャンネルや目的のターゲットチャンネルに必要な @@PRODUCT_NAME@@ Provisioning パッケージが見つかりませんでした: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3732,8 +3880,8 @@ Follow this url to see the full list of inactive systems:
 				<target>このシステムに対して新しいキックスタートセッションが開始されました。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Red Hat Network Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; の Red Hat Network ツールのチャンネルをルックアップできませんでした。</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
+				<target>{1} の @@PRODUCT_NAME@@ ツールチャンネルをルックアップできませんでした。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3748,8 +3896,8 @@ Follow this url to see the full list of inactive systems:
 				<target>システムのキックスタートには、 up2date のバージョン {0} またはそれ以降のバージョンが必要になります。 このシステムには {1} がインストールされていますが、 up2date を必要となるバージョンまたはそれ以降のバージョンにアップグレードする up2date のバージョンがこのシステムのチャンネル群には見つかりませんでした。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Satellite in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>ゲストシステムは過去 {0} 分の間に Satellite と交信をしていません。このインストールプロセスは ハードウェア制限の為に進行が遅いか、またはフリーズしている可能性があります。&lt;p/&gt;この問題は、 ホストシステム上で、&lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; を実行することで トラブルシュートすることができます。このコマンドは、インストール中にユーザーがゲストのテキスト コンソールに接続できるようにします。これによりこのゲストシステムのインストール状態についての 追加情報を得ることができるでしょう。</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>ゲストシステムは過去 {0} 分の間に @@PRODUCT_NAME@@ と交信をしていません。このインストールプロセスはハードウェア制限のため進行が遅いか、フリーズしている可能性があります。&lt;p/&gt;この問題を解決するには、ホストシステム上で、&lt;em&gt;virsh console &lt;strong&gt;ゲスト名&lt;/strong&gt;&lt;/em&gt; を実行します。このコマンドは、インストール中にユーザーがゲストのテキストコンソールに接続できるようにします。これによりゲストシステムのインストール状態についての追加情報を取得することができます。</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -3766,6 +3914,14 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="kickstart.tree.invalidlabel">
 				<source>The label is not formatted properly.  The label should contain only letters, numbers, hyphens, periods, and underscores.  It must also be at least 4 characters long</source>
 				<target>ラベルが正しくフォーマット化されていません。 文字、 数字、 ハイフン、 ピリオド及び下線以外はラベルに使用できません。 また、 最低でも 4 文字の長さにしてください。</target>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidkernel">
+				<source>The kernel could not be found at the specified location: {0}</source>
+				<target>指定の場所でカーネルが見つかりませんでした: {0}</target>
+			</trans-unit>
+			<trans-unit id="kickstart.tree.invalidinitrd">
+				<source>The initrd could not be found at the specified location: {0}</source>
+				<target>指定の場所で initrd が見つかりませんでした: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.tree.inuse">
 				<source>The Kickstart Distribution you have chosen to delete is in use.  Please delete or change the Distribution for Kickstart Profiles using this Distribution.</source>
@@ -3787,6 +3943,10 @@ Follow this url to see the full list of inactive systems:
 				<source>System {0} has a pending kickstart scheduled.</source>
 				<target>システム {0} にはスケジュールされている待機中のキックスタートがあります。</target>
 			</trans-unit>
+			<trans-unit id="activation-key.java.invalid_chars">
+				<source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+				<target>アクティベーションキーラベル &lt;strong&gt;{0}&lt;/strong&gt; に無効な文字 &lt;strong&gt;{1}&lt;/strong&gt; が 1 つ以上含まれています。ラベルから無効な文字を削除してください。●</target>
+			</trans-unit>
 			<trans-unit id="activation-key.java.exists">
 				<source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; というラベルのアクティベーションキーはすでに使用されています。 別のラベルをを選択してください。</target>
@@ -3806,6 +3966,18 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="activation-key.java.org_prefixed">
 				<source>Please note that &lt;strong&gt;{0}&lt;/strong&gt; has been modified to &lt;strong&gt;{1}&lt;/strong&gt;.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; が &lt;strong&gt;{1}&lt;/strong&gt; に変更されていることに注意してください。</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy1">
+				<source>This system does not yet have configuration deployment capability. Configuration deployment requires that particular software is installed and enabled on your system.</source>
+				<target>このシステムには設定配置機能がありません。設定配置には特定のソフトウェアがシステムにインストールされ、有効になっていなければなりません。●</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.missing.config_deploy2">
+				<source>You may ensure that configuration deployment capability will be enabled on this system by selecting this system in the  &lt;a href={0}&gt;{1}&lt;/a&gt; screen and then clicking "{2}"</source>
+				<target>このシステムで設定配置機能が有効になるかを確認するには、&lt;a href={0}&gt;{1}&lt;/a&gt; スクリーンでこのシステムを選択し、"{2}" をクリックします。●</target>
+			</trans-unit>
+			<trans-unit id="system.sdc.config_enablement.client">
+				<source>Also be certain that configuration management is enabled on this system by running the following commands:.</source>
+				<target>また、以下のコマンドを実行すると設定管理が有効になっているか確認できます。●</target>
 			</trans-unit>
 			<trans-unit id="system.sdc.addtossm">
 				<source>System added to the System Set Manager.</source>
@@ -4039,30 +4211,6 @@ Follow this url to see the full list of inactive systems:
 				<source>Email address</source>
 				<target>Email アドレス</target>
 			</trans-unit>
-			<trans-unit id="sw_mgr_entitled">
-				<source>Enterprise</source>
-				<target>企業</target>
-			</trans-unit>
-			<trans-unit id="enterprise_entitled">
-				<source>Enterprise</source>
-				<target>企業</target>
-			</trans-unit>
-			<trans-unit id="provisioning_entitled">
-				<source>Provisioning</source>
-				<target>Provisioning</target>
-			</trans-unit>
-			<trans-unit id="nonlinux_entitled">
-				<source>Non-Linux</source>
-				<target>Linux 以外</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host">
-				<source>Virtualization</source>
-				<target>Virtualization</target>
-			</trans-unit>
-			<trans-unit id="virtualization_host_platform">
-				<source>Virtualization Platform</source>
-				<target>Virtualization Platform</target>
-			</trans-unit>
 			<trans-unit id="sdc.details.overview.notifications.disabled">
 				<source>E-mail notifications disabled globally</source>
 				<target>E-mail 通知がグローバルに無効にされました</target>
@@ -4084,8 +4232,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; は ping されています。 OSA 状態が 1 分以内に更新されます。</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Satellite activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN Applet Satellite の起動が &lt;a href="{0}"&gt;スケジュールされました&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet @@PRODUCT_NAME@@ の起動が &lt;a href="{0}"&gt;スケジュールされました&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4108,8 +4256,8 @@ Follow this url to see the full list of inactive systems:
 				<target>配備のアクションは完了していません。 [&lt;a href="{0}"&gt;配備アクションのスケジュール&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.failure">
-				<source>All file and/or directory ({0}) deployments failed. [&lt;a href={1}"&gt;View Details&lt;/a&gt;]</source>
-				<target>すべてのファイルまたはディレクトリ ({0}) の配備に失敗しました。 [&lt;a href={1}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>All file and/or directory ({0}) deployments failed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
+				<target>すべてのファイルまたはディレクトリ ({0}) の配備に失敗しました。 [&lt;a href="{1}"&gt;"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.success">
 				<source>All files and/or directories ({0}) were successfully deployed. [&lt;a href="{1}"&gt;View Details&lt;/a&gt;]</source>
@@ -4124,56 +4272,56 @@ Follow this url to see the full list of inactive systems:
 				<target>比較用のファイルまたはディレクトリが選択されませんでした。 [&lt;a href="{0}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ファイルのうちの {0} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ファイルの {0} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]　●</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]　●</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ディレクトリうちの {0} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ディレクトリうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ディレクトリのうちの {0} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ディレクトリのうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with RHN-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ファイル のうちの {0} と 1 ディレクトリ のうちの {1} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ファイル のうちの {0} と 1 ディレクトリ のうちの {1} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ファイル のうちの {0} と {2} ディレクトリ のうちの {1} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ファイル のうちの {0} と {2} ディレクトリのうちの {1} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with RHN-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に RHN 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイルおよびディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the RHN-Managed files.</source>
-				<target>既存のシステムには RHN 管理ファイルと異なるファイルは存在していません。</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>既存のシステムには @@PRODUCT_NAME@@ 管理ファイルと異なるファイルは存在していません。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the RHN-Managed files</source>
-				<target>システム上の 1 ファイルのうちの 1 つが RHN 管理ファイルと異なっていました。</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>システム上の 1 ファイルのうちの 1 つが @@PRODUCT_NAME@@ 管理ファイルと異なっていました。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the RHN-Managed files.</source>
-				<target>システム上の {1} ファイル のうちの {0} が RHN 管理ファイルと異なっていました。</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>システム上の {1} ファイル のうちの {0} が @@PRODUCT_NAME@@ 管理ファイルと異なっていました。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4335,13 +4483,13 @@ Follow this url to see the full list of inactive systems:
 				<source>{1} must be shutdown if last started with less than {0} vCPUs for changes to take effect.</source>
 				<target>前回起動の vCPU 数が {0} 未満だった場合、変更を反映するには {1} はシャットダウン する必要があります。</target>
 			</trans-unit>
-			<trans-unit id="systems.details.virt.insufficient.memory">
-				<source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
-				<target>要求されたゲストの RAM 変更に対してホストのシステムにあるメモリが不足しています。 ホストシステム &lt;strong&gt;{0}&lt;/strong&gt; はメモリ容量を {1}MB と報告しています。 要求された RAM 変更は、 このホストで使用可能な RAM の合計を越える容量を必要とします(ハイパーバイザー用 {2}MB オーバーヘッド及び既存ゲストにより現在確保されているメモリを含む)。 {1}MB 以上の容量があると思われる場合には、 &lt;a href={3}&gt; このホストシステムのハードウェアプロフィールをリフレッシュしてください。&lt;/a&gt; </target>
-			</trans-unit>
 			<trans-unit id="systems.details.virt.memory.warning">
-				<source>{0} will require a reboot for max memory settings to take effect.</source>
-				<target>最大メモリの設定を反映させるには、 {0} は再起動を必要とします。</target>
+				<source>{0} must be shutdown for max memory settings to take effect.</source>
+				<target>最大メモリの設定を反映させるには、{0} は再起動を必要とします。</target>
+			</trans-unit>
+			<trans-unit id="systems.details.virt.memory.check.host">
+				<source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
+				<target>ゲストメモリの割り当てを増やす場合は、ホストシステムに十分な空きメモリがあることを確認してください。ホストシステムに十分な空きメモリがないと、ゲストが次回起動する際に、ブートしないことがあります。●</target>
 			</trans-unit>
 			<trans-unit id="virtualsystems.none">
 				<source>No virtual systems selected.</source>
@@ -4383,6 +4531,10 @@ Follow this url to see the full list of inactive systems:
 				<source>Note:  Some channel subscriptions could not be updated because there were no available subscriptions.</source>
 				<target>注記:  更新できるサブスクリプションがないため、 更新できなかったチャンネルサブスクリプションがあります。</target>
 			</trans-unit>
+			<trans-unit id="selinux.java.invalid_mode">
+				<source>Invalid SE Linux mode "{0}" specified. Valid values are {1}.</source>
+				<target>無効な SELinux モード "{0}" が指定されました。有効な値は {1} です。●</target>
+			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.successMessage">
 				<source>Updated entitlement count for '{0}'</source>
 				<target>'{0}' 用のエンタイトルメントカウントは更新済み</target>
@@ -4390,6 +4542,14 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="orgsyssub.invalidnum">
 				<source>Provisioning must be a valid number.</source>
 				<target>Provisioning は有効な数字である必要があります。</target>
+			</trans-unit>
+			<trans-unit id="orgsystemsubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>エンタイトルメントの変更は {0} の有効な番号でなければなりません。</target>
+			</trans-unit>
+			<trans-unit id="orgsoftwaresubs.invalid">
+				<source>Entitlement modification must be a valid number for {0}.</source>
+				<target>エンタイトルメントの変更は {0} の有効な番号でなければなりません。</target>
 			</trans-unit>
 			<trans-unit id="multiorg.delete.org.button">
 				<source>Delete Selected Organizations</source>
@@ -4412,24 +4572,24 @@ Follow this url to see the full list of inactive systems:
 				<target>このチャンネルにはファイル名 "{0}" はすでに存在しています。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Red Hat Network Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>このシステムを自動的に Red Hat Network ツールチャンネルにサブスクライブできませんでした。 このチャンネルには仮想化に必要なパッケージが含まれています。 チャンネルエンタイトルメントが足りないことが原因である可能性が高いようです。</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>このシステムを自動的に @@PRODUCT_NAME@@ ツールチャンネルにサブスクライブできませんでした。 このチャンネルには仮想化に必要なパッケージが含まれています。 チャンネルエンタイトルメントが足りないことが原因である可能性が高いようです。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>このシステムを自動的に RHEL Virtualization チャンネルにサブスクライブできませんでした。 このチャンネルには仮想化に必要なパッケージが含まれています。 チャンネルエンタイトルメントが足りないことが原因である可能性が高いようです。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Red Hat Network.</source>
-				<target>&lt;strong&gt;{1}&lt;/strong&gt; チャンネルに {0} パッケージが見つかりませんでした。 これは Red Hat Network で仮想化を行う場合に必要となります。</target>
+				<source>Could not find a channel with the {0} package. This package is required to manage virtual guests with @@PRODUCT_NAME@@.</source>
+				<target>{0} パッケージがあるチャンネルが見つかりません。このパッケージは、@@PRODUCT_NAME@@ で仮想ゲストを管理するのに必要です。●</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>
 				<target>システムはすでに {0} エンタイトルメントを持っています。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.addedvirtualization">
-				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt; for more info.</source>
-				<target>システムに Virtualization エンタイトルメントが追加されたため、 ご使用のシステムが仮想ゲストをより良く管理できるようにいくつか追加のステップを行いました。 詳細については &lt;a href="/rhn/help/reference/en-US/s1-sm-systems.jsp"&gt;here&lt;/a&gt;  をご覧ください。</target>
+				<source>Since you added a Virtualization entitlement to the system we also performed some extra steps to ensure your system will be able to manage virtual guests better.  See &lt;a href="{0}"&gt;here&lt;/a&gt; for more info.</source>
+				<target>システムに仮想化エンタイトルメントが追加されたため、ご使用のシステムが仮想ゲストをより良く管理できるよう一部の手順が追加されました。詳細については &lt;a href="/rhn/help/reference/en/s1-sm-systems.jsp"&gt;ここ&lt;/a&gt; をご覧ください。●</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyvirt">
 				<source>A system can have either the Virtualization or Virtualization Platform entitlement but not both.</source>
@@ -4455,6 +4615,14 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid system</source>
 				<target>無効なシステムです</target>
 			</trans-unit>
+			<trans-unit id="system.runningkernel.unknown">
+				<source>Unkown</source>
+				<target>不明　●</target>
+			</trans-unit>
+			<trans-unit id="api.invalidargs">
+				<source>Invalid argument(s): {0}</source>
+				<target>無効な引数: {0}●</target>
+			</trans-unit>
 			<trans-unit id="api.action.nosuchaction">
 				<source>No such action: {0}</source>
 				<target>このようなアクションはありません: {0}</target>
@@ -4462,6 +4630,30 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.action.invalidactiontype">
 				<source>Invalid action type</source>
 				<target>無効なアクションタイプです</target>
+			</trans-unit>
+			<trans-unit id="api.org.migrationtosameorg">
+				<source>User cannot migrate a system where the origination and destination organizations are the same.  Org Id: {0}, System Id: {1}.</source>
+				<target>移行元組織と移行先組織が同じ場合はシステムを移行できません。組織 ID: {0}、システム ID: {1}。</target>
+			</trans-unit>
+			<trans-unit id="api.org.nosuchorg">
+				<source>No such organization: {0}</source>
+				<target>このような組織はありません: {0}</target>
+			</trans-unit>
+			<trans-unit id="api.org.notintrust">
+				<source>Organization {0} is not defined in trust.</source>
+				<target>組織 {0} は「信頼」に定義されていません。●</target>
+			</trans-unit>
+			<trans-unit id="api.org.sysnotintrust">
+				<source>System {0} is member of organization {1} which is not defined in the destination organization's trust.</source>
+				<target>System {0} は移行先組織の「信頼」に定義されていない、組織 {1} のメンバーです。</target>
+			</trans-unit>
+			<trans-unit id="api.org.notpermittedbyorg">
+				<source>User in organization {0} is not allowed to retrieve or modify {1} properties in organization {2}.</source>
+				<target>組織 {0} のユーザーは 組織 {2}の {1} プロパティを読み出したり変更することはできません。</target>
+			</trans-unit>
+			<trans-unit id="api.org.cannotperformonsatelliteorg">
+				<source>Cannot perform this operation on the satellite organization. (Org ID 1)</source>
+				<target>Satellite の組織にこの操作を実行できません。(組織 ID 1)</target>
 			</trans-unit>
 			<trans-unit id="api.errata.invaliderrata">
 				<source>Invalid errata: {0}</source>
@@ -4479,9 +4671,17 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid arch specified: {0}</source>
 				<target>無効なアーキテクチャが指定されました: {0}</target>
 			</trans-unit>
+			<trans-unit id="api.system.invalidsnapshot">
+				<source>Invalid snapshot specified: {0}</source>
+				<target>無効なスナップショットが指定されました: {0}</target>
+			</trans-unit>
 			<trans-unit id="api.systemgroup.lookupServerGroup">
 				<source>Unable to locate or access server group: "{0}"</source>
 				<target>サーバーグループの発見やアクセスが出来ません: "{0}"</target>
+			</trans-unit>
+			<trans-unit id="api.system.invalidprofilelabel">
+				<source>Invalid profile label specified: {0}</source>
+				<target>無効なプロフィールラベルが指定されました: {0}</target>
 			</trans-unit>
 			<trans-unit id="api.systemgroup.serverNotInGroup">
 				<source>The specified server is not a member of the specified group</source>
@@ -4491,9 +4691,25 @@ Follow this url to see the full list of inactive systems:
 				<source>Invalid errata type, "{0}". Please use one of the following: "Security Advisory", "Product Enhancement Advisory", or "Bug Fix Advisory".</source>
 				<target>無効なエラータタイプです、 "{0}"。 "セキュリティアドバイザリ"、 "プロダクト機能強化アドバイザリ"、 "バグ修正アドバイザリ" のいずれかを使用してください。</target>
 			</trans-unit>
+			<trans-unit id="api.errata.invalidadvisoryrelease">
+				<source>Invalid advisory release, "{0}". Maximum value is {1}.</source>
+				<target>無効なアドバイザリリリース "{0}"です。最大値は {1} です。</target>
+			</trans-unit>
 			<trans-unit id="api.errata.nochannelsselected">
 				<source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
 				<target>エラータを公開しようしていていますが公開先のチャンネルを選択していません。 エラータは少なくとも 1 チャンネルで公開する必要があります。</target>
+			</trans-unit>
+			<trans-unit id="api.package.download.toolarge">
+				<source>The requested file is too large to download over XMLRPC.</source>
+				<target>指定のファイルは大きすぎるため、XMLRPC ではダウンロードできません。</target>
+			</trans-unit>
+			<trans-unit id="api.package.download.ioerror">
+				<source>There was a general IO Error, check permissions on the requested file.</source>
+				<target>一般的な IO エラーが発生しました。指定ファイルのパーミッションを確認してください。</target>
+			</trans-unit>
+			<trans-unit id="api.channel.access.invalidaccessvalue">
+				<source>Access value, "{0}". Please use one of the following: "public", "private", or "protected".</source>
+				<target>アクセス値 {0}。public、private、protected のいづれかを使用してください。●</target>
 			</trans-unit>
 			<trans-unit id="api.channel.software.channelsubscription">
 				<source>Unable to subscribe this system to the requested channel: "{0}"</source>
@@ -4503,6 +4719,10 @@ Follow this url to see the full list of inactive systems:
 				<source>Multiple base channels selected for subscription.  The channels {0} and {1} were both selected for subscription, but a system can only be subscribed to a single base channel.</source>
 				<target>サブスクリプションに対して複数のベースチャンネルが選択されています。 {0} と {1} の両方のチャンネルがサブスクリプションに対して選択されましたが、 システムは 1 つのベースチャンネルに対してしかサブスクライブできません。</target>
 			</trans-unit>
+			<trans-unit id="api.channel.invalidchannellist">
+				<source>The channel list provided is invalid.  It must contain a list of channel labels or ids, but not a mixture of both.</source>
+				<target>提供されたチャンネルリストは有効ではありません。チャンネルリストにはチャンネルラベルか ID をリストしますが、両方が混在してはなりません。</target>
+			</trans-unit>
 			<trans-unit id="channel.invalidchannelarch">
 				<source>The channel arch specified ({0}) is invalid.</source>
 				<target>指定されたチャンネルアーキテクチャ ({0}) は無効です。</target>
@@ -4510,6 +4730,10 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.channel.duplicatechannellabel">
 				<source>The channel label specified ({0}) already exists.</source>
 				<target>指定されたチャンネルラベル ({0}) は既に存在しています。</target>
+			</trans-unit>
+			<trans-unit id="api.channel.invalidchannelaccess">
+				<source>The channel access ({0}) is not allowed for this operation.</source>
+				<target>この操作にチャンネルアクセス ({0}) は許可されません。●</target>
 			</trans-unit>
 			<trans-unit id="Certificate Administrators">
 				<source>Certificate Administrators</source>
@@ -4530,6 +4754,22 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="api.kickstart.labelalreadyinuse">
 				<source>Kickstart label already exists: {0}</source>
 				<target>キックスタートラベルは既に存在します: {0}</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKeyType">
+				<source>The package key type specified ({0}) is invalid.</source>
+				<target>指定されたパッケージキータイプ ({0}) は無効です。</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidKey">
+				<source>The package key specified ({0}) is invalid.</source>
+				<target>指定されたパッケージキー ({0}) は無効です。</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.duplicateKey">
+				<source>The package key specified ({0}) already exists.</source>
+				<target>指定されたパッケージキー ({0}) は既に存在しています。</target>
+			</trans-unit>
+			<trans-unit id="api.package.provider.invalidProvider">
+				<source>The package provider specified ({0}) is  invalid.</source>
+				<target>指定されたパッケージプロバイダ ({0}) は無効です。</target>
 			</trans-unit>
 			<trans-unit id="api.kickstart.invalidvirttype">
 				<source>Invalid virtualization type: {0}</source>
@@ -4560,24 +4800,24 @@ Follow this url to see the full list of inactive systems:
 				<target>要求された errata 属性 ({0}) は欠如しています。</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.system.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>{0} に過剰のエンタイトルメントを与えようとしました。{1} と同等か、それ以下の値を 入力して下さい。</target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target>{0} に過剰の {1} エンタイトルメントを与えようとしました。{2} 以下の値を入力してください。</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.toomany">
-				<source>You attempted to give {0} too many entitlements.  Please enter a value lower than or equal to {1}</source>
-				<target>{0} に過剰のエンタイトルメントを与えようとしました。{1} と同等か、それ以下の値を 入力して下さい。</target>
+				<source>You attempted to give {0} too many {1} entitlements.  Please enter a value lower than or equal to {2}</source>
+				<target>{0} に過剰の {1} エンタイトルメントを与えようとしました。{2} 以下の値を入力してください。</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.syssoft.success">
 				<source>Entitlements successfully updated.</source>
 				<target>エンタイトルメントが正しく更新されました。</target>
 			</trans-unit>
 			<trans-unit id="org.entitlements.software.proposedwarning">
-				<source>Warning: Your Proposed entitlement allocation for {0} requires more entitlements than are in use for the {1} Organization. Please adjust your proposed allocation accordingly.</source>
-				<target>警告: {0} 用に御提案のエンタイトルメント割り当てには、{1} 組織の為に使用されている数量よりも 多いエンタイトルメントを必要とします。御提案の割り当てを適切な値に変更して下さい。</target>
+				<source>Warning: Your Proposed {0} allocation provides less entitlements than are currently in use in the {1} organization. Please adjust your proposed allocation to no less then the amount of entitlements currently in use.</source>
+				<target>警告: 現在 {1} 組織で使用されているエンタイトルメントの数より少ない {0} 割り当てが指定されました。現在使用中のエンタイトルメントの数以上になるよう割り当てを変更してください。●</target>
 			</trans-unit>
 			<trans-unit id="securityErrata">
 				<source>Security Errata</source>
-				<target>セキュリティ Errata</target>
+				<target>セキュリティエラータ</target>
 			</trans-unit>
 			<trans-unit id="bugErrata">
 				<source>Bug Errata</source>
@@ -4651,6 +4891,18 @@ Follow this url to see the full list of inactive systems:
 				<source>Entitlement Level</source>
 				<target>エンタイトルメントのレベル</target>
 			</trans-unit>
+			<trans-unit id="serverName">
+				<source>Server Name</source>
+				<target>サーバー名</target>
+			</trans-unit>
+			<trans-unit id="matchingField">
+				<source>Matching Field Name</source>
+				<target>一致したフィールド名</target>
+			</trans-unit>
+			<trans-unit id="matchingFieldValue">
+				<source>Matching Field Value</source>
+				<target>一致したフィールド値</target>
+			</trans-unit>
 			<trans-unit id="listtag.note">
 				<source>Note:</source>
 				<target>注記:</target>
@@ -4712,8 +4964,8 @@ Follow this url to see the full list of inactive systems:
 				<target>パッケージアーキテクチャ選択をカスタマイズ</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.success">
-				<source>Succesfully added {0} Errata and {1} package(s) to channel {2}.</source>
-				<target>{0} Errata と {1} パッケージを チャンネル {2} に正しく追加しました。</target>
+				<source>Succesfully added {1} package(s) and scheduled {0} errata to be cloned to channel {2}.  The cloned Errata should appear in the channel and applicable to systems within a few minutes.</source>
+				<target>チャンネル {2} にクローンするための {1} パッケージとスケジュールされた {0} エラータが正しく追加されました。クローンされたエラータは数分でチャンネルに表示され、システムに適応できるようになるはずです。</target>
 			</trans-unit>
 			<trans-unit id="frontend.actions.channels.manager.add.clone">
 				<source>"Clone"</source>
@@ -4770,6 +5022,240 @@ Follow this url to see the full list of inactive systems:
 			<trans-unit id="Password_confirm">
 				<source>Password Confirm</source>
 				<target>パスワード確認</target>
+			</trans-unit>
+			<trans-unit id="permission.configadmin.needed">
+				<source>The requested function requires a Configuration Admin or Organizational Admin role.</source>
+				<target>指定の機能には設定管理者か組織管理者のロールが必要です。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscripttype">
+				<source>Only script types of "pre" and "post" are allowed for kickstarts.</source>
+				<target>キックスタートには、スクリプトタイプとして "pre" と "post" のみが使用できます。</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidscript">
+				<source>You have specified an invalid kickstart script.</source>
+				<target>無効のキックスタートスクリプトが指定されました。</target>
+			</trans-unit>
+			<trans-unit id="package.remove.cant.rollback">
+				<source>One or more of the packages you have selected for removal below are not contained in
+			a software channel that this system is subscribed to.  If you choose to continue with the removal
+			you will not be able to rollback this system to this snapshot or any prior snapshot.</source>
+				<target>削除のため選択した以下のパッケージの一部には、このシステムがサブスクライブする
+			ソフトウェアチャンネルがないものがあります。削除を実行すると、システムをこのスナップショットや以前のスナップショットに
+			ロールバックすることができなくなります。●</target>
+			</trans-unit>
+			<trans-unit id="list.filter.iprange">
+				<source>Single Ip Address</source>
+				<target>単一の IP アドレス</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.duplicate">
+				<source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
+				<target>指定された IP の範囲 {0} は、既存の IP 範囲と競合します。　●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.iprange.invalid">
+				<source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
+				<target>指定された IP の範囲 {0} は無効です。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.ip.invalid">
+				<source>The Ip Address specified, {0}, is not valid..</source>
+				<target>指定された IP アドレス {0} は無効です。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.exists">
+				<source>A file list with label {0} already exists.</source>
+				<target>ラベル {0} のファイルリストは既に存在します。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.filelist.notfound">
+				<source>A file list with label {0} could not be found.</source>
+				<target>ラベル {0} のファイルリストは見つかりませんでした。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.exists">
+				<source>The specified key conflicts with an existing key.</source>
+				<target>指定のキーは既存のキーと競合します。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.keys.delete">
+				<source>The specified key cannot be deleted.</source>
+				<target>指定のキーは削除できません。●</target>
+			</trans-unit>
+			<trans-unit id="Compare">
+				<source>Compare</source>
+				<target>比較　●</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.alreadyexists">
+				<source>A Custom Key with this label already exists.</source>
+				<target>このラベルのカスタムキーは既に存在します。●</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.error.tooshort">
+				<source>A Custom Key label and description must be at least two characters long.</source>
+				<target>カスタムキーラベルと説明は 2 文字以上でなければなりません。●</target>
+			</trans-unit>
+			<trans-unit id="system.customkey.addsuccess">
+				<source>Successfully added 1 custom key.</source>
+				<target>カスタムキーが 1 つ追加されました。●</target>
+			</trans-unit>
+			<trans-unit id="channel.java.package.deletesuccess">
+				<source>Successfully deleted {0} packages.</source>
+				<target>{0} パッケージが正しく削除されました。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.invalidkickstartinstalltype">
+				<source>Invalid kickstart install type: {0}.</source>
+				<target>無効なキックスタートインストールタイプ: {0}　●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgfp">
+				<source>Invalid GPG Fingerprint</source>
+				<target>無効な GPG フィンガープリントです　●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgkey">
+				<source>Invalid GPG Key Id</source>
+				<target>無効な GPG キー ID です　●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidgpgurl">
+				<source>Invalid GPG Url</source>
+				<target>無効な GPG URL です　●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname">
+				<source>Invalid Channel Name</source>
+				<target>無効なチャンネル名です　●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.missing">
+				<source>Channel name must be specified</source>
+				<target>チャンネル名を指定しなければなりません●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.regex">
+				<source>Invalid channel name, please see the format described below</source>
+				<target>チャンネル名が無効です。以下の形式に従ってください。●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.redhat">
+				<source>Red Hat channels require admin privileges</source>
+				<target>Red Hat チャンネルには管理者特権が必要です。●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.redhat">
+				<source>Red Hat channels require admin privileges</source>
+				<target>Red Hat チャンネルには管理者特権が必要です。●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.minlength">
+				<source>Channel name must be at least {0} characters long</source>
+				<target>チャンネル名は {0} 文字以上でなければなりません●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelname.nameinuse">
+				<source>The channel name '{0}' is already in use, please enter a different name</source>
+				<target>チャンネル名 {0} はすでに使用されています。別の名前を入力してください。</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel">
+				<source>Invalid Channel Label</source>
+				<target>無効なチャンネルラベルです　●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.missing">
+				<source>Channel label must be specified</source>
+				<target>チャンネルラベルを指定しなければなりません●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.regex">
+				<source>Invalid channel label, please see the format described below</source>
+				<target>チャンネルラベルが無効です。以下の形式に従ってください。●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.minlength">
+				<source>Channel label must be at least {0} characters long</source>
+				<target>チャンネルラベルは {0} 文字以上でなければなりません●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannellabel.labelinuse">
+				<source>The channel label '{0}' is already in use, please enter a different name</source>
+				<target>チャンネルラベル {0} は既に使用されています。別の名前を入力してください。●</target>
+			</trans-unit>
+			<trans-unit id="edit.channel.invalidchannelsummary">
+				<source>Invalid Channel Summary</source>
+				<target>無効なチャンネル要約です　●</target>
+			</trans-unit>
+			<trans-unit id="distribution.tree.exists">
+				<source>A distribution already exists with the name '{0}'.  Please select another name.</source>
+				<target>'{0}' という名前のディストリビューションは既に存在します。別の名前を選択してください。●</target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.redhat">
+				<source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+				<target>Red Hat チャンネルは削除できません。カスタムチャンネルのみ削除できます。●</target>
+			</trans-unit>
+			<trans-unit id="api.channel.delete.haschild">
+				<source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+				<target>このチャンネルには子チャンネルが関連付けられています。子チャンネルを削除してから親チャンネルを削除しなければなりません。●</target>
+			</trans-unit>
+			<trans-unit id="api.kickstart.tree.notfound">
+				<source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
+				<target>キックスタートツリーが見つかりませんでした。指定のツリーへのアクセスが許可されていない可能性があります。●</target>
+			</trans-unit>
+			<trans-unit id="message.channelcreated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; created.</source>
+				<target>チャンネル &lt;strong&gt;{0}&lt;/strong&gt; が作成されました。</target>
+			</trans-unit>
+			<trans-unit id="message.channelupdated">
+				<source>Channel &lt;strong&gt;{0}&lt;/strong&gt; updated.</source>
+				<target>チャンネル &lt;strong&gt;{0}&lt;/strong&gt; が更新されました。</target>
+			</trans-unit>
+			<trans-unit id="message.channelsubscribers">
+				<source>Per-User subscription restrictions may be applied in the Subscribers tab</source>
+				<target>サブスクライバタブ内でユーザー毎のサブスクリプション制限が適応された可能性があります。●</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidvirt">
+				<source>Para-Virtualization is unsupported with the selected kickstart tree or distribution.</source>
+				<target>指定のキックスタートツリーまたはディストリビューションでは準仮想化はサポートされません。●</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.profile.invalidtreeforvirt">
+				<source>You have selected a distribution or kickstart tree that is incompatible with the currently selected virtualization type.  Please either select a different distribution, or change the selected Virtualization Type of this profile before trying to set the distribution.</source>
+				<target>現在選択されている仮想化タイプに適合しないディストリビューションまたはキックスタートツリーが選択されました。別のディストリビューションを選択するか、このプロフィールの仮想化タイプを変更してからディストリビューションを設定するようにしてください。●</target>
+			</trans-unit>
+			<trans-unit id="snapshots.childchannel">
+				<source>Child Channels Updated</source>
+				<target>子チャンネルが更新されました　●</target>
+			</trans-unit>
+			<trans-unit id="snapshots.basechannel">
+				<source>Base Channel Updated</source>
+				<target>ベースチャンネルが更新されました</target>
+			</trans-unit>
+			<trans-unit id="snapshots.entitlements">
+				<source>Entitlements Updated</source>
+				<target>エンタイトルメントが更新されました　●</target>
+			</trans-unit>
+			<trans-unit id="errata.updates.noncritical">
+				<source>Non-Critical</source>
+				<target>非重要　●</target>
+			</trans-unit>
+			<trans-unit id="snapshots.configchannel">
+				<source>Configuration Channels Updated</source>
+				<target>設定チャンネルが更新されました　●</target>
+			</trans-unit>
+			<trans-unit id="kickstart.cobbler.distro.syncfail">
+				<source>
+The following is a list of errors gathered while Spacewalk attempts to
+syncronize kickstart distributions from Spacewalk to Cobbler.  These
+errors must be corrected for the distributions to be available for
+kickstarting systems kickstart distributions failed to sync from
+Spacewalk to Cobbler:
+
+{0}
+
+Please check:
+
+/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+for more detailed errors.  If you don't resolve the errors the kickstart
+tree will not be usable for kickstarting.</source>
+				<target>
+Spacewalk からCobbler へキックスタートディストリビューションを同期しようとした際に
+以下のエラーが収集されました。Spacewalk から Cobbler への同期に失敗したキックスタートするシステムの
+キックスタートディストリビューションに対して、ディストリビューションを使用できるようにするには、
+これらのエラーを修正する必要があります。
+
+{0}
+
+エラーの詳細は以下をチェックしてください。
+
+/var/log/rhn/rhn_taskomatic_daemon.log and
+/var/log/tomcat5/catalina.out
+/var/log/cobbler/cobbler.log
+
+エラーが解決されないと、キックスタートにキックスタートツリーを使用できません。</target>
+			</trans-unit>
+			<trans-unit id="errata.delete.msg">
+				<source>Successfully deleted {0} errata.</source>
+				<target>{0} エラータが正しく削除されました。●</target>
 			</trans-unit>
 		</body>
 	</file>

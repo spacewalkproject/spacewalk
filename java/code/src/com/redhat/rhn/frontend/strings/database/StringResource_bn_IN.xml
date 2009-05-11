@@ -18,7 +18,7 @@
 				<source>Failed</source>
 				<target>ব্যর্থ</target>
 			</trans-unit>
-			<trans-unit id="RHN Update Entitled Servers">
+			<trans-unit id="Spacewalk Update Entitled Servers">
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
@@ -30,11 +30,11 @@
 				<source>Update</source>
 				<target>Update</target>
 			</trans-unit>
-			<trans-unit id="RHN Demo Entitled Servers">
+			<trans-unit id="Spacewalk Demo Entitled Servers">
 				<source>Demo</source>
 				<target>ডেমো</target>
 			</trans-unit>
-			<trans-unit id="RHN Management Entitled Servers">
+			<trans-unit id="Spacewalk Management Entitled Servers">
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
@@ -46,7 +46,7 @@
 				<source>Management</source>
 				<target>Management</target>
 			</trans-unit>
-			<trans-unit id="RHN Provisioning Entitled Servers">
+			<trans-unit id="Spacewalk Provisioning Entitled Servers">
 				<source>Provisioning</source>
 				<target>Provisioning</target>
 			</trans-unit>
@@ -70,7 +70,7 @@
 				<source>Non-Linux</source>
 				<target>Linux-ভিন্ন</target>
 			</trans-unit>
-			<trans-unit id="RHN Monitoring Entitled Servers">
+			<trans-unit id="Spacewalk Monitoring Entitled Servers">
 				<source>Monitoring</source>
 				<target>Monitoring</target>
 			</trans-unit>
@@ -85,6 +85,22 @@
 			<trans-unit id="unentitled">
 				<source>&lt;em&gt;(none)&lt;/em&gt;</source>
 				<target>&lt;em&gt;(শূণ্য)&lt;/em&gt;</target>
+			</trans-unit>
+			<trans-unit id="base">
+				<source>Base</source>
+				<target>বেস</target>
+			</trans-unit>
+			<trans-unit id="add-on">
+				<source>Add-On</source>
+				<target>অতিরিক্ত</target>
+			</trans-unit>
+			<trans-unit id="virtualization_host">
+				<source>Virtualization</source>
+				<target>ভার্চুয়ালাইজেশন</target>
+			</trans-unit>
+			<trans-unit id="virtualization_host_platform">
+				<source>Virtualization Platform</source>
+				<target>ভার্চুয়ালাইজেশন প্ল্যাটফর্ম</target>
 			</trans-unit>
 			<trans-unit id="Australia/Sydney">
 				<source>(GMT+1000) Australia (Eastern)</source>
@@ -235,32 +251,32 @@
 				<target>মেইল ডোমেইন (উদাহরণস্বরূপ, myemail@redhat.com-র ক্ষেত্রে 'redhat.com')</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>RHN Satellite administrator email</source>
-				<target>RHN Satellite অ্যাডমিনিস্ট্রেটরের ই-মেইল</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>@@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটরের ই-মেইল</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>RHN database name</source>
-				<target>RHN ডাটাবেসের নাম</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>@@PRODUCT_NAME@@ ডাটাবেসের নাম</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>RHN database password</source>
-				<target>RHN ডাটাবেসের পাসওয়ার্ড</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>@@PRODUCT_NAME@@ ডাটাবেসের পাসওয়ার্ড</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>RHN Database table owner</source>
-				<target>RHN ডাটাবেস টেবিলের মালিক</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>@@PRODUCT_NAME@@ ডাটাবেস টেবিলের মালিক</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>RHN database username</source>
-				<target>RHN ডাটাবেস অ্যাকাউন্টের নাম</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>@@PRODUCT_NAME@@ ডাটাবেস অ্যাকাউন্টের নাম</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>RHN Satellite hostname (FQDN)</source>
-				<target>RHN Satellite-র হোস্ট-নেম (FQDN)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>@@PRODUCT_NAME@@ হোস্ট-নেম (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>RHN Satellite webserver port (80 for http, 443 for https)</source>
-				<target>RHN Satellite ওয়েব-সার্ভার পোর্ট (http-র ক্ষেত্রে ৮০, https-র ক্ষেত্রে ৪৪৩)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>@@PRODUCT_NAME@@ ওয়েব-সার্ভার পোর্ট (http-র ক্ষেত্রে ৮০, https-র ক্ষেত্রে ৪৪৩)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -837,6 +853,10 @@
 			<trans-unit id="RHNMD User">
 				<source>RHNMD User</source>
 				<target>RHNMD ব্যবহারকারী</target>
+			</trans-unit>
+			<trans-unit id="SSH banner (number of lines)">
+				<source>SSH banner (number of lines)</source>
+				<target>SSH ব্যানার (পংক্তির সংখ্যা)</target>
 			</trans-unit>
 			<trans-unit id="Remote IP Address">
 				<source>Remote IP Address</source>
@@ -2250,9 +2270,21 @@
 				<source>Oracle</source>
 				<target>Oracle</target>
 			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
 			<trans-unit id="Satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Satellite">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2591,8 @@
 				<target>kickstart কর্ম আরম্ভ করার জন্য সিস্টেম পুনরায় আরম্ভ করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from RHN.</source>
-				<target>সিস্টেমের দ্বারা RHN থেকে kickstart কনফিগারেশন ফাইল ডাউনলোড করা হয়েছে।</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>সিস্টেমের দ্বারা @@PRODUCT_NAME@@ থেকে kickstart কনফিগারেশন ফাইল ডাউনলোড করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2603,8 @@
 				<target>সিস্টেমের দ্বারা ইনস্টল কর্মের জন্য আবশ্যক RPM ডাউনলোড করা হচ্ছে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with RHN after kickstarting.</source>
-				<target>Kickstart করার পরে সিস্টেম সাফল্যের সাথে RHN-র সাথে নিবন্ধিত হয়েছে।</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>Kickstart করার পরে সিস্টেম সাফল্যের সাথে @@PRODUCT_NAME@@-র সাথে নিবন্ধিত হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

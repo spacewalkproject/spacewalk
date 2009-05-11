@@ -34,6 +34,10 @@
 				<source>All</source>
 				<target>সব</target>
 			</trans-unit>
+			<trans-unit id="ssm.nav.status.all">
+				<source>All</source>
+				<target>সব</target>
+			</trans-unit>
 			<trans-unit id="users.nav.active">
 				<source>Active</source>
 				<target>সক্রিয়</target>
@@ -93,14 +97,6 @@
 			<trans-unit id="system.nav.inactive">
 				<source>Inactive</source>
 				<target>নিষ্ক্রিয়</target>
-			</trans-unit>
-			<trans-unit id="system.nav.satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
-			</trans-unit>
-			<trans-unit id="Satellite">
-				<source>Satellite</source>
-				<target>Satellite</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -166,13 +162,41 @@
 				<source>Enable Configuration</source>
 				<target>কনফিগারেশন সক্রিয় করুন</target>
 			</trans-unit>
+			<trans-unit id="ssm.nav.status">
+				<source>Status</source>
+				<target>অবস্থা</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.status.inprogress">
+				<source>In Progress</source>
+				<target>চলমান</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.status.completed">
+				<source>Completed</source>
+				<target>সমাপ্ত</target>
+			</trans-unit>
 			<trans-unit id="channel.nav.relevant">
 				<source>Relevant channels</source>
 				<target>প্রযোজ্য চ্যানেল</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.all">
-				<source>All channels</source>
+				<source>All Channels</source>
 				<target>সমস্ত চ্যানেল</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.shared">
+				<source>Shared Channels</source>
+				<target>যৌথ ব্যবহারের চ্যানেল</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.redhat">
+				<source>Red Hat Channels</source>
+				<target>Red Hat চ্যানেল</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.popular">
+				<source>Popular Channels</source>
+				<target>জনপ্রিয় চ্যানেল</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.custom">
+				<source>My Channels</source>
+				<target>আমার চ্যানেল</target>
 			</trans-unit>
 			<trans-unit id="channel.nav.retired">
 				<source>Retired channels</source>
@@ -354,9 +378,9 @@
 				<source>Snapshots</source>
 				<target>সংক্ষিপ্ত চিত্র</target>
 			</trans-unit>
-			<trans-unit id="Satellite Guide">
-				<source>Satellite Guide</source>
-				<target>Satellite সহায়িকা</target>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
+				<target>ইনস্টলেশন সহায়িকা</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -386,9 +410,13 @@
 				<source>Sandbox</source>
 				<target>স্যান্ডবক্স</target>
 			</trans-unit>
-			<trans-unit id="Satellite Configuration">
-				<source>Satellite Configuration</source>
-				<target>Satellite সংক্রান্ত কনফিগারেশন</target>
+			<trans-unit id="Spacewalk">
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Configuration">
+				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<target>@@PRODUCT_NAME@@ কনফিগারেশন</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>
@@ -490,6 +518,14 @@
 				<source>Kickstart Details</source>
 				<target>Kickstart সংক্রান্ত বিবরণ</target>
 			</trans-unit>
+			<trans-unit id="kickstart.tree.edit.nav">
+				<source>Edit</source>
+				<target>সম্পাদনা</target>
+			</trans-unit>
+			<trans-unit id="kickstart.variable.nav">
+				<source>Variables</source>
+				<target>ভেরিয়েবল</target>
+			</trans-unit>
 			<trans-unit id="System Details">
 				<source>System Details</source>
 				<target>সিস্টেম সংক্রান্ত বিবরণ</target>
@@ -566,6 +602,10 @@
 				<source>Recently Registered</source>
 				<target>সম্প্রতি নিবন্ধিত</target>
 			</trans-unit>
+			<trans-unit id="Admins">
+				<source>Admins</source>
+				<target>অ্যাডমিন</target>
+			</trans-unit>
 			<trans-unit id="Managers">
 				<source>Managers</source>
 				<target>পরিচালনকারী</target>
@@ -585,6 +625,18 @@
 			<trans-unit id="Organizations">
 				<source>Organizations</source>
 				<target>প্রতিষ্ঠান</target>
+			</trans-unit>
+			<trans-unit id="Trusts">
+				<source>Trusts</source>
+				<target>বিশ্বস্ত সম্পর্ক</target>
+			</trans-unit>
+			<trans-unit id="Channels Consumed">
+				<source>Channels Consumed</source>
+				<target>ব্যবহৃত চ্যানেল</target>
+			</trans-unit>
+			<trans-unit id="Channels Provided">
+				<source>Channels Provided</source>
+				<target>উপলব্ধ চ্যানেলের</target>
 			</trans-unit>
 			<trans-unit id="Subscriptions">
 				<source>Subscriptions</source>
