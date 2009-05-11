@@ -10,6 +10,7 @@ use Apache2::Const ':common';
 use NOCpulse::CF_DB;
 use Apache2::RequestRec;
 use Apache2::RequestUtil;
+use Apache2::Connection ();
 
 # Get the valid ip addresses for satellites/proxies allowed
 # to talk to this satellite
