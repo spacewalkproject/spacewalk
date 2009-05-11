@@ -9,7 +9,7 @@ Name:         NPalert
 Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
-Version:      1.126.7
+Version:      1.126.8
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -129,6 +129,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 1.126.8-1
+- 498257 - migrage existing files into new locations
+
 * Thu Mar  5 2009 Miroslav Suchý <msuchy@redhat.com> 1.126.7-1
 - remove dependecies on IO::Capture::Stderr
 
