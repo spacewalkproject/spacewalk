@@ -9,7 +9,7 @@
 Summary: Oracle 10g Database Server Enterprise Edition scripts
 Name: oracle-server-scripts
 Version: 10.2.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source0: oracle-home.sh
 Source1: init-params.ora
 Source2: create-db.sh
@@ -94,6 +94,10 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Mon May 11 2009 Michael Mraka <michael.mraka@redhat.com> 10.2.0-27
+- fixed 'plan_table does not exist' during upgrade
+- 498192 - fix compilation error during embedded db upgrade
+
 * Fri Mar 20 2009 jesus m. rodriguez <jesusr@redhat.com> 10.2.0-26
 - define oracle_base_version
 
