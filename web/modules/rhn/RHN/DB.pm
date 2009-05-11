@@ -66,7 +66,7 @@ sub get_dbi_connection_string {
     }
 }
 
-$RHN::DB::default_connection = get_dbi_connection_string(
+$RHN::DB::default_connection = RHN::DB->get_dbi_connection_string(
     PXT::Config->get("db_backend"),
     PXT::Config->get("db_host"),
     PXT::Config->get("db_port"),
@@ -181,10 +181,8 @@ sub connect {
     $ENV{NLS_LANG} = $nls_lang;
   }
 
-#  if ($alias =~ m(^(.*)/(.*)@(.*)$)) {
-#    my ($username, $password, $sid) = ($1, $2, $3);
-#    RHN::DB->add_alias("dbi:Oracle:$sid", $username, $password, { } );
-#  }
+  RHN::DB->add_alias($alias, PXT::Config->get("db_user"),
+                     PXT::Config->get("db_password"), { });
 
   my $alias_data = RHN::DB->lookup_alias($alias);
   Carp::croak "RHN::DB->connect($alias): No such alias '$alias'" unless $alias_data;
