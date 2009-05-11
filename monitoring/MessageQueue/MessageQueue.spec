@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.3
+Version:      3.26.4
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 URL:          https://fedorahosted.org/spacewalk
@@ -75,6 +75,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon May 11 2009 Milan Zazrivec <mzazrivec@redhat.com> 3.26.4-1
+- 498257 - migrate existing files into new nocpulse homedir
+
 * Mon Apr 20 2009 jesus m. rodriguez <jesusr@redhat.com> 3.26.3-1
 - change Source0 to point to fedorahosted.org (msuchy@redhat.com)
 
