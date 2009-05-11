@@ -23,11 +23,22 @@ Requires:	oracle-nofcontext-selinux
 %description
 SELinux support for Oracle Instant Client.
 
+%package -n oracle-instantclient-sqlplus-selinux
+Summary:	SELinux support for Oracle Instant Client sqlplus
+Group:		System Environment/Base
+Requires:	oracle-instantclient-sqlplus
+Requires:	oracle-nofcontext-selinux
+Requires(post):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack, /usr/sbin/selinuxenabled
+Requires(postun):	/usr/sbin/semanage, /sbin/restorecon, /usr/bin/execstack
+
+%description -n oracle-instantclient-sqlplus-selinux
+SELinux support for Oracle Instant Client sqlplus.
+
 %prep
 
 %build
 
-%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so libsqlplus.so
+%define used_libs libocci.so.10.1 libclntsh.so.10.1 libnnz10.so libociei.so
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -37,11 +48,20 @@ install -d %{buildroot}%{_sbindir}
 cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-enable
 #!/bin/bash
 
-/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 for i in %used_libs ; do
 	/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
 	/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/$i
 done
+/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+
+EOS
+
+cat <<'EOS' > %{buildroot}%{_sbindir}/%{name}-sqlplus-enable
+#!/bin/bash
+
+/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
+/usr/bin/execstack -c /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
 /sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 
 EOS
@@ -56,7 +76,6 @@ fi
 
 %postun
 if [ $1 -eq 0 ]; then
-	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
 	for i in %used_libs ; do
 		/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/'${i//./\\.}
 		/usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/$i
@@ -64,8 +83,24 @@ if [ $1 -eq 0 ]; then
 	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
 fi
 
+%post -n oracle-instantclient-sqlplus-selinux
+if /usr/sbin/selinuxenabled ; then
+   %{_sbindir}/%{name}-sqlplus-enable
+fi
+
+%postun -n oracle-instantclient-sqlplus-selinux
+if [ $1 -eq 0 ]; then
+	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\..*/client.*/bin/sqlplus'
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\..*/client.*/lib/libsqlplus\.so'
+	/usr/bin/execstack -s /usr/lib/oracle/10.2.*/client*/lib/libsqlplus.so
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.*/client* || :
+fi
+
 %files
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
+
+%files -n oracle-instantclient-sqlplus-selinux
+%attr(0755,root,root) %{_sbindir}/%{name}-sqlplus-enable
 
 %changelog
 * Wed Apr 29 2009 Jan Pazdziora 10.2-10
