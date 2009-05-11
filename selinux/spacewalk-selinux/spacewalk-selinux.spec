@@ -34,6 +34,7 @@ Requires:       spacewalk-backend
 Requires:       spacewalk-backend-server
 Requires:       spacewalk-certs-tools
 Requires:       oracle-instantclient-selinux
+Requires:       oracle-instantclient-sqlplus-selinux
 
 %description
 SELinux policy module supporting Spacewalk Server.
