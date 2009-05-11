@@ -51,7 +51,6 @@ Requires: mod_perl
 %else
 Requires: spacewalk-monitoring-selinux
 Requires: oracle-instantclient-selinux
-Requires: oracle-nofcontext-selinux
 %endif
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
