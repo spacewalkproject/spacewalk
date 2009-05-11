@@ -1333,10 +1333,16 @@ Do not test the Red Hat Enterprise Linux version before installing.
 
 =item B<--skip-selinux-test>
 
-Do not check if SELinux is Permissive or Disabled.
-RHN Satellite is not currently supported on selinux 'Enforcing'
-enabled systems.
-See http://kbase.redhat.com/faq/FAQ_49_6086.shtm for more information.
+On RHEL 5 and Fedoras, SELinux should be in Permissive or Enforcing
+mode for the installation and setup to proceed properly. If you are
+certain that you are not in Disabled mode or you want to install in
+Disabled anyway, re-run the installer with the flag
+--skip-selinux-test.
+
+On RHEL 4, SELinux is not supported, so it must be Disabled or
+Permissive, not Enforcing. If you are certain that you are not in
+Enforcing mode or you know what you're doing, re-run the installer
+with the flag --skip-selinux-test.
 
 =item B<--skip-fqdn-test>
 
