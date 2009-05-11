@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.6.2
+Version:        0.6.3
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -105,6 +105,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Mon May 11 2009 Jan Pazdziora 0.6.3-1
+- spacewalk-selinux: now that sqlplus has its own -selinux package, Require it
+
 * Wed Apr 29 2009 Jan Pazdziora 0.6.2-1
 - fix type (double Source0)
 - amend %changelog
