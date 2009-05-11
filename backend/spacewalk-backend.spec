@@ -7,7 +7,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.6.4
+Version: 0.6.5
 Release: 1%{?dist}
 URL:       https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -565,6 +565,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon May 11 2009 Brad Buckingham <bbuckingham@redhat.com> 0.6.5-1
+- 309601 - updating satpasswd/satwho to pull db info from rhn.conf
+  (bbuckingham@redhat.com)
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.4-1
 - 498273 - removing incorrect index busting package list updates for custom
   base channels (shughes@redhat.com)
