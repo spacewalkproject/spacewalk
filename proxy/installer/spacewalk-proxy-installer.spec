@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.6
+Version: 0.6.7
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -84,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.7-1
+- 489607 - add command flag for every option in the answer file
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 0.6.6-1
 - be precise in terminology: it -> monitoring scout (msuchy@redhat.com)
 
