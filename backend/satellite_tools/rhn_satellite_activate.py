@@ -214,7 +214,7 @@ def activateSatellite_local(options):
             'RHN Entitlement Certificate cannot be imported - ' + str(e) \
             + '\nPlease rerun with --ignore-version-mismatch if you want to override this test.')
     except satCerts.NoFreeEntitlementsError, e:
-        sys.stderr.write('ERROR: ' + e.message + '\n'  )
+        sys.stderr.write(e.message + '\n')
         sys.exit(1)
     except Exception:
         raise RHNCertLocalActivationException(
