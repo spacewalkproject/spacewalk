@@ -35,9 +35,6 @@ if __name__ == "__main__":
         log2stderr(4, isserror.tb)
         sys.exit(-1)
 
-    except SystemExit, se:
-        sys.exit(0)
-    
     except Exception, e:
         log2stderr(-1, "Unhandled Error: %s" % (e.__class__.__name__,))
         tbout = cStringIO.StringIO()
