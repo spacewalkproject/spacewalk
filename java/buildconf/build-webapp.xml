@@ -2,82 +2,6 @@
                                                                               
 <project name="build-webapp">
 
-    <!-- =================== Deployment Tasks ======================= -->
-
-    <!-- Removes all web applications defined in webapps -->
-    <target name="remove" depends="init-taskdefs">
-        <foreach list="${rhnapp}" target="remove-webapp" param="webapp" />
-    </target>
-
-    <!-- Deploys all web applications defined in webapps -->
-    <target name="deploy" depends="init-taskdefs">
-        <foreach list="${rhnapp}" target="deploy-webapp" param="webapp" />
-    </target>
-
-    <!-- Reloads all web applications defined in webapps -->
-    <target name="reload" depends="init-taskdefs">
-        <foreach list="${rhnapp}" target="reload-webapp" param="webapp" />
-    </target>
-
-    <!-- starts all web applications defined in webapps -->
-    <target name="start" depends="init-taskdefs">
-        <foreach list="${rhnapp}" target="start-webapp" param="webapp" />
-    </target>
-
-    <!-- stops all web applications defined in webapps -->
-    <target name="stop" depends="init-taskdefs">
-        <foreach list="${rhnapp}" target="stop-webapp" param="webapp" />
-    </target>
-
-    <!-- Lists webapps -->
-    <target name="list" depends="init-taskdefs">
-        <list url="http://${catalina.hostname}:${catalina.port}/manager"
-                username="${catalina.username}"
-                password="${catalina.password}" />
-    </target>
-
-    <!-- Deploys the web application defined by webapp-->
-    <target name="deploy-webapp" if="webapp">
-        <deploy url="http://${catalina.hostname}:${catalina.port}/manager"
-                username="${catalina.username}"
-                password="${catalina.password}"
-                path="/${webapp}"
-                war="file:${build.dir}/webapp/${webapp}.war" />
-    </target>
-
-    <!-- Reloads the web application defined by webapp-->
-    <target name="reload-webapp" if="webapp">
-        <reload url="http://${catalina.hostname}:${catalina.port}/manager"
-                username="${catalina.username}"
-                password="${catalina.password}"
-                path="/${webapp}" />
-    </target>
-
-    <!-- Start the web application defined by webapp-->
-    <target name="start-webapp" if="webapp">
-        <start url="http://${catalina.hostname}:${catalina.port}/manager"
-                username="${catalina.username}"
-                password="${catalina.password}"
-                path="/${webapp}" />
-    </target>
-
-    <!-- Stop the web application defined by webapp-->
-    <target name="stop-webapp" if="webapp">
-        <stop url="http://${catalina.hostname}:${catalina.port}/manager"
-                username="${catalina.username}"
-                password="${catalina.password}"
-                path="/${webapp}" />
-    </target>
-
-    <!-- Removes the web application defined by webapp-->
-    <target name="remove-webapp" if="webapp">
-        <remove url="http://${catalina.hostname}:${catalina.port}/manager"
-                username="${catalina.username}"
-                password="${catalina.password}" 
-                path="/${webapp}" />
-    </target>
-
-
     <!-- ================ Local Deployment Tasks ==================== -->
     <!--
       - Creates a local web application structure easily reloadable in
@@ -158,9 +82,9 @@
                         resource="@{externaljar}"/>
             </sequential>
         </for>
-	
+
         <for param="apidoc">
-	   <path>
+           <path>
               <dirset dir="${report.dir}/apidocs/jsp/handlers/" />
            </path>
             <sequential>
@@ -213,25 +137,25 @@
 
   <target name="install-taskomatic"
           description="Used to run taskomatic on your local workstation">
-	  <echo message="NOTE: This task should be run as root since it modifies /etc and /usr/bin" />
-	  <symlink link="/etc/rhn/default/rhn_taskomatic_daemon.conf" resource="${rhn-home}/conf/default/rhn_taskomatic_daemon.conf" />
-	  <symlink link="/etc/rhn/default/rhn_taskomatic.conf" resource="${rhn-home}/conf/default/rhn_taskomatic.conf" />
-	  <symlink link="/etc/rhn/default/rhn_org_quartz.conf" resource="${rhn-home}/conf/default/rhn_org_quartz.conf" />
-	  <symlink link="/etc/init.d/taskomatic" resource="${rhn-home}/scripts/taskomatic" />
-	  <symlink link="/usr/bin/taskomaticd" resource="${rhn-home}/scripts/taskomaticd" />
-	  <chmod file="${rhn-home}/scripts/taskomaticd" perm="755" />
-	  <chmod file="${rhn-home}/scripts/taskomatic" perm="755" />
+    <echo message="NOTE: This task should be run as root since it modifies /etc and /usr/bin" />
+    <symlink link="/etc/rhn/default/rhn_taskomatic_daemon.conf" resource="${rhn-home}/conf/default/rhn_taskomatic_daemon.conf" />
+    <symlink link="/etc/rhn/default/rhn_taskomatic.conf" resource="${rhn-home}/conf/default/rhn_taskomatic.conf" />
+    <symlink link="/etc/rhn/default/rhn_org_quartz.conf" resource="${rhn-home}/conf/default/rhn_org_quartz.conf" />
+    <symlink link="/etc/init.d/taskomatic" resource="${rhn-home}/scripts/taskomatic" />
+    <symlink link="/usr/bin/taskomaticd" resource="${rhn-home}/scripts/taskomaticd" />
+    <chmod file="${rhn-home}/scripts/taskomaticd" perm="755" />
+    <chmod file="${rhn-home}/scripts/taskomatic" perm="755" />
   </target>
 
   <target name="uninstall-taskomatic"
           description="Used to uninstall taskomatic from your local workstation">
-	  <echo message="NOTE: This task should be run as root since it modifies /etc and /usr/bin" />
-	  <echo message="This target should be run as root since it modifies /etc and /usr/bin" />
-	  <delete file="/etc/rhn/default/rhn_taskomatic_daemon.conf" />
-	  <delete file="/etc/rhn/default/rhn_taskomatic.conf" />
-	  <delete file="/etc/rhn/default/rhn_org_quartz.conf" />
-	  <delete file="/etc/init.d/taskomatic" />
-	  <delete file="/usr/bin/taskomaticd" />
+    <echo message="NOTE: This task should be run as root since it modifies /etc and /usr/bin" />
+    <echo message="This target should be run as root since it modifies /etc and /usr/bin" />
+    <delete file="/etc/rhn/default/rhn_taskomatic_daemon.conf" />
+    <delete file="/etc/rhn/default/rhn_taskomatic.conf" />
+    <delete file="/etc/rhn/default/rhn_org_quartz.conf" />
+    <delete file="/etc/init.d/taskomatic" />
+    <delete file="/usr/bin/taskomaticd" />
   </target>
 
   <target name="install-web"
