@@ -113,6 +113,12 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--ssl-build-dir=SSL_BUILD_DIR</term>
+        <listitem>
+            <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--ssl-org=SSL_ORG</term>
         <listitem>
             <para>Organization name to be used in SSL certificate.</para>
@@ -234,6 +240,10 @@ provide a required response, default answer is used.</para>
         <term>HTTP_PASSWORD</term>
         <listitem>
            <para>The password to use for an authenticated proxy.</para>
+        </listitem>
+        <term>SSL_BUILD_DIR</term>
+        <listitem>
+           <para>The directory where we build SSL certificate. Default is /root/ssl-build.</para>
         </listitem>
         <term>SSL_ORG</term>
         <listitem>
