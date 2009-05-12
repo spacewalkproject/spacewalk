@@ -7,7 +7,7 @@
 %define modulename spacewalk-monitoring
 
 Name:           spacewalk-monitoring-selinux
-Version:        0.6.6
+Version:        0.6.7
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk monitoring
 
@@ -102,6 +102,9 @@ fi
 %attr(0755,root,root) %{_sbindir}/%{name}-enable
 
 %changelog
+* Tue May 12 2009 Jan Pazdziora 0.6.7-1
+- 498936 - allow monitoring to run ssh probe (connect to sshd port)
+
 * Tue May 12 2009 Jan Pazdziora 0.6.6-1
 - 498053 - allow monitoring to read MySQL's files and connect to database
 
