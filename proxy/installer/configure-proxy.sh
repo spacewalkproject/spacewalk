@@ -32,6 +32,8 @@ options:
 			to Spacewalk Proxy Server.
   --ca-chain=CA_CHAIN
 			The CA cert used to verify the ssl connection to parent.
+  --force-own-ca
+			Do not use parent CA and force to create your own.
   --http-proxy=HTTP_PROXY
 			HTTP proxy in host:port format, e.g. squid.redhat.com:3128
   --http-username=HTTP_USERNAME
@@ -89,6 +91,7 @@ while [ $# -ge 1 ]; do
 			--traceback-email=*) TRACEBACK_EMAIL=$(echo $1 | cut -d= -f2-);;
 			--use-ssl=*) USE_SSL=$(echo $1 | cut -d= -f2-);;
 			--ca-chain=*) CA_CHAIN=$(echo $1 | cut -d= -f2-);;
+			--force-own-ca) FORCE_OWN_CA=1;;
 			--http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
 			--http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
 			--http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
@@ -209,7 +212,9 @@ USE_SSL=$(yes_no $USE_SSL)
 
 default_or_input "CA Chain" CA_CHAIN $(awk -F'[=;]' '/sslCACert=/ {a=$2} END { print a}' $SYSCONFIG_DIR/up2date)
 
-if [ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && ! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
+if [0$FORCE_OWN_CA -gt 0 ] || \
+	[ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ] && \
+	! diff $CA_CHAIN /root/ssl-build/RHN-ORG-TRUSTED-SSL-KEY &>/dev/null; then
 	cat <<CA_KEYS
 Please do copy your CA key and public certificate from $RHN_PARENT to 
 /root/ssl-build directory. You may want to execute this command:

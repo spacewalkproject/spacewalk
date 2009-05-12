@@ -95,6 +95,12 @@ provide a required response, default answer is used.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--force-own-ca</term>
+        <listitem>
+            <para>Do not use parent CA and force to create your own.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--http-proxy=HTTP_PROXY</term>
         <listitem>
             <para>HTTP proxy in host:port format, e.g. squid.redhat.com:3128</para>
@@ -228,6 +234,10 @@ provide a required response, default answer is used.</para>
         <term>CA_CHAIN</term>
         <listitem>
            <para>The CA cert used to verify the ssl connection to parent.</para>
+        </listitem>
+        <term>FORCE_OWN_CA</term>
+        <listitem>
+           <para>Do not use parent CA and force to create your own.</para>
         </listitem>
         <term>HTTP_PROXY</term>
         <listitem>

@@ -7,6 +7,7 @@ RHN_PARENT=your.spacewalk.org
 TRACEBACK_EMAIL=your@email.com
 SSL_EMAIL=$TRACEBACK_EMAIL
 USE_SSL=1
+FORCE_OWN_CA=
 SSL_ORG="Red Hat"
 SSL_ORGUNIT="Spacewalk"
 SSL_COMMON="CommonName"
