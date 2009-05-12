@@ -171,12 +171,13 @@ EOQ
     if (have_semodule()) {	# we have modular SELinux policy (RHEL 5)
       if (getenforce() eq 'Disabled') {		# we should use it
         print loc(<<EOH);
-SELinux should be in Permissive or Enforcing mode for your RHN Satellite
-to install and function properly.  Run /usr/sbin/getenforce to see your
-current mode.  If you are certain that you are not in Disabled mode or
-you want to install in Disabled anyway, re-run the installer with the
-flag --skip-selinux-test.  Please see the documentation for steps needed
-to enable SELinux post install.
+Red Hat recommends SELinux be configured in either Permissive or Enforcing
+mode for your RHN Satellite installation.  Run /usr/sbin/getenforce to see your
+current mode.  If you wish to run in Disabled mode, re-run the installer with
+the flag --skip-selinux-test.  When you install while SELinux is disabled and
+want to enable SELinux later, run /usr/sbin/spacewalk-selinux-enable once
+you've enabled SELinux, to run the post-installation steps which would
+otherwise be run by the installer.
 EOH
         exit 3;
       }
