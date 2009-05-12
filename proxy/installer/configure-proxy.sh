@@ -38,6 +38,8 @@ options:
 			The username for an authenticated proxy.
   --http-password=HTTP_PASSWORD
 			The password to use for an authenticated proxy.
+  --ssl-build-dir=SSL_BUILD_DIR
+			The directory where we build SSL certificate. Default is /root/ssl-build
   --ssl-org=SSL_ORG
 			Organization name to be used in SSL certificate.
   --ssl-orgunit=SSL_ORGUNIT
@@ -90,6 +92,7 @@ while [ $# -ge 1 ]; do
 			--http-proxy=*) HTTP_PROXY=$(echo $1 | cut -d= -f2-);;
 			--http-username=*) HTTP_USERNAME=$(echo $1 | cut -d= -f2-);;
 			--http-password=*) HTTP_PASSWORD=$(echo $1 | cut -d= -f2-);;
+			--ssl-build-dir=*) SSL_BUILD_DIR=$(echo $1 | cut -d= -f2-);;
 			--ssl-org=*) SSL_ORG=$(echo $1 | cut -d= -f2-);;
 			--ssl-orgunit=*) SSL_ORGUNIT=$(echo $1 | cut -d= -f2-);;
 			--ssl-common=*) SSL_COMMON=$(echo $1 | cut -d= -f2-);;
@@ -210,7 +213,7 @@ if [ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PR
 	cat <<CA_KEYS
 Please do copy your CA key and public certificate from $RHN_PARENT to 
 /root/ssl-build directory. You may want to execute this command:
- scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT}' /root/ssl-build
+ mkdir $SSL_BUILD_DIR; scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT}' $SSL_BUILD_DIR
 CA_KEYS
 	exit 1
 fi
@@ -348,7 +351,7 @@ echo "ProxyPassReverse /cobbler $PROTO://$RHN_PARENT/cobbler" >> $HTTPDCONFD_DIR
 
 
 # lets do SSL stuff
-SSL_BUILD_DIR="/root/ssl-build"
+SSL_BUILD_DIR=${SSL_BUILD_DIR:-"/root/ssl-build"}
 
 if [ -n "$SSL_PASSWORD" ] ; then
         # use SSL_PASSWORD if already set
