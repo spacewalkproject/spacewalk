@@ -26,14 +26,17 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import java.util.List;
 import java.util.Map;
-
-
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 
 /**
  * ActivationKeyAclHandler
  * @version $Rev$
  */
 public class PackageAclHandler extends BaseHandler implements AclHandler {
+    
+    private final Log log = LogFactory.getLog(this.getClass());
+    
     /**
      * Returns true if the Token whose id matches the given tid, 
      * has the requested entitlement given by entitlement label in param 0
@@ -66,26 +69,49 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
      */
     public boolean aclPackageTypeCapable(Object ctx, String[] params) {
         
+        /* 495506 - Increased the logging since I can't reliably reproduce the issue.
+           I'll make this quiet again when we figure out why this incorrectly returns
+           false on the Satellite 5.3 builds.
+           jdobies, May 12, 2009
+         */
+        
+        if (params.length == 0) {
+            log.warn("Incorrect number of parameters specified to ACL check");
+            return false;
+        }
+        
+        String cap = params[0];
         Map map = (Map) ctx;
         
         User user = (User) map.get("user");
         Long pid = getAsLong(map.get("pid"));
         Package pack = PackageManager.lookupByIdAndUser(pid, user);
         
-        if (user == null || pid == null || params.length == 0 || pack == null) {
+        if (user == null || pid == null || pack == null) {
+            log.warn("Check for capability [" + cap + "] is false. Package: " + pack);
             return false;
         }
-        
-        String cap = params[0];  
+          
         ArchType type = pack.getPackageArch().getArchType();
-        
         Map<ArchType, List<String>> capMap = PackageFactory.getPackageCapabilityMap();
         
         if (capMap.get(type) == null) {
+            log.warn("Check for capability [" + cap + "] on type [" + type +
+                     "] is false. Type not found in map. Map contents:");
+            for (ArchType typeKey : capMap.keySet()) {
+                log.warn("Type key: " + typeKey);
+            }
             return false;
         }
        
-        return capMap.get(type).contains(cap);        
+        boolean capFound = capMap.get(type).contains(cap);
+        
+        if (!capFound) {
+            log.warn("Check for capability [" + cap + "] on type [" + type + 
+                     "] is false. Capability not found in map.");
+        }
+        
+        return capFound;
     }
     
 }
