@@ -48,12 +48,12 @@ COMMENT ON TABLE rhn_sat_node IS 'satnd  satellite node';
 CREATE INDEX rhn_sat_node_scid_idx
     ON rhn_sat_node (sat_cluster_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_sat_node_sid_idx
     ON rhn_sat_node (server_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 ALTER TABLE rhn_sat_node
     ADD CONSTRAINT rhn_satnd_cmdtg_rid_tar_ty_fk FOREIGN KEY (recid, target_type)

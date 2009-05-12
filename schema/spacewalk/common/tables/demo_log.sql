@@ -25,5 +25,5 @@ ENABLE ROW MOVEMENT
 CREATE INDEX dl_oid_sid_idx
     ON demo_log (org_id, server_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

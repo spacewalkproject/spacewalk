@@ -27,7 +27,7 @@ COMMENT ON TABLE rhn_ll_netsaint IS 'llnet  scout records';
 CREATE INDEX rhn_ll_ntsnts_nsid_idx
     ON rhn_ll_netsaint (netsaint_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 ALTER TABLE rhn_ll_netsaint
     ADD CONSTRAINT rhn_llnts_sat_cluster_idfk FOREIGN KEY (netsaint_id)

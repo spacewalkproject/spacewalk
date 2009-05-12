@@ -46,22 +46,22 @@ CREATE UNIQUE INDEX rhn_servergroup_oid_name_uq
 CREATE INDEX rhn_sg_id_oid_name_idx
     ON rhnServerGroup (id, org_id, name)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_sg_oid_id_name_idx
     ON rhnServerGroup (org_id, id, name)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_sg_type_id_idx
     ON rhnServerGroup (group_type, id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_sg_oid_type_id_idx
     ON rhnServerGroup (org_id, group_type, id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_server_group_id_seq;
 

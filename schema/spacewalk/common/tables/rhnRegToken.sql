@@ -45,17 +45,17 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_reg_token_org_id_idx
     ON rhnRegToken (org_id, id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_reg_token_uid_idx
     ON rhnRegToken (user_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_reg_token_sid_idx
     ON rhnRegToken (server_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_reg_token_seq;
 

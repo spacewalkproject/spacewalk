@@ -32,8 +32,8 @@ CREATE UNIQUE INDEX rhn_oecq_oid_uq
     TABLESPACE [[4m_tbs]];
 
 ALTER TABLE rhnOrgErrataCacheQueue
-    LOGGING;
+    NOLOGGING;
 
 ALTER INDEX rhn_oecq_oid_uq
-    LOGGING;
+    NOLOGGING;
 

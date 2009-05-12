@@ -68,17 +68,17 @@ CREATE UNIQUE INDEX rhn_server_dsid_uq
 CREATE INDEX rhn_server_oid_id_idx
     ON rhnServer (org_id, id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_server_created_id_idx
     ON rhnServer (created, id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_server_creator_idx
     ON rhnServer (creator_id)
     TABLESPACE [[2m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_server_id_seq START WITH 1000010000 ORDER;
 

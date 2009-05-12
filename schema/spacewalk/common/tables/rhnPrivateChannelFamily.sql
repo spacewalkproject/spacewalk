@@ -41,5 +41,5 @@ CREATE UNIQUE INDEX rhn_privcf_oid_cfid_uq
 CREATE INDEX rhn_cfperm_cfid_oid_idx
     ON rhnPrivateChannelFamily (channel_family_id, org_id)
     TABLESPACE [[2m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

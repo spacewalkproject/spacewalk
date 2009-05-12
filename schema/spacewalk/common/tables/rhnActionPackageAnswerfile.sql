@@ -33,5 +33,5 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_act_p_af_aid_idx
     ON rhnActionPackageAnswerfile (action_package_id)
     TABLESPACE [[2m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

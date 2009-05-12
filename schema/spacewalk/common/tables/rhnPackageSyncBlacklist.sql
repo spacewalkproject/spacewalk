@@ -38,5 +38,5 @@ CREATE UNIQUE INDEX rhn_packagesyncbl_pnid_oid_uq
 CREATE INDEX rhn_packagesyncbl_oid_idx
     ON rhnPackageSyncBlacklist (org_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

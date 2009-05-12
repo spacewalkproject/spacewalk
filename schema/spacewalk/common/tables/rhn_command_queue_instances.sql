@@ -36,7 +36,7 @@ COMMENT ON TABLE rhn_command_queue_instances IS 'cqins  command queue instance d
 CREATE INDEX rhn_cqins_command_id_idx
     ON rhn_command_queue_instances (command_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_command_q_inst_recid_seq;
 

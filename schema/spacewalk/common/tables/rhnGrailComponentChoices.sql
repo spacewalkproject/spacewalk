@@ -34,5 +34,5 @@ CREATE UNIQUE INDEX rhn_grail_comp_ch_user_ord_uq
 CREATE INDEX rhn_grail_cmp_ch_user
     ON rhnGrailComponentChoices (user_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

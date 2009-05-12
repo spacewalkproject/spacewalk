@@ -39,6 +39,6 @@ CREATE UNIQUE INDEX rhn_pkg_prov_cid_pid_s_uq
 
 CREATE INDEX rhn_pkg_provides_pid_idx
     ON rhnPackageProvides (package_id)
-    LOGGING
+    NOLOGGING
     TABLESPACE [[2m_tbs]];
 

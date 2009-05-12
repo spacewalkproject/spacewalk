@@ -43,5 +43,5 @@ CREATE UNIQUE INDEX rhn_serveras_result_sas_uq
 CREATE INDEX rhn_serveras_result_asid_idx
     ON rhnServerActionScriptResult (action_script_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

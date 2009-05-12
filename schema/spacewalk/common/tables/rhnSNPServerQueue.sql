@@ -28,5 +28,5 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_sec_np_sid_idx
     ON rhnSNPServerQueue (server_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

@@ -53,17 +53,17 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_action_oid_idx
     ON rhnAction (org_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_action_scheduler_idx
     ON rhnAction (scheduler)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_action_prereq_id_idx
     ON rhnAction (prerequisite, id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_event_id_seq;
 

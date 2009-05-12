@@ -37,5 +37,5 @@ CREATE UNIQUE INDEX rhn_ssg_ac_said_sgt_uq
 CREATE INDEX rhn_ssg_ac_sgt_said_idx
     ON rhnServerServerGroupArchCompat (server_group_type, server_arch_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

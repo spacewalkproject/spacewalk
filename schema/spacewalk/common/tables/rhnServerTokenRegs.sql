@@ -30,10 +30,10 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_srv_reg_tok_ts_idx
     ON rhnServerTokenRegs (token_id, server_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX RHN_SRVR_TKN_RGS_SID_TID_IDX
     ON rhnServerTokenRegs (server_id, token_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

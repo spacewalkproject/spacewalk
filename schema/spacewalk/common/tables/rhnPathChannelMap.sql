@@ -37,5 +37,5 @@ CREATE UNIQUE INDEX rhn_path_channel_map_p_cid_uq
 CREATE INDEX rhn_path_channel_map_cid_p_idx
     ON rhnPathChannelMap (channel_id, path)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

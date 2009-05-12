@@ -43,7 +43,7 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_act_p_aid_idx
     ON rhnActionPackage (action_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_act_p_id_seq;
 

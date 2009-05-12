@@ -74,22 +74,22 @@ CREATE UNIQUE INDEX rhn_channel_name_uq
 CREATE INDEX rhn_channel_org_idx
     ON rhnChannel (org_id, id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_channel_url_id_idx
     ON rhnChannel (label, id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_channel_parent_id_idx
     ON rhnChannel (parent_channel, id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_channel_access_idx
     ON rhnChannel (channel_access)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_channel_id_seq START WITH 101;
 

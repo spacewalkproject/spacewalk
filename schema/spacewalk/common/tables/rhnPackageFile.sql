@@ -51,5 +51,5 @@ CREATE UNIQUE INDEX rhn_package_file_pid_cid_uq
 CREATE INDEX rhn_package_file_cid_pid_idx
     ON rhnPackageFile (capability_id, package_id)
     TABLESPACE [[32m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

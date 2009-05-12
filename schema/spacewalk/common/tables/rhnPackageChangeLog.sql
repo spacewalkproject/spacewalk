@@ -36,7 +36,7 @@ ENABLE ROW MOVEMENT
 
 CREATE UNIQUE INDEX rhn_pkg_cl_pid_n_txt_time_uq
     ON rhnPackageChangelog (package_id, name, text, time)
-    LOGGING
+    NOLOGGING
     TABLESPACE [[32m_tbs]];
 
 CREATE SEQUENCE rhn_pkg_cl_id_seq;

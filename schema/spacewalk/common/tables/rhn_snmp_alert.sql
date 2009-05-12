@@ -46,7 +46,7 @@ COMMENT ON TABLE rhn_snmp_alert IS 'snmpa  snmp alerts';
 CREATE INDEX rhn_snmp_alrt_scid_idx
     ON rhn_snmp_alert (sender_cluster_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_snmp_alert_recid_seq;
 

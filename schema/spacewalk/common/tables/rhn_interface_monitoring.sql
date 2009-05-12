@@ -29,7 +29,7 @@ COMMENT ON TABLE rhn_interface_monitoring IS 'monif  Monitoring interface.  The 
 CREATE UNIQUE INDEX rhn_int_mont_sid_sname_idx
     ON rhn_interface_monitoring (server_id, server_name)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 ALTER TABLE rhn_interface_monitoring
     ADD CONSTRAINT rhn_monif_server_name_fk FOREIGN KEY (server_id, server_name)

@@ -46,7 +46,7 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_device_server_id_idx
     ON rhnDevice (server_id)
     TABLESPACE [[32m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_hw_dev_id_seq;
 

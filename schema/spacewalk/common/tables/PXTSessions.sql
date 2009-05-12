@@ -32,17 +32,17 @@ LOGGING
 CREATE UNIQUE INDEX pxt_sessions_pk
     ON PXTSessions (id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX PXTSessions_user
     ON PXTSessions (web_user_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX PXTSessions_expires
     ON PXTSessions (expires)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE pxt_id_seq;
 

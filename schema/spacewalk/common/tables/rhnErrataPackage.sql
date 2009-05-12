@@ -39,5 +39,5 @@ CREATE UNIQUE INDEX rhn_err_pkg_eid_pid_uq
 CREATE INDEX rhn_err_pkg_pid_eid_idx
     ON rhnErrataPackage (package_id, errata_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

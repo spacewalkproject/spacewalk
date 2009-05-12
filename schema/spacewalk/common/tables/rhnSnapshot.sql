@@ -40,12 +40,12 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_snapshot_sid_idx
     ON rhnSnapshot (server_id)
     TABLESPACE [[2m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_snapshot_oid_idx
     ON rhnSnapshot (org_id)
     TABLESPACE [[2m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_snapshot_id_seq;
 

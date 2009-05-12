@@ -37,10 +37,10 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_act_key_kssid_rtid_idx
     ON rhnActivationKey (ks_session_id, reg_token_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_act_key_rtid_idx
     ON rhnActivationKey (reg_token_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

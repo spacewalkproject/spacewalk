@@ -39,5 +39,5 @@ CREATE UNIQUE INDEX rhn_usgp_u_sg_p_uq
 CREATE INDEX rhn_usgp_sg_u_p_idx
     ON rhnUserServerGroupPerms (server_group_id, user_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

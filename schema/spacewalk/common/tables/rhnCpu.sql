@@ -51,7 +51,7 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_cpu_server_id_idx
     ON rhnCpu (server_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_cpu_id_seq;
 

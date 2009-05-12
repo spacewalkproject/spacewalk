@@ -35,7 +35,7 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_ram_sid_idx
     ON rhnRam (server_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_ram_id_seq;
 

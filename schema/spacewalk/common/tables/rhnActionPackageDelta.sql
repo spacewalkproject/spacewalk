@@ -31,5 +31,5 @@ ENABLE ROW MOVEMENT
 CREATE UNIQUE INDEX rhn_act_pd_aid_pdid_idx
     ON rhnActionPackageDelta (action_id, package_delta_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

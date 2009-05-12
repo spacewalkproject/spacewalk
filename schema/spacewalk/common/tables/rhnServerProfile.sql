@@ -49,12 +49,12 @@ CREATE INDEX rhn_sprofile_id_oid_bc_idx
 CREATE INDEX rhn_server_profile_o_id_bc_idx
     ON rhnServerProfile (org_id, id, base_channel)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_server_profile_bc_idx
     ON rhnServerProfile (base_channel)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_server_profile_id_seq;
 

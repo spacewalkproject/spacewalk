@@ -36,5 +36,5 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_sprof_sp_sne_idx
     ON rhnServerProfilePackage (server_profile_id, name_id, evr_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

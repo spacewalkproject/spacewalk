@@ -37,5 +37,5 @@ CREATE UNIQUE INDEX rhn_sgmembers_sid_sgid_uq
 CREATE INDEX rhn_sgmembers_sgid_sid_idx
     ON rhnServerGroupMembers (server_group_id, server_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

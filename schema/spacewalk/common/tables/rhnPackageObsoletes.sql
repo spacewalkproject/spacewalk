@@ -39,6 +39,6 @@ CREATE UNIQUE INDEX rhn_pkg_obsol_pid_cid_s_uq
 
 CREATE INDEX rhn_pkg_obsoletes_cid_idx
     ON rhnPackageObsoletes (capability_id)
-    LOGGING
+    NOLOGGING
     TABLESPACE [[64k_tbs]];
 

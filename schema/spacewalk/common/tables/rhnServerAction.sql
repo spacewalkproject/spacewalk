@@ -47,7 +47,7 @@ CREATE INDEX rhn_ser_act_sid_aid_s_idx
 CREATE INDEX rhn_ser_act_aid_sid_s_idx
     ON rhnServerAction (action_id, server_id, status)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 ALTER TABLE rhnServerAction
     ADD CONSTRAINT rhn_server_action_sid_aid_uq UNIQUE (server_id, action_id);

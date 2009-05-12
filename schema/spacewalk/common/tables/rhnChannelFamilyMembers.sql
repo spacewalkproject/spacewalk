@@ -42,5 +42,5 @@ CREATE UNIQUE INDEX rhn_cf_c_uq
 CREATE INDEX rhn_cf_member_cf_c_idx
     ON rhnChannelFamilyMembers (channel_family_id, channel_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

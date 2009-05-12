@@ -34,5 +34,5 @@ CREATE UNIQUE INDEX rhn_snapchan_sid_cid_uq
 CREATE INDEX rhn_snapshot_cid_idx
     ON rhnSnapshotChannel (channel_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

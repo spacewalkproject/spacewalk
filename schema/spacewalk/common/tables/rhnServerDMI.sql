@@ -41,7 +41,7 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_server_dmi_sid_idx
     ON rhnServerDMI (server_id)
     TABLESPACE [[2m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_server_dmi_id_seq;
 

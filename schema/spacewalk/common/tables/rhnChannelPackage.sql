@@ -38,5 +38,5 @@ CREATE UNIQUE INDEX rhn_cp_cp_uq
 CREATE INDEX rhn_cp_pc_idx
     ON rhnChannelPackage (package_id, channel_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

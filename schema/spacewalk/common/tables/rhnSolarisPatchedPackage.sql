@@ -36,5 +36,5 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_solaris_patchedp_sid_idx
     ON rhnSolarisPatchedPackage (server_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

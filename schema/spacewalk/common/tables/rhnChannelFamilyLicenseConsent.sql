@@ -42,10 +42,10 @@ CREATE UNIQUE INDEX rhn_cfl_consent_cf_s_uq
 CREATE INDEX rhn_cfl_consent_uid_idx
     ON rhnChannelFamilyLicenseConsent (user_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_cfl_consent_sid_idx
     ON rhnChannelFamilyLicenseConsent (server_id)
     TABLESPACE [[8m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

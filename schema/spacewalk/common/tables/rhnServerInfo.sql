@@ -31,5 +31,5 @@ LOGGING
 CREATE UNIQUE INDEX rhn_server_info_sid_unq
     ON rhnServerInfo (server_id)
     TABLESPACE [[4m_tbs]]
-    LOGGING;
+    NOLOGGING;
 

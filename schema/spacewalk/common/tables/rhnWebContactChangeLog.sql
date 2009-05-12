@@ -37,7 +37,7 @@ ENABLE ROW MOVEMENT
 
 CREATE INDEX rhn_wcon_disabled_wcon_id_idx
     ON rhnWebContactChangeLog (web_contact_id)
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_wcon_disabled_seq;
 

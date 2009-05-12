@@ -34,10 +34,10 @@ LOGGING
 CREATE INDEX rhn_task_queue_org_task_idx
     ON rhnTaskQueue (org_id, task_name)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_task_queue_earliest
     ON rhnTaskQueue (earliest)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

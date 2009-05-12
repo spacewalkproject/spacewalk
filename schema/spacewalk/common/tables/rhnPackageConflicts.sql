@@ -40,5 +40,5 @@ CREATE UNIQUE INDEX rhn_pkg_confl_pid_cid_s_uq
 CREATE INDEX rhn_pkg_conflicts_cid_idx
     ON rhnPackageConflicts (capability_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 

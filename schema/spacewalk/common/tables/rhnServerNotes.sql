@@ -39,12 +39,12 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_servernotes_sid_idx
     ON rhnServerNotes (server_id)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE INDEX rhn_servernotes_creator_idx
     ON rhnServerNotes (creator)
     TABLESPACE [[64k_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_server_note_id_seq;
 

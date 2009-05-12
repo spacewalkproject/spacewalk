@@ -33,7 +33,7 @@ ENABLE ROW MOVEMENT
 CREATE INDEX rhn_sp_snep_idx
     ON rhnServerPackage (server_id, name_id, evr_id, package_arch_id)
     TABLESPACE [[128m_tbs]]
-    LOGGING;
+    NOLOGGING;
 
 CREATE SEQUENCE rhn_server_package_id_seq;
 
