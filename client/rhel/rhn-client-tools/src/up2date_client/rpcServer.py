@@ -39,7 +39,10 @@ class RetryServer(rpclib.Server):
             except rpclib.InvalidRedirectionError:
                 raise
             except rpclib.Fault:
-                raise 
+                raise
+            except httplib.BadStatusLine:
+                raise up2dateErrors.ServerUnavailableError(
+                      "Server Unavailable. Please try later.") 
             except:
                 server = self.serverList.next()
                 if server == None:
