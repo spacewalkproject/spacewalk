@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.common;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import com.redhat.rhn.domain.BaseDomainHelper;
 
 /**
@@ -89,5 +90,15 @@ public class ArchType extends BaseDomainHelper {
     /** {@inheritDoc} */
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    /** {@inheritDoc} */
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        
+        builder.append("id", id);
+        builder.append("label", label);
+        
+        return builder.toString();
     }
 }
