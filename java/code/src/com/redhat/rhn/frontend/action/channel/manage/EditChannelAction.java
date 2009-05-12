@@ -272,13 +272,13 @@ public class EditChannelAction extends RhnAction implements Listable {
                                 child.setAccess(accessIn);
                                 ChannelFactory.save(child);
                                 s = SystemManager.
-                                unsubscribeServerFromChannel(s, child, true);
+                                unsubscribeServerFromChannel(s, child);
                             }
                         }
                     }
                     // unsubscribe server from channel
                     ChannelFactory.save(channelIn);
-                    s = SystemManager.unsubscribeServerFromChannel(s, channelIn, true);
+                    s = SystemManager.unsubscribeServerFromChannel(s, channelIn);
                 }
             }
         }

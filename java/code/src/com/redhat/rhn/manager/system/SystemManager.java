@@ -1173,7 +1173,7 @@ public class SystemManager extends BaseManager {
      */
     public static void unsubscribeServerFromChannel(User user, Server server, 
                                                     Channel channel) {
-        unsubscribeServerFromChannel(user, server, channel, true);
+        unsubscribeServerFromChannel(user, server, channel, false);
     }
     
     /**
@@ -1423,7 +1423,7 @@ public class SystemManager extends BaseManager {
             Channel c = (Channel)itr.next();
             ChannelFamily cf = c.getChannelFamily();
             if (cf.getLabel().equals("rhn-satellite")) {
-                SystemManager.unsubscribeServerFromChannel(server, c, true);
+                SystemManager.unsubscribeServerFromChannel(server, c);
             }
         }
     }
