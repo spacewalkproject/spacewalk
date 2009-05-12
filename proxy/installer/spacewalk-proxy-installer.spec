@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.6.7
+Version: 0.6.8
 Release: 1%{?dist}
 URL:     https://fedorahosted.org/spacewalk
 Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
@@ -84,6 +84,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE answers.txt
 
 %changelog
+* Tue May 12 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.8-1
+- 500151 - add --force-own-ca option
+- 500215 - we need rhn-ca-openssl.cnf as well
+- 499789 - say user to create $SSL_BUILD_DIR and make $SSL_BUILD_DIR relalocatable
+
 * Mon May 11 2009 Miroslav Suchý <msuchy@redhat.com> 0.6.7-1
 - 489607 - add command flag for every option in the answer file
 
