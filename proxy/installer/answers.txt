@@ -8,6 +8,7 @@ TRACEBACK_EMAIL=your@email.com
 SSL_EMAIL=$TRACEBACK_EMAIL
 USE_SSL=1
 FORCE_OWN_CA=
+SSL_BUILD_DIR=/root/ssl-build
 SSL_ORG="Red Hat"
 SSL_ORGUNIT="Spacewalk"
 SSL_COMMON="CommonName"
