@@ -43,6 +43,7 @@ def update(errataidlist):
     # only update packages that are currently installed
     # since an "applicable errata" may only contain some packages
     # that actually apply. aka kernel. Fun fun fun. 
+
     if len(packagelist[0]) > 4:
         # Newer sats send down arch, filter using name+arch
         for p in packagelist:

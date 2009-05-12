@@ -204,6 +204,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/applications/rhn_register.desktop
 
 %changelog
+* Tue May 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-4
+- Resolves: #467866
+
+* Mon May 11 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-3
+- new build
+
+* Fri May  8 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.4.20-2
+- Resolves: #204449 #227638 #445881 #454005 #466718 #479706
+- Resolves: #491258 #494928 #250312 #464827 #467139 #476797
+- Resolves: #476894 #487754
+
 * Fri May 01 2009 Devan Goodwin <dgoodwin@redhat.com> 0.4.25-1
 - Stop using spec file Source line for desktop file. (dgoodwin@redhat.com)
 - Adding support to send smbios information to the servers if implemented.

@@ -116,7 +116,7 @@ def init_hook(conduit):
         rhn_enabled = False
         return
     except up2dateErrors.ServerUnavailableError:
-        conduit.error(0, _("Server is Unavailable temporarily. Please again try later.") + "\n" +
+        conduit.error(0, _("Server is Unavailable temporarily. Please try again later.") + "\n" +
             RHN_DISABLED)
         rhn_enabled = False
         return

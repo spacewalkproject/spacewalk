@@ -59,6 +59,12 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Tue May 12 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-7%{?dist}
+- Resolves: #467866  #489396
+
+* Fri May  8 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-4%{?dist}
+- Resolves:  #441738 #444581 #465340 #481042 #481053 #491127 #476899
+
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 0.5.4-1
 - Remove usage of version and sources files.
 

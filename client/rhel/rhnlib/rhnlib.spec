@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 
 %changelog
+* Fri May  8 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.2.7-2
+Resolves: #489920 #484245 #489921 #492638 #499858 #499860
+
 * Wed May 06 2009 jesus m. rodriguez <jesusr@redhat.com> 2.5.11-1
 - fixing the rpc version checks (pkilambi@redhat.com)
 - 492638, 489921, 484245 - Adding redirect support to rhnlib for rhel-5 clients
@@ -71,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 
 * Wed Jan 21 2009 Pradeep Kilambi <pkilambi@redhat.com> 2.5.6-1
 - Remove usage of version and sources files.
+
+* Tue Sep 16 2008 Pradeep Kilambi <pkilambi@redhat.com> - 2.2.6-2
+Resolves: #211394 #250303 
 
 * Fri Jun 20 2008 Devan Goodwin <dgoodwin@redhat.com> - 2.2.5-5
 - Updating for Fedora 9.
