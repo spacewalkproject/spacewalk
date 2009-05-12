@@ -1128,7 +1128,9 @@ public class ErrataHandler extends BaseHandler {
      * @param sessionKey session of the logged in user
      * @param channelLabel channel associated with the errata you are interested in.
      * @return List of Errata objects
-     * 
+     * @deprecated being replaced by channel.software.listErrata(string sessionKey,
+     * string channelLabel)
+     *  
      * @xmlrpc.doc List errata that have been applied to a particular channel by date.
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param("string", "channelLabel")
