@@ -433,18 +433,18 @@ as $$
 
          perform rhn_server.delete_from_servergroup(server_id_in, group_id);
 
-         -- special case: clean up related monitornig data
+         -- special case: clean up related monitoring data
          if type_label_in = 'monitoring_entitled' then
            DELETE
              FROM state_change
-            WHERE o_id IN (SELECT probe_id
+            WHERE o_id IN (SELECT probe_id::varchar
                              FROM rhn_check_probe
                             WHERE host_id = server_id_in);
            DELETE
              FROM time_series
             WHERE substring(o_id FROM position('-' IN o_id) + 1
                             FOR position('-' IN substring(o_id FROM position('-' IN o_id) + 1)) - 1)
-              IN (SELECT probe_id
+              IN (SELECT probe_id::text
                     FROM rhn_check_probe
                    WHERE host_id = server_id_in);
            DELETE

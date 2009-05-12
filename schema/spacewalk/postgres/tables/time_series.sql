@@ -22,10 +22,8 @@ CREATE TABLE time_series
 ;
 
 CREATE INDEX time_series_probe_id_idx
-  ON time_series(SUBSTR(O_ID, INSTR(O_ID, '-') + 1,
-   (INSTR(O_ID, '-', INSTR(O_ID, '-') + 1) - INSTR(O_ID, '-')) - 1
-  ))
-;
+  ON time_series(substring(o_id FROM position('-' IN o_id) + 1
+                            FOR position('-' IN substring(o_id FROM position('-' IN o_id) + 1)) - 1));
 
 CREATE INDEX time_series_oid_entry_idx
     ON time_series (o_id, entry_time)
