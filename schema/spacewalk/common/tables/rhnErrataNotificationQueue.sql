@@ -26,11 +26,10 @@ CREATE TABLE rhnErrataNotificationQueue
                          ON DELETE CASCADE, 
     next_action  DATE 
                      DEFAULT (sysdate), 
-    channel_id  NUMBER NOT NULL
-                    CONSTRAINT rhn_enqueue_cid_fk
-                        REFERENCES rhnChannel(id)
-                        ON DELETE cascade,
-
+    channel_id   NUMBER NOT NULL
+                     CONSTRAINT rhn_enqueue_cid_fk
+                         REFERENCES rhnChannel(id)
+                         ON DELETE cascade,
     created      DATE 
                      DEFAULT (sysdate) NOT NULL, 
     modified     DATE 

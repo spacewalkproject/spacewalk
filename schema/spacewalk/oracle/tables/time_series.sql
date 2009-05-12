@@ -13,13 +13,21 @@
 -- in this software or its documentation. 
 --
 
+CREATE TABLE time_series
+(
+    o_id        VARCHAR2(64) NOT NULL, 
+    entry_time  NUMBER NOT NULL, 
+    data        VARCHAR2(1024)
+)
+ENABLE ROW MOVEMENT
+;
 
-create index time_series_probe_id_idx
-on time_series(SUBSTR(O_ID, INSTR(O_ID, '-') + 1,
- (INSTR(O_ID, '-', INSTR(O_ID, '-') + 1) - INSTR(O_ID, '-')) - 1
- ))
-tablespace [[64k_tbs]]
-nologging;
+CREATE INDEX time_series_probe_id_idx
+  ON time_series(SUBSTR(O_ID, INSTR(O_ID, '-') + 1,
+   (INSTR(O_ID, '-', INSTR(O_ID, '-') + 1) - INSTR(O_ID, '-')) - 1
+  ))
+  TABLESPACE [[64k_tbs]]
+  NOLOGGING;
 
 CREATE INDEX time_series_oid_entry_idx
     ON time_series (o_id, entry_time)

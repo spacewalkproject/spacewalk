@@ -16,19 +16,19 @@
 
 CREATE TABLE rhnActionKickstart
 (
-    id              NUMBER NOT NULL, 
-    action_id       NUMBER NOT NULL 
-                        CONSTRAINT rhn_actionks_aid_fk
-                            REFERENCES rhnAction (id) 
-                            ON DELETE CASCADE, 
-    append_string   VARCHAR2(1024), 
-    kickstart_host  VARCHAR2(256), 
-    static_device   VARCHAR2(32), 
-    cobbler_system_name      VARCHAR2(256),
-    created         DATE 
-                        DEFAULT (sysdate) NOT NULL, 
-    modified        DATE 
-                        DEFAULT (sysdate) NOT NULL
+    id                  NUMBER NOT NULL, 
+    action_id           NUMBER NOT NULL 
+                            CONSTRAINT rhn_actionks_aid_fk
+                                REFERENCES rhnAction (id) 
+                                ON DELETE CASCADE, 
+    append_string       VARCHAR2(1024), 
+    kickstart_host      VARCHAR2(256), 
+    static_device       VARCHAR2(32), 
+    cobbler_system_name VARCHAR2(256),
+    created             DATE 
+                            DEFAULT (sysdate) NOT NULL, 
+    modified            DATE 
+                            DEFAULT (sysdate) NOT NULL
 )
 ENABLE ROW MOVEMENT
 ;

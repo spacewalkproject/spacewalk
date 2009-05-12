@@ -29,9 +29,10 @@ CREATE TABLE rhnKickstartScript
                       DEFAULT ('Y') NOT NULL 
                       CONSTRAINT rhn_ksscript_chroot_ck
                           CHECK (chroot in ( 'Y' , 'N' )), 
-        raw_script              char(1) default('Y')
-                                CONSTRAINT rhn_ksscript_raw_nn NOT NULL
-                                        CHECK (raw_script in ('Y','N')),
+    raw_script    CHAR(1)
+                      DEFAULT ('Y') NOT NULL
+                      CONSTRAINT rhn_ksscript_rawscript_ck
+                          CHECK (raw_script in ('Y','N')),
     interpreter   VARCHAR2(80), 
     data          BLOB, 
     created       DATE 
