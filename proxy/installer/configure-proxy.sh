@@ -213,7 +213,7 @@ if [ "$RHN_PARENT" != "xmlrpc.rhn.redhat.com" -a ! -f /root/ssl-build/RHN-ORG-PR
 	cat <<CA_KEYS
 Please do copy your CA key and public certificate from $RHN_PARENT to 
 /root/ssl-build directory. You may want to execute this command:
- mkdir $SSL_BUILD_DIR; scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT}' $SSL_BUILD_DIR
+ mkdir $SSL_BUILD_DIR; scp 'root@$RHN_PARENT:/root/ssl-build/RHN-ORG-{PRIVATE-SSL-KEY,TRUSTED-SSL-CERT,rhn-ca-openssl.cnf}' $SSL_BUILD_DIR
 CA_KEYS
 	exit 1
 fi
