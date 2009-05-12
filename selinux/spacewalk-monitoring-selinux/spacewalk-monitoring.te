@@ -17,6 +17,7 @@ require {
 	type port_t;
 	type mysqld_etc_t;
 	type mysqld_port_t;
+	type ssh_port_t;
 }
 
 type spacewalk_monitoring_t;
@@ -147,3 +148,5 @@ manage_lnk_files_pattern(spacewalk_monitoring_t, spacewalk_monitoring_log_t, spa
 allow spacewalk_monitoring_t mysqld_etc_t:file { read getattr };
 allow spacewalk_monitoring_t mysqld_port_t:tcp_socket name_connect;
 allow spacewalk_monitoring_t usr_t:file { read getattr };
+
+allow spacewalk_monitoring_t ssh_port_t:tcp_socket name_connect;
