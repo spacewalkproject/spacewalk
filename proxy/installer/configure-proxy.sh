@@ -378,7 +378,7 @@ else
 	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
 fi
 
-RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt)
+RPM_CA=$(grep noarch $SSL_BUILD_DIR/latest.txt 2>/dev/null)
 
 if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
 	echo "Generating distributable RPM for CA public certificate:"
