@@ -1,3 +1,0 @@
-= <img src="/img/rhn-icon-api.gif" alt="application program interface" /> API Overview =
-Welcome to the RHN Satellite API.  By using the included API calls, you can more easily automate many of the tasks you perform everyday.  All API calls are grouped by common functionality.
-=== Namespaces ===
