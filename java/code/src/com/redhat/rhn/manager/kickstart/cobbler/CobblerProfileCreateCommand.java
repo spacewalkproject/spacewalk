@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
@@ -76,6 +77,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         prof.setKsMeta(meta);
         prof.setVirtPath("/var/lib/xen/" + ksData.getLabel());
         prof.setVirtBridge("xenbr0");
+        KickstartFactory.saveKickstartData(this.ksData);
         prof.setKickstart(this.ksData.getCobblerFileName());
         prof.save();
                 
