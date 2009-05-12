@@ -109,9 +109,12 @@ class EmptyDumper(BaseDumper):
         self._writer.empty_tag(self.tag_name, attributes=self.attributes)
 
 class SimpleDumper(BaseDumper):
-    def __init__(self, writer, tag_name, value):
+    def __init__(self, writer, tag_name, value, max_value_bytes=None):
         self.tag_name = tag_name
         self._value = value
+
+        # max number of bytes satellite can handle in the matching db row
+        self._max_value_bytes = max_value_bytes
         BaseDumper.__init__(self, writer)
 
     def dump(self):
@@ -119,7 +122,7 @@ class SimpleDumper(BaseDumper):
         if self._value is None:
             self._writer.empty_tag('rhn-null')
         else:
-            self._writer.data(self._value)
+            self._writer.data(self._value, self._max_value_bytes)
         self._writer.close_tag(self.tag_name)
 
 
@@ -864,19 +867,19 @@ class _ErratumDumper(BaseRowDumper):
         arr = []
 
         mappings = [
-            ('rhn-erratum-advisory-name', 'advisory_name'),
-            ('rhn-erratum-advisory-rel', 'advisory_rel'),
-            ('rhn-erratum-advisory-type', 'advisory_type'),
-            ('rhn-erratum-product', 'product'),
-            ('rhn-erratum-description', 'description'),
-            ('rhn-erratum-synopsis', 'synopsis'),
-            ('rhn-erratum-topic', 'topic'),
-            ('rhn-erratum-solution', 'solution'),
-            ('rhn-erratum-refers-to', 'refers_to'),
-            ('rhn-erratum-notes', 'notes'),
+            ('rhn-erratum-advisory-name', 'advisory_name', 32),
+            ('rhn-erratum-advisory-rel', 'advisory_rel', 32),
+            ('rhn-erratum-advisory-type', 'advisory_type', 32),
+            ('rhn-erratum-product', 'product', 64),
+            ('rhn-erratum-description', 'description', 4000),
+            ('rhn-erratum-synopsis', 'synopsis', 4000),
+            ('rhn-erratum-topic', 'topic', 4000),
+            ('rhn-erratum-solution', 'solution', 4000),
+            ('rhn-erratum-refers-to', 'refers_to', 4000),
+            ('rhn-erratum-notes', 'notes', 4000),
         ]
-        for k, v in mappings:
-            arr.append(SimpleDumper(self._writer, k, self._row[v] or ""))
+        for k, v, b in mappings:
+            arr.append(SimpleDumper(self._writer, k, self._row[v] or "", b))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-issue-date',
             _dbtime2timestamp(self._row['issue_date'])))
         arr.append(SimpleDumper(self._writer, 'rhn-erratum-update-date',
