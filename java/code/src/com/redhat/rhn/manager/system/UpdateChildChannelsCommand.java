@@ -137,7 +137,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
                 try {
                     log.debug("unsub from channel to be sure");
                     SystemManager.unsubscribeServerFromChannel(loggedInUser, 
-                            serverIn, channel, false);
+                            serverIn, channel);
                     log.debug("Sub to channel.");
                     SystemManager.subscribeServerToChannel(loggedInUser, serverIn, channel, 
                             false);
@@ -175,7 +175,7 @@ public class UpdateChildChannelsCommand extends BaseUpdateChannelCommand {
             // unsubscribe from channel
             try {
                 SystemManager.unsubscribeServerFromChannel(loggedInUser, 
-                        serverIn, channel, false);
+                        serverIn, channel);
             }
             catch (PermissionException e) {
                 //convert to FaultException

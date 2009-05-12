@@ -149,12 +149,12 @@ public class OrgChannelListAction extends RhnAction implements Listable {
                             // unsubscribe server from child channel
                             child.getTrustedOrgs().remove(orgIn);
                             ChannelFactory.save(child);
-                            s = SystemManager.unsubscribeServerFromChannel(s, child, true);
+                            s = SystemManager.unsubscribeServerFromChannel(s, child);
                         }
                     }
                 }
                 // unsubscribe server from channel
-                SystemManager.unsubscribeServerFromChannel(s, c, true);
+                SystemManager.unsubscribeServerFromChannel(s, c);
             }
         }
     }

@@ -792,14 +792,14 @@ public class ChannelSoftwareHandler extends BaseHandler {
             if (channel.isBaseChannel()) {
                 continue; // must leave base for now
             }
-            server = SystemManager.unsubscribeServerFromChannel(server, channel, true);
+            server = SystemManager.unsubscribeServerFromChannel(server, channel);
             log.debug("   " + channel.getLabel());
         }
         
         // We must unsubscribe from the old Base channel last, so no child channels
         // are still subscribed
         if (!channels.contains(oldBase)) {
-            server = SystemManager.unsubscribeServerFromChannel(server, oldBase, true);
+            server = SystemManager.unsubscribeServerFromChannel(server, oldBase);
         }
         else {
             // Base is the same, no need to resubscribe:
