@@ -57,7 +57,9 @@ public class KickstartHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param channelLabel Label of channel to search.
      * @return Array of KickstartableTreeObjects
-     * 
+     * @deprecated being replaced by kickstart.tree.list(string sessionKey,
+     * string channelLabel)
+     *
      * @xmlrpc.doc List the available kickstartable trees for the given channel.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "channelLabel", "Label of channel to
