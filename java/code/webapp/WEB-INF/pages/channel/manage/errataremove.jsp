@@ -67,7 +67,7 @@
                            sortattr="advisory"
                            >
 
-                        <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisory}</a>
+                        <a href="/rhn/errata/manage/Edit.do?eid=${current.id}">${current.advisoryName}</a>
                 </rl:column>
 
 
