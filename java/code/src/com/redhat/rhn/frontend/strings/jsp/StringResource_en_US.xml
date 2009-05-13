@@ -17352,6 +17352,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
 	</context-group>
+      </trans-unit>
+      
+      <trans-unit id="virtualization.provision.override.jsp.goto.advanced.options">
+        <source>By default virtual guest settings like memory, cpu and storage allocations will be inherited from your kickstart profile. If you want to override these settings click on &lt;strong&gt;{0}&lt;/strong&gt; button below.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
       </trans-unit>      
 
       <trans-unit id="virtualization.provision.first.jsp.guest_name.header">
@@ -17431,7 +17438,13 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
 	</context-group>
       </trans-unit>      
       
-
+     <trans-unit id="virtualization.provision.override.jsp.message">
+        <source>The following fields may be left blank (in which case default values as defined in the selected kickstart profile will be used).  Each field may be set individually to override the profile's default value.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do</context>
+	</context-group>
+      </trans-unit>
+      
       <trans-unit id="virtualization.provision.first.jsp.storage.local.message1">
         <source>Use the virtual host system's disk space: </source>
         <context-group name="ctx">

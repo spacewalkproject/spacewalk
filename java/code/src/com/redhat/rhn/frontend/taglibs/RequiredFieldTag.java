@@ -59,7 +59,11 @@ public class RequiredFieldTag extends TagSupport {
         JspWriter writer = pageContext.getOut();
         try {
             if (!StringUtils.isBlank(key)) {
-                writer.write(ls.getMessage(key));
+                String msg = ls.getMessage(key);
+                if (msg.endsWith(":")) {
+                    msg = msg.substring(0, msg.length() - 1);
+                }
+                writer.write(msg);
             }            
             return EVAL_BODY_INCLUDE;
         }
@@ -81,6 +85,14 @@ public class RequiredFieldTag extends TagSupport {
         span.addBody("*");
         try {
             writer.write(span.render());
+            if (!StringUtils.isBlank(key)) {
+                LocalizationService ls = LocalizationService.getInstance();
+                String msg = ls.getMessage(key);
+                if (msg.endsWith(":")) {
+                    writer.write(":");
+                }
+            }
+            
         }
         catch (IOException e) {
             throw new JspException(e);

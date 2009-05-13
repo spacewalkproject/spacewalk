@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -55,8 +56,6 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         super(ksDataIn);
     }
 
-
-
      /**
      * Save the Cobbler profile to cobbler.
      * @return ValidatorError if there was a problem
@@ -75,9 +74,8 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         Map<String, String> meta = new HashMap<String, String>();
         meta.put("org", ksData.getOrg().getId().toString());
         prof.setKsMeta(meta);
-        prof.setVirtPath("/var/lib/xen/" + ksData.getLabel());
-        prof.setVirtBridge("xenbr0");
         KickstartFactory.saveKickstartData(this.ksData);
+        prof.setVirtBridge(Config.get().getDefaultXenVirtBridge());
         prof.setKickstart(this.ksData.getCobblerFileName());
         prof.save();
                 

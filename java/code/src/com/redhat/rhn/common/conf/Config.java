@@ -158,7 +158,6 @@ public class Config {
     
     public static final String TAKE_SNAPSHOTS = "enable_snapshots";
 
-
     /**
      * The default maximum size for config revisions,  (128 K)
      */
@@ -174,6 +173,10 @@ public class Config {
     public static final String KICKSTART_COBBLER_DIR = "kickstart.cobbler.dir"; 
     public static final String COBBLER_SNIPPETS_DIR = "cobbler.snippets.dir";
     private static final String DEFAULT_COBBLER_SNIPPET_DIR = "/var/lib/cobbler/snippets";
+    
+    public static final String VIRT_PATH_DIR = "kickstart.virt_storage_path";
+    private static final String DEFAULT_VIRT_PATH = "/var/lib/xen";
+    public static final String VIRT_BRIDGE = "kickstart.virt_bridge";
     /**
      * array of prefix in the order they should be search
      * if the given lookup string is without a namespace.
@@ -756,8 +759,7 @@ public class Config {
      * @return the dir which has the kickstarts
      */
     public String getKickstartConfigDir() {
-        return Config.get().getString(KICKSTART_COBBLER_DIR,
-                                            "/var/lib/rhn/kickstarts/");
+        return getString(KICKSTART_COBBLER_DIR, "/var/lib/rhn/kickstarts/");
     }
     
     /**
@@ -770,6 +772,23 @@ public class Config {
      * @return the dir which has the kickstarts cobbler snippets
      */
     public String getCobblerSnippetsDir() {
-        return Config.get().getString(COBBLER_SNIPPETS_DIR, DEFAULT_COBBLER_SNIPPET_DIR);
+        return getString(COBBLER_SNIPPETS_DIR, DEFAULT_COBBLER_SNIPPET_DIR);
+    }
+    
+    /**
+     * Returns the base directory where the virt artifacts will be stored.
+     * This information is used while setting up system records and so on..
+     * @return the virt path..
+     */
+    public File getVirtPath() {
+        return new File(getString(VIRT_PATH_DIR, DEFAULT_VIRT_PATH));
+    }
+    
+    /**
+     * Returns the default value for the xen virt bridge
+     * @return  the value for virt bridge.
+     */
+    public String getDefaultXenVirtBridge() {
+        return getString(VIRT_BRIDGE, "xenbr0");
     }
 }
