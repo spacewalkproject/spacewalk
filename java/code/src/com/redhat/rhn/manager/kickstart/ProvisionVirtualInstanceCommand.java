@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -32,9 +33,11 @@ import com.redhat.rhn.manager.kickstart.cobbler.CobblerSystemCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerVirtualSystemCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.cobbler.Profile;
 
+import java.io.File;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -295,6 +298,9 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public void setFilePath(String filePathIn) {
         this.filePath = filePathIn;
+        if (StringUtils.isBlank(filePath)) {
+            filePath = makeDefaultVirtPath(getGuestName());
+        }
     }
 
     
@@ -313,4 +319,16 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
         this.virtBridge = virtBridgeIn;
     }
     
+    /**
+     * Method to set up the default virt path where the guset will be stored
+     * based on the guest name.
+     * @param name the name of the guest 
+     * @return the virt path.
+     */
+    public static String makeDefaultVirtPath(String name) {
+        File virtPathDir = Config.get().getVirtPath();
+        File virtPath = new File(virtPathDir, name.replace(' ', '-'));
+        return virtPath.getAbsolutePath();
+    }
+
 }

@@ -157,15 +157,12 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
            form.set(VIRT_CPU, 1);
            form.set(VIRT_DISK_SIZE, 3);
            form.set(VIRT_MEMORY, 262144);
-           form.set(VIRT_PATH, "/var/lib/xen/" +  data.getLabel());
        }
        else {
            setFormValueOrDefault(form, VIRT_BRIDGE, prof.getVirtBridge(), "xenbr0");
            setFormValueOrDefault(form, VIRT_CPU, prof.getVirtCpus(), 1);
            setFormValueOrDefault(form, VIRT_DISK_SIZE, prof.getVirtFileSize(), 3);
            setFormValueOrDefault(form, VIRT_MEMORY, prof.getVirtRam(), 262144);  
-           setFormValueOrDefault(form, VIRT_PATH, prof.getVirtPath(), "/var/lib/xen/" + 
-                   data.getLabel());
        }
 
        
@@ -269,7 +266,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
      * @param form the form
      * @return true if you should save the kickstart options
      */
-    private static boolean saveVirtOptions(KickstartData data, DynaActionForm form) {
+    private static boolean canSaveVirtOptions(KickstartData data, DynaActionForm form) {
         //if the form was not part of the values submitted, don't save values
         if (form.get(VIRT_DISK_SIZE) == null) {
             return false;
@@ -304,12 +301,11 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             return;
         }
         
-        if (KickstartDetailsEditAction.saveVirtOptions(ksdata, form)) {
+        if (KickstartDetailsEditAction.canSaveVirtOptions(ksdata, form)) {
             prof.setVirtRam((Integer) form.get(VIRT_MEMORY));
             prof.setVirtCpus((Integer) form.get(VIRT_CPU));
             prof.setVirtFileSize((Integer) form.get(VIRT_DISK_SIZE));
             prof.setVirtBridge(form.getString(VIRT_BRIDGE));
-            prof.setVirtPath(form.getString(VIRT_PATH));
         }
         prof.save();
     }

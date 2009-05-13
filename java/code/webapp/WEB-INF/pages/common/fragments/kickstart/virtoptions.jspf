@@ -12,11 +12,6 @@
             <td><html:text property="virt_cpus" maxlength="5" size="5" /></td>
           </tr>
          <tr>
-            <th><bean:message key="kickstartdetails.jsp.virt_disk_path"/>:</th>
-            <td><html:text property="virt_disk_path" maxlength="64" size="32" /></td>
-          </tr>          
-          
-         <tr>
             <th><bean:message key="kickstartdetails.jsp.virt_disk_size"/>:</th>
             <td><html:text property="virt_disk_size" maxlength="5" size="5" /></td>
           </tr>

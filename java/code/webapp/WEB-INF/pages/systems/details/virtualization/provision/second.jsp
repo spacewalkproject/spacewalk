@@ -75,12 +75,7 @@ function setInitialState() {
     <html:hidden property="date_am_pm" />
     <html:hidden property="cobbler_id" />
     <html:hidden property="sid" />
-    <html:hidden property="memoryAllocation" />
-    <html:hidden property="virtualCpus" />
-    <html:hidden property="localStorageMegabytes" />
-    <html:hidden property="sid" />
     <html:hidden property="guestName" />
-    
     <html:hidden property="proxyHost" />
     <table class="details">        
       <tr>
@@ -112,6 +107,54 @@ function setInitialState() {
         </td>
       </tr>
     </table>
+    
+    <h2><bean:message key="virtualization.provision.first.jsp.header3" /></h2>
+    	<bean:message key="virtualization.provision.override.jsp.message" />
+    	<br/><br/>
+    <table class="details">
+      <tr>
+        <th><bean:message key="virtualization.provision.first.jsp.memory_allocation.header"/></th>
+        <td>
+          <html:text property="memoryAllocation" maxlength="12" size="6"/>
+          <bean:message key="virtualization.provision.first.jsp.memory_allocation.message2" arg0="${system.ramString}" arg1="${system.id}" arg2="${system.name}"/>
+        </td>
+      </tr>
+      <tr>
+        <th><bean:message key="virtualization.provision.first.jsp.virtual_cpus.header"/></th>
+        <td>
+          <html:text property="virtualCpus" maxlength="2" size="2"/>
+          <br/>
+          <bean:message key="virtualization.provision.first.jsp.virtual_cpus.tip1" arg0="32"/>
+        </td>
+      </tr>
+      <tr>
+        <th><bean:message key="virtualization.provision.first.jsp.storage"/></th>
+        <td>
+            <bean:message key="virtualization.provision.first.jsp.storage.local.message1"/>
+            <html:text styleId="localStorageMegabytes" property="localStorageMegabytes" maxlength="20" size="6"/>
+            <bean:message key="virtualization.provision.first.jsp.storage.local.gigabytes"/>
+        </td>
+      </tr>    
+      <tr>
+        <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
+        <td>
+            <html:text  property="virtBridge" maxlength="20" size="6"/>
+            <bean:message key="virtualization.provision.first.jsp.virt_bridge.example"/>
+            
+        </td>
+      </tr>        
+      <tr>
+        <th><bean:message key="kickstartdetails.jsp.virt_disk_path"/>:</th>
+        <td>
+            <html:text  property="diskPath" maxlength="64" size="20"/>
+            <br/>
+            <bean:message key="kickstartdetails.jsp.virt_disk_path.tip"/>
+        </td>
+      </tr>         
+      
+    </table>
+    
+    
     <hr>
 	<table width="100%">
 	  <tr>

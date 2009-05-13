@@ -87,6 +87,12 @@ function setInitialState() {
 	<html:hidden property="targetProfile"/>
 	<html:hidden property="kernelParams"/>
 
+    <html:hidden property="memoryAllocation" />
+    <html:hidden property="virtualCpus" />
+    <html:hidden property="localStorageMegabytes" />
+    <html:hidden property="diskPath" />
+    
+    
     <rhn:list pageList="${requestScope.pageList}" noDataText="virtualization.provision.first.jsp.no.profiles">         
         <rhn:listdisplay renderDisabled="true" paging="true" filterBy="kickstartranges.jsp.profile">
             <rhn:set type="radio" value="${current.cobblerId}" />
@@ -117,13 +123,12 @@ function setInitialState() {
         </rhn:listdisplay>          
     </rhn:list>
 	
-	
 	<h2><bean:message key="virtualization.provision.first.jsp.header2" /></h2>
 	
 	
     <table class="details">
       <tr>
-        <th><bean:message key="virtualization.provision.first.jsp.guest_name.header"/></th>
+        <th><rhn:required-field key="virtualization.provision.first.jsp.guest_name.header"/></th>
         <td>
           <bean:message key="virtualization.provision.first.jsp.guest_name.message1"/>
           <br/>
@@ -133,55 +138,11 @@ function setInitialState() {
         </td>
       </tr>
     </table>
-    
+
     <h2><bean:message key="virtualization.provision.first.jsp.header3" /></h2>
-    	<bean:message key="virtualization.provision.override.jsp.message" />
+    	<bean:message key="virtualization.provision.override.jsp.goto.advanced.options"
+    								 arg0="${rhn:localize('kickstart.schedule.button1.jsp')}"/>
     	<br/><br/>
-    <table class="details">
-      <tr>
-        <th><bean:message key="virtualization.provision.first.jsp.memory_allocation.header"/></th>
-        <td>
-          <html:text property="memoryAllocation" maxlength="12" size="6"/>
-          <bean:message key="virtualization.provision.first.jsp.memory_allocation.message2" arg0="${system.ramString}" arg1="${system.id}" arg2="${system.name}"/>
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="virtualization.provision.first.jsp.virtual_cpus.header"/></th>
-        <td>
-          <html:text property="virtualCpus" maxlength="2" size="2"/>
-          <br/>
-          <bean:message key="virtualization.provision.first.jsp.virtual_cpus.tip1" arg0="32"/>
-        </td>
-      </tr>
-      <tr>
-        <th><bean:message key="virtualization.provision.first.jsp.storage"/></th>
-        <td>
-            <bean:message key="virtualization.provision.first.jsp.storage.local.message1"/>
-            <html:text styleId="localStorageMegabytes" property="localStorageMegabytes" maxlength="20" size="6"/>
-            <bean:message key="virtualization.provision.first.jsp.storage.local.gigabytes"/>
-        </td>
-      </tr>    
-      <tr>
-        <th><bean:message key="kickstartdetails.jsp.virt_bridge"/>:</th>
-        <td>
-            <html:text  property="virtBridge" maxlength="20" size="6"/>
-            <bean:message key="virtualization.provision.first.jsp.virt_bridge.example"/>
-            
-        </td>
-      </tr>        
-      <tr>
-        <th><bean:message key="kickstartdetails.jsp.virt_disk_path"/>:</th>
-        <td>
-            <html:text  property="diskPath" maxlength="64" size="20"/>
-            <br/>
-            <bean:message key="kickstartdetails.jsp.virt_disk_path.tip"/>
-        </td>
-      </tr>         
-      
-    </table>
-
-
-
 
     <c:if test="${requestScope.hasProxies == 'true'}">    
     <h2><img src="/img/rhn-icon-proxy.gif"/><bean:message key="kickstart.schedule.heading.proxy.jsp"/></h2>
