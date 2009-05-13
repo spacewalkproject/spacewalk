@@ -51,7 +51,8 @@ set serveroutput on
 -- perform migration of DICTIONARY to LOCAL managed tablespaces
 begin
   for t in (select tablespace_name from dba_tablespaces
-	     where extent_management = 'DICTIONARY')
+	     where extent_management = 'DICTIONARY'
+	     and tablespace_name not in ('SYSTEM'))
   loop
     DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL(t.tablespace_name);
   end loop;
