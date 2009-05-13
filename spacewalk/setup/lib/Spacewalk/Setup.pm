@@ -801,26 +801,22 @@ sub postgresql_test_db_schema {
 # then re-creating it.
 sub postgresql_clear_db {
     my $answers = shift;
-    my $dbh = get_dbh($answers);
 
-    # Silence "NOTICE:" lines:
-    open STDERR, "| grep -v '^NOTICE:  '"
-        or die "Cannot pipe STDERR to grep\n";
 
-    # TODO: This is no good, we're using schemas to replicate packages, these 
-    # too need to be deleted and the list is too large to maintain...
-    my $sth = $dbh->prepare("DROP SCHEMA public CASCADE");
-    $sth->execute;
+    # Only way to clear a PostgreSQL db we've found so far is to wipe it out
+    # completely:
+    my $password = @{$answers}{'db-password'};
+    my $user = @{$answers}{'db-user'};
+    my $host = @{$answers}{'db-host'};
+    my $port = @{$answers}{'db-port'};
+    my $database = @{$answers}{'db-sid'};
+    my $clear_db_cmd = "PGPASSWORD=$password dropdb -U $user -h $host -p $port $database";
+    system($clear_db_cmd);
+    $clear_db_cmd = "PGPASSWORD=$password createdb -U $user -h $host  $database";
+    system($clear_db_cmd);
+    $clear_db_cmd = "PGPASSWORD=$password createlang -U $user -h $host plpgsql $database";
+    system($clear_db_cmd);
 
-    close STDERR;
-
-    $sth = $dbh->prepare("CREATE SCHEMA public");
-    $sth->execute;
-    $sth->finish;
-
-    $sth = $dbh->commit();
-
-    $dbh->disconnect();
     return 1;
 }
 
