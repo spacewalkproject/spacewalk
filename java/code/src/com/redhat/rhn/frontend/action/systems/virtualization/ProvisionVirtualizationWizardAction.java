@@ -53,7 +53,7 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
     public static final String VIRTUAL_BRIDGE = "virtBridge";
     public static final String VIRTUAL_FILE_PATH = "diskPath";
     public static final String LOCAL_STORAGE_MB = "localStorageMegabytes";
-    
+    public static final String PROFILE = "profile";
     
     public static final String GUEST_NAME = "guestName";
     public static final int MIN_NAME_SIZE = 4;
@@ -293,14 +293,14 @@ public class ProvisionVirtualizationWizardAction extends ScheduleKickstartWizard
      * @return the cobbler profile
      */
     private Profile getCobblerProfile(RequestContext context) {
-        if (context.getRequest().getAttribute("profile") == null) {
+        if (context.getRequest().getAttribute(PROFILE) == null) {
             String cobblerId = context.getParam(RequestContext.COBBLER_ID, true);
             User user = context.getLoggedInUser();
             Profile cobblerProfile = org.cobbler.Profile.lookupById(
                     CobblerXMLRPCHelper.getConnection(user), cobblerId);
-            context.getRequest().setAttribute("profile", cobblerProfile);
+            context.getRequest().setAttribute(PROFILE, cobblerProfile);
         }
-        return (Profile) context.getRequest().getAttribute("profile");
+        return (Profile) context.getRequest().getAttribute(PROFILE);
     }
     
     @Override

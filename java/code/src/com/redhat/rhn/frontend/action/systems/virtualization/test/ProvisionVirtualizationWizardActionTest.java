@@ -112,6 +112,8 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         addRequestParameter("date_hour", "8");
         addRequestParameter("date_minute", "0");
         addRequestParameter("date_am_pm", "1");
+        addRequestParameter(ProvisionVirtualizationWizardAction.GUEST_NAME, "testName");
+        addRequestParameter(RequestContext.COBBLER_ID, k.getCobblerId());
         actionPerform();
         verifyNoActionErrors();
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
@@ -157,6 +159,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         addRequestParameter("date_minute", "0");
         addRequestParameter("date_am_pm", "1");
         addRequestParameter(ProvisionVirtualizationWizardAction.GUEST_NAME, "testName");
+        addRequestParameter(RequestContext.COBBLER_ID, k.getCobblerId());
         Server proxy = null;
         if (addProxy) {
             proxy = ScheduleKickstartWizardTest.addProxy(user, s);
