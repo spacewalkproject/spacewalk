@@ -31,6 +31,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
@@ -75,7 +76,7 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
             throw new PermissionCheckFailureException();
         }
 
-        RhnSet set =  RhnSetDecl.PACKAGES_TO_ADD.get(user);
+        RhnSet set = RhnSetDecl.PACKAGES_TO_ADD.get(user);
         DataResult result = PackageManager.packageIdsInSet(user, set.getLabel(), null);
 
         
@@ -99,6 +100,13 @@ public class ChannelPackagesAddConfirmAction extends RhnAction {
 
             getStrutsDelegate().saveMessages(requestContext.getRequest(), msg);
 
+            // Clear the set of packages to add. This way, if the user presses the
+            // back button, when trying to double-add, the set will be empty and
+            // the user will be forced to select from the correct list of packages
+            // that may be added.
+            set.clear();
+            RhnSetManager.store(set);
+            
             Map params = new HashMap();
             params.put("cid", cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("complete"),

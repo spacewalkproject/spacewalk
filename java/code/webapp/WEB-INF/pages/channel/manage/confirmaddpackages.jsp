@@ -33,7 +33,7 @@
 
 	<rl:list dataset="pageList"
 			name="packageList"
-			emptykey="package.jsp.emptylistselected"
+			emptykey="schedulesync.jsp.nopackagesselected"
 			alphabarcolumn="nvrea"
 			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
