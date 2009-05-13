@@ -148,7 +148,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         AND    s.org_trust_id = :org_trust_id
     </sql-query>    
     <sql-query name="Org.getTrustedSince">
-        <return-scalar type="date" column="created"/>
+        <return-scalar type="timestamp" column="created"/>
         SELECT created  
         FROM   rhnTrustedOrgs rto
         WHERE  1=1
