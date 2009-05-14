@@ -26,6 +26,7 @@ and Enterprise User Reference guides.
 #nothing to do here
 
 %install
+rm -rf $RPM_BUILD_ROOT
 # want to install the documentation in a versioned directory
 install -m 755 -d $RPM_BUILD_ROOT%{docdir}
 install -m 644 squid.conf.sample $RPM_BUILD_ROOT%{docdir}/squid.conf.sample
