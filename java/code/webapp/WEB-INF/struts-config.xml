@@ -6473,7 +6473,20 @@
                  path="/WEB-INF/pages/ssm/packageverifyschedule.jsp" />
         <forward name="confirm"
                  path="/ssm/Packages.do"/>
-     </action>                                          
+     </action>
+
+
+
+     <action path="/admin/TaskStatus"
+         scope="request"
+         name="datePickerForm"
+         input="/WEB-INF/pages/admin/taskStatus.jsp"
+         type="com.redhat.rhn.frontend.action.satellite.TaskStatusAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/taskStatus.jsp" />
+        <forward name="confirm"
+                 path="/ssm/Packages.do"/>
+     </action>
     
   </action-mappings>
 
