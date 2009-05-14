@@ -21165,7 +21165,42 @@ given channel.</source>
          <source>The requested kickstart file could not be found.
          If you are requesting an organizational default kickstart, ensure that a kickstart has been selected as the "Organization Default".</source>
      </trans-unit>
-
+     <trans-unit id="task.status.current.db.time">
+         <source>Current DB Time</source>
+     </trans-unit>
+     <trans-unit id="task.status.last.execution">
+         <source>Last Execution Times</source>
+     </trans-unit>
+     <trans-unit id="task.status.last.completed">
+         <source>Last Completed Action</source>
+     </trans-unit>
+     <trans-unit id="task.status.session.cleanup">
+         <source>Session Cleanup</source>
+     </trans-unit>
+     <trans-unit id="task.status.errata.queue.notif">
+         <source>Errata Notification Queue</source>
+     </trans-unit>
+     <trans-unit id="task.status.errata.mail">
+         <source>Errata Notification Mail</source>
+     </trans-unit>
+     <trans-unit id="task.status.daily.summary">
+         <source>Daily Summary Queue</source>
+     </trans-unit>
+     <trans-unit id="task.status.daily.summary.mail">
+         <source>Daily Summary Mail</source>
+     </trans-unit>
+     <trans-unit id="task.status.clean.alerts">
+         <source>Clean Current Alerts</source>
+     </trans-unit>
+     <trans-unit id="task.status.sync.probe">
+         <source>Sync Probe State</source>
+     </trans-unit>
+     <trans-unit id="task.status.message">
+         <source>The following is a status report for the various tasks run by the @@PRODUCT_NAME@@ task engine:</source>
+     </trans-unit>
+     <trans-unit id="task.status.title">
+         <source>Task Engine Status</source>
+     </trans-unit>
   </body>
   </file>
 </xliff>

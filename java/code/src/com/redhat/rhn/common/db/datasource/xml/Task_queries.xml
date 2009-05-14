@@ -641,6 +641,21 @@ ORDER BY next_action DESC
   </query>
 </write-mode>
 
+<mode name="get_task_stats">
+	<query params="label">
+		SELECT LAST_POLL
+		FROM rhnDaemonState
+		WHERE label = :label
+	</query>
+</mode>
+
+<mode name="get_current_time">
+	<query params="">
+		SELECT sysdate
+		FROM dual
+	</query>
+</mode>
+
 <mode name="find_channel_in_task_queue">
 	<query params="cid">
 		SELECT task_data
